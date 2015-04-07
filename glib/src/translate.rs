@@ -62,7 +62,6 @@ use std::iter::IntoIterator;
 use std::ffi::{CString, CStr};
 use std::mem;
 use std::ptr;
-use std::marker::PhantomFn;
 use libc::{c_void, c_char};
 use ffi;
 
@@ -321,7 +320,7 @@ impl FromGlibPtrNotNull<*mut c_char> for String {
 }
 
 /// Translate from a container of pointers
-pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: Sized + PhantomFn<P> {
+pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: Sized {
     /// Borrow the references
     unsafe fn borrow(ptr: PP) -> Self;
 

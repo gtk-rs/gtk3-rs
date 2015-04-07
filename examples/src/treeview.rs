@@ -4,8 +4,6 @@
 
 #![crate_type = "bin"]
 
-#![feature(convert)]
-
 extern crate rgtk;
 
 use rgtk::*;
