@@ -19,7 +19,6 @@ use gdk::{self, ffi};
 use glib::translate::ToGlibPtr;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DisplayManager {
     pointer: *mut ffi::C_GdkDisplayManager
 }
