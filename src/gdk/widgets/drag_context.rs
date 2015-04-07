@@ -20,7 +20,6 @@ use glib::{to_bool, to_gboolean};
 use libc::c_int;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DragContext {
     pointer: *mut ffi::C_GdkDragContext
 }

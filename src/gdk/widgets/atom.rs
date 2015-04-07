@@ -16,7 +16,6 @@
 use gdk::ffi;
 use glib::translate::{FromGlibPtr, ToGlibPtr};
 
-#[derive(Copy)]
 pub struct Atom {
     pointer: ffi::C_GdkAtom
 }

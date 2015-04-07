@@ -18,7 +18,7 @@ use translate::{FromGlib, ToGlib};
 use ffi;
 
 /// A GLib or GLib-based library type
-#[derive(Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Type {
     /// An invalid `Type` used as error return value in some functions
     Invalid,

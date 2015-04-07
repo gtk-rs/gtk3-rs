@@ -20,7 +20,6 @@ use gdk::{self, ffi};
 use libc::{c_int};
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Visual {
     pointer: *mut ffi::C_GdkVisual
 }

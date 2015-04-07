@@ -18,7 +18,6 @@
 use gdk::{self, ffi};
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DeviceManager {
     pointer: *mut ffi::C_GdkDeviceManager
 }

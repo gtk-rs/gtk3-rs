@@ -18,7 +18,6 @@
 use gdk::ffi;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct FrameTimings {
     pointer: *mut ffi::C_GdkFrameTimings
 }

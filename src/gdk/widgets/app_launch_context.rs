@@ -21,7 +21,6 @@ use glib::translate::ToGlibPtr;
 
 // FIXME: should inherit from GAppLaunchContext
 #[repr(C)]
-#[derive(Copy)]
 pub struct AppLaunchContext {
     pointer: *mut ffi::C_GdkAppLaunchContext
 }
