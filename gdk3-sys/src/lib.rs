@@ -26,25 +26,19 @@ use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong};
 use glib_ffi::Gboolean;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkWindow;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkDisplay;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkDisplayManager;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkScreen;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkVisual;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkEvent;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct C_GdkRectangle { // FIXME should be just an alias to cairo_rectangle_int_t
     pub x: c_int,
     pub y: c_int,
@@ -52,7 +46,6 @@ pub struct C_GdkRectangle { // FIXME should be just an alias to cairo_rectangle_
     pub height: c_int
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkFrameClock;
 /// The Color structure is used to describe a color, similar to the XColor struct used in the X11 drawing API.
 #[repr(C)]
@@ -69,7 +62,7 @@ pub struct C_GdkColor {
 }
 /// The GdkRGBA structure is used to represent a (possibly translucent) color, in a way that is compatible with cairos notion of color.
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct C_GdkRGBA {
     /// The intensity of the red channel from 0.0 to 1.0 inclusive
     pub red: f64,
@@ -81,10 +74,9 @@ pub struct C_GdkRGBA {
     pub alpha: f64
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkCursor;
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct C_GdkGeometry {
     /// minimum width of window (or -1 to use requisition, with GtkWindow only)
     pub min_width: c_int,
@@ -110,26 +102,19 @@ pub struct C_GdkGeometry {
     pub win_gravity: enums::Gravity,
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkDevice;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkTimeCoord;
 pub type C_GdkAtom = *mut c_void;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkDeviceManager;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkAppLaunchContext;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkPixbuf;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkFrameTimings;
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkWindowAttr {
     pub title: *const c_char,
     pub event_mask: c_int,
@@ -147,7 +132,6 @@ pub struct C_GdkWindowAttr {
     pub type_hint: enums::WindowTypeHint
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GdkDragContext;
 
 // GdkWindowAttributesTypes

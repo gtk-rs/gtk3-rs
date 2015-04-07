@@ -20,7 +20,6 @@ use glib::translate::ToGlibPtr;
 //use libc::{c_int};
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Cursor {
     pointer: *mut ffi::C_GdkCursor
 }
