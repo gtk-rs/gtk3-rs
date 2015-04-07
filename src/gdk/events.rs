@@ -84,7 +84,6 @@ pub trait Event: Sized {
 }
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct EventAny {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -93,7 +92,6 @@ pub struct EventAny {
 
 impl Event for EventAny {}
 
-#[derive(Copy)]
 pub struct EventExpose {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -106,7 +104,6 @@ pub struct EventExpose {
 
 impl Event for EventExpose {}
 
-#[derive(Copy)]
 pub struct EventVisibility{
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -117,7 +114,6 @@ pub struct EventVisibility{
 
 impl Event for EventVisibility {}
 
-#[derive(Copy)]
 pub struct EventMotion {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -136,7 +132,6 @@ pub struct EventMotion {
 
 impl Event for EventMotion {}
 
-#[derive(Copy)]
 pub struct EventButton {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -155,7 +150,6 @@ pub struct EventButton {
 
 impl Event for EventButton {}
 
-#[derive(Copy)]
 pub struct EventTouch {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -175,7 +169,6 @@ pub struct EventTouch {
 
 impl Event for EventTouch {}
 
-#[derive(Copy)]
 pub struct EventScroll {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -195,7 +188,6 @@ pub struct EventScroll {
 
 impl Event for EventScroll {}
 
-#[derive(Copy)]
 pub struct EventKey {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -232,7 +224,6 @@ pub struct EventCrossing {
 
 impl Event for EventCrossing {}
 
-#[derive(Copy)]
 pub struct EventFocus {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -243,7 +234,6 @@ pub struct EventFocus {
 
 impl Event for EventFocus {}
 
-#[derive(Copy)]
 pub struct EventConfigure {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -257,7 +247,6 @@ pub struct EventConfigure {
 
 impl Event for EventConfigure {}
 
-#[derive(Copy)]
 pub struct EventProperty {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -270,7 +259,6 @@ pub struct EventProperty {
 
 impl Event for EventProperty {}
 
-#[derive(Copy)]
 pub struct EventSelection {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -285,7 +273,6 @@ pub struct EventSelection {
 
 impl Event for EventSelection {}
 
-#[derive(Copy)]
 pub struct EventOwnerChange {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -300,7 +287,6 @@ pub struct EventOwnerChange {
 
 impl Event for EventOwnerChange {}
 
-#[derive(Copy)]
 pub struct EventProximity {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -312,7 +298,6 @@ pub struct EventProximity {
 
 impl Event for EventProximity {}
 
-#[derive(Copy)]
 pub struct EventSetting {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -324,7 +309,6 @@ pub struct EventSetting {
 
 impl Event for EventSetting {}
 
-#[derive(Copy)]
 pub struct EventWindowState {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -336,7 +320,6 @@ pub struct EventWindowState {
 
 impl Event for EventWindowState {}
 
-#[derive(Copy)]
 pub struct EventGrabBroken {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,
@@ -349,7 +332,6 @@ pub struct EventGrabBroken {
 
 impl Event for EventGrabBroken  {}
 
-#[derive(Copy)]
 pub struct EventDND {
     pub _type : gdk::EventType,
     pub window : *mut gdk::Window,

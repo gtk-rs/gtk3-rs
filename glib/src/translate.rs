@@ -62,7 +62,6 @@ use std::iter::IntoIterator;
 use std::ffi::{CString, CStr};
 use std::mem;
 use std::ptr;
-use std::marker::PhantomFn;
 use libc::{c_void, c_char};
 use ffi;
 
@@ -147,30 +146,21 @@ pub trait ToGlibPtr<'a, P: Copy> {
     fn borrow_to_glib(&'a self) -> Stash<P, Self>;
 }
 
-impl <'a, S: AsRef<str>> ToGlibPtr<'a, *const c_char> for S {
+impl <'a> ToGlibPtr<'a, *const c_char> for str {
     type Storage = CString;
 
-    fn borrow_to_glib(&'a self) -> Stash<*const c_char, S> {
-        let tmp = CString::new(self.as_ref()).unwrap();
+    fn borrow_to_glib(&'a self) -> Stash<*const c_char, str> {
+        let tmp = CString::new(self).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
 }
 
-impl <'a> ToGlibPtr<'a, *mut c_char> for str {
+impl <'a> ToGlibPtr<'a, *const c_char> for String {
     type Storage = CString;
 
-    fn borrow_to_glib(&'a self) -> Stash<*mut c_char, str> {
-        let tmp = CString::new(self).unwrap();
-        Stash(tmp.as_ptr() as *mut _, tmp)
-    }
-}
-
-impl <'a> ToGlibPtr<'a, *mut c_char> for String {
-    type Storage = CString;
-
-    fn borrow_to_glib(&'a self) -> Stash<*mut c_char, String> {
-        let tmp = CString::new(AsRef::<str>::as_ref(self)).unwrap();
-        Stash(tmp.as_ptr() as *mut _, tmp)
+    fn borrow_to_glib(&'a self) -> Stash<*const c_char, String> {
+        let tmp = CString::new(&self[..]).unwrap();
+        Stash(tmp.as_ptr(), tmp)
     }
 }
 
@@ -187,16 +177,20 @@ impl <'a, S: AsRef<str>> ToGlibPtr<'a, *const c_char> for Option<S> {
     }
 }
 
-impl <'a, S: AsRef<str>> ToGlibPtr<'a, *mut c_char> for Option<S> {
-    type Storage = Option<CString>;
+impl <'a, S: AsRef<str>, I: ?Sized> ToGlibPtr<'a, *const *const c_char> for I
+where &'a I: IntoIterator<Item = &'a S> {
+    type Storage = PtrArray<'a, *const c_char, str>;
 
-    fn borrow_to_glib(&'a self) -> Stash<*mut c_char, Option<S>> {
-        let tmp = match self {
-            &Some(ref s) => Some(CString::new(s.as_ref()).unwrap()),
-            &None => None,
-        };
-        let ptr = tmp.as_ref().map_or(ptr::null(), |s| s.as_ptr());
-        Stash(ptr as *mut _, tmp)
+    fn borrow_to_glib(&'a self) -> Stash<*const *const c_char, I> {
+        let mut tmp_vec: Vec<_> =
+            self.into_iter().map(|v| AsRef::<str>::as_ref(v).borrow_to_glib()).collect();
+        let mut ptr_vec: Vec<_> =
+            tmp_vec.iter_mut().map(|v| v.0).collect();
+        unsafe {
+            let zero = mem::zeroed();
+            ptr_vec.push(zero);
+        }
+        Stash(ptr_vec.as_ptr(), PtrArray(ptr_vec, tmp_vec))
     }
 }
 
@@ -218,7 +212,7 @@ where T: ToGlibPtr<'a, P>, &'a I: IntoIterator<Item = &'a T> {
 }
 
 /// Temporary storage for passing a `NULL` terminated array of pointers
-pub struct PtrArray<'a, P: Copy, T: ToGlibPtr<'a, P>> (Vec<P>, Vec<Stash<'a, P, T>>);
+pub struct PtrArray<'a, P: Copy, T: ?Sized + ToGlibPtr<'a, P>> (Vec<P>, Vec<Stash<'a, P, T>>);
 
 impl <'a, P: Copy, T: ToGlibPtr<'a, P>> PtrArray<'a, P, T> {
     /// Returns the length of the array not counting the `NULL` terminator
@@ -326,7 +320,7 @@ impl FromGlibPtrNotNull<*mut c_char> for String {
 }
 
 /// Translate from a container of pointers
-pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: Sized + PhantomFn<P> {
+pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: Sized {
     /// Borrow the references
     unsafe fn borrow(ptr: PP) -> Self;
 
