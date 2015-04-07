@@ -17,7 +17,6 @@
 Bindings and wrappers for __GLib__
 */
 
-#![feature(convert)]
 #![feature(unsafe_destructor)]
 
 extern crate libc;
@@ -58,19 +57,16 @@ pub fn to_bool(b: ffi::Gboolean) -> bool {
 }
 
 // An opaque structure used as the base of all interface types.
-#[derive(Copy)]
 pub struct TypeInterface;
 
 // An opaque structure used as the base of all type instances.
-#[derive(Copy)]
 pub struct TypeInstance;
 
 // An opaque structure used as the base of all classes.
-#[derive(Copy)]
 pub struct TypeClass;
 
 //FIXME: Check if this is actually correct (maybe not since ParamFlags is deprecated)
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub enum ParamFlags{
     Readable,
     Writable,
@@ -85,7 +81,6 @@ pub enum ParamFlags{
     Deprecated
 }
 
-#[derive(Copy)]
 #[repr(C)]
 pub struct ParamSpec {
     g_type_instance: TypeInstance,

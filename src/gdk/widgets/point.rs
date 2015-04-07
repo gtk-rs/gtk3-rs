@@ -18,7 +18,7 @@
 use libc::{c_int};
 
 #[repr(C)]
-#[derive(Copy)]
+#[derive(Clone, Copy)]
 pub struct Point {
     pub x: c_int,
     pub y: c_int

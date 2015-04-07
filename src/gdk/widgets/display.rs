@@ -21,7 +21,6 @@ use glib::translate::{FromGlibPtr, ToGlibPtr};
 use glib::to_bool;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Display {
     pointer: *mut ffi::C_GdkDisplay
 }
