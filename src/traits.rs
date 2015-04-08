@@ -13,7 +13,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with rgtk.  If not, see <http://www.gnu.org/licenses/>.
 
-use std::marker::PhantomFn;
 use ffi;
 use std::any::Any;
 use translate::ToGlibPtr;
@@ -55,7 +54,7 @@ pub trait Signal<'a> {
     fn get_user_data(&'a self) -> &'a Option<Box<Any>>;
 }
 
-pub trait Connect<'a, T: Signal<'a>>: FFIGObject + PhantomFn<&'a T> {
+pub trait Connect<'a, T: Signal<'a>>: FFIGObject {
     fn connect(&self, signal: Box<T>) -> () {
         use std::mem::transmute;
 
