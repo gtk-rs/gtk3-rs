@@ -15,7 +15,7 @@
 
 //! Windows — Onscreen display areas in the target window system
 
-use gdk::{self, ffi};
+use ffi;
 use libc::{c_int, c_char};
 use std::ptr;
 use glib::translate::{Stash, ToGlib, ToGlibPtr, from_glib};
@@ -35,17 +35,17 @@ pub struct WindowAttr {
     /// height of window
     pub height: i32,
     /// GDK_INPUT_OUTPUT (normal window) or GDK_INPUT_ONLY (invisible window that receives events)
-    pub wclass: gdk::WindowWindowClass,
+    pub wclass: ::WindowWindowClass,
     /// GdkVisual for window
-    pub visual: Option<gdk::Visual>,
+    pub visual: Option<::Visual>,
     /// type of window
-    pub window_type: gdk::WindowType,
+    pub window_type: ::WindowType,
     /// cursor for the window
-    pub cursor: Option<gdk::Cursor>,
+    pub cursor: Option<::Cursor>,
     /// TRUE to bypass the window manager
     pub override_redirect: bool,
     /// a hint of the function of the window
-    pub type_hint: Option<gdk::WindowTypeHint>,
+    pub type_hint: Option<::WindowTypeHint>,
 }
 
 impl WindowAttr {
@@ -76,13 +76,13 @@ impl <'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for WindowAttr {
             width: self.width,
             height: self.height,
             wclass: self.wclass,
-            visual: match self.visual { Some(s) => s.unwrap_pointer(), None => ptr::null_mut() },
+            visual: match self.visual { Some(ref s) => s.unwrap_pointer(), None => ptr::null_mut() },
             window_type: self.window_type,
-            cursor: match self.cursor { Some(s) => s.unwrap_pointer(), None => ptr::null_mut() },
+            cursor: match self.cursor { Some(ref s) => s.unwrap_pointer(), None => ptr::null_mut() },
             wmclass_name: ptr::null(),
             wmclass_class: ptr::null(),
             override_redirect: self.override_redirect.to_glib(),
-            type_hint: self.type_hint.unwrap_or(gdk::WindowTypeHint::Normal),
+            type_hint: self.type_hint.unwrap_or(::WindowTypeHint::Normal),
         });
 
         Stash(&mut *attrs, (attrs, title))
@@ -111,37 +111,37 @@ impl Window {
         }
     }
 
-    pub fn get_window_type(&self) -> gdk::WindowType {
+    pub fn get_window_type(&self) -> ::WindowType {
         unsafe { ffi::gdk_window_get_window_type(self.pointer) }
     }
 
-    pub fn get_display(&self) -> Option<gdk::Display> {
+    pub fn get_display(&self) -> Option<::Display> {
         let tmp = unsafe { ffi::gdk_window_get_display(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_screen(&self) -> Option<gdk::Screen> {
+    pub fn get_screen(&self) -> Option<::Screen> {
         let tmp = unsafe { ffi::gdk_window_get_screen(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Screen::wrap_pointer(tmp))
+            Some(::Screen::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_visual(&self) -> Option<gdk::Visual> {
+    pub fn get_visual(&self) -> Option<::Visual> {
         let tmp = unsafe { ffi::gdk_window_get_visual(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Visual::wrap_pointer(tmp))
+            Some(::Visual::wrap_pointer(tmp))
         }
     }
 
@@ -177,7 +177,7 @@ impl Window {
         unsafe { from_glib(ffi::gdk_window_is_shaped(self.pointer)) }
     }
 
-    pub fn get_state(&self) -> gdk::WindowState {
+    pub fn get_state(&self) -> ::WindowState {
         unsafe { ffi::gdk_window_get_state(self.pointer) }
     }
 
@@ -218,12 +218,12 @@ impl Window {
     }
 
     #[cfg(feature = "GTK_3_8")]
-    pub fn get_fullscreen_mode(&self) -> gdk::FullscreenMode {
+    pub fn get_fullscreen_mode(&self) -> ::FullscreenMode {
         unsafe { ffi::gdk_window_get_fullscreen_mode(self.pointer) }
     }
 
     #[cfg(feature = "GTK_3_8")]
-    pub fn set_fullscreen_mode(&self, mode: gdk::FullscreenMode) {
+    pub fn set_fullscreen_mode(&self, mode: ::FullscreenMode) {
         unsafe { ffi::gdk_window_set_fullscreen_mode(self.pointer, mode) }
     }
 
@@ -295,11 +295,11 @@ impl Window {
         unsafe { ffi::gdk_window_register_dnd(self.pointer) }
     }
 
-    pub fn begin_resize_drag(&self, edge: gdk::WindowEdge, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
+    pub fn begin_resize_drag(&self, edge: ::WindowEdge, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         unsafe { ffi::gdk_window_begin_resize_drag(self.pointer, edge, button as c_int, root_x as c_int, root_y as c_int, timestamp) }
     }
 
-    pub fn begin_resize_drag_for_device(&self, edge: gdk::WindowEdge, device: &gdk::Device, button: i32, root_x: i32, root_y: i32,
+    pub fn begin_resize_drag_for_device(&self, edge: ::WindowEdge, device: &::Device, button: i32, root_x: i32, root_y: i32,
         timestamp: u32) {
         unsafe { ffi::gdk_window_begin_resize_drag_for_device(self.pointer, edge, device.unwrap_pointer(), button as c_int,
             root_x as c_int, root_y as c_int, timestamp) }
@@ -309,7 +309,7 @@ impl Window {
         unsafe { ffi::gdk_window_begin_move_drag(self.pointer, button as c_int, root_x as c_int, root_y as c_int, timestamp) }
     }
 
-    pub fn begin_move_drag_for_device(&self, device: &gdk::Device, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
+    pub fn begin_move_drag_for_device(&self, device: &::Device, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         unsafe { ffi::gdk_window_begin_move_drag_for_device(self.pointer, device.unwrap_pointer(), button as c_int, root_x as c_int,
             root_y as c_int, timestamp) }
     }
@@ -318,11 +318,11 @@ impl Window {
     https://developer.gnome.org/gdk3/3.14/gdk3-Event-Structures.html#GdkEvent
 
     #[cfg(feature = "GTK_3_14")]
-    pub fn show_window_menu(&self, event: &gdk::Event) {
+    pub fn show_window_menu(&self, event: &::Event) {
         unsafe { ffi::gdk_window_show_window_menu(self.pointer, event.unwrap_pointer()) }
     }*/
 
-    pub fn constrain_size(&self, flags: gdk::WindowHints, width: i32, height: i32, new_width: &mut i32, new_height: &mut i32) {
+    pub fn constrain_size(&self, flags: ::WindowHints, width: i32, height: i32, new_width: &mut i32, new_height: &mut i32) {
         unsafe { ffi::gdk_window_constrain_size(self.pointer, flags, width as c_int, height as c_int, new_width as *mut c_int,
             new_height as *mut c_int) }
     }
@@ -369,13 +369,13 @@ impl Window {
     }
 
     #[cfg(feature = "GTK_3_8")]
-    pub fn get_frame_clock(&self) -> Option<gdk::FrameClock> {
+    pub fn get_frame_clock(&self) -> Option<::FrameClock> {
         let tmp = unsafe { ffi::gdk_window_get_frame_clock(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::FrameClock::wrap_pointer(tmp))
+            Some(::FrameClock::wrap_pointer(tmp))
         }
     }
 
@@ -433,17 +433,17 @@ impl Window {
         unsafe { ffi::gdk_window_set_background_rgba(self.pointer, rgba) }
     }
 
-    pub fn set_cursor(&self, cursor: &gdk::Cursor) {
+    pub fn set_cursor(&self, cursor: &::Cursor) {
         unsafe { ffi::gdk_window_set_cursor(self.pointer, cursor.unwrap_pointer()) }
     }
 
-    pub fn get_cursor(&self) -> Option<gdk::Cursor> {
+    pub fn get_cursor(&self) -> Option<::Cursor> {
         let tmp = unsafe { ffi::gdk_window_get_cursor(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Cursor::wrap_pointer(tmp))
+            Some(::Cursor::wrap_pointer(tmp))
         }
     }
 
@@ -461,7 +461,7 @@ impl Window {
             height as *mut c_int) }
     }
 
-    pub fn set_geometry_hints(&self, geometry: &ffi::C_GdkGeometry, geom_mask: gdk::WindowHints) {
+    pub fn set_geometry_hints(&self, geometry: &ffi::C_GdkGeometry, geom_mask: ::WindowHints) {
         unsafe { ffi::gdk_window_set_geometry_hints(self.pointer, geometry, geom_mask) }
     }
 
@@ -481,11 +481,11 @@ impl Window {
         unsafe { from_glib(ffi::gdk_window_get_modal_hint(self.pointer)) }
     }
 
-    pub fn set_type_hint(&self, hint: gdk::WindowTypeHint) {
+    pub fn set_type_hint(&self, hint: ::WindowTypeHint) {
         unsafe { ffi::gdk_window_set_type_hint(self.pointer, hint) }
     }
 
-    pub fn get_type_hint(&self) -> gdk::WindowTypeHint {
+    pub fn get_type_hint(&self) -> ::WindowTypeHint {
         unsafe { ffi::gdk_window_get_type_hint(self.pointer) }
     }
 
@@ -527,8 +527,8 @@ impl Window {
         unsafe { ffi::gdk_window_get_root_coords(self.pointer, x as c_int, y as c_int, root_x as *mut c_int, root_y as *mut c_int) }
     }
 
-    pub fn get_device_position(&self, device: &gdk::Device, x: &mut i32, y: &mut i32,
-        mask: &mut gdk::ModifierType) -> Option<Window> {
+    pub fn get_device_position(&self, device: &::Device, x: &mut i32, y: &mut i32,
+        mask: &mut ::ModifierType) -> Option<Window> {
         let tmp = unsafe { ffi::gdk_window_get_device_position(self.pointer, device.unwrap_pointer(), x as *mut c_int, y as *mut c_int,
             mask) };
 
@@ -542,8 +542,8 @@ impl Window {
     }
 
     #[cfg(feature = "GTK_3_10")]
-    pub fn get_device_position_double(&self, device: &gdk::Device, x: &mut f64, y: &mut f64,
-        mask: &mut gdk::ModifierType) -> Option<Window> {
+    pub fn get_device_position_double(&self, device: &::Device, x: &mut f64, y: &mut f64,
+        mask: &mut ::ModifierType) -> Option<Window> {
         let tmp = unsafe { ffi::gdk_window_get_device_position_double(self.pointer, device.unwrap_pointer(), x, y, mask) };
 
         if tmp.is_null() {
@@ -579,11 +579,11 @@ impl Window {
         }
     }
 
-    pub fn get_events(&self) -> gdk::EventMask {
+    pub fn get_events(&self) -> ::EventMask {
         unsafe { ffi::gdk_window_get_events(self.pointer) }
     }
 
-    pub fn set_events(&self, event_mask: gdk::EventMask) {
+    pub fn set_events(&self, event_mask: ::EventMask) {
         unsafe { ffi::gdk_window_set_events(self.pointer, event_mask) }
     }
 
@@ -625,15 +625,15 @@ impl Window {
         }
     }
 
-    pub fn set_decorations(&self, decorations: gdk::WMDecoration) {
+    pub fn set_decorations(&self, decorations: ::WMDecoration) {
         unsafe { ffi::gdk_window_set_decorations(self.pointer, decorations) }
     }
 
-    pub fn get_decorations(&self, decorations: &mut gdk::WMDecoration) -> bool {
+    pub fn get_decorations(&self, decorations: &mut ::WMDecoration) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_decorations(self.pointer, decorations)) }
     }
 
-    pub fn set_functions(&self, functions: gdk::WMFunction) {
+    pub fn set_functions(&self, functions: ::WMFunction) {
         unsafe { ffi::gdk_window_set_functions(self.pointer, functions) }
     }
 
@@ -657,33 +657,33 @@ impl Window {
         unsafe { ffi::gdk_window_set_support_multidevice(self.pointer, support_multidevice.to_glib()) }
     }
 
-    pub fn get_device_cursor(&self, device: &gdk::Device) -> Option<gdk::Cursor> {
+    pub fn get_device_cursor(&self, device: &::Device) -> Option<::Cursor> {
         let tmp = unsafe { ffi::gdk_window_get_device_cursor(self.pointer, device.unwrap_pointer()) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Cursor::wrap_pointer(tmp))
+            Some(::Cursor::wrap_pointer(tmp))
         }
     }
 
-    pub fn set_device_cursor(&self, device: &gdk::Device, cursor: &gdk::Cursor) {
+    pub fn set_device_cursor(&self, device: &::Device, cursor: &::Cursor) {
         unsafe { ffi::gdk_window_set_device_cursor(self.pointer, device.unwrap_pointer(), cursor.unwrap_pointer()) }
     }
 
-    pub fn get_device_events(&self, device: &gdk::Device) -> gdk::EventMask {
+    pub fn get_device_events(&self, device: &::Device) -> ::EventMask {
         unsafe { ffi::gdk_window_get_device_events(self.pointer, device.unwrap_pointer()) }
     }
 
-    pub fn set_device_events(&self, device: &gdk::Device, event_mask: gdk::EventMask) {
+    pub fn set_device_events(&self, device: &::Device, event_mask: ::EventMask) {
         unsafe { ffi::gdk_window_set_device_events(self.pointer, device.unwrap_pointer(), event_mask) }
     }
 
-    pub fn get_source_events(&self, source: gdk::InputSource) -> gdk::EventMask {
+    pub fn get_source_events(&self, source: ::InputSource) -> ::EventMask {
         unsafe { ffi::gdk_window_get_source_events(self.pointer, source) }
     }
 
-    pub fn set_source_events(&self, source: gdk::InputSource, event_mask: gdk::EventMask) {
+    pub fn set_source_events(&self, source: ::InputSource, event_mask: ::EventMask) {
         unsafe { ffi::gdk_window_set_source_events(self.pointer, source, event_mask) }
     }
 
@@ -749,7 +749,7 @@ impl Window {
         }
     }
 
-    pub fn get_drag_protocol(&self, target: &mut Window) -> gdk::DragProtocol {
+    pub fn get_drag_protocol(&self, target: &mut Window) -> ::DragProtocol {
         unsafe { ffi::gdk_window_get_drag_protocol(self.pointer, &mut target.pointer) }
     }
 }

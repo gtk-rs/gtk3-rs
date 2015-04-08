@@ -15,19 +15,18 @@
 
 //! Application launching — Startup notification for applications
 
-use gdk::{self, ffi};
+use ffi;
 use libc::c_int;
 use glib::translate::ToGlibPtr;
 
 // FIXME: should inherit from GAppLaunchContext
 #[repr(C)]
-#[derive(Copy)]
 pub struct AppLaunchContext {
     pointer: *mut ffi::C_GdkAppLaunchContext
 }
 
 impl AppLaunchContext {
-    pub fn set_screen(&self, screen: &gdk::Screen) {
+    pub fn set_screen(&self, screen: &::Screen) {
         unsafe { ffi::gdk_app_launch_context_set_screen(self.pointer, screen.unwrap_pointer()) }
     }
 

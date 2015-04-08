@@ -15,7 +15,7 @@
 
 //! Frame clock — Frame clock syncs painting to a window or display
 
-use gdk::{self, ffi};
+use ::{self, ffi};
 
 #[repr(C)]
 #[derive(Copy)]
@@ -28,7 +28,7 @@ impl FrameClock {
         unsafe { ffi::gdk_frame_clock_get_frame_time(self.pointer) }
     }
 
-    pub fn request_phase(&self, phase: gdk::FrameClockPhase) {
+    pub fn request_phase(&self, phase: ::FrameClockPhase) {
         unsafe { ffi::gdk_frame_clock_request_phase(self.pointer, phase) }
     }
 
@@ -48,23 +48,23 @@ impl FrameClock {
         unsafe { ffi::gdk_frame_clock_get_history_start(self.pointer) }
     }
 
-    pub fn get_timings(&self, frame_counter: i64) -> Option<gdk::FrameTimings> {
+    pub fn get_timings(&self, frame_counter: i64) -> Option<::FrameTimings> {
         let tmp = unsafe { ffi::gdk_frame_clock_get_timings(self.pointer, frame_counter) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::FrameTimings::wrap_pointer(tmp))
+            Some(::FrameTimings::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_current_timings(&self) -> Option<gdk::FrameTimings> {
+    pub fn get_current_timings(&self) -> Option<::FrameTimings> {
         let tmp = unsafe { ffi::gdk_frame_clock_get_current_timings(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::FrameTimings::wrap_pointer(tmp))
+            Some(::FrameTimings::wrap_pointer(tmp))
         }
     }
 

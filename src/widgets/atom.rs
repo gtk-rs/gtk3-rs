@@ -13,10 +13,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with rgtk.  If not, see <http://www.gnu.org/licenses/>.
 
-use gdk::ffi;
+use ffi;
 use glib::translate::{FromGlibPtr, ToGlibPtr};
 
-#[derive(Copy)]
 pub struct Atom {
     pointer: ffi::C_GdkAtom
 }

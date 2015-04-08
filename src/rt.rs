@@ -17,7 +17,7 @@
 
 use std::ptr;
 use glib::translate::{FromGlibPtr, ToGlibPtr};
-use gdk::ffi;
+use ffi;
 
 pub fn init() {
     unsafe { ffi::gdk_init(ptr::null_mut(), ptr::null_mut()) }

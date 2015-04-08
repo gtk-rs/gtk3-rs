@@ -16,11 +16,10 @@
 //! Visuals — Low-level display hardware information
 
 use std::slice;
-use gdk::{self, ffi};
+use ffi;
 use libc::{c_int};
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Visual {
     pointer: *mut ffi::C_GdkVisual
 }
@@ -101,13 +100,13 @@ impl Visual {
         }
     }
 
-    pub fn get_screen(&self) -> Option<gdk::Screen> {
+    pub fn get_screen(&self) -> Option<::Screen> {
         let tmp = unsafe { ffi::gdk_visual_get_screen(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Screen::wrap_pointer(tmp))
+            Some(::Screen::wrap_pointer(tmp))
         }
     }
 }

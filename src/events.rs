@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with rgtk.  If not, see <http://www.gnu.org/licenses/>.
 
-use gdk::{self, ffi};
+use ffi;
 use libc::c_void;
 use std::mem;
 
@@ -85,16 +85,17 @@ pub trait Event: Sized {
 
 #[repr(C)]
 pub struct EventAny {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 }
 
 impl Event for EventAny {}
 
+#[allow(dead_code)]
 pub struct EventExpose {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub area : ffi::C_GdkRectangle,
@@ -104,82 +105,87 @@ pub struct EventExpose {
 
 impl Event for EventExpose {}
 
+#[allow(dead_code)]
 pub struct EventVisibility{
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    state : gdk::VisibilityState
+    state : ::VisibilityState
 }
 
 impl Event for EventVisibility {}
 
+#[allow(dead_code)]
 pub struct EventMotion {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     time : u32,
     x : f64,
     y : f64,
     axes : *mut f64,
-    state : gdk::enums::modifier_type::ModifierType,
+    state : ::enums::modifier_type::ModifierType,
     is_hint : i16,
-    device : *mut gdk::Device,
+    device : *mut ::Device,
     x_root : f64,
     y_root : f64
 }
 
 impl Event for EventMotion {}
 
+#[allow(dead_code)]
 pub struct EventButton {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     time : u32,
     x : f64,
     y : f64,
     axes : *mut f64,
-    state : gdk::enums::modifier_type::ModifierType,
+    state : ::enums::modifier_type::ModifierType,
     button : u32,
-    device : *mut gdk::Device,
+    device : *mut ::Device,
     x_root : f64,
     y_root : f64
 }
 
 impl Event for EventButton {}
 
+#[allow(dead_code)]
 pub struct EventTouch {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub time : u32,
     pub x : f64,
     pub y : f64,
     pub axes : *mut f64,
-    pub state : gdk::enums::modifier_type::ModifierType,
-    pub sequence : *mut c_void, //gdk::EventSequence
+    pub state : ::enums::modifier_type::ModifierType,
+    pub sequence : *mut c_void, //::EventSequence
     pub emulating_pointer : i32, // boolean
-    pub device : *mut gdk::Device,
+    pub device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64
 }
 
 impl Event for EventTouch {}
 
+#[allow(dead_code)]
 pub struct EventScroll {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub time : u32,
     pub x : f64,
     pub y : f64,
-    pub state : gdk::enums::modifier_type::ModifierType,
-    pub direction : gdk::ScrollDirection,
-    pub device : *mut gdk::Device,
+    pub state : ::enums::modifier_type::ModifierType,
+    pub direction : ::ScrollDirection,
+    pub device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64,
     pub delta_x : f64,
@@ -188,13 +194,14 @@ pub struct EventScroll {
 
 impl Event for EventScroll {}
 
+#[allow(dead_code)]
 pub struct EventKey {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub time : u32,
-    pub state : gdk::enums::modifier_type::ModifierType,
+    pub state : ::enums::modifier_type::ModifierType,
     pub keyval : u32,
     pub length : i32,
     pub string : *mut char,
@@ -205,28 +212,30 @@ pub struct EventKey {
 
 impl Event for EventKey {}
 
+#[allow(dead_code)]
 pub struct EventCrossing {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub subwindow : gdk::Window,
+    pub subwindow : ::Window,
     pub time : u32,
     pub x : f64,
     pub y : f64,
     pub x_root : f64,
     pub y_root : f64,
-    pub mode : gdk::CrossingMode,
-    pub detail : gdk::NotifyType,
+    pub mode : ::CrossingMode,
+    pub detail : ::NotifyType,
     pub focus : i32, // boolean
-    pub state : gdk::enums::modifier_type::ModifierType
+    pub state : ::enums::modifier_type::ModifierType
 }
 
 impl Event for EventCrossing {}
 
+#[allow(dead_code)]
 pub struct EventFocus {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     _in : i16
@@ -234,9 +243,10 @@ pub struct EventFocus {
 
 impl Event for EventFocus {}
 
+#[allow(dead_code)]
 pub struct EventConfigure {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub x : i32,
@@ -247,97 +257,105 @@ pub struct EventConfigure {
 
 impl Event for EventConfigure {}
 
+#[allow(dead_code)]
 pub struct EventProperty {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    atom : gdk::Atom,
+    atom : ::Atom,
     time : u32,
     state : u32 //FIXME
 }
 
 impl Event for EventProperty {}
 
+#[allow(dead_code)]
 pub struct EventSelection {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub selection : gdk::Atom,
-    pub target : gdk::Atom,
-    pub property : gdk::Atom,
+    pub selection : ::Atom,
+    pub target : ::Atom,
+    pub property : ::Atom,
     pub time : u32,
-    pub requestor : *mut gdk::Window
+    pub requestor : *mut ::Window
 }
 
 impl Event for EventSelection {}
 
+#[allow(dead_code)]
 pub struct EventOwnerChange {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub owner : *mut gdk::Window,
-    pub reason : gdk::OwnerChange,
-    pub selection : gdk::Atom,
+    pub owner : *mut ::Window,
+    pub reason : ::OwnerChange,
+    pub selection : ::Atom,
     pub time : u32,
     pub selection_time : u32
 }
 
 impl Event for EventOwnerChange {}
 
+#[allow(dead_code)]
 pub struct EventProximity {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub time : u32,
-    pub device : *mut gdk::Device
+    pub device : *mut ::Device
 }
 
 impl Event for EventProximity {}
 
+#[allow(dead_code)]
 pub struct EventSetting {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub action : gdk::SettingAction,
+    pub action : ::SettingAction,
     pub name : *mut char
 }
 
 impl Event for EventSetting {}
 
+#[allow(dead_code)]
 pub struct EventWindowState {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub changed_mask : gdk::WindowState,
-    pub new_window_state : gdk::WindowState
+    pub changed_mask : ::WindowState,
+    pub new_window_state : ::WindowState
 }
 
 impl Event for EventWindowState {}
 
+#[allow(dead_code)]
 pub struct EventGrabBroken {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
     pub keyboard : i32, // boolean
     pub implicit : i32, // boolean
-    pub grab_window : *mut gdk::Window
+    pub grab_window : *mut ::Window
 }
 
 impl Event for EventGrabBroken  {}
 
+#[allow(dead_code)]
 pub struct EventDND {
-    pub _type : gdk::EventType,
-    pub window : *mut gdk::Window,
+    pub _type : ::EventType,
+    pub window : *mut ::Window,
     send_event : i8,
 
-    pub context : *mut c_void, //gdk::DragContext
+    pub context : *mut c_void, //::DragContext
     pub time : u32,
     pub x_root : i16, //short
     pub y_root : i16  //short

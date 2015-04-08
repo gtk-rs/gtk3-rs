@@ -15,24 +15,23 @@
 
 //! Drag And Drop — Functions for controlling drag and drop handling
 
-use gdk::{self, ffi};
+use ffi;
 use glib::{to_bool, to_gboolean};
 use libc::c_int;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DragContext {
     pointer: *mut ffi::C_GdkDragContext
 }
 
 impl DragContext {
-    pub fn drag_get_selection(&self) -> Option<gdk::Atom> {
+    pub fn drag_get_selection(&self) -> Option<::Atom> {
         let tmp = unsafe { ffi::gdk_drag_get_selection(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Atom::wrap_pointer(tmp))
+            Some(::Atom::wrap_pointer(tmp))
         }
     }
 
@@ -48,14 +47,14 @@ impl DragContext {
         unsafe { ffi::gdk_drag_drop(self.pointer, time_) }
     }
 
-    pub fn drag_find_window_for_screen(&self, drag_window: &gdk::Window, screen: &gdk::Screen, x_root: i32, y_root: i32,
-        dest_window: &mut gdk::Window, protocol: &mut gdk::DragProtocol) {
+    pub fn drag_find_window_for_screen(&self, drag_window: &::Window, screen: &::Screen, x_root: i32, y_root: i32,
+        dest_window: &mut ::Window, protocol: &mut ::DragProtocol) {
         unsafe { ffi::gdk_drag_find_window_for_screen(self.pointer, drag_window.unwrap_pointer(), screen.unwrap_pointer(), x_root as c_int,
             y_root as c_int, &mut dest_window.unwrap_pointer(), protocol) }
     }
 
-    pub fn drag_motion(&self, dest_window: &gdk::Window, protocol: gdk::DragProtocol, x_root: i32, y_root: i32,
-        suggested_action: gdk::DragAction, possible_actions: gdk::DragAction, time_: u32) -> bool {
+    pub fn drag_motion(&self, dest_window: &::Window, protocol: ::DragProtocol, x_root: i32, y_root: i32,
+        suggested_action: ::DragAction, possible_actions: ::DragAction, time_: u32) -> bool {
         unsafe { to_bool(ffi::gdk_drag_motion(self.pointer, dest_window.unwrap_pointer(), protocol, x_root as c_int,
             y_root as c_int, suggested_action, possible_actions, time_)) }
     }
@@ -64,7 +63,7 @@ impl DragContext {
         unsafe { ffi::gdk_drop_finish(self.pointer, to_gboolean(success), time_) }
     }
 
-    pub fn drag_status(&self, action: gdk::DragAction, time_: u32) {
+    pub fn drag_status(&self, action: ::DragAction, time_: u32) {
         unsafe { ffi::gdk_drag_status(self.pointer, action, time_) }
     }
 
@@ -72,53 +71,53 @@ impl DragContext {
         unsafe { to_bool(ffi::gdk_drag_drop_succeeded(self.pointer)) }
     }
 
-    pub fn get_actions(&self) -> gdk::DragAction {
+    pub fn get_actions(&self) -> ::DragAction {
         unsafe { ffi::gdk_drag_context_get_actions(self.pointer) }
     }
 
-    pub fn get_suggested_action(&self) -> gdk::DragAction {
+    pub fn get_suggested_action(&self) -> ::DragAction {
         unsafe { ffi::gdk_drag_context_get_suggested_action(self.pointer) }
     }
 
-    pub fn get_selected_action(&self) -> gdk::DragAction {
+    pub fn get_selected_action(&self) -> ::DragAction {
         unsafe { ffi::gdk_drag_context_get_selected_action(self.pointer) }
     }
 
-    pub fn get_device(&self) -> Option<gdk::Device> {
+    pub fn get_device(&self) -> Option<::Device> {
         let tmp = unsafe { ffi::gdk_drag_context_get_device(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Device::wrap_pointer(tmp))
+            Some(::Device::wrap_pointer(tmp))
         }
     }
 
-    pub fn set_device(&self, device: &gdk::Device) {
+    pub fn set_device(&self, device: &::Device) {
         unsafe { ffi::gdk_drag_context_set_device(self.pointer, device.unwrap_pointer()) }
     }
 
-    pub fn get_source_window(&self) -> Option<gdk::Window> {
+    pub fn get_source_window(&self) -> Option<::Window> {
         let tmp = unsafe { ffi::gdk_drag_context_get_source_window(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Window::wrap_pointer(tmp))
+            Some(::Window::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_dest_window(&self) -> Option<gdk::Window> {
+    pub fn get_dest_window(&self) -> Option<::Window> {
         let tmp = unsafe { ffi::gdk_drag_context_get_dest_window(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Window::wrap_pointer(tmp))
+            Some(::Window::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_protocol(&self) -> gdk::DragProtocol {
+    pub fn get_protocol(&self) -> ::DragProtocol {
         unsafe { ffi::gdk_drag_context_get_protocol(self.pointer) }
     }
 }

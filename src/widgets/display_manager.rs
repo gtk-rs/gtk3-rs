@@ -15,11 +15,10 @@
 
 //! GdkDisplayManager — Maintains a list of all open GdkDisplays
 
-use gdk::{self, ffi};
+use ffi;
 use glib::translate::ToGlibPtr;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DisplayManager {
     pointer: *mut ffi::C_GdkDisplayManager
 }
@@ -37,21 +36,21 @@ impl DisplayManager {
         }
     }
 
-    pub fn get_default_display(&self) -> Option<gdk::Display> {
+    pub fn get_default_display(&self) -> Option<::Display> {
         let tmp = unsafe { ffi::gdk_display_manager_get_default_display(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 
-    pub fn set_default_display(&self, display: &gdk::Display) {
+    pub fn set_default_display(&self, display: &::Display) {
         unsafe { ffi::gdk_display_manager_set_default_display(self.pointer, display.unwrap_pointer()) }
     }
 
-    pub fn open_display(&self, name: &str) -> Option<gdk::Display> {
+    pub fn open_display(&self, name: &str) -> Option<::Display> {
         let tmp = unsafe {
             ffi::gdk_display_manager_open_display(self.pointer, name.borrow_to_glib().0)
         };
@@ -59,7 +58,7 @@ impl DisplayManager {
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 }

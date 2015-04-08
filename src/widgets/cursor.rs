@@ -15,18 +15,17 @@
 
 //! Cursors — Standard and pixmap cursors
 
-use gdk::{self, ffi};
+use ffi;
 use glib::translate::ToGlibPtr;
 //use libc::{c_int};
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Cursor {
     pointer: *mut ffi::C_GdkCursor
 }
 
 impl Cursor {
-    pub fn new(cursor_type: gdk::CursorType) -> Option<Cursor> {
+    pub fn new(cursor_type: ::CursorType) -> Option<Cursor> {
         let tmp = unsafe { ffi::gdk_cursor_new(cursor_type) };
 
         if tmp.is_null() {
@@ -38,7 +37,7 @@ impl Cursor {
         }
     }
 
-    /*pub fn new_from_pixbuf(display: &gdk::Display, pixbuf: &gdk::Pixbuf, x: i32, y: i32) -> Option<Cursor> {
+    /*pub fn new_from_pixbuf(display: &::Display, pixbuf: &::Pixbuf, x: i32, y: i32) -> Option<Cursor> {
         let tmp = unsafe { ffi::gdk_cursor_new_from_pixbuf(display.unwrap_pointer(), pixbuf.unwrap_pointer(), x as c_int, y as c_int) };
 
         if tmp.is_null() {
@@ -50,7 +49,7 @@ impl Cursor {
         }
     }*/
 
-    pub fn new_from_name(display: &gdk::Display, name: &str) -> Option<Cursor> {
+    pub fn new_from_name(display: &::Display, name: &str) -> Option<Cursor> {
         let tmp = unsafe {
             ffi::gdk_cursor_new_from_name(display.unwrap_pointer(), name.borrow_to_glib().0)
         };
@@ -64,7 +63,7 @@ impl Cursor {
         }
     }
 
-    pub fn new_for_display(display: &gdk::Display, cursor_type: gdk::CursorType) -> Option<Cursor> {
+    pub fn new_for_display(display: &::Display, cursor_type: ::CursorType) -> Option<Cursor> {
         let tmp = unsafe { ffi::gdk_cursor_new_for_display(display.unwrap_pointer(), cursor_type) };
 
         if tmp.is_null() {
@@ -76,27 +75,27 @@ impl Cursor {
         }
     }
 
-    pub fn get_display(&self) -> Option<gdk::Display> {
+    pub fn get_display(&self) -> Option<::Display> {
         let tmp = unsafe { ffi::gdk_cursor_get_display(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 
-    /*pub fn get_image(&self) -> Option<gdk::Pixbuf> {
+    /*pub fn get_image(&self) -> Option<::Pixbuf> {
         let tmp = unsafe { ffi::gdk_cursor_get_image(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Pixbuf::wrap_pointer(tmp))
+            Some(::Pixbuf::wrap_pointer(tmp))
         }
     }*/
 
-    pub fn get_cursor_type(&self) -> gdk::CursorType {
+    pub fn get_cursor_type(&self) -> ::CursorType {
         unsafe { ffi::gdk_cursor_get_cursor_type(self.pointer) }
     }
 }

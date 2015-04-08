@@ -16,7 +16,7 @@
 //! Keyboard Handling Functions
 
 use glib::translate::FromGlibPtr;
-use gdk::ffi;
+use ffi;
 use libc::c_uint;
 
 pub fn keyval_name(keyval: u32) -> Option<String> {

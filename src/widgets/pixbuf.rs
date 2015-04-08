@@ -16,12 +16,11 @@
 /// The GdkPixbuf structure contains information that describes an image in memory.
 
 use glib::translate::{FromGlibPtr, ToGlibPtr};
-use gdk::{self, ffi};
+use ffi;
 use c_vec::CVec;
 use std::ptr::Unique;
 
 #[repr(C)]
-#[derive(Copy)]
 /// This is the main structure in the &gdk-pixbuf; library. It is used to represent images. It contains information about the image's pixel 
 /// data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the 
 /// start of the next).
@@ -30,7 +29,7 @@ pub struct Pixbuf {
 }
 
 impl Pixbuf {
-    pub fn get_colorspace(&self) -> gdk::ColorSpace {
+    pub fn get_colorspace(&self) -> ::ColorSpace {
         unsafe { ffi::gdk_pixbuf_get_colorspace(self.pointer as *const ffi::C_GdkPixbuf) }
     }
 

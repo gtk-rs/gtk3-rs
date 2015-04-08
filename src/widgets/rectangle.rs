@@ -15,7 +15,7 @@
 
 //! Rectangles — Simple graphical data type
 
-use gdk::ffi;
+use ffi;
 use gdk_ffi::C_GdkRectangle;
 use glib::to_bool;
 

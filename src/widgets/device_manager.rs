@@ -15,10 +15,9 @@
 
 //! GdkDeviceManager — Functions for handling input devices
 
-use gdk::{self, ffi};
+use ffi;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct DeviceManager {
     pointer: *mut ffi::C_GdkDeviceManager
 }
@@ -28,23 +27,23 @@ impl DeviceManager {
         unsafe { ffi::gdk_disable_multidevice() }
     }
 
-    pub fn get_display(&self) -> Option<gdk::Display> {
+    pub fn get_display(&self) -> Option<::Display> {
         let tmp = unsafe { ffi::gdk_device_manager_get_display(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_client(&self) -> Option<gdk::Device> {
+    pub fn get_client(&self) -> Option<::Device> {
         let tmp = unsafe { ffi::gdk_device_manager_get_client_pointer(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Device::wrap_pointer(tmp))
+            Some(::Device::wrap_pointer(tmp))
         }
     }
 }

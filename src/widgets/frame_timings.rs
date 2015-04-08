@@ -15,7 +15,7 @@
 
 //! Frame timings — Object holding timing information for a single frame
 
-use gdk::ffi;
+use ::ffi;
 
 #[repr(C)]
 #[derive(Copy)]

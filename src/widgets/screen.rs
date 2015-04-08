@@ -16,11 +16,10 @@
 //! GdkScreen — Object representing a physical screen
 
 use glib::translate::{FromGlibPtr};
-use gdk::{self, ffi};
+use ffi;
 use libc::c_int;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct Screen {
     pointer: *mut ffi::C_GdkScreen
 }
@@ -38,23 +37,23 @@ impl Screen {
         }
     }
 
-    pub fn get_system_visual(&self) -> Option<gdk::Visual> {
+    pub fn get_system_visual(&self) -> Option<::Visual> {
         let tmp = unsafe { ffi::gdk_screen_get_system_visual(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Visual::wrap_pointer(tmp))
+            Some(::Visual::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_rgba_visual(&self) -> Option<gdk::Visual> {
+    pub fn get_rgba_visual(&self) -> Option<::Visual> {
         let tmp = unsafe { ffi::gdk_screen_get_rgba_visual(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Visual::wrap_pointer(tmp))
+            Some(::Visual::wrap_pointer(tmp))
         }
     }
 
@@ -62,23 +61,23 @@ impl Screen {
         unsafe { ::glib::to_bool(ffi::gdk_screen_is_composited(self.pointer)) }
     }
 
-    pub fn get_root_window(&self) -> Option<gdk::Window> {
+    pub fn get_root_window(&self) -> Option<::Window> {
         let tmp = unsafe { ffi::gdk_screen_get_root_window(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Window::wrap_pointer(tmp))
+            Some(::Window::wrap_pointer(tmp))
         }
     }
 
-    pub fn get_display(&self) -> Option<gdk::Display> {
+    pub fn get_display(&self) -> Option<::Display> {
         let tmp = unsafe { ffi::gdk_screen_get_display(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Display::wrap_pointer(tmp))
+            Some(::Display::wrap_pointer(tmp))
         }
     }
 
@@ -129,7 +128,7 @@ impl Screen {
         unsafe { ffi::gdk_screen_get_monitor_at_point(self.pointer, x as c_int, y as c_int) }
     }
 
-    pub fn get_monitor_at_window(&self, window: &mut gdk::Window) -> i32 {
+    pub fn get_monitor_at_window(&self, window: &mut ::Window) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_at_window(self.pointer, window.unwrap_pointer()) }
     }
 
@@ -162,13 +161,13 @@ impl Screen {
         unsafe { ffi::gdk_screen_set_resolution(self.pointer, dpi) }
     }
 
-    pub fn get_active_window(&self) -> Option<gdk::Window> {
+    pub fn get_active_window(&self) -> Option<::Window> {
         let tmp = unsafe { ffi::gdk_screen_get_active_window(self.pointer) };
 
         if tmp.is_null() {
             None
         } else {
-            Some(gdk::Window::wrap_pointer(tmp))
+            Some(::Window::wrap_pointer(tmp))
         }
     }
 }

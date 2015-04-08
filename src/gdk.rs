@@ -19,10 +19,13 @@ Bindings and wrappers for __GDK__
 
 */
 
+#![feature(unique)]
+
 extern crate gdk3_sys as gdk_ffi;
 extern crate glib_sys as glib_ffi;
 extern crate glib as glib_main;
 extern crate libc;
+extern crate c_vec;
 
 pub use gdk_ffi as ffi;
 pub use glib_main as glib;
