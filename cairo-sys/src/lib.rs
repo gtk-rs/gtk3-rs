@@ -41,48 +41,64 @@ use enums::{
 };
 
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_surface_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_pattern_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_fill_rule_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_antialias_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_destroy_func_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_line_join_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_line_cap_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_operator_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_rectangle_list_t {
     pub status: Status,
     pub rectangles: *mut Rectangle,
     pub num_rectangles: c_int
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_rectangle_int_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_content_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_path_t{
     pub status: Status,
     pub data: *mut (c_double, c_double),
     pub num_data: c_int
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_path_data_header{
     pub data_type: PathDataType,
     pub length:    c_int
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_glyph_t;
 
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_bool_t{
     value: c_int
 }
@@ -93,22 +109,29 @@ impl cairo_bool_t{
     }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_region_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_font_face_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_scaled_font_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_font_options_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_extend_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_filter_t;
 #[repr(C)]
+#[derive(Copy)]
 pub struct cairo_region_overlap_t;
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct FontExtents {
     pub ascent: c_double,
     pub descent: c_double,
@@ -118,7 +141,7 @@ pub struct FontExtents {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct Glyph {
     pub index: c_ulong,
     pub x: c_double,
@@ -126,14 +149,14 @@ pub struct Glyph {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct TextCluster {
     pub num_bytes: c_int,
     pub num_glyphs: c_int,
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct TextExtents {
     pub x_bearing: c_double,
     pub y_bearing: c_double,
@@ -144,7 +167,7 @@ pub struct TextExtents {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct Matrix {
     pub xx: c_double,
     pub yx: c_double,
@@ -157,7 +180,7 @@ pub struct Matrix {
 }
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Copy)]
 pub struct Rectangle {
     x: f64,
     y: f64,
