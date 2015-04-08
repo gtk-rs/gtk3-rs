@@ -30,7 +30,6 @@ pub const GTRUE:   c_int = 1;
 pub type gpointer = *const c_void;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GList {
   pub data: *mut c_void,
   pub next: *mut C_GList,
@@ -38,14 +37,12 @@ pub struct C_GList {
 }
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GSList {
   pub data: *mut c_void,
   pub next: *mut C_GSList
 }
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GError {
     pub domain : GQuark,
     pub code   : i32,
@@ -53,15 +50,12 @@ pub struct C_GError {
 }
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GPermission;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GObject;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct C_GValue;
 
 //=========================================================================
