@@ -1,48 +1,21 @@
 [package]
-name = "rgtk"
+name = "glib"
 version = "0.0.1"
-authors = ["letang.jeremy@gmail.com", "guillaume1.gomez@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com", "Gleb Kozyrev <gleb@gkoz.com>"]
+authors = ["guillaume1.gomez@gmail.com", "letang.jeremy@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
 
-description = "A rust binding for the GTK+ library"
-repository = "https://github.com/jeremyletang/rgtk"
+description = "A rust binding for the GLib library"
+repository = "https://github.com/rust-gnome/glib"
 license = "LGPL-3.0+"
 
 [dependencies]
 libc = "0.1"
 c_vec = "^1.0.0"
 
-[features]
-default = ["GTK_3_6", "CAIRO_1_10"]
-GTK_3_4 = ["gtk3-sys/GTK_3_4"]
-GTK_3_6 = ["gtk3-sys/GTK_3_6", "GTK_3_4"]
-GTK_3_8 = ["gtk3-sys/GTK_3_8", "GTK_3_6"]
-GTK_3_10 = ["gtk3-sys/GTK_3_10", "GTK_3_8"]
-GTK_3_12 = ["gtk3-sys/GTK_3_12", "GTK_3_10"]
-GTK_3_14 = ["gtk3-sys/GTK_3_14", "GTK_3_12"]
-CAIRO_1_10 = ["cairo-sys/CAIRO_1_10"]
-CAIRO_1_12 = ["cairo-sys/CAIRO_1_12", "CAIRO_1_10"]
-
 [lib]
-name = "rgtk"
+name = "glib"
 crate_type = ["rlib"]
-path = "src/rgtk.rs"
+path = "src/glib.rs"
 
 [dependencies.glib-sys]
 path = "glib-sys"
-version = "0.1.0"
-
-[dependencies.gdk3-sys]
-path = "gdk3-sys"
-version = "0.1.0"
-
-[dependencies.gtk3-sys]
-path = "gtk3-sys"
-version = "0.1.0"
-
-[dependencies.cairo-sys]
-path = "cairo-sys"
-version = "0.1.0"
-
-[dependencies.glib]
-path = "glib"
 version = "0.1.0"
