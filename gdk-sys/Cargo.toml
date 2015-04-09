@@ -1,6 +1,6 @@
 [package]
-name = "gdk"
-version = "0.0.1"
+name = "gdk-sys"
+version = "0.1.0"
 authors = [
     "guillaume1.gomez@gmail.com",
     "letang.jeremy@gmail.com",
@@ -10,24 +10,22 @@ authors = [
     "zsoakes@gmail.com",
     "Gleb Kozyrev <gleb@gkoz.com>",
 ]
+build = "build.rs"
+links = "gdk"
 
-description = "Rust bindings for the GDK library"
-repository = "https://github.com/rust-gnome/gdk"
+description = "FFI bindings to GDK"
+repository = "https://github.com/jeremyletang/rgtk"
 license = "MIT"
 
 [lib]
-name = "gdk"
+name = "gdk_sys"
 
 [dependencies]
+bitflags = "0.1"
 libc = "0.1"
-c_vec = "^1.0.0"
-
-[dependencies.gdk-sys]
-path = "gdk-sys"
-version = "0.1.0"
-
-[dependencies.glib]
-git = "https://github.com/rust-gnome/glib.git"
 
 [dependencies.glib-sys]
 git = "https://github.com/rust-gnome/glib.git"
+
+[build-dependencies]
+pkg-config = "0.3"
