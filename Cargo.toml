@@ -1,27 +1,26 @@
 [package]
 name = "cairo"
 version = "0.0.1"
-authors = ["guillaume1.gomez@gmail.com", "letang.jeremy@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
+authors = ["The Rust-gnome Project Developers"]
 
-description = "A rust binding for the cairo library"
+description = "Rust bindings for the Cairo library"
 repository = "https://github.com/rust-gnome/cairo"
-license = "LGPL-3.0+"
+license = "MIT"
+
+[lib]
+name = "cairo"
+
+[features]
+default = ["cairo_1_10"]
+cairo_1_10 = ["cairo-sys/cairo_1_10"]
+cairo_1_12 = ["cairo-sys/cairo_1_12", "cairo_1_10"]
 
 [dependencies]
 libc = "0.1"
 c_vec = "^1.0.0"
 
-[lib]
-name = "cairo"
-crate_type = ["rlib"]
-path = "src/cairo.rs"
-
 [dependencies.glib]
-git = "https://github.com/rust-gnome/glib.git"
-
-[dependencies.glib-sys]
-git = "https://github.com/rust-gnome/glib.git"
-
+git = "https://github.com/rust-gnome/glib"
 
 [dependencies.cairo-sys]
 path = "cairo-sys"

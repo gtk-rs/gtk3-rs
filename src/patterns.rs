@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with rgtk.  If not, see <http://www.gnu.org/licenses/>.
 
-#![cfg_attr(not(feature = "CAIRO_1_12"), allow(unused_imports))]
+#![cfg_attr(not(feature = "cairo_1_12"), allow(unused_imports))]
 
 use libc::{c_double, c_int, c_uint};
 use std::mem::transmute;
@@ -44,9 +44,9 @@ pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
         PatternType::PatternTypeSurface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
         PatternType::PatternTypeLinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
         PatternType::PatternTypeRadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
-        #[cfg(feature = "CAIRO_1_12")]
+        #[cfg(feature = "cairo_1_12")]
         PatternType::PatternTypeMesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
-        #[cfg(feature = "CAIRO_1_12")]
+        #[cfg(feature = "cairo_1_12")]
         PatternType::PatternTypeRasterSource     => panic!("Not implemented")
     }
 }
@@ -270,7 +270,7 @@ impl SurfacePattern {
     //pub fn cairo_pattern_get_surface(pattern: *mut cairo_pattern_t, surface: **mut cairo_surface_t) -> Status;
 }
 
-#[cfg(feature = "CAIRO_1_12")]
+#[cfg(feature = "cairo_1_12")]
 #[derive(Clone, PartialEq, PartialOrd, Copy)]
 pub enum MeshCorner {
     MeshCorner0,
@@ -279,10 +279,10 @@ pub enum MeshCorner {
     MeshCorner3
 }
 
-#[cfg(feature = "CAIRO_1_12")]
+#[cfg(feature = "cairo_1_12")]
 pattern_type!(Mesh);
 
-#[cfg(feature = "CAIRO_1_12")]
+#[cfg(feature = "cairo_1_12")]
 impl Mesh {
     pub fn new() -> Mesh {
         Mesh::wrap(unsafe {
