@@ -185,7 +185,6 @@ impl<T> Clone for List<T> {
     }
 }
 
-#[unsafe_destructor]
 impl<T> Drop for List<T> {
     fn drop(&mut self) {
         unsafe { ffi::g_list_free(self.pointer); }
