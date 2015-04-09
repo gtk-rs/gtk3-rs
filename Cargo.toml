@@ -1,20 +1,26 @@
 [package]
 name = "glib"
 version = "0.0.1"
-authors = ["guillaume1.gomez@gmail.com", "letang.jeremy@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
+authors = [
+    "guillaume1.gomez@gmail.com",
+    "letang.jeremy@gmail.com",
+    "mathijs.henquet@gmail.com",
+    "bpgarman@fastmail.fm",
+    "me@bstr.eu",
+    "zsoakes@gmail.com",
+    "Gleb Kozyrev <gleb@gkoz.com>",
+]
 
-description = "A rust binding for the GLib library"
+description = "Rust bindings for the GLib library"
 repository = "https://github.com/rust-gnome/glib"
-license = "LGPL-3.0+"
+license = "MIT"
+
+[lib]
+name = "glib"
 
 [dependencies]
 libc = "0.1"
 c_vec = "^1.0.0"
-
-[lib]
-name = "glib"
-crate_type = ["rlib"]
-path = "src/glib.rs"
 
 [dependencies.glib-sys]
 path = "glib-sys"
