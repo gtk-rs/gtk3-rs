@@ -1,18 +1,20 @@
 [package]
 name = "cairo-sys"
 version = "0.1.0"
-authors = ["letang.jeremy@gmail.com", "guillaume1.gomez@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
+authors = ["The Rust-gnome Project Developers"]
 build = "build.rs"
 links = "cairo"
 
 description = "FFI bindings to Cairo"
-repository = "https://github.com/jeremyletang/rgtk"
-license = "LGPL-3.0+"
+repository = "https://github.com/rust-gnome/cairo"
+license = "MIT"
+
+[lib]
+name = "cairo_sys"
 
 [features]
-default = ["CAIRO_1_10"]
-CAIRO_1_10 = []
-CAIRO_1_12 = ["CAIRO_1_10"]
+cairo_1_10 = []
+cairo_1_12 = []
 
 [dependencies]
 libc = "0.1"

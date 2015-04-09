@@ -21,7 +21,6 @@
 
 extern crate cairo_sys as cairo_ffi;
 extern crate libc;
-extern crate glib_sys as glib_ffi;
 extern crate glib as glib_main;
 extern crate c_vec;
 
@@ -64,7 +63,7 @@ pub use self::patterns::{
     SurfacePattern,
 };
 
-#[cfg(feature = "CAIRO_1_12")]
+#[cfg(feature = "cairo_1_12")]
 pub use self::patterns::{
     Mesh,
     MeshCorner,
