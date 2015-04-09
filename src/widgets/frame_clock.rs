@@ -15,10 +15,9 @@
 
 //! Frame clock — Frame clock syncs painting to a window or display
 
-use ::{self, ffi};
+use ffi;
 
 #[repr(C)]
-#[derive(Copy)]
 pub struct FrameClock {
     pointer: *mut ffi::C_GdkFrameClock
 }

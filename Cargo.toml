@@ -1,23 +1,30 @@
 [package]
 name = "gdk"
 version = "0.0.1"
-authors = ["guillaume1.gomez@gmail.com"]
+authors = ["The Rust-gnome Project Developers"]
 
-description = "A rust binding for the GDK library"
+description = "Rust bindings for the GDK library"
 repository = "https://github.com/rust-gnome/gdk"
 license = "MIT"
+
+[lib]
+name = "gdk"
+
+[features]
+default = ["gdk_3_6"]
+gdk_3_4 = ["gdk-sys/gdk_3_4"]
+gdk_3_6 = ["gdk-sys/gdk_3_6", "gdk_3_4"]
+gdk_3_8 = ["gdk-sys/gdk_3_8", "gdk_3_6"]
+gdk_3_10 = ["gdk-sys/gdk_3_10", "gdk_3_8"]
+gdk_3_12 = ["gdk-sys/gdk_3_12", "gdk_3_10"]
+gdk_3_14 = ["gdk-sys/gdk_3_14", "gdk_3_12"]
 
 [dependencies]
 libc = "0.1"
 c_vec = "^1.0.0"
 
-[lib]
-name = "gdk"
-crate_type = ["rlib"]
-path = "src/gdk.rs"
-
-[dependencies.gdk3-sys]
-path = "gdk3-sys"
+[dependencies.gdk-sys]
+path = "gdk-sys"
 version = "0.1.0"
 
 [dependencies.glib]

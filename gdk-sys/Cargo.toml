@@ -1,0 +1,31 @@
+[package]
+name = "gdk-sys"
+version = "0.1.0"
+authors = ["The Rust-gnome Project Developers"]
+build = "build.rs"
+links = "gdk"
+
+description = "FFI bindings to GDK"
+repository = "https://github.com/rust-gnome/gdk"
+license = "MIT"
+
+[lib]
+name = "gdk_sys"
+
+[features]
+gdk_3_4 = []
+gdk_3_6 = ["gdk_3_4"]
+gdk_3_8 = ["gdk_3_6"]
+gdk_3_10 = ["gdk_3_8"]
+gdk_3_12 = ["gdk_3_10"]
+gdk_3_14 = ["gdk_3_12"]
+
+[dependencies]
+bitflags = "0.1"
+libc = "0.1"
+
+[dependencies.glib-sys]
+git = "https://github.com/rust-gnome/glib.git"
+
+[build-dependencies]
+pkg-config = "0.3"
