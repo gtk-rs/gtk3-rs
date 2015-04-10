@@ -71,9 +71,8 @@ pub trait GetType {
     fn get_type() -> Type;
 }
 
-impl FromGlib for Type {
-    type GlibType = ffi::GType;
-
+impl FromGlib<ffi::GType> for Type {
+    #[inline]
     fn from_glib(val: ffi::GType) -> Type {
         use self::Type::*;
         match val {
