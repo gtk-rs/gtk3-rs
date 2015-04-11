@@ -16,14 +16,14 @@
 pub mod timeout {
     use ffi;
 
-    pub fn add<T>(interval: u32, func: fn(&T) -> i32, data: &T) -> u32 {
+    pub fn add<T>(interval: u32, func: fn(&mut T) -> i32, data: &T) -> u32 {
         let tmp = data as *const T;
         let tmp_f = func as ffi::gpointer;
 
         unsafe { ffi::g_timeout_add(interval, tmp_f, tmp as ffi::gpointer) }
     }
 
-    pub fn add_seconds<T>(interval: u32, func: fn(&T) -> i32, data: &T) -> u32 {
+    pub fn add_seconds<T>(interval: u32, func: fn(&mut T) -> i32, data: &T) -> u32 {
         let tmp = data as *const T;
         let tmp_f = func as ffi::gpointer;
 
