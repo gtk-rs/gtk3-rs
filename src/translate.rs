@@ -222,22 +222,51 @@ impl <'a, P: Copy, T: ToGlibPtr<'a, P>> PtrArray<'a, P, T> {
 }
 
 /// Translate a simple type
-pub trait FromGlib: Sized {
-    type GlibType: Sized;
-
-    fn from_glib(val: Self::GlibType) -> Self;
+pub trait FromGlib<T>: Sized {
+    fn from_glib(val: T) -> Self;
 }
 
 /// Translate a simple type
-pub fn from_glib<T: FromGlib>(val: <T as FromGlib>::GlibType) -> T {
+#[inline]
+pub fn from_glib<G, T: FromGlib<G>>(val: G) -> T {
     FromGlib::from_glib(val)
 }
 
-impl FromGlib for bool {
-    type GlibType = ffi::Gboolean;
-
+impl FromGlib<ffi::Gboolean> for bool {
+    #[inline]
     fn from_glib(val: ffi::Gboolean) -> bool {
         !(val == ffi::GFALSE)
+    }
+}
+
+impl FromGlib<i32> for Option<u32> {
+    #[inline]
+    fn from_glib(val: i32) -> Option<u32> {
+        if val >= 0 {
+            Some(val as u32)
+        }
+        else {
+            None
+        }
+    }
+}
+
+impl FromGlib<i64> for Option<u64> {
+    #[inline]
+    fn from_glib(val: i64) -> Option<u64> {
+        if val >= 0 {
+            Some(val as u64)
+        }
+        else {
+            None
+        }
+    }
+}
+
+impl FromGlib<i32> for Option<u64> {
+    #[inline]
+    fn from_glib(val: i32) -> Option<u64> {
+        FromGlib::from_glib(val as i64)
     }
 }
 
