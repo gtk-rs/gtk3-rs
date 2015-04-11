@@ -29,6 +29,8 @@ pub const GTRUE:   c_int = 1;
 
 pub type gpointer = *const c_void;
 
+pub type GSourceFunc = fn(user_data: gpointer) -> Gboolean;
+
 #[repr(C)]
 pub struct C_GList {
   pub data: *mut c_void,
@@ -57,6 +59,21 @@ pub struct C_GObject;
 
 #[repr(C)]
 pub struct C_GValue;
+
+#[repr(C)]
+pub struct C_GMainLoop;
+
+#[repr(C)]
+pub struct C_GMainContext;
+
+#[repr(C)]
+pub struct C_GSource;
+
+#[repr(C)]
+pub struct C_GPid;
+
+#[repr(C)]
+pub struct C_GPollFD;
 
 //=========================================================================
 // GType constants
@@ -246,4 +263,104 @@ extern "C" {
     pub fn g_value_get_gtype                   (value: *mut C_GValue) -> GType;
     pub fn g_value_type_compatible             (src_type: GType, dest_type: GType) -> Gboolean;
     pub fn g_value_type_transformable          (src_type: GType, dest_type: GType) -> Gboolean;
+
+    //=========================================================================
+    // GMainLoop
+    //=========================================================================
+    pub fn g_main_loop_new                     (context: *mut C_GMainContext, is_running: Gboolean) -> *mut C_GMainLoop;
+    pub fn g_main_loop_ref                     (loop_: *mut C_GMainLoop) -> *mut C_GMainLoop;
+    pub fn g_main_loop_unref                   (loop_: *mut C_GMainLoop);
+    pub fn g_main_loop_run                     (loop_: *mut C_GMainLoop);
+    pub fn g_main_loop_quit                    (loop_: *mut C_GMainLoop);
+    pub fn g_main_loop_is_running              (loop_: *mut C_GMainLoop) -> Gboolean;
+    pub fn g_main_loop_get_context             (loop_: *mut C_GMainLoop) -> *mut C_GMainContext;
+
+    //=========================================================================
+    // GMainContext
+    //=========================================================================
+    pub fn g_main_context_new                  () -> *mut C_GMainContext;
+    pub fn g_main_context_ref                  (context: *mut C_GMainContext) -> *mut C_GMainContext;
+    pub fn g_main_context_unref                (context: *mut C_GMainContext);
+    pub fn g_main_context_default              () -> *mut C_GMainContext;
+    pub fn g_main_context_iteration            (context: *mut C_GMainContext, may_block: Gboolean) -> Gboolean;
+    pub fn g_main_context_pending              (context: *mut C_GMainContext) -> Gboolean;
+    pub fn g_main_context_find_source_by_id    (context: *mut C_GMainContext, source_id: c_uint) -> *mut C_GSource;
+    pub fn g_main_context_find_source_by_user_data(context: *mut C_GMainContext, user_data: gpointer) -> *mut C_GSource;
+    //pub fn g_main_context_find_source_by_funcs_user_data(context: *mut C_GMainContext, funcs: GSourceFuncs, user_data: gpointer) -> *mut C_GSource;
+    pub fn g_main_context_wakeup               (context: *mut C_GMainContext);
+    pub fn g_main_context_acquire              (context: *mut C_GMainContext) -> Gboolean;
+    pub fn g_main_context_release              (context: *mut C_GMainContext);
+    pub fn g_main_context_is_owner             (context: *mut C_GMainContext) -> Gboolean;
+    //pub fn g_main_context_wait                 (context: *mut C_GMainContext, cond: *mut C_GCond, mutex: *mut C_GMutex) -> Gboolean;
+    pub fn g_main_context_prepare              (context: *mut C_GMainContext, priority: *mut c_int) -> Gboolean;
+    //pub fn g_main_context_query                (context: *mut C_GMainContext, max_priority: c_int, timeout_: *mut c_int, fds: *mut C_GPollFD,
+    //    n_fds: c_int) -> c_int;
+    //pub fn g_main_context_check                (context: *mut C_GMainContext, max_priority: c_int, fds: *mut C_GPollFD,
+    //    n_fds: c_int) -> c_int;
+    pub fn g_main_context_dispatch             (context: *mut C_GMainContext);
+    //pub fn g_main_context_set_poll_func        ();
+    //pub fn g_main_context_get_poll_func        ();
+    pub fn g_main_context_add_poll             (context: *mut C_GMainContext, fd: *mut C_GPollFD, priority: c_int);
+    pub fn g_main_context_remove_poll          (context: *mut C_GMainContext, fd: *mut C_GPollFD);
+    pub fn g_main_depth                        () -> c_int;
+
+    pub fn g_main_current_source               () -> *mut C_GSource;
+    //pub fn g_main_context_invoke               ();
+    //pub fn g_main_context_invoke_full          ();
+    pub fn g_main_context_get_thread_default   () -> *mut C_GMainContext;
+    pub fn g_main_context_ref_thread_default   () -> *mut C_GMainContext;
+    pub fn g_main_context_push_thread_default  (context: *mut C_GMainContext);
+    pub fn g_main_context_pop_thread_default   (context: *mut C_GMainContext);
+
+    //=========================================================================
+    // GSource
+    //=========================================================================
+    pub fn g_timeout_source_new                () -> *mut C_GSource;
+    pub fn g_timeout_source_new_seconds        (interval: c_uint) -> *mut C_GSource;
+    //pub fn g_timeout_add                       (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
+    pub fn g_timeout_add                       (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
+    //pub fn g_timeout_add_full                  ();
+    //pub fn g_timeout_add_seconds               (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
+    pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
+    //pub fn g_timeout_add_seconds_full          ();
+    pub fn g_idle_source_new                   () -> *mut C_GSource;
+    //pub fn g_idle_add                          ();
+    //pub fn g_idle_add_full                     ();
+    pub fn g_idle_remove_by_data               (data: gpointer) -> Gboolean;
+    pub fn g_child_watch_source_new            (pid: C_GPid) -> *mut C_GSource;
+    //pub fn g_child_watch_add                   ();
+    //pub fn g_child_watch_add_full              ();
+    pub fn g_poll                              (fds: *mut C_GPollFD, nfds: c_uint, timeout: c_int) -> c_int;
+    //pub fn g_source_new                        ();
+    pub fn g_source_ref                        (source: *mut C_GSource) -> *mut C_GSource;
+    pub fn g_source_unref                      (source: *mut C_GSource);
+    //pub fn g_source_set_funcs                  ();
+    pub fn g_source_attach                     (source: *mut C_GSource, context: *mut C_GMainContext);
+    pub fn g_source_destroy                    (source: *mut C_GSource);
+    pub fn g_source_is_destroyed               (source: *mut C_GSource) -> Gboolean;
+    pub fn g_source_set_priority               (source: *mut C_GSource, priority: c_int);
+    pub fn g_source_get_priority               (source: *mut C_GSource) -> c_int;
+    pub fn g_source_set_can_recurse            (source: *mut C_GSource, can_recurse: Gboolean);
+    pub fn g_source_get_can_recurse            (source: *mut C_GSource) -> Gboolean;
+    pub fn g_source_get_id                     (source: *mut C_GSource) -> c_uint;
+    pub fn g_source_get_name                   (source: *mut C_GSource) -> *const c_char;
+    pub fn g_source_set_name                   (source: *mut C_GSource, name: *const c_char);
+    pub fn g_source_set_name_by_id             (tag: c_uint, name: *const c_char);
+    pub fn g_source_get_context                (source: *mut C_GSource) -> *mut C_GMainContext;
+    //pub fn g_source_set_callback               ();
+    //pub fn g_source_set_callback_indirect      ();
+    pub fn g_source_set_ready_time             (source: *mut C_GSource, ready_time: i64);
+    pub fn g_source_get_ready_time             (source: *mut C_GSource) -> i64;
+    //pub fn g_source_add_unix_fd                ();
+    //pub fn g_source_remove_unix_fd             ();
+    //pub fn g_source_modify_unix_fd             ();
+    //pub fn g_source_query_unix_fd              ();
+    pub fn g_source_add_poll                   (source: *mut C_GSource, fd: *mut C_GPollFD);
+    pub fn g_source_remove_poll                (source: *mut C_GSource, fd: *mut C_GPollFD);
+    pub fn g_source_add_child_source           (source: *mut C_GSource, child_source: *mut C_GSource);
+    pub fn g_source_remove_child_source        (source: *mut C_GSource, child_source: *mut C_GSource);
+    pub fn g_source_get_time                   (source: *mut C_GSource) -> i64;
+    pub fn g_source_remove                     (tag: c_uint) -> Gboolean;
+    //pub fn g_source_remove_by_funcs_user_data  ();
+    pub fn g_source_remove_by_user_data        (user_data: gpointer) -> Gboolean;
 }
