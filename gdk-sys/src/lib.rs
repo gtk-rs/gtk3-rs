@@ -514,7 +514,7 @@ extern "C" {
     //=========================================================================
     pub fn gdk_pixbuf_new(colorspace: enums::ColorSpace, has_alpha: Gboolean,
         bits_per_sample: c_int, width: c_int, height: c_int) -> *mut C_GdkPixbuf;
-    pub fn gdk_pixbuf_new_from_subpixbuf(src_pixbuf: *mut C_GdkPixbuf, src_x: c_int, src_y: c_int,
+    pub fn gdk_pixbuf_new_subpixbuf(src_pixbuf: *mut C_GdkPixbuf, src_x: c_int, src_y: c_int,
         width: c_int, height: c_int) -> *mut C_GdkPixbuf;
     pub fn gdk_pixbuf_get_colorspace(pixbuf: *const C_GdkPixbuf) -> enums::ColorSpace;
     pub fn gdk_pixbuf_get_n_channels(pixbuf: *const C_GdkPixbuf) -> c_int;
