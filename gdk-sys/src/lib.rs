@@ -512,17 +512,22 @@ extern "C" {
     //=========================================================================
     // GdkPixbuf                                                         NOT OK
     //=========================================================================
-    pub fn gdk_pixbuf_get_colorspace          (pixbuf: *const C_GdkPixbuf) -> enums::ColorSpace;
-    pub fn gdk_pixbuf_get_n_channels          (pixbuf: *const C_GdkPixbuf) -> c_int;
-    pub fn gdk_pixbuf_get_has_alpha           (pixbuf: *const C_GdkPixbuf) -> Gboolean;
-    pub fn gdk_pixbuf_get_bits_per_sample     (pixbuf: *const C_GdkPixbuf) -> c_int;
-    //pub fn gdk_pixbuf_get_pixels              (pixbuf: *const C_GdkPixbuf) -> *mut c_uchar;
-    pub fn gdk_pixbuf_get_pixels_with_length  (pixbuf: *const C_GdkPixbuf, length: *mut c_uint) -> *mut c_uchar;
-    pub fn gdk_pixbuf_get_width               (pixbuf: *const C_GdkPixbuf) -> c_int;
-    pub fn gdk_pixbuf_get_height              (pixbuf: *const C_GdkPixbuf) -> c_int;
-    pub fn gdk_pixbuf_get_rowstride           (pixbuf: *const C_GdkPixbuf) -> c_int;
-    pub fn gdk_pixbuf_get_byte_length         (pixbuf: *const C_GdkPixbuf) -> c_ulong;
-    pub fn gdk_pixbuf_get_option              (pixbuf: *const C_GdkPixbuf, key: *const c_char) -> *const c_char;
+    pub fn gdk_pixbuf_new(colorspace: enums::ColorSpace, has_alpha: Gboolean,
+        bits_per_sample: c_int, width: c_int, height: c_int) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_subpixbuf(src_pixbuf: *mut C_GdkPixbuf, src_x: c_int, src_y: c_int,
+        width: c_int, height: c_int) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_get_colorspace(pixbuf: *const C_GdkPixbuf) -> enums::ColorSpace;
+    pub fn gdk_pixbuf_get_n_channels(pixbuf: *const C_GdkPixbuf) -> c_int;
+    pub fn gdk_pixbuf_get_has_alpha(pixbuf: *const C_GdkPixbuf) -> Gboolean;
+    pub fn gdk_pixbuf_get_bits_per_sample(pixbuf: *const C_GdkPixbuf) -> c_int;
+    //pub fn gdk_pixbuf_get_pixels(pixbuf: *const C_GdkPixbuf) -> *mut c_uchar;
+    pub fn gdk_pixbuf_get_pixels_with_length(pixbuf: *const C_GdkPixbuf, length: *mut c_uint)
+        -> *mut c_uchar;
+    pub fn gdk_pixbuf_get_width(pixbuf: *const C_GdkPixbuf) -> c_int;
+    pub fn gdk_pixbuf_get_height(pixbuf: *const C_GdkPixbuf) -> c_int;
+    pub fn gdk_pixbuf_get_rowstride(pixbuf: *const C_GdkPixbuf) -> c_int;
+    pub fn gdk_pixbuf_get_byte_length(pixbuf: *const C_GdkPixbuf) -> c_ulong;
+    pub fn gdk_pixbuf_get_option(pixbuf: *const C_GdkPixbuf, key: *const c_char) -> *const c_char;
 
     //=========================================================================
     // GdkRectangle                                                      NOT OK

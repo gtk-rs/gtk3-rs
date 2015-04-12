@@ -15,6 +15,7 @@
 
 /// The GdkPixbuf structure contains information that describes an image in memory.
 
+use glib::to_gboolean;
 use glib::translate::{FromGlibPtr, ToGlibPtr};
 use ffi;
 use c_vec::CVec;
@@ -29,6 +30,24 @@ pub struct Pixbuf {
 }
 
 impl Pixbuf {
+    pub fn new(colorspace: ::ColorSpace, has_alpha: bool, bits_per_sample: i32, width: i32,
+            height: i32) -> Option<Pixbuf> {
+        match unsafe { ffi::gdk_pixbuf_new(colorspace, to_gboolean(has_alpha), bits_per_sample,
+                width, height) } {
+            pointer if !pointer.is_null() => Some(Pixbuf { pointer: pointer }),
+            _ => None
+        }
+    }
+
+    pub fn new_from_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) ->
+            Option<Pixbuf> {
+        match unsafe { ffi::gdk_pixbuf_new_from_subpixbuf(self.pointer, src_x, src_y, width,
+                height) } {
+            pointer if !pointer.is_null() => Some(Pixbuf { pointer: pointer }),
+            _ => None
+        }
+    }
+
     pub fn get_colorspace(&self) -> ::ColorSpace {
         unsafe { ffi::gdk_pixbuf_get_colorspace(self.pointer as *const ffi::C_GdkPixbuf) }
     }
