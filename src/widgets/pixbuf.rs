@@ -39,10 +39,9 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) ->
+    pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) ->
             Option<Pixbuf> {
-        match unsafe { ffi::gdk_pixbuf_new_from_subpixbuf(self.pointer, src_x, src_y, width,
-                height) } {
+        match unsafe { ffi::gdk_pixbuf_new_subpixbuf(self.pointer, src_x, src_y, width, height) } {
             pointer if !pointer.is_null() => Some(Pixbuf { pointer: pointer }),
             _ => None
         }
