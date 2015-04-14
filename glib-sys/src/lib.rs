@@ -34,6 +34,12 @@ pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
 
 #[repr(C)]
+pub struct C_GValue {
+    type_: GType,
+    data: [size_t; 2],
+}
+
+#[repr(C)]
 pub struct C_GList {
   pub data: *mut c_void,
   pub next: *mut C_GList,
@@ -58,9 +64,6 @@ pub struct C_GPermission;
 
 #[repr(C)]
 pub struct C_GObject;
-
-#[repr(C)]
-pub struct C_GValue;
 
 #[repr(C)]
 pub struct C_GMainLoop;
@@ -224,45 +227,45 @@ extern "C" {
     pub fn g_value_unset                       (value: *mut C_GValue);
     pub fn g_strdup_value_contents             (value: *mut C_GValue) -> *mut c_char;
     pub fn g_value_set_boolean                 (value: *mut C_GValue, b: Gboolean);
-    pub fn g_value_get_boolean                 (value: *mut C_GValue) -> Gboolean;
+    pub fn g_value_get_boolean                 (value: *const C_GValue) -> Gboolean;
     pub fn g_value_set_schar                   (value: *mut C_GValue, b: c_char);
-    pub fn g_value_get_schar                   (value: *mut C_GValue) -> c_char;
+    pub fn g_value_get_schar                   (value: *const C_GValue) -> c_char;
     pub fn g_value_set_uchar                   (value: *mut C_GValue, b: c_uchar);
-    pub fn g_value_get_uchar                   (value: *mut C_GValue) -> c_uchar;
+    pub fn g_value_get_uchar                   (value: *const C_GValue) -> c_uchar;
     pub fn g_value_set_int                     (value: *mut C_GValue, b: c_int);
-    pub fn g_value_get_int                     (value: *mut C_GValue) -> c_int;
+    pub fn g_value_get_int                     (value: *const C_GValue) -> c_int;
     pub fn g_value_set_uint                    (value: *mut C_GValue, b: c_uint);
-    pub fn g_value_get_uint                    (value: *mut C_GValue) -> c_uint;
+    pub fn g_value_get_uint                    (value: *const C_GValue) -> c_uint;
     pub fn g_value_set_long                    (value: *mut C_GValue, b: c_long);
-    pub fn g_value_get_long                    (value: *mut C_GValue) -> c_long;
+    pub fn g_value_get_long                    (value: *const C_GValue) -> c_long;
     pub fn g_value_set_ulong                   (value: *mut C_GValue, b: c_ulong);
-    pub fn g_value_get_ulong                   (value: *mut C_GValue) -> c_ulong;
+    pub fn g_value_get_ulong                   (value: *const C_GValue) -> c_ulong;
     pub fn g_value_set_int64                   (value: *mut C_GValue, b: i64);
-    pub fn g_value_get_int64                   (value: *mut C_GValue) -> i64;
+    pub fn g_value_get_int64                   (value: *const C_GValue) -> i64;
     pub fn g_value_set_uint64                  (value: *mut C_GValue, b: u64);
-    pub fn g_value_get_uint64                  (value: *mut C_GValue) -> u64;
+    pub fn g_value_get_uint64                  (value: *const C_GValue) -> u64;
     pub fn g_value_set_float                   (value: *mut C_GValue, b: c_float);
-    pub fn g_value_get_float                   (value: *mut C_GValue) -> c_float;
+    pub fn g_value_get_float                   (value: *const C_GValue) -> c_float;
     pub fn g_value_set_double                  (value: *mut C_GValue, b: c_double);
-    pub fn g_value_get_double                  (value: *mut C_GValue) -> c_double;
+    pub fn g_value_get_double                  (value: *const C_GValue) -> c_double;
     pub fn g_value_set_enum                    (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_enum                    (value: *mut C_GValue) -> GType;
+    pub fn g_value_get_enum                    (value: *const C_GValue) -> GType;
     pub fn g_value_set_flags                   (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_flags                   (value: *mut C_GValue) -> GType;
+    pub fn g_value_get_flags                   (value: *const C_GValue) -> GType;
     pub fn g_value_set_string                  (value: *mut C_GValue, b: *const c_char);
     pub fn g_value_set_static_string           (value: *mut C_GValue, b: *const c_char);
-    pub fn g_value_get_string                  (value: *mut C_GValue) -> *const c_char;
+    pub fn g_value_get_string                  (value: *const C_GValue) -> *const c_char;
     pub fn g_value_dup_string                  (value: *mut C_GValue) -> *mut c_char;
     pub fn g_value_set_boxed                   (value: *mut C_GValue, b: *const c_void);
     pub fn g_value_set_static_boxed            (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_boxed                   (value: *mut C_GValue) -> *const c_void;
+    pub fn g_value_get_boxed                   (value: *const C_GValue) -> *const c_void;
     pub fn g_value_set_pointer                 (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_pointer                 (value: *mut C_GValue) -> *const c_void;
+    pub fn g_value_get_pointer                 (value: *const C_GValue) -> *const c_void;
     pub fn g_value_set_object                  (value: *mut C_GValue, b: *const c_void);
     pub fn g_value_take_object                 (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_object                  (value: *mut C_GValue) -> *const c_void;
+    pub fn g_value_get_object                  (value: *const C_GValue) -> *const c_void;
     pub fn g_value_set_gtype                   (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_gtype                   (value: *mut C_GValue) -> GType;
+    pub fn g_value_get_gtype                   (value: *const C_GValue) -> GType;
     pub fn g_value_type_compatible             (src_type: GType, dest_type: GType) -> Gboolean;
     pub fn g_value_type_transformable          (src_type: GType, dest_type: GType) -> Gboolean;
 

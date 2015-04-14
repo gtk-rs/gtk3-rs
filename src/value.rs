@@ -15,6 +15,7 @@
 
 //! Generic values — A polymorphic type that can hold values of any other type
 
+use std::mem;
 use libc::c_char;
 use ffi;
 use super::{to_bool, to_gboolean};
@@ -23,227 +24,202 @@ use translate::{FromGlibPtr, ToGlib, ToGlibPtr, from_glib};
 
 pub trait ValuePublic {
     fn get(gvalue: &Value) -> Self;
-    fn set(&self, gvalue: &Value);
+    fn set(&self, gvalue: &mut Value);
 }
 
 // Possible improvment : store a function pointer inside the struct and make the struct templated
 pub struct Value {
-    pointer: *mut ffi::C_GValue
+    inner: ffi::C_GValue,
 }
 
 impl Value {
-    pub fn new() -> Option<Value> {
-        let tmp_pointer = unsafe { ffi::create_gvalue() };
-
-        if tmp_pointer.is_null() {
-            None
-        } else {
-            Some(Value {
-                pointer: tmp_pointer
-            })
-        }
+    pub fn new() -> Value {
+        unsafe { Value { inner: mem::zeroed() } }
     }
 
-    pub fn init(&self, _type: Type) {
-        unsafe { ffi::g_value_init(self.pointer, _type.to_glib()) }
+    pub fn init(&mut self, _type: Type) {
+        unsafe { ffi::g_value_init(&mut self.inner, _type.to_glib()) }
     }
 
-    pub fn reset(&self) {
-        unsafe { ffi::g_value_reset(self.pointer) }
+    pub fn reset(&mut self) {
+        unsafe { ffi::g_value_reset(&mut self.inner) }
     }
 
-    pub fn unset(&self) {
-        unsafe { ffi::g_value_unset(self.pointer) }
+    pub fn unset(&mut self) {
+        unsafe { ffi::g_value_unset(&mut self.inner) }
     }
 
-    pub fn strdup_value_contents(&self) -> Option<String> {
+    pub fn strdup_value_contents(&mut self) -> Option<String> {
         unsafe {
             FromGlibPtr::take(
-                ffi::g_strdup_value_contents(self.pointer) as *const c_char)
+                ffi::g_strdup_value_contents(&mut self.inner) as *const c_char)
         }
     }
 
-    fn set_boolean(&self, v_boolean: bool) {
-        unsafe { ffi::g_value_set_boolean(self.pointer, to_gboolean(v_boolean)) }
+    fn set_boolean(&mut self, v_boolean: bool) {
+        unsafe { ffi::g_value_set_boolean(&mut self.inner, to_gboolean(v_boolean)) }
     }
 
     fn get_boolean(&self) -> bool {
-        unsafe { to_bool(ffi::g_value_get_boolean(self.pointer)) }
+        unsafe { to_bool(ffi::g_value_get_boolean(&self.inner)) }
     }
 
-    fn set_schar(&self, v_char: i8) {
-        unsafe { ffi::g_value_set_schar(self.pointer, v_char) }
+    fn set_schar(&mut self, v_char: i8) {
+        unsafe { ffi::g_value_set_schar(&mut self.inner, v_char) }
     }
 
     fn get_schar(&self) -> i8 {
-        unsafe { ffi::g_value_get_schar(self.pointer) }
+        unsafe { ffi::g_value_get_schar(&self.inner) }
     }
 
-    fn set_uchar(&self, v_uchar: u8) {
-        unsafe { ffi::g_value_set_uchar(self.pointer, v_uchar) }
+    fn set_uchar(&mut self, v_uchar: u8) {
+        unsafe { ffi::g_value_set_uchar(&mut self.inner, v_uchar) }
     }
 
     fn get_uchar(&self) -> u8 {
-        unsafe { ffi::g_value_get_uchar(self.pointer) }
+        unsafe { ffi::g_value_get_uchar(&self.inner) }
     }
 
-    fn set_int(&self, v_int: i32) {
-        unsafe { ffi::g_value_set_int(self.pointer, v_int) }
+    fn set_int(&mut self, v_int: i32) {
+        unsafe { ffi::g_value_set_int(&mut self.inner, v_int) }
     }
 
     fn get_int(&self) -> i32 {
-        unsafe { ffi::g_value_get_int(self.pointer) }
+        unsafe { ffi::g_value_get_int(&self.inner) }
     }
 
-    fn set_uint(&self, v_uint: u32) {
-        unsafe { ffi::g_value_set_uint(self.pointer, v_uint) }
+    fn set_uint(&mut self, v_uint: u32) {
+        unsafe { ffi::g_value_set_uint(&mut self.inner, v_uint) }
     }
 
     fn get_uint(&self) -> u32 {
-        unsafe { ffi::g_value_get_uint(self.pointer) }
+        unsafe { ffi::g_value_get_uint(&self.inner) }
     }
 
-    pub fn set_long(&self, v_long: i64) {
-        unsafe { ffi::g_value_set_long(self.pointer, v_long as ::libc::c_long) }
+    pub fn set_long(&mut self, v_long: i64) {
+        unsafe { ffi::g_value_set_long(&mut self.inner, v_long as ::libc::c_long) }
     }
 
     pub fn get_long(&self) -> i64 {
-        unsafe { ffi::g_value_get_long(self.pointer) as i64 }
+        unsafe { ffi::g_value_get_long(&self.inner) as i64 }
     }
 
-    pub fn set_ulong(&self, v_ulong: u64) {
-        unsafe { ffi::g_value_set_ulong(self.pointer, v_ulong as ::libc::c_ulong) }
+    pub fn set_ulong(&mut self, v_ulong: u64) {
+        unsafe { ffi::g_value_set_ulong(&mut self.inner, v_ulong as ::libc::c_ulong) }
     }
 
     pub fn get_ulong(&self) -> u64 {
-        unsafe { ffi::g_value_get_ulong(self.pointer) as u64 }
+        unsafe { ffi::g_value_get_ulong(&self.inner) as u64 }
     }
 
-    fn set_int64(&self, v_int64: i64) {
-        unsafe { ffi::g_value_set_int64(self.pointer, v_int64) }
+    fn set_int64(&mut self, v_int64: i64) {
+        unsafe { ffi::g_value_set_int64(&mut self.inner, v_int64) }
     }
 
     fn get_int64(&self) -> i64 {
-        unsafe { ffi::g_value_get_int64(self.pointer) }
+        unsafe { ffi::g_value_get_int64(&self.inner) }
     }
 
-    fn set_uint64(&self, v_uint64: u64) {
-        unsafe { ffi::g_value_set_uint64(self.pointer, v_uint64) }
+    fn set_uint64(&mut self, v_uint64: u64) {
+        unsafe { ffi::g_value_set_uint64(&mut self.inner, v_uint64) }
     }
 
     fn get_uint64(&self) -> u64 {
-        unsafe { ffi::g_value_get_uint64(self.pointer) }
+        unsafe { ffi::g_value_get_uint64(&self.inner) }
     }
 
-    fn set_float(&self, v_float: f32) {
-        unsafe { ffi::g_value_set_float(self.pointer, v_float) }
+    fn set_float(&mut self, v_float: f32) {
+        unsafe { ffi::g_value_set_float(&mut self.inner, v_float) }
     }
 
     fn get_float(&self) -> f32 {
-        unsafe { ffi::g_value_get_float(self.pointer) }
+        unsafe { ffi::g_value_get_float(&self.inner) }
     }
 
-    fn set_double(&self, v_double: f64) {
-        unsafe { ffi::g_value_set_double(self.pointer, v_double) }
+    fn set_double(&mut self, v_double: f64) {
+        unsafe { ffi::g_value_set_double(&mut self.inner, v_double) }
     }
 
     fn get_double(&self) -> f64 {
-        unsafe { ffi::g_value_get_double(self.pointer) }
+        unsafe { ffi::g_value_get_double(&self.inner) }
     }
 
     // FIXME shouldn't be like that
-    pub fn set_enum(&self, v_enum: Type) {
-        unsafe { ffi::g_value_set_enum(self.pointer, v_enum.to_glib()) }
+    pub fn set_enum(&mut self, v_enum: Type) {
+        unsafe { ffi::g_value_set_enum(&mut self.inner, v_enum.to_glib()) }
     }
 
     // FIXME shouldn't be like that
     pub fn get_enum(&self) -> Type {
-        unsafe { from_glib(ffi::g_value_get_enum(self.pointer)) }
+        unsafe { from_glib(ffi::g_value_get_enum(&self.inner)) }
     }
 
     // FIXME shouldn't be like that
-    pub fn set_flags(&self, v_flags: Type) {
-        unsafe { ffi::g_value_set_flags(self.pointer, v_flags.to_glib()) }
+    pub fn set_flags(&mut self, v_flags: Type) {
+        unsafe { ffi::g_value_set_flags(&mut self.inner, v_flags.to_glib()) }
     }
 
     // FIXME shouldn't be like that
     pub fn get_flags(&self) -> Type {
-        unsafe { from_glib(ffi::g_value_get_flags(self.pointer)) }
+        unsafe { from_glib(ffi::g_value_get_flags(&self.inner)) }
     }
 
-    fn set_string(&self, v_string: &str) {
+    fn set_string(&mut self, v_string: &str) {
         unsafe {
-            ffi::g_value_set_string(self.pointer, v_string.borrow_to_glib().0);
+            ffi::g_value_set_string(&mut self.inner, v_string.borrow_to_glib().0);
         }
     }
-
-    /*pub fn take_string(&self, v_string: &str) {
-        unsafe {
-            v_string.with_c_str(|c_str| {
-                ffi::g_value_take_string(self.pointer, c_str)
-        }
-    }*/
 
     pub fn get_string(&self) -> Option<String> {
         unsafe {
             FromGlibPtr::borrow(
-                ffi::g_value_get_string(self.pointer))
+                ffi::g_value_get_string(&self.inner))
         }
     }
 
-    pub fn set_boxed<T>(&self, v_box: &T) {
-        unsafe { ffi::g_value_set_boxed(self.pointer, ::std::mem::transmute(v_box)) }
+    pub fn set_boxed<T>(&mut self, v_box: &T) {
+        unsafe { ffi::g_value_set_boxed(&mut self.inner, ::std::mem::transmute(v_box)) }
     }
 
     /*pub fn take_boxed<T>(&self, v_box: &T) {
-        unsafe { ffi::g_value_take_boxed(self.pointer, ::std::mem::transmute(v_box)) }
+        unsafe { ffi::g_value_take_boxed(&mut self.inner, ::std::mem::transmute(v_box)) }
     }*/
 
     pub fn get_boxed<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(ffi::g_value_get_boxed(self.pointer)) }
+        unsafe { ::std::mem::transmute(ffi::g_value_get_boxed(&self.inner)) }
     }
 
     /*pub fn dup_boxed<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(ffi::g_value_dup_boxed(self.pointer)) }
+        unsafe { ::std::mem::transmute(ffi::g_value_dup_boxed(&mut self.inner)) }
     }*/
 
-    pub fn set_pointer<T>(&self, v_pointer: &T) {
-        unsafe { ffi::g_value_set_pointer(self.pointer, ::std::mem::transmute(v_pointer)) }
+    pub fn set_pointer<T>(&mut self, v_pointer: &T) {
+        unsafe { ffi::g_value_set_pointer(&mut self.inner, ::std::mem::transmute(v_pointer)) }
     }
 
     pub fn get_pointer<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(ffi::g_value_get_pointer(self.pointer)) }
+        unsafe { ::std::mem::transmute(ffi::g_value_get_pointer(&self.inner)) }
     }
 
-    pub fn set_object<T>(&self, v_object: &T) {
-        unsafe { ffi::g_value_set_object(self.pointer, ::std::mem::transmute(v_object)) }
-    }
-
-    /// Sets the contents of a G_TYPE_OBJECT derived Value to v_object and takes over the ownership of the callers reference to
-    /// v_object ; the caller doesn't have to unref it any more (i.e. the reference count of the object is not increased).
-    pub fn take_object<T>(&self, v_object: &T) {
-        unsafe { ffi::g_value_take_object(self.pointer, ::std::mem::transmute(v_object)) }
+    pub fn set_object<T>(&mut self, v_object: &T) {
+        unsafe { ffi::g_value_set_object(&mut self.inner, ::std::mem::transmute(v_object)) }
     }
 
     pub fn get_object<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(ffi::g_value_get_object(self.pointer)) }
+        unsafe { ::std::mem::transmute(ffi::g_value_get_object(&self.inner)) }
     }
 
-    /*pub fn dup_object<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(ffi::g_value_dup_object(self.pointer)) }
-    }*/
-
     // FIXME shouldn't be like that
-    fn set_gtype(&self, v_gtype: Type) {
-        unsafe { ffi::g_value_set_gtype(self.pointer, v_gtype.to_glib()) }
+    fn set_gtype(&mut self, v_gtype: Type) {
+        unsafe { ffi::g_value_set_gtype(&mut self.inner, v_gtype.to_glib()) }
     }
 
     // FIXME shouldn't be like that
     fn get_gtype(&self) -> Type {
-        unsafe { from_glib(ffi::g_value_get_gtype(self.pointer)) }
+        unsafe { from_glib(ffi::g_value_get_gtype(&self.inner)) }
     }
 
-    pub fn set<T: ValuePublic>(&self, val: &T) {
+    pub fn set<T: ValuePublic>(&mut self, val: &T) {
         val.set(self);
     }
 
@@ -259,25 +235,18 @@ impl Value {
         unsafe { to_bool(ffi::g_value_type_transformable(src_type.to_glib(), dest_type.to_glib())) }
     }
 
-    #[doc(hidden)]
-    pub fn unwrap_pointer(&self) -> *mut ffi::C_GValue {
-        self.pointer
+    pub fn as_ptr(&self) -> *const ffi::C_GValue {
+        &self.inner
     }
 
-    #[doc(hidden)]
-    pub fn wrap_pointer(c_value: *mut ffi::C_GValue) -> Value {
-        Value {
-            pointer: c_value
-        }
+    pub fn as_mut_ptr(&mut self) -> *mut ffi::C_GValue {
+        &mut self.inner
     }
 }
 
 impl Drop for Value {
     fn drop(&mut self) {
-        if !self.pointer.is_null() {
-            unsafe { ::libc::funcs::c95::stdlib::free(self.pointer as *mut ::libc::types::common::c95::c_void) };
-            self.pointer = ::std::ptr::null_mut();
-        }
+        self.unset();
     }
 }
 
@@ -286,7 +255,7 @@ impl ValuePublic for i32 {
         gvalue.get_int()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_int(*self)
     }
 }
@@ -296,7 +265,7 @@ impl ValuePublic for u32 {
         gvalue.get_uint()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_uint(*self)
     }
 }
@@ -306,7 +275,7 @@ impl ValuePublic for i64 {
         gvalue.get_int64()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_int64(*self)
     }
 }
@@ -316,7 +285,7 @@ impl ValuePublic for u64 {
         gvalue.get_uint64()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_uint64(*self)
     }
 }
@@ -326,7 +295,7 @@ impl ValuePublic for bool {
         gvalue.get_boolean()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_boolean(*self)
     }
 }
@@ -336,7 +305,7 @@ impl ValuePublic for i8 {
         gvalue.get_schar()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_schar(*self)
     }
 }
@@ -346,7 +315,7 @@ impl ValuePublic for u8 {
         gvalue.get_uchar()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_uchar(*self)
     }
 }
@@ -356,7 +325,7 @@ impl ValuePublic for f32 {
         gvalue.get_float()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_float(*self)
     }
 }
@@ -366,7 +335,7 @@ impl ValuePublic for f64 {
         gvalue.get_double()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_double(*self)
     }
 }
@@ -376,7 +345,7 @@ impl ValuePublic for Type {
         gvalue.get_gtype()
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_gtype(*self)
     }
 }
@@ -389,7 +358,7 @@ impl ValuePublic for String {
         }
     }
 
-    fn set(&self, gvalue: &Value) {
+    fn set(&self, gvalue: &mut Value) {
         gvalue.set_string(self.as_ref())
     }
 }
