@@ -17,11 +17,11 @@
 
 extern crate libc;
 
-use libc::{c_void, c_int, c_uint, c_float, c_double, c_char, c_uchar, c_long, c_ulong};
+use libc::{c_void, c_int, c_uint, c_float, c_double, c_char, c_uchar, c_long, c_ulong, size_t};
 
 pub type GQuark = u32;
 
-pub type GType = c_ulong;
+pub type GType = size_t;
 
 pub type Gboolean = c_int;
 pub const GFALSE:  c_int = 0;
