@@ -128,9 +128,19 @@ pub trait ToGlib {
     fn to_glib(&self) -> Self::GlibType;
 }
 
+impl ToGlib for () {
+    type GlibType = ();
+
+    #[inline]
+    fn to_glib(&self) -> () {
+        ()
+    }
+}
+
 impl ToGlib for bool {
     type GlibType = ffi::Gboolean;
 
+    #[inline]
     fn to_glib(&self) -> ffi::Gboolean {
         if *self { ffi::GTRUE } else { ffi::GFALSE }
     }
