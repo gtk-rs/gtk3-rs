@@ -5,20 +5,8 @@
 
 use libc::c_void;
 
-use ffi::{self, Gboolean, gpointer, GCallback};
-use translate::{ToGlib, ToGlibPtr};
-
-/// Whether to propagate the signal to other handlers
-pub struct Propagate(pub bool);
-
-impl ToGlib for Propagate {
-    type GlibType = Gboolean;
-
-    #[inline]
-    fn to_glib(&self) -> Gboolean {
-        self.0.to_glib()
-    }
-}
+use ffi::{self, gpointer, GCallback};
+use translate::ToGlibPtr;
 
 pub unsafe fn connect(receiver: gpointer, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn()>) -> u64 {
