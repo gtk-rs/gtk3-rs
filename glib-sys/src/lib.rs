@@ -27,9 +27,11 @@ pub type Gboolean = c_int;
 pub const GFALSE:  c_int = 0;
 pub const GTRUE:   c_int = 1;
 
-pub type gpointer = *const c_void;
+pub type gpointer = *mut c_void;
 
-pub type GSourceFunc = fn(user_data: gpointer) -> Gboolean;
+pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> Gboolean;
+pub type GCallback = extern "C" fn();
+pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
 
 #[repr(C)]
 pub struct C_GList {
@@ -363,4 +365,11 @@ extern "C" {
     pub fn g_source_remove                     (tag: c_uint) -> Gboolean;
     //pub fn g_source_remove_by_funcs_user_data  ();
     pub fn g_source_remove_by_user_data        (user_data: gpointer) -> Gboolean;
+
+    //=========================================================================
+    // GSignal
+    //=========================================================================
+    pub fn g_signal_connect_data(instance: gpointer, detailed_signal: *const c_char,
+                                 c_handler: GCallback, data: gpointer,
+                                 destroy_data: GClosureNotify, connect_flags: c_int) -> c_ulong;
 }

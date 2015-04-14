@@ -7,6 +7,8 @@
 Bindings and wrappers for __GLib__
 */
 
+#![feature(alloc)]
+
 extern crate libc;
 extern crate glib_sys as glib_ffi;
 
@@ -29,6 +31,7 @@ mod slist;
 pub mod glib_container;
 mod error;
 mod permission;
+pub mod signal;
 pub mod timeout_func;
 pub mod traits;
 pub mod translate;
