@@ -1,7 +1,7 @@
 [package]
 name = "pango-sys"
 version = "0.1.0"
-authors = ["letang.jeremy@gmail.com", "guillaume1.gomez@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
+authors = ["The Rust-GNOME Project Developers"]
 build = "build.rs"
 links = "pango"
 
