@@ -1,4 +1,4 @@
-The Rust-gnome Project is copyright 2015, The Rust-gnome Project Developers:
+The Rust-GNOME Project is copyright 2013-2015, The Rust-GNOME Project Developers:
 
 Boden Garman <bpgarman@fastmail.fm>
 Brian Kropf <brian.kropf@gmail.com>
@@ -16,6 +16,7 @@ Mathijs Henquet <mathijs.henquet@gmail.com>
 Nick Herman <gerkola@gmail.com>
 Ömer Sinan Ağacan <omeragacan@gmail.com>
 Philipp Brüschweiler <blei42@gmail.com>
+S.J.R. van Schaik <stephan@synkhronix.com>
 Sebastian Schulze <me@bstr.eu>
 Simon Sapin <simon.sapin@exyr.org>
 Steve Klabnik <steve@steveklabnik.com>
@@ -23,7 +24,7 @@ Tobias Bales <tobias.raeder@gmail.com>
 Zach Oakes <zsoakes@gmail.com>
 Zach Ploskey <zach@ploskey.com>
 
-The Rust-gnome Project is licensed under the MIT license, see the LICENSE file
+The Rust-GNOME Project is licensed under the MIT license, see the LICENSE file
 or <http://opensource.org/licenses/MIT>.
 
 This project provides interoperability with various GNOME libraries but doesn't
