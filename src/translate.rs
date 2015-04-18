@@ -369,13 +369,13 @@ pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: Sized {
 }
 
 unsafe fn c_array_len<P: Ptr>(mut ptr: *const P) -> usize {
-    if ptr.is_null() {
-        return 0;
-    }
     let mut len = 0;
-    while !(*ptr).is_null() {
-        len += 1;
-        ptr = ptr.offset(1);
+
+    if !ptr.is_null() {
+        while !(*ptr).is_null() {
+            len += 1;
+            ptr = ptr.offset(1);
+        }
     }
     len
 }
