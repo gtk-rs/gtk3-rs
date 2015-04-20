@@ -3,9 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 /*!
-
 Bindings and wrappers for __GDK__
-
 */
 
 #![feature(unique)]
