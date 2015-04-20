@@ -30,15 +30,15 @@ pub struct C_GValue {
 
 #[repr(C)]
 pub struct C_GList {
-  pub data: *mut c_void,
-  pub next: *mut C_GList,
-  pub prev: *mut C_GList
+    pub data: *mut c_void,
+    pub next: *mut C_GList,
+    pub prev: *mut C_GList
 }
 
 #[repr(C)]
 pub struct C_GSList {
-  pub data: *mut c_void,
-  pub next: *mut C_GSList
+    pub data: *mut c_void,
+    pub next: *mut C_GSList
 }
 
 #[repr(C)]
