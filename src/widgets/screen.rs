@@ -159,11 +159,6 @@ impl Screen {
             Some(::Window::wrap_pointer(tmp))
         }
     }
-
-    pub unsafe fn wrap(ptr: *mut ffi::C_GdkScreen) -> Screen {
-        ::glib_ffi::g_object_ref(ptr as *mut _);
-        Screen { pointer: ptr }
-    }
 }
 
 impl_GObjectFunctions!(Screen, C_GdkScreen);
