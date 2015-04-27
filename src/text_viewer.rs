@@ -2,14 +2,11 @@
 //!
 //! A simple text file viewer
 
-#![feature(core)]
-
 extern crate gtk;
 
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::fs::File;
-use std::num::FromPrimitive;
 
 use gtk::traits::*;
 use gtk::signal::Inhibit;
@@ -47,21 +44,16 @@ fn main() {
         let file_chooser = gtk::FileChooserDialog::new(
             "Open File", None, gtk::FileChooserAction::Open,
             [("Open", gtk::ResponseType::Ok), ("Cancel", gtk::ResponseType::Cancel)]);
-        let response: Option<gtk::ResponseType> = FromPrimitive::from_i32(file_chooser.run());
+        if file_chooser.run() == gtk::ResponseType::Ok as i32 {
+            let filename = file_chooser.get_filename().unwrap();
+            let file = File::open(&filename).unwrap();
 
-        match response {
-            Some(gtk::ResponseType::Ok) => {
-                let filename = file_chooser.get_filename().unwrap();
-                let file = File::open(&filename).unwrap();
+            let mut reader = BufReader::new(file);
+            let mut contents = String::new();
+            let _ = reader.read_to_string(&mut contents);
 
-                let mut reader = BufReader::new(file);
-                let mut contents = String::new();
-                let _ = reader.read_to_string(&mut contents);
-
-                text_view.get_buffer().unwrap().set_text(&contents);
-            },
-            _ => {}
-        };
+            text_view.get_buffer().unwrap().set_text(&contents);
+        }
 
         file_chooser.destroy();
     });
