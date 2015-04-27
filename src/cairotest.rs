@@ -1,9 +1,7 @@
-#![feature(core)]
-
 extern crate cairo;
 extern crate gtk;
 
-use std::f64::consts::PI_2;
+use std::f64::consts::PI;
 
 use gtk::Widget;
 use gtk::traits::*;
@@ -36,7 +34,7 @@ fn main() {
         cr.set_line_width(0.03);
 
         // draw circle
-        cr.arc(0.5, 0.5, 0.4, 0.0, PI_2);
+        cr.arc(0.5, 0.5, 0.4, 0.0, PI * 2.);
         cr.stroke();
 
 
@@ -58,10 +56,10 @@ fn main() {
 
         let eye_y = 0.38;
         let eye_dx = 0.15;
-        cr.arc(0.5 - eye_dx, eye_y, 0.05, 0.0, PI_2);
+        cr.arc(0.5 - eye_dx, eye_y, 0.05, 0.0, PI * 2.);
         cr.fill();
 
-        cr.arc(0.5 + eye_dx, eye_y, 0.05, 0.0, PI_2);
+        cr.arc(0.5 + eye_dx, eye_y, 0.05, 0.0, PI * 2.);
         cr.fill();
 
         Inhibit(false)
@@ -85,8 +83,8 @@ fn main() {
         cr.stroke();
 
         cr.set_source_rgba(1.0, 0.2, 0.2, 0.6);
-        cr.arc(0.04, 0.53, 0.02, 0.0, PI_2);
-        cr.arc(0.27, 0.65, 0.02, 0.0, PI_2);
+        cr.arc(0.04, 0.53, 0.02, 0.0, PI * 2.);
+        cr.arc(0.27, 0.65, 0.02, 0.0, PI * 2.);
         cr.fill();
 
         Inhibit(false)
