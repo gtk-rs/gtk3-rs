@@ -6,6 +6,8 @@ authors = ["The Rust-GNOME Project Developers"]
 description = "Rust bindings for the GLib library"
 repository = "https://github.com/rust-gnome/glib"
 license = "MIT"
+readme="README.md"
+keywords=["glib", "gtk", "gnome", "GUI"]
 
 [lib]
 name = "glib"
