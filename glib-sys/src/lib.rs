@@ -198,7 +198,7 @@ extern "C" {
     //=========================================================================
     // GObject
     //=========================================================================
-    pub fn g_object_ref(object: *mut c_void) -> *mut C_GObject;
+    pub fn g_object_ref(object: *mut c_void) -> *mut c_void;
     pub fn g_object_unref(object: *mut c_void);
 
     pub fn glue_signal_connect(g_object: *mut C_GObject,
