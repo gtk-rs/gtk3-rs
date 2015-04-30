@@ -4,7 +4,6 @@
 
 use glib::translate::ToGlibPtr;
 use c_vec::CVec;
-use std::ptr::Unique;
 use std::mem::transmute;
 use libc::{c_double, c_int};
 use ::paths::Path;
@@ -330,7 +329,7 @@ impl Context {
 
             RectangleVec {
                 ptr: rectangle_list,
-                rectangles: CVec::new(Unique::new((*rectangle_list).rectangles),
+                rectangles: CVec::new((*rectangle_list).rectangles,
                                       (*rectangle_list).num_rectangles as usize),
             }
         }
