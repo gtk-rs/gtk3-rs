@@ -14,7 +14,6 @@ name = "glib"
 
 [dependencies]
 libc = "0.1"
-c_vec = "^1.0.0"
 
 [dependencies.glib-sys]
 path = "./glib-sys"
