@@ -12,7 +12,6 @@ name = "pango"
 
 [dependencies]
 libc = "0.1"
-c_vec = "^1.0.0"
 
 [dependencies.pango-sys]
 path = "pango-sys"
