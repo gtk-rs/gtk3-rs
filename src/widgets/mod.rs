@@ -16,6 +16,8 @@ pub use self::frame_clock::FrameClock;
 #[cfg(feature = "gdk_3_8")]
 pub use self::frame_timings::FrameTimings;
 pub use self::pixbuf::Pixbuf;
+pub use self::pixbuf_format::PixbufFormat;
+pub use self::pixbuf_loader::PixbufLoader;
 pub use self::point::Point;
 pub use self::rectangle::Rectangle;
 pub use self::rgba::RGBA;
@@ -36,6 +38,8 @@ mod frame_clock;
 #[cfg(feature = "gdk_3_8")]
 mod frame_timings;
 mod pixbuf;
+mod pixbuf_format;
+mod pixbuf_loader;
 mod point;
 mod rectangle;
 mod rgba;
