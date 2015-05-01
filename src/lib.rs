@@ -114,7 +114,9 @@ pub use self::widgets::{
     DisplayManager,
     WindowAttr,
     DragContext,
-    AppLaunchContext
+    AppLaunchContext,
+    PixbufFormat,
+    PixbufLoader
 };
 #[cfg(feature = "gdk_3_8")]
 pub use self::widgets::{
