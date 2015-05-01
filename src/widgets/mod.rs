@@ -38,6 +38,8 @@ mod frame_clock;
 #[cfg(feature = "gdk_3_8")]
 mod frame_timings;
 mod pixbuf;
+mod pixbuf_format;
+mod pixbuf_loader;
 mod point;
 mod rectangle;
 mod rgba;

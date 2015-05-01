@@ -17,7 +17,8 @@
 
 use ffi;
 use glib::{to_bool, to_gboolean};
-use glib::translate::{FromGlibPtr, ToGlibPtr, FromGlibPtrContainer};
+use glib::translate::{FromGlibPtr, FromGlibPtrContainer};
+use libc::c_char;
 
 #[repr(C)]
 pub struct PixbufFormat {
@@ -26,7 +27,7 @@ pub struct PixbufFormat {
 
 impl PixbufFormat {
     pub fn copy(&self) -> Option<PixbufFormat> {
-        let tmp = unsafe { ffi::gdk_pixbuf_format_copy() };
+        let tmp = unsafe { ffi::gdk_pixbuf_format_copy(self.unwrap_pointer()) };
 
         if tmp.is_null() {
             None
@@ -52,7 +53,7 @@ impl PixbufFormat {
     pub fn get_mime_types(&self) -> Vec<String> {
         unsafe {
             let mut length = 0;
-            let ptr = ffi::gdk_pixbuf_format_get_mime_types(self.unwrap_pointer())) as *const *const c_char;
+            let ptr = ffi::gdk_pixbuf_format_get_mime_types(self.unwrap_pointer()) as *const *const c_char;
 
             loop {
                 if ptr.offset(length).is_null() {
@@ -63,7 +64,7 @@ impl PixbufFormat {
             if length == 0 {
                 Vec::new()
             } else {
-                FromGlibPtrContainer::borrow_num(ptr, length)
+                FromGlibPtrContainer::borrow_num(ptr, length as usize)
             }
         }
     }
@@ -71,7 +72,7 @@ impl PixbufFormat {
     pub fn get_extensions(&self) -> Vec<String> {
         unsafe {
             let mut length = 0;
-            let ptr = ffi::gdk_pixbuf_format_get_extensions(self.unwrap_pointer())) as *const *const c_char;
+            let ptr = ffi::gdk_pixbuf_format_get_extensions(self.unwrap_pointer()) as *const *const c_char;
 
             loop {
                 if ptr.offset(length).is_null() {
@@ -82,7 +83,7 @@ impl PixbufFormat {
             if length == 0 {
                 Vec::new()
             } else {
-                FromGlibPtrContainer::borrow_num(ptr, length)
+                FromGlibPtrContainer::borrow_num(ptr, length as usize)
             }
         }
     }
@@ -99,7 +100,7 @@ impl PixbufFormat {
         unsafe { to_bool(ffi::gdk_pixbuf_format_is_disabled(self.unwrap_pointer())) }
     }
 
-    pub fn set_disabled(&self, disabled: bool) -> bool {
+    pub fn set_disabled(&self, disabled: bool) {
         unsafe { ffi::gdk_pixbuf_format_set_disabled(self.unwrap_pointer(), to_gboolean(disabled)) }
     }
 

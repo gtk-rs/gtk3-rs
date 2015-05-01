@@ -16,7 +16,9 @@
 //! GdkDeviceManager — Functions for handling input devices
 
 use ffi;
-use glib::to_bool;
+use glib::{to_bool, GlibContainer};
+use glib::translate::ToGlibPtr;
+use libc::{c_int, c_uint};
 
 #[repr(C)]
 pub struct PixbufLoader {
@@ -35,7 +37,7 @@ impl PixbufLoader {
     }
 
     pub fn new_with_type(image_type: &str, error: &mut ::glib::Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error.unwrap_pointer()) };
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error.unwrap()) };
 
         if tmp.is_null() {
             None
@@ -45,7 +47,7 @@ impl PixbufLoader {
     }
 
     pub fn new_with_mime_type(mime_type: &str, error: &mut ::glib::Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error.unwrap_pointer()) };
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error.unwrap()) };
 
         if tmp.is_null() {
             None
@@ -65,7 +67,7 @@ impl PixbufLoader {
     }
 
     pub fn loader_write(&self, buf: &[u8], error: &mut ::glib::Error) -> bool {
-        unsafe { to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), &mut error.unwrap_pointer())) }
+        unsafe { to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error.unwrap())) }
     }
 
     /*pub fn loader_write_bytes(&self, buffer: &glib::Bytes, error: &mut ::glib::Error) -> bool {
@@ -73,7 +75,7 @@ impl PixbufLoader {
     }*/
 
     pub fn set_size(&self, width: isize, height: isize) {
-        unsafe { ffi::gdk_pixbuf_loader_set_size(self.unwrap_pointer(), width, height) }
+        unsafe { ffi::gdk_pixbuf_loader_set_size(self.unwrap_pointer(), width as c_int, height as c_int) }
     }
 
     pub fn get_pixbuf(&self) -> Option<::Pixbuf> {
@@ -97,7 +99,7 @@ impl PixbufLoader {
     }*/
 
     pub fn close(&self, error: &mut ::glib::Error) -> bool {
-        unsafe { to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error.unwrap_pointer())) }
+        unsafe { to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error.unwrap())) }
     }
 }
 

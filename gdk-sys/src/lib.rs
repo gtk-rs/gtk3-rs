@@ -125,7 +125,7 @@ pub struct C_GdkDragContext;
 #[repr(C)]
 pub struct C_GdkPixbufLoader;
 #[repr(C)]
-pub struct C_GDkPixbufFormat;
+pub struct C_GdkPixbufFormat;
 
 // GdkWindowAttributesTypes
 /// Honor the title field
@@ -637,12 +637,12 @@ extern "C" {
     pub fn gdk_pixbuf_loader_new                    () -> *mut C_GdkPixbufLoader;
     pub fn gdk_pixbuf_loader_new_with_type          (image_type: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufLoader;
     pub fn gdk_pixbuf_loader_new_with_mime_type     (mime_type: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufLoader;
-    pub fn gdk_pixbuf_loader_get_format             (loader: *mut C_GdkPixbufLoader) -> *mut C_GDkPixbufFormat;
+    pub fn gdk_pixbuf_loader_get_format             (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbufFormat;
     pub fn gdk_pixbuf_loader_write                  (loader: *mut C_GdkPixbufLoader, buf: *const u8, count: u32,
         error: *mut *mut glib_ffi::C_GError) -> Gboolean;
     //pub fn gdk_pixbuf_loader_write_bytes            (loader: *mut C_GdkPixbufLoader, buffer: glib_ffi::C_GBytes,
     //    error: *mut *mut glib_ffi::C_GError) -> Gboolean;
-    pub fn gdk_pixbuf_loader_set_size               (loader: *mut C_GdkPixbufLoader, width: c_int, height: int);
+    pub fn gdk_pixbuf_loader_set_size               (loader: *mut C_GdkPixbufLoader, width: c_int, height: c_int);
     pub fn gdk_pixbuf_loader_get_pixbuf             (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbuf;
     //pub fn gdk_pixbuf_loader_get_animation          (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbufAnimation;
     pub fn gdk_pixbuf_loader_close                  (loader: *mut C_GdkPixbufLoader, error: *mut *mut glib_ffi::C_GError) -> Gboolean;
@@ -650,15 +650,15 @@ extern "C" {
     //=========================================================================
     // GdkPixbufFormat                                                   NOT OK
     //=========================================================================
-    pub fn gdk_pixbuf_format_copy                   (format: *const C_GDkPixbufFormat) -> *mut C_GDkPixbufFormat;
-    pub fn gdk_pixbuf_format_free                   (format: *mut C_GDkPixbufFormat);
-    pub fn gdk_pixbuf_format_get_name               (format: *mut C_GDkPixbufFormat) -> *mut c_char;
-    pub fn gdk_pixbuf_format_get_description        (format: *mut C_GDkPixbufFormat) -> *mut c_char;
-    pub fn gdk_pixbuf_format_get_mime_types         (format: *mut C_GDkPixbufFormat) -> *mut *mut c_char;
-    pub fn gdk_pixbuf_format_get_extensions         (format: *mut C_GDkPixbufFormat) -> *mut *mut c_char;
-    pub fn gdk_pixbuf_format_is_writable            (format: *mut C_GDkPixbufFormat) -> Gboolean;
-    pub fn gdk_pixbuf_format_is_scalable            (format: *mut C_GDkPixbufFormat) -> Gboolean;
-    pub fn gdk_pixbuf_format_is_disabled            (format: *mut C_GDkPixbufFormat) -> Gboolean;
-    pub fn gdk_pixbuf_format_set_disabled           (format: *mut C_GDkPixbufFormat, disabled: Gboolean);
-    pub fn gdk_pixbuf_format_get_license            (format: *mut C_GDkPixbufFormat) -> *mut c_char;
+    pub fn gdk_pixbuf_format_copy                   (format: *const C_GdkPixbufFormat) -> *mut C_GdkPixbufFormat;
+    pub fn gdk_pixbuf_format_free                   (format: *mut C_GdkPixbufFormat);
+    pub fn gdk_pixbuf_format_get_name               (format: *mut C_GdkPixbufFormat) -> *mut c_char;
+    pub fn gdk_pixbuf_format_get_description        (format: *mut C_GdkPixbufFormat) -> *mut c_char;
+    pub fn gdk_pixbuf_format_get_mime_types         (format: *mut C_GdkPixbufFormat) -> *mut *mut c_char;
+    pub fn gdk_pixbuf_format_get_extensions         (format: *mut C_GdkPixbufFormat) -> *mut *mut c_char;
+    pub fn gdk_pixbuf_format_is_writable            (format: *mut C_GdkPixbufFormat) -> Gboolean;
+    pub fn gdk_pixbuf_format_is_scalable            (format: *mut C_GdkPixbufFormat) -> Gboolean;
+    pub fn gdk_pixbuf_format_is_disabled            (format: *mut C_GdkPixbufFormat) -> Gboolean;
+    pub fn gdk_pixbuf_format_set_disabled           (format: *mut C_GdkPixbufFormat, disabled: Gboolean);
+    pub fn gdk_pixbuf_format_get_license            (format: *mut C_GdkPixbufFormat) -> *mut c_char;
 }
