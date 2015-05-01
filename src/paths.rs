@@ -4,7 +4,6 @@
 
 use std::mem::transmute;
 use std::iter::Iterator;
-use std::ptr::Unique;
 use c_vec::CVec;
 use ffi::enums::PathDataType;
 use ffi::{
@@ -37,7 +36,7 @@ impl Path {
         unsafe {
             let ptr: *mut cairo_path_t = self.get_ptr();
             let length = (*ptr).num_data as usize;
-            let data_ptr = Unique::new((*ptr).data);
+            let data_ptr = (*ptr).data;
 
             PathSegments {
                 data: CVec::new(data_ptr, length),

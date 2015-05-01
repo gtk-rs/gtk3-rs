@@ -17,7 +17,7 @@ cairo_1_12 = ["cairo-sys/cairo_1_12", "cairo_1_10"]
 
 [dependencies]
 libc = "0.1"
-c_vec = "^1.0.0"
+c_vec = "~1.0"
 
 [dependencies.glib]
 git = "https://github.com/rust-gnome/glib"

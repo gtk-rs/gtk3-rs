@@ -6,8 +6,6 @@
     Bindings and wrappers for __Cairo__
 */
 
-#![feature(unique)]
-
 extern crate cairo_sys as cairo_ffi;
 extern crate libc;
 extern crate glib as glib_main;
