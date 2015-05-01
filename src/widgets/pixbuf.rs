@@ -8,7 +8,6 @@ use glib::to_gboolean;
 use glib::translate::{FromGlibPtr, ToGlibPtr};
 use ffi;
 use c_vec::CVec;
-use std::ptr::Unique;
 
 #[repr(C)]
 /// This is the main structure in the &gdk-pixbuf; library. It is used to represent images. It contains information about the image's pixel 
@@ -59,7 +58,7 @@ impl Pixbuf {
             if tmp.is_null() {
                 None
             } else {
-                Some(CVec::new(Unique::new(tmp), *length as usize))
+                Some(CVec::new(tmp, *length as usize))
             }
         }
     }

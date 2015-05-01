@@ -6,8 +6,6 @@
 Bindings and wrappers for __GDK__
 */
 
-#![feature(unique)]
-
 extern crate gdk_sys as gdk_ffi;
 extern crate glib_sys as glib_ffi;
 extern crate glib as glib_main;
