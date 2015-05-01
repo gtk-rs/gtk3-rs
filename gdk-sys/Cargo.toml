@@ -1,24 +1,13 @@
 [package]
-name = "gdk-sys"
+name = "gdk3-sys"
 version = "0.1.0"
-authors = ["The Rust-GNOME Project Developers"]
+authors = ["letang.jeremy@gmail.com", "guillaume1.gomez@gmail.com", "mathijs.henquet@gmail.com", "bpgarman@fastmail.fm", "me@bstr.eu", "zsoakes@gmail.com"]
 build = "build.rs"
 links = "gdk"
 
-description = "FFI bindings to GDK"
-repository = "https://github.com/rust-gnome/gdk"
-license = "MIT"
-
-[lib]
-name = "gdk_sys"
-
-[features]
-gdk_3_4 = []
-gdk_3_6 = ["gdk_3_4"]
-gdk_3_8 = ["gdk_3_6"]
-gdk_3_10 = ["gdk_3_8"]
-gdk_3_12 = ["gdk_3_10"]
-gdk_3_14 = ["gdk_3_12"]
+description = "FFI bindings to GDK 3"
+repository = "https://github.com/jeremyletang/rgtk"
+license = "LGPL-3.0+"
 
 [dependencies]
 bitflags = "0.1"
