@@ -4,6 +4,7 @@
 
 //! GdkPixbufLoader — Application-driven progressive image loading.
 
+use std;
 use ffi;
 use glib::{to_bool, GlibContainer};
 use glib::translate::ToGlibPtr;
@@ -55,8 +56,14 @@ impl PixbufLoader {
         }
     }
 
-    pub fn loader_write(&self, buf: &[u8], error: &mut ::glib::Error) -> bool {
-        unsafe { to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error.unwrap())) }
+    pub fn loader_write(&self, buf: &[u8]) -> Result<(), ::glib::Error> {
+        unsafe {
+            let mut error: *mut ::glib::ffi::C_GError = std::ptr::null_mut();
+            match to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error)) {
+                true => Ok(()),
+                false => Err(::glib::Error::wrap(error))
+            }
+        }
     }
 
     /*pub fn loader_write_bytes(&self, buffer: &glib::Bytes, error: &mut ::glib::Error) -> bool {
@@ -87,8 +94,14 @@ impl PixbufLoader {
         }
     }*/
 
-    pub fn close(&self, error: &mut ::glib::Error) -> bool {
-        unsafe { to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error.unwrap())) }
+    pub fn close(&self) -> Result<(), ::glib::Error> {
+        unsafe {
+            let mut error: *mut ::glib::ffi::C_GError = std::ptr::null_mut();
+            match to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error)) {
+                true => Ok(()),
+                false => Err(::glib::Error::wrap(error))
+            }
+        }
     }
 }
 
