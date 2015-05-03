@@ -50,10 +50,27 @@ fn main() {
     left_tree.set_headers_visible(false);
     append_text_column(&left_tree);
 
+    // print out when a row is selected
+
+    let left_selection = left_tree.get_selection().unwrap();
+    left_selection.connect_changed(|tree_selection| {
+        let mut iter = gtk::TreeIter::new().unwrap();
+        tree_selection.get_selected(&left_model, &mut iter);
+        if let Some(path) = left_model.get_path(&iter) {
+            println!("selected row {}", path.to_string().unwrap());
+        }
+    });
+
     for _ in 0..10 {
         let mut iter = gtk::TreeIter::new().unwrap();
         left_store.append(&mut iter);
         left_store.set_string(&iter, 0, "I'm in a list");
+
+        // select this row as a test
+
+        if let Some(path) = left_model.get_path(&iter) {
+            left_selection.select_path(&path);
+        }
     }
 
     // right pane
