@@ -18,12 +18,16 @@ pub struct PixbufLoader {
 impl PixbufLoader {
     /// Creates a new pixbuf loader object.
     ///
-    /// # Panics
-    /// Fails if the pixbuf loader cannot be retrieved. 
-    pub fn new() -> PixbufLoader {
+    /// # Failures
+    /// Returns `None` if the pixbuf loader cannot be created.
+    pub fn new() -> Option<PixbufLoader> {
         let tmp = unsafe { ffi::gdk_pixbuf_loader_new() };
-        assert!(!tmp.is_null());
-        PixbufLoader::wrap_pointer(tmp)
+
+        if tmp.is_null() {
+            None
+        } else {
+            Some(PixbufLoader::wrap_pointer(tmp))
+        }
     }
 
     /// Creates a new pixbuf loader object that always attempts to parse image
