@@ -18,16 +18,12 @@ pub struct PixbufLoader {
 impl PixbufLoader {
     /// Creates a new pixbuf loader object.
     ///
-    /// # Failures
-    /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new() -> Option<PixbufLoader> {
+    /// # Panics
+    /// Fails if the pixbuf loader cannot be retrieved. 
+    pub fn new() -> PixbufLoader {
         let tmp = unsafe { ffi::gdk_pixbuf_loader_new() };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
-        }
+        assert!(!tmp.is_null());
+        PixbufLoader::wrap_pointer(tmp)
     }
 
     /// Creates a new pixbuf loader object that always attempts to parse image
@@ -42,14 +38,20 @@ impl PixbufLoader {
     /// among the supported formats.
     ///
     /// # Failures
-    /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new_with_type(image_type: &str, error: &mut Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error.unwrap()) };
+    /// Returns an `Error` if the pixbuf loader cannot be created. Query the
+    /// error for more detailed information.
+    ///
+    /// # Panics
+    /// Fails if the pixbuf loader cannot be retrieved. 
+    pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
+        let mut error = std::ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error) };
 
-        if tmp.is_null() {
-            None
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            Ok(PixbufLoader::wrap_pointer(tmp))
         } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
+            Err(Error::wrap(error))
         }
     }
 
@@ -65,23 +67,26 @@ impl PixbufLoader {
     /// "image/tiff" and "image/x-xpixmap" are among the supported mime types.
     ///
     /// # Failures
-    /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new_with_mime_type(mime_type: &str, error: &mut Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error.unwrap()) };
+    /// Returns an `Error` if the pixbuf loader cannot be created. Query the
+    /// error for more detailed information.
+    ///
+    /// # Panics
+    /// Fails if the pixbuf loader cannot be retrieved. 
+    pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
+        let mut error = std::ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error) };
 
-        if tmp.is_null() {
-            None
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            Ok(PixbufLoader::wrap_pointer(tmp))
         } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
+            Err(Error::wrap(error))
         }
     }
 
     /// Obtains the available information about the format of the currently
-    /// loading image file.
-    ///
-    /// # Failures
-    /// Returns `None` if the pixbuf format cannot be retrieved, or if not
-    /// enough data is available to create the format.
+    /// loading image file.  Returns `None` if not enough data has been written
+    /// to determine the format.
     pub fn get_format(&self) -> Option<::PixbufFormat> {
         let tmp = unsafe { ffi::gdk_pixbuf_loader_get_format(self.unwrap_pointer()) };
 
@@ -132,10 +137,6 @@ impl PixbufLoader {
     /// allocated. If the loader has not received enough data via
     /// `loader_write()`, then this function returns `None`. If the loader is
     /// an animation, it will return the "static image" of the animation.
-    ///
-    /// # Failures
-    /// Returns `None` if the pixbuf cannot be retrieved, or if not enough data
-    /// is available to create the pixbuf.
     pub fn get_pixbuf(&self) -> Option<::Pixbuf> {
         let tmp = unsafe { ffi::gdk_pixbuf_loader_get_pixbuf(self.unwrap_pointer()) };
 
