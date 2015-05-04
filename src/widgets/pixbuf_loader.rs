@@ -4,7 +4,7 @@
 
 //! GdkPixbufLoader — Application-driven progressive image loading.
 
-use std;
+use std::ptr;
 use ffi;
 use glib::{to_bool, GlibContainer, Error};
 use glib::translate::ToGlibPtr;
@@ -48,7 +48,7 @@ impl PixbufLoader {
     /// # Panics
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
-        let mut error = std::ptr::null_mut();
+        let mut error = ptr::null_mut();
         let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error) };
 
         if error.is_null() {
@@ -77,7 +77,7 @@ impl PixbufLoader {
     /// # Panics
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
-        let mut error = std::ptr::null_mut();
+        let mut error = ptr::null_mut();
         let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error) };
 
         if error.is_null() {
@@ -111,7 +111,7 @@ impl PixbufLoader {
     /// `Error` for more detailed information.
     pub fn loader_write(&self, buf: &[u8]) -> Result<(), Error> {
         unsafe {
-            let mut error = std::ptr::null_mut();
+            let mut error = ptr::null_mut();
             match to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error)) {
                 true => Ok(()),
                 false => Err(Error::wrap(error))
@@ -170,7 +170,7 @@ impl PixbufLoader {
     /// Query the `Error` for more detailed information.
     pub fn close(&self) -> Result<(), Error> {
         unsafe {
-            let mut error = std::ptr::null_mut();
+            let mut error = ptr::null_mut();
             match to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error)) {
                 true => Ok(()),
                 false => Err(Error::wrap(error))
