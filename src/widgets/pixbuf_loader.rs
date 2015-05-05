@@ -4,9 +4,9 @@
 
 //! GdkPixbufLoader — Application-driven progressive image loading.
 
-use std;
+use std::ptr;
 use ffi;
-use glib::{to_bool, GlibContainer};
+use glib::{to_bool, GlibContainer, Error};
 use glib::translate::ToGlibPtr;
 use libc::{c_int, c_uint};
 
@@ -42,14 +42,20 @@ impl PixbufLoader {
     /// among the supported formats.
     ///
     /// # Failures
-    /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new_with_type(image_type: &str, error: &mut ::glib::Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error.unwrap()) };
+    /// Returns an `Error` if the pixbuf loader cannot be created. Query the
+    /// error for more detailed information.
+    ///
+    /// # Panics
+    /// Fails if the pixbuf loader cannot be retrieved. 
+    pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error) };
 
-        if tmp.is_null() {
-            None
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            Ok(PixbufLoader::wrap_pointer(tmp))
         } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
+            Err(Error::wrap(error))
         }
     }
 
@@ -65,19 +71,26 @@ impl PixbufLoader {
     /// "image/tiff" and "image/x-xpixmap" are among the supported mime types.
     ///
     /// # Failures
-    /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new_with_mime_type(mime_type: &str, error: &mut ::glib::Error) -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error.unwrap()) };
+    /// Returns an `Error` if the pixbuf loader cannot be created. Query the
+    /// error for more detailed information.
+    ///
+    /// # Panics
+    /// Fails if the pixbuf loader cannot be retrieved. 
+    pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error) };
 
-        if tmp.is_null() {
-            None
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            Ok(PixbufLoader::wrap_pointer(tmp))
         } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
+            Err(Error::wrap(error))
         }
     }
 
     /// Obtains the available information about the format of the currently
-    /// loading image file.
+    /// loading image file.  Returns `None` if not enough data has been written
+    /// to determine the format.
     pub fn get_format(&self) -> Option<::PixbufFormat> {
         let tmp = unsafe { ffi::gdk_pixbuf_loader_get_format(self.unwrap_pointer()) };
 
@@ -92,17 +105,21 @@ impl PixbufLoader {
     /// in `buf`. It will return `Ok` if the data was loaded successfully, and
     /// `Err` if an error occurred. In the latter case, the loader will be
     /// closed, and will not accept further writes.
-    pub fn loader_write(&self, buf: &[u8]) -> Result<(), ::glib::Error> {
+    ///
+    /// # Failures
+    /// Returns an `Error` if `buf` cannot be written to the loader.  Query the
+    /// `Error` for more detailed information.
+    pub fn loader_write(&self, buf: &[u8]) -> Result<(), Error> {
         unsafe {
-            let mut error: *mut ::glib::ffi::C_GError = std::ptr::null_mut();
+            let mut error = ptr::null_mut();
             match to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error)) {
                 true => Ok(()),
-                false => Err(::glib::Error::wrap(error))
+                false => Err(Error::wrap(error))
             }
         }
     }
 
-    /*pub fn loader_write_bytes(&self, buffer: &glib::Bytes, error: &mut ::glib::Error) -> bool {
+    /*pub fn loader_write_bytes(&self, buffer: &glib::Bytes, error: &mut Error) -> bool {
       gdk_pixbuf_loader_write_bytes
       }*/
 
@@ -146,14 +163,17 @@ impl PixbufLoader {
 
     /// Informs a pixbuf loader that no further writes with `loader_write()`
     /// will occur, so that it can free its internal loading structures. Also,
-    /// tries to parse any data that hasn't yet been parsed; if the remaining
-    /// data is partial or corrupt, an error will be returned.
-    pub fn close(&self) -> Result<(), ::glib::Error> {
+    /// tries to parse any data that hasn't yet been parsed.
+    ///
+    /// # Failures
+    /// If the remaining data is partial or corrupt, an error will be returned.
+    /// Query the `Error` for more detailed information.
+    pub fn close(&self) -> Result<(), Error> {
         unsafe {
-            let mut error: *mut ::glib::ffi::C_GError = std::ptr::null_mut();
+            let mut error = ptr::null_mut();
             match to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error)) {
                 true => Ok(()),
-                false => Err(::glib::Error::wrap(error))
+                false => Err(Error::wrap(error))
             }
         }
     }
