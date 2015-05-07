@@ -8,7 +8,6 @@ use libc::c_int;
 /// The PangoGlyphString structure is used to store strings of glyphs with geometry and visual
 /// attribute information. The storage for the glyph information is owned by the structure which
 /// simplifies memory management.
-#[repr(C)]
 pub struct GlyphString {
     pointer: *mut ffi::C_PangoGlyphString
 }
