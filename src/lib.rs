@@ -116,7 +116,10 @@ pub use self::widgets::{
     DragContext,
     AppLaunchContext,
     PixbufFormat,
-    PixbufLoader
+    PixbufLoader,
+    PixbufAnimation,
+    PixbufAnimationIter,
+    PixbufSimpleAnim
 };
 #[cfg(feature = "gdk_3_8")]
 pub use self::widgets::{
