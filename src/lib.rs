@@ -6,8 +6,6 @@
 Bindings and wrappers for __GLib__
 */
 
-#![feature(alloc)]
-
 extern crate libc;
 extern crate glib_sys as glib_ffi;
 

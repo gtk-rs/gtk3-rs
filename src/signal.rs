@@ -19,6 +19,8 @@ extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut c_void) {
     unsafe {
         let ptr = ptr as *mut Box<Fn()>;
         // destroy
-        Box::from_raw(ptr);
+        //Box::from_raw(ptr);
+        // from_raw API stability workaround
+        let _: Box<Box<Fn()>> = ::std::mem::transmute(ptr);
     }
 }
