@@ -19,7 +19,7 @@ pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
 pub use self::permission::Permission;
 pub use self::timeout_func::timeout;
-pub use self::traits::{FFIGObject, Connect};
+pub use self::traits::FFIGObject;
 pub use self::value::{Value, ValuePublic};
 pub use type_::Type;
 
