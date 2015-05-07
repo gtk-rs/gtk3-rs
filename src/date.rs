@@ -4,9 +4,10 @@
 
 //! Date and Time Functions — calendrical calculations and miscellaneous time stuff
 
-use libc::{c_int, c_uint, c_char};
+use libc::{c_int, c_uint};
 use ffi;
 use std;
+use super::translate::ToGlibPtr;
 
 /// Simply a replacement for time_t. It has been deprecated since it is not equivalent to time_t on 64-bit platforms with a 64-bit time_t.
 /// Unrelated to GTimer.
@@ -149,7 +150,7 @@ impl Date {
     }
 
     pub fn set_parse(&mut self, str_: &str) {
-        unsafe { ffi::g_date_set_parse(self.pointer, str_.as_ptr() as *const c_char) }
+        unsafe { ffi::g_date_set_parse(self.pointer, str_.borrow_to_glib().0) }
     }
 
     pub fn add_days(&mut self, days: usize) {
@@ -273,7 +274,7 @@ impl TimeVal {
     }
 
     pub fn from_iso8601(&mut self, iso_date: &str) {
-        unsafe { ffi::g_time_val_from_iso8601(iso_date.as_ptr() as *const c_char, std::mem::transmute(self)) }
+        unsafe { ffi::g_time_val_from_iso8601(iso_date.borrow_to_glib().0, std::mem::transmute(self)) }
     }
 
     pub fn to_iso8601(&mut self) -> Option<String> {
