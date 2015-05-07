@@ -11,7 +11,7 @@ extern crate glib_sys as glib_ffi;
 
 pub mod enums;
 
-use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong};
+use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
 use glib_ffi::Gboolean;
 
 #[repr(C)]
@@ -126,6 +126,12 @@ pub struct C_GdkDragContext;
 pub struct C_GdkPixbufLoader;
 #[repr(C)]
 pub struct C_GdkPixbufFormat;
+#[repr(C)]
+pub struct C_GdkPixbufAnimation;
+#[repr(C)]
+pub struct C_GdkPixbufAnimationIter;
+#[repr(C)]
+pub struct C_GdkPixbufSimpleAnim;
 
 // GdkWindowAttributesTypes
 /// Honor the title field
@@ -661,4 +667,38 @@ extern "C" {
     pub fn gdk_pixbuf_format_is_disabled            (format: *mut C_GdkPixbufFormat) -> Gboolean;
     pub fn gdk_pixbuf_format_set_disabled           (format: *mut C_GdkPixbufFormat, disabled: Gboolean);
     pub fn gdk_pixbuf_format_get_license            (format: *mut C_GdkPixbufFormat) -> *mut c_char;
+
+    //=========================================================================
+    // GdkPixbufAnimation                                                NOT OK
+    //=========================================================================
+    pub fn gdk_pixbuf_animation_new_from_file       (file: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+    pub fn gdk_pixbuf_animation_new_from_resource   (resource_path: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+    //pub fn gdk_pixbuf_animation_new_from_stream     (stream: *mut C_GInputStream, cancellable: C_GCancellable,
+    //    error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+    //pub fn gdk_pixbuf_animation_new_from_stream_async(stream: *mut C_GInputStream, cancellable: *mut C_GCancellable, callback, user_data: *mut c_void);
+    //pub fn gdk_pixbuf_animation_new_from_stream_finish(async_result: *mut C_GAsyncResult,
+    //    error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+    pub fn gdk_pixbuf_animation_get_width           (animation: *mut C_GdkPixbufAnimation) -> c_int;
+    pub fn gdk_pixbuf_animation_get_height          (animation: *mut C_GdkPixbufAnimation) -> c_int;
+    pub fn gdk_pixbuf_animation_get_iter            (animation: *mut C_GdkPixbufAnimation,
+        start_time: *const /*glib::TimeVal*/c_void) -> *mut C_GdkPixbufAnimationIter;
+    pub fn gdk_pixbuf_animation_is_static_image     (animation: *mut C_GdkPixbufAnimation) -> Gboolean;
+    pub fn gdk_pixbuf_animation_get_static_image    (animation: *mut C_GdkPixbufAnimation) -> *mut C_GdkPixbuf;
+
+    //=========================================================================
+    // GdkPixbufIter                                                     NOT OK
+    //=========================================================================
+    pub fn gdk_pixbuf_animation_iter_advance        (iter: *mut C_GdkPixbufAnimationIter,
+        start_time: *const /*glib_ffi::C_GTimeVal*/c_void) -> Gboolean;
+    pub fn gdk_pixbuf_animation_iter_get_delay_time  (iter: *mut C_GdkPixbufAnimationIter) -> c_int;
+    pub fn gdk_pixbuf_animation_iter_on_currently_loading_frame(iter: *mut C_GdkPixbufAnimationIter) -> Gboolean;
+    pub fn gdk_pixbuf_animation_iter_get_pixbuf      (iter: *mut C_GdkPixbufAnimationIter) -> *mut C_GdkPixbuf;
+
+    //=========================================================================
+    // GdkPixbufSimpleAnim                                               NOT OK
+    //=========================================================================
+    pub fn gdk_pixbuf_simple_anim_new                (width: c_int, height: c_int, rate: c_float) -> *mut C_GdkPixbufSimpleAnim;
+    pub fn gdk_pixbuf_simple_anim_add_frame          (animation: *mut C_GdkPixbufSimpleAnim, pixbuf: *mut C_GdkPixbuf);
+    pub fn gdk_pixbuf_simple_anim_set_loop           (animation: *mut C_GdkPixbufSimpleAnim, loop_: Gboolean);
+    pub fn gdk_pixbuf_simple_anim_get_loop           (animation: *mut C_GdkPixbufSimpleAnim) -> Gboolean;
 }
