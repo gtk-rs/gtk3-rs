@@ -3,7 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use ffi;
-use glib::translate::{FromGlibPtr, ToGlibPtr};
+use glib::translate::*;
 
 pub struct Atom {
     pointer: ffi::C_GdkAtom
@@ -18,7 +18,7 @@ impl Atom {
 
     pub fn intern(atom_name: &str, only_if_exists: bool) -> Option<Atom> {
         let tmp = unsafe {
-            ffi::gdk_atom_intern(atom_name.borrow_to_glib().0, ::glib::to_gboolean(only_if_exists))
+            ffi::gdk_atom_intern(atom_name.to_glib_none().0, ::glib::to_gboolean(only_if_exists))
         };
 
         if tmp.is_null() {
@@ -32,7 +32,7 @@ impl Atom {
 
     pub fn intern_static_string(atom_name: &str) -> Option<Atom> {
         let tmp = unsafe {
-            ffi::gdk_atom_intern_static_string(atom_name.borrow_to_glib().0)
+            ffi::gdk_atom_intern_static_string(atom_name.to_glib_none().0)
         };
 
         if tmp.is_null() {
@@ -46,8 +46,7 @@ impl Atom {
 
     pub fn name(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::take(
-                ffi::gdk_atom_name(self.pointer))
+            from_glib_full(ffi::gdk_atom_name(self.pointer))
         }
     }
 

@@ -4,7 +4,7 @@
 
 //! GdkScreen — Object representing a physical screen
 
-use glib::translate::{FromGlibPtr};
+use glib::translate::*;
 use ffi;
 use libc::c_int;
 
@@ -92,7 +92,7 @@ impl Screen {
 
     pub fn make_display_name(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::take(
+            from_glib_full(
                 ffi::gdk_screen_make_display_name(self.pointer))
         }
     }
@@ -131,7 +131,7 @@ impl Screen {
 
     pub fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<String> {
         unsafe {
-            FromGlibPtr::take(
+            from_glib_full(
                 ffi::gdk_screen_get_monitor_plug_name(self.pointer,
                                                       monitor_num as c_int))
         }

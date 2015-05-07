@@ -6,7 +6,7 @@
 
 use ffi;
 use libc::{c_uint};
-use glib::translate::{FromGlibPtr, ToGlibPtr};
+use glib::translate::*;
 use glib::to_bool;
 
 #[repr(C)]
@@ -17,7 +17,7 @@ pub struct Display {
 impl Display {
     pub fn open(display_name: &str) -> Option<Display> {
         let tmp = unsafe {
-            ffi::gdk_display_open(display_name.borrow_to_glib().0)
+            ffi::gdk_display_open(display_name.to_glib_none().0)
         };
 
         if tmp.is_null() {
@@ -43,8 +43,7 @@ impl Display {
 
     pub fn get_name(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::borrow(
-                ffi::gdk_display_get_name(self.pointer))
+            from_glib_none(ffi::gdk_display_get_name(self.pointer))
         }
     }
 
@@ -205,7 +204,7 @@ impl Display {
 
     pub fn notify_startup_complete(&self, startup_id: &str) {
         unsafe {
-            ffi::gdk_display_notify_startup_complete(self.pointer, startup_id.borrow_to_glib().0)
+            ffi::gdk_display_notify_startup_complete(self.pointer, startup_id.to_glib_none().0)
         }
     }
 }

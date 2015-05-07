@@ -7,7 +7,7 @@
 use ffi;
 use libc::{c_uint};
 use glib::to_bool;
-use glib::translate::{FromGlibPtr};
+use glib::translate::*;
 
 #[repr(C)]
 pub struct Device {
@@ -17,8 +17,7 @@ pub struct Device {
 impl Device {
     pub fn get_name(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::borrow(
-                ffi::gdk_device_get_name(self.pointer))
+            from_glib_none(ffi::gdk_device_get_name(self.pointer))
         }
     }
 

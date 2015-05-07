@@ -16,7 +16,7 @@ pub struct PixbufAnimation {
 impl PixbufAnimation {
     pub fn new_from_file(file: &str) -> Result<PixbufAnimation, Error> {
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_animation_new_from_file(file.borrow_to_glib().0, &mut error) };
+        let tmp = unsafe { ffi::gdk_pixbuf_animation_new_from_file(file.to_glib_none().0, &mut error) };
 
         if error.is_null() {
             assert!(!tmp.is_null());
@@ -28,7 +28,7 @@ impl PixbufAnimation {
 
     pub fn new_from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_animation_new_from_resource(resource_path.borrow_to_glib().0, &mut error) };
+        let tmp = unsafe { ffi::gdk_pixbuf_animation_new_from_resource(resource_path.to_glib_none().0, &mut error) };
 
         if error.is_null() {
             assert!(!tmp.is_null());

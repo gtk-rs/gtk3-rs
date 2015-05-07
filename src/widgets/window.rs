@@ -54,8 +54,8 @@ impl WindowAttr {
 impl <'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for WindowAttr {
     type Storage = (Box<ffi::C_GdkWindowAttr>, Stash<'a, *const c_char, Option<String>>);
 
-    fn borrow_to_glib(&'a self) -> Stash<*mut ffi::C_GdkWindowAttr, WindowAttr> {
-        let title = self.title.borrow_to_glib();
+    fn to_glib_none(&'a self) -> Stash<*mut ffi::C_GdkWindowAttr, WindowAttr> {
+        let title = self.title.to_glib_none();
 
         let mut attrs = Box::new(ffi::C_GdkWindowAttr {
             title: title.0,
@@ -88,7 +88,7 @@ impl Window {
             Some(s) => s.unwrap_pointer(),
             None => ::std::ptr::null_mut()
         };
-        let tmp = unsafe { ffi::gdk_window_new(t_parent, attributes.borrow_to_glib().0, attributes.get_mask()) };
+        let tmp = unsafe { ffi::gdk_window_new(t_parent, attributes.to_glib_none().0, attributes.get_mask()) };
 
         if tmp.is_null() {
             None
@@ -413,7 +413,7 @@ impl Window {
 
     pub fn set_title(&self, title: &str) {
         unsafe {
-            ffi::gdk_window_set_title(self.pointer, title.borrow_to_glib().0)
+            ffi::gdk_window_set_title(self.pointer, title.to_glib_none().0)
         }
     }
 
@@ -577,7 +577,7 @@ impl Window {
 
     pub fn set_icon_name(&self, name: &str) {
         unsafe {
-            ffi::gdk_window_set_icon_name(self.pointer, name.borrow_to_glib().0)
+            ffi::gdk_window_set_icon_name(self.pointer, name.to_glib_none().0)
         }
     }
 
@@ -587,13 +587,13 @@ impl Window {
 
     pub fn set_role(&self, role: &str) {
         unsafe {
-            ffi::gdk_window_set_role(self.pointer, role.borrow_to_glib().0)
+            ffi::gdk_window_set_role(self.pointer, role.to_glib_none().0)
         }
     }
 
     pub fn set_startup_id(&self, startup_id: &str) {
         unsafe {
-            ffi::gdk_window_set_startup_id(self.pointer, startup_id.borrow_to_glib().0)
+            ffi::gdk_window_set_startup_id(self.pointer, startup_id.to_glib_none().0)
         }
     }
 

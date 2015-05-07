@@ -41,7 +41,7 @@ impl DisplayManager {
 
     pub fn open_display(&self, name: &str) -> Option<::Display> {
         let tmp = unsafe {
-            ffi::gdk_display_manager_open_display(self.pointer, name.borrow_to_glib().0)
+            ffi::gdk_display_manager_open_display(self.pointer, name.to_glib_none().0)
         };
 
         if tmp.is_null() {

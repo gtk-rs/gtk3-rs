@@ -33,7 +33,7 @@ impl AppLaunchContext {
 
     pub fn set_icon_name(&self, icon_name: &str) {
         unsafe {
-            ffi::gdk_app_launch_context_set_icon_name(self.pointer, icon_name.borrow_to_glib().0)
+            ffi::gdk_app_launch_context_set_icon_name(self.pointer, icon_name.to_glib_none().0)
         }
     }
 }

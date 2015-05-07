@@ -4,13 +4,12 @@
 
 //! Keyboard Handling Functions
 
-use glib::translate::FromGlibPtr;
+use glib::translate::*;
 use ffi;
 use libc::c_uint;
 
 pub fn keyval_name(keyval: u32) -> Option<String> {
     unsafe {
-        FromGlibPtr::borrow(
-            ffi::gdk_keyval_name(keyval as c_uint))
+        from_glib_none(ffi::gdk_keyval_name(keyval as c_uint))
     }
 }

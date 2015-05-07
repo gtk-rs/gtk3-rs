@@ -49,7 +49,7 @@ impl PixbufLoader {
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error) };
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.to_glib_none().0, &mut error) };
 
         if error.is_null() {
             assert!(!tmp.is_null());
@@ -78,7 +78,7 @@ impl PixbufLoader {
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error) };
+        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.to_glib_none().0, &mut error) };
 
         if error.is_null() {
             assert!(!tmp.is_null());

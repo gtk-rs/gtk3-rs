@@ -40,7 +40,7 @@ impl Cursor {
 
     pub fn new_from_name(display: &::Display, name: &str) -> Option<Cursor> {
         let tmp = unsafe {
-            ffi::gdk_cursor_new_from_name(display.unwrap_pointer(), name.borrow_to_glib().0)
+            ffi::gdk_cursor_new_from_name(display.unwrap_pointer(), name.to_glib_none().0)
         };
 
         if tmp.is_null() {
