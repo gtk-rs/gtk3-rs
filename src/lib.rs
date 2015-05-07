@@ -22,7 +22,7 @@ pub use self::timeout_func::timeout;
 pub use self::traits::{FFIGObject, Connect};
 pub use self::value::{Value, ValuePublic};
 pub use type_::Type;
-pub use self::date::{Time, Date, Year, Month, Weekday, Day};
+pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 
 mod list;
 mod slist;
