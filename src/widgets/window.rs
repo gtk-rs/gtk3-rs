@@ -78,7 +78,6 @@ impl <'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for WindowAttr {
     }
 }
 
-#[repr(C)]
 pub struct Window {
     pointer: *mut ffi::C_GdkWindow
 }

@@ -10,7 +10,6 @@ use glib::{to_bool, to_gboolean};
 use glib::translate::{FromGlibPtr, FromGlibPtrContainer};
 use libc::c_char;
 
-#[repr(C)]
 pub struct PixbufFormat {
     pointer: *mut ffi::C_GdkPixbufFormat
 }
