@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use glib::translate::{FromGlibPtr, ToGlibPtr};
+use glib::translate::*;
 use std::clone::Clone;
 use std::cmp::PartialEq;
 use std::ops::Drop;
@@ -181,7 +181,7 @@ impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
         let font_face = FontFace(
             unsafe {
-                ffi::cairo_toy_font_face_create(family.borrow_to_glib().0, slant, weight)
+                ffi::cairo_toy_font_face_create(family.to_glib_none().0, slant, weight)
             }
         );
         font_face.ensure_status();
@@ -190,8 +190,7 @@ impl FontFace {
 
     pub fn toy_get_family(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::borrow(
-                ffi::cairo_toy_font_face_get_family(self.get_ptr()))
+            from_glib_none(ffi::cairo_toy_font_face_get_family(self.get_ptr()))
         }
     }
 

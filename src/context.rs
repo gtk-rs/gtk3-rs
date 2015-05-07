@@ -527,7 +527,7 @@ impl Context {
 
     pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight){
         unsafe {
-            ffi::cairo_select_font_face(self.get_ptr(), family.borrow_to_glib().0, slant, weight)
+            ffi::cairo_select_font_face(self.get_ptr(), family.to_glib_none().0, slant, weight)
         }
     }
 
@@ -592,7 +592,7 @@ impl Context {
 
     pub fn show_text(&self, text: &str){
         unsafe {
-            ffi::cairo_show_text(self.get_ptr(), text.borrow_to_glib().0)
+            ffi::cairo_show_text(self.get_ptr(), text.to_glib_none().0)
         }
     }
 
@@ -609,7 +609,7 @@ impl Context {
                             cluster_flags: TextClusterFlags){
         unsafe {
             ffi::cairo_show_text_glyphs(self.get_ptr(),
-                                        text.borrow_to_glib().0,
+                                        text.to_glib_none().0,
                                         -1 as c_int, //NUL terminated
                                         glyphs.as_ptr(),
                                         glyphs.len() as c_int,
@@ -646,7 +646,7 @@ impl Context {
         };
 
         unsafe {
-            ffi::cairo_text_extents(self.get_ptr(), text.borrow_to_glib().0, &mut extents);
+            ffi::cairo_text_extents(self.get_ptr(), text.to_glib_none().0, &mut extents);
         }
         extents
     }
@@ -759,7 +759,7 @@ impl Context {
 
     pub fn text_path(&self, str_: &str){
         unsafe {
-            ffi::cairo_text_path(self.get_ptr(), str_.borrow_to_glib().0)
+            ffi::cairo_text_path(self.get_ptr(), str_.to_glib_none().0)
         }
     }
 
