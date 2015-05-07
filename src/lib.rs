@@ -22,6 +22,7 @@ pub use self::timeout_func::timeout;
 pub use self::traits::{FFIGObject, Connect};
 pub use self::value::{Value, ValuePublic};
 pub use type_::Type;
+pub use self::date::{Time, Date, Year, Month, Weekday, Day};
 
 mod list;
 mod slist;
@@ -34,6 +35,7 @@ pub mod traits;
 pub mod translate;
 mod value;
 pub mod type_;
+pub mod date;
 
 pub fn to_gboolean(b: bool) -> ffi::Gboolean {
     match b {
