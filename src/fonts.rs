@@ -298,7 +298,7 @@ impl ScaledFont {
     //pub fn cairo_scaled_font_get_scale_matrix(scaled_font: *mut cairo_scaled_font_t, scale_matrix: *cairo_matrix_t);
 
 
-    fn reference(&self) -> ScaledFont {
+    pub fn reference(&self) -> ScaledFont {
         unsafe {
             ScaledFont(ffi::cairo_scaled_font_reference(self.get_ptr()))
         }
