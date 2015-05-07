@@ -69,6 +69,30 @@ pub struct C_GPid;
 #[repr(C)]
 pub struct C_GPollFD;
 
+/// Represents a day between January 1, Year 1 and a few thousand years in the future. None of its members should be accessed directly.
+/// 
+/// If the GDate is obtained from g_date_new(), it will be safe to mutate but invalid and thus not safe for calendrical computations.
+/// 
+/// If it's declared on the stack, it will contain garbage so must be initialized with g_date_clear(). g_date_clear() makes the date
+/// invalid but sane. An invalid date doesn't represent a day, it's "empty." A date becomes valid after you set it to a Julian day or
+/// you set a day, month, and year.
+#[repr(C)]
+pub struct GDate;
+/*pub struct GDate {
+    /// the Julian representation of the date
+    pub julian_days : u32,
+    /// this bit is set if julian_days is valid
+    pub julian: bool,
+    /// this is set if day , month and year are valid
+    pub dmy: bool,
+    /// the day of the day-month-year representation of the date, as a number between 1 and 31
+    pub day: u8,
+    /// the day of the day-month-year representation of the date, as a number between 1 and 12
+    pub month: u8,
+    /// the day of the day-month-year representation of the date
+    pub year: u8
+}*/
+
 //=========================================================================
 // GType constants
 //=========================================================================
@@ -364,4 +388,70 @@ extern "C" {
     pub fn g_signal_connect_data(instance: gpointer, detailed_signal: *const c_char,
                                  c_handler: GCallback, data: gpointer,
                                  destroy_data: GClosureNotify, connect_flags: c_int) -> c_ulong;
+
+    //=========================================================================
+    // GDate functions
+    //=========================================================================
+    pub fn g_get_current_time             (result: *mut c_void);
+    pub fn g_usleep                       (microseconds: c_ulong);
+    pub fn g_get_monotonic_time           () -> i64;
+    pub fn g_get_real_time                () -> i64;
+    pub fn g_date_get_days_in_month       (month: c_int, year: u16) -> u8;
+    pub fn g_date_is_leap_year            (year: u16) -> Gboolean;
+    pub fn g_date_get_monday_weeks_in_year(year: u16) -> u8;
+    pub fn g_date_get_sunday_weeks_in_year(year: u16) -> u8;
+    pub fn g_date_valid_day               (day: c_int) -> Gboolean;
+    pub fn g_date_valid_month             (month: c_int) -> Gboolean;
+    pub fn g_date_valid_year              (year: u16) -> Gboolean;
+    pub fn g_date_valid_dmy               (day: c_int, month: c_int, year: u16) -> Gboolean;
+    pub fn g_date_valid_julian            (julian: u32) -> Gboolean;
+    pub fn g_date_valid_weekday           (year: c_int) -> Gboolean;
+
+    //=========================================================================
+    // GDate
+    //=========================================================================
+    pub fn g_date_new             () -> *mut GDate;
+    pub fn g_date_new_dmy         (day: c_int, month: c_int, year: u16) -> *mut GDate;
+    pub fn g_date_new_julian      (julian_day: u32) -> *mut GDate;
+    pub fn g_date_clear           (date: *mut GDate, n_dates: c_uint);
+    pub fn g_date_free            (date: *mut GDate);
+    pub fn g_date_set_day         (date: *mut GDate, day: c_int);
+    pub fn g_date_set_month       (date: *mut GDate, month: c_int);
+    pub fn g_date_set_year        (date: *mut GDate, year: u16);
+    pub fn g_date_set_dmy         (date: *mut GDate, day: c_int, month: c_int, year: u16);
+    pub fn g_date_set_julian      (date: *mut GDate, julian: u32);
+    pub fn g_date_set_time_t      (date: *mut GDate, timet: i64);
+    pub fn g_date_set_time_val    (date: *mut GDate, timeval: *mut c_void);
+    pub fn g_date_set_parse       (date: *mut GDate, str_: *const c_char);
+    pub fn g_date_add_days        (date: *mut GDate, days: c_uint);
+    pub fn g_date_subtract_days   (date: *mut GDate, days: c_uint);
+    pub fn g_date_add_months      (date: *mut GDate, months: c_uint);
+    pub fn g_date_subtract_months (date: *mut GDate, months: c_uint);
+    pub fn g_date_add_years       (date: *mut GDate, years: c_uint);
+    pub fn g_date_subtract_years  (date: *mut GDate, years: c_uint);
+    pub fn g_date_between         (date1: *const GDate, date2: *const GDate) -> c_int;
+    pub fn g_date_compare         (lhs: *const GDate, rhs: *const GDate) -> c_int;
+    pub fn g_date_clamp           (date: *mut GDate, min_date: *const GDate, max_date: *const GDate);
+    pub fn g_date_order           (date1: *mut GDate, date2: *mut GDate);
+    pub fn g_date_get_day         (date: *const GDate) -> u8;
+    pub fn g_date_get_month       (date: *const GDate) -> c_int;
+    pub fn g_date_get_year        (date: *const GDate) -> u16;
+    pub fn g_date_get_julian      (date: *const GDate) -> u32;
+    pub fn g_date_get_weekday     (date: *const GDate) -> c_int;
+    pub fn g_date_get_day_of_year (date: *const GDate) -> c_uint;
+    pub fn g_date_is_first_of_month(date: *const GDate) -> Gboolean;
+    pub fn g_date_is_last_of_month(date: *const GDate) -> Gboolean;
+    pub fn g_date_get_monday_week_of_year(date: *const GDate) -> c_uint;
+    pub fn g_date_get_sunday_week_of_year(date: *const GDate) -> c_uint;
+    pub fn g_date_get_iso8601_week_of_year(date: *const GDate) -> c_uint;
+    pub fn g_date_strftime        (s: *mut c_char, slen: u32, format: *const c_char, date: *const GDate) -> u32;
+    //pub fn g_date_to_struct_tm    (date: *const GDate, tm: *mut struct tm);
+    pub fn g_date_valid           (date: *const GDate) -> Gboolean;
+
+    //=========================================================================
+    // GTimeVal
+    //=========================================================================
+    pub fn g_time_val_add         (time_: *mut c_void, microseconds: c_ulong);
+    pub fn g_time_val_from_iso8601(iso_date: *const c_char, time_: *mut c_void);
+    pub fn g_time_val_to_iso8601  (time_: *mut c_void) -> *mut c_char;
 }
