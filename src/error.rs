@@ -13,7 +13,7 @@ pub struct Error {
 impl Error {
     pub fn new_literal(domain: GQuark, code: i32, message: &str) -> Option<Error> {
         let tmp_pointer = unsafe {
-            ffi::g_error_new_literal(domain, code, message.borrow_to_glib().0)
+            ffi::g_error_new_literal(domain, code, message.to_glib_none().0)
         };
 
         if tmp_pointer.is_null() {
@@ -39,7 +39,7 @@ impl Error {
 
     pub fn set(&mut self, domain: GQuark, code: i32, message: &str) -> () {
         unsafe {
-            ffi::g_set_error_literal(&mut self.pointer, domain, code, message.borrow_to_glib().0)
+            ffi::g_set_error_literal(&mut self.pointer, domain, code, message.to_glib_none().0)
         }
     }
 

@@ -9,7 +9,7 @@ use libc::c_char;
 use ffi;
 use super::{to_bool, to_gboolean};
 use type_::Type;
-use translate::{FromGlibPtr, ToGlib, ToGlibPtr, from_glib};
+use translate::*;
 
 pub trait ValuePublic {
     fn get(gvalue: &Value) -> Self;
@@ -40,8 +40,7 @@ impl Value {
 
     pub fn strdup_value_contents(&mut self) -> Option<String> {
         unsafe {
-            FromGlibPtr::take(
-                ffi::g_strdup_value_contents(&mut self.inner) as *const c_char)
+            from_glib_full(ffi::g_strdup_value_contents(&mut self.inner) as *const c_char)
         }
     }
 
@@ -155,14 +154,13 @@ impl Value {
 
     fn set_string(&mut self, v_string: &str) {
         unsafe {
-            ffi::g_value_set_string(&mut self.inner, v_string.borrow_to_glib().0);
+            ffi::g_value_set_string(&mut self.inner, v_string.to_glib_none().0);
         }
     }
 
     pub fn get_string(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::borrow(
-                ffi::g_value_get_string(&self.inner))
+            from_glib_none(ffi::g_value_get_string(&self.inner))
         }
     }
 
