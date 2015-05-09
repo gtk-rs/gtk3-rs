@@ -523,6 +523,27 @@ extern "C" {
     //=========================================================================
     pub fn gdk_pixbuf_new(colorspace: enums::ColorSpace, has_alpha: Gboolean,
         bits_per_sample: c_int, width: c_int, height: c_int) -> *mut C_GdkPixbuf;
+    
+    pub fn gdk_pixbuf_new_from_file(filename: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_file_at_size(filename: *const c_char, width: c_int, height: c_int,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_file_at_scale(filename: *const c_char, width: c_int, height: c_int, preserve_aspect_ratio: Gboolean,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_get_file_info(filename: *const c_char, width: *mut c_int, height: *mut c_int) -> *mut C_GdkPixbufFormat;
+    pub fn gdk_pixbuf_new_from_resource(resource_path: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_resource_at_scale(resource_path: *const c_char, width: c_int, height: c_int,
+        preserve_aspect_ratio: Gboolean, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    /*pub fn gdk_pixbuf_new_from_stream(stream: *mut C_GInputStream, cancellable: *mut C_GCancellable,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_stream_async(stream: *mut C_GInputStream, cancellable: *mut C_GCancellable,
+        callback: GAsyncReadyCallback, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_stream_finish(async_result: *mut C_GAsyncResult, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_stream_at_scale(stream: *mut C_GInputStream, width: c_int, height: c_int,
+        preserve_aspect_ratio: Gboolean, cancellable: *mut C_GCancellable, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_stream_at_scale_async(stream: *mut C_GInputStream, width: c_int, height: c_int,
+        preserve_aspect_ratio: Gboolean, cancellable: *mut C_GCancellable, callback: GAsyncReadyCallback,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;*/
+
     pub fn gdk_pixbuf_new_subpixbuf(src_pixbuf: *mut C_GdkPixbuf, src_x: c_int, src_y: c_int,
         width: c_int, height: c_int) -> *mut C_GdkPixbuf;
     pub fn gdk_pixbuf_get_colorspace(pixbuf: *const C_GdkPixbuf) -> enums::ColorSpace;
