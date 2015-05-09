@@ -150,7 +150,7 @@ impl Date {
     }
 
     pub fn set_parse(&mut self, str_: &str) {
-        unsafe { ffi::g_date_set_parse(self.pointer, str_.borrow_to_glib().0) }
+        unsafe { ffi::g_date_set_parse(self.pointer, str_.to_glib_none().0) }
     }
 
     pub fn add_days(&mut self, days: usize) {
@@ -274,11 +274,11 @@ impl TimeVal {
     }
 
     pub fn from_iso8601(&mut self, iso_date: &str) {
-        unsafe { ffi::g_time_val_from_iso8601(iso_date.borrow_to_glib().0, std::mem::transmute(self)) }
+        unsafe { ffi::g_time_val_from_iso8601(iso_date.to_glib_none().0, std::mem::transmute(self)) }
     }
 
     pub fn to_iso8601(&mut self) -> Option<String> {
-        unsafe { super::translate::FromGlibPtr::borrow(ffi::g_time_val_to_iso8601(std::mem::transmute(self))) }
+        unsafe { ::translate::from_glib_none(ffi::g_time_val_to_iso8601(std::mem::transmute(self))) }
     }
 }
 

@@ -21,7 +21,7 @@ pub use self::permission::Permission;
 pub use self::timeout_func::timeout;
 pub use self::traits::FFIGObject;
 pub use self::value::{Value, ValuePublic};
-pub use type_::Type;
+pub use types::Type;
 pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 
 mod list;
@@ -34,7 +34,8 @@ pub mod timeout_func;
 pub mod traits;
 pub mod translate;
 mod value;
-pub mod type_;
+pub mod object;
+pub mod types;
 pub mod date;
 
 pub fn to_gboolean(b: bool) -> ffi::Gboolean {

@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use translate::{FromGlib, ToGlib};
+use translate::{FromGlib, ToGlib, from_glib};
 use ffi;
 
 /// A GLib or GLib-based library type
@@ -56,8 +56,20 @@ pub enum Type {
     Other(usize),
 }
 
-pub trait GetType {
-    fn get_type() -> Type;
+pub trait StaticType {
+    fn static_type() -> Type;
+}
+
+pub trait InstanceType {
+    fn instance_type(&self) -> Type;
+}
+
+#[inline]
+pub fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
+    unsafe {
+        from_glib(
+            ffi::g_type_check_instance_is_a(ptr, <C as StaticType>::static_type().to_glib()))
+    }
 }
 
 impl FromGlib<ffi::GType> for Type {

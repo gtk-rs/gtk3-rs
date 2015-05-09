@@ -16,6 +16,7 @@ pub type Gboolean = c_int;
 pub const GFALSE:  c_int = 0;
 pub const GTRUE:   c_int = 1;
 
+pub type gconstpointer = *const c_void;
 pub type gpointer = *mut c_void;
 
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> Gboolean;
@@ -223,12 +224,16 @@ extern "C" {
     // GObject
     //=========================================================================
     pub fn g_object_ref(object: *mut c_void) -> *mut c_void;
+    pub fn g_object_ref_sink(object: *mut c_void) -> *mut c_void;
     pub fn g_object_unref(object: *mut c_void);
 
     pub fn glue_signal_connect(g_object: *mut C_GObject,
                                signal: *const c_char,
                                func: Option<extern "C" fn()>,
                                user_data: *const c_void);
+
+    pub fn g_type_check_instance_is_a(type_instance: gconstpointer,
+                                      iface_type: GType) -> Gboolean;
 
     //=========================================================================
     // GValue
