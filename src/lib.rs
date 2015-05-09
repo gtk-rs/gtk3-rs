@@ -34,6 +34,7 @@ pub mod timeout_func;
 pub mod traits;
 pub mod translate;
 mod value;
+pub mod object;
 pub mod types;
 pub mod date;
 
