@@ -21,7 +21,6 @@ gdk_3_14 = ["gdk-sys/gdk_3_14", "gdk_3_12"]
 
 [dependencies]
 libc = "0.1"
-c_vec = "~1.0"
 
 [dependencies.gdk-sys]
 path = "gdk-sys"

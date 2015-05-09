@@ -4,114 +4,106 @@
 
 //! GdkDevice — Object representing an input device
 
+use glib::translate::*;
+use glib::types;
+use cursor::Cursor;
+use display::Display;
+use object::Object;
+use screen::Screen;
+use window::Window;
 use ffi;
-use libc::{c_uint};
-use glib::to_bool;
-use glib::translate::{FromGlibPtr};
 
-#[repr(C)]
-pub struct Device {
-    pointer: *mut ffi::C_GdkDevice
+pub type Type = ffi::enums::DeviceType;
+
+pub type Device = Object<ffi::C_GdkDevice>;
+
+impl types::StaticType for Device {
+    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_device_get_type()) } }
 }
 
 impl Device {
     pub fn get_name(&self) -> Option<String> {
         unsafe {
-            FromGlibPtr::borrow(
-                ffi::gdk_device_get_name(self.pointer))
+            from_glib_none(ffi::gdk_device_get_name(self.to_glib_none().0))
         }
     }
 
     pub fn get_source(&self) -> ::InputSource {
-        unsafe { ffi::gdk_device_get_source(self.pointer) }
+        unsafe { ffi::gdk_device_get_source(self.to_glib_none().0) }
     }
 
     pub fn set_mode(&self, mode: ::InputMode) {
-        unsafe { ffi::gdk_device_set_mode(self.pointer, mode) }
+        unsafe { ffi::gdk_device_set_mode(self.to_glib_none().0, mode) }
     }
 
     pub fn get_mode(&self) -> ::InputMode {
-        unsafe { ffi::gdk_device_get_mode(self.pointer) }
+        unsafe { ffi::gdk_device_get_mode(self.to_glib_none().0) }
     }
 
     pub fn set_key(&self, index_: u32, keyval: u32, modifiers: ::ModifierType) {
-        unsafe { ffi::gdk_device_set_key(self.pointer, index_ as c_uint, keyval as c_uint, modifiers) }
+        unsafe { ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers) }
     }
 
     pub fn get_key(&self, index_: u32, keyval: &mut u32, modifiers: &mut ::ModifierType) -> bool {
-        unsafe { to_bool(ffi::gdk_device_get_key(self.pointer, index_ as c_uint, keyval as *mut c_uint, modifiers)) }
+        unsafe { from_glib(ffi::gdk_device_get_key(self.to_glib_none().0, index_, keyval, modifiers)) }
     }
 
     pub fn set_axis_use(&self, index_: u32, use_: ::AxisUse) {
-        unsafe { ffi::gdk_device_set_axis_use(self.pointer, index_ as c_uint, use_) }
+        unsafe { ffi::gdk_device_set_axis_use(self.to_glib_none().0, index_, use_) }
     }
 
     pub fn get_axis_use(&self, index_: u32) -> ::AxisUse {
-        unsafe { ffi::gdk_device_get_axis_use(self.pointer, index_ as c_uint) }
+        unsafe { ffi::gdk_device_get_axis_use(self.to_glib_none().0, index_) }
     }
 
     pub fn get_associated_device(&self) -> Option<Device> {
-        let tmp = unsafe { ffi::gdk_device_get_associated_device(self.pointer) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(Device {
-                pointer: tmp
-            })
-        }
+        unsafe { from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0)) }
     }
 
-    pub fn get_device_type(&self) -> ::DeviceType {
-        unsafe { ffi::gdk_device_get_device_type(self.pointer) }
+    pub fn get_device_type(&self) -> Type {
+        unsafe { ffi::gdk_device_get_device_type(self.to_glib_none().0) }
     }
 
-    /*pub fn get_display(&self) -> Option<::Display> {
-        let tmp = unsafe { ffi::gdk_device_get_display(self.pointer) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(::Display::wrap_pointer(tmp))
-        }
-    }*/
+    pub fn get_display(&self) -> Display {
+        unsafe { from_glib_none(ffi::gdk_device_get_display(self.to_glib_none().0)) }
+    }
 
     pub fn get_has_cursor(&self) -> bool {
-        unsafe { to_bool(ffi::gdk_device_get_has_cursor(self.pointer)) }
+        unsafe { from_glib(ffi::gdk_device_get_has_cursor(self.to_glib_none().0)) }
     }
 
     pub fn get_n_axes(&self) -> i32 {
-        unsafe { ffi::gdk_device_get_n_axes(self.pointer) }
+        unsafe { ffi::gdk_device_get_n_axes(self.to_glib_none().0) }
     }
 
     pub fn get_n_keys(&self) -> i32 {
-        unsafe { ffi::gdk_device_get_n_keys(self.pointer) }
+        unsafe { ffi::gdk_device_get_n_keys(self.to_glib_none().0) }
     }
 
-    /*pub fn warp(&self, screen: &::Screen, x: i32, y: i32) {
-        unsafe { ffi::gdk_device_warp(self.pointer, screen.unwrap_pointer(), x as c_int, y as c_int) }
+    pub fn warp(&self, screen: &Screen, x: i32, y: i32) {
+        unsafe { ffi::gdk_device_warp(self.to_glib_none().0, screen.to_glib_none().0, x, y) }
     }
 
-    pub fn grab(&self, window: &::Window, grab_ownership: ::GrabOwnership, owner_events: bool, event_mask: ::EventMask,
-        cursor: &mut ::Cursor, time_: u32) -> ::GrabStatus {
+    pub fn grab(&self, window: &Window, grab_ownership: ::GrabOwnership, owner_events: bool,
+                event_mask: ::EventMask, cursor: &Cursor, time_: u32) -> ::GrabStatus {
         unsafe {
-            ffi::gdk_device_grab(self.pointer, window.unwrap_pointer(), grab_ownership, to_gboolean(owner_events),
-                event_mask, cursor.unwrap_pointer(), time_)
+            ffi::gdk_device_grab(self.to_glib_none().0, window.to_glib_none().0, grab_ownership,
+                owner_events.to_glib(), event_mask, cursor.to_glib_none().0, time_)
         }
-    }*/
+    }
 
     pub fn ungrab(&self, time_: u32) {
-        unsafe { ffi::gdk_device_ungrab(self.pointer, time_) }
+        unsafe { ffi::gdk_device_ungrab(self.to_glib_none().0, time_) }
     }
 
     /*pub fn get_state(&self, window: &::Window, axes: &mut [f64], mask: &mut gdk;:ModifierType) {
-        unsafe { ffi::gdk_device_get_state(self.pointer, window.unwrap_pointer(), axes.as_mut_ptr(), mask) }
+        unsafe { ffi::gdk_device_get_state(self.to_glib_none().0, window.unwrap_pointer(), axes.as_mut_ptr(), mask) }
     }
 
     pub fn get_position(&self, x: &mut i32, y: &mut i32) -> Option<::Screen> {
         let mut ptr = ::std::ptr::null_mut();
 
-        unsafe { ffi::gdk_device_get_position(self.pointer, &mut ptr, x as *mut c_int, y as *mut c_int) };
+        unsafe { ffi::gdk_device_get_position(self.to_glib_none().0, &mut ptr, x as *mut c_int, y as *mut c_int) };
         if ptr.is_null() {
             None
         } else {
@@ -122,7 +114,7 @@ impl Device {
     pub fn get_position_double(&self, x: &mut f64, y: &mut f64) -> Option<::Screen> {
         let mut ptr = ::std::ptr::null_mut();
 
-        unsafe { ffi::gdk_device_get_position_double(self.pointer, &mut ptr, x as *mut c_double, y as *mut c_double) };
+        unsafe { ffi::gdk_device_get_position_double(self.to_glib_none().0, &mut ptr, x as *mut c_double, y as *mut c_double) };
         if ptr.is_null() {
             None
         } else {
@@ -133,7 +125,7 @@ impl Device {
     pub fn get_window_at_position(&self, x: &mut i32, y: &mut i32) -> Option<::Window> {
         let mut ptr = ::std::ptr::null_mut();
 
-        unsafe { ffi::gdk_device_get_window_at_position(self.pointer, &mut ptr, x as *mut c_int, y as *mut c_int) };
+        unsafe { ffi::gdk_device_get_window_at_position(self.to_glib_none().0, &mut ptr, x as *mut c_int, y as *mut c_int) };
         if ptr.is_null() {
             None
         } else {
@@ -144,7 +136,7 @@ impl Device {
     pub fn get_window_at_position_double(&self, x: &mut f64, y: &mut f64) -> Option<::Window> {
         let mut ptr = ::std::ptr::null_mut();
 
-        unsafe { ffi::gdk_device_get_window_at_position_double(self.pointer, &mut ptr, x as *mut c_double, y as *mut c_double) };
+        unsafe { ffi::gdk_device_get_window_at_position_double(self.to_glib_none().0, &mut ptr, x as *mut c_double, y as *mut c_double) };
         if ptr.is_null() {
             None
         } else {
@@ -156,7 +148,7 @@ impl Device {
         let mut ptr = ::std::ptr::null_mut();
         let mut n_events : c_int = 0;
 
-        unsafe { ffi::gdk_device_get_history(self.pointer, window.unwrap_pointer(), start, stop, &mut ptr, &mut n_events) };
+        unsafe { ffi::gdk_device_get_history(self.to_glib_none().0, window.unwrap_pointer(), start, stop, &mut ptr, &mut n_events) };
         
         let mut ret = Vec::with_capacity(n_events as uint);
         
@@ -176,15 +168,15 @@ impl Device {
     }*/
 
     pub fn get_axis(&self, axes: &mut [f64], use_: ::AxisUse, value: &mut f64) -> bool {
-        unsafe { to_bool(ffi::gdk_device_get_axis(self.pointer, axes.as_mut_ptr(), use_, value)) }
+        unsafe { from_glib(ffi::gdk_device_get_axis(self.to_glib_none().0, axes.as_mut_ptr(), use_, value)) }
     }
 
     /*pub fn get_axis_value(&self, axes: &mut [f64], label: &mut ::Atom, value: &mut f64) -> bool {
-        unsafe { to_bool(ffi::gdk_device_get_axis_value(self.pointer, axes.as_mut_ptr(), label.unwrap_pointer(), value)) }
+        unsafe { from_glib(ffi::gdk_device_get_axis_value(self.to_glib_none().0, axes.as_mut_ptr(), label.unwrap_pointer(), value)) }
     }*/
 
     /*pub fn get_last_event_window(&self) -> Option<::Window> {
-        let ptr = unsafe { ffi::gdk_device_get_last_event_window(self.pointer) };
+        let ptr = unsafe { ffi::gdk_device_get_last_event_window(self.to_glib_none().0) };
 
         if ptr.is_null() {
             None
@@ -193,5 +185,3 @@ impl Device {
         }
     }*/
 }
-
-impl_GObjectFunctions!(Device, C_GdkDevice);

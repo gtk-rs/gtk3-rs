@@ -5,14 +5,19 @@
 //! GdkPixbufLoader — Application-driven progressive image loading.
 
 use std::ptr;
+use glib::{Error, GlibContainer};
+use glib::translate::*;
+use glib::types::{StaticType, Type};
+use object::Object;
 use ffi;
-use glib::{to_bool, GlibContainer, Error};
-use glib::translate::ToGlibPtr;
-use libc::{c_int, c_uint};
+use super::Pixbuf;
+use super::animation::PixbufAnimation;
+use super::format::PixbufFormat;
 
-#[repr(C)]
-pub struct PixbufLoader {
-    pointer: *mut ffi::C_GdkPixbufLoader
+pub type PixbufLoader = Object<ffi::C_GdkPixbufLoader>;
+
+impl StaticType for PixbufLoader {
+    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_loader_get_type()) } }
 }
 
 impl PixbufLoader {
@@ -20,14 +25,8 @@ impl PixbufLoader {
     ///
     /// # Failures
     /// Returns `None` if the pixbuf loader cannot be created.
-    pub fn new() -> Option<PixbufLoader> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new() };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(PixbufLoader::wrap_pointer(tmp))
-        }
+    pub fn new() -> PixbufLoader {
+        unsafe { from_glib_full(ffi::gdk_pixbuf_loader_new()) }
     }
 
     /// Creates a new pixbuf loader object that always attempts to parse image
@@ -48,14 +47,15 @@ impl PixbufLoader {
     /// # Panics
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
-        let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_type(image_type.borrow_to_glib().0, &mut error) };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            Ok(PixbufLoader::wrap_pointer(tmp))
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = ffi::gdk_pixbuf_loader_new_with_type(image_type.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            }
+            else {
+                Err(Error::wrap(error))
+            }
         }
     }
 
@@ -77,27 +77,25 @@ impl PixbufLoader {
     /// # Panics
     /// Fails if the pixbuf loader cannot be retrieved. 
     pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
-        let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.borrow_to_glib().0, &mut error) };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            Ok(PixbufLoader::wrap_pointer(tmp))
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = ffi::gdk_pixbuf_loader_new_with_mime_type(mime_type.to_glib_none().0,
+                                                                &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            }
+            else {
+                Err(Error::wrap(error))
+            }
         }
     }
 
     /// Obtains the available information about the format of the currently
     /// loading image file.  Returns `None` if not enough data has been written
     /// to determine the format.
-    pub fn get_format(&self) -> Option<::PixbufFormat> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_get_format(self.unwrap_pointer()) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(::PixbufFormat::wrap_pointer(tmp))
+    pub fn get_format(&self) -> PixbufFormat {
+        unsafe {
+            from_glib_none(ffi::gdk_pixbuf_loader_get_format(self.to_glib_none().0))
         }
     }
 
@@ -112,7 +110,10 @@ impl PixbufLoader {
     pub fn loader_write(&self, buf: &[u8]) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            match to_bool(ffi::gdk_pixbuf_loader_write(self.unwrap_pointer(), buf.as_ptr(), buf.len() as c_uint, &mut error)) {
+            match from_glib(ffi::gdk_pixbuf_loader_write(self.to_glib_none().0,
+                                                         buf.as_ptr(),
+                                                         buf.len() as ffi::gsize,
+                                                         &mut error)) {
                 true => Ok(()),
                 false => Err(Error::wrap(error))
             }
@@ -130,8 +131,10 @@ impl PixbufLoader {
     ///
     /// Attempts to set the desired image size are ignored after the emission
     /// of the `size-prepared` signal.
-    pub fn set_size(&self, width: isize, height: isize) {
-        unsafe { ffi::gdk_pixbuf_loader_set_size(self.unwrap_pointer(), width as c_int, height as c_int) }
+    pub fn set_size(&self, width: i32, height: i32) {
+        unsafe {
+            ffi::gdk_pixbuf_loader_set_size(self.to_glib_none().0, width, height)
+        }
     }
 
     /// Queries the `Pixbuf` that a pixbuf loader is currently creating. In
@@ -141,25 +144,13 @@ impl PixbufLoader {
     /// allocated. If the loader has not received enough data via
     /// `loader_write()`, then this function returns `None`. If the loader is
     /// an animation, it will return the "static image" of the animation.
-    pub fn get_pixbuf(&self) -> Option<::Pixbuf> {
-        let tmp = unsafe { ffi::gdk_pixbuf_loader_get_pixbuf(self.unwrap_pointer()) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            Some(::Pixbuf::wrap_pointer(tmp))
-        }
+    pub fn get_pixbuf(&self) -> Option<Pixbuf> {
+        unsafe { from_glib_none(ffi::gdk_pixbuf_loader_get_pixbuf(self.to_glib_none().0)) }
     }
 
-    /*pub fn get_animation(&self) -> Option<::PixbufAnimation> {
-      let tmp = unsafe { ffi::gdk_pixbuf_loader_get_animation(self.unwrap_pointer()) };
-
-      if tmp.is_null() {
-      None
-      } else {
-      Some(::PixbufAnimation::wrap_pointer(tmp))
-      }
-      }*/
+    pub fn get_animation(&self) -> Option<PixbufAnimation> {
+        unsafe { from_glib_none(ffi::gdk_pixbuf_loader_get_animation(self.to_glib_none().0)) }
+    }
 
     /// Informs a pixbuf loader that no further writes with `loader_write()`
     /// will occur, so that it can free its internal loading structures. Also,
@@ -171,12 +162,10 @@ impl PixbufLoader {
     pub fn close(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            match to_bool(ffi::gdk_pixbuf_loader_close(self.unwrap_pointer(), &mut error)) {
+            match from_glib(ffi::gdk_pixbuf_loader_close(self.to_glib_none().0, &mut error)) {
                 true => Ok(()),
                 false => Err(Error::wrap(error))
             }
         }
     }
 }
-
-impl_GObjectFunctions!(PixbufLoader, C_GdkPixbufLoader);
