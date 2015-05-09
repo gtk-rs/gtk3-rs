@@ -53,10 +53,11 @@ fn main() {
     // print out when a row is selected
 
     let left_selection = left_tree.get_selection().unwrap();
-    left_selection.connect_changed(|tree_selection| {
+    let left_model1 = left_model.clone();
+    left_selection.connect_changed(move |tree_selection| {
         let mut iter = gtk::TreeIter::new();
-        tree_selection.get_selected(&left_model, &mut iter);
-        if let Some(path) = left_model.get_path(&iter) {
+        tree_selection.get_selected(&left_model1, &mut iter);
+        if let Some(path) = left_model1.get_path(&iter) {
             println!("selected row {}", path.to_string().unwrap());
         }
     });
