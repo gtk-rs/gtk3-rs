@@ -8,7 +8,7 @@ use std::mem;
 use libc::c_char;
 use ffi;
 use super::{to_bool, to_gboolean};
-use type_::Type;
+use types::Type;
 use translate::*;
 
 pub trait ValuePublic {

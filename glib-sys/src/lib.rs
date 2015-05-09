@@ -16,6 +16,7 @@ pub type Gboolean = c_int;
 pub const GFALSE:  c_int = 0;
 pub const GTRUE:   c_int = 1;
 
+pub type gconstpointer = *const c_void;
 pub type gpointer = *mut c_void;
 
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> Gboolean;
@@ -229,6 +230,9 @@ extern "C" {
                                signal: *const c_char,
                                func: Option<extern "C" fn()>,
                                user_data: *const c_void);
+
+    pub fn g_type_check_instance_is_a(type_instance: gconstpointer,
+                                      iface_type: GType) -> Gboolean;
 
     //=========================================================================
     // GValue
