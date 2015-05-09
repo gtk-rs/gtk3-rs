@@ -100,7 +100,7 @@ pub struct EventVisibility{
     pub window : *mut ::Window,
     send_event : i8,
 
-    state : ::VisibilityState
+    pub state : ::VisibilityState
 }
 
 impl Event for EventVisibility {}
@@ -111,15 +111,15 @@ pub struct EventMotion {
     pub window : *mut ::Window,
     send_event : i8,
 
-    time : u32,
-    x : f64,
-    y : f64,
-    axes : *mut f64,
-    state : ::enums::modifier_type::ModifierType,
-    is_hint : i16,
-    device : *mut ::Device,
-    x_root : f64,
-    y_root : f64
+    pub time : u32,
+    pub x : f64,
+    pub y : f64,
+    pub axes : *mut f64,
+    pub state : ::enums::modifier_type::ModifierType,
+    pub is_hint : i16,
+    pub device : *mut ::Device,
+    pub x_root : f64,
+    pub y_root : f64
 }
 
 impl Event for EventMotion {}
@@ -130,15 +130,15 @@ pub struct EventButton {
     pub window : *mut ::Window,
     send_event : i8,
 
-    time : u32,
-    x : f64,
-    y : f64,
-    axes : *mut f64,
-    state : ::enums::modifier_type::ModifierType,
-    button : u32,
-    device : *mut ::Device,
-    x_root : f64,
-    y_root : f64
+    pub time : u32,
+    pub x : f64,
+    pub y : f64,
+    pub axes : *mut f64,
+    pub state : ::enums::modifier_type::ModifierType,
+    pub button : u32,
+    pub device : *mut ::Device,
+    pub x_root : f64,
+    pub y_root : f64
 }
 
 impl Event for EventButton {}
@@ -227,7 +227,7 @@ pub struct EventFocus {
     pub window : *mut ::Window,
     send_event : i8,
 
-    _in : i16
+    pub _in : i16
 }
 
 impl Event for EventFocus {}
@@ -252,9 +252,9 @@ pub struct EventProperty {
     pub window : *mut ::Window,
     send_event : i8,
 
-    atom : ::Atom,
-    time : u32,
-    state : u32 //FIXME
+    pub atom : ::Atom,
+    pub time : u32,
+    pub state : u32 //FIXME
 }
 
 impl Event for EventProperty {}
