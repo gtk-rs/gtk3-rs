@@ -141,12 +141,12 @@ pub trait ToGlibPtr<'a, P: Copy> {
     /// Transfer: none.
     ///
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
-    fn to_glib_none(&'a self) -> Stash<P, Self>;
+    fn to_glib_none(&self) -> Stash<'a, P, Self>;
 
     /// Transfer: full.
     ///
     /// We transfer the ownership to the foreign library.
-    fn to_glib_full(&'a self) -> P {
+    fn to_glib_full(&self) -> P {
         unimplemented!();
     }
 }
@@ -154,7 +154,7 @@ pub trait ToGlibPtr<'a, P: Copy> {
 impl <'a> ToGlibPtr<'a, *const c_char> for str {
     type Storage = CString;
 
-    fn to_glib_none(&'a self) -> Stash<*const c_char, str> {
+    fn to_glib_none(&self) -> Stash<'a, *const c_char, str> {
         let tmp = CString::new(self).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
@@ -163,7 +163,7 @@ impl <'a> ToGlibPtr<'a, *const c_char> for str {
 impl <'a> ToGlibPtr<'a, *const c_char> for String {
     type Storage = CString;
 
-    fn to_glib_none(&'a self) -> Stash<*const c_char, String> {
+    fn to_glib_none(&self) -> Stash<'a, *const c_char, String> {
         let tmp = CString::new(&self[..]).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
@@ -172,7 +172,7 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
 impl <'a, S: AsRef<str>> ToGlibPtr<'a, *const c_char> for Option<S> {
     type Storage = Option<CString>;
 
-    fn to_glib_none(&'a self) -> Stash<*const c_char, Option<S>> {
+    fn to_glib_none(&self) -> Stash<'a, *const c_char, Option<S>> {
         let tmp = match self {
             &Some(ref s) => Some(CString::new(s.as_ref()).unwrap()),
             &None => None,
