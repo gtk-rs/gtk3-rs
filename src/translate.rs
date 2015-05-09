@@ -320,29 +320,15 @@ pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
     FromGlibPtr::from_glib_full(ptr)
 }
 
-impl FromGlibPtr<*const c_char> for Option<String> {
+impl<P: Ptr, T: FromGlibPtr<P>> FromGlibPtr<P> for Option<T> {
     #[inline]
-    unsafe fn from_glib_none(ptr: *const c_char) -> Option<String> {
+    unsafe fn from_glib_none(ptr: P) -> Option<T> {
         if ptr.is_null() { None }
         else { Some(from_glib_none(ptr)) }
     }
 
     #[inline]
-    unsafe fn from_glib_full(ptr: *const c_char) -> Option<String> {
-        if ptr.is_null() { None }
-        else { Some(from_glib_full(ptr)) }
-    }
-}
-
-impl FromGlibPtr<*mut c_char> for Option<String> {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut c_char) -> Option<String> {
-        if ptr.is_null() { None }
-        else { Some(from_glib_none(ptr)) }
-    }
-
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut c_char) -> Option<String> {
+    unsafe fn from_glib_full(ptr: P) -> Option<T> {
         if ptr.is_null() { None }
         else { Some(from_glib_full(ptr)) }
     }
