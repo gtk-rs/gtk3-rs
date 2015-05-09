@@ -11,8 +11,10 @@ extern crate glib_sys as glib_ffi;
 
 pub mod enums;
 
-use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
-use glib_ffi::Gboolean;
+use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float, size_t};
+use glib_ffi::{Gboolean, GType};
+
+pub type gsize = size_t;
 
 #[repr(C)]
 pub struct C_GdkWindow;
@@ -336,6 +338,7 @@ extern "C" {
         parent_y: *mut c_double);
     pub fn gdk_window_get_effective_parent(window: *mut C_GdkWindow) -> *mut C_GdkWindow;
     pub fn gdk_window_get_effective_toplevel(window: *mut C_GdkWindow) -> *mut C_GdkWindow;
+    pub fn gdk_window_get_type           () -> GType;
 
     // Callback
     //let GdkWindowInvalidateHandlerFunc = fn(window: *mut C_GdkWindow, region: *const cairo_region_t);
@@ -381,6 +384,7 @@ extern "C" {
     pub fn gdk_device_get_axis_value       (device: *mut C_GdkDevice, axes: *mut c_double, use_: C_GdkAtom,
         value: *mut c_double) -> Gboolean;
     pub fn gdk_device_get_last_event_window(device: *mut C_GdkDevice) -> *mut C_GdkWindow;
+    pub fn gdk_device_get_type             () -> GType;
 
     //=========================================================================
     // GdkDeviceManager                                                  NOT OK
@@ -389,6 +393,7 @@ extern "C" {
     pub fn gdk_device_manager_get_display  (device_manager: *mut C_GdkDeviceManager) -> *mut C_GdkDisplay;
     //pub fn gdk_device_manager_list_devices (device_manager: *mut C_GdkDeviceManager, type_: enums::DeviceType) -> *mut GList;
     pub fn gdk_device_manager_get_client_pointer(device_manager: *mut C_GdkDeviceManager) -> *mut C_GdkDevice;
+    pub fn gdk_device_manager_get_type     () -> GType;
 
     //=========================================================================
     // GdkDisplay                                                        NOT OK
@@ -426,6 +431,7 @@ extern "C" {
     pub fn gdk_display_supports_composite  (display: *mut C_GdkDisplay) -> Gboolean;
     pub fn gdk_display_get_app_launch_context(display: *mut C_GdkDisplay) -> *mut C_GdkAppLaunchContext;
     pub fn gdk_display_notify_startup_complete(display: *mut C_GdkDisplay, startup_id: *const c_char);
+    pub fn gdk_display_get_type            () -> GType;
 
     //=========================================================================
     // GdkDisplayManager                                                 NOT OK
@@ -435,6 +441,7 @@ extern "C" {
     pub fn gdk_display_manager_set_default_display(manager: *mut C_GdkDisplayManager, display: *mut C_GdkDisplay);
     //pub fn gdk_display_manager_list_displays      (manager: *mut C_GdkDisplayManager) -> *mut GSList;
     pub fn gdk_display_manager_open_display       (manager: *mut C_GdkDisplayManager, name: *const c_char) -> *mut C_GdkDisplay;
+    pub fn gdk_display_manager_get_type           () -> GType;
 
     //=========================================================================
     // GdkScreen                                                         NOT OK
@@ -470,6 +477,7 @@ extern "C" {
     pub fn gdk_screen_set_resolution          (screen: *mut C_GdkScreen, dpi: c_double);
     pub fn gdk_screen_get_active_window       (screen: *mut C_GdkScreen) -> *mut C_GdkWindow;
     //pub fn gdk_screen_get_window_stack        (screen: *mut C_GdkScreen) -> *mut GList;
+    pub fn gdk_screen_get_type                () -> GType;
 
     //=========================================================================
     // GdkVisual                                                         NOT OK
@@ -493,6 +501,7 @@ extern "C" {
     //pub fn gdk_visual_get_best_with_type      (visual_type: GdkVisualType) -> *mut C_GdkVisual;
     //pub fn gdk_visual_get_best_with_both      (depth: c_int, visual_type: GdkVisualType) -> *mut C_GdkVisual;
     pub fn gdk_visual_get_screen              (visual: *mut C_GdkVisual) -> *mut C_GdkScreen;
+    pub fn gdk_visual_get_type                () -> GType;
 
     //=========================================================================
     // GdkCursor                                                         NOT OK
@@ -507,6 +516,7 @@ extern "C" {
     pub fn gdk_cursor_get_image               (cursor: *mut C_GdkCursor) -> *mut C_GdkPixbuf;
     //pub fn gdk_cursor_get_surface             (cursor: *mut C_GdkCursor, x_hot: *mut c_double, y_hot: *mut c_double) -> *mut cairo_surface_t;
     pub fn gdk_cursor_get_cursor_type         (cursor: *mut C_GdkCursor) -> enums::CursorType;
+    pub fn gdk_cursor_get_type                () -> GType;
 
     //=========================================================================
     // GdkPixbuf                                                         NOT OK
@@ -527,6 +537,7 @@ extern "C" {
     pub fn gdk_pixbuf_get_rowstride(pixbuf: *const C_GdkPixbuf) -> c_int;
     pub fn gdk_pixbuf_get_byte_length(pixbuf: *const C_GdkPixbuf) -> c_ulong;
     pub fn gdk_pixbuf_get_option(pixbuf: *const C_GdkPixbuf, key: *const c_char) -> *const c_char;
+    pub fn gdk_pixbuf_get_type() -> GType;
 
     //=========================================================================
     // GdkRectangle                                                      NOT OK
@@ -558,6 +569,7 @@ extern "C" {
     pub fn gdk_frame_clock_get_current_timings  (frame_clock: *mut C_GdkFrameClock) -> *mut C_GdkFrameTimings;
     pub fn gdk_frame_clock_get_refresh_info     (frame_clock: *mut C_GdkFrameClock, base_time: i64, refresh_interval_return: *mut i64,
         presentation_time_return: *mut i64);
+    pub fn gdk_frame_clock_get_type             () -> GType;
 
     //=========================================================================
     // GdkFrameTimings                                                   NOT OK
@@ -577,6 +589,7 @@ extern "C" {
     pub fn gdk_frame_timings_get_refresh_interval (timings: *mut C_GdkFrameTimings) -> i64;
     // Since 3.8
     pub fn gdk_frame_timings_get_predicted_presentation_time(timings: *mut C_GdkFrameTimings) -> i64;
+    pub fn gdk_frame_timings_get_type             () -> GType;
 
     //=========================================================================
     // GdkAtom                                                           NOT OK
@@ -622,6 +635,7 @@ extern "C" {
     pub fn gdk_drag_context_get_source_window      (context: *mut C_GdkDragContext) -> *mut C_GdkWindow;
     pub fn gdk_drag_context_get_dest_window        (context: *mut C_GdkDragContext) -> *mut C_GdkWindow;
     pub fn gdk_drag_context_get_protocol           (context: *mut C_GdkDragContext) -> enums::DragProtocol;
+    pub fn gdk_drag_context_get_type               () -> GType;
 
     //=========================================================================
     // GdkAppLaunchContext                                               NOT OK
@@ -631,6 +645,7 @@ extern "C" {
     pub fn gdk_app_launch_context_set_timestamp    (context: *mut C_GdkAppLaunchContext, timestamp: u32);
     //pub fn gdk_app_launch_context_set_icon         (context: *mut C_GdkAppLaunchContext, icon: *mut C_GIcon);
     pub fn gdk_app_launch_context_set_icon_name    (context: *mut C_GdkAppLaunchContext, icon_name: *const c_char);
+    pub fn gdk_app_launch_context_get_type         () -> GType;
 
     //=========================================================================
     // Gdk Key Handling                                                  NOT OK
@@ -644,14 +659,15 @@ extern "C" {
     pub fn gdk_pixbuf_loader_new_with_type          (image_type: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufLoader;
     pub fn gdk_pixbuf_loader_new_with_mime_type     (mime_type: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufLoader;
     pub fn gdk_pixbuf_loader_get_format             (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbufFormat;
-    pub fn gdk_pixbuf_loader_write                  (loader: *mut C_GdkPixbufLoader, buf: *const u8, count: u32,
+    pub fn gdk_pixbuf_loader_write                  (loader: *mut C_GdkPixbufLoader, buf: *const u8, count: gsize,
         error: *mut *mut glib_ffi::C_GError) -> Gboolean;
     //pub fn gdk_pixbuf_loader_write_bytes            (loader: *mut C_GdkPixbufLoader, buffer: glib_ffi::C_GBytes,
     //    error: *mut *mut glib_ffi::C_GError) -> Gboolean;
     pub fn gdk_pixbuf_loader_set_size               (loader: *mut C_GdkPixbufLoader, width: c_int, height: c_int);
     pub fn gdk_pixbuf_loader_get_pixbuf             (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbuf;
-    //pub fn gdk_pixbuf_loader_get_animation          (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbufAnimation;
+    pub fn gdk_pixbuf_loader_get_animation          (loader: *mut C_GdkPixbufLoader) -> *mut C_GdkPixbufAnimation;
     pub fn gdk_pixbuf_loader_close                  (loader: *mut C_GdkPixbufLoader, error: *mut *mut glib_ffi::C_GError) -> Gboolean;
+    pub fn gdk_pixbuf_loader_get_type               () -> GType;
 
     //=========================================================================
     // GdkPixbufFormat                                                   NOT OK
@@ -684,6 +700,7 @@ extern "C" {
         start_time: *const /*glib::TimeVal*/c_void) -> *mut C_GdkPixbufAnimationIter;
     pub fn gdk_pixbuf_animation_is_static_image     (animation: *mut C_GdkPixbufAnimation) -> Gboolean;
     pub fn gdk_pixbuf_animation_get_static_image    (animation: *mut C_GdkPixbufAnimation) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_animation_get_type            () -> GType;
 
     //=========================================================================
     // GdkPixbufIter                                                     NOT OK
@@ -693,6 +710,7 @@ extern "C" {
     pub fn gdk_pixbuf_animation_iter_get_delay_time  (iter: *mut C_GdkPixbufAnimationIter) -> c_int;
     pub fn gdk_pixbuf_animation_iter_on_currently_loading_frame(iter: *mut C_GdkPixbufAnimationIter) -> Gboolean;
     pub fn gdk_pixbuf_animation_iter_get_pixbuf      (iter: *mut C_GdkPixbufAnimationIter) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_animation_iter_get_type        () -> GType;
 
     //=========================================================================
     // GdkPixbufSimpleAnim                                               NOT OK
@@ -701,4 +719,5 @@ extern "C" {
     pub fn gdk_pixbuf_simple_anim_add_frame          (animation: *mut C_GdkPixbufSimpleAnim, pixbuf: *mut C_GdkPixbuf);
     pub fn gdk_pixbuf_simple_anim_set_loop           (animation: *mut C_GdkPixbufSimpleAnim, loop_: Gboolean);
     pub fn gdk_pixbuf_simple_anim_get_loop           (animation: *mut C_GdkPixbufSimpleAnim) -> Gboolean;
+    pub fn gdk_pixbuf_simple_anim_get_type           () -> GType;
 }

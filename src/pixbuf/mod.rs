@@ -1,0 +1,104 @@
+// Copyright 2013-2015, The Rust-GNOME Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+/// The GdkPixbuf structure contains information that describes an image in memory.
+
+use std::slice;
+use glib::translate::*;
+use glib::types::{StaticType, Type};
+use object::Object;
+use ffi;
+
+pub mod animation;
+pub mod format;
+pub mod loader;
+
+pub use self::animation::{PixbufAnimation, PixbufAnimationIter, PixbufSimpleAnim};
+pub use self::format::PixbufFormat;
+pub use self::loader::PixbufLoader;
+
+/// This is the main structure in the &gdk-pixbuf; library. It is used to represent images. It contains information about the image's pixel 
+/// data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the 
+/// start of the next).
+pub type Pixbuf = Object<ffi::C_GdkPixbuf>;
+
+impl StaticType for Pixbuf {
+    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_get_type()) } }
+}
+
+impl Pixbuf {
+    pub unsafe fn new(colorspace: ::ColorSpace, has_alpha: bool, bits_per_sample: i32, width: i32,
+            height: i32) -> Result<Pixbuf, ()> {
+        Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace, has_alpha.to_glib(),
+                                                   bits_per_sample, width, height)).ok_or(())
+    }
+
+    pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Pixbuf {
+        unsafe { 
+            from_glib_full(
+                ffi::gdk_pixbuf_new_subpixbuf(self.to_glib_none().0, src_x, src_y, width, height))
+        }
+    }
+
+    pub fn get_colorspace(&self) -> ::ColorSpace {
+        unsafe { ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0) }
+    }
+
+    pub fn get_n_channels(&self) -> i32 {
+        unsafe { ffi::gdk_pixbuf_get_n_channels(self.to_glib_none().0) }
+    }
+
+    pub fn get_has_alpha(&self) -> bool {
+        unsafe { ::glib::to_bool(ffi::gdk_pixbuf_get_has_alpha(self.to_glib_none().0)) }
+    }
+
+    pub fn get_bits_per_sample(&self) -> i32 {
+        unsafe { ffi::gdk_pixbuf_get_bits_per_sample(self.to_glib_none().0) }
+    }
+
+    pub unsafe fn get_pixels(&self) -> &mut [u8] {
+        let mut len = 0;
+        let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
+        slice::from_raw_parts_mut(ptr, len as usize)
+    }
+
+    pub fn get_width(&self) -> i32 {
+        unsafe { ffi::gdk_pixbuf_get_width(self.to_glib_none().0) }
+    }
+
+    pub fn get_height(&self) -> i32 {
+        unsafe { ffi::gdk_pixbuf_get_height(self.to_glib_none().0) }
+    }
+
+    pub fn get_rowstride(&self) -> i32 {
+        unsafe { ffi::gdk_pixbuf_get_rowstride(self.to_glib_none().0) }
+    }
+
+    pub fn get_byte_length(&self) -> usize {
+        unsafe { ffi::gdk_pixbuf_get_byte_length(self.to_glib_none().0) as usize }
+    }
+
+    pub fn get_option(&self, key: &str) -> Option<String> {
+        unsafe {
+            from_glib_none(ffi::gdk_pixbuf_get_option(self.to_glib_none().0, key.to_glib_none().0))
+        }
+    }
+
+    /// a convenient function
+    /// It won't work for pixbufs with images that are other than 8 bits per sample or channel, but it will work for most of the
+    /// pixbufs that GTK+ uses.
+    pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
+        unsafe {
+            let n_channels = self.get_n_channels();
+            let rowstride = self.get_rowstride();
+            let pixels = self.get_pixels();
+            let pos = (y * rowstride + x * n_channels) as usize;
+
+            pixels[pos] = red;
+            pixels[pos + 1] = green;
+            pixels[pos + 2] = blue;
+            pixels[pos + 3] = alpha;
+        }
+    }
+}

@@ -10,10 +10,37 @@ extern crate gdk_sys as gdk_ffi;
 extern crate glib_sys as glib_ffi;
 extern crate glib as glib_main;
 extern crate libc;
-extern crate c_vec;
 
 pub use gdk_ffi as ffi;
 pub use glib_main as glib;
+
+mod events;
+mod keys;
+mod object;
+mod rectangle;
+mod rt;
+
+pub mod prelude;
+
+pub mod app_launch_context;
+pub mod atom;
+pub mod cursor;
+pub mod device;
+pub mod device_manager;
+pub mod display;
+pub mod display_manager;
+pub mod drag_context;
+#[cfg(feature = "gdk_3_8")]
+pub mod frame_clock;
+#[cfg(feature = "gdk_3_8")]
+pub mod frame_timings;
+pub mod pixbuf;
+pub mod rgba;
+pub mod screen;
+pub mod visual;
+pub mod window;
+
+pub use gdk_ffi::C_GdkColor as Color;
 
 pub use self::rt::{
     init,
@@ -34,6 +61,28 @@ pub use self::rt::{
 };
 #[cfg(feature = "gdk_3_10")]
 pub use self::rt::set_allowed_backends;
+
+pub use app_launch_context::AppLaunchContext;
+pub use atom::Atom;
+pub use cursor::Cursor;
+pub use device::Device;
+pub use device_manager::DeviceManager;
+pub use display::Display;
+pub use display_manager::DisplayManager;
+pub use drag_context::DragContext;
+#[cfg(feature = "gdk_3_8")]
+pub use frame_clock::FrameClock;
+#[cfg(feature = "gdk_3_8")]
+pub use frame_timings::FrameTimings;
+pub use pixbuf::Pixbuf;
+pub use pixbuf::animation::PixbufAnimation;
+pub use pixbuf::animation::PixbufSimpleAnim;
+pub use pixbuf::format::PixbufFormat;
+pub use pixbuf::loader::PixbufLoader;
+pub use rectangle::Rectangle;
+pub use screen::Screen;
+pub use visual::Visual;
+pub use window::Window;
 
 pub use self::events::{
     EventType,
@@ -76,63 +125,22 @@ pub use gdk_ffi::enums::{
     WindowHints,
     WindowTypeHint,
     FullscreenMode,
-    WMDecoration,
     EventMask,
     InputSource,
     InputMode,
     AxisUse,
-    DeviceType,
     GrabOwnership,
     GrabStatus,
     key,
-    CursorType,
     PixbufAlphaMode,
     PixbufError,
     ColorSpace,
-    FrameClockPhase,
     WindowWindowClass,
     Gravity,
-    WMFunction,
     DragAction,
     DragProtocol
-};
-
-pub use self::widgets::{
-    Color,
-    RGBA,
-    Device,
-    Display,
-    Atom,
-    Screen,
-    Rectangle,
-    Window,
-    Visual,
-    DeviceManager,
-    Cursor,
-    Pixbuf,
-    Point,
-    DisplayManager,
-    WindowAttr,
-    DragContext,
-    AppLaunchContext,
-    PixbufFormat,
-    PixbufLoader,
-    PixbufAnimation,
-    PixbufAnimationIter,
-    PixbufSimpleAnim
-};
-#[cfg(feature = "gdk_3_8")]
-pub use self::widgets::{
-    FrameClock,
-    FrameTimings,
 };
 
 pub use self::keys::{
     keyval_name
 };
-
-mod events;
-mod rt;
-mod keys;
-mod macros;
-pub mod widgets;
