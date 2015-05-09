@@ -7,8 +7,10 @@
 use std::slice;
 use glib::translate::*;
 use glib::types::{StaticType, Type};
+use glib::{Error, to_gboolean, GlibContainer};
 use object::Object;
 use ffi;
+use std::ptr;
 
 pub mod animation;
 pub mod format;
@@ -32,6 +34,74 @@ impl Pixbuf {
             height: i32) -> Result<Pixbuf, ()> {
         Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace, has_alpha.to_glib(),
                                                    bits_per_sample, width, height)).ok_or(())
+    }
+
+    pub fn new_from_file(filename: &str) -> Result<Pixbuf, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error) };
+
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            unsafe { Ok(from_glib_full(tmp)) }
+        } else {
+            Err(Error::wrap(error))
+        }
+    }
+
+    pub fn new_from_file_at_size(filename: &str, width: i32, height: i32) -> Result<Pixbuf, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height, &mut error) };
+
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            unsafe { Ok(from_glib_full(tmp)) }
+        } else {
+            Err(Error::wrap(error))
+        }
+    }
+
+    pub fn new_from_file_at_scale(filename: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
+            to_gboolean(preserve_aspect_ratio), &mut error) };
+
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            unsafe { Ok(from_glib_full(tmp)) }
+        } else {
+            Err(Error::wrap(error))
+        }
+    }
+
+    pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32) -> Option<PixbufFormat> {
+        let tmp = unsafe { ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height) };
+
+        unsafe { from_glib_full(tmp) }
+    }
+
+    pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_new_from_resource(resource_path.to_glib_none().0, &mut error) };
+
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            unsafe { Ok(from_glib_full(tmp)) }
+        } else {
+            Err(Error::wrap(error))
+        }
+    }
+
+    pub fn new_from_resource_at_scale(resource_path: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
+        let mut error = ptr::null_mut();
+        let tmp = unsafe { ffi::gdk_pixbuf_new_from_resource_at_scale(resource_path.to_glib_none().0, width, height,
+            to_gboolean(preserve_aspect_ratio), &mut error) };
+
+        if error.is_null() {
+            assert!(!tmp.is_null());
+            unsafe { Ok(from_glib_full(tmp)) }
+        } else {
+            Err(Error::wrap(error))
+        }
     }
 
     pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Pixbuf {
