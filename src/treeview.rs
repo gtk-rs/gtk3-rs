@@ -54,7 +54,7 @@ fn main() {
 
     let left_selection = left_tree.get_selection().unwrap();
     left_selection.connect_changed(|tree_selection| {
-        let mut iter = gtk::TreeIter::new().unwrap();
+        let mut iter = gtk::TreeIter::new();
         tree_selection.get_selected(&left_model, &mut iter);
         if let Some(path) = left_model.get_path(&iter) {
             println!("selected row {}", path.to_string().unwrap());
@@ -62,7 +62,7 @@ fn main() {
     });
 
     for _ in 0..10 {
-        let mut iter = gtk::TreeIter::new().unwrap();
+        let mut iter = gtk::TreeIter::new();
         left_store.append(&mut iter);
         left_store.set_string(&iter, 0, "I'm in a list");
 
@@ -85,12 +85,12 @@ fn main() {
     append_text_column(&right_tree);
 
     for _ in 0..10 {
-        let mut iter = gtk::TreeIter::new().unwrap();
+        let mut iter = gtk::TreeIter::new();
 
         right_store.append(&mut iter, None);
         right_store.set_value(&iter, 0, &value);
 
-        let mut child_iter = gtk::TreeIter::new().unwrap();
+        let mut child_iter = gtk::TreeIter::new();
 
         right_store.append(&mut child_iter, Some(&iter));
         right_store.set_string(&child_iter, 0, "I'm a child node");
