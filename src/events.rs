@@ -72,6 +72,8 @@ pub trait Event: Sized {
     }
 }
 
+// TODO unfinished, see #25
+
 #[repr(C)]
 pub struct EventAny {
     pub _type : ::EventType,
@@ -81,69 +83,69 @@ pub struct EventAny {
 
 impl Event for EventAny {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventExpose {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
     pub area : ffi::C_GdkRectangle,
-    pub region : *mut c_void, //TODO cairo_region_t
+    region : *mut c_void, //TODO cairo_region_t
     pub count : i8 /* If non-zero, how many more events follow. */
 }
 
 impl Event for EventExpose {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventVisibility{
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    state : ::VisibilityState
+    pub state : ::VisibilityState
 }
 
 impl Event for EventVisibility {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventMotion {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    time : u32,
-    x : f64,
-    y : f64,
-    axes : *mut f64,
-    state : ::enums::modifier_type::ModifierType,
-    is_hint : i16,
+    pub time : u32,
+    pub x : f64,
+    pub y : f64,
+    pub axes : *mut f64,
+    pub state : ::enums::modifier_type::ModifierType,
+    pub is_hint : i16,
     device : *mut ::Device,
-    x_root : f64,
-    y_root : f64
+    pub x_root : f64,
+    pub y_root : f64
 }
 
 impl Event for EventMotion {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventButton {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    time : u32,
-    x : f64,
-    y : f64,
-    axes : *mut f64,
-    state : ::enums::modifier_type::ModifierType,
-    button : u32,
+    pub time : u32,
+    pub x : f64,
+    pub y : f64,
+    pub axes : *mut f64,
+    pub state : ::enums::modifier_type::ModifierType,
+    pub button : u32,
     device : *mut ::Device,
-    x_root : f64,
-    y_root : f64
+    pub x_root : f64,
+    pub y_root : f64
 }
 
 impl Event for EventButton {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventTouch {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -154,16 +156,16 @@ pub struct EventTouch {
     pub y : f64,
     pub axes : *mut f64,
     pub state : ::enums::modifier_type::ModifierType,
-    pub sequence : *mut c_void, //::EventSequence
+    sequence : *mut c_void, //::EventSequence
     pub emulating_pointer : i32, // boolean
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64
 }
 
 impl Event for EventTouch {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventScroll {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -174,7 +176,7 @@ pub struct EventScroll {
     pub y : f64,
     pub state : ::enums::modifier_type::ModifierType,
     pub direction : ::ScrollDirection,
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64,
     pub delta_x : f64,
@@ -183,7 +185,7 @@ pub struct EventScroll {
 
 impl Event for EventScroll {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventKey {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -201,7 +203,7 @@ pub struct EventKey {
 
 impl Event for EventKey {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventCrossing {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -221,18 +223,18 @@ pub struct EventCrossing {
 
 impl Event for EventCrossing {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventFocus {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    _in : i16
+    pub _in : i16
 }
 
 impl Event for EventFocus {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventConfigure {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -246,20 +248,20 @@ pub struct EventConfigure {
 
 impl Event for EventConfigure {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventProperty {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    atom : ::Atom,
-    time : u32,
-    state : u32 //FIXME
+    pub atom : ::Atom,
+    pub time : u32,
+    pub state : u32 //FIXME
 }
 
 impl Event for EventProperty {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventSelection {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -269,18 +271,18 @@ pub struct EventSelection {
     pub target : ::Atom,
     pub property : ::Atom,
     pub time : u32,
-    pub requestor : *mut ::Window
+    requestor : *mut ::Window
 }
 
 impl Event for EventSelection {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventOwnerChange {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub owner : *mut ::Window,
+    owner : *mut ::Window,
     pub reason : ::OwnerChange,
     pub selection : ::Atom,
     pub time : u32,
@@ -289,19 +291,19 @@ pub struct EventOwnerChange {
 
 impl Event for EventOwnerChange {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventProximity {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
     pub time : u32,
-    pub device : *mut ::Device
+    device : *mut ::Device
 }
 
 impl Event for EventProximity {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventSetting {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -313,7 +315,7 @@ pub struct EventSetting {
 
 impl Event for EventSetting {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventWindowState {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -325,7 +327,7 @@ pub struct EventWindowState {
 
 impl Event for EventWindowState {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventGrabBroken {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -338,13 +340,13 @@ pub struct EventGrabBroken {
 
 impl Event for EventGrabBroken  {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventDND {
     pub _type : ::EventType,
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub context : *mut c_void, //::DragContext
+    context : *mut c_void, //::DragContext
     pub time : u32,
     pub x_root : i16, //short
     pub y_root : i16  //short
