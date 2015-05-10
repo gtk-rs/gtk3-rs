@@ -524,11 +524,27 @@ extern "C" {
     pub fn gdk_pixbuf_new(colorspace: enums::ColorSpace, has_alpha: Gboolean,
         bits_per_sample: c_int, width: c_int, height: c_int) -> *mut C_GdkPixbuf;
     
-    pub fn gdk_pixbuf_new_from_file(filename: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    #[cfg(not(target_os = "windows"))]
+    pub fn gdk_pixbuf_new_from_file(filename: *const c_char, error: *mut *mut glib_ffi::C_GError)
+        -> *mut C_GdkPixbuf;
+    #[cfg(not(target_os = "windows"))]
     pub fn gdk_pixbuf_new_from_file_at_size(filename: *const c_char, width: c_int, height: c_int,
         error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
-    pub fn gdk_pixbuf_new_from_file_at_scale(filename: *const c_char, width: c_int, height: c_int, preserve_aspect_ratio: Gboolean,
+    #[cfg(not(target_os = "windows"))]
+    pub fn gdk_pixbuf_new_from_file_at_scale(filename: *const c_char, width: c_int, height: c_int,
+        preserve_aspect_ratio: Gboolean, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+
+    #[cfg(target_os = "windows")]
+    pub fn gdk_pixbuf_new_from_file_utf8(filename: *const c_char,
         error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    #[cfg(target_os = "windows")]
+    pub fn gdk_pixbuf_new_from_file_at_size_utf8(filename: *const c_char, width: c_int,
+        height: c_int, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
+    #[cfg(target_os = "windows")]
+    pub fn gdk_pixbuf_new_from_file_at_scale_utf8(filename: *const c_char, width: c_int,
+        height: c_int, preserve_aspect_ratio: Gboolean, error: *mut *mut glib_ffi::C_GError)
+        -> *mut C_GdkPixbuf;
+
     pub fn gdk_pixbuf_get_file_info(filename: *const c_char, width: *mut c_int, height: *mut c_int) -> *mut C_GdkPixbufFormat;
     pub fn gdk_pixbuf_new_from_resource(resource_path: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf;
     pub fn gdk_pixbuf_new_from_resource_at_scale(resource_path: *const c_char, width: c_int, height: c_int,
@@ -708,7 +724,11 @@ extern "C" {
     //=========================================================================
     // GdkPixbufAnimation                                                NOT OK
     //=========================================================================
+    #[cfg(not(target_os = "windows"))]
     pub fn gdk_pixbuf_animation_new_from_file       (file: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+    #[cfg(target_os = "windows")]
+    pub fn gdk_pixbuf_animation_new_from_file_utf8  (file: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
+
     pub fn gdk_pixbuf_animation_new_from_resource   (resource_path: *const c_char, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
     //pub fn gdk_pixbuf_animation_new_from_stream     (stream: *mut C_GInputStream, cancellable: C_GCancellable,
     //    error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation;
@@ -741,4 +761,29 @@ extern "C" {
     pub fn gdk_pixbuf_simple_anim_set_loop           (animation: *mut C_GdkPixbufSimpleAnim, loop_: Gboolean);
     pub fn gdk_pixbuf_simple_anim_get_loop           (animation: *mut C_GdkPixbufSimpleAnim) -> Gboolean;
     pub fn gdk_pixbuf_simple_anim_get_type           () -> GType;
+}
+
+#[cfg(target_os = "windows")]
+pub unsafe fn gdk_pixbuf_new_from_file(filename: *const c_char,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf {
+    gdk_pixbuf_new_from_file_utf8(filename, error)
+}
+
+#[cfg(target_os = "windows")]
+pub unsafe fn gdk_pixbuf_new_from_file_at_size(filename: *const c_char, width: c_int,
+        height: c_int, error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbuf {
+    gdk_pixbuf_new_from_file_at_size_utf8(filename, width, height, error)
+}
+
+#[cfg(target_os = "windows")]
+pub unsafe fn gdk_pixbuf_new_from_file_at_scale(filename: *const c_char, width: c_int,
+        height: c_int, preserve_aspect_ratio: Gboolean, error: *mut *mut glib_ffi::C_GError)
+        -> *mut C_GdkPixbuf {
+    gdk_pixbuf_new_from_file_at_scale_utf8(filename, width, height, preserve_aspect_ratio, error)
+}
+
+#[cfg(target_os = "windows")]
+pub unsafe fn gdk_pixbuf_animation_new_from_file(file: *const c_char,
+        error: *mut *mut glib_ffi::C_GError) -> *mut C_GdkPixbufAnimation {
+    gdk_pixbuf_animation_new_from_file_utf8(file, error)
 }
