@@ -88,7 +88,7 @@ pub struct EventExpose {
     send_event : i8,
 
     pub area : ffi::C_GdkRectangle,
-    pub region : *mut c_void, //TODO cairo_region_t
+    region : *mut c_void, //TODO cairo_region_t
     pub count : i8 /* If non-zero, how many more events follow. */
 }
 
@@ -117,7 +117,7 @@ pub struct EventMotion {
     pub axes : *mut f64,
     pub state : ::enums::modifier_type::ModifierType,
     pub is_hint : i16,
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64
 }
@@ -136,7 +136,7 @@ pub struct EventButton {
     pub axes : *mut f64,
     pub state : ::enums::modifier_type::ModifierType,
     pub button : u32,
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64
 }
@@ -154,9 +154,9 @@ pub struct EventTouch {
     pub y : f64,
     pub axes : *mut f64,
     pub state : ::enums::modifier_type::ModifierType,
-    pub sequence : *mut c_void, //::EventSequence
+    sequence : *mut c_void, //::EventSequence
     pub emulating_pointer : i32, // boolean
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64
 }
@@ -174,7 +174,7 @@ pub struct EventScroll {
     pub y : f64,
     pub state : ::enums::modifier_type::ModifierType,
     pub direction : ::ScrollDirection,
-    pub device : *mut ::Device,
+    device : *mut ::Device,
     pub x_root : f64,
     pub y_root : f64,
     pub delta_x : f64,
@@ -269,7 +269,7 @@ pub struct EventSelection {
     pub target : ::Atom,
     pub property : ::Atom,
     pub time : u32,
-    pub requestor : *mut ::Window
+    requestor : *mut ::Window
 }
 
 impl Event for EventSelection {}
@@ -280,7 +280,7 @@ pub struct EventOwnerChange {
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub owner : *mut ::Window,
+    owner : *mut ::Window,
     pub reason : ::OwnerChange,
     pub selection : ::Atom,
     pub time : u32,
@@ -296,7 +296,7 @@ pub struct EventProximity {
     send_event : i8,
 
     pub time : u32,
-    pub device : *mut ::Device
+    device : *mut ::Device
 }
 
 impl Event for EventProximity {}
@@ -344,7 +344,7 @@ pub struct EventDND {
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub context : *mut c_void, //::DragContext
+    context : *mut c_void, //::DragContext
     pub time : u32,
     pub x_root : i16, //short
     pub y_root : i16  //short
