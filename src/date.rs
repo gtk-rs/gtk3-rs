@@ -4,7 +4,7 @@
 
 //! Date and Time Functions — calendrical calculations and miscellaneous time stuff
 
-use libc::{c_int, c_uint};
+use libc::{c_int, c_uint, c_ulong};
 use ffi;
 use std;
 use super::translate::ToGlibPtr;
@@ -270,7 +270,7 @@ pub struct TimeVal {
 
 impl TimeVal {
     pub fn add(&mut self, microseconds: u64) {
-        unsafe { ffi::g_time_val_add(std::mem::transmute(self), microseconds) }
+        unsafe { ffi::g_time_val_add(std::mem::transmute(self), microseconds as c_ulong) }
     }
 
     pub fn from_iso8601(&mut self, iso_date: &str) {
@@ -293,7 +293,7 @@ pub fn get_current_time() -> TimeVal {
 }
 
 pub fn usleep(microseconds: u64) {
-    unsafe { ffi::g_usleep(microseconds) }
+    unsafe { ffi::g_usleep(microseconds as c_ulong) }
 }
 
 pub fn get_monotonic_time() -> i64 {
