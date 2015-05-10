@@ -83,7 +83,7 @@ pub struct EventAny {
 
 impl Event for EventAny {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventExpose {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -96,7 +96,7 @@ pub struct EventExpose {
 
 impl Event for EventExpose {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventVisibility{
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -107,7 +107,7 @@ pub struct EventVisibility{
 
 impl Event for EventVisibility {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventMotion {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -126,7 +126,7 @@ pub struct EventMotion {
 
 impl Event for EventMotion {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventButton {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -145,7 +145,7 @@ pub struct EventButton {
 
 impl Event for EventButton {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventTouch {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -165,7 +165,7 @@ pub struct EventTouch {
 
 impl Event for EventTouch {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventScroll {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -185,7 +185,7 @@ pub struct EventScroll {
 
 impl Event for EventScroll {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventKey {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -203,7 +203,7 @@ pub struct EventKey {
 
 impl Event for EventKey {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventCrossing {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -223,7 +223,7 @@ pub struct EventCrossing {
 
 impl Event for EventCrossing {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventFocus {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -234,7 +234,7 @@ pub struct EventFocus {
 
 impl Event for EventFocus {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventConfigure {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -248,7 +248,7 @@ pub struct EventConfigure {
 
 impl Event for EventConfigure {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventProperty {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -261,7 +261,7 @@ pub struct EventProperty {
 
 impl Event for EventProperty {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventSelection {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -276,7 +276,7 @@ pub struct EventSelection {
 
 impl Event for EventSelection {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventOwnerChange {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -291,7 +291,7 @@ pub struct EventOwnerChange {
 
 impl Event for EventOwnerChange {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventProximity {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -303,7 +303,7 @@ pub struct EventProximity {
 
 impl Event for EventProximity {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventSetting {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -315,7 +315,7 @@ pub struct EventSetting {
 
 impl Event for EventSetting {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventWindowState {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -327,7 +327,7 @@ pub struct EventWindowState {
 
 impl Event for EventWindowState {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventGrabBroken {
     pub _type : ::EventType,
     pub window : *mut ::Window,
@@ -340,7 +340,7 @@ pub struct EventGrabBroken {
 
 impl Event for EventGrabBroken  {}
 
-#[allow(dead_code)]
+#[repr(C)]
 pub struct EventDND {
     pub _type : ::EventType,
     pub window : *mut ::Window,
