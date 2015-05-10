@@ -72,6 +72,8 @@ pub trait Event: Sized {
     }
 }
 
+// TODO unfinished, see #25
+
 #[repr(C)]
 pub struct EventAny {
     pub _type : ::EventType,
