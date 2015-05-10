@@ -177,8 +177,8 @@ impl Date {
         unsafe { ffi::g_date_subtract_years(self.pointer, years as c_uint) }
     }
 
-    pub fn between(&self, other: &Date) -> isize {
-        unsafe { ffi::g_date_between(self.pointer, other.pointer) as isize }
+    pub fn days_between(&self, other: &Date) -> isize {
+        unsafe { ffi::g_date_days_between(self.pointer, other.pointer) as isize }
     }
 
     pub fn compare(&self, other: &Date) -> isize {

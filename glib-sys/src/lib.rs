@@ -434,7 +434,7 @@ extern "C" {
     pub fn g_date_subtract_months (date: *mut GDate, months: c_uint);
     pub fn g_date_add_years       (date: *mut GDate, years: c_uint);
     pub fn g_date_subtract_years  (date: *mut GDate, years: c_uint);
-    pub fn g_date_between         (date1: *const GDate, date2: *const GDate) -> c_int;
+    pub fn g_date_days_between    (date1: *const GDate, date2: *const GDate) -> c_int;
     pub fn g_date_compare         (lhs: *const GDate, rhs: *const GDate) -> c_int;
     pub fn g_date_clamp           (date: *mut GDate, min_date: *const GDate, max_date: *const GDate);
     pub fn g_date_order           (date1: *mut GDate, date2: *mut GDate);
