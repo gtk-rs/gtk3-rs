@@ -4,13 +4,15 @@
 
 /// The GdkPixbuf structure contains information that describes an image in memory.
 
+use std::mem;
+use std::ptr;
 use std::slice;
+use libc::c_uchar;
 use glib::translate::*;
 use glib::types::{StaticType, Type};
 use glib::{Error, to_gboolean, GlibContainer};
 use object::Object;
 use ffi;
-use std::ptr;
 
 pub mod animation;
 pub mod format;
@@ -34,6 +36,30 @@ impl Pixbuf {
             height: i32) -> Result<Pixbuf, ()> {
         Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace, has_alpha.to_glib(),
                                                    bits_per_sample, width, height)).ok_or(())
+    }
+
+    /// Creates a `Pixbuf` using a `Vec` as image data.
+    ///
+    /// Only `bits_per_sample == 8` supported.
+    pub fn new_from_vec(mut vec: Vec<u8>, colorspace: ::ColorSpace, has_alpha: bool,
+            bits_per_sample: i32, width: i32, height: i32, row_stride: i32) -> Pixbuf {
+        extern "C" fn destroy_vec(_: *mut c_uchar, data: ffi::gpointer) {
+            unsafe{
+                let _vec: Box<Vec<u8>> = mem::transmute(data); // the vector will be destroyed now
+            }
+        }
+
+        assert!(bits_per_sample == 8);
+        let n_channels = if has_alpha { 4 } else { 3 };
+        let last_row_len = width * ((n_channels * bits_per_sample + 7) / 8);
+        assert!(vec.len() == ((height - 1) * row_stride + last_row_len) as usize);
+        let ptr = vec.as_mut_ptr();
+        let vec: Box<Vec<u8>> = Box::new(vec);
+        unsafe {
+            from_glib_full(
+                ffi::gdk_pixbuf_new_from_data(ptr, colorspace, has_alpha.to_glib(), bits_per_sample,
+                    width, height, row_stride, destroy_vec, mem::transmute(vec)))
+        }
     }
 
     pub fn new_from_file(filename: &str) -> Result<Pixbuf, Error> {
