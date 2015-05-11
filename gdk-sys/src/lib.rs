@@ -12,7 +12,7 @@ extern crate glib_sys as glib_ffi;
 pub mod enums;
 
 use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float, size_t};
-use glib_ffi::{Gboolean, GType};
+pub use glib_ffi::{Gboolean, gpointer, GType};
 
 pub type gsize = size_t;
 
@@ -134,6 +134,8 @@ pub struct C_GdkPixbufAnimation;
 pub struct C_GdkPixbufAnimationIter;
 #[repr(C)]
 pub struct C_GdkPixbufSimpleAnim;
+
+pub type GdkPixbufDestroyNotify = extern "C" fn(*mut c_uchar, gpointer);
 
 // GdkWindowAttributesTypes
 /// Honor the title field
@@ -523,6 +525,9 @@ extern "C" {
     //=========================================================================
     pub fn gdk_pixbuf_new(colorspace: enums::ColorSpace, has_alpha: Gboolean,
         bits_per_sample: c_int, width: c_int, height: c_int) -> *mut C_GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_data(data: *mut c_uchar, colorspace: enums::ColorSpace,
+        has_alpha: Gboolean, bits_per_sample: c_int, width: c_int, height: c_int, row_stride: c_int,
+        destroy_fn: GdkPixbufDestroyNotify, destroy_fn_data: gpointer) -> *mut C_GdkPixbuf;
     
     #[cfg(not(target_os = "windows"))]
     pub fn gdk_pixbuf_new_from_file(filename: *const c_char, error: *mut *mut glib_ffi::C_GError)
