@@ -1,4 +1,4 @@
-# rust-gnome examples [![Build Status](https://travis-ci.org/rust-gnome/examples.png?branch=master)](https://travis-ci.org/rust-gnome/examples)
+# rust-gnome examples [![Build Status](https://travis-ci.org/rust-gnome/examples.png?branch=master)](https://travis-ci.org/rust-gnome/examples) [![Build status](https://ci.appveyor.com/api/projects/status/glyf8yir9lh8mrh5/branch/master?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/examples/branch/master)
 
 A few rust-gnome examples. To build, just do:
 
