@@ -17,8 +17,8 @@ impl NoteBook {
         }
     }
 
-    fn create_tab<'a, Widget: gtk::WidgetTrait>(&mut self, title: &'a str, widget: &Widget) ->
-            Option<u32> {
+    fn create_tab<'a, Widget>(&mut self, title: &'a str, widget: &Widget) -> Option<u32>
+    where Widget: gtk::WidgetTrait + Clone + 'static {
         let close_image = gtk::Image::new_from_icon_name("window-close", IconSize::Button).unwrap();
         let button = gtk::Button::new().unwrap();
         let label = gtk::Label::new(title).unwrap();
@@ -38,7 +38,11 @@ impl NoteBook {
         };
 
         let notebook_clone = self.notebook.clone();
-        button.connect_clicked(move |_| notebook_clone.remove_page(index as i32));
+        let widget_clone = widget.clone();
+        button.connect_clicked(move |_| {
+            let index = notebook_clone.page_num(&widget_clone).unwrap();
+            notebook_clone.remove_page(index as i32);
+        });
 
         self.tabs.push(tab);
 
