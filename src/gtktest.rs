@@ -1,4 +1,4 @@
-#![cfg_attr(not(feature = "GTK_3_10"), allow(unused_variables, unused_mut))]
+#![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
 
 extern crate gtk;
 extern crate gdk;
@@ -8,8 +8,7 @@ use gtk::signal::Inhibit;
 use gdk::enums::modifier_type;
 
 /// Expands to its argument if GTK+ 3.10 support is configured and to `()` otherwise
-#[macro_export]
-#[cfg(not(feature = "GTK_3_10"))]
+#[cfg(not(feature = "gtk_3_10"))]
 macro_rules! with_gtk_3_10 {
     ($ex:expr) => (
         ()
@@ -20,8 +19,7 @@ macro_rules! with_gtk_3_10 {
 }
 
 /// Expands to its argument if GTK+ 3.10 support is configured and to `()` otherwise
-#[macro_export]
-#[cfg(feature = "GTK_3_10")]
+#[cfg(feature = "gtk_3_10")]
 macro_rules! with_gtk_3_10 {
     ($ex:expr) => (
         $ex
@@ -31,7 +29,7 @@ macro_rules! with_gtk_3_10 {
     }
 }
 
-fn about_clicked(w: gtk::Button) {
+fn about_clicked(_: gtk::Button) {
     let dialog = gtk::AboutDialog::new().unwrap();
 
     let crew = [
