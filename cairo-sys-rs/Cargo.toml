@@ -1,5 +1,5 @@
 [package]
-name = "cairo-sys"
+name = "cairo-sys-rs"
 version = "0.1.0"
 authors = ["The Rust-GNOME Project Developers"]
 build = "build.rs"
@@ -8,6 +8,10 @@ links = "cairo"
 description = "FFI bindings to Cairo"
 repository = "https://github.com/rust-gnome/cairo"
 license = "MIT"
+homepage = "https://github.com/rust-gnome/cairo"
+documentation = "https://github.com/rust-gnome/cairo"
+
+keywords = ["cairo", "ffi", "gtk", "gnome"]
 
 [lib]
 name = "cairo_sys"
