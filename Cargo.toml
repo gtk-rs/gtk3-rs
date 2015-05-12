@@ -6,13 +6,16 @@ authors = ["The Rust-GNOME Project Developers"]
 description = "Rust bindings for the Pango library"
 repository = "https://github.com/rust-gnome/pango"
 license = "MIT"
+homepage = "https://github.com/rust-gnome/pango"
+documentation = "https://github.com/rust-gnome/pango"
+
+readme = "README.md"
+
+keywords = ["pango", "gtk", "gnome"]
 
 [lib]
 name = "pango"
 
 [dependencies]
 libc = "0.1"
-
-[dependencies.pango-sys]
-path = "pango-sys"
-version = "0.1.0"
+pango-sys = "^0"
