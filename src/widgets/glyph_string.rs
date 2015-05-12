@@ -9,7 +9,7 @@ use libc::c_int;
 /// attribute information. The storage for the glyph information is owned by the structure which
 /// simplifies memory management.
 pub struct GlyphString {
-    pointer: *mut ffi::C_PangoGlyphString
+    pointer: *mut ffi::PangoGlyphString
 }
 
 impl GlyphString {
