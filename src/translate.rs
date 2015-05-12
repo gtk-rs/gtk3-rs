@@ -126,10 +126,10 @@ impl ToGlib for () {
 }
 
 impl ToGlib for bool {
-    type GlibType = ffi::Gboolean;
+    type GlibType = ffi::gboolean;
 
     #[inline]
-    fn to_glib(&self) -> ffi::Gboolean {
+    fn to_glib(&self) -> ffi::gboolean {
         if *self { ffi::GTRUE } else { ffi::GFALSE }
     }
 }
@@ -261,9 +261,9 @@ pub fn from_glib<G, T: FromGlib<G>>(val: G) -> T {
     FromGlib::from_glib(val)
 }
 
-impl FromGlib<ffi::Gboolean> for bool {
+impl FromGlib<ffi::gboolean> for bool {
     #[inline]
-    fn from_glib(val: ffi::Gboolean) -> bool {
+    fn from_glib(val: ffi::gboolean) -> bool {
         !(val == ffi::GFALSE)
     }
 }

@@ -12,14 +12,14 @@ pub type GQuark = u32;
 
 pub type GType = size_t;
 
-pub type Gboolean = c_int;
+pub type gboolean = c_int;
 pub const GFALSE:  c_int = 0;
 pub const GTRUE:   c_int = 1;
 
 pub type gconstpointer = *const c_void;
 pub type gpointer = *mut c_void;
 
-pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> Gboolean;
+pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> gboolean;
 pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
 
@@ -190,7 +190,7 @@ extern "C" {
     //pub fn g_error_new_valist             (domain: GQuark, code: c_int, fomat: *c_char, args: va_list) -> *GError;
     pub fn g_error_free                   (error: *mut GError) -> ();
     pub fn g_error_copy                   (error: *mut GError) -> *mut GError;
-    pub fn g_error_matches                (error: *mut GError, domain: GQuark, code: c_int) -> Gboolean;
+    pub fn g_error_matches                (error: *mut GError, domain: GQuark, code: c_int) -> gboolean;
     //pub fn g_set_error                    (error: **GError, domain: GQuark, code: c_int, format: *c_char, ...) -> ();
     pub fn g_set_error_literal            (error: *mut *mut GError, domain: GQuark, code: c_int, message: *const c_char) -> ();
     pub fn g_propagate_error              (dest: *mut *mut GError, src: *mut GError) -> ();
@@ -201,22 +201,22 @@ extern "C" {
     //=========================================================================
     // GPermission                                                       NOT OK
     //=========================================================================
-    pub fn g_permission_get_allowed     (permission: *mut GPermission) -> Gboolean;
-    pub fn g_permission_get_can_acquire (permission: *mut GPermission) -> Gboolean;
-    pub fn g_permission_get_can_release (permission: *mut GPermission) -> Gboolean;
+    pub fn g_permission_get_allowed     (permission: *mut GPermission) -> gboolean;
+    pub fn g_permission_get_can_acquire (permission: *mut GPermission) -> gboolean;
+    pub fn g_permission_get_can_release (permission: *mut GPermission) -> gboolean;
     //pub fn g_permission_acquire         (permission: *mut GPermission, cancellable: *mut GCancellable,
-    //    error: *mut *mut GError) -> Gboolean;
+    //    error: *mut *mut GError) -> gboolean;
     //pub fn g_permission_acquire_async   (permission: *mut GPermission, cancellable: *mut GCancellable,
     //    callback: GAsyncReadyCallback, user_data: gpointer);
     //pub fn g_permission_acquire_finish  (permission: *mut GPermission, result: *mut GAsyncResult,
-    //    error: *mut *mut GError) -> Gboolean;
+    //    error: *mut *mut GError) -> gboolean;
     //pub fn g_permission_release         (permission: *mut GPermission, cancellable: *mut GCancellable,
-    //    error: *mut *mut GError) -> Gboolean;
+    //    error: *mut *mut GError) -> gboolean;
     //pub fn g_permission_release_async   (permission: *mut GPermission, cancellable: *mut GCancellable,
     //    callback: GAsyncReadyCallback, user_data: gpointer);
     //pub fn g_permission_release_finish  (permission: *mut GPermission, cancellable: *mut GCancellable,
-    //    error: *mut *mut GError) -> Gboolean;
-    pub fn g_permission_impl_update     (permission: *mut GPermission, allowed: Gboolean, can_acquire: Gboolean, can_release: Gboolean);
+    //    error: *mut *mut GError) -> gboolean;
+    pub fn g_permission_impl_update     (permission: *mut GPermission, allowed: gboolean, can_acquire: gboolean, can_release: gboolean);
 
     //pub type GAsyncReadyCallback = Option<extern "C" fn(source_object: *mut GObject, res: *mut GAsyncResult, user_data: gpointer)>;
 
@@ -233,7 +233,7 @@ extern "C" {
                                user_data: *const c_void);
 
     pub fn g_type_check_instance_is_a(type_instance: gconstpointer,
-                                      iface_type: GType) -> Gboolean;
+                                      iface_type: GType) -> gboolean;
 
     //=========================================================================
     // GValue
@@ -244,8 +244,8 @@ extern "C" {
     pub fn g_value_reset                       (value: *mut GValue);
     pub fn g_value_unset                       (value: *mut GValue);
     pub fn g_strdup_value_contents             (value: *mut GValue) -> *mut c_char;
-    pub fn g_value_set_boolean                 (value: *mut GValue, b: Gboolean);
-    pub fn g_value_get_boolean                 (value: *const GValue) -> Gboolean;
+    pub fn g_value_set_boolean                 (value: *mut GValue, b: gboolean);
+    pub fn g_value_get_boolean                 (value: *const GValue) -> gboolean;
     pub fn g_value_set_schar                   (value: *mut GValue, b: c_char);
     pub fn g_value_get_schar                   (value: *const GValue) -> c_char;
     pub fn g_value_set_uchar                   (value: *mut GValue, b: c_uchar);
@@ -284,18 +284,18 @@ extern "C" {
     pub fn g_value_get_object                  (value: *const GValue) -> *const c_void;
     pub fn g_value_set_gtype                   (value: *mut GValue, b: GType);
     pub fn g_value_get_gtype                   (value: *const GValue) -> GType;
-    pub fn g_value_type_compatible             (src_type: GType, dest_type: GType) -> Gboolean;
-    pub fn g_value_type_transformable          (src_type: GType, dest_type: GType) -> Gboolean;
+    pub fn g_value_type_compatible             (src_type: GType, dest_type: GType) -> gboolean;
+    pub fn g_value_type_transformable          (src_type: GType, dest_type: GType) -> gboolean;
 
     //=========================================================================
     // GMainLoop
     //=========================================================================
-    pub fn g_main_loop_new                     (context: *mut GMainContext, is_running: Gboolean) -> *mut GMainLoop;
+    pub fn g_main_loop_new                     (context: *mut GMainContext, is_running: gboolean) -> *mut GMainLoop;
     pub fn g_main_loop_ref                     (loop_: *mut GMainLoop) -> *mut GMainLoop;
     pub fn g_main_loop_unref                   (loop_: *mut GMainLoop);
     pub fn g_main_loop_run                     (loop_: *mut GMainLoop);
     pub fn g_main_loop_quit                    (loop_: *mut GMainLoop);
-    pub fn g_main_loop_is_running              (loop_: *mut GMainLoop) -> Gboolean;
+    pub fn g_main_loop_is_running              (loop_: *mut GMainLoop) -> gboolean;
     pub fn g_main_loop_get_context             (loop_: *mut GMainLoop) -> *mut GMainContext;
 
     //=========================================================================
@@ -305,17 +305,17 @@ extern "C" {
     pub fn g_main_context_ref                  (context: *mut GMainContext) -> *mut GMainContext;
     pub fn g_main_context_unref                (context: *mut GMainContext);
     pub fn g_main_context_default              () -> *mut GMainContext;
-    pub fn g_main_context_iteration            (context: *mut GMainContext, may_block: Gboolean) -> Gboolean;
-    pub fn g_main_context_pending              (context: *mut GMainContext) -> Gboolean;
+    pub fn g_main_context_iteration            (context: *mut GMainContext, may_block: gboolean) -> gboolean;
+    pub fn g_main_context_pending              (context: *mut GMainContext) -> gboolean;
     pub fn g_main_context_find_source_by_id    (context: *mut GMainContext, source_id: c_uint) -> *mut GSource;
     pub fn g_main_context_find_source_by_user_data(context: *mut GMainContext, user_data: gpointer) -> *mut GSource;
     //pub fn g_main_context_find_source_by_funcs_user_data(context: *mut GMainContext, funcs: GSourceFuncs, user_data: gpointer) -> *mut GSource;
     pub fn g_main_context_wakeup               (context: *mut GMainContext);
-    pub fn g_main_context_acquire              (context: *mut GMainContext) -> Gboolean;
+    pub fn g_main_context_acquire              (context: *mut GMainContext) -> gboolean;
     pub fn g_main_context_release              (context: *mut GMainContext);
-    pub fn g_main_context_is_owner             (context: *mut GMainContext) -> Gboolean;
-    //pub fn g_main_context_wait                 (context: *mut GMainContext, cond: *mut GCond, mutex: *mut GMutex) -> Gboolean;
-    pub fn g_main_context_prepare              (context: *mut GMainContext, priority: *mut c_int) -> Gboolean;
+    pub fn g_main_context_is_owner             (context: *mut GMainContext) -> gboolean;
+    //pub fn g_main_context_wait                 (context: *mut GMainContext, cond: *mut GCond, mutex: *mut GMutex) -> gboolean;
+    pub fn g_main_context_prepare              (context: *mut GMainContext, priority: *mut c_int) -> gboolean;
     //pub fn g_main_context_query                (context: *mut GMainContext, max_priority: c_int, timeout_: *mut c_int, fds: *mut GPollFD,
     //    n_fds: c_int) -> c_int;
     //pub fn g_main_context_check                (context: *mut GMainContext, max_priority: c_int, fds: *mut GPollFD,
@@ -349,7 +349,7 @@ extern "C" {
     pub fn g_idle_source_new                   () -> *mut GSource;
     //pub fn g_idle_add                          ();
     //pub fn g_idle_add_full                     ();
-    pub fn g_idle_remove_by_data               (data: gpointer) -> Gboolean;
+    pub fn g_idle_remove_by_data               (data: gpointer) -> gboolean;
     pub fn g_child_watch_source_new            (pid: GPid) -> *mut GSource;
     //pub fn g_child_watch_add                   ();
     //pub fn g_child_watch_add_full              ();
@@ -360,11 +360,11 @@ extern "C" {
     //pub fn g_source_set_funcs                  ();
     pub fn g_source_attach                     (source: *mut GSource, context: *mut GMainContext);
     pub fn g_source_destroy                    (source: *mut GSource);
-    pub fn g_source_is_destroyed               (source: *mut GSource) -> Gboolean;
+    pub fn g_source_is_destroyed               (source: *mut GSource) -> gboolean;
     pub fn g_source_set_priority               (source: *mut GSource, priority: c_int);
     pub fn g_source_get_priority               (source: *mut GSource) -> c_int;
-    pub fn g_source_set_can_recurse            (source: *mut GSource, can_recurse: Gboolean);
-    pub fn g_source_get_can_recurse            (source: *mut GSource) -> Gboolean;
+    pub fn g_source_set_can_recurse            (source: *mut GSource, can_recurse: gboolean);
+    pub fn g_source_get_can_recurse            (source: *mut GSource) -> gboolean;
     pub fn g_source_get_id                     (source: *mut GSource) -> c_uint;
     pub fn g_source_get_name                   (source: *mut GSource) -> *const c_char;
     pub fn g_source_set_name                   (source: *mut GSource, name: *const c_char);
@@ -383,9 +383,9 @@ extern "C" {
     pub fn g_source_add_child_source           (source: *mut GSource, child_source: *mut GSource);
     pub fn g_source_remove_child_source        (source: *mut GSource, child_source: *mut GSource);
     pub fn g_source_get_time                   (source: *mut GSource) -> i64;
-    pub fn g_source_remove                     (tag: c_uint) -> Gboolean;
+    pub fn g_source_remove                     (tag: c_uint) -> gboolean;
     //pub fn g_source_remove_by_funcs_user_data  ();
-    pub fn g_source_remove_by_user_data        (user_data: gpointer) -> Gboolean;
+    pub fn g_source_remove_by_user_data        (user_data: gpointer) -> gboolean;
 
     //=========================================================================
     // GSignal
@@ -402,15 +402,15 @@ extern "C" {
     pub fn g_get_monotonic_time           () -> i64;
     pub fn g_get_real_time                () -> i64;
     pub fn g_date_get_days_in_month       (month: c_int, year: u16) -> u8;
-    pub fn g_date_is_leap_year            (year: u16) -> Gboolean;
+    pub fn g_date_is_leap_year            (year: u16) -> gboolean;
     pub fn g_date_get_monday_weeks_in_year(year: u16) -> u8;
     pub fn g_date_get_sunday_weeks_in_year(year: u16) -> u8;
-    pub fn g_date_valid_day               (day: c_int) -> Gboolean;
-    pub fn g_date_valid_month             (month: c_int) -> Gboolean;
-    pub fn g_date_valid_year              (year: u16) -> Gboolean;
-    pub fn g_date_valid_dmy               (day: c_int, month: c_int, year: u16) -> Gboolean;
-    pub fn g_date_valid_julian            (julian: u32) -> Gboolean;
-    pub fn g_date_valid_weekday           (year: c_int) -> Gboolean;
+    pub fn g_date_valid_day               (day: c_int) -> gboolean;
+    pub fn g_date_valid_month             (month: c_int) -> gboolean;
+    pub fn g_date_valid_year              (year: u16) -> gboolean;
+    pub fn g_date_valid_dmy               (day: c_int, month: c_int, year: u16) -> gboolean;
+    pub fn g_date_valid_julian            (julian: u32) -> gboolean;
+    pub fn g_date_valid_weekday           (year: c_int) -> gboolean;
 
     //=========================================================================
     // GDate
@@ -444,14 +444,14 @@ extern "C" {
     pub fn g_date_get_julian      (date: *const GDate) -> u32;
     pub fn g_date_get_weekday     (date: *const GDate) -> c_int;
     pub fn g_date_get_day_of_year (date: *const GDate) -> c_uint;
-    pub fn g_date_is_first_of_month(date: *const GDate) -> Gboolean;
-    pub fn g_date_is_last_of_month(date: *const GDate) -> Gboolean;
+    pub fn g_date_is_first_of_month(date: *const GDate) -> gboolean;
+    pub fn g_date_is_last_of_month(date: *const GDate) -> gboolean;
     pub fn g_date_get_monday_week_of_year(date: *const GDate) -> c_uint;
     pub fn g_date_get_sunday_week_of_year(date: *const GDate) -> c_uint;
     pub fn g_date_get_iso8601_week_of_year(date: *const GDate) -> c_uint;
     pub fn g_date_strftime        (s: *mut c_char, slen: u32, format: *const c_char, date: *const GDate) -> u32;
     //pub fn g_date_to_struct_tm    (date: *const GDate, tm: *mut struct tm);
-    pub fn g_date_valid           (date: *const GDate) -> Gboolean;
+    pub fn g_date_valid           (date: *const GDate) -> gboolean;
 
     //=========================================================================
     // GTimeVal

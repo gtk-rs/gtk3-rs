@@ -38,14 +38,14 @@ pub mod object;
 pub mod types;
 pub mod date;
 
-pub fn to_gboolean(b: bool) -> ffi::Gboolean {
+pub fn to_gboolean(b: bool) -> ffi::gboolean {
     match b {
         true => ffi::GTRUE,
         false => ffi::GFALSE
     }
 }
 
-pub fn to_bool(b: ffi::Gboolean) -> bool {
+pub fn to_bool(b: ffi::gboolean) -> bool {
     b != ffi::GFALSE
 }
 
