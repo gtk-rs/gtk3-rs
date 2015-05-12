@@ -6,6 +6,12 @@ authors = ["The Rust-GNOME Project Developers"]
 description = "Rust bindings for the GDK library"
 repository = "https://github.com/rust-gnome/gdk"
 license = "MIT"
+homepage = "https://github.com/rust-gnome/gdk"
+documentation = "https://github.com/rust-gnome/gdk"
+
+readme = "README.md"
+
+keywords = ["gdk", "gtk", "gnome", "GUI"]
 
 [lib]
 name = "gdk"
@@ -21,13 +27,6 @@ gdk_3_14 = ["gdk-sys/gdk_3_14", "gdk_3_12"]
 
 [dependencies]
 libc = "0.1"
-
-[dependencies.gdk-sys]
-path = "gdk-sys"
-version = "0.1.0"
-
-[dependencies.glib]
-git = "https://github.com/rust-gnome/glib.git"
-
-[dependencies.glib-sys]
-git = "https://github.com/rust-gnome/glib.git"
+gdk-sys = "^0"
+glib = "^0"
+glib-sys = "^0"
