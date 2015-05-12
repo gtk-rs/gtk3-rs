@@ -11,7 +11,7 @@ extern crate glib_sys as glib_ffi;
 pub mod enums;
 
 use libc::{c_int, c_uint, c_char, c_double};
-use glib_ffi::Gboolean;
+use glib_ffi::gboolean;
 
 #[repr(C)]
 pub struct PangoContext;
@@ -104,7 +104,7 @@ extern "C" {
     pub fn pango_font_description_copy    (desc: *const PangoFontDescription) -> *mut PangoFontDescription;
     //pub fn pango_font_description_copy_static(desc: *const PangoFontDescription) -> *mut PangoFontDescription;
     pub fn pango_font_description_hash    (desc: *const PangoFontDescription) -> c_uint;
-    pub fn pango_font_description_equal   (desc1: *const PangoFontDescription, desc2: *const PangoFontDescription) -> Gboolean;
+    pub fn pango_font_description_equal   (desc1: *const PangoFontDescription, desc2: *const PangoFontDescription) -> gboolean;
     pub fn pango_font_description_free    (desc: *mut PangoFontDescription);
     pub fn pango_font_descriptions_free   (desc: *mut *mut PangoFontDescription, n_descs: c_int);
     pub fn pango_font_description_set_family(desc: *mut PangoFontDescription, family: *const c_char);
@@ -121,17 +121,17 @@ extern "C" {
     pub fn pango_font_description_set_size(desc: *mut PangoFontDescription, size: c_int);
     pub fn pango_font_description_get_size(desc: *const PangoFontDescription) -> c_int;
     pub fn pango_font_description_set_absolute_size(desc: *mut PangoFontDescription, size: c_double);
-    pub fn pango_font_description_get_size_is_absolute(desc: *const PangoFontDescription) -> Gboolean;
+    pub fn pango_font_description_get_size_is_absolute(desc: *const PangoFontDescription) -> gboolean;
     pub fn pango_font_description_set_gravity(desc: *mut PangoFontDescription, gravity: enums::Gravity);
     pub fn pango_font_description_get_gravity(desc: *const PangoFontDescription) -> enums::Gravity;
     pub fn pango_font_description_get_set_fields(desc: *const PangoFontDescription) -> enums::FontMask;
     pub fn pango_font_description_unset_fields(desc: *mut PangoFontDescription, to_unset: enums::FontMask);
     pub fn pango_font_description_merge   (desc: *mut PangoFontDescription, desc_to_merge: *const PangoFontDescription,
-        replace_existing: Gboolean);
+        replace_existing: gboolean);
     //pub fn pango_font_description_merge_static(desc: *mut PangoFontDescription, desc_to_merge: *const PangoFontDescription,
-    //    replace_existing: Gboolean);
+    //    replace_existing: gboolean);
     pub fn pango_font_description_better_match(desc: *const PangoFontDescription, old_match: *const PangoFontDescription,
-        new_match: *const PangoFontDescription) -> Gboolean;
+        new_match: *const PangoFontDescription) -> gboolean;
     pub fn pango_font_description_from_string(str_: *const c_char) -> *mut PangoFontDescription;
     pub fn pango_font_description_to_string(desc: *const PangoFontDescription) -> *mut c_char;
     pub fn pango_font_description_to_filename(desc: *const PangoFontDescription) -> *mut c_char;
@@ -165,7 +165,7 @@ extern "C" {
         ink_rect: *mut PangoRectangle, logical_rect: *mut PangoRectangle);
     pub fn pango_glyph_string_get_width    (string: *mut PangoGlyphString) -> c_int;
     pub fn pango_glyph_string_index_to_x   (string: *mut PangoGlyphString, text: *mut c_char, length: c_int, analysis: *mut PangoAnalysis,
-        index_: c_int, trailing: Gboolean, x_pos: *mut c_int);
+        index_: c_int, trailing: gboolean, x_pos: *mut c_int);
     pub fn pango_glyph_string_x_to_index   (string: *mut PangoGlyphString, text: *mut c_char, length: c_int, analysis: *mut PangoAnalysis,
         x_pos: c_int, index_: *mut c_int, trailing: *mut c_int);
     pub fn pango_glyph_string_get_logical_widths(glyphs: *mut PangoGlyphString, text: *mut c_char, length: c_int, embedding_level: c_int,
@@ -175,7 +175,7 @@ extern "C" {
     // PangoScript                                                       NOT OK
     //=========================================================================
     pub fn pango_gravity_get_for_script    (script: enums::Script, base_gravity: enums::Gravity, hint: enums::GravityHint) -> enums::Gravity;
-    pub fn pango_gravity_get_for_script_and_width(script: enums::Script, wide: Gboolean, base_gravity: enums::Gravity,
+    pub fn pango_gravity_get_for_script_and_width(script: enums::Script, wide: gboolean, base_gravity: enums::Gravity,
         hint: enums::GravityHint) -> enums::Gravity;
 
     //=========================================================================
