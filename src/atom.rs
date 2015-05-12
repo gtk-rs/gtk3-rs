@@ -7,7 +7,7 @@ use glib::translate::*;
 
 #[allow(raw_pointer_derive)]
 #[derive(Copy, Clone, PartialEq, Eq)]
-pub struct Atom(ffi::C_GdkAtom);
+pub struct Atom(ffi::GdkAtom);
 
 pub const NONE: Atom = Atom(0 as *mut _);
 
@@ -21,18 +21,18 @@ impl Atom {
     }
 }
 
-impl<'a> ToGlibPtr<'a, ffi::C_GdkAtom> for Atom {
+impl<'a> ToGlibPtr<'a, ffi::GdkAtom> for Atom {
     type Storage = ();
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, ffi::C_GdkAtom, Atom> {
+    fn to_glib_none(&self) -> Stash<'a, ffi::GdkAtom, Atom> {
         Stash(self.0, ())
     }
 }
 
-impl FromGlibPtr<ffi::C_GdkAtom> for Atom {
+impl FromGlibPtr<ffi::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_none(ptr: ffi::C_GdkAtom) -> Atom { Atom(ptr) }
+    unsafe fn from_glib_none(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
     #[inline]
-    unsafe fn from_glib_full(_: ffi::C_GdkAtom) -> Atom { unimplemented!() }
+    unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
 }

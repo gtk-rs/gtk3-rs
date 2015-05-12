@@ -16,7 +16,7 @@ use ffi;
 
 use {DragAction, DragProtocol};
 
-pub type DragContext = Object<ffi::C_GdkDragContext>;
+pub type DragContext = Object<ffi::GdkDragContext>;
 
 impl StaticType for DragContext {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_drag_context_get_type()) } }

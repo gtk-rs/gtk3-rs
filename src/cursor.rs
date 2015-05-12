@@ -13,7 +13,7 @@ use ffi;
 
 pub type Type = ffi::enums::CursorType;
 
-pub type Cursor = Object<ffi::C_GdkCursor>;
+pub type Cursor = Object<ffi::GdkCursor>;
 
 impl types::StaticType for Cursor {
     fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_cursor_get_type()) } }

@@ -7,7 +7,7 @@
 use glib::translate::*;
 use ffi;
 
-pub struct FrameTimings(*mut ffi::C_GdkFrameTimings);
+pub struct FrameTimings(*mut ffi::GdkFrameTimings);
 
 impl FrameTimings {
     #[inline]
@@ -60,24 +60,24 @@ impl Drop for FrameTimings {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut ffi::C_GdkFrameTimings> for &'a FrameTimings {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkFrameTimings> for &'a FrameTimings {
     type Storage = &'a FrameTimings;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::C_GdkFrameTimings, &'a FrameTimings> {
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::GdkFrameTimings, &'a FrameTimings> {
         Stash(self.0, *self)
     }
 
     #[inline]
-    fn to_glib_full(&self) -> *mut ffi::C_GdkFrameTimings {
+    fn to_glib_full(&self) -> *mut ffi::GdkFrameTimings {
         self.add_ref();
         self.0
     }
 }
 
-impl FromGlibPtr<*mut ffi::C_GdkFrameTimings> for FrameTimings {
+impl FromGlibPtr<*mut ffi::GdkFrameTimings> for FrameTimings {
     #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::C_GdkFrameTimings) -> FrameTimings {
+    unsafe fn from_glib_none(ptr: *mut ffi::GdkFrameTimings) -> FrameTimings {
         assert!(!ptr.is_null());
         let res = FrameTimings(ptr);
         res.add_ref();
@@ -85,7 +85,7 @@ impl FromGlibPtr<*mut ffi::C_GdkFrameTimings> for FrameTimings {
     }
 
     #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::C_GdkFrameTimings) -> FrameTimings {
+    unsafe fn from_glib_full(ptr: *mut ffi::GdkFrameTimings) -> FrameTimings {
         assert!(!ptr.is_null());
         FrameTimings(ptr)
     }

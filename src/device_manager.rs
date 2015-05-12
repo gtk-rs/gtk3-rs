@@ -11,7 +11,7 @@ use display::Display;
 use object::Object;
 use ffi;
 
-pub type DeviceManager = Object<ffi::C_GdkDeviceManager>;
+pub type DeviceManager = Object<ffi::GdkDeviceManager>;
 
 impl StaticType for DeviceManager {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_device_manager_get_type()) } }

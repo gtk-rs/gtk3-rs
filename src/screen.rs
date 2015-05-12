@@ -13,7 +13,7 @@ use visual::Visual;
 use window::Window;
 use ffi;
 
-pub type Screen = Object<ffi::C_GdkScreen>;
+pub type Screen = Object<ffi::GdkScreen>;
 
 impl StaticType for Screen {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_screen_get_type()) } }
@@ -78,7 +78,7 @@ impl Screen {
         unsafe { ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0) }
     }
 
-    pub fn get_monitor_geometry(&self, monitor_num: i32) -> ffi::C_GdkRectangle {
+    pub fn get_monitor_geometry(&self, monitor_num: i32) -> ffi::GdkRectangle {
         unsafe {
             let mut res = mem::uninitialized();
             ffi::gdk_screen_get_monitor_geometry(self.to_glib_none().0, monitor_num, &mut res);
@@ -86,7 +86,7 @@ impl Screen {
         }
     }
 
-    pub fn get_monitor_workarea(&self, monitor_num: i32) -> ffi::C_GdkRectangle {
+    pub fn get_monitor_workarea(&self, monitor_num: i32) -> ffi::GdkRectangle {
         unsafe {
             let mut res = mem::uninitialized();
             ffi::gdk_screen_get_monitor_workarea(self.to_glib_none().0, monitor_num, &mut res);

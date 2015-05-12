@@ -14,7 +14,7 @@ use super::Pixbuf;
 use super::animation::PixbufAnimation;
 use super::format::PixbufFormat;
 
-pub type PixbufLoader = Object<ffi::C_GdkPixbufLoader>;
+pub type PixbufLoader = Object<ffi::GdkPixbufLoader>;
 
 impl StaticType for PixbufLoader {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_loader_get_type()) } }

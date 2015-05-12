@@ -12,7 +12,7 @@ use object::Object;
 use screen::Screen;
 use ffi;
 
-pub type Visual = Object<ffi::C_GdkVisual>;
+pub type Visual = Object<ffi::GdkVisual>;
 
 impl StaticType for Visual {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_visual_get_type()) } }

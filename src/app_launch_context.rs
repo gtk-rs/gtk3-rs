@@ -11,7 +11,7 @@ use screen::Screen;
 use ffi;
 
 // FIXME: should inherit from GAppLaunchContext
-pub type AppLaunchContext = Object<ffi::C_GdkAppLaunchContext>;
+pub type AppLaunchContext = Object<ffi::GdkAppLaunchContext>;
 
 impl StaticType for AppLaunchContext {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_app_launch_context_get_type()) } }
