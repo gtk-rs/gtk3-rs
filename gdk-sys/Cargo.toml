@@ -8,6 +8,10 @@ links = "gdk"
 description = "FFI bindings to GDK"
 repository = "https://github.com/rust-gnome/gdk"
 license = "MIT"
+homepage = "https://github.com/rust-gnome/gdk"
+documentation = "https://github.com/rust-gnome/gdk"
+
+keywords = ["gdk", "ffi", "gtk", "gnome"]
 
 [lib]
 name = "gdk_sys"
@@ -23,9 +27,7 @@ gdk_3_14 = ["gdk_3_12"]
 [dependencies]
 bitflags = "0.1"
 libc = "0.1"
-
-[dependencies.glib-sys]
-git = "https://github.com/rust-gnome/glib.git"
+glib-sys = "^0"
 
 [build-dependencies]
 pkg-config = "0.3"
