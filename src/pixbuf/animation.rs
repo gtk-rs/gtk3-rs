@@ -13,7 +13,7 @@ use object::{Object, Upcast};
 use ffi;
 use super::Pixbuf;
 
-pub type PixbufAnimationIter = Object<ffi::C_GdkPixbufAnimationIter>;
+pub type PixbufAnimationIter = Object<ffi::GdkPixbufAnimationIter>;
 
 impl StaticType for PixbufAnimationIter {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_animation_iter_get_type()) } }
@@ -43,7 +43,7 @@ impl PixbufAnimationIter {
     }
 }
 
-pub type PixbufAnimation = Object<ffi::C_GdkPixbufAnimation>;
+pub type PixbufAnimation = Object<ffi::GdkPixbufAnimation>;
 
 impl StaticType for PixbufAnimation {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_animation_get_type()) } }
@@ -116,7 +116,7 @@ impl<T: Upcast<PixbufAnimation>> PixbufAnimationExt for T {
     }
 }
 
-pub type PixbufSimpleAnim = Object<ffi::C_GdkPixbufSimpleAnim>;
+pub type PixbufSimpleAnim = Object<ffi::GdkPixbufSimpleAnim>;
 
 impl StaticType for PixbufSimpleAnim {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_simple_anim_get_type()) } }

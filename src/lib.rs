@@ -40,7 +40,7 @@ pub mod screen;
 pub mod visual;
 pub mod window;
 
-pub use gdk_ffi::C_GdkColor as Color;
+pub use gdk_ffi::GdkColor as Color;
 
 pub use self::rt::{
     init,

@@ -6,24 +6,24 @@
 
 use glib::translate::*;
 use gdk_ffi as ffi;
-use gdk_ffi::C_GdkRGBA;
+use gdk_ffi::GdkRGBA;
 
 pub trait RGBA {
-    fn white() -> C_GdkRGBA;
-    fn blue() -> C_GdkRGBA;
-    fn green() -> C_GdkRGBA;
-    fn red() -> C_GdkRGBA;
-    fn black() -> C_GdkRGBA;
-    fn copy(&self) -> C_GdkRGBA;
+    fn white() -> GdkRGBA;
+    fn blue() -> GdkRGBA;
+    fn green() -> GdkRGBA;
+    fn red() -> GdkRGBA;
+    fn black() -> GdkRGBA;
+    fn copy(&self) -> GdkRGBA;
     fn parse(&mut self, spec: &str) -> bool;
-    fn equal(&self, other: &C_GdkRGBA) -> bool;
+    fn equal(&self, other: &GdkRGBA) -> bool;
     fn hash(&self) -> u32;
     fn to_string(&self) -> Option<String>;
 }
 
-impl RGBA for C_GdkRGBA {
-    fn white() -> C_GdkRGBA {
-        C_GdkRGBA {
+impl RGBA for GdkRGBA {
+    fn white() -> GdkRGBA {
+        GdkRGBA {
             red: 1f64,
             green: 1f64,
             blue: 1f64,
@@ -31,8 +31,8 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn blue() -> C_GdkRGBA {
-        C_GdkRGBA {
+    fn blue() -> GdkRGBA {
+        GdkRGBA {
             red: 0f64,
             green: 0f64,
             blue: 1f64,
@@ -40,8 +40,8 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn green() -> C_GdkRGBA {
-        C_GdkRGBA {
+    fn green() -> GdkRGBA {
+        GdkRGBA {
             red: 0f64,
             green: 1f64,
             blue: 0f64,
@@ -49,8 +49,8 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn red() -> C_GdkRGBA {
-        C_GdkRGBA {
+    fn red() -> GdkRGBA {
+        GdkRGBA {
             red: 1f64,
             green: 0f64,
             blue: 0f64,
@@ -58,8 +58,8 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn black() -> C_GdkRGBA {
-        C_GdkRGBA {
+    fn black() -> GdkRGBA {
+        GdkRGBA {
             red: 0f64,
             green: 0f64,
             blue: 0f64,
@@ -67,8 +67,8 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn copy(&self) -> C_GdkRGBA {
-        C_GdkRGBA {
+    fn copy(&self) -> GdkRGBA {
+        GdkRGBA {
             red: self.red,
             green: self.green,
             blue: self.blue,
@@ -82,7 +82,7 @@ impl RGBA for C_GdkRGBA {
         }
     }
 
-    fn equal(&self, other: &C_GdkRGBA) -> bool {
+    fn equal(&self, other: &GdkRGBA) -> bool {
         unsafe { ::glib::to_bool(ffi::gdk_rgba_equal(self, other)) }
     }
 

@@ -15,7 +15,7 @@ use ffi;
 
 pub type Type = ffi::enums::DeviceType;
 
-pub type Device = Object<ffi::C_GdkDevice>;
+pub type Device = Object<ffi::GdkDevice>;
 
 impl types::StaticType for Device {
     fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_device_get_type()) } }

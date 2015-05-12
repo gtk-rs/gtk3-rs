@@ -12,7 +12,7 @@ use ffi;
 
 pub type Phase = ffi::enums::FrameClockPhase;
 
-pub type FrameClock = Object<ffi::C_GdkFrameClock>;
+pub type FrameClock = Object<ffi::GdkFrameClock>;
 
 impl StaticType for FrameClock {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_frame_clock_get_type()) } }

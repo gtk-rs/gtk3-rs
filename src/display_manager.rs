@@ -10,7 +10,7 @@ use display::Display;
 use object::Object;
 use ffi;
 
-pub type DisplayManager = Object<ffi::C_GdkDisplayManager>;
+pub type DisplayManager = Object<ffi::GdkDisplayManager>;
 
 impl StaticType for DisplayManager {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_display_manager_get_type()) } }

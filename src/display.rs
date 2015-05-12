@@ -15,7 +15,7 @@ use object::Object;
 use screen::Screen;
 use window::Window;
 
-pub type Display = Object<ffi::C_GdkDisplay>;
+pub type Display = Object<ffi::GdkDisplay>;
 
 impl StaticType for Display {
     fn static_type() -> Type { unsafe { from_glib(ffi::gdk_display_get_type()) } }
@@ -96,7 +96,7 @@ impl Display {
     }
 
     pub fn put_event(&self, event: &::Event) {
-        unsafe { ffi::gdk_display_put_event(self.to_glib_none().0, event.to_glib_none().0 as *const ffi::C_GdkEvent) }
+        unsafe { ffi::gdk_display_put_event(self.to_glib_none().0, event.to_glib_none().0 as *const ffi::GdkEvent) }
     }*/
 
     pub fn has_pending(&self) -> bool {

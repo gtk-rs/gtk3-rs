@@ -89,7 +89,7 @@ pub struct EventExpose {
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub area : ffi::C_GdkRectangle,
+    pub area : ffi::GdkRectangle,
     region : *mut c_void, //TODO cairo_region_t
     pub count : i8 /* If non-zero, how many more events follow. */
 }

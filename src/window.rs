@@ -72,20 +72,20 @@ impl Attributes {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for &'a Attributes {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for &'a Attributes {
     type Storage = (
-        Box<ffi::C_GdkWindowAttr>,
-        Stash<'a, *mut ffi::C_GdkVisual, Option<&'a Visual>>,
-        Stash<'a, *mut ffi::C_GdkCursor, Option<&'a Cursor>>,
+        Box<ffi::GdkWindowAttr>,
+        Stash<'a, *mut ffi::GdkVisual, Option<&'a Visual>>,
+        Stash<'a, *mut ffi::GdkCursor, Option<&'a Cursor>>,
         Stash<'a, *const c_char, Option<String>>,
     );
 
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::C_GdkWindowAttr, &'a Attributes> {
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::GdkWindowAttr, &'a Attributes> {
         let title = self.title.to_glib_none();
         let visual = self.visual.as_ref().to_glib_none();
         let cursor = self.cursor.as_ref().to_glib_none();
 
-        let mut attrs = Box::new(ffi::C_GdkWindowAttr {
+        let mut attrs = Box::new(ffi::GdkWindowAttr {
             title: title.0,
             event_mask: self.event_mask,
             x: self.x.unwrap_or(0),
@@ -106,7 +106,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for &'a Attributes {
     }
 }
 
-pub type Window = Object<ffi::C_GdkWindow>;
+pub type Window = Object<ffi::GdkWindow>;
 
 impl types::StaticType for Window {
     fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_window_get_type()) } }
@@ -331,7 +331,7 @@ impl Window {
         unsafe { ffi::gdk_window_get_scale_factor(self.to_glib_none().0) }
     }
 
-    pub fn begin_paint_rect(&self, rect: &ffi::C_GdkRectangle) {
+    pub fn begin_paint_rect(&self, rect: &ffi::GdkRectangle) {
         unsafe { ffi::gdk_window_begin_paint_rect(self.to_glib_none().0, rect) }
     }
 
@@ -339,7 +339,7 @@ impl Window {
         unsafe { ffi::gdk_window_end_paint(self.to_glib_none().0) }
     }
 
-    pub fn invalidate_rect(&self, rect: &ffi::C_GdkRectangle, invalidate_children: bool) {
+    pub fn invalidate_rect(&self, rect: &ffi::GdkRectangle, invalidate_children: bool) {
         unsafe { ffi::gdk_window_invalidate_rect(self.to_glib_none().0, rect, invalidate_children.to_glib()) }
     }
 
@@ -424,7 +424,7 @@ impl Window {
         }
     }
 
-    pub fn set_background_rgba(&self, rgba: &ffi::C_GdkRGBA) {
+    pub fn set_background_rgba(&self, rgba: &ffi::GdkRGBA) {
         unsafe { ffi::gdk_window_set_background_rgba(self.to_glib_none().0, rgba) }
     }
 
@@ -447,7 +447,7 @@ impl Window {
             height) }
     }
 
-    pub fn set_geometry_hints(&self, geometry: &ffi::C_GdkGeometry, geom_mask: WindowHints) {
+    pub fn set_geometry_hints(&self, geometry: &ffi::GdkGeometry, geom_mask: WindowHints) {
         unsafe { ffi::gdk_window_set_geometry_hints(self.to_glib_none().0, geometry, geom_mask) }
     }
 
@@ -503,7 +503,7 @@ impl Window {
         unsafe { ffi::gdk_window_get_root_origin(self.to_glib_none().0, x, y) }
     }
 
-    pub fn get_frame_extents(&self, rect: &mut ffi::C_GdkRectangle) {
+    pub fn get_frame_extents(&self, rect: &mut ffi::GdkRectangle) {
         unsafe { ffi::gdk_window_get_frame_extents(self.to_glib_none().0, rect) }
     }
 

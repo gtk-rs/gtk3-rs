@@ -9,7 +9,7 @@ use ffi;
 use glib::translate::*;
 use libc::c_char;
 
-pub struct PixbufFormat(*mut ffi::C_GdkPixbufFormat);
+pub struct PixbufFormat(*mut ffi::GdkPixbufFormat);
 
 impl PixbufFormat {
     pub fn get_name(&self) -> Option<String> {
@@ -65,23 +65,23 @@ impl PixbufFormat {
 
 // It's owned by the library and we never free it
 
-impl<'a> ToGlibPtr<'a, *mut ffi::C_GdkPixbufFormat> for PixbufFormat {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkPixbufFormat> for PixbufFormat {
     type Storage = ();
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::C_GdkPixbufFormat, PixbufFormat> {
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::GdkPixbufFormat, PixbufFormat> {
         Stash(self.0, ())
     }
 }
 
-impl FromGlibPtr<*mut ffi::C_GdkPixbufFormat> for PixbufFormat {
+impl FromGlibPtr<*mut ffi::GdkPixbufFormat> for PixbufFormat {
     #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::C_GdkPixbufFormat) -> PixbufFormat {
+    unsafe fn from_glib_none(ptr: *mut ffi::GdkPixbufFormat) -> PixbufFormat {
         PixbufFormat(ptr)
     }
 
     #[inline]
-    unsafe fn from_glib_full(_: *mut ffi::C_GdkPixbufFormat) -> PixbufFormat {
+    unsafe fn from_glib_full(_: *mut ffi::GdkPixbufFormat) -> PixbufFormat {
         unimplemented!();
     }
 }
