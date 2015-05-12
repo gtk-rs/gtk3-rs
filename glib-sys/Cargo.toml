@@ -8,6 +8,10 @@ links = "glib"
 description = "FFI bindings to GLib"
 repository = "https://github.com/rust-gnome/glib"
 license = "MIT"
+homepage = "https://github.com/rust-gnome/glib"
+documentation = "https://github.com/rust-gnome/glib"
+
+keywords = ["glib", "ffi", "gtk", "gnome"]
 
 [lib]
 name = "glib_sys"
