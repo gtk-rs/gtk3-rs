@@ -14,17 +14,17 @@ use ffi;
 use glib_container::GlibContainer;
 
 pub struct List<T> {
-    pointer: *mut ffi::C_GList,
+    pointer: *mut ffi::GList,
     _marker: PhantomData<T>
 }
 
 pub struct Elem<'a, T: 'a> {
-    pointer: *mut ffi::C_GList,
+    pointer: *mut ffi::GList,
     _marker: PhantomData<&'a T>
 }
 
 pub struct RevElem<'a, T: 'a> {
-    pointer: *mut ffi::C_GList,
+    pointer: *mut ffi::GList,
     _marker: PhantomData<&'a T>
 }
 
@@ -180,15 +180,15 @@ impl<T> Drop for List<T> {
     }
 }
 
-impl<T> GlibContainer<*mut ffi::C_GList> for List<T> {
-    fn wrap(pointer: *mut ffi::C_GList) -> List<T> {
+impl<T> GlibContainer<*mut ffi::GList> for List<T> {
+    fn wrap(pointer: *mut ffi::GList) -> List<T> {
         List {
             pointer: pointer,
             _marker: PhantomData
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::C_GList {
+    fn unwrap(&self) -> *mut ffi::GList {
         self.pointer
     }
 }

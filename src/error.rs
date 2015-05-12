@@ -7,7 +7,7 @@ use glib_container::GlibContainer;
 use translate::ToGlibPtr;
 
 pub struct Error {
-    pointer: *mut ffi::C_GError
+    pointer: *mut ffi::GError
 }
 
 impl Error {
@@ -68,14 +68,14 @@ impl Drop for Error {
     }
 }
 
-impl GlibContainer<*mut ffi::C_GError> for Error {
-    fn wrap(pointer: *mut ffi::C_GError) -> Error {
+impl GlibContainer<*mut ffi::GError> for Error {
+    fn wrap(pointer: *mut ffi::GError) -> Error {
         Error {
             pointer: pointer
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::C_GError {
+    fn unwrap(&self) -> *mut ffi::GError {
         self.pointer
     }
 }

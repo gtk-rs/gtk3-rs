@@ -4,7 +4,7 @@
 
 //! Date and Time Functions — calendrical calculations and miscellaneous time stuff
 
-use libc::{c_int, c_uint, c_ulong};
+use libc::{c_int, c_uint, c_long, c_ulong};
 use ffi;
 use std;
 use super::translate::ToGlibPtr;
@@ -263,9 +263,9 @@ impl Drop for Date {
 #[repr(C)]
 pub struct TimeVal {
     /// seconds
-    pub tv_sec: i32,
+    pub tv_sec: c_long,
     /// microseconds
-    pub tv_usec: i32
+    pub tv_usec: c_long,
 }
 
 impl TimeVal {

@@ -5,6 +5,6 @@
 use ffi;
 
 pub trait FFIGObject {
-    fn unwrap_gobject(&self) -> *mut ffi::C_GObject;
-    fn wrap_object(object: *mut ffi::C_GObject) -> Self;
+    fn unwrap_gobject(&self) -> *mut ffi::GObject;
+    fn wrap_object(object: *mut ffi::GObject) -> Self;
 }

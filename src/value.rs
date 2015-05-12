@@ -18,7 +18,7 @@ pub trait ValuePublic {
 
 // Possible improvment : store a function pointer inside the struct and make the struct templated
 pub struct Value {
-    inner: ffi::C_GValue,
+    inner: ffi::GValue,
 }
 
 impl Value {
@@ -222,11 +222,11 @@ impl Value {
         unsafe { to_bool(ffi::g_value_type_transformable(src_type.to_glib(), dest_type.to_glib())) }
     }
 
-    pub fn as_ptr(&self) -> *const ffi::C_GValue {
+    pub fn as_ptr(&self) -> *const ffi::GValue {
         &self.inner
     }
 
-    pub fn as_mut_ptr(&mut self) -> *mut ffi::C_GValue {
+    pub fn as_mut_ptr(&mut self) -> *mut ffi::GValue {
         &mut self.inner
     }
 }

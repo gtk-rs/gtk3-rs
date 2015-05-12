@@ -13,7 +13,7 @@ use ffi;
 /// A reference to any GObject descendant.
 #[allow(raw_pointer_derive)]
 #[derive(Debug, PartialEq, Eq)]
-pub struct Ref(*mut ffi::C_GObject);
+pub struct Ref(*mut ffi::GObject);
 
 impl Ref {
     #[inline]
@@ -24,7 +24,7 @@ impl Ref {
 
     /// Transfer: none constructor.
     #[inline]
-    pub fn from_glib_none(ptr: *mut ffi::C_GObject) -> Ref {
+    pub fn from_glib_none(ptr: *mut ffi::GObject) -> Ref {
         let r = Ref(ptr);
         r.add_ref();
         r
@@ -32,19 +32,19 @@ impl Ref {
 
     /// Transfer: full constructor.
     #[inline]
-    pub fn from_glib_full(ptr: *mut ffi::C_GObject) -> Ref {
+    pub fn from_glib_full(ptr: *mut ffi::GObject) -> Ref {
         Ref(ptr)
     }
 
     /// Returns a transfer: none raw pointer.
     #[inline]
-    pub fn to_glib_none(&self) -> *mut ffi::C_GObject {
+    pub fn to_glib_none(&self) -> *mut ffi::GObject {
         self.0
     }
 
     /// Returns a transfer: full raw pointer.
     #[inline]
-    pub fn to_glib_full(&self) -> *mut ffi::C_GObject {
+    pub fn to_glib_full(&self) -> *mut ffi::GObject {
         self.add_ref();
         self.0
     }
@@ -220,7 +220,7 @@ where Super: Wrapper, Sub: Wrapper + Upcast<Super> {
 pub struct Object(Ref);
 
 impl Wrapper for Object {
-    type GlibType = ffi::C_GObject;
+    type GlibType = ffi::GObject;
     #[inline]
     unsafe fn wrap(r: Ref) -> Object { Object(r) }
     #[inline]
