@@ -10,7 +10,8 @@ use libc::{c_void, c_int, c_uint, c_float, c_double, c_char, c_uchar, c_long, c_
 
 pub type GQuark = u32;
 
-pub type GType = size_t;
+pub type gsize = size_t;
+pub type GType = gsize;
 
 pub type gboolean = c_int;
 pub const GFALSE:  c_int = 0;
