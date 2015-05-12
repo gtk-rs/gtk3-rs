@@ -11,10 +11,8 @@ extern crate glib_sys as glib_ffi;
 
 pub mod enums;
 
-use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float, size_t};
-pub use glib_ffi::{gboolean, gpointer, GType};
-
-pub type gsize = size_t;
+use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
+pub use glib_ffi::{gboolean, gpointer, gsize, GType};
 
 #[repr(C)]
 pub struct GdkWindow;
