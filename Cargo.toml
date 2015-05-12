@@ -6,15 +6,15 @@ authors = ["The Rust-GNOME Project Developers"]
 description = "Rust bindings for the GLib library"
 repository = "https://github.com/rust-gnome/glib"
 license = "MIT"
-readme="README.md"
-keywords=["glib", "gtk", "gnome", "GUI"]
+readme = "README.md"
+homepage = "https://github.com/rust-gnome/glib"
+documentation = "https://github.com/rust-gnome/glib"
+
+keywords = ["glib", "gtk", "gnome", "GUI"]
 
 [lib]
 name = "glib"
 
 [dependencies]
 libc = "0.1"
-
-[dependencies.glib-sys]
-path = "./glib-sys"
-version = "0.1.0"
+glib-sys = "^0"
