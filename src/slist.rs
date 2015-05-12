@@ -14,12 +14,12 @@ use glib_container::GlibContainer;
 use ffi;
 
 pub struct SList<T> {
-    pointer: *mut ffi::C_GSList,
+    pointer: *mut ffi::GSList,
     _marker: PhantomData<T>
 }
 
 pub struct SElem<'a, T: 'a> {
-    pointer: *mut ffi::C_GSList,
+    pointer: *mut ffi::GSList,
     _marker: PhantomData<&'a T>
 }
 
@@ -149,15 +149,15 @@ impl<T> Drop for SList<T> {
     }
 }
 
-impl<T> GlibContainer<*mut ffi::C_GSList> for SList<T> {
-    fn wrap(pointer: *mut ffi::C_GSList) -> SList<T> {
+impl<T> GlibContainer<*mut ffi::GSList> for SList<T> {
+    fn wrap(pointer: *mut ffi::GSList) -> SList<T> {
         SList {
             pointer: pointer,
             _marker: PhantomData
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::C_GSList {
+    fn unwrap(&self) -> *mut ffi::GSList {
         self.pointer
     }
 }

@@ -24,51 +24,51 @@ pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
 
 #[repr(C)]
-pub struct C_GValue {
+pub struct GValue {
     type_: GType,
     data: [size_t; 2],
 }
 
 #[repr(C)]
-pub struct C_GList {
+pub struct GList {
     pub data: *mut c_void,
-    pub next: *mut C_GList,
-    pub prev: *mut C_GList
+    pub next: *mut GList,
+    pub prev: *mut GList
 }
 
 #[repr(C)]
-pub struct C_GSList {
+pub struct GSList {
     pub data: *mut c_void,
-    pub next: *mut C_GSList
+    pub next: *mut GSList
 }
 
 #[repr(C)]
-pub struct C_GError {
+pub struct GError {
     pub domain : GQuark,
     pub code   : i32,
     pub message: *mut c_char
 }
 
 #[repr(C)]
-pub struct C_GPermission;
+pub struct GPermission;
 
 #[repr(C)]
-pub struct C_GObject;
+pub struct GObject;
 
 #[repr(C)]
-pub struct C_GMainLoop;
+pub struct GMainLoop;
 
 #[repr(C)]
-pub struct C_GMainContext;
+pub struct GMainContext;
 
 #[repr(C)]
-pub struct C_GSource;
+pub struct GSource;
 
 #[repr(C)]
-pub struct C_GPid;
+pub struct GPid;
 
 #[repr(C)]
-pub struct C_GPollFD;
+pub struct GPollFD;
 
 /// Represents a day between January 1, Year 1 and a few thousand years in the future. None of its members should be accessed directly.
 /// 
@@ -128,97 +128,97 @@ extern "C" {
     //=========================================================================
     // GSList
     //=========================================================================
-    pub fn g_slist_free                    (list: *mut C_GSList);
-    pub fn g_slist_append                  (list: *mut C_GSList, data: *mut c_void) -> *mut C_GSList;
-    pub fn g_slist_prepend                 (list: *mut C_GSList, data: *mut c_void) -> *mut C_GSList;
-    pub fn g_slist_insert                  (list: *mut C_GSList, data: *mut c_void, position: c_int) -> *mut C_GSList;
-    pub fn g_slist_concat                  (list: *mut C_GSList, list2: *mut C_GSList) -> *mut C_GSList;
-    pub fn g_slist_nth_data                (list: *mut C_GSList, n: c_uint) -> *mut c_void;
-    pub fn g_slist_length                  (list: *mut C_GSList) -> c_uint;
-    pub fn g_slist_last                    (list: *mut C_GSList) -> *mut C_GSList;
-    pub fn g_slist_copy                    (list: *mut C_GSList) -> *mut C_GSList;
-    pub fn g_slist_reverse                 (list: *mut C_GSList) -> *mut C_GSList;
-    // pub fn g_slist_free_full               (list: *C_GSList, GDestroyNotify    free_func);
-    // pub fn g_slist_free_1                  (list: *C_GSList);
-    // pub fn g_slist_insert_sorted           (list: *C_GSList, data: *c_void, GCompareFunc      func) -> *C_GSList;
-    // pub fn g_slist_insert_sorted_with_data (list: *C_GSList, data: *c_void, GCompareDataFunc  func, gpointer          user_data) -> *C_GSList;
-    // pub fn g_slist_insert_before           (list: *C_GSList, GSList           *sibling, gpointer          data) -> *C_GSList;
-    pub fn g_slist_remove                  (list: *mut C_GSList, data: *mut c_void) -> *mut C_GSList;
-    pub fn g_slist_remove_all              (list: *mut C_GSList, data: *mut c_void) -> *mut C_GSList;
-    pub fn g_slist_remove_link             (list: *mut C_GSList, link_: C_GSList) -> *mut C_GSList;
-    pub fn g_slist_delete_link             (list: *mut C_GSList, link_: C_GSList) -> *mut C_GSList;
-    pub fn g_slist_find                    (list: *mut C_GSList, data: *mut c_void) -> *mut C_GSList;
-    // pub fn g_slist_find_custom             (list: *C_GSList, data: *c_void, GCompareFunc      func) -> *C_GSList;
-    pub fn g_slist_position                (list: *mut C_GSList, link_: C_GSList) -> c_int;
-    // pub fn g_slist_index                   (list: *C_GSList, data: *c_void) -> c_int;
+    pub fn g_slist_free                    (list: *mut GSList);
+    pub fn g_slist_append                  (list: *mut GSList, data: *mut c_void) -> *mut GSList;
+    pub fn g_slist_prepend                 (list: *mut GSList, data: *mut c_void) -> *mut GSList;
+    pub fn g_slist_insert                  (list: *mut GSList, data: *mut c_void, position: c_int) -> *mut GSList;
+    pub fn g_slist_concat                  (list: *mut GSList, list2: *mut GSList) -> *mut GSList;
+    pub fn g_slist_nth_data                (list: *mut GSList, n: c_uint) -> *mut c_void;
+    pub fn g_slist_length                  (list: *mut GSList) -> c_uint;
+    pub fn g_slist_last                    (list: *mut GSList) -> *mut GSList;
+    pub fn g_slist_copy                    (list: *mut GSList) -> *mut GSList;
+    pub fn g_slist_reverse                 (list: *mut GSList) -> *mut GSList;
+    // pub fn g_slist_free_full               (list: *GSList, GDestroyNotify    free_func);
+    // pub fn g_slist_free_1                  (list: *GSList);
+    // pub fn g_slist_insert_sorted           (list: *GSList, data: *c_void, GCompareFunc      func) -> *GSList;
+    // pub fn g_slist_insert_sorted_with_data (list: *GSList, data: *c_void, GCompareDataFunc  func, gpointer          user_data) -> *GSList;
+    // pub fn g_slist_insert_before           (list: *GSList, GSList           *sibling, gpointer          data) -> *GSList;
+    pub fn g_slist_remove                  (list: *mut GSList, data: *mut c_void) -> *mut GSList;
+    pub fn g_slist_remove_all              (list: *mut GSList, data: *mut c_void) -> *mut GSList;
+    pub fn g_slist_remove_link             (list: *mut GSList, link_: GSList) -> *mut GSList;
+    pub fn g_slist_delete_link             (list: *mut GSList, link_: GSList) -> *mut GSList;
+    pub fn g_slist_find                    (list: *mut GSList, data: *mut c_void) -> *mut GSList;
+    // pub fn g_slist_find_custom             (list: *GSList, data: *c_void, GCompareFunc      func) -> *GSList;
+    pub fn g_slist_position                (list: *mut GSList, link_: GSList) -> c_int;
+    // pub fn g_slist_index                   (list: *GSList, data: *c_void) -> c_int;
 
     //=========================================================================
     // GList
     //=========================================================================
-    pub fn g_list_free                    (list: *mut C_GList);
-    pub fn g_list_append                  (list: *mut C_GList, data: *mut c_void) -> *mut C_GList;
-    pub fn g_list_prepend                 (list: *mut C_GList, data: *mut c_void) -> *mut C_GList;
-    pub fn g_list_insert                  (list: *mut C_GList, data: *mut c_void, position: c_int) -> *mut C_GList;
-    pub fn g_list_concat                  (list: *mut C_GList, list2: *mut C_GList) -> *mut C_GList;
-    pub fn g_list_nth_data                (list: *mut C_GList, n: c_uint) -> *mut c_void;
-    pub fn g_list_length                  (list: *mut C_GList) -> c_uint;
-    pub fn g_list_last                    (list: *mut C_GList) -> *mut C_GList;
-    pub fn g_list_first                    (list: *mut C_GList) -> *mut C_GList;
-    pub fn g_list_copy                    (list: *mut C_GList) -> *mut C_GList;
-    pub fn g_list_reverse                 (list: *mut C_GList) -> *mut C_GList;
-    // pub fn g_slist_free_full               (list: *C_GSList, GDestroyNotify    free_func);
-    // pub fn g_slist_free_1                  (list: *C_GSList);
-    // pub fn g_slist_insert_sorted           (list: *C_GSList, data: *c_void, GCompareFunc      func) -> *C_GSList;
-    // pub fn g_slist_insert_sorted_with_data (list: *C_GSList, data: *c_void, GCompareDataFunc  func, gpointer          user_data) -> *C_GSList;
-    // pub fn g_slist_insert_before           (list: *C_GSList, GSList           *sibling, gpointer          data) -> *C_GSList;
-    pub fn g_list_remove                  (list: *mut C_GList, data: *mut c_void) -> *mut C_GList;
-    pub fn g_list_remove_all              (list: *mut C_GList, data: *mut c_void) -> *mut C_GList;
-    pub fn g_list_remove_link             (list: *mut C_GList, link_: C_GList) -> *mut C_GList;
-    pub fn g_list_delete_link             (list: *mut C_GList, link_: C_GList) -> *mut C_GList;
-    pub fn g_list_find                    (list: *mut C_GList, data: *mut c_void) -> *mut C_GList;
-    // pub fn g_slist_find_custom             (list: *C_GSList, data: *c_void, GCompareFunc      func) -> *C_GSList;
-    pub fn g_list_position                (list: *mut C_GList, link_: C_GList) -> c_int;
-    // pub fn g_slist_index                   (list: *C_GSList, data: *c_void) -> c_int;
+    pub fn g_list_free                    (list: *mut GList);
+    pub fn g_list_append                  (list: *mut GList, data: *mut c_void) -> *mut GList;
+    pub fn g_list_prepend                 (list: *mut GList, data: *mut c_void) -> *mut GList;
+    pub fn g_list_insert                  (list: *mut GList, data: *mut c_void, position: c_int) -> *mut GList;
+    pub fn g_list_concat                  (list: *mut GList, list2: *mut GList) -> *mut GList;
+    pub fn g_list_nth_data                (list: *mut GList, n: c_uint) -> *mut c_void;
+    pub fn g_list_length                  (list: *mut GList) -> c_uint;
+    pub fn g_list_last                    (list: *mut GList) -> *mut GList;
+    pub fn g_list_first                    (list: *mut GList) -> *mut GList;
+    pub fn g_list_copy                    (list: *mut GList) -> *mut GList;
+    pub fn g_list_reverse                 (list: *mut GList) -> *mut GList;
+    // pub fn g_slist_free_full               (list: *GSList, GDestroyNotify    free_func);
+    // pub fn g_slist_free_1                  (list: *GSList);
+    // pub fn g_slist_insert_sorted           (list: *GSList, data: *c_void, GCompareFunc      func) -> *GSList;
+    // pub fn g_slist_insert_sorted_with_data (list: *GSList, data: *c_void, GCompareDataFunc  func, gpointer          user_data) -> *GSList;
+    // pub fn g_slist_insert_before           (list: *GSList, GSList           *sibling, gpointer          data) -> *GSList;
+    pub fn g_list_remove                  (list: *mut GList, data: *mut c_void) -> *mut GList;
+    pub fn g_list_remove_all              (list: *mut GList, data: *mut c_void) -> *mut GList;
+    pub fn g_list_remove_link             (list: *mut GList, link_: GList) -> *mut GList;
+    pub fn g_list_delete_link             (list: *mut GList, link_: GList) -> *mut GList;
+    pub fn g_list_find                    (list: *mut GList, data: *mut c_void) -> *mut GList;
+    // pub fn g_slist_find_custom             (list: *GSList, data: *c_void, GCompareFunc      func) -> *GSList;
+    pub fn g_list_position                (list: *mut GList, link_: GList) -> c_int;
+    // pub fn g_slist_index                   (list: *GSList, data: *c_void) -> c_int;
 
 
 
     //=========================================================================
     // GError
     //=========================================================================
-    //pub fn g_error_new                    (domain: GQuark, code: c_int, format: *c_char, ...) -> *C_GError;
-    pub fn g_error_new_literal            (domain: GQuark, code: c_int, message: *const c_char) -> *mut C_GError;
-    //pub fn g_error_new_valist             (domain: GQuark, code: c_int, fomat: *c_char, args: va_list) -> *C_GError;
-    pub fn g_error_free                   (error: *mut C_GError) -> ();
-    pub fn g_error_copy                   (error: *mut C_GError) -> *mut C_GError;
-    pub fn g_error_matches                (error: *mut C_GError, domain: GQuark, code: c_int) -> Gboolean;
-    //pub fn g_set_error                    (error: **C_GError, domain: GQuark, code: c_int, format: *c_char, ...) -> ();
-    pub fn g_set_error_literal            (error: *mut *mut C_GError, domain: GQuark, code: c_int, message: *const c_char) -> ();
-    pub fn g_propagate_error              (dest: *mut *mut C_GError, src: *mut C_GError) -> ();
-    pub fn g_clear_error                  (err: *mut *mut C_GError) -> ();
-    //pub fn g_prefix_error                 (err: **C_GError, format: *c_char, ...) -> ();
-    //pub fn g_propagate_prefixed_error     (dest: **C_GError, src: *C_GError, format: *c_char, ...) -> ();
+    //pub fn g_error_new                    (domain: GQuark, code: c_int, format: *c_char, ...) -> *GError;
+    pub fn g_error_new_literal            (domain: GQuark, code: c_int, message: *const c_char) -> *mut GError;
+    //pub fn g_error_new_valist             (domain: GQuark, code: c_int, fomat: *c_char, args: va_list) -> *GError;
+    pub fn g_error_free                   (error: *mut GError) -> ();
+    pub fn g_error_copy                   (error: *mut GError) -> *mut GError;
+    pub fn g_error_matches                (error: *mut GError, domain: GQuark, code: c_int) -> Gboolean;
+    //pub fn g_set_error                    (error: **GError, domain: GQuark, code: c_int, format: *c_char, ...) -> ();
+    pub fn g_set_error_literal            (error: *mut *mut GError, domain: GQuark, code: c_int, message: *const c_char) -> ();
+    pub fn g_propagate_error              (dest: *mut *mut GError, src: *mut GError) -> ();
+    pub fn g_clear_error                  (err: *mut *mut GError) -> ();
+    //pub fn g_prefix_error                 (err: **GError, format: *c_char, ...) -> ();
+    //pub fn g_propagate_prefixed_error     (dest: **GError, src: *GError, format: *c_char, ...) -> ();
 
     //=========================================================================
     // GPermission                                                       NOT OK
     //=========================================================================
-    pub fn g_permission_get_allowed     (permission: *mut C_GPermission) -> Gboolean;
-    pub fn g_permission_get_can_acquire (permission: *mut C_GPermission) -> Gboolean;
-    pub fn g_permission_get_can_release (permission: *mut C_GPermission) -> Gboolean;
-    //pub fn g_permission_acquire         (permission: *mut C_GPermission, cancellable: *mut C_GCancellable,
-    //    error: *mut *mut C_GError) -> Gboolean;
-    //pub fn g_permission_acquire_async   (permission: *mut C_GPermission, cancellable: *mut C_GCancellable,
+    pub fn g_permission_get_allowed     (permission: *mut GPermission) -> Gboolean;
+    pub fn g_permission_get_can_acquire (permission: *mut GPermission) -> Gboolean;
+    pub fn g_permission_get_can_release (permission: *mut GPermission) -> Gboolean;
+    //pub fn g_permission_acquire         (permission: *mut GPermission, cancellable: *mut GCancellable,
+    //    error: *mut *mut GError) -> Gboolean;
+    //pub fn g_permission_acquire_async   (permission: *mut GPermission, cancellable: *mut GCancellable,
     //    callback: GAsyncReadyCallback, user_data: gpointer);
-    //pub fn g_permission_acquire_finish  (permission: *mut C_GPermission, result: *mut C_GAsyncResult,
-    //    error: *mut *mut C_GError) -> Gboolean;
-    //pub fn g_permission_release         (permission: *mut C_GPermission, cancellable: *mut C_GCancellable,
-    //    error: *mut *mut C_GError) -> Gboolean;
-    //pub fn g_permission_release_async   (permission: *mut C_GPermission, cancellable: *mut C_GCancellable,
+    //pub fn g_permission_acquire_finish  (permission: *mut GPermission, result: *mut GAsyncResult,
+    //    error: *mut *mut GError) -> Gboolean;
+    //pub fn g_permission_release         (permission: *mut GPermission, cancellable: *mut GCancellable,
+    //    error: *mut *mut GError) -> Gboolean;
+    //pub fn g_permission_release_async   (permission: *mut GPermission, cancellable: *mut GCancellable,
     //    callback: GAsyncReadyCallback, user_data: gpointer);
-    //pub fn g_permission_release_finish  (permission: *mut C_GPermission, cancellable: *mut C_GCancellable,
-    //    error: *mut *mut C_GError) -> Gboolean;
-    pub fn g_permission_impl_update     (permission: *mut C_GPermission, allowed: Gboolean, can_acquire: Gboolean, can_release: Gboolean);
+    //pub fn g_permission_release_finish  (permission: *mut GPermission, cancellable: *mut GCancellable,
+    //    error: *mut *mut GError) -> Gboolean;
+    pub fn g_permission_impl_update     (permission: *mut GPermission, allowed: Gboolean, can_acquire: Gboolean, can_release: Gboolean);
 
-    //pub type GAsyncReadyCallback = Option<extern "C" fn(source_object: *mut C_GObject, res: *mut C_GAsyncResult, user_data: gpointer)>;
+    //pub type GAsyncReadyCallback = Option<extern "C" fn(source_object: *mut GObject, res: *mut GAsyncResult, user_data: gpointer)>;
 
     //=========================================================================
     // GObject
@@ -227,7 +227,7 @@ extern "C" {
     pub fn g_object_ref_sink(object: *mut c_void) -> *mut c_void;
     pub fn g_object_unref(object: *mut c_void);
 
-    pub fn glue_signal_connect(g_object: *mut C_GObject,
+    pub fn glue_signal_connect(g_object: *mut GObject,
                                signal: *const c_char,
                                func: Option<extern "C" fn()>,
                                user_data: *const c_void);
@@ -238,151 +238,151 @@ extern "C" {
     //=========================================================================
     // GValue
     //=========================================================================
-    pub fn create_gvalue                       () -> *mut C_GValue;
+    pub fn create_gvalue                       () -> *mut GValue;
     pub fn get_gtype                           (_type: GType) -> GType;
-    pub fn g_value_init                        (value: *mut C_GValue, _type: GType);
-    pub fn g_value_reset                       (value: *mut C_GValue);
-    pub fn g_value_unset                       (value: *mut C_GValue);
-    pub fn g_strdup_value_contents             (value: *mut C_GValue) -> *mut c_char;
-    pub fn g_value_set_boolean                 (value: *mut C_GValue, b: Gboolean);
-    pub fn g_value_get_boolean                 (value: *const C_GValue) -> Gboolean;
-    pub fn g_value_set_schar                   (value: *mut C_GValue, b: c_char);
-    pub fn g_value_get_schar                   (value: *const C_GValue) -> c_char;
-    pub fn g_value_set_uchar                   (value: *mut C_GValue, b: c_uchar);
-    pub fn g_value_get_uchar                   (value: *const C_GValue) -> c_uchar;
-    pub fn g_value_set_int                     (value: *mut C_GValue, b: c_int);
-    pub fn g_value_get_int                     (value: *const C_GValue) -> c_int;
-    pub fn g_value_set_uint                    (value: *mut C_GValue, b: c_uint);
-    pub fn g_value_get_uint                    (value: *const C_GValue) -> c_uint;
-    pub fn g_value_set_long                    (value: *mut C_GValue, b: c_long);
-    pub fn g_value_get_long                    (value: *const C_GValue) -> c_long;
-    pub fn g_value_set_ulong                   (value: *mut C_GValue, b: c_ulong);
-    pub fn g_value_get_ulong                   (value: *const C_GValue) -> c_ulong;
-    pub fn g_value_set_int64                   (value: *mut C_GValue, b: i64);
-    pub fn g_value_get_int64                   (value: *const C_GValue) -> i64;
-    pub fn g_value_set_uint64                  (value: *mut C_GValue, b: u64);
-    pub fn g_value_get_uint64                  (value: *const C_GValue) -> u64;
-    pub fn g_value_set_float                   (value: *mut C_GValue, b: c_float);
-    pub fn g_value_get_float                   (value: *const C_GValue) -> c_float;
-    pub fn g_value_set_double                  (value: *mut C_GValue, b: c_double);
-    pub fn g_value_get_double                  (value: *const C_GValue) -> c_double;
-    pub fn g_value_set_enum                    (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_enum                    (value: *const C_GValue) -> GType;
-    pub fn g_value_set_flags                   (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_flags                   (value: *const C_GValue) -> GType;
-    pub fn g_value_set_string                  (value: *mut C_GValue, b: *const c_char);
-    pub fn g_value_set_static_string           (value: *mut C_GValue, b: *const c_char);
-    pub fn g_value_get_string                  (value: *const C_GValue) -> *const c_char;
-    pub fn g_value_dup_string                  (value: *mut C_GValue) -> *mut c_char;
-    pub fn g_value_set_boxed                   (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_set_static_boxed            (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_boxed                   (value: *const C_GValue) -> *const c_void;
-    pub fn g_value_set_pointer                 (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_pointer                 (value: *const C_GValue) -> *const c_void;
-    pub fn g_value_set_object                  (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_take_object                 (value: *mut C_GValue, b: *const c_void);
-    pub fn g_value_get_object                  (value: *const C_GValue) -> *const c_void;
-    pub fn g_value_set_gtype                   (value: *mut C_GValue, b: GType);
-    pub fn g_value_get_gtype                   (value: *const C_GValue) -> GType;
+    pub fn g_value_init                        (value: *mut GValue, _type: GType);
+    pub fn g_value_reset                       (value: *mut GValue);
+    pub fn g_value_unset                       (value: *mut GValue);
+    pub fn g_strdup_value_contents             (value: *mut GValue) -> *mut c_char;
+    pub fn g_value_set_boolean                 (value: *mut GValue, b: Gboolean);
+    pub fn g_value_get_boolean                 (value: *const GValue) -> Gboolean;
+    pub fn g_value_set_schar                   (value: *mut GValue, b: c_char);
+    pub fn g_value_get_schar                   (value: *const GValue) -> c_char;
+    pub fn g_value_set_uchar                   (value: *mut GValue, b: c_uchar);
+    pub fn g_value_get_uchar                   (value: *const GValue) -> c_uchar;
+    pub fn g_value_set_int                     (value: *mut GValue, b: c_int);
+    pub fn g_value_get_int                     (value: *const GValue) -> c_int;
+    pub fn g_value_set_uint                    (value: *mut GValue, b: c_uint);
+    pub fn g_value_get_uint                    (value: *const GValue) -> c_uint;
+    pub fn g_value_set_long                    (value: *mut GValue, b: c_long);
+    pub fn g_value_get_long                    (value: *const GValue) -> c_long;
+    pub fn g_value_set_ulong                   (value: *mut GValue, b: c_ulong);
+    pub fn g_value_get_ulong                   (value: *const GValue) -> c_ulong;
+    pub fn g_value_set_int64                   (value: *mut GValue, b: i64);
+    pub fn g_value_get_int64                   (value: *const GValue) -> i64;
+    pub fn g_value_set_uint64                  (value: *mut GValue, b: u64);
+    pub fn g_value_get_uint64                  (value: *const GValue) -> u64;
+    pub fn g_value_set_float                   (value: *mut GValue, b: c_float);
+    pub fn g_value_get_float                   (value: *const GValue) -> c_float;
+    pub fn g_value_set_double                  (value: *mut GValue, b: c_double);
+    pub fn g_value_get_double                  (value: *const GValue) -> c_double;
+    pub fn g_value_set_enum                    (value: *mut GValue, b: GType);
+    pub fn g_value_get_enum                    (value: *const GValue) -> GType;
+    pub fn g_value_set_flags                   (value: *mut GValue, b: GType);
+    pub fn g_value_get_flags                   (value: *const GValue) -> GType;
+    pub fn g_value_set_string                  (value: *mut GValue, b: *const c_char);
+    pub fn g_value_set_static_string           (value: *mut GValue, b: *const c_char);
+    pub fn g_value_get_string                  (value: *const GValue) -> *const c_char;
+    pub fn g_value_dup_string                  (value: *mut GValue) -> *mut c_char;
+    pub fn g_value_set_boxed                   (value: *mut GValue, b: *const c_void);
+    pub fn g_value_set_static_boxed            (value: *mut GValue, b: *const c_void);
+    pub fn g_value_get_boxed                   (value: *const GValue) -> *const c_void;
+    pub fn g_value_set_pointer                 (value: *mut GValue, b: *const c_void);
+    pub fn g_value_get_pointer                 (value: *const GValue) -> *const c_void;
+    pub fn g_value_set_object                  (value: *mut GValue, b: *const c_void);
+    pub fn g_value_take_object                 (value: *mut GValue, b: *const c_void);
+    pub fn g_value_get_object                  (value: *const GValue) -> *const c_void;
+    pub fn g_value_set_gtype                   (value: *mut GValue, b: GType);
+    pub fn g_value_get_gtype                   (value: *const GValue) -> GType;
     pub fn g_value_type_compatible             (src_type: GType, dest_type: GType) -> Gboolean;
     pub fn g_value_type_transformable          (src_type: GType, dest_type: GType) -> Gboolean;
 
     //=========================================================================
     // GMainLoop
     //=========================================================================
-    pub fn g_main_loop_new                     (context: *mut C_GMainContext, is_running: Gboolean) -> *mut C_GMainLoop;
-    pub fn g_main_loop_ref                     (loop_: *mut C_GMainLoop) -> *mut C_GMainLoop;
-    pub fn g_main_loop_unref                   (loop_: *mut C_GMainLoop);
-    pub fn g_main_loop_run                     (loop_: *mut C_GMainLoop);
-    pub fn g_main_loop_quit                    (loop_: *mut C_GMainLoop);
-    pub fn g_main_loop_is_running              (loop_: *mut C_GMainLoop) -> Gboolean;
-    pub fn g_main_loop_get_context             (loop_: *mut C_GMainLoop) -> *mut C_GMainContext;
+    pub fn g_main_loop_new                     (context: *mut GMainContext, is_running: Gboolean) -> *mut GMainLoop;
+    pub fn g_main_loop_ref                     (loop_: *mut GMainLoop) -> *mut GMainLoop;
+    pub fn g_main_loop_unref                   (loop_: *mut GMainLoop);
+    pub fn g_main_loop_run                     (loop_: *mut GMainLoop);
+    pub fn g_main_loop_quit                    (loop_: *mut GMainLoop);
+    pub fn g_main_loop_is_running              (loop_: *mut GMainLoop) -> Gboolean;
+    pub fn g_main_loop_get_context             (loop_: *mut GMainLoop) -> *mut GMainContext;
 
     //=========================================================================
     // GMainContext
     //=========================================================================
-    pub fn g_main_context_new                  () -> *mut C_GMainContext;
-    pub fn g_main_context_ref                  (context: *mut C_GMainContext) -> *mut C_GMainContext;
-    pub fn g_main_context_unref                (context: *mut C_GMainContext);
-    pub fn g_main_context_default              () -> *mut C_GMainContext;
-    pub fn g_main_context_iteration            (context: *mut C_GMainContext, may_block: Gboolean) -> Gboolean;
-    pub fn g_main_context_pending              (context: *mut C_GMainContext) -> Gboolean;
-    pub fn g_main_context_find_source_by_id    (context: *mut C_GMainContext, source_id: c_uint) -> *mut C_GSource;
-    pub fn g_main_context_find_source_by_user_data(context: *mut C_GMainContext, user_data: gpointer) -> *mut C_GSource;
-    //pub fn g_main_context_find_source_by_funcs_user_data(context: *mut C_GMainContext, funcs: GSourceFuncs, user_data: gpointer) -> *mut C_GSource;
-    pub fn g_main_context_wakeup               (context: *mut C_GMainContext);
-    pub fn g_main_context_acquire              (context: *mut C_GMainContext) -> Gboolean;
-    pub fn g_main_context_release              (context: *mut C_GMainContext);
-    pub fn g_main_context_is_owner             (context: *mut C_GMainContext) -> Gboolean;
-    //pub fn g_main_context_wait                 (context: *mut C_GMainContext, cond: *mut C_GCond, mutex: *mut C_GMutex) -> Gboolean;
-    pub fn g_main_context_prepare              (context: *mut C_GMainContext, priority: *mut c_int) -> Gboolean;
-    //pub fn g_main_context_query                (context: *mut C_GMainContext, max_priority: c_int, timeout_: *mut c_int, fds: *mut C_GPollFD,
+    pub fn g_main_context_new                  () -> *mut GMainContext;
+    pub fn g_main_context_ref                  (context: *mut GMainContext) -> *mut GMainContext;
+    pub fn g_main_context_unref                (context: *mut GMainContext);
+    pub fn g_main_context_default              () -> *mut GMainContext;
+    pub fn g_main_context_iteration            (context: *mut GMainContext, may_block: Gboolean) -> Gboolean;
+    pub fn g_main_context_pending              (context: *mut GMainContext) -> Gboolean;
+    pub fn g_main_context_find_source_by_id    (context: *mut GMainContext, source_id: c_uint) -> *mut GSource;
+    pub fn g_main_context_find_source_by_user_data(context: *mut GMainContext, user_data: gpointer) -> *mut GSource;
+    //pub fn g_main_context_find_source_by_funcs_user_data(context: *mut GMainContext, funcs: GSourceFuncs, user_data: gpointer) -> *mut GSource;
+    pub fn g_main_context_wakeup               (context: *mut GMainContext);
+    pub fn g_main_context_acquire              (context: *mut GMainContext) -> Gboolean;
+    pub fn g_main_context_release              (context: *mut GMainContext);
+    pub fn g_main_context_is_owner             (context: *mut GMainContext) -> Gboolean;
+    //pub fn g_main_context_wait                 (context: *mut GMainContext, cond: *mut GCond, mutex: *mut GMutex) -> Gboolean;
+    pub fn g_main_context_prepare              (context: *mut GMainContext, priority: *mut c_int) -> Gboolean;
+    //pub fn g_main_context_query                (context: *mut GMainContext, max_priority: c_int, timeout_: *mut c_int, fds: *mut GPollFD,
     //    n_fds: c_int) -> c_int;
-    //pub fn g_main_context_check                (context: *mut C_GMainContext, max_priority: c_int, fds: *mut C_GPollFD,
+    //pub fn g_main_context_check                (context: *mut GMainContext, max_priority: c_int, fds: *mut GPollFD,
     //    n_fds: c_int) -> c_int;
-    pub fn g_main_context_dispatch             (context: *mut C_GMainContext);
+    pub fn g_main_context_dispatch             (context: *mut GMainContext);
     //pub fn g_main_context_set_poll_func        ();
     //pub fn g_main_context_get_poll_func        ();
-    pub fn g_main_context_add_poll             (context: *mut C_GMainContext, fd: *mut C_GPollFD, priority: c_int);
-    pub fn g_main_context_remove_poll          (context: *mut C_GMainContext, fd: *mut C_GPollFD);
+    pub fn g_main_context_add_poll             (context: *mut GMainContext, fd: *mut GPollFD, priority: c_int);
+    pub fn g_main_context_remove_poll          (context: *mut GMainContext, fd: *mut GPollFD);
     pub fn g_main_depth                        () -> c_int;
 
-    pub fn g_main_current_source               () -> *mut C_GSource;
+    pub fn g_main_current_source               () -> *mut GSource;
     //pub fn g_main_context_invoke               ();
     //pub fn g_main_context_invoke_full          ();
-    pub fn g_main_context_get_thread_default   () -> *mut C_GMainContext;
-    pub fn g_main_context_ref_thread_default   () -> *mut C_GMainContext;
-    pub fn g_main_context_push_thread_default  (context: *mut C_GMainContext);
-    pub fn g_main_context_pop_thread_default   (context: *mut C_GMainContext);
+    pub fn g_main_context_get_thread_default   () -> *mut GMainContext;
+    pub fn g_main_context_ref_thread_default   () -> *mut GMainContext;
+    pub fn g_main_context_push_thread_default  (context: *mut GMainContext);
+    pub fn g_main_context_pop_thread_default   (context: *mut GMainContext);
 
     //=========================================================================
     // GSource
     //=========================================================================
-    pub fn g_timeout_source_new                () -> *mut C_GSource;
-    pub fn g_timeout_source_new_seconds        (interval: c_uint) -> *mut C_GSource;
+    pub fn g_timeout_source_new                () -> *mut GSource;
+    pub fn g_timeout_source_new_seconds        (interval: c_uint) -> *mut GSource;
     //pub fn g_timeout_add                       (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
     pub fn g_timeout_add                       (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
     //pub fn g_timeout_add_full                  ();
     //pub fn g_timeout_add_seconds               (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
     pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
     //pub fn g_timeout_add_seconds_full          ();
-    pub fn g_idle_source_new                   () -> *mut C_GSource;
+    pub fn g_idle_source_new                   () -> *mut GSource;
     //pub fn g_idle_add                          ();
     //pub fn g_idle_add_full                     ();
     pub fn g_idle_remove_by_data               (data: gpointer) -> Gboolean;
-    pub fn g_child_watch_source_new            (pid: C_GPid) -> *mut C_GSource;
+    pub fn g_child_watch_source_new            (pid: GPid) -> *mut GSource;
     //pub fn g_child_watch_add                   ();
     //pub fn g_child_watch_add_full              ();
-    pub fn g_poll                              (fds: *mut C_GPollFD, nfds: c_uint, timeout: c_int) -> c_int;
+    pub fn g_poll                              (fds: *mut GPollFD, nfds: c_uint, timeout: c_int) -> c_int;
     //pub fn g_source_new                        ();
-    pub fn g_source_ref                        (source: *mut C_GSource) -> *mut C_GSource;
-    pub fn g_source_unref                      (source: *mut C_GSource);
+    pub fn g_source_ref                        (source: *mut GSource) -> *mut GSource;
+    pub fn g_source_unref                      (source: *mut GSource);
     //pub fn g_source_set_funcs                  ();
-    pub fn g_source_attach                     (source: *mut C_GSource, context: *mut C_GMainContext);
-    pub fn g_source_destroy                    (source: *mut C_GSource);
-    pub fn g_source_is_destroyed               (source: *mut C_GSource) -> Gboolean;
-    pub fn g_source_set_priority               (source: *mut C_GSource, priority: c_int);
-    pub fn g_source_get_priority               (source: *mut C_GSource) -> c_int;
-    pub fn g_source_set_can_recurse            (source: *mut C_GSource, can_recurse: Gboolean);
-    pub fn g_source_get_can_recurse            (source: *mut C_GSource) -> Gboolean;
-    pub fn g_source_get_id                     (source: *mut C_GSource) -> c_uint;
-    pub fn g_source_get_name                   (source: *mut C_GSource) -> *const c_char;
-    pub fn g_source_set_name                   (source: *mut C_GSource, name: *const c_char);
+    pub fn g_source_attach                     (source: *mut GSource, context: *mut GMainContext);
+    pub fn g_source_destroy                    (source: *mut GSource);
+    pub fn g_source_is_destroyed               (source: *mut GSource) -> Gboolean;
+    pub fn g_source_set_priority               (source: *mut GSource, priority: c_int);
+    pub fn g_source_get_priority               (source: *mut GSource) -> c_int;
+    pub fn g_source_set_can_recurse            (source: *mut GSource, can_recurse: Gboolean);
+    pub fn g_source_get_can_recurse            (source: *mut GSource) -> Gboolean;
+    pub fn g_source_get_id                     (source: *mut GSource) -> c_uint;
+    pub fn g_source_get_name                   (source: *mut GSource) -> *const c_char;
+    pub fn g_source_set_name                   (source: *mut GSource, name: *const c_char);
     pub fn g_source_set_name_by_id             (tag: c_uint, name: *const c_char);
-    pub fn g_source_get_context                (source: *mut C_GSource) -> *mut C_GMainContext;
+    pub fn g_source_get_context                (source: *mut GSource) -> *mut GMainContext;
     //pub fn g_source_set_callback               ();
     //pub fn g_source_set_callback_indirect      ();
-    pub fn g_source_set_ready_time             (source: *mut C_GSource, ready_time: i64);
-    pub fn g_source_get_ready_time             (source: *mut C_GSource) -> i64;
+    pub fn g_source_set_ready_time             (source: *mut GSource, ready_time: i64);
+    pub fn g_source_get_ready_time             (source: *mut GSource) -> i64;
     //pub fn g_source_add_unix_fd                ();
     //pub fn g_source_remove_unix_fd             ();
     //pub fn g_source_modify_unix_fd             ();
     //pub fn g_source_query_unix_fd              ();
-    pub fn g_source_add_poll                   (source: *mut C_GSource, fd: *mut C_GPollFD);
-    pub fn g_source_remove_poll                (source: *mut C_GSource, fd: *mut C_GPollFD);
-    pub fn g_source_add_child_source           (source: *mut C_GSource, child_source: *mut C_GSource);
-    pub fn g_source_remove_child_source        (source: *mut C_GSource, child_source: *mut C_GSource);
-    pub fn g_source_get_time                   (source: *mut C_GSource) -> i64;
+    pub fn g_source_add_poll                   (source: *mut GSource, fd: *mut GPollFD);
+    pub fn g_source_remove_poll                (source: *mut GSource, fd: *mut GPollFD);
+    pub fn g_source_add_child_source           (source: *mut GSource, child_source: *mut GSource);
+    pub fn g_source_remove_child_source        (source: *mut GSource, child_source: *mut GSource);
+    pub fn g_source_get_time                   (source: *mut GSource) -> i64;
     pub fn g_source_remove                     (tag: c_uint) -> Gboolean;
     //pub fn g_source_remove_by_funcs_user_data  ();
     pub fn g_source_remove_by_user_data        (user_data: gpointer) -> Gboolean;

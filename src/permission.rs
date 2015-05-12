@@ -8,7 +8,7 @@ use glib_container::GlibContainer;
 use ffi;
 
 pub struct Permission {
-    pointer: *mut ffi::C_GPermission
+    pointer: *mut ffi::GPermission
 }
 
 impl Permission {
@@ -47,14 +47,14 @@ impl Permission {
     }
 }*/
 
-impl GlibContainer<*mut ffi::C_GPermission> for Permission {
-    fn wrap(pointer: *mut ffi::C_GPermission) -> Permission {
+impl GlibContainer<*mut ffi::GPermission> for Permission {
+    fn wrap(pointer: *mut ffi::GPermission) -> Permission {
         Permission {
             pointer: pointer
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::C_GPermission {
+    fn unwrap(&self) -> *mut ffi::GPermission {
         self.pointer
     }
 }

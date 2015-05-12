@@ -85,17 +85,17 @@ impl <T> Ptr for *mut T {
 /// The second element of the tuple is the temporary storage defined
 /// by the implementation of `ToGlibPtr<P> for T`
 ///
-/// Say you want to pass a `*mut C_GdkWindowAttr` to a foreign function. The `Stash`
-/// will own a `C_GdkWindowAttr` and a `CString` that `C_GdkWindowAttr::title` points into.
+/// Say you want to pass a `*mut GdkWindowAttr` to a foreign function. The `Stash`
+/// will own a `GdkWindowAttr` and a `CString` that `GdkWindowAttr::title` points into.
 ///
 /// ```ignore
-/// impl <'a> ToGlibPtr<'a, *mut ffi::C_GdkWindowAttr> for WindowAttr {
-///     type Storage = (Box<ffi::C_GdkWindowAttr>, Stash<'a, *const c_char, Option<String>>);
+/// impl <'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
+///     type Storage = (Box<ffi::GdkWindowAttr>, Stash<'a, *const c_char, Option<String>>);
 ///
-///     fn to_glib_none(&'a self) -> Stash<*mut ffi::C_GdkWindowAttr, WindowAttr> {
+///     fn to_glib_none(&'a self) -> Stash<*mut ffi::GdkWindowAttr, WindowAttr> {
 ///         let title = self.title.to_glib_none();
 ///
-///         let mut attrs = Box::new(ffi::C_GdkWindowAttr {
+///         let mut attrs = Box::new(ffi::GdkWindowAttr {
 ///             title: title.0,
 ///             // ....
 ///         });
@@ -456,7 +456,7 @@ for Vec<T> {
     }
 }
 
-unsafe fn slist_len(mut ptr: *mut ffi::C_GSList) -> usize {
+unsafe fn slist_len(mut ptr: *mut ffi::GSList) -> usize {
     let mut len = 0;
     while !ptr.is_null() {
         ptr = (*ptr).next;
@@ -465,13 +465,13 @@ unsafe fn slist_len(mut ptr: *mut ffi::C_GSList) -> usize {
     len
 }
 
-impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GSList> for Vec<T> {
-    unsafe fn from_glib_none(ptr: *mut ffi::C_GSList) -> Vec<T> {
+impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::GSList> for Vec<T> {
+    unsafe fn from_glib_none(ptr: *mut ffi::GSList) -> Vec<T> {
         let num = slist_len(ptr);
         FromGlibPtrContainer::from_glib_none_num(ptr, num)
     }
 
-    unsafe fn from_glib_none_num(mut ptr: *mut ffi::C_GSList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_none_num(mut ptr: *mut ffi::GSList, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -486,12 +486,12 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GSList> for
         res
     }
 
-    unsafe fn from_glib_container(ptr: *mut ffi::C_GSList) -> Vec<T> {
+    unsafe fn from_glib_container(ptr: *mut ffi::GSList) -> Vec<T> {
         let num = slist_len(ptr);
         FromGlibPtrContainer::from_glib_container_num(ptr, num)
     }
 
-    unsafe fn from_glib_container_num(ptr: *mut ffi::C_GSList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_container_num(ptr: *mut ffi::GSList, num: usize) -> Vec<T> {
         let res = FromGlibPtrContainer::from_glib_none_num(ptr, num);
         if !ptr.is_null() {
             ffi::g_slist_free(ptr as *mut _);
@@ -499,12 +499,12 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GSList> for
         res
     }
 
-    unsafe fn from_glib_full(ptr: *mut ffi::C_GSList) -> Vec<T> {
+    unsafe fn from_glib_full(ptr: *mut ffi::GSList) -> Vec<T> {
         let num = slist_len(ptr);
         FromGlibPtrContainer::from_glib_container_num(ptr, num)
     }
 
-    unsafe fn from_glib_full_num(mut ptr: *mut ffi::C_GSList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_full_num(mut ptr: *mut ffi::GSList, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -524,7 +524,7 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GSList> for
     }
 }
 
-unsafe fn list_len(mut ptr: *mut ffi::C_GList) -> usize {
+unsafe fn list_len(mut ptr: *mut ffi::GList) -> usize {
     let mut len = 0;
     while !ptr.is_null() {
         ptr = (*ptr).next;
@@ -533,13 +533,13 @@ unsafe fn list_len(mut ptr: *mut ffi::C_GList) -> usize {
     len
 }
 
-impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GList> for Vec<T> {
-    unsafe fn from_glib_none(ptr: *mut ffi::C_GList) -> Vec<T> {
+impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::GList> for Vec<T> {
+    unsafe fn from_glib_none(ptr: *mut ffi::GList) -> Vec<T> {
         let num = list_len(ptr);
         FromGlibPtrContainer::from_glib_none_num(ptr, num)
     }
 
-    unsafe fn from_glib_none_num(mut ptr: *mut ffi::C_GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_none_num(mut ptr: *mut ffi::GList, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -554,12 +554,12 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GList> for 
         res
     }
 
-    unsafe fn from_glib_container(ptr: *mut ffi::C_GList) -> Vec<T> {
+    unsafe fn from_glib_container(ptr: *mut ffi::GList) -> Vec<T> {
         let num = list_len(ptr);
         FromGlibPtrContainer::from_glib_container_num(ptr, num)
     }
 
-    unsafe fn from_glib_container_num(ptr: *mut ffi::C_GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_container_num(ptr: *mut ffi::GList, num: usize) -> Vec<T> {
         let res = FromGlibPtrContainer::from_glib_none_num(ptr, num);
         if !ptr.is_null() {
             ffi::g_list_free(ptr as *mut _);
@@ -567,12 +567,12 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::C_GList> for 
         res
     }
 
-    unsafe fn from_glib_full(ptr: *mut ffi::C_GList) -> Vec<T> {
+    unsafe fn from_glib_full(ptr: *mut ffi::GList) -> Vec<T> {
         let num = list_len(ptr);
         FromGlibPtrContainer::from_glib_container_num(ptr, num)
     }
 
-    unsafe fn from_glib_full_num(mut ptr: *mut ffi::C_GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_full_num(mut ptr: *mut ffi::GList, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
