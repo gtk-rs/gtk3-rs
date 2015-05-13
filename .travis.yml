@@ -13,6 +13,7 @@ script:
   - cargo doc
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
-  - git clone --depth 1 https://github.com/rust-gnome/examples _test
-  - cd _test
+  - git clone -q --depth 1 https://github.com/rust-gnome/examples _examples
+  - cd _examples
+  - ./git_deps.sh cairo gdk gtk pango
   - cargo build
