@@ -3,13 +3,11 @@ rust:
 - nightly
 - beta
 sudo: true
-env:
-  global:
-    - LD_LIBRARY_PATH=/usr/local/lib
 before_install:
   - yes | sudo add-apt-repository ppa:ricotz/testing
   - sudo apt-get update
 install:
   - sudo apt-get install gtk+3.0 libgtk-3-dev
 script:
+  - ./git_deps.sh cairo glib gdk gtk pango
   - cargo build
