@@ -48,14 +48,15 @@ install:
         }
         7z x -oC:\Deps\gtk gtk.zip | Out-Null
       }
-  - cmd: SET PATH=%MINGW%\bin;C:\Deps\gtk\bin;C:\Rust\bin
+  - cmd: SET PATH=%MINGW%\bin;C:\Deps\gtk\bin;C:\Rust\bin;%PATH%
 
 cache:
   C:\Deps
 
-build: false
-
-test_script:
+build_script:
   - rustc -V
-  - echo %FEATURES%
+  - bash -c "./git_deps.sh cairo glib gdk gtk pango"
+  - "echo Features: %FEATURES%"
   - cargo build --features "%FEATURES%"
+
+test: false
