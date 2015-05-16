@@ -33,3 +33,6 @@ name = "text_viewer"
 
 [[bin]]
 name = "treeview"
+
+[[bin]]
+name = "builder_basics"
