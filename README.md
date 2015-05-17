@@ -6,6 +6,12 @@ A few rust-gnome examples. To build, just do:
 > cargo build
 ```
 
+or to enable GTK 3.10 examples as well:
+
+```Shell
+> cargo build --features gtk_3_10
+```
+
 And then run the executables. Please be sure to have installed all the required libraries before building examples (the list is available on [gtk](https://github.com/rust-gnome/gtk/).
 
 ## LICENSE
