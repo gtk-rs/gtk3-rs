@@ -16,9 +16,11 @@ pub use glib_main as glib;
 pub use cairo_ffi as ffi;
 pub use ffi::enums;
 
+pub use ffi::cairo_rectangle_t as Rectangle;
+pub use ffi::cairo_rectangle_int_t as RectangleInt;
+
 pub use self::context::{
     Context,
-    Rectangle,
     RectangleVec,
 };
 

@@ -48,13 +48,27 @@ pub struct cairo_line_cap_t;
 #[repr(C)]
 pub struct cairo_operator_t;
 #[repr(C)]
-pub struct cairo_rectangle_list_t {
-    pub status: Status,
-    pub rectangles: *mut Rectangle,
-    pub num_rectangles: c_int
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct cairo_rectangle_t {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
 }
 #[repr(C)]
-pub struct cairo_rectangle_int_t;
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct cairo_rectangle_int_t {
+    pub x: i32,
+    pub y: i32,
+    pub width: i32,
+    pub height: i32,
+}
+#[repr(C)]
+pub struct cairo_rectangle_list_t {
+    pub status: Status,
+    pub rectangles: *mut cairo_rectangle_t,
+    pub num_rectangles: c_int
+}
 #[repr(C)]
 pub struct cairo_content_t;
 #[repr(C)]
@@ -127,14 +141,6 @@ pub struct Matrix {
 
     pub x0: c_double,
     pub y0: c_double,
-}
-#[repr(C)]
-#[derive(Clone, Copy)]
-pub struct Rectangle {
-    x: f64,
-    y: f64,
-    width: f64,
-    height: f64,
 }
 #[repr(C)]
 pub struct cairo_bool_t{
