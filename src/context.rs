@@ -14,6 +14,7 @@ use ffi::enums::{
     FontWeight,
     TextClusterFlags
 };
+use Rectangle;
 use ffi;
 
 use ffi::{
@@ -23,8 +24,6 @@ use ffi::{
 };
 use ffi::enums::{Status, Antialias, LineCap, LineJoin, FillRule};
 use ::patterns::{wrap_pattern, Pattern};
-
-pub use ffi::Rectangle;
 
 pub struct RectangleVec {
     ptr: *mut cairo_rectangle_list_t,
