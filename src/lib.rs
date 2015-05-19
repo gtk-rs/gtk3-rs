@@ -9,6 +9,7 @@ Bindings and wrappers for __GDK__
 extern crate gdk_sys as gdk_ffi;
 extern crate glib_sys as glib_ffi;
 extern crate glib as glib_main;
+extern crate cairo;
 extern crate libc;
 
 pub use gdk_ffi as ffi;
@@ -79,7 +80,6 @@ pub use pixbuf::animation::PixbufAnimation;
 pub use pixbuf::animation::PixbufSimpleAnim;
 pub use pixbuf::format::PixbufFormat;
 pub use pixbuf::loader::PixbufLoader;
-pub use rectangle::Rectangle;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;

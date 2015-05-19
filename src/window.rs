@@ -9,6 +9,7 @@ use std::ptr;
 use libc::{c_char};
 use glib::translate::*;
 use glib::types;
+use cairo;
 use cursor::Cursor;
 use device::Device;
 use display::Display;
@@ -331,7 +332,7 @@ impl Window {
         unsafe { ffi::gdk_window_get_scale_factor(self.to_glib_none().0) }
     }
 
-    pub fn begin_paint_rect(&self, rect: &ffi::GdkRectangle) {
+    pub fn begin_paint_rect(&self, rect: &cairo::RectangleInt) {
         unsafe { ffi::gdk_window_begin_paint_rect(self.to_glib_none().0, rect) }
     }
 
@@ -339,7 +340,7 @@ impl Window {
         unsafe { ffi::gdk_window_end_paint(self.to_glib_none().0) }
     }
 
-    pub fn invalidate_rect(&self, rect: &ffi::GdkRectangle, invalidate_children: bool) {
+    pub fn invalidate_rect(&self, rect: &cairo::RectangleInt, invalidate_children: bool) {
         unsafe { ffi::gdk_window_invalidate_rect(self.to_glib_none().0, rect, invalidate_children.to_glib()) }
     }
 
@@ -503,8 +504,12 @@ impl Window {
         unsafe { ffi::gdk_window_get_root_origin(self.to_glib_none().0, x, y) }
     }
 
-    pub fn get_frame_extents(&self, rect: &mut ffi::GdkRectangle) {
-        unsafe { ffi::gdk_window_get_frame_extents(self.to_glib_none().0, rect) }
+    pub fn get_frame_extents(&self) -> cairo::RectangleInt {
+        unsafe {
+            let mut rect = mem::uninitialized();
+            ffi::gdk_window_get_frame_extents(self.to_glib_none().0, &mut rect);
+            rect
+        }
     }
 
     pub fn get_origin(&self, x: &mut i32, y: &mut i32) {

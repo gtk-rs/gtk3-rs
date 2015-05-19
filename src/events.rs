@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi;
 use libc::c_void;
 use std::mem;
+use cairo;
 
 pub use self::event_type::EventType;
 pub use self::owner_change::OwnerChange;
@@ -89,7 +89,7 @@ pub struct EventExpose {
     pub window : *mut ::Window,
     send_event : i8,
 
-    pub area : ffi::GdkRectangle,
+    pub area : cairo::RectangleInt,
     region : *mut c_void, //TODO cairo_region_t
     pub count : i8 /* If non-zero, how many more events follow. */
 }

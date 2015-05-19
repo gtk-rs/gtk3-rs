@@ -4,21 +4,34 @@
 
 //! Rectangles — Simple graphical data type
 
+use std::mem;
+use glib::translate::*;
+use cairo::RectangleInt;
 use ffi;
-use gdk_ffi::GdkRectangle;
-use glib::to_bool;
 
-pub trait Rectangle {
-    fn intersect(&self, other: &GdkRectangle, dest: &mut GdkRectangle) -> bool;
-    fn union(&self, other: &GdkRectangle, dest: &mut GdkRectangle);
+pub trait RectangleExt {
+    fn intersect(&self, other: &Self) -> Option<Self>;
+    fn union(&self, other: &Self) -> Self;
 }
 
-impl Rectangle for GdkRectangle {
-    fn intersect(&self, other: &GdkRectangle, dest: &mut GdkRectangle) -> bool {
-        unsafe { to_bool(ffi::gdk_rectangle_intersect(self, other, dest)) }
+impl RectangleExt for RectangleInt {
+    fn intersect(&self, other: &RectangleInt) -> Option<RectangleInt> {
+        unsafe {
+            let mut res = mem::uninitialized();
+            if from_glib(ffi::gdk_rectangle_intersect(self, other, &mut res)) {
+                Some(res)
+            }
+            else {
+                None
+            }
+        }
     }
 
-    fn union(&self, other: &GdkRectangle, dest: &mut GdkRectangle) {
-        unsafe { ffi::gdk_rectangle_union(self, other, dest) }
+    fn union(&self, other: &RectangleInt) -> RectangleInt {
+        unsafe {
+            let mut res = mem::uninitialized();
+            ffi::gdk_rectangle_union(self, other, &mut res);
+            res
+        }
     }
 }

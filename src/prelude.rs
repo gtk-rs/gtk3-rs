@@ -3,4 +3,5 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 pub use pixbuf::animation::PixbufAnimationExt;
+pub use rectangle::RectangleExt;
 pub use rgba::RGBA;
