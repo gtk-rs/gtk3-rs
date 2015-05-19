@@ -7,6 +7,7 @@ environment:
       GTK: gnome
     - RUST_VERSION: 1.0.0
       GTK: win64
+      FEATURES: gtk_3_14
     #- RUST_VERSION: nightly
       #GTK: gnome
 
@@ -20,8 +21,6 @@ install:
   - if "%PLATFORM%-%GTK%" == "x86-win64" ( exit 1 )
   - if "%PLATFORM%" == "x86" SET RUST_PLATFORM=i686
   - if "%PLATFORM%" == "x64" SET RUST_PLATFORM=x86_64
-  - if "%GTK%" == "gnome" SET FEATURES=
-  - if "%GTK%" == "win64" SET FEATURES=gtk_3_10
   - ps: Start-FileDownload "https://static.rust-lang.org/dist/rust-$Env:RUST_VERSION-$Env:RUST_PLATFORM-pc-windows-gnu.exe" -FileName rust.exe
   - cmd: rust.exe /VERYSILENT /NORESTART /COMPONENTS="rust,cargo" /DIR=C:\Rust
   - ps: >-
