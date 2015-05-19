@@ -21,7 +21,7 @@ default = ["gdk_3_6"]
 gdk_3_4 = ["gdk-sys/gdk_3_4"]
 gdk_3_6 = ["gdk-sys/gdk_3_6", "gdk_3_4"]
 gdk_3_8 = ["gdk-sys/gdk_3_8", "gdk_3_6"]
-gdk_3_10 = ["gdk-sys/gdk_3_10", "gdk_3_8"]
+gdk_3_10 = ["gdk-sys/gdk_3_10", "cairo-rs/cairo_1_12", "gdk_3_8"]
 gdk_3_12 = ["gdk-sys/gdk_3_12", "gdk_3_10"]
 gdk_3_14 = ["gdk-sys/gdk_3_14", "gdk_3_12"]
 
