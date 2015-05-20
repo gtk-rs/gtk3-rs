@@ -14,7 +14,7 @@ pub mod enums;
 
 use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
 pub use glib_ffi::{gboolean, gpointer, gsize, GType};
-pub use cairo_ffi::{cairo_t, cairo_pattern_t, cairo_region_t, cairo_surface_t};
+pub use cairo_ffi::{cairo_t, cairo_content_t, cairo_pattern_t, cairo_region_t, cairo_surface_t};
 
 #[repr(C)]
 pub struct GdkWindow;
@@ -763,6 +763,23 @@ extern "C" {
     pub fn gdk_pixbuf_simple_anim_set_loop           (animation: *mut GdkPixbufSimpleAnim, loop_: gboolean);
     pub fn gdk_pixbuf_simple_anim_get_loop           (animation: *mut GdkPixbufSimpleAnim) -> gboolean;
     pub fn gdk_pixbuf_simple_anim_get_type           () -> GType;
+
+    //=========================================================================
+    // GDK Cairo Interaction                                             NOT OK
+    //=========================================================================
+    pub fn gdk_window_create_similar_surface             (window: *mut GdkWindow, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    //pub fn gdk_window_create_similar_image_surface       (window: *mut GdkWindow, format: cairo_format_t, width: c_int, height: c_int, scale: c_int) -> *mut cairo_surface_t;
+    pub fn gdk_cairo_create                              (window: *mut GdkWindow) -> *mut cairo_t;
+    pub fn gdk_cairo_get_clip_rectangle                  (cr: *mut cairo_t, rect: *mut GdkRectangle) -> gboolean;
+    pub fn gdk_cairo_set_source_color                    (cr: *mut cairo_t, color: *const GdkColor);
+    pub fn gdk_cairo_set_source_rgba                     (cr: *mut cairo_t, rgba: *const GdkRGBA);
+    pub fn gdk_cairo_set_source_pixbuf                   (cr: *mut cairo_t, pixbuf: *const GdkPixbuf, pixbuf_x: c_double, pixbuf_y: c_double);
+    pub fn gdk_cairo_set_source_window                   (cr: *mut cairo_t, window: *mut GdkWindow, x: c_double, y: c_double);
+    pub fn gdk_cairo_rectangle                           (cr: *mut cairo_t, rectangle: *const GdkRectangle);
+    pub fn gdk_cairo_region                              (cr: *mut cairo_t, region: *const cairo_region_t);
+    pub fn gdk_cairo_region_create_from_surface          (surface: *mut cairo_surface_t) -> *mut cairo_region_t;
+    pub fn gdk_cairo_surface_create_from_pixbuf          (pixbuf: *const GdkPixbuf, scale: c_int, for_window: *mut GdkWindow) -> *mut cairo_surface_t;
+    pub fn gdk_cairo_draw_from_gl                        (cr: *mut cairo_t, window: *mut GdkWindow, source: c_int, source_type: c_int, buffer_scale: c_int, x: c_int, y: c_int, width: c_int, height: c_int);
 }
 
 #[cfg(target_os = "windows")]
