@@ -7,6 +7,7 @@
 use std::mem;
 use glib::translate::*;
 use glib::types::{StaticType, Type};
+use cairo;
 use display::Display;
 use object::Object;
 use visual::Visual;
@@ -78,7 +79,7 @@ impl Screen {
         unsafe { ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0) }
     }
 
-    pub fn get_monitor_geometry(&self, monitor_num: i32) -> ffi::GdkRectangle {
+    pub fn get_monitor_geometry(&self, monitor_num: i32) -> cairo::RectangleInt {
         unsafe {
             let mut res = mem::uninitialized();
             ffi::gdk_screen_get_monitor_geometry(self.to_glib_none().0, monitor_num, &mut res);
@@ -86,7 +87,7 @@ impl Screen {
         }
     }
 
-    pub fn get_monitor_workarea(&self, monitor_num: i32) -> ffi::GdkRectangle {
+    pub fn get_monitor_workarea(&self, monitor_num: i32) -> cairo::RectangleInt {
         unsafe {
             let mut res = mem::uninitialized();
             ffi::gdk_screen_get_monitor_workarea(self.to_glib_none().0, monitor_num, &mut res);
