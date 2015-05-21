@@ -145,7 +145,3 @@ pub use gdk_ffi::enums::{
 pub use self::keys::{
     keyval_name
 };
-
-pub use cairo_interaction::{
-    ContextExt
-};
