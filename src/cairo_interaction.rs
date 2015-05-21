@@ -10,10 +10,6 @@ use ffi::{self, GdkRGBA};
 use super::{Pixbuf, Window};
 use cairo::{Context, RectangleInt};
 
-pub fn create(window: &Window) -> Context {
-    unsafe { Context::wrap(ffi::gdk_cairo_create(window.to_glib_none().0)) }
-}
-
 //pub fn create_region_from_surface() { }
 //--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
 
@@ -21,6 +17,12 @@ pub fn create(window: &Window) -> Context {
 //--> WRAP: gdk_cairo_surface_create_from_pixbuf (const GdkPixbuf *pixbuf, int scale, GdkWindow *for_window);
 
 pub trait ContextExt {
+    /// Creates a Cairo context for drawing to `window`.
+    ///
+    /// Note that calling `reset_clip()` on the resulting `Context` will
+    /// produce undefined results, so avoid it at all costs.
+    fn create_from_window(window: &Window) -> Context;
+
     /// This is a convenience function around `clip_extents()`. It rounds
     /// the clip extents to integer coordinates and returns a `RectangleInt`,
     /// or `None` if no clip area exists.
@@ -51,6 +53,10 @@ pub trait ContextExt {
 }
 
 impl ContextExt for Context {
+    fn create_from_window(window: &Window) -> Context {
+        unsafe { Context::wrap(ffi::gdk_cairo_create(window.to_glib_none().0)) }
+    }
+
     fn get_clip_rectangle(&self) -> Option<RectangleInt> {
         unsafe {
             let mut rectangle = mem::uninitialized();
