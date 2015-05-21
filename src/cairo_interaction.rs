@@ -4,14 +4,11 @@
 
 //! Functions to support using cairo
 
-extern crate cairo;
-
-use std::ptr;
-use glib::translate::{ToGlibPtr};
-use libc::{c_double};
-use ffi::{self, GdkRectangle, GdkRGBA};
+use std::mem;
+use glib::translate::*;
+use ffi::{self, GdkRGBA};
 use super::{Pixbuf, Window};
-use self::cairo::{Context};
+use cairo::{Context, RectangleInt};
 
 pub fn create(window: &Window) -> Context {
     unsafe { Context::wrap(ffi::gdk_cairo_create(window.to_glib_none().0)) }
@@ -23,11 +20,11 @@ pub fn create(window: &Window) -> Context {
 //pub fn create_surface_from_pixbuf() { }
 //--> WRAP: gdk_cairo_surface_create_from_pixbuf (const GdkPixbuf *pixbuf, int scale, GdkWindow *for_window);
 
-pub trait GdkCairoInteraction {
+pub trait ContextExt {
     /// This is a convenience function around `clip_extents()`. It rounds
-    /// the clip extents to integer coordinates and returns a `GdkRectangle`,
+    /// the clip extents to integer coordinates and returns a `RectangleInt`,
     /// or `None` if no clip area exists.
-    fn get_clip_rectangle(&self) -> Option<GdkRectangle>;
+    fn get_clip_rectangle(&self) -> Option<RectangleInt>;
 
     /// Sets the specified `GdkRGBA` as the source color of `cr`.
     fn set_source_rgba(&self, rgba: &GdkRGBA);
@@ -47,19 +44,20 @@ pub trait GdkCairoInteraction {
     fn set_source_window(&self, window: &Window, x: f64, y: f64);
 
     /// Adds the given rectangle to the current path of `cr`.
-    fn rectangle(&self, rectangle: &GdkRectangle);
-    
+    fn rectangle(&self, rectangle: &RectangleInt);
+
     //fn add_region(&self, region: ???);
     //--> WRAP: fn gdk_cairo_region(cr: *mut cairo_t, region: *const cairo_region_t);
 }
 
-impl GdkCairoInteraction for Context {
-    fn get_clip_rectangle(&self) -> Option<GdkRectangle> {
-        let rectangle = ptr::null_mut();
+impl ContextExt for Context {
+    fn get_clip_rectangle(&self) -> Option<RectangleInt> {
         unsafe {
-            match ffi::gdk_cairo_get_clip_rectangle(self.get_ptr(), rectangle) {
-                1 => Some(*rectangle),
-                _ => None
+            let mut rectangle = mem::uninitialized();
+            if from_glib(ffi::gdk_cairo_get_clip_rectangle(self.get_ptr(), &mut rectangle)) {
+                Some(rectangle)
+            } else {
+                None
             }
         }
     }
@@ -69,14 +67,14 @@ impl GdkCairoInteraction for Context {
     }
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64) {
-        unsafe { ffi::gdk_cairo_set_source_pixbuf(self.get_ptr(), pixbuf.to_glib_none().0, x as c_double, y as c_double); }
+        unsafe { ffi::gdk_cairo_set_source_pixbuf(self.get_ptr(), pixbuf.to_glib_none().0, x, y); }
     }
 
     fn set_source_window(&self, window: &Window, x: f64, y: f64) {
-        unsafe { ffi::gdk_cairo_set_source_window(self.get_ptr(), window.to_glib_none().0, x as c_double, y as c_double); }
+        unsafe { ffi::gdk_cairo_set_source_window(self.get_ptr(), window.to_glib_none().0, x, y); }
     }
 
-    fn rectangle(&self, rectangle: &GdkRectangle) {
+    fn rectangle(&self, rectangle: &RectangleInt) {
         unsafe { ffi::gdk_cairo_rectangle(self.get_ptr(), rectangle); }
     }
 }

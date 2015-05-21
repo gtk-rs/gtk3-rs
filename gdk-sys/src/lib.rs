@@ -11,10 +11,9 @@ extern crate glib_sys as glib_ffi;
 extern crate cairo_sys as cairo_ffi;
 
 use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
+use cairo_ffi::{cairo_t, cairo_content_t, cairo_pattern_t, cairo_region_t, cairo_surface_t};
 pub use cairo_ffi::cairo_rectangle_int_t as GdkRectangle;
-
 pub use glib_ffi::{gboolean, gpointer, gsize, GType};
-pub use cairo_ffi::{cairo_t, cairo_content_t, cairo_pattern_t, cairo_region_t, cairo_surface_t};
 pub mod enums;
 
 #[repr(C)]
