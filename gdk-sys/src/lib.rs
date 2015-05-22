@@ -11,8 +11,8 @@ extern crate glib_sys as glib_ffi;
 extern crate cairo_sys as cairo_ffi;
 
 use libc::{c_int, c_char, c_double, c_void, c_uint, c_uchar, c_ulong, c_float};
+use cairo_ffi::{cairo_t, cairo_content_t, cairo_pattern_t, cairo_region_t, cairo_surface_t};
 pub use cairo_ffi::cairo_rectangle_int_t as GdkRectangle;
-
 pub use glib_ffi::{gboolean, gpointer, gsize, GType};
 pub mod enums;
 
@@ -210,7 +210,7 @@ extern "C" {
     pub fn gdk_window_resize             (window: *mut GdkWindow, width: c_int, height: c_int);
     pub fn gdk_window_move_resize        (window: *mut GdkWindow, x: c_int, y: c_int, width: c_int, height: c_int);
     pub fn gdk_window_scroll             (window: *mut GdkWindow, dx: c_int, dy: c_int);
-    //pub fn gdk_window_move_region        (window: *mut GdkWindow, region: *mut cairo_region_t, dx: c_int, dy: c_int);
+    pub fn gdk_window_move_region        (window: *mut GdkWindow, region: *mut cairo_region_t, dx: c_int, dy: c_int);
     pub fn gdk_window_has_native         (window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_ensure_native      (window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_reparent           (window: *mut GdkWindow, new_parent: *mut GdkWindow, x: c_int, y: c_int);
@@ -231,18 +231,18 @@ extern "C" {
         new_width: *mut c_int, new_height: *mut c_int);
     pub fn gdk_window_beep               (window: *mut GdkWindow);
     pub fn gdk_window_get_scale_factor   (window: *mut GdkWindow) -> c_int;
-    //pub fn gdk_window_set_opaque_region  (window: *mut GdkWindow, region: *mut cairo_region_t);
-    //pub fn gdk_window_get_clip_region    (window: *mut GdkWindow) -> *mut cairo_region_t;
+    pub fn gdk_window_set_opaque_region  (window: *mut GdkWindow, region: *mut cairo_region_t);
+    pub fn gdk_window_get_clip_region    (window: *mut GdkWindow) -> *mut cairo_region_t;
     pub fn gdk_window_begin_paint_rect   (window: *mut GdkWindow, rectangle: *const GdkRectangle);
-    //pub fn gdk_window_begin_paint_region (window: *mut GdkWindow, region: *const cairo_region_t);
+    pub fn gdk_window_begin_paint_region (window: *mut GdkWindow, region: *const cairo_region_t);
     pub fn gdk_window_end_paint          (window: *mut GdkWindow);
-    //pub fn gdk_window_get_visible_region (window: *mut GdkWindow) -> *mut cairo_region_t;
+    pub fn gdk_window_get_visible_region (window: *mut GdkWindow) -> *mut cairo_region_t;
     //pub fn gdk_window_set_invalidate_handler(window: *mut GdkWindow, handler: GdkWindowInvalidateHandlerFunc);
     pub fn gdk_window_invalidate_rect    (window: *mut GdkWindow, rectangle: *const GdkRectangle, invalidate_children: gboolean);
-    //pub fn gdk_window_invalidate_region  (window: *mut GdkWindow, region: *const cairo_region_t, invalidate_children: gboolean);
+    pub fn gdk_window_invalidate_region  (window: *mut GdkWindow, region: *const cairo_region_t, invalidate_children: gboolean);
     //pub fn gdk_window_invalidate_maybe_recurse(window: *mut GdkWindow, region: *const cairo_region_t, child_func: GdkWindowChildFunc,
     //    user_data: *mut c_void);
-    //pub fn gdk_window_get_update_area    (window: *mut GdkWindow) -> *mut cairo_region_t;
+    pub fn gdk_window_get_update_area    (window: *mut GdkWindow) -> *mut cairo_region_t;
     pub fn gdk_window_freeze_updates     (window: *mut GdkWindow);
     pub fn gdk_window_thaw_updates       (window: *mut GdkWindow);
     pub fn gdk_window_process_all_updates();
@@ -257,19 +257,17 @@ extern "C" {
     pub fn gdk_window_get_focus_on_map   (window: *mut GdkWindow) -> gboolean;
     //pub fn gdk_window_add_filter         (window: *mut GdkWindow, function: GdkFilterFunc, data: *mut c_void);
     //pub fn gdk_window_remove_filter      (window: *mut GdkWindow, function: GdkFilterFunc, data: *mut c_void);
-    //pub fn gdk_window_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo_region_t, offset_x: c_int,
-    //    offset_y: c_int);
+    pub fn gdk_window_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo_region_t, offset_x: c_int, offset_y: c_int);
     pub fn gdk_window_set_child_shapes   (window: *mut GdkWindow);
     pub fn gdk_window_merge_child_shapes (window: *mut GdkWindow);
-    //pub fn gdk_window_input_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo_region_t, offset_x: c_int,
-    //    offset_y: c_int);
+    pub fn gdk_window_input_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo_region_t, offset_x: c_int, offset_y: c_int);
     pub fn gdk_window_set_child_input_shapes(window: *mut GdkWindow);
     pub fn gdk_window_merge_child_input_shapes(window: *mut GdkWindow);
     pub fn gdk_window_set_static_gravities(window: *mut GdkWindow, use_static: gboolean) -> gboolean;
     pub fn gdk_window_set_title          (window: *mut GdkWindow, title: *const c_char);
     pub fn gdk_window_set_background_rgba(window: *mut GdkWindow, rgba: *const GdkRGBA);
-    //pub fn gdk_window_set_background_pattern(window: *mut GdkWindow, pattern: *const cairo_pattern_t);
-    //pub fn gdk_window_get_background_pattern(window: *mut GdkWindow) -> *const cairo_pattern_t;
+    pub fn gdk_window_set_background_pattern(window: *mut GdkWindow, pattern: *const cairo_pattern_t);
+    pub fn gdk_window_get_background_pattern(window: *mut GdkWindow) -> *const cairo_pattern_t;
     pub fn gdk_window_set_cursor         (window: *mut GdkWindow, cursor: *mut GdkCursor);
     pub fn gdk_window_get_cursor         (window: *mut GdkWindow) -> *mut GdkCursor;
     pub fn gdk_window_get_user_data      (window: *mut GdkWindow, data: *mut *mut c_void);
@@ -322,7 +320,7 @@ extern "C" {
     pub fn gdk_window_set_source_events  (window: *mut GdkWindow, source: enums::InputSource, event_mask: enums::EventMask);
     pub fn gdk_window_get_event_compression(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_set_event_compression(window: *mut GdkWindow, event_compression: gboolean);
-    //pub fn gdk_offscreen_window_get_surface(window: *mut GdkWindow) -> *mut cairo_surface_t;
+    pub fn gdk_offscreen_window_get_surface(window: *mut GdkWindow) -> *mut cairo_surface_t;
     pub fn gdk_offscreen_window_set_embedder(window: *mut GdkWindow, embedder: *mut GdkWindow);
     pub fn gdk_offscreen_window_get_embedder(window: *mut GdkWindow) -> *mut GdkWindow;
     pub fn gdk_window_geometry_changed   (window: *mut GdkWindow);
@@ -502,13 +500,12 @@ extern "C" {
     //=========================================================================
     pub fn gdk_cursor_new                     (cursor_type: enums::CursorType) -> *mut GdkCursor;
     pub fn gdk_cursor_new_from_pixbuf         (display: *mut GdkDisplay, pixbuf: *mut GdkPixbuf, x: c_int, y: c_int) -> *mut GdkCursor;
-    //pub fn gdk_cursor_new_from_surface        (display: *mut GdkDisplay, surface: *mut cairo_surface_t, x: c_double,
-    //    y: c_double) -> *mut GdkCursor;
+    pub fn gdk_cursor_new_from_surface        (display: *mut GdkDisplay, surface: *mut cairo_surface_t, x: c_double, y: c_double) -> *mut GdkCursor;
     pub fn gdk_cursor_new_from_name           (display: *mut GdkDisplay, name: *const c_char) -> *mut GdkCursor;
     pub fn gdk_cursor_new_for_display         (display: *mut GdkDisplay, cursor_type: enums::CursorType) -> *mut GdkCursor;
     pub fn gdk_cursor_get_display             (cursor: *mut GdkCursor) -> *mut GdkDisplay;
     pub fn gdk_cursor_get_image               (cursor: *mut GdkCursor) -> *mut GdkPixbuf;
-    //pub fn gdk_cursor_get_surface             (cursor: *mut GdkCursor, x_hot: *mut c_double, y_hot: *mut c_double) -> *mut cairo_surface_t;
+    pub fn gdk_cursor_get_surface             (cursor: *mut GdkCursor, x_hot: *mut c_double, y_hot: *mut c_double) -> *mut cairo_surface_t;
     pub fn gdk_cursor_get_cursor_type         (cursor: *mut GdkCursor) -> enums::CursorType;
     pub fn gdk_cursor_get_type                () -> GType;
 
@@ -758,6 +755,23 @@ extern "C" {
     pub fn gdk_pixbuf_simple_anim_set_loop           (animation: *mut GdkPixbufSimpleAnim, loop_: gboolean);
     pub fn gdk_pixbuf_simple_anim_get_loop           (animation: *mut GdkPixbufSimpleAnim) -> gboolean;
     pub fn gdk_pixbuf_simple_anim_get_type           () -> GType;
+
+    //=========================================================================
+    // GDK Cairo Interaction                                             NOT OK
+    //=========================================================================
+    pub fn gdk_window_create_similar_surface             (window: *mut GdkWindow, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    //pub fn gdk_window_create_similar_image_surface       (window: *mut GdkWindow, format: cairo_format_t, width: c_int, height: c_int, scale: c_int) -> *mut cairo_surface_t;
+    pub fn gdk_cairo_create                              (window: *mut GdkWindow) -> *mut cairo_t;
+    pub fn gdk_cairo_get_clip_rectangle                  (cr: *mut cairo_t, rect: *mut GdkRectangle) -> gboolean;
+    pub fn gdk_cairo_set_source_color                    (cr: *mut cairo_t, color: *const GdkColor);
+    pub fn gdk_cairo_set_source_rgba                     (cr: *mut cairo_t, rgba: *const GdkRGBA);
+    pub fn gdk_cairo_set_source_pixbuf                   (cr: *mut cairo_t, pixbuf: *const GdkPixbuf, pixbuf_x: c_double, pixbuf_y: c_double);
+    pub fn gdk_cairo_set_source_window                   (cr: *mut cairo_t, window: *mut GdkWindow, x: c_double, y: c_double);
+    pub fn gdk_cairo_rectangle                           (cr: *mut cairo_t, rectangle: *const GdkRectangle);
+    pub fn gdk_cairo_region                              (cr: *mut cairo_t, region: *const cairo_region_t);
+    pub fn gdk_cairo_region_create_from_surface          (surface: *mut cairo_surface_t) -> *mut cairo_region_t;
+    pub fn gdk_cairo_surface_create_from_pixbuf          (pixbuf: *const GdkPixbuf, scale: c_int, for_window: *mut GdkWindow) -> *mut cairo_surface_t;
+    pub fn gdk_cairo_draw_from_gl                        (cr: *mut cairo_t, window: *mut GdkWindow, source: c_int, source_type: c_int, buffer_scale: c_int, x: c_int, y: c_int, width: c_int, height: c_int);
 }
 
 #[cfg(target_os = "windows")]

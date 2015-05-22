@@ -5,3 +5,4 @@
 pub use pixbuf::animation::PixbufAnimationExt;
 pub use rectangle::RectangleExt;
 pub use rgba::RGBA;
+pub use cairo_interaction::ContextExt;

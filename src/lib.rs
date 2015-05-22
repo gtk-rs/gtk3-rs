@@ -40,6 +40,7 @@ pub mod rgba;
 pub mod screen;
 pub mod visual;
 pub mod window;
+pub mod cairo_interaction;
 
 pub use gdk_ffi::GdkColor as Color;
 
