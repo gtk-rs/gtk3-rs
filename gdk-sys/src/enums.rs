@@ -606,6 +606,36 @@ pub enum DragAction {
     Ask
 }
 
+/// This enumeration describes the different interpolation modes that can be
+/// used with the scaling functions. `Nearest` is the fastest scaling method,
+/// but has horrible quality when scaling down. `Bilinear` is the best choice
+/// if you aren't sure what to choose, it has a good speed/quality balance.
+#[repr(C)]
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum InterpType {
+    /// Nearest neighbor sampling; this is the fastest and lowest quality mode.
+    /// Quality is normally unacceptable when scaling down, but may be OK when
+    /// scaling up.
+    Nearest,
+    /// This is an accurate simulation of the PostScript image operator without
+    /// any interpolation enabled. Each pixel is rendered as a tiny
+    /// parallelogram of solid color, the edges of which are implemented with
+    /// antialiasing. It resembles nearest neighbor for enlargement, and
+    /// bilinear for reduction.
+    Tiles,
+    /// Best quality/speed balance; use this mode by default. Bilinear
+    /// interpolation. For enlargement, it is equivalent to point-sampling the
+    /// ideal bilinear-interpolated image. For reduction, it is equivalent to
+    /// laying down small tiles and integrating over the coverage area.
+    Bilinear,
+    /// This is the slowest and highest quality reconstruction function. It is
+    /// derived from the hyperbolic filters in Wolberg's "Digital Image
+    /// Warping", and is formally defined as the hyperbolic-filter sampling the
+    /// ideal hyperbolic-filter interpolated image (the filter is designed to
+    /// be idempotent for 1:1 pixel mapping).
+    Hyper 
+}
+
 pub mod modifier_type {
     #![allow(non_upper_case_globals)]
 
