@@ -195,9 +195,11 @@ impl Pixbuf {
     ///
     /// For more complicated scaling/compositing see `scale()` and
     /// `composite()`.
-    pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType) -> Option<Pixbuf> {
+    pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType)
+        -> Result<Pixbuf, ()> {
         unsafe {
-            from_glib_none(ffi::gdk_pixbuf_scale_simple(self.to_glib_none().0, dest_width, dest_height, interp_type))
+            Option::from_glib_full(ffi::gdk_pixbuf_scale_simple(self.to_glib_none().0, dest_width,
+                                                                dest_height, interp_type)).ok_or(())
         }
     }
 
@@ -214,9 +216,13 @@ impl Pixbuf {
     /// If the source rectangle overlaps the destination rectangle on the same
     /// pixbuf, it will be overwritten during the scaling which results in
     /// rendering artifacts.
-    pub fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType) {
+    pub fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32,
+                 offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
+                 interp_type: InterpType) {
         unsafe {
-            ffi::gdk_pixbuf_scale(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type);
+            ffi::gdk_pixbuf_scale(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
+                                  dest_width, dest_height, offset_x, offset_y, scale_x, scale_y,
+                                  interp_type);
         }
     }
     
@@ -228,10 +234,15 @@ impl Pixbuf {
     /// 
     /// ![Diagram of `composite` process](https://developer.gnome.org/gdk-pixbuf/unstable/composite.png)
     ///
-    /// When the destination rectangle contains parts not in the source image, the data at the edges of the source image is replicated to infinity.
-    pub fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32) {
+    /// When the destination rectangle contains parts not in the source image,
+    /// the data at the edges of the source image is replicated to infinity.
+    pub fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32,
+                     dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
+                     interp_type: InterpType, overall_alpha: i32) {
         unsafe {
-            ffi::gdk_pixbuf_composite(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type, overall_alpha);
+            ffi::gdk_pixbuf_composite(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
+                                      dest_width, dest_height, offset_x, offset_y, scale_x,
+                                      scale_y, interp_type, overall_alpha);
         }
     }
 

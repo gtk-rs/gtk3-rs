@@ -140,7 +140,7 @@ pub use gdk_ffi::enums::{
     Gravity,
     DragAction,
     DragProtocol,
-    InterpType
+    InterpType,
 };
 
 pub use self::keys::{
