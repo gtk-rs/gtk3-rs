@@ -247,10 +247,11 @@ impl Pixbuf {
     }
 
     /// Flips a pixbuf horizontally or vertically and returns the result in a
-    /// new pixbuf, or `None` if not enough memory could be allocated for it.
-    pub fn flip(&self, horizontal: bool) -> Option<Pixbuf> {
+    /// new pixbuf, or `Err` if not enough memory could be allocated for it.
+    pub fn flip(&self, horizontal: bool) -> Result<Pixbuf, ()> {
         unsafe {
-            from_glib_none(ffi::gdk_pixbuf_flip(self.to_glib_none().0, horizontal.to_glib()))
+            Option::from_glib_full((ffi::gdk_pixbuf_flip(self.to_glib_none().0,
+                                                         horizontal.to_glib()))).ok_or(())
         }
     }
 
