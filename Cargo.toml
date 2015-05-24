@@ -1,6 +1,6 @@
 [package]
 name = "gdk"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["The Rust-GNOME Project Developers"]
 
 description = "Rust bindings for the GDK library"
