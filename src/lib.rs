@@ -139,7 +139,8 @@ pub use gdk_ffi::enums::{
     WindowWindowClass,
     Gravity,
     DragAction,
-    DragProtocol
+    DragProtocol,
+    InterpType,
 };
 
 pub use self::keys::{

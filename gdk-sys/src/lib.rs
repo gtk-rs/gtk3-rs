@@ -570,6 +570,14 @@ extern "C" {
     pub fn gdk_pixbuf_get_option(pixbuf: *const GdkPixbuf, key: *const c_char) -> *const c_char;
     pub fn gdk_pixbuf_get_type() -> GType;
 
+    pub fn gdk_pixbuf_scale_simple              (src: *const GdkPixbuf, dest_width: c_int, dest_height: c_int, interp_type: enums::InterpType) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_scale                     (src: *const GdkPixbuf, dest: *mut GdkPixbuf, dest_x: c_int, dest_y: c_int, dest_width: c_int, dest_height: c_int, offset_x: c_double, offset_y: c_double, scale_x: c_double, scale_y: c_double, interp_type: enums::InterpType);
+    //pub fn gdk_pixbuf_composite_color_simple    (src: *const GdkPixbuf, dest_width: c_int, dest_height: c_int, interp_type: enums::InterpType, overall_alpha: c_int, check_size: c_int, color1: guint32, color2: guint32) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_composite                 (src: *const GdkPixbuf, dest: *mut GdkPixbuf, dest_x: c_int, dest_y: c_int, dest_width: c_int, dest_height: c_int, offset_x: c_double, offset_y: c_double, scale_x: c_double, scale_y: c_double, interp_type: enums::InterpType, overall_alpha: c_int);
+    //pub fn gdk_pixbuf_composite_color           (src: *const GdkPixbuf, dest: *mut GdkPixbuf, dest_x: c_int, dest_y: c_int, dest_width: c_int, dest_height: c_int, offset_x: c_double, offset_y: c_double, scale_x: c_double, scale_y: c_double, interp_type: enums::InterpType, overall_alpha: c_int, check_x: c_int, check_y: c_int, check_size: c_int, color1: guint32, color2: guint32);
+    //pub fn gdk_pixbuf_rotate_simple             (src: *const GdkPixbuf, angle: GdkPixbufRotation) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_flip                      (src: *const GdkPixbuf, horizontal: gboolean) -> *mut GdkPixbuf;
+
     //=========================================================================
     // GdkRectangle                                                      NOT OK
     //=========================================================================

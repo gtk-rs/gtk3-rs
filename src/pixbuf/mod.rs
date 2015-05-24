@@ -14,6 +14,8 @@ use glib::{Error, to_gboolean, GlibContainer};
 use object::Object;
 use ffi;
 
+use {InterpType};
+
 pub mod animation;
 pub mod format;
 pub mod loader;
@@ -178,6 +180,78 @@ impl Pixbuf {
     pub fn get_option(&self, key: &str) -> Option<String> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_get_option(self.to_glib_none().0, key.to_glib_none().0))
+        }
+    }
+
+    /// Create a new GdkPixbuf containing a copy of the current pixbuf scaled
+    /// to `dest_width` x `dest_height`. The calling pixbuf remains unaffected.
+    /// `interp_type` should be `Nearest` if you want maximum speed (but when
+    /// scaling down `Nearest` is usually unusably ugly). The default
+    /// `interp_type` should be `Bilinear` which offers reasonable quality and
+    /// speed.
+    ///
+    /// You can scale a sub-portion of `src` by creating a sub-pixbuf pointing
+    /// into src ; see `new_subpixbuf()`.
+    ///
+    /// For more complicated scaling/compositing see `scale()` and
+    /// `composite()`.
+    pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType)
+        -> Result<Pixbuf, ()> {
+        unsafe {
+            Option::from_glib_full(ffi::gdk_pixbuf_scale_simple(self.to_glib_none().0, dest_width,
+                                                                dest_height, interp_type)).ok_or(())
+        }
+    }
+
+    /// Creates a transformation of the calling pixbuf by scaling by
+    /// `scale_x` and `scale_y` then translating by `offset_x` and `offset_y`,
+    /// then renders the rectangle (`dest_x`, `dest_y`, `dest_width`,
+    /// `dest_height`) of the resulting pixbuf onto the destination pixbuf,
+    /// replacing the previous contents.
+    ///
+    /// Try to use `scale_simple()` first; this function is the
+    /// industrial-strength power tool you can fall back to if `scale_simple()`
+    /// isn't powerful enough.
+    ///
+    /// If the source rectangle overlaps the destination rectangle on the same
+    /// pixbuf, it will be overwritten during the scaling which results in
+    /// rendering artifacts.
+    pub fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32,
+                 offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
+                 interp_type: InterpType) {
+        unsafe {
+            ffi::gdk_pixbuf_scale(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
+                                  dest_width, dest_height, offset_x, offset_y, scale_x, scale_y,
+                                  interp_type);
+        }
+    }
+    
+    /// Creates a transformation of the calling pixbuf by scaling by `scale_x`
+    /// and `scale_y` then translating by `offset_x` and `offset_y`. This gives
+    /// an image in the coordinates of the destination pixbuf. The rectangle
+    /// (`dest_x`, `dest_y`, `dest_width`, `dest_height`) is then composited
+    /// onto the corresponding rectangle of the original destination image.
+    /// 
+    /// ![Diagram of `composite` process](https://developer.gnome.org/gdk-pixbuf/unstable/composite.png)
+    ///
+    /// When the destination rectangle contains parts not in the source image,
+    /// the data at the edges of the source image is replicated to infinity.
+    pub fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32,
+                     dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
+                     interp_type: InterpType, overall_alpha: i32) {
+        unsafe {
+            ffi::gdk_pixbuf_composite(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
+                                      dest_width, dest_height, offset_x, offset_y, scale_x,
+                                      scale_y, interp_type, overall_alpha);
+        }
+    }
+
+    /// Flips a pixbuf horizontally or vertically and returns the result in a
+    /// new pixbuf, or `Err` if not enough memory could be allocated for it.
+    pub fn flip(&self, horizontal: bool) -> Result<Pixbuf, ()> {
+        unsafe {
+            Option::from_glib_full((ffi::gdk_pixbuf_flip(self.to_glib_none().0,
+                                                         horizontal.to_glib()))).ok_or(())
         }
     }
 
