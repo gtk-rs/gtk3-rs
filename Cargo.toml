@@ -16,6 +16,8 @@ keywords = ["pango", "gtk", "gnome"]
 [lib]
 name = "pango"
 
+[dependencies.pango-sys]
+path = "pango-sys"
+
 [dependencies]
 libc = "0.1"
-pango-sys = "^0"
