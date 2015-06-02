@@ -21,8 +21,10 @@ default = ["cairo_1_10"]
 cairo_1_10 = ["cairo-sys-rs/cairo_1_10"]
 cairo_1_12 = ["cairo-sys-rs/cairo_1_12", "cairo_1_10"]
 
+[dependencies.cairo-sys-rs]
+path = "./cairo-sys-rs"
+
 [dependencies]
 libc = "0.1"
 c_vec = "~1.0"
-cairo-sys-rs = "^0"
 glib = "^0"
