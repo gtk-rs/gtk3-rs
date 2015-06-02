@@ -15,6 +15,8 @@ keywords = ["glib", "gtk", "gnome", "GUI"]
 [lib]
 name = "glib"
 
+[dependencies.glib-sys]
+path = "glib-sys"
+
 [dependencies]
 libc = "0.1"
-glib-sys = "^0"
