@@ -12,7 +12,7 @@ pub struct Error {
 }
 
 impl Error {
-    /// Creates a new GError; unlike g_error_new(), message is not a printf()-style format string.
+    /// Creates a new Error; unlike Error::new(), message is not a printf()-style format string.
     /// Use this function if message contains text you don't have control over, that could include
     /// printf() escape sequences.
     pub fn new_literal(domain: GQuark, code: i32, message: &str) -> Option<Error> {
@@ -27,7 +27,7 @@ impl Error {
         }
     }
 
-    /// Frees a GError and associated resources.
+    /// Frees an Error struct and associated resources.
     pub fn release(&mut self) -> () {
         if !self.pointer.is_null() {
             unsafe { ffi::g_error_free(self.pointer) };
@@ -35,7 +35,7 @@ impl Error {
         }
     }
 
-    /// Returns true if error matches domain and code , false otherwise. In particular, when error
+    /// Returns true if error matches domain and code , false otherwise. In particular, when error.pointer
     /// is NULL, false will be returned.
     /// 
     /// If domain contains a FAILED (or otherwise generic) error code, you should generally not check
@@ -57,11 +57,11 @@ impl Error {
         }
     }
 
-    /// If other.pointer is NULL, free src ; otherwise, moves src into *other . The error variable
+    /// If other.pointer is NULL, free self ; otherwise, moves self into other. The error variable
     /// other.pointer points to must be NULL.
     /// 
-    /// Note that src is no longer valid after this call. If you want to keep using the same GError*, you
-    /// need to set it to NULL after calling this function on it.
+    /// Note that self is no longer valid after this call. If you want to keep using the same Error
+    /// struct, you need to set it to NULL after calling this function on it.
     pub fn propagate(&mut self, other: &Error) -> () {
         unsafe { ffi::g_propagate_error(&mut self.pointer, other.pointer) }
     }
