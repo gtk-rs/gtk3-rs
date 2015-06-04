@@ -6,8 +6,10 @@ pub use self::item::Item;
 pub use self::rectangle::Rectangle;
 pub use self::matrix::Matrix;
 pub use self::glyph_string::GlyphString;
+pub use self::font_description::FontDescription;
 
 mod item;
 mod rectangle;
 mod matrix;
 mod glyph_string;
+mod font_description;

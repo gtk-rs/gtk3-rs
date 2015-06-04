@@ -7,6 +7,7 @@ Bindings and wrappers for __PANGO__
 */
 
 extern crate pango_sys as pango_ffi;
+extern crate glib;
 extern crate libc;
 
 pub use pango_ffi as ffi;
@@ -16,7 +17,8 @@ pub use self::widgets::{
     Item,
     Rectangle,
     Matrix,
-    GlyphString
+    GlyphString,
+    FontDescription,
 };
 
 pub use ffi::enums::{
