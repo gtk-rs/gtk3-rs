@@ -19,5 +19,8 @@ name = "pango"
 [dependencies.pango-sys]
 path = "pango-sys"
 
+[dependencies.glib]
+git = "https://github.com/rust-gnome/glib"
+
 [dependencies]
 libc = "0.1"
