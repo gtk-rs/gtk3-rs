@@ -690,6 +690,7 @@ extern "C" {
     // Gdk Key Handling                                                  NOT OK
     //=========================================================================
     pub fn gdk_keyval_name                         (keyval:c_uint) -> *mut c_char;
+    pub fn gdk_keyval_to_unicode                   (keyval:c_uint) -> u32;
 
     //=========================================================================
     // GdkPixbufLoader                                                   NOT OK
