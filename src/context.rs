@@ -683,7 +683,7 @@ impl Context {
 
     pub fn append_path(&self, path: &Path){
         unsafe {
-            ffi::cairo_append_path(self.get_ptr(), transmute(path))
+            ffi::cairo_append_path(self.get_ptr(), path.get_ptr())
         }
     }
 
