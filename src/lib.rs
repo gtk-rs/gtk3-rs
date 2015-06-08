@@ -144,5 +144,6 @@ pub use gdk_ffi::enums::{
 };
 
 pub use self::keys::{
-    keyval_name
+    keyval_name,
+    keyval_to_unicode
 };
