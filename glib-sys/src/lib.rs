@@ -25,6 +25,9 @@ pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
 
 #[repr(C)]
+pub struct GAppInfo;
+
+#[repr(C)]
 pub struct GValue {
     type_: GType,
     data: [size_t; 2],
@@ -181,7 +184,10 @@ extern "C" {
     pub fn g_list_position                (list: *mut GList, link_: GList) -> c_int;
     // pub fn g_slist_index                   (list: *GSList, data: *c_void) -> c_int;
 
-
+    //=========================================================================
+    // GAppInfo
+    //=========================================================================
+    pub fn g_app_info_get_type            () -> GType;
 
     //=========================================================================
     // GError
