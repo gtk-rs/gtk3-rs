@@ -230,6 +230,7 @@ impl Wrapper for Object {
 }
 
 impl StaticType for Object {
+    #[inline]
     fn static_type() -> Type { Type::BaseObject }
 }
 
@@ -238,3 +239,26 @@ pub trait ObjectExt {
 
 impl<T: Upcast<Object>> ObjectExt for T {
 }
+
+/// The crate-local generic type for `GObject` descendants in GLib.
+#[derive(Debug)]
+pub struct GenericObject<T>(Ref, PhantomData<T>);
+
+impl<T> Wrapper for GenericObject<T> where GenericObject<T>: StaticType {
+    type GlibType = T;
+    #[inline]
+    unsafe fn wrap(r: Ref) -> GenericObject<T> { GenericObject(r, PhantomData) }
+    #[inline]
+    fn as_ref(&self) -> &Ref { &self.0 }
+    #[inline]
+    fn unwrap(self) -> Ref { self.0 }
+}
+
+impl<T> Clone for GenericObject<T> {
+    #[inline]
+    fn clone(&self) -> GenericObject<T> {
+        GenericObject(self.0.clone(), PhantomData)
+    }
+}
+
+unsafe impl<T> Upcast<Object> for GenericObject<T> where GenericObject<T>: StaticType { }
