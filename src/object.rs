@@ -233,6 +233,8 @@ impl StaticType for Object {
     fn static_type() -> Type { Type::BaseObject }
 }
 
-pub trait ObjectTrait { }
+pub trait ObjectExt {
+}
 
-impl<T: Upcast<Object>> ObjectTrait for T { }
+impl<T: Upcast<Object>> ObjectExt for T {
+}
