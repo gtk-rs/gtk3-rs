@@ -151,11 +151,28 @@ pub trait ToGlibPtr<'a, P: Copy> {
     }
 }
 
-impl <'a> ToGlibPtr<'a, *const c_char> for str {
+impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
+    type Storage = Option<<T as ToGlibPtr<'a, P>>::Storage>;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, P, Option<T>> {
+        self.as_ref().map_or(Stash(Ptr::from::<()>(ptr::null_mut()), None), |s| {
+            let s = s.to_glib_none();
+            Stash(s.0, Some(s.1))
+        })
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> P {
+        self.as_ref().map_or(Ptr::from::<()>(ptr::null_mut()), |s| s.to_glib_full())
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     type Storage = CString;
 
-    fn to_glib_none(&self) -> Stash<'a, *const c_char, str> {
-        let tmp = CString::new(self).unwrap();
+    fn to_glib_none(&self) -> Stash<'a, *const c_char, &'a str> {
+        let tmp = CString::new(*self).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
 }
@@ -166,19 +183,6 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
     fn to_glib_none(&self) -> Stash<'a, *const c_char, String> {
         let tmp = CString::new(&self[..]).unwrap();
         Stash(tmp.as_ptr(), tmp)
-    }
-}
-
-impl <'a, S: AsRef<str>> ToGlibPtr<'a, *const c_char> for Option<S> {
-    type Storage = Option<CString>;
-
-    fn to_glib_none(&self) -> Stash<'a, *const c_char, Option<S>> {
-        let tmp = match self {
-            &Some(ref s) => Some(CString::new(s.as_ref()).unwrap()),
-            &None => None,
-        };
-        let ptr = tmp.as_ref().map_or(ptr::null(), |s| s.as_ptr());
-        Stash(ptr, tmp)
     }
 }
 
@@ -208,7 +212,7 @@ pub trait IterToGlibPtr<'a, P: Copy> {
 
 impl <'a, S: AsRef<str>, I: ?Sized> IterToGlibPtr<'a, *const *const c_char> for I
 where &'a I: IntoIterator<Item = &'a S> {
-    type Storage = PtrArray<'a, *const c_char, str>;
+    type Storage = PtrArray<'a, *const c_char, &'a str>;
 
     fn to_glib_none(&'a self) -> IterStash<*const *const c_char, I> {
         let mut tmp_vec: Vec<_> =
