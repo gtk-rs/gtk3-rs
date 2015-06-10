@@ -134,25 +134,6 @@ impl<'a, T, W: Wrapper<GlibType = T>> ToGlibPtr<'a, *mut T> for &'a W {
     }
 }
 
-impl<'a, T, W: Wrapper<GlibType = T>> ToGlibPtr<'a, *mut T> for Option<&'a W> {
-    type Storage = Option<&'a Ref>;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut T, Option<&'a W>> {
-        if let Some(ref s) = *self {
-            Stash(s.as_ref().to_glib_none() as *mut _, Some(s.as_ref()))
-        }
-        else {
-            Stash(ptr::null_mut(), None)
-        }
-    }
-
-    #[inline]
-    fn to_glib_full(&self) -> *mut T {
-        self.as_ref().map_or(ptr::null_mut(), |s| s.as_ref().to_glib_full() as *mut _)
-    }
-}
-
 impl <T: Wrapper> FromGlibPtr<*mut <T as Wrapper>::GlibType> for T {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut <T as Wrapper>::GlibType) -> Self {
@@ -230,9 +211,35 @@ impl Wrapper for Object {
 }
 
 impl StaticType for Object {
+    #[inline]
     fn static_type() -> Type { Type::BaseObject }
 }
 
-pub trait ObjectTrait { }
+pub trait ObjectExt {
+}
 
-impl<T: Upcast<Object>> ObjectTrait for T { }
+impl<T: Upcast<Object>> ObjectExt for T {
+}
+
+/// The crate-local generic type for `GObject` descendants in GLib.
+#[derive(Debug)]
+pub struct GenericObject<T>(Ref, PhantomData<T>);
+
+impl<T> Wrapper for GenericObject<T> where GenericObject<T>: StaticType {
+    type GlibType = T;
+    #[inline]
+    unsafe fn wrap(r: Ref) -> GenericObject<T> { GenericObject(r, PhantomData) }
+    #[inline]
+    fn as_ref(&self) -> &Ref { &self.0 }
+    #[inline]
+    fn unwrap(self) -> Ref { self.0 }
+}
+
+impl<T> Clone for GenericObject<T> {
+    #[inline]
+    fn clone(&self) -> GenericObject<T> {
+        GenericObject(self.0.clone(), PhantomData)
+    }
+}
+
+unsafe impl<T> Upcast<Object> for GenericObject<T> where GenericObject<T>: StaticType { }
