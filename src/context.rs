@@ -67,7 +67,7 @@ impl Context {
         }
     }
 
-    /// Increases the reference count on cr by one. This prevents cr from being destroyed
+    /// Increases the reference count on self by one. This prevents self from being destroyed
     /// until a matching call to drop() is made.
     /// 
     /// The number of references to a cairo_t can be get using Context::get_reference_count().
@@ -84,7 +84,7 @@ impl Context {
     /// Creates a new Context with all graphics state parameters set to default values
     /// and with target as a target surface. The target surface should be constructed
     /// with a backend-specific function such as cairo_image_surface_create() (or any other
-    /// cairo_backend_surface_create() variant).
+    /// Context::backend_surface_create() variant).
     /// 
     /// This function references target , so you can immediately call Surface::drop() on
     /// it if you don't need to maintain a separate reference to it.
@@ -213,7 +213,7 @@ impl Context {
 
     //fn ffi::cairo_get_group_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
 
-    /// Sets the source pattern within cr to an opaque color. This opaque color will then be
+    /// Sets the source pattern within self to an opaque color. This opaque color will then be
     /// used for any subsequent drawing operation until a new source pattern is set.
     /// 
     /// The color components are floating point numbers in the range 0 to 1.
@@ -306,7 +306,7 @@ impl Context {
     /// If num_dashes is 1 a symmetric pattern is assumed with alternating on and off portions
     /// of the size specified by the single value in dashes .
     /// 
-    /// If any value in dashes is negative, or if all values are 0, then cr will be put into
+    /// If any value in dashes is negative, or if all values are 0, then self will be put into
     /// an error state with a status of Status::InvalidDash.
     pub fn set_dash(&self, dashes: &[f64], offset: f64) {
         unsafe {
@@ -515,12 +515,28 @@ impl Context {
         }
     }
 
+    /// Establishes a new clip region by intersecting the current clip region with the current
+    /// path as it would be filled by Context::fill() and according to the current fill rule
+    /// (see Context::set_fill_rule()).
+    /// 
+    /// Unlike Context::clip(), Context::clip_preserve() preserves the path within the cairo
+    /// context.
+    /// 
+    /// The current clip region affects all drawing operations by effectively masking out any
+    /// changes to the surface that are outside the current clip region.
+    /// 
+    /// Calling Context::clip_preserve() can only make the clip region smaller, never larger.
+    /// But the current clip is part of the graphics state, so a temporary restriction of the
+    /// clip region can be achieved by calling Context::clip_preserve() within a
+    /// Context::save()/cairo_restore() pair. The only other means of increasing the size of
+    /// the clip region is Context::reset_clip().
     pub fn clip_preserve(&self) {
         unsafe {
             ffi::cairo_clip_preserve(self.get_ptr())
         }
     }
 
+    /// Computes a bounding box in user coordinates covering the area inside the current clip.
     pub fn clip_extents(&self) -> (f64, f64, f64, f64) {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
@@ -533,12 +549,25 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
+    /// Tests whether the given point is inside the area that would be visible through the current
+    /// clip, i.e. the area that would be filled by a Context::paint() operation.
+    /// 
+    /// See Context::clip(), and Context::clip_preserve().
     pub fn in_clip(&self, x:f64, y:f64) -> bool {
         unsafe {
             ffi::cairo_in_clip(self.get_ptr(), x, y).as_bool()
         }
     }
 
+    /// Reset the current clip region to its original, unrestricted state. That is, set the clip
+    /// region to an infinitely large shape containing the target surface. Equivalently, if
+    /// infinity is too hard to grasp, one can imagine the clip region being reset to the exact
+    /// bounds of the target surface.
+    /// 
+    /// Note that code meant to be reusable should not call Context::reset_clip() as it will
+    /// cause results unexpected by higher-level code which calls Context::clip(). Consider
+    /// using Context::save() and Context::restore() around Context::clip() as a more robust
+    /// means of temporarily restricting the clip region.
     pub fn reset_clip(&self) {
         unsafe {
             ffi::cairo_reset_clip(self.get_ptr())
@@ -546,6 +575,11 @@ impl Context {
         self.ensure_status()
     }
 
+    /// Gets the current clip region as a list of rectangles in user coordinates.
+    /// 
+    /// The status in the list may be Status::ClipNotRepresentable to indicate that
+    /// the clip region cannot be represented as a list of user-space rectangles.
+    /// The status may have other values to indicate other errors.
     pub fn copy_clip_rectangle_list(&self) -> RectangleVec {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.get_ptr());
@@ -560,18 +594,40 @@ impl Context {
         }
     }
 
+    /// A drawing operator that fills the current path according to the current fill
+    /// rule, (each sub-path is implicitly closed before being filled). After
+    /// Context::fill(), the current path will be cleared from the cairo context. See
+    /// Context::set_fill_rule() and Context::fill_preserve().
     pub fn fill(&self) {
         unsafe {
             ffi::cairo_fill(self.get_ptr())
         }
     }
 
+    /// A drawing operator that fills the current path according to the current fill rule,
+    /// (each sub-path is implicitly closed before being filled). Unlike Context::fill(),
+    /// Context::fill_preserve() preserves the path within the cairo context.
+    /// 
+    /// See Context::set_fill_rule() and Context::fill().
     pub fn fill_preserve(&self) {
         unsafe {
             ffi::cairo_fill_preserve(self.get_ptr())
         }
     }
 
+    /// Computes a bounding box in user coordinates covering the area that would be affected,
+    /// (the "inked" area), by a Context::fill() operation given the current path and fill
+    /// parameters. If the current path is empty, returns an empty rectangle ((0,0), (0,0)).
+    /// Surface dimensions and clipping are not taken into account.
+    /// 
+    /// Contrast with Context::path_extents(), which is similar, but returns non-zero extents
+    /// for some paths with no inked area, (such as a simple line segment).
+    /// 
+    /// Note that Context::fill_extents() must necessarily do more work to compute the precise
+    /// inked areas in light of the fill rule, so Context::path_extents() may be more desirable
+    /// for sake of performance if the non-inked path extents are desired.
+    /// 
+    /// See Context::fill(), Context::set_fill_rule() and Context::fill_preserve().
     pub fn fill_extents(&self) -> (f64, f64, f64, f64) {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
@@ -584,12 +640,20 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
+    /// Tests whether the given point is inside the area that would be affected by a
+    /// Context::fill() operation given the current path and filling parameters. Surface
+    /// dimensions and clipping are not taken into account.
+    /// 
+    /// See Context::fill(), Context::set_fill_rule() and Context::fill_preserve().
     pub fn in_fill(&self, x:f64, y:f64) -> bool {
         unsafe {
             ffi::cairo_in_fill(self.get_ptr(), x, y).as_bool()
         }
     }
 
+    /// A drawing operator that paints the current source using the alpha channel of
+    /// pattern as a mask. (Opaque areas of pattern are painted with the source, transparent
+    /// areas are not painted.)
     pub fn mask(&self, pattern: &Pattern) {
         unsafe {
             ffi::cairo_mask(self.get_ptr(), pattern.get_ptr())
@@ -598,30 +662,76 @@ impl Context {
 
     //fn ffi::cairo_mask_surface (cr: *mut cairo_t, surface: *mut cairo_surface_t, surface_x: c_double, surface_y: c_double);
 
+    /// A drawing operator that paints the current source everywhere within the current clip region.
     pub fn paint(&self) {
         unsafe {
             ffi::cairo_paint(self.get_ptr())
         }
     }
 
+    /// A drawing operator that paints the current source everywhere within the current clip region
+    /// using a mask of constant alpha value alpha . The effect is similar to Context::paint(), but
+    /// the drawing is faded out using the alpha value.
     pub fn paint_with_alpha(&self, alpha: f64) {
         unsafe {
             ffi::cairo_paint_with_alpha(self.get_ptr(), alpha)
         }
     }
 
+    /// A drawing operator that strokes the current path according to the current line width, line
+    /// join, line cap, and dash settings. After Context::stroke(), the current path will be cleared
+    /// from the cairo context. See Context::set_line_width(), Context::set_line_join(),
+    /// Context::set_line_cap(), Context::set_dash(), and Context::stroke_preserve().
+    /// 
+    /// Note: Degenerate segments and sub-paths are treated specially and provide a useful result.
+    /// These can result in two different situations:
+    /// 
+    /// 1. Zero-length "on" segments set in Context::set_dash(). If the cap style is LineCap::Round
+    /// or LineCap::Square then these segments will be drawn as circular dots or squares respectively.
+    /// In the case of LineCap::Square, the orientation of the squares is determined by the direction
+    /// of the underlying path.
+    /// 
+    /// 2. A sub-path created by Context::move_to() followed by either a Context::close_path() or one
+    /// or more calls to Context::line_to() to the same coordinate as the Context::move_to(). If the
+    /// cap style is LineCap::Round then these sub-paths will be drawn as circular dots. Note that in
+    /// the case of LineCap::Square a degenerate sub-path will not be drawn at all, (since the correct
+    /// orientation is indeterminate).
+    /// 
+    /// In no case will a cap style of LineCap::Butt cause anything to be drawn in the case of either
+    /// degenerate segments or sub-paths.
     pub fn stroke(&self) {
         unsafe {
             ffi::cairo_stroke(self.get_ptr())
         }
     }
 
+    /// A drawing operator that strokes the current path according to the current line width, line
+    /// join, line cap, and dash settings. Unlike Context::stroke(), Context::stroke_preserve()
+    /// preserves the path within the cairo context.
+    /// 
+    /// See Context::set_line_width(), Context::set_line_join(), Context::set_line_cap(),
+    /// Context::set_dash(), and Context::stroke_preserve().
     pub fn stroke_preserve(&self) {
         unsafe {
             ffi::cairo_stroke_preserve(self.get_ptr())
         }
     }
 
+    /// Computes a bounding box in user coordinates covering the area that would be affected,
+    /// (the "inked" area), by a Context::stroke() operation given the current path and stroke
+    /// parameters. If the current path is empty, returns an empty rectangle ((0,0), (0,0)).
+    /// Surface dimensions and clipping are not taken into account.
+    /// 
+    /// Note that if the line width is set to exactly zero, then Context::stroke_extents() will
+    /// return an empty rectangle. Contrast with cairo_path_extents() which can be used to compute
+    /// the non-empty bounds as the line width approaches zero.
+    /// 
+    /// Note that cairo_stroke_extents() must necessarily do more work to compute the precise inked
+    /// areas in light of the stroke parameters, so cairo_path_extents() may be more desirable for
+    /// sake of performance if non-inked path extents are desired.
+    /// 
+    /// See Context::stroke(), Context::set_line_width(), Context::set_line_join(),
+    /// Context::set_line_cap(), Context::set_dash(), and Context::stroke_preserve().
     pub fn stroke_extents(&self) -> (f64, f64, f64, f64) {
         let mut x1: f64 = 0.0;
         let mut y1: f64 = 0.0;
@@ -634,24 +744,42 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
+    /// Tests whether the given point is inside the area that would be affected by a 
+    /// Context::stroke() operation given the current path and stroking parameters. Surface
+    /// dimensions and clipping are not taken into account.
+    /// 
+    /// See Context::stroke(), Context::set_line_width(), Context::set_line_join(),
+    /// Context::set_line_cap(), Context::set_dash(), and Context::stroke_preserve().
     pub fn in_stroke(&self, x:f64, y:f64) -> bool {
         unsafe {
             ffi::cairo_in_stroke(self.get_ptr(), x, y).as_bool()
         }
     }
 
+    /// Emits the current page for backends that support multiple pages, but doesn't clear
+    /// it, so, the contents of the current page will be retained for the next page too. Use
+    /// Context::show_page() if you want to get an empty page after the emission.
+    /// 
+    /// This is a convenience function that simply calls Surface::copy_page() on self's
+    /// target.
     pub fn copy_page(&self) {
         unsafe {
             ffi::cairo_copy_page(self.get_ptr())
         }
     }
 
+    /// Emits and clears the current page for backends that support multiple pages. Use
+    /// Context::copy_page() if you don't want to clear the page.
+    /// 
+    /// This is a convenience function that simply calls Surface::show_page() on self's
+    /// target.
     pub fn show_page(&self) {
         unsafe {
             ffi::cairo_show_page(self.get_ptr())
         }
     }
 
+    /// Returns the current reference count of self.
     pub fn get_reference_count(&self) -> u32 {
         unsafe {
             ffi::cairo_get_reference_count(self.get_ptr())
@@ -660,18 +788,30 @@ impl Context {
 
     // transformations stuff
 
+    /// Modifies the current transformation matrix (CTM) by translating the user-space
+    /// origin by (tx , ty ). This offset is interpreted as a user-space coordinate
+    /// according to the CTM in place before the new call to cairo_translate(). In other
+    /// words, the translation of the user-space origin takes place after any existing
+    /// transformation.
      pub fn translate(&self, tx: f64, ty: f64) {
         unsafe {
             ffi::cairo_translate(self.get_ptr(), tx, ty)
         }
     }
 
+    /// Modifies the current transformation matrix (CTM) by scaling the X and Y user-space
+    /// axes by sx and sy respectively. The scaling of the axes takes place after any
+    /// existing transformation of user space.
     pub fn scale(&self, sx: f64, sy: f64) {
         unsafe {
             ffi::cairo_scale(self.get_ptr(), sx, sy)
         }
     }
 
+    /// Modifies the current transformation matrix (CTM) by rotating the user-space axes by
+    /// angle radians. The rotation of the axes takes places after any existing transformation
+    /// of user space. The rotation direction for positive angles is from the positive X axis
+    /// toward the positive Y axis.
     pub fn rotate(&self, angle: f64) {
         unsafe {
             ffi::cairo_rotate(self.get_ptr(), angle)
@@ -684,12 +824,17 @@ impl Context {
 
     //pub fn cairo_get_matrix(cr: *cairo_t, matrix: *cairo_matrix_t);
 
+    /// Resets the current transformation matrix (CTM) by setting it equal to the identity
+    /// matrix. That is, the user-space and device-space axes will be aligned and one user-space
+    /// unit will transform to one device-space unit.
     pub fn identity_matrix(&self) {
         unsafe {
             ffi::cairo_identity_matrix(self.get_ptr())
         }
     }
 
+    /// Transform a coordinate from user space to device space by multiplying the given point
+    /// by the current transformation matrix (CTM).
     pub fn user_to_device(&self, x: f64, y: f64) -> (f64, f64) {
         unsafe {
             let x_ptr: *mut c_double = transmute(Box::new(x));
@@ -704,6 +849,9 @@ impl Context {
         }
     }
 
+    /// Transform a distance vector from user space to device space. This function is similar
+    /// to Context::user_to_device() except that the translation components of the CTM will
+    /// be ignored when transforming (dx ,dy ).
     pub fn user_to_device_distance(&self, dx: f64, dy: f64) -> (f64, f64) {
         unsafe {
             let dx_ptr: *mut c_double = transmute(Box::new(dx));
@@ -718,6 +866,8 @@ impl Context {
         }
     }
 
+    /// Transform a coordinate from device space to user space by multiplying the given point
+    /// by the inverse of the current transformation matrix (CTM).
     pub fn device_to_user(&self, x: f64, y: f64) -> (f64, f64) {
         unsafe {
             let x_ptr: *mut c_double = transmute(Box::new(x));
@@ -732,6 +882,9 @@ impl Context {
         }
     }
 
+    /// Transform a distance vector from device space to user space. This function is similar
+    /// to Context::device_to_user() except that the translation components of the inverse CTM
+    /// will be ignored when transforming (dx ,dy ).
     pub fn device_to_user_distance(&self, dx: f64, dy: f64) -> (f64, f64) {
         unsafe {
             let dx_ptr: *mut c_double = transmute(Box::new(dx));
@@ -748,25 +901,69 @@ impl Context {
 
     // font stuff
 
+    /// Note: The Context::select_font_face() function call is part of what the cairo designers
+    /// call the "toy" text API. It is convenient for short demos and simple programs, but it
+    /// is not expected to be adequate for serious text-using applications.
+    /// 
+    /// Selects a family and style of font from a simplified description as a family name, slant
+    /// and weight. Cairo provides no operation to list available family names on the system (this
+    /// is a "toy", remember), but the standard CSS2 generic family names, ("serif", "sans-serif",
+    /// "cursive", "fantasy", "monospace"), are likely to work as expected.
+    /// 
+    /// If family starts with the string "cairo :", or if no native font backends are compiled in,
+    /// cairo will use an internal font family. The internal font family recognizes many modifiers
+    /// in the family string, most notably, it recognizes the string "monospace". That is, the
+    /// family name "cairo :monospace" will use the monospace version of the internal font family.
+    /// 
+    /// For "real" font selection, see the font-backend-specific font_face_create functions for the
+    /// font backend you are using. (For example, if you are using the freetype-based cairo-ft font
+    /// backend, see Font::create_for_ft_face() or Font::create_for_pattern().) The resulting font
+    /// face could then be used with Context::scaled_font_create() and Context::set_scaled_font().
+    /// 
+    /// Similarly, when using the "real" font support, you can call directly into the underlying
+    /// font system, (such as fontconfig or freetype), for operations such as listing available
+    /// fonts, etc.
+    /// 
+    /// It is expected that most applications will need to use a more comprehensive font handling
+    /// and text layout library, (for example, pango), in conjunction with cairo.
+    /// 
+    /// If text is drawn without a call to Context::select_font_face(), (nor Context::set_font_face()
+    /// nor Context::set_scaled_font()), the default family is platform-specific, but is essentially
+    /// "sans-serif". Default slant is FontSlant::Normal, and default weight is FontWeight::Normal.
+    /// 
+    /// This function is equivalent to a call to cairo_toy_font_face_create() followed by
+    /// Context::set_font_face().
     pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight){
         unsafe {
             ffi::cairo_select_font_face(self.get_ptr(), family.to_glib_none().0, slant, weight)
         }
     }
 
+    /// Sets the current font matrix to a scale by a factor of size , replacing any font matrix
+    /// previously set with Context::set_font_size() or Context::set_font_matrix(). This results
+    /// in a font size of size user space units. (More precisely, this matrix will result in the
+    /// font's em-square being a size by size square in user space.)
+    /// 
+    /// If text is drawn without a call to Context::set_font_size(), (nor
+    /// Context::set_font_matrix() nor Context::set_scaled_font()), the default font size is 10.0.
     pub fn set_font_size(&self, size: f64){
         unsafe {
             ffi::cairo_set_font_size(self.get_ptr(), size)
         }
     }
 
-    //FIXME probably needs a heap allocation
+    /// Sets the current font matrix to matrix . The font matrix gives a transformation from the
+    /// design space of the font (in this space, the em-square is 1 unit by 1 unit) to user space.
+    /// Normally, a simple scale is used (see Context::set_font_size()), but a more complex font
+    /// matrix can be used to shear the font or stretch it unequally along the two axes.
+    // FIXME probably needs a heap allocation
     pub fn set_font_matrix(&self, matrix: Matrix){
         unsafe {
             ffi::cairo_set_font_matrix(self.get_ptr(), &matrix)
         }
     }
 
+    /// Stores the current font matrix into matrix . See Context::set_font_matrix().
     pub fn get_font_matrix(&self) -> Matrix {
         let mut matrix = <Matrix as MatrixTrait>::null();
         unsafe {
@@ -775,12 +972,19 @@ impl Context {
         matrix
     }
 
+    /// Sets a set of custom font rendering options for the Context. Rendering options are
+    /// derived by merging these options with the options derived from underlying surface;
+    /// if the value in options has a default value (like Antialias::Default), then the value
+    /// from the surface is used.
     pub fn set_font_options(&self, options: FontOptions){
         unsafe {
             ffi::cairo_set_font_options(self.get_ptr(), options.get_ptr())
         }
     }
 
+    /// Retrieves font rendering options set via Context::set_font_options. Note that the returned
+    /// options do not include any options derived from the underlying surface; they are literally
+    /// the options passed to Context::set_font_options().
     pub fn get_font_options(&self) -> FontOptions {
         let out = FontOptions::new();
         unsafe {
@@ -789,24 +993,32 @@ impl Context {
         out
     }
 
+    /// Replaces the current FontFace object in the Context with font_face. The replaced
+    /// font face in the cairo_t will be destroyed if there are no other references to it.
     pub fn set_font_face(&self, font_face: FontFace){
         unsafe {
             ffi::cairo_set_font_face(self.get_ptr(), font_face.get_ptr())
         }
     }
 
+    /// Gets the current font face for a Context object.
     pub fn get_font_face(&self) -> FontFace {
         unsafe {
             FontFace(ffi::cairo_get_font_face(self.get_ptr()))
         }
     }
 
+    /// Replaces the current font face, font matrix, and font options in the Context with
+    /// those of the ScaledFont object. Except for some translation, the current CTM of the
+    /// Context should be the same as that of the ScaledFont object, which can be accessed
+    /// using Context::scaled_font_get_ctm().
     pub fn set_scaled_font(&self, scaled_font: ScaledFont){
         unsafe {
             ffi::cairo_set_scaled_font(self.get_ptr(), scaled_font.get_ptr())
         }
     }
 
+    /// Gets the current scaled font for a Context.
     pub fn get_scaled_font(&self) -> ScaledFont {
         unsafe {
             ScaledFont(ffi::cairo_get_scaled_font(self.get_ptr()))
