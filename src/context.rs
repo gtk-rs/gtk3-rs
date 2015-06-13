@@ -933,7 +933,7 @@ impl Context {
     /// 
     /// This function is equivalent to a call to cairo_toy_font_face_create() followed by
     /// Context::set_font_face().
-    pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight){
+    pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight) {
         unsafe {
             ffi::cairo_select_font_face(self.get_ptr(), family.to_glib_none().0, slant, weight)
         }
@@ -946,7 +946,7 @@ impl Context {
     /// 
     /// If text is drawn without a call to Context::set_font_size(), (nor
     /// Context::set_font_matrix() nor Context::set_scaled_font()), the default font size is 10.0.
-    pub fn set_font_size(&self, size: f64){
+    pub fn set_font_size(&self, size: f64) {
         unsafe {
             ffi::cairo_set_font_size(self.get_ptr(), size)
         }
@@ -957,7 +957,7 @@ impl Context {
     /// Normally, a simple scale is used (see Context::set_font_size()), but a more complex font
     /// matrix can be used to shear the font or stretch it unequally along the two axes.
     // FIXME probably needs a heap allocation
-    pub fn set_font_matrix(&self, matrix: Matrix){
+    pub fn set_font_matrix(&self, matrix: Matrix) {
         unsafe {
             ffi::cairo_set_font_matrix(self.get_ptr(), &matrix)
         }
@@ -976,7 +976,7 @@ impl Context {
     /// derived by merging these options with the options derived from underlying surface;
     /// if the value in options has a default value (like Antialias::Default), then the value
     /// from the surface is used.
-    pub fn set_font_options(&self, options: FontOptions){
+    pub fn set_font_options(&self, options: FontOptions) {
         unsafe {
             ffi::cairo_set_font_options(self.get_ptr(), options.get_ptr())
         }
@@ -995,7 +995,7 @@ impl Context {
 
     /// Replaces the current FontFace object in the Context with font_face. The replaced
     /// font face in the cairo_t will be destroyed if there are no other references to it.
-    pub fn set_font_face(&self, font_face: FontFace){
+    pub fn set_font_face(&self, font_face: FontFace) {
         unsafe {
             ffi::cairo_set_font_face(self.get_ptr(), font_face.get_ptr())
         }
@@ -1012,7 +1012,7 @@ impl Context {
     /// those of the ScaledFont object. Except for some translation, the current CTM of the
     /// Context should be the same as that of the ScaledFont object, which can be accessed
     /// using Context::scaled_font_get_ctm().
-    pub fn set_scaled_font(&self, scaled_font: ScaledFont){
+    pub fn set_scaled_font(&self, scaled_font: ScaledFont) {
         unsafe {
             ffi::cairo_set_scaled_font(self.get_ptr(), scaled_font.get_ptr())
         }
@@ -1025,35 +1025,56 @@ impl Context {
         }
     }
 
-    pub fn show_text(&self, text: &str){
+    /// A drawing operator that generates the shape from a string of UTF-8 characters,
+    /// rendered according to the current FontFace, FontSize (FontMatrix), and
+    /// font_options.
+    /// 
+    /// This function first computes a set of glyphs for the string of text. The first
+    /// glyph is placed so that its origin is at the current point. The origin of each
+    /// subsequent glyph is offset from that of the previous glyph by the advance values
+    /// of the previous glyph.
+    /// 
+    /// After this call the current point is moved to the origin of where the next glyph
+    /// would be placed in this same progression. That is, the current point will be at
+    /// the origin of the final glyph offset by its advance values. This allows for easy
+    /// display of a single logical string with multiple calls to Context::show_text().
+    /// 
+    /// Note: The Context::show_text() function call is part of what the cairo designers
+    /// call the "toy" text API. It is convenient for short demos and simple programs,
+    /// but it is not expected to be adequate for serious text-using applications. See
+    /// Context::show_glyphs() for the "real" text display API in cairo.
+    pub fn show_text(&self, text: &str) {
         unsafe {
             ffi::cairo_show_text(self.get_ptr(), text.to_glib_none().0)
         }
     }
 
-    pub fn show_glyphs(&self, glyphs: &[Glyph]){
+    pub fn show_glyphs(&self, glyphs: &[Glyph]) {
         unsafe {
             ffi::cairo_show_glyphs(self.get_ptr(), glyphs.as_ptr(), glyphs.len() as c_int)
         }
     }
 
+    /// A drawing operator that generates the shape from an array of glyphs, rendered
+    /// according to the current font face, font size (font matrix), and font options.
     pub fn show_text_glyphs(&self,
                             text: &str,
                             glyphs: &[Glyph],
                             clusters: &[TextCluster],
-                            cluster_flags: TextClusterFlags){
+                            cluster_flags: TextClusterFlags) {
         unsafe {
             ffi::cairo_show_text_glyphs(self.get_ptr(),
                                         text.to_glib_none().0,
-                                        -1 as c_int, //NUL terminated
+                                        -1 as c_int, //NULL terminated
                                         glyphs.as_ptr(),
                                         glyphs.len() as c_int,
                                         clusters.as_ptr(),
                                         clusters.len() as c_int,
                                         cluster_flags)
-    }
+        }
     }
 
+    /// Gets the font extents for the currently selected font.
     pub fn font_extents(&self) -> FontExtents {
         let mut extents = FontExtents {
             ascent: 0.0,
@@ -1070,6 +1091,16 @@ impl Context {
         extents
     }
 
+    /// Gets the extents for a string of text. The extents describe a user-space rectangle
+    /// that encloses the "inked" portion of the text, (as it would be drawn by
+    /// Context::show_text()). Additionally, the x_advance and y_advance values indicate
+    /// the amount by which the current point would be advanced by Context::show_text().
+    /// 
+    /// Note that whitespace characters do not directly contribute to the size of the rectangle
+    /// (extents.width and extents.height). They do contribute indirectly by changing the
+    /// position of non-whitespace characters. In particular, trailing whitespace characters
+    /// are likely to not affect the size of the rectangle, though they will affect the
+    /// x_advance and y_advance values.
     pub fn text_extents(&self, text: &str) -> TextExtents {
         let mut extents = TextExtents {
             x_bearing: 0.0,
@@ -1086,6 +1117,13 @@ impl Context {
         extents
     }
 
+    /// Gets the extents for an array of glyphs. The extents describe a user-space rectangle
+    /// that encloses the "inked" portion of the glyphs, (as they would be drawn by
+    /// Context::show_glyphs()). Additionally, the x_advance and y_advance values indicate
+    /// the amount by which the current point would be advanced by Context::show_glyphs().
+    /// 
+    /// Note that whitespace glyphs do not contribute to the size of the rectangle
+    /// (extents.width and extents.height).
     pub fn glyph_extents(&self, glyphs: &[Glyph]) -> TextExtents {
         let mut extents = TextExtents {
             x_bearing: 0.0,
@@ -1105,30 +1143,80 @@ impl Context {
 
     // paths stuff
 
-     pub fn copy_path(&self) -> Path {
+    /// Creates a copy of the current path and returns it to the user as a Path. See
+    /// PathData for hints on how to iterate over the returned data structure.
+    /// 
+    /// This function will always return a valid pointer, but the result will have no
+    /// data (data==NULL and num_data==0), if either of the following conditions hold:
+    /// 
+    /// 1. If there is insufficient memory to copy the path. In this case path.status
+    /// will be set to Status::NoMemory.
+    /// 2. If self is already in an error state. In this case path.status will contain
+    /// the same status that would be returned by cairo_status().
+    pub fn copy_path(&self) -> Path {
         unsafe {
             Path::wrap(ffi::cairo_copy_path(self.get_ptr()))
         }
     }
 
+    /// Gets a flattened copy of the current path and returns it to the user as a Path.
+    /// See PathData for hints on how to iterate over the returned data structure.
+    /// 
+    /// This function is like cairo_copy_path() except that any curves in the path will
+    /// be approximated with piecewise-linear approximations, (accurate to within the
+    /// current tolerance value). That is, the result is guaranteed to not have any
+    /// elements of type Path::CurveTo which will instead be replaced by a series of
+    /// Path::Line elements.
+    /// 
+    /// This function will always return a valid pointer, but the result will have no
+    /// data (data==NULL and num_data==0), if either of the following conditions hold:
+    /// 
+    /// 1. If there is insufficient memory to copy the path. In this case path->status
+    /// will be set to Status::NoMemory.
+    /// 2. If self is already in an error state. In this case path->status will contain
+    /// the same status that would be returned by Context::status().
     pub fn copy_path_flat(&self) -> Path {
         unsafe {
             Path::wrap(ffi::cairo_copy_path_flat(self.get_ptr()))
         }
     }
 
-    pub fn append_path(&self, path: &Path){
+    /// Append the path onto the current path. The path may be either the return value
+    /// from one of Context::copy_path() or Context::copy_path_flat() or it may be
+    /// constructed manually. See Path for details on how the path data structure should
+    /// be initialized, and note that path.status must be initialized to Status::Success.
+    pub fn append_path(&self, path: &Path) {
         unsafe {
             ffi::cairo_append_path(self.get_ptr(), path.get_ptr())
         }
     }
 
+    /// Returns whether a current point is defined on the current path. See
+    /// Context::get_current_point() for details on the current point.
     pub fn has_current_point(&self) -> bool {
         unsafe {
             ffi::cairo_has_current_point(self.get_ptr()).as_bool()
         }
     }
 
+    /// Gets the current point of the current path, which is conceptually the final
+    /// point reached by the path so far.
+    /// 
+    /// The current point is returned in the user-space coordinate system. If there is
+    /// no defined current point or if cr is in an error status, x and y will both be set
+    /// to 0.0. It is possible to check this in advance with cairo_has_current_point().
+    /// 
+    /// Most path construction functions alter the current point. See the following for
+    /// details on how they affect the current point: Context::new_path(),
+    /// Context::new_sub_path(), Context::append_path(), Context::close_path(),
+    /// Context::move_to(), Context::line_to(), Context::curve_to(), cairo_rel_move_to(),
+    /// Context::rel_line_to(), Context::rel_curve_to(), Context::arc(),
+    /// Context::arc_negative(), Context::rectangle(), Context::text_path(),
+    /// Context::glyph_path(), Context::stroke_to_path().
+    /// 
+    /// Some functions use and alter the current point but do not otherwise change current path: Context::show_text().
+    /// 
+    /// Some functions unset the current path and as a result, current point: Context::fill(), Context::stroke().
     pub fn get_current_point(&self) -> (f64, f64) {
         unsafe {
             let x = transmute(Box::new(0.0f64));
@@ -1138,61 +1226,157 @@ impl Context {
         }
     }
 
-    pub fn new_path(&self){
+    /// Clears the current path. After this call there will be no path and no current point.
+    pub fn new_path(&self) {
         unsafe {
             ffi::cairo_new_path(self.get_ptr())
         }
     }
 
-    pub fn new_sub_path(&self){
+    /// Begin a new sub-path. Note that the existing path is not affected. After this call
+    /// there will be no current point.
+    /// 
+    /// In many cases, this call is not needed since new sub-paths are frequently started
+    /// with Context::move_to().
+    /// 
+    /// A call to Context::new_sub_path() is particularly useful when beginning a new
+    /// sub-path with one of the Context::arc() calls. This makes things easier as it is
+    /// no longer necessary to manually compute the arc's initial coordinates for a call to
+    /// Context::move_to().
+    pub fn new_sub_path(&self) {
         unsafe {
             ffi::cairo_new_sub_path(self.get_ptr())
         }
     }
 
-    pub fn close_path(&self){
+    /// Adds a line segment to the path from the current point to the beginning of
+    /// the current sub-path, (the most recent point passed to cairo_move_to()), and
+    /// closes this sub-path. After this call the current point will be at the joined
+    /// endpoint of the sub-path.
+    /// 
+    /// The behavior of Context::close_path() is distinct from simply calling
+    /// Context::line_to() with the equivalent coordinate in the case of stroking. When
+    /// a closed sub-path is stroked, there are no caps on the ends of the sub-path.
+    /// Instead, there is a line join connecting the final and initial segments of the
+    /// sub-path.
+    /// 
+    /// If there is no current point before the call to Context::close_path(), this
+    /// function will have no effect.
+    /// 
+    /// Note: As of cairo version 1.2.4 any call to Context::close_path() will place
+    /// an explicit MOVE_TO element into the path immediately after the CLOSE_PATH
+    /// element, (which can be seen in Context::copy_path() for example). This can
+    /// simplify path processing in some cases as it may not be necessary to save the
+    /// "last move_to point" during processing as the MOVE_TO immediately after the
+    /// CLOSE_PATH will provide that point.
+    pub fn close_path(&self) {
         unsafe {
             ffi::cairo_close_path(self.get_ptr())
         }
     }
 
-    pub fn arc(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64){
+    /// Adds a circular arc of the given radius to the current path. The arc is centered
+    /// at (xc , yc ), begins at angle1 and proceeds in the direction of increasing
+    /// angles to end at angle2 . If angle2 is less than angle1 it will be progressively
+    /// increased by 2*M_PI until it is greater than angle1 .
+    /// 
+    /// If there is a current point, an initial line segment will be added to the path
+    /// to connect the current point to the beginning of the arc. If this initial line is
+    /// undesired, it can be avoided by calling Context::new_sub_path() before calling
+    /// Context::arc().
+    /// 
+    /// Angles are measured in radians. An angle of 0.0 is in the direction of the
+    /// positive X axis (in user space). An angle of M_PI/2.0 radians (90 degrees) is
+    /// in the direction of the positive Y axis (in user space). Angles increase in the
+    /// direction from the positive X axis toward the positive Y axis. So with the default
+    /// transformation matrix, angles increase in a clockwise direction.
+    /// 
+    /// (To convert from degrees to radians, use degrees * (M_PI / 180.).)
+    /// 
+    /// This function gives the arc in the direction of increasing angles; see
+    /// Context::arc_negative() to get the arc in the direction of decreasing angles.
+    /// 
+    /// The arc is circular in user space. To achieve an elliptical arc, you can scale
+    /// the current transformation matrix by different amounts in the X and Y directions.
+    /// For example, to draw an ellipse in the box given by x , y , width , height :
+    /// 
+    /// ```
+    /// cr.save();
+    /// cr.translate(x + width / 2., y + height / 2.);
+    /// cr.scale(width / 2., height / 2.);
+    /// cr.arc(0., 0., 1., 0., 2 * M_PI);
+    /// cr.restore();
+    /// ```
+    pub fn arc(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
         unsafe {
             ffi::cairo_arc(self.get_ptr(), xc, yc, radius, angle1, angle2)
         }
     }
 
-    pub fn arc_negative(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64){
+    /// Adds a circular arc of the given radius to the current path. The arc is centered
+    /// at (xc , yc ), begins at angle1 and proceeds in the direction of decreasing
+    /// angles to end at angle2 . If angle2 is greater than angle1 it will be
+    /// progressively decreased by 2*M_PI until it is less than angle1.
+    /// 
+    /// See Context::arc() for more details. This function differs only in the direction
+    /// of the arc between the two angles.
+    pub fn arc_negative(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
         unsafe {
             ffi::cairo_arc_negative(self.get_ptr(), xc, yc, radius, angle1, angle2)
         }
     }
 
-    pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64){
+    /// Adds a cubic Bézier spline to the path from the current point to position
+    /// (x3 , y3 ) in user-space coordinates, using (x1 , y1 ) and (x2 , y2 ) as the
+    /// control points. After this call the current point will be (x3 , y3 ).
+    /// 
+    /// If there is no current point before the call to Context::curve_to() this function
+    /// will behave as if preceded by a call to Context::move_to(cr , x1 , y1 ).
+    pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
         unsafe {
             ffi::cairo_curve_to(self.get_ptr(), x1, y1, x2, y2, x3, y3)
         }
     }
 
-    pub fn line_to(&self, x: f64, y: f64){
+    /// Adds a line to the path from the current point to position (x , y ) in user-space
+    /// coordinates. After this call the current point will be (x , y ).
+    /// 
+    /// If there is no current point before the call to cairo_line_to() this function
+    /// will behave as cairo_move_to(cr , x , y ).
+    pub fn line_to(&self, x: f64, y: f64) {
         unsafe {
             ffi::cairo_line_to(self.get_ptr(), x, y)
         }
     }
 
-    pub fn move_to(&self, x: f64, y: f64){
+    /// Begin a new sub-path. After this call the current point will be (x , y ).
+    pub fn move_to(&self, x: f64, y: f64) {
         unsafe {
             ffi::cairo_move_to(self.get_ptr(), x, y)
         }
     }
 
-    pub fn rectangle(&self, x: f64, y: f64, width: f64, height: f64){
+    /// Adds a closed sub-path rectangle of the given size to the current path at
+    /// position (x , y ) in user-space coordinates.
+    /// 
+    /// This function is logically equivalent to:
+    /// 
+    /// ```
+    /// cr.move_to(, x, y);
+    /// cr.rel_line_to(width, 0);
+    /// cr.rel_line_to(0, height);
+    /// cr.rel_line_to(-width, 0);
+    /// cr.close_path();
+    /// ```
+    pub fn rectangle(&self, x: f64, y: f64, width: f64, height: f64) {
         unsafe {
             ffi::cairo_rectangle(self.get_ptr(), x, y, width, height)
         }
     }
 
-    pub fn text_path(&self, str_: &str){
+    /// Adds closed paths for the glyphs to the current path. The generated path if 
+    /// filled, achieves an effect similar to that of Context::show_glyphs().
+    pub fn text_path(&self, str_: &str) {
         unsafe {
             ffi::cairo_text_path(self.get_ptr(), str_.to_glib_none().0)
         }
@@ -1200,19 +1384,47 @@ impl Context {
 
     //fn ffi::cairo_glyph_path(cr: *mut cairo_t, glyphs: *mut cairo_glyph_t, num_glyphs: isize);
 
-    pub fn rel_curve_to(&self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64){
+    /// Relative-coordinate version of Context::curve_to(). All offsets are relative to
+    /// the current point. Adds a cubic Bézier spline to the path from the current point
+    /// to a point offset from the current point by (dx3 , dy3 ), using points offset by
+    /// (dx1 , dy1 ) and (dx2 , dy2 ) as the control points. After this call the current
+    /// point will be offset by (dx3 , dy3 ).
+    /// 
+    /// Given a current point of (x, y),
+    /// Context::rel_curve_to(dx1 , dy1 , dx2 , dy2 , dx3 , dy3 ) is logically
+    /// equivalent to Context::curve_to(x+dx1 , y+dy1 , x+dx2 , y+dy2 , x+dx3 , y+dy3 ).
+    /// 
+    /// It is an error to call this function with no current point. Doing so will cause
+    /// self to shutdown with a status of Status::NoCurrentPoint.
+    pub fn rel_curve_to(&self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) {
         unsafe {
             ffi::cairo_rel_curve_to(self.get_ptr(), dx1, dy1, dx2, dy2, dx3, dy3)
         }
     }
 
-    pub fn rel_line_to(&self, dx: f64, dy: f64){
+    /// Relative-coordinate version of Context::line_to(). Adds a line to the path from
+    /// the current point to a point that is offset from the current point by (dx , dy )
+    /// in user space. After this call the current point will be offset by (dx , dy ).
+    /// 
+    /// Given a current point of (x, y), Context::rel_line_to(dx , dy ) is logically
+    /// equivalent to Context::line_to( x + dx , y + dy ).
+    /// 
+    /// It is an error to call this function with no current point. Doing so will cause
+    /// self to shutdown with a status of Status::NoCurrentPoint.
+    pub fn rel_line_to(&self, dx: f64, dy: f64) {
         unsafe {
             ffi::cairo_rel_line_to(self.get_ptr(), dx, dy)
         }
     }
 
-    pub fn rel_move_to(&self, dx: f64, dy: f64){
+    /// Begin a new sub-path. After this call the current point will offset by (x , y ).
+    /// 
+    /// Given a current point of (x, y), Context::rel_move_to(dx , dy ) is logically
+    /// equivalent to Context::move_to(x + dx , y + dy ).
+    /// 
+    /// It is an error to call this function with no current point. Doing so will
+    /// cause self to shutdown with a status of Status::NoCurrenPoint.
+    pub fn rel_move_to(&self, dx: f64, dy: f64) {
         unsafe {
             ffi::cairo_rel_move_to(self.get_ptr(), dx, dy)
         }
