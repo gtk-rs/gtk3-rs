@@ -117,7 +117,7 @@ fn main() {
     entry.set_placeholder("An Entry with a placeholder !");
     volume_button.set_orientation(gtk::Orientation::Horizontal);
     label.set_justify(gtk::Justification::Left);
-    window.set_title("Yeah a beautiful window with rgtk !");
+    window.set_title("Yeah a beautiful window with gtk !");
     window.set_window_position(gtk::WindowPosition::Center);
     window.add(&frame);
 
