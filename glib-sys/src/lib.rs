@@ -23,6 +23,7 @@ pub type gpointer = *mut c_void;
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> gboolean;
 pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
+pub type GDestroyNotify = extern "C" fn(data: gpointer);
 
 #[repr(C)]
 pub struct GAppInfo;
@@ -354,8 +355,8 @@ extern "C" {
     pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
     //pub fn g_timeout_add_seconds_full          ();
     pub fn g_idle_source_new                   () -> *mut GSource;
-    pub fn g_idle_add                          (function: GSourceFunc, data: gpointer) -> c_uint;
-    //pub fn g_idle_add_full                     ();
+    // pub fn g_idle_add                          (function: GSourceFunc, data: gpointer) -> c_uint;
+    pub fn g_idle_add_full                     (priority: c_int, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     pub fn g_idle_remove_by_data               (data: gpointer) -> gboolean;
     pub fn g_child_watch_source_new            (pid: GPid) -> *mut GSource;
     //pub fn g_child_watch_add                   ();
