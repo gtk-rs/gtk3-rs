@@ -2,6 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::str;
+use std::ffi::CStr;
+use std::fmt::{self, Formatter, Debug, Display};
+use std::error;
 use ffi::{self, GQuark};
 use glib_container::GlibContainer;
 use translate::ToGlibPtr;
@@ -37,7 +41,7 @@ impl Error {
 
     /// Returns true if error matches domain and code , false otherwise. In particular, when error.pointer
     /// is NULL, false will be returned.
-    /// 
+    ///
     /// If domain contains a FAILED (or otherwise generic) error code, you should generally not check
     /// for it explicitly, but should instead treat any not-explicitly-recognized error code as being
     /// equivalent to the FAILED code. This way, if the domain is extended in the future to provide a
@@ -59,11 +63,17 @@ impl Error {
 
     /// If other.pointer is NULL, free self ; otherwise, moves self into other. The error variable
     /// other.pointer points to must be NULL.
-    /// 
+    ///
     /// Note that self is no longer valid after this call. If you want to keep using the same Error
     /// struct, you need to set it to NULL after calling this function on it.
     pub fn propagate(&mut self, other: &Error) -> () {
         unsafe { ffi::g_propagate_error(&mut self.pointer, other.pointer) }
+    }
+
+    /// Returns the error message stored in the wrapped GError
+    pub fn message(&self) -> &str {
+        let c_str = unsafe { CStr::from_ptr((*self.pointer).message) };
+        str::from_utf8(c_str.to_bytes()).unwrap()
     }
 }
 
@@ -78,6 +88,24 @@ impl Clone for Error {
         } else {
             GlibContainer::wrap(tmp_pointer)
         }
+    }
+}
+
+impl Debug for Error {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "{}", self.message())
+    }
+}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        write!(f, "{}", self.message())
+    }
+}
+
+impl error::Error for Error {
+    fn description(&self) -> &str {
+        self.message()
     }
 }
 
