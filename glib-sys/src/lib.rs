@@ -354,7 +354,7 @@ extern "C" {
     pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
     //pub fn g_timeout_add_seconds_full          ();
     pub fn g_idle_source_new                   () -> *mut GSource;
-    pub fn g_idle_add                          (function: gpointer, data: gpointer) -> c_uint;
+    pub fn g_idle_add                          (function: GSourceFunc, data: gpointer) -> c_uint;
     //pub fn g_idle_add_full                     ();
     pub fn g_idle_remove_by_data               (data: gpointer) -> gboolean;
     pub fn g_child_watch_source_new            (pid: GPid) -> *mut GSource;
