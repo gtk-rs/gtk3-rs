@@ -8,7 +8,7 @@ pub mod idle {
     use std::cell::RefCell;
     use std::ops::DerefMut;
     use std::mem::transmute;
-    use ffi::{gboolean, g_idle_add_full};
+    use ffi::{gboolean, gpointer, g_idle_add_full};
     use translate::ToGlib;
 
     pub struct Continue(pub bool);
@@ -43,7 +43,7 @@ pub mod idle {
         let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
         unsafe {
             g_idle_add_full(200 /* = G_PRIORITY_DEFAULT_IDLE */,
-                transmute(trampoline), into_raw(f) as ffi::gpointer, destroy_closure)
+                transmute(trampoline), into_raw(f) as gpointer, destroy_closure)
         }
     }
 }
