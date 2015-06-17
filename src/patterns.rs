@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! Sources for drawing
+
 #![cfg_attr(not(feature = "cairo_1_12"), allow(unused_imports))]
 
 use libc::{c_double, c_int, c_uint};
@@ -41,6 +43,7 @@ pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
 }
 
 pub trait Pattern {
+    #[doc(hidden)]
     fn get_ptr(&self) -> *mut cairo_pattern_t;
 
     fn ensure_status(&self) {
@@ -175,7 +178,7 @@ impl SolidPattern {
     }
 
     /// Gets the solid color for a solid color pattern.
-    pub fn get_rgba(&self) -> (f64,f64,f64,f64) {
+    pub fn get_rgba(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let red  : *mut c_double = transmute(Box::new(0.0f64));
             let green: *mut c_double = transmute(Box::new(0.0f64));
@@ -188,7 +191,6 @@ impl SolidPattern {
         }
     }
 }
-
 
 
 pub trait Gradient : Pattern {
@@ -248,7 +250,7 @@ pub trait Gradient : Pattern {
     /// Gets the color and offset information at the given index for a gradient pattern.
     /// Values of index range from 0 to n-1 where n is the number returned by
     /// Pattern::get_color_stop_count().
-    fn get_color_stop_rgba(&self, index: isize) -> (f64,f64,f64,f64,f64) {
+    fn get_color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
         unsafe {
             let offset: *mut c_double = transmute(Box::new(0.0f64));
             let red   : *mut c_double = transmute(Box::new(0.0f64));
@@ -280,7 +282,7 @@ impl LinearGradient {
     }
 
     /// Gets the gradient endpoints for a linear gradient.
-    pub fn get_linear_points(&self) -> (f64,f64,f64,f64) {
+    pub fn get_linear_points(&self) -> (f64, f64, f64, f64) {
         unsafe {
             let x0 : *mut c_double = transmute(Box::new(0.0f64));
             let y0 : *mut c_double = transmute(Box::new(0.0f64));
