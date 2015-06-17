@@ -349,11 +349,9 @@ extern "C" {
     pub fn g_timeout_source_new                () -> *mut GSource;
     pub fn g_timeout_source_new_seconds        (interval: c_uint) -> *mut GSource;
     //pub fn g_timeout_add                       (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
-    pub fn g_timeout_add                       (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
-    //pub fn g_timeout_add_full                  ();
+    pub fn g_timeout_add_full                  (priority: c_int, interval: c_uint, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     //pub fn g_timeout_add_seconds               (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
-    pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
-    //pub fn g_timeout_add_seconds_full          ();
+    pub fn g_timeout_add_seconds_full          (priority: c_int, interval: c_uint, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     pub fn g_idle_source_new                   () -> *mut GSource;
     // pub fn g_idle_add                          (function: GSourceFunc, data: gpointer) -> c_uint;
     pub fn g_idle_add_full                     (priority: c_int, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
