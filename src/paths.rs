@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! Creating paths and manipulating path data
+
 use std::mem::transmute;
 use std::iter::Iterator;
 use c_vec::CVec;
@@ -12,9 +14,11 @@ use ffi::{
 };
 use ffi;
 
+/// Paths are the most basic drawing tools and are primarily used to implicitly generate simple masks.
 pub struct Path(*mut cairo_path_t);
 
 impl Path {
+    #[doc(hidden)]
     pub fn get_ptr(&self) -> *mut cairo_path_t {
         let Path(ptr) = *self;
 
@@ -28,6 +32,7 @@ impl Path {
         }
     }
 
+    #[doc(hidden)]
     pub fn wrap(pointer: *mut cairo_path_t) -> Path {
         Path(pointer)
     }
