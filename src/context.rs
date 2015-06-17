@@ -33,8 +33,6 @@ pub struct RectangleVec {
 }
 
 impl Drop for RectangleVec {
-    /// Unconditionally frees rectangle_list and all associated references. After this call,
-    /// the rectangle_list pointer must not be dereferenced.
     fn drop(&mut self) {
         unsafe {
             ffi::cairo_rectangle_list_destroy(self.ptr);
