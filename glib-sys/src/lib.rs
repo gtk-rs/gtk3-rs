@@ -23,6 +23,7 @@ pub type gpointer = *mut c_void;
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> gboolean;
 pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
+pub type GDestroyNotify = extern "C" fn(data: gpointer);
 
 #[repr(C)]
 pub struct GAppInfo;
@@ -75,9 +76,9 @@ pub struct GPid;
 pub struct GPollFD;
 
 /// Represents a day between January 1, Year 1 and a few thousand years in the future. None of its members should be accessed directly.
-/// 
+///
 /// If the GDate is obtained from g_date_new(), it will be safe to mutate but invalid and thus not safe for calendrical computations.
-/// 
+///
 /// If it's declared on the stack, it will contain garbage so must be initialized with g_date_clear(). g_date_clear() makes the date
 /// invalid but sane. An invalid date doesn't represent a day, it's "empty." A date becomes valid after you set it to a Julian day or
 /// you set a day, month, and year.
@@ -348,14 +349,12 @@ extern "C" {
     pub fn g_timeout_source_new                () -> *mut GSource;
     pub fn g_timeout_source_new_seconds        (interval: c_uint) -> *mut GSource;
     //pub fn g_timeout_add                       (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
-    pub fn g_timeout_add                       (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
-    //pub fn g_timeout_add_full                  ();
+    pub fn g_timeout_add_full                  (priority: c_int, interval: c_uint, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     //pub fn g_timeout_add_seconds               (interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
-    pub fn g_timeout_add_seconds               (interval: c_uint, function: gpointer, data: gpointer) -> c_uint;
-    //pub fn g_timeout_add_seconds_full          ();
+    pub fn g_timeout_add_seconds_full          (priority: c_int, interval: c_uint, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     pub fn g_idle_source_new                   () -> *mut GSource;
-    //pub fn g_idle_add                          ();
-    //pub fn g_idle_add_full                     ();
+    // pub fn g_idle_add                          (function: GSourceFunc, data: gpointer) -> c_uint;
+    pub fn g_idle_add_full                     (priority: c_int, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
     pub fn g_idle_remove_by_data               (data: gpointer) -> gboolean;
     pub fn g_child_watch_source_new            (pid: GPid) -> *mut GSource;
     //pub fn g_child_watch_add                   ();
