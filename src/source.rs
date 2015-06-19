@@ -53,7 +53,7 @@ const PRIORITY_DEFAULT_IDLE: i32 = 200;
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// let mut i = 0;
 /// idle_add(move || {
 ///     println!("Idle: {}", i);
@@ -90,7 +90,7 @@ pub fn idle_add<F>(func: F) -> u32
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// timeout_add(3000, || {
 ///     println!("This prints once every 3 seconds");
 ///     Continue(true)
@@ -118,7 +118,7 @@ pub fn timeout_add<F>(interval: u32, func: F) -> u32
 ///
 /// # Examples
 ///
-/// ```
+/// ```ignore
 /// timeout_add_seconds(10, || {
 ///     println!("This prints once every 10 seconds");
 ///     Continue(true)
