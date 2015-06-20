@@ -118,7 +118,7 @@ impl Debug for Status {
 
 impl Status {
     pub fn ensure_valid(&self) {
-        if *self != Status::StatusSuccess {
+        if *self != Status::Success {
             panic!("Cairo error {:?}", *self)
         }
     }

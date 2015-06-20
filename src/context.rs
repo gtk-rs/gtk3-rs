@@ -151,7 +151,7 @@ impl Context {
     /// As an example, here is how one might fill and stroke a path with translucence, but
     /// without any portion of the fill being visible under the stroke:
     /// 
-    /// ```
+    /// ```ignore
     /// cr.push_group();
     /// cr.set_source (fill_pattern);
     /// cr.fill_preserve();
@@ -192,7 +192,7 @@ impl Context {
     /// 
     /// The behavior of this function is equivalent to the sequence of operations:
     /// 
-    /// ```
+    /// ```ignore
     /// let mut group = context.pop_group();
     /// context.set_source(group);
     /// ```
@@ -1298,7 +1298,7 @@ impl Context {
     /// the current transformation matrix by different amounts in the X and Y directions.
     /// For example, to draw an ellipse in the box given by x , y , width , height :
     /// 
-    /// ```
+    /// ```ignore
     /// cr.save();
     /// cr.translate(x + width / 2., y + height / 2.);
     /// cr.scale(width / 2., height / 2.);
@@ -1359,7 +1359,7 @@ impl Context {
     /// 
     /// This function is logically equivalent to:
     /// 
-    /// ```
+    /// ```ignore
     /// cr.move_to(, x, y);
     /// cr.rel_line_to(width, 0);
     /// cr.rel_line_to(0, height);

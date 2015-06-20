@@ -31,14 +31,14 @@ pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
     let pattern_type = unsafe{ ffi::cairo_pattern_get_type(ptr) };
 
     match pattern_type {
-        PatternType::PatternTypeSolid            => Box::new(SolidPattern::wrap(ptr))   as Box<Pattern>,
-        PatternType::PatternTypeSurface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
-        PatternType::PatternTypeLinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
-        PatternType::PatternTypeRadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
+        PatternType::Solid            => Box::new(SolidPattern::wrap(ptr))   as Box<Pattern>,
+        PatternType::Surface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
+        PatternType::LinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
+        PatternType::RadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
         #[cfg(feature = "cairo_1_12")]
-        PatternType::PatternTypeMesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
+        PatternType::Mesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
         #[cfg(feature = "cairo_1_12")]
-        PatternType::PatternTypeRasterSource     => panic!("Not implemented")
+        PatternType::RasterSource     => panic!("Not implemented")
     }
 }
 
@@ -91,7 +91,7 @@ pub trait Pattern {
     /// cases, it is convenient to use cairo_get_source() to get access to the pattern that cairo
     /// creates implicitly. For example:
     /// 
-    /// ```
+    /// ```ignore
     /// Context::set_source_surface(image, x, y);
     /// p.set_filter(Filter::nearest);
     /// ```
@@ -426,7 +426,7 @@ impl Mesh {
     /// Additional patches may be added with additional calls to
     /// Mesh::begin_patch()/Mesh::end_patch().
     /// 
-    /// ```
+    /// ```ignore
     /// let mut pattern = Mesh::new();
     /// /* Add a Coons patch */
     /// pattern.begin_patch();

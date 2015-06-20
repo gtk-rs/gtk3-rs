@@ -94,10 +94,10 @@ impl Iterator for PathSegments {
         let ref data = self.data;
 
         Some(match data_type {
-            PathDataType::PathMoveTo => PathSegment::MoveTo(*data.get(i+1).unwrap()),
-            PathDataType::PathLineTo => PathSegment::LineTo(*data.get(i+1).unwrap()),
-            PathDataType::PathCurveTo => PathSegment::CurveTo(*data.get(i+1).unwrap(), *data.get(i+2).unwrap(), *data.get(i+3).unwrap()),
-            PathDataType::PathClosePath => PathSegment::ClosePath
+            PathDataType::MoveTo => PathSegment::MoveTo(*data.get(i+1).unwrap()),
+            PathDataType::LineTo => PathSegment::LineTo(*data.get(i+1).unwrap()),
+            PathDataType::CurveTo => PathSegment::CurveTo(*data.get(i+1).unwrap(), *data.get(i+2).unwrap(), *data.get(i+3).unwrap()),
+            PathDataType::ClosePath => PathSegment::ClosePath
         })
     }
 }

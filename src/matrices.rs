@@ -67,7 +67,7 @@ impl MatrixTrait for Matrix {
     /// Sets self to be the affine transformation given by xx , yx , xy , yy , x0 , y0. The
     /// transformation is given by:
     ///
-    /// ```
+    /// ```ignore
     /// x_new = xx * x + xy * y + x0;
     /// y_new = yx * x + yy * y + y0;
     /// ```
@@ -118,7 +118,7 @@ impl MatrixTrait for Matrix {
     /// Matrix::transform_point() except that the translation components of the transformation
     /// are ignored. The calculation of the returned vector is as follows:
     ///
-    /// ```
+    /// ```ignore
     /// dx2 = dx1 * a + dy1 * c;
     /// dy2 = dx1 * b + dy1 * d;
     /// ```
