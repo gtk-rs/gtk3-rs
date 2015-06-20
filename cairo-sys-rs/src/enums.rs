@@ -408,9 +408,9 @@ pub enum PatternType {
     /// The pattern is a based on a surface (an image), since 1.2.
     Surface,
     /// The pattern is a linear gradient, since 1.2.
-    Linear,
+    LinearGradient,
     /// The pattern is a radial gradient, since 1.2.
-    Radial,
+    RadialGradient,
     /// The pattern is a mesh, since 1.12.
     #[cfg(feature = "cairo_1_12")]
     Mesh,
