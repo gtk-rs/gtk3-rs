@@ -8,8 +8,8 @@ use gtk::traits::*;
 use gtk::signal::Inhibit;
 use gtk::DrawingArea;
 
-use cairo::enums::FontSlant::FontSlantNormal;
-use cairo::enums::FontWeight::FontWeightNormal;
+use cairo::enums::FontSlant::Normal;
+use cairo::enums::FontWeight::Normal;
 use cairo::Context;
 
 fn main() {
