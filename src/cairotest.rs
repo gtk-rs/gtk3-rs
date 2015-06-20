@@ -8,8 +8,7 @@ use gtk::traits::*;
 use gtk::signal::Inhibit;
 use gtk::DrawingArea;
 
-use cairo::enums::FontSlant::Normal;
-use cairo::enums::FontWeight::Normal;
+use cairo::enums::{FontSlant, FontWeight};
 use cairo::Context;
 
 fn main() {
@@ -68,7 +67,7 @@ fn main() {
     drawable(500, 500, |_, cr: Context| {
         cr.scale(500f64, 500f64);
 
-        cr.select_font_face("Sans", FontSlantNormal, FontWeightNormal);
+        cr.select_font_face("Sans", FontSlant::Normal, FontWeight::Normal);
         cr.set_font_size(0.35);
 
         cr.move_to(0.04, 0.53);
