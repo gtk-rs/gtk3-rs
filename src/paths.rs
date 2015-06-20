@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! Creating paths and manipulating path data
+
 use std::mem::transmute;
 use std::iter::Iterator;
 use c_vec::CVec;
@@ -12,9 +14,11 @@ use ffi::{
 };
 use ffi;
 
+/// Paths are the most basic drawing tools and are primarily used to implicitly generate simple masks.
 pub struct Path(*mut cairo_path_t);
 
 impl Path {
+    #[doc(hidden)]
     pub fn get_ptr(&self) -> *mut cairo_path_t {
         let Path(ptr) = *self;
 
@@ -28,6 +32,7 @@ impl Path {
         }
     }
 
+    #[doc(hidden)]
     pub fn wrap(pointer: *mut cairo_path_t) -> Path {
         Path(pointer)
     }
@@ -89,10 +94,10 @@ impl Iterator for PathSegments {
         let ref data = self.data;
 
         Some(match data_type {
-            PathDataType::PathMoveTo => PathSegment::MoveTo(*data.get(i+1).unwrap()),
-            PathDataType::PathLineTo => PathSegment::LineTo(*data.get(i+1).unwrap()),
-            PathDataType::PathCurveTo => PathSegment::CurveTo(*data.get(i+1).unwrap(), *data.get(i+2).unwrap(), *data.get(i+3).unwrap()),
-            PathDataType::PathClosePath => PathSegment::ClosePath
+            PathDataType::MoveTo => PathSegment::MoveTo(*data.get(i+1).unwrap()),
+            PathDataType::LineTo => PathSegment::LineTo(*data.get(i+1).unwrap()),
+            PathDataType::CurveTo => PathSegment::CurveTo(*data.get(i+1).unwrap(), *data.get(i+2).unwrap(), *data.get(i+3).unwrap()),
+            PathDataType::ClosePath => PathSegment::ClosePath
         })
     }
 }
