@@ -19,6 +19,11 @@ impl StaticType for AppLaunchContext {
 }
 
 impl AppLaunchContext {
+    /// Creates a new AppLaunchContext.
+    pub fn new() -> AppLaunchContext {
+        unsafe { from_glib_full(ffi::gdk_app_launch_context_new()) }
+    }
+
     /// Sets the display on which applications will be launched when using this context. See also
     /// `AppLaunchContext::set_screen()`.
     pub fn set_display(&self, display: &Display) {
