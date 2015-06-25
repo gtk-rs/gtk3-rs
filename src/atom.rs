@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! Atoms — Functions to manipulate properties on windows
+
 use ffi;
 use glib::translate::*;
 
@@ -12,10 +14,12 @@ pub struct Atom(ffi::GdkAtom);
 pub const NONE: Atom = Atom(0 as *mut _);
 
 impl Atom {
+    /// Finds or creates an atom corresponding to a given string.
     pub fn intern(atom_name: &str) -> Atom {
         unsafe { Atom(ffi::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
     }
 
+    /// Determines the string corresponding to an atom.
     pub fn name(&self) -> String {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }
     }
