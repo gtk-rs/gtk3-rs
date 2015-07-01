@@ -16,9 +16,9 @@
 //! instantiated by the application. It is also used to access the keyboard(s) and mouse
 //! pointer(s) of the display.
 //!
-//! Most of the input device handling has been factored out into the separate DeviceManager
+//! Most of the input device handling has been factored out into the separate `DeviceManager`
 //! object. Every display has a device manager, which you can obtain using
-//! Display::get_device_manager().
+//! `Display::get_device_manager()`.
 
 use ffi;
 use glib::translate::*;
@@ -43,8 +43,8 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_open(display_name.to_glib_none().0)) }
     }
 
-    /// Gets the default Display. This is a convenience function for:
-    /// DisplayManager::get_default_display(DisplayManager::get()).
+    /// Gets the default `Display`. This is a convenience function for:
+    /// `DisplayManager::get_default_display(DisplayManager::get())`.
     pub fn get_default() -> Option<Display> {
         unsafe { from_glib_none(ffi::gdk_display_get_default()) }
     }
@@ -59,14 +59,14 @@ impl Display {
         unsafe { from_glib_none(ffi::gdk_display_get_screen(self.to_glib_none().0, screen_num)) }
     }
 
-    /// Get the default Screen for `self`.
+    /// Get the default `Screen` for `self`.
     pub fn get_default_screen(&self) -> Screen {
         unsafe {
             from_glib_none(ffi::gdk_display_get_default_screen(self.to_glib_none().0))
         }
     }
 
-    /// Returns the DeviceManager associated to `self`.
+    /// Returns the `DeviceManager` associated to `self`.
     pub fn get_device_manager(&self) -> Option<DeviceManager> {
         unsafe { from_glib_none(ffi::gdk_display_get_device_manager(self.to_glib_none().0)) }
     }
@@ -85,10 +85,10 @@ impl Display {
     }
 
     /// Flushes any requests queued for the windowing system and waits until all requests
-    /// have been handled. This is often used for making sure that the display is synchronized
-    /// with the current state of the program. Calling Display::sync() before
-    /// gdk::error_trap_pop() makes sure that any errors generated from earlier requests are
-    /// handled before the error trap is removed.
+    /// have been handled. This is often used for making sure that the display is
+    /// synchronized with the current state of the program. Calling `Display::sync()`
+    /// before `gdk::error_trap_pop()` makes sure that any errors generated from earlier
+    /// requests are handled before the error trap is removed.
     ///
     /// This is most useful for X11. On windowing systems where requests are handled
     /// synchronously, this function will do nothing.
@@ -96,20 +96,21 @@ impl Display {
         unsafe { ffi::gdk_display_sync(self.to_glib_none().0) }
     }
 
-    /// Flushes any requests queued for the windowing system; this happens automatically when
-    /// the main loop blocks waiting for new events, but if your application is drawing without
-    /// returning control to the main loop, you may need to call this function explicitly. A
-    /// common case where this function needs to be called is when an application is executing
-    /// drawing commands from a thread other than the thread where the main loop is running.
+    /// Flushes any requests queued for the windowing system; this happens automatically
+    /// when the main loop blocks waiting for new events, but if your application is drawing
+    /// without returning control to the main loop, you may need to call this function
+    /// explicitly. A common case where this function needs to be called is when an
+    /// application is executing drawing commands from a thread other than the thread where
+    /// the main loop is running.
     ///
-    /// This is most useful for X11. On windowing systems where requests are handled synchronously,
-    /// this function will do nothing.
+    /// This is most useful for X11. On windowing systems where requests are handled
+    /// synchronously, this function will do nothing.
     pub fn flush(&self) {
         unsafe { ffi::gdk_display_flush(self.to_glib_none().0) }
     }
 
-    /// Closes the connection to the windowing system for the given display, and cleans up
-    /// associated resources.
+    /// Closes the connection to the windowing system for the given display, and cleans
+    /// up associated resources.
     pub fn close(&self) {
         unsafe { ffi::gdk_display_close(self.to_glib_none().0) }
     }
@@ -148,28 +149,29 @@ impl Display {
         unsafe { from_glib(ffi::gdk_display_has_pending(self.to_glib_none().0)) }
     }
 
-    /// Sets the double click time (two clicks within this time interval count as a double click
-    /// and result in a GDK_2BUTTON_PRESS event). Applications should not set this, it is a global
-    /// user-configured setting.
+    /// Sets the double click time (two clicks within this time interval count as a
+    /// double click and result in a GDK_2BUTTON_PRESS event). Applications should not
+    /// set this, it is a global user-configured setting.
     pub fn set_double_click_time(&self, msec: u32) {
         unsafe { ffi::gdk_display_set_double_click_time(self.to_glib_none().0, msec) }
     }
 
-    /// Sets the double click distance (two clicks within this distance count as a double click and
-    /// result in a GDK_2BUTTON_PRESS event). See also Display::set_double_click_time(). Applications
-    /// should not set this, it is a global user-configured setting.
+    /// Sets the double click distance (two clicks within this distance count as a double
+    /// click and result in a GDK_2BUTTON_PRESS event). See also
+    /// `Display::set_double_click_time()`. Applications should not set this, it is a
+    /// global user-configured setting.
     pub fn set_double_click_distance(&self, msec: u32) {
         unsafe { ffi::gdk_display_set_double_click_distance(self.to_glib_none().0, msec) }
     }
 
-    /// Returns true if multicolored cursors are supported on `self`. Otherwise, cursors have only a
-    /// foerground and a background color.
+    /// Returns true if multicolored cursors are supported on `self`. Otherwise, cursors
+    /// have only a forground and a background color.
     pub fn supports_cursor_color(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_cursor_color(self.to_glib_none().0)) }
     }
 
-    /// Returns true if cursors can use an 8bit alpha channel on `self`. Otherwise, cursors are
-    /// restricted to bilevel alpha (i.e. a mask).
+    /// Returns true if cursors can use an 8bit alpha channel on `self`. Otherwise, cursors
+    /// are restricted to bilevel alpha (i.e. a mask).
     pub fn supports_cursor_alpha(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_cursor_alpha(self.to_glib_none().0)) }
     }
@@ -185,19 +187,19 @@ impl Display {
     }
 
     /// Returns the default group leader window for all toplevel windows on `self`. This
-    /// window is implicitly created by GDK. See Window::set_group().
+    /// window is implicitly created by GDK. See `Window::set_group()`.
     pub fn get_default_group(&self) -> Window {
         unsafe { from_glib_none(ffi::gdk_display_get_default_group(self.to_glib_none().0)) }
     }
 
-    /// Returns whether GdkEventOwnerChange events will be sent when the owner of a selection
-    /// changes.
+    /// Returns whether `EventOwnerChange` events will be sent when the owner of a
+    /// selection changes.
     pub fn supports_selection_notification(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_selection_notification(self.to_glib_none().0)) }
     }
 
-    /// Request GdkEventOwnerChange events for ownership changes of the selection named by the
-    /// given atom.
+    /// Request `EventOwnerChange` events for ownership changes of the selection named
+    /// by the given atom.
     pub fn request_selection_notification(&self, selection: &Atom) -> bool {
         unsafe {
             from_glib(
@@ -206,9 +208,9 @@ impl Display {
         }
     }
 
-    /// Returns whether the speicifed display supports clipboard persistance; i.e. if it’s
-    /// possible to store the clipboard data after an application has quit. On X11 this checks
-    /// if a clipboard daemon is running.
+    /// Returns whether the speicifed display supports clipboard persistance; i.e. if
+    /// it’s possible to store the clipboard data after an application has quit. On X11
+    /// this checks if a clipboard daemon is running.
     pub fn supports_clipboard_persistence(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_clipboard_persistence(self.to_glib_none().0)) }
     }
@@ -218,20 +220,20 @@ impl Display {
             targets.len() as c_int) }
     }*/
 
-    /// Returns true if Window::shape_combine_mask() can be used to create shaped windows on
-    /// `self`.
+    /// Returns true if `Window::shape_combine_mask()` can be used to create shaped windows
+    /// on `self`.
     pub fn supports_shapes(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_shapes(self.to_glib_none().0)) }
     }
 
-    /// Returns true if Window::input_shape_combine_mask() can be used to modify the input shape
-    /// of windows on `self`.
+    /// Returns true if `Window::input_shape_combine_mask()` can be used to modify the input
+    /// shape of windows on `self`.
     pub fn supports_input_shapes(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_input_shapes(self.to_glib_none().0)) }
     }
 
-    /// Returns true if Window::set_composited() can be used to redirect drawing on the window
-    /// using compositing.
+    /// Returns true if `Window::set_composited()` can be used to redirect drawing on the
+    /// window using compositing.
     ///
     /// Currently this only works on X11 with XComposite and XDamage extensions available.
     ///
@@ -240,17 +242,18 @@ impl Display {
         unsafe { from_glib(ffi::gdk_display_supports_composite(self.to_glib_none().0)) }
     }
 
-    /// Returns an AppLaunchContext suitable for launching applications on the given display.
+    /// Returns a `AppLaunchContext` suitable for launching applications on the given
+    /// display.
     pub fn get_app_launch_context(&self) -> AppLaunchContext {
         unsafe { from_glib_full(ffi::gdk_display_get_app_launch_context(self.to_glib_none().0)) }
     }
 
-    /// Indicates to the GUI environment that the application has finished loading, using a
-    /// given identifier.
+    /// Indicates to the GUI environment that the application has finished loading, using
+    /// a given identifier.
     ///
     /// GTK+ will call this function automatically for GtkWindow with custom startup-notification
-    /// identifier unless gtk::Window::set_auto_startup_notification() is called to disable that
-    /// feature.
+    /// identifier unless `gtk::Window::set_auto_startup_notification()` is called to disable
+    /// that feature.
     pub fn notify_startup_complete(&self, startup_id: &str) {
         unsafe {
             ffi::gdk_display_notify_startup_complete(self.to_glib_none().0,
