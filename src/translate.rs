@@ -171,18 +171,36 @@ impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
 impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     type Storage = CString;
 
+    #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const c_char, &'a str> {
         let tmp = CString::new(*self).unwrap();
         Stash(tmp.as_ptr(), tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        unsafe {
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as ffi::gsize)
+                as *const c_char
+        }
     }
 }
 
 impl <'a> ToGlibPtr<'a, *const c_char> for String {
     type Storage = CString;
 
+    #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const c_char, String> {
         let tmp = CString::new(&self[..]).unwrap();
         Stash(tmp.as_ptr(), tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        unsafe {
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as ffi::gsize)
+                as *const c_char
+        }
     }
 }
 
