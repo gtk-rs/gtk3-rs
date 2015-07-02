@@ -12,7 +12,7 @@ use gtk::traits::*;
 use gtk::signal::Inhibit;
 
 fn main() {
-    gtk::init();
+    gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
 
     let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
     window.set_title("Text File Viewer");

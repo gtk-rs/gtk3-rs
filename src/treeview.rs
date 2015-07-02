@@ -18,7 +18,7 @@ fn append_text_column(tree: &gtk::TreeView) {
 }
 
 fn main() {
-    gtk::init();
+    gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
 
     let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
 
