@@ -47,7 +47,7 @@
 //!     }
 //! ```
 
-use std::iter::IntoIterator;
+use std::collections::HashMap;
 use std::ffi::{CString, CStr};
 use std::mem;
 use std::ptr;
@@ -105,9 +105,6 @@ impl <T> Ptr for *mut T {
 /// }
 /// ```
 pub struct Stash<'a, P: Copy, T: ?Sized + ToGlibPtr<'a, P>> (pub P, pub <T as ToGlibPtr<'a, P>>::Storage);
-
-/// A `Stash` for iterators.
-pub struct IterStash<'a, P: Copy, T: ?Sized + IterToGlibPtr<'a, P>> (pub P, pub <T as IterToGlibPtr<'a, P>>::Storage);
 
 /// Translate a simple type.
 pub trait ToGlib {
@@ -171,50 +168,44 @@ impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
 impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     type Storage = CString;
 
+    #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const c_char, &'a str> {
         let tmp = CString::new(*self).unwrap();
         Stash(tmp.as_ptr(), tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        unsafe {
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as ffi::gsize)
+                as *const c_char
+        }
     }
 }
 
 impl <'a> ToGlibPtr<'a, *const c_char> for String {
     type Storage = CString;
 
+    #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const c_char, String> {
         let tmp = CString::new(&self[..]).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
-}
 
-/// Translate an iterator to a pointer.
-///
-/// See `ToGlibPtr`.
-pub trait IterToGlibPtr<'a, P: Copy> {
-    type Storage;
-
-    /// Transfer: none.
-    fn to_glib_none(&'a self) -> IterStash<P, Self>;
-
-    /// Transfer: container.
-    ///
-    /// Only give away the container ownership.
-    fn to_glib_container(&'a self) -> IterStash<P, Self> {
-        unimplemented!();
-    }
-
-    /// Transfer: full.
-    ///
-    /// We transfer the ownership to the foreign library.
-    fn to_glib_full(&'a self) -> P {
-        unimplemented!();
+    #[inline]
+    fn to_glib_full(&self) -> *const c_char {
+        unsafe {
+            ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as ffi::gsize)
+                as *const c_char
+        }
     }
 }
 
-impl <'a, S: AsRef<str>, I: ?Sized> IterToGlibPtr<'a, *const *const c_char> for I
-where &'a I: IntoIterator<Item = &'a S> {
+impl<'a, S: AsRef<str>> ToGlibPtr<'a, *const *const c_char> for &'a [S] {
     type Storage = PtrArray<'a, *const c_char, &'a str>;
 
-    fn to_glib_none(&'a self) -> IterStash<*const *const c_char, I> {
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *const *const c_char, Self> {
         let mut tmp_vec: Vec<_> =
             self.into_iter().map(|v| AsRef::<str>::as_ref(v).to_glib_none()).collect();
         let mut ptr_vec: Vec<_> =
@@ -223,15 +214,15 @@ where &'a I: IntoIterator<Item = &'a S> {
             let zero = mem::zeroed();
             ptr_vec.push(zero);
         }
-        IterStash(ptr_vec.as_ptr(), PtrArray(ptr_vec, tmp_vec))
+        Stash(ptr_vec.as_ptr(), PtrArray(ptr_vec, tmp_vec))
     }
 }
 
-impl <'a, P: Copy, T, I: ?Sized> IterToGlibPtr<'a, *mut P> for I
-where T: ToGlibPtr<'a, P>, &'a I: IntoIterator<Item = &'a T> {
+impl<'a, P: Copy, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for &'a [T] {
     type Storage = PtrArray<'a, P, T>;
 
-    fn to_glib_none(&'a self) -> IterStash<*mut P, I> {
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut P, Self> {
         let mut tmp_vec: Vec<_> =
             self.into_iter().map(|v| v.to_glib_none()).collect();
         let mut ptr_vec: Vec<_> =
@@ -240,17 +231,48 @@ where T: ToGlibPtr<'a, P>, &'a I: IntoIterator<Item = &'a T> {
             let zero = mem::zeroed();
             ptr_vec.push(zero);
         }
-        IterStash(ptr_vec.as_mut_ptr(), PtrArray(ptr_vec, tmp_vec))
+        Stash(ptr_vec.as_mut_ptr(), PtrArray(ptr_vec, tmp_vec))
     }
 }
 
 /// Temporary storage for passing a `NULL` terminated array of pointers.
 pub struct PtrArray<'a, P: Copy, T: ?Sized + ToGlibPtr<'a, P>> (Vec<P>, Vec<Stash<'a, P, T>>);
 
-impl <'a, P: Copy, T: ToGlibPtr<'a, P>> PtrArray<'a, P, T> {
+impl<'a, P: Copy, T: ToGlibPtr<'a, P>> PtrArray<'a, P, T> {
     /// Returns the length of the array not counting the `NULL` terminator.
     pub fn len(&self) -> usize {
         self.1.len()
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *mut ffi::GHashTable> for HashMap<String, String> {
+    type Storage = (HashTable);
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::GHashTable, Self> {
+        let ptr = self.to_glib_full();
+        Stash(ptr, HashTable(ptr))
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut ffi::GHashTable {
+        unsafe {
+            let ptr = ffi::g_hash_table_new_full(ffi::g_str_hash, ffi::g_str_equal, ffi::g_free,
+                                                 ffi::g_free);
+            for (k, v) in self {
+                    ffi::g_hash_table_insert(ptr, k.to_glib_full() as *mut _,
+                        v.to_glib_full() as *mut _);
+            }
+            ptr
+        }
+    }
+}
+
+pub struct HashTable(*mut ffi::GHashTable);
+
+impl Drop for HashTable {
+    fn drop(&mut self) {
+        unsafe { ffi::g_hash_table_unref(self.0) }
     }
 }
 
@@ -596,5 +618,63 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut ffi::GList> for Ve
             ffi::g_list_free(orig_ptr as *mut _);
         }
         res
+    }
+}
+
+unsafe extern "C" fn read_string_hash_table(key: ffi::gpointer, value: ffi::gpointer,
+                                            hash_map: ffi::gpointer) {
+    let key: String = from_glib_none(key as *const c_char);
+    let value: String = from_glib_none(value as *const c_char);
+    let hash_map: &mut HashMap<String, String> = mem::transmute(hash_map);
+    hash_map.insert(key, value);
+}
+
+impl FromGlibPtrContainer<*const c_char, *mut ffi::GHashTable> for HashMap<String, String> {
+    unsafe fn from_glib_none(ptr: *mut ffi::GHashTable) -> Self {
+        let mut map = HashMap::new();
+        ffi::g_hash_table_foreach(ptr, read_string_hash_table, mem::transmute(&mut map));
+        map
+    }
+
+    unsafe fn from_glib_none_num(ptr: *mut ffi::GHashTable, _: usize) -> Self {
+        FromGlibPtrContainer::from_glib_none(ptr)
+    }
+
+    unsafe fn from_glib_container(ptr: *mut ffi::GHashTable) -> Self {
+        FromGlibPtrContainer::from_glib_full(ptr)
+    }
+
+    unsafe fn from_glib_container_num(ptr: *mut ffi::GHashTable, _: usize) -> Self {
+        FromGlibPtrContainer::from_glib_full(ptr)
+    }
+
+    unsafe fn from_glib_full(ptr: *mut ffi::GHashTable) -> Self {
+        let map = FromGlibPtrContainer::from_glib_none(ptr);
+        ffi::g_hash_table_unref(ptr);
+        map
+    }
+
+    unsafe fn from_glib_full_num(ptr: *mut ffi::GHashTable, _: usize) -> Self {
+        FromGlibPtrContainer::from_glib_full(ptr)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::HashMap;
+    use ffi;
+    use super::*;
+
+    #[test]
+    fn string_hash_map() {
+        let mut map = HashMap::new();
+        map.insert("A".into(), "1".into());
+        map.insert("B".into(), "2".into());
+        map.insert("C".into(), "3".into());
+        let ptr: *mut ffi::GHashTable = map.to_glib_full();
+        let map = unsafe { HashMap::from_glib_full(ptr) };
+        assert_eq!(map.get("A"), Some(&"1".into()));
+        assert_eq!(map.get("B"), Some(&"2".into()));
+        assert_eq!(map.get("C"), Some(&"3".into()));
     }
 }

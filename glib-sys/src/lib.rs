@@ -23,9 +23,10 @@ pub type gpointer = *mut c_void;
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> gboolean;
 pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
-pub type GDestroyNotify = extern "C" fn(data: gpointer);
+pub type GDestroyNotify = unsafe extern "C" fn(data: gpointer);
 pub type GHashFunc = unsafe extern "C" fn(v: gconstpointer) -> c_uint;
 pub type GEqualFunc = unsafe extern "C" fn(v1: gconstpointer, v2: gconstpointer) -> gboolean;
+pub type GHFunc = unsafe extern "C" fn(key: gpointer, value: gpointer, user_data: gpointer);
 
 #[repr(C)]
 pub struct GAppInfo;
@@ -135,6 +136,10 @@ pub const G_TYPE_VARIANT: GType = 21 << G_TYPE_FUNDAMENTAL_SHIFT;
 extern "C" {
 
     pub fn g_free                          (ptr: gpointer);
+    //=========================================================================
+    // String
+    //=========================================================================
+    pub fn g_strndup                       (s: *const c_char, n: gsize) -> *mut c_char;
     //=========================================================================
     // GSList
     //=========================================================================
@@ -475,7 +480,10 @@ extern "C" {
     // GHashTable
     //=========================================================================
     pub fn g_hash_table_new         (hash_func: GHashFunc, key_equal_func: GEqualFunc) -> *mut GHashTable;
-//  pub fn g_hash_table_new_full    (hash_func: GHashFunc, key_equal_func: GEqualFunc, .. ) -> *mut GHashTable;
+    pub fn g_hash_table_new_full    (hash_func: GHashFunc,
+                                     key_equal_func: GEqualFunc,
+                                     key_destroy_func: GDestroyNotify,
+                                     value_destroy_func: GDestroyNotify) -> *mut GHashTable;
     pub fn g_hash_table_insert      (hash_table: *mut GHashTable, key: gpointer, value: gpointer) -> gboolean;
     pub fn g_hash_table_replace     (hash_table: *mut GHashTable, key: gpointer, value: gpointer) -> gboolean;
     pub fn g_hash_table_add         (hash_table: *mut GHashTable, key: gpointer) -> gboolean;
@@ -483,7 +491,7 @@ extern "C" {
     pub fn g_hash_table_size        (hash_table: *mut GHashTable) -> c_uint;
     pub fn g_hash_table_lookup      (hash_table: *mut GHashTable, key: gconstpointer) -> gpointer;
     pub fn g_hash_table_lookup_extended (hash_table: *mut GHashTable, lookup_key: gconstpointer, orig_key: gpointer, value: gpointer) -> gboolean;
-//  pub fn g_hash_table_foreach     ();
+    pub fn g_hash_table_foreach     (hash_table: *mut GHashTable, func: GHFunc, user_data: gpointer);
 //  pub fn g_hash_table_find        ();
     pub fn g_hash_table_remove      (hash_table: *mut GHashTable, key: gconstpointer) -> gboolean;
     pub fn g_hash_table_steal       (hash_table: *mut GHashTable, key: gconstpointer) -> gboolean;

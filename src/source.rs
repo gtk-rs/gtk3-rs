@@ -33,12 +33,10 @@ extern "C" fn trampoline(func: &RefCell<Box<FnMut() -> Continue + 'static>>) -> 
     func.borrow_mut().deref_mut()().to_glib()
 }
 
-extern "C" fn destroy_closure(ptr: gpointer) {
-    unsafe {
-        // Box::from_raw API stability workaround
-        let ptr = ptr as *mut RefCell<Box<FnMut() -> Continue + 'static>>;
-        let _: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = transmute(ptr);
-    }
+unsafe extern "C" fn destroy_closure(ptr: gpointer) {
+    // Box::from_raw API stability workaround
+    let ptr = ptr as *mut RefCell<Box<FnMut() -> Continue + 'static>>;
+    let _: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = transmute(ptr);
 }
 
 const PRIORITY_DEFAULT: i32 = 0;
