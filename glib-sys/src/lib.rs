@@ -23,7 +23,7 @@ pub type gpointer = *mut c_void;
 pub type GSourceFunc = extern "C" fn(user_data: gpointer) -> gboolean;
 pub type GCallback = extern "C" fn();
 pub type GClosureNotify = extern "C" fn(data: gpointer, closure: gpointer);
-pub type GDestroyNotify = extern "C" fn(data: gpointer);
+pub type GDestroyNotify = unsafe extern "C" fn(data: gpointer);
 pub type GHashFunc = unsafe extern "C" fn(v: gconstpointer) -> c_uint;
 pub type GEqualFunc = unsafe extern "C" fn(v1: gconstpointer, v2: gconstpointer) -> gboolean;
 
