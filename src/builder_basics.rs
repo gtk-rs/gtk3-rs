@@ -13,7 +13,7 @@ mod example {
     use gtk::Window;
 
     pub fn main() {
-        gtk::init();
+        gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
         let builder = Builder::new_from_file("./builder_basics.glade").unwrap();
         let window: Window = builder.get_object("window1").unwrap();
 
