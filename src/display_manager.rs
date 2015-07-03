@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! GdkDisplayManager — Maintains a list of all open GdkDisplays
 
 use glib::translate::*;
 use glib::types::{StaticType, Type};
@@ -10,6 +9,7 @@ use display::Display;
 use object::Object;
 use ffi;
 
+/// Maintains a list of all open GdkDisplays
 pub type DisplayManager = Object<ffi::GdkDisplayManager>;
 
 impl StaticType for DisplayManager {

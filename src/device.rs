@@ -47,7 +47,7 @@ impl Device {
     ///     g_settings_new_with_path(DEVICE_SCHEMA, path);
     /// }
     /// ```
-    #[cfg(feature = "gdk_3_16")]
+    #[cfg(gdk_3_16)]
     pub fn get_vendor_id(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0))
@@ -57,7 +57,7 @@ impl Device {
     /// Returns the product ID of this device, or None if this information couldn't be obtained. This
     /// ID is retrieved from the device, and is thus constant for it. See Device::get_vendor_id() for
     /// more information.
-    #[cfg(feature = "gdk_3_16")]
+    #[cfg(gdk_3_16)]
     pub fn get_vendor_id(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0))

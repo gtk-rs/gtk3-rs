@@ -56,7 +56,7 @@ use ffi;
 ///
 /// #Master and slave devices
 ///
-/// ``ìgnore
+/// ```ignore
 /// carlos@sacarino:~$ xinput list
 /// ⎡ Virtual core pointer                          id=2    [master pointer  (3)]
 /// ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
@@ -73,7 +73,7 @@ use ffi;
 ///     ↳ Integrated Camera                         id=9    [slave  keyboard (3)]
 ///     ↳ AT Translated Set 2 keyboard              id=12   [slave  keyboard (3)]
 ///     ↳ ThinkPad Extra Buttons                    id=15   [slave  keyboard (3)]
-///
+/// ```
 ///
 /// By default, GDK will automatically listen for events coming from all master devices, setting the
 /// Device for all events coming from input devices. Events containing device information are
