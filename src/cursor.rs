@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Cursors — Standard and pixmap cursors
-
 use glib::translate::*;
 use glib::types;
 use display::Display;
@@ -13,6 +11,7 @@ use ffi;
 
 pub type Type = ffi::GdkCursorType;
 
+/// Cursors — Standard and pixmap cursors
 pub type Cursor = Object<ffi::GdkCursor>;
 
 impl types::StaticType for Cursor {

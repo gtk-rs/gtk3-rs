@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Application launching — Startup notification for applications
-
 use glib::translate::*;
 use glib::types::{StaticType, Type};
 use object::Object;
@@ -12,6 +10,7 @@ use display::Display;
 use ffi;
 
 // FIXME: should inherit from GAppLaunchContext
+/// Application launching — Startup notification for applications
 pub type AppLaunchContext = Object<ffi::GdkAppLaunchContext>;
 
 impl StaticType for AppLaunchContext {

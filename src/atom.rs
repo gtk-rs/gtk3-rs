@@ -2,11 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Atoms — Functions to manipulate properties on windows
-
 use ffi;
 use glib::translate::*;
 
+/// Atoms — Functions to manipulate properties on windows
 #[allow(raw_pointer_derive)]
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Atom(ffi::GdkAtom);

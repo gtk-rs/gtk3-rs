@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! GdkDevice — Object representing an input device
-
 use glib::translate::*;
 use glib::types;
 use cursor::Cursor;
@@ -15,6 +13,7 @@ use ffi;
 
 pub type Type = ffi::GdkDeviceType;
 
+/// Object representing an input device
 pub type Device = Object<ffi::GdkDevice>;
 
 impl types::StaticType for Device {
