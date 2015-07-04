@@ -21,7 +21,7 @@ fn main() {
 
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5).unwrap();
 
-    hbox.set_homogeneouse(true);
+    hbox.set_homogeneous(true);
     hbox.add(&spin_button);
     hbox.add(&slider);
 
