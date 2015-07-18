@@ -1,6 +1,6 @@
 [package]
 name = "glib-sys"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["The Rust-GNOME Project Developers"]
 build = "build.rs"
 links = "glib"
