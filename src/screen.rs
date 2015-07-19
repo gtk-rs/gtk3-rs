@@ -120,7 +120,7 @@ impl Screen {
         }
     }
 
-    #[cfg(feature = "gdk_3_10")]
+    #[cfg(gdk_3_10)]
     pub fn get_monitor_scale_factor(&self, monitor_num: i32) -> i32 {
         unsafe { ffi::gdk_screen_get_monitor_scale_factor(self.to_glib_none().0, monitor_num) }
     }

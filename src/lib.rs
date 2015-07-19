@@ -31,9 +31,9 @@ pub mod device_manager;
 pub mod display;
 pub mod display_manager;
 pub mod drag_context;
-#[cfg(feature = "gdk_3_8")]
+#[cfg(gdk_3_8)]
 pub mod frame_clock;
-#[cfg(feature = "gdk_3_8")]
+#[cfg(gdk_3_8)]
 pub mod frame_timings;
 pub mod pixbuf;
 pub mod rgba;
@@ -61,7 +61,7 @@ pub use self::rt::{
     error_trap_pop,
     error_trap_pop_ignored
 };
-#[cfg(feature = "gdk_3_10")]
+#[cfg(gdk_3_10)]
 pub use self::rt::set_allowed_backends;
 
 pub use app_launch_context::AppLaunchContext;
@@ -72,9 +72,9 @@ pub use device_manager::DeviceManager;
 pub use display::Display;
 pub use display_manager::DisplayManager;
 pub use drag_context::DragContext;
-#[cfg(feature = "gdk_3_8")]
+#[cfg(gdk_3_8)]
 pub use frame_clock::FrameClock;
-#[cfg(feature = "gdk_3_8")]
+#[cfg(gdk_3_8)]
 pub use frame_timings::FrameTimings;
 pub use pixbuf::Pixbuf;
 pub use pixbuf::animation::PixbufAnimation;

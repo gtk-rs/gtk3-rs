@@ -16,14 +16,6 @@ keywords = ["gdk", "ffi", "gtk", "gnome"]
 [lib]
 name = "gdk_sys"
 
-[features]
-gdk_3_4 = []
-gdk_3_6 = ["gdk_3_4"]
-gdk_3_8 = ["gdk_3_6"]
-gdk_3_10 = ["gdk_3_8"]
-gdk_3_12 = ["gdk_3_10"]
-gdk_3_14 = ["gdk_3_12"]
-
 [dependencies.glib-sys]
 git  = "https://github.com/rust-gnome/glib"
 
@@ -35,4 +27,4 @@ bitflags = "0.1"
 libc = "0.1"
 
 [build-dependencies]
-pkg-config = "0.3"
+pkg-config = "0.3.5"

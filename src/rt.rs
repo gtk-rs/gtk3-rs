@@ -36,7 +36,7 @@ pub fn notify_startup_complete_with_id(startup_id: &str) {
     }
 }
 
-#[cfg(feature = "gdk_3_10")]
+#[cfg(gdk_3_10)]
 pub fn set_allowed_backends(backends: &str) {
     unsafe {
         ffi::gdk_set_allowed_backends(backends.to_glib_none().0)
