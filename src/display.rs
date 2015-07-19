@@ -236,7 +236,6 @@ impl Display {
     /// Currently this only works on X11 with XComposite and XDamage extensions available.
     ///
     /// Deprecated since GDK 3.16
-    #[cfg(not(gdk_3_16))]
     pub fn supports_composite(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_composite(self.to_glib_none().0)) }
     }
