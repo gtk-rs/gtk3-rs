@@ -11,8 +11,8 @@ gtk = "^0"
 cairo-rs = "^0"
 
 [features]
-gtk_3_10 = ["gtk/gtk_3_10"]
-gtk_3_14 = ["gtk/gtk_3_14", "gtk_3_10"]
+gtk_3_10 = []
+gtk_3_14 = ["gtk_3_10"]
 
 [[bin]]
 name = "basic"
