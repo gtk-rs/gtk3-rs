@@ -16,12 +16,8 @@ keywords = ["cairo", "ffi", "gtk", "gnome"]
 [lib]
 name = "cairo_sys"
 
-[features]
-cairo_1_10 = []
-cairo_1_12 = []
-
 [dependencies]
 libc = "0.1"
 
 [build-dependencies]
-pkg-config = "0.3"
+pkg-config = "0.3.5"
