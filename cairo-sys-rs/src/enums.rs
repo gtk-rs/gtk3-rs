@@ -412,10 +412,10 @@ pub enum PatternType {
     /// The pattern is a radial gradient, since 1.2.
     RadialGradient,
     /// The pattern is a mesh, since 1.12.
-    #[cfg(feature = "cairo_1_12")]
+    #[cfg(cairo_1_12)]
     Mesh,
     /// The pattern is a user pattern providing raster data, since 1.12.
-    #[cfg(feature = "cairo_1_12")]
+    #[cfg(cairo_1_12)]
     RasterSource
 }
 

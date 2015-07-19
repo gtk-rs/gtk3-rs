@@ -52,7 +52,7 @@ pub use self::patterns::{
     SurfacePattern,
 };
 
-#[cfg(feature = "cairo_1_12")]
+#[cfg(cairo_1_12)]
 pub use self::patterns::{
     Mesh,
     MeshCorner,

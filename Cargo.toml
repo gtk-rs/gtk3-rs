@@ -2,6 +2,7 @@
 name = "cairo-rs"
 version = "0.0.4"
 authors = ["The Rust-GNOME Project Developers"]
+build = "build.rs"
 
 description = "Rust bindings for the Cairo library"
 repository = "https://github.com/rust-gnome/cairo"
@@ -17,9 +18,8 @@ keywords = ["cairo", "gtk", "gnome", "GUI"]
 name = "cairo"
 
 [features]
-default = ["cairo_1_10"]
-cairo_1_10 = ["cairo-sys-rs/cairo_1_10"]
-cairo_1_12 = ["cairo-sys-rs/cairo_1_12", "cairo_1_10"]
+cairo_1_10 = []
+cairo_1_12 = []
 
 [dependencies.cairo-sys-rs]
 path = "./cairo-sys-rs"
