@@ -1,0 +1,6 @@
+[submodule "gir"]
+	path = gir
+	url = https://github.com/gkoz/gir
+[submodule "gir-files"]
+	path = gir-files
+	url = https://github.com/gkoz/gir-files
