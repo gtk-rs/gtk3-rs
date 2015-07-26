@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi;
+use gobject_ffi;
 
 pub trait FFIGObject {
-    fn unwrap_gobject(&self) -> *mut ffi::GObject;
-    fn wrap_object(object: *mut ffi::GObject) -> Self;
+    fn unwrap_gobject(&self) -> *mut gobject_ffi::GObject;
+    fn wrap_object(object: *mut gobject_ffi::GObject) -> Self;
 }

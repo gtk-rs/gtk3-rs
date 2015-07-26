@@ -5,10 +5,10 @@
 //! GPermission — An object representing the permission to perform a certain action
 
 use glib_container::GlibContainer;
-use ffi;
+use gio_ffi;
 
 pub struct Permission {
-    pointer: *mut ffi::GPermission
+    pointer: *mut gio_ffi::GPermission
 }
 
 impl Permission {
@@ -16,7 +16,7 @@ impl Permission {
     /// currently has permission to perform the action that permission represents the
     /// permission to perform.
     pub fn get_allowed(&self) -> bool {
-        match unsafe { ffi::g_permission_get_allowed(self.pointer) } {
+        match unsafe { gio_ffi::g_permission_get_allowed(self.pointer) } {
             0 => false,
             _ => true
         }
@@ -25,7 +25,7 @@ impl Permission {
     /// Gets the value of the 'can-acquire' property. This property is true if it is
     /// generally possible to acquire the permission by calling g_permission_acquire().
     pub fn get_can_acquire(&self) -> bool {
-        match unsafe { ffi::g_permission_get_can_acquire(self.pointer) } {
+        match unsafe { gio_ffi::g_permission_get_can_acquire(self.pointer) } {
             0 => false,
             _ => true
         }
@@ -34,7 +34,7 @@ impl Permission {
     /// Gets the value of the 'can-release' property. This property is true if it is
     /// generally possible to release the permission by calling g_permission_release().
     pub fn get_can_release(&self) -> bool {
-        match unsafe { ffi::g_permission_get_can_release(self.pointer) } {
+        match unsafe { gio_ffi::g_permission_get_can_release(self.pointer) } {
             0 => false,
             _ => true
         }
@@ -46,7 +46,7 @@ impl Permission {
     /// 
     /// GObject notify signals are generated, as appropriate.
     pub fn impl_update(&self, allowed: bool, can_acquire: bool, can_release: bool) {
-        unsafe { ffi::g_permission_impl_update(self.pointer,
+        unsafe { gio_ffi::g_permission_impl_update(self.pointer,
             if allowed == true { 1 } else { 0 },
             if can_acquire == true { 1 } else { 0 },
             if can_release == true { 1 } else { 0 }) }
@@ -59,14 +59,14 @@ impl Permission {
     }
 }*/
 
-impl GlibContainer<*mut ffi::GPermission> for Permission {
-    fn wrap(pointer: *mut ffi::GPermission) -> Permission {
+impl GlibContainer<*mut gio_ffi::GPermission> for Permission {
+    fn wrap(pointer: *mut gio_ffi::GPermission) -> Permission {
         Permission {
             pointer: pointer
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::GPermission {
+    fn unwrap(&self) -> *mut gio_ffi::GPermission {
         self.pointer
     }
 }

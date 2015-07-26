@@ -3,7 +3,8 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use translate::{FromGlib, ToGlib, from_glib};
-use ffi;
+use glib_ffi;
+use gobject_ffi;
 
 /// A GLib or GLib-based library type
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -65,74 +66,75 @@ pub trait InstanceType {
 }
 
 #[inline]
-pub fn instance_of<C: StaticType>(ptr: ffi::gconstpointer) -> bool {
+pub fn instance_of<C: StaticType>(ptr: glib_ffi::gconstpointer) -> bool {
     unsafe {
         from_glib(
-            ffi::g_type_check_instance_is_a(ptr, <C as StaticType>::static_type().to_glib()))
+            gobject_ffi::g_type_check_instance_is_a(
+                ptr as *mut _, <C as StaticType>::static_type().to_glib()))
     }
 }
 
-impl FromGlib<ffi::GType> for Type {
+impl FromGlib<glib_ffi::GType> for Type {
     #[inline]
-    fn from_glib(val: ffi::GType) -> Type {
+    fn from_glib(val: glib_ffi::GType) -> Type {
         use self::Type::*;
         match val {
-            ffi::G_TYPE_INVALID => Invalid,
-            ffi::G_TYPE_NONE => Unit,
-            ffi::G_TYPE_INTERFACE => BaseInterface,
-            ffi::G_TYPE_CHAR => I8,
-            ffi::G_TYPE_UCHAR => U8,
-            ffi::G_TYPE_BOOLEAN => Bool,
-            ffi::G_TYPE_INT => I32,
-            ffi::G_TYPE_UINT => U32,
-            ffi::G_TYPE_LONG => ISize,
-            ffi::G_TYPE_ULONG => USize,
-            ffi::G_TYPE_INT64 => I64,
-            ffi::G_TYPE_UINT64 => U64,
-            ffi::G_TYPE_ENUM => BaseEnum,
-            ffi::G_TYPE_FLAGS => BaseFlags,
-            ffi::G_TYPE_FLOAT => F32,
-            ffi::G_TYPE_DOUBLE => F64,
-            ffi::G_TYPE_STRING => String,
-            ffi::G_TYPE_POINTER => Pointer,
-            ffi::G_TYPE_BOXED => BaseBoxed,
-            ffi::G_TYPE_PARAM => BaseParamSpec,
-            ffi::G_TYPE_OBJECT => BaseObject,
-            ffi::G_TYPE_VARIANT => Variant,
+            gobject_ffi::G_TYPE_INVALID => Invalid,
+            gobject_ffi::G_TYPE_NONE => Unit,
+            gobject_ffi::G_TYPE_INTERFACE => BaseInterface,
+            gobject_ffi::G_TYPE_CHAR => I8,
+            gobject_ffi::G_TYPE_UCHAR => U8,
+            gobject_ffi::G_TYPE_BOOLEAN => Bool,
+            gobject_ffi::G_TYPE_INT => I32,
+            gobject_ffi::G_TYPE_UINT => U32,
+            gobject_ffi::G_TYPE_LONG => ISize,
+            gobject_ffi::G_TYPE_ULONG => USize,
+            gobject_ffi::G_TYPE_INT64 => I64,
+            gobject_ffi::G_TYPE_UINT64 => U64,
+            gobject_ffi::G_TYPE_ENUM => BaseEnum,
+            gobject_ffi::G_TYPE_FLAGS => BaseFlags,
+            gobject_ffi::G_TYPE_FLOAT => F32,
+            gobject_ffi::G_TYPE_DOUBLE => F64,
+            gobject_ffi::G_TYPE_STRING => String,
+            gobject_ffi::G_TYPE_POINTER => Pointer,
+            gobject_ffi::G_TYPE_BOXED => BaseBoxed,
+            gobject_ffi::G_TYPE_PARAM => BaseParamSpec,
+            gobject_ffi::G_TYPE_OBJECT => BaseObject,
+            gobject_ffi::G_TYPE_VARIANT => Variant,
             x => Other(x as usize),
         }
     }
 }
 
 impl ToGlib for Type {
-    type GlibType = ffi::GType;
+    type GlibType = glib_ffi::GType;
 
-    fn to_glib(&self) -> ffi::GType {
+    fn to_glib(&self) -> glib_ffi::GType {
         use self::Type::*;
         match *self {
-            Invalid => ffi::G_TYPE_INVALID,
-            Unit => ffi::G_TYPE_NONE,
-            BaseInterface => ffi::G_TYPE_INTERFACE,
-            I8 => ffi::G_TYPE_CHAR,
-            U8 => ffi::G_TYPE_UCHAR,
-            Bool => ffi::G_TYPE_BOOLEAN,
-            I32 => ffi::G_TYPE_INT,
-            U32 => ffi::G_TYPE_UINT,
-            ISize => ffi::G_TYPE_LONG,
-            USize => ffi::G_TYPE_ULONG,
-            I64 => ffi::G_TYPE_INT64,
-            U64 => ffi::G_TYPE_UINT64,
-            BaseEnum => ffi::G_TYPE_ENUM,
-            BaseFlags => ffi::G_TYPE_FLAGS,
-            F32 => ffi::G_TYPE_FLOAT,
-            F64 => ffi::G_TYPE_DOUBLE,
-            String => ffi::G_TYPE_STRING,
-            Pointer => ffi::G_TYPE_POINTER,
-            BaseBoxed => ffi::G_TYPE_BOXED,
-            BaseParamSpec => ffi::G_TYPE_PARAM,
-            BaseObject => ffi::G_TYPE_OBJECT,
-            Variant => ffi::G_TYPE_VARIANT,
-            Other(x) => x as ffi::GType,
+            Invalid => gobject_ffi::G_TYPE_INVALID,
+            Unit => gobject_ffi::G_TYPE_NONE,
+            BaseInterface => gobject_ffi::G_TYPE_INTERFACE,
+            I8 => gobject_ffi::G_TYPE_CHAR,
+            U8 => gobject_ffi::G_TYPE_UCHAR,
+            Bool => gobject_ffi::G_TYPE_BOOLEAN,
+            I32 => gobject_ffi::G_TYPE_INT,
+            U32 => gobject_ffi::G_TYPE_UINT,
+            ISize => gobject_ffi::G_TYPE_LONG,
+            USize => gobject_ffi::G_TYPE_ULONG,
+            I64 => gobject_ffi::G_TYPE_INT64,
+            U64 => gobject_ffi::G_TYPE_UINT64,
+            BaseEnum => gobject_ffi::G_TYPE_ENUM,
+            BaseFlags => gobject_ffi::G_TYPE_FLAGS,
+            F32 => gobject_ffi::G_TYPE_FLOAT,
+            F64 => gobject_ffi::G_TYPE_DOUBLE,
+            String => gobject_ffi::G_TYPE_STRING,
+            Pointer => gobject_ffi::G_TYPE_POINTER,
+            BaseBoxed => gobject_ffi::G_TYPE_BOXED,
+            BaseParamSpec => gobject_ffi::G_TYPE_PARAM,
+            BaseObject => gobject_ffi::G_TYPE_OBJECT,
+            Variant => gobject_ffi::G_TYPE_VARIANT,
+            Other(x) => x as glib_ffi::GType,
         }
     }
 }

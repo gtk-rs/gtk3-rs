@@ -8,8 +8,8 @@ Bindings and wrappers for __GLib__
 
 extern crate libc;
 extern crate glib_sys as glib_ffi;
-
-pub use glib_ffi as ffi;
+extern crate gobject_sys as gobject_ffi;
+extern crate gio_sys as gio_ffi;
 
 use libc::c_char;
 
@@ -40,15 +40,15 @@ pub mod object;
 pub mod types;
 pub mod date;
 
-pub fn to_gboolean(b: bool) -> ffi::gboolean {
+pub fn to_gboolean(b: bool) -> glib_ffi::gboolean {
     match b {
-        true => ffi::GTRUE,
-        false => ffi::GFALSE
+        true => glib_ffi::GTRUE,
+        false => glib_ffi::GFALSE
     }
 }
 
-pub fn to_bool(b: ffi::gboolean) -> bool {
-    b != ffi::GFALSE
+pub fn to_bool(b: glib_ffi::gboolean) -> bool {
+    b != glib_ffi::GFALSE
 }
 
 // An opaque structure used as the base of all interface types.
@@ -81,6 +81,6 @@ pub struct ParamSpec {
     g_type_instance: TypeInstance,
     name: *mut c_char,
     flags: ParamFlags,
-    value_type: ffi::GType,
-    owner_type: ffi::GType,
+    value_type: glib_ffi::GType,
+    owner_type: glib_ffi::GType,
 }
