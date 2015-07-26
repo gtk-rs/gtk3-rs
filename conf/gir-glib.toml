@@ -1,0 +1,29 @@
+[options]
+work_mode = "sys"
+girs_dir = "gir-files"
+library = "GLib"
+version = "2.0"
+min_cfg_version = "2.32"
+target_path = "glib-sys"
+ignore = [
+	"GLib.GINT64_FORMAT",
+	"GLib.GINT64_MODIFIER",
+	"GLib.GUINT64_FORMAT",
+	"GLib.GUINT64_MODIFIER",
+	"GLib.GINTPTR_FORMAT",
+	"GLib.GINTPTR_MODIFIER",
+	"GLib.GUINTPTR_FORMAT",
+	"GLib.GUINTPTR_MODIFIER",
+	"GLib.GSIZE_FORMAT",
+	"GLib.GSIZE_MODIFIER",
+	"GLib.GSSIZE_FORMAT",
+	"GLib.GSSIZE_MODIFIER",
+	"GLib.MININT8",
+	"GLib.MININT16",
+	"GLib.MININT32",
+	"GLib.SIZEOF_LONG",
+	"GLib.SIZEOF_SIZE_T",
+	"GLib.SIZEOF_SSIZE_T",
+	"GLib.SIZEOF_VOID_P",
+	"GLib.VA_COPY_AS_ARRAY",
+]

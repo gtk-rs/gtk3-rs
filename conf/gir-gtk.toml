@@ -1,0 +1,21 @@
+[options]
+work_mode = "sys"
+girs_dir = "gir-files"
+library = "Gtk"
+version = "3.0"
+min_cfg_version = "3.4"
+target_path = "gtk-sys"
+external_libraries = [
+   "GLib",
+   "GObject",
+   "Gio",
+   "Atk",
+   "GdkPixbuf",
+   "Gdk",
+   "Pango",
+   "Cairo",
+]
+
+ignore = [
+   "xlib.Window",
+]

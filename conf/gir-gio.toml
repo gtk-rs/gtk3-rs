@@ -1,0 +1,11 @@
+[options]
+work_mode = "sys"
+girs_dir = "gir-files"
+library = "Gio"
+version = "2.0"
+min_cfg_version = "2.32"
+target_path = "gio-sys"
+external_libraries = [
+   "GLib",
+   "GObject",
+]
