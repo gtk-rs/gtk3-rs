@@ -1,10 +1,9 @@
 [options]
-work_mode = "sys"
+work_mode = "normal"
 girs_dir = "gir-files"
 library = "Pango"
 version = "1.0"
 min_cfg_version = "1.30"
-target_path = "pango-sys"
 external_libraries = [
    "GLib",
    "GObject",
