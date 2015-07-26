@@ -16,11 +16,7 @@ keywords = ["pango", "gtk", "gnome"]
 [lib]
 name = "pango"
 
-[dependencies.pango-sys]
-path = "pango-sys"
-
-[dependencies.glib]
-git = "https://github.com/rust-gnome/glib"
-
 [dependencies]
+glib = { git = "https://github.com/rust-gnome/glib" }
 libc = "0.1"
+pango-sys  = { git = "https://github.com/rust-gnome/sys" }
