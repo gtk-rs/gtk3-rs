@@ -15,6 +15,8 @@ pub use self::notify_type::NotifyType;
 pub use self::scroll_direction::ScrollDirection;
 pub use self::visibility_state::VisibilityState;
 
+use ModifierType;
+
 pub mod event_type {
     #[repr(C)]
     #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -117,7 +119,7 @@ pub struct EventMotion {
     pub x : f64,
     pub y : f64,
     pub axes : *mut f64,
-    pub state : ::enums::modifier_type::ModifierType,
+    pub state : ModifierType,
     pub is_hint : i16,
     device : *mut ::Device,
     pub x_root : f64,
@@ -136,7 +138,7 @@ pub struct EventButton {
     pub x : f64,
     pub y : f64,
     pub axes : *mut f64,
-    pub state : ::enums::modifier_type::ModifierType,
+    pub state : ModifierType,
     pub button : u32,
     device : *mut ::Device,
     pub x_root : f64,
@@ -155,7 +157,7 @@ pub struct EventTouch {
     pub x : f64,
     pub y : f64,
     pub axes : *mut f64,
-    pub state : ::enums::modifier_type::ModifierType,
+    pub state : ModifierType,
     sequence : *mut c_void, //::EventSequence
     pub emulating_pointer : i32, // boolean
     device : *mut ::Device,
@@ -174,7 +176,7 @@ pub struct EventScroll {
     pub time : u32,
     pub x : f64,
     pub y : f64,
-    pub state : ::enums::modifier_type::ModifierType,
+    pub state : ModifierType,
     pub direction : ::ScrollDirection,
     device : *mut ::Device,
     pub x_root : f64,
@@ -192,7 +194,7 @@ pub struct EventKey {
     send_event : i8,
 
     pub time : u32,
-    pub state : ::enums::modifier_type::ModifierType,
+    pub state : ModifierType,
     pub keyval : u32,
     pub length : i32,
     pub string : *mut char,
@@ -218,7 +220,7 @@ pub struct EventCrossing {
     pub mode : ::CrossingMode,
     pub detail : ::NotifyType,
     pub focus : i32, // boolean
-    pub state : ::enums::modifier_type::ModifierType
+    pub state : ModifierType
 }
 
 impl Event for EventCrossing {}

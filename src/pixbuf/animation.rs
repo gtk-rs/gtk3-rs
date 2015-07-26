@@ -10,7 +10,7 @@ use glib::{Error, GlibContainer, TimeVal};
 use glib::translate::*;
 use glib::types::{StaticType, Type};
 use object::{Object, Upcast};
-use ffi;
+use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
 
 pub type PixbufAnimationIter = Object<ffi::GdkPixbufAnimationIter>;

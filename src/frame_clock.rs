@@ -10,7 +10,7 @@ use frame_timings::FrameTimings;
 use object::Object;
 use ffi;
 
-pub type Phase = ffi::enums::FrameClockPhase;
+pub type Phase = ffi::GdkFrameClockPhase;
 
 pub type FrameClock = Object<ffi::GdkFrameClock>;
 

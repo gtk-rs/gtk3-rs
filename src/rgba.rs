@@ -16,8 +16,6 @@ pub trait RGBA {
     fn black() -> GdkRGBA;
     fn copy(&self) -> GdkRGBA;
     fn parse(&mut self, spec: &str) -> bool;
-    fn equal(&self, other: &GdkRGBA) -> bool;
-    fn hash(&self) -> u32;
     fn to_string(&self) -> Option<String>;
 }
 
@@ -80,14 +78,6 @@ impl RGBA for GdkRGBA {
         unsafe {
             ::glib::to_bool(ffi::gdk_rgba_parse(self, spec.to_glib_none().0))
         }
-    }
-
-    fn equal(&self, other: &GdkRGBA) -> bool {
-        unsafe { ::glib::to_bool(ffi::gdk_rgba_equal(self, other)) }
-    }
-
-    fn hash(&self) -> u32 {
-        unsafe { ffi::gdk_rgba_hash(self) }
     }
 
     fn to_string(&self) -> Option<String> {

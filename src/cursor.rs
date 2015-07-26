@@ -11,7 +11,7 @@ use object::Object;
 use pixbuf::Pixbuf;
 use ffi;
 
-pub type Type = ffi::enums::CursorType;
+pub type Type = ffi::GdkCursorType;
 
 pub type Cursor = Object<ffi::GdkCursor>;
 
