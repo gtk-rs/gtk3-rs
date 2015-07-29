@@ -4,7 +4,7 @@
 
 //! The cairo drawing context
 
-use glib::translate::ToGlibPtr;
+use glib::translate::*;
 use c_vec::CVec;
 use std::mem::transmute;
 use libc::{c_double, c_int};
@@ -21,11 +21,11 @@ use ffi;
 
 use ffi::{
     cairo_t,
-    cairo_surface_t,
     cairo_rectangle_list_t,
 };
 use ffi::enums::{Status, Antialias, LineCap, LineJoin, FillRule};
 use ::patterns::{wrap_pattern, Pattern};
+use surface::Surface;
 
 pub struct RectangleVec {
     ptr: *mut cairo_rectangle_list_t,
@@ -43,15 +43,49 @@ impl Drop for RectangleVec {
 #[repr(C)]
 pub struct Context(*mut cairo_t);
 
-// Temporarily fix issue #210
-// For more info, see discussion at https://github.com/jeremyletang/rgtk/issues/210
-// impl Drop for Context {
-//     fn drop(&mut self) {
-//         unsafe {
-//             ffi::cairo_destroy(self.get_ptr())
-//         }
-//     }
-// }
+impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
+    type Storage = &'a Context;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_t, &'a Context> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtr<*mut ffi::cairo_t> for Context {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut ffi::cairo_t) -> Context {
+        assert!(!ptr.is_null());
+        ffi::cairo_reference(ptr);
+        Context(ptr)
+    }
+
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut ffi::cairo_t) -> Context {
+        assert!(!ptr.is_null());
+        Context(ptr)
+    }
+}
+
+impl AsRef<Context> for Context {
+    fn as_ref(&self) -> &Context {
+        self
+    }
+}
+
+impl Clone for Context {
+    fn clone(&self) -> Context {
+        unsafe { from_glib_none(self.to_glib_none().0) }
+    }
+}
+
+/* FIXME: disabled temporarily to breakage in dependent crates
+impl Drop for Context {
+    fn drop(&mut self) {
+        unsafe { ffi::cairo_destroy(self.0); }
+    }
+}
+*/
 
 impl Context {
     pub fn get_ptr(&self) -> *mut cairo_t {
@@ -62,16 +96,6 @@ impl Context {
     pub fn wrap(ptr: *mut cairo_t) -> Context {
         unsafe {
             Context(ffi::cairo_reference(ptr))
-        }
-    }
-
-    /// Increases the reference count on self by one. This prevents self from being destroyed
-    /// until a matching call to drop() is made.
-    /// 
-    /// The number of references to a cairo_t can be get using Context::get_reference_count().
-    pub fn reference(&self) -> Context {
-        unsafe {
-            Context(ffi::cairo_reference(self.get_ptr()))
         }
     }
 
@@ -86,16 +110,16 @@ impl Context {
     /// 
     /// This function references target , so you can immediately call Surface::drop() on
     /// it if you don't need to maintain a separate reference to it.
-    pub fn new(target: *mut cairo_surface_t) -> Context {
+    pub fn new<T: AsRef<Surface>>(target: &T) -> Context {
         unsafe {
-            Context(ffi::cairo_create(target))
+            from_glib_full(ffi::cairo_create(target.as_ref().to_glib_none().0))
         }
     }
 
     /// Checks whether an error has previously occurred for this context.
-    pub fn status (&self) -> Status {
+    pub fn status(&self) -> Status {
         unsafe {
-            ffi::cairo_status(self.get_ptr())
+            ffi::cairo_status(self.0)
         }
     }
 
@@ -108,23 +132,23 @@ impl Context {
     /// It isn't necessary to clear all saved states before a Context is freed. If the
     /// reference count of a Context drops to zero in response to a call to Context::drop(), any
     /// saved states will be freed along with the Context.
-    pub fn save (&self) {
+    pub fn save(&self) {
         unsafe {
-            ffi::cairo_save(self.get_ptr())
+            ffi::cairo_save(self.0)
         }
         self.ensure_status()
     }
 
     /// Restores self to the state saved by a preceding call to Context::save() and removes
     /// that state from the stack of saved states.
-    pub fn restore (&self) {
+    pub fn restore(&self) {
         unsafe {
-            ffi::cairo_restore(self.get_ptr())
+            ffi::cairo_restore(self.0)
         }
         self.ensure_status()
     }
 
-    //fn ffi::cairo_get_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
+    //fn ffi::cairo_get_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
 
     /// Temporarily redirects drawing to an intermediate surface known as a group. The
     /// redirection lasts until the group is completed by a call to Context::pop_group()
@@ -162,14 +186,14 @@ impl Context {
     /// ```
     pub fn push_group(&self) {
         unsafe {
-            ffi::cairo_push_group(self.get_ptr())
+            ffi::cairo_push_group(self.0)
         }
     }
 
     /*
     pub fn push_group_with_content(&self, content: Content){
         unsafe {
-            ffi::cairo_push_group_with_content(self.get_ptr(), content)
+            ffi::cairo_push_group_with_content(self.0, content)
         }
     }*/
 
@@ -182,7 +206,7 @@ impl Context {
     /// state will not be visible outside the group.
     pub fn pop_group(&self) -> Box<Pattern> {
         unsafe {
-            wrap_pattern(ffi::cairo_pop_group(self.get_ptr()))
+            wrap_pattern(ffi::cairo_pop_group(self.0))
         }
     }
 
@@ -205,11 +229,11 @@ impl Context {
     /// will not be visible outside the group.
     pub fn pop_group_to_source(&self) {
         unsafe {
-            ffi::cairo_pop_group_to_source(self.get_ptr())
+            ffi::cairo_pop_group_to_source(self.0)
         }
     }
 
-    //fn ffi::cairo_get_group_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
+    //fn ffi::cairo_get_group_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
 
     /// Sets the source pattern within self to an opaque color. This opaque color will then be
     /// used for any subsequent drawing operation until a new source pattern is set.
@@ -222,7 +246,7 @@ impl Context {
     /// Context::set_source_rgb(0.0, 0.0, 0.0)).
     pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
         unsafe {
-            ffi::cairo_set_source_rgb(self.get_ptr(), red, green, blue)
+            ffi::cairo_set_source_rgb(self.0, red, green, blue)
         }
     }
 
@@ -236,7 +260,7 @@ impl Context {
     /// Context::set_source_rgba(0.0, 0.0, 0.0, 1.0)).
     pub fn set_source_rgba(&self, red: f64, green: f64, blue: f64, alpha: f64) {
         unsafe {
-            ffi::cairo_set_source_rgba(self.get_ptr(), red, green, blue, alpha)
+            ffi::cairo_set_source_rgba(self.0, red, green, blue, alpha)
         }
     }
 
@@ -252,7 +276,7 @@ impl Context {
     /// equivalent to Context::set_source_rgb(0.0, 0.0, 0.0)).
     pub fn set_source(&self, source: &Pattern) {
         unsafe {
-            ffi::cairo_set_source(self.get_ptr(), source.get_ptr());
+            ffi::cairo_set_source(self.0, source.get_ptr());
         }
         self.ensure_status();
     }
@@ -260,11 +284,13 @@ impl Context {
     /// Gets the current source pattern for self.
     pub fn get_source(&self) -> Box<Pattern> {
         unsafe {
-            wrap_pattern(ffi::cairo_get_source(self.get_ptr()))
+            wrap_pattern(ffi::cairo_get_source(self.0))
         }
     }
 
-    //fn ffi::cairo_set_source_surface (cr: *mut cairo_t, surface: *mut cairo_surface_t, x: c_double, y: c_double);
+    pub fn set_source_surface<T: AsRef<Surface>>(&self, surface: &T, x: f64, y: f64) {
+        unsafe { ffi::cairo_set_source_surface(self.0, surface.as_ref().to_glib_none().0, x, y); }
+    }
 
     /// Set the antialiasing mode of the rasterizer used for drawing shapes. This value
     /// is a hint, and a particular backend may or may not support a particular value.
@@ -275,7 +301,7 @@ impl Context {
     /// FontOptions::set_antialias().
     pub fn set_antialias(&self, antialias : Antialias) {
         unsafe {
-            ffi::cairo_set_antialias(self.get_ptr(), antialias)
+            ffi::cairo_set_antialias(self.0, antialias)
         }
         self.ensure_status()
     }
@@ -283,7 +309,7 @@ impl Context {
     /// Gets the current shape antialiasing mode, as set by Context::set_antialias().
     pub fn get_antialias(&self) -> Antialias {
         unsafe {
-            ffi::cairo_get_antialias(self.get_ptr())
+            ffi::cairo_get_antialias(self.0)
         }
     }
 
@@ -308,7 +334,7 @@ impl Context {
     /// an error state with a status of Status::InvalidDash.
     pub fn set_dash(&self, dashes: &[f64], offset: f64) {
         unsafe {
-            ffi::cairo_set_dash(self.get_ptr(), dashes.as_ptr(), dashes.len() as i32, offset)
+            ffi::cairo_set_dash(self.0, dashes.as_ptr(), dashes.len() as i32, offset)
         }
         self.ensure_status(); //Possible invalid dashes value
     }
@@ -317,7 +343,7 @@ impl Context {
     /// currently in effect).
     pub fn get_dash_count(&self) -> i32 {
         unsafe {
-            ffi::cairo_get_dash_count(self.get_ptr())
+            ffi::cairo_get_dash_count(self.0)
         }
     }
 
@@ -329,7 +355,7 @@ impl Context {
         let mut offset: f64 = 0.0;
 
         unsafe {
-            ffi::cairo_get_dash(self.get_ptr(), dashes.as_mut_ptr(), &mut offset);
+            ffi::cairo_get_dash(self.0, dashes.as_mut_ptr(), &mut offset);
             dashes.set_len(dash_count);
             (dashes, offset)
         }
@@ -353,7 +379,7 @@ impl Context {
     /// The default fill rule is FillRule::Winding.
     pub fn set_fill_rule(&self, fill_rule : FillRule) {
         unsafe {
-            ffi::cairo_set_fill_rule(self.get_ptr(), fill_rule);
+            ffi::cairo_set_fill_rule(self.0, fill_rule);
         }
         self.ensure_status();
     }
@@ -361,7 +387,7 @@ impl Context {
     /// Gets the current fill rule, as set by Context::set_fill_rule().
     pub fn get_fill_rule(&self) -> FillRule {
         unsafe {
-            ffi::cairo_get_fill_rule(self.get_ptr())
+            ffi::cairo_get_fill_rule(self.0)
         }
     }
 
@@ -375,7 +401,7 @@ impl Context {
     /// The default line cap style is LineCap::Butt.
     pub fn set_line_cap(&self, arg: LineCap){
         unsafe {
-            ffi::cairo_set_line_cap(self.get_ptr(), arg)
+            ffi::cairo_set_line_cap(self.0, arg)
         }
         self.ensure_status();
     }
@@ -383,7 +409,7 @@ impl Context {
     /// Gets the current line cap style, as set by Context::set_line_cap().
     pub fn get_line_cap(&self) -> LineCap {
         unsafe {
-            ffi::cairo_get_line_cap(self.get_ptr())
+            ffi::cairo_get_line_cap(self.0)
         }
     }
 
@@ -397,7 +423,7 @@ impl Context {
     /// The default line join style is LineJoin::Miter.
     pub fn set_line_join(&self, arg: LineJoin) {
         unsafe {
-            ffi::cairo_set_line_join(self.get_ptr(), arg)
+            ffi::cairo_set_line_join(self.0, arg)
         }
         self.ensure_status();
     }
@@ -405,7 +431,7 @@ impl Context {
     /// Gets the current line join style, as set by Context::set_line_join().
     pub fn get_line_join(&self) -> LineJoin {
         unsafe {
-            ffi::cairo_get_line_join(self.get_ptr())
+            ffi::cairo_get_line_join(self.0)
         }
     }
 
@@ -427,7 +453,7 @@ impl Context {
     /// The default line width value is 2.0.
     pub fn set_line_width(&self, arg: f64) {
         unsafe {
-            ffi::cairo_set_line_width(self.get_ptr(), arg)
+            ffi::cairo_set_line_width(self.0, arg)
         }
         self.ensure_status();
     }
@@ -437,7 +463,7 @@ impl Context {
     /// between the calls to Context::set_line_width() and Context::get_line_width().
     pub fn get_line_width(&self) -> f64 {
         unsafe {
-            ffi::cairo_get_line_width(self.get_ptr())
+            ffi::cairo_get_line_width(self.0)
         }
     }
 
@@ -459,7 +485,7 @@ impl Context {
     /// A miter limit for a desired angle can be computed as: miter limit = 1/sin(angle/2)
     pub fn set_miter_limit(&self, arg: f64) {
         unsafe {
-            ffi::cairo_set_miter_limit(self.get_ptr(), arg)
+            ffi::cairo_set_miter_limit(self.0, arg)
         }
         self.ensure_status();
     }
@@ -467,7 +493,7 @@ impl Context {
     /// Gets the current miter limit, as set by Contextset_miter_limit().
     pub fn get_miter_limit(&self) -> f64 {
         unsafe {
-            ffi::cairo_get_miter_limit(self.get_ptr())
+            ffi::cairo_get_miter_limit(self.0)
         }
     }
 
@@ -481,7 +507,7 @@ impl Context {
     /// representable internal value.
     pub fn set_tolerance(&self, arg: f64) {
         unsafe {
-            ffi::cairo_set_tolerance(self.get_ptr(), arg)
+            ffi::cairo_set_tolerance(self.0, arg)
         }
         self.ensure_status();
     }
@@ -489,7 +515,7 @@ impl Context {
     /// Gets the current tolerance value, as set by Context::set_tolerance().
     pub fn get_tolerance(&self) -> f64 {
         unsafe {
-            ffi::cairo_get_tolerance(self.get_ptr())
+            ffi::cairo_get_tolerance(self.0)
         }
     }
 
@@ -509,7 +535,7 @@ impl Context {
     /// region is Context::reset_clip().
     pub fn clip(&self) {
         unsafe {
-            ffi::cairo_clip(self.get_ptr())
+            ffi::cairo_clip(self.0)
         }
     }
 
@@ -530,7 +556,7 @@ impl Context {
     /// the clip region is Context::reset_clip().
     pub fn clip_preserve(&self) {
         unsafe {
-            ffi::cairo_clip_preserve(self.get_ptr())
+            ffi::cairo_clip_preserve(self.0)
         }
     }
 
@@ -542,7 +568,7 @@ impl Context {
         let mut y2: f64 = 0.0;
 
         unsafe {
-            ffi::cairo_clip_extents(self.get_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
+            ffi::cairo_clip_extents(self.0, &mut x1, &mut y1, &mut x2, &mut y2);
         }
         (x1, y1, x2, y2)
     }
@@ -553,7 +579,7 @@ impl Context {
     /// See Context::clip(), and Context::clip_preserve().
     pub fn in_clip(&self, x:f64, y:f64) -> bool {
         unsafe {
-            ffi::cairo_in_clip(self.get_ptr(), x, y).as_bool()
+            ffi::cairo_in_clip(self.0, x, y).as_bool()
         }
     }
 
@@ -568,7 +594,7 @@ impl Context {
     /// means of temporarily restricting the clip region.
     pub fn reset_clip(&self) {
         unsafe {
-            ffi::cairo_reset_clip(self.get_ptr())
+            ffi::cairo_reset_clip(self.0)
         }
         self.ensure_status()
     }
@@ -580,7 +606,7 @@ impl Context {
     /// The status may have other values to indicate other errors.
     pub fn copy_clip_rectangle_list(&self) -> RectangleVec {
         unsafe {
-            let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.get_ptr());
+            let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0);
 
             (*rectangle_list).status.ensure_valid();
 
@@ -598,7 +624,7 @@ impl Context {
     /// Context::set_fill_rule() and Context::fill_preserve().
     pub fn fill(&self) {
         unsafe {
-            ffi::cairo_fill(self.get_ptr())
+            ffi::cairo_fill(self.0)
         }
     }
 
@@ -609,7 +635,7 @@ impl Context {
     /// See Context::set_fill_rule() and Context::fill().
     pub fn fill_preserve(&self) {
         unsafe {
-            ffi::cairo_fill_preserve(self.get_ptr())
+            ffi::cairo_fill_preserve(self.0)
         }
     }
 
@@ -633,7 +659,7 @@ impl Context {
         let mut y2: f64 = 0.0;
 
         unsafe {
-            ffi::cairo_fill_extents(self.get_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
+            ffi::cairo_fill_extents(self.0, &mut x1, &mut y1, &mut x2, &mut y2);
         }
         (x1, y1, x2, y2)
     }
@@ -645,7 +671,7 @@ impl Context {
     /// See Context::fill(), Context::set_fill_rule() and Context::fill_preserve().
     pub fn in_fill(&self, x:f64, y:f64) -> bool {
         unsafe {
-            ffi::cairo_in_fill(self.get_ptr(), x, y).as_bool()
+            ffi::cairo_in_fill(self.0, x, y).as_bool()
         }
     }
 
@@ -654,16 +680,16 @@ impl Context {
     /// areas are not painted.)
     pub fn mask(&self, pattern: &Pattern) {
         unsafe {
-            ffi::cairo_mask(self.get_ptr(), pattern.get_ptr())
+            ffi::cairo_mask(self.0, pattern.get_ptr())
         }
     }
 
-    //fn ffi::cairo_mask_surface (cr: *mut cairo_t, surface: *mut cairo_surface_t, surface_x: c_double, surface_y: c_double);
+    //fn ffi::cairo_mask_surface(cr: *mut cairo_t, surface: *mut cairo_surface_t, surface_x: c_double, surface_y: c_double);
 
     /// A drawing operator that paints the current source everywhere within the current clip region.
     pub fn paint(&self) {
         unsafe {
-            ffi::cairo_paint(self.get_ptr())
+            ffi::cairo_paint(self.0)
         }
     }
 
@@ -672,7 +698,7 @@ impl Context {
     /// the drawing is faded out using the alpha value.
     pub fn paint_with_alpha(&self, alpha: f64) {
         unsafe {
-            ffi::cairo_paint_with_alpha(self.get_ptr(), alpha)
+            ffi::cairo_paint_with_alpha(self.0, alpha)
         }
     }
 
@@ -699,7 +725,7 @@ impl Context {
     /// degenerate segments or sub-paths.
     pub fn stroke(&self) {
         unsafe {
-            ffi::cairo_stroke(self.get_ptr())
+            ffi::cairo_stroke(self.0)
         }
     }
 
@@ -711,7 +737,7 @@ impl Context {
     /// Context::set_dash(), and Context::stroke_preserve().
     pub fn stroke_preserve(&self) {
         unsafe {
-            ffi::cairo_stroke_preserve(self.get_ptr())
+            ffi::cairo_stroke_preserve(self.0)
         }
     }
 
@@ -737,7 +763,7 @@ impl Context {
         let mut y2: f64 = 0.0;
 
         unsafe {
-            ffi::cairo_stroke_extents(self.get_ptr(), &mut x1, &mut y1, &mut x2, &mut y2);
+            ffi::cairo_stroke_extents(self.0, &mut x1, &mut y1, &mut x2, &mut y2);
         }
         (x1, y1, x2, y2)
     }
@@ -750,7 +776,7 @@ impl Context {
     /// Context::set_line_cap(), Context::set_dash(), and Context::stroke_preserve().
     pub fn in_stroke(&self, x:f64, y:f64) -> bool {
         unsafe {
-            ffi::cairo_in_stroke(self.get_ptr(), x, y).as_bool()
+            ffi::cairo_in_stroke(self.0, x, y).as_bool()
         }
     }
 
@@ -762,7 +788,7 @@ impl Context {
     /// target.
     pub fn copy_page(&self) {
         unsafe {
-            ffi::cairo_copy_page(self.get_ptr())
+            ffi::cairo_copy_page(self.0)
         }
     }
 
@@ -773,14 +799,14 @@ impl Context {
     /// target.
     pub fn show_page(&self) {
         unsafe {
-            ffi::cairo_show_page(self.get_ptr())
+            ffi::cairo_show_page(self.0)
         }
     }
 
     /// Returns the current reference count of self.
     pub fn get_reference_count(&self) -> u32 {
         unsafe {
-            ffi::cairo_get_reference_count(self.get_ptr())
+            ffi::cairo_get_reference_count(self.0)
         }
     }
 
@@ -793,7 +819,7 @@ impl Context {
     /// transformation.
      pub fn translate(&self, tx: f64, ty: f64) {
         unsafe {
-            ffi::cairo_translate(self.get_ptr(), tx, ty)
+            ffi::cairo_translate(self.0, tx, ty)
         }
     }
 
@@ -802,7 +828,7 @@ impl Context {
     /// existing transformation of user space.
     pub fn scale(&self, sx: f64, sy: f64) {
         unsafe {
-            ffi::cairo_scale(self.get_ptr(), sx, sy)
+            ffi::cairo_scale(self.0, sx, sy)
         }
     }
 
@@ -812,7 +838,7 @@ impl Context {
     /// toward the positive Y axis.
     pub fn rotate(&self, angle: f64) {
         unsafe {
-            ffi::cairo_rotate(self.get_ptr(), angle)
+            ffi::cairo_rotate(self.0, angle)
         }
     }
 
@@ -827,7 +853,7 @@ impl Context {
     /// unit will transform to one device-space unit.
     pub fn identity_matrix(&self) {
         unsafe {
-            ffi::cairo_identity_matrix(self.get_ptr())
+            ffi::cairo_identity_matrix(self.0)
         }
     }
 
@@ -838,7 +864,7 @@ impl Context {
             let x_ptr: *mut c_double = transmute(Box::new(x));
             let y_ptr: *mut c_double = transmute(Box::new(y));
 
-            ffi::cairo_user_to_device(self.get_ptr(), x_ptr, y_ptr);
+            ffi::cairo_user_to_device(self.0, x_ptr, y_ptr);
 
             let x_box: Box<f64> = transmute(x_ptr);
             let y_box: Box<f64> = transmute(y_ptr);
@@ -855,7 +881,7 @@ impl Context {
             let dx_ptr: *mut c_double = transmute(Box::new(dx));
             let dy_ptr: *mut c_double = transmute(Box::new(dy));
 
-            ffi::cairo_user_to_device_distance(self.get_ptr(), dx_ptr, dy_ptr);
+            ffi::cairo_user_to_device_distance(self.0, dx_ptr, dy_ptr);
 
             let dx_box: Box<f64> = transmute(dx_ptr);
             let dy_box: Box<f64> = transmute(dy_ptr);
@@ -871,7 +897,7 @@ impl Context {
             let x_ptr: *mut c_double = transmute(Box::new(x));
             let y_ptr: *mut c_double = transmute(Box::new(y));
 
-            ffi::cairo_device_to_user(self.get_ptr(), x_ptr, y_ptr);
+            ffi::cairo_device_to_user(self.0, x_ptr, y_ptr);
 
             let x_box: Box<f64> = transmute(x_ptr);
             let y_box: Box<f64> = transmute(y_ptr);
@@ -888,7 +914,7 @@ impl Context {
             let dx_ptr: *mut c_double = transmute(Box::new(dx));
             let dy_ptr: *mut c_double = transmute(Box::new(dy));
 
-            ffi::cairo_device_to_user_distance(self.get_ptr(), dx_ptr, dy_ptr);
+            ffi::cairo_device_to_user_distance(self.0, dx_ptr, dy_ptr);
 
             let dx_box: Box<f64> = transmute(dx_ptr);
             let dy_box: Box<f64> = transmute(dy_ptr);
@@ -933,7 +959,7 @@ impl Context {
     /// Context::set_font_face().
     pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight) {
         unsafe {
-            ffi::cairo_select_font_face(self.get_ptr(), family.to_glib_none().0, slant, weight)
+            ffi::cairo_select_font_face(self.0, family.to_glib_none().0, slant, weight)
         }
     }
 
@@ -946,7 +972,7 @@ impl Context {
     /// Context::set_font_matrix() nor Context::set_scaled_font()), the default font size is 10.0.
     pub fn set_font_size(&self, size: f64) {
         unsafe {
-            ffi::cairo_set_font_size(self.get_ptr(), size)
+            ffi::cairo_set_font_size(self.0, size)
         }
     }
 
@@ -957,7 +983,7 @@ impl Context {
     // FIXME probably needs a heap allocation
     pub fn set_font_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_set_font_matrix(self.get_ptr(), &matrix)
+            ffi::cairo_set_font_matrix(self.0, &matrix)
         }
     }
 
@@ -965,7 +991,7 @@ impl Context {
     pub fn get_font_matrix(&self) -> Matrix {
         let mut matrix = <Matrix as MatrixTrait>::null();
         unsafe {
-            ffi::cairo_get_font_matrix(self.get_ptr(), &mut matrix);
+            ffi::cairo_get_font_matrix(self.0, &mut matrix);
         }
         matrix
     }
@@ -976,7 +1002,7 @@ impl Context {
     /// from the surface is used.
     pub fn set_font_options(&self, options: FontOptions) {
         unsafe {
-            ffi::cairo_set_font_options(self.get_ptr(), options.get_ptr())
+            ffi::cairo_set_font_options(self.0, options.get_ptr())
         }
     }
 
@@ -986,7 +1012,7 @@ impl Context {
     pub fn get_font_options(&self) -> FontOptions {
         let out = FontOptions::new();
         unsafe {
-            ffi::cairo_get_font_options(self.get_ptr(), out.get_ptr());
+            ffi::cairo_get_font_options(self.0, out.get_ptr());
         }
         out
     }
@@ -995,14 +1021,14 @@ impl Context {
     /// font face in the cairo_t will be destroyed if there are no other references to it.
     pub fn set_font_face(&self, font_face: FontFace) {
         unsafe {
-            ffi::cairo_set_font_face(self.get_ptr(), font_face.get_ptr())
+            ffi::cairo_set_font_face(self.0, font_face.get_ptr())
         }
     }
 
     /// Gets the current font face for a Context object.
     pub fn get_font_face(&self) -> FontFace {
         unsafe {
-            FontFace(ffi::cairo_get_font_face(self.get_ptr()))
+            FontFace(ffi::cairo_get_font_face(self.0))
         }
     }
 
@@ -1012,14 +1038,14 @@ impl Context {
     /// using Context::scaled_font_get_ctm().
     pub fn set_scaled_font(&self, scaled_font: ScaledFont) {
         unsafe {
-            ffi::cairo_set_scaled_font(self.get_ptr(), scaled_font.get_ptr())
+            ffi::cairo_set_scaled_font(self.0, scaled_font.get_ptr())
         }
     }
 
     /// Gets the current scaled font for a Context.
     pub fn get_scaled_font(&self) -> ScaledFont {
         unsafe {
-            ScaledFont(ffi::cairo_get_scaled_font(self.get_ptr()))
+            ScaledFont(ffi::cairo_get_scaled_font(self.0))
         }
     }
 
@@ -1043,13 +1069,13 @@ impl Context {
     /// Context::show_glyphs() for the "real" text display API in cairo.
     pub fn show_text(&self, text: &str) {
         unsafe {
-            ffi::cairo_show_text(self.get_ptr(), text.to_glib_none().0)
+            ffi::cairo_show_text(self.0, text.to_glib_none().0)
         }
     }
 
     pub fn show_glyphs(&self, glyphs: &[Glyph]) {
         unsafe {
-            ffi::cairo_show_glyphs(self.get_ptr(), glyphs.as_ptr(), glyphs.len() as c_int)
+            ffi::cairo_show_glyphs(self.0, glyphs.as_ptr(), glyphs.len() as c_int)
         }
     }
 
@@ -1061,7 +1087,7 @@ impl Context {
                             clusters: &[TextCluster],
                             cluster_flags: TextClusterFlags) {
         unsafe {
-            ffi::cairo_show_text_glyphs(self.get_ptr(),
+            ffi::cairo_show_text_glyphs(self.0,
                                         text.to_glib_none().0,
                                         -1 as c_int, //NULL terminated
                                         glyphs.as_ptr(),
@@ -1083,7 +1109,7 @@ impl Context {
         };
 
         unsafe {
-            ffi::cairo_font_extents(self.get_ptr(), &mut extents);
+            ffi::cairo_font_extents(self.0, &mut extents);
         }
 
         extents
@@ -1110,7 +1136,7 @@ impl Context {
         };
 
         unsafe {
-            ffi::cairo_text_extents(self.get_ptr(), text.to_glib_none().0, &mut extents);
+            ffi::cairo_text_extents(self.0, text.to_glib_none().0, &mut extents);
         }
         extents
     }
@@ -1133,7 +1159,7 @@ impl Context {
         };
 
         unsafe {
-            ffi::cairo_glyph_extents(self.get_ptr(), glyphs.as_ptr(), glyphs.len() as c_int, &mut extents);
+            ffi::cairo_glyph_extents(self.0, glyphs.as_ptr(), glyphs.len() as c_int, &mut extents);
         }
 
         extents
@@ -1153,7 +1179,7 @@ impl Context {
     /// the same status that would be returned by cairo_status().
     pub fn copy_path(&self) -> Path {
         unsafe {
-            Path::wrap(ffi::cairo_copy_path(self.get_ptr()))
+            Path::wrap(ffi::cairo_copy_path(self.0))
         }
     }
 
@@ -1175,7 +1201,7 @@ impl Context {
     /// the same status that would be returned by Context::status().
     pub fn copy_path_flat(&self) -> Path {
         unsafe {
-            Path::wrap(ffi::cairo_copy_path_flat(self.get_ptr()))
+            Path::wrap(ffi::cairo_copy_path_flat(self.0))
         }
     }
 
@@ -1185,7 +1211,7 @@ impl Context {
     /// be initialized, and note that path.status must be initialized to Status::Success.
     pub fn append_path(&self, path: &Path) {
         unsafe {
-            ffi::cairo_append_path(self.get_ptr(), path.get_ptr())
+            ffi::cairo_append_path(self.0, path.get_ptr())
         }
     }
 
@@ -1193,7 +1219,7 @@ impl Context {
     /// Context::get_current_point() for details on the current point.
     pub fn has_current_point(&self) -> bool {
         unsafe {
-            ffi::cairo_has_current_point(self.get_ptr()).as_bool()
+            ffi::cairo_has_current_point(self.0).as_bool()
         }
     }
 
@@ -1219,7 +1245,7 @@ impl Context {
         unsafe {
             let x = transmute(Box::new(0.0f64));
             let y = transmute(Box::new(0.0f64));
-            ffi::cairo_get_current_point(self.get_ptr(), x, y);
+            ffi::cairo_get_current_point(self.0, x, y);
             (*x, *y)
         }
     }
@@ -1227,7 +1253,7 @@ impl Context {
     /// Clears the current path. After this call there will be no path and no current point.
     pub fn new_path(&self) {
         unsafe {
-            ffi::cairo_new_path(self.get_ptr())
+            ffi::cairo_new_path(self.0)
         }
     }
 
@@ -1243,7 +1269,7 @@ impl Context {
     /// Context::move_to().
     pub fn new_sub_path(&self) {
         unsafe {
-            ffi::cairo_new_sub_path(self.get_ptr())
+            ffi::cairo_new_sub_path(self.0)
         }
     }
 
@@ -1269,7 +1295,7 @@ impl Context {
     /// CLOSE_PATH will provide that point.
     pub fn close_path(&self) {
         unsafe {
-            ffi::cairo_close_path(self.get_ptr())
+            ffi::cairo_close_path(self.0)
         }
     }
 
@@ -1307,7 +1333,7 @@ impl Context {
     /// ```
     pub fn arc(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
         unsafe {
-            ffi::cairo_arc(self.get_ptr(), xc, yc, radius, angle1, angle2)
+            ffi::cairo_arc(self.0, xc, yc, radius, angle1, angle2)
         }
     }
 
@@ -1320,7 +1346,7 @@ impl Context {
     /// of the arc between the two angles.
     pub fn arc_negative(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
         unsafe {
-            ffi::cairo_arc_negative(self.get_ptr(), xc, yc, radius, angle1, angle2)
+            ffi::cairo_arc_negative(self.0, xc, yc, radius, angle1, angle2)
         }
     }
 
@@ -1332,7 +1358,7 @@ impl Context {
     /// will behave as if preceded by a call to Context::move_to(cr , x1 , y1 ).
     pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
         unsafe {
-            ffi::cairo_curve_to(self.get_ptr(), x1, y1, x2, y2, x3, y3)
+            ffi::cairo_curve_to(self.0, x1, y1, x2, y2, x3, y3)
         }
     }
 
@@ -1343,14 +1369,14 @@ impl Context {
     /// will behave as cairo_move_to(cr , x , y ).
     pub fn line_to(&self, x: f64, y: f64) {
         unsafe {
-            ffi::cairo_line_to(self.get_ptr(), x, y)
+            ffi::cairo_line_to(self.0, x, y)
         }
     }
 
     /// Begin a new sub-path. After this call the current point will be (x , y ).
     pub fn move_to(&self, x: f64, y: f64) {
         unsafe {
-            ffi::cairo_move_to(self.get_ptr(), x, y)
+            ffi::cairo_move_to(self.0, x, y)
         }
     }
 
@@ -1368,7 +1394,7 @@ impl Context {
     /// ```
     pub fn rectangle(&self, x: f64, y: f64, width: f64, height: f64) {
         unsafe {
-            ffi::cairo_rectangle(self.get_ptr(), x, y, width, height)
+            ffi::cairo_rectangle(self.0, x, y, width, height)
         }
     }
 
@@ -1376,7 +1402,7 @@ impl Context {
     /// filled, achieves an effect similar to that of Context::show_glyphs().
     pub fn text_path(&self, str_: &str) {
         unsafe {
-            ffi::cairo_text_path(self.get_ptr(), str_.to_glib_none().0)
+            ffi::cairo_text_path(self.0, str_.to_glib_none().0)
         }
     }
 
@@ -1396,7 +1422,7 @@ impl Context {
     /// self to shutdown with a status of Status::NoCurrentPoint.
     pub fn rel_curve_to(&self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) {
         unsafe {
-            ffi::cairo_rel_curve_to(self.get_ptr(), dx1, dy1, dx2, dy2, dx3, dy3)
+            ffi::cairo_rel_curve_to(self.0, dx1, dy1, dx2, dy2, dx3, dy3)
         }
     }
 
@@ -1411,7 +1437,7 @@ impl Context {
     /// self to shutdown with a status of Status::NoCurrentPoint.
     pub fn rel_line_to(&self, dx: f64, dy: f64) {
         unsafe {
-            ffi::cairo_rel_line_to(self.get_ptr(), dx, dy)
+            ffi::cairo_rel_line_to(self.0, dx, dy)
         }
     }
 
@@ -1424,7 +1450,7 @@ impl Context {
     /// cause self to shutdown with a status of Status::NoCurrenPoint.
     pub fn rel_move_to(&self, dx: f64, dy: f64) {
         unsafe {
-            ffi::cairo_rel_move_to(self.get_ptr(), dx, dy)
+            ffi::cairo_rel_move_to(self.0, dx, dy)
         }
     }
 }

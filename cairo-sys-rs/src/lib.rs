@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-use libc::{c_int, c_uint, c_char, c_double, c_ulong};
+use libc::{c_void, c_int, c_uint, c_char, c_double, c_ulong};
 
 pub mod enums;
 
@@ -26,27 +26,27 @@ use enums::{
     Extend,
     Filter,
     PathDataType,
-    PatternType
+    PatternType,
+    Format,
+    SurfaceType,
 };
 
 #[repr(C)]
-pub struct cairo_t;
+pub struct cairo_t(c_void);
 #[repr(C)]
-pub struct cairo_surface_t;
+pub struct cairo_surface_t(c_void);
 #[repr(C)]
-pub struct cairo_pattern_t;
+pub struct cairo_pattern_t(c_void);
 #[repr(C)]
-pub struct cairo_fill_rule_t;
+pub struct cairo_fill_rule_t(c_void);
 #[repr(C)]
-pub struct cairo_antialias_t;
+pub struct cairo_antialias_t(c_void);
 #[repr(C)]
-pub struct cairo_destroy_func_t;
+pub struct cairo_line_join_t(c_void);
 #[repr(C)]
-pub struct cairo_line_join_t;
+pub struct cairo_line_cap_t(c_void);
 #[repr(C)]
-pub struct cairo_line_cap_t;
-#[repr(C)]
-pub struct cairo_operator_t;
+pub struct cairo_operator_t(c_void);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct cairo_rectangle_t {
@@ -70,11 +70,11 @@ pub struct cairo_rectangle_list_t {
     pub num_rectangles: c_int
 }
 #[repr(C)]
-pub struct cairo_content_t;
+pub struct cairo_content_t(c_void);
 #[repr(C)]
-pub struct cairo_path_t{
+pub struct cairo_path_t {
     pub status: Status,
-    pub data: *mut (c_double, c_double),
+    pub data: *mut [c_double; 2],
     pub num_data: c_int
 }
 #[repr(C)]
@@ -83,21 +83,21 @@ pub struct cairo_path_data_header{
     pub length:    c_int
 }
 #[repr(C)]
-pub struct cairo_glyph_t;
+pub struct cairo_glyph_t(c_void);
 #[repr(C)]
-pub struct cairo_region_t;
+pub struct cairo_region_t(c_void);
 #[repr(C)]
-pub struct cairo_font_face_t;
+pub struct cairo_font_face_t(c_void);
 #[repr(C)]
-pub struct cairo_scaled_font_t;
+pub struct cairo_scaled_font_t(c_void);
 #[repr(C)]
-pub struct cairo_font_options_t;
+pub struct cairo_font_options_t(c_void);
 #[repr(C)]
-pub struct cairo_extend_t;
+pub struct cairo_extend_t(c_void);
 #[repr(C)]
-pub struct cairo_filter_t;
+pub struct cairo_filter_t(c_void);
 #[repr(C)]
-pub struct cairo_region_overlap_t;
+pub struct cairo_region_overlap_t(c_void);
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct FontExtents {
@@ -143,6 +143,11 @@ pub struct Matrix {
     pub y0: c_double,
 }
 #[repr(C)]
+#[derive(Clone, Copy, Default)]
+pub struct cairo_user_data_key_t {
+    pub unused: c_int,
+}
+#[repr(C)]
 pub struct cairo_bool_t{
     value: c_int
 }
@@ -152,6 +157,8 @@ impl cairo_bool_t{
         self.value != 0
     }
 }
+
+pub type cairo_destroy_func_t = Option<unsafe extern fn (*mut c_void)>;
 
 extern "C" {
     //CAIRO CONTEXT
@@ -429,4 +436,22 @@ extern "C" {
     pub fn cairo_matrix_invert(matrix: *mut Matrix) -> Status;
     pub fn cairo_matrix_transform_distance(matrix: *const Matrix, dx: *mut f64, dy: *mut f64);
     pub fn cairo_matrix_transform_point(matrix: *const Matrix, x: *mut f64, y: *mut f64);
+
+    // CAIRO SURFACE
+    pub fn cairo_surface_destroy(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_flush(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_finish(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_get_type(surface: *mut cairo_surface_t) -> SurfaceType;
+    pub fn cairo_surface_reference(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
+    pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t) -> *mut c_void;
+    pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> Status;
+
+    // CAIRO IMAGE SURFACE
+    pub fn cairo_image_surface_create(format: Format, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_image_surface_create_for_data(data: *mut u8, format: Format, width: c_int, height: c_int, stride: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_image_surface_get_data(surface: *mut cairo_surface_t) -> *mut u8;
+    pub fn cairo_image_surface_get_format(surface: *mut cairo_surface_t) -> Format;
+    pub fn cairo_image_surface_get_height(surface: *mut cairo_surface_t) -> c_int;
+    pub fn cairo_image_surface_get_stride(surface: *mut cairo_surface_t) -> c_int;
+    pub fn cairo_image_surface_get_width(surface: *mut cairo_surface_t) -> c_int;
 }

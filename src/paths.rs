@@ -69,7 +69,7 @@ pub enum PathSegment {
 }
 
 pub struct PathSegments {
-    data: CVec<(f64, f64)>,
+    data: CVec<[f64; 2]>,
     i: usize,
     num_data: usize
 }
@@ -94,10 +94,17 @@ impl Iterator for PathSegments {
         let ref data = self.data;
 
         Some(match data_type {
-            PathDataType::MoveTo => PathSegment::MoveTo(*data.get(i+1).unwrap()),
-            PathDataType::LineTo => PathSegment::LineTo(*data.get(i+1).unwrap()),
-            PathDataType::CurveTo => PathSegment::CurveTo(*data.get(i+1).unwrap(), *data.get(i+2).unwrap(), *data.get(i+3).unwrap()),
+            PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(data.get(i + 1).unwrap())),
+            PathDataType::LineTo => PathSegment::LineTo(to_tuple(data.get(i + 1).unwrap())),
+            PathDataType::CurveTo => {
+                PathSegment::CurveTo(to_tuple(data.get(i + 1).unwrap()),
+                    to_tuple(data.get(i + 2).unwrap()), to_tuple(data.get(i + 3).unwrap()))
+            }
             PathDataType::ClosePath => PathSegment::ClosePath
         })
     }
+}
+
+fn to_tuple(pair: &[f64; 2]) -> (f64, f64) {
+    (pair[0], pair[1])
 }

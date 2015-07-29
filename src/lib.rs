@@ -37,7 +37,9 @@ pub use self::enums::{
     LineCap,
     LineJoin,
     Operator,
-    PathDataType
+    PathDataType,
+    Format,
+    SurfaceType,
 };
 
 pub use self::patterns::{
@@ -74,8 +76,15 @@ pub use self::matrices::{
     MatrixTrait,
 };
 
+pub use image_surface::ImageSurface;
+pub use surface::Surface;
+
+pub mod prelude;
+
 mod fonts;
 mod context;
+mod image_surface;
 mod paths;
 mod patterns;
+mod surface;
 mod matrices;
