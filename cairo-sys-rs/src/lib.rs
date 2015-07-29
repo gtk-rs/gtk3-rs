@@ -32,21 +32,21 @@ use enums::{
 };
 
 #[repr(C)]
-pub struct cairo_t;
+pub struct cairo_t(c_void);
 #[repr(C)]
-pub struct cairo_surface_t;
+pub struct cairo_surface_t(c_void);
 #[repr(C)]
-pub struct cairo_pattern_t;
+pub struct cairo_pattern_t(c_void);
 #[repr(C)]
-pub struct cairo_fill_rule_t;
+pub struct cairo_fill_rule_t(c_void);
 #[repr(C)]
-pub struct cairo_antialias_t;
+pub struct cairo_antialias_t(c_void);
 #[repr(C)]
-pub struct cairo_line_join_t;
+pub struct cairo_line_join_t(c_void);
 #[repr(C)]
-pub struct cairo_line_cap_t;
+pub struct cairo_line_cap_t(c_void);
 #[repr(C)]
-pub struct cairo_operator_t;
+pub struct cairo_operator_t(c_void);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct cairo_rectangle_t {
@@ -70,7 +70,7 @@ pub struct cairo_rectangle_list_t {
     pub num_rectangles: c_int
 }
 #[repr(C)]
-pub struct cairo_content_t;
+pub struct cairo_content_t(c_void);
 #[repr(C)]
 pub struct cairo_path_t{
     pub status: Status,
@@ -83,21 +83,21 @@ pub struct cairo_path_data_header{
     pub length:    c_int
 }
 #[repr(C)]
-pub struct cairo_glyph_t;
+pub struct cairo_glyph_t(c_void);
 #[repr(C)]
-pub struct cairo_region_t;
+pub struct cairo_region_t(c_void);
 #[repr(C)]
-pub struct cairo_font_face_t;
+pub struct cairo_font_face_t(c_void);
 #[repr(C)]
-pub struct cairo_scaled_font_t;
+pub struct cairo_scaled_font_t(c_void);
 #[repr(C)]
-pub struct cairo_font_options_t;
+pub struct cairo_font_options_t(c_void);
 #[repr(C)]
-pub struct cairo_extend_t;
+pub struct cairo_extend_t(c_void);
 #[repr(C)]
-pub struct cairo_filter_t;
+pub struct cairo_filter_t(c_void);
 #[repr(C)]
-pub struct cairo_region_overlap_t;
+pub struct cairo_region_overlap_t(c_void);
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct FontExtents {
