@@ -72,9 +72,9 @@ pub struct cairo_rectangle_list_t {
 #[repr(C)]
 pub struct cairo_content_t(c_void);
 #[repr(C)]
-pub struct cairo_path_t{
+pub struct cairo_path_t {
     pub status: Status,
-    pub data: *mut (c_double, c_double),
+    pub data: *mut [c_double; 2],
     pub num_data: c_int
 }
 #[repr(C)]
