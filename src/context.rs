@@ -40,7 +40,6 @@ impl Drop for RectangleVec {
     }
 }
 
-#[repr(C)]
 pub struct Context(*mut cairo_t);
 
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
@@ -79,26 +78,13 @@ impl Clone for Context {
     }
 }
 
-/* FIXME: disabled temporarily to breakage in dependent crates
 impl Drop for Context {
     fn drop(&mut self) {
         unsafe { ffi::cairo_destroy(self.0); }
     }
 }
-*/
 
 impl Context {
-    pub fn get_ptr(&self) -> *mut cairo_t {
-        let Context(ptr) = *self;
-        ptr
-    }
-
-    pub fn wrap(ptr: *mut cairo_t) -> Context {
-        unsafe {
-            Context(ffi::cairo_reference(ptr))
-        }
-    }
-
     pub fn ensure_status(&self) {
         self.status().ensure_valid();
     }
