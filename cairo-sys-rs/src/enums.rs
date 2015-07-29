@@ -12,7 +12,7 @@ use std::ffi::CStr;
 /// New entries may be added in future versions. Use `Context::status_to_string()` to get a
 /// human-readable representation of an error message.
 #[repr(C)]
-#[derive(Clone, PartialEq, PartialOrd, Copy)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum Status {
     /// no error has occurred (Since 1.0)
     Success = 0,
@@ -542,4 +542,45 @@ pub enum HintMetrics {
     Off,
     /// Hint font metrics, since 1.0
     On
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SurfaceType {
+    Image,
+    Pdf,
+    Ps,
+    Xlib,
+    Xcb,
+    Glitz,
+    Quartz,
+    Win32,
+    BeOs,
+    DirectFb,
+    Svg,
+    Os2,
+    Win32Printing,
+    QuartzImage,
+    Script,
+    Qt,
+    Recording,
+    Vg,
+    Gl,
+    Drm,
+    Tee,
+    Xml,
+    Skia,
+    Subsurface,
+    Cogl,
+}
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Format {
+    Invalid = -1,
+    ARgb32 = 0,
+    Rgb24 = 1,
+    A8 = 2,
+    A1 = 3,
+    Rgb16_565 = 4,
+    Rgb30 = 5,
 }
