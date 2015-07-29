@@ -54,13 +54,13 @@ pub trait ContextExt {
 
 impl ContextExt for Context {
     fn create_from_window(window: &Window) -> Context {
-        unsafe { Context::wrap(ffi::gdk_cairo_create(window.to_glib_none().0)) }
+        unsafe { from_glib_full(ffi::gdk_cairo_create(window.to_glib_none().0)) }
     }
 
     fn get_clip_rectangle(&self) -> Option<RectangleInt> {
         unsafe {
             let mut rectangle = mem::uninitialized();
-            if from_glib(ffi::gdk_cairo_get_clip_rectangle(self.get_ptr(), &mut rectangle)) {
+            if from_glib(ffi::gdk_cairo_get_clip_rectangle(self.to_glib_none().0, &mut rectangle)) {
                 Some(rectangle)
             } else {
                 None
@@ -69,19 +69,23 @@ impl ContextExt for Context {
     }
 
     fn set_source_rgba(&self, rgba: &GdkRGBA) {
-        unsafe { ffi::gdk_cairo_set_source_rgba(self.get_ptr(), rgba); }
+        unsafe { ffi::gdk_cairo_set_source_rgba(self.to_glib_none().0, rgba); }
     }
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64) {
-        unsafe { ffi::gdk_cairo_set_source_pixbuf(self.get_ptr(), pixbuf.to_glib_none().0, x, y); }
+        unsafe {
+            ffi::gdk_cairo_set_source_pixbuf(self.to_glib_none().0, pixbuf.to_glib_none().0, x, y);
+        }
     }
 
     fn set_source_window(&self, window: &Window, x: f64, y: f64) {
-        unsafe { ffi::gdk_cairo_set_source_window(self.get_ptr(), window.to_glib_none().0, x, y); }
+        unsafe {
+            ffi::gdk_cairo_set_source_window(self.to_glib_none().0, window.to_glib_none().0, x, y);
+        }
     }
 
     fn rectangle(&self, rectangle: &RectangleInt) {
-        unsafe { ffi::gdk_cairo_rectangle(self.get_ptr(), rectangle); }
+        unsafe { ffi::gdk_cairo_rectangle(self.to_glib_none().0, rectangle); }
     }
 }
 
