@@ -22,6 +22,7 @@ mod rectangle;
 mod rt;
 
 pub mod prelude;
+pub mod enums;
 
 pub mod app_launch_context;
 pub mod atom;
