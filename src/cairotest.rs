@@ -94,7 +94,7 @@ fn main() {
 
 pub fn drawable<F>(width: i32, height: i32, draw_fn: F)
 where F: Fn(Widget, Context) -> Inhibit + 'static {
-    let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
     let drawing_area = Box::new(DrawingArea::new)().unwrap();
 
     drawing_area.connect_draw(draw_fn);
