@@ -183,6 +183,23 @@ impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *mut c_char> for &'a str {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut c_char, &'a str> {
+        let tmp = CString::new(*self).unwrap();
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut c_char {
+        unsafe {
+            glib_ffi::g_strndup(self.as_ptr() as *mut c_char, self.len() as size_t)
+        }
+    }
+}
+
 impl <'a> ToGlibPtr<'a, *const c_char> for String {
     type Storage = CString;
 
@@ -201,13 +218,13 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
     }
 }
 
-impl<'a, S: AsRef<str>> ToGlibPtr<'a, *const *const c_char> for &'a [S] {
+impl<'a> ToGlibPtr<'a, *const *const c_char> for &'a [&'a str] {
     type Storage = PtrArray<'a, *const c_char, &'a str>;
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const *const c_char, Self> {
         let mut tmp_vec: Vec<_> =
-            self.into_iter().map(|v| AsRef::<str>::as_ref(v).to_glib_none()).collect();
+            self.into_iter().map(|v| v.to_glib_none()).collect();
         let mut ptr_vec: Vec<_> =
             tmp_vec.iter_mut().map(|v| v.0).collect();
         unsafe {
@@ -437,8 +454,7 @@ for Vec<T> {
         Vec::from_glib_none_num(ptr, num)
     }
 
-    unsafe fn from_glib_none_num(mut ptr: *const P,
-                         num: usize) -> Vec<T> {
+    unsafe fn from_glib_none_num(mut ptr: *const P, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -455,8 +471,7 @@ for Vec<T> {
         FromGlibPtrContainer::from_glib_container_num(ptr, num)
     }
 
-    unsafe fn from_glib_container_num(ptr: *const P,
-                             num: usize) -> Vec<T> {
+    unsafe fn from_glib_container_num(ptr: *const P, num: usize) -> Vec<T> {
         let res = FromGlibPtrContainer::from_glib_none_num(ptr, num);
         glib_ffi::g_free(ptr as *mut _);
         res
@@ -467,8 +482,7 @@ for Vec<T> {
         FromGlibPtrContainer::from_glib_full_num(ptr, num)
     }
 
-    unsafe fn from_glib_full_num(mut ptr: *const P,
-                       num: usize) -> Vec<T> {
+    unsafe fn from_glib_full_num(mut ptr: *const P, num: usize) -> Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -479,6 +493,34 @@ for Vec<T> {
         }
         glib_ffi::g_free(ptr as *mut _);
         res
+    }
+}
+
+impl <P: Ptr, T: FromGlibPtr<P>>
+FromGlibPtrContainer<P, *mut P>
+for Vec<T> {
+    unsafe fn from_glib_none(ptr: *mut P) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_none(ptr as *const P)
+    }
+
+    unsafe fn from_glib_none_num(ptr: *mut P, num: usize) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_none_num(ptr as *const P, num)
+    }
+
+    unsafe fn from_glib_container(ptr: *mut P) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_container(ptr as *const P)
+    }
+
+    unsafe fn from_glib_container_num(ptr: *mut P, num: usize) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_container_num(ptr as *const P, num)
+    }
+
+    unsafe fn from_glib_full(ptr: *mut P) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_full(ptr as *const P)
+    }
+
+    unsafe fn from_glib_full_num(ptr: *mut P, num: usize) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_full_num(ptr as *const P, num)
     }
 }
 
