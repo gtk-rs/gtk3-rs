@@ -111,7 +111,7 @@ impl Pixbuf {
 
         let mut error = ptr::null_mut();
         let tmp = unsafe {
-            ffi::gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
+            gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
                 to_gboolean(preserve_aspect_ratio), &mut error)
         };
 
