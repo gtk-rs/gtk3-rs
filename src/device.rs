@@ -13,7 +13,7 @@ use screen::Screen;
 use window::Window;
 use ffi;
 
-pub type Type = ffi::enums::DeviceType;
+pub type Type = ffi::GdkDeviceType;
 
 pub type Device = Object<ffi::GdkDevice>;
 
@@ -33,7 +33,7 @@ impl Device {
     }
 
     pub fn set_mode(&self, mode: ::InputMode) {
-        unsafe { ffi::gdk_device_set_mode(self.to_glib_none().0, mode) }
+        unsafe { ffi::gdk_device_set_mode(self.to_glib_none().0, mode); }
     }
 
     pub fn get_mode(&self) -> ::InputMode {

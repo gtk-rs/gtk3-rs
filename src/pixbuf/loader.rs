@@ -5,11 +5,12 @@
 //! GdkPixbufLoader — Application-driven progressive image loading.
 
 use std::ptr;
+use libc::size_t;
 use glib::{Error, GlibContainer};
 use glib::translate::*;
 use glib::types::{StaticType, Type};
 use object::Object;
-use ffi;
+use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
 use super::animation::PixbufAnimation;
 use super::format::PixbufFormat;
@@ -111,8 +112,8 @@ impl PixbufLoader {
         unsafe {
             let mut error = ptr::null_mut();
             match from_glib(ffi::gdk_pixbuf_loader_write(self.to_glib_none().0,
-                                                         buf.as_ptr(),
-                                                         buf.len() as ffi::gsize,
+                                                         buf.as_ptr() as *mut u8,
+                                                         buf.len() as size_t,
                                                          &mut error)) {
                 true => Ok(()),
                 false => Err(Error::wrap(error))

@@ -83,7 +83,7 @@ pub fn error_trap_push() {
     unsafe { ffi::gdk_error_trap_push() }
 }
 
-pub fn error_trap_pop() {
+pub fn error_trap_pop() -> i32 {
     unsafe { ffi::gdk_error_trap_pop() }
 }
 
