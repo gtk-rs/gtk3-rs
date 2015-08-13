@@ -66,8 +66,13 @@ impl Pixbuf {
     }
 
     pub fn new_from_file(filename: &str) -> Result<Pixbuf, Error> {
+        #[cfg(windows)]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
+        #[cfg(not(windows))]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file;
+
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error) };
+        let tmp = unsafe { gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error) };
 
         if error.is_null() {
             assert!(!tmp.is_null());
@@ -78,8 +83,16 @@ impl Pixbuf {
     }
 
     pub fn new_from_file_at_size(filename: &str, width: i32, height: i32) -> Result<Pixbuf, Error> {
+        #[cfg(windows)]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_size_utf8
+            as gdk_pixbuf_new_from_file_at_size;
+        #[cfg(not(windows))]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_size;
+
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height, &mut error) };
+        let tmp = unsafe {
+            gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height, &mut error)
+        };
 
         if error.is_null() {
             assert!(!tmp.is_null());
@@ -90,9 +103,17 @@ impl Pixbuf {
     }
 
     pub fn new_from_file_at_scale(filename: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
+        #[cfg(windows)]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_scale_utf8
+            as gdk_pixbuf_new_from_file_at_scale;
+        #[cfg(not(windows))]
+        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_scale;
+
         let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
-            to_gboolean(preserve_aspect_ratio), &mut error) };
+        let tmp = unsafe {
+            ffi::gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
+                to_gboolean(preserve_aspect_ratio), &mut error)
+        };
 
         if error.is_null() {
             assert!(!tmp.is_null());

@@ -51,9 +51,15 @@ impl StaticType for PixbufAnimation {
 
 impl PixbufAnimation {
     pub fn new_from_file(file: &str) -> Result<PixbufAnimation, Error> {
+        #[cfg(windows)]
+        use gdk_pixbuf_ffi::gdk_pixbuf_animation_new_from_file_utf8
+            as gdk_pixbuf_animation_new_from_file;
+        #[cfg(not(windows))]
+        use gdk_pixbuf_ffi::gdk_pixbuf_animation_new_from_file;
+
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = ffi::gdk_pixbuf_animation_new_from_file(file.to_glib_none().0, &mut error);
+            let ptr = gdk_pixbuf_animation_new_from_file(file.to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
