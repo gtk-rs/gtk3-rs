@@ -17,10 +17,6 @@ keywords = ["cairo", "gtk", "gnome", "GUI"]
 [lib]
 name = "cairo"
 
-[features]
-cairo_1_10 = []
-cairo_1_12 = []
-
 [dependencies.cairo-sys-rs]
 path = "./cairo-sys-rs"
 
