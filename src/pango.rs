@@ -11,7 +11,6 @@ extern crate glib;
 extern crate libc;
 
 pub use pango_ffi as ffi;
-pub use ffi::enums;
 
 pub use self::widgets::{
     Item,
@@ -21,17 +20,15 @@ pub use self::widgets::{
     FontDescription,
 };
 
-pub use ffi::enums::{
-    Gravity,
-    GravityHint,
-    Script,
-    Direction,
-    BidiType,
-    Style,
-    Weight,
-    Variant,
-    Stretch,
-    FontMask
-};
+pub use ffi::PangoGravity as Gravity;
+pub use ffi::PangoGravityHint as GravityHint;
+pub use ffi::PangoScript as Script;
+pub use ffi::PangoDirection as Direction;
+pub use ffi::PangoBidiType as BidiType;
+pub use ffi::PangoStyle as Style;
+pub use ffi::PangoWeight as Weight;
+pub use ffi::PangoVariant as Variant;
+pub use ffi::PangoStretch as Stretch;
+pub use ffi::PangoFontMask as FontMask;
 
 pub mod widgets;

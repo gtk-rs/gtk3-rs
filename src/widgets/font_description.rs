@@ -1,8 +1,13 @@
 use std::fmt::{self, Formatter, Display};
 
 use ffi;
-use enums;
 use glib::translate::{Stash, FromGlibPtr, ToGlibPtr, from_glib_full, from_glib_none, from_glib};
+
+use {
+    FontMask,
+    Gravity,
+    Weight,
+};
 
 impl<'a> ToGlibPtr<'a, *mut ffi::PangoFontDescription> for &'a FontDescription {
     type Storage = &'a FontDescription;
@@ -44,11 +49,11 @@ impl FontDescription {
         unsafe { from_glib_none(ffi::pango_font_description_get_family(self.0)) }
     }
 
-    pub fn set_weight(&mut self, weight: enums::Weight) {
+    pub fn set_weight(&mut self, weight: Weight) {
         unsafe { ffi::pango_font_description_set_weight(self.0, weight) };
     }
 
-    pub fn get_weight(&self) -> enums::Weight {
+    pub fn get_weight(&self) -> Weight {
         unsafe { ffi::pango_font_description_get_weight(self.0) }
     }
 
@@ -68,19 +73,19 @@ impl FontDescription {
         unsafe { from_glib(ffi::pango_font_description_get_size_is_absolute(self.0)) }
     }
 
-    pub fn set_gravity(&mut self, gravity: enums::Gravity) {
+    pub fn set_gravity(&mut self, gravity: Gravity) {
         unsafe { ffi::pango_font_description_set_gravity(self.0, gravity) };
     }
 
-    pub fn get_gravity(&self) -> enums::Gravity {
+    pub fn get_gravity(&self) -> Gravity {
         unsafe { ffi::pango_font_description_get_gravity(self.0) }
     }
 
-    pub fn get_set_fields(&self) -> enums::FontMask {
+    pub fn get_set_fields(&self) -> FontMask {
         unsafe { ffi::pango_font_description_get_set_fields(self.0) }
     }
 
-    pub fn unset_fields(&mut self, to_unset: enums::FontMask) {
+    pub fn unset_fields(&mut self, to_unset: FontMask) {
         unsafe { ffi::pango_font_description_unset_fields(self.0, to_unset) };
     }
 
