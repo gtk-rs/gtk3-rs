@@ -4,12 +4,14 @@ pkg-config = "^0.3.5"
 
 [dependencies]
 bitflags = "^0.3"
-cairo-sys-rs = "^0.1.3"
 libc = "^0.1"
 
 [dependencies.atk-sys]
 path = "../atk-sys"
 version = "^0.2.0"
+
+[dependencies.cairo-sys-rs]
+git = "https://github.com/rust-gnome/cairo"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
