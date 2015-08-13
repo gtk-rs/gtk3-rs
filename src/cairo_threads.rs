@@ -56,7 +56,7 @@ macro_rules! clone {
 
 fn main() {
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
-    let window = Window::new(WindowType::TopLevel).unwrap();
+    let window = Window::new(WindowType::Toplevel).unwrap();
     let area = DrawingArea::new().unwrap();
     window.add(&area);
 

@@ -10,7 +10,7 @@ use std::thread;
 fn main() {
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
 
-    let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
 
     window.set_title("Multithreading GTK+ Program");
     window.set_border_width(10);
