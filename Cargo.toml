@@ -17,14 +17,6 @@ keywords = ["gdk", "gtk", "gnome", "GUI"]
 [lib]
 name = "gdk"
 
-[features]
-gdk_3_4 = []
-gdk_3_6 = []
-gdk_3_8 = []
-gdk_3_10 = []
-gdk_3_12 = []
-gdk_3_14 = []
-
 [dependencies]
 cairo-rs = { git = "https://github.com/rust-gnome/cairo" }
 gdk-pixbuf-sys = { git = "https://github.com/rust-gnome/sys" }
