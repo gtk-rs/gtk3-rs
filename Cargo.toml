@@ -16,7 +16,7 @@ keywords = ["glib", "gtk", "gnome", "GUI"]
 name = "glib"
 
 [dependencies]
+gio-sys = { git = "https://github.com/rust-gnome/sys" }
+glib-sys = { git = "https://github.com/rust-gnome/sys" }
+gobject-sys = { git = "https://github.com/rust-gnome/sys" }
 libc = "0.1"
-
-[dependencies.glib-sys]
-git = "https://github.com/rust-gnome/glib"

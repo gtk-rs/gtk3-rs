@@ -11,15 +11,15 @@ use std::ops::Index;
 use std::marker::PhantomData;
 
 use glib_container::GlibContainer;
-use ffi;
+use glib_ffi;
 
 pub struct SList<T> {
-    pointer: *mut ffi::GSList,
+    pointer: *mut glib_ffi::GSList,
     _marker: PhantomData<T>
 }
 
 pub struct SElem<'a, T: 'a> {
-    pointer: *mut ffi::GSList,
+    pointer: *mut glib_ffi::GSList,
     _marker: PhantomData<&'a T>
 }
 
@@ -42,42 +42,42 @@ impl<T> SList<T> {
 
     pub fn append(&mut self, data: T) {
         unsafe {
-            self.pointer = ffi::g_slist_append(self.pointer, mem::transmute(Box::new(data)));
+            self.pointer = glib_ffi::g_slist_append(self.pointer, mem::transmute(Box::new(data)));
         }
     }
 
     pub fn prepend(&mut self, data: T) {
         unsafe {
-            self.pointer = ffi::g_slist_prepend(self.pointer, mem::transmute(Box::new(data)));
+            self.pointer = glib_ffi::g_slist_prepend(self.pointer, mem::transmute(Box::new(data)));
         }
     }
 
     pub fn nth(&self, n: u32) -> &T {
         unsafe {
-            mem::transmute::<*mut c_void, &T>(ffi::g_slist_nth_data(self.pointer, n))
+            mem::transmute::<*mut c_void, &T>(glib_ffi::g_slist_nth_data(self.pointer, n))
         }
     }
 
     pub fn last(&self) -> &T {
-        let elem = unsafe { ffi::g_slist_last(self.pointer) };
+        let elem = unsafe { glib_ffi::g_slist_last(self.pointer) };
         unsafe { mem::transmute::<*mut c_void, &T>((*elem).data)}
     }
 
     pub fn insert(&mut self, data: T, position: i32) {
         unsafe {
-            self.pointer = ffi::g_slist_insert(self.pointer, mem::transmute(Box::new(data)), position);
+            self.pointer = glib_ffi::g_slist_insert(self.pointer, mem::transmute(Box::new(data)), position);
         }
     }
 
     pub fn concat(&mut self, list: SList<T>) {
         unsafe {
-            ffi::g_slist_concat(self.pointer, list.unwrap());
+            glib_ffi::g_slist_concat(self.pointer, list.unwrap());
         }
     }
 
     pub fn reverse(&mut self) {
         unsafe {
-            self.pointer = ffi::g_slist_reverse(self.pointer);
+            self.pointer = glib_ffi::g_slist_reverse(self.pointer);
         }
     }
 
@@ -89,12 +89,12 @@ impl<T> SList<T> {
     }
 
     pub fn len(&self) -> usize {
-        unsafe { ffi::g_slist_length(self.pointer) as usize }
+        unsafe { glib_ffi::g_slist_length(self.pointer) as usize }
     }
 
     pub fn clear(&mut self) {
         unsafe {
-            ffi::g_slist_free(self.pointer)
+            glib_ffi::g_slist_free(self.pointer)
         }
     }
 
@@ -138,26 +138,26 @@ impl<T> FromIterator<T> for SList<T> {
 impl<T> Clone for SList<T> {
     fn clone(&self) -> SList<T> {
         unsafe {
-            GlibContainer::wrap(ffi::g_slist_copy(self.pointer))
+            GlibContainer::wrap(glib_ffi::g_slist_copy(self.pointer))
         }
     }
 }
 
 impl<T> Drop for SList<T> {
     fn drop(&mut self) {
-        unsafe { ffi::g_slist_free(self.pointer); }
+        unsafe { glib_ffi::g_slist_free(self.pointer); }
     }
 }
 
-impl<T> GlibContainer<*mut ffi::GSList> for SList<T> {
-    fn wrap(pointer: *mut ffi::GSList) -> SList<T> {
+impl<T> GlibContainer<*mut glib_ffi::GSList> for SList<T> {
+    fn wrap(pointer: *mut glib_ffi::GSList) -> SList<T> {
         SList {
             pointer: pointer,
             _marker: PhantomData
         }
     }
 
-    fn unwrap(&self) -> *mut ffi::GSList {
+    fn unwrap(&self) -> *mut glib_ffi::GSList {
         self.pointer
     }
 }

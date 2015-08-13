@@ -7,7 +7,7 @@
 use std::cell::RefCell;
 use std::ops::DerefMut;
 use std::mem::transmute;
-use ffi::{gboolean, gpointer, g_idle_add_full, g_timeout_add_full, g_timeout_add_seconds_full};
+use glib_ffi::{gboolean, gpointer, g_idle_add_full, g_timeout_add_full, g_timeout_add_seconds_full};
 use translate::ToGlib;
 
 /// Return type of idle and timeout functions.
@@ -64,7 +64,7 @@ pub fn idle_add<F>(func: F) -> u32
     let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
     unsafe {
         g_idle_add_full(PRIORITY_DEFAULT_IDLE, transmute(trampoline),
-            into_raw(f) as gpointer, destroy_closure)
+            into_raw(f) as gpointer, Some(destroy_closure))
     }
 }
 
@@ -99,7 +99,7 @@ pub fn timeout_add<F>(interval: u32, func: F) -> u32
     let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
     unsafe {
         g_timeout_add_full(PRIORITY_DEFAULT, interval, transmute(trampoline),
-            into_raw(f) as gpointer, destroy_closure)
+            into_raw(f) as gpointer, Some(destroy_closure))
     }
 }
 
@@ -127,6 +127,6 @@ pub fn timeout_add_seconds<F>(interval: u32, func: F) -> u32
     let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
     unsafe {
         g_timeout_add_seconds_full(PRIORITY_DEFAULT, interval, transmute(trampoline),
-            into_raw(f) as gpointer, destroy_closure)
+            into_raw(f) as gpointer, Some(destroy_closure))
     }
 }

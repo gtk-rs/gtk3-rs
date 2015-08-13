@@ -4,23 +4,22 @@
 
 use libc::c_void;
 
-use ffi::{self, gpointer, GCallback};
+use gobject_ffi::{self, GCallback};
 use translate::ToGlibPtr;
 
-pub unsafe fn connect(receiver: gpointer, signal_name: &str, trampoline: GCallback,
+pub unsafe fn connect(receiver: *mut c_void, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn() + 'static>) -> u64 {
-    let handle = ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
-        trampoline, closure as gpointer, destroy_closure, 0) as u64;
+    let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
+        trampoline, closure as *mut _, Some(destroy_closure),
+        gobject_ffi::GConnectFlags::empty()) as u64;
     assert!(handle > 0);
     handle
 }
 
-extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut c_void) {
-    unsafe {
-        let ptr = ptr as *mut Box<Fn()>;
-        // destroy
-        //Box::from_raw(ptr);
-        // from_raw API stability workaround
-        let _: Box<Box<Fn()>> = ::std::mem::transmute(ptr);
-    }
+unsafe extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
+    let ptr = ptr as *mut Box<Fn()>;
+    // destroy
+    //Box::from_raw(ptr);
+    // from_raw API stability workaround
+    let _: Box<Box<Fn()>> = ::std::mem::transmute(ptr);
 }
