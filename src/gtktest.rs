@@ -93,7 +93,7 @@ fn main() {
     let calendar = gtk::Calendar::new().unwrap();
     let info_bar = gtk::InfoBar::new().unwrap();
     let tmp_button = with_gtk_3_10!(
-        gtk::Button::new_from_icon_name("edit-clear", gtk::IconSize::Button).unwrap()
+        gtk::Button::new_from_icon_name("edit-clear", gtk::IconSize::Button as i32).unwrap()
     );
 
     println!("test");
