@@ -4,7 +4,7 @@
 
 //! Date and Time Functions — calendrical calculations and miscellaneous time stuff
 
-use libc::{c_long, c_ulong, time_t};
+use libc::{c_long, c_ulong};
 use glib_ffi;
 use std;
 use super::translate::ToGlibPtr;
@@ -107,7 +107,7 @@ impl Date {
     /// Date::new().set_time_t(date, time::get_time().sec);
     /// ```
     pub fn set_time_t(&mut self, timet: i64) {
-        unsafe { glib_ffi::g_date_set_time_t(self.pointer, timet as time_t) }
+        unsafe { glib_ffi::g_date_set_time_t(self.pointer, timet as c_long) }
     }
 
     /// Sets the value of a date from a GTimeVal value. Note that the tv_usec member is ignored,
