@@ -10,7 +10,8 @@ use cairo::RectangleInt;
 use ffi;
 
 pub trait RectangleExt {
-    fn intersect(&self, other: &Self) -> Option<Self>;
+    fn intersect(&self, other: &Self) -> Option<Self>
+        where Self: Sized;
     fn union(&self, other: &Self) -> Self;
 }
 
