@@ -171,7 +171,8 @@ pub trait Downcast<T> {
     /// Tries to downcast to `T`.
     ///
     /// Returns `Ok(T)` if the instance implements `T` and `Err(Self)` otherwise.
-    fn downcast(self) -> Result<T, Self>;
+    fn downcast(self) -> Result<T, Self>
+        where Self: Sized;
     /// Downcasts to `T` unconditionally.
     ///
     /// Panics if the instance doesn't implement `T`.
