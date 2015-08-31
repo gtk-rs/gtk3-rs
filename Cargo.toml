@@ -1,7 +1,7 @@
 [package]
 name = "cairo-rs"
 version = "0.0.4"
-authors = ["The Rust-GNOME Project Developers"]
+authors = ["The RGtk Project Developers"]
 build = "build.rs"
 
 description = "Rust bindings for the Cairo library"
