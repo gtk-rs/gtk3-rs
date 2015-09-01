@@ -5,10 +5,10 @@ authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
 description = "Rust bindings for the GDK library"
-repository = "https://github.com/rust-gnome/gdk"
+repository = "https://github.com/gtk-rs/gdk"
 license = "MIT"
-homepage = "https://github.com/rust-gnome/gdk"
-documentation = "https://github.com/rust-gnome/gdk"
+homepage = "https://github.com/gtk-rs/gdk"
+documentation = "https://github.com/gtk-rs/gdk"
 
 readme = "README.md"
 
@@ -18,8 +18,8 @@ keywords = ["gdk", "gtk", "gnome", "GUI"]
 name = "gdk"
 
 [dependencies]
-cairo-rs = { git = "https://github.com/rust-gnome/cairo" }
-gdk-pixbuf-sys = { git = "https://github.com/rust-gnome/sys" }
-gdk-sys = { git = "https://github.com/rust-gnome/sys" }
-glib = { git = "https://github.com/rust-gnome/glib" }
+cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
+gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
+gdk-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
 libc = "0.1"
