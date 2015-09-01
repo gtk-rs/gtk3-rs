@@ -1,7 +1,7 @@
 [package]
 name = "rgtk-examples"
 version = "0.0.1"
-authors = ["The Rust-gnome Project Developers"]
+authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
 libc = "0.1"
