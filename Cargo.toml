@@ -7,16 +7,16 @@ authors = ["The Gtk-rs Project Developers"]
 libc = "0.1"
 
 [dependencies.glib]
-git = "https://github.com/rust-gnome/glib"
+git = "https://github.com/gtk-rs/glib"
 
 [dependencies.cairo-rs]
-git = "https://github.com/rust-gnome/cairo"
+git = "https://github.com/gtk-rs/cairo"
 
 [dependencies.gdk]
-git = "https://github.com/rust-gnome/gdk"
+git = "https://github.com/gtk-rs/gdk"
 
 [dependencies.gtk]
-git = "https://github.com/rust-gnome/gtk"
+git = "https://github.com/gtk-rs/gtk"
 
 glib = "^0"
 gdk = "^0"
