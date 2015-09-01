@@ -11,7 +11,7 @@ path = "../atk-sys"
 version = "^0.2.0"
 
 [dependencies.cairo-sys-rs]
-git = "https://github.com/rust-gnome/cairo"
+git = "https://github.com/gtk-rs/cairo"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
