@@ -1,14 +1,14 @@
 [package]
 name = "glib"
 version = "0.0.3"
-authors = ["The Rust-GNOME Project Developers"]
+authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the GLib library"
-repository = "https://github.com/rust-gnome/glib"
+repository = "https://github.com/gtk-rs/glib"
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/rust-gnome/glib"
-documentation = "https://github.com/rust-gnome/glib"
+homepage = "https://github.com/gtk-rs/glib"
+documentation = "https://github.com/gtk-rs/glib"
 
 keywords = ["glib", "gtk", "gnome", "GUI"]
 
@@ -16,7 +16,7 @@ keywords = ["glib", "gtk", "gnome", "GUI"]
 name = "glib"
 
 [dependencies]
-gio-sys = { git = "https://github.com/rust-gnome/sys" }
-glib-sys = { git = "https://github.com/rust-gnome/sys" }
-gobject-sys = { git = "https://github.com/rust-gnome/sys" }
+gio-sys = { git = "https://github.com/gtk-rs/sys" }
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 libc = "0.1"
