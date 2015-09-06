@@ -5,6 +5,7 @@
 use ffi;
 use glib::translate::*;
 
+/// Atoms — Functions to manipulate properties on windows
 #[allow(raw_pointer_derive)]
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Atom(ffi::GdkAtom);
@@ -12,10 +13,12 @@ pub struct Atom(ffi::GdkAtom);
 pub const NONE: Atom = Atom(0 as *mut _);
 
 impl Atom {
+    /// Finds or creates an atom corresponding to a given string.
     pub fn intern(atom_name: &str) -> Atom {
         unsafe { Atom(ffi::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
     }
 
+    /// Determines the string corresponding to an atom.
     pub fn name(&self) -> String {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }
     }
