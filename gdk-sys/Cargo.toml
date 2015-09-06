@@ -7,7 +7,7 @@ bitflags = "^0.3"
 libc = "^0.1"
 
 [dependencies.cairo-sys-rs]
-git = "https://github.com/rust-gnome/cairo"
+git = "https://github.com/gtk-rs/cairo"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
