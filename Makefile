@@ -7,7 +7,7 @@ libs : $(LIBS)
 %-sys/src/lib.rs : conf/gir-%.toml $(GIR)
 	$(GIR) -c $< -o $(abspath $*-sys) -m sys
 
-$(GIR) : gir/Cargo.* gir/build.rs $(shell find gir/src -name '*.rs')
+$(GIR) : gir/Cargo.toml gir/Cargo.lock gir/build.rs $(shell find gir/src -name '*.rs')
 	cd gir && cargo build --release
 
 gir/Cargo.toml :
