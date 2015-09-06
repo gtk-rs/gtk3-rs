@@ -1,13 +1,13 @@
 [package]
 name = "pango"
 version = "0.0.3"
-authors = ["The Rust-GNOME Project Developers"]
+authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the Pango library"
-repository = "https://github.com/rust-gnome/pango"
+repository = "https://github.com/gtk-rs/pango"
 license = "MIT"
-homepage = "https://github.com/rust-gnome/pango"
-documentation = "https://github.com/rust-gnome/pango"
+homepage = "https://github.com/gtk-rs/pango"
+documentation = "https://github.com/gtk-rs/pango"
 
 readme = "README.md"
 
@@ -17,6 +17,6 @@ keywords = ["pango", "gtk", "gnome"]
 name = "pango"
 
 [dependencies]
-glib = { git = "https://github.com/rust-gnome/glib" }
+glib = { git = "https://github.com/gtk-rs/glib" }
 libc = "0.1"
-pango-sys  = { git = "https://github.com/rust-gnome/sys" }
+pango-sys  = { git = "https://github.com/gtk-rs/sys" }
