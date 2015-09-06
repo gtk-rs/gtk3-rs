@@ -56,7 +56,7 @@ use ffi;
 ///
 /// #Master and slave devices
 ///
-/// ```ignore
+/// ```text
 /// carlos@sacarino:~$ xinput list
 /// ⎡ Virtual core pointer                          id=2    [master pointer  (3)]
 /// ⎜   ↳ Virtual core XTEST pointer                id=4    [slave  pointer  (2)]
