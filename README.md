@@ -1,6 +1,6 @@
 # rust-gnome examples [![Build Status](https://travis-ci.org/rust-gnome/examples.png?branch=master)](https://travis-ci.org/rust-gnome/examples) [![Build status](https://ci.appveyor.com/api/projects/status/glyf8yir9lh8mrh5?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/examples)
 
-A few Gtk-rs examples. To build, just do:
+A few gtk-rs examples. To build, just do:
 
 ```Shell
 > cargo build
