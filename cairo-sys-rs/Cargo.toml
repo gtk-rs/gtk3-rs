@@ -6,10 +6,10 @@ build = "build.rs"
 links = "cairo"
 
 description = "FFI bindings to Cairo"
-repository = "https://github.com/rust-gnome/cairo"
+repository = "https://github.com/gtk-rs/cairo"
 license = "MIT"
-homepage = "https://github.com/rust-gnome/cairo"
-documentation = "https://github.com/rust-gnome/cairo"
+homepage = "https://github.com/gtk-rs/cairo"
+documentation = "https://github.com/gtk-rs/cairo"
 
 keywords = ["cairo", "ffi", "gtk", "gnome"]
 

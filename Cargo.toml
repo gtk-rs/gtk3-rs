@@ -5,10 +5,10 @@ authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
 description = "Rust bindings for the Cairo library"
-repository = "https://github.com/rust-gnome/cairo"
+repository = "https://github.com/gtk-rs/cairo"
 license = "MIT"
-homepage = "https://github.com/rust-gnome/cairo"
-documentation = "https://github.com/rust-gnome/cairo"
+homepage = "https://github.com/gtk-rs/cairo"
+documentation = "https://github.com/gtk-rs/cairo"
 
 readme = "README.md"
 
@@ -21,7 +21,7 @@ name = "cairo"
 path = "./cairo-sys-rs"
 
 [dependencies.glib]
-git = "https://github.com/rust-gnome/glib"
+git = "https://github.com/gtk-rs/glib"
 
 [dependencies]
 libc = "0.1"
