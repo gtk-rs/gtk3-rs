@@ -25,6 +25,7 @@ ask_yn() {
 }
 
 GIT_URL="https://github.com/gtk-rs"
+GIT_BRANCH="crate"
 OVERRIDE=""
 
 mkdir .cargo git 2> /dev/null || true
@@ -38,7 +39,7 @@ for CRATE in $@; do
 			continue
 		fi
 	fi
-	git clone -q --depth 50 "$GIT_URL/$CRATE" git/$CRATE
+	git clone -q --depth 50 -b $GIT_BRANCH "$GIT_URL/$CRATE" git/$CRATE
 done
 
 if [ -e .cargo/config ]; then
