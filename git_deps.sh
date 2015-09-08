@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# This scripts will clone the rust-gnome repos supplied as arguments into ./git
+# This scripts will clone the gtk-rs repos supplied as arguments into ./git
 # and set up a path override for cargo to find them. You can do that in your
 # crate directory or any of its parent directories.
 
@@ -24,7 +24,7 @@ ask_yn() {
 	esac
 }
 
-GIT_URL="https://github.com/rust-gnome"
+GIT_URL="https://github.com/gtk-rs"
 OVERRIDE=""
 
 mkdir .cargo git 2> /dev/null || true

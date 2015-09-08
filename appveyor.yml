@@ -54,7 +54,6 @@ cache:
 
 build_script:
   - rustc -V
-  - bash -c "./git_deps.sh cairo glib gdk gtk pango"
   - "echo Features: %FEATURES%"
   - cargo build --features "%FEATURES%"
 

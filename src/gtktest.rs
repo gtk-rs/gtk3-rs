@@ -52,7 +52,7 @@ fn about_clicked(_: gtk::Button) {
 fn main() {
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
     println!("Major: {}, Minor: {}", gtk::get_major_version(), gtk::get_minor_version());
-    let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
     let frame = gtk::Frame::new(Some("Yep a frame")).unwrap();
     let _box = gtk::Box::new(gtk::Orientation::Horizontal, 10).unwrap();
     let v_box = gtk::Box::new(gtk::Orientation::Horizontal, 10).unwrap();
@@ -93,7 +93,7 @@ fn main() {
     let calendar = gtk::Calendar::new().unwrap();
     let info_bar = gtk::InfoBar::new().unwrap();
     let tmp_button = with_gtk_3_10!(
-        gtk::Button::new_from_icon_name("edit-clear", gtk::IconSize::Button).unwrap()
+        gtk::Button::new_from_icon_name("edit-clear", gtk::IconSize::Button as i32).unwrap()
     );
 
     println!("test");
@@ -124,7 +124,7 @@ fn main() {
     let entry_clone = entry.clone();
     button.connect_clicked(move |_| {
         let dialog = gtk::Dialog::with_buttons(
-            "Hello!", None, gtk::DialogFlags::Modal,
+            "Hello!", None, gtk::DIALOG_MODAL,
             [("No", 0), ("Yes", 1), ("Yes!", 2)]);
 
         let ret = dialog.run();
@@ -169,7 +169,7 @@ fn main() {
 
     app_button.connect_clicked(|_| {
         //entry.set_text("Clicked!");
-        let dialog = gtk::AppChooserDialog::new_for_content_type(None, gtk::DialogFlags::Modal, "sh").unwrap();
+        let dialog = gtk::AppChooserDialog::new_for_content_type(None, gtk::DIALOG_MODAL, "sh").unwrap();
 
         dialog.run();
         dialog.destroy();
