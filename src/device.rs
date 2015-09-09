@@ -58,9 +58,9 @@ impl Device {
     /// ID is retrieved from the device, and is thus constant for it. See Device::get_vendor_id() for
     /// more information.
     #[cfg(gdk_3_16)]
-    pub fn get_vendor_id(&self) -> Option<String> {
+    pub fn get_product_id(&self) -> Option<String> {
         unsafe {
-            from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0))
         }
     }
 
