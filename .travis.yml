@@ -9,5 +9,4 @@ before_install:
 install:
   - sudo apt-get install gtk+3.0 libgtk-3-dev
 script:
-  - ./git_deps.sh cairo glib gdk gtk pango
   - cargo build

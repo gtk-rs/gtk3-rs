@@ -19,7 +19,8 @@ impl NoteBook {
 
     fn create_tab<'a, Widget>(&mut self, title: &'a str, widget: &Widget) -> Option<u32>
     where Widget: gtk::WidgetTrait + Clone + 'static {
-        let close_image = gtk::Image::new_from_icon_name("window-close", IconSize::Button).unwrap();
+        let close_image = gtk::Image::new_from_icon_name("window-close",
+                                                         IconSize::Button as i32).unwrap();
         let button = gtk::Button::new().unwrap();
         let label = gtk::Label::new(title).unwrap();
         let tab = gtk::Box::new(Orientation::Horizontal, 0).unwrap();
@@ -53,7 +54,7 @@ impl NoteBook {
 fn main() {
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
 
-    let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
 
     window.set_title("Notebook");
     window.set_window_position(gtk::WindowPosition::Center);

@@ -14,14 +14,15 @@ use gtk::signal::Inhibit;
 fn main() {
     gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
 
-    let window = gtk::Window::new(gtk::WindowType::TopLevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
     window.set_title("Text File Viewer");
     window.set_window_position(gtk::WindowPosition::Center);
     window.set_default_size(400, 300);
 
     let toolbar = gtk::Toolbar::new().unwrap();
 
-    let open_icon = gtk::Image::new_from_icon_name("document-open", gtk::IconSize::SmallToolbar).unwrap();
+    let open_icon = gtk::Image::new_from_icon_name("document-open",
+                                                   gtk::IconSize::SmallToolbar as i32).unwrap();
     let text_view = gtk::TextView::new().unwrap();
 
     let open_button = gtk::ToolButton::new::<gtk::Image>(Some(&open_icon), Some("Open")).unwrap();
