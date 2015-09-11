@@ -1,7 +1,7 @@
 [package]
-name = "rgtk-examples"
+name = "gtk-rs-examples"
 version = "0.0.1"
-authors = ["The Rust-gnome Project Developers"]
+authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
 libc = "0.1"
@@ -11,14 +11,20 @@ gtk = "^0"
 cairo-rs = "^0"
 
 [features]
-gtk_3_10 = ["gtk/gtk_3_10"]
-gtk_3_14 = ["gtk/gtk_3_14", "gtk_3_10"]
+gtk_3_10 = []
+gtk_3_14 = ["gtk_3_10"]
 
 [[bin]]
 name = "basic"
 
 [[bin]]
+name = "builder_basics"
+
+[[bin]]
 name = "cairotest"
+
+[[bin]]
+name = "cairo_threads"
 
 [[bin]]
 name = "gtktest"
@@ -36,4 +42,4 @@ name = "text_viewer"
 name = "treeview"
 
 [[bin]]
-name = "builder_basics"
+name = "multithreading_context"
