@@ -22,7 +22,7 @@ fn main() {
         println!("cargo:rustc-cfg={}", cfg);
         cfgs.push(cfg);
     }
-    println!("cargo:cfg={}", cfgs.connect(" "));
+    println!("cargo:cfg={}", cfgs.join(" "));
 }
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
