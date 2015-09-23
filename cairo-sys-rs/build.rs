@@ -24,5 +24,5 @@ fn main() {
     for cfg in &cfgs {
         println!("cargo:rustc-cfg={}", cfg);
     }
-    println!("cargo:cfg={}", cfgs.connect(" "));
+    println!("cargo:cfg={}", cfgs.join(" "));
 }
