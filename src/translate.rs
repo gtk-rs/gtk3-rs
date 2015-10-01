@@ -106,6 +106,9 @@ impl <T> Ptr for *mut T {
 /// ```
 pub struct Stash<'a, P: Copy, T: ?Sized + ToGlibPtr<'a, P>> (pub P, pub <T as ToGlibPtr<'a, P>>::Storage);
 
+pub struct StashMut<'a, P: Copy, T: ?Sized> (pub P, pub <T as ToGlibPtrMut<'a, P>>::Storage)
+    where T: ToGlibPtrMut<'a, P>;
+
 /// Translate a simple type.
 pub trait ToGlib {
     type GlibType;
@@ -144,6 +147,23 @@ pub trait ToGlibPtr<'a, P: Copy> {
     ///
     /// We transfer the ownership to the foreign library.
     fn to_glib_full(&self) -> P {
+        unimplemented!();
+    }
+}
+///
+/// Translate to a pointer with a mutable borrow.
+pub trait ToGlibPtrMut<'a, P: Copy> {
+    type Storage;
+
+    /// Transfer: none.
+    ///
+    /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
+    fn to_glib_none_mut(&'a mut self) -> StashMut<P, Self>;
+
+    /// Transfer: full.
+    ///
+    /// We transfer the ownership to the foreign library.
+    fn to_glib_full_mut(&'a mut self) -> P {
         unimplemented!();
     }
 }
