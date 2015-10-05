@@ -42,6 +42,8 @@ pub mod screen;
 pub mod visual;
 pub mod window;
 pub mod cairo_interaction;
+#[cfg(gdk_3_16)]
+pub mod gl_context;
 
 pub use gdk_ffi::GdkColor as Color;
 
@@ -85,6 +87,8 @@ pub use pixbuf::loader::PixbufLoader;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
+#[cfg(gdk_3_16)]
+pub use gl_context::GLContext;
 
 pub use self::events::{
     EventType,
