@@ -6,10 +6,8 @@
 
 use glib::translate::*;
 use glib::types;
-use cursor::Cursor;
 use display::Display;
 use object::Object;
-use screen::Screen;
 use window::Window;
 use ffi;
 
@@ -57,6 +55,10 @@ use ffi;
 /// also unset any GLContext that is currently set by calling gdk_gl_context_clear_current().
 pub type GLContext = Object<ffi::GdkGLContext>;
 
+impl types::StaticType for GLContext {
+    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_gl_context_get_type()) } }
+}
+
 impl GLContext {
     /// Retrieves the Display the context is created for
     pub fn get_display(&self) -> Option<Display> {
@@ -69,7 +71,7 @@ impl GLContext {
     }
 
     /// Retrieves the GLContext that this context share data with.
-    pub fn get_shared_context(&self) -> Option<Window> {
+    pub fn get_shared_context(&self) -> Option<GLContext> {
         unsafe { from_glib_none(ffi::gdk_gl_context_get_shared_context(self.to_glib_none().0)) }
     }
 
