@@ -111,7 +111,7 @@ impl<'a, T> ToGlibPtr<'a, *mut T> for Option<&'a VirtualRef<'a, T>> {
 /// A wrapper around the `Ref`.
 pub trait Wrapper: StaticType {
     /// The foreign `struct` type corresponding to the object.
-    type GlibType;
+    type GlibType: 'static;
     /// Wraps a `Ref`.
     unsafe fn wrap(r: Ref) -> Self;
     /// Returns a reference to the inner `Ref`.
@@ -120,7 +120,7 @@ pub trait Wrapper: StaticType {
     fn unwrap(self) -> Ref;
 }
 
-impl<'a, T, W: Wrapper<GlibType = T>> ToGlibPtr<'a, *mut T> for &'a W {
+impl<'a, T: 'static, W: Wrapper<GlibType = T>> ToGlibPtr<'a, *mut T> for &'a W {
     type Storage = &'a Ref;
 
     #[inline]
@@ -226,7 +226,7 @@ impl<T: Upcast<Object>> ObjectExt for T {
 #[derive(Debug)]
 pub struct GenericObject<T>(Ref, PhantomData<T>);
 
-impl<T> Wrapper for GenericObject<T> where GenericObject<T>: StaticType {
+impl<T: 'static> Wrapper for GenericObject<T> where GenericObject<T>: StaticType {
     type GlibType = T;
     #[inline]
     unsafe fn wrap(r: Ref) -> GenericObject<T> { GenericObject(r, PhantomData) }
@@ -243,4 +243,4 @@ impl<T> Clone for GenericObject<T> {
     }
 }
 
-unsafe impl<T> Upcast<Object> for GenericObject<T> where GenericObject<T>: StaticType { }
+unsafe impl<T: 'static> Upcast<Object> for GenericObject<T> where GenericObject<T>: StaticType { }
