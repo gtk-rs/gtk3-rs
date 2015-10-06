@@ -55,12 +55,12 @@ use libc::{c_void, c_char, size_t};
 use glib_ffi;
 
 /// A pointer
-pub trait Ptr: Copy {
+pub trait Ptr: Copy + 'static {
     fn is_null(&self) -> bool;
     fn from<X>(ptr: *mut X) -> Self;
 }
 
-impl <T> Ptr for *const T {
+impl<T: 'static> Ptr for *const T {
     #[inline]
     fn is_null(&self) -> bool { (*self).is_null() }
 
@@ -68,7 +68,7 @@ impl <T> Ptr for *const T {
     fn from<X>(ptr: *mut X) -> *const T { ptr as *const T }
 }
 
-impl <T> Ptr for *mut T {
+impl<T: 'static> Ptr for *mut T {
     #[inline]
     fn is_null(&self) -> bool { (*self).is_null() }
 
@@ -255,7 +255,7 @@ impl<'a> ToGlibPtr<'a, *const *const c_char> for &'a [&'a str] {
     }
 }
 
-impl<'a, P: Copy, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for &'a [T] {
+impl<'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for &'a [T] {
     type Storage = PtrArray<'a, P, T>;
 
     #[inline]
@@ -273,9 +273,9 @@ impl<'a, P: Copy, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for &'a [T] {
 }
 
 /// Temporary storage for passing a `NULL` terminated array of pointers.
-pub struct PtrArray<'a, P: Copy, T: ?Sized + ToGlibPtr<'a, P>> (Vec<P>, Vec<Stash<'a, P, T>>);
+pub struct PtrArray<'a, P: Ptr, T: ?Sized + ToGlibPtr<'a, P>> (Vec<P>, Vec<Stash<'a, P, T>>);
 
-impl<'a, P: Copy, T: ToGlibPtr<'a, P>> PtrArray<'a, P, T> {
+impl<'a, P: Ptr, T: ToGlibPtr<'a, P> + 'a> PtrArray<'a, P, T> {
     /// Returns the length of the array not counting the `NULL` terminator.
     pub fn len(&self) -> usize {
         self.1.len()
