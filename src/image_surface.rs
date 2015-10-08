@@ -36,7 +36,7 @@ impl ImageSurface {
     where F: FnOnce(Box<[u8]>) + 'static {
         unsafe {
             let mut data = Box::new(AsyncBorrow::new(data, free));
-            let ptr = data.as_mut().as_mut_ptr();
+            let ptr = (*data).as_mut().as_mut_ptr();
             let surface = ImageSurface::from_glib_full(
                 ffi::cairo_image_surface_create_for_data(ptr, format, width, height, stride));
             surface.set_user_data(&IMAGE_SURFACE_DATA, data).unwrap();
