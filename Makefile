@@ -5,7 +5,7 @@ LIBS = $(CONFIGS:conf/gir-%.toml=%-sys/src/lib.rs)
 libs : $(LIBS)
 
 %-sys/src/lib.rs : conf/gir-%.toml $(GIR)
-	$(GIR) -c $< -o $(abspath $*-sys) -m sys
+	$(GIR) -c $< -o $(abspath $*-sys) -d gir-files
 
 $(GIR) : gir/Cargo.toml gir/Cargo.lock gir/build.rs $(shell find gir/src -name '*.rs')
 	cd gir && cargo build --release

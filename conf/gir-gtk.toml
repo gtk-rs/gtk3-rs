@@ -1,6 +1,5 @@
 [options]
-work_mode = "normal"
-girs_dir = "gir-files"
+work_mode = "sys"
 library = "Gtk"
 version = "3.0"
 min_cfg_version = "3.4"
