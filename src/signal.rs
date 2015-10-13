@@ -7,9 +7,9 @@ use libc::c_void;
 use gobject_ffi::{self, GCallback};
 use translate::ToGlibPtr;
 
-pub unsafe fn connect(receiver: *mut c_void, signal_name: &str, trampoline: GCallback,
+pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn() + 'static>) -> u64 {
-    let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
+    let handle = gobject_ffi::g_signal_connect_data(receiver as *mut _, signal_name.to_glib_none().0,
         trampoline, closure as *mut _, Some(destroy_closure),
         gobject_ffi::GConnectFlags::empty()) as u64;
     assert!(handle > 0);
