@@ -76,6 +76,18 @@ impl<T: 'static> Ptr for *mut T {
     fn from<X>(ptr: *mut X) -> *mut T { ptr as *mut T }
 }
 
+/// A trait for creating an uninitialized value. Handy for receiving outparams.
+pub trait Uninitialized {
+    /// Returns an uninitialized value.
+    unsafe fn uninitialized() -> Self;
+}
+
+/// Returns an uninitialized value.
+#[inline]
+pub unsafe fn uninitialized<T: Uninitialized>() -> T {
+    T::uninitialized()
+}
+
 /// Helper type that stores temporary values used for translation.
 ///
 /// `P` is the foreign type pointer and the first element of the tuple.

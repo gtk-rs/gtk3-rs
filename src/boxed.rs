@@ -24,6 +24,16 @@ pub struct Boxed<T: 'static, MM: BoxedMemoryManager<T>> {
 impl<T: 'static, MM: BoxedMemoryManager<T>> Boxed<T, MM> {
     #[inline]
     pub unsafe fn uninitialized() -> Self {
+        Boxed {
+            inner: AnyBox::Native(Box::new(mem::uninitialized())),
+            _dummy: PhantomData,
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> Uninitialized for Boxed<T, MM> {
+    #[inline]
+    unsafe fn uninitialized() -> Self {
         Boxed { 
             inner: AnyBox::Native(Box::new(mem::uninitialized())),
             _dummy: PhantomData,
