@@ -381,6 +381,11 @@ pub trait FromGlibPtr<P: Ptr>: Sized {
 
     /// Transfer: full.
     unsafe fn from_glib_full(ptr: P) -> Self;
+
+    /// Borrow. Don't increase the refcount.
+    unsafe fn from_glib_borrow(_ptr: P) -> Self {
+        unimplemented!();
+    }
 }
 
 /// Translate from a pointer type, transfer: none.
@@ -393,6 +398,12 @@ pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
 #[inline]
 pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
     FromGlibPtr::from_glib_full(ptr)
+}
+
+/// Translate from a pointer type, borrowing the pointer.
+#[inline]
+pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
+    FromGlibPtr::from_glib_borrow(ptr)
 }
 
 impl<P: Ptr, T: FromGlibPtr<P>> FromGlibPtr<P> for Option<T> {
