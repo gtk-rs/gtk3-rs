@@ -2,6 +2,63 @@ use std::marker::PhantomData;
 use std::mem;
 use translate::*;
 
+/// Wrapper implementations for Boxed types. See `glib_wrapper!`.
+#[macro_export]
+macro_rules! glib_boxed_wrapper {
+    ($($attr:meta),*; $name:ident, $ffi_name:path, $copy_fn:path, $free_fn:path,) => (
+        $(#[$attr])*
+        pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
+
+        #[doc(hidden)]
+        pub struct MemoryManager;
+
+        impl $crate::boxed::BoxedMemoryManager<$ffi_name> for MemoryManager {
+            #[inline]
+            unsafe fn copy(ptr: *const $ffi_name) -> *mut $ffi_name {
+                $copy_fn(ptr)
+            }
+
+            #[inline]
+            unsafe fn free(ptr: *mut $ffi_name) {
+                $free_fn(ptr)
+            }
+        }
+
+        impl $crate::translate::Uninitialized for $name {
+            #[inline]
+            unsafe fn uninitialized() -> Self {
+                $name($crate::boxed::Boxed::uninitialized())
+            }
+        }
+
+        impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for &'a $name {
+            type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
+
+            #[inline]
+            fn to_glib_none(&self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
+                let stash = (&self.0).to_glib_none();
+                $crate::translate::Stash(stash.0, stash.1)
+            }
+        }
+
+        impl<'a> $crate::translate::ToGlibPtrMut<'a, *mut $ffi_name> for $name {
+            type Storage = &'a mut $crate::boxed::Boxed<$ffi_name, MemoryManager>;
+
+            #[inline]
+            fn to_glib_none_mut(&'a mut self) -> $crate::translate::StashMut<'a, *mut $ffi_name, Self> {
+                let stash = self.0.to_glib_none_mut();
+                $crate::translate::StashMut(stash.0, stash.1)
+            }
+        }
+
+        impl Clone for $name {
+            fn clone(&self) -> Self {
+                $name(self.0.clone())
+            }
+        }
+    )
+}
+
 enum AnyBox<T> {
     Native(Box<T>),
     Foreign(*mut T),

@@ -36,6 +36,7 @@ pub mod source;
 pub mod traits;
 pub mod translate;
 mod value;
+#[macro_use]
 pub mod boxed;
 pub mod object;
 pub mod types;
@@ -84,4 +85,34 @@ pub struct ParamSpec {
     flags: ParamFlags,
     value_type: glib_ffi::GType,
     owner_type: glib_ffi::GType,
+}
+
+/// Define a wrapper type and implement the appropriate traits.
+///
+/// ### Boxed
+///
+/// ```ignore
+/// glib_wrapper! {
+///     /// Text buffer iterator
+///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
+///
+///     impl TextIter {
+///         copy: ffi::gtk_text_iter_copy,
+///         free: ffi::gtk_text_iter_free,
+///     }
+/// }
+/// ```
+#[macro_export]
+macro_rules! glib_wrapper {
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Boxed<$ffi_name:path>);
+
+        impl $name_:ident {
+            copy: $copy_fn:path,
+            free: $free_fn:path,
+        }
+    ) => (
+        glib_boxed_wrapper!($($attr),*; $name, $ffi_name, $copy_fn, $free_fn,);
+    );
 }
