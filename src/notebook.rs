@@ -52,7 +52,10 @@ impl NoteBook {
 }
 
 fn main() {
-    gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
+    if gtk::init().is_err() {
+        println!("Failed to initialize GTK.");
+        return;
+    }
 
     let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
 
