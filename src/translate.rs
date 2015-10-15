@@ -200,13 +200,6 @@ pub trait ToGlibPtrMut<'a, P: Copy> {
     ///
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
     fn to_glib_none_mut(&'a mut self) -> StashMut<P, Self>;
-
-    /// Transfer: full.
-    ///
-    /// We transfer the ownership to the foreign library.
-    fn to_glib_full_mut(&'a mut self) -> P {
-        unimplemented!();
-    }
 }
 
 impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
