@@ -219,6 +219,18 @@ impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
     }
 }
 
+impl <'a, 'opt: 'a, P: Ptr, T: ToGlibPtrMut<'a, P>> ToGlibPtrMut<'a, P> for Option<&'opt mut T> {
+    type Storage = Option<<T as ToGlibPtrMut<'a, P>>::Storage>;
+
+    #[inline]
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, P, Option<&'opt mut T>> {
+        self.as_mut().map_or(StashMut(Ptr::from::<()>(ptr::null_mut()), None), |s| {
+            let s = s.to_glib_none_mut();
+            StashMut(s.0, Some(s.1))
+        })
+    }
+}
+
 impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     type Storage = CString;
 
