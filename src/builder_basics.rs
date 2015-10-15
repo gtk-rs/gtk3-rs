@@ -23,7 +23,7 @@ mod example {
 
         window.connect_delete_event(|_, _| {
             gtk::main_quit();
-            Inhibit(true)
+            Inhibit(false)
         });
 
         bigbutton.connect_clicked(move |_| {

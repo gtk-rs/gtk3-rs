@@ -103,7 +103,7 @@ where F: Fn(Widget, Context) -> Inhibit + 'static {
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
-        Inhibit(true)
+        Inhibit(false)
     });
     window.add(&drawing_area);
     window.show_all();

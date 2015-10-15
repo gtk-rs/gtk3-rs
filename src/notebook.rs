@@ -62,7 +62,7 @@ fn main() {
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
-        Inhibit(true)
+        Inhibit(false)
     });
 
     let mut notebook = NoteBook::new();

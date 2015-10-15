@@ -21,7 +21,7 @@ fn main() {
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
-        Inhibit(true)
+        Inhibit(false)
     });
 
     let button = gtk::Button::new_with_label("Click me!").unwrap();
