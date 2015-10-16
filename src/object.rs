@@ -222,25 +222,44 @@ pub trait ObjectExt {
 impl<T: Upcast<Object>> ObjectExt for T {
 }
 
-/// The crate-local generic type for `GObject` descendants in GLib.
-#[derive(Debug)]
-pub struct GenericObject<T>(Ref, PhantomData<T>);
+/// Wrapper implementations for Object types. See `glib_wrapper!`.
+#[macro_export]
+macro_rules! glib_object_wrapper {
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
+        $(#[$attr])*
+        pub struct $name($crate::object::Ref, ::std::marker::PhantomData<$ffi_name>);
 
-impl<T: 'static> Wrapper for GenericObject<T> where GenericObject<T>: StaticType {
-    type GlibType = T;
-    #[inline]
-    unsafe fn wrap(r: Ref) -> GenericObject<T> { GenericObject(r, PhantomData) }
-    #[inline]
-    fn as_ref(&self) -> &Ref { &self.0 }
-    #[inline]
-    fn unwrap(self) -> Ref { self.0 }
-}
+        impl $crate::object::Wrapper for $name {
+            type GlibType = $ffi_name;
 
-impl<T> Clone for GenericObject<T> {
-    #[inline]
-    fn clone(&self) -> GenericObject<T> {
-        GenericObject(self.0.clone(), PhantomData)
+            #[inline]
+            unsafe fn wrap(r: $crate::object::Ref) -> Self {
+                $name(r, ::std::marker::PhantomData)
+            }
+
+            #[inline]
+            fn as_ref(&self) -> &$crate::object::Ref {
+                &self.0
+            }
+
+            #[inline]
+            fn unwrap(self) -> $crate::object::Ref {
+                self.0
+            }
+        }
+
+        impl Clone for $name {
+            fn clone(&self) -> Self {
+                $name(self.0.clone(), ::std::marker::PhantomData)
+            }
+        }
+
+        impl $crate::types::StaticType for $name {
+            fn static_type() -> $crate::types::Type {
+                unsafe { $crate::translate::from_glib($get_type_expr) }
+            }
+        }
+
+        unsafe impl $crate::object::Upcast<$crate::object::Object> for $name { }
     }
 }
-
-unsafe impl<T: 'static> Upcast<Object> for GenericObject<T> where GenericObject<T>: StaticType { }

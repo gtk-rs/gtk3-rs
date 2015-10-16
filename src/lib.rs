@@ -25,6 +25,91 @@ pub use self::value::{Value, ValuePublic};
 pub use types::Type;
 pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 
+/// Defines a wrapper type and implements the appropriate traits.
+///
+/// The basic syntax is
+///
+/// ```ignore
+/// glib_wrapper! {
+///     /// Documentation
+///     pub struct $name($kind<$foreign>);
+///
+///     match fn {
+///         $fn_name => /* a closure-like expression */,
+///         ...
+///     }
+/// }
+/// ```
+///
+/// This creates a wrapper named `$name` around the foreign type `$foreign`
+/// of $kind (one of `Boxed`, `Object`) using expressions from the `match fn`
+/// block to implement type-specific low-level operations. The expression
+/// will be evaluated in `unsafe` context.
+///
+/// ### Boxed
+///
+/// ```ignore
+/// glib_wrapper! {
+///     /// Text buffer iterator
+///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
+///
+///     match fn {
+///         copy => |ptr| ffi::gtk_text_iter_copy(ptr),
+///         free => |ptr| ffi::gtk_text_iter_free(ptr),
+///     }
+/// }
+/// ```
+///
+/// `copy`: `|*const $foreign| -> *mut $foreign` creates a copy of the value.
+///
+/// `free`: `|*mut $foreign|` frees the value.
+///
+/// ### Object
+///
+/// ```
+/// glib_wrapper! {
+///     /// Object representing an input device
+///     pub struct Device(Object<ffi::GdkDevice>);
+///
+///     match fn {
+///         get_type => || ffi::gdk_device_get_type(),
+///     }
+/// }
+/// ```
+///
+/// `get_type: || -> GType` returns the type identifier of the class.
+#[macro_export]
+macro_rules! glib_wrapper {
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Boxed<$ffi_name:path>);
+
+        match fn {
+            copy => |$copy_arg:ident| $copy_expr:expr,
+            free => |$free_arg:ident| $free_expr:expr,
+        }
+    ) => {
+        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>);
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr);
+    }
+}
+
+#[macro_use]
+pub mod boxed;
+#[macro_use]
+pub mod object;
+
 mod app_info;
 mod list;
 mod slist;
@@ -36,9 +121,7 @@ pub mod source;
 pub mod traits;
 pub mod translate;
 mod value;
-#[macro_use]
-pub mod boxed;
-pub mod object;
+
 pub mod types;
 pub mod date;
 
@@ -85,35 +168,4 @@ pub struct ParamSpec {
     flags: ParamFlags,
     value_type: glib_ffi::GType,
     owner_type: glib_ffi::GType,
-}
-
-/// Define a wrapper type and implement the appropriate traits.
-///
-/// ### Boxed
-///
-/// ```ignore
-/// glib_wrapper! {
-///     /// Text buffer iterator
-///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
-///
-///     match fn {
-///         copy => |ptr| ffi::gtk_text_iter_copy(ptr),
-///         free => |ptr| ffi::gtk_text_iter_free(ptr),
-///     }
-/// }
-/// ```
-#[macro_export]
-macro_rules! glib_wrapper {
-    (
-        $(#[$attr:meta])*
-        pub struct $name:ident(Boxed<$ffi_name:path>);
-
-        match fn {
-            copy => |$copy_arg:ident| $copy_expr:expr,
-            free => |$free_arg:ident| $free_expr:expr,
-        }
-    ) => {
-        glib_boxed_wrapper!($($attr),*; $name, $ffi_name, @copy $copy_arg $copy_expr,
-            @free $free_arg $free_expr);
-    };
 }

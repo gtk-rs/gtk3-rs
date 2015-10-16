@@ -3,16 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use gio_ffi;
-use object::{GenericObject, Upcast};
-use translate::*;
-use types;
+use object::Upcast;
 
-pub type AppInfo = GenericObject<gio_ffi::GAppInfo>;
+glib_wrapper! {
+    pub struct AppInfo(Object<gio_ffi::GAppInfo>);
 
-impl types::StaticType for AppInfo {
-    #[inline]
-    fn static_type() -> types::Type {
-        unsafe { from_glib(gio_ffi::g_app_info_get_type()) }
+    match fn {
+        get_type => || gio_ffi::g_app_info_get_type(),
     }
 }
 
