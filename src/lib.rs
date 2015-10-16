@@ -96,9 +96,9 @@ pub struct ParamSpec {
 ///     /// Text buffer iterator
 ///     pub struct TextIter(Boxed<ffi::GtkTextIter>);
 ///
-///     impl TextIter {
-///         copy: ffi::gtk_text_iter_copy,
-///         free: ffi::gtk_text_iter_free,
+///     match fn {
+///         copy => |ptr| ffi::gtk_text_iter_copy(ptr),
+///         free => |ptr| ffi::gtk_text_iter_free(ptr),
 ///     }
 /// }
 /// ```
@@ -108,11 +108,12 @@ macro_rules! glib_wrapper {
         $(#[$attr:meta])*
         pub struct $name:ident(Boxed<$ffi_name:path>);
 
-        impl $name_:ident {
-            copy: $copy_fn:path,
-            free: $free_fn:path,
+        match fn {
+            copy => |$copy_arg:ident| $copy_expr:expr,
+            free => |$free_arg:ident| $free_expr:expr,
         }
-    ) => (
-        glib_boxed_wrapper!($($attr),*; $name, $ffi_name, $copy_fn, $free_fn,);
-    );
+    ) => {
+        glib_boxed_wrapper!($($attr),*; $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr);
+    };
 }

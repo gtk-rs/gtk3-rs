@@ -5,7 +5,8 @@ use translate::*;
 /// Wrapper implementations for Boxed types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_boxed_wrapper {
-    ($($attr:meta),*; $name:ident, $ffi_name:path, $copy_fn:path, $free_fn:path,) => (
+    ($($attr:meta),*; $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+     @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
 
@@ -14,13 +15,13 @@ macro_rules! glib_boxed_wrapper {
 
         impl $crate::boxed::BoxedMemoryManager<$ffi_name> for MemoryManager {
             #[inline]
-            unsafe fn copy(ptr: *const $ffi_name) -> *mut $ffi_name {
-                $copy_fn(ptr)
+            unsafe fn copy($copy_arg: *const $ffi_name) -> *mut $ffi_name {
+                $copy_expr
             }
 
             #[inline]
-            unsafe fn free(ptr: *mut $ffi_name) {
-                $free_fn(ptr)
+            unsafe fn free($free_arg: *mut $ffi_name) {
+                $free_expr
             }
         }
 
@@ -73,7 +74,7 @@ macro_rules! glib_boxed_wrapper {
                 $name(self.0.clone())
             }
         }
-    )
+    }
 }
 
 enum AnyBox<T> {
