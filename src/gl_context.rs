@@ -2,61 +2,59 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! OpenGL context
-
 use glib::translate::*;
-use glib::types;
 use display::Display;
-use object::Object;
 use window::Window;
 use ffi;
 
-/// GLContext is an object representing the platform-specific OpenGL drawing context.
-///
-/// GLContexts are created for a GdkWindow using gdk_window_create_gl_context(), and the context
-/// will match the GdkVisual of the window.
-///
-/// A GLContext is not tied to any particular normal framebuffer. For instance, it cannot draw to
-/// the GdkWindow back buffer. The GDK repaint system is in full control of the painting to that.
-/// Instead, you can create render buffers or textures and use gdk_cairo_draw_from_gl() in the draw
-/// function of your widget to draw them. Then GDK will handle the integration of your rendering
-/// with that of other widgets.
-///
-/// Support for GLContext is platform-specific, context creation can fail, returning None context.
-///
-/// A GLContext has to be made "current" in order to start using it, otherwise any OpenGL call will
-/// be ignored.
-///
-/// ##Creating a new OpenGL context
-///
-/// In order to create a new GLContext instance you need a GdkWindow, which you typically get during
-/// the realize call of a widget.
-///
-/// A GLContext is not realized until either gdk_gl_context_make_current(), or until it is realized
-/// using gdk_gl_context_realize(). It is possible to specify details of the GL context like the
-/// OpenGL version to be used, or whether the GL context should have extra state validation enabled
-/// after calling gdk_window_create_gl_context() by calling gdk_gl_context_realize(). If the
-/// realization fails you have the option to change the settings of the GLContext and try again.
-///
-/// ##Using a GLContext
-///
-/// You will need to make the GLContext the current context before issuing OpenGL calls; the system
-/// sends OpenGL commands to whichever context is current. It is possible to have multiple contexts,
-/// so you always need to ensure that the one which you want to draw with is the current one before
-/// issuing commands:
-///
-/// ```Rust,ignore
-/// GLContext::make_current(context);
-/// ```
-///
-/// You can now perform your drawing using OpenGL commands.
-///
-/// You can check which GLContext is the current one by using gdk_gl_context_get_current(); you can
-/// also unset any GLContext that is currently set by calling gdk_gl_context_clear_current().
-pub type GLContext = Object<ffi::GdkGLContext>;
+glib_wrapper! {
+    /// An object representing the platform-specific OpenGL drawing context.
+    ///
+    /// GLContexts are created for a GdkWindow using gdk_window_create_gl_context(), and the context
+    /// will match the GdkVisual of the window.
+    ///
+    /// A GLContext is not tied to any particular normal framebuffer. For instance, it cannot draw to
+    /// the GdkWindow back buffer. The GDK repaint system is in full control of the painting to that.
+    /// Instead, you can create render buffers or textures and use gdk_cairo_draw_from_gl() in the draw
+    /// function of your widget to draw them. Then GDK will handle the integration of your rendering
+    /// with that of other widgets.
+    ///
+    /// Support for GLContext is platform-specific, context creation can fail, returning None context.
+    ///
+    /// A GLContext has to be made "current" in order to start using it, otherwise any OpenGL call will
+    /// be ignored.
+    ///
+    /// ##Creating a new OpenGL context
+    ///
+    /// In order to create a new GLContext instance you need a GdkWindow, which you typically get during
+    /// the realize call of a widget.
+    ///
+    /// A GLContext is not realized until either gdk_gl_context_make_current(), or until it is realized
+    /// using gdk_gl_context_realize(). It is possible to specify details of the GL context like the
+    /// OpenGL version to be used, or whether the GL context should have extra state validation enabled
+    /// after calling gdk_window_create_gl_context() by calling gdk_gl_context_realize(). If the
+    /// realization fails you have the option to change the settings of the GLContext and try again.
+    ///
+    /// ##Using a GLContext
+    ///
+    /// You will need to make the GLContext the current context before issuing OpenGL calls; the system
+    /// sends OpenGL commands to whichever context is current. It is possible to have multiple contexts,
+    /// so you always need to ensure that the one which you want to draw with is the current one before
+    /// issuing commands:
+    ///
+    /// ```Rust,ignore
+    /// GLContext::make_current(context);
+    /// ```
+    ///
+    /// You can now perform your drawing using OpenGL commands.
+    ///
+    /// You can check which GLContext is the current one by using gdk_gl_context_get_current(); you can
+    /// also unset any GLContext that is currently set by calling gdk_gl_context_clear_current().
+    pub struct GLContext(Object<ffi::GdkGLContext>);
 
-impl types::StaticType for GLContext {
-    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_gl_context_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_gl_context_get_type(),
+    }
 }
 
 impl GLContext {

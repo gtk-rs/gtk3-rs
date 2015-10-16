@@ -4,7 +4,6 @@
 
 use std::marker::PhantomData;
 use glib::object::{Ref, Wrapper};
-use glib::types::StaticType;
 
 pub use glib::object::{Downcast, Upcast};
 

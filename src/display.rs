@@ -4,36 +4,34 @@
 
 use ffi;
 use glib::translate::*;
-use glib::types::{StaticType, Type};
 use atom::Atom;
 use app_launch_context::AppLaunchContext;
 use device::Device;
 use device_manager::DeviceManager;
-use object::Object;
 use screen::Screen;
 use window::Window;
 
-/// Display — Controls a set of GdkScreens and their associated input devices
-///
-/// #Description
-///
-/// Display objects purpose are two fold:
-/// * To manage and provide information about input devices (pointers and keyboards)
-/// * To manage and provide information about the available Screens
-///
-/// Display objects are the GDK representation of an X Display, which can be described as
-/// a workstation consisting of a keyboard, a pointing device (such as a mouse) and one or
-/// more screens. It is used to open and keep track of various GdkScreen objects currently
-/// instantiated by the application. It is also used to access the keyboard(s) and mouse
-/// pointer(s) of the display.
-///
-/// Most of the input device handling has been factored out into the separate `DeviceManager`
-/// object. Every display has a device manager, which you can obtain using
-/// `Display::get_device_manager()`.
-pub type Display = Object<ffi::GdkDisplay>;
+glib_wrapper! {
+    /// Controls a set of `Screen`s and their associated input devices.
+    ///
+    /// Display objects purpose are two fold:
+    /// * To manage and provide information about input devices (pointers and keyboards)
+    /// * To manage and provide information about the available Screens
+    ///
+    /// Display objects are the GDK representation of an X Display, which can be described as
+    /// a workstation consisting of a keyboard, a pointing device (such as a mouse) and one or
+    /// more screens. It is used to open and keep track of various GdkScreen objects currently
+    /// instantiated by the application. It is also used to access the keyboard(s) and mouse
+    /// pointer(s) of the display.
+    ///
+    /// Most of the input device handling has been factored out into the separate `DeviceManager`
+    /// object. Every display has a device manager, which you can obtain using
+    /// `Display::get_device_manager()`.
+    pub struct Display(Object<ffi::GdkDisplay>);
 
-impl StaticType for Display {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_display_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_display_get_type(),
+    }
 }
 
 impl Display {

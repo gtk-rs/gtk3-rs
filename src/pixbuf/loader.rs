@@ -2,23 +2,22 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! GdkPixbufLoader — Application-driven progressive image loading.
-
 use std::ptr;
 use libc::size_t;
 use glib::{Error, GlibContainer};
 use glib::translate::*;
-use glib::types::{StaticType, Type};
-use object::Object;
 use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
 use super::animation::PixbufAnimation;
 use super::format::PixbufFormat;
 
-pub type PixbufLoader = Object<ffi::GdkPixbufLoader>;
+glib_wrapper! {
+    /// Application-driven progressive image loading.
+    pub struct PixbufLoader(Object<ffi::GdkPixbufLoader>);
 
-impl StaticType for PixbufLoader {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_loader_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_pixbuf_loader_get_type(),
+    }
 }
 
 impl PixbufLoader {

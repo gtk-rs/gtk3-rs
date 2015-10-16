@@ -2,22 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! GdkScreen — Object representing a physical screen
-
 use std::mem;
 use glib::translate::*;
-use glib::types::{StaticType, Type};
 use cairo;
 use display::Display;
-use object::Object;
 use visual::Visual;
 use window::Window;
 use ffi;
 
-pub type Screen = Object<ffi::GdkScreen>;
+glib_wrapper! {
+    /// Object representing a physical screen.
+    pub struct Screen(Object<ffi::GdkScreen>);
 
-impl StaticType for Screen {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_screen_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_screen_get_type(),
+    }
 }
 
 impl Screen {

@@ -3,19 +3,19 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use glib::types;
 use display::Display;
-use object::Object;
 use pixbuf::Pixbuf;
 use ffi;
 
 pub type Type = ffi::GdkCursorType;
 
-/// Cursors — Standard and pixmap cursors
-pub type Cursor = Object<ffi::GdkCursor>;
+glib_wrapper! {
+    /// Standard and pixmap cursors.
+    pub struct Cursor(Object<ffi::GdkCursor>);
 
-impl types::StaticType for Cursor {
-    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_cursor_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_cursor_get_type(),
+    }
 }
 
 impl Cursor {

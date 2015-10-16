@@ -7,16 +7,17 @@
 use std::mem;
 use std::ptr;
 use glib::{Error, GlibContainer, TimeVal};
+use glib::object::Upcast;
 use glib::translate::*;
-use glib::types::{StaticType, Type};
-use object::{Object, Upcast};
 use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
 
-pub type PixbufAnimationIter = Object<ffi::GdkPixbufAnimationIter>;
+glib_wrapper! {
+    pub struct PixbufAnimationIter(Object<ffi::GdkPixbufAnimationIter>);
 
-impl StaticType for PixbufAnimationIter {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_animation_iter_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_pixbuf_animation_iter_get_type(),
+    }
 }
 
 impl PixbufAnimationIter {
@@ -43,10 +44,12 @@ impl PixbufAnimationIter {
     }
 }
 
-pub type PixbufAnimation = Object<ffi::GdkPixbufAnimation>;
+glib_wrapper! {
+    pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation>);
 
-impl StaticType for PixbufAnimation {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_animation_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_pixbuf_animation_get_type(),
+    }
 }
 
 impl PixbufAnimation {
@@ -122,10 +125,12 @@ impl<T: Upcast<PixbufAnimation>> PixbufAnimationExt for T {
     }
 }
 
-pub type PixbufSimpleAnim = Object<ffi::GdkPixbufSimpleAnim>;
+glib_wrapper! {
+    pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim>);
 
-impl StaticType for PixbufSimpleAnim {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_simple_anim_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_pixbuf_simple_anim_get_type(),
+    }
 }
 
 unsafe impl Upcast<PixbufAnimation> for PixbufSimpleAnim { }
