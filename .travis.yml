@@ -10,5 +10,5 @@ env:
   - GTK=3.4
   - GTK=latest
 script:
-  - ./git_deps.sh cairo glib gdk gtk pango
+  - ./git_deps.sh cairo glib gdk gtk pango sys
   - ./build.sh
