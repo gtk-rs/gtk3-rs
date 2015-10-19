@@ -8,7 +8,10 @@ use gtk::traits::*;
 use gtk::signal::Inhibit;
 
 fn main() {
-    gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
+    if gtk::init().is_err() {
+        println!("Failed to initialize GTK.");
+        return;
+    }
 
     let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
 
@@ -40,7 +43,7 @@ fn main() {
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
-        Inhibit(true)
+        Inhibit(false)
     });
 
     gtk::main();
