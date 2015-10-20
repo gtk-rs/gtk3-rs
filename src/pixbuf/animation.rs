@@ -126,14 +126,12 @@ impl<T: Upcast<PixbufAnimation>> PixbufAnimationExt for T {
 }
 
 glib_wrapper! {
-    pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim>);
+    pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim>): PixbufAnimation;
 
     match fn {
         get_type => || ffi::gdk_pixbuf_simple_anim_get_type(),
     }
 }
-
-unsafe impl Upcast<PixbufAnimation> for PixbufSimpleAnim { }
 
 impl PixbufSimpleAnim {
     pub fn new(width: i32, height: i32, rate: f32) -> PixbufSimpleAnim {
