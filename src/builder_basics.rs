@@ -14,7 +14,10 @@ mod example {
 
 
     pub fn main() {
-        gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
+        if gtk::init().is_err() {
+            println!("Failed to initialize GTK.");
+            return;
+        }
         let glade_src = include_str!("builder_basics.glade");
         let builder = Builder::new_from_string(glade_src).unwrap();
         let window: Window = builder.get_object("window1").unwrap();
@@ -23,7 +26,7 @@ mod example {
 
         window.connect_delete_event(|_, _| {
             gtk::main_quit();
-            Inhibit(true)
+            Inhibit(false)
         });
 
         bigbutton.connect_clicked(move |_| {
