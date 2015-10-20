@@ -68,11 +68,22 @@ pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 ///
 /// ```
 /// glib_wrapper! {
-///     /// Object representing an input device
+///     /// Object representing an input device.
 ///     pub struct Device(Object<ffi::GdkDevice>);
 ///
 ///     match fn {
 ///         get_type => || ffi::gdk_device_get_type(),
+///     }
+/// }
+/// ```
+///
+/// ```
+/// glib_wrapper! {
+///     /// A container with just one child.
+///     pub struct Bin(Object<ffi::GtkBin>): Container, Widget, Buildable;
+///
+///     match fn {
+///         get_type => || ffi::gtk_bin_get_type(),
 ///     }
 /// }
 /// ```
@@ -101,8 +112,20 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr);
-    }
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr, []);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>): $($implements:path),+;
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr,
+            [$($implements),+]);
+    };
 }
 
 #[macro_use]

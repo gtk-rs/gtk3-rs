@@ -225,7 +225,8 @@ impl<T: Upcast<Object>> ObjectExt for T {
 /// Wrapper implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr,
+     [$($implements:path),*]) => {
         $(#[$attr])*
         pub struct $name($crate::object::Ref, ::std::marker::PhantomData<$ffi_name>);
 
@@ -261,5 +262,8 @@ macro_rules! glib_object_wrapper {
         }
 
         unsafe impl $crate::object::Upcast<$crate::object::Object> for $name { }
+        $(
+            unsafe impl $crate::object::Upcast<$implements> for $name { }
+        )*
     }
 }
