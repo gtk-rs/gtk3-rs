@@ -55,14 +55,17 @@ macro_rules! clone {
 // and forth repeatedly.
 
 fn main() {
-    gtk::init().unwrap_or_else(|_| panic!("Failed to initialize GTK."));
+    if gtk::init().is_err() {
+        println!("Failed to initialize GTK.");
+        return;
+    }
     let window = Window::new(WindowType::Toplevel).unwrap();
     let area = DrawingArea::new().unwrap();
     window.add(&area);
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
-        Inhibit(true)
+        Inhibit(false)
     });
 
     let format = Format::Rgb24;
