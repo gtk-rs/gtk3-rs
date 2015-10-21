@@ -76,6 +76,47 @@ impl<T: 'static> Ptr for *mut T {
     fn from<X>(ptr: *mut X) -> *mut T { ptr as *mut T }
 }
 
+/// A trait for creating an uninitialized value. Handy for receiving outparams.
+pub trait Uninitialized {
+    /// Returns an uninitialized value.
+    unsafe fn uninitialized() -> Self;
+}
+
+/// Returns an uninitialized value.
+#[inline]
+pub unsafe fn uninitialized<T: Uninitialized>() -> T {
+    T::uninitialized()
+}
+
+pub trait ToBool: Copy {
+    fn to_bool(self) -> bool;
+}
+
+impl ToBool for bool {
+    #[inline]
+    fn to_bool(self) -> bool {
+        self
+    }
+}
+
+impl ToBool for glib_ffi::gboolean {
+    #[inline]
+    fn to_bool(self) -> bool {
+        !(self == glib_ffi::GFALSE)
+    }
+}
+
+/// Returns `Some(val)` if the condition is true and `None` otherwise.
+#[inline]
+pub fn some_if<B: ToBool, T>(cond: B, val: T) -> Option<T> {
+    if cond.to_bool() {
+        Some(val)
+    }
+    else {
+        None
+    }
+}
+
 /// Helper type that stores temporary values used for translation.
 ///
 /// `P` is the foreign type pointer and the first element of the tuple.
@@ -159,13 +200,6 @@ pub trait ToGlibPtrMut<'a, P: Copy> {
     ///
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
     fn to_glib_none_mut(&'a mut self) -> StashMut<P, Self>;
-
-    /// Transfer: full.
-    ///
-    /// We transfer the ownership to the foreign library.
-    fn to_glib_full_mut(&'a mut self) -> P {
-        unimplemented!();
-    }
 }
 
 impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
@@ -182,6 +216,18 @@ impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
     #[inline]
     fn to_glib_full(&self) -> P {
         self.as_ref().map_or(Ptr::from::<()>(ptr::null_mut()), |s| s.to_glib_full())
+    }
+}
+
+impl <'a, 'opt: 'a, P: Ptr, T: ToGlibPtrMut<'a, P>> ToGlibPtrMut<'a, P> for Option<&'opt mut T> {
+    type Storage = Option<<T as ToGlibPtrMut<'a, P>>::Storage>;
+
+    #[inline]
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, P, Option<&'opt mut T>> {
+        self.as_mut().map_or(StashMut(Ptr::from::<()>(ptr::null_mut()), None), |s| {
+            let s = s.to_glib_none_mut();
+            StashMut(s.0, Some(s.1))
+        })
     }
 }
 
@@ -369,6 +415,11 @@ pub trait FromGlibPtr<P: Ptr>: Sized {
 
     /// Transfer: full.
     unsafe fn from_glib_full(ptr: P) -> Self;
+
+    /// Borrow. Don't increase the refcount.
+    unsafe fn from_glib_borrow(_ptr: P) -> Self {
+        unimplemented!();
+    }
 }
 
 /// Translate from a pointer type, transfer: none.
@@ -381,6 +432,12 @@ pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
 #[inline]
 pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
     FromGlibPtr::from_glib_full(ptr)
+}
+
+/// Translate from a pointer type, borrowing the pointer.
+#[inline]
+pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtr<P>>(ptr: P) -> T {
+    FromGlibPtr::from_glib_borrow(ptr)
 }
 
 impl<P: Ptr, T: FromGlibPtr<P>> FromGlibPtr<P> for Option<T> {
