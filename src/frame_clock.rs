@@ -2,20 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Frame clock — Frame clock syncs painting to a window or display
-
 use glib::translate::*;
-use glib::types::{StaticType, Type};
 use frame_timings::FrameTimings;
-use object::Object;
 use ffi;
 
 pub type Phase = ffi::GdkFrameClockPhase;
 
-pub type FrameClock = Object<ffi::GdkFrameClock>;
+glib_wrapper! {
+    /// Frame clock syncs painting to a window or display.
+    pub struct FrameClock(Object<ffi::GdkFrameClock>);
 
-impl StaticType for FrameClock {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_frame_clock_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_frame_clock_get_type(),
+    }
 }
 
 impl FrameClock {

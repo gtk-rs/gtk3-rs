@@ -8,6 +8,7 @@ Bindings and wrappers for __GDK__
 
 extern crate gdk_pixbuf_sys as gdk_pixbuf_ffi;
 extern crate gdk_sys as gdk_ffi;
+#[macro_use]
 extern crate glib as glib_main;
 extern crate cairo;
 extern crate libc;
@@ -17,7 +18,6 @@ pub use glib_main as glib;
 
 mod events;
 mod keys;
-mod object;
 mod rectangle;
 mod rt;
 

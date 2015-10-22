@@ -2,24 +2,23 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Drag And Drop — Functions for controlling drag and drop handling
-
 use std::ptr;
 use glib::translate::*;
-use glib::types::{StaticType, Type};
 use atom::Atom;
 use device::Device;
-use object::Object;
 use screen::Screen;
 use window::Window;
 use ffi;
 
 use {DragAction, DragProtocol};
 
-pub type DragContext = Object<ffi::GdkDragContext>;
+glib_wrapper! {
+    /// Functions for controlling drag and drop handling.
+    pub struct DragContext(Object<ffi::GdkDragContext>);
 
-impl StaticType for DragContext {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_drag_context_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_drag_context_get_type(),
+    }
 }
 
 impl DragContext {

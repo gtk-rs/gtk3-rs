@@ -9,9 +9,7 @@ use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
 use glib::translate::*;
-use glib::types::{StaticType, Type};
 use glib::{Error, to_gboolean, GlibContainer};
-use object::Object;
 use gdk_pixbuf_ffi as ffi;
 
 use {
@@ -27,13 +25,17 @@ pub use self::animation::{PixbufAnimation, PixbufAnimationIter, PixbufSimpleAnim
 pub use self::format::PixbufFormat;
 pub use self::loader::PixbufLoader;
 
-/// This is the main structure in the &gdk-pixbuf; library. It is used to represent images. It contains information about the image's pixel 
-/// data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the 
+glib_wrapper! {
+    /// Represents an image.
+    ///
+    /// This is the main structure in the `gdk-pixbuf` library. It is used to represent images. It contains information about the image's pixel
+    /// data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the
 /// start of the next).
-pub type Pixbuf = Object<ffi::GdkPixbuf>;
+    pub struct Pixbuf(Object<ffi::GdkPixbuf>);
 
-impl StaticType for Pixbuf {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_pixbuf_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_pixbuf_get_type(),
+    }
 }
 
 impl Pixbuf {
@@ -155,7 +157,7 @@ impl Pixbuf {
     }
 
     pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Pixbuf {
-        unsafe { 
+        unsafe {
             from_glib_full(
                 ffi::gdk_pixbuf_new_subpixbuf(self.to_glib_none().0, src_x, src_y, width, height))
         }
@@ -247,13 +249,13 @@ impl Pixbuf {
                                   interp_type);
         }
     }
-    
+
     /// Creates a transformation of the calling pixbuf by scaling by `scale_x`
     /// and `scale_y` then translating by `offset_x` and `offset_y`. This gives
     /// an image in the coordinates of the destination pixbuf. The rectangle
     /// (`dest_x`, `dest_y`, `dest_width`, `dest_height`) is then composited
     /// onto the corresponding rectangle of the original destination image.
-    /// 
+    ///
     /// ![Diagram of `composite` process](https://developer.gnome.org/gdk-pixbuf/unstable/composite.png)
     ///
     /// When the destination rectangle contains parts not in the source image,

@@ -3,19 +3,20 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use glib::types::{StaticType, Type};
-use object::Object;
 use screen::Screen;
 use display::Display;
 use ffi;
 
-// FIXME: should inherit from GAppLaunchContext
-/// Application launching — Startup notification for applications
-pub type AppLaunchContext = Object<ffi::GdkAppLaunchContext>;
+glib_wrapper! {
+    /// Application launching — startup notification for applications.
+    pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>);
 
-impl StaticType for AppLaunchContext {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_app_launch_context_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_app_launch_context_get_type(),
+    }
 }
+
+// FIXME: should inherit from GAppLaunchContext
 
 impl AppLaunchContext {
     /// Creates a new AppLaunchContext.

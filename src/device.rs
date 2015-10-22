@@ -3,22 +3,22 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use glib::types;
 use cursor::Cursor;
 use display::Display;
-use object::Object;
 use screen::Screen;
 use window::Window;
 use ffi;
 
-pub type Type = ffi::GdkDeviceType;
+glib_wrapper! {
+    /// Object representing an input device.
+    pub struct Device(Object<ffi::GdkDevice>);
 
-/// Object representing an input device
-pub type Device = Object<ffi::GdkDevice>;
-
-impl types::StaticType for Device {
-    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_device_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_device_get_type(),
+    }
 }
+
+pub type Type = ffi::GdkDeviceType;
 
 impl Device {
     /// Determines the name of the device.

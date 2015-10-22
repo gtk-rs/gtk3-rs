@@ -2,20 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Windows — Onscreen display areas in the target window system
-
 use std::mem;
 use std::ptr;
 use libc::{c_char, c_int};
 use glib::translate::*;
-use glib::types;
 use cairo;
 use cursor::Cursor;
 use device::Device;
 use display::Display;
 #[cfg(gdk_3_8)]
 use frame_clock::FrameClock;
-use object::Object;
 use screen::Screen;
 use visual::Visual;
 use ffi;
@@ -107,10 +103,13 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for &'a Attributes {
     }
 }
 
-pub type Window = Object<ffi::GdkWindow>;
+glib_wrapper! {
+    /// Onscreen display areas in the target window system.
+    pub struct Window(Object<ffi::GdkWindow>);
 
-impl types::StaticType for Window {
-    fn static_type() -> types::Type { unsafe { from_glib(ffi::gdk_window_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_window_get_type(),
+    }
 }
 
 impl Window {

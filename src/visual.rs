@@ -2,20 +2,19 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Visuals — Low-level display hardware information
-
 use std::ptr;
 use std::slice;
 use glib::translate::*;
-use glib::types::{StaticType, Type};
-use object::Object;
 use screen::Screen;
 use ffi;
 
-pub type Visual = Object<ffi::GdkVisual>;
+glib_wrapper! {
+    /// Low-level display hardware information.
+    pub struct Visual(Object<ffi::GdkVisual>);
 
-impl StaticType for Visual {
-    fn static_type() -> Type { unsafe { from_glib(ffi::gdk_visual_get_type()) } }
+    match fn {
+        get_type => || ffi::gdk_visual_get_type(),
+    }
 }
 
 impl Visual {
