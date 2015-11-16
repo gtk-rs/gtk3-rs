@@ -10,10 +10,10 @@ use ffi::{self, GdkRGBA};
 use super::{Pixbuf, Window};
 use cairo::{Context, RectangleInt};
 
-//pub fn create_region_from_surface() { }
+//pub fn create_region_from_surface()
 //--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
 
-//pub fn create_surface_from_pixbuf() { }
+//pub fn create_surface_from_pixbuf()
 //--> WRAP: gdk_cairo_surface_create_from_pixbuf (const GdkPixbuf *pixbuf, int scale, GdkWindow *for_window);
 
 pub trait ContextExt {
@@ -54,6 +54,7 @@ pub trait ContextExt {
 
 impl ContextExt for Context {
     fn create_from_window(window: &Window) -> Context {
+        skip_assert_initialized!();
         unsafe { from_glib_full(ffi::gdk_cairo_create(window.to_glib_none().0)) }
     }
 

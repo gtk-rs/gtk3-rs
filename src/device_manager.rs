@@ -118,6 +118,7 @@ impl DeviceManager {
     /// mixed GDK/Xlib calls could want to disable multidevice support if such Xlib code deals
     /// with input devices in any way and doesn’t observe the presence of XInput 2.
     pub fn disable_multidevice() {
+        assert_not_initialized!();
         unsafe { ffi::gdk_disable_multidevice() }
     }
 

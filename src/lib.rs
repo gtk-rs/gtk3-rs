@@ -16,10 +16,12 @@ extern crate libc;
 pub use gdk_ffi as ffi;
 pub use glib_main as glib;
 
+#[macro_use]
+mod rt;
+
 mod events;
 mod keys;
 mod rectangle;
-mod rt;
 
 pub mod prelude;
 pub mod enums;
@@ -49,6 +51,7 @@ pub use gdk_ffi::GdkColor as Color;
 
 pub use self::rt::{
     init,
+    set_initialized,
     get_display_arg_name,
     notify_startup_complete,
     notify_startup_complete_with_id,

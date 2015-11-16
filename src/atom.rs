@@ -15,6 +15,7 @@ pub const NONE: Atom = Atom(0 as *mut _);
 impl Atom {
     /// Finds or creates an atom corresponding to a given string.
     pub fn intern(atom_name: &str) -> Atom {
+        assert_initialized_main_thread!();
         unsafe { Atom(ffi::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
     }
 

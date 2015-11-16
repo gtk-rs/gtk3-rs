@@ -21,6 +21,7 @@ pub trait RGBA {
 
 impl RGBA for GdkRGBA {
     fn white() -> GdkRGBA {
+        skip_assert_initialized!();
         GdkRGBA {
             red: 1f64,
             green: 1f64,
@@ -30,6 +31,7 @@ impl RGBA for GdkRGBA {
     }
 
     fn blue() -> GdkRGBA {
+        skip_assert_initialized!();
         GdkRGBA {
             red: 0f64,
             green: 0f64,
@@ -39,6 +41,7 @@ impl RGBA for GdkRGBA {
     }
 
     fn green() -> GdkRGBA {
+        skip_assert_initialized!();
         GdkRGBA {
             red: 0f64,
             green: 1f64,
@@ -48,6 +51,7 @@ impl RGBA for GdkRGBA {
     }
 
     fn red() -> GdkRGBA {
+        skip_assert_initialized!();
         GdkRGBA {
             red: 1f64,
             green: 0f64,
@@ -57,6 +61,7 @@ impl RGBA for GdkRGBA {
     }
 
     fn black() -> GdkRGBA {
+        skip_assert_initialized!();
         GdkRGBA {
             red: 0f64,
             green: 0f64,

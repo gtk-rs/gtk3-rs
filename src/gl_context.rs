@@ -136,6 +136,7 @@ impl GLContext {
 
     /// Retrieves the current GLContext.
     pub fn get_current() -> Option<GLContext> {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_gl_context_get_current()) }
     }
 
@@ -144,6 +145,7 @@ impl GLContext {
     /// Any OpenGL call after this function returns will be ignored until GLContext::make_current()
     /// is called.
     pub fn clear_current() {
+        assert_initialized_main_thread!();
         unsafe { ffi::gdk_gl_context_clear_current() }
     }
 }

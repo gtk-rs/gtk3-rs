@@ -249,6 +249,7 @@ impl Device {
     }
 
     pub fn free_history(events: &[::TimeCoord]) {
+        assert_initialized_main_thread!();
         let mut tmp = Vec::with_capacity(events.len());
 
         for i in range(0, events.len()) {

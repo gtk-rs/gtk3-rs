@@ -37,12 +37,14 @@ glib_wrapper! {
 impl Display {
     /// Opens a display.
     pub fn open(display_name: &str) -> Option<Display> {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_open(display_name.to_glib_none().0)) }
     }
 
     /// Gets the default `Display`. This is a convenience function for:
     /// `DisplayManager::get_default_display(DisplayManager::get())`.
     pub fn get_default() -> Option<Display> {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_get_default()) }
     }
 
