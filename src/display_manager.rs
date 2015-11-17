@@ -18,6 +18,7 @@ glib_wrapper! {
 
 impl DisplayManager {
     pub fn get() -> DisplayManager {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_display_manager_get()) }
     }
 

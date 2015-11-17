@@ -29,6 +29,7 @@ impl Cursor {
     ///
     /// Use Cursor::new_for_display() instead.
     pub fn new(cursor_type: Type) -> Cursor {
+        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gdk_cursor_new(cursor_type)) }
     }
 
@@ -47,6 +48,7 @@ impl Cursor {
     /// On the X backend, support for RGBA cursors requires a sufficently new version of the
     /// X Render extension.
     pub fn new_from_pixbuf(display: &Display, pixbuf: &Pixbuf, x: i32, y: i32) -> Cursor {
+        skip_assert_initialized!();
         unsafe {
             from_glib_full(
                 ffi::gdk_cursor_new_from_pixbuf(display.to_glib_none().0,
@@ -56,6 +58,7 @@ impl Cursor {
 
     /// Creates a new cursor by looking up `name` in the current cursor theme.
     pub fn new_from_name(display: &Display, name: &str) -> Option<Cursor> {
+        skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_cursor_new_from_name(display.to_glib_none().0,
                                                          name.to_glib_none().0))
@@ -67,6 +70,7 @@ impl Cursor {
     /// You can find a list of useful ones here:
     /// https://developer.gnome.org/gdk3/stable/gdk3-Cursors.html#gdk-cursor-new-for-display
     pub fn new_for_display(display: &Display, cursor_type: Type) -> Cursor {
+        skip_assert_initialized!();
         unsafe { 
             from_glib_full(ffi::gdk_cursor_new_for_display(display.to_glib_none().0, cursor_type))
         }

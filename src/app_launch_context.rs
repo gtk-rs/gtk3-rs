@@ -21,6 +21,7 @@ glib_wrapper! {
 impl AppLaunchContext {
     /// Creates a new AppLaunchContext.
     pub fn new() -> AppLaunchContext {
+        assert_initialized_main_thread!();
         unsafe { from_glib_full(ffi::gdk_app_launch_context_new()) }
     }
 

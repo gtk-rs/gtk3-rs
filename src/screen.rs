@@ -21,6 +21,7 @@ glib_wrapper! {
 
 impl Screen {
     pub fn get_default() -> Option<Screen> {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_screen_get_default()) }
     }
 

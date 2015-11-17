@@ -114,6 +114,7 @@ glib_wrapper! {
 
 impl Window {
     pub fn new(parent: Option<&Window>, attributes: &Attributes) -> Window {
+        assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::gdk_window_new(
                 parent.to_glib_none().0,
@@ -354,6 +355,7 @@ impl Window {
     }
 
     pub fn process_all_updates() {
+        assert_initialized_main_thread!();
         unsafe { ffi::gdk_window_process_all_updates() }
     }
 
@@ -362,6 +364,7 @@ impl Window {
     }
 
     pub fn set_debug_updates(setting: bool) {
+        assert_initialized_main_thread!();
         unsafe { ffi::gdk_window_set_debug_updates(setting.to_glib()) }
     }
 
@@ -607,6 +610,7 @@ impl Window {
     }
 
     pub fn get_default_root_window() -> Window {
+        assert_initialized_main_thread!();
         unsafe { from_glib_none(ffi::gdk_get_default_root_window()) }
     }
 
