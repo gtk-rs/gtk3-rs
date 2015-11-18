@@ -12,8 +12,8 @@ use types::Type;
 use translate::*;
 
 pub trait ValuePublic {
-    fn get(gvalue: &Value) -> Self;
-    fn set(&self, gvalue: &mut Value);
+    unsafe fn get(gvalue: &Value) -> Self;
+    unsafe fn set(&self, gvalue: &mut Value);
 }
 
 /// Possible improvement : store a function pointer inside the struct and make the struct
@@ -23,8 +23,8 @@ pub struct Value {
 }
 
 impl Value {
-    pub fn new() -> Value {
-        unsafe { Value { inner: mem::zeroed() } }
+    pub unsafe fn new() -> Value {
+        Value { inner: mem::zeroed() }
     }
 
     /// Initializes value with the default value of type .
@@ -41,8 +41,8 @@ impl Value {
     /// Clears the current value in value and "unsets" the type, this releases all resources
     /// associated with this GValue. An unset value is the same as an uninitialized (zero-filled)
     /// GValue structure.
-    pub fn unset(&mut self) {
-        unsafe { gobject_ffi::g_value_unset(&mut self.inner) }
+    pub unsafe fn unset(&mut self) {
+        gobject_ffi::g_value_unset(&mut self.inner)
     }
 
     /// Return a newly allocated string, which describes the contents of a GValue. The main
@@ -55,155 +55,151 @@ impl Value {
     }
 
     /// Set the contents of a G_TYPE_BOOLEAN GValue to v_boolean.
-    fn set_boolean(&mut self, v_boolean: bool) {
-        unsafe { gobject_ffi::g_value_set_boolean(&mut self.inner, to_gboolean(v_boolean)) }
+    pub unsafe fn set_boolean(&mut self, v_boolean: bool) {
+        gobject_ffi::g_value_set_boolean(&mut self.inner, to_gboolean(v_boolean))
     }
 
     /// Get the contents of a G_TYPE_BOOLEAN GValue.
-    fn get_boolean(&self) -> bool {
-        unsafe { to_bool(gobject_ffi::g_value_get_boolean(&self.inner)) }
+    pub unsafe fn get_boolean(&self) -> bool {
+        to_bool(gobject_ffi::g_value_get_boolean(&self.inner))
     }
 
     /// Set the contents of a G_TYPE_CHAR GValue to v_char .
-    fn set_schar(&mut self, v_char: i8) {
-        unsafe { gobject_ffi::g_value_set_schar(&mut self.inner, v_char) }
+    pub unsafe fn set_schar(&mut self, v_char: i8) {
+        gobject_ffi::g_value_set_schar(&mut self.inner, v_char)
     }
 
     /// Get the contents of a G_TYPE_CHAR GValue.
-    fn get_schar(&self) -> i8 {
-        unsafe { gobject_ffi::g_value_get_schar(&self.inner) }
+    pub unsafe fn get_schar(&self) -> i8 {
+        gobject_ffi::g_value_get_schar(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_UCHAR GValue to v_uchar .
-    fn set_uchar(&mut self, v_uchar: u8) {
-        unsafe { gobject_ffi::g_value_set_uchar(&mut self.inner, v_uchar) }
+    pub unsafe fn set_uchar(&mut self, v_uchar: u8) {
+        gobject_ffi::g_value_set_uchar(&mut self.inner, v_uchar)
     }
 
     /// Get the contents of a G_TYPE_UCHAR GValue.
-    fn get_uchar(&self) -> u8 {
-        unsafe { gobject_ffi::g_value_get_uchar(&self.inner) }
+    pub unsafe fn get_uchar(&self) -> u8 {
+        gobject_ffi::g_value_get_uchar(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_INT GValue to v_int.
-    fn set_int(&mut self, v_int: i32) {
-        unsafe { gobject_ffi::g_value_set_int(&mut self.inner, v_int) }
+    pub unsafe fn set_int(&mut self, v_int: i32) {
+        gobject_ffi::g_value_set_int(&mut self.inner, v_int)
     }
 
     /// Get the contents of a G_TYPE_INT GValue.
-    fn get_int(&self) -> i32 {
-        unsafe { gobject_ffi::g_value_get_int(&self.inner) }
+    pub unsafe fn get_int(&self) -> i32 {
+        gobject_ffi::g_value_get_int(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_UINT GValue to v_uint .
-    fn set_uint(&mut self, v_uint: u32) {
-        unsafe { gobject_ffi::g_value_set_uint(&mut self.inner, v_uint) }
+    pub unsafe fn set_uint(&mut self, v_uint: u32) {
+        gobject_ffi::g_value_set_uint(&mut self.inner, v_uint)
     }
 
     /// Get the contents of a G_TYPE_UINT GValue.
-    fn get_uint(&self) -> u32 {
-        unsafe { gobject_ffi::g_value_get_uint(&self.inner) }
+    pub unsafe fn get_uint(&self) -> u32 {
+        gobject_ffi::g_value_get_uint(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_LONG GValue to v_long .
-    pub fn set_long(&mut self, v_long: i64) {
-        unsafe { gobject_ffi::g_value_set_long(&mut self.inner, v_long as ::libc::c_long) }
+    pub unsafe fn set_long(&mut self, v_long: i64) {
+        gobject_ffi::g_value_set_long(&mut self.inner, v_long as ::libc::c_long)
     }
 
     /// Get the contents of a G_TYPE_LONG GValue.
-    pub fn get_long(&self) -> i64 {
-        unsafe { gobject_ffi::g_value_get_long(&self.inner) as i64 }
+    pub unsafe fn get_long(&self) -> i64 {
+        gobject_ffi::g_value_get_long(&self.inner) as i64
     }
 
     /// Set the contents of a G_TYPE_ULONG GValue to v_ulong .
-    pub fn set_ulong(&mut self, v_ulong: u64) {
-        unsafe { gobject_ffi::g_value_set_ulong(&mut self.inner, v_ulong as ::libc::c_ulong) }
+    pub unsafe fn set_ulong(&mut self, v_ulong: u64) {
+        gobject_ffi::g_value_set_ulong(&mut self.inner, v_ulong as ::libc::c_ulong)
     }
 
     /// Get the contents of a G_TYPE_ULONG GValue.
-    pub fn get_ulong(&self) -> u64 {
-        unsafe { gobject_ffi::g_value_get_ulong(&self.inner) as u64 }
+    pub unsafe fn get_ulong(&self) -> u64 {
+        gobject_ffi::g_value_get_ulong(&self.inner) as u64
     }
 
     /// Set the contents of a G_TYPE_INT64 GValue to v_int64 .
-    fn set_int64(&mut self, v_int64: i64) {
-        unsafe { gobject_ffi::g_value_set_int64(&mut self.inner, v_int64) }
+    pub unsafe fn set_int64(&mut self, v_int64: i64) {
+        gobject_ffi::g_value_set_int64(&mut self.inner, v_int64)
     }
 
     /// Get the contents of a G_TYPE_INT64 GValue.
-    fn get_int64(&self) -> i64 {
-        unsafe { gobject_ffi::g_value_get_int64(&self.inner) }
+    pub unsafe fn get_int64(&self) -> i64 {
+        gobject_ffi::g_value_get_int64(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_UINT64 GValue to v_uint64 .
-    fn set_uint64(&mut self, v_uint64: u64) {
-        unsafe { gobject_ffi::g_value_set_uint64(&mut self.inner, v_uint64) }
+    pub unsafe fn set_uint64(&mut self, v_uint64: u64) {
+        gobject_ffi::g_value_set_uint64(&mut self.inner, v_uint64)
     }
 
     /// Get the contents of a G_TYPE_UINT64 GValue.
-    fn get_uint64(&self) -> u64 {
-        unsafe { gobject_ffi::g_value_get_uint64(&self.inner) }
+    pub unsafe fn get_uint64(&self) -> u64 {
+        gobject_ffi::g_value_get_uint64(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_FLOAT GValue to v_float .
-    fn set_float(&mut self, v_float: f32) {
-        unsafe { gobject_ffi::g_value_set_float(&mut self.inner, v_float) }
+    pub unsafe fn set_float(&mut self, v_float: f32) {
+        gobject_ffi::g_value_set_float(&mut self.inner, v_float)
     }
 
     /// Get the contents of a G_TYPE_FLOAT GValue.
-    fn get_float(&self) -> f32 {
-        unsafe { gobject_ffi::g_value_get_float(&self.inner) }
+    pub unsafe fn get_float(&self) -> f32 {
+        gobject_ffi::g_value_get_float(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_DOUBLE GValue to v_double .
-    fn set_double(&mut self, v_double: f64) {
-        unsafe { gobject_ffi::g_value_set_double(&mut self.inner, v_double) }
+    pub unsafe fn set_double(&mut self, v_double: f64) {
+        gobject_ffi::g_value_set_double(&mut self.inner, v_double)
     }
 
     /// Get the contents of a G_TYPE_DOUBLE GValue.
-    fn get_double(&self) -> f64 {
-        unsafe { gobject_ffi::g_value_get_double(&self.inner) }
+    pub unsafe fn get_double(&self) -> f64 {
+        gobject_ffi::g_value_get_double(&self.inner)
     }
 
     /// Set the contents of a G_TYPE_STRING GValue to v_string .
-    fn set_string(&mut self, v_string: &str) {
-        unsafe {
-            gobject_ffi::g_value_set_string(&mut self.inner, v_string.to_glib_none().0);
-        }
+    pub unsafe fn set_string(&mut self, v_string: &str) {
+        gobject_ffi::g_value_set_string(&mut self.inner, v_string.to_glib_none().0);
     }
 
     /// Get the contents of a G_TYPE_STRING GValue.
-    pub fn get_string(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(gobject_ffi::g_value_get_string(&self.inner))
-        }
+    pub unsafe fn get_string(&self) -> Option<String> {
+        from_glib_none(gobject_ffi::g_value_get_string(&self.inner))
     }
 
     /// Set the contents of a G_TYPE_BOXED derived GValue to v_boxed .
-    pub fn set_boxed<T>(&mut self, v_box: &T) {
-        unsafe { gobject_ffi::g_value_set_boxed(&mut self.inner, ::std::mem::transmute(v_box)) }
+    pub unsafe fn set_boxed<T>(&mut self, v_box: &T) {
+        gobject_ffi::g_value_set_boxed(&mut self.inner, ::std::mem::transmute(v_box))
     }
 
     /*pub fn take_boxed<T>(&self, v_box: &T) {
-        unsafe { gobject_ffi::g_value_take_boxed(&mut self.inner, ::std::mem::transmute(v_box)) }
+        gobject_ffi::g_value_take_boxed(&mut self.inner, ::std::mem::transmute(v_box))
     }*/
 
     /// Get the contents of a G_TYPE_BOXED derived GValue.
-    pub fn get_boxed<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(gobject_ffi::g_value_get_boxed(&self.inner)) }
+    pub unsafe fn get_boxed<'r, T>(&'r self) -> &'r T {
+        ::std::mem::transmute(gobject_ffi::g_value_get_boxed(&self.inner))
     }
 
-    /*pub fn dup_boxed<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(gobject_ffi::g_value_dup_boxed(&mut self.inner)) }
+    /*pub unsafe fn dup_boxed<'r, T>(&'r self) -> &'r T {
+        ::std::mem::transmute(gobject_ffi::g_value_dup_boxed(&mut self.inner))
     }*/
 
     /// Set the contents of a pointer GValue to v_pointer .
-    pub fn set_pointer<T>(&mut self, v_pointer: &T) {
-        unsafe { gobject_ffi::g_value_set_pointer(&mut self.inner, ::std::mem::transmute(v_pointer)) }
+    pub unsafe fn set_pointer<T>(&mut self, v_pointer: &T) {
+        gobject_ffi::g_value_set_pointer(&mut self.inner, ::std::mem::transmute(v_pointer))
     }
 
     /// Get the contents of a pointer GValue.
-    pub fn get_pointer<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(gobject_ffi::g_value_get_pointer(&self.inner)) }
+    pub unsafe fn get_pointer<'r, T>(&'r self) -> &'r T {
+        ::std::mem::transmute(gobject_ffi::g_value_get_pointer(&self.inner))
     }
 
     /// Set the contents of a G_TYPE_OBJECT derived GValue to v_object .
@@ -215,32 +211,32 @@ impl Value {
     /// 
     /// It is important that your GValue holds a reference to v_object (either its own, or one it
     /// has taken) to ensure that the object won't be destroyed while the GValue still exists).
-    pub fn set_object<T>(&mut self, v_object: &T) {
-        unsafe { gobject_ffi::g_value_set_object(&mut self.inner, ::std::mem::transmute(v_object)) }
+    pub unsafe fn set_object<T>(&mut self, v_object: &T) {
+        gobject_ffi::g_value_set_object(&mut self.inner, ::std::mem::transmute(v_object))
     }
 
     /// Get the contents of a G_TYPE_OBJECT derived GValue.
-    pub fn get_object<'r, T>(&'r self) -> &'r T {
-        unsafe { ::std::mem::transmute(gobject_ffi::g_value_get_object(&self.inner)) }
+    pub unsafe fn get_object<'r, T>(&'r self) -> &'r T {
+        ::std::mem::transmute(gobject_ffi::g_value_get_object(&self.inner))
     }
 
     /// Set the contents of a G_TYPE_GTYPE GValue to v_gtype .
     // FIXME shouldn't be like that
-    fn set_gtype(&mut self, v_gtype: Type) {
-        unsafe { gobject_ffi::g_value_set_gtype(&mut self.inner, v_gtype.to_glib()) }
+    pub unsafe fn set_gtype(&mut self, v_gtype: Type) {
+        gobject_ffi::g_value_set_gtype(&mut self.inner, v_gtype.to_glib())
     }
 
     /// Get the contents of a G_TYPE_GTYPE GValue.
     // FIXME shouldn't be like that
-    fn get_gtype(&self) -> Type {
-        unsafe { from_glib(gobject_ffi::g_value_get_gtype(&self.inner)) }
+    pub unsafe fn get_gtype(&self) -> Type {
+        from_glib(gobject_ffi::g_value_get_gtype(&self.inner))
     }
 
-    pub fn set<T: ValuePublic>(&mut self, val: &T) {
+    pub unsafe fn set<T: ValuePublic>(&mut self, val: &T) {
         val.set(self);
     }
 
-    pub fn get<T: ValuePublic>(&self) -> T {
+    pub unsafe fn get<T: ValuePublic>(&self) -> T {
         ValuePublic::get(self)
     }
 
@@ -267,119 +263,119 @@ impl Value {
 
 impl Drop for Value {
     fn drop(&mut self) {
-        self.unset();
+        unsafe { self.unset(); }
     }
 }
 
 impl ValuePublic for i32 {
-    fn get(gvalue: &Value) -> i32 {
+    unsafe fn get(gvalue: &Value) -> i32 {
         gvalue.get_int()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_int(*self)
     }
 }
 
 impl ValuePublic for u32 {
-    fn get(gvalue: &Value) -> u32 {
+    unsafe fn get(gvalue: &Value) -> u32 {
         gvalue.get_uint()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_uint(*self)
     }
 }
 
 impl ValuePublic for i64 {
-    fn get(gvalue: &Value) -> i64 {
+    unsafe fn get(gvalue: &Value) -> i64 {
         gvalue.get_int64()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_int64(*self)
     }
 }
 
 impl ValuePublic for u64 {
-    fn get(gvalue: &Value) -> u64 {
+    unsafe fn get(gvalue: &Value) -> u64 {
         gvalue.get_uint64()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_uint64(*self)
     }
 }
 
 impl ValuePublic for bool {
-    fn get(gvalue: &Value) -> bool {
+    unsafe fn get(gvalue: &Value) -> bool {
         gvalue.get_boolean()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_boolean(*self)
     }
 }
 
 impl ValuePublic for i8 {
-    fn get(gvalue: &Value) -> i8 {
+    unsafe fn get(gvalue: &Value) -> i8 {
         gvalue.get_schar()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_schar(*self)
     }
 }
 
 impl ValuePublic for u8 {
-    fn get(gvalue: &Value) -> u8 {
+    unsafe fn get(gvalue: &Value) -> u8 {
         gvalue.get_uchar()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_uchar(*self)
     }
 }
 
 impl ValuePublic for f32 {
-    fn get(gvalue: &Value) -> f32 {
+    unsafe fn get(gvalue: &Value) -> f32 {
         gvalue.get_float()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_float(*self)
     }
 }
 
 impl ValuePublic for f64 {
-    fn get(gvalue: &Value) -> f64 {
+    unsafe fn get(gvalue: &Value) -> f64 {
         gvalue.get_double()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_double(*self)
     }
 }
 
 impl ValuePublic for Type {
-    fn get(gvalue: &Value) -> Type {
+    unsafe fn get(gvalue: &Value) -> Type {
         gvalue.get_gtype()
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_gtype(*self)
     }
 }
 
 impl ValuePublic for String {
-    fn get(gvalue: &Value) -> String {
+    unsafe fn get(gvalue: &Value) -> String {
         match gvalue.get_string() {
             Some(s) => s,
             None => String::new()
         }
     }
 
-    fn set(&self, gvalue: &mut Value) {
+    unsafe fn set(&self, gvalue: &mut Value) {
         gvalue.set_string(self.as_ref())
     }
 }
