@@ -64,6 +64,24 @@ pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 ///
 /// `free`: `|*mut $foreign|` frees the value.
 ///
+/// ### Refcounted
+///
+/// ```ignore
+/// glib_wrapper! {
+///     /// Object holding timing information for a single frame.
+///     pub struct FrameTimings(Refcounted<ffi::GdkFrameTimings>);
+///
+///     match fn {
+///         ref => |ptr| ffi::gdk_frame_timings_ref(ptr),
+///         unref => |ptr| ffi::gdk_frame_timings_unref(ptr),
+///     }
+/// }
+/// ```
+///
+/// `ref`: `|*mut $foreign|` increases the refcount.
+///
+/// `unref`: `|*mut $foreign|` decreases the refcount.
+///
 /// ### Object
 ///
 /// ```
@@ -106,6 +124,19 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
+        pub struct $name:ident(Refcounted<$ffi_name:path>);
+
+        match fn {
+            ref => |$ref_arg:ident| $ref_expr:expr,
+            unref => |$unref_arg:ident| $unref_expr:expr,
+        }
+    ) => {
+        glib_refcounted_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+            @unref $unref_arg $unref_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path>);
 
         match fn {
@@ -130,6 +161,8 @@ macro_rules! glib_wrapper {
 
 #[macro_use]
 pub mod boxed;
+#[macro_use]
+pub mod refcounted;
 #[macro_use]
 pub mod object;
 
