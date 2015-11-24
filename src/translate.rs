@@ -182,7 +182,7 @@ pub trait ToGlibPtr<'a, P: Copy> {
     /// Transfer: none.
     ///
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
-    fn to_glib_none(&self) -> Stash<'a, P, Self>;
+    fn to_glib_none(&'a self) -> Stash<'a, P, Self>;
 
     /// Transfer: full.
     ///
@@ -202,11 +202,11 @@ pub trait ToGlibPtrMut<'a, P: Copy> {
     fn to_glib_none_mut(&'a mut self) -> StashMut<P, Self>;
 }
 
-impl <'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
+impl<'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
     type Storage = Option<<T as ToGlibPtr<'a, P>>::Storage>;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, P, Option<T>> {
+    fn to_glib_none(&'a self) -> Stash<'a, P, Option<T>> {
         self.as_ref().map_or(Stash(Ptr::from::<()>(ptr::null_mut()), None), |s| {
             let s = s.to_glib_none();
             Stash(s.0, Some(s.1))
@@ -231,12 +231,27 @@ impl <'a, 'opt: 'a, P: Ptr, T: ToGlibPtrMut<'a, P>> ToGlibPtrMut<'a, P> for Opti
     }
 }
 
-impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
+impl<'a, P: Ptr, T: ?Sized + ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for &'a T {
+    type Storage = <T as ToGlibPtr<'a, P>>::Storage;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, P, Self> {
+        let s = (*self).to_glib_none();
+        Stash(s.0, s.1)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> P {
+        (*self).to_glib_full()
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *const c_char> for str {
     type Storage = CString;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *const c_char, &'a str> {
-        let tmp = CString::new(*self).unwrap();
+    fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
+        let tmp = CString::new(self).unwrap();
         Stash(tmp.as_ptr(), tmp)
     }
 
@@ -249,12 +264,12 @@ impl<'a> ToGlibPtr<'a, *const c_char> for &'a str {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut c_char> for &'a str {
+impl<'a> ToGlibPtr<'a, *mut c_char> for str {
     type Storage = CString;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut c_char, &'a str> {
-        let tmp = CString::new(*self).unwrap();
+    fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
+        let tmp = CString::new(self).unwrap();
         Stash(tmp.as_ptr() as *mut c_char, tmp)
     }
 
@@ -284,11 +299,12 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *const *const c_char> for &'a [&'a str] {
+/*
+impl<'a> ToGlibPtr<'a, *const *const c_char> for [&'a str] {
     type Storage = PtrArray<'a, *const c_char, &'a str>;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *const *const c_char, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const *const c_char, Self> {
         let mut tmp_vec: Vec<_> =
             self.into_iter().map(|v| v.to_glib_none()).collect();
         let mut ptr_vec: Vec<_> =
@@ -300,12 +316,13 @@ impl<'a> ToGlibPtr<'a, *const *const c_char> for &'a [&'a str] {
         Stash(ptr_vec.as_ptr(), PtrArray(ptr_vec, tmp_vec))
     }
 }
+*/
 
-impl<'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for &'a [T] {
+impl<'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, *mut P> for [T] {
     type Storage = PtrArray<'a, P, T>;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut P, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *mut P, Self> {
         let mut tmp_vec: Vec<_> =
             self.into_iter().map(|v| v.to_glib_none()).collect();
         let mut ptr_vec: Vec<_> =

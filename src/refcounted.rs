@@ -24,12 +24,12 @@ macro_rules! glib_refcounted_wrapper {
             }
         }
 
-        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for &'a $name {
+        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
             type Storage = &'a $crate::refcounted::Refcounted<$ffi_name, MemoryManager>;
 
             #[inline]
-            fn to_glib_none(&self) -> $crate::translate::Stash<'a, *mut $ffi_name, Self> {
-                let stash = (&self.0).to_glib_none();
+            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $ffi_name, Self> {
+                let stash = self.0.to_glib_none();
                 $crate::translate::Stash(stash.0, stash.1)
             }
 
@@ -97,12 +97,13 @@ impl<T, MM: RefcountedMemoryManager<T>> Clone for Refcounted<T, MM> {
     }
 }
 
-impl<'a, T, MM: RefcountedMemoryManager<T>> ToGlibPtr<'a, *mut T> for &'a Refcounted<T, MM> {
-    type Storage = Self;
+impl<'a, T: 'static, MM> ToGlibPtr<'a, *mut T> for Refcounted<T, MM>
+where MM: RefcountedMemoryManager<T> + 'static {
+    type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut T, Self> {
-        Stash(self.inner, *self)
+    fn to_glib_none(&'a self) -> Stash<'a, *mut T, Self> {
+        Stash(self.inner, self)
     }
 
     #[inline]
