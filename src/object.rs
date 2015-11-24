@@ -4,248 +4,129 @@
 
 //! Types that facilitate representing `GObject` descendants.
 
-use std::marker::PhantomData;
-use std::ptr;
 use translate::*;
-use types::{self, Type, StaticType};
+use types::{self, StaticType};
+use wrapper::Wrapper;
 use gobject_ffi;
-
-/// A reference to any GObject descendant.
-#[allow(raw_pointer_derive)]
-#[derive(Debug, PartialEq, Eq)]
-pub struct Ref(*mut gobject_ffi::GObject);
-
-impl Ref {
-    #[inline]
-    fn add_ref(&self) { unsafe { gobject_ffi::g_object_ref_sink(self.0 as *mut _); } }
-
-    #[inline]
-    fn unref(&self) { unsafe { gobject_ffi::g_object_unref(self.0 as *mut _); } }
-
-    /// Transfer: none constructor.
-    #[inline]
-    pub fn from_glib_none(ptr: *mut gobject_ffi::GObject) -> Ref {
-        let r = Ref(ptr);
-        r.add_ref();
-        r
-    }
-
-    /// Transfer: full constructor.
-    #[inline]
-    pub fn from_glib_full(ptr: *mut gobject_ffi::GObject) -> Ref {
-        Ref(ptr)
-    }
-
-    /// Returns a transfer: none raw pointer.
-    #[inline]
-    pub fn to_glib_none(&self) -> *mut gobject_ffi::GObject {
-        self.0
-    }
-
-    /// Returns a transfer: full raw pointer.
-    #[inline]
-    pub fn to_glib_full(&self) -> *mut gobject_ffi::GObject {
-        self.add_ref();
-        self.0
-    }
-}
-
-impl Clone for Ref {
-    #[inline]
-    fn clone(&self) -> Ref {
-        self.add_ref();
-        Ref(self.0)
-    }
-}
-
-impl Drop for Ref {
-    #[inline]
-    fn drop(&mut self) {
-        self.unref();
-    }
-}
-
-/// A helper type holding a reference to a specific object or interface.
-///
-/// `T` is the foreign `struct` type corresponding to the object.
-pub struct VirtualRef<'a, T> (&'a Ref, PhantomData<T>);
-
-impl<'a, T> VirtualRef<'a, T> {
-    #[inline]
-    fn new(r: &'a Ref) -> VirtualRef<'a, T> { VirtualRef(r, PhantomData) }
-}
-
-impl<'a, T> ToGlibPtr<'a, *mut T> for VirtualRef<'a, T> {
-    type Storage = &'a Ref;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut T, VirtualRef<'a, T>> {
-        Stash(self.0.to_glib_none() as *mut _, self.0)
-    }
-
-    #[inline]
-    fn to_glib_full(&self) -> *mut T {
-        self.0.to_glib_full() as *mut _
-    }
-}
-
-impl<'a, T> ToGlibPtr<'a, *mut T> for Option<&'a VirtualRef<'a, T>> {
-    type Storage = Option<&'a Ref>;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut T, Option<&'a VirtualRef<'a, T>>> {
-        if let Some(ref s) = *self {
-            Stash(s.0.to_glib_none() as *mut _, Some(s.0))
-        }
-        else {
-            Stash(ptr::null_mut(), None)
-        }
-    }
-
-    #[inline]
-    fn to_glib_full(&self) -> *mut T {
-        self.as_ref().map_or(ptr::null_mut(), |s| s.0.to_glib_full() as *mut _)
-    }
-}
-
-/// A wrapper around the `Ref`.
-pub trait Wrapper: StaticType {
-    /// The foreign `struct` type corresponding to the object.
-    type GlibType: 'static;
-    /// Wraps a `Ref`.
-    unsafe fn wrap(r: Ref) -> Self;
-    /// Returns a reference to the inner `Ref`.
-    fn as_ref(&self) -> &Ref;
-    /// Transforms into the inner `Ref`.
-    fn unwrap(self) -> Ref;
-}
-
-impl<'a, T: 'static, W: Wrapper<GlibType = T>> ToGlibPtr<'a, *mut T> for &'a W {
-    type Storage = &'a Ref;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut T, &'a W> {
-        Stash(self.as_ref().to_glib_none() as *mut _, self.as_ref())
-    }
-
-    #[inline]
-    fn to_glib_full(&self) -> *mut T {
-        self.as_ref().to_glib_full() as *mut _
-    }
-}
-
-impl <T: Wrapper> FromGlibPtr<*mut <T as Wrapper>::GlibType> for T {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut <T as Wrapper>::GlibType) -> Self {
-        assert!(!ptr.is_null());
-        debug_assert!(types::instance_of::<T>(ptr as *const _));
-        T::wrap(Ref::from_glib_none(ptr as *mut _))
-    }
-
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut <T as Wrapper>::GlibType) -> Self {
-        assert!(!ptr.is_null());
-        debug_assert!(types::instance_of::<T>(ptr as *const _));
-        T::wrap(Ref::from_glib_full(ptr as *mut _))
-    }
-}
 
 /// Declares the "is a" relationship.
 ///
-/// `Self` is said to implement `T` and can be `upcast` to a corresponding type.
+/// `Self` is said to implement `T`. The trait can only be implemented if the appropriate
+/// `ToGlibPtr` implementations exist.
 ///
 /// `T` always implements `Upcast<T>`.
-pub unsafe trait Upcast<T: Wrapper>: Wrapper {
-    /// Upcasts to a helper type corresponding to `T`.
-    #[inline]
-    fn upcast(&self) -> VirtualRef<<T as Wrapper>::GlibType> {
-        debug_assert!(types::instance_of::<T>(self.as_ref().to_glib_none() as *const _));
-        VirtualRef::<<T as Wrapper>::GlibType>::new(self.as_ref())
-    }
-}
+pub trait Upcast<T: Wrapper>: for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType>
+where T: Wrapper { }
 
-unsafe impl<T: Wrapper> Upcast<T> for T { }
+impl<T: Wrapper> Upcast<T> for T
+where T: for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-/// A complement to `Upcast` that allows downcasting.
+/// Downcasts support.
 pub trait Downcast<T> {
     /// Tries to downcast to `T`.
     ///
     /// Returns `Ok(T)` if the instance implements `T` and `Err(Self)` otherwise.
-    fn downcast(self) -> Result<T, Self>
-        where Self: Sized;
+    fn downcast(self) -> Result<T, Self> where Self: Sized;
     /// Downcasts to `T` unconditionally.
     ///
-    /// Panics if the instance doesn't implement `T`.
-    fn downcast_unchecked(self) -> T;
+    /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
+    unsafe fn downcast_unchecked(self) -> T;
 }
 
-impl <Super, Sub> Downcast<Sub> for Super
-where Super: Wrapper, Sub: Wrapper + Upcast<Super> {
+impl<Super, Sub> Downcast<Sub> for Super
+where Super: StaticType + Wrapper,
+      Sub: StaticType + Wrapper + Upcast<Super> + FromGlibPtr<*mut <Sub as Wrapper>::GlibType>,
+      for<'a> Super: ToGlibPtr<'a, *mut <Super as Wrapper>::GlibType>,
+      for<'a> Sub: ToGlibPtr<'a, *mut <Sub as Wrapper>::GlibType> {
     #[inline]
     fn downcast(self) -> Result<Sub, Super> {
-        if types::instance_of::<Sub>(self.as_ref().to_glib_none() as *const _) {
-            unsafe { Ok(Sub::wrap(self.unwrap())) }
+        unsafe {
+            let src = self.to_glib_none();
+            if types::instance_of::<Sub>(src.0 as *const _) {
+                return Ok(from_glib_none(src.0 as *mut _))
+            }
         }
-        else {
-            Err(self)
-        }
+        Err(self)
     }
 
     #[inline]
-    fn downcast_unchecked(self) -> Sub {
-        assert!(types::instance_of::<Sub>(self.as_ref().to_glib_none() as *const _));
-        unsafe { Sub::wrap(self.unwrap()) }
+    unsafe fn downcast_unchecked(self) -> Sub {
+        let src = (&self).to_glib_none();
+        debug_assert!(types::instance_of::<Sub>(src.0 as *const _));
+        from_glib_none(src.0 as *mut _)
     }
 }
 
-#[derive(Clone)]
-pub struct Object(Ref);
+#[doc(hidden)]
+pub use gobject_ffi::GObject;
 
-impl Wrapper for Object {
-    type GlibType = gobject_ffi::GObject;
-    #[inline]
-    unsafe fn wrap(r: Ref) -> Object { Object(r) }
-    #[inline]
-    fn as_ref(&self) -> &Ref { &self.0 }
-    #[inline]
-    fn unwrap(self) -> Ref { self.0 }
-}
+glib_wrapper! {
+    #[doc(hidden)]
+    pub struct ObjectRef(Refcounted<GObject>);
 
-impl StaticType for Object {
-    #[inline]
-    fn static_type() -> Type { Type::BaseObject }
-}
-
-pub trait ObjectExt {
-}
-
-impl<T: Upcast<Object>> ObjectExt for T {
+    match fn {
+        ref => |ptr| gobject_ffi::g_object_ref(ptr),
+        unref => |ptr| gobject_ffi::g_object_unref(ptr),
+    }
 }
 
 /// Wrapper implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr,
-     [$($implements:path),*]) => {
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
-        pub struct $name($crate::object::Ref, ::std::marker::PhantomData<$ffi_name>);
+        pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
-        impl $crate::object::Wrapper for $name {
+        impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;
+        }
+
+        impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
+            type Storage = &'a Self;
 
             #[inline]
-            unsafe fn wrap(r: $crate::object::Ref) -> Self {
-                $name(r, ::std::marker::PhantomData)
+            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
+                $crate::translate::Stash(self.0.to_glib_none().0 as *const _, self)
             }
 
             #[inline]
-            fn as_ref(&self) -> &$crate::object::Ref {
-                &self.0
+            fn to_glib_full(&self) -> *const $ffi_name {
+                self.0.to_glib_full() as *const _
+            }
+        }
+
+        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
+            type Storage = &'a Self;
+
+            #[inline]
+            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $ffi_name, Self> {
+                $crate::translate::Stash(self.0.to_glib_none().0 as *mut _, self)
             }
 
             #[inline]
-            fn unwrap(self) -> $crate::object::Ref {
-                self.0
+            fn to_glib_full(&self) -> *mut $ffi_name {
+                self.0.to_glib_full() as *mut _
+            }
+        }
+
+        impl $crate::translate::FromGlibPtr<*mut $ffi_name> for $name {
+            #[inline]
+            unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
+                debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
+                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+            }
+
+            #[inline]
+            unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
+                debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
+                $name($crate::translate::from_glib_full(ptr as *mut _), ::std::marker::PhantomData)
+            }
+
+            #[inline]
+            unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
+                debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
+                $name($crate::translate::from_glib_borrow(ptr as *mut _),
+                      ::std::marker::PhantomData)
             }
         }
 
@@ -260,10 +141,63 @@ macro_rules! glib_object_wrapper {
                 unsafe { $crate::translate::from_glib($get_type_expr) }
             }
         }
+    };
 
-        unsafe impl $crate::object::Upcast<$crate::object::Object> for $name { }
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr,
+     [$($implements:path),*]) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr);
+
+        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject> for $name {
+            type Storage = &'a Self;
+
+            #[inline]
+            fn to_glib_none(&'a self)
+                    -> $crate::translate::Stash<'a, *mut $crate::object::GObject, Self> {
+                $crate::translate::Stash(self.0.to_glib_none().0 as *mut _, self)
+            }
+
+            #[inline]
+            fn to_glib_full(&self) -> *mut $crate::object::GObject {
+                (&self.0).to_glib_full() as *mut _
+            }
+        }
+
+        impl $crate::object::Upcast<$crate::object::Object> for $name { }
+
         $(
-            unsafe impl $crate::object::Upcast<$implements> for $name { }
+            impl<'a> $crate::translate::ToGlibPtr<'a,
+                    *mut <$implements as $crate::wrapper::Wrapper>::GlibType> for $name {
+                type Storage = &'a Self;
+
+                #[inline]
+                fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
+                        *mut <$implements as $crate::wrapper::Wrapper>::GlibType, Self> {
+                    let ptr = self.0.to_glib_none().0;
+                    debug_assert!($crate::types::instance_of::<$implements>(ptr as *const _));
+                    $crate::translate::Stash(ptr as *mut _, self)
+                }
+
+                #[inline]
+                fn to_glib_full(&self)
+                        -> *mut <$implements as $crate::wrapper::Wrapper>::GlibType {
+                    let ptr = self.0.to_glib_full();
+                    debug_assert!($crate::types::instance_of::<$implements>(ptr as *const _));
+                    ptr as *mut _
+                }
+            }
+
+            impl $crate::object::Upcast<$implements> for $name { }
         )*
     }
+}
+
+glib_object_wrapper! {
+    [doc = "The base class in the object hierarchy."]
+    Object, GObject, @get_type gobject_ffi::g_object_get_type()
+}
+
+pub trait ObjectExt {
+}
+
+impl<T: Upcast<Object>> ObjectExt for T {
 }
