@@ -82,11 +82,13 @@ macro_rules! glib_object_wrapper {
         }
 
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
-            type Storage = &'a Self;
+            type Storage = <$crate::object::ObjectRef as
+                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
-                $crate::translate::Stash(self.0.to_glib_none().0 as *const _, self)
+                let stash = self.0.to_glib_none();
+                $crate::translate::Stash(stash.0 as *const _, stash.1)
             }
 
             #[inline]
@@ -96,11 +98,13 @@ macro_rules! glib_object_wrapper {
         }
 
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
-            type Storage = &'a Self;
+            type Storage = <$crate::object::ObjectRef as
+                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $ffi_name, Self> {
-                $crate::translate::Stash(self.0.to_glib_none().0 as *mut _, self)
+                let stash = self.0.to_glib_none();
+                $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
@@ -148,12 +152,14 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr);
 
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject> for $name {
-            type Storage = &'a Self;
+            type Storage = <$crate::object::ObjectRef as
+                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
 
             #[inline]
             fn to_glib_none(&'a self)
                     -> $crate::translate::Stash<'a, *mut $crate::object::GObject, Self> {
-                $crate::translate::Stash(self.0.to_glib_none().0 as *mut _, self)
+                let stash = self.0.to_glib_none();
+                $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
@@ -167,14 +173,15 @@ macro_rules! glib_object_wrapper {
         $(
             impl<'a> $crate::translate::ToGlibPtr<'a,
                     *mut <$implements as $crate::wrapper::Wrapper>::GlibType> for $name {
-                type Storage = &'a Self;
+                type Storage = <$crate::object::ObjectRef as
+                    $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
 
                 #[inline]
                 fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
                         *mut <$implements as $crate::wrapper::Wrapper>::GlibType, Self> {
-                    let ptr = self.0.to_glib_none().0;
-                    debug_assert!($crate::types::instance_of::<$implements>(ptr as *const _));
-                    $crate::translate::Stash(ptr as *mut _, self)
+                    let stash = self.0.to_glib_none();
+                    debug_assert!($crate::types::instance_of::<$implements>(stash.0 as *const _));
+                    $crate::translate::Stash(stash.0 as *mut _, stash.1)
                 }
 
                 #[inline]
