@@ -69,18 +69,18 @@ impl Attributes {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for &'a Attributes {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for Attributes {
     type Storage = (
         Box<ffi::GdkWindowAttr>,
-        Stash<'a, *mut ffi::GdkVisual, Option<&'a Visual>>,
-        Stash<'a, *mut ffi::GdkCursor, Option<&'a Cursor>>,
+        Stash<'a, *mut ffi::GdkVisual, Option<Visual>>,
+        Stash<'a, *mut ffi::GdkCursor, Option<Cursor>>,
         Stash<'a, *const c_char, Option<String>>,
     );
 
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::GdkWindowAttr, &'a Attributes> {
+    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::GdkWindowAttr, Self> {
         let title = self.title.to_glib_none();
-        let visual = self.visual.as_ref().to_glib_none();
-        let cursor = self.cursor.as_ref().to_glib_none();
+        let visual = self.visual.to_glib_none();
+        let cursor = self.cursor.to_glib_none();
 
         let mut attrs = Box::new(ffi::GdkWindowAttr {
             title: title.0 as *mut c_char,
