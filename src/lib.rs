@@ -18,6 +18,7 @@ pub use self::list::{List, Elem, RevElem};
 pub use self::slist::{SList, SElem};
 pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
+pub use self::object::Object;
 pub use self::permission::Permission;
 pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
 pub use self::traits::FFIGObject;
