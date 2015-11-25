@@ -96,31 +96,31 @@ pub trait PixbufAnimationExt {
 
 impl<T: Upcast<PixbufAnimation>> PixbufAnimationExt for T {
     fn get_width(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_animation_get_width(self.upcast().to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_width(self.to_glib_none().0) }
     }
 
     fn get_height(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_animation_get_height(self.upcast().to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_height(self.to_glib_none().0) }
     }
 
     fn get_iter(&self, start_time: &TimeVal) -> PixbufAnimationIter {
         unsafe {
             from_glib_full(
-                ffi::gdk_pixbuf_animation_get_iter(self.upcast().to_glib_none().0,
+                ffi::gdk_pixbuf_animation_get_iter(self.to_glib_none().0,
                                                    mem::transmute(start_time)))
         }
     }
 
     fn is_static_image(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_animation_is_static_image(self.upcast().to_glib_none().0))
+            from_glib(ffi::gdk_pixbuf_animation_is_static_image(self.to_glib_none().0))
         }
     }
 
     fn get_static_image(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_animation_get_static_image(
-                self.upcast().to_glib_none().0))
+                self.to_glib_none().0))
         }
     }
 }
