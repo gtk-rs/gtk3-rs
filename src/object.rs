@@ -6,7 +6,7 @@
 
 use translate::*;
 use types::{self, StaticType};
-use wrapper::Wrapper;
+use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 
 /// Declares the "is a" relationship.
@@ -15,11 +15,13 @@ use gobject_ffi;
 /// `ToGlibPtr` implementations exist.
 ///
 /// `T` always implements `Upcast<T>`.
-pub trait Upcast<T: Wrapper>: for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType>
-where T: Wrapper { }
+pub trait Upcast<T: StaticType + Wrapper>: StaticType + Wrapper +
+    Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-impl<T: Wrapper> Upcast<T> for T
-where T: for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+impl<T> Upcast<T> for T
+where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
 /// Downcasts support.
 pub trait Downcast<T> {
@@ -33,27 +35,21 @@ pub trait Downcast<T> {
     unsafe fn downcast_unchecked(self) -> T;
 }
 
-impl<Super, Sub> Downcast<Sub> for Super
-where Super: StaticType + Wrapper,
-      Sub: StaticType + Wrapper + Upcast<Super> + FromGlibPtr<*mut <Sub as Wrapper>::GlibType>,
-      for<'a> Super: ToGlibPtr<'a, *mut <Super as Wrapper>::GlibType>,
-      for<'a> Sub: ToGlibPtr<'a, *mut <Sub as Wrapper>::GlibType> {
+impl<Super: Upcast<Super>, Sub: Upcast<Super>> Downcast<Sub> for Super {
     #[inline]
     fn downcast(self) -> Result<Sub, Super> {
         unsafe {
-            let src = self.to_glib_none();
-            if types::instance_of::<Sub>(src.0 as *const _) {
-                return Ok(from_glib_none(src.0 as *mut _))
+            if !types::instance_of::<Sub>(self.to_glib_none().0 as *const _) {
+                return Err(self);
             }
+            Ok(Sub::from(self.into()))
         }
-        Err(self)
     }
 
     #[inline]
     unsafe fn downcast_unchecked(self) -> Sub {
-        let src = (&self).to_glib_none();
-        debug_assert!(types::instance_of::<Sub>(src.0 as *const _));
-        from_glib_none(src.0 as *mut _)
+        debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
+        Sub::from(self.into())
     }
 }
 
@@ -76,6 +72,18 @@ macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
+
+        impl Into<$crate::object::ObjectRef> for $name {
+            fn into(self) -> $crate::object::ObjectRef {
+                self.0
+            }
+        }
+
+        impl $crate::wrapper::UnsafeFrom<$crate::object::ObjectRef> for $name {
+            unsafe fn from(t: $crate::object::ObjectRef) -> Self {
+                $name(t, ::std::marker::PhantomData)
+            }
+        }
 
         impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;

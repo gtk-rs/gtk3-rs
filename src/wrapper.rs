@@ -137,3 +137,7 @@ pub trait Wrapper {
     /// Foreign type represented by the struct.
     type GlibType: 'static;
 }
+
+pub trait UnsafeFrom<T> {
+    unsafe fn from(t: T) -> Self;
+}
