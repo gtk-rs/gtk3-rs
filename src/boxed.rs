@@ -32,12 +32,12 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
-        impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for &'a $name {
+        impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
             type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
             #[inline]
-            fn to_glib_none(&self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
-                let stash = (&self.0).to_glib_none();
+            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
+                let stash = self.0.to_glib_none();
                 $crate::translate::Stash(stash.0, stash.1)
             }
         }
@@ -110,24 +110,24 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Boxed<T, MM> {
 impl<T: 'static, MM: BoxedMemoryManager<T>> Uninitialized for Boxed<T, MM> {
     #[inline]
     unsafe fn uninitialized() -> Self {
-        Boxed { 
+        Boxed {
             inner: AnyBox::Native(Box::new(mem::uninitialized())),
             _dummy: PhantomData,
         }
     }
 }
 
-impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtr<'a, *const T> for &'a Boxed<T, MM> {
-    type Storage = Self;
+impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtr<'a, *const T> for Boxed<T, MM> {
+    type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *const T, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const T, Self> {
         use self::AnyBox::*;
         let ptr = match self.inner {
             Native(ref b) => &**b as *const T,
             ForeignOwned(p) | ForeignBorrowed(p) => p as *const T,
         };
-        Stash(ptr, *self)
+        Stash(ptr, self)
     }
 }
 
