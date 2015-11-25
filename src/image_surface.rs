@@ -80,12 +80,12 @@ impl ImageSurface {
 
 static IMAGE_SURFACE_DATA: () = ();
 
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for &'a ImageSurface {
+impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     type Storage = &'a Surface;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_surface_t, &'a ImageSurface> {
-        let stash = (&self.0).to_glib_none();
+    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
+        let stash = self.0.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }

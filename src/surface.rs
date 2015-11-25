@@ -16,12 +16,12 @@ use ffi::enums::{
 #[derive(Debug)]
 pub struct Surface(*mut ffi::cairo_surface_t);
 
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for &'a Surface {
+impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
     type Storage = &'a Surface;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_surface_t, &'a Surface> {
-        Stash(self.0, *self)
+    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
+        Stash(self.0, self)
     }
 }
 
