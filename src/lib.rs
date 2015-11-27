@@ -2,10 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-/*!
-    Bindings and wrappers for __Cairo__
-*/
-
 extern crate cairo_sys as cairo_ffi;
 extern crate libc;
 extern crate glib as glib_main;
