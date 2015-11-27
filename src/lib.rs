@@ -2,10 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-/*!
-Bindings and wrappers for __GLib__
-*/
-
 extern crate libc;
 extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
