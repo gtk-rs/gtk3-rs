@@ -9,7 +9,6 @@ use ffi;
 pub type Phase = ffi::GdkFrameClockPhase;
 
 glib_wrapper! {
-    /// Frame clock syncs painting to a window or display.
     pub struct FrameClock(Object<ffi::GdkFrameClock>);
 
     match fn {

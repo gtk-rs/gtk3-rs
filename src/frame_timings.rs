@@ -6,7 +6,6 @@ use glib::translate::*;
 use ffi;
 
 glib_wrapper! {
-    /// Object holding timing information for a single frame.
     pub struct FrameTimings(Refcounted<ffi::GdkFrameTimings>);
 
     match fn {

@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Functions to support using cairo
-
 use std::mem;
 use glib::translate::*;
 use ffi::{self, GdkRGBA};
@@ -17,35 +15,16 @@ use cairo::{Context, RectangleInt};
 //--> WRAP: gdk_cairo_surface_create_from_pixbuf (const GdkPixbuf *pixbuf, int scale, GdkWindow *for_window);
 
 pub trait ContextExt {
-    /// Creates a Cairo context for drawing to `window`.
-    ///
-    /// Note that calling `reset_clip()` on the resulting `Context` will
-    /// produce undefined results, so avoid it at all costs.
     fn create_from_window(window: &Window) -> Context;
 
-    /// This is a convenience function around `clip_extents()`. It rounds
-    /// the clip extents to integer coordinates and returns a `RectangleInt`,
-    /// or `None` if no clip area exists.
     fn get_clip_rectangle(&self) -> Option<RectangleInt>;
 
-    /// Sets the specified `GdkRGBA` as the source color of `cr`.
     fn set_source_rgba(&self, rgba: &GdkRGBA);
 
-    /// Sets the given pixbuf as the source pattern for `cr`. The pattern has
-    /// an extend mode of `ExtendNone` and is aligned so that the origin of
-    /// `pixbuf` is (`x`, `y`).
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64);
 
-    /// Sets the given window as the source pattern for `cr`. The pattern has
-    /// an extend mode of `ExtendNone` and is aligned so that the origin of
-    /// window is (`x` , `y`). The window contains all its subwindows when
-    /// rendering.
-    ///
-    /// Note that the contents of `window` are undefined outside of the visible
-    /// part of `window`, so use this function with care.
     fn set_source_window(&self, window: &Window, x: f64, y: f64);
 
-    /// Adds the given rectangle to the current path of `cr`.
     fn rectangle(&self, rectangle: &RectangleInt);
 
     //fn add_region(&self, region: ???);

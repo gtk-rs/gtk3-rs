@@ -2,9 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! A GdkPixbufFormat contains information about the image format accepted by a module. Only modules should
-//! access the fields directly, applications should use the gdk_pixbuf_format_* functions.
-
 use gdk_pixbuf_ffi as ffi;
 use glib::translate::*;
 use libc::c_char;

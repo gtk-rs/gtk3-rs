@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-/// The GdkPixbuf structure contains information that describes an image in memory.
 
 use std::mem;
 use std::ptr;
@@ -26,11 +25,6 @@ pub use self::format::PixbufFormat;
 pub use self::loader::PixbufLoader;
 
 glib_wrapper! {
-    /// Represents an image.
-    ///
-    /// This is the main structure in the `gdk-pixbuf` library. It is used to represent images. It contains information about the image's pixel
-    /// data, its color space, bits per sample, width and height, and the rowstride (the number of bytes between the start of one row and the
-/// start of the next).
     pub struct Pixbuf(Object<ffi::GdkPixbuf>);
 
     match fn {
@@ -45,9 +39,6 @@ impl Pixbuf {
                                                    bits_per_sample, width, height)).ok_or(())
     }
 
-    /// Creates a `Pixbuf` using a `Vec` as image data.
-    ///
-    /// Only `bits_per_sample == 8` supported.
     pub fn new_from_vec(mut vec: Vec<u8>, colorspace: Colorspace, has_alpha: bool,
             bits_per_sample: i32, width: i32, height: i32, row_stride: i32) -> Pixbuf {
         unsafe extern "C" fn destroy_vec(_: *mut c_uchar, data: *mut c_void) {
@@ -207,18 +198,6 @@ impl Pixbuf {
         }
     }
 
-    /// Create a new GdkPixbuf containing a copy of the current pixbuf scaled
-    /// to `dest_width` x `dest_height`. The calling pixbuf remains unaffected.
-    /// `interp_type` should be `Nearest` if you want maximum speed (but when
-    /// scaling down `Nearest` is usually unusably ugly). The default
-    /// `interp_type` should be `Bilinear` which offers reasonable quality and
-    /// speed.
-    ///
-    /// You can scale a sub-portion of `src` by creating a sub-pixbuf pointing
-    /// into src ; see `new_subpixbuf()`.
-    ///
-    /// For more complicated scaling/compositing see `scale()` and
-    /// `composite()`.
     pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType)
         -> Result<Pixbuf, ()> {
         unsafe {
@@ -227,19 +206,6 @@ impl Pixbuf {
         }
     }
 
-    /// Creates a transformation of the calling pixbuf by scaling by
-    /// `scale_x` and `scale_y` then translating by `offset_x` and `offset_y`,
-    /// then renders the rectangle (`dest_x`, `dest_y`, `dest_width`,
-    /// `dest_height`) of the resulting pixbuf onto the destination pixbuf,
-    /// replacing the previous contents.
-    ///
-    /// Try to use `scale_simple()` first; this function is the
-    /// industrial-strength power tool you can fall back to if `scale_simple()`
-    /// isn't powerful enough.
-    ///
-    /// If the source rectangle overlaps the destination rectangle on the same
-    /// pixbuf, it will be overwritten during the scaling which results in
-    /// rendering artifacts.
     pub fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32,
                  offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
                  interp_type: InterpType) {
@@ -250,16 +216,6 @@ impl Pixbuf {
         }
     }
 
-    /// Creates a transformation of the calling pixbuf by scaling by `scale_x`
-    /// and `scale_y` then translating by `offset_x` and `offset_y`. This gives
-    /// an image in the coordinates of the destination pixbuf. The rectangle
-    /// (`dest_x`, `dest_y`, `dest_width`, `dest_height`) is then composited
-    /// onto the corresponding rectangle of the original destination image.
-    ///
-    /// ![Diagram of `composite` process](https://developer.gnome.org/gdk-pixbuf/unstable/composite.png)
-    ///
-    /// When the destination rectangle contains parts not in the source image,
-    /// the data at the edges of the source image is replicated to infinity.
     pub fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32,
                      dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
                      interp_type: InterpType, overall_alpha: i32) {
@@ -270,8 +226,6 @@ impl Pixbuf {
         }
     }
 
-    /// Flips a pixbuf horizontally or vertically and returns the result in a
-    /// new pixbuf, or `Err` if not enough memory could be allocated for it.
     pub fn flip(&self, horizontal: bool) -> Result<Pixbuf, ()> {
         unsafe {
             Option::from_glib_full((ffi::gdk_pixbuf_flip(self.to_glib_none().0,
@@ -279,9 +233,6 @@ impl Pixbuf {
         }
     }
 
-    /// a convenient function
-    /// It won't work for pixbufs with images that are other than 8 bits per sample or channel, but it will work for most of the
-    /// pixbufs that GTK+ uses.
     pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
         unsafe {
             let n_channels = self.get_n_channels();

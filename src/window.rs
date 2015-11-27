@@ -27,31 +27,18 @@ use {
     WMFunction,
 };
 
-/// Attributes to use for a newly-created window.
 pub struct Attributes {
-    /// title of the window (for toplevel windows)
     pub title: Option<String>,
-    /// event mask (see [gdk_window_set_events()](https://developer.gnome.org/gdk3/3.14/gdk3-Windows.html#gdk-window-set-events))
     pub event_mask: i32,
-    /// X coordinate relative to parent window
     pub x: Option<i32>,
-    /// Y coordinate relative to parent window
     pub y: Option<i32>,
-    /// width of window
     pub width: i32,
-    /// height of window
     pub height: i32,
-    /// GDK_INPUT_OUTPUT (normal window) or GDK_INPUT_ONLY (invisible window that receives events)
     pub wclass: WindowWindowClass,
-    /// GdkVisual for window
     pub visual: Option<Visual>,
-    /// type of window
     pub window_type: WindowType,
-    /// cursor for the window
     pub cursor: Option<Cursor>,
-    /// TRUE to bypass the window manager
     pub override_redirect: bool,
-    /// a hint of the function of the window
     pub type_hint: Option<WindowTypeHint>,
 }
 
@@ -104,7 +91,6 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for Attributes {
 }
 
 glib_wrapper! {
-    /// Onscreen display areas in the target window system.
     pub struct Window(Object<ffi::GdkWindow>);
 
     match fn {

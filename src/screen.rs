@@ -11,7 +11,6 @@ use window::Window;
 use ffi;
 
 glib_wrapper! {
-    /// Object representing a physical screen.
     pub struct Screen(Object<ffi::GdkScreen>);
 
     match fn {
