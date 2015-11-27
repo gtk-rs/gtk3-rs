@@ -17,9 +17,6 @@ pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, tr
 }
 
 unsafe extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
-    let ptr = ptr as *mut Box<Fn()>;
     // destroy
-    //Box::from_raw(ptr);
-    // from_raw API stability workaround
-    let _: Box<Box<Fn()>> = ::std::mem::transmute(ptr);
+    Box::<Box<Fn()>>::from_raw(ptr as *mut _);
 }
