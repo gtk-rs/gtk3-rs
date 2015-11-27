@@ -2,10 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-/*!
-Bindings and wrappers for __GDK__
-*/
-
 extern crate gdk_pixbuf_sys as gdk_pixbuf_ffi;
 extern crate gdk_sys as gdk_ffi;
 #[macro_use]

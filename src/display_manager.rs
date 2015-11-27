@@ -8,7 +8,6 @@ use display::Display;
 use ffi;
 
 glib_wrapper! {
-    /// Maintains a list of all open `Display`s.
     pub struct DisplayManager(Object<ffi::GdkDisplayManager>);
 
     match fn {

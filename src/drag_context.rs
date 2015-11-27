@@ -13,7 +13,6 @@ use ffi;
 use {DragAction, DragProtocol};
 
 glib_wrapper! {
-    /// Functions for controlling drag and drop handling.
     pub struct DragContext(Object<ffi::GdkDragContext>);
 
     match fn {

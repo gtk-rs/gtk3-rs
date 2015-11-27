@@ -6,45 +6,26 @@
 pub mod modifier_type {
     use ffi;
 
-    /// the Shift key.,
     pub const ShiftMask: ffi::GdkModifierType = ffi::GDK_SHIFT_MASK;
-    /// a Lock key (depending on the modifier mapping of the X server this may either be CapsLock or ShiftLock).
     pub const LockMask: ffi::GdkModifierType = ffi::GDK_LOCK_MASK;
-    /// the Control key.
     pub const ControlMask: ffi::GdkModifierType = ffi::GDK_CONTROL_MASK;
-    /// the fourth modifier key (it depends on the modifier mapping of the X server which key is interpreted as this modifier, but normally it is the Alt key).
     pub const Mod1Mask: ffi::GdkModifierType = ffi::GDK_MOD1_MASK;
-    /// the fifth modifier key (it depends on the modifier mapping of the X server which key is interpreted as this modifier).
     pub const Mod2Mask: ffi::GdkModifierType = ffi::GDK_MOD2_MASK;
-    /// the sixth modifier key (it depends on the modifier mapping of the X server which key is interpreted as this modifier).
     pub const Mod3Mask: ffi::GdkModifierType = ffi::GDK_MOD3_MASK;
-    /// the seventh modifier key (it depends on the modifier mapping of the X server which key is interpreted as this modifier).
     pub const Mod4Mask: ffi::GdkModifierType = ffi::GDK_MOD4_MASK;
-    /// the eighth modifier key (it depends on the modifier mapping of the X server which key is interpreted as this modifier).
     pub const Mod5Mask: ffi::GdkModifierType = ffi::GDK_MOD5_MASK;
-    /// the first mouse button.
     pub const Button1Mask: ffi::GdkModifierType = ffi::GDK_BUTTON1_MASK;
-    /// the second mouse button.
     pub const Button2Mask: ffi::GdkModifierType = ffi::GDK_BUTTON2_MASK;
-    /// the third mouse button.
     pub const Button3Mask: ffi::GdkModifierType = ffi::GDK_BUTTON3_MASK;
-    /// the fourth mouse button.
     pub const Button4Mask: ffi::GdkModifierType = ffi::GDK_BUTTON4_MASK;
-    /// the fifth mouse button.
     pub const Button5Mask: ffi::GdkModifierType = ffi::GDK_BUTTON5_MASK;
-    /// the Super modifier.
     pub const SuperMask: ffi::GdkModifierType = ffi::GDK_SUPER_MASK;
-    /// the Hyper modifier.
     pub const HyperMask: ffi::GdkModifierType = ffi::GDK_HYPER_MASK;
-    /// the Meta modifier.
     pub const MetaMask: ffi::GdkModifierType = ffi::GDK_META_MASK;
-    /// not used in GDK itself. GTK+ uses it to differentiate between (keyval, modifiers) pairs from key press and release events.
     pub const ReleaseMask: ffi::GdkModifierType = ffi::GDK_RELEASE_MASK;
-    /// a mask covering all modifier types.
     pub const ModifierMask: ffi::GdkModifierType = ffi::GDK_MODIFIER_MASK;
 }
 
-/// Corresponding values to keys
 #[allow(non_upper_case_globals)]
 pub mod key {
     use ffi;

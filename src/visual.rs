@@ -9,7 +9,6 @@ use screen::Screen;
 use ffi;
 
 glib_wrapper! {
-    /// Low-level display hardware information.
     pub struct Visual(Object<ffi::GdkVisual>);
 
     match fn {
