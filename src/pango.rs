@@ -2,10 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-/*!
-Bindings and wrappers for __PANGO__
-*/
-
 extern crate pango_sys as pango_ffi;
 extern crate glib;
 extern crate libc;

@@ -6,9 +6,6 @@ use ffi::PangoRectangle;
 use libc::c_int;
 //use std::default::Default;
 
-/// The PangoRectangle structure represents a rectangle. It is frequently used to represent the
-/// logical or ink extents of a single glyph or section of text. (See, for instance,
-/// pango_font_get_glyph_extents()).
 pub trait Rectangle {
     fn new(x: i32, y: i32, width: i32, height: i32) -> Self;
 }

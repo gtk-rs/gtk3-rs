@@ -5,7 +5,6 @@
 use ffi;
 use libc::c_int;
 
-/// The PangoItem structure stores information about a segment of text.
 pub struct Item {
     pointer: *mut ffi::PangoItem
 }
