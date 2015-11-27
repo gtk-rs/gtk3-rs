@@ -3,9 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::cell::RefCell;
-use std::ops::DerefMut;
 use std::mem::transmute;
-use glib_ffi::{gboolean, gpointer, g_idle_add_full, g_timeout_add_full, g_timeout_add_seconds_full};
+use std::process;
+use std::thread;
+use glib_ffi::{self, gboolean, gpointer};
 use translate::ToGlib;
 
 pub struct Continue(pub bool);
@@ -19,47 +20,52 @@ impl ToGlib for Continue {
     }
 }
 
+struct CallbackGuard;
 
-// Box::into_raw stability workaround
-unsafe fn into_raw<T>(b: Box<T>) -> *mut T { transmute(b) }
+impl Drop for CallbackGuard {
+    fn drop(&mut self) {
+        if thread::panicking() {
+            process::exit(101);
+        }
+    }
+}
 
 extern "C" fn trampoline(func: &RefCell<Box<FnMut() -> Continue + 'static>>) -> gboolean {
-    func.borrow_mut().deref_mut()().to_glib()
+    let _guard = CallbackGuard;
+    (&mut *func.borrow_mut())().to_glib()
 }
 
 unsafe extern "C" fn destroy_closure(ptr: gpointer) {
-    // Box::from_raw API stability workaround
-    let ptr = ptr as *mut RefCell<Box<FnMut() -> Continue + 'static>>;
-    let _: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = transmute(ptr);
+    let _guard = CallbackGuard;
+    Box::<RefCell<Box<FnMut() -> Continue + 'static>>>::from_raw(ptr as *mut _);
 }
 
-const PRIORITY_DEFAULT: i32 = 0;
-const PRIORITY_DEFAULT_IDLE: i32 = 200;
-
+fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
+    let func: Box<RefCell<Box<FnMut() -> Continue + Send + 'static>>> =
+        Box::new(RefCell::new(Box::new(func)));
+    Box::into_raw(func) as gpointer
+}
 
 pub fn idle_add<F>(func: F) -> u32
-    where F: FnMut() -> Continue + 'static {
-    let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
+    where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        g_idle_add_full(PRIORITY_DEFAULT_IDLE, transmute(trampoline),
-            into_raw(f) as gpointer, Some(destroy_closure))
+        glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, transmute(trampoline),
+            into_raw(func), Some(destroy_closure))
     }
 }
 
 pub fn timeout_add<F>(interval: u32, func: F) -> u32
-    where F: FnMut() -> Continue + 'static {
-    let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
+    where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        g_timeout_add_full(PRIORITY_DEFAULT, interval, transmute(trampoline),
-            into_raw(f) as gpointer, Some(destroy_closure))
+        glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval, transmute(trampoline),
+            into_raw(func), Some(destroy_closure))
     }
 }
 
 pub fn timeout_add_seconds<F>(interval: u32, func: F) -> u32
-    where F: FnMut() -> Continue + 'static {
-    let f: Box<RefCell<Box<FnMut() -> Continue + 'static>>> = Box::new(RefCell::new(Box::new(func)));
+    where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        g_timeout_add_seconds_full(PRIORITY_DEFAULT, interval, transmute(trampoline),
-            into_raw(f) as gpointer, Some(destroy_closure))
+        glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
+            transmute(trampoline), into_raw(func), Some(destroy_closure))
     }
 }
