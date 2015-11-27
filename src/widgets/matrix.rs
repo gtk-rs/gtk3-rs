@@ -5,11 +5,6 @@
 use ffi::{self, PangoMatrix, PangoRectangle};
 //use std::default::Default;
 
-/// A structure specifying a transformation between user-space coordinates and device coordinates.
-/// The transformation is given by:
-/// 
-/// x_device = x_user * matrix->xx + y_user * matrix->xy + matrix->x0;
-/// y_device = x_user * matrix->yx + y_user * matrix->yy + matrix->y0;
 pub trait Matrix {
     fn new(xx: f64, xy: f64, yx: f64, yy: f64, x0: f64, y0: f64) -> Self;
     fn copy(&self) -> Self;
