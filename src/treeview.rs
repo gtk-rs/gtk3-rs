@@ -36,11 +36,13 @@ fn main() {
     // test Value
 
     let hello = String::from("Hello world !");
-    let mut value = glib::Value::new();
-
-    value.init(glib::Type::String);
-    value.set(&hello);
-    println!("gvalue.get example : {}", value.get::<String>());
+    let value = unsafe {
+        let mut value = glib::Value::new();
+        value.init(glib::Type::String);
+        value.set(&hello);
+        println!("gvalue.get example : {}", value.get::<String>());
+        value
+    };
 
     // left pane
 
@@ -56,18 +58,15 @@ fn main() {
     // print out when a row is selected
 
     let left_selection = left_tree.get_selection().unwrap();
-    let left_model1 = left_model.clone();
-    left_selection.connect_changed(move |tree_selection| {
-        let mut iter = gtk::TreeIter::new();
-        tree_selection.get_selected(&left_model1, &mut iter);
-        if let Some(path) = left_model1.get_path(&iter) {
+    left_selection.connect_changed(|tree_selection| {
+        let (left_model, iter) = tree_selection.get_selected().unwrap();
+        if let Some(path) = left_model.get_path(&iter) {
             println!("selected row {}", path.to_string().unwrap());
         }
     });
 
     for _ in 0..10 {
-        let mut iter = gtk::TreeIter::new();
-        left_store.append(&mut iter);
+        let iter = left_store.append();
         left_store.set_string(&iter, 0, "I'm in a list");
 
         // select this row as a test
@@ -88,16 +87,14 @@ fn main() {
     right_tree.set_headers_visible(false);
     append_text_column(&right_tree);
 
-    for _ in 0..10 {
-        let mut iter = gtk::TreeIter::new();
-
-        right_store.append(&mut iter, None);
+    for i in 0..10 {
+        let iter = right_store.append(None);
         right_store.set_value(&iter, 0, &value);
 
-        let mut child_iter = gtk::TreeIter::new();
-
-        right_store.append(&mut child_iter, Some(&iter));
-        right_store.set_string(&child_iter, 0, "I'm a child node");
+        for _ in 0..i {
+            let child_iter = right_store.append(Some(&iter));
+            right_store.set_string(&child_iter, 0, "I'm a child node");
+        }
     }
 
     // display the panes

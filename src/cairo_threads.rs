@@ -136,7 +136,7 @@ fn main() {
         Inhibit(false)
     }));
 
-    glib::timeout_add(100, move || {
+    gtk::timeout_add(100, move || {
         while let Ok((thread_num, buf)) = ready_rx.try_recv() {
             let &mut (ref mut images, ref origins, ref workers) = &mut *cell.borrow_mut();
             let tx = workers[thread_num].clone();
