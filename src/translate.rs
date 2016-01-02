@@ -76,6 +76,13 @@ impl<T: 'static> Ptr for *mut T {
     fn from<X>(ptr: *mut X) -> *mut T { ptr as *mut T }
 }
 
+/// Overrides pointer mutability.
+///
+/// Use when the C API should be specifying a const pointer but doesn't.
+pub fn mut_override<T>(ptr: *const T) -> *mut T {
+    ptr as *mut T
+}
+
 /// A trait for creating an uninitialized value. Handy for receiving outparams.
 pub trait Uninitialized {
     /// Returns an uninitialized value.
