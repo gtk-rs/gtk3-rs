@@ -115,9 +115,9 @@ impl ToBool for glib_ffi::gboolean {
 
 /// Returns `Some(val)` if the condition is true and `None` otherwise.
 #[inline]
-pub fn some_if<B: ToBool, T>(cond: B, val: T) -> Option<T> {
+pub fn some_if<B: ToBool, T, F: FnOnce() -> T>(cond: B, f: F) -> Option<T> {
     if cond.to_bool() {
-        Some(val)
+        Some(f())
     }
     else {
         None
