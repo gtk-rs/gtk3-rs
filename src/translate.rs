@@ -306,6 +306,24 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
     }
 }
 
+impl <'a> ToGlibPtr<'a, *mut c_char> for String {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut c_char, String> {
+        let tmp = CString::new(&self[..]).unwrap();
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut c_char {
+        unsafe {
+            glib_ffi::g_strndup(self.as_ptr() as *const c_char, self.len() as size_t)
+                as *mut c_char
+        }
+    }
+}
+
 /*
 impl<'a> ToGlibPtr<'a, *const *const c_char> for [&'a str] {
     type Storage = PtrArray<'a, *const c_char, &'a str>;
@@ -367,8 +385,9 @@ impl<'a> ToGlibPtr<'a, *mut glib_ffi::GHashTable> for HashMap<String, String> {
             let ptr = glib_ffi::g_hash_table_new_full(Some(glib_ffi::g_str_hash),
                 Some(glib_ffi::g_str_equal), Some(glib_ffi::g_free), Some(glib_ffi::g_free));
             for (k, v) in self {
-                glib_ffi::g_hash_table_insert(ptr, k.to_glib_full() as *mut _,
-                    v.to_glib_full() as *mut _);
+                let k: *mut c_char = k.to_glib_full();
+                let v: *mut c_char = v.to_glib_full();
+                glib_ffi::g_hash_table_insert(ptr, k as *mut _, v as *mut _);
             }
             ptr
         }
@@ -761,6 +780,32 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *mut glib_ffi::GList> f
             glib_ffi::g_list_free(orig_ptr as *mut _);
         }
         res
+    }
+}
+
+impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *const glib_ffi::GList> for Vec<T> {
+    unsafe fn from_glib_none(ptr: *const glib_ffi::GList) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_none(mut_override(ptr))
+    }
+
+    unsafe fn from_glib_none_num(mut ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+        FromGlibPtrContainer::from_glib_none_num(mut_override(ptr), num)
+    }
+
+    unsafe fn from_glib_container(ptr: *const glib_ffi::GList) -> Vec<T> {
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_container_num(ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full(ptr: *const glib_ffi::GList) -> Vec<T> {
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full_num(mut ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+        unimplemented!()
     }
 }
 
