@@ -47,6 +47,7 @@
 //!     }
 //! ```
 
+use std::char;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
 use std::mem;
@@ -179,6 +180,15 @@ impl ToGlib for bool {
     #[inline]
     fn to_glib(&self) -> glib_ffi::gboolean {
         if *self { glib_ffi::GTRUE } else { glib_ffi::GFALSE }
+    }
+}
+
+impl ToGlib for char {
+    type GlibType = u32;
+
+    #[inline]
+    fn to_glib(&self) -> u32 {
+        *self as u32
     }
 }
 
@@ -417,6 +427,13 @@ impl FromGlib<glib_ffi::gboolean> for bool {
     #[inline]
     fn from_glib(val: glib_ffi::gboolean) -> bool {
         !(val == glib_ffi::GFALSE)
+    }
+}
+
+impl FromGlib<u32> for char {
+    #[inline]
+    fn from_glib(val: u32) -> char {
+        char::from_u32(val).expect("Valid Unicode character expected")
     }
 }
 
