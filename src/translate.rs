@@ -192,6 +192,15 @@ impl ToGlib for char {
     }
 }
 
+impl ToGlib for Option<char> {
+    type GlibType = u32;
+
+    #[inline]
+    fn to_glib(&self) -> u32 {
+        self.as_ref().map(|&c| c as u32).unwrap_or(0)
+    }
+}
+
 /// Translate to a pointer.
 pub trait ToGlibPtr<'a, P: Copy> {
     type Storage;
@@ -434,6 +443,16 @@ impl FromGlib<u32> for char {
     #[inline]
     fn from_glib(val: u32) -> char {
         char::from_u32(val).expect("Valid Unicode character expected")
+    }
+}
+
+impl FromGlib<u32> for Option<char> {
+    #[inline]
+    fn from_glib(val: u32) -> Option<char> {
+        match val {
+            0 => None,
+            _ => Some(char::from_u32(val).expect("Valid Unicode character expected")),
+        }
     }
 }
 
