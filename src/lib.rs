@@ -10,8 +10,6 @@ extern crate gio_sys as gio_ffi;
 use libc::c_char;
 
 pub use self::app_info::AppInfo;
-pub use self::list::{List, Elem, RevElem};
-pub use self::slist::{SList, SElem};
 pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
 pub use self::object::Object;
@@ -32,8 +30,6 @@ pub mod refcounted;
 pub mod object;
 
 mod app_info;
-mod list;
-mod slist;
 pub mod glib_container;
 mod error;
 mod permission;
