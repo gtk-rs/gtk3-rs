@@ -451,7 +451,7 @@ impl FromGlib<u32> for Option<char> {
     fn from_glib(val: u32) -> Option<char> {
         match val {
             0 => None,
-            _ => Some(char::from_u32(val).expect("Valid Unicode character expected")),
+            _ => char::from_u32(val),
         }
     }
 }
