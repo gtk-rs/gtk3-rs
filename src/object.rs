@@ -15,9 +15,13 @@ use gobject_ffi;
 /// `ToGlibPtr` implementations exist.
 ///
 /// `T` always implements `Upcast<T>`.
-pub trait Upcast<T: StaticType + Wrapper>: StaticType + Wrapper +
+pub trait Upcast<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> {
+    fn upcast(self) -> T {
+        unsafe { T::from(self.into()) }
+    }
+}
 
 impl<T> Upcast<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
