@@ -1,3 +1,5 @@
+use std::fmt;
+use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use translate::*;
 
@@ -7,6 +9,7 @@ macro_rules! glib_refcounted_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr) => {
         $(#[$attr])*
+        #[derive(Clone, Debug, PartialEq, Eq, Hash)]
         pub struct $name($crate::refcounted::Refcounted<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
@@ -55,12 +58,6 @@ macro_rules! glib_refcounted_wrapper {
                 $name($crate::translate::from_glib_borrow(ptr))
             }
         }
-
-        impl Clone for $name {
-            fn clone(&self) -> Self {
-                $name(self.0.clone())
-            }
-        }
     }
 }
 
@@ -70,7 +67,6 @@ pub trait RefcountedMemoryManager<T> {
 }
 
 /// Encapsulates memory management logic for refcounted types.
-#[derive(Debug)]
 pub struct Refcounted<T, MM: RefcountedMemoryManager<T>> {
     inner: *mut T,
     borrowed: bool,
@@ -93,6 +89,26 @@ impl<T, MM: RefcountedMemoryManager<T>> Clone for Refcounted<T, MM> {
             borrowed: false,
             mm: PhantomData,
         }
+    }
+}
+
+impl<T, MM: RefcountedMemoryManager<T>> fmt::Debug for Refcounted<T, MM> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Refcounted {{ inner: {:?}, borrowed: {} }}", self.inner, self.borrowed)
+    }
+}
+
+impl<T, MM: RefcountedMemoryManager<T>> PartialEq for Refcounted<T, MM> {
+    fn eq(&self, other: &Self) -> bool {
+        self.inner == other.inner
+    }
+}
+
+impl<T, MM: RefcountedMemoryManager<T>> Eq for Refcounted<T, MM> {}
+
+impl<T, MM: RefcountedMemoryManager<T>> Hash for Refcounted<T, MM> {
+    fn hash<H>(&self, state: &mut H) where H: Hasher {
+        self.inner.hash(state)
     }
 }
 

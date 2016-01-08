@@ -71,6 +71,7 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
+        #[derive(Clone, Debug, PartialEq, Eq, Hash)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
         impl Into<$crate::object::ObjectRef> for $name {
@@ -139,12 +140,6 @@ macro_rules! glib_object_wrapper {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_borrow(ptr as *mut _),
                       ::std::marker::PhantomData)
-            }
-        }
-
-        impl Clone for $name {
-            fn clone(&self) -> Self {
-                $name(self.0.clone(), ::std::marker::PhantomData)
             }
         }
 

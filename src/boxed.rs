@@ -1,3 +1,4 @@
+use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
 use translate::*;
@@ -8,6 +9,7 @@ macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
+        #[derive(Clone, Debug)]
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
@@ -68,12 +70,6 @@ macro_rules! glib_boxed_wrapper {
                 $name($crate::translate::from_glib_borrow(ptr))
             }
         }
-
-        impl Clone for $name {
-            fn clone(&self) -> Self {
-                $name(self.0.clone())
-            }
-        }
     }
 }
 
@@ -81,6 +77,17 @@ enum AnyBox<T> {
     Native(Box<T>),
     ForeignOwned(*mut T),
     ForeignBorrowed(*mut T),
+}
+
+impl<T> fmt::Debug for AnyBox<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        use self::AnyBox::*;
+        match *self {
+            Native(ref b) => write!(f, "AnyBox::Native({:?})", &**b as *const T),
+            ForeignOwned(ptr) => write!(f, "AnyBox::ForeignOwned({:?})", ptr),
+            ForeignBorrowed(ptr) => write!(f, "AnyBox::ForeignBorrowed({:?})", ptr),
+        }
+    }
 }
 
 /// Memory management functions for a boxed type.
@@ -180,6 +187,12 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
                 MM::free(ptr);
             }
         }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Boxed {{ inner: {:?} }}", self.inner)
     }
 }
 
