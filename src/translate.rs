@@ -824,23 +824,23 @@ impl <P: Ptr, T: FromGlibPtr<P>> FromGlibPtrContainer<P, *const glib_ffi::GList>
         FromGlibPtrContainer::from_glib_none(mut_override(ptr))
     }
 
-    unsafe fn from_glib_none_num(mut ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_none_num(ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
         FromGlibPtrContainer::from_glib_none_num(mut_override(ptr), num)
     }
 
-    unsafe fn from_glib_container(ptr: *const glib_ffi::GList) -> Vec<T> {
+    unsafe fn from_glib_container(_: *const glib_ffi::GList) -> Vec<T> {
         unimplemented!()
     }
 
-    unsafe fn from_glib_container_num(ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_container_num(_: *const glib_ffi::GList, _: usize) -> Vec<T> {
         unimplemented!()
     }
 
-    unsafe fn from_glib_full(ptr: *const glib_ffi::GList) -> Vec<T> {
+    unsafe fn from_glib_full(_: *const glib_ffi::GList) -> Vec<T> {
         unimplemented!()
     }
 
-    unsafe fn from_glib_full_num(mut ptr: *const glib_ffi::GList, num: usize) -> Vec<T> {
+    unsafe fn from_glib_full_num(_: *const glib_ffi::GList, _: usize) -> Vec<T> {
         unimplemented!()
     }
 }
