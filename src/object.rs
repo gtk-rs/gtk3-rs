@@ -86,6 +86,10 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        impl $crate::translate::GlibPtrDefault for $name {
+            type GlibType = *mut $ffi_name;
+        }
+
         impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;
         }

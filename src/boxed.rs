@@ -34,6 +34,10 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
+        impl $crate::translate::GlibPtrDefault for $name {
+            type GlibType = *mut $ffi_name;
+        }
+
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
             type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
