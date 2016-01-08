@@ -87,9 +87,9 @@ impl<T> fmt::Debug for AnyBox<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::AnyBox::*;
         match *self {
-            Native(ref b) => write!(f, "AnyBox::Native({:?})", &**b as *const T),
-            ForeignOwned(ptr) => write!(f, "AnyBox::ForeignOwned({:?})", ptr),
-            ForeignBorrowed(ptr) => write!(f, "AnyBox::ForeignBorrowed({:?})", ptr),
+            Native(ref b) => write!(f, "Native({:?})", &**b as *const T),
+            ForeignOwned(ptr) => write!(f, "ForeignOwned({:?})", ptr),
+            ForeignBorrowed(ptr) => write!(f, "ForeignBorrowed({:?})", ptr),
         }
     }
 }
