@@ -70,7 +70,6 @@ pub trait RefcountedMemoryManager<T> {
 }
 
 /// Encapsulates memory management logic for refcounted types.
-#[allow(raw_pointer_derive)]
 #[derive(Debug)]
 pub struct Refcounted<T, MM: RefcountedMemoryManager<T>> {
     inner: *mut T,
