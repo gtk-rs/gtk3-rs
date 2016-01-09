@@ -1,3 +1,4 @@
+use std::ops::{Deref, DerefMut};
 use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
@@ -205,6 +206,26 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Clone for Boxed<T, MM> {
     fn clone(&self) -> Self {
         unsafe {
             from_glib_none(self.to_glib_none().0 as *mut T)
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> Deref for Boxed<T, MM> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        unsafe {
+            // This is safe because the pointer will remain valid while self is borrowed
+            mem::transmute(self.to_glib_none().0)
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> DerefMut for Boxed<T, MM> {
+    fn deref_mut(&mut self) -> &mut T {
+        unsafe {
+            // This is safe because the pointer will remain valid while self is borrowed
+            mem::transmute(self.to_glib_none_mut().0)
         }
     }
 }
