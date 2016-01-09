@@ -31,7 +31,7 @@ pub mod object;
 
 mod app_info;
 pub mod glib_container;
-mod error;
+pub mod error;
 mod permission;
 pub mod signal;
 pub mod source;
