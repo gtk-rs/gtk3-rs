@@ -56,6 +56,11 @@ impl Error {
             })
         }
     }
+
+    // backcompat shim
+    pub fn wrap(ptr: *mut glib_ffi::GError) -> Error {
+        unsafe { from_glib_full(ptr) }
+    }
 }
 
 impl fmt::Display for Error {
