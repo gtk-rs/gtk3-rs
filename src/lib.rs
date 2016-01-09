@@ -44,6 +44,7 @@ pub mod cairo_interaction;
 pub mod gl_context;
 
 pub use gdk_ffi::GdkColor as Color;
+pub use gdk_ffi::GdkRGBA as RGBA;
 
 pub use self::rt::{
     init,
