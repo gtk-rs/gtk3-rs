@@ -10,9 +10,7 @@ use std::thread;
 
 use cairo::prelude::*;
 use cairo::{Context, Format, ImageSurface};
-use glib::Continue;
-use gtk::traits::*;
-use gtk::signal::Inhibit;
+use gtk::prelude::*;
 use gtk::{DrawingArea, Window, WindowType};
 
 // make moving clones into closures more convenient
@@ -61,8 +59,8 @@ fn main() {
         println!("Failed to initialize GTK.");
         return;
     }
-    let window = Window::new(WindowType::Toplevel).unwrap();
-    let area = DrawingArea::new().unwrap();
+    let window = Window::new(WindowType::Toplevel);
+    let area = DrawingArea::new();
     window.add(&area);
 
     window.connect_delete_event(|_, _| {

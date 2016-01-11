@@ -4,8 +4,7 @@ extern crate gtk;
 use std::f64::consts::PI;
 
 use gtk::Widget;
-use gtk::traits::*;
-use gtk::signal::Inhibit;
+use gtk::prelude::*;
 use gtk::DrawingArea;
 
 use cairo::enums::{FontSlant, FontWeight};
@@ -97,8 +96,8 @@ fn main() {
 
 pub fn drawable<F>(width: i32, height: i32, draw_fn: F)
 where F: Fn(Widget, Context) -> Inhibit + 'static {
-    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
-    let drawing_area = Box::new(DrawingArea::new)().unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+    let drawing_area = Box::new(DrawingArea::new)();
 
     drawing_area.connect_draw(draw_fn);
 

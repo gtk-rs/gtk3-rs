@@ -1,29 +1,27 @@
 extern crate gtk;
 
-use gtk::{IconSize, Orientation, ReliefStyle};
-use gtk::signal::Inhibit;
-use gtk::traits::*;
+use gtk::prelude::*;
+use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
-struct NoteBook {
-    notebook: gtk::NoteBook,
+struct Notebook {
+    notebook: gtk::Notebook,
     tabs: Vec<gtk::Box>
 }
 
-impl NoteBook {
-    fn new() -> NoteBook {
-        NoteBook {
-            notebook: gtk::NoteBook::new().unwrap(),
+impl Notebook {
+    fn new() -> Notebook {
+        Notebook {
+            notebook: gtk::Notebook::new(),
             tabs: Vec::new()
         }
     }
 
-    fn create_tab<'a, Widget>(&mut self, title: &'a str, widget: &Widget) -> Option<u32>
-    where Widget: gtk::WidgetTrait + Clone + 'static {
+    fn create_tab(&mut self, title: &str, widget: Widget) -> u32 {
         let close_image = gtk::Image::new_from_icon_name("window-close",
-                                                         IconSize::Button as i32).unwrap();
-        let button = gtk::Button::new().unwrap();
-        let label = gtk::Label::new(title).unwrap();
-        let tab = gtk::Box::new(Orientation::Horizontal, 0).unwrap();
+                                                         IconSize::Button as i32);
+        let button = gtk::Button::new();
+        let label = gtk::Label::new(Some(title));
+        let tab = gtk::Box::new(Orientation::Horizontal, 0);
 
         button.set_relief(ReliefStyle::None);
         button.set_focus_on_click(false);
@@ -33,21 +31,17 @@ impl NoteBook {
         tab.pack_start(&button, false, false, 0);
         tab.show_all();
 
-        let index = match self.notebook.append_page(widget, Some(&tab)) {
-            Some(index) => index,
-            _ => return None
-        };
+        let index = self.notebook.append_page(&widget, Some(&tab));
 
         let notebook_clone = self.notebook.clone();
-        let widget_clone = widget.clone();
         button.connect_clicked(move |_| {
-            let index = notebook_clone.page_num(&widget_clone).unwrap();
-            notebook_clone.remove_page(index as i32);
+            let index = notebook_clone.page_num(&widget).unwrap();
+            notebook_clone.remove_page(Some(index));
         });
 
         self.tabs.push(tab);
 
-        Some(index)
+        index
     }
 }
 
@@ -57,7 +51,7 @@ fn main() {
         return;
     }
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("Notebook");
     window.set_window_position(gtk::WindowPosition::Center);
@@ -68,12 +62,12 @@ fn main() {
         Inhibit(false)
     });
 
-    let mut notebook = NoteBook::new();
+    let mut notebook = Notebook::new();
 
     for i in 1..4 {
         let title = format!("sheet {}", i);
-        let label = gtk::Label::new(&title[..]).unwrap();
-        notebook.create_tab(&title[..], &label);
+        let label = gtk::Label::new(Some(&title));
+        notebook.create_tab(&title, label.upcast());
     }
 
     window.add(&notebook.notebook);
