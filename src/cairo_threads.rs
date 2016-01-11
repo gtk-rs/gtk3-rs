@@ -17,16 +17,18 @@ use gtk::{DrawingArea, Window, WindowType};
 
 // make moving clones into closures more convenient
 macro_rules! clone {
-    ($($n:ident),+; || $body:block) => (
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
         {
             $( let $n = $n.clone(); )+
-            move || { $body }
+            move || $body
         }
     );
-    ($($n:ident),+; |$($p:ident),+| $body:block) => (
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
         {
             $( let $n = $n.clone(); )+
-            move |$($p),+| { $body }
+            move |$(clone!(@param $p),)+| $body
         }
     );
 }
@@ -87,7 +89,7 @@ fn main() {
         let buf1 = initial_buf.to_vec().into_boxed_slice();
         // wrap the first one in a surface and set it up to be sent to the
         // worker when the surface is destroyed
-        images.push(ImageSurface::create_for_data(buf0, clone!(tx; |b| { let _ = tx.send(b); }),
+        images.push(ImageSurface::create_for_data(buf0, clone!(tx => move |b| { let _ = tx.send(b); }),
             format, width, height, stride));
         // send the second one immediately
         let _ = tx.send(buf1);
@@ -104,13 +106,13 @@ fn main() {
         let delay = (100 << thread_num) - 5;
 
         // spawn the worker thread
-        thread::spawn(clone!(ready_tx; || {
+        thread::spawn(clone!(ready_tx => move || {
             let mut n = 0;
             for buf in rx.iter() {
                 n = (n + 1) % 0x10000;
                 // create the surface and send the buffer back when it's destroyed
                 let image = ImageSurface::create_for_data(buf,
-                    clone!(ready_tx; |b| { let _ = ready_tx.send((thread_num, b)); }),
+                    clone!(ready_tx => move |b| { let _ = ready_tx.send((thread_num, b)); }),
                     format, width, height, stride);
                 let cr = Context::new(&image);
                 // draw an arc with a weirdly calculated radius
@@ -124,7 +126,7 @@ fn main() {
     // so they can't just borrow these
     let cell = Rc::new(RefCell::new((images, origins, workers)));
 
-    area.connect_draw(clone!(cell; |_x, cr| {
+    area.connect_draw(clone!(cell => move |_, cr| {
         let (ref images, ref origins, _) = *cell.borrow();
         for (image, origin) in images.iter().zip(origins.iter()) {
             draw_image_if_dirty(&cr, image, *origin, (width, height));
