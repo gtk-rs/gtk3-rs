@@ -25,7 +25,7 @@ pub mod wrapper;
 #[macro_use]
 pub mod boxed;
 #[macro_use]
-pub mod refcounted;
+pub mod shared;
 #[macro_use]
 pub mod object;
 

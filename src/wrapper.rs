@@ -15,11 +15,13 @@
 /// ```
 ///
 /// This creates a wrapper named `$name` around the foreign type `$foreign`
-/// of $kind (one of `Boxed`, `Object`) using expressions from the `match fn`
+/// of $kind (one of `Boxed`, `Shared`, `Object`) using expressions from the `match fn`
 /// block to implement type-specific low-level operations. The expression
 /// will be evaluated in `unsafe` context.
 ///
 /// ### Boxed
+///
+/// Boxed records with single ownership.
 ///
 /// ```ignore
 /// glib_wrapper! {
@@ -37,12 +39,14 @@
 ///
 /// `free`: `|*mut $foreign|` frees the value.
 ///
-/// ### Refcounted
+/// ### Shared
+///
+/// Records with reference counted shared ownership.
 ///
 /// ```ignore
 /// glib_wrapper! {
 ///     /// Object holding timing information for a single frame.
-///     pub struct FrameTimings(Refcounted<ffi::GdkFrameTimings>);
+///     pub struct FrameTimings(Shared<ffi::GdkFrameTimings>);
 ///
 ///     match fn {
 ///         ref => |ptr| ffi::gdk_frame_timings_ref(ptr),
@@ -56,6 +60,8 @@
 /// `unref`: `|*mut $foreign|` decreases the refcount.
 ///
 /// ### Object
+///
+/// Objects -- classes and interfaces.
 ///
 /// ```
 /// glib_wrapper! {
@@ -79,7 +85,7 @@
 /// }
 /// ```
 ///
-/// `get_type: || -> GType` returns the type identifier of the class.
+/// `get_type: || -> GType` returns the type identifier of the class or interface.
 #[macro_export]
 macro_rules! glib_wrapper {
     (
@@ -95,6 +101,7 @@ macro_rules! glib_wrapper {
             @free $free_arg $free_expr);
     };
 
+    // Same as Shared, to be removed
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Refcounted<$ffi_name:path>);
@@ -104,7 +111,20 @@ macro_rules! glib_wrapper {
             unref => |$unref_arg:ident| $unref_expr:expr,
         }
     ) => {
-        glib_refcounted_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+            @unref $unref_arg $unref_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Shared<$ffi_name:path>);
+
+        match fn {
+            ref => |$ref_arg:ident| $ref_expr:expr,
+            unref => |$unref_arg:ident| $unref_expr:expr,
+        }
+    ) => {
+        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr);
     };
 

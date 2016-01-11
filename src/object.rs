@@ -62,7 +62,7 @@ pub use gobject_ffi::GObject;
 
 glib_wrapper! {
     #[doc(hidden)]
-    pub struct ObjectRef(Refcounted<GObject>);
+    pub struct ObjectRef(Shared<GObject>);
 
     match fn {
         ref => |ptr| gobject_ffi::g_object_ref(ptr),
