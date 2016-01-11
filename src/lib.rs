@@ -12,7 +12,11 @@ use libc::c_char;
 pub use self::app_info::AppInfo;
 pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
-pub use self::object::Object;
+pub use self::object::{
+    Downcast,
+    Object,
+    Upcast,
+};
 pub use self::permission::Permission;
 pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
 pub use self::traits::FFIGObject;
