@@ -13,7 +13,7 @@ pub use self::app_info::AppInfo;
 pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
 pub use self::object::{
-    Downcast,
+    Cast,
     Object,
     Upcast,
 };
