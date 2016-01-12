@@ -3,7 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use gio_ffi;
-use object::Upcast;
+use object::IsA;
 
 glib_wrapper! {
     pub struct AppInfo(Object<gio_ffi::GAppInfo>);
@@ -16,5 +16,5 @@ glib_wrapper! {
 pub trait AppInfoExt {
 }
 
-impl<O: Upcast<AppInfo>> AppInfoExt for O {
+impl<O: IsA<AppInfo>> AppInfoExt for O {
 }

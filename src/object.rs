@@ -12,7 +12,7 @@ use gobject_ffi;
 /// Upcasting and downcasting support.
 ///
 /// Provides conversions up and down the class hierarchy tree.
-pub trait Cast: Upcast<Object> {
+pub trait Cast: IsA<Object> {
     /// Upcasts an object to an ancestor class or interface `T`.
     ///
     /// Example
@@ -24,7 +24,7 @@ pub trait Cast: Upcast<Object> {
     #[inline]
     fn upcast<T>(self) -> T
     where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
-          Self: Upcast<T> {
+          Self: IsA<T> {
         unsafe { T::from(self.into()) }
     }
 
@@ -44,19 +44,19 @@ pub trait Cast: Upcast<Object> {
     }
 }
 
-impl<T: Upcast<Object>> Cast for T { }
+impl<T: IsA<Object>> Cast for T { }
 
 /// Declares the "is a" relationship.
 ///
 /// `Self` is said to implement `T`. The trait can only be implemented if the appropriate
 /// `ToGlibPtr` implementations exist.
 ///
-/// `T` always implements `Upcast<T>`.
-pub trait Upcast<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
+/// `T` always implements `IsA<T>`.
+pub trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-impl<T> Upcast<T> for T
+impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
@@ -72,7 +72,7 @@ pub trait Downcast<T> {
     unsafe fn downcast_unchecked(self) -> T;
 }
 
-impl<Super: Upcast<Super>, Sub: Upcast<Super>> Downcast<Sub> for Super {
+impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
     #[inline]
     fn downcast(self) -> Result<Sub, Super> {
         unsafe {
@@ -212,7 +212,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        impl $crate::object::Upcast<$crate::object::Object> for $name { }
+        impl $crate::object::IsA<$crate::object::Object> for $name { }
 
         $(
             impl<'a> $crate::translate::ToGlibPtr<'a,
@@ -237,7 +237,7 @@ macro_rules! glib_object_wrapper {
                 }
             }
 
-            impl $crate::object::Upcast<$implements> for $name { }
+            impl $crate::object::IsA<$implements> for $name { }
         )*
     }
 }
@@ -250,5 +250,5 @@ glib_object_wrapper! {
 pub trait ObjectExt {
 }
 
-impl<T: Upcast<Object>> ObjectExt for T {
+impl<T: IsA<Object>> ObjectExt for T {
 }
