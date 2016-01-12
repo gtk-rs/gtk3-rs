@@ -10,11 +10,13 @@ extern crate gio_sys as gio_ffi;
 use libc::c_char;
 
 pub use self::app_info::AppInfo;
-pub use self::list::{List, Elem, RevElem};
-pub use self::slist::{SList, SElem};
 pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
-pub use self::object::Object;
+pub use self::object::{
+    Downcast,
+    Object,
+    Upcast,
+};
 pub use self::permission::Permission;
 pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
 pub use self::traits::FFIGObject;
@@ -27,15 +29,14 @@ pub mod wrapper;
 #[macro_use]
 pub mod boxed;
 #[macro_use]
-pub mod refcounted;
+pub mod shared;
 #[macro_use]
 pub mod object;
 
 mod app_info;
-mod list;
-mod slist;
 pub mod glib_container;
-mod error;
+pub mod error;
+mod file_error;
 mod permission;
 pub mod signal;
 pub mod source;

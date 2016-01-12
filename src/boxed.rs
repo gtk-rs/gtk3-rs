@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
 use translate::*;
@@ -8,6 +10,7 @@ macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
+        #[derive(Clone, Debug)]
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
@@ -30,6 +33,10 @@ macro_rules! glib_boxed_wrapper {
             unsafe fn uninitialized() -> Self {
                 $name($crate::boxed::Boxed::uninitialized())
             }
+        }
+
+        impl $crate::translate::GlibPtrDefault for $name {
+            type GlibType = *mut $ffi_name;
         }
 
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
@@ -68,12 +75,6 @@ macro_rules! glib_boxed_wrapper {
                 $name($crate::translate::from_glib_borrow(ptr))
             }
         }
-
-        impl Clone for $name {
-            fn clone(&self) -> Self {
-                $name(self.0.clone())
-            }
-        }
     }
 }
 
@@ -81,6 +82,17 @@ enum AnyBox<T> {
     Native(Box<T>),
     ForeignOwned(*mut T),
     ForeignBorrowed(*mut T),
+}
+
+impl<T> fmt::Debug for AnyBox<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        use self::AnyBox::*;
+        match *self {
+            Native(ref b) => write!(f, "Native({:?})", &**b as *const T),
+            ForeignOwned(ptr) => write!(f, "ForeignOwned({:?})", ptr),
+            ForeignBorrowed(ptr) => write!(f, "ForeignBorrowed({:?})", ptr),
+        }
+    }
 }
 
 /// Memory management functions for a boxed type.
@@ -183,11 +195,37 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
     }
 }
 
+impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Boxed {{ inner: {:?} }}", self.inner)
+    }
+}
+
 impl<T: 'static, MM: BoxedMemoryManager<T>> Clone for Boxed<T, MM> {
     #[inline]
     fn clone(&self) -> Self {
         unsafe {
             from_glib_none(self.to_glib_none().0 as *mut T)
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> Deref for Boxed<T, MM> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        unsafe {
+            // This is safe because the pointer will remain valid while self is borrowed
+            mem::transmute(self.to_glib_none().0)
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> DerefMut for Boxed<T, MM> {
+    fn deref_mut(&mut self) -> &mut T {
+        unsafe {
+            // This is safe because the pointer will remain valid while self is borrowed
+            mem::transmute(self.to_glib_none_mut().0)
         }
     }
 }

@@ -15,9 +15,13 @@ use gobject_ffi;
 /// `ToGlibPtr` implementations exist.
 ///
 /// `T` always implements `Upcast<T>`.
-pub trait Upcast<T: StaticType + Wrapper>: StaticType + Wrapper +
+pub trait Upcast<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> {
+    fn upcast(self) -> T {
+        unsafe { T::from(self.into()) }
+    }
+}
 
 impl<T> Upcast<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
@@ -58,7 +62,7 @@ pub use gobject_ffi::GObject;
 
 glib_wrapper! {
     #[doc(hidden)]
-    pub struct ObjectRef(Refcounted<GObject>);
+    pub struct ObjectRef(Shared<GObject>);
 
     match fn {
         ref => |ptr| gobject_ffi::g_object_ref(ptr),
@@ -71,6 +75,7 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
+        #[derive(Clone, Debug, PartialEq, Eq, Hash)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
         impl Into<$crate::object::ObjectRef> for $name {
@@ -83,6 +88,10 @@ macro_rules! glib_object_wrapper {
             unsafe fn from(t: $crate::object::ObjectRef) -> Self {
                 $name(t, ::std::marker::PhantomData)
             }
+        }
+
+        impl $crate::translate::GlibPtrDefault for $name {
+            type GlibType = *mut $ffi_name;
         }
 
         impl $crate::wrapper::Wrapper for $name {
@@ -139,12 +148,6 @@ macro_rules! glib_object_wrapper {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_borrow(ptr as *mut _),
                       ::std::marker::PhantomData)
-            }
-        }
-
-        impl Clone for $name {
-            fn clone(&self) -> Self {
-                $name(self.0.clone(), ::std::marker::PhantomData)
             }
         }
 
