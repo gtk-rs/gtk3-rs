@@ -5,7 +5,7 @@
 use std::mem;
 use std::ptr;
 use glib::{Error, GlibContainer, TimeVal};
-use glib::object::Upcast;
+use glib::object::IsA;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
@@ -92,7 +92,7 @@ pub trait PixbufAnimationExt {
     fn get_static_image(&self) -> Option<Pixbuf>;
 }
 
-impl<T: Upcast<PixbufAnimation>> PixbufAnimationExt for T {
+impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
     fn get_width(&self) -> i32 {
         unsafe { ffi::gdk_pixbuf_animation_get_width(self.to_glib_none().0) }
     }
