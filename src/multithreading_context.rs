@@ -1,8 +1,7 @@
 extern crate gtk;
 extern crate glib;
 
-use gtk::traits::*;
-use gtk::signal::Inhibit;
+use gtk::prelude::*;
 use std::cell::RefCell;
 use std::sync::mpsc::{channel, Receiver};
 use std::thread;
@@ -13,7 +12,7 @@ fn main() {
         return;
     }
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("Multithreading GTK+ Program");
     window.set_border_width(10);
@@ -25,8 +24,8 @@ fn main() {
         Inhibit(false)
     });
 
-    let text_view = gtk::TextView::new().unwrap();
-    let scroll = gtk::ScrolledWindow::new(None, None).unwrap();
+    let text_view = gtk::TextView::new();
+    let scroll = gtk::ScrolledWindow::new(None, None);
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scroll.add(&text_view);
 
