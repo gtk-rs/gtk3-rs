@@ -9,6 +9,43 @@ use types::{self, StaticType};
 use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 
+/// Upcasting and downcasting support.
+///
+/// Provides conversions up and down the class hierarchy tree.
+pub trait Cast: Upcast<Object> {
+    /// Upcasts an object to an ancestor class or interface `T`.
+    ///
+    /// Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.upcast::<gtk::Widget>();
+    /// ```
+    #[inline]
+    fn upcast<T>(self) -> T
+    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
+          Self: Upcast<T> {
+        unsafe { T::from(self.into()) }
+    }
+
+    /// Tries to downcast to a descendant class or interface implementor `T`.
+    ///
+    /// Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.upcast::<gtk::Widget>();
+    /// assert!(widget.downcast::<gtk::Button>().is_ok());
+    /// ```
+    #[inline]
+    fn downcast<T>(self) -> Result<T, Self>
+    where Self: Sized + Downcast<T> {
+        Downcast::downcast(self)
+    }
+}
+
+impl<T: Upcast<Object>> Cast for T { }
+
 /// Declares the "is a" relationship.
 ///
 /// `Self` is said to implement `T`. The trait can only be implemented if the appropriate
@@ -17,11 +54,7 @@ use gobject_ffi;
 /// `T` always implements `Upcast<T>`.
 pub trait Upcast<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> {
-    fn upcast(self) -> T {
-        unsafe { T::from(self.into()) }
-    }
-}
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
 impl<T> Upcast<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
