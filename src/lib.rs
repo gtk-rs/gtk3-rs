@@ -14,8 +14,8 @@ pub use self::glib_container::GlibContainer;
 pub use self::error::{Error};
 pub use self::object::{
     Cast,
+    IsA,
     Object,
-    Upcast,
 };
 pub use self::permission::Permission;
 pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
