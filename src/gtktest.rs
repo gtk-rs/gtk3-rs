@@ -46,7 +46,7 @@ macro_rules! clone {
     );
 }
 
-fn about_clicked(button: gtk::Button) {
+fn about_clicked(button: &gtk::Button) {
     let dialog = gtk::AboutDialog::new();
     if let Ok(window) = button.get_toplevel().downcast::<gtk::Window>() {
         dialog.set_transient_for(Some(&window));
