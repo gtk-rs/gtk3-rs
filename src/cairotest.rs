@@ -3,7 +3,6 @@ extern crate gtk;
 
 use std::f64::consts::PI;
 
-use gtk::Widget;
 use gtk::prelude::*;
 use gtk::DrawingArea;
 
@@ -16,7 +15,7 @@ fn main() {
         return;
     }
 
-    drawable(500, 500, |_, cr: Context| {
+    drawable(500, 500, |_, cr| {
         cr.set_dash(&[3., 2., 1.], 1.);
         assert_eq!(cr.get_dash(), (vec![3., 2., 1.], 1.));
 
@@ -66,7 +65,7 @@ fn main() {
         Inhibit(false)
     });
 
-    drawable(500, 500, |_, cr: Context| {
+    drawable(500, 500, |_, cr| {
         cr.scale(500f64, 500f64);
 
         cr.select_font_face("Sans", FontSlant::Normal, FontWeight::Normal);
@@ -95,7 +94,7 @@ fn main() {
 }
 
 pub fn drawable<F>(width: i32, height: i32, draw_fn: F)
-where F: Fn(Widget, Context) -> Inhibit + 'static {
+where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
     let drawing_area = Box::new(DrawingArea::new)();
 
