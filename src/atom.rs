@@ -5,7 +5,6 @@
 use ffi;
 use glib::translate::*;
 
-#[allow(raw_pointer_derive)]
 #[derive(Copy, Clone, PartialEq, Eq)]
 pub struct Atom(ffi::GdkAtom);
 
