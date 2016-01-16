@@ -1,6 +1,6 @@
 [package]
 name = "pango"
-version = "0.0.3"
+version = "0.0.7"
 authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the Pango library"
