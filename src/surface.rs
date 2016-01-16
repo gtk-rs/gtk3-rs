@@ -12,7 +12,6 @@ use ffi::enums::{
     SurfaceType,
 };
 
-#[allow(raw_pointer_derive)]
 #[derive(Debug)]
 pub struct Surface(*mut ffi::cairo_surface_t);
 
