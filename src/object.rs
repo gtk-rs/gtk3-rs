@@ -108,7 +108,7 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
-        #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+        #[derive(Clone, Debug, Hash)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
         impl Into<$crate::object::ObjectRef> for $name {
@@ -189,6 +189,16 @@ macro_rules! glib_object_wrapper {
                 unsafe { $crate::translate::from_glib($get_type_expr) }
             }
         }
+
+        impl<T: $crate::object::IsA<$crate::object::Object>> ::std::cmp::PartialEq<T> for $name {
+            #[inline]
+            fn eq(&self, other: &T) -> bool {
+                use $crate::translate::ToGlibPtr;
+                self.0.to_glib_none().0 == other.to_glib_none().0
+            }
+        }
+
+        impl ::std::cmp::Eq for $name { }
     };
 
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr,
