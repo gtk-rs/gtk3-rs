@@ -1,4 +1,4 @@
-// Copyright 2015, The Gtk-rs Project Developers.
+// Copyright 2015-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
@@ -13,7 +13,7 @@ use gobject_ffi;
 ///
 /// Provides conversions up and down the class hierarchy tree.
 pub trait Cast: IsA<Object> {
-    /// Upcasts an object to an ancestor class or interface `T`.
+    /// Upcasts an object to a superclass or interface `T`.
     ///
     /// Example
     ///
@@ -28,7 +28,7 @@ pub trait Cast: IsA<Object> {
         unsafe { T::from(self.into()) }
     }
 
-    /// Tries to downcast to a descendant class or interface implementor `T`.
+    /// Tries to downcast to a subclass or interface implementor `T`.
     ///
     /// Example
     ///
@@ -48,8 +48,15 @@ impl<T: IsA<Object>> Cast for T { }
 
 /// Declares the "is a" relationship.
 ///
-/// `Self` is said to implement `T`. The trait can only be implemented if the appropriate
-/// `ToGlibPtr` implementations exist.
+/// `Self` is said to implement `T`.
+///
+/// For instance, since originally `GtkWidget` is a subclass of `GObject` and
+/// implements the `GtkBuildable` interface, `gtk::Widget` implements
+/// `IsA<glib::Object>` and `IsA<gtk::Buildable>`.
+///
+///
+/// The trait can only be implemented if the appropriate `ToGlibPtr`
+/// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
 pub trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +

@@ -1,6 +1,43 @@
-// Copyright 2013-2015, The Gtk-rs Project Developers.
+// Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+//! # **glib**, **gobject** and **gio** bindings for Rust
+//!
+//! This library contains
+//!
+//! - bindings to some essential GLib, GObject, GIO types and APIs,
+//!
+//! - common building blocks used in both handmade and machine generated
+//! bindings to GTK+ and other GLib-based libraries.
+//!
+//! It is the foundation for higher level libraries with uniform Rusty (safe
+//! and strongly typed) APIs. It avoids exposing GLib-specific data types where
+//! possible and is not meant to provide comprehensive GLib bindings, which
+//! would often amount to duplicating the Rust Standard Library or other utility
+//! crates.
+//!
+//! The library is a work in progress: expect missing functionality and breaking
+//! changes.
+//!
+//! # Objects
+//!
+//! Each class and interface has a corresponding smart pointer struct
+//! representing an instance of that type (e.g. `Object` for `GObject`,
+//! `gtk::Widget` for `GtkWidget`). They are reference counted and feature
+//! interior mutability similarly to Rust's `Rc<RefCell<T>>` idiom.
+//! Consequently, cloning objects is cheap and their methods never require
+//! mutable borrows. Two smart pointers are equal iff they point to the same
+//! object.
+//!
+//! The root of the object hierarchy is [`Object`](object/struct.Object.html).
+//! Inheritance and subtyping is denoted with the [`IsA`](object/trait.IsA.html)
+//! marker trait. The [`Cast`](object/trait.Cast.html) trait enables upcasting
+//! and downcasting.
+//!
+//! Interfaces and non-leaf classes also have corresponding traits (e.g.
+//! `ObjectExt` and `gtk::WidgetExt`), which are blanketly implemented for all
+//! their subtypes.
 
 extern crate libc;
 extern crate glib_sys as glib_ffi;
