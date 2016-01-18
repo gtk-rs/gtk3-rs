@@ -228,6 +228,14 @@ pub trait ToGlibPtr<'a, P: Copy> {
     /// The pointer in the `Stash` is only valid for the lifetime of the `Stash`.
     fn to_glib_none(&'a self) -> Stash<'a, P, Self>;
 
+    /// Transfer: container.
+    ///
+    /// We transfer the container ownership to the foreign library retaining
+    /// the elements ownership.
+    fn to_glib_container(&'a self) -> Stash<'a, P, Self> {
+        unimplemented!();
+    }
+
     /// Transfer: full.
     ///
     /// We transfer the ownership to the foreign library.
@@ -417,7 +425,7 @@ impl<'a, P: Ptr, T: ToGlibPtr<'a, P> + 'a> PtrArray<'a, P, T> {
 
 impl<'a, T> ToGlibPtr<'a, *mut glib_ffi::GList> for [T]
 where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
-    type Storage = (List, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, T>>);
+    type Storage = (Option<List>, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, T>>);
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut glib_ffi::GList, Self> {
@@ -432,7 +440,37 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
                 list = glib_ffi::g_list_reverse(list);
             }
         }
-        Stash(list, (List(list), stash_vec))
+        Stash(list, (Some(List(list)), stash_vec))
+    }
+
+    #[inline]
+    fn to_glib_container(&'a self) -> Stash<'a, *mut glib_ffi::GList, Self> {
+        let stash_vec: Vec<_> =
+            self.iter().map(|v| v.to_glib_none()).collect();
+        let mut list: *mut glib_ffi::GList = ptr::null_mut();
+        unsafe {
+            for stash in &stash_vec {
+                list = glib_ffi::g_list_prepend(list, Ptr::to(stash.0));
+            }
+            if stash_vec.len() > 1 {
+                list = glib_ffi::g_list_reverse(list);
+            }
+        }
+        Stash(list, (None, stash_vec))
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut glib_ffi::GList {
+        let mut list: *mut glib_ffi::GList = ptr::null_mut();
+        unsafe {
+            for ptr in self.iter().map(|v| v.to_glib_full()) {
+                list = glib_ffi::g_list_prepend(list, Ptr::to(ptr));
+            }
+            if self.len() > 1 {
+                list = glib_ffi::g_list_reverse(list);
+            }
+        }
+        list
     }
 }
 
@@ -446,7 +484,7 @@ impl Drop for List {
 
 impl<'a, T> ToGlibPtr<'a, *mut glib_ffi::GSList> for [T]
 where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
-    type Storage = (SList, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, T>>);
+    type Storage = (Option<SList>, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, T>>);
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut glib_ffi::GSList, Self> {
@@ -461,7 +499,37 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
                 list = glib_ffi::g_slist_reverse(list);
             }
         }
-        Stash(list, (SList(list), stash_vec))
+        Stash(list, (Some(SList(list)), stash_vec))
+    }
+
+    #[inline]
+    fn to_glib_container(&'a self) -> Stash<'a, *mut glib_ffi::GSList, Self> {
+        let stash_vec: Vec<_> =
+            self.iter().map(|v| v.to_glib_none()).collect();
+        let mut list: *mut glib_ffi::GSList = ptr::null_mut();
+        unsafe {
+            for stash in &stash_vec {
+                list = glib_ffi::g_slist_prepend(list, Ptr::to(stash.0));
+            }
+            if stash_vec.len() > 1 {
+                list = glib_ffi::g_slist_reverse(list);
+            }
+        }
+        Stash(list, (None, stash_vec))
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut glib_ffi::GSList {
+        let mut list: *mut glib_ffi::GSList = ptr::null_mut();
+        unsafe {
+            for ptr in self.iter().map(|v| v.to_glib_full()) {
+                list = glib_ffi::g_slist_prepend(list, Ptr::to(ptr));
+            }
+            if self.len() > 1 {
+                list = glib_ffi::g_slist_reverse(list);
+            }
+        }
+        list
     }
 }
 
