@@ -18,11 +18,6 @@ git = "https://github.com/gtk-rs/gdk"
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk"
 
-glib = "^0"
-gdk = "^0"
-gtk = "^0"
-cairo-rs = "^0"
-
 [features]
 gtk_3_10 = []
 gtk_3_14 = ["gtk_3_10"]
