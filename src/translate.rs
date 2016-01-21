@@ -50,7 +50,12 @@
 use std::char;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
+#[cfg(unix)]
+use std::ffi::OsString;
 use std::mem;
+#[cfg(unix)]
+use std::os::unix::prelude::*;
+use std::path::{Path, PathBuf};
 use std::ptr;
 use libc::{c_char, size_t};
 use glib_ffi;
@@ -374,6 +379,47 @@ impl GlibPtrDefault for str {
 }
 
 impl GlibPtrDefault for String {
+    type GlibType = *mut c_char;
+}
+
+#[cfg(unix)]
+fn path_to_c(path: &Path) -> Option<CString> {
+    use std::os::unix::ffi::OsStrExt;
+    CString::new(path.as_os_str().as_bytes()).ok()
+}
+
+#[cfg(not(unix))]
+fn path_to_c(path: &Path) -> Option<CString> {
+    path.to_str().and_then(|s| {
+        CString::new(s.as_bytes()).ok()
+    })
+}
+
+impl<'a> ToGlibPtr<'a, *const c_char> for Path {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
+        let tmp = path_to_c(self).unwrap();
+        Stash(tmp.as_ptr(), tmp)
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *mut c_char> for Path {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
+        let tmp = path_to_c(self).unwrap();
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+}
+
+impl GlibPtrDefault for Path {
+    type GlibType = *mut c_char;
+}
+
+impl GlibPtrDefault for PathBuf {
     type GlibType = *mut c_char;
 }
 
@@ -705,6 +751,49 @@ impl FromGlibPtr<*mut c_char> for String {
     unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());
         String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+    }
+
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut c_char) -> Self {
+        let res = from_glib_none(ptr);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+}
+
+#[cfg(unix)]
+unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
+    OsString::from_vec(CStr::from_ptr(ptr).to_bytes().to_vec())
+        .into()
+}
+
+#[cfg(not(unix))]
+unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
+    String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes())
+        .into_owned()
+        .into()
+}
+
+impl FromGlibPtr<*const c_char> for PathBuf {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const c_char) -> Self {
+        assert!(!ptr.is_null());
+        c_to_path_buf(ptr)
+    }
+
+    #[inline]
+    unsafe fn from_glib_full(ptr: *const c_char) -> Self {
+        let res = from_glib_none(ptr);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+}
+
+impl FromGlibPtr<*mut c_char> for PathBuf {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
+        assert!(!ptr.is_null());
+        c_to_path_buf(ptr)
     }
 
     #[inline]
