@@ -15,7 +15,7 @@ fn main() {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("Enter your age");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(300, 20);
 
     let spin_button = gtk::SpinButton::new_with_range(0.0, 130.0, 1.0);

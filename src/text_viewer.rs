@@ -18,7 +18,7 @@ fn main() {
 
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
     window.set_title("Text File Viewer");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(400, 300);
 
     let toolbar = gtk::Toolbar::new();

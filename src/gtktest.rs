@@ -48,7 +48,7 @@ macro_rules! clone {
 
 fn about_clicked(button: &gtk::Button) {
     let dialog = gtk::AboutDialog::new();
-    if let Ok(window) = button.get_toplevel().downcast::<gtk::Window>() {
+    if let Some(window) = button.get_toplevel().and_then(|w| w.downcast::<gtk::Window>().ok()) {
         dialog.set_transient_for(Some(&window));
     }
 
@@ -141,7 +141,7 @@ fn main() {
     volume_button.set_orientation(gtk::Orientation::Horizontal);
     label.set_justify(gtk::Justification::Left);
     window.set_title("Yeah a beautiful window with gtk !");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.add(&frame);
 
     let entry_clone = entry.clone();
