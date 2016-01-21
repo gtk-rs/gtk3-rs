@@ -54,7 +54,7 @@ fn main() {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("Notebook");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(640, 480);
 
     window.connect_delete_event(|_, _| {

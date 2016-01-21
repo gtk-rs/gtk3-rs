@@ -25,7 +25,7 @@ fn main() {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("TreeView Sample");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();

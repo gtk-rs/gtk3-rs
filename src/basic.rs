@@ -18,7 +18,7 @@ fn main() {
 
     window.set_title("First GTK+ Program");
     window.set_border_width(10);
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
     window.connect_delete_event(|_, _| {
