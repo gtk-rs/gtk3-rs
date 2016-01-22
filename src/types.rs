@@ -61,6 +61,34 @@ pub trait StaticType {
     fn static_type() -> Type;
 }
 
+impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
+    fn static_type() -> Type {
+        T::static_type()
+    }
+}
+
+macro_rules! builtin {
+    ($name:ident, $val:ident) => {
+        impl StaticType for $name {
+            fn static_type() -> Type {
+                Type::$val
+            }
+        }
+    }
+}
+
+builtin!(bool, Bool);
+builtin!(i8, I8);
+builtin!(u8, U8);
+builtin!(i32, I32);
+builtin!(u32, U32);
+builtin!(i64, I64);
+builtin!(u64, U64);
+builtin!(f32, F32);
+builtin!(f64, F64);
+builtin!(str, String);
+builtin!(String, String);
+
 pub trait InstanceType {
     fn instance_type(&self) -> Type;
 }
