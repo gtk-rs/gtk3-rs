@@ -48,7 +48,8 @@ use libc::c_char;
 
 pub use self::app_info::AppInfo;
 pub use self::glib_container::GlibContainer;
-pub use self::error::{Error};
+pub use self::error::Error;
+pub use file_error::FileError;
 pub use self::object::{
     Cast,
     IsA,
