@@ -179,6 +179,13 @@ impl<'a, T: FromValueOptional + SetValue> TypedValueMut<'a, T> {
         unsafe { SetValueOptional::set_value_optional(self.0, value) }
     }
 
+    /// Sets the value to `None`.
+    ///
+    /// This method is only available for types that support a `None` value.
+    pub fn set_none(&mut self) where T: SetValueOptional {
+        unsafe { T::set_value_optional(self.0, None) }
+    }
+
     /// Sets the value.
     pub fn set_some<'x, U: ?Sized>(&mut self, value: &'x U)
     where T: Borrow<U>, &'x U: SetValue {
