@@ -99,7 +99,11 @@ fn main() {
     let image = match gdk::pixbuf::Pixbuf::new_from_file("./resources/eye.png") {
         Ok(i) => i,
         Err(e) => {
-            println!("Error: {}", e);
+            println!("Error while creating image: {}", e);
+            if e.typed::<glib::FileError>() == Some(glib::FileError::Noent) {
+                println!("Try relaunch this example from the same level as \
+                          the `resources` folder");
+            }
             return;
         }
     };
