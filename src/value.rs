@@ -8,79 +8,68 @@
 //! isn't known at compile time but once created a `Value` can't change its
 //! type.
 //!
+//! [`TypedValue`](struct.TypedValue.html) has a statically known type and
+//! dereferences to `Value` so it can be used everywhere `Value` references are
+//! accepted.
+//!
 //! Supported types are `bool`, `i8`, `u8`, `i32`, `u32`, `i64`, `u64`, `f32`,
 //! `f64`, `String` and objects (`T: IsA<Object>`).
 //!
 //! # Examples
 //!
 //! ```
-//! use glib::Value;
+//! use glib::{TypedValue, Value};
 //!
-//! // Value implements From<i32>, From<&str> and From<Option<&str>>.
+//! // Value and TypedValue implement From<i32>, From<&str>
+//! // and From<Option<&str>>.
 //! let mut num = Value::from(10);
 //! let mut hello = Value::from("Hello!");
 //! let none: Option<&str> = None;
-//! let none = Value::from(none);
+//! let str_none = Value::from(none.clone());
+//! let typed_str_none = TypedValue::from(none);
 //!
-//! // 'get' tries to get a value of specific type and returns None
+//! // `get` tries to get a value of specific type and returns None
 //! // if the type doesn't match or the value is None.
 //! assert_eq!(num.get(), Some(10));
 //! assert_eq!(num.get::<String>(), None);
 //! assert_eq!(hello.get(), Some(String::from("Hello!")));
 //! assert_eq!(hello.get::<String>(), Some(String::from("Hello!")));
-//! assert_eq!(none.get::<String>(), None);
+//! assert_eq!(str_none.get::<String>(), None);
 //!
-//! // `typed` returns a `TypedValue` with some getters.
-//! if let Some(val) = hello.typed::<String>() {
-//!     assert!(val.get().unwrap() == "Hello!");
-//! } else {
-//!     panic!("Not a string");
-//! }
-//! if let Some(val) = none.typed::<String>() {
-//!     assert!(val.get() == None);
-//! } else {
-//!     panic!("Not a string");
-//! }
+//! // `typed` tries to convert a `Value` to `TypedValue`.
+//! let mut typed_num = num.typed::<i32>().unwrap();
+//! let mut typed_hello = hello.typed::<String>().unwrap();
+//!
+//! // `str_none` is not an `i32`
+//! assert!(str_none.typed::<i32>().is_err());
+//!
+//! // `get`
+//! assert!(typed_hello.get().unwrap() == "Hello!");
+//! assert!(typed_str_none.get() == None);
 //!
 //! // Numeric types can't have value `None`, `get` always returns `Some`.
 //! // Such types have `get_some`, which avoids unnecessary `unwrap`ping.
-//! if let Some(val) = num.typed::<i32>() {
-//!     assert_eq!(val.get().unwrap(), 10);
-//!     assert_eq!(val.get_some(), 10);
-//! } else {
-//!     panic!("Not an i32");
-//! }
+//! assert_eq!(typed_num.get().unwrap(), 10);
+//! assert_eq!(typed_num.get_some(), 10);
 //!
-//! // `num` is not a string.
-//! if num.typed::<String>().is_some() {
-//!     panic!("Unexpected string");
-//! }
-//!
-//! // `typed_mut` returns a `TypedValueMut`, which also has setters
 //! // `set_none` sets the value to `None` if the type supports it.
-//! if let Some(mut val) = hello.typed_mut::<String>() {
-//!     val.set_none();
-//! }
+//! typed_hello.set_none();
+//! assert!(typed_hello.get().is_none());
 //!
 //! // `set` takes an optional reference for types that support `None`.
-//! assert!(hello.typed::<String>().unwrap().get().is_none());
-//! if let Some(mut val) = hello.typed_mut::<String>() {
-//!     val.set(Some("Hello again!"));
-//! }
-//! assert!(hello.get::<String>().unwrap() == "Hello again!");
+//! typed_hello.set(Some("Hello again!"));
+//! assert!(typed_hello.get().unwrap() == "Hello again!");
 //!
 //! // `set_some` is the only setter for types that don't support `None`.
-//! assert!(hello.get::<String>().unwrap() == "Hello again!");
-//! if let Some(mut val) = num.typed_mut::<i32>() {
-//!     val.set_some(&20);
-//! }
-//! assert_eq!(num.get(), Some(20));
+//! typed_num.set_some(&20);
+//! assert_eq!(typed_num.get_some(), 20);
 //! ```
 
 use std::borrow::Borrow;
 use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
+use std::ops::{Deref, DerefMut};
 
 use object::{Downcast, IsA, Object};
 use translate::*;
@@ -98,27 +87,21 @@ use gobject_ffi;
 pub struct Value(Box<gobject_ffi::GValue>);
 
 impl Value {
-    /// Tries to return a typed borrow of the value.
+    /// Tries to convert to a typed value.
     ///
-    /// Returns `Some(TypedValue<T>)` if the value carries a type corresponding
-    /// to `T` and `None` otherwise.
-    pub fn typed<T: FromValueOptional>(&self) -> Option<TypedValue<T>> {
+    /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
+    /// to `T` and `Err(self)` otherwise.
+    pub fn typed<T: FromValueOptional + SetValue>(self) -> Result<TypedValue<T>, Self> {
         unsafe {
-            let ok = gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
-                T::static_type().to_glib());
-            some_if(ok, || TypedValue(self, PhantomData))
-        }
-    }
-
-    /// Tries to return a typed mutable borrow of the value.
-    ///
-    /// Returns `Some(TypedValueMut<T>)` if the value carries a type
-    /// corresponding to `T` and `None` otherwise.
-    pub fn typed_mut<T: FromValueOptional + SetValue>(&mut self) -> Option<TypedValueMut<T>> {
-        unsafe {
-            let ok = gobject_ffi::g_type_check_value_holds(self.to_glib_none_mut().0,
-                T::static_type().to_glib());
-            some_if(ok, move || TypedValueMut(self, PhantomData))
+            let ok = from_glib(
+                gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
+                    T::static_type().to_glib()));
+            if ok {
+                Ok(TypedValue(self, PhantomData))
+            }
+            else {
+                Err(self)
+            }
         }
     }
 
@@ -127,9 +110,19 @@ impl Value {
     /// Returns `Some` if the type is correct and the value is not `None`.
     ///
     /// This function doesn't distinguish between type mismatches and correctly
-    /// typed `None` values. Use `typed` and `typed_mut` for that.
+    /// typed `None` values. Use `typed` for that.
     pub fn get<T: FromValueOptional>(&self) -> Option<T> {
-        self.typed::<T>().and_then(|v| v.get())
+        unsafe {
+           let ok = from_glib(
+               gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
+                   T::static_type().to_glib()));
+           if ok {
+               T::from_value_optional(self)
+           }
+           else {
+               None
+           }
+        }
     }
 }
 
@@ -157,13 +150,13 @@ impl fmt::Debug for Value {
         unsafe {
             let s: String = from_glib_full(
                 gobject_ffi::g_strdup_value_contents(self.to_glib_none().0));
-            write!(f, "{}", s)
+            write!(f, "Value({})", s)
         }
     }
 }
 
 impl<T: SetValueOptional> From<Option<T>> for Value {
-    fn from(value: Option<T>) -> Value {
+    fn from(value: Option<T>) -> Self {
         unsafe {
             let mut ret = Value::uninitialized();
             gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
@@ -174,13 +167,19 @@ impl<T: SetValueOptional> From<Option<T>> for Value {
 }
 
 impl<T: SetValue> From<T> for Value {
-    fn from(value: T) -> Value {
+    fn from(value: T) -> Self {
         unsafe {
             let mut ret = Value::uninitialized();
             gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
             T::set_value(&mut ret, value);
             ret
         }
+    }
+}
+
+impl<T> From<TypedValue<T>> for Value {
+    fn from(value: TypedValue<T>) -> Self {
+        value.0
     }
 }
 
@@ -206,16 +205,19 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
     }
 }
 
-/// A typed borrow of a `Value`.
-pub struct TypedValue<'a, T>(&'a Value, PhantomData<*const T>);
+/// A statically typed [`Value`](struct.Value.html).
+///
+/// It dereferences to `Value` and can be used everywhere `Value` references are
+/// accepted.
+pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
-impl<'a, T: FromValueOptional> TypedValue<'a, T> {
+impl<T: FromValueOptional + SetValue> TypedValue<T> {
     /// Returns the value.
     ///
     /// Types that don't support a `None` value always return `Some`. See
     /// `get_some`.
     pub fn get(&self) -> Option<T> {
-        unsafe { T::from_value_optional(self.0) }
+        unsafe { T::from_value_optional(self) }
     }
 
     /// Returns the value.
@@ -223,49 +225,78 @@ impl<'a, T: FromValueOptional> TypedValue<'a, T> {
     /// This method is only available for types that don't support a `None`
     /// value.
     pub fn get_some(&self) -> T where T: FromValue {
-        unsafe { T::from_value(self.0) }
-    }
-}
-
-/// A typed mutable borrow of a `Value`.
-pub struct TypedValueMut<'a, T>(&'a mut Value, PhantomData<*const T>);
-
-impl<'a, T: FromValueOptional + SetValue> TypedValueMut<'a, T> {
-    /// Returns the value.
-    ///
-    /// Types that don't support a `None` value always return `Some`. See
-    /// `get_some`.
-    pub fn get(&self) -> Option<T> {
-        unsafe { T::from_value_optional(self.0) }
-    }
-
-    /// Returns the value.
-    ///
-    /// This method is only available for types that don't support a `None`
-    /// value.
-    pub fn get_some(&self) -> T where T: FromValue {
-        unsafe { T::from_value(self.0) }
+        unsafe { T::from_value(self) }
     }
 
     /// Sets the value.
     ///
     /// This method is only available for types that support a `None` value.
-    pub fn set<'x, U: ?Sized>(&mut self, value: Option<&'x U>)
-    where T: Borrow<U>, &'x U: SetValueOptional {
-        unsafe { SetValueOptional::set_value_optional(self.0, value) }
+    pub fn set<U: ?Sized>(&mut self, value: Option<&U>)
+    where T: Borrow<U>, for<'a> &'a U: SetValueOptional {
+        unsafe { SetValueOptional::set_value_optional(self, value) }
     }
 
     /// Sets the value to `None`.
     ///
     /// This method is only available for types that support a `None` value.
     pub fn set_none(&mut self) where T: SetValueOptional {
-        unsafe { T::set_value_optional(self.0, None) }
+        unsafe { T::set_value_optional(self, None) }
     }
 
     /// Sets the value.
-    pub fn set_some<'x, U: ?Sized>(&mut self, value: &'x U)
-    where T: Borrow<U>, &'x U: SetValue {
-        unsafe { SetValue::set_value(self.0, value) }
+    pub fn set_some<U: ?Sized>(&mut self, value: &U)
+    where T: Borrow<U>, for<'a> &'a U: SetValue {
+        unsafe { SetValue::set_value(self, value) }
+    }
+}
+
+impl<T> Clone for TypedValue<T> {
+    fn clone(&self) -> Self {
+        TypedValue(self.0.clone(), PhantomData)
+    }
+}
+
+impl<T> fmt::Debug for TypedValue<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        write!(f, "TypedValue({:?})", self.0)
+    }
+}
+
+impl<T> Deref for TypedValue<T> {
+    type Target = Value;
+
+    fn deref(&self) -> &Value {
+        &self.0
+    }
+}
+
+impl<T> DerefMut for TypedValue<T> {
+    fn deref_mut(&mut self) -> &mut Value {
+        &mut self.0
+    }
+}
+
+impl<T: FromValueOptional + SetValueOptional> From<Option<T>> for TypedValue<T> {
+    fn from(value: Option<T>) -> Self {
+        TypedValue(Value::from(value), PhantomData)
+    }
+}
+
+impl<T: FromValueOptional + SetValue> From<T> for TypedValue<T> {
+    fn from(value: T) -> Self {
+        TypedValue(Value::from(value), PhantomData)
+    }
+}
+
+impl<'a> From<Option<&'a str>> for TypedValue<String> {
+    fn from(value: Option<&'a str>) -> Self {
+        TypedValue(Value::from(value), PhantomData)
+    }
+}
+
+impl<'a> From<&'a str> for TypedValue<String> {
+    fn from(value: &'a str) -> Self {
+        TypedValue(Value::from(value), PhantomData)
     }
 }
 
