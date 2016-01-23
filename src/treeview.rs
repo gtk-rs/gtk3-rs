@@ -99,7 +99,7 @@ fn main() {
     let image = match gdk::pixbuf::Pixbuf::new_from_file("./resources/eye.png") {
         Ok(i) => i,
         Err(e) => {
-            println!("Error: {:?}", e);
+            println!("Error: {}", e);
             return;
         }
     };
