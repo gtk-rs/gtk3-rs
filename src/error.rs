@@ -27,11 +27,14 @@ impl Error {
         }
     }
 
-    /// Tries to match against an error enum.
+    /// Tries to convert to a specific error enum.
+    ///
+    /// Returns `Some` if the error belongs to the enum's error domain and
+    /// `None` otherwise.
     ///
     /// Example
     /// ```ignore
-    /// if let Some(file_error) = error.matches::<FileError>() {
+    /// if let Some(file_error) = error.typed::<FileError>() {
     ///     match file_error {
     ///         Exist => ...
     ///         Isdir => ...
@@ -39,7 +42,7 @@ impl Error {
     ///     }
     /// }
     /// ```
-    pub fn matches<T: ErrorDomain>(&self) -> Option<T> {
+    pub fn typed<T: ErrorDomain>(&self) -> Option<T> {
         if self.0.domain == T::domain() {
             T::from(self.0.code)
         }
