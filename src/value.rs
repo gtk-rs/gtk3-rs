@@ -73,7 +73,7 @@ use std::ops::{Deref, DerefMut};
 
 use object::{Downcast, IsA, Object};
 use translate::*;
-use types::StaticType;
+use types::{StaticType, Type};
 
 use glib_ffi;
 use gobject_ffi;
@@ -122,6 +122,22 @@ impl Value {
            else {
                None
            }
+        }
+    }
+
+    /// Returns the type of the value.
+    pub fn type_(&self) -> Type {
+        unsafe {
+            // FIXME: make this safe by making GValue::g_type public
+            let type_ = *(&*self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
+            from_glib(type_)
+        }
+    }
+
+    /// Returns whether `Value`s of type `src` can be transformed to type `dst`.
+    pub fn type_transformable(src: Type, dst: Type) -> bool {
+        unsafe {
+            from_glib(gobject_ffi::g_value_type_transformable(src.to_glib(), dst.to_glib()))
         }
     }
 }
