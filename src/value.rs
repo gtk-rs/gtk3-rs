@@ -2,6 +2,81 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! `Value` bindings and helper traits.
+//!
+//! The type of a [`Value`](struct.Value.html) is dynamic in that it generally
+//! isn't known at compile time but once created a `Value` can't change its
+//! type.
+//!
+//! Supported types are `bool`, `i8`, `u8`, `i32`, `u32`, `i64`, `u64`, `f32`,
+//! `f64`, `String` and objects (`T: IsA<Object>`).
+//!
+//! # Examples
+//!
+//! ```
+//! use glib::Value;
+//!
+//! // Value implements From<i32>, From<&str> and From<Option<&str>>.
+//! let mut num = Value::from(10);
+//! let mut hello = Value::from("Hello!");
+//! let none: Option<&str> = None;
+//! let none = Value::from(none);
+//!
+//! // 'get' tries to get a value of specific type and returns None
+//! // if the type doesn't match or the value is None.
+//! assert_eq!(num.get(), Some(10));
+//! assert_eq!(num.get::<String>(), None);
+//! assert_eq!(hello.get(), Some(String::from("Hello!")));
+//! assert_eq!(hello.get::<String>(), Some(String::from("Hello!")));
+//! assert_eq!(none.get::<String>(), None);
+//!
+//! // `typed` returns a `TypedValue` with some getters.
+//! if let Some(val) = hello.typed::<String>() {
+//!     assert!(val.get().unwrap() == "Hello!");
+//! } else {
+//!     panic!("Not a string");
+//! }
+//! if let Some(val) = none.typed::<String>() {
+//!     assert!(val.get() == None);
+//! } else {
+//!     panic!("Not a string");
+//! }
+//!
+//! // Numeric types can't have value `None`, `get` always returns `Some`.
+//! // Such types have `get_some`, which avoids unnecessary `unwrap`ping.
+//! if let Some(val) = num.typed::<i32>() {
+//!     assert_eq!(val.get().unwrap(), 10);
+//!     assert_eq!(val.get_some(), 10);
+//! } else {
+//!     panic!("Not an i32");
+//! }
+//!
+//! // `num` is not a string.
+//! if num.typed::<String>().is_some() {
+//!     panic!("Unexpected string");
+//! }
+//!
+//! // `typed_mut` returns a `TypedValueMut`, which also has setters
+//! // `set_none` sets the value to `None` if the type supports it.
+//! if let Some(mut val) = hello.typed_mut::<String>() {
+//!     val.set_none();
+//! }
+//!
+//! // `set` takes an optional reference for types that support `None`.
+//! assert!(hello.typed::<String>().unwrap().get().is_none());
+//! if let Some(mut val) = hello.typed_mut::<String>() {
+//!     val.set(Some("Hello again!"));
+//! }
+//! assert!(hello.get::<String>().unwrap() == "Hello again!");
+//!
+//! // `set_some` is the only setter for types that don't support `None`.
+//! assert!(hello.get::<String>().unwrap() == "Hello again!");
+//! if let Some(mut val) = num.typed_mut::<i32>() {
+//!     val.set_some(&20);
+//! }
+//! assert_eq!(num.get(), Some(20));
+//! ```
+
 use std::borrow::Borrow;
 use std::fmt;
 use std::marker::PhantomData;
@@ -152,6 +227,7 @@ impl<'a, T: FromValueOptional> TypedValue<'a, T> {
     }
 }
 
+/// A typed mutable borrow of a `Value`.
 pub struct TypedValueMut<'a, T>(&'a mut Value, PhantomData<*const T>);
 
 impl<'a, T: FromValueOptional + SetValue> TypedValueMut<'a, T> {
