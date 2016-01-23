@@ -63,7 +63,7 @@
 ///
 /// Objects -- classes and interfaces.
 ///
-/// ```
+/// ```ignore
 /// glib_wrapper! {
 ///     /// Object representing an input device.
 ///     pub struct Device(Object<ffi::GdkDevice>);
@@ -74,7 +74,7 @@
 /// }
 /// ```
 ///
-/// ```
+/// ```ignore
 /// glib_wrapper! {
 ///     /// A container with just one child.
 ///     pub struct Bin(Object<ffi::GtkBin>): Container, Widget, Buildable;

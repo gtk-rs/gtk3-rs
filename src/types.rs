@@ -23,10 +23,10 @@ pub enum Type {
     I32,
     /// The fundamental type corresponding to `u32`
     U32,
-    /// The fundamental type corresponding to `isize`
-    ISize,
-    /// The fundamental type corresponding to `usize`
-    USize,
+    /// The fundamental type corresponding to C `long`
+    ILong,
+    /// The fundamental type corresponding to C `unsigned long`
+    ULong,
     /// The fundamental type corresponding to `i64`
     I64,
     /// The fundamental type corresponding to `u64`
@@ -61,6 +61,34 @@ pub trait StaticType {
     fn static_type() -> Type;
 }
 
+impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
+    fn static_type() -> Type {
+        T::static_type()
+    }
+}
+
+macro_rules! builtin {
+    ($name:ident, $val:ident) => {
+        impl StaticType for $name {
+            fn static_type() -> Type {
+                Type::$val
+            }
+        }
+    }
+}
+
+builtin!(bool, Bool);
+builtin!(i8, I8);
+builtin!(u8, U8);
+builtin!(i32, I32);
+builtin!(u32, U32);
+builtin!(i64, I64);
+builtin!(u64, U64);
+builtin!(f32, F32);
+builtin!(f64, F64);
+builtin!(str, String);
+builtin!(String, String);
+
 pub trait InstanceType {
     fn instance_type(&self) -> Type;
 }
@@ -87,8 +115,8 @@ impl FromGlib<glib_ffi::GType> for Type {
             gobject_ffi::G_TYPE_BOOLEAN => Bool,
             gobject_ffi::G_TYPE_INT => I32,
             gobject_ffi::G_TYPE_UINT => U32,
-            gobject_ffi::G_TYPE_LONG => ISize,
-            gobject_ffi::G_TYPE_ULONG => USize,
+            gobject_ffi::G_TYPE_LONG => ILong,
+            gobject_ffi::G_TYPE_ULONG => ULong,
             gobject_ffi::G_TYPE_INT64 => I64,
             gobject_ffi::G_TYPE_UINT64 => U64,
             gobject_ffi::G_TYPE_ENUM => BaseEnum,
@@ -120,8 +148,8 @@ impl ToGlib for Type {
             Bool => gobject_ffi::G_TYPE_BOOLEAN,
             I32 => gobject_ffi::G_TYPE_INT,
             U32 => gobject_ffi::G_TYPE_UINT,
-            ISize => gobject_ffi::G_TYPE_LONG,
-            USize => gobject_ffi::G_TYPE_ULONG,
+            ILong => gobject_ffi::G_TYPE_LONG,
+            ULong => gobject_ffi::G_TYPE_ULONG,
             I64 => gobject_ffi::G_TYPE_INT64,
             U64 => gobject_ffi::G_TYPE_UINT64,
             BaseEnum => gobject_ffi::G_TYPE_ENUM,
