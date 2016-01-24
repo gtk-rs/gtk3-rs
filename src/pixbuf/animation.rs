@@ -4,7 +4,7 @@
 
 use std::mem;
 use std::ptr;
-use glib::{Error, GlibContainer, TimeVal};
+use glib::{Error, TimeVal};
 use glib::object::IsA;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
@@ -64,7 +64,7 @@ impl PixbufAnimation {
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
-                Err(Error::wrap(error))
+                Err(from_glib_full(error))
             }
         }
     }
@@ -78,7 +78,7 @@ impl PixbufAnimation {
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
-                Err(Error::wrap(error))
+                Err(from_glib_full(error))
             }
         }
     }

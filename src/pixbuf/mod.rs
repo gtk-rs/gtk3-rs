@@ -8,7 +8,7 @@ use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
 use glib::translate::*;
-use glib::{Error, to_gboolean, GlibContainer};
+use glib::Error;
 use gdk_pixbuf_ffi as ffi;
 
 use {
@@ -64,14 +64,14 @@ impl Pixbuf {
         #[cfg(not(windows))]
         use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file;
 
-        let mut error = ptr::null_mut();
-        let tmp = unsafe { gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error) };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            unsafe { Ok(from_glib_full(tmp)) }
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -82,16 +82,15 @@ impl Pixbuf {
         #[cfg(not(windows))]
         use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_size;
 
-        let mut error = ptr::null_mut();
-        let tmp = unsafe {
-            gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height, &mut error)
-        };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            unsafe { Ok(from_glib_full(tmp)) }
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height,
+                &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -102,48 +101,47 @@ impl Pixbuf {
         #[cfg(not(windows))]
         use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_scale;
 
-        let mut error = ptr::null_mut();
-        let tmp = unsafe {
-            gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
-                to_gboolean(preserve_aspect_ratio), &mut error)
-        };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            unsafe { Ok(from_glib_full(tmp)) }
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
+                preserve_aspect_ratio.to_glib(), &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
-    pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32) -> Option<PixbufFormat> {
-        let tmp = unsafe { ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height) };
-
-        unsafe { from_glib_full(tmp) }
+    pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32)
+            -> Option<PixbufFormat> {
+        unsafe {
+            from_glib_full(ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height))
+        }
     }
 
     pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, Error> {
-        let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_new_from_resource(resource_path.to_glib_none().0, &mut error) };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            unsafe { Ok(from_glib_full(tmp)) }
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = ffi::gdk_pixbuf_new_from_resource(resource_path.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     pub fn new_from_resource_at_scale(resource_path: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
-        let mut error = ptr::null_mut();
-        let tmp = unsafe { ffi::gdk_pixbuf_new_from_resource_at_scale(resource_path.to_glib_none().0, width, height,
-            to_gboolean(preserve_aspect_ratio), &mut error) };
-
-        if error.is_null() {
-            assert!(!tmp.is_null());
-            unsafe { Ok(from_glib_full(tmp)) }
-        } else {
-            Err(Error::wrap(error))
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ptr = ffi::gdk_pixbuf_new_from_resource_at_scale(resource_path.to_glib_none().0,
+                width, height, preserve_aspect_ratio.to_glib(), &mut error);
+            if error.is_null() {
+                Ok(from_glib_full(ptr))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
