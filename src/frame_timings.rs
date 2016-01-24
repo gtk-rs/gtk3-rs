@@ -6,7 +6,7 @@ use glib::translate::*;
 use ffi;
 
 glib_wrapper! {
-    pub struct FrameTimings(Refcounted<ffi::GdkFrameTimings>);
+    pub struct FrameTimings(Shared<ffi::GdkFrameTimings>);
 
     match fn {
         ref => |ptr| ffi::gdk_frame_timings_ref(ptr),
