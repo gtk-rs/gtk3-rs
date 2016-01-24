@@ -4,7 +4,7 @@
 
 use std::ptr;
 use libc::size_t;
-use glib::{Error, GlibContainer};
+use glib::Error;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
 use super::Pixbuf;
@@ -32,7 +32,7 @@ impl PixbufLoader {
                 Ok(from_glib_full(ptr))
             }
             else {
-                Err(Error::wrap(error))
+                Err(from_glib_full(error))
             }
         }
     }
@@ -46,7 +46,7 @@ impl PixbufLoader {
                 Ok(from_glib_full(ptr))
             }
             else {
-                Err(Error::wrap(error))
+                Err(from_glib_full(error))
             }
         }
     }
@@ -60,12 +60,13 @@ impl PixbufLoader {
     pub fn loader_write(&self, buf: &[u8]) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            match from_glib(ffi::gdk_pixbuf_loader_write(self.to_glib_none().0,
-                                                         buf.as_ptr() as *mut u8,
-                                                         buf.len() as size_t,
-                                                         &mut error)) {
-                true => Ok(()),
-                false => Err(Error::wrap(error))
+            ffi::gdk_pixbuf_loader_write(self.to_glib_none().0, buf.as_ptr() as *mut u8,
+                buf.len() as size_t, &mut error);
+            if error.is_null() {
+                Ok(())
+            }
+            else {
+                Err(from_glib_full(error))
             }
         }
     }
@@ -91,9 +92,12 @@ impl PixbufLoader {
     pub fn close(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            match from_glib(ffi::gdk_pixbuf_loader_close(self.to_glib_none().0, &mut error)) {
-                true => Ok(()),
-                false => Err(Error::wrap(error))
+            ffi::gdk_pixbuf_loader_close(self.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(())
+            }
+            else {
+                Err(from_glib_full(error))
             }
         }
     }
