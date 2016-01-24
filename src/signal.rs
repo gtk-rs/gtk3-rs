@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! `IMPL` Low level signal support.
+
 use libc::c_void;
 
 use gobject_ffi::{self, GCallback};

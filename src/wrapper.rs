@@ -1,3 +1,9 @@
+// Copyright 2015-2016, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+//! `IMPL` The `glib_wrapper!` macro and miscellaneous wrapper traits.
+
 /// Defines a wrapper type and implements the appropriate traits.
 ///
 /// The basic syntax is
@@ -15,9 +21,9 @@
 /// ```
 ///
 /// This creates a wrapper named `$name` around the foreign type `$foreign`
-/// of $kind (one of `Boxed`, `Shared`, `Object`) using expressions from the `match fn`
-/// block to implement type-specific low-level operations. The expression
-/// will be evaluated in `unsafe` context.
+/// of `$kind` (one of `Boxed`, `Shared`, `Object`) using expressions from the `match fn`
+/// block to implement type-specific low-level operations (the expression
+/// will be evaluated in `unsafe` context).
 ///
 /// ### Boxed
 ///

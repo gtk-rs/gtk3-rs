@@ -11,14 +11,30 @@
 //! - common building blocks used in both handmade and machine generated
 //! bindings to GTK+ and other GLib-based libraries.
 //!
-//! It is the foundation for higher level libraries with uniform Rusty (safe
-//! and strongly typed) APIs. It avoids exposing GLib-specific data types where
+//! It is the foundation for higher level libraries with uniform Rusty (safe and
+//! strongly typed) APIs. It avoids exposing GLib-specific data types where
 //! possible and is not meant to provide comprehensive GLib bindings, which
 //! would often amount to duplicating the Rust Standard Library or other utility
 //! crates.
 //!
 //! The library is a work in progress: expect missing functionality and breaking
 //! changes.
+//!
+//! # Dynamic typing
+//!
+//! Most types in the GLib family have type identifiers
+//! ([`Type`](types/enum.Type.html)). Their corresponding Rust types implement
+//! the [`StaticType`](types/trait.StaticType.html) trait.
+//!
+//! Dynamically typed [`Value`](value/index.html) can carry values of any `T:
+//! StaticType`.
+//!
+//! # Errors
+//!
+//! Errors are represented by [`Error`](error/struct.Error.html), which can
+//! carry values from various [error
+//! domains](error/trait.ErrorDomain.html#implementors) (such as
+//! [`FileError`](enum.FileError.html)).
 //!
 //! # Objects
 //!
@@ -38,6 +54,20 @@
 //! Interfaces and non-leaf classes also have corresponding traits (e.g.
 //! `ObjectExt` and `gtk::WidgetExt`), which are blanketly implemented for all
 //! their subtypes.
+//!
+//! # Under the hood
+//!
+//! GLib-based libraries largely operate on pointers to various boxed or
+//! reference counted structures so the bindings have to implement corresponding
+//! smart pointers (wrappers), which encapsulate resource management and safety
+//! checks. Such wrappers are defined via the
+//! [`glib_wrapper!`](macro.glib_wrapper!.html) macro, which uses abstractions
+//! defined in the [`wrapper`](wrapper/index.html), [`boxed`](boxed/index.html),
+//! [`shared`](shared/index.html) and [`object`](object/index.html) modules.
+//!
+//! The [`translate`](translate/index.html) module defines and partly implements
+//! conversions between high level Rust types (including the aforementioned
+//! wrappers) and their FFI counterparts.
 
 extern crate libc;
 extern crate glib_sys as glib_ffi;

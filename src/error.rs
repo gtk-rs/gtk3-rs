@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! `Error` binding and helper trait.
+
 use std::ffi::CStr;
 use std::error;
 use std::fmt;
@@ -10,6 +12,7 @@ use translate::*;
 use glib_ffi;
 
 glib_wrapper! {
+    /// A generic error capable of representing various error domains (types).
     pub struct Error(Boxed<glib_ffi::GError>);
 
     match fn {
@@ -80,7 +83,7 @@ impl error::Error for Error {
 
 /// `GLib` error domain.
 ///
-/// This trait is implemented by error enums and is not intended for end users.
+/// This trait is implemented by error enums that represent error domains (types).
 pub trait ErrorDomain: Copy {
     /// Returns the quark identifying the error domain.
     ///
