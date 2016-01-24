@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! `Value` bindings and helper traits.
+//! `Value` binding and helper traits.
 //!
 //! The type of a [`Value`](struct.Value.html) is dynamic in that it generally
 //! isn't known at compile time but once created a `Value` can't change its
@@ -84,6 +84,8 @@ use gobject_ffi;
 ///
 /// Some types (e.g. `String` and objects) support `None` values while others
 /// (e.g. numeric types) don't.
+///
+/// See the [module documentation](index.html) for more details.
 pub struct Value(Box<gobject_ffi::GValue>);
 
 impl Value {
@@ -225,6 +227,8 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
 ///
 /// It dereferences to `Value` and can be used everywhere `Value` references are
 /// accepted.
+///
+/// See the [module documentation](index.html) for more details.
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
 impl<T: FromValueOptional + SetValue> TypedValue<T> {

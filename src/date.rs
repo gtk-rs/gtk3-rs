@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+//! Date and time.
+
 use libc::{c_long, c_ulong};
 use glib_ffi;
 use std;

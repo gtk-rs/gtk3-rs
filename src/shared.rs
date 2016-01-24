@@ -1,3 +1,9 @@
+// Copyright 2015-2016, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+//! `IMPL` Shared (reference counted) wrapper implementation.
+
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;

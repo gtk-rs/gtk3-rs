@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Types that facilitate representing `GObject` descendants.
+//! `IMPL` Object wrapper implementation and `Object` binding.
 
 use translate::*;
 use types::{self, StaticType};
