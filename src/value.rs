@@ -86,7 +86,7 @@ use gobject_ffi;
 /// (e.g. numeric types) don't.
 ///
 /// See the [module documentation](index.html) for more details.
-pub struct Value(Box<gobject_ffi::GValue>);
+pub struct Value(gobject_ffi::GValue);
 
 impl Value {
     /// Tries to convert to a typed value.
@@ -131,7 +131,7 @@ impl Value {
     pub fn type_(&self) -> Type {
         unsafe {
             // FIXME: make this safe by making GValue::g_type public
-            let type_ = *(&*self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
+            let type_ = *(&self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
             from_glib(type_)
         }
     }
@@ -148,8 +148,8 @@ impl Clone for Value {
     fn clone(&self) -> Self {
         unsafe {
             // FIXME: make this safer by making GValue::g_type public
-            let type_ = *(&*self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
-            let mut ret = Value(Box::new(mem::zeroed()));
+            let type_ = *(&self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
+            let mut ret = Value::uninitialized();
             gobject_ffi::g_value_init(ret.to_glib_none_mut().0, type_);
             gobject_ffi::g_value_copy(self.to_glib_none().0, ret.to_glib_none_mut().0);
             ret
@@ -203,7 +203,7 @@ impl<T> From<TypedValue<T>> for Value {
 
 impl Uninitialized for Value {
     unsafe fn uninitialized() -> Value {
-        Value(Box::new(mem::zeroed()))
+        Value(mem::zeroed())
     }
 }
 
@@ -211,7 +211,7 @@ impl<'a> ToGlibPtr<'a, *const gobject_ffi::GValue> for Value {
     type Storage = &'a Value;
 
     fn to_glib_none(&'a self) -> Stash<'a, *const gobject_ffi::GValue, Self> {
-        Stash(&*self.0, self)
+        Stash(&self.0, self)
     }
 }
 
@@ -219,7 +219,7 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
     type Storage = &'a mut Value;
 
     fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gobject_ffi::GValue, Self> {
-        StashMut(&mut *self.0, self)
+        StashMut(&mut self.0, self)
     }
 }
 
