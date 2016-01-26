@@ -142,6 +142,14 @@ impl Value {
             from_glib(gobject_ffi::g_value_type_transformable(src.to_glib(), dst.to_glib()))
         }
     }
+
+    fn into_raw(mut self) -> gobject_ffi::GValue {
+        unsafe {
+            let ret = mem::replace(&mut self.0, mem::uninitialized());
+            mem::forget(self);
+            ret
+        }
+    }
 }
 
 impl Clone for Value {
@@ -173,25 +181,17 @@ impl fmt::Debug for Value {
     }
 }
 
-impl<T: SetValueOptional> From<Option<T>> for Value {
-    fn from(value: Option<T>) -> Self {
-        unsafe {
-            let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
-            T::set_value_optional(&mut ret, value);
-            ret
-        }
+impl<'a, T: ?Sized + SetValueOptional> From<Option<&'a T>> for Value {
+    #[inline]
+    fn from(value: Option<&'a T>) -> Self {
+        value.to_value()
     }
 }
 
-impl<T: SetValue> From<T> for Value {
-    fn from(value: T) -> Self {
-        unsafe {
-            let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
-            T::set_value(&mut ret, value);
-            ret
-        }
+impl<'a, T: ?Sized + SetValue> From<&'a T> for Value {
+    #[inline]
+    fn from(value: &'a T) -> Self {
+        value.to_value()
     }
 }
 
@@ -223,6 +223,29 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *mut gobject_ffi::GValue> for &'a [&'a ToValue] {
+    type Storage = ValueArray;
+
+    fn to_glib_none(&'a self) -> Stash<'a, *mut gobject_ffi::GValue, Self> {
+        let mut values: Vec<gobject_ffi::GValue> = self.iter()
+            .map(|v| v.to_value().into_raw())
+            .collect();
+        Stash(values.as_mut_ptr(), ValueArray(values))
+    }
+}
+
+pub struct ValueArray(Vec<gobject_ffi::GValue>);
+
+impl Drop for ValueArray {
+    fn drop(&mut self) {
+        unsafe {
+            for value in &mut self.0 {
+                gobject_ffi::g_value_unset(value);
+            }
+        }
+    }
+}
+
 /// A statically typed [`Value`](struct.Value.html).
 ///
 /// It dereferences to `Value` and can be used everywhere `Value` references are
@@ -251,8 +274,7 @@ impl<T: FromValueOptional + SetValue> TypedValue<T> {
     /// Sets the value.
     ///
     /// This method is only available for types that support a `None` value.
-    pub fn set<U: ?Sized>(&mut self, value: Option<&U>)
-    where T: Borrow<U>, for<'a> &'a U: SetValueOptional {
+    pub fn set<U: ?Sized + SetValueOptional>(&mut self, value: Option<&U>) where T: Borrow<U> {
         unsafe { SetValueOptional::set_value_optional(self, value) }
     }
 
@@ -264,8 +286,7 @@ impl<T: FromValueOptional + SetValue> TypedValue<T> {
     }
 
     /// Sets the value.
-    pub fn set_some<U: ?Sized>(&mut self, value: &U)
-    where T: Borrow<U>, for<'a> &'a U: SetValue {
+    pub fn set_some<U: ?Sized + SetValue>(&mut self, value: &U) where T: Borrow<U> {
         unsafe { SetValue::set_value(self, value) }
     }
 }
@@ -296,14 +317,14 @@ impl<T> DerefMut for TypedValue<T> {
     }
 }
 
-impl<T: FromValueOptional + SetValueOptional> From<Option<T>> for TypedValue<T> {
-    fn from(value: Option<T>) -> Self {
+impl<'a, T: FromValueOptional + SetValueOptional> From<Option<&'a T>> for TypedValue<T> {
+    fn from(value: Option<&'a T>) -> Self {
         TypedValue(Value::from(value), PhantomData)
     }
 }
 
-impl<T: FromValueOptional + SetValue> From<T> for TypedValue<T> {
-    fn from(value: T) -> Self {
+impl<'a, T: FromValueOptional + SetValue> From<&'a T> for TypedValue<T> {
+    fn from(value: &'a T) -> Self {
         TypedValue(Value::from(value), PhantomData)
     }
 }
@@ -317,6 +338,59 @@ impl<'a> From<Option<&'a str>> for TypedValue<String> {
 impl<'a> From<&'a str> for TypedValue<String> {
     fn from(value: &'a str) -> Self {
         TypedValue(Value::from(value), PhantomData)
+    }
+}
+
+/// Converts to `Value`.
+pub trait ToValue {
+    /// Returns a `Value` clone of `self`.
+    fn to_value(&self) -> Value;
+
+    /// Returns the type identifer of `self`.
+    ///
+    /// This is the type of the value to be returned by `to_value`.
+    fn to_value_type(&self) -> Type;
+}
+
+impl<'a, T: ?Sized + SetValueOptional> ToValue for Option<&'a T> {
+    fn to_value(&self) -> Value {
+        unsafe {
+            let mut ret = Value::uninitialized();
+            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
+            T::set_value_optional(&mut ret, self.clone());
+            ret
+        }
+    }
+
+    #[inline]
+    fn to_value_type(&self) -> Type {
+        T::static_type()
+    }
+}
+
+impl<T: ?Sized + SetValue> ToValue for T {
+    fn to_value(&self) -> Value {
+        unsafe {
+            let mut ret = Value::uninitialized();
+            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
+            T::set_value(&mut ret, self);
+            ret
+        }
+    }
+
+    #[inline]
+    fn to_value_type(&self) -> Type {
+        T::static_type()
+    }
+}
+
+impl ToValue for Value {
+    fn to_value(&self) -> Value {
+        self.clone()
+    }
+
+    fn to_value_type(&self) -> Type {
+        self.type_()
     }
 }
 
@@ -338,12 +412,12 @@ pub trait FromValue: FromValueOptional {
 ///
 /// Only implemented for types that support a `None` value.
 pub trait SetValueOptional: SetValue {
-    unsafe fn set_value_optional(&mut Value, Option<Self>);
+    unsafe fn set_value_optional(&mut Value, Option<&Self>);
 }
 
 /// Sets a value.
-pub trait SetValue: StaticType + Sized {
-    unsafe fn set_value(&mut Value, Self);
+pub trait SetValue: StaticType {
+    unsafe fn set_value(&mut Value, &Self);
 }
 
 impl FromValueOptional for String {
@@ -352,26 +426,38 @@ impl FromValueOptional for String {
     }
 }
 
+impl SetValue for str {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
+impl SetValueOptional for str {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+    }
+}
+
 impl<'a> SetValue for &'a str {
-    unsafe fn set_value(value: &mut Value, this: Self) {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
 
 impl<'a> SetValueOptional for &'a str {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<Self>) {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
 
 impl SetValue for String {
-    unsafe fn set_value(value: &mut Value, this: Self) {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
 
 impl SetValueOptional for String {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<Self>) {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
     }
 }
@@ -384,25 +470,19 @@ impl<T: IsA<Object>> FromValueOptional for T {
 }
 
 impl<T: IsA<Object>> SetValue for T {
-    unsafe fn set_value(value: &mut Value, this: Self) {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
 impl<T: IsA<Object>> SetValueOptional for T {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<Self>) {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
 impl<'a, T: IsA<Object>> SetValue for &'a T {
-    unsafe fn set_value(value: &mut Value, this: Self) {
-        gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
-    }
-}
-
-impl<'a, T: IsA<Object>> SetValueOptional for &'a T {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<Self>) {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
@@ -420,7 +500,7 @@ impl FromValue for bool {
 }
 
 impl SetValue for bool {
-    unsafe fn set_value(value: &mut Value, this: Self) {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_boolean(value.to_glib_none_mut().0, this.to_glib())
     }
 }
@@ -440,13 +520,7 @@ macro_rules! numeric {
         }
 
         impl SetValue for $name {
-            unsafe fn set_value(value: &mut Value, this: Self) {
-                gobject_ffi::$set(value.to_glib_none_mut().0, this)
-            }
-        }
-
-        impl<'a> SetValue for &'a $name {
-            unsafe fn set_value(value: &mut Value, this: Self) {
+            unsafe fn set_value(value: &mut Value, this: &Self) {
                 gobject_ffi::$set(value.to_glib_none_mut().0, *this)
             }
         }
