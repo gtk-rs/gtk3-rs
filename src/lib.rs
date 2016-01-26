@@ -88,8 +88,15 @@ pub use self::object::{
 pub use self::permission::Permission;
 pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
 pub use self::traits::FFIGObject;
-pub use types::Type;
-pub use value::{TypedValue, Value};
+pub use types::{
+    StaticType,
+    Type,
+};
+pub use value::{
+    ToValue,
+    TypedValue,
+    Value,
+};
 pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
 
 #[macro_use]
