@@ -18,11 +18,11 @@
 //! # Examples
 //!
 //! ```
-//! use glib::{TypedValue, Value};
+//! use glib::{TypedValue, ToValue, Value};
 //!
-//! // Value and TypedValue implement From<i32>, From<&str>
-//! // and From<Option<&str>>.
-//! let mut num = Value::from(10);
+//! // Value and TypedValue implement From<&i32>, From<&str>
+//! // and From<Option<&str>>. Another option is the `ToValue` trait.
+//! let mut num = 10.to_value();
 //! let mut hello = Value::from("Hello!");
 //! let none: Option<&str> = None;
 //! let str_none = Value::from(none.clone());
