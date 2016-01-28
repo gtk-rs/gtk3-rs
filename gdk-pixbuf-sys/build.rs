@@ -3,10 +3,10 @@ extern crate pkg_config;
 const LIBRARY_NAME: &'static str = "gdk_pixbuf";
 const PACKAGE_NAME: &'static str = "gdk-pixbuf-2.0";
 const VERSIONS: &'static [Version] = &[
-	Version(2, 26, 0),
-	Version(2, 28, 0),
-	Version(2, 30, 0),
-	Version(2, 32, 0),
+    Version(2, 26, 0),
+    Version(2, 28, 0),
+    Version(2, 30, 0),
+    Version(2, 32, 0),
 ];
 
 fn main() {

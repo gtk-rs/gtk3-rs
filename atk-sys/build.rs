@@ -3,12 +3,12 @@ extern crate pkg_config;
 const LIBRARY_NAME: &'static str = "atk";
 const PACKAGE_NAME: &'static str = "atk";
 const VERSIONS: &'static [Version] = &[
-	Version(2, 7, 90),
-	Version(2, 8, 0),
-	Version(2, 9, 3),
-	Version(2, 9, 4),
-	Version(2, 10, 0),
-	Version(2, 12, 0),
+    Version(2, 7, 90),
+    Version(2, 8, 0),
+    Version(2, 9, 3),
+    Version(2, 9, 4),
+    Version(2, 10, 0),
+    Version(2, 12, 0),
 ];
 
 fn main() {

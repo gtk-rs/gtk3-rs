@@ -3,13 +3,13 @@ extern crate pkg_config;
 const LIBRARY_NAME: &'static str = "gtk";
 const PACKAGE_NAME: &'static str = "gtk+-3.0";
 const VERSIONS: &'static [Version] = &[
-	Version(3, 4, 0),
-	Version(3, 6, 0),
-	Version(3, 8, 0),
-	Version(3, 10, 0),
-	Version(3, 12, 0),
-	Version(3, 14, 0),
-	Version(3, 16, 0),
+    Version(3, 4, 0),
+    Version(3, 6, 0),
+    Version(3, 8, 0),
+    Version(3, 10, 0),
+    Version(3, 12, 0),
+    Version(3, 14, 0),
+    Version(3, 16, 0),
 ];
 
 fn main() {
