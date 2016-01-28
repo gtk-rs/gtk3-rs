@@ -11,23 +11,23 @@ git = "https://github.com/gtk-rs/cairo"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
-version = "^0.2.0"
+version = "^0.2.2"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "^0.2.0"
+version = "^0.2.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "^0.2.0"
+version = "^0.2.2"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "^0.2.0"
+version = "^0.2.1"
 
 [dependencies.pango-sys]
 path = "../pango-sys"
-version = "^0.2.0"
+version = "^0.2.2"
 
 [lib]
 name = "gdk_sys"
@@ -36,4 +36,4 @@ name = "gdk_sys"
 build = "build.rs"
 links = "gdk"
 name = "gdk-sys"
-version = "0.2.0"
+version = "0.2.2"
