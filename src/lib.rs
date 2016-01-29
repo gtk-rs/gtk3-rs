@@ -5,17 +5,36 @@
 extern crate gdk_pixbuf_sys as gdk_pixbuf_ffi;
 extern crate gdk_sys as gdk_ffi;
 #[macro_use]
-extern crate glib as glib_main;
+extern crate glib;
 extern crate cairo;
 extern crate libc;
 
 pub use gdk_ffi as ffi;
-pub use glib_main as glib;
 
 #[macro_use]
 mod rt;
 
-mod events;
+#[macro_use]
+pub mod event;
+mod event_button;
+mod event_configure;
+mod event_crossing;
+mod event_dnd;
+mod event_expose;
+mod event_focus;
+mod event_grab_broken;
+mod event_key;
+mod event_motion;
+mod event_owner_change;
+mod event_property;
+mod event_proximity;
+mod event_scroll;
+mod event_selection;
+mod event_setting;
+mod event_touch;
+mod event_visibility;
+mod event_window_state;
+
 mod keys;
 mod rectangle;
 
@@ -75,6 +94,25 @@ pub use device_manager::DeviceManager;
 pub use display::Display;
 pub use display_manager::DisplayManager;
 pub use drag_context::DragContext;
+pub use event::Event;
+pub use event_button::EventButton;
+pub use event_configure::EventConfigure;
+pub use event_crossing::EventCrossing;
+pub use event_dnd::EventDND;
+pub use event_expose::EventExpose;
+pub use event_focus::EventFocus;
+pub use event_grab_broken::EventGrabBroken;
+pub use event_key::EventKey;
+pub use event_motion::EventMotion;
+pub use event_owner_change::EventOwnerChange;
+pub use event_property::EventProperty;
+pub use event_proximity::EventProximity;
+pub use event_scroll::EventScroll;
+pub use event_selection::EventSelection;
+pub use event_setting::EventSetting;
+pub use event_touch::EventTouch;
+pub use event_visibility::EventVisibility;
+pub use event_window_state::EventWindowState;
 #[cfg(gdk_3_8)]
 pub use frame_clock::FrameClock;
 #[cfg(gdk_3_8)]
@@ -90,42 +128,12 @@ pub use window::Window;
 #[cfg(gdk_3_16)]
 pub use gl_context::GLContext;
 
-pub use self::events::{
-    EventType,
-    Event,
-    EventAny,
-    EventExpose,
-    EventVisibility,
-    EventMotion,
-    EventButton,
-    EventTouch,
-    EventScroll,
-    EventKey,
-    EventCrossing,
-    EventFocus,
-    EventConfigure,
-    EventProperty,
-    EventSelection,
-    EventOwnerChange,
-    EventProximity,
-    EventSetting,
-    EventWindowState,
-    EventGrabBroken,
-    EventDND,
-    VisibilityState,
-    ScrollDirection,
-    NotifyType,
-    CrossingMode,
-    PropertyState,
-    SettingAction,
-    OwnerChange
-};
-
-
 pub use gdk_ffi::GdkAxisUse as AxisUse;
+pub use gdk_ffi::GdkCrossingMode as CrossingMode;
 pub use gdk_ffi::GdkDragAction as DragAction;
 pub use gdk_ffi::GdkDragProtocol as DragProtocol;
 pub use gdk_ffi::GdkEventMask as EventMask;
+pub use gdk_ffi::GdkEventType as EventType;
 pub use gdk_ffi::GdkFullscreenMode as FullscreenMode;
 pub use gdk_ffi::GdkGrabOwnership as GrabOwnership;
 pub use gdk_ffi::GdkGrabStatus as GrabStatus;
@@ -134,6 +142,12 @@ pub use gdk_ffi::GdkInputMode as InputMode;
 pub use gdk_ffi::GdkInputSource as InputSource;
 pub use gdk_ffi::GdkModifierIntent as ModifierIntent;
 pub use gdk_ffi::GdkModifierType as ModifierType;
+pub use gdk_ffi::GdkNotifyType as NotifyType;
+pub use gdk_ffi::GdkOwnerChange as OwnerChange;
+pub use gdk_ffi::GdkPropertyState as PropertyState;
+pub use gdk_ffi::GdkScrollDirection as ScrollDirection;
+pub use gdk_ffi::GdkSettingAction as SettingAction;
+pub use gdk_ffi::GdkVisibilityState as VisibilityState;
 pub use gdk_ffi::GdkWMDecoration as WMDecoration;
 pub use gdk_ffi::GdkWMFunction as WMFunction;
 pub use gdk_ffi::GdkWindowEdge as WindowEdge;
