@@ -205,8 +205,8 @@ fn main() {
 
     let entry_clone = entry.clone();
     window.connect_key_press_event(move |_, key| {
-        let keyval = key.keyval;
-        let keystate = key.state;
+        let keyval = key.as_ref().keyval;
+        let keystate = key.as_ref().state;
 
         println!("key pressed: {} / {:?}", keyval, keystate);
         println!("text: {}", entry_clone.get_text().unwrap());
