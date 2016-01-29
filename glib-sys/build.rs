@@ -3,12 +3,12 @@ extern crate pkg_config;
 const LIBRARY_NAME: &'static str = "glib";
 const PACKAGE_NAME: &'static str = "glib-2.0";
 const VERSIONS: &'static [Version] = &[
-	Version(2, 32, 0),
-	Version(2, 34, 0),
-	Version(2, 36, 0),
-	Version(2, 38, 0),
-	Version(2, 40, 0),
-	Version(2, 44, 0),
+    Version(2, 32, 0),
+    Version(2, 34, 0),
+    Version(2, 36, 0),
+    Version(2, 38, 0),
+    Version(2, 40, 0),
+    Version(2, 44, 0),
 ];
 
 fn main() {

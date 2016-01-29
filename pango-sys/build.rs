@@ -3,11 +3,11 @@ extern crate pkg_config;
 const LIBRARY_NAME: &'static str = "pango";
 const PACKAGE_NAME: &'static str = "pango";
 const VERSIONS: &'static [Version] = &[
-	Version(1, 30, 0),
-	Version(1, 31, 0),
-	Version(1, 32, 0),
-	Version(1, 32, 4),
-	Version(1, 34, 0),
+    Version(1, 30, 0),
+    Version(1, 31, 0),
+    Version(1, 32, 0),
+    Version(1, 32, 4),
+    Version(1, 34, 0),
 ];
 
 fn main() {
