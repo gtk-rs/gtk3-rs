@@ -30,22 +30,36 @@ impl Error {
         }
     }
 
+    /// Checks if the error domain matches `T`.
+    pub fn is<T: ErrorDomain>(&self) -> bool {
+        self.0.domain == T::domain()
+    }
+
     /// Tries to convert to a specific error enum.
     ///
     /// Returns `Some` if the error belongs to the enum's error domain and
     /// `None` otherwise.
     ///
-    /// Example
+    /// # Examples
+    ///
     /// ```ignore
-    /// if let Some(file_error) = error.typed::<FileError>() {
+    /// if let Some(file_error) = error.kind::<FileError>() {
     ///     match file_error {
-    ///         Exist => ...
-    ///         Isdir => ...
+    ///         FileError::Exist => ...
+    ///         FileError::Isdir => ...
     ///         ...
     ///     }
     /// }
     /// ```
-    pub fn typed<T: ErrorDomain>(&self) -> Option<T> {
+    ///
+    /// ```ignore
+    /// match error {
+    ///     Some(FileError::Exist) => ...
+    ///     Some(FileError::Isdir) => ...
+    ///     ...
+    /// }
+    /// ```
+    pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
         if self.0.domain == T::domain() {
             T::from(self.0.code)
         }
