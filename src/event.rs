@@ -34,6 +34,11 @@ impl Event {
         from_glib(self.as_ref().send_event as i32)
     }
 
+    /// Returns `true` if the event type matches `T`.
+    pub fn is<T: FromEvent>(&self) -> bool {
+        T::is(self)
+    }
+
     /// Tries to downcast to a specific event type.
     pub fn downcast<T: FromEvent>(self) -> Result<T, Self> {
         T::from(self)
@@ -42,6 +47,7 @@ impl Event {
 
 /// A helper trait implemented by all event subtypes.
 pub trait FromEvent: Sized {
+    fn is(ev: &Event) -> bool;
     fn from(ev: Event) -> Result<Self, Event>;
 }
 
@@ -106,12 +112,24 @@ event_wrapper!(Event, GdkEventAny);
 macro_rules! event_subtype {
     ($name:ident, $($ty:ident)|+) => {
         impl ::event::FromEvent for $name {
-            fn from(ev: ::event::Event) -> Result<Self, ::event::Event> {
+            #[inline]
+            fn is(ev: &::event::Event) -> bool {
                 skip_assert_initialized!();
                 use EventType::*;
                 match ev.as_ref().type_ {
-                    $($ty)|+ => Ok($name(ev)),
-                    _ => Err(ev),
+                    $($ty)|+ => true,
+                    _ => false,
+                }
+            }
+
+            #[inline]
+            fn from(ev: ::event::Event) -> Result<Self, ::event::Event> {
+                skip_assert_initialized!();
+                if Self::is(&ev) {
+                    Ok($name(ev))
+                }
+                else {
+                    Err(ev)
                 }
             }
         }
