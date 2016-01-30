@@ -15,7 +15,7 @@ use gobject_ffi;
 pub trait Cast: IsA<Object> {
     /// Upcasts an object to a superclass or interface `T`.
     ///
-    /// Example
+    /// # Example
     ///
     /// ```ignore
     /// let button = gtk::Button::new();
@@ -30,7 +30,10 @@ pub trait Cast: IsA<Object> {
 
     /// Tries to downcast to a subclass or interface implementor `T`.
     ///
-    /// Example
+    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// otherwise.
+    ///
+    /// # Example
     ///
     /// ```ignore
     /// let button = gtk::Button::new();
@@ -41,6 +44,11 @@ pub trait Cast: IsA<Object> {
     fn downcast<T>(self) -> Result<T, Self>
     where Self: Sized + Downcast<T> {
         Downcast::downcast(self)
+    }
+
+    /// Returns `true` if the object is an instance of (can be downcast to) `T`.
+    fn is<T>(&self) -> bool where Self: Downcast<T> {
+        Downcast::can_downcast(self)
     }
 }
 
@@ -69,6 +77,10 @@ where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
 
 /// Downcasts support.
 pub trait Downcast<T> {
+    /// Checks if it's possible to downcast to `T`.
+    ///
+    /// Returns `true` if the instance implements `T` and `false` otherwise.
+    fn can_downcast(&self) -> bool;
     /// Tries to downcast to `T`.
     ///
     /// Returns `Ok(T)` if the instance implements `T` and `Err(Self)` otherwise.
@@ -80,6 +92,11 @@ pub trait Downcast<T> {
 }
 
 impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
+    #[inline]
+    fn can_downcast(&self) -> bool {
+        types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
+    }
+
     #[inline]
     fn downcast(self) -> Result<Sub, Super> {
         unsafe {

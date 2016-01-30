@@ -28,6 +28,10 @@
 //! let str_none = Value::from(none.clone());
 //! let typed_str_none = TypedValue::from(none);
 //!
+//! // `is` tests the type of the value.
+//! assert!(num.is::<i32>());
+//! assert!(hello.is::<String>());
+//!
 //! // `get` tries to get a value of specific type and returns None
 //! // if the type doesn't match or the value is None.
 //! assert_eq!(num.get(), Some(10));
@@ -37,11 +41,11 @@
 //! assert_eq!(str_none.get::<String>(), None);
 //!
 //! // `typed` tries to convert a `Value` to `TypedValue`.
-//! let mut typed_num = num.typed::<i32>().unwrap();
-//! let mut typed_hello = hello.typed::<String>().unwrap();
+//! let mut typed_num = num.downcast::<i32>().unwrap();
+//! let mut typed_hello = hello.downcast::<String>().unwrap();
 //!
 //! // `str_none` is not an `i32`
-//! assert!(str_none.typed::<i32>().is_err());
+//! assert!(str_none.downcast::<i32>().is_err());
 //!
 //! // `get`
 //! assert!(typed_hello.get().unwrap() == "Hello!");
@@ -89,11 +93,11 @@ use gobject_ffi;
 pub struct Value(gobject_ffi::GValue);
 
 impl Value {
-    /// Tries to convert to a typed value.
+    /// Tries to downcast to a `TypedValue`.
     ///
     /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
     /// to `T` and `Err(self)` otherwise.
-    pub fn typed<T: FromValueOptional + SetValue>(self) -> Result<TypedValue<T>, Self> {
+    pub fn downcast<T: FromValueOptional + SetValue>(self) -> Result<TypedValue<T>, Self> {
         unsafe {
             let ok = from_glib(
                 gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
@@ -112,7 +116,7 @@ impl Value {
     /// Returns `Some` if the type is correct and the value is not `None`.
     ///
     /// This function doesn't distinguish between type mismatches and correctly
-    /// typed `None` values. Use `typed` for that.
+    /// typed `None` values. Use `downcast` or `is` for that.
     pub fn get<T: FromValueOptional>(&self) -> Option<T> {
         unsafe {
            let ok = from_glib(
@@ -125,6 +129,12 @@ impl Value {
                None
            }
         }
+    }
+
+    /// Returns `true` if the type of the value corresponds to `T`.
+    #[inline]
+    pub fn is<T: FromValueOptional + SetValue>(&self) -> bool {
+        self.type_() == T::static_type()
     }
 
     /// Returns the type of the value.
