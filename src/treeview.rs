@@ -7,7 +7,6 @@ extern crate gtk;
 extern crate gdk;
 
 use gtk::prelude::*;
-use glib::types::StaticType;
 
 fn append_text_column(tree: &gtk::TreeView) {
     let column = gtk::TreeViewColumn::new();
@@ -37,7 +36,7 @@ fn main() {
     // left pane
 
     let left_tree = gtk::TreeView::new();
-    let column_types = [glib::Type::String];
+    let column_types = [String::static_type()];
     let left_store = gtk::ListStore::new(&column_types);
 
     left_tree.set_model(Some(&left_store));
@@ -54,7 +53,7 @@ fn main() {
 
     for _ in 0..10 {
         let iter = left_store.append();
-        left_store.set_value(&iter, 0, &"I'm in a list".into());
+        left_store.set_value(&iter, 0, &"I'm in a list".to_value());
 
         // select this row as a test
         //
@@ -64,7 +63,7 @@ fn main() {
     // middle pane
 
     let middle_tree = gtk::TreeView::new();
-    let column_types = [glib::Type::String];
+    let column_types = [String::static_type()];
     let middle_store = gtk::TreeStore::new(&column_types);
 
     middle_tree.set_model(Some(&middle_store));
@@ -73,17 +72,17 @@ fn main() {
 
     for i in 0..10 {
         let iter = middle_store.append(None);
-        middle_store.set_value(&iter, 0, &format!("Hello {}", i).into());
+        middle_store.set_value(&iter, 0, &format!("Hello {}", i).to_value());
 
         for _ in 0..i {
             let child_iter = middle_store.append(Some(&iter));
-            middle_store.set_value(&child_iter, 0, &"I'm a child node".into());
+            middle_store.set_value(&child_iter, 0, &"I'm a child node".to_value());
         }
     }
 
     // right pane
     let right_tree = gtk::TreeView::new();
-    let right_column_types = [gdk::pixbuf::Pixbuf::static_type(), glib::Type::String];
+    let right_column_types = [gdk::pixbuf::Pixbuf::static_type(), String::static_type()];
     let right_store = gtk::TreeStore::new(&right_column_types);
     let renderer = gtk::CellRendererPixbuf::new();
     let col = gtk::TreeViewColumn::new();
@@ -101,8 +100,7 @@ fn main() {
         Err(e) => {
             println!("Error while creating image: {}", e);
             if e.typed::<glib::FileError>() == Some(glib::FileError::Noent) {
-                println!("Try relaunch this example from the same level as \
-                          the `resources` folder");
+                println!("Relaunch this example from the same level as the `resources` folder");
             }
             return;
         }
@@ -112,12 +110,9 @@ fn main() {
     right_tree.set_model(Some(&right_store));
     right_tree.set_headers_visible(true);
 
-    let v = &image.into();
     for _ in 0..10 {
         let iter = right_store.append(None);
-
-        right_store.set_value(&iter, 0, v);
-        right_store.set_value(&iter, 1, &"I'm a child node with an image".into());
+        right_store.set(&iter, &[0, 1], &[&image, &"I'm a child node with an image"]);
     }
 
     // display the panes
