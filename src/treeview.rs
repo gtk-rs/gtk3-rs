@@ -99,7 +99,7 @@ fn main() {
         Ok(i) => i,
         Err(e) => {
             println!("Error while creating image: {}", e);
-            if e.typed::<glib::FileError>() == Some(glib::FileError::Noent) {
+            if e.kind() == Some(glib::FileError::Noent) {
                 println!("Relaunch this example from the same level as the `resources` folder");
             }
             return;
