@@ -47,8 +47,8 @@ fn main() {
 
     let left_selection = left_tree.get_selection().unwrap();
     left_selection.connect_changed(|tree_selection| {
-        let (left_store, iter) = tree_selection.get_selected().unwrap();
-        println!("selected row {}", left_store.get_path(&iter));
+        let (left_model, iter) = tree_selection.get_selected().unwrap();
+        println!("selected row {}", left_model.get_path(&iter));
     });
 
     for _ in 0..10 {
