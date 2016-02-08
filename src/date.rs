@@ -7,7 +7,7 @@
 use libc::{c_long, c_ulong};
 use glib_ffi;
 use std;
-use super::translate::ToGlibPtr;
+use translate::*;
 
 pub use glib_ffi::GDateDay as Day;
 pub use glib_ffi::GDateMonth as Month;
@@ -157,11 +157,11 @@ impl Date {
     }
 
     pub fn is_first_of_month(&self) -> bool {
-        unsafe { super::to_bool(glib_ffi::g_date_is_first_of_month(self.pointer)) }
+        unsafe { from_glib(glib_ffi::g_date_is_first_of_month(self.pointer)) }
     }
 
     pub fn is_last_of_month(&self) -> bool {
-        unsafe { super::to_bool(glib_ffi::g_date_is_last_of_month(self.pointer)) }
+        unsafe { from_glib(glib_ffi::g_date_is_last_of_month(self.pointer)) }
     }
 
     pub fn get_monday_week_of_year(&self) -> u32 {
@@ -182,7 +182,7 @@ impl Date {
     }*/
 
     pub fn is_valid(&self) -> bool {
-        unsafe { super::to_bool(glib_ffi::g_date_valid(self.pointer)) }
+        unsafe { from_glib(glib_ffi::g_date_valid(self.pointer)) }
     }
 }
 
@@ -242,7 +242,7 @@ pub fn get_days_in_month(month: Month, year: Year) -> u8 {
 }
 
 pub fn is_leap_year(year: Year) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_is_leap_year(year)) }
+    unsafe { from_glib(glib_ffi::g_date_is_leap_year(year)) }
 }
 
 pub fn get_monday_weeks_in_year(year: Year) -> u8 {
@@ -254,25 +254,25 @@ pub fn get_sunday_weeks_in_year(year: Year) -> u8 {
 }
 
 pub fn is_valid_day(day: Day) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_day(day)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_day(day)) }
 }
 
 pub fn is_valid_month(month: Month) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_month(month)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_month(month)) }
 }
 
 pub fn is_valid_year(year: Year) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_year(year)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_year(year)) }
 }
 
 pub fn is_valid_dmy(day: Day, month: Month, year: Year) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_dmy(day, month, year)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_dmy(day, month, year)) }
 }
 
 pub fn is_valid_julian(julian: u32) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_julian(julian)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_julian(julian)) }
 }
 
 pub fn is_valid_weekday(day: Weekday) -> bool {
-    unsafe { super::to_bool(glib_ffi::g_date_valid_weekday(day)) }
+    unsafe { from_glib(glib_ffi::g_date_valid_weekday(day)) }
 }
