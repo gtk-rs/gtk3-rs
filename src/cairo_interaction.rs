@@ -5,8 +5,9 @@
 use std::mem;
 use glib::translate::*;
 use ffi::{self, GdkRGBA};
-use super::{Pixbuf, Window};
+use pixbuf::Pixbuf;
 use cairo::{Context, RectangleInt};
+use super::Window;
 
 //pub fn create_region_from_surface()
 //--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
