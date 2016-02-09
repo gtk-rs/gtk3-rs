@@ -12,7 +12,12 @@ mod format;
 mod loader;
 mod pixbuf;
 
-pub use self::animation::{PixbufAnimation, PixbufAnimationIter, PixbufSimpleAnim};
+pub use self::animation::{
+    PixbufAnimation,
+    PixbufAnimationIter,
+    PixbufSimpleAnim,
+    PixbufAnimationExt,
+};
 pub use self::format::PixbufFormat;
 pub use self::loader::PixbufLoader;
 pub use self::pixbuf::Pixbuf;
