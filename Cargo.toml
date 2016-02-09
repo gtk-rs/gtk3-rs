@@ -19,7 +19,7 @@ name = "gdk"
 
 [dependencies]
 cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
-gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gdk-pixbuf" }
 gdk-sys = { git = "https://github.com/gtk-rs/sys" }
 glib = { git = "https://github.com/gtk-rs/glib" }
 libc = "0.1"

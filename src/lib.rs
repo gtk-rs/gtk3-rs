@@ -2,13 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-extern crate gdk_pixbuf_sys as gdk_pixbuf_ffi;
 extern crate gdk_sys as gdk_ffi;
+extern crate gdk_pixbuf;
 #[macro_use]
 extern crate glib;
 extern crate cairo;
 extern crate libc;
 
+pub use gdk_pixbuf as pixbuf;
 pub use gdk_ffi as ffi;
 
 #[macro_use]
@@ -53,7 +54,6 @@ pub mod drag_context;
 pub mod frame_clock;
 #[cfg(gdk_3_8)]
 pub mod frame_timings;
-pub mod pixbuf;
 pub mod rgba;
 pub mod screen;
 pub mod visual;
@@ -117,11 +117,6 @@ pub use event_window_state::EventWindowState;
 pub use frame_clock::FrameClock;
 #[cfg(gdk_3_8)]
 pub use frame_timings::FrameTimings;
-pub use pixbuf::Pixbuf;
-pub use pixbuf::animation::PixbufAnimation;
-pub use pixbuf::animation::PixbufSimpleAnim;
-pub use pixbuf::format::PixbufFormat;
-pub use pixbuf::loader::PixbufLoader;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
@@ -156,10 +151,6 @@ pub use gdk_ffi::GdkWindowState as WindowState;
 pub use gdk_ffi::GdkWindowType as WindowType;
 pub use gdk_ffi::GdkWindowTypeHint as WindowTypeHint;
 pub use gdk_ffi::GdkWindowWindowClass as WindowWindowClass;
-pub use gdk_pixbuf_ffi::GdkColorspace as Colorspace;
-pub use gdk_pixbuf_ffi::GdkInterpType as InterpType;
-pub use gdk_pixbuf_ffi::GdkPixbufAlphaMode as PixbufAlphaMode;
-pub use gdk_pixbuf_ffi::GdkPixbufError as PixbufError;
 
 #[allow(non_camel_case_types)]
 pub type key = i32;
