@@ -1,0 +1,22 @@
+[package]
+name = "gdk-pixbuf"
+version = "0.0.1"
+authors = ["The Gtk-rs Project Developers"]
+
+description = "Rust bindings for the GDK library"
+repository = "https://github.com/gtk-rs/gdk"
+license = "MIT"
+homepage = "https://github.com/gtk-rs/gdk"
+documentation = "https://github.com/gtk-rs/gdk"
+
+readme = "README.md"
+
+keywords = ["gdk", "gtk", "gnome", "GUI"]
+
+[lib]
+name = "gdk_pixbuf"
+
+[dependencies]
+gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+libc = "0.1"
