@@ -57,7 +57,6 @@ cache:
 
 build_script:
   - rustc -V
-  - del /s /q gtk-sys
   - mkdir .cargo
   - echo paths = ["."] > .cargo\config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
