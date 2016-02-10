@@ -8,15 +8,15 @@ libc = "0.1"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "^0.2.0"
+version = "0.3.0"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "^0.2.0"
+version = "0.3.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "^0.2.0"
+version = "0.3.0"
 
 [lib]
 name = "gdk_pixbuf_sys"
@@ -25,4 +25,4 @@ name = "gdk_pixbuf_sys"
 build = "build.rs"
 links = "gdk_pixbuf"
 name = "gdk-pixbuf-sys"
-version = "0.2.2"
+version = "0.3.0"

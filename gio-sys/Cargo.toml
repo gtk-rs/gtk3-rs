@@ -8,11 +8,11 @@ libc = "0.1"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "^0.2.1"
+version = "0.3.0"
 
 [lib]
 name = "gio_sys"
@@ -21,4 +21,4 @@ name = "gio_sys"
 build = "build.rs"
 links = "gio"
 name = "gio-sys"
-version = "0.2.2"
+version = "0.3.0"
