@@ -3,8 +3,8 @@
 pkg-config = "0.3.5"
 
 [dependencies]
-bitflags = "0.3"
-libc = "0.1"
+bitflags = "0.4"
+libc = "0.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
@@ -13,6 +13,14 @@ version = "0.3.0"
 [dependencies.gobject-sys]
 path = "../gobject-sys"
 version = "0.3.0"
+
+[features]
+"2.34" = []
+"2.36" = ["2.34"]
+"2.38" = ["2.36"]
+"2.40" = ["2.38"]
+"2.42" = ["2.40"]
+"2.44" = ["2.42"]
 
 [lib]
 name = "gio_sys"

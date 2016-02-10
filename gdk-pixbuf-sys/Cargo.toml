@@ -3,8 +3,8 @@
 pkg-config = "0.3.5"
 
 [dependencies]
-bitflags = "0.3"
-libc = "0.1"
+bitflags = "0.4"
+libc = "0.2"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
@@ -17,6 +17,11 @@ version = "0.3.0"
 [dependencies.gobject-sys]
 path = "../gobject-sys"
 version = "0.3.0"
+
+[features]
+"2.28" = []
+"2.30" = ["2.28"]
+"2.32" = ["2.30"]
 
 [lib]
 name = "gdk_pixbuf_sys"
