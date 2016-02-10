@@ -109,7 +109,7 @@ pub fn notify_startup_complete_with_id(startup_id: &str) {
     }
 }
 
-#[cfg(gdk_3_10)]
+#[cfg(feature = "3.10")]
 pub fn set_allowed_backends(backends: &str) {
     assert_not_initialized!();
     unsafe {

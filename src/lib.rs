@@ -50,16 +50,16 @@ pub mod device_manager;
 pub mod display;
 pub mod display_manager;
 pub mod drag_context;
-#[cfg(gdk_3_8)]
+#[cfg(feature = "3.8")]
 pub mod frame_clock;
-#[cfg(gdk_3_8)]
+#[cfg(feature = "3.8")]
 pub mod frame_timings;
 pub mod rgba;
 pub mod screen;
 pub mod visual;
 pub mod window;
 pub mod cairo_interaction;
-#[cfg(gdk_3_16)]
+#[cfg(feature = "3.16")]
 pub mod gl_context;
 
 pub use gdk_ffi::GdkColor as Color;
@@ -83,7 +83,7 @@ pub use self::rt::{
     error_trap_pop,
     error_trap_pop_ignored
 };
-#[cfg(gdk_3_10)]
+#[cfg(feature = "3.10")]
 pub use self::rt::set_allowed_backends;
 
 pub use app_launch_context::AppLaunchContext;
@@ -113,14 +113,14 @@ pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
-#[cfg(gdk_3_8)]
+#[cfg(feature = "3.8")]
 pub use frame_clock::FrameClock;
-#[cfg(gdk_3_8)]
+#[cfg(feature = "3.8")]
 pub use frame_timings::FrameTimings;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
-#[cfg(gdk_3_16)]
+#[cfg(feature = "3.16")]
 pub use gl_context::GLContext;
 
 pub use gdk_ffi::GdkAxisUse as AxisUse;

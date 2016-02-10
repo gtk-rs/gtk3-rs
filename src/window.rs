@@ -10,7 +10,7 @@ use cairo;
 use cursor::Cursor;
 use device::Device;
 use display::Display;
-#[cfg(gdk_3_8)]
+#[cfg(feature = "3.8")]
 use frame_clock::FrameClock;
 use screen::Screen;
 use visual::Visual;
@@ -197,12 +197,12 @@ impl Window {
         unsafe { ffi::gdk_window_unfullscreen(self.to_glib_none().0) }
     }
 
-    #[cfg(gdk_3_8)]
+    #[cfg(feature = "3.8")]
     pub fn get_fullscreen_mode(&self) -> ::FullscreenMode {
         unsafe { ffi::gdk_window_get_fullscreen_mode(self.to_glib_none().0) }
     }
 
-    #[cfg(gdk_3_8)]
+    #[cfg(feature = "3.8")]
     pub fn set_fullscreen_mode(&self, mode: ::FullscreenMode) {
         unsafe { ffi::gdk_window_set_fullscreen_mode(self.to_glib_none().0, mode) }
     }
@@ -297,7 +297,7 @@ impl Window {
     /* FIXME : I think the Event struct is missing, not just a trait is needed:
     https://developer.gnome.org/gdk3/3.14/gdk3-Event-Structures.html#GdkEvent
 
-    #[cfg(gdk_3_14)]
+    #[cfg(feature = "3.14")]
     pub fn show_window_menu(&self, event: &::Event) {
         unsafe { ffi::gdk_window_show_window_menu(self.to_glib_none().0, event.to_glib_none().0) }
     }*/
@@ -315,7 +315,7 @@ impl Window {
         unsafe { ffi::gdk_window_beep(self.to_glib_none().0) }
     }
 
-    #[cfg(gdk_3_10)]
+    #[cfg(feature = "3.10")]
     pub fn get_scale_factor(&self) -> i32 {
         unsafe { ffi::gdk_window_get_scale_factor(self.to_glib_none().0) }
     }
@@ -354,7 +354,7 @@ impl Window {
         unsafe { ffi::gdk_window_set_debug_updates(setting.to_glib()) }
     }
 
-    #[cfg(gdk_3_8)]
+    #[cfg(feature = "3.8")]
     pub fn get_frame_clock(&self) -> FrameClock {
         unsafe { from_glib_none(ffi::gdk_window_get_frame_clock(self.to_glib_none().0)) }
     }
@@ -466,7 +466,7 @@ impl Window {
         unsafe { ffi::gdk_window_get_type_hint(self.to_glib_none().0) }
     }
 
-    #[cfg(gdk_3_12)]
+    #[cfg(feature = "3.12")]
     pub fn set_shadow_width(&self, left: i32, right: i32, top: i32, bottom: i32) {
         unsafe { ffi::gdk_window_set_shadow_width(self.to_glib_none().0, left, right, top,
             bottom) }
@@ -520,7 +520,7 @@ impl Window {
         }
     }
 
-    #[cfg(gdk_3_10)]
+    #[cfg(feature = "3.10")]
     pub fn get_device_position_double(&self, device: &Device, x: &mut f64, y: &mut f64,
         mask: &mut ::ModifierType) -> Option<Window> {
         unsafe {
@@ -645,12 +645,12 @@ impl Window {
         unsafe { ffi::gdk_window_set_source_events(self.to_glib_none().0, source, event_mask) }
     }
 
-    #[cfg(gdk_3_12)]
+    #[cfg(feature = "3.12")]
     pub fn get_event_compression(&self) -> bool {
         unsafe { from_glib(ffi::gdk_window_get_event_compression(self.to_glib_none().0)) }
     }
 
-    #[cfg(gdk_3_12)]
+    #[cfg(feature = "3.12")]
     pub fn set_event_compression(&self, event_compression: bool) {
         unsafe {
             ffi::gdk_window_set_event_compression(self.to_glib_none().0,
