@@ -16,6 +16,11 @@ keywords = ["gdk", "gtk", "gnome", "GUI"]
 [lib]
 name = "gdk_pixbuf"
 
+[features]
+"2.28" = ["gdk-pixbuf-sys/2.28"]
+"2.30" = ["2.28", "gdk-pixbuf-sys/2.30"]
+"2.32" = ["2.30", "gdk-pixbuf-sys/2.32"]
+
 [dependencies]
 gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
 glib = { git = "https://github.com/gtk-rs/glib" }
