@@ -16,6 +16,10 @@ keywords = ["cairo", "ffi", "gtk", "gnome"]
 [lib]
 name = "cairo_sys"
 
+[features]
+"1.12" = []
+"1.14" = ["1.12"]
+
 [dependencies]
 libc = "0.1"
 

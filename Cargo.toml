@@ -2,7 +2,6 @@
 name = "cairo-rs"
 version = "0.0.8"
 authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
 
 description = "Rust bindings for the Cairo library"
 repository = "https://github.com/gtk-rs/cairo"
@@ -16,6 +15,9 @@ keywords = ["cairo", "gtk", "gnome", "GUI"]
 
 [lib]
 name = "cairo"
+
+[features]
+"1.12" = ["cairo-sys-rs/1.12"]
 
 [dependencies.cairo-sys-rs]
 path = "./cairo-sys-rs"
