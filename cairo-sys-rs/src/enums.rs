@@ -193,9 +193,9 @@ pub enum PatternType {
     Surface,
     LinearGradient,
     RadialGradient,
-    #[cfg(cairo_1_12)]
+    #[cfg(feature = "1.12")]
     Mesh,
-    #[cfg(cairo_1_12)]
+    #[cfg(feature = "1.12")]
     RasterSource
 }
 
