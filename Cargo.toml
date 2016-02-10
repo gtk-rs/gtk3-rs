@@ -25,8 +25,24 @@ name = "gdk"
 "3.16" = ["3.14", "gdk-sys/3.16"]
 
 [dependencies]
-cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
-gdk-pixbuf = { git = "https://github.com/gtk-rs/gdk-pixbuf" }
-gdk-sys = { git = "https://github.com/gtk-rs/sys" }
-glib = { git = "https://github.com/gtk-rs/glib" }
-libc = "0.1"
+libc = "0.2"
+
+[dependencies.gdk-sys]
+git = "https://github.com/gtk-rs/sys"
+version = "0.3.0"
+
+[dependencies.cairo-rs]
+git = "https://github.com/gtk-rs/cairo"
+version = "0.0.8"
+
+[dependencies.gdk-pixbuf]
+git = "https://github.com/gtk-rs/gdk-pixbuf"
+version = "0.0.1"
+
+[dependencies.glib]
+git = "https://github.com/gtk-rs/glib"
+version = "0.0.8"
+
+[dependencies.pango]
+git = "https://github.com/gtk-rs/pango"
+version = "0.0.7"
