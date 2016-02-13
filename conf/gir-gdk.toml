@@ -11,3 +11,22 @@ external_libraries = [
    "Pango",
    "Cairo",
 ]
+
+[[object]]
+name = "Gdk.EventType"
+status = "generate"
+    [[object.member]]
+    name = "2button_press"
+    alias = true
+    [[object.member]]
+    name = "3button_press"
+    alias = true
+    [[object.member]]
+    name = "touchpad_swipe"
+    version = "3.18"
+    [[object.member]]
+    name = "touchpad_pinch"
+    version = "3.18"
+    [[object.member]]
+    name = "event_last"
+    alias = true

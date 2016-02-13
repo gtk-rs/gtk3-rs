@@ -3,39 +3,48 @@
 pkg-config = "0.3.5"
 
 [dependencies]
-bitflags = "0.3"
-libc = "0.1"
+bitflags = "0.4"
+libc = "0.2"
 
 [dependencies.atk-sys]
 path = "../atk-sys"
-version = "^0.2.0"
+version = "0.3.0"
 
 [dependencies.cairo-sys-rs]
-git = "https://github.com/gtk-rs/cairo"
+path = "../../cairo/cairo-sys-rs"
+version = "0.2.0"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.gdk-sys]
 path = "../gdk-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "^0.2.1"
+version = "0.3.0"
 
 [dependencies.pango-sys]
 path = "../pango-sys"
-version = "^0.2.2"
+version = "0.3.0"
+
+[features]
+"3.10" = ["3.8"]
+"3.12" = ["3.10"]
+"3.14" = ["3.12"]
+"3.16" = ["3.14"]
+"3.6" = []
+"3.8" = ["3.6"]
 
 [lib]
 name = "gtk_sys"
@@ -44,4 +53,4 @@ name = "gtk_sys"
 build = "build.rs"
 links = "gtk"
 name = "gtk-sys"
-version = "0.2.2"
+version = "0.3.0"

@@ -3,16 +3,24 @@
 pkg-config = "0.3.5"
 
 [dependencies]
-bitflags = "0.3"
-libc = "0.1"
+bitflags = "0.4"
+libc = "0.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "^0.2.2"
+version = "0.3.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "^0.2.1"
+version = "0.3.0"
+
+[features]
+"2.10" = ["2.9.4"]
+"2.12" = ["2.10"]
+"2.7.90" = []
+"2.8" = ["2.7.90"]
+"2.9.3" = ["2.8"]
+"2.9.4" = ["2.9.3"]
 
 [lib]
 name = "atk_sys"
@@ -21,4 +29,4 @@ name = "atk_sys"
 build = "build.rs"
 links = "atk"
 name = "atk-sys"
-version = "0.2.2"
+version = "0.3.0"

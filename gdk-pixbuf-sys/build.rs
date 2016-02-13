@@ -1,25 +1,45 @@
 extern crate pkg_config;
-
-const LIBRARY_NAME: &'static str = "gdk_pixbuf";
-const PACKAGE_NAME: &'static str = "gdk-pixbuf-2.0";
-const VERSIONS: &'static [Version] = &[
-    Version(2, 26, 0),
-    Version(2, 28, 0),
-    Version(2, 30, 0),
-    Version(2, 32, 0),
-];
+use std::env;
+use std::io::prelude::*;
+use std::io;
+use std::process;
 
 fn main() {
-    let lib = pkg_config::find_library(PACKAGE_NAME)
-        .unwrap_or_else(|e| panic!("{}", e));
-    let version = Version::new(&lib.version);
-    let mut cfgs = Vec::new();
-    for v in VERSIONS.iter().filter(|&&v| v <= version) {
-        let cfg = v.to_cfg();
-        println!("cargo:rustc-cfg={}", cfg);
-        cfgs.push(cfg);
+    if let Err(s) = find() {
+        let _ = writeln!(io::stderr(), "{}", s);
+        process::exit(1);
     }
-    println!("cargo:cfg={}", cfgs.join(" "));
+}
+
+fn find() -> Result<(), String> {
+    let package_name = "gdk-pixbuf-2.0";
+    let shared_libs = ["gdk_pixbuf-2.0"];
+    let expected_version =
+        if cfg!(feature = "2.32") {
+            "2.32"
+        } else if cfg!(feature = "2.30") {
+            "2.30"
+        } else if cfg!(feature = "2.28") {
+            "2.28"
+        } else {
+            "2.26"
+        };
+
+    if let Ok(lib_dir) = env::var("GTK_LIB_DIR") {
+        for lib_ in shared_libs.iter() {
+            println!("cargo:rustc-link-lib=dylib={}", lib_);
+        }
+        println!("cargo:rustc-link-search=native={}", lib_dir);
+        Ok(())
+    } else {
+        let lib = try!(pkg_config::find_library(package_name));
+        if Version::new(&lib.version) >= Version::new(expected_version) {
+            Ok(())
+        } else {
+            Err(format!("Installed `{}` version `{}` lower than `{}` requested by cargo features",
+                        package_name, lib.version, expected_version))
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy, Hash, PartialEq, Eq, PartialOrd, Ord)]
@@ -33,14 +53,6 @@ impl Version {
             .map(Result::unwrap);
         Version(parts.next().unwrap_or(0),
             parts.next().unwrap_or(0), parts.next().unwrap_or(0))
-    }
-
-    fn to_cfg(&self) -> String {
-        match *self {
-            Version(major, minor, 0) => format!("{}_{}_{}", LIBRARY_NAME, major, minor),
-            Version(major, minor, patch) =>
-                format!("{}_{}_{}_{}", LIBRARY_NAME, major, minor, patch),
-        }
     }
 }
 
