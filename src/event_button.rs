@@ -8,4 +8,4 @@ use glib::translate::*;
 pub struct EventButton(::Event);
 
 event_wrapper!(EventButton, GdkEventButton);
-event_subtype!(EventButton, ButtonPress | _2buttonPress | _3buttonPress | ButtonRelease);
+event_subtype!(EventButton, ButtonPress | DoubleButtonPress | TripleButtonPress | ButtonRelease);
