@@ -3,9 +3,6 @@ name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 
-[dependencies]
-libc = "0.1"
-
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
 
@@ -19,7 +16,7 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-gtk_3_10 = []
+gtk_3_10 = ["gtk/3.10"]
 gtk_3_14 = ["gtk_3_10"]
 
 [[bin]]
