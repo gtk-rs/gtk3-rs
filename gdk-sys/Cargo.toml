@@ -7,7 +7,7 @@ bitflags = "0.4"
 libc = "0.2"
 
 [dependencies.cairo-sys-rs]
-path = "../../cairo/cairo-sys-rs"
+git = "https://github.com/gtk-rs/cairo"
 version = "0.2.0"
 
 [dependencies.gdk-pixbuf-sys]
