@@ -25,7 +25,7 @@ name = "gdk_pixbuf"
 libc = "0.2"
 
 [dependencies.gdk-pixbuf-sys]
-git = "https://github.com/gtk-rs/gdk-pixbuf-sys"
+git = "https://github.com/gtk-rs/sys"
 version = "0.3.0"
 
 [dependencies.glib]
