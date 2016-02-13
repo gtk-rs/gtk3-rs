@@ -3,11 +3,11 @@ name = "gdk-pixbuf"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 
-description = "Rust bindings for the GDK library"
-repository = "https://github.com/gtk-rs/gdk"
+description = "Rust bindings for the GDK-PixBuf library"
+repository = "https://github.com/gtk-rs/gdk-pixbuf"
 license = "MIT"
-homepage = "https://github.com/gtk-rs/gdk"
-documentation = "https://github.com/gtk-rs/gdk"
+homepage = "https://github.com/gtk-rs/gdk-pixbuf"
+documentation = "https://github.com/gtk-rs/gdk-pixbuf"
 
 readme = "README.md"
 
@@ -16,7 +16,18 @@ keywords = ["gdk", "gtk", "gnome", "GUI"]
 [lib]
 name = "gdk_pixbuf"
 
+[features]
+"2.28" = ["gdk-pixbuf-sys/2.28"]
+"2.30" = ["2.28", "gdk-pixbuf-sys/2.30"]
+"2.32" = ["2.30", "gdk-pixbuf-sys/2.32"]
+
 [dependencies]
-gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
-glib = { git = "https://github.com/gtk-rs/glib" }
-libc = "0.1"
+libc = "0.2"
+
+[dependencies.gdk-pixbuf-sys]
+git = "https://github.com/gtk-rs/gdk-pixbuf-sys"
+version = "0.3.0"
+
+[dependencies.glib]
+git = "https://github.com/gtk-rs/glib"
+version = "0.0.8"

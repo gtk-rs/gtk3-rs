@@ -69,7 +69,7 @@ impl PixbufAnimation {
         }
     }
 
-    #[cfg(gdk_3_8)] // gdk-pixbuf 2.28
+    #[cfg(feature = "2.28")]
     pub fn new_from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
         unsafe {
             let mut error = ptr::null_mut();
