@@ -1,4 +1,4 @@
-// Copyright 2013-2015, The Gtk-rs Project Developers.
+// Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
@@ -79,7 +79,10 @@ pub mod prelude;
 
 mod fonts;
 mod context;
+mod error;
 mod image_surface;
+#[cfg(feature = "png")]
+mod image_surface_png;
 mod paths;
 mod patterns;
 mod surface;
