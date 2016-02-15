@@ -17,7 +17,7 @@ git = "https://github.com/gtk-rs/gtk"
 
 [features]
 gtk_3_10 = ["gtk/3.10"]
-gtk_3_14 = ["gtk_3_10"]
+gtk_3_18 = ["gtk_3_10"]
 
 [[bin]]
 name = "basic"
