@@ -1,6 +1,6 @@
 
 [build-dependencies]
-pkg-config = "0.3.5"
+pkg-config = "0.3.7"
 
 [dependencies]
 bitflags = "0.4"
