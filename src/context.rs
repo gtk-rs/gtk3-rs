@@ -12,7 +12,8 @@ use ::matrices::{Matrix, MatrixTrait};
 use ffi::enums::{
     FontSlant,
     FontWeight,
-    TextClusterFlags
+    TextClusterFlags,
+    Operator,
 };
 use Rectangle;
 use ffi;
@@ -281,6 +282,18 @@ impl Context {
     pub fn get_miter_limit(&self) -> f64 {
         unsafe {
             ffi::cairo_get_miter_limit(self.0)
+        }
+    }
+
+    pub fn set_operator(&self, op: Operator) {
+        unsafe {
+            ffi::cairo_set_operator(self.0, op);
+        }
+    }
+
+    pub fn get_operator(&self) -> Operator {
+        unsafe {
+            ffi::cairo_get_operator(self.0)
         }
     }
 
