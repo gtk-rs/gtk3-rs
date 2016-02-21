@@ -29,6 +29,7 @@ use enums::{
     PatternType,
     Format,
     SurfaceType,
+    Operator,
 };
 
 #[repr(C)]
@@ -45,8 +46,6 @@ pub struct cairo_antialias_t(c_void);
 pub struct cairo_line_join_t(c_void);
 #[repr(C)]
 pub struct cairo_line_cap_t(c_void);
-#[repr(C)]
-pub struct cairo_operator_t(c_void);
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct cairo_rectangle_t {
@@ -194,8 +193,8 @@ extern "C" {
     pub fn cairo_get_line_width (cr: *mut cairo_t) -> c_double;
     pub fn cairo_set_miter_limit (cr: *mut cairo_t, limit: c_double);
     pub fn cairo_get_miter_limit (cr: *mut cairo_t) -> c_double;
-    pub fn cairo_set_operator (cr: *mut cairo_t, op: cairo_operator_t);
-    pub fn cairo_get_operator (cr: *mut cairo_t) -> cairo_operator_t;
+    pub fn cairo_set_operator (cr: *mut cairo_t, op: Operator);
+    pub fn cairo_get_operator (cr: *mut cairo_t) -> Operator;
     pub fn cairo_set_tolerance (cr: *mut cairo_t, tolerance: c_double);
     pub fn cairo_get_tolerance (cr: *mut cairo_t) -> c_double;
     pub fn cairo_clip (cr: *mut cairo_t);
