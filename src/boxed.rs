@@ -34,6 +34,7 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::Uninitialized for $name {
             #[inline]
             unsafe fn uninitialized() -> Self {
@@ -41,10 +42,12 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::GlibPtrDefault for $name {
             type GlibType = *mut $ffi_name;
         }
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
             type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
@@ -55,6 +58,7 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtrMut<'a, *mut $ffi_name> for $name {
             type Storage = &'a mut $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
@@ -65,6 +69,7 @@ macro_rules! glib_boxed_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtr<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {

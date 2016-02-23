@@ -135,26 +135,31 @@ macro_rules! glib_object_wrapper {
         #[derive(Clone, Debug, Hash)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
+        #[doc(hidden)]
         impl Into<$crate::object::ObjectRef> for $name {
             fn into(self) -> $crate::object::ObjectRef {
                 self.0
             }
         }
 
+        #[doc(hidden)]
         impl $crate::wrapper::UnsafeFrom<$crate::object::ObjectRef> for $name {
             unsafe fn from(t: $crate::object::ObjectRef) -> Self {
                 $name(t, ::std::marker::PhantomData)
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::GlibPtrDefault for $name {
             type GlibType = *mut $ffi_name;
         }
 
+        #[doc(hidden)]
         impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;
         }
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
             type Storage = <$crate::object::ObjectRef as
                 $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
@@ -171,6 +176,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
             type Storage = <$crate::object::ObjectRef as
                 $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
@@ -187,6 +193,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtr<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
@@ -229,6 +236,7 @@ macro_rules! glib_object_wrapper {
      [$($implements:path),*]) => {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr);
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject> for $name {
             type Storage = <$crate::object::ObjectRef as
                 $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
@@ -249,6 +257,7 @@ macro_rules! glib_object_wrapper {
         impl $crate::object::IsA<$crate::object::Object> for $name { }
 
         $(
+            #[doc(hidden)]
             impl<'a> $crate::translate::ToGlibPtr<'a,
                     *mut <$implements as $crate::wrapper::Wrapper>::GlibType> for $name {
                 type Storage = <$crate::object::ObjectRef as
