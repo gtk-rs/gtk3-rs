@@ -33,10 +33,12 @@ macro_rules! glib_shared_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::GlibPtrDefault for $name {
             type GlibType = *mut $ffi_name;
         }
 
+        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *mut $ffi_name> for $name {
             type Storage = &'a $crate::shared::Shared<$ffi_name, MemoryManager>;
 
@@ -52,6 +54,7 @@ macro_rules! glib_shared_wrapper {
             }
         }
 
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtr<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
