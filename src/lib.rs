@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-extern crate gdk_sys as gdk_ffi;
+extern crate gdk_sys as ffi;
 extern crate gdk_pixbuf;
 #[macro_use]
 extern crate glib;
@@ -10,7 +10,6 @@ extern crate cairo;
 extern crate libc;
 
 pub use gdk_pixbuf as pixbuf;
-pub use gdk_ffi as ffi;
 
 #[macro_use]
 mod rt;
@@ -62,8 +61,8 @@ pub mod cairo_interaction;
 #[cfg(feature = "3.16")]
 pub mod gl_context;
 
-pub use gdk_ffi::GdkColor as Color;
-pub use gdk_ffi::GdkRGBA as RGBA;
+pub use ffi::GdkColor as Color;
+pub use ffi::GdkRGBA as RGBA;
 
 pub use self::rt::{
     init,
@@ -123,34 +122,34 @@ pub use window::Window;
 #[cfg(feature = "3.16")]
 pub use gl_context::GLContext;
 
-pub use gdk_ffi::GdkAxisUse as AxisUse;
-pub use gdk_ffi::GdkCrossingMode as CrossingMode;
-pub use gdk_ffi::GdkDragAction as DragAction;
-pub use gdk_ffi::GdkDragProtocol as DragProtocol;
-pub use gdk_ffi::GdkEventMask as EventMask;
-pub use gdk_ffi::GdkEventType as EventType;
-pub use gdk_ffi::GdkFullscreenMode as FullscreenMode;
-pub use gdk_ffi::GdkGrabOwnership as GrabOwnership;
-pub use gdk_ffi::GdkGrabStatus as GrabStatus;
-pub use gdk_ffi::GdkGravity as Gravity;
-pub use gdk_ffi::GdkInputMode as InputMode;
-pub use gdk_ffi::GdkInputSource as InputSource;
-pub use gdk_ffi::GdkModifierIntent as ModifierIntent;
-pub use gdk_ffi::GdkModifierType as ModifierType;
-pub use gdk_ffi::GdkNotifyType as NotifyType;
-pub use gdk_ffi::GdkOwnerChange as OwnerChange;
-pub use gdk_ffi::GdkPropertyState as PropertyState;
-pub use gdk_ffi::GdkScrollDirection as ScrollDirection;
-pub use gdk_ffi::GdkSettingAction as SettingAction;
-pub use gdk_ffi::GdkVisibilityState as VisibilityState;
-pub use gdk_ffi::GdkWMDecoration as WMDecoration;
-pub use gdk_ffi::GdkWMFunction as WMFunction;
-pub use gdk_ffi::GdkWindowEdge as WindowEdge;
-pub use gdk_ffi::GdkWindowHints as WindowHints;
-pub use gdk_ffi::GdkWindowState as WindowState;
-pub use gdk_ffi::GdkWindowType as WindowType;
-pub use gdk_ffi::GdkWindowTypeHint as WindowTypeHint;
-pub use gdk_ffi::GdkWindowWindowClass as WindowWindowClass;
+pub use ffi::GdkAxisUse as AxisUse;
+pub use ffi::GdkCrossingMode as CrossingMode;
+pub use ffi::GdkDragAction as DragAction;
+pub use ffi::GdkDragProtocol as DragProtocol;
+pub use ffi::GdkEventMask as EventMask;
+pub use ffi::GdkEventType as EventType;
+pub use ffi::GdkFullscreenMode as FullscreenMode;
+pub use ffi::GdkGrabOwnership as GrabOwnership;
+pub use ffi::GdkGrabStatus as GrabStatus;
+pub use ffi::GdkGravity as Gravity;
+pub use ffi::GdkInputMode as InputMode;
+pub use ffi::GdkInputSource as InputSource;
+pub use ffi::GdkModifierIntent as ModifierIntent;
+pub use ffi::GdkModifierType as ModifierType;
+pub use ffi::GdkNotifyType as NotifyType;
+pub use ffi::GdkOwnerChange as OwnerChange;
+pub use ffi::GdkPropertyState as PropertyState;
+pub use ffi::GdkScrollDirection as ScrollDirection;
+pub use ffi::GdkSettingAction as SettingAction;
+pub use ffi::GdkVisibilityState as VisibilityState;
+pub use ffi::GdkWMDecoration as WMDecoration;
+pub use ffi::GdkWMFunction as WMFunction;
+pub use ffi::GdkWindowEdge as WindowEdge;
+pub use ffi::GdkWindowHints as WindowHints;
+pub use ffi::GdkWindowState as WindowState;
+pub use ffi::GdkWindowType as WindowType;
+pub use ffi::GdkWindowTypeHint as WindowTypeHint;
+pub use ffi::GdkWindowWindowClass as WindowWindowClass;
 
 #[allow(non_camel_case_types)]
 pub type key = i32;
