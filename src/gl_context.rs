@@ -56,10 +56,6 @@ impl GLContext {
         unsafe { from_glib(ffi::gdk_gl_context_get_forward_compatible(self.to_glib_none().0)) }
     }
 
-    /*
-    pub fn realize(&self, *mut *mut glib::error) -> bool;
-    */
-
     pub fn make_current(&self) {
         unsafe { ffi::gdk_gl_context_make_current(self.to_glib_none().0) }
     }

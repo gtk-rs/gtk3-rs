@@ -80,16 +80,6 @@ pub fn init() {
     }
 }
 
-/*pub fn init_check(argc: *mut c_int, argv: *mut *mut *mut c_char) -> bool {
-    assert_not_initialized!();
-    unsafe { ::glib::to_bool(ffi::gdk_init_check(argc, argv)) }
-}
-
-pub fn parse_args(argc: *mut c_int, argv: *mut *mut *mut c_char) {
-    assert_not_initialized!();
-    unsafe { ffi::gdk_parse_args(argc, argv) }
-}*/
-
 pub fn get_display_arg_name() -> Option<String> {
     assert_initialized_main_thread!();
     unsafe {
