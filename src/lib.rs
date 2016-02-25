@@ -13,9 +13,21 @@ pub use gdk_pixbuf as pixbuf;
 
 #[macro_use]
 mod rt;
-
 #[macro_use]
-pub mod event;
+mod event;
+
+pub mod prelude;
+pub mod enums;
+
+mod app_launch_context;
+mod atom;
+mod cairo_interaction;
+mod cursor;
+mod device;
+mod device_manager;
+mod display;
+mod display_manager;
+mod drag_context;
 mod event_button;
 mod event_configure;
 mod event_crossing;
@@ -34,32 +46,18 @@ mod event_setting;
 mod event_touch;
 mod event_visibility;
 mod event_window_state;
-
+#[cfg(feature = "3.8")]
+mod frame_clock;
+#[cfg(feature = "3.8")]
+mod frame_timings;
+#[cfg(feature = "3.16")]
+mod gl_context;
 mod keys;
 mod rectangle;
-
-pub mod prelude;
-pub mod enums;
-
-pub mod app_launch_context;
-pub mod atom;
-pub mod cursor;
-pub mod device;
-pub mod device_manager;
-pub mod display;
-pub mod display_manager;
-pub mod drag_context;
-#[cfg(feature = "3.8")]
-pub mod frame_clock;
-#[cfg(feature = "3.8")]
-pub mod frame_timings;
-pub mod rgba;
-pub mod screen;
-pub mod visual;
-pub mod window;
-pub mod cairo_interaction;
-#[cfg(feature = "3.16")]
-pub mod gl_context;
+mod rgba;
+mod screen;
+mod visual;
+mod window;
 
 pub use ffi::GdkColor as Color;
 pub use ffi::GdkRGBA as RGBA;
@@ -87,6 +85,7 @@ pub use self::rt::set_allowed_backends;
 
 pub use app_launch_context::AppLaunchContext;
 pub use atom::Atom;
+pub use atom::NONE as ATOM_NONE;
 pub use cursor::Cursor;
 pub use device::Device;
 pub use device_manager::DeviceManager;
