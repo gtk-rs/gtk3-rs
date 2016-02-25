@@ -1,0 +1,17 @@
+[options]
+girs_dir = "gir-files"
+library = "GdkPixbuf"
+version = "2.0"
+min_cfg_version = "2.26"
+target_path = "."
+work_mode = "normal"
+
+manual = [
+    "GdkPixbuf.Pixbuf",
+    "GdkPixbuf.PixbufAnimation",
+    "GdkPixbuf.PixbufAnimationIter",
+    "GdkPixbuf.PixbufFormat",
+    "GdkPixbuf.PixbufLoader",
+    "GdkPixbuf.PixbufSimpleAnim",
+    "GLib.Error",
+]
