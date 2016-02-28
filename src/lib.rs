@@ -92,7 +92,10 @@ pub use value::{
     TypedValue,
     Value,
 };
-pub use self::date::{TimeVal, Time, Date, Year, Month, Weekday, Day};
+pub use time_val::{
+    TimeVal,
+    get_current_time,
+};
 
 #[macro_use]
 pub mod wrapper;
@@ -108,8 +111,8 @@ pub mod error;
 mod file_error;
 pub mod signal;
 pub mod source;
+mod time_val;
 pub mod translate;
+pub mod types;
 pub mod value;
 
-pub mod types;
-pub mod date;
