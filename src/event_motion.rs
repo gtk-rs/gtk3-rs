@@ -9,3 +9,19 @@ pub struct EventMotion(::Event);
 
 event_wrapper!(EventMotion, GdkEventMotion);
 event_subtype!(EventMotion, MotionNotify);
+
+impl EventMotion {
+    pub fn get_position(&self) -> (f64, f64) {
+        let x = self.as_ref().x;
+        let y = self.as_ref().y;
+        (x, y)
+    }
+
+    pub fn get_state(&self) -> ::ModifierType {
+        self.as_ref().state
+    }
+
+    pub fn get_time(&self) -> u32 {
+        self.as_ref().time
+    }
+}
