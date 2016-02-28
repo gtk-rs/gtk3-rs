@@ -43,10 +43,6 @@ impl AppLaunchContext {
         unsafe { ffi::gdk_app_launch_context_set_timestamp(self.to_glib_none().0, timestamp) }
     }
 
-    /*pub fn set_icon(&self, icon: GIO::Icon) {
-        unsafe { ffi::gdk_app_launch_context_set_timestamp(self.to_glib_none().0, icon.to_glib_none().0) }
-    }*/
-
     pub fn set_icon_name(&self, icon_name: &str) {
         unsafe {
             ffi::gdk_app_launch_context_set_icon_name(self.to_glib_none().0,

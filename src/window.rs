@@ -294,23 +294,6 @@ impl Window {
             root_y, timestamp) }
     }
 
-    /* FIXME : I think the Event struct is missing, not just a trait is needed:
-    https://developer.gnome.org/gdk3/3.14/gdk3-Event-Structures.html#GdkEvent
-
-    #[cfg(feature = "3.14")]
-    pub fn show_window_menu(&self, event: &::Event) {
-        unsafe { ffi::gdk_window_show_window_menu(self.to_glib_none().0, event.to_glib_none().0) }
-    }*/
-
-    /* FIXME: the first argument must be *mut GdkGeometry
-    pub fn constrain_size(&self, flags: WindowHints, width: i32, height: i32, new_width: &mut i32, new_height: &mut i32) {
-        unsafe {
-            ffi::gdk_window_constrain_size(self.to_glib_none().0, flags, width, height, new_width,
-                new_height)
-        }
-    }
-    */
-
     pub fn beep(&self) {
         unsafe { ffi::gdk_window_beep(self.to_glib_none().0) }
     }

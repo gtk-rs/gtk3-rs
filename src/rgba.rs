@@ -3,8 +3,8 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use gdk_ffi as ffi;
-use gdk_ffi::GdkRGBA;
+use ffi;
+use ffi::GdkRGBA;
 
 pub trait RGBA {
     fn white() -> GdkRGBA;

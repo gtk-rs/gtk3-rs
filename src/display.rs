@@ -75,30 +75,6 @@ impl Display {
         unsafe { from_glib(ffi::gdk_display_is_closed(self.to_glib_none().0)) }
     }
 
-    /*pub fn get_event(&self) -> Option<::Event> {
-        unsafe { ffi::gdk_display_get_event(self.to_glib_none().0) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            unsafe { Some(::Event::wrap(tmp)) }
-        }
-    }
-
-    pub fn peek_event(&self) -> Option<::Event> {
-        unsafe { ffi::gdk_display_peek_event(self.to_glib_none().0) };
-
-        if tmp.is_null() {
-            None
-        } else {
-            unsafe { Some(::Event::wrap(tmp)) }
-        }
-    }
-
-    pub fn put_event(&self, event: &::Event) {
-        unsafe { ffi::gdk_display_put_event(self.to_glib_none().0, event.to_glib_none().0 as *const ffi::GdkEvent) }
-    }*/
-
     pub fn has_pending(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_has_pending(self.to_glib_none().0)) }
     }
@@ -146,11 +122,6 @@ impl Display {
     pub fn supports_clipboard_persistence(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_clipboard_persistence(self.to_glib_none().0)) }
     }
-
-    /*pub fn store_clipboard(&self, clipboard_window: &::Window, time_: u32, targets: Vec<Atom>) {
-        unsafe { ffi::gdk_display_store_clipboard(self.to_glib_none().0, clipboard_window.to_glib_none().0, time_, targets.as_mut_pointer(),
-            targets.len() as c_int) }
-    }*/
 
     pub fn supports_shapes(&self) -> bool {
         unsafe { from_glib(ffi::gdk_display_supports_shapes(self.to_glib_none().0)) }

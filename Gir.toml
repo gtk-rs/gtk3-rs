@@ -1,0 +1,45 @@
+[options]
+girs_dir = "gir-files"
+library = "Gdk"
+version = "3.0"
+min_cfg_version = "3.4"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = true
+
+manual = [
+    "Gdk.AppLaunchContext",
+    "Gdk.Atom",
+    "Gdk.Cursor",
+    "Gdk.DeviceManager",
+    "Gdk.Device",
+    "Gdk.DisplayManager",
+    "Gdk.Display",
+    "Gdk.DragContext",
+    "Gdk.EventButton",
+    "Gdk.EventConfigure",
+    "Gdk.EventCrossing",
+    "Gdk.EventDND",
+    "Gdk.EventExpose",
+    "Gdk.EventFocus",
+    "Gdk.EventGrabBroken",
+    "Gdk.EventKey",
+    "Gdk.EventMotion",
+    "Gdk.EventOwnerChange",
+    "Gdk.EventProperty",
+    "Gdk.EventProximity",
+    "Gdk.Event",
+    "Gdk.EventScroll",
+    "Gdk.EventSelection",
+    "Gdk.EventSetting",
+    "Gdk.EventTouch",
+    "Gdk.EventVisibility",
+    "Gdk.EventWindowState",
+    "Gdk.FrameClock",
+    "Gdk.FrameTimings",
+    "Gdk.GLContext",
+    "Gdk.Screen",
+    "Gdk.Visual",
+    "Gdk.Attributes",
+    "Gdk.Window",
+]
