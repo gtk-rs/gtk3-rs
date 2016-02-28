@@ -1,4 +1,4 @@
-// Copyright 2015, The Gtk-rs Project Developers.
+// Copyright 2015-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
@@ -14,6 +14,12 @@ use ffi::enums::{
 
 #[derive(Debug)]
 pub struct Surface(*mut ffi::cairo_surface_t);
+
+impl Surface {
+    pub fn status(&self) -> Status {
+        unsafe { ffi::cairo_surface_status(self.to_glib_none().0) }
+    }
+}
 
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
     type Storage = &'a Surface;

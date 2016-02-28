@@ -1,4 +1,4 @@
-// Copyright 2013-2015, The Gtk-rs Project Developers.
+// Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-use libc::{c_void, c_int, c_uint, c_char, c_double, c_ulong};
+use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 
 pub mod enums;
 
@@ -158,6 +158,8 @@ impl cairo_bool_t{
 }
 
 pub type cairo_destroy_func_t = Option<unsafe extern fn (*mut c_void)>;
+pub type cairo_read_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> Status>;
+pub type cairo_write_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> Status>;
 
 extern "C" {
     //CAIRO CONTEXT
@@ -440,6 +442,7 @@ extern "C" {
     pub fn cairo_surface_destroy(surface: *mut cairo_surface_t);
     pub fn cairo_surface_flush(surface: *mut cairo_surface_t);
     pub fn cairo_surface_finish(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_status(surface: *mut cairo_surface_t) -> Status;
     pub fn cairo_surface_get_type(surface: *mut cairo_surface_t) -> SurfaceType;
     pub fn cairo_surface_reference(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
     pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t) -> *mut c_void;
@@ -453,4 +456,8 @@ extern "C" {
     pub fn cairo_image_surface_get_height(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_stride(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_width(surface: *mut cairo_surface_t) -> c_int;
+    #[cfg(feature = "png")]
+    pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
+    #[cfg(feature = "png")]
+    pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
 }

@@ -18,6 +18,7 @@ name = "cairo"
 
 [features]
 "1.12" = ["cairo-sys-rs/1.12"]
+"png" = [ "cairo-sys-rs/png" ]
 
 [dependencies.cairo-sys-rs]
 path = "./cairo-sys-rs"
