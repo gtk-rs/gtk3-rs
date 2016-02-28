@@ -8,22 +8,21 @@ extern crate glib;
 extern crate c_vec;
 
 pub use ffi::enums;
-
 pub use ffi::cairo_rectangle_t as Rectangle;
 pub use ffi::cairo_rectangle_int_t as RectangleInt;
 
-pub use self::context::{
+pub use context::{
     Context,
     RectangleVec,
 };
 
-pub use self::paths::{
+pub use paths::{
     Path,
     PathSegments,
     PathSegment
 };
 
-pub use self::enums::{
+pub use enums::{
     Status,
     Antialias,
     FillRule,
@@ -35,7 +34,7 @@ pub use self::enums::{
     SurfaceType,
 };
 
-pub use self::patterns::{
+pub use patterns::{
     //Traits
     Pattern,
     Gradient,
@@ -48,12 +47,12 @@ pub use self::patterns::{
 };
 
 #[cfg(feature = "1.12")]
-pub use self::patterns::{
+pub use patterns::{
     Mesh,
     MeshCorner,
 };
 
-pub use self::fonts::{
+pub use fonts::{
     FontFace,
     ScaledFont,
     FontOptions,
@@ -64,7 +63,7 @@ pub use self::fonts::{
     TextCluster,
 };
 
-pub use self::matrices::{
+pub use matrices::{
     Matrix,
     MatrixTrait,
 };
