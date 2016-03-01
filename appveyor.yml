@@ -22,6 +22,6 @@ build_script:
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - cargo build
-  - cargo build --features gtk_3_18
+  - cargo build --features "cairo-rs/png gtk_3_18"
 
 test: false
