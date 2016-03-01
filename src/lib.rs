@@ -34,6 +34,8 @@ pub use enums::{
     SurfaceType,
 };
 
+pub use error::IoError;
+
 pub use patterns::{
     //Traits
     Pattern,
