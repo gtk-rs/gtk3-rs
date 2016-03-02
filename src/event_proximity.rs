@@ -9,3 +9,13 @@ pub struct EventProximity(::Event);
 
 event_wrapper!(EventProximity, GdkEventProximity);
 event_subtype!(EventProximity, ProximityIn | ProximityOut);
+
+impl EventProximity {
+    pub fn get_time(&self) -> u32 {
+        self.as_ref().time
+    }
+
+    pub fn get_device(&self) -> Option<::Device> {
+        unsafe { from_glib_none(self.as_ref().device) }
+    }
+}
