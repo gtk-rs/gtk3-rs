@@ -9,6 +9,7 @@ fn manage_docs () {
     const IGNORES: &'static [&'static str] = &[
         "event.rs",
         "lib.rs",
+        "prelude.rs",
         "rt.rs",
     ];
     lgpl_docs::purge(PATH, IGNORES);
