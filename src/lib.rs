@@ -109,6 +109,7 @@ pub mod object;
 mod app_info;
 pub mod error;
 mod file_error;
+pub mod prelude;
 pub mod signal;
 pub mod source;
 mod time_val;
