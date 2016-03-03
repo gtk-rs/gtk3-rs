@@ -11,6 +11,7 @@ mod animation;
 mod format;
 mod loader;
 mod pixbuf;
+pub mod prelude;
 
 pub use self::animation::{
     PixbufAnimation,
