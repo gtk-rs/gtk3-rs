@@ -48,6 +48,7 @@
 //! ```
 
 use std::char;
+use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
 #[cfg(unix)]
@@ -210,6 +211,19 @@ impl ToGlib for Option<char> {
     #[inline]
     fn to_glib(&self) -> u32 {
         self.as_ref().map(|&c| c as u32).unwrap_or(0)
+    }
+}
+
+impl ToGlib for Ordering {
+    type GlibType = i32;
+
+    #[inline]
+    fn to_glib(&self) -> i32 {
+        match *self {
+            Ordering::Less => -1,
+            Ordering::Equal => 0,
+            Ordering::Greater => 1,
+        }
     }
 }
 
@@ -641,6 +655,19 @@ impl FromGlib<u32> for char {
     #[inline]
     fn from_glib(val: u32) -> char {
         char::from_u32(val).expect("Valid Unicode character expected")
+    }
+}
+
+impl FromGlib<i32> for Ordering {
+    #[inline]
+    fn from_glib(val: i32) -> Ordering {
+        if val < 0 {
+            Ordering::Less
+        } else if val > 0 {
+            Ordering::Greater
+        } else {
+            Ordering::Equal
+        }
     }
 }
 
