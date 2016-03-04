@@ -7,6 +7,7 @@
 use libc::c_void;
 
 use gobject_ffi::{self, GCallback};
+use source::CallbackGuard;
 use translate::ToGlibPtr;
 
 pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
@@ -19,6 +20,7 @@ pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, tr
 }
 
 unsafe extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
+    let _guard = CallbackGuard::new();
     // destroy
     Box::<Box<Fn()>>::from_raw(ptr as *mut _);
 }
