@@ -5,6 +5,7 @@ use gtk::prelude::*;
 use std::cell::RefCell;
 use std::sync::mpsc::{channel, Receiver};
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     if gtk::init().is_err() {
@@ -38,7 +39,7 @@ fn main() {
     thread::spawn(move|| {
         for i in 1..100 {
             // do long work
-            thread::sleep_ms(50);
+            thread::sleep(Duration::from_millis(50));
             // send result to channel
             tx.send(format!("#{} Text from another thread.", i)).unwrap();
             // receive will be run on the main thread

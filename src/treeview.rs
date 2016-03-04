@@ -4,9 +4,10 @@
 
 extern crate glib;
 extern crate gtk;
-extern crate gdk;
+extern crate gdk_pixbuf;
 
 use gtk::prelude::*;
+use gdk_pixbuf::Pixbuf;
 
 fn append_text_column(tree: &gtk::TreeView) {
     let column = gtk::TreeViewColumn::new();
@@ -82,7 +83,7 @@ fn main() {
 
     // right pane
     let right_tree = gtk::TreeView::new();
-    let right_column_types = [gdk::pixbuf::Pixbuf::static_type(), String::static_type()];
+    let right_column_types = [Pixbuf::static_type(), String::static_type()];
     let right_store = gtk::TreeStore::new(&right_column_types);
     let renderer = gtk::CellRendererPixbuf::new();
     let col = gtk::TreeViewColumn::new();
@@ -95,7 +96,7 @@ fn main() {
     let renderer2 = gtk::CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
-    let image = match gdk::pixbuf::Pixbuf::new_from_file("./resources/eye.png") {
+    let image = match Pixbuf::new_from_file("./resources/eye.png") {
         Ok(i) => i,
         Err(e) => {
             println!("Error while creating image: {}", e);
