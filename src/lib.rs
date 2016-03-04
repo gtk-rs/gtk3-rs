@@ -74,19 +74,25 @@ extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate gio_sys as gio_ffi;
 
-pub use self::app_info::{
+pub use app_info::{
     AppInfo,
     AppInfoExt,
 };
-pub use self::error::Error;
+pub use error::Error;
 pub use file_error::FileError;
-pub use self::object::{
+pub use object::{
     Cast,
     IsA,
     Object,
     ObjectExt,
 };
-pub use self::source::{Continue, idle_add, timeout_add, timeout_add_seconds};
+pub use source::{
+    CallbackGuard,
+    Continue,
+    idle_add,
+    timeout_add,
+    timeout_add_seconds,
+};
 pub use types::{
     StaticType,
     Type,
@@ -115,7 +121,7 @@ pub mod error;
 mod file_error;
 pub mod prelude;
 pub mod signal;
-pub mod source;
+mod source;
 mod time_val;
 pub mod translate;
 pub mod types;

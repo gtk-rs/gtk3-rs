@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Basic bits of `GSource` bindings.
-
 use std::cell::RefCell;
 use std::mem::transmute;
 use std::process;
