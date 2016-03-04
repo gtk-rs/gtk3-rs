@@ -31,7 +31,13 @@ impl ToGlib for Continue {
 
 /// Unwinding propagation guard. Aborts the process if destroyed while
 /// panicking.
-pub struct CallbackGuard;
+pub struct CallbackGuard(());
+
+impl CallbackGuard {
+    pub fn new() -> CallbackGuard {
+        CallbackGuard(())
+    }
+}
 
 impl Drop for CallbackGuard {
     fn drop(&mut self) {
@@ -42,12 +48,12 @@ impl Drop for CallbackGuard {
 }
 
 extern "C" fn trampoline(func: &RefCell<Box<FnMut() -> Continue + 'static>>) -> gboolean {
-    let _guard = CallbackGuard;
+    let _guard = CallbackGuard::new();
     (&mut *func.borrow_mut())().to_glib()
 }
 
 unsafe extern "C" fn destroy_closure(ptr: gpointer) {
-    let _guard = CallbackGuard;
+    let _guard = CallbackGuard::new();
     Box::<RefCell<Box<FnMut() -> Continue + 'static>>>::from_raw(ptr as *mut _);
 }
 
