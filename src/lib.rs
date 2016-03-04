@@ -9,8 +9,6 @@ extern crate glib;
 extern crate cairo;
 extern crate libc;
 
-pub use gdk_pixbuf as pixbuf;
-
 #[macro_use]
 mod rt;
 #[macro_use]

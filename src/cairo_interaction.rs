@@ -5,7 +5,7 @@
 use std::mem;
 use glib::translate::*;
 use ffi::{self, GdkRGBA};
-use pixbuf::Pixbuf;
+use gdk_pixbuf::Pixbuf;
 use cairo::{Context, RectangleInt};
 use super::Window;
 

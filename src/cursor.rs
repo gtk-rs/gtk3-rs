@@ -4,7 +4,7 @@
 
 use glib::translate::*;
 use display::Display;
-use pixbuf::Pixbuf;
+use gdk_pixbuf::Pixbuf;
 use ffi;
 
 pub type Type = ffi::GdkCursorType;
