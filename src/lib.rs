@@ -2,11 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-extern crate pango_sys as pango_ffi;
+extern crate pango_sys as ffi;
 extern crate glib;
 extern crate libc;
-
-pub use pango_ffi as ffi;
 
 pub use self::widgets::{
     Item,
