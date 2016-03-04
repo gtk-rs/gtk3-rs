@@ -13,9 +13,6 @@ readme = "README.md"
 
 keywords = ["pango", "gtk", "gnome"]
 
-[lib]
-name = "pango"
-
 [features]
 "1.31" = ["pango-sys/1.31"]
 "1.32" = ["1.31", "pango-sys/1.32"]
