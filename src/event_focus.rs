@@ -9,3 +9,7 @@ pub struct EventFocus(::Event);
 
 event_wrapper!(EventFocus, GdkEventFocus);
 event_subtype!(EventFocus, FocusChange);
+
+impl EventFocus {
+    // TODO: add getter for _in
+}

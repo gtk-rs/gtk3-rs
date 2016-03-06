@@ -9,3 +9,31 @@ pub struct EventCrossing(::Event);
 
 event_wrapper!(EventCrossing, GdkEventCrossing);
 event_subtype!(EventCrossing, EnterNotify | LeaveNotify);
+
+impl EventCrossing {
+    pub fn get_position(&self) -> (f64, f64) {
+        let x = self.as_ref().x;
+        let y = self.as_ref().y;
+        (x, y)
+    }
+
+    pub fn get_subwindow(&self) -> Option<::Window> {
+        unsafe { from_glib_none(self.as_ref().subwindow) }
+    }
+
+    pub fn get_mode(&self) -> ::CrossingMode {
+        self.as_ref().mode
+    }
+
+    pub fn get_detail(&self) -> ::NotifyType {
+        self.as_ref().detail
+    }
+
+    pub fn get_state(&self) -> ::ModifierType {
+        self.as_ref().state
+    }
+
+    pub fn get_time(&self) -> u32 {
+        self.as_ref().time
+    }
+}

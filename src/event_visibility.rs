@@ -9,3 +9,9 @@ pub struct EventVisibility(::Event);
 
 event_wrapper!(EventVisibility, GdkEventVisibility);
 event_subtype!(EventVisibility, VisibilityNotify);
+
+impl EventVisibility {
+    pub fn get_state(&self) -> ::VisibilityState {
+        self.as_ref().state
+    }
+}

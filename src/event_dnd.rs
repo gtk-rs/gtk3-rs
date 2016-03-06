@@ -9,3 +9,13 @@ pub struct EventDND(::Event);
 
 event_wrapper!(EventDND, GdkEventDND);
 event_subtype!(EventDND, DragEnter | DragLeave | DragMotion | DragStatus | DropStart | DropFinished);
+
+impl EventDND {
+    pub fn get_context(&self) -> Option<::DragContext> {
+        unsafe { from_glib_none(self.as_ref().context) }
+    }
+
+    pub fn get_time(&self) -> u32 {
+        self.as_ref().time
+    }
+}
