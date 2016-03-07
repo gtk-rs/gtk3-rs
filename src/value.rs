@@ -362,12 +362,12 @@ pub trait ToValue {
     fn to_value_type(&self) -> Type;
 }
 
-impl<'a, T: ?Sized + SetValueOptional> ToValue for Option<&'a T> {
+impl<T: SetValueOptional> ToValue for Option<T> {
     fn to_value(&self) -> Value {
         unsafe {
             let mut ret = Value::uninitialized();
             gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
-            T::set_value_optional(&mut ret, self.clone());
+            T::set_value_optional(&mut ret, self.as_ref());
             ret
         }
     }
@@ -448,15 +448,15 @@ impl SetValueOptional for str {
     }
 }
 
-impl<'a> SetValue for &'a str {
+impl<'a, T: ?Sized + SetValue> SetValue for &'a T {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+        SetValue::set_value(value, *this)
     }
 }
 
-impl<'a> SetValueOptional for &'a str {
+impl<'a, T: ?Sized + SetValueOptional> SetValueOptional for &'a T {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
+        SetValueOptional::set_value_optional(value, this.map(|v| *v))
     }
 }
 
@@ -487,12 +487,6 @@ impl<T: IsA<Object>> SetValue for T {
 
 impl<T: IsA<Object>> SetValueOptional for T {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
-    }
-}
-
-impl<'a, T: IsA<Object>> SetValue for &'a T {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
