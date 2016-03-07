@@ -107,6 +107,15 @@ pub use time_val::{
     get_current_time,
 };
 
+pub use gio_ffi::GApplicationFlags as ApplicationFlags;
+pub use gio_ffi::G_APPLICATION_FLAGS_NONE as APPLICATION_FLAGS_NONE;
+pub use gio_ffi::G_APPLICATION_IS_SERVICE as APPLICATION_IS_SERVICE;
+pub use gio_ffi::G_APPLICATION_IS_LAUNCHER as APPLICATION_IS_LAUNCHER;
+pub use gio_ffi::G_APPLICATION_HANDLES_OPEN as APPLICATION_HANDLES_OPEN;
+pub use gio_ffi::G_APPLICATION_HANDLES_COMMAND_LINE as APPLICATION_HANDLES_COMMAND_LINE;
+pub use gio_ffi::G_APPLICATION_SEND_ENVIRONMENT as APPLICATION_SEND_ENVIRONMENT;
+pub use gio_ffi::G_APPLICATION_NON_UNIQUE as APPLICATION_NON_UNIQUE;
+
 #[macro_use]
 pub mod wrapper;
 #[macro_use]
