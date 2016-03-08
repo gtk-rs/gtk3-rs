@@ -44,14 +44,6 @@ fn main() {
     left_tree.set_headers_visible(false);
     append_text_column(&left_tree);
 
-    // print out when a row is selected
-
-    let left_selection = left_tree.get_selection().unwrap();
-    left_selection.connect_changed(|tree_selection| {
-        let (left_model, iter) = tree_selection.get_selected().unwrap();
-        println!("selected row {}", left_model.get_path(&iter));
-    });
-
     for _ in 0..10 {
         left_store.insert_with_values(None, &[0], &[&"I'm in a list"]);
     }
@@ -111,6 +103,20 @@ fn main() {
         right_store.insert_with_values(None, None, &[0, 1],
                                        &[&image, &"I'm a child node with an image"]);
     }
+
+    // selection and path manipulation
+
+    let left_selection = left_tree.get_selection();
+    let right_tree1 = right_tree.clone();
+    left_selection.connect_changed(move |tree_selection| {
+        let (left_model, iter) = tree_selection.get_selected().unwrap();
+        let mut path = left_model.get_path(&iter);
+        // get the top-level element path
+        while path.get_depth() > 1 {
+            path.up();
+        }
+        right_tree1.get_selection().select_path(&path);
+    });
 
     // display the panes
 
