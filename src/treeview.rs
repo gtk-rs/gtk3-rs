@@ -7,11 +7,15 @@ extern crate gtk;
 extern crate gdk_pixbuf;
 
 use gtk::prelude::*;
+use gtk::{
+    ButtonsType, CellRendererPixbuf, CellRendererText, MessageDialog, MessageType, Orientation,
+    TreeStore, TreeView, TreeViewColumn, Window, WindowPosition, WindowType, DIALOG_MODAL
+};
 use gdk_pixbuf::Pixbuf;
 
-fn append_text_column(tree: &gtk::TreeView) {
-    let column = gtk::TreeViewColumn::new();
-    let cell = gtk::CellRendererText::new();
+fn append_text_column(tree: &TreeView) {
+    let column = TreeViewColumn::new();
+    let cell = CellRendererText::new();
 
     column.pack_start(&cell, true);
     column.add_attribute(&cell, "text", 0);
@@ -24,10 +28,10 @@ fn main() {
         return;
     }
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+    let window = Window::new(WindowType::Toplevel);
 
     window.set_title("TreeView Sample");
-    window.set_position(gtk::WindowPosition::Center);
+    window.set_position(WindowPosition::Center);
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
@@ -36,8 +40,8 @@ fn main() {
 
     // left pane
 
-    let left_tree = gtk::TreeView::new();
-    let left_store = gtk::TreeStore::new(&[String::static_type()]);
+    let left_tree = TreeView::new();
+    let left_store = TreeStore::new(&[String::static_type()]);
 
     left_tree.set_model(Some(&left_store));
     left_tree.set_headers_visible(false);
@@ -55,18 +59,18 @@ fn main() {
     }
 
     // right pane
-    let right_tree = gtk::TreeView::new();
+    let right_tree = TreeView::new();
     let right_column_types = [Pixbuf::static_type(), String::static_type()];
-    let right_store = gtk::TreeStore::new(&right_column_types);
-    let renderer = gtk::CellRendererPixbuf::new();
-    let col = gtk::TreeViewColumn::new();
+    let right_store = TreeStore::new(&right_column_types);
+    let renderer = CellRendererPixbuf::new();
+    let col = TreeViewColumn::new();
 
     col.set_title("Picture");
     col.pack_start(&renderer, false);
 
     col.add_attribute(&renderer, "pixbuf", 0);
 
-    let renderer2 = gtk::CellRendererText::new();
+    let renderer2 = CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
     let image = Pixbuf::new_from_file("./resources/eye.png").or_else(|err| {
@@ -78,8 +82,8 @@ fn main() {
         let window = window.clone();
 
         gtk::idle_add(move || {
-            let dialog = gtk::MessageDialog::new(Some(&window), gtk::DIALOG_MODAL,
-                gtk::MessageType::Error, gtk::ButtonsType::Ok, &msg);
+            let dialog = MessageDialog::new(Some(&window), DIALOG_MODAL,
+                MessageType::Error, ButtonsType::Ok, &msg);
             dialog.run();
             dialog.destroy();
             Continue(false)
@@ -113,7 +117,7 @@ fn main() {
 
     // display the panes
 
-    let split_pane = gtk::Box::new(gtk::Orientation::Horizontal, 10);
+    let split_pane = gtk::Box::new(Orientation::Horizontal, 10);
 
     split_pane.set_size_request(-1, -1);
     split_pane.add(&left_tree);
