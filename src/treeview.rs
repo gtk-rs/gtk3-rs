@@ -84,16 +84,24 @@ fn main() {
     let renderer2 = gtk::CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
-    let image = match Pixbuf::new_from_file("./resources/eye.png") {
-        Ok(i) => i,
-        Err(e) => {
-            println!("Error while creating image: {}", e);
-            if e.kind() == Some(glib::FileError::Noent) {
-                println!("Relaunch this example from the same level as the `resources` folder");
-            }
-            return;
+    let image = Pixbuf::new_from_file("./resources/eye.png").or_else(|err| {
+        let mut msg = err.to_string();
+        if err.kind() == Some(glib::FileError::Noent) {
+            msg.push_str(&format!("\nRelaunch this example from the same level \
+                                  as the `resources` folder"));
         }
-    };
+        let window = window.clone();
+
+        gtk::idle_add(move || {
+            let dialog = gtk::MessageDialog::new(Some(&window), gtk::DIALOG_MODAL,
+                gtk::MessageType::Error, gtk::ButtonsType::Ok, &msg);
+            dialog.run();
+            dialog.destroy();
+            Continue(false)
+        });
+
+        Err(())
+    }).ok();
 
     right_tree.append_column(&col);
     right_tree.set_model(Some(&right_store));
