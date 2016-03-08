@@ -37,35 +37,20 @@ fn main() {
     // left pane
 
     let left_tree = gtk::TreeView::new();
-    let column_types = [String::static_type()];
-    let left_store = gtk::ListStore::new(&column_types);
+    let left_store = gtk::TreeStore::new(&[String::static_type()]);
 
     left_tree.set_model(Some(&left_store));
     left_tree.set_headers_visible(false);
     append_text_column(&left_tree);
 
-    for _ in 0..10 {
-        left_store.insert_with_values(None, &[0], &[&"I'm in a list"]);
-    }
-
-    // middle pane
-
-    let middle_tree = gtk::TreeView::new();
-    let column_types = [String::static_type()];
-    let middle_store = gtk::TreeStore::new(&column_types);
-
-    middle_tree.set_model(Some(&middle_store));
-    middle_tree.set_headers_visible(false);
-    append_text_column(&middle_tree);
-
     for i in 0..10 {
         // insert_with_values takes two slices: column indices and ToValue
         // trait objects. ToValue is implemented for strings, numeric types,
         // bool and Object descendants
-        let iter = middle_store.insert_with_values(None, None, &[0], &[&format!("Hello {}", i)]);
+        let iter = left_store.insert_with_values(None, None, &[0], &[&format!("Hello {}", i)]);
 
         for _ in 0..i {
-            middle_store.insert_with_values(Some(&iter), None, &[0], &[&"I'm a child node"]);
+            left_store.insert_with_values(Some(&iter), None, &[0], &[&"I'm a child node"]);
         }
     }
 
@@ -132,7 +117,6 @@ fn main() {
 
     split_pane.set_size_request(-1, -1);
     split_pane.add(&left_tree);
-    split_pane.add(&middle_tree);
     split_pane.add(&right_tree);
 
     window.add(&split_pane);
