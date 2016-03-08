@@ -53,12 +53,7 @@ fn main() {
     });
 
     for _ in 0..10 {
-        let iter = left_store.append();
-        left_store.set_value(&iter, 0, &"I'm in a list".to_value());
-
-        // select this row as a test
-        //
-        left_selection.select_path(&left_store.get_path(&iter));
+        left_store.insert_with_values(None, &[0], &[&"I'm in a list"]);
     }
 
     // middle pane
@@ -72,12 +67,13 @@ fn main() {
     append_text_column(&middle_tree);
 
     for i in 0..10 {
-        let iter = middle_store.append(None);
-        middle_store.set_value(&iter, 0, &format!("Hello {}", i).to_value());
+        // insert_with_values takes two slices: column indices and ToValue
+        // trait objects. ToValue is implemented for strings, numeric types,
+        // bool and Object descendants
+        let iter = middle_store.insert_with_values(None, None, &[0], &[&format!("Hello {}", i)]);
 
         for _ in 0..i {
-            let child_iter = middle_store.append(Some(&iter));
-            middle_store.set_value(&child_iter, 0, &"I'm a child node".to_value());
+            middle_store.insert_with_values(Some(&iter), None, &[0], &[&"I'm a child node"]);
         }
     }
 
@@ -112,8 +108,8 @@ fn main() {
     right_tree.set_headers_visible(true);
 
     for _ in 0..10 {
-        let iter = right_store.append(None);
-        right_store.set(&iter, &[0, 1], &[&image, &"I'm a child node with an image"]);
+        right_store.insert_with_values(None, None, &[0, 1],
+                                       &[&image, &"I'm a child node with an image"]);
     }
 
     // display the panes
