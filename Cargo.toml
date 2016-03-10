@@ -51,3 +51,6 @@ name = "treeview"
 
 [[bin]]
 name = "multithreading_context"
+
+[[bin]]
+name = "simple_treeview"
