@@ -26,7 +26,13 @@ version = "0.3.0"
 name = "atk_sys"
 
 [package]
+authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
+description = "FFI bindings to libatk-1"
+homepage = "http://gtk-rs.org/"
+keywords = ["atk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
 links = "atk"
 name = "atk-sys"
+repository = "https://github.com/gtk-rs/sys"
 version = "0.3.0"

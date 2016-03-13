@@ -21,7 +21,13 @@ version = "0.3.0"
 name = "gobject_sys"
 
 [package]
+authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
+description = "FFI bindings to libgobject-2.0"
+homepage = "http://gtk-rs.org/"
+keywords = ["gobject", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
 links = "gobject"
 name = "gobject-sys"
+repository = "https://github.com/gtk-rs/sys"
 version = "0.3.0"
