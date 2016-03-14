@@ -6,11 +6,9 @@ authors = ["The Gtk-rs Project Developers"]
 description = "Rust bindings for the GLib library"
 repository = "https://github.com/gtk-rs/glib"
 license = "MIT"
-readme = "README.md"
-homepage = "https://github.com/gtk-rs/glib"
-documentation = "https://github.com/gtk-rs/glib"
-
-keywords = ["glib", "gtk", "gnome", "GUI"]
+homepage = "http://gtk-rs.org/"
+documentation = "http://gtk-rs.org/docs/glib/"
+keywords = ["glib", "gtk-rs", "gnome", "GUI"]
 
 [lib]
 name = "glib"
