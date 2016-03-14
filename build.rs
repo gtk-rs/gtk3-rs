@@ -9,7 +9,7 @@ fn manage_docs () {
     const IGNORES: &'static [&'static str] = &[];
     lgpl_docs::purge(PATH, IGNORES);
     if cfg!(feature = "embed-lgpl-docs") {
-        lgpl_docs::embed(lgpl_docs::CAIRO_DOCS, PATH, IGNORES);
+        lgpl_docs::embed(lgpl_docs::Library::Cairo, PATH, IGNORES);
     }
 }
 

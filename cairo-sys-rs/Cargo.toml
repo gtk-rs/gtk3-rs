@@ -5,13 +5,12 @@ authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 links = "cairo"
 
-description = "FFI bindings to Cairo"
+description = "FFI bindings to libcairo"
 repository = "https://github.com/gtk-rs/cairo"
 license = "MIT"
-homepage = "https://github.com/gtk-rs/cairo"
-documentation = "https://github.com/gtk-rs/cairo"
+homepage = "http://gtk-rs.org/"
 
-keywords = ["cairo", "ffi", "gtk", "gnome"]
+keywords = ["cairo", "ffi", "gtk-rs", "gnome"]
 
 [lib]
 name = "cairo_sys"
