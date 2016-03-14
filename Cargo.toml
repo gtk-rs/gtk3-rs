@@ -4,15 +4,13 @@ version = "0.3.0"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
-description = "Rust bindings for the GDK library"
+description = "Rust bindings for the GDK 3 library"
 repository = "https://github.com/gtk-rs/gdk"
 license = "MIT"
-homepage = "https://github.com/gtk-rs/gdk"
-documentation = "https://github.com/gtk-rs/gdk"
+homepage = "http://gtk-rs.org/"
+documentation = "http://gtk-rs.org/docs/gdk/"
 
-readme = "README.md"
-
-keywords = ["gdk", "gtk", "gnome", "GUI"]
+keywords = ["gdk", "gtk", "gtk-rs", "gnome", "GUI"]
 
 [lib]
 name = "gdk"
