@@ -1,11 +1,11 @@
 extern crate gtk;
 extern crate glib;
 
-use gtk::traits::*;
-use gtk::signal::Inhibit;
+use gtk::prelude::*;
 use std::cell::RefCell;
 use std::sync::mpsc::{channel, Receiver};
 use std::thread;
+use std::time::Duration;
 
 fn main() {
     if gtk::init().is_err() {
@@ -13,11 +13,11 @@ fn main() {
         return;
     }
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
+    let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     window.set_title("Multithreading GTK+ Program");
     window.set_border_width(10);
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(600, 400);
 
     window.connect_delete_event(|_, _| {
@@ -25,8 +25,8 @@ fn main() {
         Inhibit(false)
     });
 
-    let text_view = gtk::TextView::new().unwrap();
-    let scroll = gtk::ScrolledWindow::new(None, None).unwrap();
+    let text_view = gtk::TextView::new();
+    let scroll = gtk::ScrolledWindow::new(None, None);
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scroll.add(&text_view);
 
@@ -39,7 +39,7 @@ fn main() {
     thread::spawn(move|| {
         for i in 1..100 {
             // do long work
-            thread::sleep_ms(50);
+            thread::sleep(Duration::from_millis(50));
             // send result to channel
             tx.send(format!("#{} Text from another thread.", i)).unwrap();
             // receive will be run on the main thread
