@@ -50,7 +50,13 @@ version = "0.3.0"
 name = "gtk_sys"
 
 [package]
+authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
+description = "FFI bindings to libgtk-3"
+homepage = "http://gtk-rs.org/"
+keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
 links = "gtk"
 name = "gtk-sys"
+repository = "https://github.com/gtk-rs/sys"
 version = "0.3.0"
