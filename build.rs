@@ -11,7 +11,7 @@ fn manage_docs () {
     ];
     lgpl_docs::purge(PATH, IGNORES);
     if cfg!(feature = "embed-lgpl-docs") {
-        lgpl_docs::embed(lgpl_docs::GDK_PIXBUF_DOCS, PATH, IGNORES);
+        lgpl_docs::embed(lgpl_docs::Library::GdkPixbuf, PATH, IGNORES);
     }
 }
 
