@@ -6,12 +6,10 @@ authors = ["The Gtk-rs Project Developers"]
 description = "Rust bindings for the Pango library"
 repository = "https://github.com/gtk-rs/pango"
 license = "MIT"
-homepage = "https://github.com/gtk-rs/pango"
-documentation = "https://github.com/gtk-rs/pango"
+homepage = "http://gtk-rs.org/"
+documentation = "http://gtk-rs.org/docs/pango/"
 
-readme = "README.md"
-
-keywords = ["pango", "gtk", "gnome"]
+keywords = ["pango", "gtk-rs", "gnome"]
 
 [features]
 "1.31" = ["pango-sys/1.31"]
