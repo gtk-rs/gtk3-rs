@@ -16,11 +16,11 @@ keywords = ["gdk-pixbuf", "gtk-rs", "gnome"]
 name = "gdk_pixbuf"
 
 [features]
-"2.28" = ["gdk-pixbuf-sys/2.28"]
-"2.30" = ["2.28", "gdk-pixbuf-sys/2.30"]
-"2.32" = ["2.30", "gdk-pixbuf-sys/2.32"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+v2_28 = ["gdk-pixbuf-sys/v2_28"]
+v2_30 = ["v2_28", "gdk-pixbuf-sys/v2_30"]
+v2_32 = ["v2_30", "gdk-pixbuf-sys/v2_32"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"
