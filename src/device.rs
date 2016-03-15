@@ -26,14 +26,14 @@ impl Device {
         }
     }
 
-    #[cfg(feature = "3.16")]
+    #[cfg(feature = "v3_16")]
     pub fn get_vendor_id(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0))
         }
     }
 
-    #[cfg(feature = "3.16")]
+    #[cfg(feature = "v3_16")]
     pub fn get_product_id(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0))
