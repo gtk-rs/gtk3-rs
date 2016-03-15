@@ -16,16 +16,20 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "atk";
     let shared_libs = ["atk-1.0"];
-    let version = if cfg!(feature = "2.12") {
+    let version = if cfg!(feature = "v2_14") {
+        "2.14"
+    } else if cfg!(feature = "v2_12") {
         "2.12"
-    } else if cfg!(feature = "2.10") {
+    } else if cfg!(feature = "v2_10") {
         "2.10"
-    } else if cfg!(feature = "2.9.4") {
+    } else if cfg!(feature = "v2_9_4") {
         "2.9.4"
-    } else if cfg!(feature = "2.9.3") {
+    } else if cfg!(feature = "v2_9_3") {
         "2.9.3"
-    } else if cfg!(feature = "2.8") {
+    } else if cfg!(feature = "v2_8") {
         "2.8"
+    } else if cfg!(feature = "v2_7_90") {
+        "2.7.90"
     } else {
         "2.4"
     };

@@ -16,13 +16,15 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "pango";
     let shared_libs = ["pango-1.0"];
-    let version = if cfg!(feature = "1.34") {
+    let version = if cfg!(feature = "v1_36_7") {
+        "1.36.7"
+    } else if cfg!(feature = "v1_34") {
         "1.34"
-    } else if cfg!(feature = "1.32.4") {
+    } else if cfg!(feature = "v1_32_4") {
         "1.32.4"
-    } else if cfg!(feature = "1.32") {
+    } else if cfg!(feature = "v1_32") {
         "1.32"
-    } else if cfg!(feature = "1.31") {
+    } else if cfg!(feature = "v1_31") {
         "1.31"
     } else {
         "1.30"

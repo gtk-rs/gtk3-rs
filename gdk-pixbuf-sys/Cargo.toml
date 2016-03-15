@@ -19,9 +19,9 @@ path = "../gobject-sys"
 version = "0.3.0"
 
 [features]
-"2.28" = []
-"2.30" = ["2.28"]
-"2.32" = ["2.30"]
+v2_28 = []
+v2_30 = ["v2_28"]
+v2_32 = ["v2_30"]
 
 [lib]
 name = "gdk_pixbuf_sys"
