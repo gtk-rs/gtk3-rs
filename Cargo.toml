@@ -10,7 +10,7 @@ gtk = "^0"
 cairo-rs = "^0"
 
 [features]
-gtk_3_10 = ["gtk/3.10"]
+gtk_3_10 = ["gtk/v3_10"]
 
 [[bin]]
 name = "basic"
