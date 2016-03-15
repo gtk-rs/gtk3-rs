@@ -16,9 +16,9 @@ keywords = ["cairo", "ffi", "gtk-rs", "gnome"]
 name = "cairo_sys"
 
 [features]
-"1.12" = []
-"1.14" = ["1.12"]
-"png" = []
+png = []
+v1_12 = []
+v1_14 = ["v1_12"]
 
 [dependencies]
 libc = "0.2"
