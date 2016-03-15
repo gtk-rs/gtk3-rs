@@ -16,10 +16,10 @@ keywords = ["cairo", "gtk-rs", "gnome", "GUI"]
 name = "cairo"
 
 [features]
-"1.12" = ["cairo-sys-rs/1.12"]
-png = ["cairo-sys-rs/png"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+png = ["cairo-sys-rs/png"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+v1_12 = ["cairo-sys-rs/v1_12"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"

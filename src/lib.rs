@@ -48,7 +48,7 @@ pub use patterns::{
     SurfacePattern,
 };
 
-#[cfg(feature = "1.12")]
+#[cfg(feature = "v1_12")]
 pub use patterns::{
     Mesh,
     MeshCorner,
