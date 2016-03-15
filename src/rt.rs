@@ -99,7 +99,7 @@ pub fn notify_startup_complete_with_id(startup_id: &str) {
     }
 }
 
-#[cfg(feature = "3.10")]
+#[cfg(feature = "v3_10")]
 pub fn set_allowed_backends(backends: &str) {
     assert_not_initialized!();
     unsafe {

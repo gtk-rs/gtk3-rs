@@ -44,11 +44,11 @@ mod event_setting;
 mod event_touch;
 mod event_visibility;
 mod event_window_state;
-#[cfg(feature = "3.8")]
+#[cfg(feature = "v3_8")]
 mod frame_clock;
-#[cfg(feature = "3.8")]
+#[cfg(feature = "v3_8")]
 mod frame_timings;
-#[cfg(feature = "3.16")]
+#[cfg(feature = "v3_16")]
 mod gl_context;
 mod keys;
 mod rectangle;
@@ -78,7 +78,7 @@ pub use self::rt::{
     error_trap_pop,
     error_trap_pop_ignored
 };
-#[cfg(feature = "3.10")]
+#[cfg(feature = "v3_10")]
 pub use self::rt::set_allowed_backends;
 
 pub use app_launch_context::AppLaunchContext;
@@ -109,14 +109,14 @@ pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
-#[cfg(feature = "3.8")]
+#[cfg(feature = "v3_8")]
 pub use frame_clock::FrameClock;
-#[cfg(feature = "3.8")]
+#[cfg(feature = "v3_8")]
 pub use frame_timings::FrameTimings;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
-#[cfg(feature = "3.16")]
+#[cfg(feature = "v3_16")]
 pub use gl_context::GLContext;
 
 pub use ffi::GdkAxisUse as AxisUse;
