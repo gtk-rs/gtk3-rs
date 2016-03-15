@@ -1,5 +1,6 @@
 language: rust
 rust:
+- nightly
 - beta
 - stable
 addons:
@@ -8,6 +9,6 @@ addons:
     - libgtk-3-dev
 env:
   - GTK=3.4
-  - GTK=latest
+  - GTK=3.18
 script:
   - ./build.sh

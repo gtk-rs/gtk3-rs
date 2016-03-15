@@ -4,13 +4,18 @@
 
 extern crate glib;
 extern crate gtk;
+extern crate gdk_pixbuf;
 
-use gtk::traits::*;
-use gtk::signal::Inhibit;
+use gtk::prelude::*;
+use gtk::{
+    ButtonsType, CellRendererPixbuf, CellRendererText, MessageDialog, MessageType, Orientation,
+    TreeStore, TreeView, TreeViewColumn, Window, WindowPosition, WindowType, DIALOG_MODAL
+};
+use gdk_pixbuf::Pixbuf;
 
-fn append_text_column(tree: &gtk::TreeView) {
-    let column = gtk::TreeViewColumn::new().unwrap();
-    let cell = gtk::CellRendererText::new().unwrap();
+fn append_text_column(tree: &TreeView) {
+    let column = TreeViewColumn::new();
+    let cell = CellRendererText::new();
 
     column.pack_start(&cell, true);
     column.add_attribute(&cell, "text", 0);
@@ -23,83 +28,96 @@ fn main() {
         return;
     }
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel).unwrap();
+    let window = Window::new(WindowType::Toplevel);
 
     window.set_title("TreeView Sample");
-    window.set_window_position(gtk::WindowPosition::Center);
+    window.set_position(WindowPosition::Center);
 
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
         Inhibit(false)
     });
 
-    // test Value
-
-    let hello = String::from("Hello world !");
-    let value = unsafe {
-        let mut value = glib::Value::new();
-        value.init(glib::Type::String);
-        value.set(&hello);
-        println!("gvalue.get example : {}", value.get::<String>());
-        value
-    };
-
     // left pane
 
-    let left_tree = gtk::TreeView::new().unwrap();
-    let column_types = [glib::Type::String];
-    let left_store = gtk::ListStore::new(&column_types).unwrap();
-    let left_model = left_store.get_model().unwrap();
+    let left_tree = TreeView::new();
+    let left_store = TreeStore::new(&[String::static_type()]);
 
-    left_tree.set_model(&left_model);
+    left_tree.set_model(Some(&left_store));
     left_tree.set_headers_visible(false);
     append_text_column(&left_tree);
 
-    // print out when a row is selected
+    for i in 0..10 {
+        // insert_with_values takes two slices: column indices and ToValue
+        // trait objects. ToValue is implemented for strings, numeric types,
+        // bool and Object descendants
+        let iter = left_store.insert_with_values(None, None, &[0], &[&format!("Hello {}", i)]);
 
-    let left_selection = left_tree.get_selection().unwrap();
-    left_selection.connect_changed(|tree_selection| {
-        let (left_model, iter) = tree_selection.get_selected().unwrap();
-        if let Some(path) = left_model.get_path(&iter) {
-            println!("selected row {}", path.to_string().unwrap());
-        }
-    });
-
-    for _ in 0..10 {
-        let iter = left_store.append();
-        left_store.set_string(&iter, 0, "I'm in a list");
-
-        // select this row as a test
-
-        if let Some(path) = left_model.get_path(&iter) {
-            left_selection.select_path(&path);
+        for _ in 0..i {
+            left_store.insert_with_values(Some(&iter), None, &[0], &[&"I'm a child node"]);
         }
     }
 
     // right pane
+    let right_tree = TreeView::new();
+    let right_column_types = [Pixbuf::static_type(), String::static_type()];
+    let right_store = TreeStore::new(&right_column_types);
+    let renderer = CellRendererPixbuf::new();
+    let col = TreeViewColumn::new();
 
-    let right_tree = gtk::TreeView::new().unwrap();
-    let column_types = [glib::Type::String];
-    let right_store = gtk::TreeStore::new(&column_types).unwrap();
-    let right_model = right_store.get_model().unwrap();
+    col.set_title("Picture");
+    col.pack_start(&renderer, false);
 
-    right_tree.set_model(&right_model);
-    right_tree.set_headers_visible(false);
-    append_text_column(&right_tree);
+    col.add_attribute(&renderer, "pixbuf", 0);
 
-    for i in 0..10 {
-        let iter = right_store.append(None);
-        right_store.set_value(&iter, 0, &value);
-
-        for _ in 0..i {
-            let child_iter = right_store.append(Some(&iter));
-            right_store.set_string(&child_iter, 0, "I'm a child node");
+    let renderer2 = CellRendererText::new();
+    col.pack_start(&renderer2, true);
+    col.add_attribute(&renderer2, "text", 1);
+    let image = Pixbuf::new_from_file("./resources/eye.png").or_else(|err| {
+        let mut msg = err.to_string();
+        if err.kind() == Some(glib::FileError::Noent) {
+            msg.push_str(&format!("\nRelaunch this example from the same level \
+                                  as the `resources` folder"));
         }
+        let window = window.clone();
+
+        gtk::idle_add(move || {
+            let dialog = MessageDialog::new(Some(&window), DIALOG_MODAL,
+                MessageType::Error, ButtonsType::Ok, &msg);
+            dialog.run();
+            dialog.destroy();
+            Continue(false)
+        });
+
+        Err(())
+    }).ok();
+
+    right_tree.append_column(&col);
+    right_tree.set_model(Some(&right_store));
+    right_tree.set_headers_visible(true);
+
+    for _ in 0..10 {
+        right_store.insert_with_values(None, None, &[0, 1],
+                                       &[&image, &"I'm a child node with an image"]);
     }
+
+    // selection and path manipulation
+
+    let left_selection = left_tree.get_selection();
+    let right_tree1 = right_tree.clone();
+    left_selection.connect_changed(move |tree_selection| {
+        let (left_model, iter) = tree_selection.get_selected().unwrap();
+        let mut path = left_model.get_path(&iter);
+        // get the top-level element path
+        while path.get_depth() > 1 {
+            path.up();
+        }
+        right_tree1.get_selection().select_path(&path);
+    });
 
     // display the panes
 
-    let split_pane = gtk::Box::new(gtk::Orientation::Horizontal, 10).unwrap();
+    let split_pane = gtk::Box::new(Orientation::Horizontal, 10);
 
     split_pane.set_size_request(-1, -1);
     split_pane.add(&left_tree);

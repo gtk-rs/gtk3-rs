@@ -4,15 +4,14 @@ version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
-libc = "0.1"
 glib = "^0"
 gdk = "^0"
+gdk-pixbuf = "^0"
 gtk = "^0"
 cairo-rs = "^0"
 
 [features]
-gtk_3_10 = []
-gtk_3_14 = ["gtk_3_10"]
+gtk_3_10 = ["gtk/v3_10"]
 
 [[bin]]
 name = "basic"
@@ -43,3 +42,6 @@ name = "treeview"
 
 [[bin]]
 name = "multithreading_context"
+
+[[bin]]
+name = "simple_treeview"

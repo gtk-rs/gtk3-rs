@@ -1,61 +1,23 @@
-platform:
-  - x86
-  - x64
 environment:
   matrix:
-    - RUST_VERSION: 1.4.0
-      GTK: gnome
-    - RUST_VERSION: 1.4.0
-      GTK: win64
-      FEATURES: gtk_3_14
-    #- RUST_VERSION: nightly
-      #GTK: gnome
-
-matrix:
-  #fast_finish: true
-  allow_failures:
-    - platform: x86
-      GTK: win64
+    - RUST: 1.6.0
+      BITS: 32
+    - RUST: 1.6.0
+      BITS: 64
 
 install:
-  - if "%PLATFORM%-%GTK%" == "x86-win64" ( exit 1 )
-  - if "%PLATFORM%" == "x86" SET RUST_PLATFORM=i686
-  - if "%PLATFORM%" == "x64" SET RUST_PLATFORM=x86_64
-  - ps: Start-FileDownload "https://static.rust-lang.org/dist/rust-$Env:RUST_VERSION-$Env:RUST_PLATFORM-pc-windows-gnu.exe" -FileName rust.exe
-  - cmd: rust.exe /VERYSILENT /NORESTART /COMPONENTS="rust,cargo" /DIR=C:\Rust
-  - ps: >-
-      if ($Env:PLATFORM -eq "x86") {
-        Start-FileDownload "http://libgd.blob.core.windows.net/mingw/i686-4.9.1-release-posix-dwarf-rt_v3-rev1.7z" -FileName mingw-w64.7z;
-        $Env:MINGW = "C:\mingw32"
-      }
-      else {
-        Start-FileDownload "http://libgd.blob.core.windows.net/mingw/mingw-w64-dgn-x86_64-20141001.7z" -FileName mingw-w64.7z;
-        $Env:MINGW = "C:\mingw64"
-      }
-  - ps: 7z x -oC:\ mingw-w64.7z | Out-Null;
-  - ps: >-
-      if (!(Test-Path -Path "C:\Deps\gtk")) {
-        if ($Env:GTK -eq "gnome") {
-          if ($Env:PLATFORM -eq "x86") {
-            Start-FileDownload "http://win32builder.gnome.org/gtk+-bundle_3.6.4-20130921_win32.zip" -FileName gtk.zip
-          }
-          else {
-            Start-FileDownload "http://win32builder.gnome.org/gtk+-bundle_3.6.4-20131201_win64.zip" -FileName gtk.zip
-          }
-        }
-        elseif ($Env:GTK -eq "win64" -and $Env:PLATFORM -eq "x64") {
-            Start-FileDownload "http://lvserver.ugent.be/gtk-win64/sdk/gtk2-gtk3-sdk-2.24.25-3.14.7-2015-01-27-ts-win64.zip" -FileName gtk.zip
-        }
-        7z x -oC:\Deps\gtk gtk.zip | Out-Null
-      }
-  - cmd: SET PATH=%MINGW%\bin;C:\Deps\gtk\bin;C:\Rust\bin;%PATH%
-
-cache:
-  C:\Deps
+  - IF "%BITS%" == "32" SET ARCH=i686
+  - IF "%BITS%" == "64" SET ARCH=x86_64
+  - SET RUST_URL=https://static.rust-lang.org/dist/rust-%RUST%-%ARCH%-pc-windows-gnu.exe
+  - SET PATH=C:\Rust\bin;C:\msys64\mingw%BITS%\bin;%PATH%;C:\msys64\usr\bin
+  - ps: Start-FileDownload $Env:RUST_URL -FileName rust-dist.exe
+  - rust-dist.exe /VERYSILENT /NORESTART /COMPONENTS="Rustc,Gcc,Cargo,Std" /DIR="C:\Rust"
+  - rustc -V
+  - cargo -V
+  - pacman --noconfirm -S mingw-w64-%ARCH%-gtk3
 
 build_script:
-  - rustc -V
-  - "echo Features: %FEATURES%"
-  - cargo build --features "%FEATURES%"
+  - cargo build
+  - cargo build --features gtk_3_10
 
 test: false
