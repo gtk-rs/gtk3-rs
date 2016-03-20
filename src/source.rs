@@ -45,8 +45,9 @@ impl Drop for CallbackGuard {
     }
 }
 
-extern "C" fn trampoline(func: &RefCell<Box<FnMut() -> Continue + 'static>>) -> gboolean {
+unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
     let _guard = CallbackGuard::new();
+    let func: &RefCell<Box<FnMut() -> Continue + 'static>> = transmute(func);
     (&mut *func.borrow_mut())().to_glib()
 }
 
@@ -70,7 +71,7 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
 pub fn idle_add<F>(func: F) -> u32
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, transmute(trampoline),
+        glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
             into_raw(func), Some(destroy_closure))
     }
 }
@@ -88,7 +89,7 @@ where F: FnMut() -> Continue + Send + 'static {
 pub fn timeout_add<F>(interval: u32, func: F) -> u32
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval, transmute(trampoline),
+        glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval, Some(trampoline),
             into_raw(func), Some(destroy_closure))
     }
 }
@@ -106,6 +107,6 @@ pub fn timeout_add_seconds<F>(interval: u32, func: F) -> u32
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
-            transmute(trampoline), into_raw(func), Some(destroy_closure))
+            Some(trampoline), into_raw(func), Some(destroy_closure))
     }
 }
