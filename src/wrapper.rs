@@ -124,20 +124,6 @@ macro_rules! glib_wrapper {
             @free $free_arg $free_expr);
     };
 
-    // Same as Shared, to be removed
-    (
-        $(#[$attr:meta])*
-        pub struct $name:ident(Refcounted<$ffi_name:path>);
-
-        match fn {
-            ref => |$ref_arg:ident| $ref_expr:expr,
-            unref => |$unref_arg:ident| $unref_expr:expr,
-        }
-    ) => {
-        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
-            @unref $unref_arg $unref_expr);
-    };
-
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Shared<$ffi_name:path>);
