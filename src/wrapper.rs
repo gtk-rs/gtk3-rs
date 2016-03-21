@@ -91,6 +91,23 @@
 /// }
 /// ```
 ///
+/// Implementing types from other crates requires specifying their FFI
+/// counterparts as well:
+///
+/// ```ignore
+/// glib_wrapper! {
+///     pub struct Application(Object<ffi::GtkApplication>): [
+///         gio::Application => gio_ffi::GApplication,
+///         gio::ActionGroup => gio_ffi::GActionGroup,
+///         gio::ActionMap => gio_ffi::GActionMap,
+///     ];
+///
+///     match fn {
+///         get_type => || ffi::gtk_application_get_type(),
+///     }
+/// }
+/// ```
+///
 /// `get_type: || -> GType` returns the type identifier of the class or interface.
 #[macro_export]
 macro_rules! glib_wrapper {
@@ -143,6 +160,18 @@ macro_rules! glib_wrapper {
         }
     ) => {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr, []);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr,
+            @implements $($implements)+);
     };
 
     (
