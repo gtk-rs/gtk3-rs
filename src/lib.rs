@@ -29,6 +29,8 @@
 //! Dynamically typed [`Value`](value/index.html) can carry values of any `T:
 //! StaticType`.
 //!
+//! [`Variant`](variant/index.html) can carry values of `T: StaticVariantType`.
+//!
 //! # Errors
 //!
 //! Errors are represented by [`Error`](error/struct.Error.html), which can
@@ -102,6 +104,15 @@ pub use value::{
     TypedValue,
     Value,
 };
+pub use variant::{
+    StaticVariantType,
+    ToVariant,
+    Variant,
+};
+pub use variant_type::{
+    VariantTy,
+    VariantType,
+};
 pub use time_val::{
     TimeVal,
     get_current_time,
@@ -135,4 +146,5 @@ mod time_val;
 pub mod translate;
 pub mod types;
 pub mod value;
-
+pub mod variant;
+mod variant_type;
