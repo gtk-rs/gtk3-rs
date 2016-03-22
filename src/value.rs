@@ -18,7 +18,8 @@
 //! # Examples
 //!
 //! ```
-//! use glib::{TypedValue, ToValue, Value};
+//! use glib::prelude::*; // or `use gtk::prelude::*;`
+//! use glib::{TypedValue, Value};
 //!
 //! // Value and TypedValue implement From<&i32>, From<&str>
 //! // and From<Option<&str>>. Another option is the `ToValue` trait.
