@@ -15,7 +15,7 @@ macro_rules! glib_shared_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @ref $ref_arg:ident $ref_expr:expr,
      @unref $unref_arg:ident $unref_expr:expr) => {
         $(#[$attr])*
-        #[derive(Clone, Debug, PartialEq, Eq, Hash)]
+        #[derive(Clone)]
         pub struct $name($crate::shared::Shared<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]

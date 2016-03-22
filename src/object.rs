@@ -119,6 +119,7 @@ pub use gobject_ffi::GObject;
 
 glib_wrapper! {
     #[doc(hidden)]
+    #[derive(Debug, PartialEq, Eq, Hash)]
     pub struct ObjectRef(Shared<GObject>);
 
     match fn {
