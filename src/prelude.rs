@@ -7,5 +7,7 @@ pub use {
     IsA,
     ObjectExt,
     StaticType,
+    StaticVariantType,
     ToValue,
+    ToVariant,
 };
