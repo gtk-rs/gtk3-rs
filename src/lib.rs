@@ -80,6 +80,7 @@ pub use app_info::{
     AppInfo,
     AppInfoExt,
 };
+pub use bytes::Bytes;
 pub use error::Error;
 pub use file_error::FileError;
 pub use object::{
@@ -137,6 +138,7 @@ pub mod shared;
 pub mod object;
 
 mod app_info;
+mod bytes;
 pub mod error;
 mod file_error;
 pub mod prelude;
