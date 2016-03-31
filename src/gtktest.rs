@@ -144,6 +144,12 @@ fn main() {
     window.set_position(gtk::WindowPosition::Center);
     window.add(&frame);
 
+    scale.set_digits(1);
+    scale.connect_format_value(|scale, value| {
+        let digits = scale.get_digits() as usize;
+        format!("<{:.*}>", digits, value)
+    });
+
     let entry_clone = entry.clone();
     button.connect_clicked(clone!(window => move |_| {
         let dialog = gtk::Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DIALOG_MODAL,
