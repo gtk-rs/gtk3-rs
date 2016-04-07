@@ -1,6 +1,6 @@
 [package]
 name = "glib"
-version = "0.0.8"
+version = "0.0.9"
 authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the GLib library"
