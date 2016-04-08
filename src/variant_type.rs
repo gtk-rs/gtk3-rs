@@ -104,6 +104,19 @@ impl<'a> ToGlibPtrMut<'a, *mut glib_ffi::GVariantType> for VariantType {
     }
 }
 
+#[doc(hidden)]
+impl FromGlibPtr<*const glib_ffi::GVariantType> for VariantType {
+    unsafe fn from_glib_none(ptr: *const glib_ffi::GVariantType) -> VariantType {
+        VariantTy::from_ptr(ptr).to_owned()
+    }
+
+    unsafe fn from_glib_full(ptr: *const glib_ffi::GVariantType) -> VariantType {
+        // Don't assume ownership of a const pointer.
+        // A transfer: full annotation on a `const GVariantType*` is likely a bug.
+        VariantTy::from_ptr(ptr).to_owned()
+    }
+}
+
 /// Describes `Variant` types.
 ///
 /// This is a borrowed counterpart of [`VariantType`](struct.VariantType.html).
