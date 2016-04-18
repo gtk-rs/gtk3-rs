@@ -1,11 +1,21 @@
 [options]
-girs_dir = "gir-files"
+girs_dir = "../gir-files"
 library = "Gdk"
 version = "3.0"
 min_cfg_version = "3.4"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
+
+generate = [
+    "Gdk.CursorType",
+    "Gdk.GLError",
+    "Gdk.Gravity",
+    "Gdk.ModifierIntent",
+    "Gdk.ModifierType",
+    "Gdk.WindowTypeHint",
+    "Gdk.WindowEdge",
+]
 
 manual = [
     "Gdk.AppLaunchContext",

@@ -2,19 +2,27 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+extern crate glib_sys as glib_ffi;
 extern crate gdk_sys as ffi;
 extern crate gdk_pixbuf;
 #[macro_use]
 extern crate glib;
 extern crate cairo;
 extern crate libc;
+#[macro_use]
+extern crate bitflags;
 
 #[macro_use]
 mod rt;
 #[macro_use]
 mod event;
 
+mod auto;
+
 pub mod prelude;
+
+pub use auto::*;
+
 pub mod enums;
 
 mod app_launch_context;
@@ -128,11 +136,8 @@ pub use ffi::GdkEventType as EventType;
 pub use ffi::GdkFullscreenMode as FullscreenMode;
 pub use ffi::GdkGrabOwnership as GrabOwnership;
 pub use ffi::GdkGrabStatus as GrabStatus;
-pub use ffi::GdkGravity as Gravity;
 pub use ffi::GdkInputMode as InputMode;
 pub use ffi::GdkInputSource as InputSource;
-pub use ffi::GdkModifierIntent as ModifierIntent;
-pub use ffi::GdkModifierType as ModifierType;
 pub use ffi::GdkNotifyType as NotifyType;
 pub use ffi::GdkOwnerChange as OwnerChange;
 pub use ffi::GdkPropertyState as PropertyState;
@@ -141,11 +146,9 @@ pub use ffi::GdkSettingAction as SettingAction;
 pub use ffi::GdkVisibilityState as VisibilityState;
 pub use ffi::GdkWMDecoration as WMDecoration;
 pub use ffi::GdkWMFunction as WMFunction;
-pub use ffi::GdkWindowEdge as WindowEdge;
 pub use ffi::GdkWindowHints as WindowHints;
 pub use ffi::GdkWindowState as WindowState;
 pub use ffi::GdkWindowType as WindowType;
-pub use ffi::GdkWindowTypeHint as WindowTypeHint;
 pub use ffi::GdkWindowWindowClass as WindowWindowClass;
 
 #[allow(non_camel_case_types)]

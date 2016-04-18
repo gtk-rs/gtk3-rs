@@ -83,7 +83,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for Attributes {
             wmclass_name: ptr::null_mut(),
             wmclass_class: ptr::null_mut(),
             override_redirect: self.override_redirect.to_glib(),
-            type_hint: self.type_hint.unwrap_or(WindowTypeHint::Normal),
+            type_hint: self.type_hint.unwrap_or(WindowTypeHint::Normal).to_glib(),
         });
 
         Stash(&mut *attrs, (attrs, visual, cursor, title))
@@ -276,12 +276,12 @@ impl Window {
     }
 
     pub fn begin_resize_drag(&self, edge: WindowEdge, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
-        unsafe { ffi::gdk_window_begin_resize_drag(self.to_glib_none().0, edge, button, root_x, root_y, timestamp) }
+        unsafe { ffi::gdk_window_begin_resize_drag(self.to_glib_none().0, edge.to_glib(), button, root_x, root_y, timestamp) }
     }
 
     pub fn begin_resize_drag_for_device(&self, edge: WindowEdge, device: &Device, button: i32, root_x: i32, root_y: i32,
         timestamp: u32) {
-        unsafe { ffi::gdk_window_begin_resize_drag_for_device(self.to_glib_none().0, edge, device.to_glib_none().0, button,
+        unsafe { ffi::gdk_window_begin_resize_drag_for_device(self.to_glib_none().0, edge.to_glib(), device.to_glib_none().0, button,
             root_x, root_y, timestamp) }
     }
 
@@ -442,11 +442,11 @@ impl Window {
     }
 
     pub fn set_type_hint(&self, hint: WindowTypeHint) {
-        unsafe { ffi::gdk_window_set_type_hint(self.to_glib_none().0, hint) }
+        unsafe { ffi::gdk_window_set_type_hint(self.to_glib_none().0, hint.to_glib()) }
     }
 
     pub fn get_type_hint(&self) -> WindowTypeHint {
-        unsafe { ffi::gdk_window_get_type_hint(self.to_glib_none().0) }
+        unsafe { from_glib(ffi::gdk_window_get_type_hint(self.to_glib_none().0)) }
     }
 
     #[cfg(feature = "v3_12")]
@@ -493,24 +493,29 @@ impl Window {
         unsafe { ffi::gdk_window_get_root_coords(self.to_glib_none().0, x, y, root_x, root_y) }
     }
 
-    pub fn get_device_position(&self, device: &Device, x: &mut i32, y: &mut i32,
-        mask: &mut ::ModifierType) -> Option<Window> {
+    pub fn get_device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ::ModifierType) {
         unsafe {
-            from_glib_none(ffi::gdk_window_get_device_position(
-                self.to_glib_none().0,
-                device.to_glib_none().0,
-                x, y, mask))
+            let mut x = mem::uninitialized();
+            let mut y = mem::uninitialized();
+            let mut mask = mem::uninitialized();
+            let ret = from_glib_none(ffi::gdk_window_get_device_position(self.to_glib_none().0,
+                                                                         device.to_glib_none().0,
+                                                                         &mut x, &mut y, &mut mask));
+            (ret, x, y, from_glib(mask))
         }
     }
 
     #[cfg(feature = "v3_10")]
-    pub fn get_device_position_double(&self, device: &Device, x: &mut f64, y: &mut f64,
-        mask: &mut ::ModifierType) -> Option<Window> {
+    pub fn get_device_position_double(&self, device: &Device) -> (Option<Window>, f64, f64, ::ModifierType) {
         unsafe {
-            from_glib_none(ffi::gdk_window_get_device_position_double(
-                self.to_glib_none().0,
-                device.to_glib_none().0,
-                x, y, mask))
+            let mut x = mem::uninitialized();
+            let mut y = mem::uninitialized();
+            let mut mask = mem::uninitialized();
+            let ret = from_glib_none(
+                ffi::gdk_window_get_device_position_double(self.to_glib_none().0,
+                                                           device.to_glib_none().0,
+                                                           &mut x, &mut y, &mut mask));
+            (ret, x, y, from_glib(mask))
         }
     }
 
