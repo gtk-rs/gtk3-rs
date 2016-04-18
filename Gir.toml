@@ -1,0 +1,52 @@
+[options]
+girs_dir = "gir-files"
+library = "Gio"
+version = "2.0"
+min_cfg_version = "2.32"
+target_path = "."
+work_mode = "normal"
+
+generate = [
+    "Gio.Action",
+    "Gio.ActionMap",
+    "Gio.AppInfo",
+    "Gio.AppLaunchContext",
+    "Gio.ApplicationFlags",
+    "Gio.Menu",
+    "Gio.MenuAttributeIter",
+    "Gio.MenuItem",
+    "Gio.MenuLinkIter",
+    "Gio.MenuModel",
+    "Gio.Permission",
+    "Gio.Resource",
+    "Gio.ResourceError",
+    "Gio.ResourceLookupFlags",
+    "Gio.Settings",
+    "Gio.SettingsBindFlags",
+    "Gio.SimpleAction",
+    "Gio.SimpleActionGroup",
+    "Gio.SimplePermission",
+]
+
+ignore = [
+]
+
+manual = [
+    "GLib.Bytes",
+    "GLib.Error",
+    "GLib.Variant",
+    "GLib.VariantType",
+    "GObject.Object",
+]
+
+[[object]]
+name = "Gio.ActionGroup"
+status = "generate"
+    [[object.function]]
+    name = "query_action"
+    ignore = true
+
+[[object]]
+name = "Gio.Application"
+status = "generate"
+trait = true
