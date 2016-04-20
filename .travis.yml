@@ -1,0 +1,23 @@
+language: rust
+rust:
+  - nightly
+  - beta
+  - stable
+env:
+  - GTK=3.4
+  - GTK=3.18
+addons:
+  apt:
+    packages:
+    - libgtk-3-dev
+script:
+  - rustc --version
+  - cargo test --features embed-lgpl-docs
+  # catch any sneaked in lgpl docs
+  - cargo build --features purge-lgpl-docs
+  - git diff -R --exit-code
+  - mkdir .cargo
+  - echo 'paths = ["."]' > .cargo/config
+  - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
+  - cd _examples
+  - ./build.sh
