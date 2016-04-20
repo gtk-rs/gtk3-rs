@@ -8,6 +8,7 @@ use display::Display;
 use screen::Screen;
 use window::Window;
 use ffi;
+use std::mem;
 
 glib_wrapper! {
     pub struct Device(Object<ffi::GdkDevice>);
@@ -53,11 +54,17 @@ impl Device {
     }
 
     pub fn set_key(&self, index_: u32, keyval: u32, modifiers: ::ModifierType) {
-        unsafe { ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers) }
+        unsafe { ffi::gdk_device_set_key(self.to_glib_none().0, index_, keyval, modifiers.to_glib()) }
     }
 
-    pub fn get_key(&self, index_: u32, keyval: &mut u32, modifiers: &mut ::ModifierType) -> bool {
-        unsafe { from_glib(ffi::gdk_device_get_key(self.to_glib_none().0, index_, keyval, modifiers)) }
+    pub fn get_key(&self, index_: u32) -> Option<(u32, ::ModifierType)> {
+        unsafe {
+            let mut keyval = mem::uninitialized();
+            let mut modifiers = mem::uninitialized();
+            let ret = from_glib(ffi::gdk_device_get_key(self.to_glib_none().0, index_,
+                                                        &mut keyval, &mut modifiers));
+            if ret { Some((keyval, from_glib(modifiers))) } else { None }
+        }
     }
 
     pub fn set_axis_use(&self, index_: u32, use_: ::AxisUse) {

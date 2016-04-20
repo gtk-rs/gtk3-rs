@@ -7,6 +7,16 @@ target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
 
+generate = [
+    "Gdk.CursorType",
+    "Gdk.GLError",
+    "Gdk.Gravity",
+    "Gdk.ModifierIntent",
+    "Gdk.ModifierType",
+    "Gdk.WindowTypeHint",
+    "Gdk.WindowEdge",
+]
+
 manual = [
     "Gdk.AppLaunchContext",
     "Gdk.Atom",

@@ -22,7 +22,7 @@ impl EventTouch {
     }
 
     pub fn get_state(&self) -> ::ModifierType {
-        self.as_ref().state
+        from_glib(self.as_ref().state)
     }
 
     pub fn is_emulating_pointer(&self) -> bool {
