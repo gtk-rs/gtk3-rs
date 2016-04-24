@@ -4,6 +4,7 @@ extern crate gtk;
 extern crate gdk;
 
 use gtk::prelude::*;
+use gtk::SpinButtonUpdatePolicy;
 use gdk::enums::modifier_type;
 
 /// Expands to its argument if GTK+ 3.10 support is configured and to `()` otherwise
@@ -148,6 +149,24 @@ fn main() {
     scale.connect_format_value(|scale, value| {
         let digits = scale.get_digits() as usize;
         format!("<{:.*}>", digits, value)
+    });
+
+    spin_button.set_update_policy(SpinButtonUpdatePolicy::IfValid);
+    spin_button.connect_input(|spin_button| {
+        let text = spin_button.get_text().unwrap();
+        println!("spin_button_input: \"{}\"", text);
+        match text.parse::<f64>() {
+            Ok(value) if value >= 90. => {
+                println!("circular right");
+                Some(Ok(10.))
+            }
+            Ok(value) if value <= 10. => {
+                println!("circular left");
+                Some(Ok(90.))
+            }
+            Ok(value) => Some(Ok(value)),
+            Err(_) => Some(Err(())),
+        }
     });
 
     let entry_clone = entry.clone();
