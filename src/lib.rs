@@ -20,4 +20,9 @@ pub use glib::{
     Error,
     Object,
 };
+
 pub use auto::*;
+
+pub mod prelude {
+    pub use auto::traits::*;
+}
