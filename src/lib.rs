@@ -76,10 +76,6 @@ extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate gio_sys as gio_ffi;
 
-pub use app_info::{
-    AppInfo,
-    AppInfoExt,
-};
 pub use bytes::Bytes;
 pub use error::Error;
 pub use file_error::FileError;
@@ -119,15 +115,6 @@ pub use time_val::{
     get_current_time,
 };
 
-pub use gio_ffi::GApplicationFlags as ApplicationFlags;
-pub use gio_ffi::G_APPLICATION_FLAGS_NONE as APPLICATION_FLAGS_NONE;
-pub use gio_ffi::G_APPLICATION_IS_SERVICE as APPLICATION_IS_SERVICE;
-pub use gio_ffi::G_APPLICATION_IS_LAUNCHER as APPLICATION_IS_LAUNCHER;
-pub use gio_ffi::G_APPLICATION_HANDLES_OPEN as APPLICATION_HANDLES_OPEN;
-pub use gio_ffi::G_APPLICATION_HANDLES_COMMAND_LINE as APPLICATION_HANDLES_COMMAND_LINE;
-pub use gio_ffi::G_APPLICATION_SEND_ENVIRONMENT as APPLICATION_SEND_ENVIRONMENT;
-pub use gio_ffi::G_APPLICATION_NON_UNIQUE as APPLICATION_NON_UNIQUE;
-
 #[macro_use]
 pub mod wrapper;
 #[macro_use]
@@ -137,7 +124,6 @@ pub mod shared;
 #[macro_use]
 pub mod object;
 
-mod app_info;
 mod bytes;
 pub mod error;
 mod file_error;
