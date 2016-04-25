@@ -24,7 +24,7 @@ fn main() {
     let toolbar = gtk::Toolbar::new();
 
     let open_icon = gtk::Image::new_from_icon_name("document-open",
-                                                   gtk::IconSize::SmallToolbar as i32);
+                                                   gtk::IconSize::SmallToolbar.into());
     let text_view = gtk::TextView::new();
 
     let open_button = gtk::ToolButton::new::<gtk::Image>(Some(&open_icon), Some("Open"));
@@ -48,10 +48,10 @@ fn main() {
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"), Some(&window1), gtk::FileChooserAction::Open);
         file_chooser.add_buttons(&[
-            ("Open", gtk::ResponseType::Ok as i32),
-            ("Cancel", gtk::ResponseType::Cancel as i32),
+            ("Open", gtk::ResponseType::Ok.into()),
+            ("Cancel", gtk::ResponseType::Cancel.into()),
         ]);
-        if file_chooser.run() == gtk::ResponseType::Ok as i32 {
+        if file_chooser.run() == gtk::ResponseType::Ok.into() {
             let filename = file_chooser.get_filename().unwrap();
             let file = File::open(&filename).unwrap();
 

@@ -194,8 +194,8 @@ fn main() {
     button_recent.connect_clicked(clone!(window => move |_| {
         let dialog = gtk::RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
         dialog.add_buttons(&[
-            ("Ok", gtk::ResponseType::Ok as i32),
-            ("Cancel", gtk::ResponseType::Cancel as i32)
+            ("Ok", gtk::ResponseType::Ok.into()),
+            ("Cancel", gtk::ResponseType::Cancel.into())
         ]);
 
         dialog.run();
@@ -207,8 +207,8 @@ fn main() {
         let dialog = gtk::FileChooserDialog::new(Some("Choose a file"), Some(&window),
             gtk::FileChooserAction::Open);
         dialog.add_buttons(&[
-            ("Open", gtk::ResponseType::Ok as i32),
-            ("Cancel", gtk::ResponseType::Cancel as i32)
+            ("Open", gtk::ResponseType::Ok.into()),
+            ("Cancel", gtk::ResponseType::Cancel.into())
         ]);
 
         dialog.set_select_multiple(true);
