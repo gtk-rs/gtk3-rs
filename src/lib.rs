@@ -33,7 +33,10 @@ pub use enums::{
     SurfaceType,
 };
 
-pub use error::IoError;
+pub use error::{
+    BorrowError,
+    IoError,
+};
 
 pub use patterns::{
     //Traits
@@ -71,8 +74,12 @@ pub use matrices::{
 
 pub use rectangle::RectangleInt;
 
-pub use image_surface::ImageSurface;
 pub use surface::Surface;
+
+pub use image_surface::{
+    ImageSurface,
+    ImageSurfaceData,
+};
 
 pub mod prelude;
 

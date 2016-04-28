@@ -28,7 +28,7 @@ optional = true
 
 [dependencies.cairo-sys-rs]
 path = "cairo-sys-rs"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
