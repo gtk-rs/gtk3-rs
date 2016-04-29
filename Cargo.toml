@@ -56,3 +56,6 @@ name = "multithreading_context"
 
 [[bin]]
 name = "simple_treeview"
+
+[[bin]]
+name = "menu_bar"
