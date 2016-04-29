@@ -37,14 +37,13 @@ glib_wrapper! {
 }
 
 impl Bytes {
-    fn new<T: ?Sized + Borrow<[u8]>>(data: &T) -> Bytes {
-        let data = data.borrow();
+    /// Copies `data` into a new shared slice.
+    fn new(data: &[u8]) -> Bytes {
         unsafe { from_glib_full(glib_ffi::g_bytes_new(data.as_ptr() as *const _, data.len())) }
     }
 
-    /// 
-    pub fn from_static<T: ?Sized + Borrow<[u8]>>(data: &'static T) -> Bytes {
-        let data = data.borrow();
+    /// Creates a view into static `data` without copying.
+    pub fn from_static(data: &'static [u8]) -> Bytes {
         unsafe {
             from_glib_full(glib_ffi::g_bytes_new_static(data.as_ptr() as *const _, data.len()))
         }
@@ -56,7 +55,7 @@ unsafe impl Sync for Bytes { }
 
 impl<'a, T: ?Sized + Borrow<[u8]> + 'a> From<&'a T> for Bytes {
     fn from(value: &'a T) -> Bytes {
-        Bytes::new(value)
+        Bytes::new(value.borrow())
     }
 }
 
