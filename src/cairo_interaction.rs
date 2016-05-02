@@ -2,12 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use glib::translate::*;
 use ffi::{self, GdkRGBA};
 use gdk_pixbuf::Pixbuf;
-use cairo::{Context, RectangleInt};
-use super::Window;
+use cairo::Context;
+use Rectangle;
+use Window;
 
 //pub fn create_region_from_surface()
 //--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
@@ -18,7 +18,7 @@ use super::Window;
 pub trait ContextExt {
     fn create_from_window(window: &Window) -> Context;
 
-    fn get_clip_rectangle(&self) -> Option<RectangleInt>;
+    fn get_clip_rectangle(&self) -> Option<Rectangle>;
 
     fn set_source_rgba(&self, rgba: &GdkRGBA);
 
@@ -26,7 +26,7 @@ pub trait ContextExt {
 
     fn set_source_window(&self, window: &Window, x: f64, y: f64);
 
-    fn rectangle(&self, rectangle: &RectangleInt);
+    fn rectangle(&self, rectangle: &Rectangle);
 
     //fn add_region(&self, region: ???);
     //--> WRAP: fn gdk_cairo_region(cr: *mut cairo_t, region: *const cairo_region_t);
@@ -38,10 +38,11 @@ impl ContextExt for Context {
         unsafe { from_glib_full(ffi::gdk_cairo_create(window.to_glib_none().0)) }
     }
 
-    fn get_clip_rectangle(&self) -> Option<RectangleInt> {
+    fn get_clip_rectangle(&self) -> Option<Rectangle> {
         unsafe {
-            let mut rectangle = mem::uninitialized();
-            if from_glib(ffi::gdk_cairo_get_clip_rectangle(self.to_glib_none().0, &mut rectangle)) {
+            let mut rectangle = Rectangle::uninitialized();
+            if from_glib(ffi::gdk_cairo_get_clip_rectangle(self.to_glib_none().0,
+                    rectangle.to_glib_none_mut().0)) {
                 Some(rectangle)
             } else {
                 None
@@ -65,8 +66,8 @@ impl ContextExt for Context {
         }
     }
 
-    fn rectangle(&self, rectangle: &RectangleInt) {
-        unsafe { ffi::gdk_cairo_rectangle(self.to_glib_none().0, rectangle); }
+    fn rectangle(&self, rectangle: &Rectangle) {
+        unsafe { ffi::gdk_cairo_rectangle(self.to_glib_none().0, rectangle.to_glib_none().0); }
     }
 }
 

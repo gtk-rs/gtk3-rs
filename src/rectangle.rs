@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use glib::translate::*;
-use cairo::RectangleInt;
 use ffi;
+use Rectangle;
 
 pub trait RectangleExt {
     fn intersect(&self, other: &Self) -> Option<Self>
@@ -13,12 +12,13 @@ pub trait RectangleExt {
     fn union(&self, other: &Self) -> Self;
 }
 
-impl RectangleExt for RectangleInt {
-    fn intersect(&self, other: &RectangleInt) -> Option<RectangleInt> {
+impl RectangleExt for Rectangle {
+    fn intersect(&self, other: &Rectangle) -> Option<Rectangle> {
         unsafe {
-            let mut res = mem::uninitialized();
-            if from_glib(ffi::gdk_rectangle_intersect(self, other, &mut res)) {
-                Some(res)
+            let mut ret = Rectangle::uninitialized();
+            if from_glib(ffi::gdk_rectangle_intersect(self.to_glib_none().0, other.to_glib_none().0,
+                    ret.to_glib_none_mut().0)) {
+                Some(ret)
             }
             else {
                 None
@@ -26,11 +26,12 @@ impl RectangleExt for RectangleInt {
         }
     }
 
-    fn union(&self, other: &RectangleInt) -> RectangleInt {
+    fn union(&self, other: &Rectangle) -> Rectangle {
         unsafe {
-            let mut res = mem::uninitialized();
-            ffi::gdk_rectangle_union(self, other, &mut res);
-            res
+            let mut ret = Rectangle::uninitialized();
+            ffi::gdk_rectangle_union(self.to_glib_none().0, other.to_glib_none().0,
+                ret.to_glib_none_mut().0);
+            ret
         }
     }
 }

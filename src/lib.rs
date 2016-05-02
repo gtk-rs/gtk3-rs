@@ -67,6 +67,7 @@ mod window;
 
 pub use ffi::GdkColor as Color;
 pub use ffi::GdkRGBA as RGBA;
+pub use cairo::RectangleInt as Rectangle;
 
 pub use self::rt::{
     init,
