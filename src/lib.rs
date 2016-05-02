@@ -9,7 +9,6 @@ extern crate c_vec;
 
 pub use ffi::enums;
 pub use ffi::cairo_rectangle_t as Rectangle;
-pub use ffi::cairo_rectangle_int_t as RectangleInt;
 
 pub use context::{
     Context,
@@ -70,6 +69,8 @@ pub use matrices::{
     MatrixTrait,
 };
 
+pub use rectangle::RectangleInt;
+
 pub use image_surface::ImageSurface;
 pub use surface::Surface;
 
@@ -83,5 +84,6 @@ mod image_surface;
 mod image_surface_png;
 mod paths;
 mod patterns;
+mod rectangle;
 mod surface;
 mod matrices;
