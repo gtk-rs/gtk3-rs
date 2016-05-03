@@ -10,6 +10,7 @@ generate = [
     "Gio.Action",
     "Gio.ActionMap",
     "Gio.AppInfo",
+    "Gio.AppLaunchContext",
     "Gio.ApplicationFlags",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
@@ -21,6 +22,7 @@ generate = [
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
     "Gio.SettingsBindFlags",
+    "Gio.SimpleAction",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
 ]
@@ -42,18 +44,6 @@ status = "generate"
     [[object.function]]
     name = "query_action"
     ignore = true
-    [[object.signal]]
-    name = "action-state-changed"
-    # ns
-    ignore = true
-
-[[object]]
-name = "Gio.AppLaunchContext"
-status = "generate"
-    [[object.signal]]
-    name = "launched"
-    # ns
-    ignore = true
 
 [[object]]
 name = "Gio.Application"
@@ -66,16 +56,4 @@ status = "generate"
     [[object.signal]]
     name = "writable-change-event"
     # missing Inhibit support
-    ignore = true
-
-[[object]]
-name = "Gio.SimpleAction"
-status = "generate"
-    [[object.signal]]
-    name = "activate"
-    # ns
-    ignore = true
-    [[object.signal]]
-    name = "change-state"
-    # ns
     ignore = true
