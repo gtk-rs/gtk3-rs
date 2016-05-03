@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ptr;
+use std::ops::{Deref, DerefMut};
 use std::slice;
 
 use glib::translate::*;
@@ -12,7 +12,9 @@ use ffi::enums::{
     SurfaceType,
 };
 
+use BorrowError;
 use surface::{Surface, SurfaceExt, SurfacePriv};
+use Status;
 
 #[derive(Debug)]
 pub struct ImageSurface(Surface);
@@ -44,17 +46,21 @@ impl ImageSurface {
         }
     }
 
-    pub fn get_data(&self, buffer: &mut [u8]) {
+    pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
-            let len = self.len();
-            assert!(buffer.len() >= len);
-            ptr::copy(self.get_data_unsafe().as_ptr(), buffer.as_mut_ptr(), len);
+            if ffi::cairo_surface_get_reference_count(self.to_glib_none().0) > 1 {
+                return Err(BorrowError::NonExclusive)
+            }
+            self.flush();
+            match self.status() {
+                Status::Success => (),
+                status => return Err(BorrowError::from(status)),
+            }
+            if ffi::cairo_image_surface_get_data(self.to_glib_none().0).is_null() {
+                return Err(BorrowError::from(Status::SurfaceFinished))
+            }
+            Ok(ImageSurfaceData::new(self))
         }
-    }
-
-    pub unsafe fn get_data_unsafe<'a>(&self) -> &'a mut [u8] {
-        let ptr = ffi::cairo_image_surface_get_data(self.to_glib_none().0);
-        slice::from_raw_parts_mut(ptr, self.len())
     }
 
     pub fn get_format(&self) -> Format {
@@ -71,10 +77,6 @@ impl ImageSurface {
 
     pub fn get_width(&self) -> i32 {
         unsafe { ffi::cairo_image_surface_get_width(self.to_glib_none().0) }
-    }
-
-    pub fn len(&self) -> usize {
-        (self.get_stride() as usize) * (self.get_height() as usize)
     }
 }
 
@@ -108,9 +110,61 @@ impl AsRef<Surface> for ImageSurface {
     }
 }
 
+impl Deref for ImageSurface {
+    type Target = Surface;
+
+    fn deref(&self) -> &Surface {
+        &self.0
+    }
+}
+
 impl Clone for ImageSurface {
     fn clone(&self) -> ImageSurface {
         unsafe { from_glib_none(self.to_glib_none().0) }
+    }
+}
+
+pub struct ImageSurfaceData<'a> {
+    surface: &'a mut ImageSurface,
+    slice: &'a mut [u8],
+    dirty: bool,
+}
+
+impl<'a> ImageSurfaceData<'a> {
+    fn new(surface: &'a mut ImageSurface) -> ImageSurfaceData<'a> {
+        unsafe {
+            let ptr = ffi::cairo_image_surface_get_data(surface.to_glib_none().0);
+            debug_assert!(!ptr.is_null());
+            let len = (surface.get_stride() as usize) * (surface.get_height() as usize);
+            ImageSurfaceData {
+                surface: surface,
+                slice: slice::from_raw_parts_mut(ptr, len),
+                dirty: false,
+            }
+        }
+    }
+}
+
+impl<'a> Drop for ImageSurfaceData<'a> {
+    fn drop(&mut self) {
+        if self.dirty {
+            unsafe { ffi::cairo_surface_mark_dirty(self.surface.to_glib_none().0) }
+        }
+    }
+}
+
+impl<'a> Deref for ImageSurfaceData<'a> {
+    type Target = [u8];
+
+    fn deref(&self) -> &[u8] {
+        self.slice
+    }
+}
+
+impl<'a> DerefMut for ImageSurfaceData<'a> {
+    fn deref_mut(&mut self) -> &mut [u8] {
+        self.dirty = true;
+        self.slice
     }
 }
 

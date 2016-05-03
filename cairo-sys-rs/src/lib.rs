@@ -447,6 +447,8 @@ extern "C" {
     pub fn cairo_surface_reference(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
     pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t) -> *mut c_void;
     pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> Status;
+    pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
+    pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: Format, width: c_int, height: c_int) -> *mut cairo_surface_t;
