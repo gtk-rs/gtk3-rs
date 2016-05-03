@@ -6,7 +6,6 @@ use std::mem;
 use std::ptr;
 use libc::{c_char, c_int};
 use glib::translate::*;
-use cairo;
 use cursor::Cursor;
 use device::Device;
 use display::Display;
@@ -15,6 +14,7 @@ use frame_clock::FrameClock;
 use screen::Screen;
 use visual::Visual;
 use ffi;
+use Rectangle;
 
 use {
     WindowEdge,
@@ -303,16 +303,19 @@ impl Window {
         unsafe { ffi::gdk_window_get_scale_factor(self.to_glib_none().0) }
     }
 
-    pub fn begin_paint_rect(&self, rect: &cairo::RectangleInt) {
-        unsafe { ffi::gdk_window_begin_paint_rect(self.to_glib_none().0, rect) }
+    pub fn begin_paint_rect(&self, rect: &Rectangle) {
+        unsafe { ffi::gdk_window_begin_paint_rect(self.to_glib_none().0, rect.to_glib_none().0) }
     }
 
     pub fn end_paint(&self) {
         unsafe { ffi::gdk_window_end_paint(self.to_glib_none().0) }
     }
 
-    pub fn invalidate_rect(&self, rect: &cairo::RectangleInt, invalidate_children: bool) {
-        unsafe { ffi::gdk_window_invalidate_rect(self.to_glib_none().0, rect, invalidate_children.to_glib()) }
+    pub fn invalidate_rect(&self, rect: &Rectangle, invalidate_children: bool) {
+        unsafe {
+            ffi::gdk_window_invalidate_rect(self.to_glib_none().0, rect.to_glib_none().0,
+                invalidate_children.to_glib())
+        }
     }
 
     pub fn freeze_updates(&self) {
@@ -477,11 +480,11 @@ impl Window {
         unsafe { ffi::gdk_window_get_root_origin(self.to_glib_none().0, x, y) }
     }
 
-    pub fn get_frame_extents(&self) -> cairo::RectangleInt {
+    pub fn get_frame_extents(&self) -> Rectangle {
         unsafe {
-            let mut rect = mem::uninitialized();
-            ffi::gdk_window_get_frame_extents(self.to_glib_none().0, &mut rect);
-            rect
+            let mut ret = Rectangle::uninitialized();
+            ffi::gdk_window_get_frame_extents(self.to_glib_none().0, ret.to_glib_none_mut().0);
+            ret
         }
     }
 

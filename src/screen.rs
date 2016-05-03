@@ -2,13 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use glib::translate::*;
-use cairo;
 use display::Display;
 use visual::Visual;
 use window::Window;
 use ffi;
+use Rectangle;
 
 glib_wrapper! {
     pub struct Screen(Object<ffi::GdkScreen>);
@@ -78,19 +77,21 @@ impl Screen {
         unsafe { ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0) }
     }
 
-    pub fn get_monitor_geometry(&self, monitor_num: i32) -> cairo::RectangleInt {
+    pub fn get_monitor_geometry(&self, monitor_num: i32) -> Rectangle {
         unsafe {
-            let mut res = mem::uninitialized();
-            ffi::gdk_screen_get_monitor_geometry(self.to_glib_none().0, monitor_num, &mut res);
-            res
+            let mut ret = Rectangle::uninitialized();
+            ffi::gdk_screen_get_monitor_geometry(self.to_glib_none().0, monitor_num,
+                ret.to_glib_none_mut().0);
+            ret
         }
     }
 
-    pub fn get_monitor_workarea(&self, monitor_num: i32) -> cairo::RectangleInt {
+    pub fn get_monitor_workarea(&self, monitor_num: i32) -> Rectangle {
         unsafe {
-            let mut res = mem::uninitialized();
-            ffi::gdk_screen_get_monitor_workarea(self.to_glib_none().0, monitor_num, &mut res);
-            res
+            let mut ret = Rectangle::uninitialized();
+            ffi::gdk_screen_get_monitor_workarea(self.to_glib_none().0, monitor_num,
+                ret.to_glib_none_mut().0);
+            ret
         }
     }
 
