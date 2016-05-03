@@ -10,7 +10,7 @@ src/auto/mod.rs : Gir.toml $(GIR) $(GIR_FILES)
 
 $(GIR) : $(GIR_SRC)
 	rm -f gir/target/bin/gir
-	cargo install --path gir --root gir/target
+	cargo install -q --path gir --root gir/target
 	rm -f gir/target/.crates.toml
 
 $(GIR_SRC) $(GIR_FILES) :
