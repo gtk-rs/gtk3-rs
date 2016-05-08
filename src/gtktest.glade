@@ -174,12 +174,12 @@ Leonard McCoy</property>
                     </child>
                     <child>
                       <object class="GtkLinkButton" id="link_button">
-                        <property name="label" translatable="yes">button</property>
+                        <property name="label" translatable="yes">rust-lang.org</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="relief">none</property>
-                        <property name="uri">www.rust-lang.org</property>
+                        <property name="uri">https://www.rust-lang.org/</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
