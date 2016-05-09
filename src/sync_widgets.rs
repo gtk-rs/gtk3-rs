@@ -4,6 +4,7 @@
 
 extern crate gtk;
 
+use gtk::Builder;
 use gtk::prelude::*;
 
 fn main() {
@@ -11,39 +12,28 @@ fn main() {
         println!("Failed to initialize GTK.");
         return;
     }
+    let glade_src = include_str!("sync_widgets.glade");
+    let builder = Builder::new();
+    builder.add_from_string(glade_src).unwrap();
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
-
-    window.set_title("Enter your age");
-    window.set_position(gtk::WindowPosition::Center);
-    window.set_default_size(300, 20);
-
-    let spin_button = gtk::SpinButton::new_with_range(0.0, 130.0, 1.0);
-    let slider = gtk::Scale::new_with_range(gtk::Orientation::Horizontal, 0.0, 130.0, 1.0);
-
-    let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
-
-    hbox.set_homogeneous(true);
-    hbox.add(&spin_button);
-    hbox.add(&slider);
-
-    window.add(&hbox);
-    window.show_all();
-
+    let slider: gtk::Scale = builder.get_object("slider").unwrap();
+    let spin_button: gtk::SpinButton = builder.get_object("spin_button").unwrap();
     let slider_adj = slider.get_adjustment();
     spin_button.get_adjustment().connect_value_changed(move |adj| {
         slider_adj.set_value(adj.get_value());
     });
-
     let spin_button_adj = spin_button.get_adjustment();
     slider.get_adjustment().connect_value_changed(move |adj| {
         spin_button_adj.set_value(adj.get_value());
     });
 
+    let window: gtk::Window = builder.get_object("window").unwrap();
     window.connect_delete_event(|_, _| {
         gtk::main_quit();
         Inhibit(false)
     });
+
+    window.show_all();
 
     gtk::main();
 }
