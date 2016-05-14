@@ -4,6 +4,5 @@
 
 //! Traits inteded for blanket imports.
 
-pub use rectangle::RectangleExt;
 pub use rgba::RGBA;
 pub use cairo_interaction::ContextExt;

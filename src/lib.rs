@@ -67,7 +67,6 @@ mod window;
 
 pub use ffi::GdkColor as Color;
 pub use ffi::GdkRGBA as RGBA;
-pub use cairo::RectangleInt as Rectangle;
 
 pub use self::rt::{
     init,
@@ -122,6 +121,7 @@ pub use event_window_state::EventWindowState;
 pub use frame_clock::FrameClock;
 #[cfg(feature = "v3_8")]
 pub use frame_timings::FrameTimings;
+pub use rectangle::Rectangle;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
