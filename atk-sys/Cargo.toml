@@ -8,11 +8,11 @@ libc = "0.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [features]
 v2_10 = ["v2_9_4"]
@@ -37,4 +37,4 @@ license = "MIT"
 links = "atk"
 name = "atk-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
