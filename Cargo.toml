@@ -1,6 +1,6 @@
 [package]
 name = "cairo-rs"
-version = "0.0.9"
+version = "0.1.0"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
@@ -32,7 +32,7 @@ version = "0.3.1"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
-version = "0.0.9"
+version = "0.1.0"
 
 [dependencies]
 libc = "0.2"
