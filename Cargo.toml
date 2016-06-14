@@ -32,7 +32,7 @@ libc = "0.2"
 
 [dependencies.gdk-pixbuf-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
