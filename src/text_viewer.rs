@@ -9,38 +9,20 @@ use std::io::BufReader;
 use std::fs::File;
 
 use gtk::prelude::*;
+use gtk::Builder;
 
-fn main() {
+pub fn main() {
     if gtk::init().is_err() {
         println!("Failed to initialize GTK.");
         return;
     }
+    let glade_src = include_str!("text_viewer.glade");
+    let builder = Builder::new();
+    builder.add_from_string(glade_src).unwrap();
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
-    window.set_title("Text File Viewer");
-    window.set_position(gtk::WindowPosition::Center);
-    window.set_default_size(400, 300);
-
-    let toolbar = gtk::Toolbar::new();
-
-    let open_icon = gtk::Image::new_from_icon_name("document-open",
-                                                   gtk::IconSize::SmallToolbar as i32);
-    let text_view = gtk::TextView::new();
-
-    let open_button = gtk::ToolButton::new::<gtk::Image>(Some(&open_icon), Some("Open"));
-    open_button.set_is_important(true);
-
-    toolbar.add(&open_button);
-
-    let scroll = gtk::ScrolledWindow::new(None, None);
-    scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
-    scroll.add(&text_view);
-
-    let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
-    vbox.pack_start(&toolbar, false, true, 0);
-    vbox.pack_start(&scroll, true, true, 0);
-
-    window.add(&vbox);
+    let window: gtk::Window = builder.get_object("window").unwrap();
+    let open_button: gtk::ToolButton = builder.get_object("open_button").unwrap();
+    let text_view: gtk::TextView = builder.get_object("text_view").unwrap();
 
     let window1 = window.clone();
     open_button.connect_clicked(move |_| {
@@ -48,10 +30,10 @@ fn main() {
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"), Some(&window1), gtk::FileChooserAction::Open);
         file_chooser.add_buttons(&[
-            ("Open", gtk::ResponseType::Ok as i32),
-            ("Cancel", gtk::ResponseType::Cancel as i32),
+            ("Open", gtk::ResponseType::Ok.into()),
+            ("Cancel", gtk::ResponseType::Cancel.into()),
         ]);
-        if file_chooser.run() == gtk::ResponseType::Ok as i32 {
+        if file_chooser.run() == gtk::ResponseType::Ok.into() {
             let filename = file_chooser.get_filename().unwrap();
             let file = File::open(&filename).unwrap();
 
