@@ -8,11 +8,11 @@ libc = "0.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [features]
 v1_31 = []
@@ -34,4 +34,4 @@ license = "MIT"
 links = "pango"
 name = "pango-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
