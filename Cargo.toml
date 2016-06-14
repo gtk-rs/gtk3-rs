@@ -18,12 +18,12 @@ libc = "0.2"
 
 [dependencies.gio-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
 
 [dependencies.gobject-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.0"
+version = "0.3.1"
