@@ -107,7 +107,7 @@ fn main() {
     let right_tree1 = right_tree.clone();
     left_selection.connect_changed(move |tree_selection| {
         let (left_model, iter) = tree_selection.get_selected().unwrap();
-        let mut path = left_model.get_path(&iter);
+        let mut path = left_model.get_path(&iter).unwrap();
         // get the top-level element path
         while path.get_depth() > 1 {
             path.up();

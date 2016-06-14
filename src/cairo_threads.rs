@@ -84,8 +84,8 @@ fn main() {
     for thread_num in 0..4 {
         let (tx, rx) = mpsc::channel();
         // allocate two buffers and copy the initial pattern into them
-        let buf0 = initial_buf.to_vec().into_boxed_slice();
-        let buf1 = initial_buf.to_vec().into_boxed_slice();
+        let buf0 = initial_buf.clone();
+        let buf1 = initial_buf.clone();
         // wrap the first one in a surface and set it up to be sent to the
         // worker when the surface is destroyed
         images.push(ImageSurface::create_for_data(buf0, clone!(tx => move |b| { let _ = tx.send(b); }),
@@ -154,14 +154,16 @@ fn main() {
 }
 
 fn draw_initial(format: Format, width: i32, height: i32) -> (Box<[u8]>, i32) {
-    let image = ImageSurface::create(format, width, height);
-    let cr = Context::new(&image);
-    cr.set_source_rgb(0., 1., 0.);
-    cr.paint();
-    image.flush();
-    let mut buf = vec![0; image.len()].into_boxed_slice();
-    image.get_data(&mut buf);
-    (buf, image.get_stride())
+    let mut image = ImageSurface::create(format, width, height);
+    {
+        let cr = Context::new(&image);
+        cr.set_source_rgb(0., 1., 0.);
+        cr.paint();
+        // Destroying the context releases its reference to `image`.
+    }
+    // We have a unique reference to `image` again.
+    let buf = image.get_data().unwrap().to_vec();
+    (buf.into_boxed_slice(), image.get_stride())
 }
 
 fn draw_slow(cr: &Context, delay: Duration, x: f64, y: f64, radius: f64) {

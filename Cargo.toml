@@ -11,7 +11,10 @@ gtk = "^0"
 cairo-rs = "^0"
 
 [features]
+#default = ["gtk_3_18"]
 gtk_3_10 = ["gtk/v3_10"]
+gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
+gtk_3_18 = ["gtk_3_16"] #for CI tools
 
 [[bin]]
 name = "basic"
@@ -45,3 +48,6 @@ name = "multithreading_context"
 
 [[bin]]
 name = "simple_treeview"
+
+[[bin]]
+name = "menu_bar"
