@@ -85,6 +85,10 @@ pub use object::{
     Object,
     ObjectExt,
 };
+pub use signal::{
+    signal_stop_emission,
+    signal_stop_emission_by_name
+};
 pub use source::{
     CallbackGuard,
     Continue,
