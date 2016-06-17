@@ -1,4 +1,4 @@
-//! Traits and essential types inteded for blanket imports.
+//! Traits and essential types intended for blanket imports.
 
 pub use {
     Cast,
