@@ -17,11 +17,13 @@ name = "cairo_sys"
 
 [features]
 png = []
+xlib = ["x11"]
 v1_12 = []
 v1_14 = ["v1_12"]
 
 [dependencies]
 libc = "0.2"
+x11 = { version = "2.6.1", features = ["xlib"], optional = true }
 
 [build-dependencies]
 pkg-config = "0.3.7"

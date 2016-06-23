@@ -6,7 +6,13 @@
 
 extern crate libc;
 
+#[cfg(feature = "xlib")]
+extern crate x11;
+
 use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
+
+#[cfg(feature = "xlib")]
+use x11::xlib;
 
 pub mod enums;
 
@@ -462,4 +468,50 @@ extern "C" {
     pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
     #[cfg(feature = "png")]
     pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
+
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_create(dpy: *mut xlib::Display,
+                                     drawable: xlib::Drawable,
+                                     visual: *mut xlib::Visual,
+                                     width: c_int,
+                                     height: c_int)
+                                     -> *mut cairo_surface_t;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_create_for_bitmap(dpy: *mut xlib::Display,
+                                                bitmap: xlib::Pixmap,
+                                                screen: *mut xlib::Screen,
+                                                width: c_int,
+                                                height: c_int)
+                                                -> *mut cairo_surface_t;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_set_size(surface: *mut cairo_surface_t,
+                                       width: c_int,
+                                       height: c_int);
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_set_drawable(surface: *mut cairo_surface_t,
+                                           drawable: xlib::Drawable,
+                                           width: c_int,
+                                           height: c_int);
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_display(surface: *mut cairo_surface_t)
+                                          -> *mut xlib::Display;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_drawable(surface: *mut cairo_surface_t)
+                                           -> xlib::Drawable;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_screen(surface: *mut cairo_surface_t)
+                                         -> *mut xlib::Screen;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_visual(surface: *mut cairo_surface_t)
+                                         -> *mut xlib::Visual;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_depth(surface: *mut cairo_surface_t)
+                                        -> c_int;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_width(surface: *mut cairo_surface_t)
+                                        -> c_int;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xlib_surface_get_height(surface: *mut cairo_surface_t)
+                                         -> c_int;
+
 }
