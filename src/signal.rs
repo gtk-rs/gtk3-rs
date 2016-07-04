@@ -4,7 +4,7 @@
 
 //! `IMPL` Low level signal support.
 
-use libc::{c_void, c_uint};
+use libc::{c_void, c_uint, c_ulong};
 
 use gobject_ffi::{self, GCallback};
 use glib_ffi::GQuark;
@@ -19,6 +19,18 @@ pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, tr
         gobject_ffi::GConnectFlags::empty()) as u64;
     assert!(handle > 0);
     handle
+}
+
+pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: u64) {
+    unsafe {
+        gobject_ffi::g_signal_handler_block(instance.to_glib_none().0, handler_id as c_ulong);
+    }
+}
+
+pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: u64) {
+    unsafe {
+        gobject_ffi::g_signal_handler_unblock(instance.to_glib_none().0, handler_id as c_ulong);
+    }
 }
 
 pub fn signal_stop_emission<T: IsA<Object>>(instance: &T, signal_id: u32, detail: GQuark) {
