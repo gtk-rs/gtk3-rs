@@ -36,3 +36,10 @@ impl FromGlibPtr<ffi::GdkAtom> for Atom {
     #[inline]
     unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
 }
+
+impl<'a> From<&'a str> for Atom {
+    fn from(r: &'a str) -> Atom {
+        skip_assert_initialized!();
+        Atom::intern(r)
+    }
+}
