@@ -245,6 +245,8 @@ impl RadialGradient {
     }
 }
 
+impl Gradient for RadialGradient{}
+
 
 pattern_type!(SurfacePattern);
 
