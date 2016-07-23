@@ -42,7 +42,26 @@ pub struct WindowAttr {
     pub type_hint: Option<WindowTypeHint>,
 }
 
-impl Attributes {
+impl Default for WindowAttr {
+    fn default() -> WindowAttr {
+        skip_assert_initialized!();
+        WindowAttr {
+            title: None,
+            event_mask: 0,
+            x: None,
+            y: None,
+            width: 400,
+            height: 300,
+            wclass: WindowWindowClass::InputOutput,
+            visual: None,
+            window_type: WindowType::Toplevel,
+            cursor: None,
+            override_redirect: false,
+            type_hint: None,
+        }
+    }
+}
+
 impl WindowAttr {
     fn get_mask(&self) -> u32 {
         let mut mask = ffi::GdkWindowAttributesType::empty();
