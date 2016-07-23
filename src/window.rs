@@ -27,7 +27,7 @@ use {
     WMFunction,
 };
 
-pub struct Attributes {
+pub struct WindowAttr {
     pub title: Option<String>,
     pub event_mask: i32,
     pub x: Option<i32>,
@@ -43,6 +43,7 @@ pub struct Attributes {
 }
 
 impl Attributes {
+impl WindowAttr {
     fn get_mask(&self) -> u32 {
         let mut mask = ffi::GdkWindowAttributesType::empty();
         if self.title.is_some() { mask.insert(ffi::GDK_WA_TITLE); }
@@ -56,7 +57,7 @@ impl Attributes {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for Attributes {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
     type Storage = (
         Box<ffi::GdkWindowAttr>,
         Stash<'a, *mut ffi::GdkVisual, Option<Visual>>,
@@ -99,7 +100,7 @@ glib_wrapper! {
 }
 
 impl Window {
-    pub fn new(parent: Option<&Window>, attributes: &Attributes) -> Window {
+    pub fn new(parent: Option<&Window>, attributes: &WindowAttr) -> Window {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::gdk_window_new(
