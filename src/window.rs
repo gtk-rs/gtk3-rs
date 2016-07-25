@@ -27,7 +27,7 @@ use {
     WMFunction,
 };
 
-pub struct Attributes {
+pub struct WindowAttr {
     pub title: Option<String>,
     pub event_mask: i32,
     pub x: Option<i32>,
@@ -42,7 +42,27 @@ pub struct Attributes {
     pub type_hint: Option<WindowTypeHint>,
 }
 
-impl Attributes {
+impl Default for WindowAttr {
+    fn default() -> WindowAttr {
+        skip_assert_initialized!();
+        WindowAttr {
+            title: None,
+            event_mask: 0,
+            x: None,
+            y: None,
+            width: 400,
+            height: 300,
+            wclass: WindowWindowClass::InputOutput,
+            visual: None,
+            window_type: WindowType::Toplevel,
+            cursor: None,
+            override_redirect: false,
+            type_hint: None,
+        }
+    }
+}
+
+impl WindowAttr {
     fn get_mask(&self) -> u32 {
         let mut mask = ffi::GdkWindowAttributesType::empty();
         if self.title.is_some() { mask.insert(ffi::GDK_WA_TITLE); }
@@ -56,7 +76,7 @@ impl Attributes {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for Attributes {
+impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
     type Storage = (
         Box<ffi::GdkWindowAttr>,
         Stash<'a, *mut ffi::GdkVisual, Option<Visual>>,
@@ -99,7 +119,7 @@ glib_wrapper! {
 }
 
 impl Window {
-    pub fn new(parent: Option<&Window>, attributes: &Attributes) -> Window {
+    pub fn new(parent: Option<&Window>, attributes: &WindowAttr) -> Window {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_full(ffi::gdk_window_new(

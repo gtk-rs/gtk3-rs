@@ -125,6 +125,7 @@ pub use rectangle::Rectangle;
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;
+pub use window::WindowAttr;
 #[cfg(feature = "v3_16")]
 pub use gl_context::GLContext;
 
