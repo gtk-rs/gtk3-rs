@@ -24,4 +24,8 @@ impl EventButton {
     pub fn get_time(&self) -> u32 {
         self.as_ref().time
     }
+
+    pub fn get_button(&self) -> u32 {
+        self.as_ref().button
+    }
 }
