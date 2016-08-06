@@ -8,7 +8,7 @@ use std::cmp::PartialEq;
 use std::ops::Drop;
 use ffi;
 
-use ffi::enums::{
+pub use ffi::enums::{
     Antialias,
     SubpixelOrder,
     HintStyle,

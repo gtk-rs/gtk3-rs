@@ -58,6 +58,8 @@ pub use patterns::{
 
 pub use fonts::{
     FontFace,
+    FontSlant,
+    FontWeight,
     ScaledFont,
     FontOptions,
 
