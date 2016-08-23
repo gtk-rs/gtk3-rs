@@ -14,13 +14,6 @@ use auto::KeyFileFlags;
 use KeyFile;
 
 impl KeyFile {
-
-    pub fn error_quark() -> ffi::GQuark {
-        unsafe {
-            ffi::g_key_file_error_quark()
-        }
-    }
-
     #[cfg(feature = "v2_40")]
     pub fn save_to_file<T: AsRef<std::path::Path>>(&self, filename: T) -> Result<(), Error> {
         unsafe {
