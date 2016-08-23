@@ -76,7 +76,6 @@ extern crate bitflags;
 extern crate libc;
 extern crate glib_sys as ffi;
 extern crate gobject_sys as gobject_ffi;
-extern crate gio_sys as gio_ffi;
 
 pub use bytes::Bytes;
 pub use error::Error;
