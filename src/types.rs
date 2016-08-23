@@ -5,7 +5,7 @@
 //! Runtime type infromation.
 
 use translate::{FromGlib, ToGlib, from_glib};
-use glib_ffi;
+use ffi as glib_ffi;
 use gobject_ffi;
 
 /// A GLib or GLib-based library type

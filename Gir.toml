@@ -1,0 +1,40 @@
+[options]
+girs_dir = "gir-files"
+library = "GLib"
+version = "2.0"
+min_cfg_version = "2.32"
+target_path = "."
+work_mode = "normal"
+
+generate = [
+    "GLib.KeyFileError",
+    "GLib.KeyFileFlags",
+]
+
+ignore = [
+]
+
+manual = [
+    "GLib.Bytes",
+    "GLib.Error",
+    "GLib.Variant",
+    "GLib.VariantType",
+    "GObject.Object",
+]
+
+[[object]]
+name = "GLib.KeyFile"
+status = "generate"
+       [[object.function]]
+       name = "load_from_data_dirs"
+       ignore = true
+       [[object.function]]
+       name = "load_from_dirs"
+       ignore = true
+       [[object.function]]
+       name = "error_quark"
+       ignore = true
+       [[object.function]]
+       name = "save_to_file"
+       # file parameter needs to be a PathBuf
+       ignore = true

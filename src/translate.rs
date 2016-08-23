@@ -59,7 +59,7 @@ use std::os::unix::prelude::*;
 use std::path::{Path, PathBuf};
 use std::ptr;
 use libc::{c_char, size_t};
-use glib_ffi;
+use ffi as glib_ffi;
 
 /// A pointer
 pub trait Ptr: Copy + 'static {
@@ -1136,7 +1136,7 @@ impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<
 #[cfg(test)]
 mod tests {
     use std::collections::HashMap;
-    use glib_ffi;
+    use ffi as glib_ffi;
     use super::*;
 
     #[test]

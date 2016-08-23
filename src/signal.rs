@@ -7,7 +7,7 @@
 use libc::{c_void, c_uint, c_ulong};
 
 use gobject_ffi::{self, GCallback};
-use glib_ffi::GQuark;
+use ffi::GQuark;
 use object::{IsA, Object};
 use source::CallbackGuard;
 use translate::ToGlibPtr;

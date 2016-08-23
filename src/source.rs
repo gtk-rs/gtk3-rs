@@ -6,7 +6,8 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use std::process;
 use std::thread;
-use glib_ffi::{self, gboolean, gpointer};
+use ffi as glib_ffi;
+use ffi::{gboolean, gpointer};
 use translate::ToGlib;
 
 /// Continue calling the closure in the future iterations or drop it.

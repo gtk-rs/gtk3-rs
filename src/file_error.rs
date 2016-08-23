@@ -3,7 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use error::ErrorDomain;
-use glib_ffi;
+use ffi as glib_ffi;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FileError {

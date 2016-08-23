@@ -39,7 +39,7 @@
 //! ```
 
 use VariantTy;
-use glib_ffi;
+use ffi as glib_ffi;
 use translate::*;
 use std::borrow::Cow;
 use std::cmp::{PartialEq, Eq};
