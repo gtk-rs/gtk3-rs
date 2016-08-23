@@ -14,6 +14,7 @@ keywords = ["glib", "gtk-rs", "gnome", "GUI"]
 name = "glib"
 
 [dependencies]
+bitflags = "0.5"
 libc = "0.2"
 
 [dependencies.gio-sys]
@@ -27,3 +28,7 @@ version = "0.3.1"
 [dependencies.gobject-sys]
 git = "https://github.com/gtk-rs/sys"
 version = "0.3.1"
+
+[features]
+v2_38 = [ "glib-sys/v2_38", "gio-sys/v2_38", "gobject-sys/v2_38" ]
+v2_40 = [ "v2_38", "glib-sys/v2_40", "gio-sys/v2_40" ]

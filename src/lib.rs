@@ -71,8 +71,10 @@
 //! conversions between high level Rust types (including the aforementioned
 //! wrappers) and their FFI counterparts.
 
+#[macro_use]
+extern crate bitflags;
 extern crate libc;
-extern crate glib_sys as glib_ffi;
+extern crate glib_sys as ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate gio_sys as gio_ffi;
 
@@ -121,6 +123,35 @@ pub use time_val::{
     get_current_time,
 };
 
+pub const KEY_FILE_DESKTOP_GROUP: &'static str = ffi::G_KEY_FILE_DESKTOP_GROUP;
+pub const KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS;
+pub const KEY_FILE_DESKTOP_KEY_CATEGORIES: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_CATEGORIES;
+pub const KEY_FILE_DESKTOP_KEY_COMMENT: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_COMMENT;
+pub const KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE;
+pub const KEY_FILE_DESKTOP_KEY_EXEC: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_EXEC;
+pub const KEY_FILE_DESKTOP_KEY_FULLNAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_FULLNAME;
+pub const KEY_FILE_DESKTOP_KEY_GENERIC_NAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME;
+pub const KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN;
+pub const KEY_FILE_DESKTOP_KEY_HIDDEN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_HIDDEN;
+pub const KEY_FILE_DESKTOP_KEY_ICON: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ICON;
+pub const KEY_FILE_DESKTOP_KEY_KEYWORDS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_KEYWORDS;
+pub const KEY_FILE_DESKTOP_KEY_MIME_TYPE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_MIME_TYPE;
+pub const KEY_FILE_DESKTOP_KEY_NAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NAME;
+pub const KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN;
+pub const KEY_FILE_DESKTOP_KEY_NO_DISPLAY: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY;
+pub const KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN;
+pub const KEY_FILE_DESKTOP_KEY_PATH: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_PATH;
+pub const KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY;
+pub const KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS;
+pub const KEY_FILE_DESKTOP_KEY_TERMINAL: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TERMINAL;
+pub const KEY_FILE_DESKTOP_KEY_TRY_EXEC: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TRY_EXEC;
+pub const KEY_FILE_DESKTOP_KEY_TYPE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TYPE;
+pub const KEY_FILE_DESKTOP_KEY_URL: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_URL;
+pub const KEY_FILE_DESKTOP_KEY_VERSION: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_VERSION;
+pub const KEY_FILE_DESKTOP_TYPE_APPLICATION: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_APPLICATION;
+pub const KEY_FILE_DESKTOP_TYPE_DIRECTORY: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_DIRECTORY;
+pub const KEY_FILE_DESKTOP_TYPE_LINK: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_LINK;
+
 #[macro_use]
 pub mod wrapper;
 #[macro_use]
@@ -130,9 +161,13 @@ pub mod shared;
 #[macro_use]
 pub mod object;
 
+pub use auto::*;
+mod auto;
+
 mod bytes;
 pub mod error;
 mod file_error;
+mod key_file;
 pub mod prelude;
 pub mod signal;
 mod source;

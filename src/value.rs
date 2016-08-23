@@ -80,7 +80,7 @@ use object::{Downcast, IsA, Object};
 use translate::*;
 use types::{StaticType, Type};
 
-use glib_ffi;
+use ffi as glib_ffi;
 use gobject_ffi;
 
 /// A generic value capable of carrying various types.

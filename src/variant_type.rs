@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use glib_ffi;
+use ffi as glib_ffi;
 use translate::*;
 use std::borrow::{Borrow, Cow, ToOwned};
 use std::cmp::{PartialEq, Eq};
@@ -267,7 +267,7 @@ impl Eq for VariantType { }
 
 #[cfg(test)]
 mod tests {
-    use glib_ffi;
+    use ffi as glib_ffi;
     use translate::*;
     use super::*;
 

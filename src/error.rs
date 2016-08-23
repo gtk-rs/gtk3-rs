@@ -9,7 +9,7 @@ use std::error;
 use std::fmt;
 use std::str;
 use translate::*;
-use glib_ffi;
+use ffi as glib_ffi;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
