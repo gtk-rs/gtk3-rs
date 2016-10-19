@@ -34,8 +34,9 @@ impl ImageSurface {
     }
 
     pub fn create_for_data<F>(data: Box<[u8]>, free: F, format: Format, width: i32, height: i32,
-        stride: i32) -> ImageSurface
+                              stride: i32) -> ImageSurface
     where F: FnOnce(Box<[u8]>) + 'static {
+        assert!(data.len() >= (height * stride) as usize);
         unsafe {
             let mut data = Box::new(AsyncBorrow::new(data, free));
             let ptr = (*data).as_mut().as_mut_ptr();
