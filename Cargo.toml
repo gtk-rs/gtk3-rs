@@ -38,6 +38,9 @@ name = "cairotest"
 name = "cairo_threads"
 
 [[bin]]
+name = "grid"
+
+[[bin]]
 name = "gtktest"
 
 [[bin]]
