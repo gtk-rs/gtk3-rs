@@ -121,6 +121,9 @@ pub use time_val::{
     TimeVal,
     get_current_time,
 };
+pub use enums::{
+    UserDirectory,
+};
 
 pub const KEY_FILE_DESKTOP_GROUP: &'static str = ffi::G_KEY_FILE_DESKTOP_GROUP;
 pub const KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS;
@@ -165,6 +168,7 @@ mod auto;
 
 mod bytes;
 pub mod error;
+mod enums;
 mod file_error;
 mod key_file;
 pub mod prelude;
@@ -173,6 +177,7 @@ mod source;
 mod time_val;
 pub mod translate;
 pub mod types;
+pub mod utils;
 pub mod value;
 pub mod variant;
 mod variant_type;
