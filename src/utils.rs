@@ -50,12 +50,14 @@ pub fn get_environ() -> Vec<String> {
     }
 }
 
+#[cfg(unix)]
 pub fn getenv(variable_name: &str) -> Option<String> {
     unsafe {
         from_glib_none(ffi::g_getenv(variable_name.to_glib_none().0))
     }
 }
 
+#[cfg(unix)]
 pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> bool {
     unsafe {
         from_glib(ffi::g_setenv(variable_name.to_glib_none().0,
@@ -64,6 +66,7 @@ pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> bool {
     }
 }
 
+#[cfg(unix)]
 pub fn unsetenv(variable_name: &str) {
     unsafe {
         ffi::g_unsetenv(variable_name.to_glib_none().0)
@@ -154,6 +157,7 @@ pub fn get_tmp_dir() -> Option<String> {
     }
 }
 
+#[cfg(unix)]
 pub fn get_current_dir() -> Option<String> {
     unsafe {
         from_glib_none(ffi::g_get_current_dir())
