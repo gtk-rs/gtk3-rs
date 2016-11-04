@@ -108,7 +108,7 @@ pub enum LineCap {
 pub enum LineJoin {
     Miter,
     Round,
-    nBevel
+    Bevel
 }
 
 #[repr(C)]
