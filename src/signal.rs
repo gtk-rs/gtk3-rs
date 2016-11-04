@@ -7,10 +7,26 @@
 use libc::{c_void, c_uint, c_ulong};
 
 use gobject_ffi::{self, GCallback};
-use ffi::GQuark;
+use ffi::{gboolean, GQuark};
 use object::{IsA, Object};
 use source::CallbackGuard;
-use translate::ToGlibPtr;
+use translate::{ToGlib, ToGlibPtr};
+
+/// Whether to propagate the signal to the default handler.
+///
+/// Don't inhibit default handlers without a reason, they're usually helpful.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct Inhibit(pub bool);
+
+#[doc(hidden)]
+impl ToGlib for Inhibit {
+    type GlibType = gboolean;
+
+    #[inline]
+    fn to_glib(&self) -> gboolean {
+        self.0.to_glib()
+    }
+}
 
 pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn() + 'static>) -> u64 {
