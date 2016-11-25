@@ -418,7 +418,7 @@ pub struct GTypeValueTable {
 #[repr(C)]
 pub struct GValue {
     g_type: GType,
-    pub data: [c_double; 2],
+    pub data: [gpointer; 2],
 }
 
 #[repr(C)]
