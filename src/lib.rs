@@ -23,6 +23,10 @@ pub use resources::{
     resources_unregister,
 };
 
+pub mod signal {
+    pub use glib::signal::Inhibit;
+}
+
 pub mod prelude {
     pub use auto::traits::*;
 }

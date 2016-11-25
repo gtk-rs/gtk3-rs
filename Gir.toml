@@ -55,5 +55,4 @@ name = "Gio.Settings"
 status = "generate"
     [[object.signal]]
     name = "writable-change-event"
-    # missing Inhibit support
-    ignore = true
+    inhibit = true
