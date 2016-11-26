@@ -23,6 +23,9 @@ v2_38 = ["v2_36", "gio-sys/v2_38"]
 v2_40 = ["v2_38", "gio-sys/v2_40"]
 v2_42 = ["v2_40", "gio-sys/v2_42"]
 v2_44 = ["v2_42", "gio-sys/v2_44"]
+v2_46 = ["v2_44", "gio-sys/v2_46"]
+v2_48 = ["v2_46", "gio-sys/v2_48"]
+v2_50 = ["v2_48", "gio-sys/v2_50"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"
