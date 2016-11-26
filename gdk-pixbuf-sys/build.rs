@@ -16,7 +16,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "gdk-pixbuf-2.0";
     let shared_libs = ["gdk_pixbuf-2.0"];
-    let version = if cfg!(feature = "v2_32") {
+    let version = if cfg!(feature = "v2_36") {
+        "2.36"
+    } else if cfg!(feature = "v2_32") {
         "2.32"
     } else if cfg!(feature = "v2_30") {
         "2.30"
