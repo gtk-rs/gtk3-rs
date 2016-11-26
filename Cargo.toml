@@ -28,3 +28,7 @@ version = "0.3.1"
 [features]
 v2_38 = ["glib-sys/v2_38", "gobject-sys/v2_38"]
 v2_40 = ["v2_38", "glib-sys/v2_40"]
+v2_44 = ["v2_40", "glib-sys/v2_44", "gobject-sys/v2_44"]
+v2_46 = ["v2_44", "glib-sys/v2_46", "gobject-sys/v2_46"]
+v2_48 = ["v2_46", "glib-sys/v2_48"]
+v2_50 = ["v2_48", "glib-sys/v2_50"]
