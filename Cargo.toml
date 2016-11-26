@@ -26,6 +26,9 @@ v3_10 = ["v3_8", "gdk-sys/v3_10", "cairo-rs/v1_12", "gio/v2_36"]
 v3_12 = ["v3_10", "gdk-sys/v3_12", "gio/v2_38"]
 v3_14 = ["v3_12", "gdk-sys/v3_14", "gdk-pixbuf/v2_30", "gio/v2_40", "pango/v1_34"]
 v3_16 = ["v3_14", "gdk-sys/v3_16", "gio/v2_42"]
+v3_18 = ["v3_16", "gdk-sys/v3_18", "gio/v2_44"]
+v3_20 = ["v3_18", "gdk-sys/v3_20", "gio/v2_48"]
+v3_22 = ["v3_20", "gdk-sys/v3_22"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"
