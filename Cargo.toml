@@ -1,6 +1,6 @@
 [package]
 name = "pango"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the Pango library"
@@ -25,8 +25,8 @@ libc = "0.2"
 
 [dependencies.pango-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.1"
+version = "0.3.2"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
-version = "0.1.0"
+version = "0.1.1"
