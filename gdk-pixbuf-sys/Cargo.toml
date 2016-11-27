@@ -5,18 +5,9 @@ pkg-config = "0.3.7"
 [dependencies]
 bitflags = "0.4"
 libc = "0.2"
-
-[dependencies.gio-sys]
-path = "../gio-sys"
-version = "0.3.2"
-
-[dependencies.glib-sys]
-path = "../glib-sys"
-version = "0.3.2"
-
-[dependencies.gobject-sys]
-path = "../gobject-sys"
-version = "0.3.2"
+gio-sys = "^0.3.2"
+glib-sys = "^0.3.2"
+gobject-sys = "^0.3.2"
 
 [features]
 v2_28 = []

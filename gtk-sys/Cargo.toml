@@ -5,38 +5,14 @@ pkg-config = "0.3.7"
 [dependencies]
 bitflags = "0.4"
 libc = "0.2"
-
-[dependencies.atk-sys]
-path = "../atk-sys"
-version = "0.3.2"
-
-[dependencies.cairo-sys-rs]
-git = "https://github.com/gtk-rs/cairo"
-version = "0.3.2"
-
-[dependencies.gdk-pixbuf-sys]
-path = "../gdk-pixbuf-sys"
-version = "0.3.2"
-
-[dependencies.gdk-sys]
-path = "../gdk-sys"
-version = "0.3.2"
-
-[dependencies.gio-sys]
-path = "../gio-sys"
-version = "0.3.2"
-
-[dependencies.glib-sys]
-path = "../glib-sys"
-version = "0.3.2"
-
-[dependencies.gobject-sys]
-path = "../gobject-sys"
-version = "0.3.2"
-
-[dependencies.pango-sys]
-path = "../pango-sys"
-version = "0.3.2"
+atk-sys = "^0.3.2"
+cairo-sys-rs = "^0.3.2"
+gdk-pixbuf-sys = "^0.3.2"
+gdk-sys = "^0.3.2"
+gio-sys = "^0.3.2"
+glib-sys = "^0.3.2"
+gobject-sys = "^0.3.2"
+pango-sys = "^0.3.2"
 
 [features]
 v3_10 = ["v3_8"]
