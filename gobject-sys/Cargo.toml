@@ -8,7 +8,7 @@ libc = "0.2"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.3.1"
+version = "0.3.2"
 
 [features]
 v2_34 = []
@@ -31,4 +31,4 @@ license = "MIT"
 links = "gobject"
 name = "gobject-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.1"
+version = "0.3.2"
