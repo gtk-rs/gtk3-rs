@@ -1,6 +1,6 @@
 [package]
 name = "glib"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["The Gtk-rs Project Developers"]
 
 description = "Rust bindings for the GLib library"
@@ -19,11 +19,11 @@ libc = "0.2"
 
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.1"
+version = "0.3.2"
 
 [dependencies.gobject-sys]
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.1"
+version = "0.3.2"
 
 [features]
 v2_38 = ["glib-sys/v2_38", "gobject-sys/v2_38"]
