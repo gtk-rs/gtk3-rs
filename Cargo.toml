@@ -28,26 +28,13 @@ v2_48 = ["v2_46", "gio-sys/v2_48"]
 v2_50 = ["v2_48", "gio-sys/v2_50"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
-git = "https://github.com/gtk-rs/lgpl-docs"
-version = "0.1.0"
+version = "^0.1.1"
 optional = true
 
 [dependencies]
 bitflags = "0.5"
 libc = "0.2"
-
-[dependencies.gio-sys]
-git = "https://github.com/gtk-rs/sys"
-version = "0.3.2"
-
-[dependencies.glib-sys]
-git = "https://github.com/gtk-rs/sys"
-version = "0.3.2"
-
-[dependencies.glib]
-git = "https://github.com/gtk-rs/glib"
-version = "0.1.1"
-
-[dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/sys"
-version = "0.3.2"
+gio-sys = "^0.3.2"
+glib-sys = "^0.3.2"
+glib = "^0.1.1"
+gobject-sys = "^0.3.2"
