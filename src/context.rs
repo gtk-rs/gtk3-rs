@@ -479,11 +479,25 @@ impl Context {
         }
     }
 
-    //pub fn cairo_transform(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn transform(&self, matrix: Matrix) {
+        unsafe {
+            ffi::cairo_transform(self.0, &matrix);
+        }
+    }
 
-    //pub fn cairo_set_matrix(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn set_matrix(&self, matrix: Matrix) {
+        unsafe {
+            ffi::cairo_set_matrix(self.0, &matrix);
+        }
+    }
 
-    //pub fn cairo_get_matrix(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn get_matrix(&self) -> Matrix {
+        let mut matrix = <Matrix as MatrixTrait>::null();
+        unsafe {
+            ffi::cairo_get_matrix(self.0, &mut matrix);
+        }
+        matrix
+    }
 
     pub fn identity_matrix(&self) {
         unsafe {
