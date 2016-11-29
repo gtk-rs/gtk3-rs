@@ -302,7 +302,7 @@ extern "C" {
     pub fn cairo_pattern_get_extend(pattern: *mut cairo_pattern_t) -> Extend;
     pub fn cairo_pattern_set_filter(pattern: *mut cairo_pattern_t, filter: Filter);
     pub fn cairo_pattern_get_filter(pattern: *mut cairo_pattern_t) -> Filter;
-    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
+    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *const Matrix);
     pub fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
     pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> PatternType;
     pub fn cairo_pattern_get_reference_count(pattern: *mut cairo_pattern_t) -> c_uint;
