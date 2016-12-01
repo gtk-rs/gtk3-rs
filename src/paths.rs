@@ -39,9 +39,10 @@ impl Path {
             let ptr: *mut cairo_path_t = self.get_ptr();
             let length = (*ptr).num_data as usize;
             let data_ptr = (*ptr).data;
+            let data_vec = if length != 0 { Some(CVec::new(data_ptr, length)) } else { None };
 
             PathSegments {
-                data: CVec::new(data_ptr, length),
+                data: data_vec,
                 i: 0,
                 num_data: length
             }
@@ -57,7 +58,7 @@ impl Drop for Path {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum PathSegment {
     MoveTo((f64,f64)),
     LineTo((f64,f64)),
@@ -66,7 +67,7 @@ pub enum PathSegment {
 }
 
 pub struct PathSegments {
-    data: CVec<[f64; 2]>,
+    data: Option<CVec<[f64; 2]>>,
     i: usize,
     num_data: usize
 }
@@ -82,13 +83,13 @@ impl Iterator for PathSegments {
         }
 
         let (data_type, length) = unsafe {
-            let data_header: &cairo_path_data_header = transmute(self.data.get(i));
+            let data_header: &cairo_path_data_header = transmute(self.data.as_ref().unwrap().get(i));
             (data_header.data_type, data_header.length)
         };
 
         self.i += length as usize;
 
-        let ref data = self.data;
+        let ref data = self.data.as_ref().unwrap();
 
         Some(match data_type {
             PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(data.get(i + 1).unwrap())),
@@ -104,4 +105,112 @@ impl Iterator for PathSegments {
 
 fn to_tuple(pair: &[f64; 2]) -> (f64, f64) {
     (pair[0], pair[1])
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use context::*;
+    use image_surface::*;
+    use ffi::enums::Format;
+
+    fn make_cr() -> Context {
+        let surface = ImageSurface::create(Format::Rgb24, 1, 1);
+
+        Context::new(&surface)
+    }
+
+    fn assert_path_equals_segments(expected: &Path, actual: &Vec<PathSegment>) {
+        // First ensure the lengths are equal
+
+        let expected_iter = expected.iter();
+        let actual_iter = actual.iter();
+
+        assert_eq!(expected_iter.count(), actual_iter.count());
+
+        // Then actually compare the contents
+
+        let expected_iter = expected.iter();
+        let actual_iter = actual.iter();
+
+        let mut iter = expected_iter.zip(actual_iter);
+
+        while let Some((e, a)) = iter.next() {
+            assert_eq!(e, *a);
+        }
+    }
+
+    #[test]
+    fn empty_path_doesnt_iter() {
+        let cr = make_cr();
+
+        let path = cr.copy_path();
+
+        assert!(path.iter().next().is_none());
+    }
+
+    #[test]
+    fn moveto() {
+        let cr = make_cr();
+
+        cr.move_to(1.0, 2.0);
+
+        let path = cr.copy_path();
+
+        assert_path_equals_segments(&path,
+                                    &vec![PathSegment::MoveTo((1.0, 2.0))]);
+    }
+
+    #[test]
+    fn moveto_lineto_moveto() {
+        let cr = make_cr();
+
+        cr.move_to(1.0, 2.0);
+        cr.line_to(3.0, 4.0);
+        cr.move_to(5.0, 6.0);
+
+        let path = cr.copy_path();
+
+        assert_path_equals_segments(&path,
+                                    &vec![PathSegment::MoveTo((1.0, 2.0)),
+                                          PathSegment::LineTo((3.0, 4.0)),
+                                          PathSegment::MoveTo((5.0, 6.0))]);
+    }
+
+    #[test]
+    fn moveto_closepath() {
+        let cr = make_cr();
+
+        cr.move_to(1.0, 2.0);
+        cr.close_path();
+
+        let path = cr.copy_path();
+
+        // Note that Cairo represents a close_path as closepath+moveto,
+        // so that the next subpath will have a starting point,
+        // from the extra moveto.
+        assert_path_equals_segments(&path,
+                                    &vec![PathSegment::MoveTo((1.0, 2.0)),
+                                          PathSegment::ClosePath,
+                                          PathSegment::MoveTo((1.0, 2.0))]);
+    }
+    #[test]
+    fn curveto_closed_subpath_lineto() {
+        let cr = make_cr();
+
+        cr.move_to(1.0, 2.0);
+        cr.curve_to(3.0, 4.0, 5.0, 6.0, 7.0, 8.0);
+        cr.close_path();
+        cr.line_to(9.0, 10.0);
+
+        let path = cr.copy_path();
+
+        assert_path_equals_segments(&path,
+                                    &vec![PathSegment::MoveTo((1.0, 2.0)),
+                                          PathSegment::CurveTo((3.0, 4.0), (5.0, 6.0), (7.0, 8.0)),
+                                          PathSegment::ClosePath,
+                                          PathSegment::MoveTo((1.0, 2.0)),
+                                          PathSegment::LineTo((9.0, 10.0))]);
+    }
+
 }
