@@ -17,7 +17,9 @@ use ffi::{
     cairo_pattern_t
 };
 use ::{
-    Path
+    Path,
+    Matrix,
+    MatrixTrait,
 };
 
 //Quite some changes from the C api but all suggested by the cairo devs.
@@ -84,9 +86,19 @@ pub trait Pattern {
         }
     }
 
-    //fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *mut cairo_matrix_t);
+    fn set_matrix(&self, matrix: Matrix) {
+        unsafe {
+            ffi::cairo_pattern_set_matrix (self.get_ptr(), &matrix)
+        }
+    }
 
-    //fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut cairo_matrix_t);
+    fn get_matrix(&self) -> Matrix {
+        let mut matrix = <Matrix as MatrixTrait>::null();
+        unsafe {
+            ffi::cairo_pattern_get_matrix(self.get_ptr(), &mut matrix);
+        }
+        matrix
+    }
 }
 
 macro_rules! pattern_type(

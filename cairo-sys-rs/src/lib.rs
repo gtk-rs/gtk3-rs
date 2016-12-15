@@ -259,8 +259,8 @@ extern "C" {
     pub fn cairo_translate(cr: *mut cairo_t, tx: c_double, ty: c_double);
     pub fn cairo_scale(cr: *mut cairo_t, sx: c_double, sy: c_double);
     pub fn cairo_rotate(cr: *mut cairo_t, angle: c_double);
-    pub fn cairo_transform(cr: *mut cairo_t, matrix: *mut Matrix);
-    pub fn cairo_set_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
+    pub fn cairo_transform(cr: *mut cairo_t, matrix: *const Matrix);
+    pub fn cairo_set_matrix(cr: *mut cairo_t, matrix: *const Matrix);
     pub fn cairo_get_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
     pub fn cairo_identity_matrix(cr: *mut cairo_t);
     pub fn cairo_user_to_device(cr: *mut cairo_t, x: *mut c_double, y: *mut c_double);
@@ -302,7 +302,7 @@ extern "C" {
     pub fn cairo_pattern_get_extend(pattern: *mut cairo_pattern_t) -> Extend;
     pub fn cairo_pattern_set_filter(pattern: *mut cairo_pattern_t, filter: Filter);
     pub fn cairo_pattern_get_filter(pattern: *mut cairo_pattern_t) -> Filter;
-    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
+    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *const Matrix);
     pub fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
     pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> PatternType;
     pub fn cairo_pattern_get_reference_count(pattern: *mut cairo_pattern_t) -> c_uint;
