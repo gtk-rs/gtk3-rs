@@ -96,3 +96,9 @@ mod patterns;
 mod rectangle;
 mod surface;
 mod matrices;
+
+#[cfg(windows)]
+mod win32_surface;
+
+#[cfg(windows)]
+pub use win32_surface::Win32Surface;

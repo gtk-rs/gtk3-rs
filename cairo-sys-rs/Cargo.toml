@@ -25,5 +25,8 @@ v1_14 = ["v1_12"]
 libc = "0.2"
 x11 = { version = "2.6.1", features = ["xlib"], optional = true }
 
+[target.'cfg(windows)'.dependencies]
+winapi = "0.2.7"
+
 [build-dependencies]
 pkg-config = "0.3.7"

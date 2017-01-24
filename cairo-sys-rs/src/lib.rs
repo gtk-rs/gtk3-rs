@@ -9,6 +9,9 @@ extern crate libc;
 #[cfg(feature = "xlib")]
 extern crate x11;
 
+#[cfg(windows)]
+extern crate winapi;
+
 use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 
 #[cfg(feature = "xlib")]
@@ -469,6 +472,7 @@ extern "C" {
     #[cfg(feature = "png")]
     pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
 
+    // CAIRO XLIB SURFACE
     #[cfg(feature = "xlib")]
     pub fn cairo_xlib_surface_create(dpy: *mut xlib::Display,
                                      drawable: xlib::Drawable,
@@ -514,4 +518,24 @@ extern "C" {
     pub fn cairo_xlib_surface_get_height(surface: *mut cairo_surface_t)
                                          -> c_int;
 
+    // CAIRO WINDOWS SURFACE
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create_with_dib(format: Format,
+                                               width: c_int,
+                                               height: c_int)
+                                               -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create_with_ddb(hdc: winapi::HDC,
+                                               format: Format,
+                                               width: c_int,
+                                               height: c_int)
+                                               -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_printing_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_get_dc(surface: *mut cairo_surface_t) -> winapi::HDC;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_get_image(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
 }
