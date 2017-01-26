@@ -233,7 +233,7 @@ impl Context {
         }
     }
 
-    pub fn set_line_cap(&self, arg: LineCap){
+    pub fn set_line_cap(&self, arg: LineCap) {
         unsafe {
             ffi::cairo_set_line_cap(self.0, arg)
         }

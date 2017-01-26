@@ -18,6 +18,7 @@ name = "cairo_sys"
 [features]
 png = []
 xlib = ["x11"]
+xcb = []
 v1_12 = []
 v1_14 = ["v1_12"]
 

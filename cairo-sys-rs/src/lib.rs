@@ -55,6 +55,27 @@ pub struct cairo_antialias_t(c_void);
 pub struct cairo_line_join_t(c_void);
 #[repr(C)]
 pub struct cairo_line_cap_t(c_void);
+
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct cairo_device_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_connection_t(c_void);
+#[cfg(feature = "xcb")]
+pub type xcb_drawable_t = u32;
+#[cfg(feature = "xcb")]
+pub type xcb_pixmap_t = u32;
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_visualtype_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_screen_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_render_pictforminfo_t(c_void);
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct cairo_rectangle_t {
@@ -471,6 +492,51 @@ extern "C" {
     pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
     #[cfg(feature = "png")]
     pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
+
+    // CAIRO XCB
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create(connection: *mut xcb_connection_t,
+                                    drawable: xcb_drawable_t,
+                                    visual: *mut xcb_visualtype_t,
+                                    width: c_int,
+                                    height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create_for_bitmap(connection: *mut xcb_connection_t,
+                                               screen: *mut xcb_screen_t,
+                                               bitmap: xcb_pixmap_t,
+                                               width: c_int,
+                                               height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create_with_xrender_format(connection: *mut xcb_connection_t,
+                                                        screen: *mut xcb_screen_t,
+                                                        drawable: xcb_drawable_t,
+                                                        format: *mut xcb_render_pictforminfo_t,
+                                                        width: c_int,
+                                                        height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_set_size(surface: *mut cairo_surface_t,
+                                      width: c_int,
+                                      height: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_set_drawable(surface: *mut cairo_surface_t,
+                                          drawable: xcb_drawable_t,
+                                          width: c_int,
+                                          height: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_get_connection(device: *mut cairo_device_t) -> *mut xcb_connection_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_cap_xrender_version(device: *mut cairo_device_t,
+                                                      major_version: c_int,
+                                                      minor_version: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_cap_xshm_version(device: *mut cairo_device_t,
+                                                   major_version: c_int,
+                                                   minor_version: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_get_precision(device: *mut cairo_device_t) -> c_int;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xcb_device_debug_set_precision(device: *mut cairo_device_t,
+                                                precision: c_int);
 
     // CAIRO XLIB SURFACE
     #[cfg(feature = "xlib")]
