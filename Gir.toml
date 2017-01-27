@@ -22,7 +22,6 @@ generate = [
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
     "Gio.SettingsBindFlags",
-    "Gio.SimpleAction",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
 ]
@@ -56,3 +55,15 @@ status = "generate"
     [[object.signal]]
     name = "writable-change-event"
     inhibit = true
+
+[[object]]
+name = "Gio.SimpleAction"
+status = "generate"
+    [[object.property]]
+    name = "parameter-type"
+    #value glib::VariantTy
+    ignore = true
+    [[object.property]]
+    name = "state"
+    #value glib::VariantTy
+    ignore = true
