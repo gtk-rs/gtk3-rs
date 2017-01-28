@@ -21,6 +21,7 @@ pub mod enums;
 
 use enums::{
     Status,
+    Content,
     Antialias,
     LineCap,
     LineJoin,
@@ -180,7 +181,7 @@ extern "C" {
     pub fn cairo_restore (cr: *mut cairo_t);
     pub fn cairo_get_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
     pub fn cairo_push_group (cr: *mut cairo_t);
-    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: cairo_content_t);
+    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: Content);
     pub fn cairo_pop_group (cr: *mut cairo_t) -> *mut cairo_pattern_t;
     pub fn cairo_pop_group_to_source (cr: *mut cairo_t);
     pub fn cairo_get_group_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
@@ -365,7 +366,7 @@ extern "C" {
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
 
     //CAIRO RASTER
-    //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_pattern_t;
+    //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: Content, width: c_int, height: c_int) -> *mut cairo_pattern_t;
     //pub fn cairo_raster_source_pattern_set_callback_data(pattern: *mut cairo_pattern_t, data: *mut void);
     //pub fn cairo_raster_source_pattern_get_callback_data(pattern: *mut cairo_pattern_t) -> *mut void;
     /* FIXME how do we do these _func_t types?
@@ -458,6 +459,7 @@ extern "C" {
     pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> Status;
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: Content, width: c_int, height: c_int) -> *mut cairo_surface_t;
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: Format, width: c_int, height: c_int) -> *mut cairo_surface_t;
