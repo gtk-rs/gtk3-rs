@@ -114,7 +114,11 @@ impl Context {
         self.ensure_status()
     }
 
-    //fn ffi::cairo_get_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
+    pub fn get_target(&self) -> Surface {
+        unsafe {
+            from_glib_none(ffi::cairo_get_target(self.0))
+        }
+    }
 
     pub fn push_group(&self) {
         unsafe {
@@ -141,7 +145,11 @@ impl Context {
         }
     }
 
-    //fn ffi::cairo_get_group_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
+    pub fn get_group_target(&self) -> Surface {
+        unsafe {
+            from_glib_none(ffi::cairo_get_group_target(self.0))
+        }
+    }
 
     pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
         unsafe {
