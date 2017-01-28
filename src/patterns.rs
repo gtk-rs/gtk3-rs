@@ -5,7 +5,9 @@
 #![cfg_attr(not(feature = "v1_12"), allow(unused_imports))]
 
 use libc::{c_double, c_int, c_uint};
+use std::ptr;
 use std::mem::transmute;
+use glib::translate::*;
 use ffi::enums::{
     Extend,
     Filter,
@@ -14,12 +16,14 @@ use ffi::enums::{
 };
 use ffi;
 use ffi::{
-    cairo_pattern_t
+    cairo_pattern_t,
+    cairo_surface_t,
 };
 use ::{
     Path,
     Matrix,
     MatrixTrait,
+    Surface,
 };
 
 //Quite some changes from the C api but all suggested by the cairo devs.
@@ -263,9 +267,19 @@ impl Gradient for RadialGradient{}
 pattern_type!(SurfacePattern);
 
 impl SurfacePattern {
-    //pub fn cairo_pattern_create_for_surface(surface: *mut cairo_surface_t) -> *mut cairo_pattern_t;
+    pub fn create<T: AsRef<Surface>>(surface: &T) -> SurfacePattern {
+        SurfacePattern::wrap(unsafe {
+            ffi::cairo_pattern_create_for_surface(surface.as_ref().to_glib_none().0)
+        })
+    }
 
-    //pub fn cairo_pattern_get_surface(pattern: *mut cairo_pattern_t, surface: **mut cairo_surface_t) -> Status;
+    pub fn get_surface(&self) -> Surface {
+        unsafe {
+            let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
+            ffi::cairo_pattern_get_surface(self.pointer, &mut surface_ptr).ensure_valid();
+            Surface::from_glib_none(surface_ptr)
+        }
+    }
 }
 
 #[cfg(feature = "v1_12")]
