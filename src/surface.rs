@@ -8,6 +8,7 @@ use libc::c_void;
 use glib::translate::*;
 use ffi;
 use ffi::enums::{
+    Content,
     Status,
     SurfaceType,
 };
@@ -18,6 +19,10 @@ pub struct Surface(*mut ffi::cairo_surface_t);
 impl Surface {
     pub fn status(&self) -> Status {
         unsafe { ffi::cairo_surface_status(self.to_glib_none().0) }
+    }
+
+    pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
+        unsafe { from_glib_full(ffi::cairo_surface_create_similar(self.to_glib_none().0, content, width, height)) }
     }
 }
 
