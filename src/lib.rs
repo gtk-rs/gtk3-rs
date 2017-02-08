@@ -24,7 +24,10 @@ pub use paths::{
 pub use enums::{
     Status,
     Antialias,
+    Content,
+    Extend,
     FillRule,
+    Filter,
     LineCap,
     LineJoin,
     Operator,
