@@ -111,3 +111,16 @@ where F: FnMut() -> Continue + Send + 'static {
             Some(trampoline), into_raw(func), Some(destroy_closure))
     }
 }
+
+/// Removes the source with the given id `tag` from the default main context.
+///
+/// It is a programmer error to attempt to remove a non-existent source.
+/// Note: source id are reused.
+///
+/// For historical reasons, the native function always returns true, so we
+/// ignore it here.
+pub fn source_remove(tag: u32) {
+    unsafe {
+        glib_ffi::g_source_remove(tag);
+    }
+}

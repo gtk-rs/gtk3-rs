@@ -98,6 +98,7 @@ pub use source::{
     idle_add,
     timeout_add,
     timeout_add_seconds,
+    source_remove,
 };
 pub use types::{
     StaticType,
