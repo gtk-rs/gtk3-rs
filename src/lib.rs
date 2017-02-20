@@ -99,6 +99,7 @@ pub use source::{
     timeout_add,
     timeout_add_seconds,
     source_remove,
+    Id as SourceId,
 };
 pub use types::{
     StaticType,
