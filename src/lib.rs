@@ -61,6 +61,7 @@ pub use patterns::{
 
 pub use fonts::{
     FontFace,
+    FontType,
     FontSlant,
     FontWeight,
     ScaledFont,
