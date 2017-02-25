@@ -30,6 +30,19 @@ impl FromGlibPtr<*mut ffi::PangoFontDescription> for FontDescription {
     }
 }
 
+impl FromGlibPtr<*const ffi::PangoFontDescription> for FontDescription {
+    unsafe fn from_glib_none(ptr: *const ffi::PangoFontDescription) -> Self {
+        let tmp = ffi::pango_font_description_copy(ptr);
+        assert!(!tmp.is_null());
+        FontDescription(tmp as *mut _)
+    }
+
+    unsafe fn from_glib_full(ptr: *const ffi::PangoFontDescription) -> Self {
+        assert!(!ptr.is_null());
+        FontDescription(ptr as *mut _)
+    }
+}
+
 pub struct FontDescription(*mut ffi::PangoFontDescription);
 
 impl FontDescription {

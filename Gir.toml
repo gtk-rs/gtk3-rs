@@ -1,0 +1,19 @@
+[options]
+girs_dir = "gir-files"
+library = "Pango"
+version = "1.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = false
+min_cfg_version = "1.30"
+
+generate = [
+    "Pango.Context",
+    "Pango.Layout",
+    "Pango.Alignment",
+    "Pango.FontMap",
+]
+
+manual = [
+    "Pango.FontDescription",
+]
