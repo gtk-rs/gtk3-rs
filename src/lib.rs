@@ -3,8 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 extern crate pango_sys as ffi;
+extern crate glib_sys as glib_ffi;
+#[macro_use]
 extern crate glib;
 extern crate libc;
+
+mod auto;
+pub use auto::*;
 
 pub use self::widgets::{
     Item,
