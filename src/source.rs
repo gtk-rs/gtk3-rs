@@ -11,6 +11,9 @@ use ffi::{gboolean, gpointer};
 use translate::{from_glib, FromGlib, ToGlib};
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
+///
+/// A value of 0 is a good default as it is never a valid source ID.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
 pub struct Id(u32);
 
 impl ToGlib for Id {
@@ -90,10 +93,10 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
 /// Thus the closure is called on the main thread.
 pub fn idle_add<F>(func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
-    from_glib(unsafe {
-        glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
-            into_raw(func), Some(destroy_closure))
-    })
+    unsafe {
+        from_glib(glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
+            into_raw(func), Some(destroy_closure)))
+    }
 }
 
 /// Adds a closure to be called by the default main loop at regular intervals
@@ -108,10 +111,10 @@ where F: FnMut() -> Continue + Send + 'static {
 /// Thus the closure is called on the main thread.
 pub fn timeout_add<F>(interval: u32, func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
-    from_glib(unsafe {
-        glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval, Some(trampoline),
-            into_raw(func), Some(destroy_closure))
-    })
+    unsafe {
+        from_glib(glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
+            Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
 }
 
 /// Adds a closure to be called by the default main loop at regular intervals
@@ -125,10 +128,10 @@ where F: FnMut() -> Continue + Send + 'static {
 /// Thus the closure is called on the main thread.
 pub fn timeout_add_seconds<F>(interval: u32, func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
-    from_glib(unsafe {
-        glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
-            Some(trampoline), into_raw(func), Some(destroy_closure))
-    })
+    unsafe {
+        from_glib(glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
+            Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
 }
 
 /// Removes the source with the given id `source_id` from the default main context.
