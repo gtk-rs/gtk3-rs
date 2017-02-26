@@ -3,7 +3,12 @@
 
 use Alignment;
 use Context;
+use EllipsizeMode;
 use FontDescription;
+use LayoutIter;
+use LayoutLine;
+use Rectangle;
+use WrapMode;
 use ffi;
 use glib::translate::*;
 use std::mem;
@@ -69,17 +74,29 @@ impl Layout {
         }
     }
 
-    //pub fn get_cursor_pos(&self, index_: i32, strong_pos: /*Ignored*/Rectangle, weak_pos: /*Ignored*/Rectangle) {
-    //    unsafe { TODO: call ffi::pango_layout_get_cursor_pos() }
-    //}
+    pub fn get_cursor_pos(&self, index_: i32) -> (Rectangle, Rectangle) {
+        unsafe {
+            let mut strong_pos = Rectangle::uninitialized();
+            let mut weak_pos = Rectangle::uninitialized();
+            ffi::pango_layout_get_cursor_pos(self.to_glib_none().0, index_, strong_pos.to_glib_none_mut().0, weak_pos.to_glib_none_mut().0);
+            (strong_pos, weak_pos)
+        }
+    }
 
-    //pub fn get_ellipsize(&self) -> /*Ignored*/EllipsizeMode {
-    //    unsafe { TODO: call ffi::pango_layout_get_ellipsize() }
-    //}
+    pub fn get_ellipsize(&self) -> EllipsizeMode {
+        unsafe {
+            from_glib(ffi::pango_layout_get_ellipsize(self.to_glib_none().0))
+        }
+    }
 
-    //pub fn get_extents(&self, ink_rect: /*Ignored*/Rectangle, logical_rect: /*Ignored*/Rectangle) {
-    //    unsafe { TODO: call ffi::pango_layout_get_extents() }
-    //}
+    pub fn get_extents(&self) -> (Rectangle, Rectangle) {
+        unsafe {
+            let mut ink_rect = Rectangle::uninitialized();
+            let mut logical_rect = Rectangle::uninitialized();
+            ffi::pango_layout_get_extents(self.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            (ink_rect, logical_rect)
+        }
+    }
 
     pub fn get_font_description(&self) -> Option<FontDescription> {
         unsafe {
@@ -99,9 +116,11 @@ impl Layout {
         }
     }
 
-    //pub fn get_iter(&self) -> /*Ignored*/Option<LayoutIter> {
-    //    unsafe { TODO: call ffi::pango_layout_get_iter() }
-    //}
+    pub fn get_iter(&self) -> Option<LayoutIter> {
+        unsafe {
+            from_glib_full(ffi::pango_layout_get_iter(self.to_glib_none().0))
+        }
+    }
 
     pub fn get_justify(&self) -> bool {
         unsafe {
@@ -109,9 +128,11 @@ impl Layout {
         }
     }
 
-    //pub fn get_line(&self, line: i32) -> /*Ignored*/Option<LayoutLine> {
-    //    unsafe { TODO: call ffi::pango_layout_get_line() }
-    //}
+    pub fn get_line(&self, line: i32) -> Option<LayoutLine> {
+        unsafe {
+            from_glib_none(ffi::pango_layout_get_line(self.to_glib_none().0, line))
+        }
+    }
 
     pub fn get_line_count(&self) -> i32 {
         unsafe {
@@ -119,17 +140,23 @@ impl Layout {
         }
     }
 
-    //pub fn get_line_readonly(&self, line: i32) -> /*Ignored*/Option<LayoutLine> {
-    //    unsafe { TODO: call ffi::pango_layout_get_line_readonly() }
-    //}
+    pub fn get_line_readonly(&self, line: i32) -> Option<LayoutLine> {
+        unsafe {
+            from_glib_none(ffi::pango_layout_get_line_readonly(self.to_glib_none().0, line))
+        }
+    }
 
-    //pub fn get_lines(&self) -> /*Ignored*/Vec<LayoutLine> {
-    //    unsafe { TODO: call ffi::pango_layout_get_lines() }
-    //}
+    pub fn get_lines(&self) -> Vec<LayoutLine> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pango_layout_get_lines(self.to_glib_none().0))
+        }
+    }
 
-    //pub fn get_lines_readonly(&self) -> /*Ignored*/Vec<LayoutLine> {
-    //    unsafe { TODO: call ffi::pango_layout_get_lines_readonly() }
-    //}
+    pub fn get_lines_readonly(&self) -> Vec<LayoutLine> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::pango_layout_get_lines_readonly(self.to_glib_none().0))
+        }
+    }
 
     //pub fn get_log_attrs(&self, attrs: /*Unimplemented*/Vec<LogAttr>) -> i32 {
     //    unsafe { TODO: call ffi::pango_layout_get_log_attrs() }
@@ -139,9 +166,14 @@ impl Layout {
     //    unsafe { TODO: call ffi::pango_layout_get_log_attrs_readonly() }
     //}
 
-    //pub fn get_pixel_extents(&self, ink_rect: /*Ignored*/Rectangle, logical_rect: /*Ignored*/Rectangle) {
-    //    unsafe { TODO: call ffi::pango_layout_get_pixel_extents() }
-    //}
+    pub fn get_pixel_extents(&self) -> (Rectangle, Rectangle) {
+        unsafe {
+            let mut ink_rect = Rectangle::uninitialized();
+            let mut logical_rect = Rectangle::uninitialized();
+            ffi::pango_layout_get_pixel_extents(self.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            (ink_rect, logical_rect)
+        }
+    }
 
     pub fn get_pixel_size(&self) -> (i32, i32) {
         unsafe {
@@ -202,9 +234,11 @@ impl Layout {
         }
     }
 
-    //pub fn get_wrap(&self) -> /*Ignored*/WrapMode {
-    //    unsafe { TODO: call ffi::pango_layout_get_wrap() }
-    //}
+    pub fn get_wrap(&self) -> WrapMode {
+        unsafe {
+            from_glib(ffi::pango_layout_get_wrap(self.to_glib_none().0))
+        }
+    }
 
     pub fn index_to_line_x(&self, index_: i32, trailing: bool) -> (i32, i32) {
         unsafe {
@@ -215,9 +249,13 @@ impl Layout {
         }
     }
 
-    //pub fn index_to_pos(&self, index_: i32, pos: /*Ignored*/Rectangle) {
-    //    unsafe { TODO: call ffi::pango_layout_index_to_pos() }
-    //}
+    pub fn index_to_pos(&self, index_: i32) -> Rectangle {
+        unsafe {
+            let mut pos = Rectangle::uninitialized();
+            ffi::pango_layout_index_to_pos(self.to_glib_none().0, index_, pos.to_glib_none_mut().0);
+            pos
+        }
+    }
 
     pub fn is_ellipsized(&self) -> bool {
         unsafe {
@@ -256,9 +294,11 @@ impl Layout {
         }
     }
 
-    //pub fn set_ellipsize(&self, ellipsize: /*Ignored*/EllipsizeMode) {
-    //    unsafe { TODO: call ffi::pango_layout_set_ellipsize() }
-    //}
+    pub fn set_ellipsize(&self, ellipsize: EllipsizeMode) {
+        unsafe {
+            ffi::pango_layout_set_ellipsize(self.to_glib_none().0, ellipsize.to_glib());
+        }
+    }
 
     pub fn set_font_description(&self, desc: Option<&FontDescription>) {
         unsafe {
@@ -326,9 +366,11 @@ impl Layout {
         }
     }
 
-    //pub fn set_wrap(&self, wrap: /*Ignored*/WrapMode) {
-    //    unsafe { TODO: call ffi::pango_layout_set_wrap() }
-    //}
+    pub fn set_wrap(&self, wrap: WrapMode) {
+        unsafe {
+            ffi::pango_layout_set_wrap(self.to_glib_none().0, wrap.to_glib());
+        }
+    }
 
     pub fn xy_to_index(&self, x: i32, y: i32) -> Option<(i32, i32)> {
         unsafe {

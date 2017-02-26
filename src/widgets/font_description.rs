@@ -1,12 +1,15 @@
 use std::fmt::{self, Formatter, Display};
 
 use ffi;
-use glib::translate::{Stash, FromGlibPtr, ToGlibPtr, from_glib_full, from_glib_none, from_glib};
+use glib::translate::{Stash, FromGlibPtr, ToGlibPtr, ToGlib, from_glib_full, from_glib_none, from_glib};
 
 use {
     FontMask,
     Gravity,
     Weight,
+    Style,
+    Variant,
+    Stretch,
 };
 
 impl<'a> ToGlibPtr<'a, *mut ffi::PangoFontDescription> for &'a FontDescription {
@@ -63,11 +66,11 @@ impl FontDescription {
     }
 
     pub fn set_weight(&mut self, weight: Weight) {
-        unsafe { ffi::pango_font_description_set_weight(self.0, weight) };
+        unsafe { ffi::pango_font_description_set_weight(self.0, weight.to_glib()) };
     }
 
     pub fn get_weight(&self) -> Weight {
-        unsafe { ffi::pango_font_description_get_weight(self.0) }
+        unsafe { from_glib(ffi::pango_font_description_get_weight(self.0)) }
     }
 
     pub fn set_size(&mut self, size: i32) {
@@ -87,23 +90,35 @@ impl FontDescription {
     }
 
     pub fn set_gravity(&mut self, gravity: Gravity) {
-        unsafe { ffi::pango_font_description_set_gravity(self.0, gravity) };
+        unsafe { ffi::pango_font_description_set_gravity(self.0, gravity.to_glib()) };
     }
 
     pub fn get_gravity(&self) -> Gravity {
-        unsafe { ffi::pango_font_description_get_gravity(self.0) }
+        unsafe { from_glib(ffi::pango_font_description_get_gravity(self.0)) }
     }
 
     pub fn get_set_fields(&self) -> FontMask {
-        unsafe { ffi::pango_font_description_get_set_fields(self.0) }
+        unsafe { from_glib(ffi::pango_font_description_get_set_fields(self.0)) }
     }
 
     pub fn unset_fields(&mut self, to_unset: FontMask) {
-        unsafe { ffi::pango_font_description_unset_fields(self.0, to_unset) };
+        unsafe { ffi::pango_font_description_unset_fields(self.0, to_unset.to_glib()) };
     }
 
     pub fn to_filename(&self) -> String {
         unsafe { from_glib_full(ffi::pango_font_description_to_string(self.0)) }
+    }
+
+    pub fn set_style(&self, style: Style) {
+        unsafe { ffi::pango_font_description_set_style(self.0, style.to_glib()) }
+    }
+
+    pub fn set_variant(&self, variant: Variant) {
+        unsafe { ffi::pango_font_description_set_variant(self.0, variant.to_glib()) }
+    }
+
+    pub fn set_stretch(&self, stretch: Stretch) {
+        unsafe { ffi::pango_font_description_set_stretch(self.0, stretch.to_glib()) }
     }
 }
 
