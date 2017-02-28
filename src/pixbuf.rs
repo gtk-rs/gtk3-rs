@@ -108,7 +108,7 @@ impl Pixbuf {
     pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32)
             -> Option<PixbufFormat> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height))
+            from_glib_none(ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height))
         }
     }
 
