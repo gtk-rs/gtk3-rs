@@ -1,7 +1,7 @@
 use std::fmt::{self, Formatter, Display};
 
 use ffi;
-use glib::translate::{Stash, FromGlibPtr, ToGlibPtr, ToGlib, from_glib_full, from_glib_none, from_glib};
+use glib::translate::{Stash, FromGlibPtrFull, FromGlibPtrNone, ToGlibPtr, ToGlib, from_glib_full, from_glib_none, from_glib};
 
 use {
     FontMask,
@@ -20,26 +20,30 @@ impl<'a> ToGlibPtr<'a, *mut ffi::PangoFontDescription> for &'a FontDescription {
     }
 }
 
-impl FromGlibPtr<*mut ffi::PangoFontDescription> for FontDescription {
+impl FromGlibPtrNone<*mut ffi::PangoFontDescription> for FontDescription {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoFontDescription) -> Self {
         let tmp = ffi::pango_font_description_copy(ptr);
         assert!(!tmp.is_null());
         FontDescription(tmp)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::PangoFontDescription> for FontDescription {
     unsafe fn from_glib_full(ptr: *mut ffi::PangoFontDescription) -> Self {
         assert!(!ptr.is_null());
         FontDescription(ptr)
     }
 }
 
-impl FromGlibPtr<*const ffi::PangoFontDescription> for FontDescription {
+impl FromGlibPtrNone<*const ffi::PangoFontDescription> for FontDescription {
     unsafe fn from_glib_none(ptr: *const ffi::PangoFontDescription) -> Self {
         let tmp = ffi::pango_font_description_copy(ptr);
         assert!(!tmp.is_null());
         FontDescription(tmp as *mut _)
     }
+}
 
+impl FromGlibPtrFull<*const ffi::PangoFontDescription> for FontDescription {
     unsafe fn from_glib_full(ptr: *const ffi::PangoFontDescription) -> Self {
         assert!(!ptr.is_null());
         FontDescription(ptr as *mut _)
