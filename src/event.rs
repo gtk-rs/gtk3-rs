@@ -73,12 +73,14 @@ macro_rules! event_wrapper {
             }
         }
 
-        impl FromGlibPtr<*mut ::ffi::$ffi_name> for $name {
+        impl FromGlibPtrNone<*mut ::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_none(ptr: *mut ::ffi::$ffi_name) -> Self {
                 $name(from_glib_none(ptr as *mut ::ffi::GdkEvent))
             }
+        }
 
+        impl FromGlibPtrFull<*mut ::ffi::$ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut ::ffi::$ffi_name) -> Self {
                 $name(from_glib_full(ptr as *mut ::ffi::GdkEvent))

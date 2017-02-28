@@ -30,9 +30,12 @@ impl<'a> ToGlibPtr<'a, ffi::GdkAtom> for Atom {
     }
 }
 
-impl FromGlibPtr<ffi::GdkAtom> for Atom {
+impl FromGlibPtrNone<ffi::GdkAtom> for Atom {
     #[inline]
     unsafe fn from_glib_none(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
+}
+
+impl FromGlibPtrFull<ffi::GdkAtom> for Atom {
     #[inline]
     unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
 }
