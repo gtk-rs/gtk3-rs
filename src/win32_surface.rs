@@ -56,12 +56,14 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Win32Surface {
     }
 }
 
-impl FromGlibPtr<*mut ffi::cairo_surface_t> for Win32Surface {
+impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
         Self::from(from_glib_none(ptr)).unwrap()
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
         Self::from(from_glib_full(ptr)).unwrap()

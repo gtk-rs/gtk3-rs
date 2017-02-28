@@ -50,14 +50,16 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
     }
 }
 
-impl FromGlibPtr<*mut ffi::cairo_t> for Context {
+impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         ffi::cairo_reference(ptr);
         Context(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
