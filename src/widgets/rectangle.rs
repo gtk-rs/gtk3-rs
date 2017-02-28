@@ -57,23 +57,15 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoRectangle> for Rectangle {
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*const ffi::PangoRectangle> for Rectangle {
+impl FromGlibPtrNone<*const ffi::PangoRectangle> for Rectangle {
     unsafe fn from_glib_none(ptr: *const ffi::PangoRectangle) -> Self {
         *(ptr as *const Rectangle)
-    }
-
-    unsafe fn from_glib_full(_: *const ffi::PangoRectangle) -> Self {
-        panic!()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*mut ffi::PangoRectangle> for Rectangle {
+impl FromGlibPtrNone<*mut ffi::PangoRectangle> for Rectangle {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoRectangle) -> Self {
         *(ptr as *mut Rectangle)
-    }
-
-    unsafe fn from_glib_full(_: *mut ffi::PangoRectangle) -> Self {
-        panic!()
     }
 }
