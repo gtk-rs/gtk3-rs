@@ -71,14 +71,9 @@ impl<'a> ToGlibPtr<'a, *mut ffi::GdkPixbufFormat> for PixbufFormat {
     }
 }
 
-impl FromGlibPtr<*mut ffi::GdkPixbufFormat> for PixbufFormat {
+impl FromGlibPtrNone<*mut ffi::GdkPixbufFormat> for PixbufFormat {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::GdkPixbufFormat) -> PixbufFormat {
         PixbufFormat(ptr)
-    }
-
-    #[inline]
-    unsafe fn from_glib_full(_: *mut ffi::GdkPixbufFormat) -> PixbufFormat {
-        unimplemented!();
     }
 }
