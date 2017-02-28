@@ -37,7 +37,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_connection_t> for &'a XCBConnection {
     }
 }
 
-impl FromGlibPtr<*mut ffi::xcb_connection_t> for XCBConnection {
+impl FromGlibPtrFull<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
         assert!(!ptr.is_null());
@@ -75,7 +75,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_render_pictforminfo_t> for &'a XCBRenderPic
     }
 }
 
-impl FromGlibPtr<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
+impl FromGlibPtrFull<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
         assert!(!ptr.is_null());
@@ -113,13 +113,15 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_screen_t> for &'a XCBScreen {
     }
 }
 
-impl FromGlibPtr<*mut ffi::xcb_screen_t> for XCBScreen {
+impl FromGlibPtrNone<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
         assert!(!ptr.is_null());
         XCBScreen(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
         assert!(!ptr.is_null());
@@ -214,13 +216,15 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_visualtype_t> for &'a XCBVisualType {
     }
 }
 
-impl FromGlibPtr<*mut ffi::xcb_visualtype_t> for XCBVisualType {
+impl FromGlibPtrNone<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
         assert!(!ptr.is_null());
         XCBVisualType(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
         assert!(!ptr.is_null());
@@ -252,13 +256,15 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_device_t> for &'a Device {
     }
 }
 
-impl FromGlibPtr<*mut ffi::cairo_device_t> for Device {
+impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_device_t) -> Device {
         assert!(!ptr.is_null());
         Device(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::cairo_device_t> for Device {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_device_t) -> Device {
         assert!(!ptr.is_null());
