@@ -93,12 +93,14 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     }
 }
 
-impl FromGlibPtr<*mut ffi::cairo_surface_t> for ImageSurface {
+impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
         Self::from(from_glib_none(ptr)).unwrap()
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
         Self::from(from_glib_full(ptr)).unwrap()

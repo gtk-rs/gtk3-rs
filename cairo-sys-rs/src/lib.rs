@@ -9,6 +9,9 @@ extern crate libc;
 #[cfg(feature = "xlib")]
 extern crate x11;
 
+#[cfg(windows)]
+extern crate winapi;
+
 use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 
 #[cfg(feature = "xlib")]
@@ -18,6 +21,7 @@ pub mod enums;
 
 use enums::{
     Status,
+    Content,
     Antialias,
     LineCap,
     LineJoin,
@@ -52,6 +56,27 @@ pub struct cairo_antialias_t(c_void);
 pub struct cairo_line_join_t(c_void);
 #[repr(C)]
 pub struct cairo_line_cap_t(c_void);
+
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct cairo_device_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_connection_t(c_void);
+#[cfg(feature = "xcb")]
+pub type xcb_drawable_t = u32;
+#[cfg(feature = "xcb")]
+pub type xcb_pixmap_t = u32;
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_visualtype_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_screen_t(c_void);
+#[cfg(feature = "xcb")]
+#[repr(C)]
+pub struct xcb_render_pictforminfo_t(c_void);
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct cairo_rectangle_t {
@@ -177,7 +202,7 @@ extern "C" {
     pub fn cairo_restore (cr: *mut cairo_t);
     pub fn cairo_get_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
     pub fn cairo_push_group (cr: *mut cairo_t);
-    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: cairo_content_t);
+    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: Content);
     pub fn cairo_pop_group (cr: *mut cairo_t) -> *mut cairo_pattern_t;
     pub fn cairo_pop_group_to_source (cr: *mut cairo_t);
     pub fn cairo_get_group_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
@@ -259,8 +284,8 @@ extern "C" {
     pub fn cairo_translate(cr: *mut cairo_t, tx: c_double, ty: c_double);
     pub fn cairo_scale(cr: *mut cairo_t, sx: c_double, sy: c_double);
     pub fn cairo_rotate(cr: *mut cairo_t, angle: c_double);
-    pub fn cairo_transform(cr: *mut cairo_t, matrix: *mut Matrix);
-    pub fn cairo_set_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
+    pub fn cairo_transform(cr: *mut cairo_t, matrix: *const Matrix);
+    pub fn cairo_set_matrix(cr: *mut cairo_t, matrix: *const Matrix);
     pub fn cairo_get_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
     pub fn cairo_identity_matrix(cr: *mut cairo_t);
     pub fn cairo_user_to_device(cr: *mut cairo_t, x: *mut c_double, y: *mut c_double);
@@ -302,7 +327,7 @@ extern "C" {
     pub fn cairo_pattern_get_extend(pattern: *mut cairo_pattern_t) -> Extend;
     pub fn cairo_pattern_set_filter(pattern: *mut cairo_pattern_t, filter: Filter);
     pub fn cairo_pattern_get_filter(pattern: *mut cairo_pattern_t) -> Filter;
-    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
+    pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *const Matrix);
     pub fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
     pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> PatternType;
     pub fn cairo_pattern_get_reference_count(pattern: *mut cairo_pattern_t) -> c_uint;
@@ -362,7 +387,7 @@ extern "C" {
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
 
     //CAIRO RASTER
-    //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_pattern_t;
+    //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: Content, width: c_int, height: c_int) -> *mut cairo_pattern_t;
     //pub fn cairo_raster_source_pattern_set_callback_data(pattern: *mut cairo_pattern_t, data: *mut void);
     //pub fn cairo_raster_source_pattern_get_callback_data(pattern: *mut cairo_pattern_t) -> *mut void;
     /* FIXME how do we do these _func_t types?
@@ -455,6 +480,7 @@ extern "C" {
     pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> Status;
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
+    pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: Content, width: c_int, height: c_int) -> *mut cairo_surface_t;
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: Format, width: c_int, height: c_int) -> *mut cairo_surface_t;
@@ -469,6 +495,52 @@ extern "C" {
     #[cfg(feature = "png")]
     pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
 
+    // CAIRO XCB
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create(connection: *mut xcb_connection_t,
+                                    drawable: xcb_drawable_t,
+                                    visual: *mut xcb_visualtype_t,
+                                    width: c_int,
+                                    height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create_for_bitmap(connection: *mut xcb_connection_t,
+                                               screen: *mut xcb_screen_t,
+                                               bitmap: xcb_pixmap_t,
+                                               width: c_int,
+                                               height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_create_with_xrender_format(connection: *mut xcb_connection_t,
+                                                        screen: *mut xcb_screen_t,
+                                                        drawable: xcb_drawable_t,
+                                                        format: *mut xcb_render_pictforminfo_t,
+                                                        width: c_int,
+                                                        height: c_int) -> *mut cairo_surface_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_set_size(surface: *mut cairo_surface_t,
+                                      width: c_int,
+                                      height: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_surface_set_drawable(surface: *mut cairo_surface_t,
+                                          drawable: xcb_drawable_t,
+                                          width: c_int,
+                                          height: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_get_connection(device: *mut cairo_device_t) -> *mut xcb_connection_t;
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_cap_xrender_version(device: *mut cairo_device_t,
+                                                      major_version: c_int,
+                                                      minor_version: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_cap_xshm_version(device: *mut cairo_device_t,
+                                                   major_version: c_int,
+                                                   minor_version: c_int);
+    #[cfg(feature = "xcb")]
+    pub fn cairo_xcb_device_debug_get_precision(device: *mut cairo_device_t) -> c_int;
+    #[cfg(feature = "xlib")]
+    pub fn cairo_xcb_device_debug_set_precision(device: *mut cairo_device_t,
+                                                precision: c_int);
+
+    // CAIRO XLIB SURFACE
     #[cfg(feature = "xlib")]
     pub fn cairo_xlib_surface_create(dpy: *mut xlib::Display,
                                      drawable: xlib::Drawable,
@@ -514,4 +586,24 @@ extern "C" {
     pub fn cairo_xlib_surface_get_height(surface: *mut cairo_surface_t)
                                          -> c_int;
 
+    // CAIRO WINDOWS SURFACE
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create_with_dib(format: Format,
+                                               width: c_int,
+                                               height: c_int)
+                                               -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_create_with_ddb(hdc: winapi::HDC,
+                                               format: Format,
+                                               width: c_int,
+                                               height: c_int)
+                                               -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_printing_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_get_dc(surface: *mut cairo_surface_t) -> winapi::HDC;
+    #[cfg(windows)]
+    pub fn cairo_win32_surface_get_image(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
 }
