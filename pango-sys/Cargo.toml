@@ -1,12 +1,11 @@
-
 [build-dependencies]
 pkg-config = "0.3.7"
 
 [dependencies]
 bitflags = "0.4"
 libc = "0.2"
-glib-sys = "^0.3.2"
-gobject-sys = "^0.3.2"
+glib-sys = "^0.3.3"
+gobject-sys = "^0.3.3"
 
 [features]
 v1_31 = []
@@ -30,4 +29,4 @@ license = "MIT"
 links = "pango"
 name = "pango-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.2"
+version = "0.3.3"
