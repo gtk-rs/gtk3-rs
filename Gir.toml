@@ -1,0 +1,34 @@
+[options]
+girs_dir = "gir-files"
+library = "Pango"
+version = "1.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = false
+min_cfg_version = "1.30"
+
+generate = [
+    "Pango.Alignment",
+    "Pango.BidiType",
+    "Pango.Context",
+    "Pango.Direction",
+    "Pango.EllipsizeMode",
+    "Pango.FontMap",
+    "Pango.FontMask",
+    "Pango.Gravity",
+    "Pango.GravityHint",
+    "Pango.Layout",
+    "Pango.LayoutIter",
+    "Pango.LayoutLine",
+    "Pango.Script",
+    "Pango.Stretch",
+    "Pango.Style",
+    "Pango.Variant",
+    "Pango.Weight",
+    "Pango.WrapMode",
+]
+
+manual = [
+    "Pango.FontDescription",
+    "Pango.Rectangle",
+]
