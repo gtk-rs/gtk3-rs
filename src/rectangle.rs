@@ -42,23 +42,15 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_rectangle_int_t> for RectangleInt {
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*const ffi::cairo_rectangle_int_t> for RectangleInt {
+impl FromGlibPtrNone<*const ffi::cairo_rectangle_int_t> for RectangleInt {
     unsafe fn from_glib_none(ptr: *const ffi::cairo_rectangle_int_t) -> Self {
         *(ptr as *const RectangleInt)
-    }
-
-    unsafe fn from_glib_full(_: *const ffi::cairo_rectangle_int_t) -> Self {
-        panic!()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
+impl FromGlibPtrNone<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_rectangle_int_t) -> Self {
         *(ptr as *mut RectangleInt)
-    }
-
-    unsafe fn from_glib_full(_: *mut ffi::cairo_rectangle_int_t) -> Self {
-        panic!()
     }
 }

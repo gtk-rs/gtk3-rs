@@ -50,14 +50,16 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
     }
 }
 
-impl FromGlibPtr<*mut ffi::cairo_t> for Context {
+impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         ffi::cairo_reference(ptr);
         Context(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
@@ -114,7 +116,11 @@ impl Context {
         self.ensure_status()
     }
 
-    //fn ffi::cairo_get_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
+    pub fn get_target(&self) -> Surface {
+        unsafe {
+            from_glib_none(ffi::cairo_get_target(self.0))
+        }
+    }
 
     pub fn push_group(&self) {
         unsafe {
@@ -141,7 +147,11 @@ impl Context {
         }
     }
 
-    //fn ffi::cairo_get_group_target(cr: *mut cairo_t) -> *mut cairo_surface_t;
+    pub fn get_group_target(&self) -> Surface {
+        unsafe {
+            from_glib_none(ffi::cairo_get_group_target(self.0))
+        }
+    }
 
     pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
         unsafe {
@@ -233,7 +243,7 @@ impl Context {
         }
     }
 
-    pub fn set_line_cap(&self, arg: LineCap){
+    pub fn set_line_cap(&self, arg: LineCap) {
         unsafe {
             ffi::cairo_set_line_cap(self.0, arg)
         }
@@ -479,11 +489,25 @@ impl Context {
         }
     }
 
-    //pub fn cairo_transform(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn transform(&self, matrix: Matrix) {
+        unsafe {
+            ffi::cairo_transform(self.0, &matrix);
+        }
+    }
 
-    //pub fn cairo_set_matrix(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn set_matrix(&self, matrix: Matrix) {
+        unsafe {
+            ffi::cairo_set_matrix(self.0, &matrix);
+        }
+    }
 
-    //pub fn cairo_get_matrix(cr: *cairo_t, matrix: *cairo_matrix_t);
+    pub fn get_matrix(&self) -> Matrix {
+        let mut matrix = <Matrix as MatrixTrait>::null();
+        unsafe {
+            ffi::cairo_get_matrix(self.0, &mut matrix);
+        }
+        matrix
+    }
 
     pub fn identity_matrix(&self) {
         unsafe {

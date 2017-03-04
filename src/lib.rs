@@ -24,7 +24,10 @@ pub use paths::{
 pub use enums::{
     Status,
     Antialias,
+    Content,
+    Extend,
     FillRule,
+    Filter,
     LineCap,
     LineJoin,
     Operator,
@@ -58,6 +61,7 @@ pub use patterns::{
 
 pub use fonts::{
     FontFace,
+    FontType,
     FontSlant,
     FontWeight,
     ScaledFont,
@@ -83,6 +87,18 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
+#[cfg(feature = "xcb")]
+pub use xcb::{
+    XCBConnection,
+    XCBSurface,
+    Device,
+    XCBDrawable,
+    XCBPixmap,
+    XCBRenderPictFormInfo,
+    XCBScreen,
+    XCBVisualType,
+};
+
 pub mod prelude;
 
 mod fonts;
@@ -96,3 +112,11 @@ mod patterns;
 mod rectangle;
 mod surface;
 mod matrices;
+#[cfg(feature = "xcb")]
+mod xcb;
+
+#[cfg(windows)]
+mod win32_surface;
+
+#[cfg(windows)]
+pub use win32_surface::Win32Surface;
