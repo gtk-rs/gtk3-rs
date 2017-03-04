@@ -1,6 +1,6 @@
 [package]
 name = "gio"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
@@ -34,7 +34,7 @@ optional = true
 [dependencies]
 bitflags = "0.5"
 libc = "0.2"
-gio-sys = "^0.3.2"
-glib-sys = "^0.3.2"
-glib = "^0.1.1"
-gobject-sys = "^0.3.2"
+gio-sys = "^0.3.3"
+glib-sys = "^0.3.3"
+glib = "^0.1.2"
+gobject-sys = "^0.3.3"
