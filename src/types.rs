@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Runtime type infromation.
+//! Runtime type information.
 
 use translate::{FromGlib, ToGlib, from_glib};
 use ffi as glib_ffi;

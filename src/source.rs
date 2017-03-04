@@ -8,7 +8,29 @@ use std::process;
 use std::thread;
 use ffi as glib_ffi;
 use ffi::{gboolean, gpointer};
-use translate::ToGlib;
+use translate::{from_glib, FromGlib, ToGlib};
+
+/// The id of a source that is returned by `idle_add` and `timeout_add`.
+///
+/// A value of 0 is a good default as it is never a valid source ID.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct Id(u32);
+
+impl ToGlib for Id {
+    type GlibType = u32;
+
+    #[inline]
+    fn to_glib(&self) -> u32 {
+        self.0
+    }
+}
+
+impl FromGlib<u32> for Id {
+    #[inline]
+    fn from_glib(val: u32) -> Id {
+        Id(val)
+    }
+}
 
 /// Continue calling the closure in the future iterations or drop it.
 ///
@@ -69,11 +91,11 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn idle_add<F>(func: F) -> u32
+pub fn idle_add<F>(func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
-            into_raw(func), Some(destroy_closure))
+        from_glib(glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
+            into_raw(func), Some(destroy_closure)))
     }
 }
 
@@ -87,11 +109,11 @@ where F: FnMut() -> Continue + Send + 'static {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn timeout_add<F>(interval: u32, func: F) -> u32
+pub fn timeout_add<F>(interval: u32, func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval, Some(trampoline),
-            into_raw(func), Some(destroy_closure))
+        from_glib(glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
+            Some(trampoline), into_raw(func), Some(destroy_closure)))
     }
 }
 
@@ -104,10 +126,23 @@ where F: FnMut() -> Continue + Send + 'static {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn timeout_add_seconds<F>(interval: u32, func: F) -> u32
+pub fn timeout_add_seconds<F>(interval: u32, func: F) -> Id
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
-        glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
-            Some(trampoline), into_raw(func), Some(destroy_closure))
+        from_glib(glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
+            Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
+}
+
+/// Removes the source with the given id `source_id` from the default main context.
+///
+/// It is a programmer error to attempt to remove a non-existent source.
+/// Note: source id are reused.
+///
+/// For historical reasons, the native function always returns true, so we
+/// ignore it here.
+pub fn source_remove(source_id: Id) {
+    unsafe {
+        glib_ffi::g_source_remove(source_id.to_glib());
     }
 }
