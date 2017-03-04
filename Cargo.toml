@@ -1,6 +1,6 @@
 [package]
 name = "gdk"
-version = "0.5.1"
+version = "0.5.2"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
@@ -37,10 +37,10 @@ optional = true
 [dependencies]
 libc = "0.2"
 bitflags = "0.5"
-glib-sys = "^0.3.2"
-gdk-sys = "^0.3.2"
-cairo-rs = "^0.1.1"
-gdk-pixbuf = "^0.1.1"
-gio = "^0.1.1"
-glib = "^0.1.1"
-pango = "^0.1.1"
+glib-sys = "^0.3.3"
+gdk-sys = "^0.3.3"
+cairo-rs = "^0.1.2"
+gdk-pixbuf = "^0.1.2"
+gio = "^0.1.2"
+glib = "^0.1.2"
+pango = "^0.1.2"
