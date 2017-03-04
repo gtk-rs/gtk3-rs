@@ -4,6 +4,116 @@
 use ffi;
 use glib::translate::*;
 
+#[cfg(feature = "v3_22")]
+bitflags! {
+    pub flags AnchorHints: u32 {
+        const ANCHOR_FLIP_X = 1,
+        const ANCHOR_FLIP_Y = 2,
+        const ANCHOR_SLIDE_X = 4,
+        const ANCHOR_SLIDE_Y = 8,
+        const ANCHOR_RESIZE_X = 16,
+        const ANCHOR_RESIZE_Y = 32,
+        const ANCHOR_FLIP = 3,
+        const ANCHOR_SLIDE = 12,
+        const ANCHOR_RESIZE = 48,
+    }
+}
+
+#[cfg(feature = "v3_22")]
+#[doc(hidden)]
+impl ToGlib for AnchorHints {
+    type GlibType = ffi::GdkAnchorHints;
+
+    fn to_glib(&self) -> ffi::GdkAnchorHints {
+        ffi::GdkAnchorHints::from_bits_truncate(self.bits())
+    }
+}
+
+#[cfg(feature = "v3_22")]
+#[doc(hidden)]
+impl FromGlib<ffi::GdkAnchorHints> for AnchorHints {
+    fn from_glib(value: ffi::GdkAnchorHints) -> AnchorHints {
+        skip_assert_initialized!();
+        AnchorHints::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
+    pub flags DragAction: u32 {
+        const ACTION_DEFAULT = 1,
+        const ACTION_COPY = 2,
+        const ACTION_MOVE = 4,
+        const ACTION_LINK = 8,
+        const ACTION_PRIVATE = 16,
+        const ACTION_ASK = 32,
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DragAction {
+    type GlibType = ffi::GdkDragAction;
+
+    fn to_glib(&self) -> ffi::GdkDragAction {
+        ffi::GdkDragAction::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkDragAction> for DragAction {
+    fn from_glib(value: ffi::GdkDragAction) -> DragAction {
+        skip_assert_initialized!();
+        DragAction::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
+    pub flags EventMask: u32 {
+        const EXPOSURE_MASK = 2,
+        const POINTER_MOTION_MASK = 4,
+        const POINTER_MOTION_HINT_MASK = 8,
+        const BUTTON_MOTION_MASK = 16,
+        const BUTTON1_MOTION_MASK = 32,
+        const BUTTON2_MOTION_MASK = 64,
+        const BUTTON3_MOTION_MASK = 128,
+        const BUTTON_PRESS_MASK = 256,
+        const BUTTON_RELEASE_MASK = 512,
+        const KEY_PRESS_MASK = 1024,
+        const KEY_RELEASE_MASK = 2048,
+        const ENTER_NOTIFY_MASK = 4096,
+        const LEAVE_NOTIFY_MASK = 8192,
+        const FOCUS_CHANGE_MASK = 16384,
+        const STRUCTURE_MASK = 32768,
+        const PROPERTY_CHANGE_MASK = 65536,
+        const VISIBILITY_NOTIFY_MASK = 131072,
+        const PROXIMITY_IN_MASK = 262144,
+        const PROXIMITY_OUT_MASK = 524288,
+        const SUBSTRUCTURE_MASK = 1048576,
+        const SCROLL_MASK = 2097152,
+        const TOUCH_MASK = 4194304,
+        const SMOOTH_SCROLL_MASK = 8388608,
+        const TOUCHPAD_GESTURE_MASK = 16777216,
+        const TABLET_PAD_MASK = 33554432,
+        const ALL_EVENTS_MASK = 16777214,
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for EventMask {
+    type GlibType = ffi::GdkEventMask;
+
+    fn to_glib(&self) -> ffi::GdkEventMask {
+        ffi::GdkEventMask::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkEventMask> for EventMask {
+    fn from_glib(value: ffi::GdkEventMask) -> EventMask {
+        skip_assert_initialized!();
+        EventMask::from_bits_truncate(value.bits())
+    }
+}
+
 bitflags! {
     pub flags ModifierType: u32 {
         const SHIFT_MASK = 1,
@@ -55,6 +165,37 @@ impl FromGlib<ffi::GdkModifierType> for ModifierType {
     fn from_glib(value: ffi::GdkModifierType) -> ModifierType {
         skip_assert_initialized!();
         ModifierType::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
+    pub flags WindowHints: u32 {
+        const HINT_POS = 1,
+        const HINT_MIN_SIZE = 2,
+        const HINT_MAX_SIZE = 4,
+        const HINT_BASE_SIZE = 8,
+        const HINT_ASPECT = 16,
+        const HINT_RESIZE_INC = 32,
+        const HINT_WIN_GRAVITY = 64,
+        const HINT_USER_POS = 128,
+        const HINT_USER_SIZE = 256,
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for WindowHints {
+    type GlibType = ffi::GdkWindowHints;
+
+    fn to_glib(&self) -> ffi::GdkWindowHints {
+        ffi::GdkWindowHints::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkWindowHints> for WindowHints {
+    fn from_glib(value: ffi::GdkWindowHints) -> WindowHints {
+        skip_assert_initialized!();
+        WindowHints::from_bits_truncate(value.bits())
     }
 }
 

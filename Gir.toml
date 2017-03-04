@@ -8,13 +8,17 @@ work_mode = "normal"
 generate_safety_asserts = true
 
 generate = [
+    "Gdk.AnchorHints",
     "Gdk.CursorType",
+    "Gdk.DragAction",
+    "Gdk.EventMask",
     "Gdk.GLError",
     "Gdk.Gravity",
     "Gdk.ModifierIntent",
     "Gdk.ModifierType",
-    "Gdk.WindowTypeHint",
     "Gdk.WindowEdge",
+    "Gdk.WindowHints",
+    "Gdk.WindowTypeHint",
 ]
 
 manual = [
