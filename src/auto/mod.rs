@@ -11,6 +11,60 @@ pub use self::enums::WindowEdge;
 pub use self::enums::WindowTypeHint;
 
 mod flags;
+#[cfg(feature = "v3_22")]
+pub use self::flags::AnchorHints;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_FLIP_X;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_FLIP_Y;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_SLIDE_X;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_SLIDE_Y;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_RESIZE_X;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_RESIZE_Y;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_FLIP;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_SLIDE;
+#[cfg(feature = "v3_22")]
+pub use self::flags::ANCHOR_RESIZE;
+pub use self::flags::DragAction;
+pub use self::flags::ACTION_DEFAULT;
+pub use self::flags::ACTION_COPY;
+pub use self::flags::ACTION_MOVE;
+pub use self::flags::ACTION_LINK;
+pub use self::flags::ACTION_PRIVATE;
+pub use self::flags::ACTION_ASK;
+pub use self::flags::EventMask;
+pub use self::flags::EXPOSURE_MASK;
+pub use self::flags::POINTER_MOTION_MASK;
+pub use self::flags::POINTER_MOTION_HINT_MASK;
+pub use self::flags::BUTTON_MOTION_MASK;
+pub use self::flags::BUTTON1_MOTION_MASK;
+pub use self::flags::BUTTON2_MOTION_MASK;
+pub use self::flags::BUTTON3_MOTION_MASK;
+pub use self::flags::BUTTON_PRESS_MASK;
+pub use self::flags::BUTTON_RELEASE_MASK;
+pub use self::flags::KEY_PRESS_MASK;
+pub use self::flags::KEY_RELEASE_MASK;
+pub use self::flags::ENTER_NOTIFY_MASK;
+pub use self::flags::LEAVE_NOTIFY_MASK;
+pub use self::flags::FOCUS_CHANGE_MASK;
+pub use self::flags::STRUCTURE_MASK;
+pub use self::flags::PROPERTY_CHANGE_MASK;
+pub use self::flags::VISIBILITY_NOTIFY_MASK;
+pub use self::flags::PROXIMITY_IN_MASK;
+pub use self::flags::PROXIMITY_OUT_MASK;
+pub use self::flags::SUBSTRUCTURE_MASK;
+pub use self::flags::SCROLL_MASK;
+pub use self::flags::TOUCH_MASK;
+pub use self::flags::SMOOTH_SCROLL_MASK;
+pub use self::flags::TOUCHPAD_GESTURE_MASK;
+pub use self::flags::TABLET_PAD_MASK;
+pub use self::flags::ALL_EVENTS_MASK;
 pub use self::flags::ModifierType;
 pub use self::flags::SHIFT_MASK;
 pub use self::flags::LOCK_MASK;
@@ -44,6 +98,16 @@ pub use self::flags::META_MASK;
 pub use self::flags::MODIFIER_RESERVED_29_MASK;
 pub use self::flags::RELEASE_MASK;
 pub use self::flags::MODIFIER_MASK;
+pub use self::flags::WindowHints;
+pub use self::flags::HINT_POS;
+pub use self::flags::HINT_MIN_SIZE;
+pub use self::flags::HINT_MAX_SIZE;
+pub use self::flags::HINT_BASE_SIZE;
+pub use self::flags::HINT_ASPECT;
+pub use self::flags::HINT_RESIZE_INC;
+pub use self::flags::HINT_WIN_GRAVITY;
+pub use self::flags::HINT_USER_POS;
+pub use self::flags::HINT_USER_SIZE;
 
 #[doc(hidden)]
 pub mod traits {

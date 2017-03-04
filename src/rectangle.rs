@@ -73,24 +73,16 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::GdkRectangle> for Rectangle {
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*const ffi::GdkRectangle> for Rectangle {
+impl FromGlibPtrNone<*const ffi::GdkRectangle> for Rectangle {
     unsafe fn from_glib_none(ptr: *const ffi::GdkRectangle) -> Self {
         *(ptr as *const Rectangle)
-    }
-
-    unsafe fn from_glib_full(_: *const ffi::GdkRectangle) -> Self {
-        panic!()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtr<*mut ffi::GdkRectangle> for Rectangle {
+impl FromGlibPtrNone<*mut ffi::GdkRectangle> for Rectangle {
     unsafe fn from_glib_none(ptr: *mut ffi::GdkRectangle) -> Self {
         *(ptr as *mut Rectangle)
-    }
-
-    unsafe fn from_glib_full(_: *mut ffi::GdkRectangle) -> Self {
-        panic!()
     }
 }
 
