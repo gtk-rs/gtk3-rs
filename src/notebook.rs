@@ -20,11 +20,11 @@ impl Notebook {
         let close_image = gtk::Image::new_from_icon_name("window-close",
                                                          IconSize::Button.into());
         let button = gtk::Button::new();
-        let label = gtk::Label::new(Some(title));
+        let label = gtk::Label::new(title);
         let tab = gtk::Box::new(Orientation::Horizontal, 0);
 
         button.set_relief(ReliefStyle::None);
-        ButtonExt::set_focus_on_click(&button, false);
+        button.set_focus_on_click(false);
         button.add(&close_image);
 
         tab.pack_start(&label, false, false, 0);
@@ -66,7 +66,7 @@ fn main() {
 
     for i in 1..4 {
         let title = format!("sheet {}", i);
-        let label = gtk::Label::new(Some(&title));
+        let label = gtk::Label::new(&*title);
         notebook.create_tab(&title, label.upcast());
     }
 
