@@ -536,7 +536,7 @@ extern "C" {
                                                    minor_version: c_int);
     #[cfg(feature = "xcb")]
     pub fn cairo_xcb_device_debug_get_precision(device: *mut cairo_device_t) -> c_int;
-    #[cfg(feature = "xlib")]
+    #[cfg(feature = "xcb")]
     pub fn cairo_xcb_device_debug_set_precision(device: *mut cairo_device_t,
                                                 precision: c_int);
 
