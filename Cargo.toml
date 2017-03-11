@@ -55,3 +55,21 @@ name = "simple_treeview"
 
 [[bin]]
 name = "menu_bar"
+
+[replace]
+"gtk:0.1.2" = { git = 'https://github.com/EPashkin/gtk' }
+"gdk:0.5.2" = { git = 'https://github.com/EPashkin/gdk' }
+"gdk-pixbuf:0.1.2" = { git = 'https://github.com/EPashkin/gdk-pixbuf' }
+"pango:0.1.2" = { git = 'https://github.com/EPashkin/pango' }
+"cairo-rs:0.1.2" = { git = 'https://github.com/EPashkin/cairo' }
+"cairo-sys-rs:0.3.3" = { git = 'https://github.com/EPashkin/cairo' }
+"gio:0.1.2" = { git = 'https://github.com/EPashkin/gio' }
+"glib:0.1.2" = { git = 'https://github.com/EPashkin/glib' }
+"atk-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"gdk-pixbuf-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"gdk-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"gio-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"glib-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"gobject-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"gtk-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
+"pango-sys:0.3.3" = { git = 'https://github.com/EPashkin/rust-gnome-sys' }
