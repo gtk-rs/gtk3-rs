@@ -52,6 +52,7 @@ manual = [
     "Gdk.FrameClock",
     "Gdk.FrameTimings",
     "Gdk.GLContext",
+    "Gdk.RGBA",
     "Gdk.Screen",
     "Gdk.Visual",
     "Gdk.Attributes",

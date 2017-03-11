@@ -7,6 +7,7 @@ extern crate gdk_sys as ffi;
 extern crate gdk_pixbuf;
 #[macro_use]
 extern crate glib;
+extern crate gobject_sys as gobject_ffi;
 extern crate cairo;
 extern crate libc;
 #[macro_use]
@@ -66,7 +67,6 @@ mod visual;
 mod window;
 
 pub use ffi::GdkColor as Color;
-pub use ffi::GdkRGBA as RGBA;
 
 pub use self::rt::{
     init,
@@ -122,6 +122,7 @@ pub use frame_clock::FrameClock;
 #[cfg(feature = "v3_8")]
 pub use frame_timings::FrameTimings;
 pub use rectangle::Rectangle;
+pub use rgba::{RGBA, RgbaParseError};
 pub use screen::Screen;
 pub use visual::Visual;
 pub use window::Window;

@@ -3,11 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use ffi::{self, GdkRGBA};
+use ffi;
 use gdk_pixbuf::Pixbuf;
 use cairo::Context;
-use Rectangle;
-use Window;
+use {RGBA, Rectangle, Window};
 
 //pub fn create_region_from_surface()
 //--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
@@ -20,7 +19,7 @@ pub trait ContextExt {
 
     fn get_clip_rectangle(&self) -> Option<Rectangle>;
 
-    fn set_source_rgba(&self, rgba: &GdkRGBA);
+    fn set_source_rgba(&self, rgba: &RGBA);
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64);
 
@@ -50,8 +49,8 @@ impl ContextExt for Context {
         }
     }
 
-    fn set_source_rgba(&self, rgba: &GdkRGBA) {
-        unsafe { ffi::gdk_cairo_set_source_rgba(self.to_glib_none().0, rgba); }
+    fn set_source_rgba(&self, rgba: &RGBA) {
+        unsafe { ffi::gdk_cairo_set_source_rgba(self.to_glib_none().0, rgba.to_glib_none().0); }
     }
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64) {
