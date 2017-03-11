@@ -14,7 +14,7 @@ use frame_clock::FrameClock;
 use screen::Screen;
 use visual::Visual;
 use ffi;
-use Rectangle;
+use {RGBA, Rectangle};
 
 use {
     WindowEdge,
@@ -421,8 +421,8 @@ impl Window {
         }
     }
 
-    pub fn set_background_rgba(&self, rgba: &ffi::GdkRGBA) {
-        unsafe { ffi::gdk_window_set_background_rgba(self.to_glib_none().0, rgba) }
+    pub fn set_background_rgba(&self, rgba: &RGBA) {
+        unsafe { ffi::gdk_window_set_background_rgba(self.to_glib_none().0, rgba.to_glib_none().0) }
     }
 
     pub fn set_cursor(&self, cursor: &Cursor) {
