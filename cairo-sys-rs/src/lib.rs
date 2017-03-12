@@ -182,11 +182,13 @@ pub struct cairo_bool_t{
     value: c_int
 }
 
-impl cairo_bool_t{
+impl cairo_bool_t {
     pub fn as_bool(&self) -> bool{
         self.value != 0
     }
 }
+
+pub type CGContextRef = *mut c_void;
 
 pub type cairo_destroy_func_t = Option<unsafe extern fn (*mut c_void)>;
 pub type cairo_read_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> Status>;
@@ -606,4 +608,17 @@ extern "C" {
     pub fn cairo_win32_surface_get_dc(surface: *mut cairo_surface_t) -> winapi::HDC;
     #[cfg(windows)]
     pub fn cairo_win32_surface_get_image(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
+
+    #[cfg(macos)]
+    pub fn cairo_quartz_surface_create(format: Format,
+                                       width: c_uint,
+                                       height: c_uint)
+                                       -> *mut cairo_surface_t;
+    #[cfg(macos)]
+    pub fn cairo_quartz_surface_create_for_cg_context(cg_context: CGContextRef,
+                                                      width: c_uint,
+                                                      height: c_uint)
+                                                      -> *mut cairo_surface_t;
+    #[cfg(macos)]
+    pub fn cairo_quartz_surface_get_cg_context(surface: *mut cairo_surface_t) -> CGContextRef;
 }

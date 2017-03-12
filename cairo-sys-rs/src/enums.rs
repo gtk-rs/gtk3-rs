@@ -288,6 +288,7 @@ pub enum SurfaceType {
     Subsurface,
     Cogl,
 }
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Format {

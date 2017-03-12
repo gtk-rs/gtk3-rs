@@ -24,6 +24,21 @@ impl Surface {
     pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
         unsafe { from_glib_full(ffi::cairo_surface_create_similar(self.to_glib_none().0, content, width, height)) }
     }
+
+    #[cfg(macos)]
+    pub fn quartz_create(format: Format, width: u32, height: u32) -> Surface {
+        unsafe { from_glib_full(ffi::cairo_surface_create_similar(format, width, height)) }
+    }
+
+    #[cfg(macos)]
+    pub fn quartz_create_for_cg_context(cg_context: CGContextRef, width: c_uint, height: c_uint) -> Surface {
+        unsafe { from_glib_full(ffi::cairo_surface_create_similar(cgContext, width, height)) }
+    }
+
+    #[cfg(macos)]
+    pub fn quartz_get_cg_context(&self) -> CGContextRef {
+        unsafe { ffi::cairo_surface_create_similar(self.to_glib_none().0) }
+    }
 }
 
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
