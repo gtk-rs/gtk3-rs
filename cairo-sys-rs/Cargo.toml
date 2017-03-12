@@ -1,6 +1,6 @@
 [package]
 name = "cairo-sys-rs"
-version = "0.3.3"
+version = "0.3.2"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 links = "cairo"
