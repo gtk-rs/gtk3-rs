@@ -1,6 +1,6 @@
 [package]
 name = "gio"
-version = "0.1.2"
+version = "0.1.1"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
 
@@ -28,13 +28,26 @@ v2_48 = ["v2_46", "gio-sys/v2_48"]
 v2_50 = ["v2_48", "gio-sys/v2_50"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
-version = "^0.1.1"
+git = "https://github.com/gtk-rs/lgpl-docs"
+version = "0.1.0"
 optional = true
 
 [dependencies]
 bitflags = "0.5"
 libc = "0.2"
-gio-sys = "^0.3.3"
-glib-sys = "^0.3.3"
-glib = "^0.1.2"
-gobject-sys = "^0.3.3"
+
+[dependencies.gio-sys]
+git = "https://github.com/gtk-rs/sys"
+version = "0.3.2"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/sys"
+version = "0.3.2"
+
+[dependencies.glib]
+git = "https://github.com/gtk-rs/glib"
+version = "0.1.1"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/sys"
+version = "0.3.2"
