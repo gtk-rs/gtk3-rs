@@ -4,9 +4,18 @@ pkg-config = "0.3.7"
 [dependencies]
 bitflags = "0.4"
 libc = "0.2"
-gio-sys = "^0.3.3"
-glib-sys = "^0.3.3"
-gobject-sys = "^0.3.3"
+
+[dependencies.gio-sys]
+path = "../gio-sys"
+version = "0.3.2"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+version = "0.3.2"
+
+[dependencies.gobject-sys]
+path = "../gobject-sys"
+version = "0.3.2"
 
 [features]
 v2_28 = []
@@ -27,4 +36,4 @@ license = "MIT"
 links = "gdk_pixbuf"
 name = "gdk-pixbuf-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.3"
+version = "0.3.2"
