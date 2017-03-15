@@ -923,12 +923,15 @@ for Vec<T> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
+        let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
         while !(*ptr).is_null() {
             res.push(from_glib_full(*ptr));
             ptr = ptr.offset(1);
         }
-        glib_ffi::g_free(ptr as *mut _);
+        //See g_resource_enumerate_children
+        //glib_ffi::g_free(orig_ptr as *mut _);
+        glib_ffi::g_strfreev(orig_ptr as *mut _);
         res
     }
 }
@@ -1014,9 +1017,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
             }
             ptr = (*ptr).next;
         }
-        if !orig_ptr.is_null() {
-            glib_ffi::g_slist_free(orig_ptr as *mut _);
-        }
+        glib_ffi::g_slist_free(orig_ptr as *mut _);
         res
     }
 }
@@ -1074,9 +1075,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
             }
             ptr = (*ptr).next;
         }
-        if !orig_ptr.is_null() {
-            glib_ffi::g_list_free(orig_ptr as *mut _);
-        }
+        glib_ffi::g_list_free(orig_ptr as *mut _);
         res
     }
 }
