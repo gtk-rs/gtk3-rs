@@ -158,7 +158,7 @@ pub struct TextExtents {
     pub y_advance: c_double,
 }
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Matrix {
     pub xx: c_double,
     pub yx: c_double,
