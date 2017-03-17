@@ -9,6 +9,7 @@ extern crate gdk_pixbuf;
 extern crate glib;
 extern crate gobject_sys as gobject_ffi;
 extern crate cairo;
+extern crate cairo_sys as cairo_ffi;
 extern crate libc;
 #[macro_use]
 extern crate bitflags;
@@ -26,14 +27,11 @@ pub use auto::*;
 
 pub mod enums;
 
-mod app_launch_context;
 mod atom;
 mod cairo_interaction;
-mod cursor;
 mod device;
 mod device_manager;
 mod display;
-mod display_manager;
 mod drag_context;
 mod event_button;
 mod event_configure;
@@ -55,18 +53,14 @@ mod event_visibility;
 mod event_window_state;
 #[cfg(feature = "v3_8")]
 mod frame_clock;
-#[cfg(feature = "v3_8")]
-mod frame_timings;
-#[cfg(feature = "v3_16")]
-mod gl_context;
 mod keys;
 mod rectangle;
 mod rgba;
-mod screen;
 mod visual;
 mod window;
 
 pub use ffi::GdkColor as Color;
+pub use glib::Error;
 
 pub use self::rt::{
     init,
@@ -89,15 +83,8 @@ pub use self::rt::{
 #[cfg(feature = "v3_10")]
 pub use self::rt::set_allowed_backends;
 
-pub use app_launch_context::AppLaunchContext;
 pub use atom::Atom;
 pub use atom::NONE as ATOM_NONE;
-pub use cursor::Cursor;
-pub use device::Device;
-pub use device_manager::DeviceManager;
-pub use display::Display;
-pub use display_manager::DisplayManager;
-pub use drag_context::DragContext;
 pub use event::Event;
 pub use event_button::EventButton;
 pub use event_configure::EventConfigure;
@@ -117,42 +104,9 @@ pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
-#[cfg(feature = "v3_8")]
-pub use frame_clock::FrameClock;
-#[cfg(feature = "v3_8")]
-pub use frame_timings::FrameTimings;
 pub use rectangle::Rectangle;
 pub use rgba::{RGBA, RgbaParseError};
-pub use screen::Screen;
-pub use visual::Visual;
-pub use window::Window;
 pub use window::WindowAttr;
-#[cfg(feature = "v3_16")]
-pub use gl_context::GLContext;
-
-pub use ffi::GdkAxisUse as AxisUse;
-pub use ffi::GdkCrossingMode as CrossingMode;
-pub use ffi::GdkDragAction as DragAction;
-pub use ffi::GdkDragProtocol as DragProtocol;
-pub use ffi::GdkEventMask as EventMask;
-pub use ffi::GdkEventType as EventType;
-pub use ffi::GdkFullscreenMode as FullscreenMode;
-pub use ffi::GdkGrabOwnership as GrabOwnership;
-pub use ffi::GdkGrabStatus as GrabStatus;
-pub use ffi::GdkInputMode as InputMode;
-pub use ffi::GdkInputSource as InputSource;
-pub use ffi::GdkNotifyType as NotifyType;
-pub use ffi::GdkOwnerChange as OwnerChange;
-pub use ffi::GdkPropertyState as PropertyState;
-pub use ffi::GdkScrollDirection as ScrollDirection;
-pub use ffi::GdkSettingAction as SettingAction;
-pub use ffi::GdkVisibilityState as VisibilityState;
-pub use ffi::GdkWMDecoration as WMDecoration;
-pub use ffi::GdkWMFunction as WMFunction;
-pub use ffi::GdkWindowHints as WindowHints;
-pub use ffi::GdkWindowState as WindowState;
-pub use ffi::GdkWindowType as WindowType;
-pub use ffi::GdkWindowWindowClass as WindowWindowClass;
 
 #[allow(non_camel_case_types)]
 pub type key = i32;

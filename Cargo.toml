@@ -51,6 +51,10 @@ version = "0.3.2"
 git = "https://github.com/gtk-rs/sys"
 version = "0.3.2"
 
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+version = "0.3.2"
+
 [dependencies.cairo-rs]
 git = "https://github.com/gtk-rs/cairo"
 version = "0.1.1"

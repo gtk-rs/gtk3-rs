@@ -21,7 +21,7 @@ glib_wrapper! {
 impl Event {
     /// Returns the event type.
     pub fn get_event_type(&self) -> EventType {
-        self.as_ref().type_
+        from_glib(self.as_ref().type_)
     }
 
     /// Returns the associated `Window` if applicable.
@@ -117,7 +117,7 @@ macro_rules! event_subtype {
             #[inline]
             fn is(ev: &::event::Event) -> bool {
                 skip_assert_initialized!();
-                use EventType::*;
+                use ffi::GdkEventType::*;
                 match ev.as_ref().type_ {
                     $($ty)|+ => true,
                     _ => false,

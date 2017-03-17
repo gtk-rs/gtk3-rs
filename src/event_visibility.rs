@@ -12,6 +12,6 @@ event_subtype!(EventVisibility, VisibilityNotify);
 
 impl EventVisibility {
     pub fn get_state(&self) -> ::VisibilityState {
-        self.as_ref().state
+        from_glib(self.as_ref().state)
     }
 }

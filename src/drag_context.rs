@@ -5,20 +5,12 @@
 use std::ptr;
 use glib::translate::*;
 use atom::Atom;
-use device::Device;
-use screen::Screen;
-use window::Window;
 use ffi;
-
-use {DragAction, DragProtocol};
-
-glib_wrapper! {
-    pub struct DragContext(Object<ffi::GdkDragContext>);
-
-    match fn {
-        get_type => || ffi::gdk_drag_context_get_type(),
-    }
-}
+use DragAction;
+use DragContext;
+use DragProtocol;
+use Screen;
+use Window;
 
 impl DragContext {
     pub fn drag_get_selection(&self) -> Atom {
@@ -41,13 +33,13 @@ impl DragContext {
                                        x_root: i32, y_root: i32) -> (Option<Window>, DragProtocol) {
         unsafe {
             let mut dest_window = ptr::null_mut();
-            let mut protocol = DragProtocol::None;
+            let mut protocol = ffi::GdkDragProtocol::None;
             ffi::gdk_drag_find_window_for_screen(self.to_glib_none().0,
                                                  drag_window.to_glib_none().0,
                                                  screen.to_glib_none().0,
                                                  x_root, y_root,
                                                  &mut dest_window, &mut protocol);
-            (from_glib_full(dest_window), protocol)
+            (from_glib_full(dest_window), from_glib(protocol))
         }
     }
 
@@ -56,8 +48,8 @@ impl DragContext {
                        time_: u32) -> bool {
         unsafe {
             from_glib(
-                ffi::gdk_drag_motion(self.to_glib_none().0, dest_window.to_glib_none().0, protocol, 
-                    x_root, y_root, suggested_action, possible_actions, time_))
+                ffi::gdk_drag_motion(self.to_glib_none().0, dest_window.to_glib_none().0, protocol.to_glib(), 
+                    x_root, y_root, suggested_action.to_glib(), possible_actions.to_glib(), time_))
         }
     }
 
@@ -66,42 +58,10 @@ impl DragContext {
     }
 
     pub fn drag_status(&self, action: DragAction, time_: u32) {
-        unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action, time_) }
+        unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action.to_glib(), time_) }
     }
 
     pub fn drag_drop_succeeded(&self) -> bool {
         unsafe { from_glib(ffi::gdk_drag_drop_succeeded(self.to_glib_none().0)) }
-    }
-
-    pub fn get_actions(&self) -> DragAction {
-        unsafe { ffi::gdk_drag_context_get_actions(self.to_glib_none().0) }
-    }
-
-    pub fn get_suggested_action(&self) -> DragAction {
-        unsafe { ffi::gdk_drag_context_get_suggested_action(self.to_glib_none().0) }
-    }
-
-    pub fn get_selected_action(&self) -> DragAction {
-        unsafe { ffi::gdk_drag_context_get_selected_action(self.to_glib_none().0) }
-    }
-
-    pub fn get_device(&self) -> Device {
-        unsafe { from_glib_none(ffi::gdk_drag_context_get_device(self.to_glib_none().0)) }
-    }
-
-    pub fn set_device(&self, device: &Device) {
-        unsafe { ffi::gdk_drag_context_set_device(self.to_glib_none().0, device.to_glib_none().0) }
-    }
-
-    pub fn get_source_window(&self) -> Window {
-        unsafe { from_glib_none(ffi::gdk_drag_context_get_source_window(self.to_glib_none().0)) }
-    }
-
-    pub fn get_dest_window(&self) -> Window {
-        unsafe { from_glib_none(ffi::gdk_drag_context_get_dest_window(self.to_glib_none().0)) }
-    }
-
-    pub fn get_protocol(&self) -> DragProtocol {
-        unsafe { ffi::gdk_drag_context_get_protocol(self.to_glib_none().0) }
     }
 }
