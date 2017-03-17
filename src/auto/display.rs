@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use AppLaunchContext;
+use Atom;
 use Device;
 use DeviceManager;
 use Event;
@@ -241,9 +242,11 @@ impl Display {
         }
     }
 
-    //pub fn request_selection_notification(&self, selection: /*Ignored*/&Atom) -> bool {
-    //    unsafe { TODO: call ffi::gdk_display_request_selection_notification() }
-    //}
+    pub fn request_selection_notification(&self, selection: &Atom) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_request_selection_notification(self.to_glib_none().0, selection.to_glib_none().0))
+        }
+    }
 
     pub fn set_double_click_distance(&self, distance: u32) {
         unsafe {
@@ -256,10 +259,6 @@ impl Display {
             ffi::gdk_display_set_double_click_time(self.to_glib_none().0, msec);
         }
     }
-
-    //pub fn store_clipboard(&self, clipboard_window: &Window, time_: u32, targets: /*Ignored*/&[&Atom], n_targets: i32) {
-    //    unsafe { TODO: call ffi::gdk_display_store_clipboard() }
-    //}
 
     pub fn supports_clipboard_persistence(&self) -> bool {
         unsafe {
