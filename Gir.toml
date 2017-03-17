@@ -9,27 +9,52 @@ generate_safety_asserts = true
 
 generate = [
     "Gdk.AnchorHints",
+    "Gdk.AppLaunchContext",
+    "Gdk.AxisFlags",
+    "Gdk.AxisUse",
+    "Gdk.ByteOrder",
+    "Gdk.CrossingMode",
     "Gdk.CursorType",
+    "Gdk.DeviceManager",
+    "Gdk.DeviceTool",
+    "Gdk.DeviceToolType",
+    "Gdk.DeviceType",
     "Gdk.DragAction",
+    "Gdk.DragCancelReason",
+    "Gdk.DragProtocol",
     "Gdk.EventMask",
+    "Gdk.FrameClockPhase",
+    "Gdk.FullscreenMode",
+    "Gdk.GLContext",
     "Gdk.GLError",
+    "Gdk.GrabOwnership",
+    "Gdk.GrabStatus",
     "Gdk.Gravity",
+    "Gdk.InputMode",
+    "Gdk.InputSource",
     "Gdk.ModifierIntent",
     "Gdk.ModifierType",
+    "Gdk.NotifyType",
+    "Gdk.OwnerChange",
+    "Gdk.PropertyState",
+    "Gdk.ScrollDirection",
+    "Gdk.SeatCapabilities",
+    "Gdk.SettingAction",
+    "Gdk.SubpixelLayout",
+    "Gdk.VisibilityState",
+    "Gdk.VisualType",
     "Gdk.WindowEdge",
     "Gdk.WindowHints",
+    "Gdk.WindowState",
+    "Gdk.WindowType",
     "Gdk.WindowTypeHint",
+    "Gdk.WindowWindowClass",
+    "Gdk.WMDecoration",
+    "Gdk.WMFunction",
 ]
 
 manual = [
-    "Gdk.AppLaunchContext",
     "Gdk.Atom",
-    "Gdk.Cursor",
-    "Gdk.DeviceManager",
-    "Gdk.Device",
-    "Gdk.DisplayManager",
-    "Gdk.Display",
-    "Gdk.DragContext",
     "Gdk.EventButton",
     "Gdk.EventConfigure",
     "Gdk.EventCrossing",
@@ -49,12 +74,182 @@ manual = [
     "Gdk.EventTouch",
     "Gdk.EventVisibility",
     "Gdk.EventWindowState",
-    "Gdk.FrameClock",
-    "Gdk.FrameTimings",
-    "Gdk.GLContext",
+    "Gdk.Rectangle",
     "Gdk.RGBA",
-    "Gdk.Screen",
-    "Gdk.Visual",
-    "Gdk.Attributes",
-    "Gdk.Window",
+    "cairo.Context",
+    "cairo.Surface",
+    "GdkPixbuf.Pixbuf",
+    "GLib.Error",
 ]
+
+[[object]]
+name = "Gdk.EventType"
+status = "generate"
+    [[object.member]]
+    name = "2button_press"
+    alias = true
+    [[object.member]]
+    name = "3button_press"
+    alias = true
+    [[object.member]]
+    name = "touchpad_swipe"
+    version = "3.18"
+    [[object.member]]
+    name = "touchpad_pinch"
+    version = "3.18"
+    [[object.member]]
+    name = "event_last"
+    alias = true
+
+[[object]]
+name = "Gdk.Cursor"
+status = "generate"
+    [[object.function]]
+    name = "get_display"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "new_from_surface"
+        [[object.function.parameter]]
+        name = "surface"
+        const = true
+
+[[object]]
+name = "Gdk.Device"
+status = "generate"
+    [[object.function]]
+    name = "get_display"
+        [object.function.return]
+        nullable = false
+    [[object.property]]
+    name = "tool"
+    version = "3.22"
+
+[[object]]
+name = "Gdk.Display"
+status = "generate"
+    [[object.function]]
+    name = "get_default_group"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_default_screen"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_name"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_screen"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Gdk.DisplayManager"
+status = "generate"
+    [[object.function]]
+    name = "get"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Gdk.DragContext"
+status = "generate"
+    [[object.function]]
+    name = "get_device"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_dest_window"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_source_window"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Gdk.FrameClock"
+status = "generate"
+    [[object.function]]
+    name = "get_refresh_info"
+    #wrong gir: no out parameters
+    ignore = true
+
+[[object]]
+name = "Gdk.FrameTimings"
+status = "generate"
+version = "3.8"
+
+[[object]]
+name = "Gdk.Monitor"
+status = "generate"
+    [[object.property]]
+    name = "subpixel-layout"
+    version = "3.22"
+
+[[object]]
+name = "Gdk.Screen"
+status = "generate"
+    [[object.function]]
+    name = "get_display"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "make_display_name"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Gdk.Seat"
+status = "generate"
+version = "3.20"
+
+[[object]]
+name = "Gdk.Visual"
+status = "generate"
+    [[object.function]]
+    name = "get_system"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_best"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_screen"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Gdk.Window"
+status = "generate"
+    [[object.function]]
+    name = "new"
+    ignore = true
+    [[object.function]]
+    name = "get_effective_toplevel"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_display"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_screen"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_toplevel"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_visual"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "mark_paint_from_clip"
+        [[object.function.parameter]]
+        name = "cr"
+        const = true
