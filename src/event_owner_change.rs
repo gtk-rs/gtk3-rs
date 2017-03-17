@@ -16,7 +16,7 @@ impl EventOwnerChange {
     }
 
     pub fn get_reason(&self) -> ::OwnerChange {
-        self.as_ref().reason
+        from_glib(self.as_ref().reason)
     }
 
     pub fn get_selection(&self) -> ::Atom {

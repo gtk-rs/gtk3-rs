@@ -12,10 +12,10 @@ event_subtype!(EventWindowState, WindowState);
 
 impl EventWindowState {
     pub fn get_changed_mask(&self) -> ::WindowState {
-        self.as_ref().changed_mask
+        from_glib(self.as_ref().changed_mask)
     }
 
     pub fn get_new_window_state(&self) -> ::WindowState {
-        self.as_ref().new_window_state
+        from_glib(self.as_ref().new_window_state)
     }
 }
