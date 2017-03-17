@@ -31,7 +31,6 @@ mod atom;
 mod cairo_interaction;
 mod device;
 mod device_manager;
-mod display;
 mod drag_context;
 mod event_button;
 mod event_configure;

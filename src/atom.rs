@@ -21,6 +21,10 @@ impl Atom {
     }
 }
 
+impl GlibPtrDefault for Atom {
+    type GlibType = *mut ffi::GdkAtom;
+}
+
 impl<'a> ToGlibPtr<'a, ffi::GdkAtom> for Atom {
     type Storage = ();
 
@@ -30,14 +34,14 @@ impl<'a> ToGlibPtr<'a, ffi::GdkAtom> for Atom {
     }
 }
 
-impl FromGlibPtrNone<ffi::GdkAtom> for Atom {
+impl FromGlibPtrNone<*mut ffi::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_none(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
+    unsafe fn from_glib_none(ptr: *mut ffi::GdkAtom) -> Atom { Atom(*ptr) }
 }
 
-impl FromGlibPtrFull<ffi::GdkAtom> for Atom {
+impl FromGlibPtrFull<*mut ffi::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
+    unsafe fn from_glib_full(_: *mut ffi::GdkAtom) -> Atom { unimplemented!() }
 }
 
 impl<'a> From<&'a str> for Atom {

@@ -14,7 +14,7 @@ use Window;
 
 impl DragContext {
     pub fn drag_get_selection(&self) -> Atom {
-        unsafe { from_glib_none(ffi::gdk_drag_get_selection(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gdk_drag_get_selection(self.to_glib_none().0) as *mut _) }
     }
 
     pub fn drag_abort(&self, time_: u32) {
