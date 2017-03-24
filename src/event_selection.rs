@@ -12,15 +12,15 @@ event_subtype!(EventSelection, SelectionClear | SelectionNotify | SelectionReque
 
 impl EventSelection {
     pub fn get_selection(&self) -> ::Atom {
-        unsafe { from_glib_none(self.as_ref().selection) }
+        unsafe { from_glib_none(self.as_ref().selection as *mut _) }
     }
 
     pub fn get_target(&self) -> ::Atom {
-        unsafe { from_glib_none(self.as_ref().target) }
+        unsafe { from_glib_none(self.as_ref().target as *mut _) }
     }
 
     pub fn get_property(&self) -> ::Atom {
-        unsafe { from_glib_none(self.as_ref().property) }
+        unsafe { from_glib_none(self.as_ref().property as *mut _) }
     }
 
     pub fn get_time(&self) -> u32 {

@@ -55,6 +55,7 @@ generate = [
 
 manual = [
     "Gdk.Atom",
+    "Gdk.Atom_",
     "Gdk.EventButton",
     "Gdk.EventConfigure",
     "Gdk.EventCrossing",
@@ -144,6 +145,10 @@ status = "generate"
     name = "get_screen"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "store_clipboard"
+    #array with size
+    ignore = true
 
 [[object]]
 name = "Gdk.DisplayManager"
