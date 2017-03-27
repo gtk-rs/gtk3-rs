@@ -44,6 +44,16 @@ impl FromGlibPtrFull<*mut ffi::GdkAtom> for Atom {
     unsafe fn from_glib_full(_: *mut ffi::GdkAtom) -> Atom { unimplemented!() }
 }
 
+impl FromGlibPtrNone<ffi::GdkAtom> for Atom {
+    #[inline]
+    unsafe fn from_glib_none(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
+}
+
+impl FromGlibPtrFull<ffi::GdkAtom> for Atom {
+    #[inline]
+    unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
+}
+
 impl<'a> From<&'a str> for Atom {
     fn from(r: &'a str) -> Atom {
         skip_assert_initialized!();
