@@ -896,7 +896,7 @@ for Vec<T> {
             return Vec::new()
         }
         let mut res = Vec::with_capacity(num);
-        while !(*ptr).is_null() {
+        for _ in 0..num {
             res.push(from_glib_none(*ptr));
             ptr = ptr.offset(1);
         }
@@ -925,7 +925,7 @@ for Vec<T> {
         }
         let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
-        while !(*ptr).is_null() {
+        for _ in 0..num {
             res.push(from_glib_full(*ptr));
             ptr = ptr.offset(1);
         }
@@ -976,7 +976,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
             return Vec::new()
         }
         let mut res = Vec::with_capacity(num);
-        while !ptr.is_null() {
+        for _ in 0..num {
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_none(item_ptr));
@@ -1010,7 +1010,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
         }
         let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
-        while !ptr.is_null() {
+        for _ in 0..num {
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_full(item_ptr));
@@ -1034,7 +1034,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
             return Vec::new()
         }
         let mut res = Vec::with_capacity(num);
-        while !ptr.is_null() {
+        for _ in 0..num {
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_none(item_ptr));
@@ -1068,7 +1068,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
         }
         let orig_ptr = ptr;
         let mut res = Vec::with_capacity(num);
-        while !ptr.is_null() {
+        for _ in 0..num {
             let item_ptr: <T as GlibPtrDefault>::GlibType = Ptr::from((*ptr).data);
             if !item_ptr.is_null() {
                 res.push(from_glib_full(item_ptr));
