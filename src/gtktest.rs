@@ -5,13 +5,13 @@ extern crate gdk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
+    use gdk;
     use gtk::prelude::*;
     use gtk::{
         self, AboutDialog, AppChooserDialog, Builder, Button, Dialog, Entry, FileChooserAction,
         FileChooserDialog, FontChooserDialog, Scale, SpinButton, RecentChooserDialog, ResponseType,
         Spinner, Window
     };
-    use gdk::enums::modifier_type;
 
     // make moving clones into closures more convenient
     macro_rules! clone {
@@ -151,13 +151,13 @@ mod example {
         });
 
         window.connect_key_press_event(clone!(entry => move |_, key| {
-            let keyval = key.as_ref().keyval;
-            let keystate = key.as_ref().state;
+            let keyval = key.get_keyval();
+            let keystate = key.get_state();
 
             println!("key pressed: {} / {:?}", keyval, keystate);
             println!("text: {}", entry.get_text().unwrap());
 
-            if keystate.intersects(modifier_type::ControlMask) {
+            if keystate.intersects(gdk::CONTROL_MASK) {
                 println!("You pressed Ctrl!");
             }
 
