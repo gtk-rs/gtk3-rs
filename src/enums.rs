@@ -3,30 +3,6 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 #[allow(non_upper_case_globals)]
-pub mod modifier_type {
-    use ffi;
-
-    pub const ShiftMask: ffi::GdkModifierType = ffi::GDK_SHIFT_MASK;
-    pub const LockMask: ffi::GdkModifierType = ffi::GDK_LOCK_MASK;
-    pub const ControlMask: ffi::GdkModifierType = ffi::GDK_CONTROL_MASK;
-    pub const Mod1Mask: ffi::GdkModifierType = ffi::GDK_MOD1_MASK;
-    pub const Mod2Mask: ffi::GdkModifierType = ffi::GDK_MOD2_MASK;
-    pub const Mod3Mask: ffi::GdkModifierType = ffi::GDK_MOD3_MASK;
-    pub const Mod4Mask: ffi::GdkModifierType = ffi::GDK_MOD4_MASK;
-    pub const Mod5Mask: ffi::GdkModifierType = ffi::GDK_MOD5_MASK;
-    pub const Button1Mask: ffi::GdkModifierType = ffi::GDK_BUTTON1_MASK;
-    pub const Button2Mask: ffi::GdkModifierType = ffi::GDK_BUTTON2_MASK;
-    pub const Button3Mask: ffi::GdkModifierType = ffi::GDK_BUTTON3_MASK;
-    pub const Button4Mask: ffi::GdkModifierType = ffi::GDK_BUTTON4_MASK;
-    pub const Button5Mask: ffi::GdkModifierType = ffi::GDK_BUTTON5_MASK;
-    pub const SuperMask: ffi::GdkModifierType = ffi::GDK_SUPER_MASK;
-    pub const HyperMask: ffi::GdkModifierType = ffi::GDK_HYPER_MASK;
-    pub const MetaMask: ffi::GdkModifierType = ffi::GDK_META_MASK;
-    pub const ReleaseMask: ffi::GdkModifierType = ffi::GDK_RELEASE_MASK;
-    pub const ModifierMask: ffi::GdkModifierType = ffi::GDK_MODIFIER_MASK;
-}
-
-#[allow(non_upper_case_globals)]
 pub mod key {
     use ffi;
 
