@@ -37,7 +37,9 @@ mod g_l_context;
 #[cfg(feature = "v3_16")]
 pub use self::g_l_context::GLContext;
 
+#[cfg(feature = "v3_22")]
 mod monitor;
+#[cfg(feature = "v3_22")]
 pub use self::monitor::Monitor;
 
 mod screen;

@@ -5,7 +5,11 @@
 use std::convert::{AsRef, From};
 use std::mem;
 
+use glib;
 use glib::translate::*;
+use glib_ffi;
+use glib_ffi::gconstpointer;
+use gobject_ffi;
 use cairo::RectangleInt;
 use ffi;
 
@@ -86,6 +90,24 @@ impl FromGlibPtrNone<*mut ffi::GdkRectangle> for Rectangle {
     }
 }
 
+#[doc(hidden)]
+impl FromGlibPtrFull<*mut ffi::GdkRectangle> for Rectangle {
+    unsafe fn from_glib_full(ptr: *mut ffi::GdkRectangle) -> Self {
+        let rect = *(ptr as *mut Rectangle);
+        glib_ffi::g_free(ptr as *mut _);
+        rect
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrFull<*const ffi::GdkRectangle> for Rectangle {
+    unsafe fn from_glib_full(ptr: *const ffi::GdkRectangle) -> Self {
+        let rect = *(ptr as *const Rectangle);
+        glib_ffi::g_free(ptr as *mut _);
+        rect
+    }
+}
+
 impl AsRef<RectangleInt> for Rectangle {
     fn as_ref(&self) -> &RectangleInt {
         unsafe { mem::transmute(self) }
@@ -96,5 +118,32 @@ impl From<RectangleInt> for Rectangle {
     fn from(r: RectangleInt) -> Rectangle {
         skip_assert_initialized!();
         unsafe { mem::transmute(r) }
+    }
+}
+
+impl glib::StaticType for Rectangle {
+    fn static_type() -> glib::types::Type {
+        skip_assert_initialized!();
+        unsafe { from_glib(ffi::gdk_rectangle_get_type()) }
+    }
+}
+
+impl glib::value::FromValueOptional for Rectangle {
+    unsafe fn from_value_optional(value: &glib::Value) -> Option<Self> {
+        from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut ffi::GdkRectangle)
+    }
+}
+
+impl glib::value::SetValue for Rectangle {
+    unsafe fn set_value(value: &mut glib::Value, this: &Self)  {
+        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0,
+                                       this.to_glib_none().0 as gconstpointer)
+    }
+}
+
+impl glib::value::SetValueOptional for Rectangle {
+    unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
+        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0,
+                                       this.to_glib_none().0 as gconstpointer)
     }
 }
