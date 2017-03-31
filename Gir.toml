@@ -190,6 +190,7 @@ version = "3.8"
 [[object]]
 name = "Gdk.Monitor"
 status = "generate"
+version = "3.22"
     [[object.property]]
     name = "subpixel-layout"
     version = "3.22"
