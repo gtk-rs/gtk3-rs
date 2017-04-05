@@ -2,7 +2,7 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-bitflags = "0.4"
+bitflags = "0.8"
 libc = "0.2"
 
 [dependencies.glib-sys]
