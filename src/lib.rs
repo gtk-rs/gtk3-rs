@@ -73,10 +73,13 @@
 
 #[macro_use]
 extern crate bitflags;
+#[macro_use]
+extern crate lazy_static;
 extern crate libc;
 extern crate glib_sys as ffi;
 extern crate gobject_sys as gobject_ffi;
 
+use std::ffi::CStr;
 pub use bytes::Bytes;
 pub use error::Error;
 pub use file_error::FileError;
@@ -127,34 +130,36 @@ pub use enums::{
     UserDirectory,
 };
 
-pub const KEY_FILE_DESKTOP_GROUP: &'static str = ffi::G_KEY_FILE_DESKTOP_GROUP;
-pub const KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS;
-pub const KEY_FILE_DESKTOP_KEY_CATEGORIES: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_CATEGORIES;
-pub const KEY_FILE_DESKTOP_KEY_COMMENT: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_COMMENT;
-pub const KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE;
-pub const KEY_FILE_DESKTOP_KEY_EXEC: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_EXEC;
-pub const KEY_FILE_DESKTOP_KEY_FULLNAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_FULLNAME;
-pub const KEY_FILE_DESKTOP_KEY_GENERIC_NAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME;
-pub const KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN;
-pub const KEY_FILE_DESKTOP_KEY_HIDDEN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_HIDDEN;
-pub const KEY_FILE_DESKTOP_KEY_ICON: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ICON;
-pub const KEY_FILE_DESKTOP_KEY_KEYWORDS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_KEYWORDS;
-pub const KEY_FILE_DESKTOP_KEY_MIME_TYPE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_MIME_TYPE;
-pub const KEY_FILE_DESKTOP_KEY_NAME: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NAME;
-pub const KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN;
-pub const KEY_FILE_DESKTOP_KEY_NO_DISPLAY: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY;
-pub const KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN;
-pub const KEY_FILE_DESKTOP_KEY_PATH: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_PATH;
-pub const KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY;
-pub const KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS;
-pub const KEY_FILE_DESKTOP_KEY_TERMINAL: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TERMINAL;
-pub const KEY_FILE_DESKTOP_KEY_TRY_EXEC: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TRY_EXEC;
-pub const KEY_FILE_DESKTOP_KEY_TYPE: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_TYPE;
-pub const KEY_FILE_DESKTOP_KEY_URL: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_URL;
-pub const KEY_FILE_DESKTOP_KEY_VERSION: &'static str = ffi::G_KEY_FILE_DESKTOP_KEY_VERSION;
-pub const KEY_FILE_DESKTOP_TYPE_APPLICATION: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_APPLICATION;
-pub const KEY_FILE_DESKTOP_TYPE_DIRECTORY: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_DIRECTORY;
-pub const KEY_FILE_DESKTOP_TYPE_LINK: &'static str = ffi::G_KEY_FILE_DESKTOP_TYPE_LINK;
+lazy_static! {
+  pub static ref KEY_FILE_DESKTOP_GROUP: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_GROUP).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_CATEGORIES: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_CATEGORIES).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_COMMENT: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_COMMENT).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_EXEC: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_EXEC).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_FULLNAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_FULLNAME).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_GENERIC_NAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_HIDDEN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_HIDDEN).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_ICON: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ICON).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_KEYWORDS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_KEYWORDS).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_MIME_TYPE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_MIME_TYPE).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_NAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NAME).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_NO_DISPLAY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_PATH: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_PATH).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_TERMINAL: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TERMINAL).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_TRY_EXEC: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TRY_EXEC).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_TYPE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TYPE).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_URL: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_URL).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_KEY_VERSION: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_VERSION).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_TYPE_APPLICATION: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_APPLICATION).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_TYPE_DIRECTORY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_DIRECTORY).to_str().unwrap()};
+  pub static ref KEY_FILE_DESKTOP_TYPE_LINK: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_LINK).to_str().unwrap()};
+}
 
 #[macro_use]
 pub mod wrapper;
