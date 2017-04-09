@@ -140,11 +140,7 @@ impl Value {
 
     /// Returns the type of the value.
     pub fn type_(&self) -> Type {
-        unsafe {
-            // FIXME: make this safe by making GValue::g_type public
-            let type_ = *(&self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
-            from_glib(type_)
-        }
+        from_glib(self.0.g_type)
     }
 
     /// Returns whether `Value`s of type `src` can be transformed to type `dst`.
