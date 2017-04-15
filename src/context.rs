@@ -811,7 +811,11 @@ impl Context {
         }
     }
 
-    //fn ffi::cairo_glyph_path(cr: *mut cairo_t, glyphs: *mut cairo_glyph_t, num_glyphs: isize);
+    pub fn glyph_path(&self, glyphs: &[Glyph]) {
+        unsafe {
+            ffi::cairo_glyph_path(self.0, glyphs.as_ptr(), glyphs.len() as i32)
+        }
+    }
 
     pub fn rel_curve_to(&self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) {
         unsafe {

@@ -275,7 +275,7 @@ extern "C" {
     pub fn cairo_line_to(cr: *mut cairo_t, x: c_double, y: c_double);
     pub fn cairo_move_to(cr: *mut cairo_t, x: c_double, y: c_double);
     pub fn cairo_rectangle(cr: *mut cairo_t, x: c_double, y: c_double, width: c_double, height: c_double);
-    pub fn cairo_glyph_path(cr: *mut cairo_t, glyphs: *mut Glyph, num_glyphs: c_int);
+    pub fn cairo_glyph_path(cr: *mut cairo_t, glyphs: *const Glyph, num_glyphs: c_int);
     pub fn cairo_text_path(cr: *mut cairo_t, utf8: *const c_char);
     pub fn cairo_rel_curve_to(cr: *mut cairo_t, dx1: c_double, dy1: c_double, dx2: c_double, dy2: c_double, dx3: c_double, dy3: c_double);
     pub fn cairo_rel_line_to(cr: *mut cairo_t, dx: c_double, dy: c_double);
@@ -430,9 +430,9 @@ extern "C" {
     //                    FontExtents;
     pub fn cairo_scaled_font_extents(scaled_font: *mut cairo_scaled_font_t, extents: *mut FontExtents);
     //                    TextExtents;
-    pub fn cairo_scaled_font_text_extents(scaled_font: *mut cairo_scaled_font_t, utf8: *mut c_char, extents: *mut TextExtents);
-    pub fn cairo_scaled_font_glyph_extents(scaled_font: *mut cairo_scaled_font_t, glyphs: *mut Glyph, num_glyphs: c_int, extents: *mut TextExtents);
-    pub fn cairo_scaled_font_text_to_glyphs(scaled_font: *mut cairo_scaled_font_t, x: c_double, y: c_double, utf8: *mut c_char, utf8_len: c_int, glyphs: *mut *mut Glyph, num_glyphs: *mut c_int, clusters: *mut *mut TextCluster, num_clusters: *mut c_int, cluster_flags: *mut TextClusterFlags) -> Status;
+    pub fn cairo_scaled_font_text_extents(scaled_font: *mut cairo_scaled_font_t, utf8: *const c_char, extents: *mut TextExtents);
+    pub fn cairo_scaled_font_glyph_extents(scaled_font: *mut cairo_scaled_font_t, glyphs: *const Glyph, num_glyphs: c_int, extents: *mut TextExtents);
+    pub fn cairo_scaled_font_text_to_glyphs(scaled_font: *mut cairo_scaled_font_t, x: c_double, y: c_double, utf8: *const c_char, utf8_len: c_int, glyphs: *mut *mut Glyph, num_glyphs: *mut c_int, clusters: *mut *mut TextCluster, num_clusters: *mut c_int, cluster_flags: *mut TextClusterFlags) -> Status;
     pub fn cairo_scaled_font_get_font_face(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_font_face_t;
     pub fn cairo_scaled_font_get_font_options(scaled_font: *mut cairo_scaled_font_t, options: *mut cairo_font_options_t);
     pub fn cairo_scaled_font_get_font_matrix(scaled_font: *mut cairo_scaled_font_t, font_matrix: *mut Matrix);
