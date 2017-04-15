@@ -275,7 +275,7 @@ extern "C" {
     pub fn cairo_line_to(cr: *mut cairo_t, x: c_double, y: c_double);
     pub fn cairo_move_to(cr: *mut cairo_t, x: c_double, y: c_double);
     pub fn cairo_rectangle(cr: *mut cairo_t, x: c_double, y: c_double, width: c_double, height: c_double);
-    pub fn cairo_glyph_path(cr: *mut cairo_t, glyphs: *mut Glyph, num_glyphs: c_int);
+    pub fn cairo_glyph_path(cr: *mut cairo_t, glyphs: *const Glyph, num_glyphs: c_int);
     pub fn cairo_text_path(cr: *mut cairo_t, utf8: *const c_char);
     pub fn cairo_rel_curve_to(cr: *mut cairo_t, dx1: c_double, dy1: c_double, dx2: c_double, dy2: c_double, dx3: c_double, dy3: c_double);
     pub fn cairo_rel_line_to(cr: *mut cairo_t, dx: c_double, dy: c_double);
