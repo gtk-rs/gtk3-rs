@@ -10,6 +10,7 @@ generate = [
     "Gio.Action",
     "Gio.ActionMap",
     "Gio.AppInfo",
+    "Gio.AppInfoCreateFlags",
     "Gio.AppLaunchContext",
     "Gio.ApplicationFlags",
     "Gio.Menu",
