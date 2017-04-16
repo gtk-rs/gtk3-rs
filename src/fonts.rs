@@ -167,6 +167,14 @@ impl FromGlibPtrNone<*const cairo_font_options_t> for FontOptions {
     }
 }
 
+impl FromGlibPtrFull<*mut cairo_font_options_t> for FontOptions {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut cairo_font_options_t) -> Self {
+        assert!(!ptr.is_null());
+        FontOptions(ptr)
+    }
+}
+
 impl PartialEq for FontOptions {
     fn eq(&self, other: &FontOptions) -> bool {
         unsafe {
@@ -269,6 +277,14 @@ impl FromGlibPtrNone<*mut cairo_font_face_t> for FontFace {
         let tmp = ffi::cairo_font_face_reference(ptr);
         assert!(!tmp.is_null());
         FontFace(tmp)
+    }
+}
+
+impl FromGlibPtrFull<*mut cairo_font_face_t> for FontFace {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut cairo_font_face_t) -> Self {
+        assert!(!ptr.is_null());
+        FontFace(ptr)
     }
 }
 
