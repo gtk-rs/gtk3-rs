@@ -191,7 +191,7 @@ impl Drop for FontOptions {
     }
 }
 
-pub struct FontFace(pub *mut cairo_font_face_t);
+pub struct FontFace(*mut cairo_font_face_t);
 
 impl FontFace {
     #[doc(hidden)]

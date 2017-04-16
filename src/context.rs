@@ -622,7 +622,7 @@ impl Context {
 
     pub fn get_font_face(&self) -> FontFace {
         unsafe {
-            FontFace(ffi::cairo_get_font_face(self.0))
+            from_glib_none(ffi::cairo_get_font_face(self.0))
         }
     }
 
