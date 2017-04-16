@@ -634,7 +634,7 @@ impl Context {
 
     pub fn get_scaled_font(&self) -> ScaledFont {
         unsafe {
-            ScaledFont(ffi::cairo_get_scaled_font(self.0))
+            from_glib_none(ffi::cairo_get_scaled_font(self.0))
         }
     }
 
