@@ -149,6 +149,24 @@ impl FontOptions {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *const cairo_font_options_t> for &'a FontOptions {
+    type Storage = &'a FontOptions;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *const cairo_font_options_t, &'a FontOptions> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtrNone<*const cairo_font_options_t> for FontOptions {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const cairo_font_options_t) -> Self {
+        let tmp = ffi::cairo_font_options_copy(ptr);
+        assert!(!tmp.is_null());
+        FontOptions(tmp)
+    }
+}
+
 impl PartialEq for FontOptions {
     fn eq(&self, other: &FontOptions) -> bool {
         unsafe {
