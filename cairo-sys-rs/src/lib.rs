@@ -445,7 +445,7 @@ extern "C" {
 
     //CAIRO FONT OPTIONS
     pub fn cairo_font_options_create() -> *mut cairo_font_options_t;
-    pub fn cairo_font_options_copy(original: *mut cairo_font_options_t) -> *mut cairo_font_options_t;
+    pub fn cairo_font_options_copy(original: *const cairo_font_options_t) -> *mut cairo_font_options_t;
     pub fn cairo_font_options_destroy(options: *mut cairo_font_options_t);
     pub fn cairo_font_options_status(options: *mut cairo_font_options_t) -> Status;
     pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *mut cairo_font_options_t);

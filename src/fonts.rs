@@ -149,6 +149,36 @@ impl FontOptions {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *const cairo_font_options_t> for &'a FontOptions {
+    type Storage = &'a FontOptions;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *const cairo_font_options_t, &'a FontOptions> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtrNone<*const cairo_font_options_t> for FontOptions {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const cairo_font_options_t) -> Self {
+        let ptr = ffi::cairo_font_options_copy(ptr);
+        assert!(!ptr.is_null());
+        let tmp = FontOptions(ptr);
+        tmp.ensure_status();
+        tmp
+    }
+}
+
+impl FromGlibPtrFull<*mut cairo_font_options_t> for FontOptions {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut cairo_font_options_t) -> Self {
+        assert!(!ptr.is_null());
+        let tmp = FontOptions(ptr);
+        tmp.ensure_status();
+        tmp
+    }
+}
+
 impl PartialEq for FontOptions {
     fn eq(&self, other: &FontOptions) -> bool {
         unsafe {
@@ -173,7 +203,7 @@ impl Drop for FontOptions {
     }
 }
 
-pub struct FontFace(pub *mut cairo_font_face_t);
+pub struct FontFace(*mut cairo_font_face_t);
 
 impl FontFace {
     #[doc(hidden)]
@@ -236,6 +266,36 @@ impl FontFace {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *const cairo_font_face_t> for &'a FontFace {
+    type Storage = &'a FontFace;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *const cairo_font_face_t, &'a FontFace> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtrNone<*mut cairo_font_face_t> for FontFace {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut cairo_font_face_t) -> Self {
+        let ptr = ffi::cairo_font_face_reference(ptr);
+        assert!(!ptr.is_null());
+        let tmp = FontFace(ptr);
+        tmp.ensure_status();
+        tmp
+    }
+}
+
+impl FromGlibPtrFull<*mut cairo_font_face_t> for FontFace {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut cairo_font_face_t) -> Self {
+        assert!(!ptr.is_null());
+        let tmp = FontFace(ptr);
+        tmp.ensure_status();
+        tmp
+    }
+}
+
 impl Drop for FontFace {
     fn drop(&mut self) {
         unsafe {
@@ -244,7 +304,7 @@ impl Drop for FontFace {
     }
 }
 
-pub struct ScaledFont(pub *mut cairo_scaled_font_t);
+pub struct ScaledFont(*mut cairo_scaled_font_t);
 
 impl ScaledFont {
     #[doc(hidden)]
@@ -433,6 +493,36 @@ impl ScaledFont {
         unsafe {
             ScaledFont(ffi::cairo_scaled_font_reference(self.get_ptr()))
         }
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *const cairo_scaled_font_t> for &'a ScaledFont {
+    type Storage = &'a ScaledFont;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *const cairo_scaled_font_t, &'a ScaledFont> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtrNone<*mut cairo_scaled_font_t> for ScaledFont {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut cairo_scaled_font_t) -> Self {
+        let ptr = ffi::cairo_scaled_font_reference(ptr);
+        assert!(!ptr.is_null());
+        let tmp = ScaledFont(ptr);
+        tmp.ensure_status();
+        tmp
+    }
+}
+
+impl FromGlibPtrFull<*mut cairo_scaled_font_t> for ScaledFont {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut cairo_scaled_font_t) -> Self {
+        assert!(!ptr.is_null());
+        let tmp = ScaledFont(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
