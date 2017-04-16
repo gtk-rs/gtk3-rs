@@ -254,11 +254,11 @@ impl FontFace {
     }
 }
 
-impl<'a> ToGlibPtr<'a, *mut cairo_font_face_t> for &'a FontFace {
+impl<'a> ToGlibPtr<'a, *const cairo_font_face_t> for &'a FontFace {
     type Storage = &'a FontFace;
 
     #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut cairo_font_face_t, &'a FontFace> {
+    fn to_glib_none(&self) -> Stash<'a, *const cairo_font_face_t, &'a FontFace> {
         Stash(self.0, *self)
     }
 }
