@@ -161,9 +161,11 @@ impl<'a> ToGlibPtr<'a, *const cairo_font_options_t> for &'a FontOptions {
 impl FromGlibPtrNone<*const cairo_font_options_t> for FontOptions {
     #[inline]
     unsafe fn from_glib_none(ptr: *const cairo_font_options_t) -> Self {
-        let tmp = ffi::cairo_font_options_copy(ptr);
-        assert!(!tmp.is_null());
-        FontOptions(tmp)
+        let ptr = ffi::cairo_font_options_copy(ptr);
+        assert!(!ptr.is_null());
+        let tmp = FontOptions(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
@@ -171,7 +173,9 @@ impl FromGlibPtrFull<*mut cairo_font_options_t> for FontOptions {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut cairo_font_options_t) -> Self {
         assert!(!ptr.is_null());
-        FontOptions(ptr)
+        let tmp = FontOptions(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
@@ -274,9 +278,11 @@ impl<'a> ToGlibPtr<'a, *const cairo_font_face_t> for &'a FontFace {
 impl FromGlibPtrNone<*mut cairo_font_face_t> for FontFace {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut cairo_font_face_t) -> Self {
-        let tmp = ffi::cairo_font_face_reference(ptr);
-        assert!(!tmp.is_null());
-        FontFace(tmp)
+        let ptr = ffi::cairo_font_face_reference(ptr);
+        assert!(!ptr.is_null());
+        let tmp = FontFace(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
@@ -284,7 +290,9 @@ impl FromGlibPtrFull<*mut cairo_font_face_t> for FontFace {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut cairo_font_face_t) -> Self {
         assert!(!ptr.is_null());
-        FontFace(ptr)
+        let tmp = FontFace(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
@@ -500,9 +508,11 @@ impl<'a> ToGlibPtr<'a, *const cairo_scaled_font_t> for &'a ScaledFont {
 impl FromGlibPtrNone<*mut cairo_scaled_font_t> for ScaledFont {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut cairo_scaled_font_t) -> Self {
-        let tmp = ffi::cairo_scaled_font_reference(ptr);
-        assert!(!tmp.is_null());
-        ScaledFont(tmp)
+        let ptr = ffi::cairo_scaled_font_reference(ptr);
+        assert!(!ptr.is_null());
+        let tmp = ScaledFont(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
@@ -510,7 +520,9 @@ impl FromGlibPtrFull<*mut cairo_scaled_font_t> for ScaledFont {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut cairo_scaled_font_t) -> Self {
         assert!(!ptr.is_null());
-        ScaledFont(ptr)
+        let tmp = ScaledFont(ptr);
+        tmp.ensure_status();
+        tmp
     }
 }
 
