@@ -254,6 +254,24 @@ impl FontFace {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *mut cairo_font_face_t> for &'a FontFace {
+    type Storage = &'a FontFace;
+
+    #[inline]
+    fn to_glib_none(&self) -> Stash<'a, *mut cairo_font_face_t, &'a FontFace> {
+        Stash(self.0, *self)
+    }
+}
+
+impl FromGlibPtrNone<*mut cairo_font_face_t> for FontFace {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut cairo_font_face_t) -> Self {
+        let tmp = ffi::cairo_font_face_reference(ptr);
+        assert!(!tmp.is_null());
+        FontFace(tmp)
+    }
+}
+
 impl Drop for FontFace {
     fn drop(&mut self) {
         unsafe {
