@@ -13,11 +13,9 @@ generate = [
     "Pango.Context",
     "Pango.Direction",
     "Pango.EllipsizeMode",
-    "Pango.FontMap",
     "Pango.FontMask",
     "Pango.Gravity",
     "Pango.GravityHint",
-    "Pango.Layout",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
     "Pango.Script",
@@ -32,3 +30,16 @@ manual = [
     "Pango.FontDescription",
     "Pango.Rectangle",
 ]
+
+[[object]]
+name = "Pango.FontMap"
+status = "generate"
+trait = true
+
+[[object]]
+name = "Pango.Layout"
+status = "generate"
+    [[object.function]]
+    name = "xy_to_index"
+        [object.function.return]
+        nullable = false
