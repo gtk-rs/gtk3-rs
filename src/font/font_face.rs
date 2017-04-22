@@ -8,21 +8,25 @@ use ffi::enums::{
 };
 use ffi::cairo_font_face_t;
 
-pub struct FontFace(*mut cairo_font_face_t);
+glib_wrapper! {
+    pub struct FontFace(Shared<cairo_font_face_t>);
+
+    match fn {
+        ref => |ptr| ffi::cairo_font_face_reference(ptr),
+        unref => |ptr| ffi::cairo_font_face_destroy(ptr),
+    }
+}
 
 impl FontFace {
     #[doc(hidden)]
     pub fn get_ptr(&self) -> *mut cairo_font_face_t {
-        let FontFace(ptr) = *self;
-        ptr
+        self.to_glib_none().0
     }
 
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
-        let font_face = FontFace(
-            unsafe {
-                ffi::cairo_toy_font_face_create(family.to_glib_none().0, slant, weight)
-            }
-        );
+        let font_face: FontFace = unsafe {
+            from_glib_full(ffi::cairo_toy_font_face_create(family.to_glib_none().0, slant, weight))
+        };
         font_face.ensure_status();
         font_face
     }
@@ -61,50 +65,6 @@ impl FontFace {
     pub fn get_reference_count(&self) -> usize {
         unsafe {
             ffi::cairo_font_face_get_reference_count(self.get_ptr()) as usize
-        }
-    }
-
-    pub fn reference(&self) -> FontFace {
-        unsafe {
-            FontFace(ffi::cairo_font_face_reference(self.get_ptr()))
-        }
-    }
-}
-
-impl<'a> ToGlibPtr<'a, *const cairo_font_face_t> for &'a FontFace {
-    type Storage = &'a FontFace;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *const cairo_font_face_t, &'a FontFace> {
-        Stash(self.0, *self)
-    }
-}
-
-impl FromGlibPtrNone<*mut cairo_font_face_t> for FontFace {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut cairo_font_face_t) -> Self {
-        let ptr = ffi::cairo_font_face_reference(ptr);
-        assert!(!ptr.is_null());
-        let tmp = FontFace(ptr);
-        tmp.ensure_status();
-        tmp
-    }
-}
-
-impl FromGlibPtrFull<*mut cairo_font_face_t> for FontFace {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut cairo_font_face_t) -> Self {
-        assert!(!ptr.is_null());
-        let tmp = FontFace(ptr);
-        tmp.ensure_status();
-        tmp
-    }
-}
-
-impl Drop for FontFace {
-    fn drop(&mut self) {
-        unsafe {
-            ffi::cairo_font_face_destroy(self.get_ptr())
         }
     }
 }

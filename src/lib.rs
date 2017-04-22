@@ -4,6 +4,7 @@
 
 extern crate cairo_sys as ffi;
 extern crate libc;
+#[macro_use]
 extern crate glib;
 extern crate c_vec;
 
