@@ -8,7 +8,6 @@ use ffi::enums::{
     HintStyle,
     HintMetrics,
 };
-use ffi::cairo_font_options_t;
 
 glib_wrapper! {
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
@@ -28,80 +27,70 @@ impl FontOptions {
         font_options
     }
 
-    #[doc(hidden)]
-    pub fn get_ptr(&self) -> *const cairo_font_options_t {
-        self.to_glib_none().0
-    }
-
-    #[doc(hidden)]
-    pub fn get_ptr_mut(&mut self) -> *mut cairo_font_options_t {
-        self.to_glib_none_mut().0
-    }
-
     pub fn ensure_status(&self) {
         let status = unsafe {
-            ffi::cairo_font_options_status(mut_override(self.get_ptr()))
+            ffi::cairo_font_options_status(mut_override(self.to_glib_none().0))
         };
         status.ensure_valid()
     }
 
     pub fn merge(&mut self, other: &FontOptions) {
         unsafe {
-            ffi::cairo_font_options_merge(self.get_ptr_mut(), other.get_ptr())
+            ffi::cairo_font_options_merge(self.to_glib_none_mut().0, other.to_glib_none().0)
         }
     }
 
     pub fn hash(&self) -> u64{
         unsafe {
-            ffi::cairo_font_options_hash(self.get_ptr()) as u64
+            ffi::cairo_font_options_hash(self.to_glib_none().0) as u64
         }
     }
 
     pub fn set_antialias(&mut self, antialias: Antialias) {
         unsafe {
-            ffi::cairo_font_options_set_antialias(self.get_ptr_mut(), antialias)
+            ffi::cairo_font_options_set_antialias(self.to_glib_none_mut().0, antialias)
         }
     }
 
     pub fn get_antialias(&self) -> Antialias {
         unsafe {
-            ffi::cairo_font_options_get_antialias(self.get_ptr())
+            ffi::cairo_font_options_get_antialias(self.to_glib_none().0)
         }
     }
 
     pub fn set_subpixel_order(&mut self, order: SubpixelOrder) {
         unsafe {
-            ffi::cairo_font_options_set_subpixel_order(self.get_ptr_mut(), order)
+            ffi::cairo_font_options_set_subpixel_order(self.to_glib_none_mut().0, order)
         }
     }
 
     pub fn get_subpixel_order(&self) -> SubpixelOrder {
         unsafe {
-            ffi::cairo_font_options_get_subpixel_order(self.get_ptr())
+            ffi::cairo_font_options_get_subpixel_order(self.to_glib_none().0)
         }
     }
 
     pub fn set_hint_style(&mut self, hint_style: HintStyle) {
         unsafe {
-            ffi::cairo_font_options_set_hint_style(self.get_ptr_mut(), hint_style)
+            ffi::cairo_font_options_set_hint_style(self.to_glib_none_mut().0, hint_style)
         }
     }
 
     pub fn get_hint_style(&self) -> HintStyle {
         unsafe {
-            ffi::cairo_font_options_get_hint_style(self.get_ptr())
+            ffi::cairo_font_options_get_hint_style(self.to_glib_none().0)
         }
     }
 
     pub fn set_hint_metrics(&mut self, hint_metrics: HintMetrics) {
         unsafe {
-            ffi::cairo_font_options_set_hint_metrics(self.get_ptr_mut(), hint_metrics)
+            ffi::cairo_font_options_set_hint_metrics(self.to_glib_none_mut().0, hint_metrics)
         }
     }
 
     pub fn get_hint_metrics(&self) -> HintMetrics {
         unsafe {
-            ffi::cairo_font_options_get_hint_metrics(self.get_ptr())
+            ffi::cairo_font_options_get_hint_metrics(self.to_glib_none().0)
         }
     }
 }
@@ -109,7 +98,7 @@ impl FontOptions {
 impl PartialEq for FontOptions {
     fn eq(&self, other: &FontOptions) -> bool {
         unsafe {
-            ffi::cairo_font_options_equal(self.get_ptr(), other.get_ptr()).as_bool()
+            ffi::cairo_font_options_equal(self.to_glib_none().0, other.to_glib_none().0).as_bool()
         }
     }
 }
