@@ -7,7 +7,7 @@ use c_vec::CVec;
 use std::mem::transmute;
 use libc::{c_double, c_int};
 use ::paths::Path;
-use ::fonts::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
+use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
 use ffi::enums::{
     FontSlant,

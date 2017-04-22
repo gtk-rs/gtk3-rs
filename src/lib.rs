@@ -59,7 +59,7 @@ pub use patterns::{
     MeshCorner,
 };
 
-pub use fonts::{
+pub use font::{
     FontFace,
     FontType,
     FontSlant,
@@ -101,7 +101,7 @@ pub use xcb::{
 
 pub mod prelude;
 
-mod fonts;
+mod font;
 mod context;
 mod error;
 mod image_surface;
