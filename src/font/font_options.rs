@@ -21,7 +21,7 @@ glib_wrapper! {
 
 impl FontOptions {
     pub fn new() -> FontOptions {
-        let mut font_options: FontOptions = unsafe {
+        let font_options: FontOptions = unsafe {
             from_glib_full(ffi::cairo_font_options_create())
         };
         font_options.ensure_status();
@@ -38,16 +38,16 @@ impl FontOptions {
         self.to_glib_none_mut().0
     }
 
-    pub fn ensure_status(&mut self) {
+    pub fn ensure_status(&self) {
         let status = unsafe {
-            ffi::cairo_font_options_status(self.get_ptr_mut())
+            ffi::cairo_font_options_status(mut_override(self.get_ptr()))
         };
         status.ensure_valid()
     }
 
-    pub fn merge(&mut self, other: &mut FontOptions) {
+    pub fn merge(&mut self, other: &FontOptions) {
         unsafe {
-            ffi::cairo_font_options_merge(self.get_ptr_mut(), other.get_ptr_mut())
+            ffi::cairo_font_options_merge(self.get_ptr_mut(), other.get_ptr())
         }
     }
 

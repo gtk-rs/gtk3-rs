@@ -448,7 +448,7 @@ extern "C" {
     pub fn cairo_font_options_copy(original: *const cairo_font_options_t) -> *mut cairo_font_options_t;
     pub fn cairo_font_options_destroy(options: *mut cairo_font_options_t);
     pub fn cairo_font_options_status(options: *mut cairo_font_options_t) -> Status;
-    pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *mut cairo_font_options_t);
+    pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *const cairo_font_options_t);
     pub fn cairo_font_options_hash(options: *const cairo_font_options_t) -> c_ulong;
     pub fn cairo_font_options_equal(options: *const cairo_font_options_t, other: *const cairo_font_options_t) -> cairo_bool_t;
     pub fn cairo_font_options_set_antialias(options: *mut cairo_font_options_t, antialias: Antialias);
