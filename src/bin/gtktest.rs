@@ -10,7 +10,7 @@ mod example {
     use gtk::{
         self, AboutDialog, AppChooserDialog, Builder, Button, Dialog, Entry, FileChooserAction,
         FileChooserDialog, FontChooserDialog, Scale, SpinButton, RecentChooserDialog, ResponseType,
-        Spinner, Window
+        Spinner, Switch, Window
     };
 
     // make moving clones into closures more convenient
@@ -143,6 +143,15 @@ mod example {
 
             dialog.run();
             dialog.destroy();
+        }));
+
+        let switch: Switch = builder.get_object("switch").unwrap();
+        switch.connect_changed_active(clone!(entry => move |switch| {
+            if switch.get_active() {
+                entry.set_text("Switch On");
+            } else {
+                entry.set_text("Switch Off");
+            }
         }));
 
         let button_about: Button = builder.get_object("button_about").unwrap();
