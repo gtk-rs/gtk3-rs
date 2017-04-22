@@ -30,7 +30,7 @@ impl ScaledFont {
         ptr
     }
 
-    pub fn new(font_face: FontFace, font_matrix: &mut Matrix, ctm: &mut Matrix, options: FontOptions) -> ScaledFont {
+    pub fn new(font_face: FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
         let scaled_font = unsafe {
             ScaledFont(ffi::cairo_scaled_font_create(font_face.get_ptr(), font_matrix, ctm, options.get_ptr()))
         };
@@ -167,10 +167,10 @@ impl ScaledFont {
     }
 
     pub fn get_font_options(&self) -> FontOptions {
-        let options = FontOptions::new();
+        let mut options = FontOptions::new();
 
         unsafe {
-            ffi::cairo_scaled_font_get_font_options(self.get_ptr(), options.get_ptr())
+            ffi::cairo_scaled_font_get_font_options(self.get_ptr(), options.get_ptr_mut())
         }
 
         options

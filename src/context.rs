@@ -600,16 +600,16 @@ impl Context {
         matrix
     }
 
-    pub fn set_font_options(&self, options: FontOptions) {
+    pub fn set_font_options(&self, options: &FontOptions) {
         unsafe {
             ffi::cairo_set_font_options(self.0, options.get_ptr())
         }
     }
 
     pub fn get_font_options(&self) -> FontOptions {
-        let out = FontOptions::new();
+        let mut out = FontOptions::new();
         unsafe {
-            ffi::cairo_get_font_options(self.0, out.get_ptr());
+            ffi::cairo_get_font_options(self.0, out.get_ptr_mut());
         }
         out
     }
