@@ -7,7 +7,7 @@ use c_vec::CVec;
 use std::mem::transmute;
 use libc::{c_double, c_int};
 use ::paths::Path;
-use ::fonts::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
+use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
 use ffi::enums::{
     FontSlant,
@@ -600,23 +600,23 @@ impl Context {
         matrix
     }
 
-    pub fn set_font_options(&self, options: FontOptions) {
+    pub fn set_font_options(&self, options: &FontOptions) {
         unsafe {
-            ffi::cairo_set_font_options(self.0, options.get_ptr())
+            ffi::cairo_set_font_options(self.0, options.to_glib_none().0)
         }
     }
 
     pub fn get_font_options(&self) -> FontOptions {
-        let out = FontOptions::new();
+        let mut out = FontOptions::new();
         unsafe {
-            ffi::cairo_get_font_options(self.0, out.get_ptr());
+            ffi::cairo_get_font_options(self.0, out.to_glib_none_mut().0);
         }
         out
     }
 
     pub fn set_font_face(&self, font_face: FontFace) {
         unsafe {
-            ffi::cairo_set_font_face(self.0, font_face.get_ptr())
+            ffi::cairo_set_font_face(self.0, font_face.to_glib_none().0)
         }
     }
 
@@ -628,7 +628,7 @@ impl Context {
 
     pub fn set_scaled_font(&self, scaled_font: ScaledFont) {
         unsafe {
-            ffi::cairo_set_scaled_font(self.0, scaled_font.get_ptr())
+            ffi::cairo_set_scaled_font(self.0, scaled_font.to_glib_none().0)
         }
     }
 

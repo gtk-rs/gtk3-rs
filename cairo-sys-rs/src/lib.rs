@@ -367,7 +367,7 @@ extern "C" {
     pub fn cairo_set_font_size(cr: *mut cairo_t, size: c_double);
     pub fn cairo_set_font_matrix(cr: *mut cairo_t, matrix: *const Matrix);
     pub fn cairo_get_font_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
-    pub fn cairo_set_font_options(cr: *mut cairo_t, options: *mut cairo_font_options_t);
+    pub fn cairo_set_font_options(cr: *mut cairo_t, options: *const cairo_font_options_t);
     pub fn cairo_get_font_options(cr: *mut cairo_t, options: *mut cairo_font_options_t);
     pub fn cairo_set_font_face(cr: *mut cairo_t, font_face: *mut cairo_font_face_t);
     pub fn cairo_get_font_face(cr: *mut cairo_t) -> *mut cairo_font_face_t;
@@ -423,7 +423,7 @@ extern "C" {
     //pub fn cairo_font_face_get_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
     //CAIRO SCALED FONT
-    pub fn cairo_scaled_font_create(font_face: *mut cairo_font_face_t, font_matrix: *mut Matrix, ctm: *mut Matrix, options: *mut cairo_font_options_t) -> *mut cairo_scaled_font_t;
+    pub fn cairo_scaled_font_create(font_face: *mut cairo_font_face_t, font_matrix: *const Matrix, ctm: *const Matrix, options: *const cairo_font_options_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_reference(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_destroy(scaled_font: *mut cairo_scaled_font_t);
     pub fn cairo_scaled_font_status(scaled_font: *mut cairo_scaled_font_t) -> Status;
@@ -448,17 +448,17 @@ extern "C" {
     pub fn cairo_font_options_copy(original: *const cairo_font_options_t) -> *mut cairo_font_options_t;
     pub fn cairo_font_options_destroy(options: *mut cairo_font_options_t);
     pub fn cairo_font_options_status(options: *mut cairo_font_options_t) -> Status;
-    pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *mut cairo_font_options_t);
-    pub fn cairo_font_options_hash(options: *mut cairo_font_options_t) -> c_ulong;
-    pub fn cairo_font_options_equal(options: *mut cairo_font_options_t, other: *mut cairo_font_options_t) -> cairo_bool_t;
+    pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *const cairo_font_options_t);
+    pub fn cairo_font_options_hash(options: *const cairo_font_options_t) -> c_ulong;
+    pub fn cairo_font_options_equal(options: *const cairo_font_options_t, other: *const cairo_font_options_t) -> cairo_bool_t;
     pub fn cairo_font_options_set_antialias(options: *mut cairo_font_options_t, antialias: Antialias);
-    pub fn cairo_font_options_get_antialias(options: *mut cairo_font_options_t) -> Antialias;
+    pub fn cairo_font_options_get_antialias(options: *const cairo_font_options_t) -> Antialias;
     pub fn cairo_font_options_set_subpixel_order(options: *mut cairo_font_options_t, subpixel_order: SubpixelOrder);
-    pub fn cairo_font_options_get_subpixel_order(options: *mut cairo_font_options_t) -> SubpixelOrder;
+    pub fn cairo_font_options_get_subpixel_order(options: *const cairo_font_options_t) -> SubpixelOrder;
     pub fn cairo_font_options_set_hint_style(options: *mut cairo_font_options_t, hint_style: HintStyle);
-    pub fn cairo_font_options_get_hint_style(options: *mut cairo_font_options_t) -> HintStyle;
+    pub fn cairo_font_options_get_hint_style(options: *const cairo_font_options_t) -> HintStyle;
     pub fn cairo_font_options_set_hint_metrics(options: *mut cairo_font_options_t, hint_metrics: HintMetrics);
-    pub fn cairo_font_options_get_hint_metrics(options: *mut cairo_font_options_t) -> HintMetrics;
+    pub fn cairo_font_options_get_hint_metrics(options: *const cairo_font_options_t) -> HintMetrics;
 
     // CAIRO MATRIX
     pub fn cairo_matrix_multiply(matrix: *mut Matrix, left: *const Matrix, right: *const Matrix);
