@@ -13,7 +13,12 @@ glib_wrapper! {
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
 
     match fn {
-        copy => |ptr| ffi::cairo_font_options_copy(ptr),
+        copy => |ptr| {
+            let ptr = ffi::cairo_font_options_copy(ptr);
+            let status = ffi::cairo_font_options_status(ptr);
+            status.ensure_valid();
+            ptr
+        },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
     }
 }
