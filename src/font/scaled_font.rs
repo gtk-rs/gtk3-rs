@@ -1,5 +1,4 @@
 use glib::translate::*;
-use std::ops::Drop;
 use std::ptr;
 use ffi;
 
@@ -21,18 +20,24 @@ use ffi::{
 
 use super::{FontFace, FontOptions};
 
-pub struct ScaledFont(*mut cairo_scaled_font_t);
+glib_wrapper! {
+    pub struct ScaledFont(Shared<cairo_scaled_font_t>);
+
+    match fn {
+        ref => |ptr| ffi::cairo_scaled_font_reference(ptr),
+        unref => |ptr| ffi::cairo_scaled_font_destroy(ptr),
+    }
+}
 
 impl ScaledFont {
     #[doc(hidden)]
     pub fn get_ptr(&self) -> *mut cairo_scaled_font_t {
-        let ScaledFont(ptr) = *self;
-        ptr
+        self.to_glib_none().0
     }
 
     pub fn new(font_face: FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
-        let scaled_font = unsafe {
-            ScaledFont(ffi::cairo_scaled_font_create(font_face.get_ptr(), font_matrix, ctm, options.get_ptr()))
+        let scaled_font: ScaledFont = unsafe {
+            from_glib_full(ffi::cairo_scaled_font_create(font_face.get_ptr(), font_matrix, ctm, options.get_ptr()))
         };
         scaled_font.ensure_status();
         scaled_font
@@ -204,49 +209,5 @@ impl ScaledFont {
         }
 
         matrix
-    }
-
-    pub fn reference(&self) -> ScaledFont {
-        unsafe {
-            ScaledFont(ffi::cairo_scaled_font_reference(self.get_ptr()))
-        }
-    }
-}
-
-impl<'a> ToGlibPtr<'a, *const cairo_scaled_font_t> for &'a ScaledFont {
-    type Storage = &'a ScaledFont;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *const cairo_scaled_font_t, &'a ScaledFont> {
-        Stash(self.0, *self)
-    }
-}
-
-impl FromGlibPtrNone<*mut cairo_scaled_font_t> for ScaledFont {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut cairo_scaled_font_t) -> Self {
-        let ptr = ffi::cairo_scaled_font_reference(ptr);
-        assert!(!ptr.is_null());
-        let tmp = ScaledFont(ptr);
-        tmp.ensure_status();
-        tmp
-    }
-}
-
-impl FromGlibPtrFull<*mut cairo_scaled_font_t> for ScaledFont {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut cairo_scaled_font_t) -> Self {
-        assert!(!ptr.is_null());
-        let tmp = ScaledFont(ptr);
-        tmp.ensure_status();
-        tmp
-    }
-}
-
-impl Drop for ScaledFont {
-    fn drop(&mut self) {
-        unsafe {
-            ffi::cairo_scaled_font_destroy(self.get_ptr())
-        }
     }
 }
