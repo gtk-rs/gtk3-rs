@@ -35,6 +35,7 @@ use enums::{
     HintMetrics,
     Extend,
     Filter,
+    RegionOverlap,
     PathDataType,
     PatternType,
     Format,
@@ -50,12 +51,11 @@ pub struct cairo_surface_t(c_void);
 pub struct cairo_pattern_t(c_void);
 #[repr(C)]
 pub struct cairo_fill_rule_t(c_void);
-#[repr(C)]
-pub struct cairo_antialias_t(c_void);
-#[repr(C)]
-pub struct cairo_line_join_t(c_void);
-#[repr(C)]
-pub struct cairo_line_cap_t(c_void);
+
+pub type cairo_antialias_t = Antialias;
+pub type cairo_line_join_t = LineJoin;
+pub type cairo_line_cap_t = LineCap;
+pub type cairo_content_t = Content;
 
 #[cfg(feature = "xcb")]
 #[repr(C)]
@@ -100,8 +100,6 @@ pub struct cairo_rectangle_list_t {
     pub num_rectangles: c_int
 }
 #[repr(C)]
-pub struct cairo_content_t(c_void);
-#[repr(C)]
 pub struct cairo_path_t {
     pub status: Status,
     pub data: *mut [c_double; 2],
@@ -122,12 +120,11 @@ pub struct cairo_font_face_t(c_void);
 pub struct cairo_scaled_font_t(c_void);
 #[repr(C)]
 pub struct cairo_font_options_t(c_void);
-#[repr(C)]
-pub struct cairo_extend_t(c_void);
-#[repr(C)]
-pub struct cairo_filter_t(c_void);
-#[repr(C)]
-pub struct cairo_region_overlap_t(c_void);
+
+pub type cairo_extend_t = Extend;
+pub type cairo_filter_t = Filter;
+pub type cairo_region_overlap_t = RegionOverlap;
+
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct FontExtents {
@@ -349,8 +346,7 @@ extern "C" {
     pub fn cairo_region_get_rectangle(region: *mut cairo_region_t, nth: c_int, rectangle: *mut cairo_rectangle_int_t);
     pub fn cairo_region_is_empty(region: *mut cairo_region_t) -> cairo_bool_t;
     pub fn cairo_region_contains_point(region: *mut cairo_region_t, x: c_int, y: c_int) -> cairo_bool_t;
-    //enum                cairo_region_overlap_t;
-    pub fn cairo_region_contains_rectangle(region: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> cairo_region_overlap_t;
+    pub fn cairo_region_contains_rectangle(region: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> RegionOverlap;
     pub fn cairo_region_equal(a: *mut cairo_region_t, b: *mut cairo_region_t) -> cairo_bool_t;
     pub fn cairo_region_translate(region: *mut cairo_region_t, dx: c_int, dy: c_int);
     pub fn cairo_region_intersect(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> Status;
@@ -427,9 +423,7 @@ extern "C" {
     pub fn cairo_scaled_font_reference(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_destroy(scaled_font: *mut cairo_scaled_font_t);
     pub fn cairo_scaled_font_status(scaled_font: *mut cairo_scaled_font_t) -> Status;
-    //                    FontExtents;
     pub fn cairo_scaled_font_extents(scaled_font: *mut cairo_scaled_font_t, extents: *mut FontExtents);
-    //                    TextExtents;
     pub fn cairo_scaled_font_text_extents(scaled_font: *mut cairo_scaled_font_t, utf8: *const c_char, extents: *mut TextExtents);
     pub fn cairo_scaled_font_glyph_extents(scaled_font: *mut cairo_scaled_font_t, glyphs: *const Glyph, num_glyphs: c_int, extents: *mut TextExtents);
     pub fn cairo_scaled_font_text_to_glyphs(scaled_font: *mut cairo_scaled_font_t, x: c_double, y: c_double, utf8: *const c_char, utf8_len: c_int, glyphs: *mut *mut Glyph, num_glyphs: *mut c_int, clusters: *mut *mut TextCluster, num_clusters: *mut c_int, cluster_flags: *mut TextClusterFlags) -> Status;
