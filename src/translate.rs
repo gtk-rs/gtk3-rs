@@ -490,14 +490,11 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut glib_ffi::GList, Self> {
         let stash_vec: Vec<_> =
-            self.iter().map(|v| v.to_glib_none()).collect();
+            self.iter().rev().map(|v| v.to_glib_none()).collect();
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
                 list = glib_ffi::g_list_prepend(list, Ptr::to(stash.0));
-            }
-            if stash_vec.len() > 1 {
-                list = glib_ffi::g_list_reverse(list);
             }
         }
         Stash(list, (Some(List(list)), stash_vec))
@@ -506,14 +503,11 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_container(&'a self) -> Stash<'a, *mut glib_ffi::GList, Self> {
         let stash_vec: Vec<_> =
-            self.iter().map(|v| v.to_glib_none()).collect();
+            self.iter().rev().map(|v| v.to_glib_none()).collect();
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
                 list = glib_ffi::g_list_prepend(list, Ptr::to(stash.0));
-            }
-            if stash_vec.len() > 1 {
-                list = glib_ffi::g_list_reverse(list);
             }
         }
         Stash(list, (None, stash_vec))
@@ -523,11 +517,8 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     fn to_glib_full(&self) -> *mut glib_ffi::GList {
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
-            for ptr in self.iter().map(|v| v.to_glib_full()) {
+            for ptr in self.iter().rev().map(|v| v.to_glib_full()) {
                 list = glib_ffi::g_list_prepend(list, Ptr::to(ptr));
-            }
-            if self.len() > 1 {
-                list = glib_ffi::g_list_reverse(list);
             }
         }
         list
@@ -549,14 +540,11 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut glib_ffi::GSList, Self> {
         let stash_vec: Vec<_> =
-            self.iter().map(|v| v.to_glib_none()).collect();
+            self.iter().rev().map(|v| v.to_glib_none()).collect();
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
                 list = glib_ffi::g_slist_prepend(list, Ptr::to(stash.0));
-            }
-            if stash_vec.len() > 1 {
-                list = glib_ffi::g_slist_reverse(list);
             }
         }
         Stash(list, (Some(SList(list)), stash_vec))
@@ -565,14 +553,11 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_container(&'a self) -> Stash<'a, *mut glib_ffi::GSList, Self> {
         let stash_vec: Vec<_> =
-            self.iter().map(|v| v.to_glib_none()).collect();
+            self.iter().rev().map(|v| v.to_glib_none()).collect();
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
                 list = glib_ffi::g_slist_prepend(list, Ptr::to(stash.0));
-            }
-            if stash_vec.len() > 1 {
-                list = glib_ffi::g_slist_reverse(list);
             }
         }
         Stash(list, (None, stash_vec))
@@ -582,11 +567,8 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     fn to_glib_full(&self) -> *mut glib_ffi::GSList {
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
-            for ptr in self.iter().map(|v| v.to_glib_full()) {
+            for ptr in self.iter().rev().map(|v| v.to_glib_full()) {
                 list = glib_ffi::g_slist_prepend(list, Ptr::to(ptr));
-            }
-            if self.len() > 1 {
-                list = glib_ffi::g_slist_reverse(list);
             }
         }
         list
