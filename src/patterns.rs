@@ -7,7 +7,6 @@
 use libc::{c_double, c_int, c_uint};
 use std::ptr;
 use std::mem::transmute;
-use glib::translate::*;
 use ffi::enums::{
     Extend,
     Filter,
@@ -269,7 +268,7 @@ pattern_type!(SurfacePattern);
 impl SurfacePattern {
     pub fn create<T: AsRef<Surface>>(surface: &T) -> SurfacePattern {
         SurfacePattern::wrap(unsafe {
-            ffi::cairo_pattern_create_for_surface(surface.as_ref().to_glib_none().0)
+            ffi::cairo_pattern_create_for_surface(surface.as_ref().to_raw_none())
         })
     }
 
@@ -277,7 +276,7 @@ impl SurfacePattern {
         unsafe {
             let mut surface_ptr: *mut cairo_surface_t = ptr::null_mut();
             ffi::cairo_pattern_get_surface(self.pointer, &mut surface_ptr).ensure_valid();
-            Surface::from_glib_none(surface_ptr)
+            Surface::from_raw_none(surface_ptr)
         }
     }
 }

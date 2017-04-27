@@ -5,6 +5,7 @@
 use std::ops::{Deref, DerefMut};
 use std::slice;
 
+#[cfg(feature = "glib")]
 use glib::translate::*;
 use ffi;
 use ffi::enums::{
@@ -29,8 +30,12 @@ impl ImageSurface {
         }
     }
 
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
+        Self::from(Surface::from_raw_full(ptr)).unwrap()
+    }
+
     pub fn create(format: Format, width: i32, height: i32) -> ImageSurface {
-        unsafe { from_glib_full(ffi::cairo_image_surface_create(format, width, height)) }
+        unsafe { Self::from_raw_full(ffi::cairo_image_surface_create(format, width, height)) }
     }
 
     pub fn create_for_data<F>(data: Box<[u8]>, free: F, format: Format, width: i32, height: i32,
@@ -40,7 +45,7 @@ impl ImageSurface {
         unsafe {
             let mut data = Box::new(AsyncBorrow::new(data, free));
             let ptr = (*data).as_mut().as_mut_ptr();
-            let surface = ImageSurface::from_glib_full(
+            let surface = ImageSurface::from_raw_full(
                 ffi::cairo_image_surface_create_for_data(ptr, format, width, height, stride));
             surface.set_user_data(&IMAGE_SURFACE_DATA, data).unwrap();
             surface
@@ -49,7 +54,7 @@ impl ImageSurface {
 
     pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
         unsafe {
-            if ffi::cairo_surface_get_reference_count(self.to_glib_none().0) > 1 {
+            if ffi::cairo_surface_get_reference_count(self.to_raw_none()) > 1 {
                 return Err(BorrowError::NonExclusive)
             }
             self.flush();
@@ -57,7 +62,7 @@ impl ImageSurface {
                 Status::Success => (),
                 status => return Err(BorrowError::from(status)),
             }
-            if ffi::cairo_image_surface_get_data(self.to_glib_none().0).is_null() {
+            if ffi::cairo_image_surface_get_data(self.to_raw_none()).is_null() {
                 return Err(BorrowError::from(Status::SurfaceFinished))
             }
             Ok(ImageSurfaceData::new(self))
@@ -65,24 +70,25 @@ impl ImageSurface {
     }
 
     pub fn get_format(&self) -> Format {
-        unsafe { ffi::cairo_image_surface_get_format(self.to_glib_none().0) }
+        unsafe { ffi::cairo_image_surface_get_format(self.to_raw_none()) }
     }
 
     pub fn get_height(&self) -> i32 {
-        unsafe { ffi::cairo_image_surface_get_height(self.to_glib_none().0) }
+        unsafe { ffi::cairo_image_surface_get_height(self.to_raw_none()) }
     }
 
     pub fn get_stride(&self) -> i32 {
-        unsafe { ffi::cairo_image_surface_get_stride(self.to_glib_none().0) }
+        unsafe { ffi::cairo_image_surface_get_stride(self.to_raw_none()) }
     }
 
     pub fn get_width(&self) -> i32 {
-        unsafe { ffi::cairo_image_surface_get_width(self.to_glib_none().0) }
+        unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }
 }
 
 static IMAGE_SURFACE_DATA: () = ();
 
+#[cfg(feature = "glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     type Storage = &'a Surface;
 
@@ -93,6 +99,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     }
 }
 
+#[cfg(feature = "glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
@@ -100,10 +107,11 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     }
 }
 
+#[cfg(feature = "glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
-        Self::from(from_glib_full(ptr)).unwrap()
+        Self::from_raw_full(ptr)
     }
 }
 
@@ -123,7 +131,7 @@ impl Deref for ImageSurface {
 
 impl Clone for ImageSurface {
     fn clone(&self) -> ImageSurface {
-        unsafe { from_glib_none(self.to_glib_none().0) }
+        ImageSurface(self.0.clone())
     }
 }
 
@@ -136,7 +144,7 @@ pub struct ImageSurfaceData<'a> {
 impl<'a> ImageSurfaceData<'a> {
     fn new(surface: &'a mut ImageSurface) -> ImageSurfaceData<'a> {
         unsafe {
-            let ptr = ffi::cairo_image_surface_get_data(surface.to_glib_none().0);
+            let ptr = ffi::cairo_image_surface_get_data(surface.to_raw_none());
             debug_assert!(!ptr.is_null());
             let len = (surface.get_stride() as usize) * (surface.get_height() as usize);
             ImageSurfaceData {
@@ -151,7 +159,7 @@ impl<'a> ImageSurfaceData<'a> {
 impl<'a> Drop for ImageSurfaceData<'a> {
     fn drop(&mut self) {
         if self.dirty {
-            unsafe { ffi::cairo_surface_mark_dirty(self.surface.to_glib_none().0) }
+            unsafe { ffi::cairo_surface_mark_dirty(self.surface.to_raw_none()) }
         }
     }
 }

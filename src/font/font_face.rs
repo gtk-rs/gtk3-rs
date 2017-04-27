@@ -1,5 +1,7 @@
+#[cfg(feature = "glib")]
 use glib::translate::*;
 use ffi;
+use std::ffi::{CString,CStr};
 
 use ffi::enums::{
     FontType,
@@ -7,6 +9,7 @@ use ffi::enums::{
     FontSlant,
 };
 
+#[cfg(feature = "glib")]
 glib_wrapper! {
     pub struct FontFace(Shared<ffi::cairo_font_face_t>);
 
@@ -16,49 +19,92 @@ glib_wrapper! {
     }
 }
 
+#[cfg(not(feature = "glib"))]
+pub struct FontFace(*mut ffi::cairo_font_face_t);
+
 impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
         let font_face: FontFace = unsafe {
-            from_glib_full(ffi::cairo_toy_font_face_create(family.to_glib_none().0, slant, weight))
+            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(CString::new(family).unwrap().as_ptr(), slant, weight))
         };
         font_face.ensure_status();
         font_face
     }
 
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
+        from_glib_full(ptr)
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
+        assert!(!ptr.is_null());
+        FontFace(ptr)
+    }
+
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
+        from_glib_none(ptr)
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
+        assert!(!ptr.is_null());
+        FontFace(ptr)
+    }
+
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_font_face_t {
+        self.to_glib_none().0
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_font_face_t {
+        self.0
+    }
+
     pub fn toy_get_family(&self) -> Option<String> {
         unsafe {
-            from_glib_none(ffi::cairo_toy_font_face_get_family(self.to_glib_none().0))
+            let family_name = ffi::cairo_toy_font_face_get_family(self.to_raw_none());
+            if family_name.is_null() { None }
+            else { Some(String::from_utf8_lossy(CStr::from_ptr(family_name).to_bytes()).into_owned()) }
         }
     }
 
     pub fn toy_get_slant(&self) -> FontSlant {
         unsafe {
-            ffi::cairo_toy_font_face_get_slant(self.to_glib_none().0)
+            ffi::cairo_toy_font_face_get_slant(self.to_raw_none())
         }
     }
 
     pub fn toy_get_weight(&self) -> FontWeight {
         unsafe {
-            ffi::cairo_toy_font_face_get_weight(self.to_glib_none().0)
+            ffi::cairo_toy_font_face_get_weight(self.to_raw_none())
         }
     }
 
     pub fn ensure_status(&self) {
         let status = unsafe {
-            ffi::cairo_font_face_status(self.to_glib_none().0)
+            ffi::cairo_font_face_status(self.to_raw_none())
         };
         status.ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {
         unsafe {
-            ffi::cairo_font_face_get_type(self.to_glib_none().0)
+            ffi::cairo_font_face_get_type(self.to_raw_none())
         }
     }
 
     pub fn get_reference_count(&self) -> usize {
         unsafe {
-            ffi::cairo_font_face_get_reference_count(self.to_glib_none().0) as usize
+            ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize
         }
     }
 }
