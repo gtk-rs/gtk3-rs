@@ -743,6 +743,46 @@ impl FromGlib<ffi::PangoStyle> for Style {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum Underline {
+    None,
+    Single,
+    Double,
+    Low,
+    Error,
+    #[doc(hidden)]
+    __Nonexhaustive(()),
+}
+
+#[doc(hidden)]
+impl ToGlib for Underline {
+    type GlibType = ffi::PangoUnderline;
+
+    fn to_glib(&self) -> ffi::PangoUnderline {
+        match *self {
+            Underline::None => ffi::PANGO_UNDERLINE_NONE,
+            Underline::Single => ffi::PANGO_UNDERLINE_SINGLE,
+            Underline::Double => ffi::PANGO_UNDERLINE_DOUBLE,
+            Underline::Low => ffi::PANGO_UNDERLINE_LOW,
+            Underline::Error => ffi::PANGO_UNDERLINE_ERROR,
+            Underline::__Nonexhaustive(_) => panic!(),
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PangoUnderline> for Underline {
+    fn from_glib(value: ffi::PangoUnderline) -> Self {
+        match value {
+            ffi::PANGO_UNDERLINE_NONE => Underline::None,
+            ffi::PANGO_UNDERLINE_SINGLE => Underline::Single,
+            ffi::PANGO_UNDERLINE_DOUBLE => Underline::Double,
+            ffi::PANGO_UNDERLINE_LOW => Underline::Low,
+            ffi::PANGO_UNDERLINE_ERROR => Underline::Error,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum Variant {
     Normal,
     SmallCaps,

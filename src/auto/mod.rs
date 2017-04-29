@@ -4,6 +4,12 @@
 mod context;
 pub use self::context::Context;
 
+mod font_face;
+pub use self::font_face::FontFace;
+
+mod font_family;
+pub use self::font_family::FontFamily;
+
 mod font_map;
 pub use self::font_map::FontMap;
 pub use self::font_map::FontMapExt;
@@ -27,6 +33,7 @@ pub use self::enums::GravityHint;
 pub use self::enums::Script;
 pub use self::enums::Stretch;
 pub use self::enums::Style;
+pub use self::enums::Underline;
 pub use self::enums::Variant;
 pub use self::enums::Weight;
 pub use self::enums::WrapMode;
