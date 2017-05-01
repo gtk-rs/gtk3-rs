@@ -1,5 +1,6 @@
 #[cfg(feature = "glib")]
 use glib::translate::*;
+use libc::c_char;
 use ffi;
 use std::ffi::{CString,CStr};
 
@@ -70,11 +71,10 @@ impl FontFace {
     }
 
     pub fn toy_get_family(&self) -> Option<String> {
-        unsafe {
-            let family_name = ffi::cairo_toy_font_face_get_family(self.to_raw_none());
-            if family_name.is_null() { None }
-            else { Some(String::from_utf8_lossy(CStr::from_ptr(family_name).to_bytes()).into_owned()) }
-        }
+        let family_name = unsafe {
+            ffi::cairo_toy_font_face_get_family(self.to_raw_none())
+        };
+        to_optional_string(family_name)
     }
 
     pub fn toy_get_slant(&self) -> FontSlant {
@@ -108,3 +108,12 @@ impl FontFace {
         }
     }
 }
+
+fn to_optional_string(str:*const c_char) -> Option<String> {
+    if str.is_null() { None }
+    else {
+        let str = unsafe { CStr::from_ptr(str).to_bytes() };
+        Some(String::from_utf8_lossy(str).into_owned())
+    }
+}
+
