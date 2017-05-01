@@ -77,7 +77,7 @@ impl AsRef<Context> for Context {
 
 impl Clone for Context {
     fn clone(&self) -> Context {
-        unsafe { Self::from_raw_none(self.0) }
+        unsafe { Self::from_raw_none(self.to_raw_none()) }
     }
 }
 
@@ -99,6 +99,11 @@ impl Context {
     unsafe fn from_raw_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         Context(ptr)
+    }
+
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_t {
+        self.0
     }
 
     pub fn ensure_status(&self) {
