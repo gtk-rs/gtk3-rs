@@ -127,9 +127,9 @@ impl ScaledFont {
             y_advance: 0.0,
         };
 
-        let text_to_convert = CString::new(text).unwrap();
+        let text = CString::new(text).unwrap();
         unsafe {
-            ffi::cairo_scaled_font_text_extents(self.to_raw_none(), text_to_convert.as_ptr(), &mut extents)
+            ffi::cairo_scaled_font_text_extents(self.to_raw_none(), text.as_ptr(), &mut extents)
         }
 
         extents
@@ -163,15 +163,15 @@ impl ScaledFont {
             let mut clusters_ptr: *mut TextCluster = ptr::null_mut();
             let mut cluster_count = 0i32;
             let mut cluster_flags = TextClusterFlags::None;
-
-            let text_to_convert = CString::new(text).unwrap();
+            let text_length = text.len() as i32;
+            let text = CString::new(text).unwrap();
 
             let status = ffi::cairo_scaled_font_text_to_glyphs(
                 self.to_raw_none(),
                 x,
                 y,
-                text_to_convert.as_ptr(),
-                text.len() as i32,
+                text.as_ptr(),
+                text_length,
                 &mut glyphs_ptr,
                 &mut glyph_count,
                 &mut clusters_ptr,

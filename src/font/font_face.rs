@@ -2,7 +2,7 @@
 use glib::translate::*;
 use libc::c_char;
 use ffi;
-use std::ffi::{CString,CStr};
+use std::ffi::{CString, CStr};
 
 use ffi::enums::{
     FontType,
@@ -71,10 +71,9 @@ impl FontFace {
     }
 
     pub fn toy_get_family(&self) -> Option<String> {
-        let family_name = unsafe {
-            ffi::cairo_toy_font_face_get_family(self.to_raw_none())
-        };
-        to_optional_string(family_name)
+        unsafe {    
+            to_optional_string(ffi::cairo_toy_font_face_get_family(self.to_raw_none()))
+        }
     }
 
     pub fn toy_get_slant(&self) -> FontSlant {
@@ -109,11 +108,11 @@ impl FontFace {
     }
 }
 
-fn to_optional_string(str:*const c_char) -> Option<String> {
-    if str.is_null() { None }
-    else {
-        let str = unsafe { CStr::from_ptr(str).to_bytes() };
-        Some(String::from_utf8_lossy(str).into_owned())
+unsafe fn to_optional_string(str: *const c_char) -> Option<String> {
+    if str.is_null() { 
+        None
+    } else {
+        Some(String::from_utf8_lossy(CStr::from_ptr(str).to_bytes()).into_owned())
     }
 }
 

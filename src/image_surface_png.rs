@@ -90,5 +90,4 @@ impl ImageSurface {
             Some(err) => Err(IoError::Io(err)),
         }
     }
-
 }
