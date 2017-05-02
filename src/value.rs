@@ -99,7 +99,7 @@ impl Value {
     ///
     /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
     /// to `T` and `Err(self)` otherwise.
-    pub fn downcast<T: FromValueOptional + SetValue>(self) -> Result<TypedValue<T>, Self> {
+    pub fn downcast<'a, T: FromValueOptional<'a> + SetValue>(self) -> Result<TypedValue<T>, Self> {
         unsafe {
             let ok = from_glib(
                 gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
@@ -119,7 +119,7 @@ impl Value {
     ///
     /// This function doesn't distinguish between type mismatches and correctly
     /// typed `None` values. Use `downcast` or `is` for that.
-    pub fn get<T: FromValueOptional>(&self) -> Option<T> {
+    pub fn get<'a, T: FromValueOptional<'a>>(&'a self) -> Option<T> {
         unsafe {
            let ok = from_glib(
                gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
@@ -135,7 +135,7 @@ impl Value {
 
     /// Returns `true` if the type of the value corresponds to `T`.
     #[inline]
-    pub fn is<T: FromValueOptional + SetValue>(&self) -> bool {
+    pub fn is<'a, T: FromValueOptional<'a> + SetValue>(&self) -> bool {
         self.type_() == T::static_type()
     }
 
@@ -262,12 +262,12 @@ impl Drop for ValueArray {
 /// See the [module documentation](index.html) for more details.
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
-impl<T: FromValueOptional + SetValue> TypedValue<T> {
+impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
     /// Returns the value.
     ///
     /// Types that don't support a `None` value always return `Some`. See
     /// `get_some`.
-    pub fn get(&self) -> Option<T> {
+    pub fn get(&'a self) -> Option<T> {
         unsafe { T::from_value_optional(self) }
     }
 
@@ -275,7 +275,7 @@ impl<T: FromValueOptional + SetValue> TypedValue<T> {
     ///
     /// This method is only available for types that don't support a `None`
     /// value.
-    pub fn get_some(&self) -> T where T: FromValue {
+    pub fn get_some(&'a self) -> T where T: FromValue<'a> {
         unsafe { T::from_value(self) }
     }
 
@@ -325,13 +325,13 @@ impl<T> DerefMut for TypedValue<T> {
     }
 }
 
-impl<'a, T: FromValueOptional + SetValueOptional> From<Option<&'a T>> for TypedValue<T> {
+impl<'a, T: FromValueOptional<'a> + SetValueOptional> From<Option<&'a T>> for TypedValue<T> {
     fn from(value: Option<&'a T>) -> Self {
         TypedValue(Value::from(value), PhantomData)
     }
 }
 
-impl<'a, T: FromValueOptional + SetValue> From<&'a T> for TypedValue<T> {
+impl<'a, T: FromValueOptional<'a> + SetValue> From<&'a T> for TypedValue<T> {
     fn from(value: &'a T) -> Self {
         TypedValue(Value::from(value), PhantomData)
     }
@@ -405,15 +405,15 @@ impl ToValue for Value {
 /// Extracts a value.
 ///
 /// Types that don't support a `None` value always return `Some`.
-pub trait FromValueOptional: StaticType + Sized {
-    unsafe fn from_value_optional(&Value) -> Option<Self>;
+pub trait FromValueOptional<'a>: StaticType + Sized {
+    unsafe fn from_value_optional(&'a Value) -> Option<Self>;
 }
 
 /// Extracts a value.
 ///
 /// Only implemented for types that don't support a `None` value.
-pub trait FromValue: FromValueOptional {
-    unsafe fn from_value(&Value) -> Self;
+pub trait FromValue<'a>: FromValueOptional<'a> {
+    unsafe fn from_value(&'a Value) -> Self;
 }
 
 /// Sets a value.
@@ -428,14 +428,14 @@ pub trait SetValue: StaticType {
     unsafe fn set_value(&mut Value, &Self);
 }
 
-impl FromValueOptional for String {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+impl<'a> FromValueOptional<'a> for String {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         from_glib_none(gobject_ffi::g_value_get_string(value.to_glib_none().0))
     }
 }
 
-impl<'a> FromValueOptional for &'a str {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+impl<'a> FromValueOptional<'a> for &'a str {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         let cstr = gobject_ffi::g_value_get_string(value.to_glib_none().0);
         if cstr.is_null() {
             None
@@ -481,7 +481,7 @@ impl SetValueOptional for String {
     }
 }
 
-impl<T: IsA<Object>> FromValueOptional for T {
+impl<'a, T: IsA<Object>> FromValueOptional<'a> for T {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Option::<Object>::from_glib_full(gobject_ffi::g_value_dup_object(value.to_glib_none().0))
             .map(|o| o.downcast_unchecked())
@@ -500,14 +500,14 @@ impl<T: IsA<Object>> SetValueOptional for T {
     }
 }
 
-impl FromValueOptional for bool {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+impl<'a> FromValueOptional<'a> for bool {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         Some(from_glib(gobject_ffi::g_value_get_boolean(value.to_glib_none().0)))
     }
 }
 
-impl FromValue for bool {
-    unsafe fn from_value(value: &Value) -> Self {
+impl<'a> FromValue<'a> for bool {
+    unsafe fn from_value(value: &'a Value) -> Self {
         from_glib(gobject_ffi::g_value_get_boolean(value.to_glib_none().0))
     }
 }
@@ -520,14 +520,14 @@ impl SetValue for bool {
 
 macro_rules! numeric {
     ($name:ident, $get:ident, $set:ident) => {
-        impl FromValueOptional for $name {
-            unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        impl<'a> FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
                 Some(gobject_ffi::$get(value.to_glib_none().0))
             }
         }
 
-        impl FromValue for $name {
-            unsafe fn from_value(value: &Value) -> Self {
+        impl<'a> FromValue<'a> for $name {
+            unsafe fn from_value(value: &'a Value) -> Self {
                 gobject_ffi::$get(value.to_glib_none().0)
             }
         }
