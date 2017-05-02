@@ -75,6 +75,7 @@ use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
 use std::ops::{Deref, DerefMut};
+use std::ffi::CStr;
 
 use object::{Downcast, IsA, Object};
 use translate::*;
@@ -430,6 +431,17 @@ pub trait SetValue: StaticType {
 impl FromValueOptional for String {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         from_glib_none(gobject_ffi::g_value_get_string(value.to_glib_none().0))
+    }
+}
+
+impl<'a> FromValueOptional for &'a str {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        let cstr = gobject_ffi::g_value_get_string(value.to_glib_none().0);
+        if cstr.is_null() {
+            None
+        } else {
+            CStr::from_ptr(cstr).to_str().ok()
+        }
     }
 }
 
