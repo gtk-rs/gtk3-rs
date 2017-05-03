@@ -179,8 +179,8 @@ impl glib::StaticType for RGBA {
     }
 }
 
-impl glib::value::FromValueOptional for RGBA {
-    unsafe fn from_value_optional(value: &glib::Value) -> Option<Self> {
+impl<'a> glib::value::FromValueOptional<'a> for RGBA {
+    unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
         from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut ffi::GdkRGBA)
     }
 }
