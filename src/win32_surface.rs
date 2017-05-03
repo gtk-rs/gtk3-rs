@@ -29,12 +29,6 @@ impl Win32Surface {
         Self::from(Surface::from_raw_full(ptr)).unwrap()
     }
 
-    #[doc(hidden)]
-    unsafe fn from_raw_none(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
-        assert!(!ptr.is_null());
-        Win32Surface(Surface::from_raw_none(ptr))
-    }
-
     pub fn create(hdc: winapi::HDC) -> Win32Surface {
         unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create(hdc)) }
     }
@@ -101,6 +95,6 @@ impl Deref for Win32Surface {
 
 impl Clone for Win32Surface {
     fn clone(&self) -> Win32Surface {
-        unsafe { Self::from_raw_none(self.to_raw_none()) }
+        Win32Surface(self.0.clone())
     }
 }
