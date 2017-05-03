@@ -349,6 +349,18 @@ impl<'a> From<&'a str> for TypedValue<String> {
     }
 }
 
+impl<'a> From<TypedValue<&'a str>> for TypedValue<String> {
+    fn from(value: TypedValue<&str>) -> Self {
+        TypedValue(value.0, PhantomData)
+    }
+}
+
+impl<'a> From<TypedValue<String>> for TypedValue<&'a str> {
+    fn from(value: TypedValue<String>) -> Self {
+        TypedValue(value.0, PhantomData)
+    }
+}
+
 /// Converts to `Value`.
 pub trait ToValue {
     /// Returns a `Value` clone of `self`.
