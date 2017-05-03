@@ -911,9 +911,7 @@ for Vec<T> {
             res.push(from_glib_full(*ptr));
             ptr = ptr.offset(1);
         }
-        //See g_resource_enumerate_children
-        //glib_ffi::g_free(orig_ptr as *mut _);
-        glib_ffi::g_strfreev(orig_ptr as *mut _);
+        glib_ffi::g_free(orig_ptr as *mut _);
         res
     }
 }
@@ -1144,5 +1142,16 @@ mod tests {
         assert_eq!(map.get("A"), Some(&"1".into()));
         assert_eq!(map.get("B"), Some(&"2".into()));
         assert_eq!(map.get("C"), Some(&"3".into()));
+    }
+
+    #[test]
+    fn string_array() {
+        let v = vec!["A".to_string(), "B".to_string(), "C".to_string()];
+        let stash = v.to_glib_none();
+        let ptr: *mut *mut c_char = stash.0;
+        let ptr_copy = unsafe { glib_ffi::g_strdupv(ptr) };
+
+        let actual: Vec<String> = unsafe{ FromGlibPtrContainer::from_glib_full(ptr_copy) };
+        assert_eq!(v, actual);
     }
 }
