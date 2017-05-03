@@ -128,8 +128,8 @@ impl glib::StaticType for Rectangle {
     }
 }
 
-impl glib::value::FromValueOptional for Rectangle {
-    unsafe fn from_value_optional(value: &glib::Value) -> Option<Self> {
+impl<'a> glib::value::FromValueOptional<'a> for Rectangle {
+    unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
         from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut ffi::GdkRectangle)
     }
 }
