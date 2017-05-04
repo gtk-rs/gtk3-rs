@@ -9,6 +9,7 @@ use std::thread;
 
 use libc::{c_void, c_uint};
 
+#[cfg(feature = "glib")]
 use glib::translate::*;
 use ffi;
 use ffi::enums::Status;
@@ -66,7 +67,7 @@ unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, l
 impl ImageSurface {
     pub fn create_from_png<R: Read>(stream: &mut R) -> Result<ImageSurface, IoError> {
         let mut env = ReadEnv{ reader: stream, error: None };
-        let surface: ImageSurface = unsafe { from_glib_full(ffi::cairo_image_surface_create_from_png_stream(
+        let surface: ImageSurface = unsafe { ImageSurface::from_raw_full(ffi::cairo_image_surface_create_from_png_stream(
             Some(read_func::<R>), &mut env as *mut ReadEnv<R> as *mut c_void)) };
         match env.error {
             None => match surface.as_ref().status() {   // The surface migth still be "nil" if the error occured in Cairo
@@ -79,7 +80,7 @@ impl ImageSurface {
 
     pub fn write_to_png<W: Write>(&self, stream: &mut W) -> Result<(), IoError> {
         let mut env = WriteEnv{ writer: stream, error: None };
-        let status = unsafe { ffi::cairo_surface_write_to_png_stream(self.to_glib_none().0,
+        let status = unsafe { ffi::cairo_surface_write_to_png_stream(self.to_raw_none(),
             Some(write_func::<W>), &mut env as *mut WriteEnv<W> as *mut c_void) };
         match env.error {
             None => match status {

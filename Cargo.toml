@@ -21,6 +21,7 @@ png = ["cairo-sys-rs/png"]
 xcb = ["cairo-sys-rs/xcb"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 v1_12 = ["cairo-sys-rs/v1_12"]
+default = ["glib"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"
@@ -34,6 +35,7 @@ version = "0.3.2"
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
 version = "0.1.1"
+optional = true
 
 [dependencies]
 libc = "0.2"

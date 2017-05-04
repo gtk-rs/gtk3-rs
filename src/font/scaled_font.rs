@@ -1,6 +1,8 @@
+#[cfg(feature = "glib")]
 use glib::translate::*;
 use std::ptr;
 use ffi;
+use std::ffi::CString;
 
 use ffi::enums::{
     FontType,
@@ -19,6 +21,7 @@ use ffi::{
 
 use super::{FontFace, FontOptions};
 
+#[cfg(feature = "glib")]
 glib_wrapper! {
     pub struct ScaledFont(Shared<ffi::cairo_scaled_font_t>);
 
@@ -28,31 +31,73 @@ glib_wrapper! {
     }
 }
 
+#[cfg(not(feature = "glib"))]
+pub struct ScaledFont(*mut ffi::cairo_scaled_font_t);
+
 impl ScaledFont {
     pub fn new(font_face: FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
         let scaled_font: ScaledFont = unsafe {
-            from_glib_full(ffi::cairo_scaled_font_create(font_face.to_glib_none().0, font_matrix, ctm, options.to_glib_none().0))
+            ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(font_face.to_raw_none(), font_matrix, ctm, options.to_raw_none()))
         };
         scaled_font.ensure_status();
         scaled_font
     }
 
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_scaled_font_t {
+        self.to_glib_none().0
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_scaled_font_t {
+        self.0
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
+        assert!(!ptr.is_null());
+        ScaledFont(ptr)
+    }
+
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
+        from_glib_full(ptr)
+    }
+
+    #[cfg(feature = "glib")]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
+        from_glib_none(ptr)
+    }
+
+    #[cfg(not(feature = "glib"))]
+    #[doc(hidden)]
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
+        assert!(!ptr.is_null());
+        ffi::cairo_scaled_font_reference(ptr);
+        ScaledFont(ptr)
+    }
+
     pub fn ensure_status(&self) {
         let status = unsafe {
-            ffi::cairo_scaled_font_status(self.to_glib_none().0)
+            ffi::cairo_scaled_font_status(self.to_raw_none())
         };
         status.ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {
         unsafe {
-            ffi::cairo_scaled_font_get_type(self.to_glib_none().0)
+            ffi::cairo_scaled_font_get_type(self.to_raw_none())
         }
     }
 
     pub fn get_reference_count(&self) -> usize {
         unsafe {
-            ffi::cairo_scaled_font_get_reference_count(self.to_glib_none().0) as usize
+            ffi::cairo_scaled_font_get_reference_count(self.to_raw_none()) as usize
         }
     }
 
@@ -66,7 +111,7 @@ impl ScaledFont {
         };
 
         unsafe {
-            ffi::cairo_scaled_font_extents(self.to_glib_none().0, &mut extents)
+            ffi::cairo_scaled_font_extents(self.to_raw_none(), &mut extents)
         }
 
         extents
@@ -82,8 +127,9 @@ impl ScaledFont {
             y_advance: 0.0,
         };
 
+        let text = CString::new(text).unwrap();
         unsafe {
-            ffi::cairo_scaled_font_text_extents(self.to_glib_none().0, text.to_glib_none().0, &mut extents)
+            ffi::cairo_scaled_font_text_extents(self.to_raw_none(), text.as_ptr(), &mut extents)
         }
 
         extents
@@ -100,7 +146,7 @@ impl ScaledFont {
         };
 
         unsafe {
-            ffi::cairo_scaled_font_glyph_extents(self.to_glib_none().0, glyphs.as_ptr(), glyphs.len() as i32, &mut extents)
+            ffi::cairo_scaled_font_glyph_extents(self.to_raw_none(), glyphs.as_ptr(), glyphs.len() as i32, &mut extents)
         }
 
         extents
@@ -117,13 +163,15 @@ impl ScaledFont {
             let mut clusters_ptr: *mut TextCluster = ptr::null_mut();
             let mut cluster_count = 0i32;
             let mut cluster_flags = TextClusterFlags::None;
+            let text_length = text.len() as i32;
+            let text = CString::new(text).unwrap();
 
             let status = ffi::cairo_scaled_font_text_to_glyphs(
-                self.to_glib_none().0,
+                self.to_raw_none(),
                 x,
                 y,
-                text.to_glib_none().0,
-                text.len() as i32,
+                text.as_ptr(),
+                text_length,
                 &mut glyphs_ptr,
                 &mut glyph_count,
                 &mut clusters_ptr,
@@ -161,15 +209,15 @@ impl ScaledFont {
 
     pub fn get_font_face(&self) -> FontFace {
         unsafe {
-            from_glib_none(ffi::cairo_scaled_font_get_font_face(self.to_glib_none().0))
+            FontFace::from_raw_none(ffi::cairo_scaled_font_get_font_face(self.to_raw_none()))
         }
     }
 
     pub fn get_font_options(&self) -> FontOptions {
-        let mut options = FontOptions::new();
+        let options = FontOptions::new();
 
         unsafe {
-            ffi::cairo_scaled_font_get_font_options(self.to_glib_none().0, options.to_glib_none_mut().0)
+            ffi::cairo_scaled_font_get_font_options(self.to_raw_none(), options.to_raw_none())
         }
 
         options
@@ -179,7 +227,7 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_font_matrix(self.to_glib_none().0, &mut matrix)
+            ffi::cairo_scaled_font_get_font_matrix(self.to_raw_none(), &mut matrix)
         }
 
         matrix
@@ -189,7 +237,7 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_ctm(self.to_glib_none().0, &mut matrix)
+            ffi::cairo_scaled_font_get_ctm(self.to_raw_none(), &mut matrix)
         }
 
         matrix
@@ -199,7 +247,7 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_scale_matrix(self.to_glib_none().0, &mut matrix)
+            ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), &mut matrix)
         }
 
         matrix
