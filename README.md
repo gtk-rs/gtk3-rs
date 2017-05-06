@@ -1,4 +1,4 @@
-# gtk-rs examples [![Build Status](https://travis-ci.org/gtk-rs/examples.png?branch=master)](https://travis-ci.org/gtk-rs/examples) [![Build status](https://ci.appveyor.com/api/projects/status/pi27a5xubp0ihl2d?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/examples)
+# gtk-rs examples [![Build Status](https://travis-ci.org/gtk-rs/examples.png?branch=master)](https://travis-ci.org/gtk-rs/examples) [![Build status](https://ci.appveyor.com/api/projects/status/glyf8yir9lh8mrh5?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/examples)
 
 A few gtk-rs examples. To build, just do:
 

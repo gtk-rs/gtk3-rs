@@ -3,12 +3,20 @@ name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 
-[dependencies]
-glib = "^0"
-gdk = "^0"
-gdk-pixbuf = "^0"
-gtk = "^0"
-cairo-rs = "^0"
+[dependencies.glib]
+git = "https://github.com/gtk-rs/glib"
+
+[dependencies.cairo-rs]
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.gdk-pixbuf]
+git = "https://github.com/gtk-rs/gdk-pixbuf"
+
+[dependencies.gdk]
+git = "https://github.com/gtk-rs/gdk"
+
+[dependencies.gtk]
+git = "https://github.com/gtk-rs/gtk"
 
 [features]
 #default = ["gtk_3_20"]
@@ -16,3 +24,4 @@ gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
 gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
+gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
