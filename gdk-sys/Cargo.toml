@@ -7,27 +7,27 @@ libc = "0.2"
 
 [dependencies.cairo-sys-rs]
 git = "https://github.com/gtk-rs/cairo"
-version = "0.3.2"
+version = "0.3.4"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
-version = "0.3.2"
+version = "0.3.4"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "0.3.2"
+version = "0.3.4"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.3.2"
+version = "0.3.4"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "0.3.2"
+version = "0.3.4"
 
 [dependencies.pango-sys]
 path = "../pango-sys"
-version = "0.3.2"
+version = "0.3.4"
 
 [features]
 v3_10 = ["v3_8"]
@@ -53,4 +53,4 @@ license = "MIT"
 links = "gdk"
 name = "gdk-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.2"
+version = "0.3.4"
