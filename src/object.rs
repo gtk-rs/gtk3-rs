@@ -123,7 +123,7 @@ glib_wrapper! {
     pub struct ObjectRef(Shared<GObject>);
 
     match fn {
-        ref => |ptr| gobject_ffi::g_object_ref(ptr),
+        ref => |ptr| gobject_ffi::g_object_ref_sink(ptr),
         unref => |ptr| gobject_ffi::g_object_unref(ptr),
     }
 }
