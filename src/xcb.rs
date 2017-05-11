@@ -37,13 +37,15 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_connection_t> for &'a XCBConnection {
     }
 }
 
-impl FromGlibPtrFull<*mut ffi::xcb_connection_t> for XCBConnection {
+impl FromGlibPtrNone<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
         assert!(!ptr.is_null());
         XCBConnection(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
         assert!(!ptr.is_null());
@@ -75,13 +77,15 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_render_pictforminfo_t> for &'a XCBRenderPic
     }
 }
 
-impl FromGlibPtrFull<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
+impl FromGlibPtrNone<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
         assert!(!ptr.is_null());
         XCBRenderPictFormInfo(ptr)
     }
+}
 
+impl FromGlibPtrFull<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
         assert!(!ptr.is_null());
@@ -147,7 +151,7 @@ pub trait XCBSurface {
               width: i32, height: i32) -> Surface;
     fn create_for_bitmap(connection: &XCBConnection, screen: &XCBScreen, bitmap: &XCBPixmap,
                          width: i32, height: i32) -> Surface;
-    fn create_with_xrender_format(connection: &XCBConnection, screen: &XCBScreen, 
+    fn create_with_xrender_format(connection: &XCBConnection, screen: &XCBScreen,
                                   bitmap: &XCBPixmap, format: &XCBRenderPictFormInfo,
                                   width: i32, height: i32) -> Surface;
     fn set_size(&self, width: i32, height: i32);
@@ -177,7 +181,7 @@ impl XCBSurface for Surface {
         }
     }
 
-    fn create_with_xrender_format(connection: &XCBConnection, screen: &XCBScreen, 
+    fn create_with_xrender_format(connection: &XCBConnection, screen: &XCBScreen,
                                   bitmap: &XCBPixmap, format: &XCBRenderPictFormInfo,
                                   width: i32, height: i32) -> Surface {
         unsafe {
