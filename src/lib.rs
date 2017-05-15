@@ -23,3 +23,4 @@ pub use self::widgets::{
 pub use ffi::PANGO_SCALE as SCALE;
 
 pub mod widgets;
+pub mod prelude;
