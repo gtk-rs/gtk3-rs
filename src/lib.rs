@@ -21,6 +21,7 @@ pub mod rectangle;
 pub use rectangle::Rectangle;
 pub mod matrix;
 pub use matrix::Matrix;
+pub use ffi::PangoMatrix as PangoMatrix;
 pub mod glyph_string;
 pub use glyph_string::GlyphString;
 pub mod font_description;
