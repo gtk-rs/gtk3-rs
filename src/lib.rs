@@ -12,15 +12,16 @@ extern crate libc;
 mod auto;
 pub use auto::*;
 
-pub use self::widgets::{
-    Item,
-    Rectangle,
-    Matrix,
-    GlyphString,
-    FontDescription,
-};
-
 pub use ffi::PANGO_SCALE as SCALE;
 
-pub mod widgets;
 pub mod prelude;
+pub mod item;
+pub use item::Item;
+pub mod rectangle;
+pub use rectangle::Rectangle;
+pub mod matrix;
+pub use matrix::Matrix;
+pub mod glyph_string;
+pub use glyph_string::GlyphString;
+pub mod font_description;
+pub use font_description::FontDescription;
