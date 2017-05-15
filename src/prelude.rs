@@ -6,3 +6,5 @@
 
 pub use auto::traits::*;
 
+pub use matrix::Matrix;
+
