@@ -37,7 +37,6 @@ manual = [
 [[object]]
 name = "Pango.FontMap"
 status = "generate"
-trait = true
 
 [[object]]
 name = "Pango.Layout"
