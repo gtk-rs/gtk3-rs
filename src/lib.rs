@@ -23,6 +23,7 @@ mod auto;
 
 pub mod prelude;
 
+pub use prelude::*;
 pub use auto::*;
 
 pub mod enums;
