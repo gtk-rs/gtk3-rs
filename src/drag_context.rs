@@ -4,6 +4,7 @@
 
 use std::ptr;
 use glib::translate::*;
+use glib::object::IsA;
 use atom::Atom;
 use ffi;
 use DragAction;
@@ -12,24 +13,47 @@ use DragProtocol;
 use Screen;
 use Window;
 
-impl DragContext {
-    pub fn drag_get_selection(&self) -> Atom {
+pub trait DragContextExtManual {
+    fn drag_get_selection(&self) -> Atom;
+
+    fn drag_abort(&self, time_: u32);
+
+    fn drop_reply(&self, accepted: bool, time_: u32);
+
+    fn drop(&self, time_: u32);
+
+    fn drag_find_window_for_screen(&self, drag_window: &Window, screen: &Screen,
+                                       x_root: i32, y_root: i32) -> (Option<Window>, DragProtocol);
+
+    fn drag_motion(&self, dest_window: &Window, protocol: DragProtocol, x_root: i32,
+                       y_root: i32, suggested_action: DragAction, possible_actions: DragAction,
+                       time_: u32) -> bool;
+
+    fn drop_finish(&self, success: bool, time_: u32);
+
+    fn drag_status(&self, action: DragAction, time_: u32);
+
+    fn drag_drop_succeeded(&self) -> bool;
+}
+
+impl<O: IsA<DragContext>> DragContextExtManual for O {
+    fn drag_get_selection(&self) -> Atom {
         unsafe { from_glib_none(ffi::gdk_drag_get_selection(self.to_glib_none().0) as *mut _) }
     }
 
-    pub fn drag_abort(&self, time_: u32) {
+    fn drag_abort(&self, time_: u32) {
         unsafe { ffi::gdk_drag_abort(self.to_glib_none().0, time_) }
     }
 
-    pub fn drop_reply(&self, accepted: bool, time_: u32) {
+    fn drop_reply(&self, accepted: bool, time_: u32) {
         unsafe { ffi::gdk_drop_reply(self.to_glib_none().0, accepted.to_glib(), time_) }
     }
 
-    pub fn drop(&self, time_: u32) {
+    fn drop(&self, time_: u32) {
         unsafe { ffi::gdk_drag_drop(self.to_glib_none().0, time_) }
     }
 
-    pub fn drag_find_window_for_screen(&self, drag_window: &Window, screen: &Screen,
+    fn drag_find_window_for_screen(&self, drag_window: &Window, screen: &Screen,
                                        x_root: i32, y_root: i32) -> (Option<Window>, DragProtocol) {
         unsafe {
             let mut dest_window = ptr::null_mut();
@@ -43,7 +67,7 @@ impl DragContext {
         }
     }
 
-    pub fn drag_motion(&self, dest_window: &Window, protocol: DragProtocol, x_root: i32,
+    fn drag_motion(&self, dest_window: &Window, protocol: DragProtocol, x_root: i32,
                        y_root: i32, suggested_action: DragAction, possible_actions: DragAction,
                        time_: u32) -> bool {
         unsafe {
@@ -53,15 +77,15 @@ impl DragContext {
         }
     }
 
-    pub fn drop_finish(&self, success: bool, time_: u32) {
+    fn drop_finish(&self, success: bool, time_: u32) {
         unsafe { ffi::gdk_drop_finish(self.to_glib_none().0, success.to_glib(), time_) }
     }
 
-    pub fn drag_status(&self, action: DragAction, time_: u32) {
+    fn drag_status(&self, action: DragAction, time_: u32) {
         unsafe { ffi::gdk_drag_status(self.to_glib_none().0, action.to_glib(), time_) }
     }
 
-    pub fn drag_drop_succeeded(&self) -> bool {
+    fn drag_drop_succeeded(&self) -> bool {
         unsafe { from_glib(ffi::gdk_drag_drop_succeeded(self.to_glib_none().0)) }
     }
 }

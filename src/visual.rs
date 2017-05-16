@@ -4,11 +4,16 @@
 
 use std::ptr;
 use std::slice;
+use glib::object::IsA;
 use ffi;
 use Visual;
 
-impl Visual {
-    pub fn query_depths() -> Vec<i32> {
+pub trait VisualExtManual {
+    fn query_depths() -> Vec<i32>;
+}
+
+impl<O: IsA<Visual>> VisualExtManual for O {
+    fn query_depths() -> Vec<i32> {
         assert_initialized_main_thread!();
         let mut ptr = ptr::null_mut();
         let mut count = 0;
