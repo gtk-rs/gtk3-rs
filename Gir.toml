@@ -48,7 +48,6 @@ status = "generate"
 [[object]]
 name = "Gio.Application"
 status = "generate"
-trait = true
 
 [[object]]
 name = "Gio.Settings"
