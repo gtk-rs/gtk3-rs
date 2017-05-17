@@ -39,6 +39,10 @@ manual = [
 ]
 
 [[object]]
+name = "Gio.*"
+status = "generate"
+
+[[object]]
 name = "Gio.ActionGroup"
 status = "generate"
     [[object.function]]
