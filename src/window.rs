@@ -4,6 +4,8 @@
 
 use std::ptr;
 use libc::{c_char, c_int};
+use cairo::Surface;
+use gdk_pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
 use ffi;
@@ -125,6 +127,10 @@ pub trait WindowExtManual {
     fn offscreen_window_set_embedder(&self, embedder: &Window);
 
     fn offscreen_window_get_embedder(&self) -> Option<Window>;
+
+    fn offscreen_window_get_surface(&self) -> Option<Surface>;
+
+    fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf>;
 }
 
 impl<O: IsA<Window>> WindowExtManual for O {
@@ -155,5 +161,19 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     fn offscreen_window_get_embedder(&self) -> Option<Window> {
         unsafe { from_glib_none(ffi::gdk_offscreen_window_get_embedder(self.to_glib_none().0)) }
+    }
+
+    fn offscreen_window_get_surface(&self) -> Option<Surface> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_none(ffi::gdk_offscreen_window_get_surface(self.to_glib_none().0))
+        }
+    }
+
+    fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_full(ffi::gdk_pixbuf_get_from_window(self.to_glib_none().0, src_x, src_y, width, height))
+        }
     }
 }

@@ -7,6 +7,7 @@ use glib::translate::*;
 use glib::object::IsA;
 use atom::Atom;
 use ffi;
+use Device;
 use DragAction;
 use DragContext;
 use DragProtocol;
@@ -34,6 +35,16 @@ pub trait DragContextExtManual {
     fn drag_status(&self, action: DragAction, time_: u32);
 
     fn drag_drop_succeeded(&self) -> bool;
+
+    fn drag_begin(window: &Window, targets: &[&Atom]) -> Option<DragContext>;
+
+    fn drag_begin_for_device<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom]) -> Option<DragContext>;
+
+    #[cfg(feature = "v3_20")]
+    fn drag_begin_from_point<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom], x_root: i32, y_root: i32) -> Option<DragContext>;
+
+    #[cfg(feature = "v3_20")]
+    fn drag_drop_done(&self, success: bool);
 }
 
 impl<O: IsA<DragContext>> DragContextExtManual for O {
@@ -87,5 +98,35 @@ impl<O: IsA<DragContext>> DragContextExtManual for O {
 
     fn drag_drop_succeeded(&self) -> bool {
         unsafe { from_glib(ffi::gdk_drag_drop_succeeded(self.to_glib_none().0)) }
+    }
+ 
+    fn drag_begin(window: &Window, targets: &[&Atom]) -> Option<DragContext> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_full(ffi::gdk_drag_begin(window.to_glib_none().0, targets.to_glib_none().0))
+        }
+    }
+
+    fn drag_begin_for_device<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom]) -> Option<DragContext> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_full(ffi::gdk_drag_begin_for_device(window.to_glib_none().0, device.to_glib_none().0, targets.to_glib_none().0))
+        }
+    }
+
+    #[cfg(feature = "v3_20")]
+    fn drag_begin_from_point<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom], x_root: i32, y_root: i32) -> Option<DragContext> {
+        skip_assert_initialized!();
+        unsafe {
+            from_glib_full(ffi::gdk_drag_begin_from_point(window.to_glib_none().0, device.to_glib_none().0, targets.to_glib_none().0, x_root, y_root))
+        }
+    }
+
+    #[cfg(feature = "v3_20")]
+    fn drag_drop_done(&self, success: bool) {
+        skip_assert_initialized!();
+        unsafe {
+            ffi::gdk_drag_drop_done(self.to_glib_none().0, success.to_glib());
+        }
     }
 }

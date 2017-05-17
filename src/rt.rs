@@ -8,7 +8,6 @@ use std::cell::Cell;
 use std::ptr;
 use std::sync::atomic::{AtomicBool, ATOMIC_BOOL_INIT, Ordering};
 
-use glib::translate::*;
 use ffi;
 
 thread_local! {
@@ -89,52 +88,6 @@ pub fn init() {
     }
 }
 
-pub fn get_display_arg_name() -> Option<String> {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib_none(ffi::gdk_get_display_arg_name())
-    }
-}
-
-pub fn notify_startup_complete() {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_notify_startup_complete() }
-}
-
-pub fn notify_startup_complete_with_id(startup_id: &str) {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_notify_startup_complete_with_id(startup_id.to_glib_none().0);
-    }
-}
-
-#[cfg(feature = "v3_10")]
-pub fn set_allowed_backends(backends: &str) {
-    assert_not_initialized!();
-    unsafe {
-        ffi::gdk_set_allowed_backends(backends.to_glib_none().0)
-    }
-}
-
-pub fn get_program_class() -> Option<String> {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib_none(ffi::gdk_get_program_class())
-    }
-}
-
-pub fn set_program_class(program_class: &str) {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_set_program_class(program_class.to_glib_none().0)
-    }
-}
-
-pub fn flush() {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_flush() }
-}
-
 pub fn screen_width() -> i32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_screen_width() }
@@ -153,24 +106,4 @@ pub fn screen_width_mm() -> i32 {
 pub fn screen_height_mm() -> i32 {
     assert_initialized_main_thread!();
     unsafe { ffi::gdk_screen_height_mm() }
-}
-
-pub fn beep() {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_flush() }
-}
-
-pub fn error_trap_push() {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_error_trap_push() }
-}
-
-pub fn error_trap_pop() -> i32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_error_trap_pop() }
-}
-
-pub fn error_trap_pop_ignored() {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_error_trap_pop_ignored() }
 }
