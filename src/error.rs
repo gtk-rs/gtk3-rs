@@ -113,3 +113,28 @@ pub trait ErrorDomain: Copy {
     /// i.e. any unrecognized codes map to it.
     fn from(code: i32) -> Option<Self> where Self: Sized;
 }
+
+/// Generic error used for functions that fail without any further information
+#[derive(Debug)]
+pub struct BoolError(&'static str);
+
+impl BoolError {
+    pub fn from_glib(b: glib_ffi::gboolean, s: &'static str) -> Result<(), Self> {
+        match b {
+            glib_ffi::GFALSE => Err(BoolError(s)),
+            _ => Ok(()),
+        }
+    }
+}
+
+impl fmt::Display for BoolError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.0)
+    }
+}
+
+impl error::Error for BoolError {
+    fn description(&self) -> &str {
+        self.0
+    }
+}
