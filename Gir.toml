@@ -84,6 +84,66 @@ manual = [
 ]
 
 [[object]]
+name = "Gdk.*"
+status = "generate"
+    [[object.function]]
+    pattern = ".+"
+        [[object.function.parameter]]
+        name = "cr"
+        const = true
+        [[object.function.parameter]]
+        name = "surface"
+        const = true
+    [[object.function]]
+    name = "selection_property_get"
+    #data
+    ignore = true
+    [[object.function]]
+    name = "cairo_create"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    pattern = "cairo_.+"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "disable_multidevice"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    pattern = "drag_.+"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "drop_reply"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "get_default_root_window"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    pattern = "offscreen_window_[gs]et_embedder"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "offscreen_window_get_surface"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "pixbuf_get_from_window"
+    #manual trait
+    ignore = true
+    [[object.function]]
+    name = "keyval_name"
+    #manual
+    ignore = true
+    [[object.function]]
+    name = "keyval_to_unicode"
+    #manual
+    ignore = true
+
+[[object]]
 name = "Gdk.EventType"
 status = "generate"
     [[object.member]]
