@@ -35,6 +35,23 @@ manual = [
 ]
 
 [[object]]
+name = "Pango.*"
+status = "generate"
+    [[object.function]]
+    name = "extents_to_pixels"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
+    [[object.function]]
+    name = "get_mirror_char"
+    #out param
+    ignore = true
+    [[object.function]]
+    name = "log2vis_get_embedding_levels"
+    #out param
+    ignore = true
+
+[[object]]
 name = "Pango.FontMap"
 status = "generate"
 
