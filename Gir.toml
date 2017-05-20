@@ -7,6 +7,7 @@ target_path = "."
 work_mode = "normal"
 
 generate = [
+    "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
 ]
@@ -19,8 +20,112 @@ manual = [
     "GLib.Error",
     "GLib.Variant",
     "GLib.VariantType",
+    "GLib.UserDirectory",
     "GObject.Object",
 ]
+
+[[object]]
+name = "GLib.*"
+status = "generate"
+    [[object.function]]
+    name = "propagate_error"
+    #empty first parameter
+    ignore = true
+    [[object.function]]
+    name = "set_error_literal"
+    #empty first parameter
+    ignore = true
+    [[object.function]]
+    pattern = "atomic_.+"
+    ignore = true
+    [[object.function]]
+    pattern = "bit_.*lock"
+    ignore = true
+    [[object.function]]
+    name = "get_filename_charsets"
+    #string
+    ignore = true
+    [[object.function]]
+    pattern = "str.+v"
+    #string
+    ignore = true
+    [[object.function]]
+    name = "strv_length"
+    #string
+    ignore = true
+    [[object.function]]
+    pattern = "ucs4_to_utf.+"
+    ignore = true
+    [[object.function]]
+    pattern = "unichar_.*compose"
+    ignore = true
+    [[object.function]]
+    name = "unichar_get_mirror_char"
+    ignore = true
+    [[object.function]]
+    name = "unix_open_pipe"
+    ignore = true
+    [[object.function]]
+    name = "utf16_to_ucs4"
+    ignore = true
+    [[object.function]]
+    name = "utf16_to_utf8"
+    ignore = true
+    [[object.function]]
+    name = "utf8_to_ucs4"
+    ignore = true
+    [[object.function]]
+    name = "utf8_to_utf16"
+    ignore = true
+    [[object.function]]
+    name = "utf8_to_ucs4_fast"
+    ignore = true
+    [[object.function]]
+    name = "assertion_message_error"
+    #Quark
+    ignore = true
+    [[object.function]]
+    pattern = ".+_error_quark"
+    #Quark
+    ignore = true
+    [[object.function]]
+    pattern = "quark_.+_string"
+    #Quark
+    ignore = true
+    [[object.function]]
+    name = "spawn_close_pid"
+    #Pid
+    ignore = true
+    [[object.function]]
+    name = "get_current_dir"
+    #manual
+    ignore = true
+    [[object.function]]
+    pattern = "[gs]et_prgname"
+    #manual pathbuf
+    ignore = true
+    [[object.function]]
+    name = "get_user_name"
+    #manual pathbuf
+    ignore = true
+    [[object.function]]
+    pattern = "[gs]etenv"
+    #manual unix
+    ignore = true
+    [[object.function]]
+    name = "unsetenv"
+    #manual unix
+    ignore = true
+    [[object.function]]
+    name = "strdup"
+    #not needed
+    ignore = true
+    [[object.function]]
+    pattern = "unix_.+"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "spawn_command_line_async"
+    cfg_condition = "unix"
 
 [[object]]
 name = "GLib.KeyFile"

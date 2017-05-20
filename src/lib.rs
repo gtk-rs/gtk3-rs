@@ -171,6 +171,7 @@ pub mod shared;
 pub mod object;
 
 pub use auto::*;
+pub use auto::functions::*;
 mod auto;
 
 mod bytes;
