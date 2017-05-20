@@ -4,7 +4,6 @@
 use Atom;
 use Cursor;
 use Display;
-use DragContext;
 use Event;
 use EventMask;
 use EventType;
@@ -28,13 +27,6 @@ pub fn beep() {
     assert_initialized_main_thread!();
     unsafe {
         ffi::gdk_beep();
-    }
-}
-
-pub fn drop_finish(context: &DragContext, success: bool, time_: u32) {
-    skip_assert_initialized!();
-    unsafe {
-        ffi::gdk_drop_finish(context.to_glib_none().0, success.to_glib(), time_);
     }
 }
 
@@ -128,10 +120,6 @@ pub fn get_show_events() -> bool {
         from_glib(ffi::gdk_get_show_events())
     }
 }
-
-//pub fn init(argc: &mut i32, argv: /*Unimplemented*/Vec<String>) {
-//    unsafe { TODO: call ffi::gdk_init() }
-//}
 
 //pub fn init_check(argc: &mut i32, argv: /*Unimplemented*/Vec<String>) -> bool {
 //    unsafe { TODO: call ffi::gdk_init_check() }

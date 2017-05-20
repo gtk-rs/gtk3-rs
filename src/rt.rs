@@ -87,23 +87,3 @@ pub fn init() {
         set_initialized();
     }
 }
-
-pub fn screen_width() -> i32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_screen_width() }
-}
-
-pub fn screen_height() -> i32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_screen_height() }
-}
-
-pub fn screen_width_mm() -> i32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_screen_width_mm() }
-}
-
-pub fn screen_height_mm() -> i32 {
-    assert_initialized_main_thread!();
-    unsafe { ffi::gdk_screen_height_mm() }
-}
