@@ -119,6 +119,10 @@ status = "generate"
     #manual trait
     ignore = true
     [[object.function]]
+    name = "drop_finish"
+    #manual trait
+    ignore = true
+    [[object.function]]
     name = "get_default_root_window"
     #manual trait
     ignore = true
@@ -140,6 +144,10 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "keyval_to_unicode"
+    #manual
+    ignore = true
+    [[object.function]]
+    name = "init"
     #manual
     ignore = true
 

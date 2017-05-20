@@ -25,6 +25,7 @@ pub mod prelude;
 
 pub use prelude::*;
 pub use auto::*;
+pub use self::auto::functions::*;
 
 pub mod enums;
 
@@ -65,26 +66,7 @@ pub use glib::Error;
 pub use self::rt::{
     init,
     set_initialized,
-    screen_width,
-    screen_height,
-    screen_width_mm,
-    screen_height_mm,
 };
-pub use self::auto::functions::{
-    get_display,
-    get_display_arg_name,
-    notify_startup_complete,
-    notify_startup_complete_with_id,
-    get_program_class,
-    set_program_class,
-    flush,
-    beep,
-    error_trap_push,
-    error_trap_pop,
-    error_trap_pop_ignored,
-};
-#[cfg(feature = "v3_10")]
-pub use self::auto::functions::set_allowed_backends;
 
 pub use atom::Atom;
 pub use atom::NONE as ATOM_NONE;
