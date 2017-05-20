@@ -11,6 +11,7 @@ extern crate libc;
 
 mod auto;
 pub use auto::*;
+pub use auto::functions::*;
 
 pub use ffi::PANGO_SCALE as SCALE;
 
