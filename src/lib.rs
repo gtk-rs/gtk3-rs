@@ -18,10 +18,7 @@ pub use glib::{
 };
 
 pub use auto::*;
-pub use resources::{
-    resources_register,
-    resources_unregister,
-};
+pub use auto::functions::*;
 
 pub mod signal {
     pub use glib::signal::Inhibit;
@@ -38,4 +35,3 @@ macro_rules! callback_guard {
 }
 
 mod auto;
-mod resources;
