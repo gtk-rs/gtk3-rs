@@ -165,10 +165,8 @@ impl Value {
 impl Clone for Value {
     fn clone(&self) -> Self {
         unsafe {
-            // FIXME: make this safer by making GValue::g_type public
-            let type_ = *(&self.0 as *const gobject_ffi::GValue as *const glib_ffi::GType);
             let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, type_);
+            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, self.0.g_type);
             gobject_ffi::g_value_copy(self.to_glib_none().0, ret.to_glib_none_mut().0);
             ret
         }
@@ -258,7 +256,6 @@ impl FromGlibPtrFull<*mut gobject_ffi::GValue> for Value {
         let mut ret = Value::uninitialized();
         ptr::swap(&mut ret.0, ptr);
         glib_ffi::g_free(ptr as *mut c_void);
-
         ret
     }
 }
