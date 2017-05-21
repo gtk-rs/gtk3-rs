@@ -13,6 +13,7 @@ generate = [
     "Gio.AppInfoCreateFlags",
     "Gio.AppLaunchContext",
     "Gio.ApplicationFlags",
+    "Gio.Icon",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",
@@ -25,6 +26,7 @@ generate = [
     "Gio.SettingsBindFlags",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
+    "Gio.ThemedIcon",
 ]
 
 ignore = [

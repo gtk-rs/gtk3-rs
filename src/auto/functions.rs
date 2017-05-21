@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use Error;
+use Icon;
 use Resource;
 use ResourceLookupFlags;
 use ffi;
@@ -98,9 +99,11 @@ pub fn content_type_get_generic_icon_name(type_: &str) -> Option<String> {
     }
 }
 
-//pub fn content_type_get_icon(type_: &str) -> /*Ignored*/Option<Icon> {
-//    unsafe { TODO: call ffi::g_content_type_get_icon() }
-//}
+pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
+    unsafe {
+        from_glib_full(ffi::g_content_type_get_icon(type_.to_glib_none().0))
+    }
+}
 
 pub fn content_type_get_mime_type(type_: &str) -> Option<String> {
     unsafe {
@@ -108,10 +111,12 @@ pub fn content_type_get_mime_type(type_: &str) -> Option<String> {
     }
 }
 
-//#[cfg(feature = "v2_34")]
-//pub fn content_type_get_symbolic_icon(type_: &str) -> /*Ignored*/Option<Icon> {
-//    unsafe { TODO: call ffi::g_content_type_get_symbolic_icon() }
-//}
+#[cfg(feature = "v2_34")]
+pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
+    unsafe {
+        from_glib_full(ffi::g_content_type_get_symbolic_icon(type_.to_glib_none().0))
+    }
+}
 
 //pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: /*Unimplemented*/Option<&CArray TypeId { ns_id: 0, id: 3 }>, data_size: /*Unimplemented*/Fundamental: Size) -> (String, bool) {
 //    unsafe { TODO: call ffi::g_content_type_guess() }
@@ -369,7 +374,7 @@ pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path:
 //    unsafe { TODO: call ffi::g_unix_mount_guess_can_eject() }
 //}
 
-//pub fn unix_mount_guess_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> /*Ignored*/Option<Icon> {
+//pub fn unix_mount_guess_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_icon() }
 //}
 
@@ -382,7 +387,7 @@ pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path:
 //}
 
 //#[cfg(feature = "v2_34")]
-//pub fn unix_mount_guess_symbolic_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> /*Ignored*/Option<Icon> {
+//pub fn unix_mount_guess_symbolic_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_symbolic_icon() }
 //}
 

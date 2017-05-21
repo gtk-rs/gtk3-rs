@@ -25,6 +25,10 @@ mod application;
 pub use self::application::Application;
 pub use self::application::ApplicationExt;
 
+mod icon;
+pub use self::icon::Icon;
+pub use self::icon::IconExt;
+
 mod menu;
 pub use self::menu::Menu;
 pub use self::menu::MenuExt;
@@ -63,6 +67,10 @@ pub use self::simple_action_group::SimpleActionGroupExt;
 
 mod simple_permission;
 pub use self::simple_permission::SimplePermission;
+
+mod themed_icon;
+pub use self::themed_icon::ThemedIcon;
+pub use self::themed_icon::ThemedIconExt;
 
 mod resource;
 pub use self::resource::Resource;
@@ -105,6 +113,7 @@ pub mod traits {
     pub use super::AppInfoExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
+    pub use super::IconExt;
     pub use super::MenuExt;
     pub use super::MenuAttributeIterExt;
     pub use super::MenuItemExt;
@@ -114,4 +123,5 @@ pub mod traits {
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;
+    pub use super::ThemedIconExt;
 }
