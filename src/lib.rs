@@ -81,7 +81,7 @@ extern crate gobject_sys as gobject_ffi;
 
 use std::ffi::CStr;
 pub use bytes::Bytes;
-pub use error::Error;
+pub use error::{Error, BoolError};
 pub use file_error::FileError;
 pub use object::{
     Cast,
