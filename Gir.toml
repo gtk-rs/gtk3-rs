@@ -51,6 +51,7 @@ generate = [
     "Gdk.WindowWindowClass",
     "Gdk.WMDecoration",
     "Gdk.WMFunction",
+    "Gdk.DrawingContext",
 ]
 
 manual = [
@@ -80,7 +81,9 @@ manual = [
     "cairo.Context",
     "cairo.Surface",
     "GdkPixbuf.Pixbuf",
+    "Gio.Icon",
     "GLib.Error",
+    "Pango.Context",
 ]
 
 [[object]]

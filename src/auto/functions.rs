@@ -9,6 +9,7 @@ use EventMask;
 use EventType;
 use GrabStatus;
 use ModifierType;
+use Screen;
 use Visual;
 use Window;
 use WindowState;
@@ -16,6 +17,7 @@ use cairo;
 use ffi;
 use gdk_pixbuf;
 use glib::translate::*;
+use pango;
 use std::mem;
 
 
@@ -205,18 +207,27 @@ pub fn notify_startup_complete_with_id(startup_id: &str) {
     }
 }
 
-//pub fn pango_context_get() -> /*Ignored*/Option<pango::Context> {
-//    unsafe { TODO: call ffi::gdk_pango_context_get() }
-//}
+pub fn pango_context_get() -> Option<pango::Context> {
+    assert_initialized_main_thread!();
+    unsafe {
+        from_glib_full(ffi::gdk_pango_context_get())
+    }
+}
 
-//#[cfg(feature = "v3_22")]
-//pub fn pango_context_get_for_display(display: &Display) -> /*Ignored*/Option<pango::Context> {
-//    unsafe { TODO: call ffi::gdk_pango_context_get_for_display() }
-//}
+#[cfg(feature = "v3_22")]
+pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
+    skip_assert_initialized!();
+    unsafe {
+        from_glib_full(ffi::gdk_pango_context_get_for_display(display.to_glib_none().0))
+    }
+}
 
-//pub fn pango_context_get_for_screen(screen: &Screen) -> /*Ignored*/Option<pango::Context> {
-//    unsafe { TODO: call ffi::gdk_pango_context_get_for_screen() }
-//}
+pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
+    skip_assert_initialized!();
+    unsafe {
+        from_glib_full(ffi::gdk_pango_context_get_for_screen(screen.to_glib_none().0))
+    }
+}
 
 //pub fn pango_layout_get_clip_region(layout: /*Ignored*/&pango::Layout, x_origin: i32, y_origin: i32, index_ranges: i32, n_ranges: i32) -> /*Ignored*/Option<cairo::Region> {
 //    unsafe { TODO: call ffi::gdk_pango_layout_get_clip_region() }
