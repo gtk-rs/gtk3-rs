@@ -101,7 +101,7 @@ pub fn get_user_name() -> Option<String> {
 #[cfg(not(windows))]
 pub fn get_current_dir() -> Option<String> {
     unsafe {
-        from_glib_none(ffi::g_get_current_dir())
+        from_glib_full(ffi::g_get_current_dir())
     }
 }
 
@@ -113,6 +113,6 @@ pub fn get_current_dir() -> Option<String> {
     }
 
     unsafe {
-        from_glib_none(g_get_current_dir_utf8())
+        from_glib_full(g_get_current_dir_utf8())
     }
 }
