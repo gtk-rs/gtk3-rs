@@ -4,6 +4,7 @@
 use AppInfoCreateFlags;
 use AppLaunchContext;
 use Error;
+use Icon;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
@@ -113,7 +114,7 @@ pub trait AppInfoExt {
 
     fn get_executable(&self) -> Option<std::path::PathBuf>;
 
-    //fn get_icon(&self) -> /*Ignored*/Option<Icon>;
+    fn get_icon(&self) -> Option<Icon>;
 
     fn get_id(&self) -> Option<String>;
 
@@ -204,9 +205,11 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    //fn get_icon(&self) -> /*Ignored*/Option<Icon> {
-    //    unsafe { TODO: call ffi::g_app_info_get_icon() }
-    //}
+    fn get_icon(&self) -> Option<Icon> {
+        unsafe {
+            from_glib_none(ffi::g_app_info_get_icon(self.to_glib_none().0))
+        }
+    }
 
     fn get_id(&self) -> Option<String> {
         unsafe {
