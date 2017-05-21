@@ -5,6 +5,8 @@ use Cursor;
 use Device;
 use Display;
 use DragProtocol;
+#[cfg(feature = "v3_22")]
+use DrawingContext;
 #[cfg(feature = "v3_16")]
 use Error;
 #[cfg(feature = "v3_14")]
@@ -88,7 +90,7 @@ pub trait WindowExt {
     fn beep(&self);
 
     //#[cfg(feature = "v3_22")]
-    //fn begin_draw_frame(&self, region: /*Ignored*/&cairo::Region) -> /*Ignored*/Option<DrawingContext>;
+    //fn begin_draw_frame(&self, region: /*Ignored*/&cairo::Region) -> Option<DrawingContext>;
 
     fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
@@ -124,8 +126,8 @@ pub trait WindowExt {
 
     fn enable_synchronized_configure(&self);
 
-    //#[cfg(feature = "v3_22")]
-    //fn end_draw_frame(&self, context: /*Ignored*/&DrawingContext);
+    #[cfg(feature = "v3_22")]
+    fn end_draw_frame(&self, context: &DrawingContext);
 
     fn end_paint(&self);
 
@@ -438,7 +440,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
     }
 
     //#[cfg(feature = "v3_22")]
-    //fn begin_draw_frame(&self, region: /*Ignored*/&cairo::Region) -> /*Ignored*/Option<DrawingContext> {
+    //fn begin_draw_frame(&self, region: /*Ignored*/&cairo::Region) -> Option<DrawingContext> {
     //    unsafe { TODO: call ffi::gdk_window_begin_draw_frame() }
     //}
 
@@ -544,10 +546,12 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
         }
     }
 
-    //#[cfg(feature = "v3_22")]
-    //fn end_draw_frame(&self, context: /*Ignored*/&DrawingContext) {
-    //    unsafe { TODO: call ffi::gdk_window_end_draw_frame() }
-    //}
+    #[cfg(feature = "v3_22")]
+    fn end_draw_frame(&self, context: &DrawingContext) {
+        unsafe {
+            ffi::gdk_window_end_draw_frame(self.to_glib_none().0, context.to_glib_none().0);
+        }
+    }
 
     fn end_paint(&self) {
         unsafe {

@@ -36,6 +36,13 @@ mod drag_context;
 pub use self::drag_context::DragContext;
 pub use self::drag_context::DragContextExt;
 
+#[cfg(feature = "v3_22")]
+mod drawing_context;
+#[cfg(feature = "v3_22")]
+pub use self::drawing_context::DrawingContext;
+#[cfg(feature = "v3_22")]
+pub use self::drawing_context::DrawingContextExt;
+
 #[cfg(feature = "v3_8")]
 mod frame_clock;
 #[cfg(feature = "v3_8")]
@@ -308,6 +315,8 @@ pub mod traits {
     pub use super::DisplayExt;
     pub use super::DisplayManagerExt;
     pub use super::DragContextExt;
+    #[cfg(feature = "v3_22")]
+    pub use super::DrawingContextExt;
     #[cfg(feature = "v3_8")]
     pub use super::FrameClockExt;
     #[cfg(feature = "v3_16")]

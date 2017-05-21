@@ -4,6 +4,7 @@
 use Display;
 use Screen;
 use ffi;
+use gio;
 use glib;
 use glib::Value;
 use glib::object::IsA;
@@ -32,7 +33,7 @@ pub trait AppLaunchContextExt {
 
     fn set_display(&self, display: &Display);
 
-    //fn set_icon<'a, P: IsA</*Ignored*/gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q);
+    fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q);
 
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P);
 
@@ -56,9 +57,13 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
         }
     }
 
-    //fn set_icon<'a, P: IsA</*Ignored*/gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
-    //    unsafe { TODO: call ffi::gdk_app_launch_context_set_icon() }
-    //}
+    fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
+        let icon = icon.into();
+        let icon = icon.to_glib_none();
+        unsafe {
+            ffi::gdk_app_launch_context_set_icon(self.to_glib_none().0, icon.0);
+        }
+    }
 
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P) {
         let icon_name = icon_name.into();

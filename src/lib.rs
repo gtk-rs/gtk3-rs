@@ -5,11 +5,13 @@
 extern crate glib_sys as glib_ffi;
 extern crate gdk_sys as ffi;
 extern crate gdk_pixbuf;
+extern crate gio;
 #[macro_use]
 extern crate glib;
 extern crate gobject_sys as gobject_ffi;
 extern crate cairo;
 extern crate cairo_sys as cairo_ffi;
+extern crate pango;
 extern crate libc;
 #[macro_use]
 extern crate bitflags;
