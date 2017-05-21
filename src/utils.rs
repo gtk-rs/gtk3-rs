@@ -4,6 +4,7 @@
 
 use ffi;
 use translate::*;
+use std::path::PathBuf;
 
 /// Same as [`get_prgname()`].
 ///
@@ -99,14 +100,14 @@ pub fn get_user_name() -> Option<String> {
 }
 
 #[cfg(not(windows))]
-pub fn get_current_dir() -> Option<String> {
+pub fn get_current_dir() -> Option<PathBuf> {
     unsafe {
         from_glib_full(ffi::g_get_current_dir())
     }
 }
 
 #[cfg(windows)]
-pub fn get_current_dir() -> Option<String> {
+pub fn get_current_dir() -> Option<PathBuf> {
     use libc::c_char;
     extern "C" {
         fn g_get_current_dir_utf8() -> *mut c_char;
