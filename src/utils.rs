@@ -5,6 +5,7 @@
 use ffi;
 use translate::*;
 use std::path::PathBuf;
+use error::BoolError;
 
 /// Same as [`get_prgname()`].
 ///
@@ -52,25 +53,27 @@ pub fn getenv(variable_name: &str) -> Option<String> {
 }
 
 #[cfg(not(windows))]
-pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> bool {
+pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> Result<(), BoolError> {
     unsafe {
-        from_glib(ffi::g_setenv(variable_name.to_glib_none().0,
+        BoolError::from_glib(ffi::g_setenv(variable_name.to_glib_none().0,
                                 value.to_glib_none().0,
-                                overwrite.to_glib()))
+                                overwrite.to_glib()),
+                             "Failed to set environment variable")
     }
 }
 
 #[cfg(windows)]
-pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> bool {
+pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> Result<(), BoolError> {
     use libc::c_char;
     extern "C" {
         fn g_setenv_utf8(variable: *const c_char, value: *const c_char, overwrite: ffi::gboolean) -> ffi::gboolean;
     }
 
     unsafe {
-        from_glib(g_setenv_utf8(variable_name.to_glib_none().0,
+        BoolError::from_glib(g_setenv_utf8(variable_name.to_glib_none().0,
                                 value.to_glib_none().0,
-                                overwrite.to_glib()))
+                                overwrite.to_glib()),
+                             "Failed to set environment variable")
     }
 }
 
