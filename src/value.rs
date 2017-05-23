@@ -251,6 +251,12 @@ impl FromGlibPtrNone<*const gobject_ffi::GValue> for Value {
     }
 }
 
+impl FromGlibPtrNone<*mut gobject_ffi::GValue> for Value {
+    unsafe fn from_glib_none(ptr: *mut gobject_ffi::GValue) -> Self {
+        from_glib_none(ptr as *const _)
+    }
+}
+
 impl FromGlibPtrFull<*mut gobject_ffi::GValue> for Value {
     unsafe fn from_glib_full(ptr: *mut gobject_ffi::GValue) -> Self {
         let mut ret = Value::uninitialized();
