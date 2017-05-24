@@ -1,4 +1,4 @@
-# cairo [![Build Status](https://travis-ci.org/gtk-rs/cairo.png?branch=master)](https://travis-ci.org/gtk-rs/cairo) [![Build status](https://ci.appveyor.com/api/projects/status/9q998histb9vk2o2?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/cairo-p0df1) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/gtk-rs/gtk)
+# cairo [![Build Status](https://travis-ci.org/gtk-rs/cairo.png?branch=master)](https://travis-ci.org/gtk-rs/cairo) [![Build status](https://ci.appveyor.com/api/projects/status/9q998histb9vk2o2?svg=true)](https://ci.appveyor.com/project/GuillaumeGomez/cairo-p0df1) [![Gitter](https://badges.gitter.im/Join\ Chat.svg)](https://gitter.im/gtk-rs/gtk)
 
 Cairo bindings for Rust.
 
