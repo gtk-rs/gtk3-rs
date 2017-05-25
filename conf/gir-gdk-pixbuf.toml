@@ -8,3 +8,23 @@ external_libraries = [
    "GObject",
    "Gio",
 ]
+
+[[object]]
+name = "GdkPixbuf.Pixbuf"
+status = "generate"
+    [[object.function]]
+    pattern = "new_from_file.*"
+    is_windows_utf8 = true
+    [[object.function]]
+    pattern = "savev?"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "new_from_file"
+    is_windows_utf8 = true
+
+[[object]]
+name = "GdkPixbuf.PixbufAnimation"
+status = "generate"
+    [[object.function]]
+    name = "new_from_file"
+    is_windows_utf8 = true
