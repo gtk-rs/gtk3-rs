@@ -106,15 +106,39 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "get_user_name"
-    #manual pathbuf
+    #manual pathbuf is_windows_utf8
     ignore = true
     [[object.function]]
     pattern = "[gs]etenv"
-    #manual unix
+    #manual is_windows_utf8
     ignore = true
     [[object.function]]
     name = "unsetenv"
-    #manual unix
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "filename_to_uri"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "find_program_in_path"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "get_home_dir"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "get_real_name"
+    #manual pathbuf? is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "get_tmp_dir"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "mkstemp"
+    #manual is_windows_utf8
     ignore = true
     [[object.function]]
     name = "strdup"
