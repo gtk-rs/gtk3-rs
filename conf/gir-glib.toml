@@ -25,3 +25,69 @@ ignore = [
 	"GLib.SIZEOF_VOID_P",
 	"GLib.VA_COPY_AS_ARRAY",
 ]
+
+[[object]]
+name = "GLib.*"
+status = "generate"
+    [[object.function]]
+    pattern = "filename_(to|from)_(uri|utf8)"
+    is_windows_utf8 = true
+    [[object.function]]
+    pattern = "(g|s|uns)etenv"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "file_test"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "file_get_contents"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "file_open_tmp"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "mkstemp"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "get_current_dir"
+    is_windows_utf8 = true
+    [[object.function]]
+    pattern = "spawn_async.*"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "spawn_sync"
+    is_windows_utf8 = true
+    [[object.function]]
+    pattern = "spawn_command_line_.*"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "get_user_name"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "get_real_name"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "get_home_dir"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "get_tmp_dir"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "find_program_in_path"
+    is_windows_utf8 = true
+
+[[object]]
+name = "GLib.Dir"
+status = "generate"
+    [[object.function]]
+    name = "open"
+    is_windows_utf8 = true
+    [[object.function]]
+    name = "read_name"
+    is_windows_utf8 = true
+
+[[object]]
+name = "GLib.IOChannel"
+status = "generate"
+    [[object.function]]
+    name = "new_file"
+    is_windows_utf8 = true
