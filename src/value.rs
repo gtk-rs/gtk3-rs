@@ -153,7 +153,8 @@ impl Value {
         }
     }
 
-    fn into_raw(mut self) -> gobject_ffi::GValue {
+    #[doc(hidden)]
+    pub fn into_raw(mut self) -> gobject_ffi::GValue {
         unsafe {
             let ret = mem::replace(&mut self.0, mem::uninitialized());
             mem::forget(self);
