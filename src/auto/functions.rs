@@ -452,25 +452,9 @@ pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<S
 //    unsafe { TODO: call ffi::g_filename_from_utf8() }
 //}
 
-pub fn filename_to_uri<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a str>>>(filename: P, hostname: Q) -> Result<String, Error> {
-    let hostname = hostname.into();
-    let hostname = hostname.to_glib_none();
-    unsafe {
-        let mut error = ptr::null_mut();
-        let ret = ffi::g_filename_to_uri(filename.as_ref().to_glib_none().0, hostname.0, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-    }
-}
-
 //pub fn filename_to_utf8<P: AsRef<std::path::Path>>(opsysstring: P, len: /*Unimplemented*/Fundamental: SSize) -> Result<(String, /*Unimplemented*/Fundamental: Size, /*Unimplemented*/Fundamental: Size), Error> {
 //    unsafe { TODO: call ffi::g_filename_to_utf8() }
 //}
-
-pub fn find_program_in_path<P: AsRef<std::path::Path>>(program: P) -> Option<std::path::PathBuf> {
-    unsafe {
-        from_glib_full(ffi::g_find_program_in_path(program.as_ref().to_glib_none().0))
-    }
-}
 
 pub fn format_size(size: u64) -> Option<String> {
     unsafe {
@@ -524,12 +508,6 @@ pub fn get_environ() -> Vec<String> {
     }
 }
 
-pub fn get_home_dir() -> Option<std::path::PathBuf> {
-    unsafe {
-        from_glib_none(ffi::g_get_home_dir())
-    }
-}
-
 pub fn get_host_name() -> Option<String> {
     unsafe {
         from_glib_none(ffi::g_get_host_name())
@@ -561,12 +539,6 @@ pub fn get_num_processors() -> u32 {
     }
 }
 
-pub fn get_real_name() -> Option<std::path::PathBuf> {
-    unsafe {
-        from_glib_none(ffi::g_get_real_name())
-    }
-}
-
 pub fn get_real_time() -> i64 {
     unsafe {
         ffi::g_get_real_time()
@@ -582,12 +554,6 @@ pub fn get_system_config_dirs() -> Vec<std::path::PathBuf> {
 pub fn get_system_data_dirs() -> Vec<std::path::PathBuf> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_system_data_dirs())
-    }
-}
-
-pub fn get_tmp_dir() -> Option<std::path::PathBuf> {
-    unsafe {
-        from_glib_none(ffi::g_get_tmp_dir())
     }
 }
 
@@ -899,12 +865,6 @@ pub fn mkdtemp<P: AsRef<std::path::Path>>(tmpl: P) -> Option<std::path::PathBuf>
 pub fn mkdtemp_full<P: AsRef<std::path::Path>>(tmpl: P, mode: i32) -> Option<std::path::PathBuf> {
     unsafe {
         from_glib_full(ffi::g_mkdtemp_full(tmpl.as_ref().to_glib_none().0, mode))
-    }
-}
-
-pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
-    unsafe {
-        ffi::g_mkstemp(tmpl.as_ref().to_glib_none().0)
     }
 }
 
