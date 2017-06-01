@@ -43,6 +43,9 @@ manual = [
 [[object]]
 name = "Gio.*"
 status = "generate"
+    [[object.function]]
+    pattern = "unix_.+"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.ActionGroup"
