@@ -340,81 +340,99 @@ pub fn resources_unregister(resource: &Resource) {
 //    unsafe { TODO: call ffi::g_simple_async_report_take_gerror_in_idle() }
 //}
 
+#[cfg(unix)]
 pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path: P) -> bool {
     unsafe {
         from_glib(ffi::g_unix_is_mount_path_system_internal(mount_path.as_ref().to_glib_none().0))
     }
 }
 
+//#[cfg(unix)]
 //pub fn unix_mount_at(mount_path: &str) -> (/*Ignored*/UnixMountEntry, u64) {
 //    unsafe { TODO: call ffi::g_unix_mount_at() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_compare(mount1: /*Ignored*/&mut UnixMountEntry, mount2: /*Ignored*/&mut UnixMountEntry) -> i32 {
 //    unsafe { TODO: call ffi::g_unix_mount_compare() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_free(mount_entry: /*Ignored*/&mut UnixMountEntry) {
 //    unsafe { TODO: call ffi::g_unix_mount_free() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_get_device_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<std::path::PathBuf> {
 //    unsafe { TODO: call ffi::g_unix_mount_get_device_path() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_get_fs_type(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<String> {
 //    unsafe { TODO: call ffi::g_unix_mount_get_fs_type() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_get_mount_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<std::path::PathBuf> {
 //    unsafe { TODO: call ffi::g_unix_mount_get_mount_path() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_guess_can_eject(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_can_eject() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_guess_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_icon() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_guess_name(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<String> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_name() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_guess_should_display(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_should_display() }
 //}
 
+//#[cfg(unix)]
 //#[cfg(feature = "v2_34")]
 //pub fn unix_mount_guess_symbolic_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_symbolic_icon() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_is_readonly(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
 //    unsafe { TODO: call ffi::g_unix_mount_is_readonly() }
 //}
 
+//#[cfg(unix)]
 //pub fn unix_mount_is_system_internal(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
 //    unsafe { TODO: call ffi::g_unix_mount_is_system_internal() }
 //}
 
+#[cfg(unix)]
 pub fn unix_mount_points_changed_since(time: u64) -> bool {
     unsafe {
         from_glib(ffi::g_unix_mount_points_changed_since(time))
     }
 }
 
+//#[cfg(unix)]
 //pub fn unix_mount_points_get() -> (/*Ignored*/Vec<UnixMountPoint>, u64) {
 //    unsafe { TODO: call ffi::g_unix_mount_points_get() }
 //}
 
+#[cfg(unix)]
 pub fn unix_mounts_changed_since(time: u64) -> bool {
     unsafe {
         from_glib(ffi::g_unix_mounts_changed_since(time))
     }
 }
 
+//#[cfg(unix)]
 //pub fn unix_mounts_get() -> (/*Ignored*/Vec<UnixMountEntry>, u64) {
 //    unsafe { TODO: call ffi::g_unix_mounts_get() }
 //}
