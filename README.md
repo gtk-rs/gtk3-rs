@@ -1,4 +1,4 @@
-# gdk-pixbuf [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/gtk-rs/gtk)
+# gdk-pixbuf [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gtk-rs/gtk)
 
 Gdk-Pixbuf bindings for Rust.
 
