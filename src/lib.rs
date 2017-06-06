@@ -12,6 +12,14 @@ extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate libc;
 
+macro_rules! callback_guard {
+    () => (
+        let _guard = ::glib::CallbackGuard::new();
+    )
+}
+
+mod application;
+
 pub use glib::{
     Error,
     Object,
@@ -26,12 +34,9 @@ pub mod signal {
 
 pub mod prelude {
     pub use auto::traits::*;
+    pub use application::*;
 }
 
-macro_rules! callback_guard {
-    () => (
-        let _guard = ::glib::CallbackGuard::new();
-    )
-}
+pub use prelude::*;
 
 mod auto;
