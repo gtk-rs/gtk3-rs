@@ -88,8 +88,6 @@ pub trait ApplicationExt {
     #[cfg(feature = "v2_38")]
     fn mark_busy(&self);
 
-    //fn open(&self, files: /*Ignored*/&[File], n_files: i32, hint: &str);
-
     fn quit(&self);
 
     //fn register<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
@@ -151,8 +149,6 @@ pub trait ApplicationExt {
 
     //#[cfg(feature = "v2_40")]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> u64;
-
-    //fn connect_open<Unsupported or ignored types>(&self, f: F) -> u64;
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> u64;
 
@@ -256,10 +252,6 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
             ffi::g_application_mark_busy(self.to_glib_none().0);
         }
     }
-
-    //fn open(&self, files: /*Ignored*/&[File], n_files: i32, hint: &str) {
-    //    unsafe { TODO: call ffi::g_application_open() }
-    //}
 
     fn quit(&self) {
         unsafe {
@@ -446,10 +438,6 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
     //#[cfg(feature = "v2_40")]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> u64 {
     //    Ignored options: GLib.VariantDict
-    //}
-
-    //fn connect_open<Unsupported or ignored types>(&self, f: F) -> u64 {
-    //    Ignored files: *.CArray TypeId { ns_id: 1, id: 15 }
     //}
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> u64 {

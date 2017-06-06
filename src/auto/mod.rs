@@ -25,6 +25,10 @@ mod application;
 pub use self::application::Application;
 pub use self::application::ApplicationExt;
 
+mod file;
+pub use self::file::File;
+pub use self::file::FileExt;
+
 mod icon;
 pub use self::icon::Icon;
 pub use self::icon::IconExt;
@@ -113,6 +117,7 @@ pub mod traits {
     pub use super::AppInfoExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
+    pub use super::FileExt;
     pub use super::IconExt;
     pub use super::MenuExt;
     pub use super::MenuAttributeIterExt;
