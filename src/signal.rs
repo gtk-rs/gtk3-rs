@@ -49,6 +49,12 @@ pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: u64) {
     }
 }
 
+pub fn signal_handler_disconnect<T: IsA<Object>>(instance: &T, handler_id: u64) {
+    unsafe {
+        gobject_ffi::g_signal_handler_disconnect(instance.to_glib_none().0, handler_id as c_ulong);
+    }
+}
+
 pub fn signal_stop_emission<T: IsA<Object>>(instance: &T, signal_id: u32, detail: GQuark) {
     unsafe {
         gobject_ffi::g_signal_stop_emission(instance.to_glib_none().0, signal_id as c_uint, detail);
