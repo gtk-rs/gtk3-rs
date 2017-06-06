@@ -116,7 +116,7 @@ pub trait ErrorDomain: Copy {
 
 /// Generic error used for functions that fail without any further information
 #[derive(Debug)]
-pub struct BoolError(&'static str);
+pub struct BoolError(pub &'static str);
 
 impl BoolError {
     pub fn from_glib(b: glib_ffi::gboolean, s: &'static str) -> Result<(), Self> {
