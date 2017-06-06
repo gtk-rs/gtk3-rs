@@ -29,7 +29,7 @@ v2_50 = ["v2_48", "gio-sys/v2_50"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 git = "https://github.com/gtk-rs/lgpl-docs"
-version = "0.1.2"
+version = "0.1.3"
 optional = true
 
 [dependencies]
