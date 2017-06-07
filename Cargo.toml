@@ -14,7 +14,7 @@ keywords = ["glib", "gtk-rs", "gnome", "GUI"]
 name = "glib"
 
 [dependencies]
-bitflags = "0.5"
+bitflags = "0.9"
 libc = "0.2"
 lazy_static = "0.2"
 
