@@ -37,7 +37,7 @@ optional = true
 
 [dependencies]
 libc = "0.2"
-bitflags = "0.5"
+bitflags = "0.9"
 
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/sys"
