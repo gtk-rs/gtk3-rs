@@ -150,6 +150,110 @@ status = "generate"
     [[object.function]]
     name = "spawn_command_line_async"
     cfg_condition = "unix"
+    [[object.function]]
+    name = "convert_with_fallback"
+    #out param not in .gir
+    ignore = true
+    [[object.function]]
+    name = "unicode_canonical_decomposition"
+    #out param not in .gir
+    ignore = true
+    [[object.function]]
+    name = "unicode_canonical_ordering"
+    #UCS-4 encoded string
+    ignore = true
+    [[object.function]]
+    name = "ascii_strdown"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "ascii_strup"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "convert"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "filename_to_utf8"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "locale_from_utf8"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "locale_to_utf8"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "markup_escape_text"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "strlcat"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "strlcpy"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "strndup"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "strrstr_len"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "strstr_len"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_casefold"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_collate_key"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_collate_key_for_filename"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_get_char_validated"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strchr"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strdown"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strlen"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strncpy"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strrchr"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strreverse"
+    #gsize
+    ignore = true
+    [[object.function]]
+    name = "utf8_strup"
+    #gsize
+    ignore = true
 
 [[object]]
 name = "GLib.KeyFile"
@@ -166,4 +270,16 @@ status = "generate"
        [[object.function]]
        name = "save_to_file"
        # file parameter needs to be a PathBuf
+       ignore = true
+       [[object.function]]
+       name = "set_locale_string_list"
+       #[&str] to *mut i8
+       ignore = true
+       [[object.function]]
+       name = "set_string_list"
+       #[&str] to *mut i8
+       ignore = true
+       [[object.function]]
+       name = "load_from_data"
+       #gsize
        ignore = true
