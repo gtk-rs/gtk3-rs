@@ -9,6 +9,22 @@ use glib::translate::*;
 pub struct Atom(ffi::GdkAtom);
 
 pub const NONE: Atom = Atom(0 as *mut _);
+pub const SELECTION_PRIMARY: Atom = Atom(1 as *mut _);
+pub const SELECTION_SECONDARY: Atom = Atom(2 as *mut _);
+pub const SELECTION_CLIPBOARD: Atom = Atom(69 as *mut _);
+pub const TARGET_BITMAP: Atom = Atom(5 as *mut _);
+pub const TARGET_COLORMAP: Atom = Atom(7 as *mut _);
+pub const TARGET_DRAWABLE: Atom = Atom(17 as *mut _);
+pub const TARGET_PIXMAP: Atom = Atom(20 as *mut _);
+pub const TARGET_STRING: Atom = Atom(31 as *mut _);
+pub const SELECTION_TYPE_ATOM: Atom = Atom(4 as *mut _);
+pub const SELECTION_TYPE_BITMAP: Atom = Atom(5 as *mut _);
+pub const SELECTION_TYPE_COLORMAP: Atom = Atom(7 as *mut _);
+pub const SELECTION_TYPE_DRAWABLE: Atom = Atom(17 as *mut _);
+pub const SELECTION_TYPE_INTEGER: Atom = Atom(19 as *mut _);
+pub const SELECTION_TYPE_PIXMAP: Atom = Atom(20 as *mut _);
+pub const SELECTION_TYPE_WINDOW: Atom = Atom(33 as *mut _);
+pub const SELECTION_TYPE_STRING: Atom = Atom(31 as *mut _);
 
 impl Atom {
     pub fn intern(atom_name: &str) -> Atom {
