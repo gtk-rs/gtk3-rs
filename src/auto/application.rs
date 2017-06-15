@@ -4,6 +4,8 @@
 use ActionGroup;
 use ActionMap;
 use ApplicationFlags;
+use Cancellable;
+use Error;
 use ffi;
 use glib;
 use glib::Value;
@@ -15,6 +17,7 @@ use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
+use std::ptr;
 
 glib_wrapper! {
     pub struct Application(Object<ffi::GApplication>): ActionGroup, ActionMap;
@@ -90,7 +93,7 @@ pub trait ApplicationExt {
 
     fn quit(&self);
 
-    //fn register<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
+    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn release(&self);
 
@@ -259,9 +262,15 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //fn register<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
-    //    unsafe { TODO: call ffi::g_application_register() }
-    //}
+    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_application_register(self.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn release(&self) {
         unsafe {
