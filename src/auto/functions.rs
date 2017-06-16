@@ -2,17 +2,19 @@
 // DO NOT EDIT
 
 use Error;
+use File;
 use Icon;
 use Resource;
 use ResourceLookupFlags;
 use ffi;
 use glib;
+use glib::object::IsA;
 use glib::translate::*;
 use std;
 use std::ptr;
 
 
-//pub fn bus_get<'a, 'b, P: Into<Option<&'a /*Ignored*/Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(bus_type: /*Ignored*/BusType, cancellable: P, callback: Q, user_data: R) {
+//pub fn bus_get<'a, 'b, P: Into<Option<&'a Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(bus_type: /*Ignored*/BusType, cancellable: P, callback: Q, user_data: R) {
 //    unsafe { TODO: call ffi::g_bus_get() }
 //}
 
@@ -20,7 +22,7 @@ use std::ptr;
 //    unsafe { TODO: call ffi::g_bus_get_finish() }
 //}
 
-//pub fn bus_get_sync<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result</*Ignored*/DBusConnection, Error> {
+//pub fn bus_get_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result</*Ignored*/DBusConnection, Error> {
 //    unsafe { TODO: call ffi::g_bus_get_sync() }
 //}
 
@@ -122,9 +124,11 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_content_type_guess() }
 //}
 
-//pub fn content_type_guess_for_tree<P: IsA</*Ignored*/File>>(root: &P) -> Vec<String> {
-//    unsafe { TODO: call ffi::g_content_type_guess_for_tree() }
-//}
+pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<String> {
+    unsafe {
+        FromGlibPtrContainer::from_glib_full(ffi::g_content_type_guess_for_tree(root.to_glib_none().0))
+    }
+}
 
 pub fn content_type_is_a(type_: &str, supertype: &str) -> bool {
     unsafe {
@@ -151,11 +155,11 @@ pub fn dbus_address_escape_value(string: &str) -> Option<String> {
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result<String, Error> {
+//pub fn dbus_address_get_for_bus_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result<String, Error> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_for_bus_sync() }
 //}
 
-//pub fn dbus_address_get_stream<'a, 'b, P: Into<Option<&'a /*Ignored*/Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(address: &str, cancellable: P, callback: Q, user_data: R) {
+//pub fn dbus_address_get_stream<'a, 'b, P: Into<Option<&'a Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(address: &str, cancellable: P, callback: Q, user_data: R) {
 //    unsafe { TODO: call ffi::g_dbus_address_get_stream() }
 //}
 
@@ -163,7 +167,7 @@ pub fn dbus_address_escape_value(string: &str) -> Option<String> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_stream_finish() }
 //}
 
-//pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(address: &str, out_guid: /*Unimplemented*/String, cancellable: P) -> Result</*Ignored*/IOStream, Error> {
+//pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(address: &str, out_guid: /*Unimplemented*/String, cancellable: P) -> Result</*Ignored*/IOStream, Error> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_stream_sync() }
 //}
 
@@ -257,7 +261,7 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, R: Into<Option<&'b /*Ignored*/Cancellable>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, user_data: P, notify: Q, io_priority: i32, cancellable: R) {
+//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, R: Into<Option<&'b Cancellable>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, user_data: P, notify: Q, io_priority: i32, cancellable: R) {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
@@ -273,22 +277,22 @@ pub fn networking_init() {
 //}
 
 //#[cfg(feature = "v2_34")]
-//pub fn pollable_source_new_full<'a, 'b, P: IsA<glib::Object>, Q: Into<Option<&'a /*Ignored*/glib::Source>>, R: Into<Option<&'b /*Ignored*/Cancellable>>>(pollable_stream: &P, child_source: Q, cancellable: R) -> /*Ignored*/Option<glib::Source> {
+//pub fn pollable_source_new_full<'a, 'b, P: IsA<glib::Object>, Q: Into<Option<&'a /*Ignored*/glib::Source>>, R: Into<Option<&'b Cancellable>>>(pollable_stream: &P, child_source: Q, cancellable: R) -> /*Ignored*/Option<glib::Source> {
 //    unsafe { TODO: call ffi::g_pollable_source_new_full() }
 //}
 
 //#[cfg(feature = "v2_34")]
-//pub fn pollable_stream_read<'a, P: IsA</*Ignored*/InputStream>, Q: Into<Option<&'a /*Ignored*/Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: SSize, Error> {
+//pub fn pollable_stream_read<'a, P: IsA</*Ignored*/InputStream>, Q: Into<Option<&'a Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: SSize, Error> {
 //    unsafe { TODO: call ffi::g_pollable_stream_read() }
 //}
 
 //#[cfg(feature = "v2_34")]
-//pub fn pollable_stream_write<'a, P: IsA</*Ignored*/OutputStream>, Q: Into<Option<&'a /*Ignored*/Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: SSize, Error> {
+//pub fn pollable_stream_write<'a, P: IsA</*Ignored*/OutputStream>, Q: Into<Option<&'a Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: SSize, Error> {
 //    unsafe { TODO: call ffi::g_pollable_stream_write() }
 //}
 
 //#[cfg(feature = "v2_34")]
-//pub fn pollable_stream_write_all<'a, P: IsA</*Ignored*/OutputStream>, Q: Into<Option<&'a /*Ignored*/Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: Size, Error> {
+//pub fn pollable_stream_write_all<'a, P: IsA</*Ignored*/OutputStream>, Q: Into<Option<&'a Cancellable>>>(stream: &P, buffer: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 3 }, count: /*Unimplemented*/Fundamental: Size, blocking: bool, cancellable: Q) -> Result</*Unimplemented*/Fundamental: Size, Error> {
 //    unsafe { TODO: call ffi::g_pollable_stream_write_all() }
 //}
 

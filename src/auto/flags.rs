@@ -59,6 +59,53 @@ impl FromGlib<ffi::GApplicationFlags> for ApplicationFlags {
 }
 
 bitflags! {
+    pub struct FileCreateFlags: u32 {
+        const FILE_CREATE_NONE = 0;
+        const FILE_CREATE_PRIVATE = 1;
+        const FILE_CREATE_REPLACE_DESTINATION = 2;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileCreateFlags {
+    type GlibType = ffi::GFileCreateFlags;
+
+    fn to_glib(&self) -> ffi::GFileCreateFlags {
+        ffi::GFileCreateFlags::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileCreateFlags> for FileCreateFlags {
+    fn from_glib(value: ffi::GFileCreateFlags) -> FileCreateFlags {
+        FileCreateFlags::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
+    pub struct FileQueryInfoFlags: u32 {
+        const FILE_QUERY_INFO_NONE = 0;
+        const FILE_QUERY_INFO_NOFOLLOW_SYMLINKS = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileQueryInfoFlags {
+    type GlibType = ffi::GFileQueryInfoFlags;
+
+    fn to_glib(&self) -> ffi::GFileQueryInfoFlags {
+        ffi::GFileQueryInfoFlags::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileQueryInfoFlags> for FileQueryInfoFlags {
+    fn from_glib(value: ffi::GFileQueryInfoFlags) -> FileQueryInfoFlags {
+        FileQueryInfoFlags::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
     pub struct ResourceLookupFlags: u32 {
         const RESOURCE_LOOKUP_FLAGS_NONE = 0;
     }
