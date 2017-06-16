@@ -4,6 +4,10 @@
 use ActionGroup;
 use ActionMap;
 use ApplicationFlags;
+use Cancellable;
+use Error;
+#[cfg(feature = "v2_40")]
+use Notification;
 use ffi;
 use glib;
 use glib::Value;
@@ -15,6 +19,7 @@ use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
+use std::ptr;
 
 glib_wrapper! {
     pub struct Application(Object<ffi::GApplication>): ActionGroup, ActionMap;
@@ -90,14 +95,14 @@ pub trait ApplicationExt {
 
     fn quit(&self);
 
-    //fn register<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
+    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn release(&self);
 
     fn run(&self, argc: i32, argv: &[&str]) -> i32;
 
-    //#[cfg(feature = "v2_40")]
-    //fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: /*Ignored*/&Notification);
+    #[cfg(feature = "v2_40")]
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification);
 
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q);
 
@@ -259,9 +264,15 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //fn register<'a, P: Into<Option<&'a /*Ignored*/Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
-    //    unsafe { TODO: call ffi::g_application_register() }
-    //}
+    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_application_register(self.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn release(&self) {
         unsafe {
@@ -275,10 +286,14 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(feature = "v2_40")]
-    //fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: /*Ignored*/&Notification) {
-    //    unsafe { TODO: call ffi::g_application_send_notification() }
-    //}
+    #[cfg(feature = "v2_40")]
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification) {
+        let id = id.into();
+        let id = id.to_glib_none();
+        unsafe {
+            ffi::g_application_send_notification(self.to_glib_none().0, id.0, notification.to_glib_none().0);
+        }
+    }
 
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q) {
         let action_group = action_group.into();

@@ -25,9 +25,17 @@ mod application;
 pub use self::application::Application;
 pub use self::application::ApplicationExt;
 
+mod cancellable;
+pub use self::cancellable::Cancellable;
+pub use self::cancellable::CancellableExt;
+
 mod file;
 pub use self::file::File;
 pub use self::file::FileExt;
+
+mod file_info;
+pub use self::file_info::FileInfo;
+pub use self::file_info::FileInfoExt;
 
 mod icon;
 pub use self::icon::Icon;
@@ -52,6 +60,13 @@ pub use self::menu_link_iter::MenuLinkIterExt;
 mod menu_model;
 pub use self::menu_model::MenuModel;
 pub use self::menu_model::MenuModelExt;
+
+#[cfg(feature = "v2_40")]
+mod notification;
+#[cfg(feature = "v2_40")]
+pub use self::notification::Notification;
+#[cfg(feature = "v2_40")]
+pub use self::notification::NotificationExt;
 
 mod permission;
 pub use self::permission::Permission;
@@ -80,6 +95,9 @@ mod resource;
 pub use self::resource::Resource;
 
 mod enums;
+pub use self::enums::FileType;
+#[cfg(feature = "v2_42")]
+pub use self::enums::NotificationPriority;
 pub use self::enums::ResourceError;
 
 mod flags;
@@ -97,6 +115,13 @@ pub use self::flags::APPLICATION_HANDLES_COMMAND_LINE;
 pub use self::flags::APPLICATION_SEND_ENVIRONMENT;
 pub use self::flags::APPLICATION_NON_UNIQUE;
 pub use self::flags::APPLICATION_CAN_OVERRIDE_APP_ID;
+pub use self::flags::FileCreateFlags;
+pub use self::flags::FILE_CREATE_NONE;
+pub use self::flags::FILE_CREATE_PRIVATE;
+pub use self::flags::FILE_CREATE_REPLACE_DESTINATION;
+pub use self::flags::FileQueryInfoFlags;
+pub use self::flags::FILE_QUERY_INFO_NONE;
+pub use self::flags::FILE_QUERY_INFO_NOFOLLOW_SYMLINKS;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::RESOURCE_LOOKUP_FLAGS_NONE;
 pub use self::flags::SettingsBindFlags;
@@ -117,13 +142,17 @@ pub mod traits {
     pub use super::AppInfoExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
+    pub use super::CancellableExt;
     pub use super::FileExt;
+    pub use super::FileInfoExt;
     pub use super::IconExt;
     pub use super::MenuExt;
     pub use super::MenuAttributeIterExt;
     pub use super::MenuItemExt;
     pub use super::MenuLinkIterExt;
     pub use super::MenuModelExt;
+    #[cfg(feature = "v2_40")]
+    pub use super::NotificationExt;
     pub use super::PermissionExt;
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;

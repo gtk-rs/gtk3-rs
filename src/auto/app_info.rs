@@ -4,6 +4,7 @@
 use AppInfoCreateFlags;
 use AppLaunchContext;
 use Error;
+use File;
 use Icon;
 use ffi;
 use glib::object::IsA;
@@ -77,7 +78,7 @@ impl AppInfo {
     }
 
     //#[cfg(feature = "v2_50")]
-    //pub fn launch_default_for_uri_async<'a, 'b, P: Into<Option<&'a /*Ignored*/Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(uri: &str, launch_context: &AppLaunchContext, cancellable: P, callback: Q, user_data: R) {
+    //pub fn launch_default_for_uri_async<'a, 'b, P: Into<Option<&'a Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(uri: &str, launch_context: &AppLaunchContext, cancellable: P, callback: Q, user_data: R) {
     //    unsafe { TODO: call ffi::g_app_info_launch_default_for_uri_async() }
     //}
 
@@ -123,7 +124,7 @@ pub trait AppInfoExt {
     #[cfg(feature = "v2_34")]
     fn get_supported_types(&self) -> Vec<String>;
 
-    //fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: /*Ignored*/&[File], launch_context: P) -> Result<(), Error>;
+    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], launch_context: P) -> Result<(), Error>;
 
     fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], launch_context: P) -> Result<(), Error>;
 
@@ -230,9 +231,15 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    //fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: /*Ignored*/&[File], launch_context: P) -> Result<(), Error> {
-    //    unsafe { TODO: call ffi::g_app_info_launch() }
-    //}
+    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], launch_context: P) -> Result<(), Error> {
+        let launch_context = launch_context.into();
+        let launch_context = launch_context.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_app_info_launch(self.to_glib_none().0, files.to_glib_none().0, launch_context.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], launch_context: P) -> Result<(), Error> {
         let launch_context = launch_context.into();

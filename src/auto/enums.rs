@@ -7,6 +7,92 @@ use glib::error::ErrorDomain;
 use glib::translate::*;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum FileType {
+    Unknown,
+    Regular,
+    Directory,
+    SymbolicLink,
+    Special,
+    Shortcut,
+    Mountable,
+    #[doc(hidden)]
+    __Nonexhaustive(()),
+}
+
+#[doc(hidden)]
+impl ToGlib for FileType {
+    type GlibType = ffi::GFileType;
+
+    fn to_glib(&self) -> ffi::GFileType {
+        match *self {
+            FileType::Unknown => ffi::G_FILE_TYPE_UNKNOWN,
+            FileType::Regular => ffi::G_FILE_TYPE_REGULAR,
+            FileType::Directory => ffi::G_FILE_TYPE_DIRECTORY,
+            FileType::SymbolicLink => ffi::G_FILE_TYPE_SYMBOLIC_LINK,
+            FileType::Special => ffi::G_FILE_TYPE_SPECIAL,
+            FileType::Shortcut => ffi::G_FILE_TYPE_SHORTCUT,
+            FileType::Mountable => ffi::G_FILE_TYPE_MOUNTABLE,
+            FileType::__Nonexhaustive(_) => panic!(),
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileType> for FileType {
+    fn from_glib(value: ffi::GFileType) -> Self {
+        match value {
+            ffi::G_FILE_TYPE_UNKNOWN => FileType::Unknown,
+            ffi::G_FILE_TYPE_REGULAR => FileType::Regular,
+            ffi::G_FILE_TYPE_DIRECTORY => FileType::Directory,
+            ffi::G_FILE_TYPE_SYMBOLIC_LINK => FileType::SymbolicLink,
+            ffi::G_FILE_TYPE_SPECIAL => FileType::Special,
+            ffi::G_FILE_TYPE_SHORTCUT => FileType::Shortcut,
+            ffi::G_FILE_TYPE_MOUNTABLE => FileType::Mountable,
+        }
+    }
+}
+
+#[cfg(feature = "v2_42")]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum NotificationPriority {
+    Normal,
+    Low,
+    High,
+    Urgent,
+    #[doc(hidden)]
+    __Nonexhaustive(()),
+}
+
+#[cfg(feature = "v2_42")]
+#[doc(hidden)]
+impl ToGlib for NotificationPriority {
+    type GlibType = ffi::GNotificationPriority;
+
+    fn to_glib(&self) -> ffi::GNotificationPriority {
+        match *self {
+            NotificationPriority::Normal => ffi::G_NOTIFICATION_PRIORITY_NORMAL,
+            NotificationPriority::Low => ffi::G_NOTIFICATION_PRIORITY_LOW,
+            NotificationPriority::High => ffi::G_NOTIFICATION_PRIORITY_HIGH,
+            NotificationPriority::Urgent => ffi::G_NOTIFICATION_PRIORITY_URGENT,
+            NotificationPriority::__Nonexhaustive(_) => panic!(),
+        }
+    }
+}
+
+#[cfg(feature = "v2_42")]
+#[doc(hidden)]
+impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
+    fn from_glib(value: ffi::GNotificationPriority) -> Self {
+        match value {
+            ffi::G_NOTIFICATION_PRIORITY_NORMAL => NotificationPriority::Normal,
+            ffi::G_NOTIFICATION_PRIORITY_LOW => NotificationPriority::Low,
+            ffi::G_NOTIFICATION_PRIORITY_HIGH => NotificationPriority::High,
+            ffi::G_NOTIFICATION_PRIORITY_URGENT => NotificationPriority::Urgent,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum ResourceError {
     NotFound,
     Internal,
