@@ -24,6 +24,8 @@ generate = [
     "Gio.MenuItem",
     "Gio.MenuLinkIter",
     "Gio.MenuModel",
+    "Gio.Notification",
+    "Gio.NotificationPriority",
     "Gio.Permission",
     "Gio.Resource",
     "Gio.ResourceError",

@@ -52,6 +52,46 @@ impl FromGlib<ffi::GFileType> for FileType {
     }
 }
 
+#[cfg(feature = "v2_42")]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum NotificationPriority {
+    Normal,
+    Low,
+    High,
+    Urgent,
+    #[doc(hidden)]
+    __Nonexhaustive(()),
+}
+
+#[cfg(feature = "v2_42")]
+#[doc(hidden)]
+impl ToGlib for NotificationPriority {
+    type GlibType = ffi::GNotificationPriority;
+
+    fn to_glib(&self) -> ffi::GNotificationPriority {
+        match *self {
+            NotificationPriority::Normal => ffi::G_NOTIFICATION_PRIORITY_NORMAL,
+            NotificationPriority::Low => ffi::G_NOTIFICATION_PRIORITY_LOW,
+            NotificationPriority::High => ffi::G_NOTIFICATION_PRIORITY_HIGH,
+            NotificationPriority::Urgent => ffi::G_NOTIFICATION_PRIORITY_URGENT,
+            NotificationPriority::__Nonexhaustive(_) => panic!(),
+        }
+    }
+}
+
+#[cfg(feature = "v2_42")]
+#[doc(hidden)]
+impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
+    fn from_glib(value: ffi::GNotificationPriority) -> Self {
+        match value {
+            ffi::G_NOTIFICATION_PRIORITY_NORMAL => NotificationPriority::Normal,
+            ffi::G_NOTIFICATION_PRIORITY_LOW => NotificationPriority::Low,
+            ffi::G_NOTIFICATION_PRIORITY_HIGH => NotificationPriority::High,
+            ffi::G_NOTIFICATION_PRIORITY_URGENT => NotificationPriority::Urgent,
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum ResourceError {
     NotFound,

@@ -61,6 +61,13 @@ mod menu_model;
 pub use self::menu_model::MenuModel;
 pub use self::menu_model::MenuModelExt;
 
+#[cfg(feature = "v2_40")]
+mod notification;
+#[cfg(feature = "v2_40")]
+pub use self::notification::Notification;
+#[cfg(feature = "v2_40")]
+pub use self::notification::NotificationExt;
+
 mod permission;
 pub use self::permission::Permission;
 pub use self::permission::PermissionExt;
@@ -89,6 +96,8 @@ pub use self::resource::Resource;
 
 mod enums;
 pub use self::enums::FileType;
+#[cfg(feature = "v2_42")]
+pub use self::enums::NotificationPriority;
 pub use self::enums::ResourceError;
 
 mod flags;
@@ -142,6 +151,8 @@ pub mod traits {
     pub use super::MenuItemExt;
     pub use super::MenuLinkIterExt;
     pub use super::MenuModelExt;
+    #[cfg(feature = "v2_40")]
+    pub use super::NotificationExt;
     pub use super::PermissionExt;
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;

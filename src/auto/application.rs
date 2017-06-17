@@ -6,6 +6,8 @@ use ActionMap;
 use ApplicationFlags;
 use Cancellable;
 use Error;
+#[cfg(feature = "v2_40")]
+use Notification;
 use ffi;
 use glib;
 use glib::Value;
@@ -99,8 +101,8 @@ pub trait ApplicationExt {
 
     fn run(&self, argc: i32, argv: &[&str]) -> i32;
 
-    //#[cfg(feature = "v2_40")]
-    //fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: /*Ignored*/&Notification);
+    #[cfg(feature = "v2_40")]
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification);
 
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q);
 
@@ -284,10 +286,14 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(feature = "v2_40")]
-    //fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: /*Ignored*/&Notification) {
-    //    unsafe { TODO: call ffi::g_application_send_notification() }
-    //}
+    #[cfg(feature = "v2_40")]
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification) {
+        let id = id.into();
+        let id = id.to_glib_none();
+        unsafe {
+            ffi::g_application_send_notification(self.to_glib_none().0, id.0, notification.to_glib_none().0);
+        }
+    }
 
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q) {
         let action_group = action_group.into();
