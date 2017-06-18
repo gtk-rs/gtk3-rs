@@ -3,7 +3,12 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
-use libc::c_void;
+use libc::{c_void, c_uint};
+
+#[cfg(target_os = "macos")]
+use ffi::enums::Format;
+#[cfg(target_os = "macos")]
+use ffi::CGContextRef;
 
 #[cfg(feature = "glib")]
 use glib::translate::*;
@@ -44,19 +49,19 @@ impl Surface {
         unsafe { Self::from_raw_full(ffi::cairo_surface_create_similar(self.0, content, width, height)) }
     }
 
-    #[cfg(macos)]
+    #[cfg(target_os = "macos")]
     pub fn quartz_create(format: Format, width: u32, height: u32) -> Surface {
-        unsafe { from_glib_full(ffi::cairo_surface_create_similar(format, width, height)) }
+        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create(format, width, height)) }
     }
 
-    #[cfg(macos)]
+    #[cfg(target_os = "macos")]
     pub fn quartz_create_for_cg_context(cg_context: CGContextRef, width: c_uint, height: c_uint) -> Surface {
-        unsafe { from_glib_full(ffi::cairo_surface_create_similar(cgContext, width, height)) }
+        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create_for_cg_context(cg_context, width, height)) }
     }
 
-    #[cfg(macos)]
+    #[cfg(target_os = "macos")]
     pub fn quartz_get_cg_context(&self) -> CGContextRef {
-        unsafe { ffi::cairo_surface_create_similar(self.to_glib_none().0) }
+        unsafe { ffi::cairo_quartz_surface_get_cg_context(self.to_raw_none()) }
     }
 }
 
