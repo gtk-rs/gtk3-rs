@@ -387,15 +387,6 @@ pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<S
     }
 }
 
-pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<String>), Error> {
-    unsafe {
-        let mut hostname = ptr::null_mut();
-        let mut error = ptr::null_mut();
-        let ret = ffi::g_filename_from_uri(uri.to_glib_none().0, &mut hostname, &mut error);
-        if error.is_null() { Ok((from_glib_full(ret), from_glib_full(hostname))) } else { Err(from_glib_full(error)) }
-    }
-}
-
 //pub fn filename_from_utf8(utf8string: &str, len: isize) -> Result<(/*Unimplemented*/CArray TypeId { ns_id: 0, id: 3 }, usize), Error> {
 //    unsafe { TODO: call ffi::g_filename_from_utf8() }
 //}

@@ -115,6 +115,10 @@ status = "generate"
     #manual is_windows_utf8
     ignore = true
     [[object.function]]
+    name = "filename_from_uri"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
     name = "find_program_in_path"
     #manual is_windows_utf8
     ignore = true
