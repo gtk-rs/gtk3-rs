@@ -64,9 +64,6 @@ status = "generate"
 [[object]]
 name = "Gio.Application"
 status = "generate"
-    [[object.function]]
-    name = "open"
-    ignore = true
     [[object.signal]]
     name = "open"
     ignore = true

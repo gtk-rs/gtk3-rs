@@ -13,17 +13,9 @@ use std::mem::transmute;
 
 pub trait ApplicationExtManual {
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> u64;
-    fn open(&self, files: &[File], hint: &str);
 }
 
 impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExtManual for O {
-    fn open(&self, files: &[File], hint: &str) {
-        unsafe {
-            ffi::g_application_open(self.to_glib_none().0, files.to_glib_none().0, files.len() as i32, 
-                                    hint.to_glib_none().0);
-        }
-    }
-
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> u64 {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &[File], &str) + 'static>> = Box_::new(Box_::new(f));
