@@ -154,3 +154,32 @@ impl FromGlib<ffi::GSettingsBindFlags> for SettingsBindFlags {
     }
 }
 
+bitflags! {
+    pub struct TlsCertificateFlags: u32 {
+        const TLS_CERTIFICATE_UNKNOWN_CA = 1;
+        const TLS_CERTIFICATE_BAD_IDENTITY = 2;
+        const TLS_CERTIFICATE_NOT_ACTIVATED = 4;
+        const TLS_CERTIFICATE_EXPIRED = 8;
+        const TLS_CERTIFICATE_REVOKED = 16;
+        const TLS_CERTIFICATE_INSECURE = 32;
+        const TLS_CERTIFICATE_GENERIC_ERROR = 64;
+        const TLS_CERTIFICATE_VALIDATE_ALL = 127;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for TlsCertificateFlags {
+    type GlibType = ffi::GTlsCertificateFlags;
+
+    fn to_glib(&self) -> ffi::GTlsCertificateFlags {
+        ffi::GTlsCertificateFlags::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GTlsCertificateFlags> for TlsCertificateFlags {
+    fn from_glib(value: ffi::GTlsCertificateFlags) -> TlsCertificateFlags {
+        TlsCertificateFlags::from_bits_truncate(value.bits())
+    }
+}
+
