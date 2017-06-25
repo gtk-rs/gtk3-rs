@@ -54,31 +54,25 @@ status = "generate"
     #string
     ignore = true
     [[object.function]]
-    pattern = "ucs4_to_utf.+"
-    ignore = true
-    [[object.function]]
-    pattern = "unichar_.*compose"
-    ignore = true
-    [[object.function]]
-    name = "unichar_get_mirror_char"
-    ignore = true
-    [[object.function]]
     name = "unix_open_pipe"
     ignore = true
     [[object.function]]
-    name = "utf16_to_ucs4"
+    pattern = "str.+"
     ignore = true
     [[object.function]]
-    name = "utf16_to_utf8"
+    pattern = "ucs4_.+"
     ignore = true
     [[object.function]]
-    name = "utf8_to_ucs4"
+    pattern = "utf16_.+"
     ignore = true
     [[object.function]]
-    name = "utf8_to_utf16"
+    pattern = "utf8_.+"
     ignore = true
     [[object.function]]
-    name = "utf8_to_ucs4_fast"
+    pattern = "unichar_.+"
+    ignore = true
+    [[object.function]]
+    pattern = "ascii_.+"
     ignore = true
     [[object.function]]
     name = "assertion_message_error"
@@ -118,6 +112,10 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "filename_to_uri"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "filename_from_uri"
     #manual is_windows_utf8
     ignore = true
     [[object.function]]
@@ -163,14 +161,6 @@ status = "generate"
     #UCS-4 encoded string
     ignore = true
     [[object.function]]
-    name = "ascii_strdown"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "ascii_strup"
-    #gsize
-    ignore = true
-    [[object.function]]
     name = "convert"
     #gsize
     ignore = true
@@ -188,70 +178,6 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "markup_escape_text"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "strlcat"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "strlcpy"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "strndup"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "strrstr_len"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "strstr_len"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_casefold"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_collate_key"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_collate_key_for_filename"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_get_char_validated"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strchr"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strdown"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strlen"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strncpy"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strrchr"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strreverse"
-    #gsize
-    ignore = true
-    [[object.function]]
-    name = "utf8_strup"
     #gsize
     ignore = true
 

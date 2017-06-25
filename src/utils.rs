@@ -8,6 +8,7 @@ use std;
 use std::path::{Path, PathBuf};
 use error::BoolError;
 use Error;
+use std::ptr;
 
 /// Same as [`get_prgname()`].
 ///
@@ -119,6 +120,19 @@ pub fn filename_to_uri<'a, P: AsRef<Path>, Q: Into<Option<&'a str>>>(filename: P
     }
 }
 
+pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<String>), Error> {
+    #[cfg(windows)]
+    use ffi::g_filename_from_uri_utf8 as g_filename_from_uri;
+    #[cfg(not(windows))]
+    use ffi::g_filename_from_uri;
+
+    unsafe {
+        let mut hostname = ptr::null_mut();
+        let mut error = ptr::null_mut();
+        let ret = g_filename_from_uri(uri.to_glib_none().0, &mut hostname, &mut error);
+        if error.is_null() { Ok((from_glib_full(ret), from_glib_full(hostname))) } else { Err(from_glib_full(error)) }
+    }
+}
 
 pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
     #[cfg(all(windows,target_arch="x86"))]
