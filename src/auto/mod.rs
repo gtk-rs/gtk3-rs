@@ -91,6 +91,10 @@ mod themed_icon;
 pub use self::themed_icon::ThemedIcon;
 pub use self::themed_icon::ThemedIconExt;
 
+mod tls_certificate;
+pub use self::tls_certificate::TlsCertificate;
+pub use self::tls_certificate::TlsCertificateExt;
+
 mod resource;
 pub use self::resource::Resource;
 
@@ -131,6 +135,15 @@ pub use self::flags::SETTINGS_BIND_SET;
 pub use self::flags::SETTINGS_BIND_NO_SENSITIVITY;
 pub use self::flags::SETTINGS_BIND_GET_NO_CHANGES;
 pub use self::flags::SETTINGS_BIND_INVERT_BOOLEAN;
+pub use self::flags::TlsCertificateFlags;
+pub use self::flags::TLS_CERTIFICATE_UNKNOWN_CA;
+pub use self::flags::TLS_CERTIFICATE_BAD_IDENTITY;
+pub use self::flags::TLS_CERTIFICATE_NOT_ACTIVATED;
+pub use self::flags::TLS_CERTIFICATE_EXPIRED;
+pub use self::flags::TLS_CERTIFICATE_REVOKED;
+pub use self::flags::TLS_CERTIFICATE_INSECURE;
+pub use self::flags::TLS_CERTIFICATE_GENERIC_ERROR;
+pub use self::flags::TLS_CERTIFICATE_VALIDATE_ALL;
 
 pub mod functions;
 
@@ -158,4 +171,5 @@ pub mod traits {
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;
     pub use super::ThemedIconExt;
+    pub use super::TlsCertificateExt;
 }
