@@ -326,3 +326,6 @@ status = "generate"
         [[object.function.parameter]]
         name = "cr"
         const = true
+    [[object.function]]
+    name = "fullscreen_on_monitor"
+    version = "3.18"

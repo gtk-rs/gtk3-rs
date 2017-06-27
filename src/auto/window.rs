@@ -143,6 +143,7 @@ pub trait WindowExt {
 
     fn fullscreen(&self);
 
+    #[cfg(feature = "v3_18")]
     fn fullscreen_on_monitor(&self, monitor: i32);
 
     fn geometry_changed(&self);
@@ -595,6 +596,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
         }
     }
 
+    #[cfg(feature = "v3_18")]
     fn fullscreen_on_monitor(&self, monitor: i32) {
         unsafe {
             ffi::gdk_window_fullscreen_on_monitor(self.to_glib_none().0, monitor);
