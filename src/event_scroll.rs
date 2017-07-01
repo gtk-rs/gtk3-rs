@@ -29,6 +29,16 @@ impl EventScroll {
         unsafe { from_glib_none(self.as_ref().device) }
     }
 
+    pub fn get_direction(&self) -> ::ScrollDirection {
+        from_glib(self.as_ref().direction)
+    }
+
+    pub fn get_root(&self) -> (f64, f64) {
+        let x_root = self.as_ref().x_root;
+        let y_root = self.as_ref().y_root;
+        (x_root, y_root)
+    }
+
     pub fn get_delta(&self) -> (f64, f64) {
         let dx = self.as_ref().delta_x;
         let dy = self.as_ref().delta_y;
