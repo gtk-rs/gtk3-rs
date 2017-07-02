@@ -5,6 +5,3 @@
 //! Traits and essential types inteded for blanket imports.
 
 pub use auto::traits::*;
-
-pub use matrix::Matrix;
-
