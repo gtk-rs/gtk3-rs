@@ -389,6 +389,44 @@ impl FromGlib<ffi::PangoGravityHint> for GravityHint {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum RenderPart {
+    Foreground,
+    Background,
+    Underline,
+    Strikethrough,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for RenderPart {
+    type GlibType = ffi::PangoRenderPart;
+
+    fn to_glib(&self) -> ffi::PangoRenderPart {
+        match *self {
+            RenderPart::Foreground => ffi::PANGO_RENDER_PART_FOREGROUND,
+            RenderPart::Background => ffi::PANGO_RENDER_PART_BACKGROUND,
+            RenderPart::Underline => ffi::PANGO_RENDER_PART_UNDERLINE,
+            RenderPart::Strikethrough => ffi::PANGO_RENDER_PART_STRIKETHROUGH,
+            RenderPart::__Unknown(value) => unsafe{std::mem::transmute(value)}
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PangoRenderPart> for RenderPart {
+    fn from_glib(value: ffi::PangoRenderPart) -> Self {
+        match value as i32 {
+            0 => RenderPart::Foreground,
+            1 => RenderPart::Background,
+            2 => RenderPart::Underline,
+            3 => RenderPart::Strikethrough,
+            value => RenderPart::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum Script {
     InvalidCode,
     Common,

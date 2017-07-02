@@ -37,6 +37,9 @@ pub use self::layout_iter::LayoutIter;
 mod layout_line;
 pub use self::layout_line::LayoutLine;
 
+mod matrix;
+pub use self::matrix::Matrix;
+
 mod enums;
 pub use self::enums::Alignment;
 pub use self::enums::AttrType;
@@ -45,6 +48,7 @@ pub use self::enums::Direction;
 pub use self::enums::EllipsizeMode;
 pub use self::enums::Gravity;
 pub use self::enums::GravityHint;
+pub use self::enums::RenderPart;
 pub use self::enums::Script;
 pub use self::enums::Stretch;
 pub use self::enums::Style;
