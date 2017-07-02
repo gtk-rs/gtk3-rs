@@ -9,7 +9,9 @@ min_cfg_version = "1.30"
 
 generate = [
     "Pango.Alignment",
+    "Pango.AttrType",
     "Pango.BidiType",
+    "Pango.Color",
     "Pango.Context",
     "Pango.Coverage",
     "Pango.Direction",
