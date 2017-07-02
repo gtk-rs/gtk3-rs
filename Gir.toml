@@ -9,20 +9,28 @@ min_cfg_version = "1.30"
 
 generate = [
     "Pango.Alignment",
+    "Pango.Attribute",
     "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
     "Pango.Context",
     "Pango.Coverage",
+    "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
+    "Pango.FontDescription",
     "Pango.FontFace",
     "Pango.FontFamily",
+    "Pango.FontMap",
     "Pango.FontMask",
     "Pango.Gravity",
     "Pango.GravityHint",
+    "Pango.Glyph",
+    "Pango.GlyphItem",
+    "Pango.GlyphString",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
+    "Pango.LayoutRun",
     "Pango.Matrix",
     "Pango.Renderer",
     "Pango.RenderPart",
@@ -36,7 +44,7 @@ generate = [
 ]
 
 manual = [
-    "Pango.FontDescription",
+    "Pango.AttrClass",
     "Pango.Rectangle",
 ]
 
@@ -58,8 +66,11 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Pango.FontMap"
+name = "Pango.Font"
 status = "generate"
+    [[object.function]]
+    name = "descriptions_free"
+    ignore = true
 
 [[object]]
 name = "Pango.Layout"
