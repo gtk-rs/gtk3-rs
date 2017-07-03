@@ -1,4 +1,3 @@
-#[cfg(feature = "glib")]
 use ffi;
 #[cfg(feature = "glib")]
 use glib::translate::*;
@@ -60,5 +59,13 @@ impl FromGlibPtrNone<*const ffi::cairo_rectangle_int_t> for RectangleInt {
 impl FromGlibPtrNone<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_rectangle_int_t) -> Self {
         *(ptr as *mut RectangleInt)
+    }
+}
+
+impl RectangleInt {
+    #[doc(hidden)]
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_int_t {
+        let ptr = &*self as *const RectangleInt as usize;
+        ptr as *mut ffi::cairo_rectangle_int_t
     }
 }
