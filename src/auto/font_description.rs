@@ -133,12 +133,6 @@ impl FontDescription {
         }
     }
 
-    pub fn set_family_static(&mut self, family: &str) {
-        unsafe {
-            ffi::pango_font_description_set_family_static(self.to_glib_none_mut().0, family.to_glib_none().0);
-        }
-    }
-
     pub fn set_gravity(&mut self, gravity: Gravity) {
         unsafe {
             ffi::pango_font_description_set_gravity(self.to_glib_none_mut().0, gravity.to_glib());

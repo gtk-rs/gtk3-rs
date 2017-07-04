@@ -12,3 +12,11 @@ impl FromGlibPtrNone<*const ffi::PangoFontDescription> for FontDescription {
         from_glib_none(mut_override(ptr))
     }
 }
+
+impl FontDescription {
+    pub fn set_family_static(&mut self, family: &'static str) {
+        unsafe {
+            ffi::pango_font_description_set_family_static(self.to_glib_none_mut().0, family.to_glib_none().0);
+        }
+    }
+}
