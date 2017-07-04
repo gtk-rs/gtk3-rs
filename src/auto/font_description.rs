@@ -35,12 +35,6 @@ impl FontDescription {
         }
     }
 
-    pub fn copy_static(&self) -> Option<FontDescription> {
-        unsafe {
-            from_glib_full(ffi::pango_font_description_copy_static(self.to_glib_none().0))
-        }
-    }
-
     fn equal(&self, desc2: &FontDescription) -> bool {
         unsafe {
             from_glib(ffi::pango_font_description_equal(self.to_glib_none().0, desc2.to_glib_none().0))
@@ -112,12 +106,6 @@ impl FontDescription {
         let desc_to_merge = desc_to_merge.to_glib_none();
         unsafe {
             ffi::pango_font_description_merge(self.to_glib_none_mut().0, desc_to_merge.0, replace_existing.to_glib());
-        }
-    }
-
-    pub fn merge_static(&mut self, desc_to_merge: &FontDescription, replace_existing: bool) {
-        unsafe {
-            ffi::pango_font_description_merge_static(self.to_glib_none_mut().0, desc_to_merge.to_glib_none().0, replace_existing.to_glib());
         }
     }
 

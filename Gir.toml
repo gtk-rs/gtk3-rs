@@ -74,6 +74,12 @@ status = "generate"
     [[object.function]]
     name = "set_family_static"
     ignore = true
+    [[object.function]]
+    name = "copy_static"
+    ignore = true
+    [[object.function]]
+    name = "merge_static"
+    ignore = true
 
 [[object]]
 name = "Pango.Font"
