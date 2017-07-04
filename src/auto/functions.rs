@@ -168,7 +168,7 @@ pub fn find_base_dir(text: &str, length: i32) -> Direction {
     }
 }
 
-//pub fn find_map(language: /*Ignored*/&mut Language, engine_type_id: u32, render_type_id: u32) -> /*Ignored*/Option<Map> {
+//pub fn find_map(language: &mut Language, engine_type_id: u32, render_type_id: u32) -> /*Ignored*/Option<Map> {
 //    unsafe { TODO: call ffi::pango_find_map() }
 //}
 
@@ -187,7 +187,7 @@ pub fn get_lib_subdirectory() -> Option<String> {
     }
 }
 
-//pub fn get_log_attrs(text: &str, length: i32, level: i32, language: /*Ignored*/&mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
+//pub fn get_log_attrs(text: &str, length: i32, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi::pango_get_log_attrs() }
 //}
 

@@ -13,15 +13,16 @@ generate = [
     "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
-    "Pango.Context",
     "Pango.Coverage",
     "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
+    "Pango.EngineShape",
     "Pango.FontFace",
     "Pango.FontFamily",
     "Pango.FontMap",
     "Pango.FontMask",
+    "Pango.FontMetrics",
     "Pango.Gravity",
     "Pango.GravityHint",
     "Pango.Glyph",
@@ -44,6 +45,7 @@ generate = [
 
 manual = [
     "Pango.AttrClass",
+    "Pango.Language",
     "Pango.Rectangle",
 ]
 
@@ -62,6 +64,13 @@ status = "generate"
     [[object.function]]
     name = "log2vis_get_embedding_levels"
     #out param
+    ignore = true
+
+[[object]]
+name = "Pango.Context"
+status = "generate"
+    [[object.function]]
+    name = "get_metrics"
     ignore = true
 
 [[object]]
@@ -86,6 +95,9 @@ name = "Pango.Font"
 status = "generate"
     [[object.function]]
     name = "descriptions_free"
+    ignore = true
+    [[object.function]]
+    name = "get_metrics"
     ignore = true
 
 [[object]]

@@ -5,6 +5,9 @@ mod context;
 pub use self::context::Context;
 pub use self::context::ContextExt;
 
+mod engine_shape;
+pub use self::engine_shape::EngineShape;
+
 mod font;
 pub use self::font::Font;
 pub use self::font::FontExt;
@@ -40,6 +43,9 @@ pub use self::coverage::Coverage;
 
 mod font_description;
 pub use self::font_description::FontDescription;
+
+mod font_metrics;
+pub use self::font_metrics::FontMetrics;
 
 mod glyph_item;
 pub use self::glyph_item::GlyphItem;

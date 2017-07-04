@@ -5,6 +5,7 @@
 use ffi;
 use glib::translate::{Stash, FromGlibPtrFull, FromGlibPtrNone, ToGlibPtr};
 
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut ffi::PangoAttrClass> for &'a AttrClass {
     type Storage = &'a AttrClass;
 
@@ -13,6 +14,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::PangoAttrClass> for &'a AttrClass {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::PangoAttrClass> for AttrClass {
     unsafe fn from_glib_none(ptr: *mut ffi::PangoAttrClass) -> Self {
         assert!(!ptr.is_null());
@@ -20,6 +22,7 @@ impl FromGlibPtrNone<*mut ffi::PangoAttrClass> for AttrClass {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::PangoAttrClass> for AttrClass {
     unsafe fn from_glib_full(ptr: *mut ffi::PangoAttrClass) -> Self {
         assert!(!ptr.is_null());
@@ -27,6 +30,7 @@ impl FromGlibPtrFull<*mut ffi::PangoAttrClass> for AttrClass {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrNone<*const ffi::PangoAttrClass> for AttrClass {
     unsafe fn from_glib_none(ptr: *const ffi::PangoAttrClass) -> Self {
         assert!(!ptr.is_null());
@@ -34,6 +38,7 @@ impl FromGlibPtrNone<*const ffi::PangoAttrClass> for AttrClass {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrFull<*const ffi::PangoAttrClass> for AttrClass {
     unsafe fn from_glib_full(ptr: *const ffi::PangoAttrClass) -> Self {
         assert!(!ptr.is_null());

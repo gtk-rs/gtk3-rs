@@ -7,6 +7,7 @@ use FontDescription;
 use FontMap;
 use Gravity;
 use GravityHint;
+use Language;
 use Matrix;
 use ffi;
 use glib::object::IsA;
@@ -44,11 +45,9 @@ pub trait ContextExt {
 
     fn get_gravity_hint(&self) -> GravityHint;
 
-    //fn get_language(&self) -> /*Ignored*/Option<Language>;
+    fn get_language(&self) -> Option<Language>;
 
     fn get_matrix(&self) -> Option<Matrix>;
-
-    //fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b /*Ignored*/Language>>>(&self, desc: P, language: Q) -> /*Ignored*/Option<FontMetrics>;
 
     #[cfg(feature = "v1_32_4")]
     fn get_serial(&self) -> u32;
@@ -57,7 +56,7 @@ pub trait ContextExt {
 
     fn load_font(&self, desc: &FontDescription) -> Option<Font>;
 
-    //fn load_fontset(&self, desc: &FontDescription, language: /*Ignored*/&mut Language) -> /*Ignored*/Option<Fontset>;
+    //fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset>;
 
     fn set_base_dir(&self, direction: Direction);
 
@@ -69,7 +68,7 @@ pub trait ContextExt {
 
     fn set_gravity_hint(&self, hint: GravityHint);
 
-    //fn set_language(&self, language: /*Ignored*/&mut Language);
+    fn set_language(&self, language: &mut Language);
 
     fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P);
 }
@@ -118,19 +117,17 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    //fn get_language(&self) -> /*Ignored*/Option<Language> {
-    //    unsafe { TODO: call ffi::pango_context_get_language() }
-    //}
+    fn get_language(&self) -> Option<Language> {
+        unsafe {
+            from_glib_full(ffi::pango_context_get_language(self.to_glib_none().0))
+        }
+    }
 
     fn get_matrix(&self) -> Option<Matrix> {
         unsafe {
             from_glib_none(ffi::pango_context_get_matrix(self.to_glib_none().0))
         }
     }
-
-    //fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b /*Ignored*/Language>>>(&self, desc: P, language: Q) -> /*Ignored*/Option<FontMetrics> {
-    //    unsafe { TODO: call ffi::pango_context_get_metrics() }
-    //}
 
     #[cfg(feature = "v1_32_4")]
     fn get_serial(&self) -> u32 {
@@ -149,7 +146,7 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    //fn load_fontset(&self, desc: &FontDescription, language: /*Ignored*/&mut Language) -> /*Ignored*/Option<Fontset> {
+    //fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset> {
     //    unsafe { TODO: call ffi::pango_context_load_fontset() }
     //}
 
@@ -183,9 +180,11 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    //fn set_language(&self, language: /*Ignored*/&mut Language) {
-    //    unsafe { TODO: call ffi::pango_context_set_language() }
-    //}
+    fn set_language(&self, language: &mut Language) {
+        unsafe {
+            ffi::pango_context_set_language(self.to_glib_none().0, language.to_glib_none_mut().0);
+        }
+    }
 
     fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P) {
         let matrix = matrix.into();

@@ -31,7 +31,7 @@ pub trait FontMapExt {
 
     fn load_font(&self, context: &Context, desc: &FontDescription) -> Option<Font>;
 
-    //fn load_fontset(&self, context: &Context, desc: &FontDescription, language: /*Ignored*/&mut Language) -> /*Ignored*/Option<Fontset>;
+    //fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset>;
 }
 
 impl<O: IsA<FontMap>> FontMapExt for O {
@@ -71,7 +71,7 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    //fn load_fontset(&self, context: &Context, desc: &FontDescription, language: /*Ignored*/&mut Language) -> /*Ignored*/Option<Fontset> {
+    //fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset> {
     //    unsafe { TODO: call ffi::pango_font_map_load_fontset() }
     //}
 }
