@@ -14,6 +14,7 @@ use ffi::enums::Status;
 pub struct Region(*mut cairo_region_t);
 
 #[cfg(feature = "glib")]
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
     type Storage = &'a Region;
 
@@ -24,6 +25,18 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
 }
 
 #[cfg(feature = "glib")]
+#[doc(hidden)]
+impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
+    type Storage = &'a mut Self;
+
+    #[inline]
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_region_t, Self> {
+        StashMut(self.0, self)
+    }
+}
+
+#[cfg(feature = "glib")]
+#[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_region_t) -> Region {
@@ -32,6 +45,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
 }
 
 #[cfg(feature = "glib")]
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::cairo_region_t> for Region {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_region_t) -> Region {
