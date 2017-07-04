@@ -36,6 +36,7 @@ pub use enums::{
     Operator,
     PathDataType,
     Format,
+    RegionOverlap,
     SurfaceType,
 };
 
@@ -83,6 +84,8 @@ pub use matrices::{
 
 pub use rectangle::RectangleInt;
 
+pub use region::Region;
+
 pub use surface::Surface;
 
 pub use image_surface::{
@@ -113,6 +116,7 @@ mod image_surface_png;
 mod paths;
 mod patterns;
 mod rectangle;
+mod region;
 mod surface;
 mod matrices;
 #[cfg(feature = "xcb")]
