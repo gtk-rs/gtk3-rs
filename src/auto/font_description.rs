@@ -193,7 +193,7 @@ impl FontDescription {
         }
     }
 
-    pub fn from_string(str: &str) -> Option<FontDescription> {
+    pub fn from_string(str: &str) -> FontDescription {
         unsafe {
             from_glib_full(ffi::pango_font_description_from_string(str.to_glib_none().0))
         }

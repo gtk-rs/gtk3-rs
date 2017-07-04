@@ -18,7 +18,6 @@ generate = [
     "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
-    "Pango.FontDescription",
     "Pango.FontFace",
     "Pango.FontFamily",
     "Pango.FontMap",
@@ -64,6 +63,14 @@ status = "generate"
     name = "log2vis_get_embedding_levels"
     #out param
     ignore = true
+
+[[object]]
+name = "Pango.FontDescription"
+status = "generate"
+    [[object.function]]
+    name = "from_string"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Pango.Font"
