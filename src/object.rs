@@ -10,6 +10,8 @@ use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 
 use Value;
+use Type;
+use BoolError;
 
 /// Upcasting and downcasting support.
 ///
@@ -343,33 +345,73 @@ glib_object_wrapper! {
 }
 
 pub trait ObjectExt {
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value);
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value>;
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
+}
+
+fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Type> {
+    unsafe {
+        let obj = obj.to_glib_none().0;
+        let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+
+        let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+        if pspec.is_null() {
+            None
+        } else {
+            Some(from_glib((*pspec).value_type))
+        }
+    }
 }
 
 impl<T: IsA<Object>> ObjectExt for T {
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
+        let property_name = property_name.into();
+
+        if !self.has_property(property_name, Some(value.type_())) {
+            return Err(BoolError("Invalid property name"));
+        }
+
         unsafe {
             // Using property names that don't exist or using a GValue of a wrong type
             // causes a warning printed at runtime by GObject and is considered a
             // programming error. It is however memory-safe to do so
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none().0)
+            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
         }
+
+        Ok(())
     }
 
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value> {
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
+        let property_name = property_name.into();
+
+        let property_type = match get_property_type(self, property_name) {
+            None => return Err(BoolError("Invalid property name")),
+            Some(property_type) => property_type,
+        };
+
         unsafe {
             let mut value = Value::uninitialized();
 
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_value_init(value.to_glib_none_mut().0, property_type.to_glib());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
-            // This is an actual programming error and will cause a warning printed
-            // at runtime by GObject
+            // This can't really happen unless something goes wrong inside GObject
             if value.type_() == ::Type::Invalid {
-                None
+                Err(BoolError("Failed to get property value"))
             } else {
-                Some(value)
+                Ok(value)
             }
+        }
+    }
+
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
+        let ptype = get_property_type(self, property_name.into());
+
+        match (ptype, type_) {
+            (None, _) => false,
+            (Some(_), None) => true,
+            (Some(ptype), Some(type_)) => ptype == type_,
         }
     }
 }
