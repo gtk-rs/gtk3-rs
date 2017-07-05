@@ -3,7 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
-use libc::{c_void, c_uint};
+use libc::c_void;
 
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 use ffi::enums::Format;
@@ -55,7 +55,7 @@ impl Surface {
     }
 
     #[cfg(any(target_os = "macos", target_os = "ios"))]
-    pub fn quartz_create_for_cg_context(cg_context: CGContextRef, width: c_uint, height: c_uint) -> Surface {
+    pub fn quartz_create_for_cg_context(cg_context: CGContextRef, width: u32, height: u32) -> Surface {
         unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create_for_cg_context(cg_context, width, height)) }
     }
 
@@ -144,7 +144,7 @@ impl<O: AsRef<Surface>> SurfacePriv for O {
     }
 }
 
-unsafe extern fn unbox<T>(data: *mut c_void) {
+unsafe extern "C" fn unbox<T>(data: *mut c_void) {
     let data: Box<T> = mem::transmute(data);
     drop(data);
 }

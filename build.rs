@@ -3,7 +3,7 @@ fn main() {
 }
 
 #[cfg(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs"))]
-fn manage_docs () {
+fn manage_docs() {
     extern crate lgpl_docs;
     const PATH: &'static str = "src";
     const IGNORES: &'static [&'static str] = &[];
@@ -14,4 +14,4 @@ fn manage_docs () {
 }
 
 #[cfg(not(any(feature = "embed-lgpl-docs", feature = "purge-lgpl-docs")))]
-fn manage_docs() { }
+fn manage_docs() {}
