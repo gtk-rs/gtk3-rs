@@ -9,6 +9,8 @@ use types::{self, StaticType};
 use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 
+use Value;
+
 /// Upcasting and downcasting support.
 ///
 /// Provides conversions up and down the class hierarchy tree.
@@ -341,7 +343,33 @@ glib_object_wrapper! {
 }
 
 pub trait ObjectExt {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value);
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value>;
 }
 
 impl<T: IsA<Object>> ObjectExt for T {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) {
+        unsafe {
+            // Using property names that don't exist or using a GValue of a wrong type
+            // causes a warning printed at runtime by GObject and is considered a
+            // programming error. It is however memory-safe to do so
+            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none().0)
+        }
+    }
+
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value> {
+        unsafe {
+            let mut value = Value::uninitialized();
+
+            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none_mut().0);
+
+            // This is an actual programming error and will cause a warning printed
+            // at runtime by GObject
+            if value.type_() == ::Type::Invalid {
+                None
+            } else {
+                Some(value)
+            }
+        }
+    }
 }
