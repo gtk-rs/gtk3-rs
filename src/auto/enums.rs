@@ -933,6 +933,35 @@ impl FromGlib<ffi::PangoStyle> for Style {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum TabAlign {
+    Left,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for TabAlign {
+    type GlibType = ffi::PangoTabAlign;
+
+    fn to_glib(&self) -> ffi::PangoTabAlign {
+        match *self {
+            TabAlign::Left => ffi::PANGO_TAB_LEFT,
+            TabAlign::__Unknown(value) => unsafe{std::mem::transmute(value)}
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::PangoTabAlign> for TabAlign {
+    fn from_glib(value: ffi::PangoTabAlign) -> Self {
+        match value as i32 {
+            0 => TabAlign::Left,
+            value => TabAlign::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum Underline {
     None,
     Single,

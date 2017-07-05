@@ -24,6 +24,10 @@ mod font_map;
 pub use self::font_map::FontMap;
 pub use self::font_map::FontMapExt;
 
+mod fontset;
+pub use self::fontset::Fontset;
+pub use self::fontset::FontsetExt;
+
 mod layout;
 pub use self::layout::Layout;
 pub use self::layout::LayoutExt;
@@ -50,6 +54,9 @@ pub use self::font_metrics::FontMetrics;
 mod glyph_item;
 pub use self::glyph_item::GlyphItem;
 
+mod glyph_item_iter;
+pub use self::glyph_item_iter::GlyphItemIter;
+
 mod glyph_string;
 pub use self::glyph_string::GlyphString;
 
@@ -61,6 +68,9 @@ pub use self::layout_line::LayoutLine;
 
 mod matrix;
 pub use self::matrix::Matrix;
+
+mod tab_array;
+pub use self::tab_array::TabArray;
 
 mod enums;
 pub use self::enums::Alignment;
@@ -75,6 +85,7 @@ pub use self::enums::RenderPart;
 pub use self::enums::Script;
 pub use self::enums::Stretch;
 pub use self::enums::Style;
+pub use self::enums::TabAlign;
 pub use self::enums::Underline;
 pub use self::enums::Variant;
 pub use self::enums::Weight;
@@ -103,6 +114,7 @@ pub mod traits {
     pub use super::FontFaceExt;
     pub use super::FontFamilyExt;
     pub use super::FontMapExt;
+    pub use super::FontsetExt;
     pub use super::LayoutExt;
     pub use super::RendererExt;
 }

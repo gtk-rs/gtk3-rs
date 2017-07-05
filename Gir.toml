@@ -23,10 +23,12 @@ generate = [
     "Pango.FontMap",
     "Pango.FontMask",
     "Pango.FontMetrics",
+    "Pango.Fontset",
     "Pango.Gravity",
     "Pango.GravityHint",
     "Pango.Glyph",
     "Pango.GlyphItem",
+    "Pango.GlyphItemIter",
     "Pango.GlyphString",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
@@ -37,6 +39,8 @@ generate = [
     "Pango.Script",
     "Pango.Stretch",
     "Pango.Style",
+    "Pango.TabAlign",
+    "Pango.TabArray",
     "Pango.Underline",
     "Pango.Variant",
     "Pango.Weight",
@@ -107,3 +111,8 @@ status = "generate"
     name = "xy_to_index"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "set_tabs"
+        [[object.function.parameter]]
+        name = "tabs"
+        const = true

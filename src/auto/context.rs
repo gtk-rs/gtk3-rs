@@ -5,6 +5,7 @@ use Direction;
 use Font;
 use FontDescription;
 use FontMap;
+use Fontset;
 use Gravity;
 use GravityHint;
 use Language;
@@ -56,7 +57,7 @@ pub trait ContextExt {
 
     fn load_font(&self, desc: &FontDescription) -> Option<Font>;
 
-    //fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset>;
+    fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> Option<Fontset>;
 
     fn set_base_dir(&self, direction: Direction);
 
@@ -146,9 +147,11 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    //fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> /*Ignored*/Option<Fontset> {
-    //    unsafe { TODO: call ffi::pango_context_load_fontset() }
-    //}
+    fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> Option<Fontset> {
+        unsafe {
+            from_glib_full(ffi::pango_context_load_fontset(self.to_glib_none().0, desc.to_glib_none().0, language.to_glib_none_mut().0))
+        }
+    }
 
     fn set_base_dir(&self, direction: Direction) {
         unsafe {

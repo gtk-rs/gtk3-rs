@@ -8,6 +8,7 @@ use FontDescription;
 use LayoutIter;
 use LayoutLine;
 use Rectangle;
+use TabArray;
 use WrapMode;
 use ffi;
 use glib::object::IsA;
@@ -90,7 +91,7 @@ pub trait LayoutExt {
 
     fn get_spacing(&self) -> i32;
 
-    //fn get_tabs(&self) -> /*Ignored*/Option<TabArray>;
+    fn get_tabs(&self) -> Option<TabArray>;
 
     fn get_text(&self) -> Option<String>;
 
@@ -134,7 +135,7 @@ pub trait LayoutExt {
 
     fn set_spacing(&self, spacing: i32);
 
-    //fn set_tabs<'a, P: Into<Option<&'a /*Ignored*/TabArray>>>(&self, tabs: P);
+    fn set_tabs<'a, P: Into<Option<&'a TabArray>>>(&self, tabs: P);
 
     fn set_text(&self, text: &str, length: i32);
 
@@ -330,9 +331,11 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    //fn get_tabs(&self) -> /*Ignored*/Option<TabArray> {
-    //    unsafe { TODO: call ffi::pango_layout_get_tabs() }
-    //}
+    fn get_tabs(&self) -> Option<TabArray> {
+        unsafe {
+            from_glib_full(ffi::pango_layout_get_tabs(self.to_glib_none().0))
+        }
+    }
 
     fn get_text(&self) -> Option<String> {
         unsafe {
@@ -470,9 +473,12 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    //fn set_tabs<'a, P: Into<Option<&'a /*Ignored*/TabArray>>>(&self, tabs: P) {
-    //    unsafe { TODO: call ffi::pango_layout_set_tabs() }
-    //}
+    fn set_tabs<'a, P: Into<Option<&'a TabArray>>>(&self, tabs: P) {
+        let tabs = tabs.into();
+        unsafe {
+            ffi::pango_layout_set_tabs(self.to_glib_none().0, mut_override(tabs.to_glib_none().0));
+        }
+    }
 
     fn set_text(&self, text: &str, length: i32) {
         unsafe {
