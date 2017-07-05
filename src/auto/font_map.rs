@@ -33,7 +33,7 @@ pub trait FontMapExt {
 
     fn load_font(&self, context: &Context, desc: &FontDescription) -> Option<Font>;
 
-    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &mut Language) -> Option<Fontset>;
+    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &Language) -> Option<Fontset>;
 }
 
 impl<O: IsA<FontMap>> FontMapExt for O {
@@ -73,9 +73,9 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &mut Language) -> Option<Fontset> {
+    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &Language) -> Option<Fontset> {
         unsafe {
-            from_glib_full(ffi::pango_font_map_load_fontset(self.to_glib_none().0, context.to_glib_none().0, desc.to_glib_none().0, language.to_glib_none_mut().0))
+            from_glib_full(ffi::pango_font_map_load_fontset(self.to_glib_none().0, context.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
         }
     }
 }

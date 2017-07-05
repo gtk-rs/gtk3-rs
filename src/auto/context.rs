@@ -5,6 +5,7 @@ use Direction;
 use Font;
 use FontDescription;
 use FontMap;
+use FontMetrics;
 use Fontset;
 use Gravity;
 use GravityHint;
@@ -50,6 +51,8 @@ pub trait ContextExt {
 
     fn get_matrix(&self) -> Option<Matrix>;
 
+    fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b Language>>>(&self, desc: P, language: Q) -> Option<FontMetrics>;
+
     #[cfg(feature = "v1_32_4")]
     fn get_serial(&self) -> u32;
 
@@ -57,7 +60,7 @@ pub trait ContextExt {
 
     fn load_font(&self, desc: &FontDescription) -> Option<Font>;
 
-    fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> Option<Fontset>;
+    fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset>;
 
     fn set_base_dir(&self, direction: Direction);
 
@@ -69,7 +72,7 @@ pub trait ContextExt {
 
     fn set_gravity_hint(&self, hint: GravityHint);
 
-    fn set_language(&self, language: &mut Language);
+    fn set_language(&self, language: &Language);
 
     fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P);
 }
@@ -130,6 +133,15 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
+    fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b Language>>>(&self, desc: P, language: Q) -> Option<FontMetrics> {
+        let desc = desc.into();
+        let desc = desc.to_glib_none();
+        let language = language.into();
+        unsafe {
+            from_glib_full(ffi::pango_context_get_metrics(self.to_glib_none().0, desc.0, mut_override(language.to_glib_none().0)))
+        }
+    }
+
     #[cfg(feature = "v1_32_4")]
     fn get_serial(&self) -> u32 {
         unsafe {
@@ -147,9 +159,9 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    fn load_fontset(&self, desc: &FontDescription, language: &mut Language) -> Option<Fontset> {
+    fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset> {
         unsafe {
-            from_glib_full(ffi::pango_context_load_fontset(self.to_glib_none().0, desc.to_glib_none().0, language.to_glib_none_mut().0))
+            from_glib_full(ffi::pango_context_load_fontset(self.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
         }
     }
 
@@ -183,9 +195,9 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    fn set_language(&self, language: &mut Language) {
+    fn set_language(&self, language: &Language) {
         unsafe {
-            ffi::pango_context_set_language(self.to_glib_none().0, language.to_glib_none_mut().0);
+            ffi::pango_context_set_language(self.to_glib_none().0, mut_override(language.to_glib_none().0));
         }
     }
 

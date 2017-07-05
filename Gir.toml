@@ -20,7 +20,6 @@ generate = [
     "Pango.EngineShape",
     "Pango.FontFace",
     "Pango.FontFamily",
-    "Pango.FontMap",
     "Pango.FontMask",
     "Pango.FontMetrics",
     "Pango.Fontset",
@@ -75,7 +74,19 @@ name = "Pango.Context"
 status = "generate"
     [[object.function]]
     name = "get_metrics"
-    ignore = true
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "set_language"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
 
 [[object]]
 name = "Pango.FontDescription"
@@ -102,7 +113,28 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "get_metrics"
-    ignore = true
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "find_shaper"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "get_coverage"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
+name = "Pango.FontMap"
+status = "generate"
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
 
 [[object]]
 name = "Pango.Layout"
