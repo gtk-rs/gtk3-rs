@@ -11,6 +11,7 @@ use gobject_ffi;
 
 use Value;
 use Type;
+use BoolError;
 
 /// Upcasting and downcasting support.
 ///
@@ -344,33 +345,47 @@ glib_object_wrapper! {
 }
 
 pub trait ObjectExt {
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value);
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value>;
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
 }
 
 impl<T: IsA<Object>> ObjectExt for T {
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
+        let property_name = property_name.into();
+
+        if !self.has_property(property_name, Some(value.type_())) {
+            return Err(BoolError("Invalid property name"));
+        }
+
         unsafe {
             // Using property names that don't exist or using a GValue of a wrong type
             // causes a warning printed at runtime by GObject and is considered a
             // programming error. It is however memory-safe to do so
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none().0)
+            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
         }
+
+        Ok(())
     }
 
-    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value> {
+    fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
+        let property_name = property_name.into();
+
+        if !self.has_property(property_name, None) {
+            return Err(BoolError("Invalid property name"));
+        }
+
         unsafe {
             let mut value = Value::uninitialized();
 
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.into().to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
             // This is an actual programming error and will cause a warning printed
             // at runtime by GObject
             if value.type_() == ::Type::Invalid {
-                None
+                Err(BoolError("Failed to get property value"))
             } else {
-                Some(value)
+                Ok(value)
             }
         }
     }
