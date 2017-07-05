@@ -10,6 +10,7 @@ use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 
 use Value;
+use Type;
 
 /// Upcasting and downcasting support.
 ///
@@ -345,6 +346,7 @@ glib_object_wrapper! {
 pub trait ObjectExt {
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value);
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Value>;
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
 }
 
 impl<T: IsA<Object>> ObjectExt for T {
@@ -369,6 +371,24 @@ impl<T: IsA<Object>> ObjectExt for T {
                 None
             } else {
                 Some(value)
+            }
+        }
+    }
+
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
+        unsafe {
+            let obj = self.to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.into().to_glib_none().0);
+            if pspec.is_null() {
+                return false;
+            }
+
+            if let Some(type_) = type_ {
+                ((*pspec).value_type == type_.to_glib())
+            } else {
+                true
             }
         }
     }
