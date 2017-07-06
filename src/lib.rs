@@ -16,12 +16,15 @@ pub use auto::functions::*;
 pub use ffi::PANGO_SCALE as SCALE;
 
 pub mod prelude;
+
+pub mod attr_class;
+pub use attr_class::AttrClass;
+pub mod attribute;
+pub mod font_description;
 pub mod item;
 pub use item::Item;
+pub mod language;
+pub use language::Language;
+pub mod matrix;
 pub mod rectangle;
 pub use rectangle::Rectangle;
-pub mod glyph_string;
-pub use glyph_string::GlyphString;
-pub mod font_description;
-pub use font_description::FontDescription;
-pub mod matrix;

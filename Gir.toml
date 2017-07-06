@@ -9,26 +9,37 @@ min_cfg_version = "1.30"
 
 generate = [
     "Pango.Alignment",
+    "Pango.Attribute",
     "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
-    "Pango.Context",
     "Pango.Coverage",
+    "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
+    "Pango.EngineShape",
     "Pango.FontFace",
     "Pango.FontFamily",
     "Pango.FontMask",
+    "Pango.FontMetrics",
+    "Pango.Fontset",
     "Pango.Gravity",
     "Pango.GravityHint",
+    "Pango.Glyph",
+    "Pango.GlyphItem",
+    "Pango.GlyphItemIter",
+    "Pango.GlyphString",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
+    "Pango.LayoutRun",
     "Pango.Matrix",
     "Pango.Renderer",
     "Pango.RenderPart",
     "Pango.Script",
     "Pango.Stretch",
     "Pango.Style",
+    "Pango.TabAlign",
+    "Pango.TabArray",
     "Pango.Underline",
     "Pango.Variant",
     "Pango.Weight",
@@ -36,7 +47,8 @@ generate = [
 ]
 
 manual = [
-    "Pango.FontDescription",
+    "Pango.AttrClass",
+    "Pango.Language",
     "Pango.Rectangle",
 ]
 
@@ -58,8 +70,71 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Pango.Context"
+status = "generate"
+    [[object.function]]
+    name = "get_metrics"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "set_language"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
+name = "Pango.FontDescription"
+status = "generate"
+    [[object.function]]
+    name = "from_string"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "set_family_static"
+    ignore = true
+    [[object.function]]
+    name = "copy_static"
+    ignore = true
+    [[object.function]]
+    name = "merge_static"
+    ignore = true
+
+[[object]]
+name = "Pango.Font"
+status = "generate"
+    [[object.function]]
+    name = "descriptions_free"
+    ignore = true
+    [[object.function]]
+    name = "get_metrics"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "find_shaper"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+    [[object.function]]
+    name = "get_coverage"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
+
+[[object]]
 name = "Pango.FontMap"
 status = "generate"
+    [[object.function]]
+    name = "load_fontset"
+        [[object.function.parameter]]
+        name = "language"
+        const = true
 
 [[object]]
 name = "Pango.Layout"
@@ -68,3 +143,8 @@ status = "generate"
     name = "xy_to_index"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "set_tabs"
+        [[object.function.parameter]]
+        name = "tabs"
+        const = true
