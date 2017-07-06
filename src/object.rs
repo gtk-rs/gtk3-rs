@@ -347,6 +347,8 @@ glib_object_wrapper! {
 }
 
 pub trait ObjectExt {
+    fn get_type(&self) -> Type;
+
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
@@ -370,6 +372,14 @@ fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Typ
 }
 
 impl<T: IsA<Object>> ObjectExt for T {
+    fn get_type(&self) -> Type {
+        unsafe {
+            let obj = self.to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GTypeClass;
+            from_glib((*klass).g_type)
+        }
+    }
+
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
@@ -425,15 +435,13 @@ impl<T: IsA<Object>> ObjectExt for T {
         let signal_name: &str = signal_name.into();
 
         unsafe {
-            let obj = self.to_glib_none().0;
-            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GTypeClass;
-            let type_ = (*klass).g_type;
+            let type_ = self.get_type();
 
             let mut signal_id = 0;
             let mut signal_detail = 0;
 
             let found: bool = from_glib(gobject_ffi::g_signal_parse_name(signal_name.to_glib_none().0,
-                                                                         type_, &mut signal_id,
+                                                                         type_.to_glib(), &mut signal_id,
                                                                          &mut signal_detail, true.to_glib()));
 
             if !found {
@@ -471,7 +479,7 @@ impl<T: IsA<Object>> ObjectExt for T {
                     }
                 }
             });
-            let handler = gobject_ffi::g_signal_connect_closure_by_id(obj, signal_id, signal_detail,
+            let handler = gobject_ffi::g_signal_connect_closure_by_id(self.to_glib_none().0, signal_id, signal_detail,
                                                                       closure.to_glib_none().0, after.to_glib());
 
             if handler == 0 {
