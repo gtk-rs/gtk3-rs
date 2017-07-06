@@ -8,10 +8,12 @@ use translate::*;
 use types::{self, StaticType};
 use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
+use std::mem;
 
 use Value;
 use Type;
 use BoolError;
+use Closure;
 
 /// Upcasting and downcasting support.
 ///
@@ -348,6 +350,9 @@ pub trait ObjectExt {
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
+
+    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
+        where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
 }
 
 fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Type> {
@@ -412,6 +417,68 @@ impl<T: IsA<Object>> ObjectExt for T {
             (None, _) => false,
             (Some(_), None) => true,
             (Some(ptype), Some(type_)) => ptype == type_,
+        }
+    }
+
+    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
+        where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static {
+        let signal_name: &str = signal_name.into();
+
+        unsafe {
+            let obj = self.to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GTypeClass;
+            let type_ = (*klass).g_type;
+
+            let mut signal_id = 0;
+            let mut signal_detail = 0;
+
+            let found: bool = from_glib(gobject_ffi::g_signal_parse_name(signal_name.to_glib_none().0,
+                                                                         type_, &mut signal_id,
+                                                                         &mut signal_detail, true.to_glib()));
+
+            if !found {
+                return Err(BoolError("Signal not found"));
+            }
+
+            let mut details = mem::zeroed();
+            gobject_ffi::g_signal_query(signal_id, &mut details);
+            if details.signal_id != signal_id {
+                return Err(BoolError("Signal not found"));
+            }
+
+            // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
+            let return_type = details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+            let closure = Closure::new(move |values| {
+                let ret = callback(values);
+
+                if return_type == gobject_ffi::G_TYPE_NONE {
+                    // Silently drop return value, if any
+                    None
+                } else {
+                    // Silently create empty return value
+                    if let Some(ret) = ret {
+                        if ret.type_().to_glib() == return_type {
+                            Some(ret)
+                        } else {
+                            let mut value = Value::uninitialized();
+                            gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
+                            Some(value)
+                        }
+                    } else {
+                        let mut value = Value::uninitialized();
+                        gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
+                        Some(value)
+                    }
+                }
+            });
+            let handler = gobject_ffi::g_signal_connect_closure_by_id(obj, signal_id, signal_detail,
+                                                                      closure.to_glib_none().0, after.to_glib());
+
+            if handler == 0 {
+                Err(BoolError("Failed to connect to signal"))
+            } else {
+                Ok(handler as u64)
+            }
         }
     }
 }
