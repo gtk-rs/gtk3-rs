@@ -3,6 +3,7 @@
 
 #[cfg(feature = "v2_40")]
 use Icon;
+#[cfg(feature = "v2_42")]
 use NotificationPriority;
 use ffi;
 #[cfg(feature = "v2_40")]
@@ -52,6 +53,7 @@ pub trait NotificationExt {
     #[cfg(feature = "v2_40")]
     fn set_icon<P: IsA<Icon>>(&self, icon: &P);
 
+    #[cfg(feature = "v2_42")]
     fn set_priority(&self, priority: NotificationPriority);
 
     #[cfg(feature = "v2_40")]
@@ -120,6 +122,7 @@ impl<O: IsA<Notification>> NotificationExt for O {
         }
     }
 
+    #[cfg(feature = "v2_42")]
     fn set_priority(&self, priority: NotificationPriority) {
         unsafe {
             ffi::g_notification_set_priority(self.to_glib_none().0, priority.to_glib());

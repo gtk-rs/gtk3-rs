@@ -24,7 +24,6 @@ generate = [
     "Gio.MenuItem",
     "Gio.MenuLinkIter",
     "Gio.MenuModel",
-    "Gio.Notification",
     "Gio.NotificationPriority",
     "Gio.Permission",
     "Gio.Resource",
@@ -92,6 +91,13 @@ status = "generate"
     [[object.function]]
     name = "hash"
     ignore = true
+
+[[object]]
+name = "Gio.Notification"
+status = "generate"
+    [[object.function]]
+    name = "set_priority"
+    version = "2.42"
 
 [[object]]
 name = "Gio.Settings"
