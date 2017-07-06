@@ -4,6 +4,7 @@
 
 pub use ffi::Matrix;
 use ffi;
+use ffi::enums::Status;
 
 pub trait MatrixTrait {
     fn null() -> Matrix;
@@ -15,6 +16,7 @@ pub trait MatrixTrait {
     fn scale(&mut self, sx: f64, sy: f64);
     fn rotate(&mut self, angle: f64);
     fn invert(&mut self);
+    fn try_invert(&self) -> Result<Matrix, Status>;
     fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64);
     fn transform_point(&self, _x: f64, _y: f64) -> (f64, f64);
 }
@@ -84,6 +86,19 @@ impl MatrixTrait for Matrix {
         result.ensure_valid();
     }
 
+    fn try_invert(&self) -> Result<Matrix, Status> {
+        let mut matrix = *self;
+
+        let result = unsafe {
+            ffi::cairo_matrix_invert(&mut matrix)
+        };
+
+        match result {
+            Status::Success => Ok(matrix),
+            _ => Err(result),
+        }
+    }
+
     fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64){
         let mut dx = _dx;
         let mut dy = _dy;
@@ -102,5 +117,36 @@ impl MatrixTrait for Matrix {
             ffi::cairo_matrix_transform_point(self, &mut x, &mut y);
         }
         (x, y)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn invalid_matrix_does_not_invert() {
+        let matrix = Matrix::null();
+        assert!(matrix.try_invert().is_err());
+    }
+
+    #[test]
+    #[should_panic]
+    fn inverting_invalid_matrix_panics() {
+        let mut matrix = Matrix::null();
+        matrix.invert();
+    }
+
+    #[test]
+    fn valid_matrix_try_invert() {
+        let matrix = Matrix::identity();
+        assert!(matrix.try_invert().unwrap() == Matrix::identity());
+    }
+
+    #[test]
+    fn valid_matrix_invert() {
+        let mut matrix = Matrix::identity();
+        matrix.invert();
+        assert!(matrix == Matrix::identity());
     }
 }
