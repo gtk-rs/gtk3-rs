@@ -9,6 +9,7 @@ use types::{self, StaticType};
 use wrapper::{UnsafeFrom, Wrapper};
 use gobject_ffi;
 use std::mem;
+use std::ptr;
 
 use Value;
 use Type;
@@ -355,6 +356,7 @@ pub trait ObjectExt {
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError>;
 }
 
 fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Type> {
@@ -483,6 +485,61 @@ impl<T: IsA<Object>> ObjectExt for T {
                 Err(BoolError("Failed to connect to signal"))
             } else {
                 Ok(handler as u64)
+            }
+        }
+    }
+
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError> {
+        let signal_name: &str = signal_name.into();
+        unsafe {
+            let type_ = self.get_type();
+
+            let mut signal_id = 0;
+            let mut signal_detail = 0;
+
+            let found: bool = from_glib(gobject_ffi::g_signal_parse_name(signal_name.to_glib_none().0,
+                                                                         type_.to_glib(), &mut signal_id,
+                                                                         &mut signal_detail, true.to_glib()));
+
+            if !found {
+                return Err(BoolError("Signal not found"));
+            }
+
+            let mut details = mem::zeroed();
+            gobject_ffi::g_signal_query(signal_id, &mut details);
+            if details.signal_id != signal_id {
+                return Err(BoolError("Signal not found"));
+            }
+
+            if details.n_params != args.len() as u32 {
+                return Err(BoolError("Incompatible number of arguments"));
+            }
+
+            for i in 0..details.n_params {
+                let arg_type = *(details.param_types.offset(i as isize)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+                if arg_type != args[i as usize].type_().to_glib() {
+                    return Err(BoolError("Incompatible argument types"));
+                }
+            }
+
+            let mut c_args: Vec<gobject_ffi::GValue> = Vec::new();
+            let instance = Value::from(self);
+            c_args.push(ptr::read(instance.to_glib_none().0));
+            for arg in args {
+                c_args.push(ptr::read(arg.to_glib_none().0));
+            }
+
+            let mut return_value = Value::uninitialized();
+            if details.return_type != gobject_ffi::G_TYPE_NONE {
+                gobject_ffi::g_value_init(return_value.to_glib_none_mut().0, details.return_type);
+            }
+
+            gobject_ffi::g_signal_emitv(mut_override(c_args.as_ptr()), signal_id, signal_detail, return_value.to_glib_none_mut().0);
+
+            if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
+                Ok(Some(return_value))
+            } else {
+                Ok(None)
             }
         }
     }
