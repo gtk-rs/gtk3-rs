@@ -373,9 +373,6 @@ impl<T: IsA<Object>> ObjectExt for T {
         }
 
         unsafe {
-            // Using property names that don't exist or using a GValue of a wrong type
-            // causes a warning printed at runtime by GObject and is considered a
-            // programming error. It is however memory-safe to do so
             gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
         }
 
