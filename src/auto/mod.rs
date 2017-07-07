@@ -36,6 +36,9 @@ mod renderer;
 pub use self::renderer::Renderer;
 pub use self::renderer::RendererExt;
 
+mod attr_list;
+pub use self::attr_list::AttrList;
+
 mod attribute;
 pub use self::attribute::Attribute;
 

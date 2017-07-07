@@ -203,11 +203,11 @@ pub fn is_zero_width(ch: char) -> bool {
     }
 }
 
-//pub fn itemize<'a, P: Into<Option<&'a /*Ignored*/AttrIterator>>>(context: &Context, text: &str, start_index: i32, length: i32, attrs: /*Ignored*/&AttrList, cached_iter: P) -> /*Ignored*/Vec<Item> {
+//pub fn itemize<'a, P: Into<Option<&'a /*Ignored*/AttrIterator>>>(context: &Context, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: P) -> /*Ignored*/Vec<Item> {
 //    unsafe { TODO: call ffi::pango_itemize() }
 //}
 
-//pub fn itemize_with_base_dir<'a, P: Into<Option<&'a /*Ignored*/AttrIterator>>>(context: &Context, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: /*Ignored*/&AttrList, cached_iter: P) -> /*Ignored*/Vec<Item> {
+//pub fn itemize_with_base_dir<'a, P: Into<Option<&'a /*Ignored*/AttrIterator>>>(context: &Context, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: P) -> /*Ignored*/Vec<Item> {
 //    unsafe { TODO: call ffi::pango_itemize_with_base_dir() }
 //}
 
@@ -216,7 +216,7 @@ pub fn is_zero_width(ch: char) -> bool {
 //}
 
 //#[cfg(feature = "v1_31")]
-//pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext, attr_list: /*Ignored*/AttrList, error: /*Ignored*/Option<Error>) -> Result<String, char, Error> {
+//pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext, error: /*Ignored*/Option<Error>) -> Result<(AttrList, String, char), Error> {
 //    unsafe { TODO: call ffi::pango_markup_parser_finish() }
 //}
 
@@ -240,7 +240,7 @@ pub fn parse_enum<'a, P: Into<Option<&'a str>>>(type_: glib::types::Type, str: P
     }
 }
 
-//pub fn parse_markup(markup_text: &str, length: i32, accel_marker: char, attr_list: /*Ignored*/AttrList, error: /*Ignored*/Option<Error>) -> Result<String, char, Error> {
+//pub fn parse_markup(markup_text: &str, length: i32, accel_marker: char, error: /*Ignored*/Option<Error>) -> Result<(AttrList, String, char), Error> {
 //    unsafe { TODO: call ffi::pango_parse_markup() }
 //}
 

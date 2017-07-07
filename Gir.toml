@@ -70,6 +70,19 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Pango.AttrList"
+status = "generate"
+    [[object.function]]
+    name = "change"
+    ignore = true
+    [[object.function]]
+    name = "insert"
+    ignore = true
+    [[object.function]]
+    name = "insert_before"
+    ignore = true
+
+[[object]]
 name = "Pango.Context"
 status = "generate"
     [[object.function]]

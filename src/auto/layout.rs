@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use Alignment;
+use AttrList;
 use Context;
 use EllipsizeMode;
 use FontDescription;
@@ -38,7 +39,7 @@ pub trait LayoutExt {
 
     fn get_alignment(&self) -> Alignment;
 
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttrList>;
+    fn get_attributes(&self) -> Option<AttrList>;
 
     fn get_auto_dir(&self) -> bool;
 
@@ -113,7 +114,7 @@ pub trait LayoutExt {
 
     fn set_alignment(&self, alignment: Alignment);
 
-    //fn set_attributes<'a, P: Into<Option<&'a /*Ignored*/AttrList>>>(&self, attrs: P);
+    fn set_attributes<'a, P: Into<Option<&'a AttrList>>>(&self, attrs: P);
 
     fn set_auto_dir(&self, auto_dir: bool);
 
@@ -165,9 +166,11 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    //fn get_attributes(&self) -> /*Ignored*/Option<AttrList> {
-    //    unsafe { TODO: call ffi::pango_layout_get_attributes() }
-    //}
+    fn get_attributes(&self) -> Option<AttrList> {
+        unsafe {
+            from_glib_none(ffi::pango_layout_get_attributes(self.to_glib_none().0))
+        }
+    }
 
     fn get_auto_dir(&self) -> bool {
         unsafe {
@@ -405,9 +408,13 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    //fn set_attributes<'a, P: Into<Option<&'a /*Ignored*/AttrList>>>(&self, attrs: P) {
-    //    unsafe { TODO: call ffi::pango_layout_set_attributes() }
-    //}
+    fn set_attributes<'a, P: Into<Option<&'a AttrList>>>(&self, attrs: P) {
+        let attrs = attrs.into();
+        let attrs = attrs.to_glib_none();
+        unsafe {
+            ffi::pango_layout_set_attributes(self.to_glib_none().0, attrs.0);
+        }
+    }
 
     fn set_auto_dir(&self, auto_dir: bool) {
         unsafe {
