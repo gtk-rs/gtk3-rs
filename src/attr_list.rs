@@ -6,23 +6,27 @@ use Attribute;
 use AttrList;
 use ffi;
 use glib::translate::*;
+use std::mem;
 
 impl AttrList {
-    pub fn change(&self, attr: &Attribute) {
+    pub fn change(&self, attr: Attribute) {
         unsafe {
-            ffi::pango_attr_list_change(self.to_glib_none().0, attr.to_glib_full() as *mut _);
+            ffi::pango_attr_list_change(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            mem::forget(attr); //As attr transferred fully
         }
     }
 
-    pub fn insert(&self, attr: &Attribute) {
+    pub fn insert(&self, attr: Attribute) {
         unsafe {
-            ffi::pango_attr_list_insert(self.to_glib_none().0, attr.to_glib_full() as *mut _);
+            ffi::pango_attr_list_insert(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            mem::forget(attr); //As attr transferred fully
         }
     }
 
-    pub fn insert_before(&self, attr: &Attribute) {
+    pub fn insert_before(&self, attr: Attribute) {
         unsafe {
-            ffi::pango_attr_list_insert_before(self.to_glib_none().0, attr.to_glib_full() as *mut _);
+            ffi::pango_attr_list_insert_before(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            mem::forget(attr); //As attr transferred fully
         }
     }
 }
