@@ -105,6 +105,12 @@ impl Pixbuf {
         }
     }
 
+    pub fn new_from_xpm_data(data: &[&str]) -> Pixbuf {
+        unsafe {
+            from_glib_full(ffi::gdk_pixbuf_new_from_xpm_data(data.to_glib_none().0))
+        }
+    }
+
     pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32)
             -> Option<PixbufFormat> {
         unsafe {
