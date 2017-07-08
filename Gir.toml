@@ -50,6 +50,7 @@ manual = [
     "Pango.AttrClass",
     "Pango.Language",
     "Pango.Rectangle",
+    "GLib.Error",
 ]
 
 [[object]]
@@ -67,6 +68,23 @@ status = "generate"
     [[object.function]]
     name = "log2vis_get_embedding_levels"
     #out param
+    ignore = true
+    [[object.function]]
+    pattern = "attr_.+"
+    #moved to Attribute
+    ignore = true
+
+[[object]]
+name = "Pango.AttrList"
+status = "generate"
+    [[object.function]]
+    name = "change"
+    ignore = true
+    [[object.function]]
+    name = "insert"
+    ignore = true
+    [[object.function]]
+    name = "insert_before"
     ignore = true
 
 [[object]]

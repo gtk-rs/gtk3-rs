@@ -9,6 +9,8 @@ extern crate glib;
 extern crate bitflags;
 extern crate libc;
 
+pub use glib::Error;
+
 mod auto;
 pub use auto::*;
 pub use auto::functions::*;
@@ -19,6 +21,7 @@ pub mod prelude;
 
 pub mod attr_class;
 pub use attr_class::AttrClass;
+pub mod attr_list;
 pub mod attribute;
 pub mod font_description;
 pub mod item;
