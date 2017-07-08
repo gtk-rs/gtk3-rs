@@ -50,6 +50,7 @@ manual = [
     "Pango.AttrClass",
     "Pango.Language",
     "Pango.Rectangle",
+    "GLib.Error",
 ]
 
 [[object]]

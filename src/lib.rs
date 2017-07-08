@@ -9,6 +9,8 @@ extern crate glib;
 extern crate bitflags;
 extern crate libc;
 
+pub use glib::Error;
+
 mod auto;
 pub use auto::*;
 pub use auto::functions::*;
