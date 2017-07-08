@@ -9,6 +9,9 @@ git = "https://github.com/gtk-rs/glib"
 [dependencies.cairo-rs]
 git = "https://github.com/gtk-rs/cairo"
 
+[dependencies.pango]
+git = "https://github.com/gtk-rs/pango"
+
 [dependencies.gdk-pixbuf]
 git = "https://github.com/gtk-rs/gdk-pixbuf"
 
