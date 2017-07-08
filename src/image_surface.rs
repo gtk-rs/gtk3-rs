@@ -30,25 +30,32 @@ impl ImageSurface {
         }
     }
 
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
-        Self::from(Surface::from_raw_full(ptr)).unwrap()
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<ImageSurface, Status> {
+        let surface = Self::from(Surface::from_raw_full(ptr)).unwrap();
+        let status = surface.status();
+        match status {
+            Status::Success => Ok(surface),
+            _ => Err(status)
+        }
     }
 
-    pub fn create(format: Format, width: i32, height: i32) -> ImageSurface {
+    pub fn create(format: Format, width: i32, height: i32) -> Result<ImageSurface, Status> {
         unsafe { Self::from_raw_full(ffi::cairo_image_surface_create(format, width, height)) }
     }
 
     pub fn create_for_data<F>(data: Box<[u8]>, free: F, format: Format, width: i32, height: i32,
-                              stride: i32) -> ImageSurface
+                              stride: i32) -> Result<ImageSurface, Status>
     where F: FnOnce(Box<[u8]>) + 'static {
         assert!(data.len() >= (height * stride) as usize);
         unsafe {
             let mut data = Box::new(AsyncBorrow::new(data, free));
             let ptr = (*data).as_mut().as_mut_ptr();
-            let surface = ImageSurface::from_raw_full(
+            let r = ImageSurface::from_raw_full(
                 ffi::cairo_image_surface_create_for_data(ptr, format, width, height, stride));
-            surface.set_user_data(&IMAGE_SURFACE_DATA, data).unwrap();
-            surface
+            match r {
+                Ok(surface) => surface.set_user_data(&IMAGE_SURFACE_DATA, data).map (|_| surface),
+                Err(status) => Err(status)
+            }
         }
     }
 
@@ -111,7 +118,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
-        Self::from_raw_full(ptr)
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 
@@ -201,5 +208,38 @@ impl<T, F: FnOnce(T) + 'static> Drop for AsyncBorrow<T, F> {
         if let (Some(x), Some(f)) = (self.data.take(), self.free.take()) {
             f(x);
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn create_with_invalid_size_yields_error() {
+        let result = ImageSurface::create(Format::ARgb32, 50000, 50000);
+        assert! (result.is_err());
+    }
+
+    #[test]
+    fn create_for_data_with_invalid_stride_yields_error() {
+        let result = ImageSurface::create_for_data(Box::new([0u8; 10]),
+                                                   |_| (),
+                                                   Format::ARgb32,
+                                                   1, 2,
+                                                   5); // unaligned stride
+        assert! (result.is_err());
+    }
+
+    #[test]
+    fn create_with_valid_size() {
+        let result = ImageSurface::create(Format::ARgb32, 10, 10);
+        assert! (result.is_ok());
+
+        let result = ImageSurface::create_for_data(Box::new([0u8; 40 * 10]),
+                                                   |_| (),
+                                                   Format::ARgb32,
+                                                   10, 10, 40);
+        assert! (result.is_ok());
     }
 }

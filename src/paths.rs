@@ -115,7 +115,7 @@ mod tests {
     use ffi::enums::Format;
 
     fn make_cr() -> Context {
-        let surface = ImageSurface::create(Format::Rgb24, 1, 1);
+        let surface = ImageSurface::create(Format::Rgb24, 1, 1).unwrap ();
 
         Context::new(&surface)
     }
