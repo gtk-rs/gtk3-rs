@@ -68,6 +68,10 @@ status = "generate"
     name = "log2vis_get_embedding_levels"
     #out param
     ignore = true
+    [[object.function]]
+    pattern = "attr_.+"
+    #moved to Attribute
+    ignore = true
 
 [[object]]
 name = "Pango.AttrList"
