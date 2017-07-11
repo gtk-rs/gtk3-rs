@@ -5,8 +5,14 @@
 use ffi;
 use translate::*;
 use std::mem;
+use std::mem::transmute;
+use ffi as glib_ffi;
+use ffi::{gpointer, gboolean};
+use std::cell::RefCell;
 
 use MainContext;
+
+use source::{CallbackGuard, Priority};
 
 impl MainContext {
     pub fn prepare(&self) -> (bool, i32) {
@@ -18,4 +24,41 @@ impl MainContext {
             (res, priority)
         }
     }
+
+    // FIXME: These can actually be FnOnce but require FnBox to
+    // stabilize, or Box<FnOnce()> to be callable otherwise
+    pub fn invoke<F>(&self, func: F)
+    where F: FnMut() + Send + 'static {
+        unsafe {
+            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
+                into_raw(func), Some(destroy_closure))
+        }
+    }
+
+    pub fn invoke_with_priority<F>(&self, priority: Priority, func: F)
+    where F: FnMut() + Send + 'static {
+        unsafe {
+            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline),
+                into_raw(func), Some(destroy_closure))
+        }
+    }
+}
+
+unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
+    let _guard = CallbackGuard::new();
+    let func: &RefCell<Box<FnMut() + 'static>> = transmute(func);
+    (&mut *func.borrow_mut())();
+
+    glib_ffi::G_SOURCE_REMOVE
+}
+
+unsafe extern "C" fn destroy_closure(ptr: gpointer) {
+    let _guard = CallbackGuard::new();
+    Box::<RefCell<Box<FnMut() + 'static>>>::from_raw(ptr as *mut _);
+}
+
+fn into_raw<F: FnMut() + Send + 'static>(func: F) -> gpointer {
+    let func: Box<RefCell<Box<FnMut() + Send + 'static>>> =
+        Box::new(RefCell::new(Box::new(func)));
+    Box::into_raw(func) as gpointer
 }
