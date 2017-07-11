@@ -11,6 +11,8 @@ use ffi::{gpointer, gboolean};
 use std::cell::RefCell;
 
 use MainContext;
+use Source;
+use SourceId;
 
 use source::{CallbackGuard, Priority};
 
@@ -22,6 +24,12 @@ impl MainContext {
             let res = from_glib(ffi::g_main_context_prepare(self.to_glib_none().0, &mut priority));
 
             (res, priority)
+        }
+    }
+
+    pub fn find_source_by_id(&self, source_id: SourceId) -> Option<Source> {
+        unsafe {
+            from_glib_none(ffi::g_main_context_find_source_by_id(self.to_glib_none().0, source_id.to_glib()))
         }
     }
 

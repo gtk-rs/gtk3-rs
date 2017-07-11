@@ -239,6 +239,11 @@ concurrency = "send+sync"
        # out parameter not marked as such
        ignore = true
 
+       [[object.function]]
+       name = "find_source_by_id"
+       # source id is a newtype
+       ignore = true
+
 [[object]]
 name = "GLib.MainLoop"
 status = "generate"
