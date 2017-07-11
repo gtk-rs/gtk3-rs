@@ -105,6 +105,12 @@ pub use source::{
     source_remove,
     Id as SourceId,
 };
+
+#[cfg(unix)]
+pub use source::{
+    unix_signal_add,
+};
+
 pub use types::{
     StaticType,
     Type,

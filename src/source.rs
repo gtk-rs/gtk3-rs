@@ -134,6 +134,22 @@ where F: FnMut() -> Continue + Send + 'static {
     }
 }
 
+#[cfg(unix)]
+/// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
+///
+/// `func` will be called repeatedly every time `signum` is raised until it
+/// returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+pub fn unix_signal_add<F>(signum: i32, func: F) -> Id
+where F: FnMut() -> Continue + Send + 'static {
+    unsafe {
+        from_glib(glib_ffi::g_unix_signal_add_full(glib_ffi::G_PRIORITY_DEFAULT, signum,
+            Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
+}
+
 /// Removes the source with the given id `source_id` from the default main context.
 ///
 /// It is a programmer error to attempt to remove a non-existent source.
