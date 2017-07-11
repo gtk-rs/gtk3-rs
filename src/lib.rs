@@ -96,21 +96,6 @@ pub use signal::{
     signal_stop_emission,
     signal_stop_emission_by_name
 };
-pub use source::{
-    CallbackGuard,
-    Continue,
-    idle_add,
-    timeout_add,
-    timeout_add_seconds,
-    child_watch_add,
-    source_remove,
-    Id as SourceId,
-};
-
-#[cfg(unix)]
-pub use source::{
-    unix_signal_add,
-};
 
 pub use types::{
     StaticType,
@@ -191,6 +176,7 @@ mod key_file;
 pub mod prelude;
 pub mod signal;
 pub mod source;
+pub use source::*;
 mod time_val;
 pub mod translate;
 pub mod types;
