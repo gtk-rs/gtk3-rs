@@ -190,7 +190,7 @@ mod file_error;
 mod key_file;
 pub mod prelude;
 pub mod signal;
-mod source;
+pub mod source;
 mod time_val;
 pub mod translate;
 pub mod types;

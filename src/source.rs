@@ -8,8 +8,10 @@ use std::process;
 use std::thread;
 use ffi as glib_ffi;
 use ffi::{gboolean, gpointer};
-use translate::{from_glib, FromGlib, ToGlib};
+use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 use libc;
+
+use Source;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
 ///
@@ -191,5 +193,139 @@ where F: FnMut() -> Continue + Send + 'static {
 pub fn source_remove(source_id: Id) {
     unsafe {
         glib_ffi::g_source_remove(source_id.to_glib());
+    }
+}
+
+/// The priority of sources
+///
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct Priority(i32);
+
+impl ToGlib for Priority {
+    type GlibType = i32;
+
+    #[inline]
+    fn to_glib(&self) -> i32 {
+        self.0
+    }
+}
+
+impl FromGlib<i32> for Priority {
+    #[inline]
+    fn from_glib(val: i32) -> Priority {
+        Priority(val)
+    }
+}
+
+pub const PRIORITY_HIGH: Priority = Priority(glib_ffi::G_PRIORITY_HIGH);
+pub const PRIORITY_DEFAULT: Priority = Priority(glib_ffi::G_PRIORITY_DEFAULT);
+pub const PRIORITY_HIGH_IDLE: Priority = Priority(glib_ffi::G_PRIORITY_HIGH_IDLE);
+pub const PRIORITY_DEFAULT_IDLE: Priority = Priority(glib_ffi::G_PRIORITY_DEFAULT_IDLE);
+pub const PRIORITY_LOW: Priority = Priority(glib_ffi::G_PRIORITY_LOW);
+
+/// Adds a closure to be called by the main loop the return `Source` is attached to when it's idle.
+///
+/// `func` will be called repeatedly until it returns `Continue(false)`.
+pub fn idle_source_new<'a, N: Into<Option<&'a str>>, F>(name: N, priority: Priority, func: F) -> Source
+where F: FnMut() -> Continue + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_idle_source_new();
+        glib_ffi::g_source_set_callback(source, Some(trampoline), into_raw(func), Some(destroy_closure));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
+    }
+}
+
+/// Adds a closure to be called by the main loop the returned `Source` is attached to at regular
+/// intervals with millisecond granularity.
+///
+/// `func` will be called repeatedly every `interval` milliseconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events. Prefer `timeout_add_seconds` when millisecond
+/// precision is not necessary.
+pub fn timeout_source_new<'a, N: Into<Option<&'a str>>, F>(interval: u32, name: N, priority: Priority, func: F) -> Source
+where F: FnMut() -> Continue + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_timeout_source_new(interval);
+        glib_ffi::g_source_set_callback(source, Some(trampoline), into_raw(func), Some(destroy_closure));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
+    }
+}
+
+/// Adds a closure to be called by the main loop the returned `Source` is attached to at regular
+/// intervals with second granularity.
+///
+/// `func` will be called repeatedly every `interval` seconds until it
+/// returns `Continue(false)`. Precise timing is not guaranteed, the timeout may
+/// be delayed by other events.
+pub fn timeout_source_new_seconds<'a, N: Into<Option<&'a str>>, F>(interval: u32, name: N, priority: Priority, func: F) -> Source
+where F: FnMut() -> Continue + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_timeout_source_new_seconds(interval);
+        glib_ffi::g_source_set_callback(source, Some(trampoline), into_raw(func), Some(destroy_closure));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
+    }
+}
+
+/// Adds a closure to be called by the main loop the returned `Source` is attached to when a child
+/// process exits.
+///
+/// `func` will be called when `pid` exits
+pub fn child_watch_source_new<'a, N: Into<Option<&'a str>>, F>(pid: u32, name: N, priority: Priority, func: F) -> Source
+where F: FnMut(u32, i32) + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_child_watch_source_new(pid as glib_ffi::GPid);
+        let trampoline = trampoline_child_watch as *mut libc::c_void;
+        glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw_child_watch(func), Some(destroy_closure_child_watch));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
+    }
+}
+
+#[cfg(unix)]
+/// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
+/// UNIX signal is raised.
+///
+/// `func` will be called repeatedly every time `signum` is raised until it
+/// returns `Continue(false)`.
+pub fn unix_signal_source_new<'a, N: Into<Option<&'a str>>, F>(signum: i32, name: N, priority: Priority, func: F) -> Source
+where F: FnMut() -> Continue + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_unix_signal_source_new(signum);
+        glib_ffi::g_source_set_callback(source, Some(trampoline), into_raw(func), Some(destroy_closure));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
     }
 }
