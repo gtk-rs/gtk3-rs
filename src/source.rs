@@ -17,9 +17,9 @@ use Source;
 ///
 /// A value of 0 is a good default as it is never a valid source ID.
 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
-pub struct Id(u32);
+pub struct SourceId(u32);
 
-impl ToGlib for Id {
+impl ToGlib for SourceId {
     type GlibType = u32;
 
     #[inline]
@@ -28,10 +28,10 @@ impl ToGlib for Id {
     }
 }
 
-impl FromGlib<u32> for Id {
+impl FromGlib<u32> for SourceId {
     #[inline]
-    fn from_glib(val: u32) -> Id {
-        Id(val)
+    fn from_glib(val: u32) -> SourceId {
+        SourceId(val)
     }
 }
 
@@ -111,7 +111,7 @@ fn into_raw_child_watch<F: FnMut(u32, i32) + Send + 'static>(func: F) -> gpointe
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn idle_add<F>(func: F) -> Id
+pub fn idle_add<F>(func: F) -> SourceId
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_idle_add_full(glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
@@ -129,7 +129,7 @@ where F: FnMut() -> Continue + Send + 'static {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn timeout_add<F>(interval: u32, func: F) -> Id
+pub fn timeout_add<F>(interval: u32, func: F) -> SourceId
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_timeout_add_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
@@ -146,7 +146,7 @@ where F: FnMut() -> Continue + Send + 'static {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn timeout_add_seconds<F>(interval: u32, func: F) -> Id
+pub fn timeout_add_seconds<F>(interval: u32, func: F) -> SourceId
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
@@ -158,7 +158,7 @@ where F: FnMut() -> Continue + Send + 'static {
 /// process exits.
 ///
 /// `func` will be called when `pid` exits
-pub fn child_watch_add<'a, N: Into<Option<&'a str>>, F>(pid: u32, func: F) -> Id
+pub fn child_watch_add<'a, N: Into<Option<&'a str>>, F>(pid: u32, func: F) -> SourceId
 where F: FnMut(u32, i32) + Send + 'static {
     unsafe {
         let trampoline = trampoline_child_watch as *mut libc::c_void;
@@ -175,7 +175,7 @@ where F: FnMut(u32, i32) + Send + 'static {
 ///
 /// The default main loop almost always is the main loop of the main thread.
 /// Thus the closure is called on the main thread.
-pub fn unix_signal_add<F>(signum: i32, func: F) -> Id
+pub fn unix_signal_add<F>(signum: i32, func: F) -> SourceId
 where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_unix_signal_add_full(glib_ffi::G_PRIORITY_DEFAULT, signum,
@@ -190,7 +190,7 @@ where F: FnMut() -> Continue + Send + 'static {
 ///
 /// For historical reasons, the native function always returns true, so we
 /// ignore it here.
-pub fn source_remove(source_id: Id) {
+pub fn source_remove(source_id: SourceId) {
     unsafe {
         glib_ffi::g_source_remove(source_id.to_glib());
     }
