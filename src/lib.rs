@@ -102,6 +102,7 @@ pub use source::{
     idle_add,
     timeout_add,
     timeout_add_seconds,
+    child_watch_add,
     source_remove,
     Id as SourceId,
 };

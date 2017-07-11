@@ -9,6 +9,7 @@ use std::thread;
 use ffi as glib_ffi;
 use ffi::{gboolean, gpointer};
 use translate::{from_glib, FromGlib, ToGlib};
+use libc;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
 ///
@@ -85,6 +86,23 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
     Box::into_raw(func) as gpointer
 }
 
+unsafe extern "C" fn trampoline_child_watch(pid: u32, status: i32, func: gpointer) {
+    let _guard = CallbackGuard::new();
+    let func: &RefCell<Box<FnMut(u32, i32) + 'static>> = transmute(func);
+    (&mut *func.borrow_mut())(pid, status)
+}
+
+unsafe extern "C" fn destroy_closure_child_watch(ptr: gpointer) {
+    let _guard = CallbackGuard::new();
+    Box::<RefCell<Box<FnMut(u32, i32) + 'static>>>::from_raw(ptr as *mut _);
+}
+
+fn into_raw_child_watch<F: FnMut(u32, i32) + Send + 'static>(func: F) -> gpointer {
+    let func: Box<RefCell<Box<FnMut(u32, i32) + Send + 'static>>> =
+        Box::new(RefCell::new(Box::new(func)));
+    Box::into_raw(func) as gpointer
+}
+
 /// Adds a closure to be called by the default main loop when it's idle.
 ///
 /// `func` will be called repeatedly until it returns `Continue(false)`.
@@ -131,6 +149,19 @@ where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_timeout_add_seconds_full(glib_ffi::G_PRIORITY_DEFAULT, interval,
             Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
+}
+
+/// Adds a closure to be called by the main loop the returned `Source` is attached to when a child
+/// process exits.
+///
+/// `func` will be called when `pid` exits
+pub fn child_watch_add<'a, N: Into<Option<&'a str>>, F>(pid: u32, func: F) -> Id
+where F: FnMut(u32, i32) + Send + 'static {
+    unsafe {
+        let trampoline = trampoline_child_watch as *mut libc::c_void;
+        from_glib(glib_ffi::g_child_watch_add_full(glib_ffi::G_PRIORITY_DEFAULT, pid as i32,
+            Some(transmute(trampoline)), into_raw_child_watch(func), Some(destroy_closure_child_watch)))
     }
 }
 
