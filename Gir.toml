@@ -180,6 +180,26 @@ status = "generate"
     name = "markup_escape_text"
     #gsize
     ignore = true
+    [[object.function]]
+    name = "child_watch_source_new"
+    # Need manual bindings to be useful
+    ignore = true
+    [[object.function]]
+    name = "idle_source_new"
+    # Need manual bindings to be useful
+    ignore = true
+    [[object.function]]
+    name = "timeout_source_new"
+    # Need manual bindings to be useful
+    ignore = true
+    [[object.function]]
+    name = "timeout_source_new_seconds"
+    # Need manual bindings to be useful
+    ignore = true
+    [[object.function]]
+    name = "unix_signal_source_new"
+    # Need manual bindings to be useful
+    ignore = true
 
 [[object]]
 name = "GLib.KeyFile"
@@ -209,3 +229,32 @@ status = "generate"
        name = "load_from_data"
        #gsize
        ignore = true
+
+[[object]]
+name = "GLib.MainContext"
+status = "generate"
+concurrency = "send+sync"
+       [[object.function]]
+       name = "prepare"
+       # out parameter not marked as such
+       ignore = true
+
+       [[object.function]]
+       name = "find_source_by_id"
+       # source id is a newtype
+       ignore = true
+
+[[object]]
+name = "GLib.MainLoop"
+status = "generate"
+concurrency = "send+sync"
+
+[[object]]
+name = "GLib.Source"
+status = "generate"
+concurrency = "send+sync"
+        [[object.function]]
+        pattern = "set_.+"
+        # Setters are generally not thread-safe
+        # while GSource itself is
+        ignore = true
