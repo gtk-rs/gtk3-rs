@@ -76,9 +76,13 @@ manual = [
     "Gdk.EventTouch",
     "Gdk.EventVisibility",
     "Gdk.EventWindowState",
+    "Gdk.Geometry",
     "Gdk.Rectangle",
     "Gdk.RGBA",
+    "cairo.Content",
     "cairo.Context",
+    "cairo.FontOptions",
+    "cairo.Region",
     "cairo.Surface",
     "GdkPixbuf.Pixbuf",
     "Gio.Icon",
@@ -273,6 +277,9 @@ status = "generate"
     name = "make_display_name"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "get_font_options"
+    ignore = true
 
 [[object]]
 name = "Gdk.Seat"
@@ -329,3 +336,11 @@ status = "generate"
     [[object.function]]
     name = "fullscreen_on_monitor"
     version = "3.18"
+    [[object.function]]
+    name = "create_similar_surface"
+    ignore = true
+    [[object.function]]
+    name = "set_opaque_region"
+        [[object.function.parameter]]
+        name = "region"
+        const = true

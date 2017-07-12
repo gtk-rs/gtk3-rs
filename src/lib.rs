@@ -56,7 +56,9 @@ mod event_visibility;
 mod event_window_state;
 #[cfg(feature = "v3_8")]
 mod frame_clock;
+mod geometry;
 mod keys;
+mod screen;
 mod rectangle;
 mod rgba;
 mod visual;
@@ -107,6 +109,7 @@ pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
+pub use geometry::Geometry;
 pub use rectangle::Rectangle;
 pub use rgba::{RGBA, RgbaParseError};
 pub use window::WindowAttr;

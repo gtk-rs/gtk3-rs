@@ -4,7 +4,7 @@
 
 use std::ptr;
 use libc::{c_char, c_int};
-use cairo::Surface;
+use cairo::{self, Surface};
 use gdk_pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
@@ -111,6 +111,12 @@ impl Window {
                 parent.to_glib_none().0,
                 attributes.to_glib_none().0,
                 attributes.get_mask() as c_int))
+        }
+    }
+
+    pub fn create_similar_surface(&self, content: cairo::Content, width: i32, height: i32) -> Option<Surface> {
+        unsafe {
+            from_glib_full(ffi::gdk_window_create_similar_surface(self.to_glib_none().0, content, width, height))
         }
     }
 }
