@@ -7,6 +7,7 @@ use libc::size_t;
 use glib::Error;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
+use gobject_ffi;
 use super::Pixbuf;
 use super::animation::PixbufAnimation;
 use super::format::PixbufFormat;

@@ -8,6 +8,7 @@ use glib::{Error, TimeVal};
 use glib::object::IsA;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
+use gobject_ffi;
 use super::Pixbuf;
 
 glib_wrapper! {
