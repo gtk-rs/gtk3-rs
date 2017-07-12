@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 extern crate pango_sys as ffi;
+extern crate gobject_sys as gobject_ffi;
 #[macro_use]
 extern crate glib;
 #[macro_use]
