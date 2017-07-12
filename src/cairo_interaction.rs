@@ -5,16 +5,35 @@
 use glib::translate::*;
 use ffi;
 use gdk_pixbuf::Pixbuf;
-use cairo::Context;
-#[cfg(feature = "v3_10")]
+use cairo::{Context, Region};
 use cairo::Surface;
 use {RGBA, Rectangle, Window};
 
-//pub fn create_region_from_surface()
-//--> WRAP: gdk_cairo_region_create_from_surface (cairo_surface_t *surface);
+pub trait SurfaceExt {
+    fn create_region(&self) -> Option<Region>;
+}
 
-//pub fn create_surface_from_pixbuf()
-//--> WRAP: gdk_cairo_surface_create_from_pixbuf (const GdkPixbuf *pixbuf, int scale, GdkWindow *for_window);
+impl SurfaceExt for Surface {
+    fn create_region(&self) -> Option<Region> {
+        unsafe {
+            from_glib_full(ffi::gdk_cairo_region_create_from_surface(self.to_glib_none().0))
+        }
+    }
+}
+
+#[cfg(feature = "v3_10")]
+pub trait PixbufExt {
+    fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface>;
+}
+
+#[cfg(feature = "v3_10")]
+impl PixbufExt for Pixbuf {
+    fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface> {
+        unsafe {
+            from_glib_full(ffi::gdk_cairo_surface_create_from_pixbuf(self.to_glib_none().0, scale, for_window.to_glib_none().0))
+        }
+    }
+}
 
 pub trait ContextExt {
     fn create_from_window(window: &Window) -> Context;
@@ -35,8 +54,7 @@ pub trait ContextExt {
 
     fn rectangle(&self, rectangle: &Rectangle);
 
-    //fn add_region(&self, region: ???);
-    //--> WRAP: fn gdk_cairo_region(cr: *mut cairo_t, region: *const cairo_region_t);
+    fn add_region(&self, region: &Region);
 }
 
 impl ContextExt for Context {
@@ -93,6 +111,10 @@ impl ContextExt for Context {
 
     fn rectangle(&self, rectangle: &Rectangle) {
         unsafe { ffi::gdk_cairo_rectangle(self.to_glib_none().0, rectangle.to_glib_none().0); }
+    }
+
+    fn add_region(&self, region: &Region) {
+        unsafe { ffi::gdk_cairo_region(self.to_glib_none().0, region.to_glib_none().0); }
     }
 }
 
