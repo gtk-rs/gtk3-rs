@@ -12,6 +12,7 @@ use std::mem;
 use std::ptr;
 
 use Value;
+use value::SetValue;
 use Type;
 use BoolError;
 use Closure;
@@ -243,6 +244,28 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        #[doc(hidden)]
+        impl<'a> $crate::value::FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
+                Option::<$name>::from_glib_full(gobject_ffi::g_value_dup_object(value.to_glib_none().0) as *mut $ffi_name)
+                    .map(|o| $crate::object::Downcast::downcast_unchecked(o))
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::SetValue for $name {
+            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
+                gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut gobject_ffi::GObject)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::SetValueOptional for $name {
+            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
+                gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut gobject_ffi::GObject)
+            }
+        }
+
         impl ::std::cmp::Eq for $name { }
     };
 
@@ -373,7 +396,7 @@ fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Typ
     }
 }
 
-impl<T: IsA<Object>> ObjectExt for T {
+impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn get_type(&self) -> Type {
         unsafe {
             let obj = self.to_glib_none().0;
