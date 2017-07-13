@@ -79,7 +79,6 @@ use std::ffi::CStr;
 use std::ptr;
 use libc::c_void;
 
-use object::{Downcast, IsA, Object};
 use translate::*;
 use types::{StaticType, Type};
 
@@ -515,25 +514,6 @@ impl SetValue for String {
 impl SetValueOptional for String {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         gobject_ffi::g_value_take_string(value.to_glib_none_mut().0, this.to_glib_full())
-    }
-}
-
-impl<'a, T: IsA<Object>> FromValueOptional<'a> for T {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        Option::<Object>::from_glib_full(gobject_ffi::g_value_dup_object(value.to_glib_none().0))
-            .map(|o| o.downcast_unchecked())
-    }
-}
-
-impl<T: IsA<Object>> SetValue for T {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
-    }
-}
-
-impl<T: IsA<Object>> SetValueOptional for T {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, this.to_glib_none().0)
     }
 }
 
