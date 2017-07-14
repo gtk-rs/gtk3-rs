@@ -47,6 +47,8 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::slice;
 use std::str;
+use std::ptr;
+use std::mem;
 
 glib_wrapper! {
     /// A generic immutable value capable of carrying various types.
