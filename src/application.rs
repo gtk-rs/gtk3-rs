@@ -29,6 +29,6 @@ unsafe extern "C" fn open_trampoline<P>(this: *mut ffi::GApplication, files: *co
 where P: IsA<Application> {
     callback_guard!();
     let f: &Box_<Fn(&P, &[File], &str) + 'static> = transmute(f);
-    let files: Vec<File> = FromGlibPtrContainer::from_glib_none_num(files, n_files as usize);
+    let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);
     f(&Application::from_glib_none(this).downcast_unchecked(), &files, &String::from_glib_none(hint))
 }
