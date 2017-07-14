@@ -9,6 +9,7 @@ use libc::{c_void, c_uchar};
 use glib::translate::*;
 use glib::Error;
 use gdk_pixbuf_ffi as ffi;
+use glib_ffi;
 use gobject_ffi;
 
 use {
