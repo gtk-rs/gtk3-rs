@@ -93,6 +93,8 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
+pub use pdf_surface::PDFSurface;
+
 #[cfg(feature = "xcb")]
 pub use xcb::{
     XCBConnection,
@@ -110,6 +112,7 @@ pub mod prelude;
 mod font;
 mod context;
 mod error;
+mod pdf_surface;
 mod image_surface;
 #[cfg(feature = "png")]
 mod image_surface_png;
@@ -127,3 +130,4 @@ mod win32_surface;
 
 #[cfg(windows)]
 pub use win32_surface::Win32Surface;
+
