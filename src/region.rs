@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi::enums::RegionOverlap;
 use RectangleInt;
@@ -13,7 +13,7 @@ use ffi::enums::Status;
 
 pub struct Region(*mut cairo_region_t);
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
     type Storage = &'a Region;
@@ -24,7 +24,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
     type Storage = &'a mut Self;
@@ -35,7 +35,7 @@ impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
     #[inline]
@@ -44,7 +44,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 #[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::cairo_region_t> for Region {
     #[inline]

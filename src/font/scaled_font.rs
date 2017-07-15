@@ -1,6 +1,10 @@
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
+#[cfg(feature = "use_glib")]
+use glib_ffi;
 use std::ptr;
+#[cfg(feature = "use_glib")]
+use std::mem;
 use ffi;
 use std::ffi::CString;
 
@@ -21,7 +25,7 @@ use ffi::{
 
 use super::{FontFace, FontOptions};
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 glib_wrapper! {
     pub struct ScaledFont(Shared<ffi::cairo_scaled_font_t>);
 
@@ -31,7 +35,7 @@ glib_wrapper! {
     }
 }
 
-#[cfg(not(feature = "glib"))]
+#[cfg(not(feature = "use_glib"))]
 pub struct ScaledFont(*mut ffi::cairo_scaled_font_t);
 
 impl ScaledFont {
@@ -43,38 +47,38 @@ impl ScaledFont {
         scaled_font
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_scaled_font_t {
         self.to_glib_none().0
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_scaled_font_t {
         self.0
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());
         ScaledFont(ptr)
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         from_glib_full(ptr)
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         from_glib_none(ptr)
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_scaled_font_t) -> ScaledFont {
         assert!(!ptr.is_null());

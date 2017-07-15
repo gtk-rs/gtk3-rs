@@ -10,7 +10,7 @@ use ffi::enums::Format;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 use ffi::CGContextRef;
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
 use ffi::enums::{
@@ -65,7 +65,7 @@ impl Surface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
     type Storage = &'a Surface;
 
@@ -75,7 +75,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> Surface {
@@ -83,7 +83,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Surface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Surface {

@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 use c_vec::CVec;
 use std::mem::transmute;
@@ -43,7 +43,7 @@ impl Drop for RectangleVec {
 
 pub struct Context(*mut cairo_t);
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
     type Storage = &'a Context;
 
@@ -53,7 +53,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_t) -> Context {
@@ -61,7 +61,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_t) -> Context {

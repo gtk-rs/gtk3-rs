@@ -5,7 +5,7 @@
 use std::ops::{Deref, DerefMut};
 use std::slice;
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
 use ffi::enums::{
@@ -88,7 +88,7 @@ impl ImageSurface {
 
 static IMAGE_SURFACE_DATA: () = ();
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     type Storage = &'a Surface;
 
@@ -99,7 +99,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
@@ -107,7 +107,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {

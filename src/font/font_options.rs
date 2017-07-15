@@ -1,5 +1,11 @@
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
+#[cfg(feature = "use_glib")]
+use glib_ffi;
+#[cfg(feature = "use_glib")]
+use std::ptr;
+#[cfg(feature = "use_glib")]
+use std::mem;
 use std::cmp::PartialEq;
 use ffi;
 
@@ -10,7 +16,7 @@ use ffi::enums::{
     HintMetrics,
 };
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 glib_wrapper! {
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
 
@@ -25,7 +31,7 @@ glib_wrapper! {
     }
 }
 
-#[cfg(not(feature = "glib"))]
+#[cfg(not(feature = "use_glib"))]
 pub struct FontOptions(*mut ffi::cairo_font_options_t);
 
 impl FontOptions {
@@ -37,26 +43,26 @@ impl FontOptions {
         font_options
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
         from_glib_full(ptr)
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_options_t) -> FontOptions {
         assert!(!ptr.is_null());
         FontOptions(ptr)
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_options_t {
         mut_override(self.to_glib_none().0)
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_options_t {
         self.0

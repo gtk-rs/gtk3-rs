@@ -1,5 +1,11 @@
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
+#[cfg(feature = "use_glib")]
+use glib_ffi;
+#[cfg(feature = "use_glib")]
+use std::ptr;
+#[cfg(feature = "use_glib")]
+use std::mem;
 use libc::c_char;
 use ffi;
 use std::ffi::{CString, CStr};
@@ -10,7 +16,7 @@ use ffi::enums::{
     FontSlant,
 };
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 glib_wrapper! {
     pub struct FontFace(Shared<ffi::cairo_font_face_t>);
 
@@ -20,7 +26,7 @@ glib_wrapper! {
     }
 }
 
-#[cfg(not(feature = "glib"))]
+#[cfg(not(feature = "use_glib"))]
 pub struct FontFace(*mut ffi::cairo_font_face_t);
 
 impl FontFace {
@@ -32,39 +38,39 @@ impl FontFace {
         font_face
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         from_glib_full(ptr)
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
         FontFace(ptr)
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         from_glib_none(ptr)
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_font_face_t) -> FontFace {
         assert!(!ptr.is_null());
         FontFace(ptr)
     }
 
-    #[cfg(feature = "glib")]
+    #[cfg(feature = "use_glib")]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_face_t {
         self.to_glib_none().0
     }
 
-    #[cfg(not(feature = "glib"))]
+    #[cfg(not(feature = "use_glib"))]
     #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_font_face_t {
         self.0
