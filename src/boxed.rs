@@ -56,6 +56,11 @@ macro_rules! glib_boxed_wrapper {
                 let stash = self.0.to_glib_none();
                 $crate::translate::Stash(stash.0, stash.1)
             }
+
+            #[inline]
+            fn to_glib_full(&self) -> *const $ffi_name {
+                (&self.0).to_glib_full()
+            }
         }
 
         #[doc(hidden)]
@@ -269,6 +274,16 @@ impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtr<'a, *const T> for Boxe
             ForeignOwned(p) | ForeignBorrowed(p) => p as *const T,
         };
         Stash(ptr, self)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *const T {
+        use self::AnyBox::*;
+        let ptr = match self.inner {
+            Native(ref b) => &**b as *const T,
+            ForeignOwned(p) | ForeignBorrowed(p) => p as *const T,
+        };
+        unsafe { MM::copy(ptr) }
     }
 }
 
