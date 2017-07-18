@@ -429,6 +429,26 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for Path {
     }
 }
 
+impl<'a> ToGlibPtr<'a, *const c_char> for PathBuf {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
+        let tmp = path_to_c(self).unwrap();
+        Stash(tmp.as_ptr(), tmp)
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *mut c_char> for PathBuf {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
+        let tmp = path_to_c(self).unwrap();
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+}
+
 impl GlibPtrDefault for Path {
     type GlibType = *mut c_char;
 }
@@ -531,8 +551,12 @@ macro_rules! impl_to_glib_container_from_slice_string {
 
 impl_to_glib_container_from_slice_string!(&'a str, *mut c_char);
 impl_to_glib_container_from_slice_string!(&'a str, *const c_char);
+impl_to_glib_container_from_slice_string!(String, *mut c_char);
+impl_to_glib_container_from_slice_string!(String, *const c_char);
 impl_to_glib_container_from_slice_string!(&'a Path, *mut c_char);
 impl_to_glib_container_from_slice_string!(&'a Path, *const c_char);
+impl_to_glib_container_from_slice_string!(PathBuf, *mut c_char);
+impl_to_glib_container_from_slice_string!(PathBuf, *const c_char);
 
 impl<'a, T> ToGlibContainerFromSlice<'a, *mut glib_ffi::GList> for T
 where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
