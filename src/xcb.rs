@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
 
@@ -45,7 +45,7 @@ impl XCBConnection {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::xcb_connection_t> for &'a XCBConnection {
     type Storage = &'a XCBConnection;
 
@@ -55,7 +55,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_connection_t> for &'a XCBConnection {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
@@ -63,7 +63,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_connection_t> for XCBConnection {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
@@ -102,7 +102,7 @@ impl XCBRenderPictFormInfo {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::xcb_render_pictforminfo_t> for &'a XCBRenderPictFormInfo {
     type Storage = &'a XCBRenderPictFormInfo;
 
@@ -112,7 +112,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_render_pictforminfo_t> for &'a XCBRenderPic
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
@@ -120,7 +120,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormI
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
@@ -159,7 +159,7 @@ impl XCBScreen {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::xcb_screen_t> for &'a XCBScreen {
     type Storage = &'a XCBScreen;
 
@@ -169,7 +169,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_screen_t> for &'a XCBScreen {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
@@ -177,7 +177,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_screen_t> for XCBScreen {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
@@ -279,7 +279,7 @@ impl XCBVisualType {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::xcb_visualtype_t> for &'a XCBVisualType {
     type Storage = &'a XCBVisualType;
 
@@ -289,7 +289,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::xcb_visualtype_t> for &'a XCBVisualType {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
@@ -297,7 +297,7 @@ impl FromGlibPtrNone<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
@@ -336,7 +336,7 @@ impl Device {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_device_t> for &'a Device {
     type Storage = &'a Device;
 
@@ -346,7 +346,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_device_t> for &'a Device {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_device_t) -> Device {
@@ -354,7 +354,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_device_t> for Device {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_device_t) -> Device {

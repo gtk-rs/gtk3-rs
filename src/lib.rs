@@ -6,9 +6,12 @@ extern crate cairo_sys as ffi;
 extern crate libc;
 extern crate c_vec;
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 #[macro_use]
 extern crate glib;
+
+#[cfg(feature = "use_glib")]
+extern crate glib_sys as glib_ffi;
 
 pub use ffi::enums;
 pub use ffi::cairo_rectangle_t as Rectangle;
