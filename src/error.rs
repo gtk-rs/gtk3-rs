@@ -8,6 +8,8 @@ use std::ffi::CStr;
 use std::error;
 use std::fmt;
 use std::str;
+use std::ptr;
+use std::mem;
 use translate::*;
 use ffi as glib_ffi;
 

@@ -10,8 +10,9 @@ use std::slice;
 
 use libc::{c_uint, c_void};
 
+use ffi as glib_ffi;
 use gobject_ffi;
-use translate::{ToGlibPtr, ToGlibPtrMut, Uninitialized, from_glib_none};
+use translate::{ToGlibPtr, ToGlibPtrMut, Uninitialized, from_glib_none, Stash};
 use types::Type;
 use Value;
 use ToValue;

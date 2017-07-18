@@ -9,6 +9,8 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
+use std::ptr;
+use std::mem;
 use translate::*;
 
 glib_wrapper! {

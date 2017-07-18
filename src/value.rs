@@ -242,6 +242,58 @@ impl<'a> ToGlibPtr<'a, *mut gobject_ffi::GValue> for &'a [&'a ToValue] {
     }
 }
 
+impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
+    type Storage = &'a [&'a Value];
+
+    fn to_glib_none_from_slice(t: &'a [&'a Value]) -> (*mut gobject_ffi::GValue, &'a [&'a Value]) {
+        (t.as_ptr() as *mut gobject_ffi::GValue, t)
+    }
+
+    fn to_glib_container_from_slice(t: &'a [&'a Value]) -> (*mut gobject_ffi::GValue, &'a [&'a Value]) {
+        if t.len() == 0 {
+            return (ptr::null_mut(), t);
+        }
+
+        unsafe {
+            let res = glib_ffi::g_malloc(mem::size_of::<gobject_ffi::GValue>() * t.len()) as *mut gobject_ffi::GValue;
+            ptr::copy_nonoverlapping(t.as_ptr() as *const gobject_ffi::GValue, res, t.len());
+            (res, t)
+        }
+    }
+
+    fn to_glib_full_from_slice(t: &[&'a Value]) -> *mut gobject_ffi::GValue {
+        if t.len() == 0 {
+            return ptr::null_mut();
+        }
+
+        unsafe {
+            let res = glib_ffi::g_malloc(mem::size_of::<gobject_ffi::GValue>() * t.len()) as *mut gobject_ffi::GValue;
+            for (i, v) in t.iter().enumerate() {
+                gobject_ffi::g_value_init(res.offset(i as isize), v.type_().to_glib());
+                gobject_ffi::g_value_copy(v.to_glib_none().0, res.offset(i as isize));
+            }
+            res
+        }
+    }
+}
+
+impl<'a> ToGlibContainerFromSlice<'a, *const gobject_ffi::GValue> for &'a Value {
+    type Storage = &'a [&'a Value];
+
+    fn to_glib_none_from_slice(t: &'a [&'a Value]) -> (*const gobject_ffi::GValue, &'a [&'a Value]) {
+        let (ptr, storage) = ToGlibContainerFromSlice::<'a, *mut gobject_ffi::GValue>::to_glib_none_from_slice(t);
+        (ptr as *const _, storage)
+    }
+
+    fn to_glib_container_from_slice(_: &'a [&'a Value]) -> (*const gobject_ffi::GValue, &'a [&'a Value]) {
+        unimplemented!()
+    }
+
+    fn to_glib_full_from_slice(_: &[&'a Value]) -> *const gobject_ffi::GValue {
+        unimplemented!()
+    }
+}
+
 impl FromGlibPtrNone<*const gobject_ffi::GValue> for Value {
     unsafe fn from_glib_none(ptr: *const gobject_ffi::GValue) -> Self {
         let mut ret = Value::uninitialized();
@@ -263,6 +315,87 @@ impl FromGlibPtrFull<*mut gobject_ffi::GValue> for Value {
         ptr::swap(&mut ret.0, ptr);
         glib_ffi::g_free(ptr as *mut c_void);
         ret
+    }
+}
+
+impl FromGlibContainerAsVec<*mut gobject_ffi::GValue, *mut *mut gobject_ffi::GValue> for Value {
+    unsafe fn from_glib_none_num_as_vec(mut ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for _ in 0..num {
+            res.push(from_glib_none(ptr::read(ptr)));
+            ptr = ptr.offset(1);
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+
+    unsafe fn from_glib_full_num_as_vec(mut ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for _ in 0..num {
+            res.push(from_glib_full(ptr::read(ptr)));
+            ptr = ptr.offset(1);
+        }
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+}
+
+impl FromGlibPtrArrayContainerAsVec<*mut gobject_ffi::GValue, *mut *mut gobject_ffi::GValue> for Value {
+    unsafe fn from_glib_none_as_vec(ptr: *mut *mut gobject_ffi::GValue) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+
+    unsafe fn from_glib_container_as_vec(ptr: *mut *mut gobject_ffi::GValue) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+
+    unsafe fn from_glib_full_as_vec(ptr: *mut *mut gobject_ffi::GValue) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+}
+
+impl FromGlibContainerAsVec<*mut gobject_ffi::GValue, *const *mut gobject_ffi::GValue> for Value {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr as *mut *mut _, num)
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const *mut gobject_ffi::GValue, _: usize) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const *mut gobject_ffi::GValue, _: usize) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+}
+
+impl FromGlibPtrArrayContainerAsVec<*mut gobject_ffi::GValue, *const *mut gobject_ffi::GValue> for Value {
+    unsafe fn from_glib_none_as_vec(ptr: *const *mut gobject_ffi::GValue) -> Vec<Self> {
+        FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(ptr as *mut *mut _)
+    }
+
+    unsafe fn from_glib_container_as_vec(_: *const *mut gobject_ffi::GValue) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full_as_vec(_: *const *mut gobject_ffi::GValue) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
     }
 }
 
