@@ -3,10 +3,12 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::ptr;
+use std::mem;
 use libc::size_t;
 use glib::Error;
 use glib::translate::*;
 use gdk_pixbuf_ffi as ffi;
+use glib_ffi;
 use gobject_ffi;
 use super::Pixbuf;
 use super::animation::PixbufAnimation;
