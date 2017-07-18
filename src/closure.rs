@@ -12,7 +12,7 @@ use libc::{c_uint, c_void};
 
 use ffi as glib_ffi;
 use gobject_ffi;
-use translate::{ToGlibPtr, ToGlibPtrMut, Uninitialized, from_glib_none, Stash};
+use translate::{ToGlibPtr, ToGlibPtrMut, FromGlibPtrFull, Uninitialized, Stash, from_glib_none};
 use types::Type;
 use Value;
 use ToValue;
@@ -26,6 +26,7 @@ glib_wrapper! {
             gobject_ffi::g_closure_sink(ptr);
         },
         unref => |ptr| gobject_ffi::g_closure_unref(ptr),
+        get_type => || gobject_ffi::g_closure_get_type(),
     }
 }
 
