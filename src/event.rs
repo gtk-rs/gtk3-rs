@@ -5,6 +5,10 @@
 use glib::translate::*;
 use ffi as ffi;
 
+use glib_ffi;
+use std::ptr;
+use std::mem;
+
 use EventType;
 use Window;
 
