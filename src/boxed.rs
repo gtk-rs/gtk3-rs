@@ -161,15 +161,14 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl $crate::translate::FromGlibContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
-            unsafe fn from_glib_none_num_as_vec(mut ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
+            unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
                 }
 
                 let mut res = Vec::with_capacity(num);
-                for _ in 0..num {
-                    res.push($crate::translate::from_glib_none(ptr::read(ptr)));
-                    ptr = ptr.offset(1);
+                for i in 0..num {
+                    res.push($crate::translate::from_glib_none(ptr::read(ptr.offset(i as isize))));
                 }
                 res
             }
@@ -180,15 +179,14 @@ macro_rules! glib_boxed_wrapper {
                 res
             }
 
-            unsafe fn from_glib_full_num_as_vec(mut ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
+            unsafe fn from_glib_full_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
                 }
 
                 let mut res = Vec::with_capacity(num);
-                for _ in 0..num {
-                    res.push($crate::translate::from_glib_full(ptr::read(ptr)));
-                    ptr = ptr.offset(1);
+                for i in 0..num {
+                    res.push($crate::translate::from_glib_full(ptr::read(ptr.offset(i as isize))));
                 }
                 glib_ffi::g_free(ptr as *mut _);
                 res

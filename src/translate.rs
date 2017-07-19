@@ -981,15 +981,14 @@ where Self: Sized {
 macro_rules! impl_from_glib_container_as_vec_fundamental {
     ($name:ty) => {
         impl FromGlibContainerAsVec<$name, *const $name> for $name {
-            unsafe fn from_glib_none_num_as_vec(mut ptr: *const $name, num: usize) -> Vec<Self> {
+            unsafe fn from_glib_none_num_as_vec(ptr: *const $name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
                 }
 
                 let mut res = Vec::with_capacity(num);
-                for _ in 0..num {
-                    res.push(ptr::read(ptr));
-                    ptr = ptr.offset(1);
+                for i in 0..num {
+                    res.push(ptr::read(ptr.offset(i as isize)));
                 }
                 res
             }
@@ -1037,15 +1036,14 @@ impl_from_glib_container_as_vec_fundamental!(f64);
 macro_rules! impl_from_glib_container_as_vec_string {
     ($name:ty, $ffi_name:ty) => {
         impl FromGlibContainerAsVec<$ffi_name, *const $ffi_name> for $name {
-            unsafe fn from_glib_none_num_as_vec(mut ptr: *const $ffi_name, num: usize) -> Vec<Self> {
+            unsafe fn from_glib_none_num_as_vec(ptr: *const $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
                 }
 
                 let mut res = Vec::with_capacity(num);
-                for _ in 0..num {
-                    res.push(from_glib_none(ptr::read(ptr) as $ffi_name));
-                    ptr = ptr.offset(1);
+                for i in 0..num {
+                    res.push(from_glib_none(ptr::read(ptr.offset(i as isize)) as $ffi_name));
                 }
                 res
             }
@@ -1072,15 +1070,14 @@ macro_rules! impl_from_glib_container_as_vec_string {
                 res
             }
 
-            unsafe fn from_glib_full_num_as_vec(mut ptr: *mut $ffi_name, num: usize) -> Vec<Self> {
+            unsafe fn from_glib_full_num_as_vec(ptr: *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
                     return Vec::new();
                 }
 
                 let mut res = Vec::with_capacity(num);
-                for _ in 0..num {
-                    res.push(from_glib_full(ptr::read(ptr)));
-                    ptr = ptr.offset(1);
+                for i in 0..num {
+                    res.push(from_glib_full(ptr::read(ptr.offset(i as isize))));
                 }
                 glib_ffi::g_free(ptr as *mut _);
                 res
