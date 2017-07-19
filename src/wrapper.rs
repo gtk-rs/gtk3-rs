@@ -45,6 +45,8 @@
 ///
 /// `free`: `|*mut $foreign|` frees the value.
 ///
+/// `get_type`: `||` (optional) returns the `Type`, if any
+///
 /// ### Shared
 ///
 /// Records with reference counted shared ownership.
@@ -64,6 +66,8 @@
 /// `ref`: `|*mut $foreign|` increases the refcount.
 ///
 /// `unref`: `|*mut $foreign|` decreases the refcount.
+///
+/// `get_type`: `||` (optional) returns the `Type`, if any
 ///
 /// ### Object
 ///
@@ -126,6 +130,20 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
+        pub struct $name:ident(Boxed<$ffi_name:path>);
+
+        match fn {
+            copy => |$copy_arg:ident| $copy_expr:expr,
+            free => |$free_arg:ident| $free_expr:expr,
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr, @get_type $get_type_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
         pub struct $name:ident(Shared<$ffi_name:path>);
 
         match fn {
@@ -135,6 +153,20 @@ macro_rules! glib_wrapper {
     ) => {
         glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Shared<$ffi_name:path>);
+
+        match fn {
+            ref => |$ref_arg:ident| $ref_expr:expr,
+            unref => |$unref_arg:ident| $unref_expr:expr,
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+            @unref $unref_arg $unref_expr, @get_type $get_type_expr);
     };
 
     (

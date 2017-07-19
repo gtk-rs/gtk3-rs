@@ -12,6 +12,7 @@ use std::ptr;
 use std::mem;
 use translate::*;
 use ffi as glib_ffi;
+use gobject_ffi;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
@@ -20,6 +21,7 @@ glib_wrapper! {
     match fn {
         copy => |ptr| glib_ffi::g_error_copy(ptr),
         free => |ptr| glib_ffi::g_error_free(ptr),
+        get_type => || glib_ffi::g_error_get_type(),
     }
 }
 

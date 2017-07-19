@@ -14,6 +14,40 @@ use translate::*;
 #[macro_export]
 macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
+     @free $free_arg:ident $free_expr:expr,
+     @get_type $get_type_expr:expr) => {
+        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr);
+
+        impl $crate::types::StaticType for $name {
+            fn static_type() -> $crate::types::Type {
+                unsafe { $crate::translate::from_glib($get_type_expr) }
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'a> $crate::value::FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
+                Option::<$name>::from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut $ffi_name)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::SetValue for $name {
+            unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
+                gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as glib_ffi::gpointer)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::value::SetValueOptional for $name {
+            unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
+                gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as glib_ffi::gpointer)
+            }
+        }
+    };
+
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
         #[derive(Clone, Debug)]
