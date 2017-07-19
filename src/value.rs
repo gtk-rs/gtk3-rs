@@ -319,15 +319,14 @@ impl FromGlibPtrFull<*mut gobject_ffi::GValue> for Value {
 }
 
 impl FromGlibContainerAsVec<*mut gobject_ffi::GValue, *mut *mut gobject_ffi::GValue> for Value {
-    unsafe fn from_glib_none_num_as_vec(mut ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new();
         }
 
         let mut res = Vec::with_capacity(num);
-        for _ in 0..num {
-            res.push(from_glib_none(ptr::read(ptr)));
-            ptr = ptr.offset(1);
+        for i in 0..num {
+            res.push(from_glib_none(ptr::read(ptr.offset(i as isize))));
         }
         res
     }
@@ -338,15 +337,14 @@ impl FromGlibContainerAsVec<*mut gobject_ffi::GValue, *mut *mut gobject_ffi::GVa
         res
     }
 
-    unsafe fn from_glib_full_num_as_vec(mut ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut *mut gobject_ffi::GValue, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new();
         }
 
         let mut res = Vec::with_capacity(num);
-        for _ in 0..num {
-            res.push(from_glib_full(ptr::read(ptr)));
-            ptr = ptr.offset(1);
+        for i in 0..num {
+            res.push(from_glib_full(ptr::read(ptr.offset(i as isize))));
         }
         glib_ffi::g_free(ptr as *mut _);
         res
