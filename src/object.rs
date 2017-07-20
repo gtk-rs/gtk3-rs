@@ -521,24 +521,11 @@ pub trait ObjectExt {
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
+    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError>;
-}
-
-fn get_property_type<T: IsA<Object>>(obj: &T, property_name: &str) -> Option<Type> {
-    unsafe {
-        let obj = obj.to_glib_none().0;
-        let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
-
-        let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
-        if pspec.is_null() {
-            None
-        } else {
-            Some(from_glib((*pspec).value_type))
-        }
-    }
 }
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
@@ -567,7 +554,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
         let property_name = property_name.into();
 
-        let property_type = match get_property_type(self, property_name) {
+        let property_type = match self.get_property_type(property_name) {
             None => return Err(BoolError("Invalid property name")),
             Some(property_type) => property_type,
         };
@@ -588,12 +575,28 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     }
 
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
-        let ptype = get_property_type(self, property_name.into());
+        let property_name = property_name.into();
+        let ptype = self.get_property_type(property_name);
 
         match (ptype, type_) {
             (None, _) => false,
             (Some(_), None) => true,
             (Some(ptype), Some(type_)) => ptype == type_,
+        }
+    }
+
+    fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+        let property_name = property_name.into();
+        unsafe {
+            let obj = self.to_glib_none().0;
+            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+            if pspec.is_null() {
+                None
+            } else {
+                Some(from_glib((*pspec).value_type))
+            }
         }
     }
 
