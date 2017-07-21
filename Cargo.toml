@@ -8,6 +8,7 @@ git = "https://github.com/gtk-rs/glib"
 
 [dependencies.cairo-rs]
 git = "https://github.com/gtk-rs/cairo"
+features = ["png"]
 
 [dependencies.pango]
 git = "https://github.com/gtk-rs/pango"
