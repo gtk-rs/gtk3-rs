@@ -25,6 +25,9 @@ glib_wrapper! {
     }
 }
 
+unsafe impl Send for Error {}
+unsafe impl Sync for Error {}
+
 impl Error {
     /// Creates an error with supplied error enum variant and message.
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
