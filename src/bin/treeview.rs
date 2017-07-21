@@ -1,6 +1,7 @@
 //! # TreeView Sample
 //!
-//! This sample demonstrates how to create a TreeView with either a ListStore or TreeStore.
+//! This sample demonstrates how to create a `TreeView`
+//! with either a `ListStore` or `TreeStore`.
 
 extern crate glib;
 extern crate gtk;
@@ -76,8 +77,8 @@ fn main() {
     let image = Pixbuf::new_from_file("./resources/eye.png").or_else(|err| {
         let mut msg = err.to_string();
         if err.kind() == Some(glib::FileError::Noent) {
-            msg.push_str(&format!("\nRelaunch this example from the same level \
-                                  as the `resources` folder"));
+            msg.push_str("\nRelaunch this example from the same level \
+                          as the `resources` folder");
         }
         let window = window.clone();
 
