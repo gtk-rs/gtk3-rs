@@ -244,4 +244,11 @@ impl Pixbuf {
             pixels[pos + 3] = alpha;
         }
     }
+
+    pub fn copy(&self) -> Pixbuf {
+        unsafe {
+            let copy = ffi::gdk_pixbuf_copy(self.to_glib_none().0);
+            FromGlibPtrFull::from_glib_full(copy)
+        }
+    }
 }
