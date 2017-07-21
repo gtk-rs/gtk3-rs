@@ -7,6 +7,8 @@ use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
 use glib::translate::*;
+#[cfg(feature = "v2_36")]
+use glib::BoolError;
 use glib::Error;
 use gdk_pixbuf_ffi as ffi;
 use glib_ffi;
@@ -250,5 +252,15 @@ impl Pixbuf {
             let copy = ffi::gdk_pixbuf_copy(self.to_glib_none().0);
             FromGlibPtrFull::from_glib_full(copy)
         }
+    }
+
+    #[cfg(feature = "v2_36")]
+    pub fn copy_options(&self, dest_pixbuf: &mut Pixbuf) -> Result<(), BoolError> {
+        let err: glib_ffi::gboolean =
+            unsafe {
+                ffi::gdk_pixbuf_copy_options(self.to_glib_none().0, dest_pixbuf.to_glib_none().0)
+            };
+
+        BoolError::from_glib(err, "Failed to copy pixbuf options")
     }
 }
