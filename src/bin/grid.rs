@@ -1,6 +1,7 @@
 extern crate gtk;
 
 // make moving clones into closures more convenient
+#[cfg(feature = "gtk_3_10")]
 macro_rules! clone {
     (@param _) => ( _ );
     (@param $x:ident) => ( $x );
