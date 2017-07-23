@@ -89,6 +89,7 @@ pub use object::{
     IsA,
     Object,
     ObjectExt,
+    WeakRef,
 };
 pub use signal::{
     signal_handler_block,
