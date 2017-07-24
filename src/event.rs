@@ -3,9 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use ffi as ffi;
+use ffi;
 
 use glib_ffi;
+use gobject_ffi;
 use std::ptr;
 use std::mem;
 
@@ -19,6 +20,7 @@ glib_wrapper! {
     match fn {
         copy => |ptr| ffi::gdk_event_copy(ptr),
         free => |ptr| ffi::gdk_event_free(ptr),
+        get_type => || ffi::gdk_event_get_type(),
     }
 }
 

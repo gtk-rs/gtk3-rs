@@ -61,6 +61,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GdkAtom> for &'a Atom {
     type Storage = (Vec<Stash<'a, ffi::GdkAtom, &'a Atom>>, Option<Vec<ffi::GdkAtom>>);
 
     fn to_glib_none_from_slice(t: &'a [&'a Atom]) -> (*mut ffi::GdkAtom, Self::Storage) {
+        skip_assert_initialized!();
+
         let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
         let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
         v_ptr.push(0 as *mut _);
@@ -69,6 +71,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GdkAtom> for &'a Atom {
     }
 
     fn to_glib_container_from_slice(t: &'a [&'a Atom]) -> (*mut ffi::GdkAtom, Self::Storage) {
+        skip_assert_initialized!();
+
         let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
 
         let v_ptr = unsafe {
@@ -85,6 +89,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GdkAtom> for &'a Atom {
     }
 
     fn to_glib_full_from_slice(_: &[&'a Atom]) -> *mut ffi::GdkAtom {
+        skip_assert_initialized!();
+
         unimplemented!()
     }
 }
