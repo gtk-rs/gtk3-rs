@@ -9,8 +9,6 @@ use std::thread;
 
 use libc::{c_void, c_uint};
 
-#[cfg(feature = "use_glib")]
-use glib::translate::*;
 use ffi;
 use ffi::enums::Status;
 use error::IoError;
