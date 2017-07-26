@@ -11,6 +11,7 @@ use ffi as glib_ffi;
 use gobject_ffi;
 use std::mem;
 use std::ptr;
+use std::marker::PhantomData;
 
 use Value;
 use value::SetValue;
@@ -515,7 +516,7 @@ glib_object_wrapper! {
     Object, GObject, @get_type gobject_ffi::g_object_get_type()
 }
 
-pub trait ObjectExt {
+pub trait ObjectExt: IsA<Object> {
     fn get_type(&self) -> Type;
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
@@ -526,6 +527,8 @@ pub trait ObjectExt {
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError>;
+
+    fn downgrade(&self) -> WeakRef<Self>;
 }
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
@@ -714,4 +717,56 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             }
         }
     }
+
+    fn downgrade(&self) -> WeakRef<T> {
+        unsafe {
+            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), self.to_glib_none().0);
+            w
+        }
+
+    }
 }
+
+pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
+
+impl<T: IsA<Object> + Cast + ?Sized> WeakRef<T> {
+    pub fn upgrade(&self) -> Option<T> {
+        unsafe {
+            let ptr = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
+            if ptr.is_null() {
+                None
+            } else {
+                let obj: Object = from_glib_full(ptr);
+                Some(Cast::downcast::<T>(obj).expect("Wrongly typed GWeakRef"))
+            }
+        }
+    }
+}
+
+impl<T: IsA<Object> + ?Sized> Drop for WeakRef<T> {
+    fn drop(&mut self) {
+        unsafe {
+            gobject_ffi::g_weak_ref_clear(mut_override(&*self.0));
+        }
+    }
+}
+
+impl<T: IsA<Object> + ?Sized> Clone for WeakRef<T> {
+    fn clone(&self) -> Self {
+        unsafe {
+            let c = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+
+            let o = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
+            gobject_ffi::g_weak_ref_init(mut_override(&*c.0), o);
+            if !o.is_null() {
+                gobject_ffi::g_object_unref(o);
+            }
+
+            c
+        }
+    }
+}
+
+unsafe impl<T: IsA<Object> + Send + Sync + ?Sized> Send for WeakRef<T> {}
+unsafe impl<T: IsA<Object> + Send + Sync + ?Sized> Sync for WeakRef<T> {}
