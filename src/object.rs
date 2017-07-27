@@ -25,6 +25,11 @@ use Closure;
 pub trait Cast: IsA<Object> {
     /// Upcasts an object to a superclass or interface `T`.
     ///
+    /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
+    /// known at compile-time, whether a specific object implements an interface or not, in which case
+    /// `upcast` would fail to compile. `dynamic_cast` can be used in these circumstances, which
+    /// is checking the types at runtime.
+    ///
     /// # Example
     ///
     /// ```ignore
@@ -43,6 +48,11 @@ pub trait Cast: IsA<Object> {
     /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
     /// otherwise.
     ///
+    /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
+    /// known at compile-time, whether a specific object implements an interface or not, in which case
+    /// `upcast` would fail to compile. `dynamic_cast` can be used in these circumstances, which
+    /// is checking the types at runtime.
+    ///
     /// # Example
     ///
     /// ```ignore
@@ -56,9 +66,39 @@ pub trait Cast: IsA<Object> {
         Downcast::downcast(self)
     }
 
-    /// Returns `true` if the object is an instance of (can be downcast to) `T`.
-    fn is<T>(&self) -> bool where Self: Downcast<T> {
-        Downcast::can_downcast(self)
+    /// Returns `true` if the object is an instance of (can be cast to) `T`.
+    fn is<T>(&self) -> bool
+    where T: StaticType {
+        types::instance_of::<T>(self.to_glib_none().0 as *const _)
+    }
+
+    /// Tries to cast to an object of type `T`. This handles upcasting, downcasting
+    /// and casting between interface and interface implementors. All checks are performed at
+    /// runtime, while `downcast` and `upcast` will do many checks at compile-time already.
+    ///
+    /// It is not always known at compile-time, whether a specific object implements an interface or
+    /// not, and checking as to be performed at runtime.
+    ///
+    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.dynamic_cast::<gtk::Widget>();
+    /// assert!(widget.is_ok);
+    /// let widget = widget.unwrap();
+    /// assert!(widget.dynamic_cast::<gtk::Button>().is_ok());
+    /// ```
+    #[inline]
+    fn dynamic_cast<T>(self) -> Result<T, Self>
+    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+        if !self.is::<T>() {
+            Err(self)
+        } else {
+            Ok(unsafe { T::from(self.into()) })
+        }
     }
 }
 
@@ -730,7 +770,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
 pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
-impl<T: IsA<Object> + Cast + ?Sized> WeakRef<T> {
+impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
     pub fn upgrade(&self) -> Option<T> {
         unsafe {
             let ptr = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
@@ -738,7 +778,7 @@ impl<T: IsA<Object> + Cast + ?Sized> WeakRef<T> {
                 None
             } else {
                 let obj: Object = from_glib_full(ptr);
-                Some(Cast::downcast::<T>(obj).expect("Wrongly typed GWeakRef"))
+                Some(T::from(obj.into()))
             }
         }
     }
