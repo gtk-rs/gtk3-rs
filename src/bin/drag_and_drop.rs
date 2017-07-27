@@ -21,7 +21,7 @@ fn main() {
     button.drag_source_set(gdk::MODIFIER_MASK, &targets, gdk::ACTION_COPY);
     button.connect_drag_data_get(|_, _, s, _, _| {
                                      let data = "I'm data!";
-                                     s.set_text(data, data.len() as i32);
+                                     s.set_text(data);
                                  });
 
     // Configure label as drag destination to receive text
