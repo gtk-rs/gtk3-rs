@@ -770,7 +770,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
 pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
-impl<T: IsA<Object> + Cast + ?Sized> WeakRef<T> {
+impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
     pub fn upgrade(&self) -> Option<T> {
         unsafe {
             let ptr = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
@@ -778,7 +778,7 @@ impl<T: IsA<Object> + Cast + ?Sized> WeakRef<T> {
                 None
             } else {
                 let obj: Object = from_glib_full(ptr);
-                Some(Cast::downcast::<T>(obj).expect("Wrongly typed GWeakRef"))
+                Some(T::from(obj.into()))
             }
         }
     }
