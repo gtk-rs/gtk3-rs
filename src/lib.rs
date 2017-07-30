@@ -122,6 +122,10 @@ pub use time_val::{
 };
 pub use enums::{
     UserDirectory,
+    EnumClass,
+    EnumValue,
+    FlagsClass,
+    FlagsValue,
 };
 
 lazy_static! {
