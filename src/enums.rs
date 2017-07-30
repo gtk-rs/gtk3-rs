@@ -8,6 +8,7 @@ use translate::*;
 use Type;
 use CStr;
 use value::Value;
+use std::cmp;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum UserDirectory {
@@ -136,7 +137,7 @@ impl Clone for EnumClass {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct EnumValue(*const gobject_ffi::GEnumValue, EnumClass);
 
 impl EnumValue {
@@ -179,6 +180,25 @@ impl EnumValue {
     }
 }
 
+impl PartialEq for EnumValue {
+    fn eq(&self, other: &Self) -> bool {
+        self.get_value().eq(&other.get_value())
+    }
+}
+
+impl Eq for EnumValue {}
+
+impl PartialOrd for EnumValue {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        self.get_value().partial_cmp(&other.get_value())
+    }
+}
+
+impl Ord for EnumValue {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
+        self.get_value().cmp(&other.get_value())
+    }
+}
 
 #[derive(Debug)]
 pub struct FlagsClass(*mut gobject_ffi::GFlagsClass);
@@ -423,7 +443,7 @@ impl Clone for FlagsClass {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct FlagsValue(*const gobject_ffi::GFlagsValue, FlagsClass);
 
 impl FlagsValue {
@@ -474,6 +494,14 @@ impl FlagsValue {
         &self.1
     }
 }
+
+impl PartialEq for FlagsValue {
+    fn eq(&self, other: &Self) -> bool {
+        self.get_value().eq(&other.get_value())
+    }
+}
+
+impl Eq for FlagsValue {}
 
 pub struct FlagsBuilder<'a>(&'a FlagsClass, Option<Value>);
 impl<'a> FlagsBuilder<'a> {
