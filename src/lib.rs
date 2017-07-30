@@ -126,6 +126,7 @@ pub use enums::{
     EnumValue,
     FlagsClass,
     FlagsValue,
+    FlagsBuilder,
 };
 
 lazy_static! {

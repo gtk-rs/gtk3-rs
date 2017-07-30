@@ -381,6 +381,20 @@ impl FlagsClass {
             }
         }
     }
+
+    pub fn builder(&self) -> FlagsBuilder {
+        FlagsBuilder::new(self)
+    }
+
+    pub fn builder_with_value(&self, value: Value) -> Option<FlagsBuilder> {
+        unsafe {
+            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+                return None;
+            }
+        }
+
+        Some(FlagsBuilder::new_with_value(self, value))
+    }
 }
 
 impl Drop for FlagsClass {
@@ -451,3 +465,71 @@ impl FlagsValue {
     }
 }
 
+pub struct FlagsBuilder<'a>(&'a FlagsClass, Option<Value>);
+impl<'a> FlagsBuilder<'a> {
+    fn new(flags_class: &FlagsClass) -> FlagsBuilder {
+        let value = unsafe {
+            let mut value = Value::uninitialized();
+            gobject_ffi::g_value_init(value.to_glib_none_mut().0, (*flags_class.0).g_type_class.g_type);
+            value
+        };
+
+        FlagsBuilder(flags_class, Some(value))
+    }
+
+    fn new_with_value(flags_class: &FlagsClass, value: Value) -> FlagsBuilder {
+        FlagsBuilder(flags_class, Some(value))
+    }
+
+    pub fn set(mut self, f: u32) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.set(value, f).ok();
+        }
+
+        self
+    }
+
+    pub fn set_by_name(mut self, name: &str) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.set_by_name(value, name).ok();
+        }
+
+        self
+    }
+
+    pub fn set_by_nick(mut self, nick: &str) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.set_by_nick(value, nick).ok();
+        }
+
+        self
+    }
+
+    pub fn unset(mut self, f: u32) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.unset(value, f).ok();
+        }
+
+        self
+    }
+
+    pub fn unset_by_name(mut self, name: &str) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.unset_by_name(value, name).ok();
+        }
+
+        self
+    }
+
+    pub fn unset_by_nick(mut self, nick: &str) -> Self {
+        if let Some(value) = self.1.take() {
+            self.1 = self.0.unset_by_nick(value, nick).ok();
+        }
+
+        self
+    }
+
+    pub fn build(self) -> Option<Value> {
+        self.1
+    }
+}
