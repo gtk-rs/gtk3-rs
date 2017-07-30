@@ -24,6 +24,8 @@ pub use self::time_zone::TimeZone;
 
 mod enums;
 pub use self::enums::ChecksumType;
+pub use self::enums::DateMonth;
+pub use self::enums::DateWeekday;
 pub use self::enums::KeyFileError;
 pub use self::enums::TimeType;
 
@@ -38,6 +40,9 @@ pub use self::flags::KEY_FILE_KEEP_COMMENTS;
 pub use self::flags::KEY_FILE_KEEP_TRANSLATIONS;
 
 mod alias;
+pub use self::alias::DateDay;
+pub use self::alias::DateYear;
+pub use self::alias::Time;
 pub use self::alias::TimeSpan;
 
 pub mod functions;

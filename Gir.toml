@@ -13,6 +13,11 @@ generate = [
     "GLib.DateTime",
     "GLib.TimeType",
     "GLib.TimeSpan",
+    "GLib.Time",
+    "GLib.DateYear",
+    "GLib.DateMonth",
+    "GLib.DateWeekday",
+    "GLib.DateDay",
 ]
 
 ignore = [

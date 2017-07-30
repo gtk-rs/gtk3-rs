@@ -49,6 +49,121 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DateMonth {
+    BadMonth,
+    January,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    September,
+    October,
+    November,
+    December,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DateMonth {
+    type GlibType = ffi::GDateMonth;
+
+    fn to_glib(&self) -> ffi::GDateMonth {
+        match *self {
+            DateMonth::BadMonth => ffi::G_DATE_BAD_MONTH,
+            DateMonth::January => ffi::G_DATE_JANUARY,
+            DateMonth::February => ffi::G_DATE_FEBRUARY,
+            DateMonth::March => ffi::G_DATE_MARCH,
+            DateMonth::April => ffi::G_DATE_APRIL,
+            DateMonth::May => ffi::G_DATE_MAY,
+            DateMonth::June => ffi::G_DATE_JUNE,
+            DateMonth::July => ffi::G_DATE_JULY,
+            DateMonth::August => ffi::G_DATE_AUGUST,
+            DateMonth::September => ffi::G_DATE_SEPTEMBER,
+            DateMonth::October => ffi::G_DATE_OCTOBER,
+            DateMonth::November => ffi::G_DATE_NOVEMBER,
+            DateMonth::December => ffi::G_DATE_DECEMBER,
+            DateMonth::__Unknown(value) => unsafe{std::mem::transmute(value)}
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDateMonth> for DateMonth {
+    fn from_glib(value: ffi::GDateMonth) -> Self {
+        match value as i32 {
+            0 => DateMonth::BadMonth,
+            1 => DateMonth::January,
+            2 => DateMonth::February,
+            3 => DateMonth::March,
+            4 => DateMonth::April,
+            5 => DateMonth::May,
+            6 => DateMonth::June,
+            7 => DateMonth::July,
+            8 => DateMonth::August,
+            9 => DateMonth::September,
+            10 => DateMonth::October,
+            11 => DateMonth::November,
+            12 => DateMonth::December,
+            value => DateMonth::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DateWeekday {
+    BadWeekday,
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DateWeekday {
+    type GlibType = ffi::GDateWeekday;
+
+    fn to_glib(&self) -> ffi::GDateWeekday {
+        match *self {
+            DateWeekday::BadWeekday => ffi::G_DATE_BAD_WEEKDAY,
+            DateWeekday::Monday => ffi::G_DATE_MONDAY,
+            DateWeekday::Tuesday => ffi::G_DATE_TUESDAY,
+            DateWeekday::Wednesday => ffi::G_DATE_WEDNESDAY,
+            DateWeekday::Thursday => ffi::G_DATE_THURSDAY,
+            DateWeekday::Friday => ffi::G_DATE_FRIDAY,
+            DateWeekday::Saturday => ffi::G_DATE_SATURDAY,
+            DateWeekday::Sunday => ffi::G_DATE_SUNDAY,
+            DateWeekday::__Unknown(value) => unsafe{std::mem::transmute(value)}
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDateWeekday> for DateWeekday {
+    fn from_glib(value: ffi::GDateWeekday) -> Self {
+        match value as i32 {
+            0 => DateWeekday::BadWeekday,
+            1 => DateWeekday::Monday,
+            2 => DateWeekday::Tuesday,
+            3 => DateWeekday::Wednesday,
+            4 => DateWeekday::Thursday,
+            5 => DateWeekday::Friday,
+            6 => DateWeekday::Saturday,
+            7 => DateWeekday::Sunday,
+            value => DateWeekday::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum KeyFileError {
     UnknownEncoding,
     Parse,
