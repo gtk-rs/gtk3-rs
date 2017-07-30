@@ -10,6 +10,9 @@ generate = [
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
+    "GLib.DateTime",
+    "GLib.TimeType",
+    "GLib.TimeSpan",
 ]
 
 ignore = [
@@ -289,3 +292,11 @@ concurrency = "send+sync"
         # Setters are generally not thread-safe
         # while GSource itself is
         ignore = true
+
+[[object]]
+name = "GLib.TimeZone"
+status = "generate"
+    [[object.function]]
+    name = "adjust_time"
+    # in-out parameter
+    ignore = true
