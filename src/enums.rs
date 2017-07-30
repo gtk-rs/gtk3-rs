@@ -57,6 +57,12 @@ impl EnumClass {
         }
     }
 
+    pub fn type_(&self) -> Type {
+        unsafe {
+            from_glib((*self.0).g_type_class.g_type)
+        }
+    }
+
     pub fn get_value(&self, value: i32) -> Option<EnumValue> {
         unsafe {
             let v = gobject_ffi::g_enum_get_value(self.0, value);
@@ -125,7 +131,7 @@ impl Drop for EnumClass {
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
         unsafe {
-            EnumClass(gobject_ffi::g_type_class_ref((*self.0).g_type_class.g_type) as *mut _)
+            EnumClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _)
         }
     }
 }
@@ -155,7 +161,7 @@ impl EnumValue {
     pub fn to_value(&self) -> Value {
         unsafe {
             let mut v = Value::uninitialized();
-            gobject_ffi::g_value_init(v.to_glib_none_mut().0, (*(self.1).0).g_type_class.g_type);
+            gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.1.type_().to_glib());
             gobject_ffi::g_value_set_enum(v.to_glib_none_mut().0, (*self.0).value);
             v
         }
@@ -186,6 +192,12 @@ impl FlagsClass {
             }
 
             Some(FlagsClass(gobject_ffi::g_type_class_ref(type_.to_glib()) as *mut _))
+        }
+    }
+
+    pub fn type_(&self) -> Type {
+        unsafe {
+            from_glib((*self.0).g_type_class.g_type)
         }
     }
 
@@ -247,7 +259,7 @@ impl FlagsClass {
 
     pub fn is_set(&self, value: &Value, f: u32) -> bool {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return false;
             }
 
@@ -258,7 +270,7 @@ impl FlagsClass {
 
     pub fn is_set_by_name(&self, value: &Value, name: &str) -> bool {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return false;
             }
 
@@ -273,7 +285,7 @@ impl FlagsClass {
 
     pub fn is_set_by_nick(&self, value: &Value, nick: &str) -> bool {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return false;
             }
 
@@ -288,7 +300,7 @@ impl FlagsClass {
 
     pub fn set(&self, mut value: Value, f: u32) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -304,7 +316,7 @@ impl FlagsClass {
 
     pub fn set_by_name(&self, mut value: Value, name: &str) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -320,7 +332,7 @@ impl FlagsClass {
 
     pub fn set_by_nick(&self, mut value: Value, nick: &str) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -336,7 +348,7 @@ impl FlagsClass {
 
     pub fn unset(&self, mut value: Value, f: u32) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -352,7 +364,7 @@ impl FlagsClass {
 
     pub fn unset_by_name(&self, mut value: Value, name: &str) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -368,7 +380,7 @@ impl FlagsClass {
 
     pub fn unset_by_nick(&self, mut value: Value, nick: &str) -> Result<Value, Value> {
         unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
+            if self.type_() != value.type_() {
                 return Err(value);
             }
 
@@ -387,10 +399,8 @@ impl FlagsClass {
     }
 
     pub fn builder_with_value(&self, value: Value) -> Option<FlagsBuilder> {
-        unsafe {
-            if (*self.0).g_type_class.g_type != value.type_().to_glib() {
-                return None;
-            }
+        if self.type_() != value.type_() {
+            return None;
         }
 
         Some(FlagsBuilder::new_with_value(self, value))
@@ -408,7 +418,7 @@ impl Drop for FlagsClass {
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
         unsafe {
-            FlagsClass(gobject_ffi::g_type_class_ref((*self.0).g_type_class.g_type) as *mut _)
+            FlagsClass(gobject_ffi::g_type_class_ref(self.type_().to_glib()) as *mut _)
         }
     }
 }
@@ -438,7 +448,7 @@ impl FlagsValue {
     pub fn to_value(&self) -> Value {
         unsafe {
             let mut v = Value::uninitialized();
-            gobject_ffi::g_value_init(v.to_glib_none_mut().0, (*(self.1).0).g_type_class.g_type);
+            gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.1.type_().to_glib());
             gobject_ffi::g_value_set_flags(v.to_glib_none_mut().0, (*self.0).value);
             v
         }
@@ -470,7 +480,7 @@ impl<'a> FlagsBuilder<'a> {
     fn new(flags_class: &FlagsClass) -> FlagsBuilder {
         let value = unsafe {
             let mut value = Value::uninitialized();
-            gobject_ffi::g_value_init(value.to_glib_none_mut().0, (*flags_class.0).g_type_class.g_type);
+            gobject_ffi::g_value_init(value.to_glib_none_mut().0, flags_class.type_().to_glib());
             value
         };
 
