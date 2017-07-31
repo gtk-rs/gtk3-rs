@@ -174,6 +174,7 @@ pub use auto::functions::*;
 mod auto;
 
 mod bytes;
+mod checksum;
 pub mod closure;
 pub mod error;
 mod enums;

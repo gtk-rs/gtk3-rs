@@ -8,6 +8,47 @@ use translate::*;
 use std;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum ChecksumType {
+    Md5,
+    Sha1,
+    Sha256,
+    #[cfg(feature = "v2_36")]
+    Sha512,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for ChecksumType {
+    type GlibType = ffi::GChecksumType;
+
+    fn to_glib(&self) -> ffi::GChecksumType {
+        match *self {
+            ChecksumType::Md5 => ffi::G_CHECKSUM_MD5,
+            ChecksumType::Sha1 => ffi::G_CHECKSUM_SHA1,
+            ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
+            #[cfg(feature = "v2_36")]
+            ChecksumType::Sha512 => ffi::G_CHECKSUM_SHA512,
+            ChecksumType::__Unknown(value) => unsafe{std::mem::transmute(value)}
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GChecksumType> for ChecksumType {
+    fn from_glib(value: ffi::GChecksumType) -> Self {
+        match value as i32 {
+            0 => ChecksumType::Md5,
+            1 => ChecksumType::Sha1,
+            2 => ChecksumType::Sha256,
+            #[cfg(feature = "v2_36")]
+            3 => ChecksumType::Sha512,
+            value => ChecksumType::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum KeyFileError {
     UnknownEncoding,
     Parse,

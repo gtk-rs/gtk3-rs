@@ -206,6 +206,25 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "GLib.Checksum"
+status = "generate"
+    [[object.function]]
+    name = "get_digest"
+    #wrong array definition
+    ignore = true
+    [[object.function]]
+    name = "get_string"
+    #consume
+    ignore = true
+
+[[object]]
+name = "GLib.ChecksumType"
+status = "generate"
+    [[object.member]]
+    name = "sha512"
+    version = "2.36"
+
+[[object]]
 name = "GLib.KeyFile"
 status = "generate"
        [[object.function]]
