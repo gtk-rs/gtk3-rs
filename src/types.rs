@@ -4,12 +4,14 @@
 
 //! Runtime type information.
 
-use translate::{FromGlib, ToGlib, from_glib};
+use translate::{FromGlib, ToGlib, from_glib, from_glib_none};
 use ffi as glib_ffi;
 use gobject_ffi;
 
+use std::fmt;
+
 /// A GLib or GLib-based library type
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq)]
 pub enum Type {
     /// An invalid `Type` used as error return value in some functions
     Invalid,
@@ -57,6 +59,26 @@ pub enum Type {
     BaseObject,
     /// A non-fundamental type identified by value of type `usize`
     Other(usize),
+}
+
+impl Type {
+    pub fn name(&self) -> String {
+        unsafe {
+            from_glib_none(gobject_ffi::g_type_name(self.to_glib()))
+        }
+    }
+}
+
+impl fmt::Debug for Type {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&self.name())
+    }
+}
+
+impl fmt::Display for Type {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(&self.name())
+    }
 }
 
 /// Types that are supported by GLib dynamic typing.
