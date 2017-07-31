@@ -48,12 +48,29 @@ impl GlibPtrDefault for Atom {
     type GlibType = ffi::GdkAtom;
 }
 
+#[doc(hidden)]
+impl Uninitialized for Atom {
+    #[inline]
+    unsafe fn uninitialized() -> Self {
+        mem::uninitialized()
+    }
+}
+
 impl<'a> ToGlibPtr<'a, ffi::GdkAtom> for Atom {
     type Storage = ();
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, ffi::GdkAtom, Atom> {
         Stash(self.0, ())
+    }
+}
+
+impl<'a> ToGlibPtrMut<'a, *mut ffi::GdkAtom> for Atom {
+    type Storage = ();
+
+    #[inline]
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::GdkAtom, Atom> {
+        StashMut(&mut self.0, ())
     }
 }
 
