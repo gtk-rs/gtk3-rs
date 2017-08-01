@@ -99,6 +99,10 @@ status = "generate"
     #manual pathbuf
     ignore = true
     [[object.function]]
+    name = "filename_from_utf8"
+    #not in 64bit lib for Windows
+    ignore = true
+    [[object.function]]
     name = "get_user_name"
     #manual pathbuf is_windows_utf8
     ignore = true
@@ -202,6 +206,25 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "GLib.Checksum"
+status = "generate"
+    [[object.function]]
+    name = "get_digest"
+    #wrong array definition
+    ignore = true
+    [[object.function]]
+    name = "get_string"
+    #consume
+    ignore = true
+
+[[object]]
+name = "GLib.ChecksumType"
+status = "generate"
+    [[object.member]]
+    name = "sha512"
+    version = "2.36"
+
+[[object]]
 name = "GLib.KeyFile"
 status = "generate"
        [[object.function]]
@@ -228,6 +251,14 @@ status = "generate"
        [[object.function]]
        name = "load_from_data"
        #gsize
+       ignore = true
+       [[object.function]]
+       name = "set_double_list"
+       #wrong array type
+       ignore = true
+       [[object.function]]
+       name = "set_integer_list"
+       #wrong array type
        ignore = true
 
 [[object]]
