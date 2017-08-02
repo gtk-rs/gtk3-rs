@@ -7,17 +7,17 @@ target_path = "."
 work_mode = "normal"
 
 generate = [
+    "GLib.DateDay",
+    "GLib.DateMonth",
+    "GLib.DateTime",
+    "GLib.DateWeekday",
+    "GLib.DateYear",
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
-    "GLib.DateTime",
+    "GLib.Time",
     "GLib.TimeType",
     "GLib.TimeSpan",
-    "GLib.Time",
-    "GLib.DateYear",
-    "GLib.DateMonth",
-    "GLib.DateWeekday",
-    "GLib.DateDay",
 ]
 
 ignore = [
