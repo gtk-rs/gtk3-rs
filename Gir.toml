@@ -13,7 +13,6 @@ generate = [
     "Pango.AttrType",
     "Pango.BidiType",
     "Pango.Color",
-    "Pango.Coverage",
     "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
@@ -105,6 +104,14 @@ status = "generate"
         [[object.function.parameter]]
         name = "language"
         const = true
+
+[[object]]
+name = "Pango.Coverage"
+status = "generate"
+    [[object.function]]
+    name = "new"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Pango.FontDescription"
