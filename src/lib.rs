@@ -21,6 +21,9 @@ mod rt;
 #[macro_use]
 mod event;
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
+#[cfg_attr(feature = "cargo-clippy", allow(unreadable_literal))]
 mod auto;
 
 pub mod prelude;

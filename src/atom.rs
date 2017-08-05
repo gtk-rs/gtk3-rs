@@ -82,7 +82,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut ffi::GdkAtom> for &'a Atom {
 
         let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
         let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
-        v_ptr.push(0 as *mut _);
+        v_ptr.push(ptr::null_mut());
 
         (v_ptr.as_ptr() as *mut ffi::GdkAtom, (v, Some(v_ptr)))
     }
