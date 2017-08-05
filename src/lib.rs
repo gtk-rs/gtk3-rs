@@ -39,4 +39,5 @@ pub mod prelude {
 
 pub use prelude::*;
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 mod auto;
