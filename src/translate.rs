@@ -1343,7 +1343,7 @@ unsafe extern "C" fn read_string_hash_table(key: glib_ffi::gpointer, value: glib
                                             hash_map: glib_ffi::gpointer) {
     let key: String = from_glib_none(key as *const c_char);
     let value: String = from_glib_none(value as *const c_char);
-    let hash_map: &mut HashMap<String, String> = mem::transmute(hash_map);
+    let hash_map: &mut HashMap<String, String> = &mut *(hash_map as *mut HashMap<String, String>);
     hash_map.insert(key, value);
 }
 
@@ -1364,7 +1364,8 @@ impl FromGlibContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<Str
 impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none(ptr: *mut glib_ffi::GHashTable) -> Self {
         let mut map = HashMap::new();
-        glib_ffi::g_hash_table_foreach(ptr, Some(read_string_hash_table), mem::transmute(&mut map));
+        glib_ffi::g_hash_table_foreach(ptr, Some(read_string_hash_table),
+                                       &mut map as *mut HashMap<String, String> as *mut _);
         map
     }
 

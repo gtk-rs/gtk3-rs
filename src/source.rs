@@ -63,6 +63,12 @@ impl CallbackGuard {
     }
 }
 
+impl Default for CallbackGuard {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Drop for CallbackGuard {
     fn drop(&mut self) {
         if thread::panicking() {
@@ -71,6 +77,7 @@ impl Drop for CallbackGuard {
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
     let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut() -> Continue + 'static>> = transmute(func);
@@ -88,6 +95,7 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
     Box::into_raw(func) as gpointer
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_child_watch(pid: u32, status: i32, func: gpointer) {
     let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut(u32, i32) + 'static>> = transmute(func);

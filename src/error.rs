@@ -85,6 +85,7 @@ impl Error {
     }
 
     // backcompat shim
+    #[cfg_attr(feature = "cargo-clippy", allow(not_unsafe_ptr_arg_deref))]
     pub fn wrap(ptr: *mut glib_ffi::GError) -> Error {
         unsafe { from_glib_full(ptr) }
     }

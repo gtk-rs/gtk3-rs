@@ -71,6 +71,8 @@
 //! conversions between high level Rust types (including the aforementioned
 //! wrappers) and their FFI counterparts.
 
+#![cfg_attr(feature = "cargo-clippy", allow(doc_markdown))]
+
 #[macro_use]
 extern crate bitflags;
 #[macro_use]
@@ -171,6 +173,9 @@ pub mod object;
 
 pub use auto::*;
 pub use auto::functions::*;
+#[cfg_attr(feature = "cargo-clippy", allow(let_and_return))]
+#[cfg_attr(feature = "cargo-clippy", allow(let_unit_value))]
+#[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 mod auto;
 
 mod bytes;

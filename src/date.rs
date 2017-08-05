@@ -307,6 +307,12 @@ impl Date {
     }
 }
 
+impl Default for Date {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl PartialEq for Date {
     #[inline]
     fn eq(&self, other: &Self) -> bool {

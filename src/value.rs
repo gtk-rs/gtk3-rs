@@ -250,7 +250,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
     }
 
     fn to_glib_container_from_slice(t: &'a [&'a Value]) -> (*mut gobject_ffi::GValue, &'a [&'a Value]) {
-        if t.len() == 0 {
+        if t.is_empty() {
             return (ptr::null_mut(), t);
         }
 
@@ -262,7 +262,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
     }
 
     fn to_glib_full_from_slice(t: &[&'a Value]) -> *mut gobject_ffi::GValue {
-        if t.len() == 0 {
+        if t.is_empty() {
             return ptr::null_mut();
         }
 

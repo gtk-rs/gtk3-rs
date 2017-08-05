@@ -47,7 +47,7 @@ impl Drop for VariantType {
 
 impl Borrow<VariantTy> for VariantType {
     fn borrow(&self) -> &VariantTy {
-        &self
+        self
     }
 }
 

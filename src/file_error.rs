@@ -70,6 +70,7 @@ impl ErrorDomain for FileError {
         }
     }
 
+    #[cfg_attr(feature = "cargo-clippy", allow(cyclomatic_complexity))]
     fn from(code: i32) -> Option<Self> {
         use self::FileError::*;
         match code {
