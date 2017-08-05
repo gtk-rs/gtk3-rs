@@ -69,6 +69,7 @@ impl WindowAttr {
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 impl<'a> ToGlibPtr<'a, *mut ffi::GdkWindowAttr> for WindowAttr {
     type Storage = (
         Box<ffi::GdkWindowAttr>,
@@ -124,7 +125,8 @@ impl Window {
 pub trait WindowExtManual {
     unsafe fn set_user_data<T>(&self, user_data: &mut T);
 
-    unsafe fn get_user_data<'a, T>(&'a self) -> &'a mut T;
+    #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
+    unsafe fn get_user_data<T>(&self) -> &mut T;
 
     fn set_geometry_hints(&self, geometry: &ffi::GdkGeometry, geom_mask: WindowHints);
 
@@ -141,13 +143,13 @@ pub trait WindowExtManual {
 
 impl<O: IsA<Window>> WindowExtManual for O {
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
-        ffi::gdk_window_set_user_data(self.to_glib_none().0, ::std::mem::transmute(user_data))
+        ffi::gdk_window_set_user_data(self.to_glib_none().0, user_data as *mut T as *mut _)
     }
 
-    unsafe fn get_user_data<'a, T>(&'a self) -> &'a mut T {
+    unsafe fn get_user_data<T>(&self) -> &mut T {
         let mut pointer = ::std::ptr::null_mut();
         ffi::gdk_window_get_user_data(self.to_glib_none().0, &mut pointer);
-        ::std::mem::transmute(pointer)
+        &mut *(pointer as *mut T)
     }
 
     fn set_geometry_hints(&self, geometry: &ffi::GdkGeometry, geom_mask: WindowHints) {

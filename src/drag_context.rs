@@ -26,6 +26,7 @@ pub trait DragContextExtManual {
     fn drag_find_window_for_screen(&self, drag_window: &Window, screen: &Screen,
                                        x_root: i32, y_root: i32) -> (Option<Window>, DragProtocol);
 
+    #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
     fn drag_motion(&self, dest_window: &Window, protocol: DragProtocol, x_root: i32,
                        y_root: i32, suggested_action: DragAction, possible_actions: DragAction,
                        time_: u32) -> bool;
