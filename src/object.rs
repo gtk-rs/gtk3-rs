@@ -675,21 +675,19 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 if return_type == gobject_ffi::G_TYPE_NONE {
                     // Silently drop return value, if any
                     None
-                } else {
-                    // Silently create empty return value
-                    if let Some(ret) = ret {
-                        if ret.type_().to_glib() == return_type {
-                            Some(ret)
-                        } else {
-                            let mut value = Value::uninitialized();
-                            gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
-                            Some(value)
-                        }
+                } else if let Some(ret) = ret {
+                    if ret.type_().to_glib() == return_type {
+                        Some(ret)
                     } else {
                         let mut value = Value::uninitialized();
                         gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
                         Some(value)
                     }
+                } else {
+                    // Silently create empty return value
+                    let mut value = Value::uninitialized();
+                    gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
+                    Some(value)
                 }
             });
             let handler = gobject_ffi::g_signal_connect_closure_by_id(self.to_glib_none().0, signal_id, signal_detail,

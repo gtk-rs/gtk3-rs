@@ -52,6 +52,7 @@ impl MainContext {
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
     let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut() + 'static>> = transmute(func);

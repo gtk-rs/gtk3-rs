@@ -396,7 +396,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Deref for Boxed<T, MM> {
     fn deref(&self) -> &T {
         unsafe {
             // This is safe because the pointer will remain valid while self is borrowed
-            mem::transmute(self.to_glib_none().0)
+            &*self.to_glib_none().0
         }
     }
 }
@@ -405,7 +405,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> DerefMut for Boxed<T, MM> {
     fn deref_mut(&mut self) -> &mut T {
         unsafe {
             // This is safe because the pointer will remain valid while self is borrowed
-            mem::transmute(self.to_glib_none_mut().0)
+            &mut *self.to_glib_none_mut().0
         }
     }
 }
