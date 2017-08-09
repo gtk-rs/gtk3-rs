@@ -65,14 +65,17 @@ unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, l
 impl ImageSurface {
     pub fn create_from_png<R: Read>(stream: &mut R) -> Result<ImageSurface, IoError> {
         let mut env = ReadEnv{ reader: stream, error: None };
-        let surface: ImageSurface = unsafe { ImageSurface::from_raw_full(ffi::cairo_image_surface_create_from_png_stream(
-            Some(read_func::<R>), &mut env as *mut ReadEnv<R> as *mut c_void)) };
-        match env.error {
-            None => match surface.as_ref().status() {   // The surface migth still be "nil" if the error occured in Cairo
-                Status::Success => Ok(surface),
-                st => Err(IoError::Cairo(st)),
-            },
-            Some(err) => Err(IoError::Io(err)),
+        unsafe {
+            let raw_surface = ffi::cairo_image_surface_create_from_png_stream(
+                Some(read_func::<R>),
+                &mut env as *mut ReadEnv<R> as *mut c_void);
+
+            let surface = ImageSurface::from_raw_full(raw_surface)?;
+
+            match env.error {
+                None => Ok(surface),
+                Some(err) => Err(IoError::Io(err)),
+            }
         }
     }
 
@@ -86,6 +89,77 @@ impl ImageSurface {
                 st => Err(IoError::Cairo(st)),
             },
             Some(err) => Err(IoError::Io(err)),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::io::ErrorKind;
+    use super::*;
+    use ffi::enums::Format;
+
+    struct IoErrorReader;
+
+    // A reader that always returns an error
+    impl Read for IoErrorReader {
+        fn read(&mut self, _: &mut [u8]) -> Result<usize, Error> {
+            Err(Error::new(ErrorKind::Other, "yikes!"))
+        }
+    }
+
+    #[test]
+    fn valid_png_reads_correctly() {
+        // A 1x1 PNG, RGB, no alpha, with a single pixel with (42, 42, 42) values
+        let png_data: Vec<u8> = vec![
+            0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,  0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
+            0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,  0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
+            0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41,  0x54, 0x08, 0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02,
+            0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,  0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e,
+            0x44, 0xae, 0x42, 0x60, 0x82
+        ];
+
+        let r = ImageSurface::create_from_png(&mut &png_data[..]);
+        assert!(r.is_ok());
+
+        let mut surface = r.unwrap();
+        assert!(surface.get_width() == 1);
+        assert!(surface.get_height() == 1);
+        assert!(surface.get_format() == Format::Rgb24);
+
+        let data = surface.get_data().unwrap();
+        assert!(data.len() >= 3);
+
+        let slice = &data[0..3];
+        assert!(slice[0] == 42);
+        assert!(slice[1] == 42);
+        assert!(slice[2] == 42);
+    }
+
+    #[test]
+    fn invalid_png_yields_error() {
+        let png_data: Vec<u8> = vec![
+            //      v--- this byte is modified
+            0x89, 0x40, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,  0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
+            0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,  0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
+            0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41,  0x54, 0x08, 0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02,
+            0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,  0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e,
+            0x44, 0xae, 0x42, 0x60, 0x82
+        ];
+
+        match ImageSurface::create_from_png(&mut &png_data[..]) {
+            Err(IoError::Cairo(_)) => (),
+            _ => unreachable!()
+        }
+    }
+
+    #[test]
+    fn io_error_yields_cairo_read_error() {
+        let mut r = IoErrorReader;
+
+        match ImageSurface::create_from_png(&mut r) {
+            Err(IoError::Cairo(Status::ReadError)) => (),
+            _ => unreachable!()
         }
     }
 }
