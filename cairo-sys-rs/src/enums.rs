@@ -49,7 +49,10 @@ pub enum Status {
     DeviceFinished,
     // CAIRO_MIME_TYPE_JBIG2_GLOBAL_ID has been used on at least one image but no
     // image provided `JBig2Global` (Since 1.14)
-    // JBig2GlobalMissing,
+    JBig2GlobalMissing,
+    PngError,
+    FreetypeError,
+    Win32GdiError,
     LastStatus
 }
 
