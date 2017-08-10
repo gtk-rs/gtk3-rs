@@ -89,7 +89,7 @@ fn main() {
         // wrap the first one in a surface and set it up to be sent to the
         // worker when the surface is destroyed
         images.push(ImageSurface::create_for_data(buf0, clone!(tx => move |b| { let _ = tx.send(b); }),
-            format, width, height, stride));
+            format, width, height, stride).expect("Can't create surface"));
         // send the second one immediately
         let _ = tx.send(buf1);
         origins.push(match thread_num {
@@ -112,7 +112,7 @@ fn main() {
                 // create the surface and send the buffer back when it's destroyed
                 let image = ImageSurface::create_for_data(buf,
                     clone!(ready_tx => move |b| { let _ = ready_tx.send((thread_num, b)); }),
-                    format, width, height, stride);
+                    format, width, height, stride).expect("Can't create surface");
                 let cr = Context::new(&image);
                 // draw an arc with a weirdly calculated radius
                 draw_slow(&cr, delay, x, y, 1.2_f64.powi(((n as i32) << thread_num) % 32));
@@ -142,7 +142,7 @@ fn main() {
             let &mut (ref mut images, ref origins, ref workers) = &mut *cell.borrow_mut();
             let tx = workers[thread_num].clone();
             let mut image = ImageSurface::create_for_data(buf, move |b| { let _ = tx.send(b); },
-                format, width, height, stride);
+                format, width, height, stride).expect("Can't create surface");
             mem::swap(&mut images[thread_num], &mut image);
             area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, width, height);
         }
@@ -154,7 +154,7 @@ fn main() {
 }
 
 fn draw_initial(format: Format, width: i32, height: i32) -> (Box<[u8]>, i32) {
-    let mut image = ImageSurface::create(format, width, height);
+    let mut image = ImageSurface::create(format, width, height).expect("Can't create surface");
     {
         let cr = Context::new(&image);
         cr.set_source_rgb(0., 1., 0.);

@@ -10,7 +10,7 @@ use std::fs::File;
 use cairo::{Context, Format, ImageSurface};
 
 fn main() {
-    let surface = ImageSurface::create(Format::ARgb32, 120, 120);
+    let surface = ImageSurface::create(Format::ARgb32, 120, 120).expect("Can't create surface");
     let cr = Context::new(&surface);
     // Examples are in 1.0 x 1.0 coordinate space
     cr.scale(120.0, 120.0);
