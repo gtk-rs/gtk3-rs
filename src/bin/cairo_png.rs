@@ -21,7 +21,7 @@ fn main() {
     cr.rectangle(0.25, 0.25, 0.5, 0.5);
     cr.stroke();
 
-    let mut file = File::create("file.png").unwrap();
+    let mut file = File::create("file.png").expect("Couldn't create 'file.png'");
     match surface.write_to_png(&mut file) {
         Ok(_) => println!("file.png created"),
         Err(_) => println!("Error create file.png"),

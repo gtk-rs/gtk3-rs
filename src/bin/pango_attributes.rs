@@ -30,21 +30,25 @@ fn main() {
     let label = gtk::Label::new("Some text");
     let attr_list = pango::AttrList::new();
 
-    let mut attr = pango::Attribute::new_background(65535, 0, 0).unwrap();
+    let mut attr = pango::Attribute::new_background(65535, 0, 0)
+                                    .expect("Couldn't create new background");
     attr.set_start_index(0);
     attr.set_end_index(2);
     attr_list.insert(attr);
 
-    let mut attr = pango::Attribute::new_underline(pango::Underline::Single).unwrap();
+    let mut attr = pango::Attribute::new_underline(pango::Underline::Single)
+                                    .expect("Couldn't create new underline");
     attr.set_start_index(1);
     attr.set_end_index(4);
     attr_list.insert(attr);
 
-    let mut attr = pango::Attribute::new_strikethrough(true).unwrap();
+    let mut attr = pango::Attribute::new_strikethrough(true)
+                                    .expect("Couldn't create new strikethrough");
     attr.set_start_index(5);
     attr_list.insert(attr);
 
-    let mut attr = pango::Attribute::new_scale(1.2).unwrap();
+    let mut attr = pango::Attribute::new_scale(1.2)
+                                    .expect("Couldn't create new scale");
     attr.set_start_index(6);
     attr_list.insert(attr);
 

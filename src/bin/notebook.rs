@@ -35,7 +35,8 @@ impl Notebook {
 
         let notebook_clone = self.notebook.clone();
         button.connect_clicked(move |_| {
-            let index = notebook_clone.page_num(&widget).unwrap();
+            let index = notebook_clone.page_num(&widget)
+                                      .expect("Couldn't get page_num from notebook_clone");
             notebook_clone.remove_page(Some(index));
         });
 

@@ -18,11 +18,13 @@ pub fn main() {
     }
     let glade_src = include_str!("text_viewer.glade");
     let builder = Builder::new();
-    builder.add_from_string(glade_src).unwrap();
+    builder.add_from_string(glade_src).expect("Couldn't add from string");
 
-    let window: gtk::Window = builder.get_object("window").unwrap();
-    let open_button: gtk::ToolButton = builder.get_object("open_button").unwrap();
-    let text_view: gtk::TextView = builder.get_object("text_view").unwrap();
+    let window: gtk::Window = builder.get_object("window").expect("Couldn't get window");
+    let open_button: gtk::ToolButton = builder.get_object("open_button")
+                                              .expect("Couldn't get builder");
+    let text_view: gtk::TextView = builder.get_object("text_view")
+                                          .expect("Couldn't get text_view");
 
     let window1 = window.clone();
     open_button.connect_clicked(move |_| {
@@ -34,14 +36,14 @@ pub fn main() {
             ("Cancel", gtk::ResponseType::Cancel.into()),
         ]);
         if file_chooser.run() == gtk::ResponseType::Ok.into() {
-            let filename = file_chooser.get_filename().unwrap();
-            let file = File::open(&filename).unwrap();
+            let filename = file_chooser.get_filename().expect("Couldn't get filename");
+            let file = File::open(&filename).expect("Couldn't open file");
 
             let mut reader = BufReader::new(file);
             let mut contents = String::new();
             let _ = reader.read_to_string(&mut contents);
 
-            text_view.get_buffer().unwrap().set_text(&contents);
+            text_view.get_buffer().expect("Couldn't get window").set_text(&contents);
         }
 
         file_chooser.destroy();
