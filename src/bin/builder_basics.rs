@@ -19,9 +19,10 @@ mod example {
         let glade_src = include_str!("builder_basics.glade");
         let builder = Builder::new_from_string(glade_src);
 
-        let window: Window = builder.get_object("window1").unwrap();
-        let bigbutton: Button = builder.get_object("button1").unwrap();
-        let dialog: MessageDialog = builder.get_object("messagedialog1").unwrap();
+        let window: Window = builder.get_object("window1").expect("Couldn't get window1");
+        let bigbutton: Button = builder.get_object("button1").expect("Couldn't get button1");
+        let dialog: MessageDialog = builder.get_object("messagedialog1")
+                                           .expect("Couldn't get messagedialog1");
 
         window.connect_delete_event(|_, _| {
             gtk::main_quit();

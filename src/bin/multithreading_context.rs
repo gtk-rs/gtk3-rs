@@ -33,15 +33,18 @@ fn main() {
     let (tx, rx) = channel();
     // put TextBuffer and receiver in thread local storage
     GLOBAL.with(move |global| {
-        *global.borrow_mut() = Some((text_view.get_buffer().unwrap(), rx))
+        *global.borrow_mut() = Some((text_view.get_buffer()
+                                              .expect("Couldn't get buffer from text_view"),
+                                     rx))
     });
-    
+
     thread::spawn(move|| {
         for i in 1..100 {
             // do long work
             thread::sleep(Duration::from_millis(50));
             // send result to channel
-            tx.send(format!("#{} Text from another thread.", i)).unwrap();
+            tx.send(format!("#{} Text from another thread.", i))
+              .expect("Couldn't send data to channel");
             // receive will be run on the main thread
             glib::idle_add(receive);
         }

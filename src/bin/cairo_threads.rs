@@ -162,7 +162,7 @@ fn draw_initial(format: Format, width: i32, height: i32) -> (Box<[u8]>, i32) {
         // Destroying the context releases its reference to `image`.
     }
     // We have a unique reference to `image` again.
-    let buf = image.get_data().unwrap().to_vec();
+    let buf = image.get_data().expect("Couldn't get data from image").to_vec();
     (buf.into_boxed_slice(), image.get_stride())
 }
 
