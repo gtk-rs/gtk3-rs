@@ -4,6 +4,8 @@
 
 use std::fmt::{Error, Debug};
 use std::ffi::CStr;
+use std::i32;
+use std::u32;
 
 #[repr(C)]
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -304,10 +306,45 @@ pub enum Format {
     Rgb30 = 5,
 }
 
+impl Format {
+    pub fn stride_for_width(&self, width: u32) -> Result<i32, ()> {
+        assert!(width <= i32::MAX as u32);
+        let width = width as i32;
+
+        let stride = unsafe { super::cairo_format_stride_for_width(*self, width) };
+        if stride == -1 {
+            Err(())
+        } else {
+            Ok(stride)
+        }
+    }
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RegionOverlap {
     In,
     Out,
     Part,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn stride_panics_on_bad_value() {
+        let _ = Format::Rgb24.stride_for_width(u32::MAX);
+    }
+
+    #[test]
+    fn stride_errors_on_large_width() {
+        assert!(Format::Rgb24.stride_for_width(i32::MAX as u32).is_err());
+    }
+
+    #[test]
+    fn stride_works() {
+        assert!(Format::Rgb24.stride_for_width(1).unwrap() == 4);
+    }
 }

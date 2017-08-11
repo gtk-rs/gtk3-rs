@@ -486,6 +486,7 @@ extern "C" {
     pub fn cairo_image_surface_get_height(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_stride(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_width(surface: *mut cairo_surface_t) -> c_int;
+    pub fn cairo_format_stride_for_width(format: Format, width: c_int) -> c_int;
     #[cfg(feature = "png")]
     pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
     #[cfg(feature = "png")]
