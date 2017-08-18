@@ -561,7 +561,7 @@ pub trait ObjectExt: IsA<Object> {
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
-    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool;
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
@@ -583,8 +583,8 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
-        if !self.has_property(property_name, Some(value.type_())) {
-            return Err(BoolError("Invalid property name"));
+        if let Err(error) = self.has_property(property_name, Some(value.type_())) {
+            return Err(error);
         }
 
         unsafe {
@@ -617,14 +617,20 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         }
     }
 
-    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> bool {
+    fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError> {
         let property_name = property_name.into();
         let ptype = self.get_property_type(property_name);
 
         match (ptype, type_) {
-            (None, _) => false,
-            (Some(_), None) => true,
-            (Some(ptype), Some(type_)) => ptype == type_,
+            (None, _) => Err(BoolError("Invalid property name")),
+            (Some(_), None) => Ok(()),
+            (Some(ptype), Some(type_)) => {
+                if ptype == type_ {
+                    Ok(())
+                } else {
+                    Err(BoolError("Invalid property type"))
+                }
+            },
         }
     }
 
