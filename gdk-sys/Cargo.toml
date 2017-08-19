@@ -2,55 +2,55 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-bitflags = "0.9"
 libc = "0.2"
+bitflags = "0.9"
 
 [dependencies.cairo-sys-rs]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/cairo"
-version = "0.3.4"
 
 [dependencies.gdk-pixbuf-sys]
+version = "0.4.0"
 path = "../gdk-pixbuf-sys"
-version = "0.3.4"
 
 [dependencies.gio-sys]
+version = "0.4.0"
 path = "../gio-sys"
-version = "0.3.4"
 
 [dependencies.glib-sys]
+version = "0.4.0"
 path = "../glib-sys"
-version = "0.3.4"
 
 [dependencies.gobject-sys]
+version = "0.4.0"
 path = "../gobject-sys"
-version = "0.3.4"
 
 [dependencies.pango-sys]
+version = "0.4.0"
 path = "../pango-sys"
-version = "0.3.4"
 
 [features]
-v3_10 = ["v3_8"]
-v3_12 = ["v3_10"]
-v3_14 = ["v3_12"]
-v3_16 = ["v3_14"]
-v3_18 = ["v3_16"]
 v3_20 = ["v3_18"]
-v3_22 = ["v3_20"]
 v3_6 = []
+v3_18 = ["v3_16"]
+v3_22 = ["v3_20"]
+v3_12 = ["v3_10"]
 v3_8 = ["v3_6"]
+v3_16 = ["v3_14"]
+v3_10 = ["v3_8"]
+v3_14 = ["v3_12"]
 
 [lib]
 name = "gdk_sys"
 
 [package]
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-description = "FFI bindings to libgdk-3"
-homepage = "http://gtk-rs.org/"
-keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-links = "gdk"
 name = "gdk-sys"
+license = "MIT"
+homepage = "http://gtk-rs.org/"
+links = "gdk"
+authors = ["The Gtk-rs Project Developers"]
+description = "FFI bindings to libgdk-3"
+version = "0.4.0"
+keywords = ["gdk", "ffi", "gtk-rs", "gnome"]
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
+build = "build.rs"

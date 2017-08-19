@@ -2,38 +2,38 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-bitflags = "0.9"
 libc = "0.2"
+bitflags = "0.9"
 
 [dependencies.glib-sys]
+version = "0.4.0"
 path = "../glib-sys"
-version = "0.3.4"
 
 [dependencies.gobject-sys]
+version = "0.4.0"
 path = "../gobject-sys"
-version = "0.3.4"
 
 [features]
-v2_10 = ["v2_9_4"]
-v2_12 = ["v2_10"]
 v2_14 = ["v2_12"]
-v2_7_4 = []
 v2_7_90 = ["v2_7_4"]
-v2_8 = ["v2_7_90"]
-v2_9_3 = ["v2_8"]
+v2_12 = ["v2_10"]
+v2_10 = ["v2_9_4"]
 v2_9_4 = ["v2_9_3"]
+v2_9_3 = ["v2_8"]
+v2_8 = ["v2_7_90"]
+v2_7_4 = []
 
 [lib]
 name = "atk_sys"
 
 [package]
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-description = "FFI bindings to libatk-1"
-homepage = "http://gtk-rs.org/"
-keywords = ["atk", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-links = "atk"
 name = "atk-sys"
+license = "MIT"
+homepage = "http://gtk-rs.org/"
+links = "atk"
+authors = ["The Gtk-rs Project Developers"]
+description = "FFI bindings to libatk-1"
+version = "0.4.0"
+keywords = ["atk", "ffi", "gtk-rs", "gnome"]
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
+build = "build.rs"
