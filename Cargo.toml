@@ -17,10 +17,8 @@ keywords = ["gdk", "gtk", "gtk-rs", "gnome", "GUI"]
 name = "gdk"
 
 [features]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs",
-    "gio/embed-lgpl-docs"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs",
-    "gio/purge-lgpl-docs"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs", "gio/embed-lgpl-docs"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs", "gio/purge-lgpl-docs"]
 v3_6 = ["gdk-sys/v3_6"]
 v3_8 = ["v3_6", "gdk-sys/v3_8", "gdk-pixbuf/v2_28", "gio/v2_34", "pango/v1_32_4"]
 v3_10 = ["v3_8", "gdk-sys/v3_10", "cairo-rs/v1_12", "gio/v2_36"]
