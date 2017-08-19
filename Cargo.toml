@@ -1,75 +1,73 @@
 [package]
 name = "gdk"
-version = "0.5.3"
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-readme = "README.md"
-
-description = "Rust bindings for the GDK 3 library"
-repository = "https://github.com/gtk-rs/gdk"
 license = "MIT"
 homepage = "http://gtk-rs.org/"
-documentation = "http://gtk-rs.org/docs/gdk/"
-
+authors = ["The Gtk-rs Project Developers"]
 keywords = ["gdk", "gtk", "gtk-rs", "gnome", "GUI"]
+readme = "README.md"
+documentation = "http://gtk-rs.org/docs/gdk/"
+version = "0.6.0"
+description = "Rust bindings for the GDK 3 library"
+repository = "https://github.com/gtk-rs/gdk"
+build = "build.rs"
 
 [lib]
 name = "gdk"
 
 [features]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs", "gio/embed-lgpl-docs"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs", "gio/purge-lgpl-docs"]
 v3_6 = ["gdk-sys/v3_6"]
-v3_8 = ["v3_6", "gdk-sys/v3_8", "gdk-pixbuf/v2_28", "gio/v2_34", "pango/v1_32_4"]
-v3_10 = ["v3_8", "gdk-sys/v3_10", "cairo-rs/v1_12", "gio/v2_36"]
-v3_12 = ["v3_10", "gdk-sys/v3_12", "gio/v2_38"]
-v3_14 = ["v3_12", "gdk-sys/v3_14", "gdk-pixbuf/v2_30", "gio/v2_40", "pango/v1_34"]
-v3_16 = ["v3_14", "gdk-sys/v3_16", "gio/v2_42"]
-v3_18 = ["v3_16", "gdk-sys/v3_18", "gio/v2_44"]
 v3_20 = ["v3_18", "gdk-sys/v3_20", "gio/v2_48"]
+v3_18 = ["v3_16", "gdk-sys/v3_18", "gio/v2_44"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs", "gdk-pixbuf/purge-lgpl-docs", "gio/purge-lgpl-docs"]
 v3_22 = ["v3_20", "gdk-sys/v3_22"]
+v3_12 = ["v3_10", "gdk-sys/v3_12", "gio/v2_38"]
+v3_8 = ["v3_6", "gdk-sys/v3_8", "gdk-pixbuf/v2_28", "gio/v2_34", "pango/v1_32_4"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/embed-lgpl-docs", "gio/embed-lgpl-docs"]
+v3_16 = ["v3_14", "gdk-sys/v3_16", "gio/v2_42"]
+v3_10 = ["v3_8", "gdk-sys/v3_10", "cairo-rs/v1_12", "gio/v2_36"]
+v3_14 = ["v3_12", "gdk-sys/v3_14", "gdk-pixbuf/v2_30", "gio/v2_40", "pango/v1_34"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
-git = "https://github.com/gtk-rs/lgpl-docs"
 version = "0.1.3"
 optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
 bitflags = "0.9"
 
 [dependencies.glib-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
 
 [dependencies.gdk-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
 
 [dependencies.gobject-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
 
 [dependencies.cairo-sys-rs]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/cairo"
-version = "0.3.4"
 
 [dependencies.cairo-rs]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/cairo"
-version = "0.1.3"
 
 [dependencies.gdk-pixbuf]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/gdk-pixbuf"
-version = "0.1.3"
 
 [dependencies.gio]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/gio"
-version = "0.1.3"
 
 [dependencies.glib]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/glib"
-version = "0.1.3"
 
 [dependencies.pango]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/pango"
-version = "0.1.3"
