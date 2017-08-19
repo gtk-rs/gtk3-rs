@@ -1,54 +1,53 @@
 [package]
 name = "gio"
-version = "0.1.3"
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-readme = "README.md"
-
-description = "Rust bindings for the GLib library"
-repository = "https://github.com/gtk-rs/gio"
 license = "MIT"
 homepage = "http://gtk-rs.org/"
-documentation = "http://gtk-rs.org/docs/gio/"
+authors = ["The Gtk-rs Project Developers"]
 keywords = ["glib", "gio", "gtk-rs", "gnome"]
+readme = "README.md"
+documentation = "http://gtk-rs.org/docs/gio/"
+version = "0.2.0"
+description = "Rust bindings for the GLib library"
+repository = "https://github.com/gtk-rs/gio"
+build = "build.rs"
 
 [lib]
 name = "gio"
 
 [features]
-embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+v2_46 = ["v2_44", "gio-sys/v2_46"]
 v2_34 = ["gio-sys/v2_34"]
-v2_36 = ["v2_34", "gio-sys/v2_36"]
-v2_38 = ["v2_36", "gio-sys/v2_38"]
-v2_40 = ["v2_38", "gio-sys/v2_40"]
 v2_42 = ["v2_40", "gio-sys/v2_42"]
 v2_44 = ["v2_42", "gio-sys/v2_44"]
-v2_46 = ["v2_44", "gio-sys/v2_46"]
-v2_48 = ["v2_46", "gio-sys/v2_48"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+v2_38 = ["v2_36", "gio-sys/v2_38"]
 v2_50 = ["v2_48", "gio-sys/v2_50"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+v2_48 = ["v2_46", "gio-sys/v2_48"]
+v2_36 = ["v2_34", "gio-sys/v2_36"]
+v2_40 = ["v2_38", "gio-sys/v2_40"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
-git = "https://github.com/gtk-rs/lgpl-docs"
 version = "0.1.3"
 optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
-bitflags = "0.9"
 libc = "0.2"
+bitflags = "0.9"
 
 [dependencies.gio-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
 
 [dependencies.glib-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
 
 [dependencies.glib]
+version = "0.2.0"
 git = "https://github.com/gtk-rs/glib"
-version = "0.1.3"
 
 [dependencies.gobject-sys]
+version = "0.4.0"
 git = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
