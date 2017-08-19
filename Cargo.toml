@@ -3,6 +3,7 @@ name = "gdk"
 version = "0.5.3"
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
+readme = "README.md"
 
 description = "Rust bindings for the GDK 3 library"
 repository = "https://github.com/gtk-rs/gdk"
