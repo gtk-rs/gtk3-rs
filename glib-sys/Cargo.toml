@@ -2,30 +2,30 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-bitflags = "0.9"
 libc = "0.2"
+bitflags = "0.9"
 
 [features]
-v2_34 = []
-v2_36 = ["v2_34"]
-v2_38 = ["v2_36"]
-v2_40 = ["v2_38"]
-v2_44 = ["v2_40"]
 v2_46 = ["v2_44"]
+v2_34 = []
+v2_44 = ["v2_40"]
+v2_40 = ["v2_38"]
 v2_48 = ["v2_46"]
 v2_50 = ["v2_48"]
+v2_38 = ["v2_36"]
+v2_36 = ["v2_34"]
 
 [lib]
 name = "glib_sys"
 
 [package]
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-description = "FFI bindings to libglib-2.0"
-homepage = "http://gtk-rs.org/"
-keywords = ["glib", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-links = "glib"
 name = "glib-sys"
+license = "MIT"
+homepage = "http://gtk-rs.org/"
+links = "glib"
+authors = ["The Gtk-rs Project Developers"]
+description = "FFI bindings to libglib-2.0"
+version = "0.4.0"
+keywords = ["glib", "ffi", "gtk-rs", "gnome"]
 repository = "https://github.com/gtk-rs/sys"
-version = "0.3.4"
+build = "build.rs"
