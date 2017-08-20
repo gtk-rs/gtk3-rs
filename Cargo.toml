@@ -8,10 +8,11 @@ glib = "^0"
 gdk = "^0"
 gdk-pixbuf = "^0"
 gtk = "^0"
-cairo-rs = "^0"
+pango = "^0"
+cairo-rs = { version = "^0", features = ["png"] }
 
 [features]
-#default = ["gtk_3_20"]
+#default = ["gtk_3_22"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools

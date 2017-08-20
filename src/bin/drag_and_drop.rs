@@ -21,13 +21,15 @@ fn main() {
     button.drag_source_set(gdk::MODIFIER_MASK, &targets, gdk::ACTION_COPY);
     button.connect_drag_data_get(|_, _, s, _, _| {
                                      let data = "I'm data!";
-                                     s.set_text(data, data.len() as i32);
+                                     s.set_text(data);
                                  });
 
     // Configure label as drag destination to receive text
     let label = gtk::Label::new("Drop here");
     label.drag_dest_set(gtk::DEST_DEFAULT_ALL, &targets, gdk::ACTION_COPY);
-    label.connect_drag_data_received(|w, _, _, _, s, _, _| { w.set_text(&s.get_text().unwrap()); });
+    label.connect_drag_data_received(|w, _, _, _, s, _, _| {
+        w.set_text(&s.get_text().expect("Couldn't get text"));
+    });
 
     // Stack the button and label horizontally
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 0);

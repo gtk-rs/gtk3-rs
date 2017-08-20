@@ -17,4 +17,4 @@ if [ -n "$BUNDLE" ]; then
 	export PKG_CONFIG_PATH="$HOME/local/lib/pkgconfig"
 fi
 
-cargo build --features "$FEATURES"
+cargo build --features "$FEATURES" --jobs 1 "$@"
