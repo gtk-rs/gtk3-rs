@@ -32,7 +32,7 @@ mod example {
     }
 
     fn about_clicked(button: &Button, builder: &Builder) {
-        let dialog: AboutDialog = builder.get_object("dialog").unwrap();
+        let dialog: AboutDialog = builder.get_object("dialog").expect("Couldn't get dialog");
         if let Some(window) = button.get_toplevel().and_then(|w| w.downcast::<Window>().ok()) {
             dialog.set_transient_for(Some(&window));
         }
@@ -56,18 +56,19 @@ mod example {
         let glade_src = include_str!("gtktest.glade");
         let builder = Builder::new_from_string(glade_src);
 
-        let spinner: Spinner = builder.get_object("spinner").unwrap();
+        let spinner: Spinner = builder.get_object("spinner").expect("Couldn't get spinner");
         spinner.start();
 
-        let scale: Scale = builder.get_object("scale").unwrap();
+        let scale: Scale = builder.get_object("scale").expect("Couldn't get scale");
         scale.connect_format_value(|scale, value| {
             let digits = scale.get_digits() as usize;
             format!("<{:.*}>", digits, value)
         });
 
-        let spin_button: SpinButton = builder.get_object("spin_button").unwrap();
+        let spin_button: SpinButton = builder.get_object("spin_button")
+                                             .expect("Couldn't get spin_button");
         spin_button.connect_input(|spin_button| {
-            let text = spin_button.get_text().unwrap();
+            let text = spin_button.get_text().expect("Couldn't get text from spin_button");
             println!("spin_button_input: \"{}\"", text);
             match text.parse::<f64>() {
                 Ok(value) if value >= 90. => {
@@ -83,9 +84,9 @@ mod example {
             }
         });
 
-        let window: Window = builder.get_object("window").unwrap();
-        let button: Button = builder.get_object("button").unwrap();
-        let entry: Entry = builder.get_object("entry").unwrap();
+        let window: Window = builder.get_object("window").expect("Couldn't get window");
+        let button: Button = builder.get_object("button").expect("Couldn't get button");
+        let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
         button.connect_clicked(clone!(window, entry => move |_| {
             let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DIALOG_MODAL,
                 &[("No", 0), ("Yes", 1), ("Yes!", 2)]);
@@ -97,7 +98,8 @@ mod example {
             entry.set_text(&format!("Clicked {}", ret));
         }));
 
-        let button_font: Button = builder.get_object("button_font").unwrap();
+        let button_font: Button = builder.get_object("button_font")
+                                         .expect("Couldn't get button_font");
         button_font.connect_clicked(clone!(window => move |_| {
             let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
@@ -105,7 +107,8 @@ mod example {
             dialog.destroy();
         }));
 
-        let button_recent: Button = builder.get_object("button_recent").unwrap();
+        let button_recent: Button = builder.get_object("button_recent")
+                                           .expect("Couldn't get button_recent");
         button_recent.connect_clicked(clone!(window => move |_| {
             let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
             dialog.add_buttons(&[
@@ -117,7 +120,8 @@ mod example {
             dialog.destroy();
         }));
 
-        let file_button: Button = builder.get_object("file_button").unwrap();
+        let file_button: Button = builder.get_object("file_button")
+                                         .expect("Couldn't get file_button");
         file_button.connect_clicked(clone!(window => move |_| {
             //entry.set_text("Clicked!");
             let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
@@ -135,7 +139,7 @@ mod example {
             println!("Files: {:?}", files);
         }));
 
-        let app_button: Button = builder.get_object("app_button").unwrap();
+        let app_button: Button = builder.get_object("app_button").expect("Couldn't get app_button");
         app_button.connect_clicked(clone!(window => move |_| {
             //entry.set_text("Clicked!");
             let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DIALOG_MODAL,
@@ -145,7 +149,7 @@ mod example {
             dialog.destroy();
         }));
 
-        let switch: Switch = builder.get_object("switch").unwrap();
+        let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
         switch.connect_changed_active(clone!(entry => move |switch| {
             if switch.get_active() {
                 entry.set_text("Switch On");
@@ -154,7 +158,8 @@ mod example {
             }
         }));
 
-        let button_about: Button = builder.get_object("button_about").unwrap();
+        let button_about: Button = builder.get_object("button_about")
+                                          .expect("Couldn't get button_about");
         button_about.connect_clicked(move |x| {
             about_clicked(x, &builder)
         });
@@ -164,7 +169,7 @@ mod example {
             let keystate = key.get_state();
 
             println!("key pressed: {} / {:?}", keyval, keystate);
-            println!("text: {}", entry.get_text().unwrap());
+            println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
 
             if keystate.intersects(gdk::CONTROL_MASK) {
                 println!("You pressed Ctrl!");

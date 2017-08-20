@@ -85,8 +85,12 @@ fn main() {
             //
             // The `get_value` method do the conversion between the gtk type and Rust.
             label.set_text(&format!("Hello '{}' from row {}",
-                                    model.get_value(&iter, 1).get::<String>().unwrap(),
-                                    model.get_value(&iter, 0).get::<u32>().unwrap()));
+                                    model.get_value(&iter, 1)
+                                         .get::<String>()
+                                         .expect("Couldn't get string value"),
+                                    model.get_value(&iter, 0)
+                                         .get::<u32>()
+                                         .expect("Couldn't get u32 value")));
         }
     });
 
