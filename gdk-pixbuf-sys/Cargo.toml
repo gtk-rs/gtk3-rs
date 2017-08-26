@@ -2,38 +2,38 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-libc = "0.2"
 bitflags = "0.9"
+libc = "0.2"
 
 [dependencies.gio-sys]
-version = "0.4.0"
 path = "../gio-sys"
+version = "0.4.0"
 
 [dependencies.glib-sys]
-version = "0.4.0"
 path = "../glib-sys"
+version = "0.4.0"
 
 [dependencies.gobject-sys]
-version = "0.4.0"
 path = "../gobject-sys"
+version = "0.4.0"
 
 [features]
+v2_28 = []
 v2_30 = ["v2_28"]
 v2_32 = ["v2_30"]
-v2_28 = []
 v2_36 = ["v2_32"]
 
 [lib]
 name = "gdk_pixbuf_sys"
 
 [package]
-name = "gdk-pixbuf-sys"
-license = "MIT"
-homepage = "http://gtk-rs.org/"
-links = "gdk_pixbuf"
 authors = ["The Gtk-rs Project Developers"]
-description = "FFI bindings to libgdk_pixbuf-2.0"
-version = "0.4.0"
-keywords = ["gdk-pixbuf", "ffi", "gtk-rs", "gnome"]
-repository = "https://github.com/gtk-rs/sys"
 build = "build.rs"
+description = "FFI bindings to libgdk_pixbuf-2.0"
+homepage = "http://gtk-rs.org/"
+keywords = ["gdk-pixbuf", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+links = "gdk_pixbuf"
+name = "gdk-pixbuf-sys"
+repository = "https://github.com/gtk-rs/sys"
+version = "0.4.0"
