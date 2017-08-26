@@ -2,32 +2,33 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-libc = "0.2"
 bitflags = "0.9"
+libc = "0.2"
 
 [dependencies.glib-sys]
-version = "0.4.0"
 path = "../glib-sys"
+version = "0.4.0"
 
 [features]
-v2_46 = ["v2_44"]
 v2_34 = []
+v2_36 = ["v2_34"]
+v2_38 = ["v2_36"]
 v2_42 = ["v2_38"]
 v2_44 = ["v2_42"]
-v2_38 = ["v2_36"]
-v2_36 = ["v2_34"]
+v2_46 = ["v2_44"]
+v2_54 = ["v2_46"]
 
 [lib]
 name = "gobject_sys"
 
 [package]
-name = "gobject-sys"
-license = "MIT"
-homepage = "http://gtk-rs.org/"
-links = "gobject"
 authors = ["The Gtk-rs Project Developers"]
-description = "FFI bindings to libgobject-2.0"
-version = "0.4.0"
-keywords = ["gobject", "ffi", "gtk-rs", "gnome"]
-repository = "https://github.com/gtk-rs/sys"
 build = "build.rs"
+description = "FFI bindings to libgobject-2.0"
+homepage = "http://gtk-rs.org/"
+keywords = ["gobject", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+links = "gobject"
+name = "gobject-sys"
+repository = "https://github.com/gtk-rs/sys"
+version = "0.4.0"
