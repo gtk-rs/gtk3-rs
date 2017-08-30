@@ -71,8 +71,12 @@ impl Default for CallbackGuard {
 
 impl Drop for CallbackGuard {
     fn drop(&mut self) {
+        use std::io::stderr;
+        use std::io::Write;
+
         if thread::panicking() {
-            process::exit(101);
+            let _ = stderr().write(b"Uncaught panic, exiting");
+            process::abort();
         }
     }
 }
