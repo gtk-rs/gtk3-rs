@@ -75,7 +75,7 @@ impl Drop for CallbackGuard {
         use std::io::Write;
 
         if thread::panicking() {
-            let _ = stderr().write(b"Uncaught panic, exiting");
+            let _ = stderr().write(b"Uncaught panic, exiting\n");
             process::abort();
         }
     }
