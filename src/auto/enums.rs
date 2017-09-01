@@ -14,6 +14,7 @@ pub enum ChecksumType {
     Sha256,
     #[cfg(feature = "v2_36")]
     Sha512,
+    #[cfg(feature = "v2_52")]
     Sha384,
     #[doc(hidden)]
     __Unknown(i32),
@@ -30,6 +31,7 @@ impl ToGlib for ChecksumType {
             ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
             #[cfg(feature = "v2_36")]
             ChecksumType::Sha512 => ffi::G_CHECKSUM_SHA512,
+            #[cfg(feature = "v2_52")]
             ChecksumType::Sha384 => ffi::G_CHECKSUM_SHA384,
             ChecksumType::__Unknown(value) => unsafe{std::mem::transmute(value)}
         }
@@ -45,6 +47,7 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
             2 => ChecksumType::Sha256,
             #[cfg(feature = "v2_36")]
             3 => ChecksumType::Sha512,
+            #[cfg(feature = "v2_52")]
             4 => ChecksumType::Sha384,
             value => ChecksumType::__Unknown(value),
         }

@@ -231,6 +231,9 @@ status = "generate"
     [[object.member]]
     name = "sha512"
     version = "2.36"
+    [[object.member]]
+    name = "sha384"
+    version = "2.52"
 
 [[object]]
 name = "GLib.KeyFile"
