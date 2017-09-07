@@ -18,6 +18,7 @@ use value::SetValue;
 use Type;
 use BoolError;
 use Closure;
+use SignalHandlerId;
 
 /// Upcasting and downcasting support.
 ///
@@ -564,7 +565,7 @@ pub trait ObjectExt: IsA<Object> {
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
 
-    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
+    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError>;
 
@@ -649,7 +650,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         }
     }
 
-    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<u64, BoolError>
+    fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static {
         let signal_name: &str = signal_name.into();
 
@@ -702,7 +703,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             if handler == 0 {
                 Err(BoolError("Failed to connect to signal"))
             } else {
-                Ok(handler as u64)
+                Ok(from_glib(handler))
             }
         }
     }

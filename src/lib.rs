@@ -94,6 +94,7 @@ pub use object::{
     WeakRef,
 };
 pub use signal::{
+    SignalHandlerId,
     signal_handler_block,
     signal_handler_unblock,
     signal_stop_emission,
