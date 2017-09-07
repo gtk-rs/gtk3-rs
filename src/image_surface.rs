@@ -150,6 +150,8 @@ impl Clone for ImageSurface {
     }
 }
 
+unsafe impl Send for ImageSurface {}
+
 pub struct ImageSurfaceData<'a> {
     surface: &'a mut ImageSurface,
     slice: &'a mut [u8],
