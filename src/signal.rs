@@ -10,7 +10,27 @@ use gobject_ffi::{self, GCallback};
 use ffi::{gboolean, GQuark};
 use object::{IsA, Object};
 use source::CallbackGuard;
-use translate::{ToGlib, ToGlibPtr};
+use translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
+
+/// The id of a signal that is returned by `connect`.
+#[derive(Debug, Eq, PartialEq)]
+pub struct SignalHandlerId(c_ulong);
+
+impl ToGlib for SignalHandlerId {
+    type GlibType = c_ulong;
+
+    #[inline]
+    fn to_glib(&self) -> c_ulong {
+        self.0
+    }
+}
+
+impl FromGlib<c_ulong> for SignalHandlerId {
+    #[inline]
+    fn from_glib(val: c_ulong) -> SignalHandlerId {
+        SignalHandlerId(val)
+    }
+}
 
 /// Whether to propagate the signal to the default handler.
 ///
@@ -29,29 +49,29 @@ impl ToGlib for Inhibit {
 }
 
 pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
-                      closure: *mut Box<Fn() + 'static>) -> u64 {
+                      closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
     let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
         trampoline, closure as *mut _, Some(destroy_closure),
-        gobject_ffi::GConnectFlags::empty()) as u64;
+        gobject_ffi::GConnectFlags::empty());
     assert!(handle > 0);
-    handle
+    from_glib(handle)
 }
 
-pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: u64) {
+pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_block(instance.to_glib_none().0, handler_id as c_ulong);
+        gobject_ffi::g_signal_handler_block(instance.to_glib_none().0, handler_id.to_glib());
     }
 }
 
-pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: u64) {
+pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_unblock(instance.to_glib_none().0, handler_id as c_ulong);
+        gobject_ffi::g_signal_handler_unblock(instance.to_glib_none().0, handler_id.to_glib());
     }
 }
 
-pub fn signal_handler_disconnect<T: IsA<Object>>(instance: &T, handler_id: u64) {
+pub fn signal_handler_disconnect<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_disconnect(instance.to_glib_none().0, handler_id as c_ulong);
+        gobject_ffi::g_signal_handler_disconnect(instance.to_glib_none().0, handler_id.to_glib());
     }
 }
 
