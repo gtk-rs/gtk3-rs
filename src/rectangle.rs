@@ -91,6 +91,20 @@ impl FromGlibPtrNone<*mut ffi::GdkRectangle> for Rectangle {
 }
 
 #[doc(hidden)]
+impl FromGlibPtrBorrow<*const ffi::GdkRectangle> for Rectangle {
+    unsafe fn from_glib_borrow(ptr: *const ffi::GdkRectangle) -> Self {
+        *(ptr as *const Rectangle)
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*mut ffi::GdkRectangle> for Rectangle {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::GdkRectangle) -> Self {
+        *(ptr as *mut Rectangle)
+    }
+}
+
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::GdkRectangle> for Rectangle {
     unsafe fn from_glib_full(ptr: *mut ffi::GdkRectangle) -> Self {
         let rect = *(ptr as *mut Rectangle);
