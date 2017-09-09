@@ -39,6 +39,11 @@ impl XCBConnection {
         XCBConnection(ptr)
     }
 
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
+        assert!(!ptr.is_null());
+        XCBConnection(ptr)
+    }
+
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
         assert!(!ptr.is_null());
         XCBConnection(ptr)
@@ -60,6 +65,14 @@ impl FromGlibPtrNone<*mut ffi::xcb_connection_t> for XCBConnection {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::xcb_connection_t> for XCBConnection {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_connection_t) -> XCBConnection {
+        Self::from_raw_borrow(ptr)
     }
 }
 
@@ -96,6 +109,11 @@ impl XCBRenderPictFormInfo {
         XCBRenderPictFormInfo(ptr)
     }
 
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
+        assert!(!ptr.is_null());
+        XCBRenderPictFormInfo(ptr)
+    }
+
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
         assert!(!ptr.is_null());
         XCBRenderPictFormInfo(ptr)
@@ -117,6 +135,14 @@ impl FromGlibPtrNone<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormI
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormInfo {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_render_pictforminfo_t) -> XCBRenderPictFormInfo {
+        Self::from_raw_borrow(ptr)
     }
 }
 
@@ -153,6 +179,11 @@ impl XCBScreen {
         XCBScreen(ptr)
     }
 
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
+        assert!(!ptr.is_null());
+        XCBScreen(ptr)
+    }
+
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
         assert!(!ptr.is_null());
         XCBScreen(ptr)
@@ -174,6 +205,14 @@ impl FromGlibPtrNone<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::xcb_screen_t> for XCBScreen {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
+        Self::from_raw_borrow(ptr)
     }
 }
 
@@ -273,6 +312,11 @@ impl XCBVisualType {
         XCBVisualType(ptr)
     }
 
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
+        assert!(!ptr.is_null());
+        XCBVisualType(ptr)
+    }
+
     pub unsafe fn from_raw_full(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
         assert!(!ptr.is_null());
         XCBVisualType(ptr)
@@ -294,6 +338,14 @@ impl FromGlibPtrNone<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::xcb_visualtype_t> for XCBVisualType {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
+        Self::from_raw_borrow(ptr)
     }
 }
 
@@ -330,6 +382,11 @@ impl Device {
         Device(ptr)
     }
 
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_device_t) -> Device {
+        assert!(!ptr.is_null());
+        Device(ptr)
+    }
+
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_device_t) -> Device {
         assert!(!ptr.is_null());
         Device(ptr)
@@ -351,6 +408,14 @@ impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_device_t) -> Device {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::cairo_device_t> for Device {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_device_t) -> Device {
+        Self::from_raw_borrow(ptr)
     }
 }
 

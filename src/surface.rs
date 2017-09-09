@@ -20,20 +20,27 @@ use ffi::enums::{
 };
 
 #[derive(Debug)]
-pub struct Surface(*mut ffi::cairo_surface_t);
+pub struct Surface(*mut ffi::cairo_surface_t, bool);
 
 impl Surface {
     #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         ffi::cairo_surface_reference(ptr);
-        Surface(ptr)
+        Surface(ptr, false)
     }
+
+    #[doc(hidden)]
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> Surface {
+        assert!(!ptr.is_null());
+        Surface(ptr, true)
+    }
+
 
     #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
-        Surface(ptr)
+        Surface(ptr, false)
     }
 
     #[doc(hidden)]
@@ -84,6 +91,14 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Surface {
 }
 
 #[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Surface {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> Surface {
+        Self::from_raw_borrow(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
@@ -105,7 +120,9 @@ impl Clone for Surface {
 
 impl Drop for Surface {
     fn drop(&mut self) {
-        unsafe { ffi::cairo_surface_destroy(self.0); }
+        if !self.1 {
+            unsafe { ffi::cairo_surface_destroy(self.0); }
+        }
     }
 }
 
