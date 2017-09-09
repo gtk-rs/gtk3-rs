@@ -833,6 +833,14 @@ impl<P: Ptr, T: FromGlibPtrNone<P>> FromGlibPtrNone<P> for Option<T> {
     }
 }
 
+impl<P: Ptr, T: FromGlibPtrBorrow<P>> FromGlibPtrBorrow<P> for Option<T> {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: P) -> Option<T> {
+        if ptr.is_null() { None }
+        else { Some(from_glib_borrow(ptr)) }
+    }
+}
+
 impl<P: Ptr, T: FromGlibPtrFull<P>> FromGlibPtrFull<P> for Option<T> {
     #[inline]
     unsafe fn from_glib_full(ptr: P) -> Option<T> {
