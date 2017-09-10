@@ -11,7 +11,7 @@ use ffi;
 use ffi::cairo_region_t;
 use ffi::enums::Status;
 
-pub struct Region(*mut cairo_region_t);
+pub struct Region(*mut cairo_region_t, bool);
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
@@ -46,6 +46,15 @@ impl FromGlibPtrNone<*mut ffi::cairo_region_t> for Region {
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
+impl FromGlibPtrBorrow<*mut ffi::cairo_region_t> for Region {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
+        Self::from_raw_borrow(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::cairo_region_t> for Region {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_region_t) -> Region {
@@ -67,7 +76,9 @@ impl Clone for Region {
 
 impl Drop for Region {
     fn drop(&mut self) {
-        unsafe { ffi::cairo_region_destroy(self.0); }
+        if !self.1 {
+            unsafe { ffi::cairo_region_destroy(self.0); }
+        }
     }
 }
 
@@ -84,13 +95,19 @@ impl Region {
     unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         ffi::cairo_region_reference(ptr);
-        Region(ptr)
+        Region(ptr, false)
+    }
+
+    #[inline]
+    unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
+        assert!(!ptr.is_null());
+        Region(ptr, true)
     }
 
     #[inline]
     unsafe fn from_raw_full(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
-        Region(ptr)
+        Region(ptr, false)
     }
 
     #[doc(hidden)]

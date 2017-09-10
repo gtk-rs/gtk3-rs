@@ -41,7 +41,7 @@ impl Drop for RectangleVec {
     }
 }
 
-pub struct Context(*mut cairo_t);
+pub struct Context(*mut cairo_t, bool);
 
 #[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
@@ -58,6 +58,14 @@ impl FromGlibPtrNone<*mut ffi::cairo_t> for Context {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_t) -> Context {
         Self::from_raw_none(ptr)
+    }
+}
+
+#[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::cairo_t> for Context {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_t) -> Context {
+        Self::from_raw_borrow(ptr)
     }
 }
 
@@ -83,7 +91,9 @@ impl Clone for Context {
 
 impl Drop for Context {
     fn drop(&mut self) {
-        unsafe { ffi::cairo_destroy(self.0); }
+        if !self.1 {
+            unsafe { ffi::cairo_destroy(self.0); }
+        }
     }
 }
 
@@ -92,13 +102,19 @@ impl Context {
     unsafe fn from_raw_none(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         ffi::cairo_reference(ptr);
-        Context(ptr)
+        Context(ptr, false)
+    }
+
+    #[inline]
+    unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> Context {
+        assert!(!ptr.is_null());
+        Context(ptr, true)
     }
 
     #[inline]
     unsafe fn from_raw_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
-        Context(ptr)
+        Context(ptr, false)
     }
 
     #[doc(hidden)]

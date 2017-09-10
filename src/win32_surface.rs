@@ -78,6 +78,14 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Win32Surface {
 }
 
 #[cfg(feature = "use_glib")]
+impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Win32Surface {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
+        Self::from(from_glib_borrow(ptr)).unwrap()
+    }
+}
+
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
