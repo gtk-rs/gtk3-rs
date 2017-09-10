@@ -163,6 +163,20 @@ impl FromGlibPtrNone<*mut ffi::GdkRGBA> for RGBA {
 }
 
 #[doc(hidden)]
+impl FromGlibPtrBorrow<*const ffi::GdkRGBA> for RGBA {
+    unsafe fn from_glib_borrow(ptr: *const ffi::GdkRGBA) -> Self {
+        *(ptr as *const RGBA)
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*mut ffi::GdkRGBA> for RGBA {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::GdkRGBA) -> Self {
+        *(ptr as *mut RGBA)
+    }
+}
+
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut ffi::GdkRGBA> for RGBA {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::GdkRGBA) -> Self {
