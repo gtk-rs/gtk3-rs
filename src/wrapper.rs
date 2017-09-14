@@ -71,12 +71,13 @@
 ///
 /// ### Object
 ///
-/// Objects -- classes and interfaces.
+/// Objects -- classes and interfaces.  Note that the class name must
+/// be specified after the $foreign type.
 ///
 /// ```ignore
 /// glib_wrapper! {
 ///     /// Object representing an input device.
-///     pub struct Device(Object<ffi::GdkDevice>);
+///     pub struct Device(Object<ffi::GdkDevice, ffi::GdkDeviceClass>);
 ///
 ///     match fn {
 ///         get_type => || ffi::gdk_device_get_type(),
@@ -87,7 +88,7 @@
 /// ```ignore
 /// glib_wrapper! {
 ///     /// A container with just one child.
-///     pub struct Bin(Object<ffi::GtkBin>): Container, Widget, Buildable;
+///     pub struct Bin(Object<ffi::GtkBin, ffi::GtkBinClass>): Container, Widget, Buildable;
 ///
 ///     match fn {
 ///         get_type => || ffi::gtk_bin_get_type(),
@@ -100,7 +101,7 @@
 ///
 /// ```ignore
 /// glib_wrapper! {
-///     pub struct Application(Object<ffi::GtkApplication>): [
+///     pub struct Application(Object<ffi::GtkApplication, ffi::GtkApplicationClass>): [
 ///         gio::Application => gio_ffi::GApplication,
 ///         gio::ActionGroup => gio_ffi::GActionGroup,
 ///         gio::ActionMap => gio_ffi::GActionMap,
@@ -171,44 +172,46 @@ macro_rules! glib_wrapper {
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>);
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr, []);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, []);
     };
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): [$($implements:tt)+];
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr,
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
             @implements $($implements)+);
     };
 
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>): $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, @get_type $get_type_expr,
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
             [$($implements),+]);
     };
 }
 
-/// A wrapper struct.
+/// Represents a pair of structures (instance, class) as exposed by descendants of GObject
 pub trait Wrapper {
-    /// Foreign type represented by the struct.
+    /// type of the Instance structure
     type GlibType: 'static;
+    /// type of the Class structure
+    type GlibClassType: 'static;
 }
 
 pub trait UnsafeFrom<T> {
