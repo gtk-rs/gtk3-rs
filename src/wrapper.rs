@@ -113,9 +113,24 @@
 /// }
 /// ```
 ///
+/// #### Non-derivable classes
+///
+/// By convention, GObject implements "final" classes, i.e. those who cannot
+/// be subclassed, by exposing a public Instance struct, but no corresponding
+/// Class struct.  In this case, don't specify a class name at all:
+///
+/// ```ignore
+/// glib_wrapper! {
+///     pub struct Clipboard(Object<ffi::GtkClipboard>);
+///     ...
+/// }
+/// ```
+///
 /// `get_type: || -> GType` returns the type identifier of the class or interface.
 #[macro_export]
 macro_rules! glib_wrapper {
+    // Boxed
+
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Boxed<$ffi_name:path>);
@@ -142,6 +157,8 @@ macro_rules! glib_wrapper {
         glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
             @free $free_arg $free_expr, @get_type $get_type_expr);
     };
+
+    // Shared
 
     (
         $(#[$attr:meta])*
@@ -170,6 +187,19 @@ macro_rules! glib_wrapper {
             @unref $unref_arg $unref_expr, @get_type $get_type_expr);
     };
 
+    // Object, no class struct, no parents
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>);
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr, []);
+    };
+
+    // Object, class struct, no parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>);
@@ -181,6 +211,20 @@ macro_rules! glib_wrapper {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, []);
     };
 
+    // Object, no class struct, parents in other crates
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr,
+            @implements $($implements)+);
+    };
+
+    // Object, class struct, parents in other crates
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): [$($implements:tt)+];
@@ -193,6 +237,20 @@ macro_rules! glib_wrapper {
             @implements $($implements)+);
     };
 
+    // Object, no class struct, parents
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path>): $($implements:path),+;
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr,
+            [$($implements),+]);
+    };
+
+    // Object, class struct, parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): $($implements:path),+;
@@ -217,3 +275,6 @@ pub trait Wrapper {
 pub trait UnsafeFrom<T> {
     unsafe fn from(t: T) -> Self;
 }
+
+// So we can refer to the empty type by a path
+pub type Void = ();
