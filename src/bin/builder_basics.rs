@@ -47,7 +47,6 @@ fn main() {
 
 #[cfg(not(feature = "gtk_3_10"))]
 fn main() {
-    println!("This example only work with GTK 3.10 and later");
+    println!("This example requires GTK 3.10 or later");
     println!("Did you forget to build with `--features gtk_3_10`?");
 }
-
