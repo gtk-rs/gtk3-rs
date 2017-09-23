@@ -4,25 +4,42 @@
 //! https://developer.gnome.org/gtkmm-tutorial/stable/sec-dnd-example.html.en
 
 extern crate gdk;
+extern crate gio;
 extern crate gtk;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+use std::env::args;
 
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
+
+fn build_ui(application: &gtk::Application) {
     // Configure button as drag source for text
     let button = gtk::Button::new_with_label("Drag here");
     let targets = vec![gtk::TargetEntry::new("STRING", gtk::TargetFlags::SAME_APP, 0),
                        gtk::TargetEntry::new("text/plain", gtk::TargetFlags::SAME_APP, 0)];
     button.drag_source_set(gdk::ModifierType::MODIFIER_MASK, &targets, gdk::DragAction::COPY);
     button.connect_drag_data_get(|_, _, s, _, _| {
-                                     let data = "I'm data!";
-                                     s.set_text(data);
-                                 });
+        let data = "I'm data!";
+        s.set_text(data);
+    });
 
     // Configure label as drag destination to receive text
     let label = gtk::Label::new("Drop here");
@@ -37,15 +54,28 @@ fn main() {
     hbox.pack_start(&label, true, true, 0);
 
     // Finish populating the window and display everything
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+    let window = gtk::ApplicationWindow::new(application);
     window.set_title("Simple Drag and Drop Example");
+    window.set_default_size(200, 100);
     window.add(&hbox);
     window.show_all();
 
     // GTK & main window boilerplate
-    window.connect_delete_event(|_, _| {
-                                    gtk::main_quit();
-                                    Inhibit(false)
-                                });
-    gtk::main();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
+        Inhibit(false)
+    }));
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.drag_and_drop",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

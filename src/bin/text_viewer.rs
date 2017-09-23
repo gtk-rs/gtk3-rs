@@ -2,35 +2,52 @@
 //!
 //! A simple text file viewer
 
+extern crate gio;
 extern crate gtk;
 
+use std::env::args;
+use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
-use std::fs::File;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::Builder;
 
-pub fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
+
+pub fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("text_viewer.glade");
     let builder = Builder::new();
     builder.add_from_string(glade_src).expect("Couldn't add from string");
 
-    let window: gtk::Window = builder.get_object("window").expect("Couldn't get window");
+    let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+    window.set_application(application);
     let open_button: gtk::ToolButton = builder.get_object("open_button")
                                               .expect("Couldn't get builder");
     let text_view: gtk::TextView = builder.get_object("text_view")
                                           .expect("Couldn't get text_view");
 
-    let window1 = window.clone();
-    open_button.connect_clicked(move |_| {
+    open_button.connect_clicked(clone!(window => move |_| {
         // TODO move this to a impl?
         let file_chooser = gtk::FileChooserDialog::new(
-            Some("Open File"), Some(&window1), gtk::FileChooserAction::Open);
+            Some("Open File"), Some(&window), gtk::FileChooserAction::Open);
         file_chooser.add_buttons(&[
             ("Open", gtk::ResponseType::Ok.into()),
             ("Cancel", gtk::ResponseType::Cancel.into()),
@@ -47,13 +64,25 @@ pub fn main() {
         }
 
         file_chooser.destroy();
-    });
+    }));
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     window.show_all();
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.text_viewer",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

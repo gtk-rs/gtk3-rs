@@ -1,10 +1,31 @@
+extern crate gio;
 extern crate gtk;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 
 use std::cell::RefCell;
 use std::collections::HashMap;
+use std::env::args;
 use std::rc::Rc;
+
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
 fn create_sub_window(title: &str, main_window_entry: gtk::Entry, id: usize,
                      windows: Rc<RefCell<HashMap<usize, gtk::Window>>>) {
@@ -32,17 +53,17 @@ fn create_sub_window(title: &str, main_window_entry: gtk::Entry, id: usize,
     windows.borrow_mut().insert(id, window.clone());
 }
 
-fn create_main_window() -> gtk::Window {
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow {
+    let window = gtk::ApplicationWindow::new(application);
 
     window.set_title("I'm the main window");
     window.set_default_size(400, 200);
     window.set_position(gtk::WindowPosition::Center);
 
-    window.connect_delete_event(move |_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     window.show_all();
     window
@@ -57,14 +78,9 @@ fn generate_new_id(windows: Rc<RefCell<HashMap<usize, gtk::Window>>>) -> usize {
     id
 }
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-
+fn build_ui(application: &gtk::Application) {
     let windows: Rc<RefCell<HashMap<usize, gtk::Window>>> = Rc::new(RefCell::new(HashMap::new()));
-    let window = create_main_window();
+    let window = create_main_window(application);
 
     // Why not changing all sub-windows' title at once?
     let windows_title_entry = gtk::Entry::new();
@@ -110,5 +126,17 @@ fn main() {
 
     // Then we show everything.
     window.show_all();
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.multi_windows",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

@@ -1,18 +1,39 @@
 //! # TreeView Sample
 //!
-//! This sample demonstrates how to create a `TreeView`
-//! with either a `ListStore` or `TreeStore`.
+//! This sample demonstrates how to create a `TreeView` with either a `ListStore` or `TreeStore`.
 
+extern crate gdk_pixbuf;
+extern crate gio;
 extern crate glib;
 extern crate gtk;
-extern crate gdk_pixbuf;
 
+use gdk_pixbuf::Pixbuf;
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
-    ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags, MessageDialog, MessageType,
-    Orientation, TreeStore, TreeView, TreeViewColumn, Window, WindowPosition, WindowType
+    ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
+    MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition
 };
-use gdk_pixbuf::Pixbuf;
+
+use std::env::args;
+
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
 fn append_text_column(tree: &TreeView) {
     let column = TreeViewColumn::new();
@@ -23,21 +44,16 @@ fn append_text_column(tree: &TreeView) {
     tree.append_column(&column);
 }
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-
-    let window = Window::new(WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = ApplicationWindow::new(application);
 
     window.set_title("TreeView Sample");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     // left pane
 
@@ -126,5 +142,17 @@ fn main() {
 
     window.add(&split_pane);
     window.show_all();
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.treeview",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

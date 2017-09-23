@@ -1,8 +1,10 @@
 extern crate cairo;
-extern crate glib;
+extern crate gio;
 extern crate gtk;
 
 use std::cell::RefCell;
+use std::env::args;
+
 use std::mem;
 use std::rc::Rc;
 use std::sync::mpsc;
@@ -11,8 +13,9 @@ use std::time::Duration;
 
 use cairo::prelude::*;
 use cairo::{Context, Format, ImageSurface};
+use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{DrawingArea, Window, WindowType};
+use gtk::{ApplicationWindow, DrawingArea};
 
 // make moving clones into closures more convenient
 macro_rules! clone {
@@ -55,19 +58,15 @@ macro_rules! clone {
 // The two buffers per thread are allocated and initialized once and sent back
 // and forth repeatedly.
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-    let window = Window::new(WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = ApplicationWindow::new(application);
     let area = DrawingArea::new();
     window.add(&area);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     let format = Format::Rgb24;
     let width = 200;
@@ -150,7 +149,19 @@ fn main() {
     });
 
     window.show_all();
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.cairo_threads",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }
 
 fn draw_initial(format: Format, width: i32, height: i32) -> (Box<[u8]>, i32) {
