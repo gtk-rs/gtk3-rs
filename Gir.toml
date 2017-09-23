@@ -68,6 +68,9 @@ status = "generate"
     [[object.signal]]
     name = "open"
     ignore = true
+    [[object.function]]
+    name = "run"
+    ignore = true
 
 [[object]]
 name = "Gio.File"
