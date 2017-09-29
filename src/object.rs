@@ -11,6 +11,7 @@ use ffi as glib_ffi;
 use gobject_ffi;
 use std::mem;
 use std::ptr;
+use std::iter;
 use std::marker::PhantomData;
 
 use Value;
@@ -742,18 +743,27 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 }
             }
 
-            let mut v_args: Vec<Value> = Vec::new();
-            v_args.push(Value::from(self));
-            for arg in args {
-                v_args.push(arg.to_value());
-            }
+            let mut v_args: Vec<Value>;
+            let mut s_args: [Value; 10] = mem::zeroed();
+            let args = if args.len() < 10 {
+                for (i, arg) in iter::once(&(self as &ToValue)).chain(args).enumerate() {
+                    s_args[i] = arg.to_value();
+                }
+                &s_args[0..args.len()+1]
+            } else {
+                v_args = Vec::with_capacity(args.len() + 1);
+                for arg in iter::once(&(self as &ToValue)).chain(args) {
+                    v_args.push(arg.to_value());
+                }
+                v_args.as_slice()
+            };
 
             let mut return_value = Value::uninitialized();
             if details.return_type != gobject_ffi::G_TYPE_NONE {
                 gobject_ffi::g_value_init(return_value.to_glib_none_mut().0, details.return_type);
             }
 
-            gobject_ffi::g_signal_emitv(v_args.as_mut_ptr() as *mut gobject_ffi::GValue,
+            gobject_ffi::g_signal_emitv(mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
                 signal_id, signal_detail, return_value.to_glib_none_mut().0);
 
             if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
