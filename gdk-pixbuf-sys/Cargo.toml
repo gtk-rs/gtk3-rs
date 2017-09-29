@@ -18,6 +18,7 @@ path = "../gobject-sys"
 version = "0.4.0"
 
 [features]
+dox = []
 v2_28 = []
 v2_30 = ["v2_28"]
 v2_32 = ["v2_30"]

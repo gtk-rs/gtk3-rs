@@ -6,6 +6,7 @@ bitflags = "0.9"
 libc = "0.2"
 
 [features]
+dox = []
 v2_34 = []
 v2_36 = ["v2_34"]
 v2_38 = ["v2_36"]

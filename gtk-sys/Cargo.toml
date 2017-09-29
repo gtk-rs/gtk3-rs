@@ -38,6 +38,7 @@ path = "../pango-sys"
 version = "0.4.0"
 
 [features]
+dox = []
 v3_10 = ["v3_8"]
 v3_12 = ["v3_10"]
 v3_14 = ["v3_12"]
