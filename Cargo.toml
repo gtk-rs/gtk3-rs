@@ -26,6 +26,7 @@ embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 v2_48 = ["v2_46", "gio-sys/v2_48"]
 v2_36 = ["v2_34", "gio-sys/v2_36"]
 v2_40 = ["v2_38", "gio-sys/v2_40"]
+dox = ["gio-sys/dox", "glib/dox"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
