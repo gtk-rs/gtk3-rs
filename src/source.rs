@@ -179,7 +179,7 @@ where F: FnMut(u32, i32) + Send + 'static {
     }
 }
 
-#[cfg(unix)]
+#[cfg(any(unix, feature = "dox"))]
 /// Adds a closure to be called by the default main loop whenever a UNIX signal is raised.
 ///
 /// `func` will be called repeatedly every time `signum` is raised until it
@@ -320,7 +320,7 @@ where F: FnMut(u32, i32) + Send + 'static {
     }
 }
 
-#[cfg(unix)]
+#[any(cfg(unix, feature = "dox"))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX signal is raised.
 ///
