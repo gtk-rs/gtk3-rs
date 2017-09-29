@@ -14,7 +14,7 @@ use std::ptr;
 use std::marker::PhantomData;
 
 use Value;
-use value::SetValue;
+use value::{ToValue, SetValue};
 use Type;
 use BoolError;
 use Closure;
@@ -560,7 +560,7 @@ glib_object_wrapper! {
 pub trait ObjectExt: IsA<Object> {
     fn get_type(&self) -> Type;
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -581,13 +581,14 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         }
     }
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
-        if let Err(error) = self.has_property(property_name, Some(value.type_())) {
+        if let Err(error) = self.has_property(property_name, Some(value.to_value_type())) {
             return Err(error);
         }
 
+        let value = value.to_value();
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
         }
