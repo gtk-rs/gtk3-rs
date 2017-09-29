@@ -320,7 +320,7 @@ where F: FnMut(u32, i32) + Send + 'static {
     }
 }
 
-#[any(cfg(unix, feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX signal is raised.
 ///
