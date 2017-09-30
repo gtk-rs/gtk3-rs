@@ -93,6 +93,7 @@ use gobject_ffi;
 /// (e.g. numeric types) don't.
 ///
 /// See the [module documentation](index.html) for more details.
+#[repr(C)]
 pub struct Value(gobject_ffi::GValue);
 
 impl Value {

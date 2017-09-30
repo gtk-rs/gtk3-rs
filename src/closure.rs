@@ -12,7 +12,7 @@ use libc::{c_uint, c_void};
 
 use ffi as glib_ffi;
 use gobject_ffi;
-use translate::{ToGlibPtr, ToGlibPtrMut, FromGlibPtrFull, Uninitialized, Stash, from_glib_none};
+use translate::{ToGlibPtr, ToGlibPtrMut, FromGlibPtrFull, Uninitialized, Stash, mut_override, from_glib_none};
 use types::Type;
 use Value;
 use ToValue;
@@ -74,13 +74,24 @@ impl Closure {
 
     pub fn invoke(&self, values: &[&ToValue]) -> Option<Value> {
         let mut result = unsafe { Value::uninitialized() };
-        let mut values: Vec<_> = values.iter()
-            .map(|v| v.to_value())
-            .collect();
-        let gvalues = values.as_mut_ptr() as *mut _;
+
+        let v_args: Vec<Value>;
+        let mut s_args: [Value; 10] = unsafe { mem::zeroed() };
+        let values = if values.len() <= 10 {
+            for (i, arg) in values.iter().enumerate() {
+                s_args[i] = arg.to_value();
+            }
+            &s_args[0..values.len()]
+        } else {
+            v_args = values.iter()
+                .map(|v| v.to_value())
+                .collect();
+            v_args.as_slice()
+        };
+
         unsafe {
             gobject_ffi::g_closure_invoke(self.to_glib_none().0 as *mut _, result.to_glib_none_mut().0,
-                values.len() as u32, gvalues, ptr::null_mut());
+                values.len() as u32, mut_override(values.as_ptr()) as *mut gobject_ffi::GValue, ptr::null_mut());
         }
         if result.type_() == Type::Invalid {
             None

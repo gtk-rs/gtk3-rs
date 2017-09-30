@@ -11,10 +11,11 @@ use ffi as glib_ffi;
 use gobject_ffi;
 use std::mem;
 use std::ptr;
+use std::iter;
 use std::marker::PhantomData;
 
 use Value;
-use value::SetValue;
+use value::{ToValue, SetValue};
 use Type;
 use BoolError;
 use Closure;
@@ -560,14 +561,14 @@ glib_object_wrapper! {
 pub trait ObjectExt: IsA<Object> {
     fn get_type(&self) -> Type;
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError>;
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
-    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError>;
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
 
     fn downgrade(&self) -> WeakRef<Self>;
 }
@@ -581,13 +582,14 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         }
     }
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &Value) -> Result<(), BoolError> {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
 
-        if let Err(error) = self.has_property(property_name, Some(value.type_())) {
+        if let Err(error) = self.has_property(property_name, Some(value.to_value_type())) {
             return Err(error);
         }
 
+        let value = value.to_value();
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
         }
@@ -708,7 +710,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         }
     }
 
-    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&Value]) -> Result<Option<Value>, BoolError> {
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError> {
         let signal_name: &str = signal_name.into();
         unsafe {
             let type_ = self.get_type();
@@ -736,24 +738,33 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
             for i in 0..details.n_params {
                 let arg_type = *(details.param_types.offset(i as isize)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
-                if arg_type != args[i as usize].type_().to_glib() {
+                if arg_type != args[i as usize].to_value_type().to_glib() {
                     return Err(BoolError("Incompatible argument types"));
                 }
             }
 
-            let mut c_args: Vec<gobject_ffi::GValue> = Vec::new();
-            let instance = Value::from(self);
-            c_args.push(ptr::read(instance.to_glib_none().0));
-            for arg in args {
-                c_args.push(ptr::read(arg.to_glib_none().0));
-            }
+            let mut v_args: Vec<Value>;
+            let mut s_args: [Value; 10] = mem::zeroed();
+            let args = if args.len() < 10 {
+                for (i, arg) in iter::once(&(self as &ToValue)).chain(args).enumerate() {
+                    s_args[i] = arg.to_value();
+                }
+                &s_args[0..args.len()+1]
+            } else {
+                v_args = Vec::with_capacity(args.len() + 1);
+                for arg in iter::once(&(self as &ToValue)).chain(args) {
+                    v_args.push(arg.to_value());
+                }
+                v_args.as_slice()
+            };
 
             let mut return_value = Value::uninitialized();
             if details.return_type != gobject_ffi::G_TYPE_NONE {
                 gobject_ffi::g_value_init(return_value.to_glib_none_mut().0, details.return_type);
             }
 
-            gobject_ffi::g_signal_emitv(mut_override(c_args.as_ptr()), signal_id, signal_detail, return_value.to_glib_none_mut().0);
+            gobject_ffi::g_signal_emitv(mut_override(args.as_ptr()) as *mut gobject_ffi::GValue,
+                signal_id, signal_detail, return_value.to_glib_none_mut().0);
 
             if return_value.type_() != Type::Unit && return_value.type_() != Type::Invalid {
                 Ok(Some(return_value))
