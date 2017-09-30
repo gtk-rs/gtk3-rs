@@ -9,8 +9,8 @@ extern crate gdk_pixbuf;
 
 use gtk::prelude::*;
 use gtk::{
-    ButtonsType, CellRendererPixbuf, CellRendererText, MessageDialog, MessageType, Orientation,
-    TreeStore, TreeView, TreeViewColumn, Window, WindowPosition, WindowType, DIALOG_MODAL
+    ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags, MessageDialog, MessageType,
+    Orientation, TreeStore, TreeView, TreeViewColumn, Window, WindowPosition, WindowType
 };
 use gdk_pixbuf::Pixbuf;
 
@@ -83,7 +83,7 @@ fn main() {
         let window = window.clone();
 
         gtk::idle_add(move || {
-            let dialog = MessageDialog::new(Some(&window), DIALOG_MODAL,
+            let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                 MessageType::Error, ButtonsType::Ok, &msg);
             dialog.run();
             dialog.destroy();
