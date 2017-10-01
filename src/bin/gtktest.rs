@@ -88,7 +88,7 @@ mod example {
         let button: Button = builder.get_object("button").expect("Couldn't get button");
         let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
         button.connect_clicked(clone!(window, entry => move |_| {
-            let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DIALOG_MODAL,
+            let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("No", 0), ("Yes", 1), ("Yes!", 2)]);
 
             let ret = dialog.run();
@@ -142,7 +142,7 @@ mod example {
         let app_button: Button = builder.get_object("app_button").expect("Couldn't get app_button");
         app_button.connect_clicked(clone!(window => move |_| {
             //entry.set_text("Clicked!");
-            let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DIALOG_MODAL,
+            let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DialogFlags::MODAL,
                 "sh");
 
             dialog.run();
@@ -171,7 +171,7 @@ mod example {
             println!("key pressed: {} / {:?}", keyval, keystate);
             println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
 
-            if keystate.intersects(gdk::CONTROL_MASK) {
+            if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
                 println!("You pressed Ctrl!");
             }
 

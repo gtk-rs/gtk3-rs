@@ -16,9 +16,9 @@ fn main() {
 
     // Configure button as drag source for text
     let button = gtk::Button::new_with_label("Drag here");
-    let targets = vec![gtk::TargetEntry::new("STRING", gtk::TARGET_SAME_APP, 0),
-                       gtk::TargetEntry::new("text/plain", gtk::TARGET_SAME_APP, 0)];
-    button.drag_source_set(gdk::MODIFIER_MASK, &targets, gdk::ACTION_COPY);
+    let targets = vec![gtk::TargetEntry::new("STRING", gtk::TargetFlags::SAME_APP, 0),
+                       gtk::TargetEntry::new("text/plain", gtk::TargetFlags::SAME_APP, 0)];
+    button.drag_source_set(gdk::ModifierType::MODIFIER_MASK, &targets, gdk::DragAction::COPY);
     button.connect_drag_data_get(|_, _, s, _, _| {
                                      let data = "I'm data!";
                                      s.set_text(data);
@@ -26,7 +26,7 @@ fn main() {
 
     // Configure label as drag destination to receive text
     let label = gtk::Label::new("Drop here");
-    label.drag_dest_set(gtk::DEST_DEFAULT_ALL, &targets, gdk::ACTION_COPY);
+    label.drag_dest_set(gtk::DestDefaults::ALL, &targets, gdk::DragAction::COPY);
     label.connect_drag_data_received(|w, _, _, _, s, _, _| {
         w.set_text(&s.get_text().expect("Couldn't get text"));
     });

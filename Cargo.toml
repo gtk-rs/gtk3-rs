@@ -23,7 +23,7 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-#default = ["gtk_3_20"]
+#default = ["gtk_3_22"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
