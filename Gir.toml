@@ -1,0 +1,33 @@
+[options]
+girs_dir = "gir-files"
+library = "PangoCairo"
+version = "1.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = false
+min_cfg_version = "1.30"
+
+generate = [
+    "PangoCairo.Font",
+]
+
+manual = [
+    "cairo.FontType",
+    "cairo.ScaledFont",
+    "GLib.Error",
+    "Pango.Context",
+    "Pango.FontMap",
+]
+
+[[object]]
+name = "PangoCairo.FontMap"
+status = "generate"
+    [[object.function]]
+    name = "get_font_type"
+    ignore = true
+    [[object.function]]
+    name = "new_for_font_type"
+    ignore = true
+    [[object.function]]
+    name = "new"
+    ignore = true
