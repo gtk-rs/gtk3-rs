@@ -18,10 +18,11 @@ v1_32_4 = ["v1_32", "pango-sys/v1_32_4"]
 v1_36_7 = ["v1_34", "pango-sys/v1_36_7"]
 v1_34 = ["v1_32_4", "pango-sys/v1_34"]
 v1_31 = ["pango-sys/v1_31"]
+dox = ["pango-sys/dox", "glib/dox"]
 
 [dependencies]
 libc = "0.2"
-bitflags = "0.9"
+bitflags = "1.0"
 
 [dependencies.pango-sys]
 version = "0.4.0"
