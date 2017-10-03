@@ -1,0 +1,30 @@
+[build-dependencies]
+pkg-config = "0.3.7"
+
+[dependencies]
+bitflags = "1.0"
+libc = "0.2"
+
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+version = "0.4.0"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+version = "0.4.0"
+
+[dependencies.pango-sys]
+path = "../pango-sys"
+version = "0.4.0"
+
+[features]
+dox = []
+
+[lib]
+name = "pango_cairo_sys"
+
+[package]
+build = "build.rs"
+links = "pango_cairo"
+name = "pango-cairo-sys"
+version = "0.2.0"
