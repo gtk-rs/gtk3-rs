@@ -26,5 +26,5 @@ name = "pango_cairo_sys"
 [package]
 build = "build.rs"
 links = "pango_cairo"
-name = "pango-cairo-sys"
-version = "0.2.0"
+name = "pangocairo-sys"
+version = "0.4.1"
