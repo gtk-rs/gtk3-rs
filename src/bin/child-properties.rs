@@ -4,17 +4,38 @@
 
 #![crate_type = "bin"]
 
+extern crate gio;
 extern crate gtk;
 
-use gtk::{BoxExt, Button, ContainerExt, Inhibit, Label, PackType, WidgetExt, Window, WindowType};
+use gio::prelude::*;
+use gtk::{
+    ApplicationWindow, BoxExt, Button, ButtonExt, ContainerExt, GtkWindowExt, Inhibit, Label,
+    LabelExt, PackType, WidgetExt,
+};
 use gtk::Orientation::Vertical;
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+use std::env::args;
+use std::str::FromStr;
 
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
+
+fn build_ui(application: &gtk::Application) {
     let vbox = gtk::Box::new(Vertical, 0);
 
     let plus_button = Button::new_with_label("+");
@@ -32,16 +53,43 @@ fn main() {
     let minus_button = Button::new_with_label("-");
     vbox.add(&minus_button);
 
-    let window = Window::new(WindowType::Toplevel);
+    minus_button.connect_clicked(clone!(counter_label => move |_| {
+        let nb = u32::from_str(counter_label.get_text()
+                                           .unwrap_or("0".to_owned())
+                                           .as_str()).unwrap_or(0);
+        if nb > 0 {
+            counter_label.set_text(&format!("{}", nb - 1));
+        }
+    }));
+    plus_button.connect_clicked(clone!(counter_label => move |_| {
+        let nb = u32::from_str(counter_label.get_text()
+                                           .unwrap_or("0".to_owned())
+                                           .as_str()).unwrap_or(0);
+        counter_label.set_text(&format!("{}", nb + 1));
+    }));
 
+    let window = ApplicationWindow::new(application);
+
+    window.set_default_size(200, 200);
     window.add(&vbox);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     window.show_all();
+}
 
-    gtk::main();
+fn main() {
+    let application = gtk::Application::new("com.github.child_properties",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

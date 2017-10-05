@@ -1,21 +1,37 @@
 extern crate cairo;
+extern crate gio;
 extern crate gtk;
 
+use std::env::args;
 use std::f64::consts::PI;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::DrawingArea;
 
 use cairo::enums::{FontSlant, FontWeight};
 use cairo::Context;
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
-    drawable(500, 500, |_, cr| {
+fn build_ui(application: &gtk::Application) {
+    drawable(application, 500, 500, |_, cr| {
         cr.set_dash(&[3., 2., 1.], 1.);
         assert_eq!(cr.get_dash(), (vec![3., 2., 1.], 1.));
 
@@ -65,7 +81,7 @@ fn main() {
         Inhibit(false)
     });
 
-    drawable(500, 500, |_, cr| {
+    drawable(application, 500, 500, |_, cr| {
         cr.scale(500f64, 500f64);
 
         cr.select_font_face("Sans", FontSlant::Normal, FontWeight::Normal);
@@ -89,23 +105,34 @@ fn main() {
 
         Inhibit(false)
     });
-
-    gtk::main();
 }
 
-pub fn drawable<F>(width: i32, height: i32, draw_fn: F)
+fn main() {
+    let application = gtk::Application::new("com.github.cairotest",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
+}
+
+pub fn drawable<F>(application: &gtk::Application, width: i32, height: i32, draw_fn: F)
 where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+    let window = gtk::ApplicationWindow::new(application);
     let drawing_area = Box::new(DrawingArea::new)();
 
     drawing_area.connect_draw(draw_fn);
 
     window.set_default_size(width, height);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
     window.add(&drawing_area);
     window.show_all();
 }

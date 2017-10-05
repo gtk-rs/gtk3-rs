@@ -1,29 +1,46 @@
-extern crate gtk;
+extern crate gio;
 extern crate glib;
+extern crate gtk;
 
+use gio::prelude::*;
 use gtk::prelude::*;
+
 use std::cell::RefCell;
+use std::env::args;
 use std::sync::mpsc::{channel, Receiver};
 use std::thread;
 use std::time::Duration;
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = gtk::ApplicationWindow::new(application);
 
     window.set_title("Multithreading GTK+ Program");
     window.set_border_width(10);
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(600, 400);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     let text_view = gtk::TextView::new();
     let scroll = gtk::ScrolledWindow::new(None, None);
@@ -52,7 +69,6 @@ fn main() {
 
     window.add(&scroll);
     window.show_all();
-    gtk::main();
 }
 
 fn receive() -> glib::Continue {
@@ -70,3 +86,16 @@ fn receive() -> glib::Continue {
 thread_local!(
     static GLOBAL: RefCell<Option<(gtk::TextBuffer, Receiver<String>)>> = RefCell::new(None)
 );
+
+fn main() {
+    let application = gtk::Application::new("com.github.multithreading_context",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
+}

@@ -2,21 +2,20 @@
 //!
 //! This example demonstrates how to create a main window with a transparent background.
 
-extern crate gtk;
-extern crate gdk;
 extern crate cairo;
+extern crate gdk;
+extern crate gio;
+extern crate gtk;
 
+use gdk::ScreenExt; // import get_rgba_visual
+use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{Window, WindowType, Fixed, Button};
-use gdk::ScreenExt; //import get_rgba_visual
+use gtk::{ApplicationWindow, Fixed, Button};
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+use std::env::args;
 
-    let window = Window::new(WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = ApplicationWindow::new(application);
     set_visual(&window, &None);
 
     window.connect_delete_event(quit);
@@ -25,7 +24,7 @@ fn main() {
 
     window.set_title("Alpha Demo");
     window.set_default_size(500, 500);
-    window.set_app_paintable(true); //crucial for transparency
+    window.set_app_paintable(true); // crucial for transparency
 
     let fixed = Fixed::new();
     window.add(&fixed);
@@ -34,26 +33,38 @@ fn main() {
     fixed.add(&button);
 
     window.show_all();
-    gtk::main();
 }
 
-fn set_visual(window: &Window, _screen: &Option<gdk::Screen>) {
+fn main() {
+    let application = gtk::Application::new("com.github.transparent_main_window",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
+}
+
+fn set_visual(window: &ApplicationWindow, _screen: &Option<gdk::Screen>) {
     if let Some(screen) = window.get_screen() {
         if let Some(visual) = screen.get_rgba_visual() {
-            window.set_visual(&visual); //crucial for transparency
+            window.set_visual(&visual); // crucial for transparency
         }
     }
 }
 
-fn draw(_window: &Window, ctx: &cairo::Context) -> Inhibit {
-    //crucial for transparency
+fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> Inhibit {
+    // crucial for transparency
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
     ctx.set_operator(cairo::enums::Operator::Screen);
     ctx.paint();
     Inhibit(false)
 }
 
-fn quit(_window: &Window, _event: &gdk::Event) -> Inhibit {
-    gtk::main_quit();
+fn quit(_window: &ApplicationWindow, _event: &gdk::Event) -> Inhibit {
+    _window.destroy();
     Inhibit(false)
 }

@@ -1,7 +1,29 @@
+extern crate gio;
 extern crate gtk;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{IconSize, Orientation, ReliefStyle, Widget};
+
+use std::env::args;
+
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
 struct Notebook {
     notebook: gtk::Notebook,
@@ -46,22 +68,17 @@ impl Notebook {
     }
 }
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-
-    let window = gtk::Window::new(gtk::WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = gtk::ApplicationWindow::new(application);
 
     window.set_title("Notebook");
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(640, 480);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     let mut notebook = Notebook::new();
 
@@ -73,6 +90,17 @@ fn main() {
 
     window.add(&notebook.notebook);
     window.show_all();
-    gtk::main();
 }
 
+fn main() {
+    let application = gtk::Application::new("com.github.notebook",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
+}
