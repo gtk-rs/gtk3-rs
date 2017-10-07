@@ -12,12 +12,91 @@ generate = [
 ]
 
 manual = [
+    "cairo.Context",
     "cairo.FontType",
+    "cairo.FontOptions",
     "cairo.ScaledFont",
     "GLib.Error",
     "Pango.Context",
+    "Pango.Font",
     "Pango.FontMap",
+    "Pango.GlyphItem",
+    "Pango.GlyphString",
+    "Pango.Layout",
+    "Pango.LayoutLine",
 ]
+
+[[object]]
+name = "PangoCairo.*"
+status = "generate"
+    [[object.function]]
+    name = "context_get_font_options"
+    ignore = true
+    [[object.function]]
+    name = "create_context"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "create_layout"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "error_underline_path"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "glyph_string_path"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "layout_line_path"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "layout_path"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "show_error_underline"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "show_glyph_item"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "show_glyph_string"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "show_layout"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "show_layout_line"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "update_context"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
+    [[object.function]]
+    name = "update_layout"
+        [[object.function.parameter]]
+	name = "cr"
+	const = true
 
 [[object]]
 name = "PangoCairo.FontMap"
