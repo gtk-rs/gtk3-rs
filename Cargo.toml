@@ -22,6 +22,7 @@ embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 v1_12 = ["cairo-sys-rs/v1_12"]
 default = ["use_glib"]
 xcb = ["cairo-sys-rs/xcb"]
+dox = ["cairo-sys-rs/dox", "glib/dox"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
