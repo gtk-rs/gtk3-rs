@@ -1,13 +1,13 @@
 [package]
 name = "pangocairo"
-documentation = "http://gtk-rs.org/docs/pango/"
+documentation = "http://gtk-rs.org/docs/pangocairo/"
 homepage = "http://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "cairo", "gtk-rs", "gnome"]
 readme = "README.md"
 version = "0.2.1"
-description = "Rust bindings for the Pango library"
-repository = "https://github.com/gtk-rs/pango-cairo"
+description = "Rust bindings for the PangoCairo library"
+repository = "https://github.com/gtk-rs/pangocairo"
 license = "MIT"
 
 [features]
