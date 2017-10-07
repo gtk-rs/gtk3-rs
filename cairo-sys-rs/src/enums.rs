@@ -198,9 +198,9 @@ pub enum PatternType {
     Surface,
     LinearGradient,
     RadialGradient,
-    #[cfg(feature = "v1_12")]
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
     Mesh,
-    #[cfg(feature = "v1_12")]
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
     RasterSource
 }
 
