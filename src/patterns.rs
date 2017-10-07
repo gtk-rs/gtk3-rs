@@ -38,9 +38,9 @@ pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
         PatternType::Surface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
         PatternType::LinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
         PatternType::RadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
-        #[cfg(feature = "v1_12")]
+        #[cfg(any(feature = "v1_12", feature = "dox"))]
         PatternType::Mesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
-        #[cfg(feature = "v1_12")]
+        #[cfg(any(feature = "v1_12", feature = "dox"))]
         PatternType::RasterSource     => panic!("Not implemented")
     }
 }
@@ -281,7 +281,7 @@ impl SurfacePattern {
     }
 }
 
-#[cfg(feature = "v1_12")]
+#[cfg(any(feature = "v1_12", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Copy)]
 pub enum MeshCorner {
     MeshCorner0,
@@ -290,10 +290,10 @@ pub enum MeshCorner {
     MeshCorner3
 }
 
-#[cfg(feature = "v1_12")]
+#[cfg(any(feature = "v1_12", feature = "dox"))]
 pattern_type!(Mesh);
 
-#[cfg(feature = "v1_12")]
+#[cfg(any(feature = "v1_12", feature = "dox"))]
 impl Mesh {
     pub fn new() -> Mesh {
         Mesh::wrap(unsafe {

@@ -14,8 +14,9 @@ build = "build.rs"
 name = "cairo_sys"
 
 [features]
-v1_14 = ["v1_12"]
+dox = []
 v1_12 = []
+v1_14 = ["v1_12"]
 xlib = ["x11"]
 png = []
 xcb = []

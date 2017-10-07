@@ -60,7 +60,7 @@ pub use patterns::{
     SurfacePattern,
 };
 
-#[cfg(feature = "v1_12")]
+#[cfg(any(feature = "v1_12", feature = "dox"))]
 pub use patterns::{
     Mesh,
     MeshCorner,
@@ -98,7 +98,7 @@ pub use image_surface::{
 
 pub use pdf_surface::PDFSurface;
 
-#[cfg(feature = "xcb")]
+#[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
     XCBConnection,
     XCBSurface,
@@ -117,7 +117,7 @@ mod context;
 mod error;
 mod pdf_surface;
 mod image_surface;
-#[cfg(feature = "png")]
+#[cfg(any(feature = "png", feature = "dox"))]
 mod image_surface_png;
 mod paths;
 mod patterns;
@@ -125,12 +125,12 @@ mod rectangle;
 mod region;
 mod surface;
 mod matrices;
-#[cfg(feature = "xcb")]
+#[cfg(any(feature = "xcb", feature = "dox"))]
 mod xcb;
 
-#[cfg(windows)]
+#[cfg(any(windows, feature = "dox"))]
 mod win32_surface;
 
-#[cfg(windows)]
+#[cfg(any(windows, feature = "dox"))]
 pub use win32_surface::Win32Surface;
 
