@@ -5,13 +5,21 @@ homepage = "http://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "cairo", "gtk-rs", "gnome"]
 readme = "README.md"
-version = "0.3.0"
+version = "0.3.1"
 description = "Rust bindings for the PangoCairo library"
 repository = "https://github.com/gtk-rs/pangocairo"
 license = "MIT"
+build = "build.rs"
 
 [features]
 dox = ["glib/dox", "pango/dox", "cairo-rs/dox"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs"]
+
+[build-dependencies.gtk-rs-lgpl-docs]
+version = "0.1.3"
+optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
