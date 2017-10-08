@@ -9,6 +9,8 @@ mod font_map;
 pub use self::font_map::FontMap;
 pub use self::font_map::FontMapExt;
 
+pub mod functions;
+
 #[doc(hidden)]
 pub mod traits {
     pub use super::FontExt;

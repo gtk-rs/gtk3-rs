@@ -7,11 +7,15 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use pango;
+use pango_ffi;
 use std::mem;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Font(Object<ffi::PangoCairoFont>);
+    pub struct Font(Object<ffi::PangoCairoFont>): [
+        pango::Font => pango_ffi::PangoFont,
+    ];
 
     match fn {
         get_type => || ffi::pango_cairo_font_get_type(),
