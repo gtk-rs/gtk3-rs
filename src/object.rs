@@ -566,9 +566,14 @@ pub trait ObjectExt: IsA<Object> {
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
 
+    fn block_signal(&self, handler_id: &SignalHandlerId);
+    fn unblock_signal(&self, handler_id: &SignalHandlerId);
+    fn stop_signal_emission(&self, signal_name: &str);
+
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
+    fn disconnect(&self, handler_id: SignalHandlerId);
 
     fn downgrade(&self) -> WeakRef<Self>;
 }
@@ -617,6 +622,30 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             } else {
                 Ok(value)
             }
+        }
+    }
+
+    fn block_signal(&self, handler_id: &SignalHandlerId) {
+        unsafe {
+            gobject_ffi::g_signal_handler_block(self.to_glib_none().0, handler_id.to_glib());
+        }
+    }
+
+    fn unblock_signal(&self, handler_id: &SignalHandlerId) {
+        unsafe {
+            gobject_ffi::g_signal_handler_unblock(self.to_glib_none().0, handler_id.to_glib());
+        }
+    }
+
+    fn stop_signal_emission(&self, signal_name: &str) {
+        unsafe {
+            gobject_ffi::g_signal_stop_emission_by_name(self.to_glib_none().0, signal_name.to_glib_none().0);
+        }
+    }
+
+    fn disconnect(&self, handler_id: SignalHandlerId) {
+        unsafe {
+            gobject_ffi::g_signal_handler_disconnect(self.to_glib_none().0, handler_id.to_glib());
         }
     }
 
