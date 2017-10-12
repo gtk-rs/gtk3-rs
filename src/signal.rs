@@ -57,13 +57,13 @@ pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, tr
     from_glib(handle)
 }
 
-pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
+pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: &SignalHandlerId) {
     unsafe {
         gobject_ffi::g_signal_handler_block(instance.to_glib_none().0, handler_id.to_glib());
     }
 }
 
-pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
+pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: &SignalHandlerId) {
     unsafe {
         gobject_ffi::g_signal_handler_unblock(instance.to_glib_none().0, handler_id.to_glib());
     }
