@@ -14,7 +14,7 @@ use ffi::enums::SurfaceType;
 
 use surface::{Surface, SurfaceExt};
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 use glib::translate::*;
 
 pub struct PDFSurface(Surface);
@@ -70,7 +70,7 @@ impl Clone for PDFSurface {
 
 unsafe impl Send for PDFSurface {}
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PDFSurface {
     type Storage = &'a Surface;
 
@@ -81,7 +81,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PDFSurface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PDFSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PDFSurface {
@@ -89,7 +89,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PDFSurface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PDFSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PDFSurface {
@@ -97,7 +97,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PDFSurface {
     }
 }
 
-#[cfg(feature = "glib")]
+#[cfg(feature = "use_glib")]
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PDFSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PDFSurface {
