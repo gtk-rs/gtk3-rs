@@ -7,7 +7,7 @@ use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
 use glib::translate::*;
-#[cfg(feature = "v2_36")]
+#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::BoolError;
 use glib::Error;
 use gdk_pixbuf_ffi as ffi;
@@ -254,7 +254,7 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(feature = "v2_36")]
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn copy_options(&self, dest_pixbuf: &mut Pixbuf) -> Result<(), BoolError> {
         let err: glib_ffi::gboolean =
             unsafe {

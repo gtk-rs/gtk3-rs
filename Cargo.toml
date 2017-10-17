@@ -21,6 +21,7 @@ purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 v2_32 = ["v2_30", "gdk-pixbuf-sys/v2_32"]
 v2_36 = ["v2_32", "gdk-pixbuf-sys/v2_36"]
+dox = ["glib/dox", "gdk-pixbuf-sys/dox"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"

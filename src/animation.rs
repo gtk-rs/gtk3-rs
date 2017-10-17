@@ -71,7 +71,7 @@ impl PixbufAnimation {
         }
     }
 
-    #[cfg(feature = "v2_28")]
+    #[cfg(any(feature = "v2_28", feature = "dox"))]
     pub fn new_from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
         unsafe {
             let mut error = ptr::null_mut();
