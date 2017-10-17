@@ -26,11 +26,11 @@ name = "pango_cairo_sys"
 [package]
 authors = ["The Gtk-rs Project Developers"]
 build = "build.rs"
-license = "MIT"
 description = "FFI bindings to libgtk-3"
 homepage = "http://gtk-rs.org/"
 keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
 links = "pango_cairo"
 name = "pangocairo-sys"
-version = "0.5.0"
 repository = "https://github.com/gtk-rs/sys"
+version = "0.5.0"
