@@ -26,6 +26,7 @@ embed-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/embed-lgpl-docs", "gdk-pixbuf/e
 v3_16 = ["v3_14", "gdk-sys/v3_16", "gio/v2_42"]
 v3_10 = ["v3_8", "gdk-sys/v3_10", "cairo-rs/v1_12", "gio/v2_36"]
 v3_14 = ["v3_12", "gdk-sys/v3_14", "gdk-pixbuf/v2_30", "gio/v2_40", "pango/v1_34"]
+dox = ["gdk-sys/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"

@@ -41,10 +41,10 @@ pub trait DragContextExtManual {
 
     fn drag_begin_for_device<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom]) -> Option<DragContext>;
 
-    #[cfg(feature = "v3_20")]
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn drag_begin_from_point<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom], x_root: i32, y_root: i32) -> Option<DragContext>;
 
-    #[cfg(feature = "v3_20")]
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn drag_drop_done(&self, success: bool);
 }
 
@@ -115,7 +115,7 @@ impl<O: IsA<DragContext>> DragContextExtManual for O {
         }
     }
 
-    #[cfg(feature = "v3_20")]
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn drag_begin_from_point<P: IsA<Device>>(window: &Window, device: &P, targets: &[&Atom], x_root: i32, y_root: i32) -> Option<DragContext> {
         skip_assert_initialized!();
         unsafe {
@@ -123,7 +123,7 @@ impl<O: IsA<DragContext>> DragContextExtManual for O {
         }
     }
 
-    #[cfg(feature = "v3_20")]
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn drag_drop_done(&self, success: bool) {
         skip_assert_initialized!();
         unsafe {
