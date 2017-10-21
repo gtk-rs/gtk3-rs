@@ -15,7 +15,7 @@ use ffi;
 use glib::translate::*;
 
 impl Attribute {
-    #[cfg(feature = "v1_38")]
+    #[cfg(any(feature = "v1_38", feature = "dox"))]
     pub fn new_background_alpha(alpha: u16) -> Option<Attribute> {
         unsafe {
             from_glib_full(ffi::pango_attr_background_alpha_new(alpha))
@@ -40,7 +40,7 @@ impl Attribute {
         }
     }
 
-    #[cfg(feature = "v1_38")]
+    #[cfg(any(feature = "v1_38", feature = "dox"))]
     pub fn new_foreground_alpha(alpha: u16) -> Option<Attribute> {
         unsafe {
             from_glib_full(ffi::pango_attr_foreground_alpha_new(alpha))
