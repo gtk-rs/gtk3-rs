@@ -33,7 +33,7 @@ struct ReadEnv<'a, R: 'a + Read> {
 unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> Status {
     let _cbguard = CallbackGuard;
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
-    let mut buffer = slice::from_raw_parts_mut(data, len as usize);
+    let buffer = slice::from_raw_parts_mut(data, len as usize);
     match read_env.reader.read_exact(buffer) {
         Ok(()) => Status::Success,
         Err(error) => {
