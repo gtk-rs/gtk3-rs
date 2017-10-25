@@ -21,12 +21,12 @@ impl SurfaceExt for Surface {
     }
 }
 
-#[cfg(feature = "v3_10")]
+#[cfg(any(feature = "v3_10", feature = "dox"))]
 pub trait PixbufExt {
     fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface>;
 }
 
-#[cfg(feature = "v3_10")]
+#[cfg(any(feature = "v3_10", feature = "dox"))]
 impl PixbufExt for Pixbuf {
     fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface> {
         unsafe {
@@ -38,10 +38,10 @@ impl PixbufExt for Pixbuf {
 pub trait ContextExt {
     fn create_from_window(window: &Window) -> Context;
 
-    #[cfg(feature = "v3_16")]
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn cairo_draw_from_gl(cr: &Context, window: &Window, source: i32, source_type: i32, buffer_scale: i32, x: i32, y: i32, width: i32, height: i32);
 
-    #[cfg(feature = "v3_10")]
+    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn cairo_surface_create_from_pixbuf<'a, P: Into<Option<&'a Window>>>(pixbuf: &Pixbuf, scale: i32, for_window: P) -> Option<Surface>;
 
     fn get_clip_rectangle(&self) -> Option<Rectangle>;
@@ -63,7 +63,7 @@ impl ContextExt for Context {
         unsafe { from_glib_full(ffi::gdk_cairo_create(window.to_glib_none().0)) }
     }
 
-    #[cfg(feature = "v3_16")]
+    #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn cairo_draw_from_gl(cr: &Context, window: &Window, source: i32, source_type: i32, buffer_scale: i32, x: i32, y: i32, width: i32, height: i32) {
         skip_assert_initialized!();
         unsafe {
@@ -71,7 +71,7 @@ impl ContextExt for Context {
         }
     }
 
-    #[cfg(feature = "v3_10")]
+    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn cairo_surface_create_from_pixbuf<'a, P: Into<Option<&'a Window>>>(pixbuf: &Pixbuf, scale: i32, for_window: P) -> Option<Surface> {
         assert_initialized_main_thread!();
         let for_window = for_window.into();

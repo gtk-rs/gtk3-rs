@@ -57,7 +57,7 @@ mod event_setting;
 mod event_touch;
 mod event_visibility;
 mod event_window_state;
-#[cfg(feature = "v3_8")]
+#[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_clock;
 mod geometry;
 mod keys;
