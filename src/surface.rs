@@ -5,9 +5,9 @@
 use std::mem;
 use libc::c_void;
 
-#[cfg(any(target_os = "macos", target_os = "ios"))]
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 use ffi::enums::Format;
-#[cfg(any(target_os = "macos", target_os = "ios"))]
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 use ffi::CGContextRef;
 
 #[cfg(feature = "use_glib")]

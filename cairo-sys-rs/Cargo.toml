@@ -14,7 +14,7 @@ build = "build.rs"
 name = "cairo_sys"
 
 [features]
-dox = []
+dox = ["x11/dox"]
 v1_12 = []
 v1_14 = ["v1_12"]
 xlib = ["x11"]
@@ -22,7 +22,7 @@ png = []
 xcb = []
 
 [dependencies]
-x11 = { version = "2.6.1", features = ["xlib"], optional = true }
+x11 = { version = "2.16", features = ["xlib"], optional = true }
 libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]

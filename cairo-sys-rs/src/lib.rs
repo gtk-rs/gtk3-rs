@@ -6,7 +6,7 @@
 
 extern crate libc;
 
-#[cfg(feature = "xlib")]
+#[cfg(any(feature = "xlib", feature = "dox"))]
 extern crate x11;
 
 #[cfg(windows)]
@@ -14,7 +14,7 @@ extern crate winapi;
 
 use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 
-#[cfg(feature = "xlib")]
+#[cfg(any(feature = "xlib", feature = "dox"))]
 use x11::xlib;
 
 pub mod enums;
