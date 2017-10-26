@@ -11,6 +11,13 @@ extern crate x11;
 
 #[cfg(windows)]
 extern crate winapi;
+#[cfg(all(not(windows), feature = "dox"))]
+pub mod winapi {
+   use libc::c_void;
+
+   #[repr(C)]
+   pub struct HDC(c_void);
+}
 
 use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 
