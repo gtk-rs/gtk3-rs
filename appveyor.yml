@@ -10,6 +10,8 @@ install:
   - IF "%BITS%" == "64" SET ARCH=x86_64
   - curl -sSf -o rustup-init.exe https://win.rustup.rs
   - rustup-init.exe --default-host "%ARCH%-pc-windows-gnu" --default-toolchain %RUST% -y
+  # Remove old dll that broke test. See https://github.com/gtk-rs/cairo/pull/160
+  - IF "%BITS%" == "32" ren C:\Users\appveyor\.rustup\toolchains\stable-i686-pc-windows-gnu\bin\libgcc_s_dw2-1.dll _libgcc_s_dw2-1.dll
   - SET PATH=C:\Users\appveyor\.cargo\bin;C:\msys64\mingw%BITS%\bin;%PATH%;C:\msys64\usr\bin
   - rustc -Vv
   - cargo -Vv
