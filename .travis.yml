@@ -14,6 +14,7 @@ script:
   - rustc --version
   - cargo test --features "png embed-lgpl-docs"
   - cargo test --no-default-features --features "png" 
+  - cargo doc --features "dox"
   # catch any sneaked in lgpl docs
   - cargo build --features purge-lgpl-docs
   - git diff -R --exit-code
