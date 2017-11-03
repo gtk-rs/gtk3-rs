@@ -5,9 +5,7 @@
 #[cfg(windows)]
 extern crate winapi;
 #[cfg(all(not(windows), feature = "dox"))]
-pub mod winapi {
-    pub struct HDC;
-}
+pub use ffi::winapi;
 
 use std::ops::Deref;
 
