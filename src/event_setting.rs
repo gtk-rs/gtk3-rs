@@ -3,9 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventSetting(::Event);
 
 event_wrapper!(EventSetting, GdkEventSetting);
-event_subtype!(EventSetting, Setting);
+event_subtype!(EventSetting, ffi::GDK_SETTING);

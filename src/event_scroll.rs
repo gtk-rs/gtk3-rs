@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventScroll(::Event);
 
 event_wrapper!(EventScroll, GdkEventScroll);
-event_subtype!(EventScroll, Scroll);
+event_subtype!(EventScroll, ffi::GDK_SCROLL);
 
 impl EventScroll {
     pub fn get_time(&self) -> u32 {

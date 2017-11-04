@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventKey(::Event);
 
 event_wrapper!(EventKey, GdkEventKey);
-event_subtype!(EventKey, KeyPress | KeyRelease);
+event_subtype!(EventKey, ffi::GDK_KEY_PRESS | ffi::GDK_KEY_RELEASE);
 
 impl EventKey {
     pub fn get_time(&self) -> u32 {

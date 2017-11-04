@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventGrabBroken(::Event);
 
 event_wrapper!(EventGrabBroken, GdkEventGrabBroken);
-event_subtype!(EventGrabBroken, GrabBroken);
+event_subtype!(EventGrabBroken, ffi::GDK_GRAB_BROKEN);
 
 impl EventGrabBroken {
     pub fn is_keyboard(&self) -> bool {

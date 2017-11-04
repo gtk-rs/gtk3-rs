@@ -69,7 +69,7 @@ impl<O: IsA<DragContext>> DragContextExtManual for O {
                                        x_root: i32, y_root: i32) -> (Option<Window>, DragProtocol) {
         unsafe {
             let mut dest_window = ptr::null_mut();
-            let mut protocol = ffi::GdkDragProtocol::None;
+            let mut protocol = ffi::GDK_DRAG_PROTO_NONE;
             ffi::gdk_drag_find_window_for_screen(self.to_glib_none().0,
                                                  drag_window.to_glib_none().0,
                                                  screen.to_glib_none().0,

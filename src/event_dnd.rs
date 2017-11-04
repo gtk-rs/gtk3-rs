@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventDND(::Event);
 
 event_wrapper!(EventDND, GdkEventDND);
-event_subtype!(EventDND, DragEnter | DragLeave | DragMotion | DragStatus | DropStart | DropFinished);
+event_subtype!(EventDND, ffi::GDK_DRAG_ENTER | ffi::GDK_DRAG_LEAVE | ffi::GDK_DRAG_MOTION | ffi::GDK_DRAG_STATUS | ffi::GDK_DROP_START | ffi::GDK_DROP_FINISHED);
 
 impl EventDND {
     pub fn get_context(&self) -> Option<::DragContext> {

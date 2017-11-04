@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventVisibility(::Event);
 
 event_wrapper!(EventVisibility, GdkEventVisibility);
-event_subtype!(EventVisibility, VisibilityNotify);
+event_subtype!(EventVisibility, ffi::GDK_VISIBILITY_NOTIFY);
 
 impl EventVisibility {
     pub fn get_state(&self) -> ::VisibilityState {

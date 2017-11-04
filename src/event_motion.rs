@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventMotion(::Event);
 
 event_wrapper!(EventMotion, GdkEventMotion);
-event_subtype!(EventMotion, MotionNotify);
+event_subtype!(EventMotion, ffi::GDK_MOTION_NOTIFY);
 
 impl EventMotion {
     pub fn get_position(&self) -> (f64, f64) {

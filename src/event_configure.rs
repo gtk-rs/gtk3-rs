@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventConfigure(::Event);
 
 event_wrapper!(EventConfigure, GdkEventConfigure);
-event_subtype!(EventConfigure, Configure);
+event_subtype!(EventConfigure, ffi::GDK_CONFIGURE);
 
 impl EventConfigure {
     pub fn get_position(&self) -> (i32, i32) {

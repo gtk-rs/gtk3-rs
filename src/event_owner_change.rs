@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventOwnerChange(::Event);
 
 event_wrapper!(EventOwnerChange, GdkEventOwnerChange);
-event_subtype!(EventOwnerChange, OwnerChange);
+event_subtype!(EventOwnerChange, ffi::GDK_OWNER_CHANGE);
 
 impl EventOwnerChange {
     pub fn get_owner(&self) -> Option<::Window> {

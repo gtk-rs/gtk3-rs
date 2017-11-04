@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventCrossing(::Event);
 
 event_wrapper!(EventCrossing, GdkEventCrossing);
-event_subtype!(EventCrossing, EnterNotify | LeaveNotify);
+event_subtype!(EventCrossing, ffi::GDK_ENTER_NOTIFY | ffi::GDK_LEAVE_NOTIFY);
 
 impl EventCrossing {
     pub fn get_position(&self) -> (f64, f64) {

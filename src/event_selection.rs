@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventSelection(::Event);
 
 event_wrapper!(EventSelection, GdkEventSelection);
-event_subtype!(EventSelection, SelectionClear | SelectionNotify | SelectionRequest);
+event_subtype!(EventSelection, ffi::GDK_SELECTION_CLEAR | ffi::GDK_SELECTION_NOTIFY | ffi::GDK_SELECTION_REQUEST);
 
 impl EventSelection {
     pub fn get_selection(&self) -> ::Atom {

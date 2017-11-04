@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventButton(::Event);
 
 event_wrapper!(EventButton, GdkEventButton);
-event_subtype!(EventButton, ButtonPress | DoubleButtonPress | TripleButtonPress | ButtonRelease);
+event_subtype!(EventButton, ffi::GDK_BUTTON_PRESS | ffi::GDK_DOUBLE_BUTTON_PRESS | ffi::GDK_TRIPLE_BUTTON_PRESS | ffi::GDK_BUTTON_RELEASE);
 
 impl EventButton {
     pub fn get_position(&self) -> (f64, f64) {

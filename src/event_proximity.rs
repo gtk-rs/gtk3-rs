@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventProximity(::Event);
 
 event_wrapper!(EventProximity, GdkEventProximity);
-event_subtype!(EventProximity, ProximityIn | ProximityOut);
+event_subtype!(EventProximity, ffi::GDK_PROXIMITY_IN | ffi::GDK_PROXIMITY_OUT);
 
 impl EventProximity {
     pub fn get_time(&self) -> u32 {
