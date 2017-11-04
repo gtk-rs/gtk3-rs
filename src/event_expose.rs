@@ -3,13 +3,14 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 use Rectangle;
 
 #[derive(Clone, Debug)]
 pub struct EventExpose(::Event);
 
 event_wrapper!(EventExpose, GdkEventExpose);
-event_subtype!(EventExpose, Expose | Damage);
+event_subtype!(EventExpose, ffi::GDK_EXPOSE | ffi::GDK_DAMAGE);
 
 impl EventExpose {
     pub fn get_region(&self) -> Rectangle {

@@ -3,9 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventProperty(::Event);
 
 event_wrapper!(EventProperty, GdkEventProperty);
-event_subtype!(EventProperty, PropertyNotify);
+event_subtype!(EventProperty, ffi::GDK_PROPERTY_NOTIFY);

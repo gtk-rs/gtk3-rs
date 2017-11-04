@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventWindowState(::Event);
 
 event_wrapper!(EventWindowState, GdkEventWindowState);
-event_subtype!(EventWindowState, WindowState);
+event_subtype!(EventWindowState, ffi::GDK_WINDOW_STATE);
 
 impl EventWindowState {
     pub fn get_changed_mask(&self) -> ::WindowState {

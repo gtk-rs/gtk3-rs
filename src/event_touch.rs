@@ -3,12 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
+use ffi;
 
 #[derive(Clone, Debug)]
 pub struct EventTouch(::Event);
 
 event_wrapper!(EventTouch, GdkEventTouch);
-event_subtype!(EventTouch, TouchBegin | TouchUpdate | TouchEnd | TouchCancel);
+event_subtype!(EventTouch, ffi::GDK_TOUCH_BEGIN | ffi::GDK_TOUCH_UPDATE | ffi::GDK_TOUCH_END | ffi::GDK_TOUCH_CANCEL);
 
 impl EventTouch {
     pub fn get_time(&self) -> u32 {

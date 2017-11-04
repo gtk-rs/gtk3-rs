@@ -125,12 +125,11 @@ macro_rules! event_wrapper {
 event_wrapper!(Event, GdkEventAny);
 
 macro_rules! event_subtype {
-    ($name:ident, $($ty:ident)|+) => {
+    ($name:ident, $($ty:path)|+) => {
         impl ::event::FromEvent for $name {
             #[inline]
             fn is(ev: &::event::Event) -> bool {
                 skip_assert_initialized!();
-                use ffi::GdkEventType::*;
                 match ev.as_ref().type_ {
                     $($ty)|+ => true,
                     _ => false,
