@@ -19,6 +19,7 @@ macro_rules! callback_guard {
 }
 
 mod application;
+mod resource;
 
 pub use glib::{
     Error,
