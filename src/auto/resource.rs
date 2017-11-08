@@ -23,14 +23,6 @@ glib_wrapper! {
 }
 
 impl Resource {
-    pub fn new_from_data(data: &glib::Bytes) -> Result<Resource, Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_resource_new_from_data(data.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     pub fn enumerate_children(&self, path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<String>, Error> {
         unsafe {
             let mut error = ptr::null_mut();

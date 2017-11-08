@@ -26,7 +26,6 @@ generate = [
     "Gio.MenuModel",
     "Gio.NotificationPriority",
     "Gio.Permission",
-    "Gio.Resource",
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
     "Gio.SettingsBindFlags",
@@ -116,4 +115,13 @@ status = "generate"
     [[object.property]]
     name = "state"
     #value glib::VariantTy
+    ignore = true
+
+[[object]]
+name = "Gio.Resource"
+status = "generate"
+    [[object.function]]
+    name = "new_from_data"
+    # Requires special alignment, see
+    # https://bugzilla.gnome.org/show_bug.cgi?id=790030
     ignore = true
