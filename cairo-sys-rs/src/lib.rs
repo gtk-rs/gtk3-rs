@@ -50,14 +50,31 @@ use enums::{
     Operator,
 };
 
+macro_rules! debug_impl {
+    ($name:ty) => {
+        impl ::std::fmt::Debug for $name {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                write!(f, "{} @ {:?}", stringify!($name), self as *const _)
+            }
+        }
+    }
+}
+
 #[repr(C)]
 pub struct cairo_t(c_void);
+debug_impl!(cairo_t);
+
 #[repr(C)]
 pub struct cairo_surface_t(c_void);
+debug_impl!(cairo_surface_t);
+
 #[repr(C)]
 pub struct cairo_pattern_t(c_void);
+debug_impl!(cairo_pattern_t);
+
 #[repr(C)]
 pub struct cairo_fill_rule_t(c_void);
+debug_impl!(cairo_fill_rule_t);
 
 pub type cairo_antialias_t = Antialias;
 pub type cairo_line_join_t = LineJoin;
@@ -68,21 +85,37 @@ pub type cairo_content_t = Content;
 #[repr(C)]
 pub struct cairo_device_t(c_void);
 #[cfg(any(feature = "xcb", feature = "dox"))]
+debug_impl!(cairo_device_t);
+
+#[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
 pub struct xcb_connection_t(c_void);
 #[cfg(any(feature = "xcb", feature = "dox"))]
+debug_impl!(xcb_connection_t);
+
+#[cfg(any(feature = "xcb", feature = "dox"))]
 pub type xcb_drawable_t = u32;
+
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub type xcb_pixmap_t = u32;
+
 #[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
 pub struct xcb_visualtype_t(c_void);
 #[cfg(any(feature = "xcb", feature = "dox"))]
+debug_impl!(xcb_visualtype_t);
+
+#[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
 pub struct xcb_screen_t(c_void);
 #[cfg(any(feature = "xcb", feature = "dox"))]
+debug_impl!(xcb_screen_t);
+
+#[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
 pub struct xcb_render_pictforminfo_t(c_void);
+#[cfg(any(feature = "xcb", feature = "dox"))]
+debug_impl!(xcb_render_pictforminfo_t);
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -101,39 +134,51 @@ pub struct cairo_rectangle_int_t {
     pub height: i32,
 }
 #[repr(C)]
+#[derive(Debug)]
 pub struct cairo_rectangle_list_t {
     pub status: Status,
     pub rectangles: *mut cairo_rectangle_t,
-    pub num_rectangles: c_int
+    pub num_rectangles: c_int,
 }
 #[repr(C)]
+#[derive(Debug)]
 pub struct cairo_path_t {
     pub status: Status,
     pub data: *mut [c_double; 2],
-    pub num_data: c_int
+    pub num_data: c_int,
 }
 #[repr(C)]
+#[derive(Debug)]
 pub struct cairo_path_data_header{
     pub data_type: PathDataType,
-    pub length:    c_int
+    pub length:    c_int,
 }
 #[repr(C)]
 pub struct cairo_glyph_t(c_void);
+debug_impl!(cairo_glyph_t);
+
 #[repr(C)]
 pub struct cairo_region_t(c_void);
+debug_impl!(cairo_region_t);
+
 #[repr(C)]
 pub struct cairo_font_face_t(c_void);
+debug_impl!(cairo_font_face_t);
+
 #[repr(C)]
 pub struct cairo_scaled_font_t(c_void);
+debug_impl!(cairo_scaled_font_t);
+
 #[repr(C)]
 pub struct cairo_font_options_t(c_void);
+debug_impl!(cairo_font_options_t);
 
 pub type cairo_extend_t = Extend;
 pub type cairo_filter_t = Filter;
 pub type cairo_region_overlap_t = RegionOverlap;
 
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct FontExtents {
     pub ascent: c_double,
     pub descent: c_double,
@@ -142,20 +187,20 @@ pub struct FontExtents {
     pub max_y_advance: c_double,
 }
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct Glyph {
     pub index: c_ulong,
     pub x: c_double,
     pub y: c_double,
 }
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct TextCluster {
     pub num_bytes: c_int,
     pub num_glyphs: c_int,
 }
 #[repr(C)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub struct TextExtents {
     pub x_bearing: c_double,
     pub y_bearing: c_double,
@@ -177,11 +222,12 @@ pub struct Matrix {
     pub y0: c_double,
 }
 #[repr(C)]
-#[derive(Clone, Copy, Default)]
+#[derive(Clone, Copy, Default, Debug)]
 pub struct cairo_user_data_key_t {
     pub unused: c_int,
 }
 #[repr(C)]
+#[derive(Debug)]
 pub struct cairo_bool_t{
     value: c_int
 }
