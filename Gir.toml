@@ -252,6 +252,10 @@ status = "generate"
        # file parameter needs to be a PathBuf
        ignore = true
        [[object.function]]
+       name = "set_list_separator"
+       # separator parameter needs to be a glib::Char
+       ignore = true
+       [[object.function]]
        name = "set_locale_string_list"
        #[&str] to *mut i8
        ignore = true
