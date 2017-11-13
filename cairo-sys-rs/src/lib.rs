@@ -69,8 +69,8 @@ pub struct cairo_surface_t(c_void);
 debug_impl!(cairo_surface_t);
 
 #[repr(C)]
-pub struct cairo_pattern_t(c_void);
-debug_impl!(cairo_pattern_t);
+#[derive(Copy,Clone,Debug)]
+pub struct cairo_pattern_t(u8);
 
 #[repr(C)]
 pub struct cairo_fill_rule_t(c_void);
