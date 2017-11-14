@@ -94,7 +94,7 @@ use gobject_ffi;
 ///
 /// See the [module documentation](index.html) for more details.
 #[repr(C)]
-pub struct Value(gobject_ffi::GValue);
+pub struct Value(gobject_ffi::GValue, PhantomData<*const c_void>);
 
 impl Value {
     /// Tries to downcast to a `TypedValue`.
@@ -212,7 +212,7 @@ impl<T> From<TypedValue<T>> for Value {
 
 impl Uninitialized for Value {
     unsafe fn uninitialized() -> Value {
-        Value(mem::zeroed())
+        Value(mem::zeroed(), PhantomData)
     }
 }
 
