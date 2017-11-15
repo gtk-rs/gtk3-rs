@@ -903,6 +903,13 @@ impl Clone for AnyValue {
     }
 }
 
+impl fmt::Debug for AnyValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("AnyValue")
+            .finish()
+    }
+}
+
 impl Deref for AnyValue {
     type Target = Any;
 
@@ -954,6 +961,13 @@ impl AnySendValue {
     unsafe extern "C" fn free(v: *mut c_void) {
         let _guard = ::source::CallbackGuard::new();
         let _ = Box::from_raw(v as *mut AnySendValue);
+    }
+}
+
+impl fmt::Debug for AnySendValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("AnySendValue")
+            .finish()
     }
 }
 
