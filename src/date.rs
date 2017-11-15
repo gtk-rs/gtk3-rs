@@ -26,6 +26,8 @@ glib_wrapper! {
     }
 }
 
+unsafe impl Send for Date { }
+
 impl Date {
     pub fn new() -> Date {
         unsafe {

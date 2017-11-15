@@ -111,6 +111,8 @@ pub use value::{
     TypedValue,
     SendValue,
     Value,
+    AnyValue,
+    AnySendValue,
 };
 pub use variant::{
     StaticVariantType,
