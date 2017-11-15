@@ -8,5 +8,6 @@ pub use {
     StaticType,
     StaticVariantType,
     ToValue,
+    ToSendValue,
     ToVariant,
 };
