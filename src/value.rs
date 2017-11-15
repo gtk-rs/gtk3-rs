@@ -106,6 +106,7 @@ use gobject_ffi;
 /// used instead.
 ///
 /// See the [module documentation](index.html) for more details.
+// TODO: Should use impl !Send for Value {} once stable
 #[repr(C)]
 pub struct Value(gobject_ffi::GValue, PhantomData<*const c_void>);
 
