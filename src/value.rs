@@ -416,6 +416,7 @@ impl Drop for ValueArray {
 /// accepted.
 ///
 /// See the [module documentation](index.html) for more details.
+#[derive(Clone)]
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
 impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
@@ -455,11 +456,6 @@ impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
     }
 }
 
-impl<T> Clone for TypedValue<T> {
-    fn clone(&self) -> Self {
-        TypedValue(self.0.clone(), PhantomData)
-    }
-}
 
 impl<T> fmt::Debug for TypedValue<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
