@@ -107,7 +107,9 @@ pub use types::{
 };
 pub use value::{
     ToValue,
+    ToSendValue,
     TypedValue,
+    SendValue,
     Value,
 };
 pub use variant::{
