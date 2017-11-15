@@ -119,11 +119,11 @@ impl<T: IsA<Object>> Cast for T { }
 /// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
-pub trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
+pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-impl<T> IsA<T> for T
+unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
@@ -487,7 +487,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        impl $crate::object::IsA<$super_name> for $name { }
+        unsafe impl $crate::object::IsA<$super_name> for $name { }
     };
 
     (@munch_impls $name:ident, $super_name:path => $super_ffi:path) => {
@@ -511,7 +511,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        impl $crate::object::IsA<$super_name> for $name { }
+        unsafe impl $crate::object::IsA<$super_name> for $name { }
     };
 
     (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
@@ -547,7 +547,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        impl $crate::object::IsA<$crate::object::Object> for $name { }
+        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr,
