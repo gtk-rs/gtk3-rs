@@ -74,7 +74,7 @@ use std::borrow::Borrow;
 use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
-use std::ops::{Deref, DerefMut};
+use std::ops::Deref;
 use std::ffi::CStr;
 use std::ptr;
 use libc::c_void;
@@ -185,7 +185,10 @@ impl fmt::Debug for Value {
         unsafe {
             let s: String = from_glib_full(
                 gobject_ffi::g_strdup_value_contents(self.to_glib_none().0));
-            write!(f, "Value({})", s)
+
+            f.debug_tuple("Value")
+                .field(&s)
+                .finish()
         }
     }
 }
@@ -416,6 +419,8 @@ impl Drop for ValueArray {
 /// accepted.
 ///
 /// See the [module documentation](index.html) for more details.
+#[derive(Clone)]
+#[repr(C)]
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
 impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
@@ -439,31 +444,27 @@ impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
     ///
     /// This method is only available for types that support a `None` value.
     pub fn set<U: ?Sized + SetValueOptional>(&mut self, value: Option<&U>) where T: Borrow<U> {
-        unsafe { SetValueOptional::set_value_optional(self, value) }
+        unsafe { SetValueOptional::set_value_optional(&mut self.0, value) }
     }
 
     /// Sets the value to `None`.
     ///
     /// This method is only available for types that support a `None` value.
     pub fn set_none(&mut self) where T: SetValueOptional {
-        unsafe { T::set_value_optional(self, None) }
+        unsafe { T::set_value_optional(&mut self.0, None) }
     }
 
     /// Sets the value.
     pub fn set_some<U: ?Sized + SetValue>(&mut self, value: &U) where T: Borrow<U> {
-        unsafe { SetValue::set_value(self, value) }
-    }
-}
-
-impl<T> Clone for TypedValue<T> {
-    fn clone(&self) -> Self {
-        TypedValue(self.0.clone(), PhantomData)
+        unsafe { SetValue::set_value(&mut self.0, value) }
     }
 }
 
 impl<T> fmt::Debug for TypedValue<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "TypedValue({:?})", self.0)
+        f.debug_tuple("TypedValue")
+            .field(&self.0)
+            .finish()
     }
 }
 
@@ -472,12 +473,6 @@ impl<T> Deref for TypedValue<T> {
 
     fn deref(&self) -> &Value {
         &self.0
-    }
-}
-
-impl<T> DerefMut for TypedValue<T> {
-    fn deref_mut(&mut self) -> &mut Value {
-        &mut self.0
     }
 }
 
