@@ -420,6 +420,7 @@ impl Drop for ValueArray {
 ///
 /// See the [module documentation](index.html) for more details.
 #[derive(Clone)]
+#[repr(C)]
 pub struct TypedValue<T>(Value, PhantomData<*const T>);
 
 impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
