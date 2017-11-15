@@ -548,6 +548,14 @@ impl<'a> From<TypedValue<String>> for TypedValue<&'a str> {
     }
 }
 
+impl<'a, T: 'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for TypedValue<T> {
+    type Storage = &'a mut TypedValue<T>;
+
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gobject_ffi::GValue, Self> {
+        StashMut(&mut (self.0).0, self)
+    }
+}
+
 /// Converts to `Value`.
 pub trait ToValue {
     /// Returns a `Value` clone of `self`.
@@ -662,6 +670,14 @@ impl<T: Send> From<TypedValue<T>> for SendValue {
 }
 
 from_glib!(SendValue, SendValue);
+
+impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for SendValue {
+    type Storage = &'a mut SendValue;
+
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gobject_ffi::GValue, Self> {
+        StashMut(&mut (self.0).0, self)
+    }
+}
 
 /// Converts to `SendValue`.
 pub trait ToSendValue: Send + ToValue {
