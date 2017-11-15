@@ -185,7 +185,10 @@ impl fmt::Debug for Value {
         unsafe {
             let s: String = from_glib_full(
                 gobject_ffi::g_strdup_value_contents(self.to_glib_none().0));
-            write!(f, "Value({})", s)
+
+            f.debug_tuple("Value")
+                .field(&s)
+                .finish()
         }
     }
 }
@@ -456,10 +459,11 @@ impl<'a, T: FromValueOptional<'a> + SetValue> TypedValue<T> {
     }
 }
 
-
 impl<T> fmt::Debug for TypedValue<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
-        write!(f, "TypedValue({:?})", self.0)
+        f.debug_tuple("TypedValue")
+            .field(&self.0)
+            .finish()
     }
 }
 
