@@ -1,7 +1,7 @@
 //! # Synchronizing Widgets
 //!
 //! You can use signals in order to synchronize the values of widgets. In this example a spin
-//1 button and a horizontal scale will get interlocked.
+//! button and a horizontal scale will get interlocked.
 
 extern crate gio;
 extern crate gtk;
