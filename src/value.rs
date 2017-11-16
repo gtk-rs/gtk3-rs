@@ -881,6 +881,12 @@ impl AnyValue {
         }
     }
 
+    /// Attempt the value to its concrete type.
+    pub fn downcast<T: Any + Clone + 'static>(self) -> Result<T, Self> {
+        let AnyValue { val, copy_fn } = self;
+        val.downcast::<T>().map(|val| *val).map_err(|val| AnyValue { val: val, copy_fn: copy_fn })
+    }
+
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
         let _guard = ::source::CallbackGuard::new();
         let v = &*(v as *mut AnyValue);
@@ -900,6 +906,13 @@ impl Clone for AnyValue {
             val: val,
             copy_fn: self.copy_fn.clone(),
         }
+    }
+}
+
+impl fmt::Debug for AnyValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("AnyValue")
+            .finish()
     }
 }
 
@@ -940,9 +953,15 @@ pub struct AnySendValue(AnyValue);
 unsafe impl Send for AnySendValue {}
 
 impl AnySendValue {
-    /// Create a new `AnySendValue` from `val`
+    /// Create a new `AnySendValue` from `val`.
     pub fn new<T: Any + Clone + Send + 'static>(val: T) -> Self {
         AnySendValue(AnyValue::new(val))
+    }
+
+    /// Attempt the value to its concrete type.
+    pub fn downcast<T: Any + Clone + Send + 'static>(self) -> Result<T, Self> {
+        let AnySendValue(AnyValue { val, copy_fn }) = self;
+        val.downcast::<T>().map(|val| *val).map_err(|val| AnySendValue(AnyValue { val: val, copy_fn: copy_fn }))
     }
 
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
@@ -954,6 +973,13 @@ impl AnySendValue {
     unsafe extern "C" fn free(v: *mut c_void) {
         let _guard = ::source::CallbackGuard::new();
         let _ = Box::from_raw(v as *mut AnySendValue);
+    }
+}
+
+impl fmt::Debug for AnySendValue {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("AnySendValue")
+            .finish()
     }
 }
 
@@ -1054,6 +1080,10 @@ mod tests {
         assert_eq!(s, Some(String::from("123")));
 
         let v2 = v.clone();
+
+        let s = any_v.downcast::<String>().unwrap();
+        assert_eq!(s, String::from("123"));
+
         drop(v);
 
         let any_v = v2.get::<&AnyValue>().cloned();
@@ -1066,7 +1096,7 @@ mod tests {
     #[test]
     fn test_any_send_value() {
         let v = AnySendValue::new(String::from("123"));
-        let v = v.to_value();
+        let v = v.to_send_value();
 
         let any_v = v.get::<&AnyValue>().cloned();
         assert!(any_v.is_none());
@@ -1078,6 +1108,9 @@ mod tests {
         assert_eq!(s, Some(String::from("123")));
 
         let v2 = v.clone();
+
+        let s = any_v.downcast::<String>().unwrap();
+        assert_eq!(s, String::from("123"));
         drop(v);
 
         let any_v = v2.get::<&AnySendValue>().cloned();
