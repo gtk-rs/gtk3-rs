@@ -69,6 +69,60 @@ impl Type {
             from_glib_none(gobject_ffi::g_type_name(self.to_glib()))
         }
     }
+
+    pub fn is_a(&self, other: &Type) -> bool {
+        unsafe {
+            from_glib(gobject_ffi::g_type_is_a(self.to_glib(), other.to_glib()))
+        }
+    }
+
+    pub fn parent(&self) -> Option<Self> {
+        unsafe {
+            let parent = gobject_ffi::g_type_parent(self.to_glib());
+            if parent == gobject_ffi::G_TYPE_INVALID {
+                None
+            } else {
+                Some(from_glib(parent))
+            }
+        }
+    }
+
+    pub fn children(&self) -> Vec<Self> {
+        unsafe {
+            let mut n_children = 0u32;
+            let children = gobject_ffi::g_type_children(self.to_glib(), &mut n_children);
+
+            FromGlibContainerAsVec::from_glib_full_num_as_vec(children, n_children as usize)
+        }
+    }
+
+    pub fn interfaces(&self) -> Vec<Self> {
+        unsafe {
+            let mut n_interfaces = 0u32;
+            let interfaces = gobject_ffi::g_type_interfaces(self.to_glib(), &mut n_interfaces);
+
+            FromGlibContainerAsVec::from_glib_full_num_as_vec(interfaces, n_interfaces as usize)
+        }
+    }
+    pub fn interface_prerequisites(&self) -> Vec<Self> {
+        unsafe {
+            let mut n_prereqs = 0u32;
+            let prereqs = gobject_ffi::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
+
+            FromGlibContainerAsVec::from_glib_full_num_as_vec(prereqs, n_prereqs as usize)
+        }
+    }
+
+    pub fn from_name<'a, P: Into<&'a str>>(name: P) -> Option<Self> {
+        unsafe {
+            let type_ = gobject_ffi::g_type_from_name(name.into().to_glib_none().0);
+            if type_ == gobject_ffi::G_TYPE_INVALID {
+                None
+            } else {
+                Some(from_glib(type_))
+            }
+        }
+    }
 }
 
 impl fmt::Debug for Type {
