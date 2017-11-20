@@ -71,7 +71,9 @@ pub trait Cast: IsA<Object> {
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
     fn is<T>(&self) -> bool
     where T: StaticType {
-        types::instance_of::<T>(self.to_glib_none().0 as *const _)
+        unsafe {
+            types::instance_of::<T>(self.to_glib_none().0 as *const _)
+        }
     }
 
     /// Tries to cast to an object of type `T`. This handles upcasting, downcasting
@@ -146,7 +148,9 @@ pub trait Downcast<T> {
 impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
     #[inline]
     fn can_downcast(&self) -> bool {
-        types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
+        unsafe {
+            types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
+        }
     }
 
     #[inline]
@@ -474,7 +478,9 @@ macro_rules! glib_object_wrapper {
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
                     *mut <$super_name as $crate::wrapper::Wrapper>::GlibType, Self> {
                 let stash = self.0.to_glib_none();
-                debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
@@ -482,7 +488,9 @@ macro_rules! glib_object_wrapper {
             fn to_glib_full(&self)
                     -> *mut <$super_name as $crate::wrapper::Wrapper>::GlibType {
                 let ptr = self.0.to_glib_full();
-                debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                }
                 ptr as *mut _
             }
         }
@@ -499,14 +507,18 @@ macro_rules! glib_object_wrapper {
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $super_ffi, Self> {
                 let stash = self.0.to_glib_none();
-                debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
             fn to_glib_full(&self) -> *mut $super_ffi {
                 let ptr = self.0.to_glib_full();
-                debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                }
                 ptr as *mut _
             }
         }

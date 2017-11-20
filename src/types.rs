@@ -120,12 +120,10 @@ pub trait InstanceType {
 }
 
 #[inline]
-pub fn instance_of<C: StaticType>(ptr: glib_ffi::gconstpointer) -> bool {
-    unsafe {
-        from_glib(
-            gobject_ffi::g_type_check_instance_is_a(
-                ptr as *mut _, <C as StaticType>::static_type().to_glib()))
-    }
+pub unsafe fn instance_of<C: StaticType>(ptr: glib_ffi::gconstpointer) -> bool {
+    from_glib(
+        gobject_ffi::g_type_check_instance_is_a(
+            ptr as *mut _, <C as StaticType>::static_type().to_glib()))
 }
 
 impl FromGlib<glib_ffi::GType> for Type {
