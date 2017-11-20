@@ -4,11 +4,13 @@
 
 //! Runtime type information.
 
-use translate::{FromGlib, ToGlib, from_glib, from_glib_none};
+use translate::{FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibPtr, ToGlibContainerFromSlice, from_glib, from_glib_none};
 use ffi as glib_ffi;
 use gobject_ffi;
 
 use std::fmt;
+use std::mem;
+use std::ptr;
 
 /// A GLib or GLib-based library type
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -188,5 +190,74 @@ impl ToGlib for Type {
             Variant => gobject_ffi::G_TYPE_VARIANT,
             Other(x) => x as glib_ffi::GType,
         }
+    }
+}
+
+impl<'a> ToGlibContainerFromSlice<'a, *mut glib_ffi::GType> for Type {
+    type Storage = Option<Vec<glib_ffi::GType>>;
+
+    fn to_glib_none_from_slice(t: &'a [Type]) -> (*mut glib_ffi::GType, Self::Storage) {
+        let mut vec = t.iter().map(|v| v.to_glib()).collect::<Vec<_>>();
+
+        (vec.as_mut_ptr(), Some(vec))
+    }
+
+    fn to_glib_container_from_slice(t: &'a [Type]) -> (*mut glib_ffi::GType, Self::Storage) {
+        (Self::to_glib_full_from_slice(t), None)
+    }
+
+    fn to_glib_full_from_slice(t: &[Type]) -> *mut glib_ffi::GType {
+        if t.len() == 0 {
+            return ptr::null_mut();
+        }
+
+        unsafe {
+            let res = glib_ffi::g_malloc0(mem::size_of::<glib_ffi::GType>() * (t.len() + 1)) as *mut glib_ffi::GType;
+            for (i, v) in t.iter().enumerate() {
+                *res.offset(i as isize) = v.to_glib();
+            }
+            res
+        }
+    }
+}
+
+
+impl FromGlibContainerAsVec<Type, *const glib_ffi::GType> for Type {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const glib_ffi::GType, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib(*ptr.offset(i as isize)));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const glib_ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const glib_ffi::GType, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+}
+
+impl FromGlibContainerAsVec<Type, *mut glib_ffi::GType> for Type {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut glib_ffi::GType, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr as *const _, num)
+    }
+
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut glib_ffi::GType, num: usize) -> Vec<Self> {
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut glib_ffi::GType, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
     }
 }
