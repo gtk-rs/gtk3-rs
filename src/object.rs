@@ -722,26 +722,28 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             }
 
             // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
-            let return_type = details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+            let return_type: Type = from_glib(details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT));
             let closure = Closure::new(move |values| {
                 let ret = callback(values);
 
-                if return_type == gobject_ffi::G_TYPE_NONE {
-                    // Silently drop return value, if any
-                    None
-                } else if let Some(ret) = ret {
-                    if ret.type_().to_glib() == return_type {
-                        Some(ret)
-                    } else {
-                        let mut value = Value::uninitialized();
-                        gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
-                        Some(value)
+                if return_type == Type::Unit {
+                    if let Some(ret) = ret {
+                        panic!("Signal required no return value but got value of type {}", ret.type_().name());
                     }
+                    None
                 } else {
-                    // Silently create empty return value
-                    let mut value = Value::uninitialized();
-                    gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
-                    Some(value)
+                    match ret {
+                        Some(ret) => {
+                            if ret.type_() != return_type {
+                                panic!("Signal required return value of type {} but got {}",
+                                       return_type.name(), ret.type_().name());
+                            }
+                            Some(ret)
+                        },
+                        None => {
+                            panic!("Signal required return value of type {} but got None", return_type.name());
+                        },
+                    }
                 }
             });
             let handler = gobject_ffi::g_signal_connect_closure_by_id(self.to_glib_none().0, signal_id, signal_detail,
