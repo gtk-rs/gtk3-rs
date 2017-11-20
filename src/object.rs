@@ -734,7 +734,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 } else {
                     match ret {
                         Some(ret) => {
-                            if ret.type_() != return_type {
+                            if !ret.type_().is_a(&return_type) {
                                 panic!("Signal required return value of type {} but got {}",
                                        return_type.name(), ret.type_().name());
                             }
