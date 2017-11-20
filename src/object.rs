@@ -71,7 +71,9 @@ pub trait Cast: IsA<Object> {
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
     fn is<T>(&self) -> bool
     where T: StaticType {
-        types::instance_of::<T>(self.to_glib_none().0 as *const _)
+        unsafe {
+            types::instance_of::<T>(self.to_glib_none().0 as *const _)
+        }
     }
 
     /// Tries to cast to an object of type `T`. This handles upcasting, downcasting
@@ -146,7 +148,9 @@ pub trait Downcast<T> {
 impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
     #[inline]
     fn can_downcast(&self) -> bool {
-        types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
+        unsafe {
+            types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
+        }
     }
 
     #[inline]
@@ -474,7 +478,9 @@ macro_rules! glib_object_wrapper {
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
                     *mut <$super_name as $crate::wrapper::Wrapper>::GlibType, Self> {
                 let stash = self.0.to_glib_none();
-                debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
@@ -482,7 +488,9 @@ macro_rules! glib_object_wrapper {
             fn to_glib_full(&self)
                     -> *mut <$super_name as $crate::wrapper::Wrapper>::GlibType {
                 let ptr = self.0.to_glib_full();
-                debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                }
                 ptr as *mut _
             }
         }
@@ -499,14 +507,18 @@ macro_rules! glib_object_wrapper {
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $super_ffi, Self> {
                 let stash = self.0.to_glib_none();
-                debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
+                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
             fn to_glib_full(&self) -> *mut $super_ffi {
                 let ptr = self.0.to_glib_full();
-                debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                unsafe {
+                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
+                }
                 ptr as *mut _
             }
         }
@@ -710,26 +722,28 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             }
 
             // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
-            let return_type = details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+            let return_type: Type = from_glib(details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT));
             let closure = Closure::new(move |values| {
                 let ret = callback(values);
 
-                if return_type == gobject_ffi::G_TYPE_NONE {
-                    // Silently drop return value, if any
-                    None
-                } else if let Some(ret) = ret {
-                    if ret.type_().to_glib() == return_type {
-                        Some(ret)
-                    } else {
-                        let mut value = Value::uninitialized();
-                        gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
-                        Some(value)
+                if return_type == Type::Unit {
+                    if let Some(ret) = ret {
+                        panic!("Signal required no return value but got value of type {}", ret.type_().name());
                     }
+                    None
                 } else {
-                    // Silently create empty return value
-                    let mut value = Value::uninitialized();
-                    gobject_ffi::g_value_init(value.to_glib_none_mut().0, return_type);
-                    Some(value)
+                    match ret {
+                        Some(ret) => {
+                            if !ret.type_().is_a(&return_type) {
+                                panic!("Signal required return value of type {} but got {}",
+                                       return_type.name(), ret.type_().name());
+                            }
+                            Some(ret)
+                        },
+                        None => {
+                            panic!("Signal required return value of type {} but got None", return_type.name());
+                        },
+                    }
                 }
             });
             let handler = gobject_ffi::g_signal_connect_closure_by_id(self.to_glib_none().0, signal_id, signal_detail,
