@@ -115,6 +115,22 @@ builtin!(f64, F64);
 builtin!(str, String);
 builtin!(String, String);
 
+impl<'a> StaticType for [&'a str] {
+    fn static_type() -> Type {
+        unsafe {
+            from_glib(glib_ffi::g_strv_get_type())
+        }
+    }
+}
+
+impl StaticType for Vec<String> {
+    fn static_type() -> Type {
+        unsafe {
+            from_glib(glib_ffi::g_strv_get_type())
+        }
+    }
+}
+
 pub trait InstanceType {
     fn instance_type(&self) -> Type;
 }

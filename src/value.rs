@@ -87,7 +87,7 @@ use std::ffi::CStr;
 use std::ptr;
 use std::any::Any;
 use std::sync::Arc;
-use libc::c_void;
+use libc::{c_char, c_void};
 
 use translate::*;
 use types::{StaticType, Type};
@@ -768,6 +768,45 @@ impl SetValueOptional for str {
     }
 }
 
+impl<'a> FromValueOptional<'a> for Vec<String> {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;
+        if ptr.is_null() {
+            None
+        } else {
+            Some(FromGlibPtrContainer::from_glib_none(ptr))
+        }
+    }
+}
+
+impl<'a> SetValue for [&'a str] {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        let ptr: *mut *mut c_char = this.to_glib_full();
+        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void)
+    }
+}
+
+impl<'a> SetValueOptional for [&'a str] {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        let ptr: *mut *mut c_char = this.to_glib_full();
+        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void)
+    }
+}
+
+impl SetValue for Vec<String> {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        let ptr: *mut *mut c_char = this.to_glib_full();
+        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void)
+    }
+}
+
+impl SetValueOptional for Vec<String> {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        let ptr: *mut *mut c_char = this.map(|v| v.to_glib_full()).unwrap_or(ptr::null_mut());
+        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void)
+    }
+}
+
 impl<'a, T: ?Sized + SetValue> SetValue for &'a T {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         SetValue::set_value(value, *this)
@@ -1122,5 +1161,14 @@ mod tests {
         // Must compile, while it must fail with AnyValue
         use std::thread;
         thread::spawn(move || drop(any_v)).join().unwrap();
+    }
+
+    #[test]
+    fn test_strv() {
+        let v = vec!["123", "456"].to_value();
+        assert_eq!(v.get::<Vec<String>>(), Some(vec!["123".into(), "456".into()]));
+
+        let v = vec![String::from("123"), String::from("456")].to_value();
+        assert_eq!(v.get::<Vec<String>>(), Some(vec!["123".into(), "456".into()]));
     }
 }
