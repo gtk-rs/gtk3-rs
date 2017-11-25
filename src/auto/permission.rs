@@ -70,14 +70,14 @@ impl<O: IsA<Permission> + IsA<glib::object::Object>> PermissionExt for O {
     fn acquire_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn acquire_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_permission_acquire_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -124,14 +124,14 @@ impl<O: IsA<Permission> + IsA<glib::object::Object>> PermissionExt for O {
     fn release_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn release_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_permission_release_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }

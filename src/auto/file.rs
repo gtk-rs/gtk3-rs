@@ -255,14 +255,14 @@ impl<O: IsA<File>> FileExt for O {
     fn append_to_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn append_to_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_append_to_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -291,14 +291,14 @@ impl<O: IsA<File>> FileExt for O {
     fn create_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn create_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_create_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -315,14 +315,14 @@ impl<O: IsA<File>> FileExt for O {
     fn create_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn create_readwrite_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_create_readwrite_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -346,14 +346,14 @@ impl<O: IsA<File>> FileExt for O {
     fn delete_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn delete_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_delete_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -384,14 +384,14 @@ impl<O: IsA<File>> FileExt for O {
     fn enumerate_children_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn enumerate_children_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_enumerate_children_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -414,14 +414,14 @@ impl<O: IsA<File>> FileExt for O {
     fn find_enclosing_mount_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn find_enclosing_mount_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_find_enclosing_mount_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -529,7 +529,7 @@ impl<O: IsA<File>> FileExt for O {
     fn load_contents_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(Vec<u8>, String), Error>) + Send + Sync>(&self, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(Vec<u8>, String), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(Vec<u8>, String), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn load_contents_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
@@ -539,7 +539,7 @@ impl<O: IsA<File>> FileExt for O {
                 let mut etag_out = ptr::null_mut();
                 let _ = ffi::g_file_load_contents_finish(_source_object as *mut _, res, &mut contents, &mut length, &mut etag_out, &mut error);
                 let result = if error.is_null() { Ok((FromGlibContainer::from_glib_full_num(contents, length as usize), from_glib_full(etag_out))) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(Vec<u8>, String), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(Vec<u8>, String), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -567,14 +567,14 @@ impl<O: IsA<File>> FileExt for O {
     fn make_directory_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn make_directory_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_make_directory_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -645,14 +645,14 @@ impl<O: IsA<File>> FileExt for O {
     fn open_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn open_readwrite_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_open_readwrite_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -705,14 +705,14 @@ impl<O: IsA<File>> FileExt for O {
     fn query_filesystem_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, attributes: &str, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn query_filesystem_info_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_query_filesystem_info_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -735,14 +735,14 @@ impl<O: IsA<File>> FileExt for O {
     fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn query_info_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_query_info_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -767,14 +767,14 @@ impl<O: IsA<File>> FileExt for O {
     fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn read_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_read_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -793,14 +793,14 @@ impl<O: IsA<File>> FileExt for O {
         let etag = etag.to_glib_none();
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn replace_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_replace_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -830,7 +830,7 @@ impl<O: IsA<File>> FileExt for O {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let length = contents.len() as usize;
-        let user_data: Box<Box<Fn(Result<String, Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<String, Error>)>> = Box::new(Box::new(callback));
         extern "C" fn replace_contents_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
@@ -838,7 +838,7 @@ impl<O: IsA<File>> FileExt for O {
                 let mut new_etag = ptr::null_mut();
                 let _ = ffi::g_file_replace_contents_finish(_source_object as *mut _, res, &mut new_etag, &mut error);
                 let result = if error.is_null() { Ok((from_glib_full(new_etag))) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<String, Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<String, Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -862,14 +862,14 @@ impl<O: IsA<File>> FileExt for O {
         let etag = etag.to_glib_none();
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn replace_readwrite_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_replace_readwrite_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -952,7 +952,7 @@ impl<O: IsA<File>> FileExt for O {
     fn set_attributes_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<FileInfo, Error>) + Send + Sync>(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<FileInfo, Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<FileInfo, Error>)>> = Box::new(Box::new(callback));
         extern "C" fn set_attributes_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
@@ -960,7 +960,7 @@ impl<O: IsA<File>> FileExt for O {
                 let mut info = ptr::null_mut();
                 let _ = ffi::g_file_set_attributes_finish(_source_object as *mut _, res, &mut info, &mut error);
                 let result = if error.is_null() { Ok((from_glib_full(info))) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<FileInfo, Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<FileInfo, Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -993,14 +993,14 @@ impl<O: IsA<File>> FileExt for O {
     fn set_display_name_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, display_name: &str, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn set_display_name_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_set_display_name_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
@@ -1038,14 +1038,14 @@ impl<O: IsA<File>> FileExt for O {
     fn trash_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn trash_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_file_trash_finish(_source_object as *mut _, res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }

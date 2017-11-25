@@ -88,14 +88,14 @@ impl AppInfo {
     pub fn launch_default_for_uri_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync>(uri: &str, launch_context: &AppLaunchContext, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<(), Error>)>> = Box::new(Box::new(callback));
         extern "C" fn launch_default_for_uri_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             unsafe {
                 let mut error = ptr::null_mut();
                 let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
                 let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &Box<Fn(Result<(), Error>) + Send + Sync> = transmute(user_data);
+                let callback: &&Fn(Result<(), Error>) = transmute(user_data);
                 callback(result);
             }
         }
