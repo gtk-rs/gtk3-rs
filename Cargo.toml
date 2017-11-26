@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 keywords = ["cairo", "gtk-rs", "gnome", "GUI"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/cairo/"
-version = "0.2.0"
+version = "0.3.0"
 description = "Rust bindings for the Cairo library"
 repository = "https://github.com/gtk-rs/cairo"
 build = "build.rs"
@@ -30,16 +30,16 @@ optional = true
 git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies.cairo-sys-rs]
-version = "0.4.0"
+version = "0.5.0"
 path = "cairo-sys-rs"
 
 [dependencies.glib]
-version = "0.3.0"
+version = "0.4.0"
 optional = true
 git = "https://github.com/gtk-rs/glib"
 
 [dependencies.glib-sys]
-version = "0.4.0"
+version = "0.5.0"
 optional = true
 git = "https://github.com/gtk-rs/sys"
 
