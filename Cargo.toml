@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 keywords = ["gdk-pixbuf", "gtk-rs", "gnome"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/gdk_pixbuf/"
-version = "0.2.0"
+version = "0.3.0"
 description = "Rust bindings for the GdkPixbuf library"
 repository = "https://github.com/gtk-rs/gdk-pixbuf"
 build = "build.rs"
@@ -32,17 +32,17 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 
 [dependencies.gdk-pixbuf-sys]
-version = "0.4.0"
+version = "0.5.0"
 git = "https://github.com/gtk-rs/sys"
 
 [dependencies.glib]
-version = "0.3.0"
+version = "0.4.0"
 git = "https://github.com/gtk-rs/glib"
 
 [dependencies.glib-sys]
-version = "0.4.0"
+version = "0.5.0"
 git = "https://github.com/gtk-rs/sys"
 
 [dependencies.gobject-sys]
-version = "0.4.0"
+version = "0.5.0"
 git = "https://github.com/gtk-rs/sys"
