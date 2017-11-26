@@ -1,17 +1,22 @@
 #![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
 
-extern crate gtk;
 extern crate gdk;
+extern crate gio;
+extern crate gtk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
     use gdk;
+    use gio;
+    use gio::prelude::*;
     use gtk::prelude::*;
     use gtk::{
-        self, AboutDialog, AppChooserDialog, Builder, Button, Dialog, Entry, FileChooserAction,
-        FileChooserDialog, FontChooserDialog, Scale, SpinButton, RecentChooserDialog, ResponseType,
-        Spinner, Switch, Window
+        self, AboutDialog, ApplicationWindow, AppChooserDialog, Builder, Button, Dialog, Entry,
+        FileChooserAction, FileChooserDialog, FontChooserDialog, Scale, SpinButton,
+        RecentChooserDialog, ResponseType, Spinner, Switch, Window,
     };
+
+    use std::env::args;
 
     // make moving clones into closures more convenient
     macro_rules! clone {
@@ -47,11 +52,7 @@ mod example {
         dialog.hide();
     }
 
-    pub fn sub_main() {
-        if gtk::init().is_err() {
-            println!("Failed to initialize GTK.");
-            return;
-        }
+    fn build_ui(application: &gtk::Application) {
         println!("Major: {}, Minor: {}", gtk::get_major_version(), gtk::get_minor_version());
         let glade_src = include_str!("gtktest.glade");
         let builder = Builder::new_from_string(glade_src);
@@ -84,11 +85,12 @@ mod example {
             }
         });
 
-        let window: Window = builder.get_object("window").expect("Couldn't get window");
+        let window: ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+        window.set_application(application);
         let button: Button = builder.get_object("button").expect("Couldn't get button");
         let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
         button.connect_clicked(clone!(window, entry => move |_| {
-            let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DIALOG_MODAL,
+            let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("No", 0), ("Yes", 1), ("Yes!", 2)]);
 
             let ret = dialog.run();
@@ -142,7 +144,7 @@ mod example {
         let app_button: Button = builder.get_object("app_button").expect("Couldn't get app_button");
         app_button.connect_clicked(clone!(window => move |_| {
             //entry.set_text("Clicked!");
-            let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DIALOG_MODAL,
+            let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DialogFlags::MODAL,
                 "sh");
 
             dialog.run();
@@ -171,30 +173,42 @@ mod example {
             println!("key pressed: {} / {:?}", keyval, keystate);
             println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
 
-            if keystate.intersects(gdk::CONTROL_MASK) {
+            if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
                 println!("You pressed Ctrl!");
             }
 
             Inhibit(false)
         }));
 
-        window.connect_delete_event(|_, _| {
-            gtk::main_quit();
+        window.connect_delete_event(clone!(window => move |_, _| {
+            window.destroy();
             Inhibit(false)
-        });
+        }));
 
         window.show_all();
-        gtk::main();
+    }
+
+    pub fn main() {
+        let application = gtk::Application::new("com.github.gtktest",
+                                                gio::ApplicationFlags::empty())
+                                           .expect("Initialization failed...");
+
+        application.connect_startup(move |app| {
+            build_ui(app);
+        });
+        application.connect_activate(|_| {});
+
+        application.run(&args().collect::<Vec<_>>());
     }
 }
 
 #[cfg(feature = "gtk_3_10")]
 fn main() {
-    example::sub_main()
+    example::main()
 }
 
 #[cfg(not(feature = "gtk_3_10"))]
 fn main() {
-    println!("This example only work with GTK 3.10 and later");
+    println!("This example requires GTK 3.10 or later");
     println!("Did you forget to build with `--features gtk_3_10`?");
 }

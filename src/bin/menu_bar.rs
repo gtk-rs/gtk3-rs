@@ -1,31 +1,50 @@
 //! # MenuBar Sample
 //!
-//! This sample demonstrates how to use Menus/MenuBars and MenuItems
+//! This sample demonstrates how to use Menus/MenuBars and MenuItems in Windows.
+//!
+//! /!\ This is different from the system menu bar (which are preferred) available in `gio::Menu`!
 
+extern crate gio;
 extern crate gtk;
 
+use gio::{ApplicationExt, ApplicationExtManual};
 use gtk::prelude::*;
 use gtk::{
-    AboutDialog, CheckMenuItem, IconSize, Image, Label, Menu, MenuBar, MenuItem, Window,
-    WindowPosition, WindowType
+    AboutDialog, ApplicationWindow, CheckMenuItem, IconSize, Image, Label, Menu, MenuBar, MenuItem,
+    WindowPosition,
 };
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+use std::env::args;
 
-    let window = Window::new(WindowType::Toplevel);
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
+
+fn build_ui(application: &gtk::Application) {
+    let window = ApplicationWindow::new(application);
 
     window.set_title("MenuBar example");
     window.set_position(WindowPosition::Center);
     window.set_size_request(400, 400);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
 
@@ -74,9 +93,9 @@ fn main() {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    quit.connect_activate(|_| {
-        gtk::main_quit();
-    });
+    quit.connect_activate(clone!(window => move |_| {
+        window.destroy();
+    }));
 
     let label = Label::new(Some("MenuBar example"));
 
@@ -103,5 +122,17 @@ fn main() {
             "Unchecked"
         });
     });
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.menu_bar",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

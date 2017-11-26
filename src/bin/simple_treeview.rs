@@ -2,13 +2,35 @@
 //!
 //! This sample demonstrates how to create a TreeView with a ListStore.
 
+extern crate gio;
 extern crate gtk;
 
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
-    CellRendererText, Label, ListStore, Orientation, TreeView, TreeViewColumn,
-    Window, WindowPosition, WindowType
+    ApplicationWindow, CellRendererText, Label, ListStore, Orientation, TreeView, TreeViewColumn,
+    WindowPosition,
 };
+
+use std::env::args;
+
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
 
 fn create_and_fill_model() -> ListStore {
     // Creation of a model with two rows.
@@ -43,21 +65,16 @@ fn create_and_setup_view() -> TreeView {
     tree
 }
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
-
-    let window = Window::new(WindowType::Toplevel);
+fn build_ui(application: &gtk::Application) {
+    let window = ApplicationWindow::new(application);
 
     window.set_title("Simple TreeView example");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     // Creating a vertical layout to place both tree view and label in the window.
     let vertical_layout = gtk::Box::new(Orientation::Vertical, 0);
@@ -98,5 +115,17 @@ fn main() {
     window.add(&vertical_layout);
 
     window.show_all();
-    gtk::main();
+}
+
+fn main() {
+    let application = gtk::Application::new("com.github.simple_treeview",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

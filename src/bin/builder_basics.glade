@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
-  <object class="GtkWindow" id="window1">
+  <object class="GtkApplicationWindow" id="window1">
     <property name="title" translatable="yes">Builder Basics</property>
     <property name="default_width">320</property>
     <property name="default_height">240</property>
