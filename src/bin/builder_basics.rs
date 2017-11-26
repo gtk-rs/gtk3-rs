@@ -2,32 +2,54 @@
 //!
 //! This sample demonstrates how to use the builder with an imported glade file
 
+extern crate gio;
 extern crate gtk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
+    use gio;
     use gtk;
+
+    use gio::prelude::*;
     use gtk::prelude::*;
-    use gtk::{Builder, Button, MessageDialog, Window};
+
+    use gtk::{ApplicationWindow, Builder, Button, MessageDialog};
+
+    use std::env::args;
 
 
-    pub fn main() {
-        if gtk::init().is_err() {
-            println!("Failed to initialize GTK.");
-            return;
-        }
+    // make moving clones into closures more convenient
+    macro_rules! clone {
+        (@param _) => ( _ );
+        (@param $x:ident) => ( $x );
+        ($($n:ident),+ => move || $body:expr) => (
+            {
+                $( let $n = $n.clone(); )+
+                move || $body
+            }
+        );
+        ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+            {
+                $( let $n = $n.clone(); )+
+                move |$(clone!(@param $p),)+| $body
+            }
+        );
+    }
+
+    pub fn build_ui(application: &gtk::Application) {
         let glade_src = include_str!("builder_basics.glade");
         let builder = Builder::new_from_string(glade_src);
 
-        let window: Window = builder.get_object("window1").expect("Couldn't get window1");
+        let window: ApplicationWindow = builder.get_object("window1").expect("Couldn't get window1");
         let bigbutton: Button = builder.get_object("button1").expect("Couldn't get button1");
         let dialog: MessageDialog = builder.get_object("messagedialog1")
                                            .expect("Couldn't get messagedialog1");
 
-        window.connect_delete_event(|_, _| {
-            gtk::main_quit();
+        window.set_application(application);
+        window.connect_delete_event(clone!(window => move |_, _| {
+            window.destroy();
             Inhibit(false)
-        });
+        }));
 
         bigbutton.connect_clicked(move |_| {
             dialog.run();
@@ -35,8 +57,19 @@ mod example {
         });
 
         window.show_all();
+    }
 
-        gtk::main();
+    pub fn main() {
+        let application = gtk::Application::new("com.github.builder_basics",
+                                                gio::ApplicationFlags::empty())
+                                           .expect("Initialization failed...");
+
+        application.connect_startup(move |app| {
+            build_ui(app);
+        });
+        application.connect_activate(|_| {});
+
+        application.run(&args().collect::<Vec<_>>());
     }
 }
 
@@ -47,7 +80,6 @@ fn main() {
 
 #[cfg(not(feature = "gtk_3_10"))]
 fn main() {
-    println!("This example only work with GTK 3.10 and later");
+    println!("This example requires GTK 3.10 or later");
     println!("Did you forget to build with `--features gtk_3_10`?");
 }
-

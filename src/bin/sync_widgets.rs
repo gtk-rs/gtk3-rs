@@ -1,17 +1,36 @@
 //! # Synchronizing Widgets
 //!
-//! You can use signals in order to synchronize the values of widgets. In this example a spin button and a horizontal scale will get interlocked.
+//! You can use signals in order to synchronize the values of widgets. In this example a spin
+//! button and a horizontal scale will get interlocked.
 
+extern crate gio;
 extern crate gtk;
 
+use gio::prelude::*;
 use gtk::Builder;
 use gtk::prelude::*;
 
-fn main() {
-    if gtk::init().is_err() {
-        println!("Failed to initialize GTK.");
-        return;
-    }
+use std::env::args;
+
+// make moving clones into closures more convenient
+macro_rules! clone {
+    (@param _) => ( _ );
+    (@param $x:ident) => ( $x );
+    ($($n:ident),+ => move || $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move || $body
+        }
+    );
+    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
+        {
+            $( let $n = $n.clone(); )+
+            move |$(clone!(@param $p),)+| $body
+        }
+    );
+}
+
+fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("sync_widgets.glade");
     let builder = Builder::new();
     builder.add_from_string(glade_src).expect("Couldn't add from string");
@@ -28,13 +47,25 @@ fn main() {
         spin_button_adj.set_value(adj.get_value());
     });
 
-    let window: gtk::Window = builder.get_object("window").expect("Couldn't get window");
-    window.connect_delete_event(|_, _| {
-        gtk::main_quit();
+    let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
+    window.set_application(application);
+    window.connect_delete_event(clone!(window => move |_, _| {
+        window.destroy();
         Inhibit(false)
-    });
+    }));
 
     window.show_all();
+}
 
-    gtk::main();
+fn main() {
+    let application = gtk::Application::new("com.github.sync_widgets",
+                                            gio::ApplicationFlags::empty())
+                                       .expect("Initialization failed...");
+
+    application.connect_startup(move |app| {
+        build_ui(app);
+    });
+    application.connect_activate(|_| {});
+
+    application.run(&args().collect::<Vec<_>>());
 }

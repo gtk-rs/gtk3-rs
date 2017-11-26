@@ -4,7 +4,9 @@ version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
+chrono = "0.4"
 glib = "^0"
+gio = "^0"
 gdk = "^0"
 gdk-pixbuf = "^0"
 gtk = "^0"
