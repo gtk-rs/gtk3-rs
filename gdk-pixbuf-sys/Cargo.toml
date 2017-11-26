@@ -7,15 +7,15 @@ libc = "0.2"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [features]
 dox = []
@@ -37,4 +37,4 @@ license = "MIT"
 links = "gdk_pixbuf"
 name = "gdk-pixbuf-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.4.0"
+version = "0.5.0"

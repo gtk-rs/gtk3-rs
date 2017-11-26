@@ -7,35 +7,35 @@ libc = "0.2"
 
 [dependencies.atk-sys]
 path = "../atk-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.cairo-sys-rs]
 git = "https://github.com/gtk-rs/cairo"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.gdk-pixbuf-sys]
 path = "../gdk-pixbuf-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.gdk-sys]
 path = "../gdk-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.gio-sys]
 path = "../gio-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.glib-sys]
 path = "../glib-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.gobject-sys]
 path = "../gobject-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [dependencies.pango-sys]
 path = "../pango-sys"
-version = "0.4.0"
+version = "0.5.0"
 
 [features]
 dox = []
@@ -63,4 +63,4 @@ license = "MIT"
 links = "gtk"
 name = "gtk-sys"
 repository = "https://github.com/gtk-rs/sys"
-version = "0.4.0"
+version = "0.5.0"
