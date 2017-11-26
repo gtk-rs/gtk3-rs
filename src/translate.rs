@@ -600,6 +600,27 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     }
 }
 
+impl<'a, T> ToGlibContainerFromSlice<'a, *const glib_ffi::GList> for T
+where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
+    type Storage = (Option<List>, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, T>>);
+
+    #[inline]
+    fn to_glib_none_from_slice(t: &'a [T]) -> (*const glib_ffi::GList, Self::Storage) {
+        let (list, stash) = ToGlibContainerFromSlice::<*mut glib_ffi::GList>::to_glib_none_from_slice(t);
+        (list as *const glib_ffi::GList, stash)
+    }
+
+    #[inline]
+    fn to_glib_container_from_slice(_t: &'a [T]) -> (*const glib_ffi::GList, Self::Storage) {
+        unimplemented!()
+    }
+
+    #[inline]
+    fn to_glib_full_from_slice(_t: &[T]) -> *const glib_ffi::GList {
+        unimplemented!()
+    }
+}
+
 pub struct List(*mut glib_ffi::GList);
 
 impl Drop for List {
@@ -647,6 +668,27 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
             }
         }
         list
+    }
+}
+
+impl<'a, T> ToGlibContainerFromSlice<'a, *const glib_ffi::GSList> for &'a T
+where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
+    type Storage = (Option<SList>, Vec<Stash<'a, <T as GlibPtrDefault>::GlibType, &'a T>>);
+
+    #[inline]
+    fn to_glib_none_from_slice(t: &'a [&'a T]) -> (*const glib_ffi::GSList, Self::Storage) {
+        let (list, stash) = ToGlibContainerFromSlice::<*mut glib_ffi::GSList>::to_glib_none_from_slice(t);
+        (list as *const glib_ffi::GSList, stash)
+    }
+
+    #[inline]
+    fn to_glib_container_from_slice(_t: &'a [&'a T]) -> (*const glib_ffi::GSList, Self::Storage) {
+        unimplemented!()
+    }
+
+    #[inline]
+    fn to_glib_full_from_slice(_t: &[&'a T]) -> *const glib_ffi::GSList {
+        unimplemented!()
     }
 }
 
