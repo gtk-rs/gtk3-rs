@@ -770,12 +770,14 @@ impl SetValueOptional for str {
 
 impl<'a> FromValueOptional<'a> for Vec<String> {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        Some(<Vec<String> as FromValue>::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for Vec<String> {
+    unsafe fn from_value(value: &'a Value) -> Self {
         let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;
-        if ptr.is_null() {
-            None
-        } else {
-            Some(FromGlibPtrContainer::from_glib_none(ptr))
-        }
+        FromGlibPtrContainer::from_glib_none(ptr)
     }
 }
 
