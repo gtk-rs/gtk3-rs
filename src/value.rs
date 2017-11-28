@@ -159,10 +159,11 @@ impl Value {
         }
     }
 
-    /// Returns `true` if the type of the value corresponds to `T`.
+    /// Returns `true` if the type of the value corresponds to `T`
+    /// or is a sub-type of `T`.
     #[inline]
     pub fn is<'a, T: FromValueOptional<'a> + SetValue>(&self) -> bool {
-        self.type_() == T::static_type()
+        self.type_().is_a(&T::static_type())
     }
 
     /// Returns the type of the value.
