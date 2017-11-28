@@ -627,9 +627,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         };
 
         unsafe {
-            let mut value = Value::uninitialized();
-
-            gobject_ffi::g_value_init(value.to_glib_none_mut().0, property_type.to_glib());
+            let mut value = Value::from_type(property_type);
             gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
             // This can't really happen unless something goes wrong inside GObject
