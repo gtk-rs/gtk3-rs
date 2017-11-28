@@ -111,6 +111,16 @@ use gobject_ffi;
 pub struct Value(gobject_ffi::GValue, PhantomData<*const c_void>);
 
 impl Value {
+    /// Creates a new `Value` that is initialized with `type_`
+    pub fn from_type(type_: Type) -> Self {
+        unsafe {
+            assert_eq!(gobject_ffi::g_type_check_is_value_type(type_.to_glib()), glib_ffi::GTRUE);
+            let mut value = Value::uninitialized();
+            gobject_ffi::g_value_init(value.to_glib_none_mut().0, type_.to_glib());
+            value
+        }
+    }
+
     /// Tries to downcast to a `TypedValue`.
     ///
     /// Returns `Ok(TypedValue<T>)` if the value carries a type corresponding
@@ -149,10 +159,11 @@ impl Value {
         }
     }
 
-    /// Returns `true` if the type of the value corresponds to `T`.
+    /// Returns `true` if the type of the value corresponds to `T`
+    /// or is a sub-type of `T`.
     #[inline]
     pub fn is<'a, T: FromValueOptional<'a> + SetValue>(&self) -> bool {
-        self.type_() == T::static_type()
+        self.type_().is_a(&T::static_type())
     }
 
     /// Returns the type of the value.
@@ -184,8 +195,7 @@ impl Value {
 impl Clone for Value {
     fn clone(&self) -> Self {
         unsafe {
-            let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, self.0.g_type);
+            let mut ret = Value::from_type(from_glib(self.0.g_type));
             gobject_ffi::g_value_copy(self.to_glib_none().0, ret.to_glib_none_mut().0);
             ret
         }
@@ -326,8 +336,7 @@ macro_rules! from_glib {
     ($name:ident, $wrap:expr) => {
         impl FromGlibPtrNone<*const gobject_ffi::GValue> for $name {
             unsafe fn from_glib_none(ptr: *const gobject_ffi::GValue) -> Self {
-                let mut ret = Value::uninitialized();
-                gobject_ffi::g_value_init(ret.to_glib_none_mut().0, (*ptr).g_type);
+                let mut ret = Value::from_type(from_glib((*ptr).g_type));
                 gobject_ffi::g_value_copy(ptr, ret.to_glib_none_mut().0);
                 $wrap(ret)
             }
@@ -570,8 +579,7 @@ pub trait ToValue {
 impl<T: SetValueOptional> ToValue for Option<T> {
     fn to_value(&self) -> Value {
         unsafe {
-            let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
+            let mut ret = Value::from_type(T::static_type());
             T::set_value_optional(&mut ret, self.as_ref());
             ret
         }
@@ -586,8 +594,7 @@ impl<T: SetValueOptional> ToValue for Option<T> {
 impl<T: ?Sized + SetValue> ToValue for T {
     fn to_value(&self) -> Value {
         unsafe {
-            let mut ret = Value::uninitialized();
-            gobject_ffi::g_value_init(ret.to_glib_none_mut().0, T::static_type().to_glib());
+            let mut ret = Value::from_type(T::static_type());
             T::set_value(&mut ret, self);
             ret
         }

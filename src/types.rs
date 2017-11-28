@@ -187,10 +187,6 @@ impl StaticType for Vec<String> {
     }
 }
 
-pub trait InstanceType {
-    fn instance_type(&self) -> Type;
-}
-
 #[inline]
 pub unsafe fn instance_of<C: StaticType>(ptr: glib_ffi::gconstpointer) -> bool {
     from_glib(
