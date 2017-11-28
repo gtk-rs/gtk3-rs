@@ -29,6 +29,8 @@ generate = [
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
     "Gio.SettingsBindFlags",
+    "Gio.SettingsSchema",
+    "Gio.SettingsSchemaKey",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
     "Gio.ThemedIcon",
