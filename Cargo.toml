@@ -5,6 +5,7 @@ authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
 chrono = "0.4"
+url = "1.4"
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
