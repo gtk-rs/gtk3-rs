@@ -14,7 +14,7 @@ license = "MIT"
 name = "glib"
 
 [dependencies]
-lazy_static = "0.2"
+lazy_static = "1.0"
 libc = "0.2"
 bitflags = "1.0"
 
