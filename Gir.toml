@@ -30,7 +30,6 @@ generate = [
     "Gio.ResourceLookupFlags",
     "Gio.SettingsBindFlags",
     "Gio.SettingsSchema",
-    "Gio.SettingsSchemaKey",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
     "Gio.ThemedIcon",
@@ -127,3 +126,8 @@ status = "generate"
     # Requires special alignment, see
     # https://bugzilla.gnome.org/show_bug.cgi?id=790030
     ignore = true
+
+[[object]]
+name = "Gio.SettingsSchemaKey"
+status = "generate"
+version = "2.40"
