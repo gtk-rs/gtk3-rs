@@ -265,6 +265,12 @@ version = "3.22"
     [[object.property]]
     name = "subpixel-layout"
     version = "3.22"
+    [[object.property]]
+    name = "manufacturer"
+    version = "3.22"
+    [[object.property]]
+    name = "model"
+    version = "3.22"
 
 [[object]]
 name = "Gdk.Screen"
