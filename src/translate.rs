@@ -1290,7 +1290,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
 
     unsafe fn from_glib_full_as_vec(ptr: *mut glib_ffi::GSList) -> Vec<T> {
         let num = glib_ffi::g_slist_length(ptr) as usize;
-        FromGlibContainer::from_glib_container_num(ptr, num)
+        FromGlibContainer::from_glib_full_num(ptr, num)
     }
 }
 
@@ -1351,7 +1351,7 @@ where T: GlibPtrDefault + FromGlibPtrNone<<T as GlibPtrDefault>::GlibType> + Fro
 
     unsafe fn from_glib_full_as_vec(ptr: *mut glib_ffi::GList) -> Vec<T> {
         let num = glib_ffi::g_list_length(ptr) as usize;
-        FromGlibContainer::from_glib_container_num(ptr, num)
+        FromGlibContainer::from_glib_full_num(ptr, num)
     }
 }
 
