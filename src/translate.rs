@@ -547,7 +547,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
                 let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
 
                 let v_ptr = unsafe {
-                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * t.len() + 1) as *mut $ffi_name;
+                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
 
                     for (i, s) in v.iter().enumerate() {
                         ptr::write(v_ptr.offset(i as isize), s.0);
@@ -561,7 +561,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
 
             fn to_glib_full_from_slice(t: &[$name]) -> *mut $ffi_name {
                 unsafe {
-                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * t.len() + 1) as *mut $ffi_name;
+                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
 
                     for (i, s) in t.iter().enumerate() {
                         ptr::write(v_ptr.offset(i as isize), s.to_glib_full());
