@@ -51,10 +51,10 @@ use std::char;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
-#[cfg(unix)]
+#[cfg(not(windows))]
 use std::ffi::OsString;
 use std::mem;
-#[cfg(unix)]
+#[cfg(not(windows))]
 use std::os::unix::prelude::*;
 use std::path::{Path, PathBuf};
 use std::ptr;
@@ -396,7 +396,7 @@ impl GlibPtrDefault for String {
     type GlibType = *mut c_char;
 }
 
-#[cfg(unix)]
+#[cfg(not(windows))]
 fn path_to_c(path: &Path) -> CString {
     // GLib paths on UNIX are always in the local encoding, just like in Rust
     //
@@ -408,7 +408,7 @@ fn path_to_c(path: &Path) -> CString {
         .expect("Invalid path with NUL bytes")
 }
 
-#[cfg(not(unix))]
+#[cfg(windows)]
 fn path_to_c(path: &Path) -> CString {
     // GLib paths are always UTF-8 strings on Windows, while in Rust they are
     // WTF-8. As such, we need to convert to a UTF-8 string. This conversion can
@@ -950,7 +950,7 @@ impl FromGlibPtrFull<*mut c_char> for String {
     }
 }
 
-#[cfg(unix)]
+#[cfg(not(windows))]
 unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
     assert!(!ptr.is_null());
 
@@ -961,7 +961,7 @@ unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
         .into()
 }
 
-#[cfg(not(unix))]
+#[cfg(windows)]
 unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
     assert!(!ptr.is_null());
 
