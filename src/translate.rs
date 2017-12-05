@@ -418,11 +418,20 @@ fn path_to_c(path: &Path) -> CString {
     // representable in UTF-8 and thus can't possibly be passed to GLib.
     // Passing NULL or the empty string to GLib can lead to undefined behaviour, so
     // the only safe option seems to be to simply panic here.
-    CString::new(path.to_str()
+    let path_str = path.to_str()
         .expect("Path can't be represented as UTF-8")
-        .to_owned()
-        .into_bytes()
-    ).expect("Invalid path with NUL bytes")
+        .to_owned();
+
+    // On Windows, paths can have \\?\ prepended for long-path support. See
+    // MSDN documentation about CreateFile
+    //
+    // We have to get rid of this and let GLib take care of all these
+    // weirdnesses later
+    if path_str.starts_with("\\\\?\\") {
+        CString::new(path_str[4..].as_bytes())
+    } else {
+        CString::new(path_str.as_bytes())
+    }.expect("Invalid path with NUL bytes")
 }
 
 impl<'a> ToGlibPtr<'a, *const c_char> for Path {
