@@ -51,10 +51,10 @@ use std::char;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
-#[cfg(unix)]
+#[cfg(not(windows))]
 use std::ffi::OsString;
 use std::mem;
-#[cfg(unix)]
+#[cfg(not(windows))]
 use std::os::unix::prelude::*;
 use std::path::{Path, PathBuf};
 use std::ptr;
@@ -396,17 +396,42 @@ impl GlibPtrDefault for String {
     type GlibType = *mut c_char;
 }
 
-#[cfg(unix)]
-fn path_to_c(path: &Path) -> Option<CString> {
+#[cfg(not(windows))]
+fn path_to_c(path: &Path) -> CString {
+    // GLib paths on UNIX are always in the local encoding, just like in Rust
+    //
+    // Paths on UNIX must not contain NUL bytes, in which case the conversion
+    // to a CString would fail. The only thing we can do then is to panic, as passing
+    // NULL or the empty string to GLib would cause undefined behaviour.
     use std::os::unix::ffi::OsStrExt;
-    CString::new(path.as_os_str().as_bytes()).ok()
+    CString::new(path.as_os_str().as_bytes())
+        .expect("Invalid path with NUL bytes")
 }
 
-#[cfg(not(unix))]
-fn path_to_c(path: &Path) -> Option<CString> {
-    path.to_str().and_then(|s| {
-        CString::new(s.as_bytes()).ok()
-    })
+#[cfg(windows)]
+fn path_to_c(path: &Path) -> CString {
+    // GLib paths are always UTF-8 strings on Windows, while in Rust they are
+    // WTF-8. As such, we need to convert to a UTF-8 string. This conversion can
+    // fail, see https://simonsapin.github.io/wtf-8/#converting-wtf-8-utf-8
+    //
+    // It's not clear what we're supposed to do if it fails: the path is not
+    // representable in UTF-8 and thus can't possibly be passed to GLib.
+    // Passing NULL or the empty string to GLib can lead to undefined behaviour, so
+    // the only safe option seems to be to simply panic here.
+    let path_str = path.to_str()
+        .expect("Path can't be represented as UTF-8")
+        .to_owned();
+
+    // On Windows, paths can have \\?\ prepended for long-path support. See
+    // MSDN documentation about CreateFile
+    //
+    // We have to get rid of this and let GLib take care of all these
+    // weirdnesses later
+    if path_str.starts_with("\\\\?\\") {
+        CString::new(path_str[4..].as_bytes())
+    } else {
+        CString::new(path_str.as_bytes())
+    }.expect("Invalid path with NUL bytes")
 }
 
 impl<'a> ToGlibPtr<'a, *const c_char> for Path {
@@ -414,7 +439,7 @@ impl<'a> ToGlibPtr<'a, *const c_char> for Path {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
-        let tmp = path_to_c(self).unwrap();
+        let tmp = path_to_c(self);
         Stash(tmp.as_ptr(), tmp)
     }
 }
@@ -424,7 +449,7 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for Path {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
-        let tmp = path_to_c(self).unwrap();
+        let tmp = path_to_c(self);
         Stash(tmp.as_ptr() as *mut c_char, tmp)
     }
 }
@@ -434,7 +459,7 @@ impl<'a> ToGlibPtr<'a, *const c_char> for PathBuf {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
-        let tmp = path_to_c(self).unwrap();
+        let tmp = path_to_c(self);
         Stash(tmp.as_ptr(), tmp)
     }
 }
@@ -444,7 +469,7 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for PathBuf {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
-        let tmp = path_to_c(self).unwrap();
+        let tmp = path_to_c(self);
         Stash(tmp.as_ptr() as *mut c_char, tmp)
     }
 }
@@ -925,16 +950,27 @@ impl FromGlibPtrFull<*mut c_char> for String {
     }
 }
 
-#[cfg(unix)]
+#[cfg(not(windows))]
 unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
+    assert!(!ptr.is_null());
+
+    // GLib paths on UNIX are always in the local encoding, which can be
+    // UTF-8 or anything else really, but is always a NUL-terminated string
+    // and must not contain any other NUL bytes
     OsString::from_vec(CStr::from_ptr(ptr).to_bytes().to_vec())
         .into()
 }
 
-#[cfg(not(unix))]
+#[cfg(windows)]
 unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
-    String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes())
-        .into_owned()
+    assert!(!ptr.is_null());
+
+    // GLib paths on Windows are always UTF-8, as such we can convert to a String
+    // first and then go to a PathBuf from there. Unless there is a bug
+    // in the C library, the conversion from UTF-8 can never fail so we can
+    // safely panic here if that ever happens
+    String::from_utf8(CStr::from_ptr(ptr).to_bytes().into())
+        .expect("Invalid, non-UTF8 path")
         .into()
 }
 
@@ -1432,6 +1468,10 @@ impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<
 
 #[cfg(test)]
 mod tests {
+    extern crate tempdir;
+    use self::tempdir::TempDir;
+    use std::fs;
+
     use std::collections::HashMap;
     use ffi as glib_ffi;
     use super::*;
@@ -1458,5 +1498,25 @@ mod tests {
 
         let actual: Vec<String> = unsafe{ FromGlibPtrContainer::from_glib_full(ptr_copy) };
         assert_eq!(v, actual);
+    }
+
+    #[test]
+    fn test_paths() {
+        let tmp_dir = TempDir::new("glib-test").unwrap();
+
+        // Test if passing paths to GLib and getting them back
+        // gives us useful results
+        let dir_1 = tmp_dir.path().join("abcd");
+        fs::create_dir(&dir_1).unwrap();
+        assert_eq!(::functions::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::functions::path_get_basename(dir_1.canonicalize().unwrap()), Some("abcd".into()));
+        assert_eq!(::functions::path_get_dirname(dir_1.canonicalize().unwrap()), Some(tmp_dir.path().into()));
+
+        // And test with some non-ASCII characters
+        let dir_2 = tmp_dir.as_ref().join("øäöü");
+        fs::create_dir(&dir_2).unwrap();
+        assert_eq!(::functions::path_get_basename(&dir_2), Some("øäöü".into()));
+        assert_eq!(::functions::path_get_basename(dir_2.canonicalize().unwrap()), Some("øäöü".into()));
+        assert_eq!(::functions::path_get_dirname(dir_2.canonicalize().unwrap()), Some(tmp_dir.path().into()));
     }
 }

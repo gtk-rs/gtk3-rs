@@ -11,6 +11,7 @@ addons:
     packages:
     - libgtk-3-dev
 script:
+  - cargo test
   - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
