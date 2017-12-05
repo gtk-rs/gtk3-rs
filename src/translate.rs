@@ -1468,6 +1468,10 @@ impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<
 
 #[cfg(test)]
 mod tests {
+    extern crate tempdir;
+    use self::tempdir::TempDir;
+    use std::fs;
+
     use std::collections::HashMap;
     use ffi as glib_ffi;
     use super::*;
@@ -1494,5 +1498,25 @@ mod tests {
 
         let actual: Vec<String> = unsafe{ FromGlibPtrContainer::from_glib_full(ptr_copy) };
         assert_eq!(v, actual);
+    }
+
+    #[test]
+    fn test_paths() {
+        let tmp_dir = TempDir::new("glib-test").unwrap();
+
+        // Test if passing paths to GLib and getting them back
+        // gives us useful results
+        let dir_1 = tmp_dir.path().join("abcd");
+        fs::create_dir(&dir_1).unwrap();
+        assert_eq!(::functions::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::functions::path_get_basename(dir_1.canonicalize().unwrap()), Some("abcd".into()));
+        assert_eq!(::functions::path_get_dirname(dir_1.canonicalize().unwrap()), Some(tmp_dir.path().into()));
+
+        // And test with some non-ASCII characters
+        let dir_2 = tmp_dir.as_ref().join("øäöü");
+        fs::create_dir(&dir_2).unwrap();
+        assert_eq!(::functions::path_get_basename(&dir_2), Some("øäöü".into()));
+        assert_eq!(::functions::path_get_basename(dir_2.canonicalize().unwrap()), Some("øäöü".into()));
+        assert_eq!(::functions::path_get_dirname(dir_2.canonicalize().unwrap()), Some(tmp_dir.path().into()));
     }
 }
