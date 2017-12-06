@@ -204,7 +204,11 @@ impl Clone for Value {
 
 impl Drop for Value {
     fn drop(&mut self) {
-        unsafe { gobject_ffi::g_value_unset(self.to_glib_none_mut().0) }
+        // Before GLib 2.48, unsetting a zeroed GValue would give critical warnings
+        // https://bugzilla.gnome.org/show_bug.cgi?id=755766
+        if self.type_() != Type::Invalid {
+            unsafe { gobject_ffi::g_value_unset(self.to_glib_none_mut().0) }
+        }
     }
 }
 
@@ -446,7 +450,11 @@ impl Drop for ValueArray {
     fn drop(&mut self) {
         unsafe {
             for value in &mut self.0 {
-                gobject_ffi::g_value_unset(value);
+                // Before GLib 2.48, unsetting a zeroed GValue would give critical warnings
+                // https://bugzilla.gnome.org/show_bug.cgi?id=755766
+                if value.g_type != gobject_ffi::G_TYPE_INVALID {
+                    gobject_ffi::g_value_unset(value);
+                }
             }
         }
     }
