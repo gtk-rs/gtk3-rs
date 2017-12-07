@@ -18,6 +18,7 @@ generate = [
     "GLib.Time",
     "GLib.TimeType",
     "GLib.TimeSpan",
+    "GLib.FileTest",
 ]
 
 ignore = [

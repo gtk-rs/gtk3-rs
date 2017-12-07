@@ -5,6 +5,7 @@
 use Bytes;
 use ChecksumType;
 use Error;
+use FileTest;
 use FormatSizeFlags;
 use Source;
 use UserDirectory;
@@ -408,9 +409,11 @@ pub fn file_set_contents<P: AsRef<std::path::Path>>(filename: P, contents: &[u8]
     }
 }
 
-//pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: /*Ignored*/FileTest) -> bool {
-//    unsafe { TODO: call ffi::g_file_test() }
-//}
+pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool {
+    unsafe {
+        from_glib(ffi::g_file_test(filename.as_ref().to_glib_none().0, test.to_glib()))
+    }
+}
 
 pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Option<String> {
     unsafe {

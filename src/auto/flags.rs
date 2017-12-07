@@ -5,6 +5,32 @@ use ffi;
 use translate::*;
 
 bitflags! {
+    pub struct FileTest: u32 {
+        const IS_REGULAR = 1;
+        const IS_SYMLINK = 2;
+        const IS_DIR = 4;
+        const IS_EXECUTABLE = 8;
+        const EXISTS = 16;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileTest {
+    type GlibType = ffi::GFileTest;
+
+    fn to_glib(&self) -> ffi::GFileTest {
+        ffi::GFileTest::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileTest> for FileTest {
+    fn from_glib(value: ffi::GFileTest) -> FileTest {
+        FileTest::from_bits_truncate(value.bits())
+    }
+}
+
+bitflags! {
     pub struct FormatSizeFlags: u32 {
         const DEFAULT = 0;
         const LONG_FORMAT = 1;
