@@ -30,6 +30,7 @@ pub use self::enums::KeyFileError;
 pub use self::enums::TimeType;
 
 mod flags;
+pub use self::flags::FileTest;
 pub use self::flags::FormatSizeFlags;
 pub use self::flags::KeyFileFlags;
 
