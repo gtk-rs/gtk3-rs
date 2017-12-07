@@ -184,6 +184,8 @@ pub use auto::functions::*;
 mod auto;
 
 mod bytes;
+pub mod char;
+pub use char::*;
 mod checksum;
 pub mod closure;
 pub mod error;

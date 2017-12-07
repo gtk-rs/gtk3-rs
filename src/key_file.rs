@@ -12,6 +12,7 @@ use error::Error;
 use auto::KeyFileFlags;
 
 use KeyFile;
+use Char;
 
 impl KeyFile {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -64,4 +65,7 @@ impl KeyFile {
         }
     }
 
+    pub fn set_list_separator(&self, separator: Char) {
+        unsafe { ffi::g_key_file_set_list_separator(self.to_glib_none().0, separator.0) }
+    }
 }
