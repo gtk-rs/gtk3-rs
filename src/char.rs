@@ -15,24 +15,24 @@ use translate::ToGlib;
 ///
 /// ```ignore
 /// impl KeyFile {
-///     pub fn set_list_separator(&self, separator: i8) { }
+///     pub fn set_list_separator(&self, separator: libc:c_char) { }
 /// }
 /// ```
 ///
-/// This would be inconvenient because users would have to do the conversion from a Rust `char` to an `i8` by hand.  It would be the same case for `libc::c_char`, which is just a type alias
-/// for `i8`.
+/// This would be inconvenient because users would have to do the conversion from a Rust `char` to an `libc::c_char` by hand, which is just a type alias
+/// for `i8` on most system.
 ///
-/// This `Char` type is a wrapper over an `i8`, so that we can pass it to Glib or C functions.
-/// The check for whether a Rust `char` (a Unicode scalar value) actually fits in a `i8` is
+/// This `Char` type is a wrapper over an `libc::c_char`, so that we can pass it to Glib or C functions.
+/// The check for whether a Rust `char` (a Unicode scalar value) actually fits in a `libc::c_char` is
 /// done in the `new` function; see its documentation for details.
 ///
-/// The inner `i8` (which is equivalent to `libc::c_char` can be extracted with `.0`, or
+/// The inner `libc::c_char` (which is equivalent to `i8` can be extracted with `.0`, or
 /// by calling `my_char.to_glib()`.
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub struct Char(pub i8);
+pub struct Char(pub c_char);
 
 impl Char {
-    /// Creates a `Some(Char)` if the given `char` is representable as an `i8`
+    /// Creates a `Some(Char)` if the given `char` is representable as an `libc::c_char`
     ///
     /// # Example
     /// ```ignore
@@ -49,7 +49,7 @@ impl Char {
         if c as u32 > 255 {
             None
         } else {
-            Some(Char(c as i8))
+            Some(Char(c as c_char))
         }
     }
 }
@@ -78,17 +78,17 @@ impl ToGlib for Char {
 
 /// Wrapper for values where C functions expect a plain C `unsigned char`
 ///
-/// This `UChar` type is a wrapper over an `u8`, so that we can pass it to Glib or C functions.
-/// The check for whether a Rust `char` (a Unicode scalar value) actually fits in a `u8` is
+/// This `UChar` type is a wrapper over an `libc::c_uchar`, so that we can pass it to Glib or C functions.
+/// The check for whether a Rust `char` (a Unicode scalar value) actually fits in a `libc::c_uchar` is
 /// done in the `new` function; see its documentation for details.
 ///
-/// The inner `u8` (which is equivalent to `libc::c_uchar` can be extracted with `.0`, or
+/// The inner `libc::c_uchar` (which is equivalent to `u8` can be extracted with `.0`, or
 /// by calling `my_char.to_glib()`.
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub struct UChar(pub u8);
+pub struct UChar(pub c_uchar);
 
 impl UChar {
-    /// Creates a `Some(UChar)` if the given `char` is representable as an `u8`
+    /// Creates a `Some(UChar)` if the given `char` is representable as an `libc::c_uchar`
     ///
     /// # Example
     /// ```ignore
@@ -105,7 +105,7 @@ impl UChar {
         if c as u32 > 255 {
             None
         } else {
-            Some(UChar(c as u8))
+            Some(UChar(c as c_uchar))
         }
     }
 }
