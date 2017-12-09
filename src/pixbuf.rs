@@ -10,7 +10,7 @@ use glib::translate::*;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::BoolError;
 use glib::Error;
-use gdk_pixbuf_ffi as ffi;
+use ffi;
 use glib_ffi;
 use gobject_ffi;
 
@@ -31,7 +31,7 @@ glib_wrapper! {
 impl Pixbuf {
     pub unsafe fn new(colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32,
             height: i32) -> Result<Pixbuf, ()> {
-        Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace, has_alpha.to_glib(),
+        Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace.to_glib(), has_alpha.to_glib(),
                                                    bits_per_sample, width, height)).ok_or(())
     }
 
@@ -49,16 +49,16 @@ impl Pixbuf {
         let vec: Box<Vec<u8>> = Box::new(vec);
         unsafe {
             from_glib_full(
-                ffi::gdk_pixbuf_new_from_data(ptr, colorspace, has_alpha.to_glib(), bits_per_sample,
+                ffi::gdk_pixbuf_new_from_data(ptr, colorspace.to_glib(), has_alpha.to_glib(), bits_per_sample,
                     width, height, row_stride, Some(destroy_vec), mem::transmute(vec)))
         }
     }
 
     pub fn new_from_file(filename: &str) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
+        use ffi::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
         #[cfg(not(windows))]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file;
+        use ffi::gdk_pixbuf_new_from_file;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -73,10 +73,10 @@ impl Pixbuf {
 
     pub fn new_from_file_at_size(filename: &str, width: i32, height: i32) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_size_utf8
+        use ffi::gdk_pixbuf_new_from_file_at_size_utf8
             as gdk_pixbuf_new_from_file_at_size;
         #[cfg(not(windows))]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_size;
+        use ffi::gdk_pixbuf_new_from_file_at_size;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -92,10 +92,10 @@ impl Pixbuf {
 
     pub fn new_from_file_at_scale(filename: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_scale_utf8
+        use ffi::gdk_pixbuf_new_from_file_at_scale_utf8
             as gdk_pixbuf_new_from_file_at_scale;
         #[cfg(not(windows))]
-        use gdk_pixbuf_ffi::gdk_pixbuf_new_from_file_at_scale;
+        use ffi::gdk_pixbuf_new_from_file_at_scale;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -155,7 +155,7 @@ impl Pixbuf {
     }
 
     pub fn get_colorspace(&self) -> Colorspace {
-        unsafe { ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0) }
+        unsafe { from_glib(ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0)) }
     }
 
     pub fn get_n_channels(&self) -> i32 {
@@ -202,7 +202,7 @@ impl Pixbuf {
         -> Result<Pixbuf, ()> {
         unsafe {
             Option::from_glib_full(ffi::gdk_pixbuf_scale_simple(self.to_glib_none().0, dest_width,
-                                                                dest_height, interp_type)).ok_or(())
+                                                                dest_height, interp_type.to_glib())).ok_or(())
         }
     }
 
@@ -212,7 +212,7 @@ impl Pixbuf {
         unsafe {
             ffi::gdk_pixbuf_scale(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
                                   dest_width, dest_height, offset_x, offset_y, scale_x, scale_y,
-                                  interp_type);
+                                  interp_type.to_glib());
         }
     }
 
@@ -222,7 +222,7 @@ impl Pixbuf {
         unsafe {
             ffi::gdk_pixbuf_composite(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
                                       dest_width, dest_height, offset_x, offset_y, scale_x,
-                                      scale_y, interp_type, overall_alpha);
+                                      scale_y, interp_type.to_glib(), overall_alpha);
         }
     }
 

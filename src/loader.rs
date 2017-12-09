@@ -7,7 +7,7 @@ use std::mem;
 use libc::size_t;
 use glib::Error;
 use glib::translate::*;
-use gdk_pixbuf_ffi as ffi;
+use ffi;
 use glib_ffi;
 use gobject_ffi;
 use super::Pixbuf;
