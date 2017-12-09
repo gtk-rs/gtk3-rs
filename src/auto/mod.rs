@@ -57,17 +57,9 @@ mod file;
 pub use self::file::File;
 pub use self::file::FileExt;
 
-mod file_i_o_stream;
-pub use self::file_i_o_stream::FileIOStream;
-pub use self::file_i_o_stream::FileIOStreamExt;
-
 mod file_info;
 pub use self::file_info::FileInfo;
 pub use self::file_info::FileInfoExt;
-
-mod file_output_stream;
-pub use self::file_output_stream::FileOutputStream;
-pub use self::file_output_stream::FileOutputStreamExt;
 
 mod filter_input_stream;
 pub use self::filter_input_stream::FilterInputStream;
@@ -219,9 +211,7 @@ pub mod traits {
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     pub use super::FileExt;
-    pub use super::FileIOStreamExt;
     pub use super::FileInfoExt;
-    pub use super::FileOutputStreamExt;
     pub use super::FilterInputStreamExt;
     pub use super::FilterOutputStreamExt;
     pub use super::IOStreamExt;
