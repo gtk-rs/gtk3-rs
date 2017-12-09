@@ -124,31 +124,3 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
         }
     }
 }
-
-glib_wrapper! {
-    pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim>): PixbufAnimation;
-
-    match fn {
-        get_type => || ffi::gdk_pixbuf_simple_anim_get_type(),
-    }
-}
-
-impl PixbufSimpleAnim {
-    pub fn new(width: i32, height: i32, rate: f32) -> PixbufSimpleAnim {
-        unsafe { from_glib_full(ffi::gdk_pixbuf_simple_anim_new(width, height, rate)) }
-    }
-
-    pub fn add_frame(&self, pixbuf: &Pixbuf) {
-        unsafe {
-            ffi::gdk_pixbuf_simple_anim_add_frame(self.to_glib_none().0, pixbuf.to_glib_none().0)
-        }
-    }
-
-    pub fn set_loop(&self, loop_: bool) {
-        unsafe { ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.to_glib()) }
-    }
-
-    pub fn get_loop(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_pixbuf_simple_anim_get_loop(self.to_glib_none().0)) }
-    }
-}

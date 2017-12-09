@@ -9,6 +9,9 @@ extern crate gobject_sys as gobject_ffi;
 extern crate glib;
 extern crate libc;
 
+#[macro_use]
+mod rt;
+
 mod auto;
 
 mod animation;
@@ -22,7 +25,6 @@ pub use auto::*;
 pub use self::animation::{
     PixbufAnimation,
     PixbufAnimationIter,
-    PixbufSimpleAnim,
     PixbufAnimationExt,
 };
 pub use self::format::PixbufFormat;
