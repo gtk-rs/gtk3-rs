@@ -22,13 +22,13 @@ glib_wrapper! {
 }
 
 pub trait ConverterExt {
-    fn convert(&self, inbuf: &[u8], outbuf: &[u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error>;
+    fn convert(&self, inbuf: &[u8], outbuf: &mut [u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error>;
 
     fn reset(&self);
 }
 
 impl<O: IsA<Converter>> ConverterExt for O {
-    fn convert(&self, inbuf: &[u8], outbuf: &[u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error> {
+    fn convert(&self, inbuf: &[u8], outbuf: &mut [u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error> {
         let inbuf_size = inbuf.len() as usize;
         let outbuf_size = outbuf.len() as usize;
         unsafe {
