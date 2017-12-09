@@ -11,6 +11,7 @@ generate = [
     "GdkPixbuf.InterpType",
     "GdkPixbuf.PixbufAlphaMode",
     "GdkPixbuf.PixbufError",
+    "GdkPixbuf.PixbufLoader",
     "GdkPixbuf.PixbufSimpleAnim",
 ]
 
@@ -19,6 +20,6 @@ manual = [
     "GdkPixbuf.PixbufAnimation",
     "GdkPixbuf.PixbufAnimationIter",
     "GdkPixbuf.PixbufFormat",
-    "GdkPixbuf.PixbufLoader",
+    "GLib.Bytes",
     "GLib.Error",
 ]

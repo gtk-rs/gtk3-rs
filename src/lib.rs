@@ -9,6 +9,19 @@ extern crate gobject_sys as gobject_ffi;
 extern crate glib;
 extern crate libc;
 
+pub use glib::{
+    Cast,
+    Continue,
+    Error,
+    IsA,
+    Object,
+    StaticType,
+    ToValue,
+    Type,
+    TypedValue,
+    Value,
+};
+
 #[macro_use]
 mod rt;
 
@@ -16,7 +29,6 @@ mod auto;
 
 mod animation;
 mod format;
-mod loader;
 mod pixbuf;
 pub mod prelude;
 
@@ -28,5 +40,4 @@ pub use self::animation::{
     PixbufAnimationExt,
 };
 pub use self::format::PixbufFormat;
-pub use self::loader::PixbufLoader;
 pub use self::pixbuf::Pixbuf;
