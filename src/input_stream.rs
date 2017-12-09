@@ -22,7 +22,7 @@ pub trait InputStreamExtManual {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<usize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
 
-    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
+    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<glib::Bytes, Error>) + Send + Sync + 'static>(&self, count: usize, io_priority: i32, cancellable: P, callback: Q);
@@ -78,19 +78,19 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q) {
+    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
-        let user_data: Box<Box<Fn(Result<(), Error>) + Send + Sync + 'static>> = Box::new(Box::new(callback));
+        let user_data: Box<Box<Fn(Result<isize, Error>) + Send + Sync + 'static>> = Box::new(Box::new(callback));
         extern "C" fn read_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             callback_guard!();
             unsafe {
                 let mut error = ptr::null_mut();
-                let _ = ffi::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
-                let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-                let callback: &&(Fn(Result<(), Error>) + Send + Sync + 'static) = transmute(user_data);
+                let ret = ffi::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
+                let result = if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) };
+                let callback: &&(Fn(Result<isize, Error>) + Send + Sync + 'static) = transmute(user_data);
                 callback(result);
             }
         }
