@@ -7,34 +7,16 @@ use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
 use glib::translate::*;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
-use glib::BoolError;
 use glib::Error;
 use ffi;
-use glib_ffi;
-use gobject_ffi;
 
 use {
     Colorspace,
     InterpType,
-    PixbufFormat,
+    Pixbuf,
 };
 
-glib_wrapper! {
-    pub struct Pixbuf(Object<ffi::GdkPixbuf>);
-
-    match fn {
-        get_type => || ffi::gdk_pixbuf_get_type(),
-    }
-}
-
 impl Pixbuf {
-    pub unsafe fn new(colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32,
-            height: i32) -> Result<Pixbuf, ()> {
-        Option::from_glib_full(ffi::gdk_pixbuf_new(colorspace.to_glib(), has_alpha.to_glib(),
-                                                   bits_per_sample, width, height)).ok_or(())
-    }
-
     pub fn new_from_vec(mut vec: Vec<u8>, colorspace: Colorspace, has_alpha: bool,
             bits_per_sample: i32, width: i32, height: i32, row_stride: i32) -> Pixbuf {
         unsafe extern "C" fn destroy_vec(_: *mut c_uchar, data: *mut c_void) {
@@ -109,51 +91,6 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_xpm_data(data: &[&str]) -> Pixbuf {
-        unsafe {
-            from_glib_full(ffi::gdk_pixbuf_new_from_xpm_data(data.to_glib_none().0))
-        }
-    }
-
-    pub fn get_file_info(filename: &str, width: &mut i32, height: &mut i32)
-            -> Option<PixbufFormat> {
-        unsafe {
-            from_glib_none(ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, width, height))
-        }
-    }
-
-    pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ptr = ffi::gdk_pixbuf_new_from_resource(resource_path.to_glib_none().0, &mut error);
-            if error.is_null() {
-                Ok(from_glib_full(ptr))
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
-    pub fn new_from_resource_at_scale(resource_path: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ptr = ffi::gdk_pixbuf_new_from_resource_at_scale(resource_path.to_glib_none().0,
-                width, height, preserve_aspect_ratio.to_glib(), &mut error);
-            if error.is_null() {
-                Ok(from_glib_full(ptr))
-            } else {
-                Err(from_glib_full(error))
-            }
-        }
-    }
-
-    pub fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Pixbuf {
-        unsafe {
-            from_glib_full(
-                ffi::gdk_pixbuf_new_subpixbuf(self.to_glib_none().0, src_x, src_y, width, height))
-        }
-    }
-
     pub fn get_colorspace(&self) -> Colorspace {
         unsafe { from_glib(ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0)) }
     }
@@ -190,12 +127,6 @@ impl Pixbuf {
 
     pub fn get_byte_length(&self) -> usize {
         unsafe { ffi::gdk_pixbuf_get_byte_length(self.to_glib_none().0) as usize }
-    }
-
-    pub fn get_option(&self, key: &str) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::gdk_pixbuf_get_option(self.to_glib_none().0, key.to_glib_none().0))
-        }
     }
 
     pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType)
@@ -252,15 +183,5 @@ impl Pixbuf {
             let copy = ffi::gdk_pixbuf_copy(self.to_glib_none().0);
             FromGlibPtrFull::from_glib_full(copy)
         }
-    }
-
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn copy_options(&self, dest_pixbuf: &mut Pixbuf) -> Result<(), BoolError> {
-        let err: glib_ffi::gboolean =
-            unsafe {
-                ffi::gdk_pixbuf_copy_options(self.to_glib_none().0, dest_pixbuf.to_glib_none().0)
-            };
-
-        BoolError::from_glib(err, "Failed to copy pixbuf options")
     }
 }

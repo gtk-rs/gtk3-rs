@@ -275,3 +275,65 @@ impl SetValue for PixbufError {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum PixbufRotation {
+    None,
+    Counterclockwise,
+    Upsidedown,
+    Clockwise,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for PixbufRotation {
+    type GlibType = ffi::GdkPixbufRotation;
+
+    fn to_glib(&self) -> ffi::GdkPixbufRotation {
+        match *self {
+            PixbufRotation::None => ffi::GDK_PIXBUF_ROTATE_NONE,
+            PixbufRotation::Counterclockwise => ffi::GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE,
+            PixbufRotation::Upsidedown => ffi::GDK_PIXBUF_ROTATE_UPSIDEDOWN,
+            PixbufRotation::Clockwise => ffi::GDK_PIXBUF_ROTATE_CLOCKWISE,
+            PixbufRotation::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkPixbufRotation> for PixbufRotation {
+    fn from_glib(value: ffi::GdkPixbufRotation) -> Self {
+        match value {
+            0 => PixbufRotation::None,
+            90 => PixbufRotation::Counterclockwise,
+            180 => PixbufRotation::Upsidedown,
+            270 => PixbufRotation::Clockwise,
+            value => PixbufRotation::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for PixbufRotation {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::gdk_pixbuf_rotation_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for PixbufRotation {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for PixbufRotation {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for PixbufRotation {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
