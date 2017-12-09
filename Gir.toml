@@ -41,7 +41,6 @@ generate = [
     "Gio.MountOperation",
     "Gio.MountOperationResult",
     "Gio.NotificationPriority",
-    "Gio.OutputStream",
     "Gio.OutputStreamSpliceFlags",
     "Gio.PasswordSave",
     "Gio.Permission",
@@ -207,17 +206,33 @@ status = "generate"
     #mutable buffer
     ignore = true
     [[object.function]]
-    pattern = "read_bytes_async"
+    name = "read_bytes_async"
     #wrong async callback type
     ignore = true
     [[object.function]]
-    pattern = "skip_async"
+    name = "skip_async"
     #wrong async callback type
     ignore = true
 
 [[object]]
 name = "Gio.Notification"
 status = "generate"
+
+[[object]]
+name = "Gio.OutputStream"
+status = "generate"
+    [[object.function]]
+    name = "splice_async"
+    #wrong async callback type
+    ignore = true
+    [[object.function]]
+    name = "write_async"
+    #wrong async callback type
+    ignore = true
+    [[object.function]]
+    name = "write_bytes_async"
+    #wrong async callback type
+    ignore = true
 
 [[object]]
 name = "Gio.Settings"
