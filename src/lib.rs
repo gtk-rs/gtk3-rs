@@ -28,7 +28,6 @@ mod rt;
 mod auto;
 
 mod animation;
-mod format;
 mod pixbuf;
 pub mod prelude;
 
@@ -39,5 +38,4 @@ pub use self::animation::{
     PixbufAnimationIter,
     PixbufAnimationExt,
 };
-pub use self::format::PixbufFormat;
 pub use self::pixbuf::Pixbuf;

@@ -9,6 +9,9 @@ mod pixbuf_simple_anim;
 pub use self::pixbuf_simple_anim::PixbufSimpleAnim;
 pub use self::pixbuf_simple_anim::PixbufSimpleAnimExt;
 
+mod pixbuf_format;
+pub use self::pixbuf_format::PixbufFormat;
+
 mod enums;
 pub use self::enums::Colorspace;
 pub use self::enums::InterpType;
