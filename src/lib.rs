@@ -19,6 +19,10 @@ macro_rules! callback_guard {
 }
 
 mod application;
+mod buffered_input_stream;
+mod converter;
+mod input_stream;
+mod file_input_stream;
 mod resource;
 
 pub use glib::{
@@ -29,6 +33,9 @@ pub use glib::{
 pub use auto::*;
 pub use auto::functions::*;
 
+use converter::Converter;
+use file_input_stream::FileInputStream;
+
 pub mod signal {
     pub use glib::signal::Inhibit;
 }
@@ -36,6 +43,10 @@ pub mod signal {
 pub mod prelude {
     pub use auto::traits::*;
     pub use application::*;
+    pub use buffered_input_stream::BufferedInputStreamExtManual;
+    pub use converter::ConverterExt;
+    pub use file_input_stream::FileInputStreamExt;
+    pub use input_stream::InputStreamExtManual;
 }
 
 pub use prelude::*;

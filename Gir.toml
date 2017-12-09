@@ -14,12 +14,27 @@ generate = [
     "Gio.AppLaunchContext",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
+    "Gio.BufferedOutputStream",
     "Gio.Cancellable",
+    "Gio.ConverterFlags",
+    "Gio.ConverterInputStream",
+    "Gio.ConverterOutputStream",
+    "Gio.ConverterResult",
+    "Gio.DataOutputStream",
+    "Gio.DataStreamByteOrder",
+    "Gio.DataStreamNewlineType",
     "Gio.FileCreateFlags",
     "Gio.FileInfo",
+    "Gio.FileIOStream",
+    "Gio.FileOutputStream",
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
+    "Gio.FilterInputStream",
+    "Gio.FilterOutputStream",
     "Gio.Icon",
+    "Gio.IOStreamSpliceFlags",
+    "Gio.MemoryInputStream",
+    "Gio.MemoryOutputStream",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",
@@ -28,6 +43,8 @@ generate = [
     "Gio.MountOperation",
     "Gio.MountOperationResult",
     "Gio.NotificationPriority",
+    "Gio.OutputStream",
+    "Gio.OutputStreamSpliceFlags",
     "Gio.PasswordSave",
     "Gio.Permission",
     "Gio.ResourceError",
@@ -35,6 +52,7 @@ generate = [
     "Gio.SettingsBindFlags",
     "Gio.SettingsSchema",
     "Gio.SimpleActionGroup",
+    "Gio.SimpleIOStream",
     "Gio.SimplePermission",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
@@ -45,6 +63,8 @@ ignore = [
 ]
 
 manual = [
+    "Gio.Converter",
+    "Gio.FileInputStream",
     "GLib.Bytes",
     "GLib.Error",
     "GLib.Variant",
@@ -58,6 +78,10 @@ status = "generate"
     [[object.function]]
     pattern = "unix_.+"
     cfg_condition = "unix"
+    [[object.function]]
+    pattern = "pollable_stream_.+"
+    #belong to Stream, works only with PollableStream, need mutable buffer reference
+    ignore = true
 
 [[object]]
 name = "Gio.ActionGroup"
@@ -74,6 +98,26 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "run"
+    ignore = true
+
+[[object]]
+name = "Gio.BufferedInputStream"
+status = "generate"
+    [[object.function]]
+    name = "fill_async"
+    #manual return type
+    ignore = true
+    [[object.function]]
+    name = "peek"
+    #manual mutable buffer
+    ignore = true
+
+[[object]]
+name = "Gio.DataInputStream"
+status = "generate"
+    [[object.function]]
+    name = "read_line"
+    #return vec of u8
     ignore = true
 
 [[object]]
@@ -97,6 +141,30 @@ status = "generate"
         nullable = false
     [[object.function]]
     name = "hash"
+    ignore = true
+
+[[object]]
+name = "Gio.IOStream"
+status = "generate"
+    [[object.function]]
+    name = "splice_async"
+    #g_io_stream_splice_finish accept only 2 parameters instead normal 3 (no source_object)
+    ignore = true
+
+[[object]]
+name = "Gio.InputStream"
+status = "generate"
+    [[object.function]]
+    pattern = "read(_all)?(_async)?"
+    #mutable buffer
+    ignore = true
+    [[object.function]]
+    pattern = "read_bytes_async"
+    #wrong async callback type
+    ignore = true
+    [[object.function]]
+    pattern = "skip_async"
+    #wrong async callback type
     ignore = true
 
 [[object]]

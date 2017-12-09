@@ -5,7 +5,10 @@ use AppInfo;
 use Cancellable;
 use Error;
 use FileCreateFlags;
+use FileIOStream;
 use FileInfo;
+use FileInputStream;
+use FileOutputStream;
 use FileQueryInfoFlags;
 use FileType;
 use ffi;
@@ -54,9 +57,14 @@ impl File {
         }
     }
 
-    //pub fn new_tmp<P: AsRef<std::path::Path>>(tmpl: P, iostream: /*Ignored*/FileIOStream) -> Result<File, Error> {
-    //    unsafe { TODO: call ffi::g_file_new_tmp() }
-    //}
+    pub fn new_tmp<P: AsRef<std::path::Path>>(tmpl: P) -> Result<(File, FileIOStream), Error> {
+        unsafe {
+            let mut iostream = ptr::null_mut();
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_new_tmp(tmpl.as_ref().to_glib_none().0, &mut iostream, &mut error);
+            if error.is_null() { Ok((from_glib_full(ret), from_glib_full(iostream))) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     pub fn parse_name(parse_name: &str) -> Option<File> {
         unsafe {
@@ -66,7 +74,7 @@ impl File {
 }
 
 pub trait FileExt {
-    //fn append_to<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileOutputStream, Error>;
+    fn append_to<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileOutputStream, Error>;
 
     fn append_to_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q);
 
@@ -76,11 +84,11 @@ pub trait FileExt {
 
     //fn copy_attributes<'a, P: IsA<File>, Q: Into<Option<&'a Cancellable>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Q) -> Result<(), Error>;
 
-    //fn create<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileOutputStream, Error>;
+    fn create<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileOutputStream, Error>;
 
     fn create_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q);
 
-    //fn create_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileIOStream, Error>;
+    fn create_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileIOStream, Error>;
 
     fn create_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q);
 
@@ -164,7 +172,7 @@ pub trait FileExt {
 
     //fn move_<'a, 'b, P: IsA<File>, Q: Into<Option<&'a Cancellable>>, R: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Q, progress_callback: R, progress_callback_data: S) -> Result<(), Error>;
 
-    //fn open_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/FileIOStream, Error>;
+    fn open_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<FileIOStream, Error>;
 
     fn open_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, io_priority: i32, cancellable: P, callback: Q);
 
@@ -188,11 +196,11 @@ pub trait FileExt {
 
     //fn query_writable_namespaces<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/FileAttributeInfoList, Error>;
 
-    //fn read<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/FileInputStream, Error>;
+    fn read<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<FileInputStream, Error>;
 
     fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, io_priority: i32, cancellable: P, callback: Q);
 
-    //fn replace<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result</*Ignored*/FileOutputStream, Error>;
+    fn replace<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result<FileOutputStream, Error>;
 
     fn replace_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: i32, cancellable: Q, callback: R);
 
@@ -203,7 +211,7 @@ pub trait FileExt {
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn replace_contents_bytes_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: /*Unimplemented*/AsyncReadyCallback>(&self, contents: &glib::Bytes, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R);
 
-    //fn replace_readwrite<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result</*Ignored*/FileIOStream, Error>;
+    fn replace_readwrite<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result<FileIOStream, Error>;
 
     fn replace_readwrite_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: i32, cancellable: Q, callback: R);
 
@@ -248,9 +256,15 @@ pub trait FileExt {
 }
 
 impl<O: IsA<File>> FileExt for O {
-    //fn append_to<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileOutputStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_append_to() }
-    //}
+    fn append_to<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileOutputStream, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_append_to(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn append_to_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
@@ -285,9 +299,15 @@ impl<O: IsA<File>> FileExt for O {
     //    unsafe { TODO: call ffi::g_file_copy_attributes() }
     //}
 
-    //fn create<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileOutputStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_create() }
-    //}
+    fn create<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileOutputStream, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_create(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn create_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
@@ -310,9 +330,15 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn create_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result</*Ignored*/FileIOStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_create_readwrite() }
-    //}
+    fn create_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileIOStream, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_create_readwrite(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn create_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, flags: FileCreateFlags, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
@@ -646,9 +672,15 @@ impl<O: IsA<File>> FileExt for O {
     //    unsafe { TODO: call ffi::g_file_move() }
     //}
 
-    //fn open_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/FileIOStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_open_readwrite() }
-    //}
+    fn open_readwrite<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<FileIOStream, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_open_readwrite(self.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn open_readwrite_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
@@ -771,9 +803,15 @@ impl<O: IsA<File>> FileExt for O {
     //    unsafe { TODO: call ffi::g_file_query_writable_namespaces() }
     //}
 
-    //fn read<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/FileInputStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_read() }
-    //}
+    fn read<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<FileInputStream, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_read(self.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
@@ -796,9 +834,17 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn replace<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result</*Ignored*/FileOutputStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_replace() }
-    //}
+    fn replace<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result<FileOutputStream, Error> {
+        let etag = etag.into();
+        let etag = etag.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_replace(self.to_glib_none().0, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn replace_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: i32, cancellable: Q, callback: R) {
         let etag = etag.into();
@@ -867,9 +913,17 @@ impl<O: IsA<File>> FileExt for O {
     //    unsafe { TODO: call ffi::g_file_replace_contents_bytes_async() }
     //}
 
-    //fn replace_readwrite<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result</*Ignored*/FileIOStream, Error> {
-    //    unsafe { TODO: call ffi::g_file_replace_readwrite() }
-    //}
+    fn replace_readwrite<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result<FileIOStream, Error> {
+        let etag = etag.into();
+        let etag = etag.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_replace_readwrite(self.to_glib_none().0, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn replace_readwrite_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: Fn(Result<(), Error>) + Send + Sync + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: i32, cancellable: Q, callback: R) {
         let etag = etag.into();
