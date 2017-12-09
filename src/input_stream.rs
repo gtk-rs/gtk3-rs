@@ -21,9 +21,9 @@ pub trait InputStreamExtManual {
     fn read_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &mut [u8], cancellable: P) -> Result<usize, Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<usize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
+    fn read_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<usize, Error>) + Send + Sync + 'static>(&self, buffer: &mut [u8], io_priority: i32, cancellable: P, callback: Q);
 
-    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
+    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &mut [u8], io_priority: i32, cancellable: P, callback: Q);
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<glib::Bytes, Error>) + Send + Sync + 'static>(&self, count: usize, io_priority: i32, cancellable: P, callback: Q);
@@ -56,7 +56,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<usize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q) {
+    fn read_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<usize, Error>) + Send + Sync + 'static>(&self, buffer: &mut [u8], io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
@@ -79,7 +79,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q) {
+    fn read_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<isize, Error>) + Send + Sync + 'static>(&self, buffer: &mut [u8], io_priority: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
