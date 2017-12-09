@@ -14,6 +14,8 @@ extern crate gdk_sys as gdk;
 extern crate pango_sys as pango;
 extern crate cairo_sys as cairo;
 
+pub mod xlib;
+
 #[allow(unused_imports)]
 use libc::{c_int, c_char, c_uchar, c_float, c_uint, c_double,
     c_short, c_ushort, c_long, c_ulong,
@@ -16019,12 +16021,12 @@ extern "C" {
     // GtkPlug
     //=========================================================================
     pub fn gtk_plug_get_type() -> GType;
-    //pub fn gtk_plug_new(socket_id: /*Ignored*/xlib::Window) -> *mut GtkWidget;
-    //pub fn gtk_plug_new_for_display(display: *mut gdk::GdkDisplay, socket_id: /*Ignored*/xlib::Window) -> *mut GtkWidget;
-    //pub fn gtk_plug_construct(plug: *mut GtkPlug, socket_id: /*Ignored*/xlib::Window);
-    //pub fn gtk_plug_construct_for_display(plug: *mut GtkPlug, display: *mut gdk::GdkDisplay, socket_id: /*Ignored*/xlib::Window);
+    pub fn gtk_plug_new(socket_id: xlib::Window) -> *mut GtkWidget;
+    pub fn gtk_plug_new_for_display(display: *mut gdk::GdkDisplay, socket_id: xlib::Window) -> *mut GtkWidget;
+    pub fn gtk_plug_construct(plug: *mut GtkPlug, socket_id: xlib::Window);
+    pub fn gtk_plug_construct_for_display(plug: *mut GtkPlug, display: *mut gdk::GdkDisplay, socket_id: xlib::Window);
     pub fn gtk_plug_get_embedded(plug: *mut GtkPlug) -> gboolean;
-    //pub fn gtk_plug_get_id(plug: *mut GtkPlug) -> /*Ignored*/xlib::Window;
+    pub fn gtk_plug_get_id(plug: *mut GtkPlug) -> xlib::Window;
     pub fn gtk_plug_get_socket_window(plug: *mut GtkPlug) -> *mut gdk::GdkWindow;
 
     //=========================================================================
@@ -16655,8 +16657,8 @@ extern "C" {
     //=========================================================================
     pub fn gtk_socket_get_type() -> GType;
     pub fn gtk_socket_new() -> *mut GtkWidget;
-    //pub fn gtk_socket_add_id(socket_: *mut GtkSocket, window: /*Ignored*/xlib::Window);
-    //pub fn gtk_socket_get_id(socket_: *mut GtkSocket) -> /*Ignored*/xlib::Window;
+    pub fn gtk_socket_add_id(socket_: *mut GtkSocket, window: xlib::Window);
+    pub fn gtk_socket_get_id(socket_: *mut GtkSocket) -> xlib::Window;
     pub fn gtk_socket_get_plug_window(socket_: *mut GtkSocket) -> *mut gdk::GdkWindow;
 
     //=========================================================================
