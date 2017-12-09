@@ -7,7 +7,7 @@ use std::ptr;
 use glib::{Error, TimeVal};
 use glib::object::IsA;
 use glib::translate::*;
-use gdk_pixbuf_ffi as ffi;
+use ffi;
 use glib_ffi;
 use gobject_ffi;
 use super::Pixbuf;
@@ -55,10 +55,10 @@ glib_wrapper! {
 impl PixbufAnimation {
     pub fn new_from_file(file: &str) -> Result<PixbufAnimation, Error> {
         #[cfg(windows)]
-        use gdk_pixbuf_ffi::gdk_pixbuf_animation_new_from_file_utf8
+        use ffi::gdk_pixbuf_animation_new_from_file_utf8
             as gdk_pixbuf_animation_new_from_file;
         #[cfg(not(windows))]
-        use gdk_pixbuf_ffi::gdk_pixbuf_animation_new_from_file;
+        use ffi::gdk_pixbuf_animation_new_from_file;
 
         unsafe {
             let mut error = ptr::null_mut();
@@ -122,33 +122,5 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
             from_glib_none(ffi::gdk_pixbuf_animation_get_static_image(
                 self.to_glib_none().0))
         }
-    }
-}
-
-glib_wrapper! {
-    pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim>): PixbufAnimation;
-
-    match fn {
-        get_type => || ffi::gdk_pixbuf_simple_anim_get_type(),
-    }
-}
-
-impl PixbufSimpleAnim {
-    pub fn new(width: i32, height: i32, rate: f32) -> PixbufSimpleAnim {
-        unsafe { from_glib_full(ffi::gdk_pixbuf_simple_anim_new(width, height, rate)) }
-    }
-
-    pub fn add_frame(&self, pixbuf: &Pixbuf) {
-        unsafe {
-            ffi::gdk_pixbuf_simple_anim_add_frame(self.to_glib_none().0, pixbuf.to_glib_none().0)
-        }
-    }
-
-    pub fn set_loop(&self, loop_: bool) {
-        unsafe { ffi::gdk_pixbuf_simple_anim_set_loop(self.to_glib_none().0, loop_.to_glib()) }
-    }
-
-    pub fn get_loop(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_pixbuf_simple_anim_get_loop(self.to_glib_none().0)) }
     }
 }

@@ -6,12 +6,129 @@ min_cfg_version = "2.26"
 target_path = "."
 work_mode = "normal"
 
-manual = [
-    "GdkPixbuf.Pixbuf",
-    "GdkPixbuf.PixbufAnimation",
-    "GdkPixbuf.PixbufAnimationIter",
+generate = [
+    "GdkPixbuf.Colorspace",
+    "GdkPixbuf.InterpType",
+    "GdkPixbuf.PixbufAlphaMode",
+    "GdkPixbuf.PixbufError",
     "GdkPixbuf.PixbufFormat",
     "GdkPixbuf.PixbufLoader",
+    "GdkPixbuf.PixbufRotation",
     "GdkPixbuf.PixbufSimpleAnim",
-    "GLib.Error",
 ]
+
+manual = [
+    "GdkPixbuf.PixbufAnimation",
+    "GdkPixbuf.PixbufAnimationIter",
+    "GLib.Bytes",
+    "GLib.Error",
+    "Gio.Cancellable",
+]
+
+[[object]]
+name = "GdkPixbuf.Pixbuf"
+status = "generate"
+    [[object.function]]
+    name = "add_alpha"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "composite"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "composite_color"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "composite_color_simple"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "copy"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "copy_area"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "flip"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "get_bits_per_sample"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_byte_length"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "get_colorspace"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_has_alpha"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_height"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_n_channels"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_pixels"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "get_pixels_with_length"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "get_rowstride"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "get_width"
+    #as property: const self
+    ignore = true
+    [[object.function]]
+    name = "read_pixels"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "read_pixel_bytes"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "rotate_simple"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "saturate_and_pixelate"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "scale"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "scale_simple"
+    #const self
+    ignore = true
+    [[object.function]]
+    name = "new_from_file"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "new_from_file_at_size"
+    #manual is_windows_utf8
+    ignore = true
+    [[object.function]]
+    name = "new_from_file_at_scale"
+    #manual is_windows_utf8
+    ignore = true
