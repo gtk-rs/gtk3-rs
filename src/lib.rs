@@ -22,6 +22,7 @@ mod application;
 mod buffered_input_stream;
 mod converter;
 mod input_stream;
+mod file;
 mod file_input_stream;
 mod resource;
 
@@ -45,6 +46,7 @@ pub mod prelude {
     pub use application::*;
     pub use buffered_input_stream::BufferedInputStreamExtManual;
     pub use converter::ConverterExt;
+    pub use file::FileExtManual;
     pub use file_input_stream::FileInputStreamExt;
     pub use input_stream::InputStreamExtManual;
 }

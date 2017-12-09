@@ -142,6 +142,54 @@ status = "generate"
     [[object.function]]
     name = "hash"
     ignore = true
+    [[object.function]]
+    name = "enumerate_children_async"
+    # FileEnumerator
+    ignore = true
+    [[object.function]]
+    name = "find_enclosing_mount_async"
+    # Mount
+    ignore = true
+    [[object.function]]
+    name = "append_to_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "create_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "create_readwrite_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "open_readwrite_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "query_filesystem_info_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "query_info_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "read_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "replace_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "replace_readwrite_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "set_display_name_async"
+    # wrong async return
+    ignore = true
 
 [[object]]
 name = "Gio.IOStream"
