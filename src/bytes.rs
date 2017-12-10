@@ -53,6 +53,23 @@ impl Bytes {
             from_glib_full(glib_ffi::g_bytes_new_static(data.as_ptr() as *const _, data.len()))
         }
     }
+
+    /// Takes ownership of `data` and creates a new `Bytes` without copying.
+    pub fn from_owned<T: AsRef<[u8]> + Send + 'static>(data: T) -> Bytes {
+        let data: Box<Box<AsRef<[u8]>>> = Box::new(Box::new(data));
+        let (size, data_ptr) = {
+            let data = (**data).as_ref();
+            (data.len(), data.as_ptr())
+        };
+
+        unsafe extern "C" fn drop_box(b: glib_ffi::gpointer) {
+            let _: Box<Box<AsRef<[u8]>>> = Box::from_raw(b as *mut _);
+        }
+
+        unsafe {
+            from_glib_full(glib_ffi::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box), Box::into_raw(data) as *mut _))
+        }
+    }
 }
 
 unsafe impl Send for Bytes { }
@@ -211,5 +228,11 @@ mod tests {
         let b1 = Bytes::from_static(b"this is a test");
         let b2 = Bytes::from(b"this is a test");
         assert_eq!(b1, b2);
+    }
+
+    #[test]
+    fn from_owned() {
+        let b = Bytes::from_owned(vec![1, 2, 3]);
+        assert_eq!(b, [1u8, 2u8, 3u8].as_ref());
     }
 }
