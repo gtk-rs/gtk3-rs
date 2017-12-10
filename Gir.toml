@@ -31,7 +31,6 @@ generate = [
     "Gio.FilterOutputStream",
     "Gio.Icon",
     "Gio.IOStreamSpliceFlags",
-    "Gio.MemoryInputStream",
     "Gio.MemoryOutputStream",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
@@ -212,6 +211,18 @@ status = "generate"
     [[object.function]]
     name = "skip_async"
     #wrong async callback type
+    ignore = true
+
+[[object]]
+name = "Gio.MemoryInputStream"
+status = "generate"
+    [[object.function]]
+    name = "new_from_data"
+    #destroy function will called on passed data, so boxing free as in glib::Bytes impossible
+    ignore = true
+    [[object.function]]
+    name = "add_data"
+    #destroy function will called on passed data, so boxing free as in glib::Bytes impossible
     ignore = true
 
 [[object]]

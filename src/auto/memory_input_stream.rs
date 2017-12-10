@@ -34,10 +34,6 @@ impl MemoryInputStream {
             InputStream::from_glib_full(ffi::g_memory_input_stream_new_from_bytes(bytes.to_glib_none().0)).downcast_unchecked()
         }
     }
-
-    //pub fn new_from_data<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(data: &[u8], destroy: P) -> MemoryInputStream {
-    //    unsafe { TODO: call ffi::g_memory_input_stream_new_from_data() }
-    //}
 }
 
 impl Default for MemoryInputStream {
@@ -49,8 +45,6 @@ impl Default for MemoryInputStream {
 pub trait MemoryInputStreamExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn add_bytes(&self, bytes: &glib::Bytes);
-
-    //fn add_data<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, data: &[u8], destroy: P);
 }
 
 impl<O: IsA<MemoryInputStream>> MemoryInputStreamExt for O {
@@ -60,8 +54,4 @@ impl<O: IsA<MemoryInputStream>> MemoryInputStreamExt for O {
             ffi::g_memory_input_stream_add_bytes(self.to_glib_none().0, bytes.to_glib_none().0);
         }
     }
-
-    //fn add_data<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, data: &[u8], destroy: P) {
-    //    unsafe { TODO: call ffi::g_memory_input_stream_add_data() }
-    //}
 }

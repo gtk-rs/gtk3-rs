@@ -26,6 +26,7 @@ mod file;
 mod file_i_o_stream;
 mod file_input_stream;
 mod file_output_stream;
+mod memory_input_stream;
 mod output_stream;
 mod resource;
 
