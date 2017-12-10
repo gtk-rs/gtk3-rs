@@ -42,7 +42,8 @@ glib_wrapper! {
 
 impl Bytes {
     /// Copies `data` into a new shared slice.
-    fn new(data: &[u8]) -> Bytes {
+    fn new<T: AsRef<[u8]>>(data: T) -> Bytes {
+        let data = data.as_ref();
         unsafe { from_glib_full(glib_ffi::g_bytes_new(data.as_ptr() as *const _, data.len())) }
     }
 
