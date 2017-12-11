@@ -8,7 +8,6 @@ use std::mem;
 use std::mem::transmute;
 use ffi as glib_ffi;
 use ffi::{gpointer, gboolean};
-use std::cell::RefCell;
 
 use MainContext;
 use Source;
@@ -33,41 +32,50 @@ impl MainContext {
         }
     }
 
-    // FIXME: These can actually be FnOnce but require FnBox to
-    // stabilize, or Box<FnOnce()> to be callable otherwise
     pub fn invoke<F>(&self, func: F)
-    where F: FnMut() + Send + 'static {
-        unsafe {
-            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline),
-                into_raw(func), Some(destroy_closure))
-        }
+    where F: FnOnce() + Send + 'static {
+        self.invoke_with_priority(::PRIORITY_DEFAULT_IDLE, func);
     }
 
     pub fn invoke_with_priority<F>(&self, priority: Priority, func: F)
-    where F: FnMut() + Send + 'static {
+    where F: FnOnce() + Send + 'static {
         unsafe {
-            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline),
-                into_raw(func), Some(destroy_closure))
+            let func = Box::into_raw(Box::new(Some(Box::new(func))));
+            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
+                func as gpointer, Some(destroy_closure::<F>))
         }
     }
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
+unsafe extern "C" fn trampoline<F: FnOnce() + Send + 'static>(func: gpointer) -> gboolean {
     let _guard = CallbackGuard::new();
-    let func: &RefCell<Box<FnMut() + 'static>> = transmute(func);
-    (&mut *func.borrow_mut())();
-
+    let func: &mut Option<Box<F>> = transmute(func);
+    let func = func.take().expect("MainContext::invoke() closure called multiple times");
+    func();
     glib_ffi::G_SOURCE_REMOVE
 }
 
-unsafe extern "C" fn destroy_closure(ptr: gpointer) {
+unsafe extern "C" fn destroy_closure<F: FnOnce() + Send + 'static>(ptr: gpointer) {
     let _guard = CallbackGuard::new();
-    Box::<RefCell<Box<FnMut() + 'static>>>::from_raw(ptr as *mut _);
+    Box::<Option<Box<F>>>::from_raw(ptr as *mut _);
 }
 
-fn into_raw<F: FnMut() + Send + 'static>(func: F) -> gpointer {
-    let func: Box<RefCell<Box<FnMut() + Send + 'static>>> =
-        Box::new(RefCell::new(Box::new(func)));
-    Box::into_raw(func) as gpointer
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::thread;
+
+    #[test]
+    fn test_invoke() {
+        let l = ::MainLoop::new(None, false);
+        let c = MainContext::default().unwrap();
+
+        let l_clone = l.clone();
+        thread::spawn(move || {
+            c.invoke(move || l_clone.quit());
+        });
+
+        l.run();
+    }
 }
