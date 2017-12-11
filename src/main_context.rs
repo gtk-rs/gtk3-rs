@@ -34,11 +34,7 @@ impl MainContext {
 
     pub fn invoke<F>(&self, func: F)
     where F: FnOnce() + Send + 'static {
-        unsafe {
-            let func = Box::into_raw(Box::new(Some(Box::new(func))));
-            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, glib_ffi::G_PRIORITY_DEFAULT_IDLE, Some(trampoline::<F>),
-                func as gpointer, Some(destroy_closure::<F>))
-        }
+        self.invoke_with_priority(::PRIORITY_DEFAULT_IDLE, func);
     }
 
     pub fn invoke_with_priority<F>(&self, priority: Priority, func: F)
