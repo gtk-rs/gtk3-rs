@@ -37,14 +37,6 @@ mod cancellable;
 pub use self::cancellable::Cancellable;
 pub use self::cancellable::CancellableExt;
 
-mod converter_input_stream;
-pub use self::converter_input_stream::ConverterInputStream;
-pub use self::converter_input_stream::ConverterInputStreamExt;
-
-mod converter_output_stream;
-pub use self::converter_output_stream::ConverterOutputStream;
-pub use self::converter_output_stream::ConverterOutputStreamExt;
-
 mod data_input_stream;
 pub use self::data_input_stream::DataInputStream;
 pub use self::data_input_stream::DataInputStreamExt;
@@ -170,7 +162,6 @@ mod settings_schema_key;
 pub use self::settings_schema_key::SettingsSchemaKey;
 
 mod enums;
-pub use self::enums::ConverterResult;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::FileType;
@@ -184,7 +175,6 @@ mod flags;
 pub use self::flags::AppInfoCreateFlags;
 pub use self::flags::ApplicationFlags;
 pub use self::flags::AskPasswordFlags;
-pub use self::flags::ConverterFlags;
 pub use self::flags::FileCreateFlags;
 pub use self::flags::FileQueryInfoFlags;
 pub use self::flags::IOStreamSpliceFlags;
@@ -206,8 +196,6 @@ pub mod traits {
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
     pub use super::CancellableExt;
-    pub use super::ConverterInputStreamExt;
-    pub use super::ConverterOutputStreamExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     pub use super::FileExt;

@@ -16,10 +16,6 @@ generate = [
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
     "Gio.Cancellable",
-    "Gio.ConverterFlags",
-    "Gio.ConverterInputStream",
-    "Gio.ConverterOutputStream",
-    "Gio.ConverterResult",
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
@@ -59,7 +55,6 @@ ignore = [
 ]
 
 manual = [
-    "Gio.Converter",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
     "Gio.FileOutputStream",

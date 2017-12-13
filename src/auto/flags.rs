@@ -161,54 +161,6 @@ impl SetValue for AskPasswordFlags {
 }
 
 bitflags! {
-    pub struct ConverterFlags: u32 {
-        const NONE = 0;
-        const INPUT_AT_END = 1;
-        const FLUSH = 2;
-    }
-}
-
-#[doc(hidden)]
-impl ToGlib for ConverterFlags {
-    type GlibType = ffi::GConverterFlags;
-
-    fn to_glib(&self) -> ffi::GConverterFlags {
-        ffi::GConverterFlags::from_bits_truncate(self.bits())
-    }
-}
-
-#[doc(hidden)]
-impl FromGlib<ffi::GConverterFlags> for ConverterFlags {
-    fn from_glib(value: ffi::GConverterFlags) -> ConverterFlags {
-        ConverterFlags::from_bits_truncate(value.bits())
-    }
-}
-
-impl StaticType for ConverterFlags {
-    fn static_type() -> Type {
-        unsafe { from_glib(ffi::g_converter_flags_get_type()) }
-    }
-}
-
-impl<'a> FromValueOptional<'a> for ConverterFlags {
-    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        Some(FromValue::from_value(value))
-    }
-}
-
-impl<'a> FromValue<'a> for ConverterFlags {
-    unsafe fn from_value(value: &Value) -> Self {
-        from_glib(ffi::GConverterFlags::from_bits_truncate(gobject_ffi::g_value_get_flags(value.to_glib_none().0)))
-    }
-}
-
-impl SetValue for ConverterFlags {
-    unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib().bits())
-    }
-}
-
-bitflags! {
     pub struct FileCreateFlags: u32 {
         const NONE = 0;
         const PRIVATE = 1;
