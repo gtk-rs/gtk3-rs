@@ -53,9 +53,6 @@ pub trait OutputStreamExt {
 
     fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<usize, Error>;
 
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q);
-
     fn write_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, bytes: &glib::Bytes, cancellable: P) -> Result<isize, Error>;
 }
 
@@ -190,28 +187,6 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             let mut error = ptr::null_mut();
             let _ = ffi::g_output_stream_write_all(self.to_glib_none().0, buffer.to_glib_none().0, count, &mut bytes_written, cancellable.0, &mut error);
             if error.is_null() { Ok(bytes_written) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, buffer: &[u8], io_priority: i32, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let count = buffer.len() as usize;
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn write_all_async_trampoline<Q: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            callback_guard!();
-            let mut error = ptr::null_mut();
-            let mut bytes_written = mem::uninitialized();
-            let _ = ffi::g_output_stream_write_all_finish(_source_object as *mut _, res, &mut bytes_written, &mut error);
-            let result = if error.is_null() { Ok((bytes_written)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = write_all_async_trampoline::<Q>;
-        unsafe {
-            ffi::g_output_stream_write_all_async(self.to_glib_none().0, buffer.to_glib_none().0, count, io_priority, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 

@@ -271,6 +271,10 @@ status = "generate"
     #wrong async callback type
     ignore = true
     [[object.function]]
+    name = "write_all_async"
+    #AsRef<u8>
+    ignore = true
+    [[object.function]]
     name = "write_bytes_async"
     #wrong async callback type
     ignore = true
