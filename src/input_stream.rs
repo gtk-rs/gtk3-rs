@@ -188,37 +188,26 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
 #[cfg(all(test,any(feature = "v2_34", feature = "dox")))]
 mod tests {
-    use std::sync::mpsc::channel;
-    use std::thread;
     use std::vec::Vec;
     use glib::*;
+    use test_util::run_async;
     use *;
 
     #[test]
     #[cfg(all(test,any(feature = "v2_44", feature = "dox")))]
     fn read_all_async() {
-        let l = MainLoop::new(None, false);
-        let c = MainContext::default().unwrap();
-        let l_clone = l.clone();
+        let ret = run_async(|tx, l| {
+            let b = Bytes::from_owned(vec![1, 2, 3]);
+            let strm = MemoryInputStream::new_from_bytes(&b);
 
-        let (tx, rx) = channel();
-
-        thread::spawn(move || {
-            c.invoke(move || {
-                let b = Bytes::from_owned(vec![1, 2, 3]);
-                let strm = MemoryInputStream::new_from_bytes(&b);
-
-                let buf = Vec::with_capacity(10);
-                strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
-                    tx.send(ret).unwrap();
-                    l_clone.quit();
-                });
+            let buf = Vec::with_capacity(10);
+            strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+                tx.send(ret).unwrap();
+                l.quit();
             });
         });
 
-        l.run();
-
-        let (buf, err) = rx.recv().unwrap().unwrap();
+        let (buf, err) = ret.unwrap();
         assert!(err.is_none());
         assert_eq!(buf, vec![1, 2, 3]);
     }
@@ -237,81 +226,51 @@ mod tests {
 
     #[test]
     fn read_async() {
-        let l = MainLoop::new(None, false);
-        let c = MainContext::default().unwrap();
-        let l_clone = l.clone();
+        let ret = run_async(|tx, l| {
+            let b = Bytes::from_owned(vec![1, 2, 3]);
+            let strm = MemoryInputStream::new_from_bytes(&b);
 
-        let (tx, rx) = channel();
-
-        thread::spawn(move || {
-            c.invoke(move || {
-                let b = Bytes::from_owned(vec![1, 2, 3]);
-                let strm = MemoryInputStream::new_from_bytes(&b);
-
-                let buf = Vec::with_capacity(10);
-                strm.read_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
-                    tx.send(ret).unwrap();
-                    l_clone.quit();
-                });
+            let buf = Vec::with_capacity(10);
+            strm.read_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+                tx.send(ret).unwrap();
+                l.quit();
             });
         });
 
-        l.run();
-
-        let buf = rx.recv().unwrap().unwrap();
+        let buf = ret.unwrap();
         assert_eq!(buf, vec![1, 2, 3]);
     }
 
     #[test]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async() {
-        let l = MainLoop::new(None, false);
-        let c = MainContext::default().unwrap();
-        let l_clone = l.clone();
+        let ret = run_async(|tx, l| {
+            let b = Bytes::from_owned(vec![1, 2, 3]);
+            let strm = MemoryInputStream::new_from_bytes(&b);
 
-        let (tx, rx) = channel();
-
-        thread::spawn(move || {
-            c.invoke(move || {
-                let b = Bytes::from_owned(vec![1, 2, 3]);
-                let strm = MemoryInputStream::new_from_bytes(&b);
-
-                strm.read_bytes_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
-                    tx.send(ret).unwrap();
-                    l_clone.quit();
-                });
+            strm.read_bytes_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+                tx.send(ret).unwrap();
+                l.quit();
             });
         });
 
-        l.run();
-
-        let bytes = rx.recv().unwrap().unwrap();
+        let bytes = ret.unwrap();
         assert_eq!(bytes, vec![1, 2, 3]);
     }
 
     #[test]
     fn skip_async() {
-        let l = MainLoop::new(None, false);
-        let c = MainContext::default().unwrap();
-        let l_clone = l.clone();
+        let ret = run_async(|tx, l| {
+            let b = Bytes::from_owned(vec![1, 2, 3]);
+            let strm = MemoryInputStream::new_from_bytes(&b);
 
-        let (tx, rx) = channel();
-
-        thread::spawn(move || {
-            c.invoke(move || {
-                let b = Bytes::from_owned(vec![1, 2, 3]);
-                let strm = MemoryInputStream::new_from_bytes(&b);
-
-                strm.skip_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
-                    tx.send(ret).unwrap();
-                    l_clone.quit();
-                });
+            strm.skip_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+                tx.send(ret).unwrap();
+                l.quit();
             });
         });
 
-        l.run();
-
-        let skipped = rx.recv().unwrap().unwrap();
+        let skipped = ret.unwrap();
         assert_eq!(skipped, 3);
     }
 }

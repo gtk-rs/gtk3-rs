@@ -29,6 +29,9 @@ mod memory_input_stream;
 mod output_stream;
 mod resource;
 
+#[cfg(test)]
+mod test_util;
+
 pub use glib::{
     Error,
     Object,
