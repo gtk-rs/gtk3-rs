@@ -25,10 +25,6 @@ glib_wrapper! {
 }
 
 impl MemoryOutputStream {
-    //pub fn new<'a, 'b, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Unimplemented*/ReallocFunc>>, R: Into<Option<&'b /*Ignored*/glib::DestroyNotify>>>(data: P, size: usize, realloc_function: Q, destroy_function: R) -> MemoryOutputStream {
-    //    unsafe { TODO: call ffi::g_memory_output_stream_new() }
-    //}
-
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn new_resizable() -> MemoryOutputStream {
         unsafe {
@@ -38,46 +34,18 @@ impl MemoryOutputStream {
 }
 
 pub trait MemoryOutputStreamExt {
-    //fn get_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
-
     fn get_data_size(&self) -> usize;
-
-    fn get_size(&self) -> usize;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn steal_as_bytes(&self) -> Option<glib::Bytes>;
 
-    //fn steal_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
-
-    //fn get_property_destroy_function(&self) -> /*Unimplemented*/Fundamental: Pointer;
-
-    //fn get_property_realloc_function(&self) -> /*Unimplemented*/Fundamental: Pointer;
-
-    fn connect_property_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_destroy_function_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_realloc_function_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<MemoryOutputStream> + IsA<glib::object::Object>> MemoryOutputStreamExt for O {
-    //fn get_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call ffi::g_memory_output_stream_get_data() }
-    //}
-
     fn get_data_size(&self) -> usize {
         unsafe {
             ffi::g_memory_output_stream_get_data_size(self.to_glib_none().0)
-        }
-    }
-
-    fn get_size(&self) -> usize {
-        unsafe {
-            ffi::g_memory_output_stream_get_size(self.to_glib_none().0)
         }
     }
 
@@ -88,34 +56,6 @@ impl<O: IsA<MemoryOutputStream> + IsA<glib::object::Object>> MemoryOutputStreamE
         }
     }
 
-    //fn steal_data(&self) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call ffi::g_memory_output_stream_steal_data() }
-    //}
-
-    //fn get_property_destroy_function(&self) -> /*Unimplemented*/Fundamental: Pointer {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "destroy-function".to_glib_none().0, value.to_glib_none_mut().0);
-    //        value.get().unwrap()
-    //    }
-    //}
-
-    //fn get_property_realloc_function(&self) -> /*Unimplemented*/Fundamental: Pointer {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "realloc-function".to_glib_none().0, value.to_glib_none_mut().0);
-    //        value.get().unwrap()
-    //    }
-    //}
-
-    fn connect_property_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::data",
-                transmute(notify_data_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -123,61 +63,9 @@ impl<O: IsA<MemoryOutputStream> + IsA<glib::object::Object>> MemoryOutputStreamE
                 transmute(notify_data_size_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_destroy_function_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::destroy-function",
-                transmute(notify_destroy_function_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_realloc_function_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::realloc-function",
-                transmute(notify_realloc_function_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::size",
-                transmute(notify_size_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_data_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<MemoryOutputStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_data_size_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<MemoryOutputStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_destroy_function_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<MemoryOutputStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_realloc_function_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<MemoryOutputStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_size_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MemoryOutputStream> {
     callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);

@@ -27,7 +27,6 @@ generate = [
     "Gio.FilterOutputStream",
     "Gio.Icon",
     "Gio.IOStreamSpliceFlags",
-    "Gio.MemoryOutputStream",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",
@@ -218,6 +217,42 @@ status = "generate"
     [[object.function]]
     name = "add_data"
     #destroy function will called on passed data, so boxing free as in glib::Bytes impossible
+    ignore = true
+
+[[object]]
+name = "Gio.MemoryOutputStream"
+status = "generate"
+    [[object.function]]
+    name = "new"
+    #unsupported memory allocators
+    ignore = true
+    [[object.function]]
+    name = "get_data"
+    #uncontrolled lifetime
+    ignore = true
+    [[object.function]]
+    name = "get_size"
+    #not usable
+    ignore = true
+    [[object.function]]
+    name = "steal_data"
+    #unsupported memory allocators
+    ignore = true
+    [[object.property]]
+    name = "data"
+    #uncontrolled lifetime
+    ignore = true
+    [[object.property]]
+    name = "size"
+    #not usable
+    ignore = true
+    [[object.property]]
+    name = "destroy-function"
+    #unsupported memory allocators
+    ignore = true
+    [[object.property]]
+    name = "realloc-function"
+    #unsupported memory allocators
     ignore = true
 
 [[object]]
