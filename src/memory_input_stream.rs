@@ -5,7 +5,6 @@
 
 #[cfg(test)]
 mod tests {
-    use std::vec::Vec;
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     use glib::Bytes;
     use *;
@@ -17,10 +16,9 @@ mod tests {
         assert!(!ret.is_err());
         assert_eq!(ret.unwrap(), 0);
 
-        let buf = Vec::with_capacity(10);
-        let ret = strm.read_all(buf, None).unwrap();
-        assert_eq!(ret.0, Vec::new());
-        assert!(ret.1.is_none());
+        let mut buf = vec![0;10];
+        let ret = strm.read(&mut buf, None).unwrap();
+        assert_eq!(ret, 0);
     }
 
     #[test]
@@ -28,10 +26,12 @@ mod tests {
     fn new_from_bytes() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         let strm = MemoryInputStream::new_from_bytes(&b);
-        let buf = Vec::with_capacity(10);
-        let ret = strm.read_all(buf, None).unwrap();
-        assert_eq!(ret.0, vec![1, 2, 3]);
-        assert!(ret.1.is_none());
+        let mut buf = vec![0;10];
+        let ret = strm.read(&mut buf, None).unwrap();
+        assert_eq!(ret, 3);
+        assert_eq!(buf[0], 1);
+        assert_eq!(buf[1], 2);
+        assert_eq!(buf[2], 3);
 
         let ret = strm.skip(10, None).unwrap();
         assert_eq!(ret, 0);
@@ -43,10 +43,12 @@ mod tests {
         let strm = MemoryInputStream::new();
         let b = Bytes::from_owned(vec![1, 2, 3]);
         strm.add_bytes(&b);
-        let buf = Vec::with_capacity(10);
-        let ret = strm.read_all(buf, None).unwrap();
-        assert_eq!(ret.0, vec![1, 2, 3]);
-        assert!(ret.1.is_none());
+        let mut buf = vec![0;10];
+        let ret = strm.read(&mut buf, None).unwrap();
+        assert_eq!(ret, 3);
+        assert_eq!(buf[0], 1);
+        assert_eq!(buf[1], 2);
+        assert_eq!(buf[2], 3);
 
         let ret = strm.skip(10, None).unwrap();
         assert_eq!(ret, 0);
