@@ -9,10 +9,10 @@ use IOStream;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::Priority;
 use glib_ffi;
 use gobject_ffi;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -28,7 +28,7 @@ pub trait FileIOStreamExt {
 
     fn query_info<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, cancellable: P) -> Result<FileInfo, Error>;
 
-    fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<FileInfo, Error>) + Send + Sync + 'static>(&self, attributes: &str, io_priority: i32, cancellable: P, callback: Q);
+    fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: Priority, cancellable: P, callback: Q);
 }
 
 impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
@@ -48,24 +48,22 @@ impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
         }
     }
 
-    fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: Fn(Result<FileInfo, Error>) + Send + Sync + 'static>(&self, attributes: &str, io_priority: i32, cancellable: P, callback: Q) {
+    fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Fn(Result<FileInfo, Error>) + Send + Sync + 'static>> = Box::new(Box::new(callback));
-        extern "C" fn query_info_async_trampoline(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             callback_guard!();
-            unsafe {
-                let mut error = ptr::null_mut();
-                let ret = ffi::g_file_io_stream_query_info_finish(_source_object as *mut _, res, &mut error);
-                let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-                let callback: &&(Fn(Result<FileInfo, Error>) + Send + Sync + 'static) = transmute(user_data);
-                callback(result);
-            }
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_io_stream_query_info_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            callback(result);
         }
-        let callback = query_info_async_trampoline;
+        let callback = query_info_async_trampoline::<Q>;
         unsafe {
-            ffi::g_file_io_stream_query_info_async(self.to_glib_none().0, attributes.to_glib_none().0, io_priority, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_file_io_stream_query_info_async(self.to_glib_none().0, attributes.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 }

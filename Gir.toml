@@ -101,7 +101,7 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "peek"
-    #manual mutable buffer
+    #have almost same peek_buffer
     ignore = true
 
 [[object]]
