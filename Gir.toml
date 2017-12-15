@@ -23,8 +23,6 @@ generate = [
     "Gio.FileInfo",
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
-    "Gio.FilterInputStream",
-    "Gio.FilterOutputStream",
     "Gio.Icon",
     "Gio.IOStreamSpliceFlags",
     "Gio.Menu",
@@ -43,7 +41,6 @@ generate = [
     "Gio.SettingsBindFlags",
     "Gio.SettingsSchema",
     "Gio.SimpleActionGroup",
-    "Gio.SimpleIOStream",
     "Gio.SimplePermission",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
@@ -184,11 +181,35 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Gio.FilterInputStream"
+status = "generate"
+    [[object.property]]
+    name = "base-stream"
+    #readonly
+    ignore = true
+
+[[object]]
+name = "Gio.FilterOutputStream"
+status = "generate"
+    [[object.property]]
+    name = "base-stream"
+    #readonly
+    ignore = true
+
+[[object]]
 name = "Gio.IOStream"
 status = "generate"
     [[object.function]]
     name = "splice_async"
     #g_io_stream_splice_finish accept only 2 parameters instead normal 3 (no source_object)
+    ignore = true
+    [[object.property]]
+    name = "input-stream"
+    #readonly
+    ignore = true
+    [[object.property]]
+    name = "output-stream"
+    #readonly
     ignore = true
 
 [[object]]
@@ -296,6 +317,18 @@ status = "generate"
     [[object.property]]
     name = "state"
     #value glib::VariantTy
+    ignore = true
+
+[[object]]
+name = "Gio.SimpleIOStream"
+status = "generate"
+    [[object.property]]
+    name = "input-stream"
+    #readonly
+    ignore = true
+    [[object.property]]
+    name = "output-stream"
+    #readonly
     ignore = true
 
 [[object]]

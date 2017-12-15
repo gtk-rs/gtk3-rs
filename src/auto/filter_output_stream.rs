@@ -31,8 +31,6 @@ pub trait FilterOutputStreamExt {
 
     fn set_close_base_stream(&self, close_base: bool);
 
-    fn connect_property_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -55,14 +53,6 @@ impl<O: IsA<FilterOutputStream> + IsA<glib::object::Object>> FilterOutputStreamE
         }
     }
 
-    fn connect_property_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::base-stream",
-                transmute(notify_base_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -70,13 +60,6 @@ impl<O: IsA<FilterOutputStream> + IsA<glib::object::Object>> FilterOutputStreamE
                 transmute(notify_close_base_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-}
-
-unsafe extern "C" fn notify_base_stream_trampoline<P>(this: *mut ffi::GFilterOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<FilterOutputStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&FilterOutputStream::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_close_base_stream_trampoline<P>(this: *mut ffi::GFilterOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)

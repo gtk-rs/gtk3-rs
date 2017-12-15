@@ -136,8 +136,6 @@ pub use self::simple_action_group::SimpleActionGroupExt;
 mod simple_i_o_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::simple_i_o_stream::SimpleIOStream;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::simple_i_o_stream::SimpleIOStreamExt;
 
 mod simple_permission;
 pub use self::simple_permission::SimplePermission;
@@ -220,8 +218,6 @@ pub mod traits {
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
-    pub use super::SimpleIOStreamExt;
     pub use super::ThemedIconExt;
     pub use super::TlsCertificateExt;
 }

@@ -50,15 +50,7 @@ pub trait IOStreamExt {
 
     fn get_property_closed(&self) -> bool;
 
-    fn get_property_input_stream(&self) -> Option<InputStream>;
-
-    fn get_property_output_stream(&self) -> Option<OutputStream>;
-
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_input_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_output_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<IOStream> + IsA<glib::object::Object>> IOStreamExt for O {
@@ -137,22 +129,6 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object>> IOStreamExt for O {
         }
     }
 
-    fn get_property_input_stream(&self) -> Option<InputStream> {
-        unsafe {
-            let mut value = Value::from_type(<InputStream as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "input-stream".to_glib_none().0, value.to_glib_none_mut().0);
-            value.get()
-        }
-    }
-
-    fn get_property_output_stream(&self) -> Option<OutputStream> {
-        unsafe {
-            let mut value = Value::from_type(<OutputStream as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "output-stream".to_glib_none().0, value.to_glib_none_mut().0);
-            value.get()
-        }
-    }
-
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -160,39 +136,9 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object>> IOStreamExt for O {
                 transmute(notify_closed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_input_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::input-stream",
-                transmute(notify_input_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_output_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::output-stream",
-                transmute(notify_output_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
 }
 
 unsafe extern "C" fn notify_closed_trampoline<P>(this: *mut ffi::GIOStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<IOStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&IOStream::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_input_stream_trampoline<P>(this: *mut ffi::GIOStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<IOStream> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&IOStream::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_output_stream_trampoline<P>(this: *mut ffi::GIOStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<IOStream> {
     callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
