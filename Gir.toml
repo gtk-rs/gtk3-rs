@@ -54,6 +54,22 @@ status = "generate"
     name = "new_from_file_at_scale"
     #manual is_windows_utf8
     ignore = true
+    [[object.function]]
+    name = "new_from_stream_async"
+    # wrong async return
+    ignore = true
+    [[object.function]]
+    name = "new_from_stream_at_scale_async"
+    # wrong return and don't generated
+    ignore = true
+    [[object.function]]
+    name = "get_file_info"
+    # wrong return
+    ignore = true
+    [[object.function]]
+    name = "get_file_info_async"
+    # wrong async return
+    ignore = true
 
 [[object]]
 name = "GdkPixbuf.PixbufFormat"
