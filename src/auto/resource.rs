@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use Error;
+use InputStream;
 use ResourceLookupFlags;
 use ffi;
 use glib;
@@ -49,9 +50,13 @@ impl Resource {
         }
     }
 
-    //pub fn open_stream(&self, path: &str, lookup_flags: ResourceLookupFlags) -> Result</*Ignored*/InputStream, Error> {
-    //    unsafe { TODO: call ffi::g_resource_open_stream() }
-    //}
+    pub fn open_stream(&self, path: &str, lookup_flags: ResourceLookupFlags) -> Result<InputStream, Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_resource_open_stream(self.to_glib_none().0, path.to_glib_none().0, lookup_flags.to_glib(), &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     pub fn load<P: AsRef<std::path::Path>>(filename: P) -> Result<Resource, Error> {
         unsafe {

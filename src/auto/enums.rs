@@ -11,6 +11,127 @@ use gobject_ffi;
 use glib::translate::*;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DataStreamByteOrder {
+    BigEndian,
+    LittleEndian,
+    HostEndian,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DataStreamByteOrder {
+    type GlibType = ffi::GDataStreamByteOrder;
+
+    fn to_glib(&self) -> ffi::GDataStreamByteOrder {
+        match *self {
+            DataStreamByteOrder::BigEndian => ffi::G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN,
+            DataStreamByteOrder::LittleEndian => ffi::G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN,
+            DataStreamByteOrder::HostEndian => ffi::G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN,
+            DataStreamByteOrder::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDataStreamByteOrder> for DataStreamByteOrder {
+    fn from_glib(value: ffi::GDataStreamByteOrder) -> Self {
+        match value {
+            0 => DataStreamByteOrder::BigEndian,
+            1 => DataStreamByteOrder::LittleEndian,
+            2 => DataStreamByteOrder::HostEndian,
+            value => DataStreamByteOrder::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for DataStreamByteOrder {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_data_stream_byte_order_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DataStreamByteOrder {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DataStreamByteOrder {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DataStreamByteOrder {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DataStreamNewlineType {
+    Lf,
+    Cr,
+    CrLf,
+    Any,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DataStreamNewlineType {
+    type GlibType = ffi::GDataStreamNewlineType;
+
+    fn to_glib(&self) -> ffi::GDataStreamNewlineType {
+        match *self {
+            DataStreamNewlineType::Lf => ffi::G_DATA_STREAM_NEWLINE_TYPE_LF,
+            DataStreamNewlineType::Cr => ffi::G_DATA_STREAM_NEWLINE_TYPE_CR,
+            DataStreamNewlineType::CrLf => ffi::G_DATA_STREAM_NEWLINE_TYPE_CR_LF,
+            DataStreamNewlineType::Any => ffi::G_DATA_STREAM_NEWLINE_TYPE_ANY,
+            DataStreamNewlineType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDataStreamNewlineType> for DataStreamNewlineType {
+    fn from_glib(value: ffi::GDataStreamNewlineType) -> Self {
+        match value {
+            0 => DataStreamNewlineType::Lf,
+            1 => DataStreamNewlineType::Cr,
+            2 => DataStreamNewlineType::CrLf,
+            3 => DataStreamNewlineType::Any,
+            value => DataStreamNewlineType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for DataStreamNewlineType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_data_stream_newline_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DataStreamNewlineType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DataStreamNewlineType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DataStreamNewlineType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum FileType {
     Unknown,
     Regular,

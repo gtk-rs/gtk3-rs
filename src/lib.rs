@@ -19,7 +19,19 @@ macro_rules! callback_guard {
 }
 
 mod application;
+mod buffered_input_stream;
+mod input_stream;
+mod file;
+mod file_i_o_stream;
+mod file_input_stream;
+mod file_output_stream;
+mod memory_input_stream;
+mod memory_output_stream;
+mod output_stream;
 mod resource;
+
+#[cfg(test)]
+mod test_util;
 
 pub use glib::{
     Error,
@@ -29,6 +41,10 @@ pub use glib::{
 pub use auto::*;
 pub use auto::functions::*;
 
+use file_i_o_stream::FileIOStream;
+use file_input_stream::FileInputStream;
+use file_output_stream::FileOutputStream;
+
 pub mod signal {
     pub use glib::signal::Inhibit;
 }
@@ -36,6 +52,13 @@ pub mod signal {
 pub mod prelude {
     pub use auto::traits::*;
     pub use application::*;
+    pub use buffered_input_stream::BufferedInputStreamExtManual;
+    pub use file::FileExtManual;
+    pub use file_i_o_stream::FileIOStreamExt;
+    pub use file_input_stream::FileInputStreamExt;
+    pub use file_output_stream::FileOutputStreamExt;
+    pub use input_stream::InputStreamExtManual;
+    pub use output_stream::OutputStreamExtManual;
 }
 
 pub use prelude::*;

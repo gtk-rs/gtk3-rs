@@ -256,6 +256,103 @@ impl SetValue for FileQueryInfoFlags {
 }
 
 bitflags! {
+    pub struct IOStreamSpliceFlags: u32 {
+        const NONE = 0;
+        const CLOSE_STREAM1 = 1;
+        const CLOSE_STREAM2 = 2;
+        const WAIT_FOR_BOTH = 4;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for IOStreamSpliceFlags {
+    type GlibType = ffi::GIOStreamSpliceFlags;
+
+    fn to_glib(&self) -> ffi::GIOStreamSpliceFlags {
+        ffi::GIOStreamSpliceFlags::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GIOStreamSpliceFlags> for IOStreamSpliceFlags {
+    fn from_glib(value: ffi::GIOStreamSpliceFlags) -> IOStreamSpliceFlags {
+        IOStreamSpliceFlags::from_bits_truncate(value.bits())
+    }
+}
+
+impl StaticType for IOStreamSpliceFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_io_stream_splice_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for IOStreamSpliceFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for IOStreamSpliceFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(ffi::GIOStreamSpliceFlags::from_bits_truncate(gobject_ffi::g_value_get_flags(value.to_glib_none().0)))
+    }
+}
+
+impl SetValue for IOStreamSpliceFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib().bits())
+    }
+}
+
+bitflags! {
+    pub struct OutputStreamSpliceFlags: u32 {
+        const NONE = 0;
+        const CLOSE_SOURCE = 1;
+        const CLOSE_TARGET = 2;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for OutputStreamSpliceFlags {
+    type GlibType = ffi::GOutputStreamSpliceFlags;
+
+    fn to_glib(&self) -> ffi::GOutputStreamSpliceFlags {
+        ffi::GOutputStreamSpliceFlags::from_bits_truncate(self.bits())
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GOutputStreamSpliceFlags> for OutputStreamSpliceFlags {
+    fn from_glib(value: ffi::GOutputStreamSpliceFlags) -> OutputStreamSpliceFlags {
+        OutputStreamSpliceFlags::from_bits_truncate(value.bits())
+    }
+}
+
+impl StaticType for OutputStreamSpliceFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_output_stream_splice_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for OutputStreamSpliceFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for OutputStreamSpliceFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(ffi::GOutputStreamSpliceFlags::from_bits_truncate(gobject_ffi::g_value_get_flags(value.to_glib_none().0)))
+    }
+}
+
+impl SetValue for OutputStreamSpliceFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib().bits())
+    }
+}
+
+bitflags! {
     pub struct ResourceLookupFlags: u32 {
         const NONE = 0;
     }
