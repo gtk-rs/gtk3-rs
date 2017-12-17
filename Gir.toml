@@ -11,7 +11,6 @@ generate = [
     "GdkPixbuf.InterpType",
     "GdkPixbuf.PixbufAlphaMode",
     "GdkPixbuf.PixbufError",
-    "GdkPixbuf.PixbufFormat",
     "GdkPixbuf.PixbufLoader",
     "GdkPixbuf.PixbufRotation",
     "GdkPixbuf.PixbufSimpleAnim",
@@ -52,3 +51,17 @@ status = "generate"
     name = "new_from_file_at_scale"
     #manual is_windows_utf8
     ignore = true
+
+[[object]]
+name = "GdkPixbuf.PixbufFormat"
+status = "generate"
+    [[object.function]]
+    pattern = "get_.+"
+        [[object.function.parameter]]
+        name = "format"
+        const = true
+    [[object.function]]
+    pattern = "is_.+"
+        [[object.function.parameter]]
+        name = "format"
+        const = true
