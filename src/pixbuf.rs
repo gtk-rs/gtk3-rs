@@ -12,8 +12,8 @@ use ffi;
 
 use {
     Colorspace,
-    InterpType,
     Pixbuf,
+    PixbufExt,
 };
 
 impl Pixbuf {
@@ -91,77 +91,10 @@ impl Pixbuf {
         }
     }
 
-    pub fn get_colorspace(&self) -> Colorspace {
-        unsafe { from_glib(ffi::gdk_pixbuf_get_colorspace(self.to_glib_none().0)) }
-    }
-
-    pub fn get_n_channels(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_get_n_channels(self.to_glib_none().0) }
-    }
-
-    pub fn get_has_alpha(&self) -> bool {
-        unsafe { from_glib(ffi::gdk_pixbuf_get_has_alpha(self.to_glib_none().0)) }
-    }
-
-    pub fn get_bits_per_sample(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_get_bits_per_sample(self.to_glib_none().0) }
-    }
-
     pub unsafe fn get_pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);
         slice::from_raw_parts_mut(ptr, len as usize)
-    }
-
-    pub fn get_width(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_get_width(self.to_glib_none().0) }
-    }
-
-    pub fn get_height(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_get_height(self.to_glib_none().0) }
-    }
-
-    pub fn get_rowstride(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_get_rowstride(self.to_glib_none().0) }
-    }
-
-    pub fn get_byte_length(&self) -> usize {
-        unsafe { ffi::gdk_pixbuf_get_byte_length(self.to_glib_none().0) as usize }
-    }
-
-    pub fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType)
-        -> Result<Pixbuf, ()> {
-        unsafe {
-            Option::from_glib_full(ffi::gdk_pixbuf_scale_simple(self.to_glib_none().0, dest_width,
-                                                                dest_height, interp_type.to_glib())).ok_or(())
-        }
-    }
-
-    pub fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32,
-                 offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
-                 interp_type: InterpType) {
-        unsafe {
-            ffi::gdk_pixbuf_scale(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
-                                  dest_width, dest_height, offset_x, offset_y, scale_x, scale_y,
-                                  interp_type.to_glib());
-        }
-    }
-
-    pub fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32,
-                     dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64,
-                     interp_type: InterpType, overall_alpha: i32) {
-        unsafe {
-            ffi::gdk_pixbuf_composite(self.to_glib_none().0, dest.to_glib_none().0, dest_x, dest_y,
-                                      dest_width, dest_height, offset_x, offset_y, scale_x,
-                                      scale_y, interp_type.to_glib(), overall_alpha);
-        }
-    }
-
-    pub fn flip(&self, horizontal: bool) -> Result<Pixbuf, ()> {
-        unsafe {
-            Option::from_glib_full((ffi::gdk_pixbuf_flip(self.to_glib_none().0,
-                                                         horizontal.to_glib()))).ok_or(())
-        }
     }
 
     pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
@@ -175,13 +108,6 @@ impl Pixbuf {
             pixels[pos + 1] = green;
             pixels[pos + 2] = blue;
             pixels[pos + 3] = alpha;
-        }
-    }
-
-    pub fn copy(&self) -> Pixbuf {
-        unsafe {
-            let copy = ffi::gdk_pixbuf_copy(self.to_glib_none().0);
-            FromGlibPtrFull::from_glib_full(copy)
         }
     }
 }
