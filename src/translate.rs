@@ -97,6 +97,14 @@ pub fn mut_override<T>(ptr: *const T) -> *mut T {
     ptr as *mut T
 }
 
+/// Overrides pointer constness.
+///
+/// Use when the C API need const pointer, but function with `IsA<T>` constraint,
+/// that usaly don't have const pointer conversion.
+pub fn const_override<T>(ptr: *mut T) -> *const T {
+    ptr as *const T
+}
+
 /// A trait for creating an uninitialized value. Handy for receiving outparams.
 pub trait Uninitialized {
     /// Returns an uninitialized value.

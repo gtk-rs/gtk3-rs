@@ -27,6 +27,7 @@ pub use self::enums::ChecksumType;
 pub use self::enums::DateMonth;
 pub use self::enums::DateWeekday;
 pub use self::enums::KeyFileError;
+pub use self::enums::SeekType;
 pub use self::enums::TimeType;
 
 mod flags;

@@ -15,6 +15,7 @@ generate = [
     "GLib.FormatSizeFlags",
     "GLib.KeyFileError",
     "GLib.KeyFileFlags",
+    "GLib.SeekType",
     "GLib.Time",
     "GLib.TimeType",
     "GLib.TimeSpan",
