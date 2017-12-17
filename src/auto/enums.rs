@@ -235,6 +235,41 @@ impl ErrorDomain for KeyFileError {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum SeekType {
+    Cur,
+    Set,
+    End,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for SeekType {
+    type GlibType = ffi::GSeekType;
+
+    fn to_glib(&self) -> ffi::GSeekType {
+        match *self {
+            SeekType::Cur => ffi::G_SEEK_CUR,
+            SeekType::Set => ffi::G_SEEK_SET,
+            SeekType::End => ffi::G_SEEK_END,
+            SeekType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GSeekType> for SeekType {
+    fn from_glib(value: ffi::GSeekType) -> Self {
+        match value {
+            0 => SeekType::Cur,
+            1 => SeekType::Set,
+            2 => SeekType::End,
+            value => SeekType::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum TimeType {
     Standard,
     Daylight,
