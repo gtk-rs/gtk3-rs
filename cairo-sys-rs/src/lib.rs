@@ -10,7 +10,13 @@ extern crate libc;
 extern crate x11;
 
 #[cfg(windows)]
-extern crate winapi;
+extern crate winapi as winapi_orig;
+
+#[cfg(windows)]
+pub mod winapi {
+    pub use winapi_orig::shared::windef::HDC;
+}
+
 #[cfg(all(not(windows), feature = "dox"))]
 pub mod winapi {
    use libc::c_void;
