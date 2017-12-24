@@ -2,9 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#[cfg(windows)]
-extern crate winapi;
-#[cfg(all(not(windows), feature = "dox"))]
 pub use ffi::winapi;
 
 use std::ops::Deref;

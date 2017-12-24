@@ -26,7 +26,7 @@ x11 = { version = "2.16", features = ["xlib"], optional = true }
 libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
-winapi = "0.2.7"
+winapi = { version = "0.3.2", features = ["windef"] }
 
 [build-dependencies]
 pkg-config = "0.3.7"
