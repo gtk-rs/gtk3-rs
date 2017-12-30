@@ -70,6 +70,18 @@ status = "generate"
     name = "get_file_info_async"
     # wrong async return
     ignore = true
+    [[object.function]]
+    name = "save_to_bufferv"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "save_to_streamv"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "savev"
+    # manual complex param
+    ignore = true
 
 [[object]]
 name = "GdkPixbuf.PixbufFormat"

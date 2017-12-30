@@ -172,8 +172,6 @@ pub trait PixbufExt {
 
     //fn save_to_buffer<'a, P: Into<Option<&'a Error>>>(&self, type_: &str, error: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Vec<u8>>;
 
-    fn save_to_bufferv(&self, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<Vec<u8>, Error>;
-
     //fn save_to_callback<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a Error>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, error: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
     //fn save_to_callbackv<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error>;
@@ -182,13 +180,8 @@ pub trait PixbufExt {
 
     //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Q, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q) -> Result<(), Error>;
-
     //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: /*Unimplemented*/gio::AsyncReadyCallback>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q, callback: R);
-
-    fn savev(&self, filename: &str, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error>;
 
     fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType);
 
@@ -380,16 +373,6 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_buffer() }
     //}
 
-    fn save_to_bufferv(&self, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<Vec<u8>, Error> {
-        unsafe {
-            let mut buffer = ptr::null_mut();
-            let mut buffer_size = mem::uninitialized();
-            let mut error = ptr::null_mut();
-            let _ = ffi::gdk_pixbuf_save_to_bufferv(self.to_glib_none().0, &mut buffer, &mut buffer_size, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(FromGlibContainer::from_glib_full_num(buffer, buffer_size as usize)) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     //fn save_to_callback<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a Error>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, error: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_callback() }
     //}
@@ -406,29 +389,10 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_stream_async() }
     //}
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::gdk_pixbuf_save_to_streamv(self.to_glib_none().0, stream.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: /*Unimplemented*/gio::AsyncReadyCallback>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q, callback: R) {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_streamv_async() }
     //}
-
-    fn savev(&self, filename: &str, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::gdk_pixbuf_savev(self.to_glib_none().0, filename.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-        }
-    }
 
     fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType) {
         unsafe {

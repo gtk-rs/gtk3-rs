@@ -204,4 +204,39 @@ impl Pixbuf {
             ffi::gdk_pixbuf_get_file_info_async(filename.as_ref().to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
+
+    pub fn save_to_bufferv(&self, type_: &str, options: &[(&str, &str)]) -> Result<Vec<u8>, Error> {
+        unsafe {
+            let mut buffer = ptr::null_mut();
+            let mut buffer_size = mem::uninitialized();
+            let mut error = ptr::null_mut();
+            let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
+            let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
+            let _ = ffi::gdk_pixbuf_save_to_bufferv(self.to_glib_none().0, &mut buffer, &mut buffer_size, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, &mut error);
+            if error.is_null() { Ok(FromGlibContainer::from_glib_full_num(buffer, buffer_size as usize)) } else { Err(from_glib_full(error)) }
+        }
+    }
+
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    pub fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>>(&self, stream: &P, type_: &str, options: &[(&str, &str)], cancellable: Q) -> Result<(), Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
+            let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
+            let _ = ffi::gdk_pixbuf_save_to_streamv(self.to_glib_none().0, stream.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
+
+    pub fn savev<T: AsRef<Path>>(&self, filename: T, type_: &str, options: &[(&str, &str)]) -> Result<(), Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
+            let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
+            let _ = ffi::gdk_pixbuf_savev(self.to_glib_none().0, filename.as_ref().to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 }
