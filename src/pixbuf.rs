@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
+use std::path::Path;
 use std::ptr;
 use std::slice;
 use libc::{c_void, c_uchar};
@@ -42,7 +43,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file(filename: &str) -> Result<Pixbuf, Error> {
+    pub fn new_from_file<T: AsRef<Path>>(filename: T) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
         use ffi::gdk_pixbuf_new_from_file_utf8 as gdk_pixbuf_new_from_file;
         #[cfg(not(windows))]
@@ -50,7 +51,7 @@ impl Pixbuf {
 
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_new_from_file(filename.to_glib_none().0, &mut error);
+            let ptr = gdk_pixbuf_new_from_file(filename.as_ref().to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
@@ -59,7 +60,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file_at_size(filename: &str, width: i32, height: i32) -> Result<Pixbuf, Error> {
+    pub fn new_from_file_at_size<T: AsRef<Path>>(filename: T, width: i32, height: i32) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
         use ffi::gdk_pixbuf_new_from_file_at_size_utf8
             as gdk_pixbuf_new_from_file_at_size;
@@ -68,7 +69,7 @@ impl Pixbuf {
 
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_new_from_file_at_size(filename.to_glib_none().0, width, height,
+            let ptr = gdk_pixbuf_new_from_file_at_size(filename.as_ref().to_glib_none().0, width, height,
                 &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ptr))
@@ -78,7 +79,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file_at_scale(filename: &str, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
+    pub fn new_from_file_at_scale<T: AsRef<Path>>(filename: T, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
         use ffi::gdk_pixbuf_new_from_file_at_scale_utf8
             as gdk_pixbuf_new_from_file_at_scale;
@@ -87,7 +88,7 @@ impl Pixbuf {
 
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_new_from_file_at_scale(filename.to_glib_none().0, width, height,
+            let ptr = gdk_pixbuf_new_from_file_at_scale(filename.as_ref().to_glib_none().0, width, height,
                 preserve_aspect_ratio.to_glib(), &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ptr))
@@ -163,11 +164,11 @@ impl Pixbuf {
         }
     }
 
-    pub fn get_file_info(filename: &str) -> Option<(PixbufFormat, i32, i32)> {
+    pub fn get_file_info<T: AsRef<Path>>(filename: T) -> Option<(PixbufFormat, i32, i32)> {
         unsafe {
             let mut width = mem::uninitialized();
             let mut height = mem::uninitialized();
-            let ret = ffi::gdk_pixbuf_get_file_info(filename.to_glib_none().0, &mut width, &mut height);
+            let ret = ffi::gdk_pixbuf_get_file_info(filename.as_ref().to_glib_none().0, &mut width, &mut height);
             if !ret.is_null() {
                 Some((from_glib_none(ret), width, height))
             } else {
@@ -177,7 +178,7 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
-    pub fn get_file_info_async<'a, P: Into<Option<&'a gio::Cancellable>>, Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static>(filename: &str, cancellable: P, callback: Q) {
+    pub fn get_file_info_async<'a, P: Into<Option<&'a gio::Cancellable>>, Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static, T: AsRef<Path>>(filename: T, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
@@ -200,7 +201,7 @@ impl Pixbuf {
         }
         let callback = get_file_info_async_trampoline::<Q>;
         unsafe {
-            ffi::gdk_pixbuf_get_file_info_async(filename.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::gdk_pixbuf_get_file_info_async(filename.as_ref().to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 }
