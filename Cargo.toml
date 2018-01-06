@@ -7,7 +7,7 @@ keywords = ["glib", "gio", "gtk-rs", "gnome"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/gio/"
 version = "0.3.0"
-description = "Rust bindings for the GLib library"
+description = "Rust bindings for the Gio library"
 repository = "https://github.com/gtk-rs/gio"
 build = "build.rs"
 
