@@ -44,5 +44,5 @@ optional = true
 git = "https://github.com/gtk-rs/sys"
 
 [dependencies]
-c_vec = "~1.2"
+c_vec = "1.2"
 libc = "0.2"
