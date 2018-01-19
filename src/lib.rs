@@ -1,6 +1,8 @@
-// Copyright 2017, The Gtk-rs Project Developers.
+// Copyright 2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+#![allow(deprecated)]
 
 extern crate cairo_sys as cairo_ffi;
 extern crate pango_sys as pango_ffi;
