@@ -139,12 +139,12 @@ mod tests {
 
     #[test]
     fn converts_single_byte_chars() {
-        assert_eq!(Char::new(0 as char), Some(Char(0)));
-        assert_eq!(Char::new(255 as char), Some(Char(-1)));
-        assert_eq!(Char::new('ñ'), Some(Char(241 as u8 as i8)));
-        assert_eq!(UChar::new(0 as char), Some(UChar(0)));
-        assert_eq!(UChar::new(255 as char), Some(UChar(255)));
-        assert_eq!(UChar::new('ñ'), Some(UChar(241 as u8)));
+        assert_eq!(Char::new(0 as char), Some(Char(0 as c_char)));
+        assert_eq!(Char::new(255 as char), Some(Char(-1 as i8 as c_char)));
+        assert_eq!(Char::new('ñ'), Some(Char(241 as u8 as c_char)));
+        assert_eq!(UChar::new(0 as char), Some(UChar(0 as c_uchar)));
+        assert_eq!(UChar::new(255 as char), Some(UChar(255 as c_uchar)));
+        assert_eq!(UChar::new('ñ'), Some(UChar(241 as c_uchar)));
     }
 
     #[test]
@@ -155,23 +155,23 @@ mod tests {
 
     #[test]
     fn into_i8() {
-        assert_eq!(Char::new('A').unwrap().to_glib(), 65i8);
+        assert_eq!(Char::new('A').unwrap().to_glib(), 65 as c_char);
     }
 
     #[test]
     fn into_u8() {
-        assert_eq!(UChar::new('A').unwrap().to_glib(), 65u8);
+        assert_eq!(UChar::new('A').unwrap().to_glib(), 65 as c_uchar);
     }
 
     #[test]
     fn into_char() {
-        assert_eq!(char::from(Char(65i8)), 'A');
-        assert_eq!('ñ', UChar(241u8).into());
+        assert_eq!(char::from(Char(65 as c_char)), 'A');
+        assert_eq!('ñ', UChar(241 as c_uchar).into());
     }
 
     #[test]
     fn convert_from_glib() {
-        assert_eq!(Char(65i8), from_glib(65i8));
-        assert_eq!(UChar(241u8), from_glib(241u8));
+        assert_eq!(Char(65 as c_char), from_glib(65 as c_char));
+        assert_eq!(UChar(241 as c_uchar), from_glib(241 as u8 as c_uchar));
     }
 }
