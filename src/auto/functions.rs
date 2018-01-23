@@ -786,6 +786,13 @@ pub fn main_depth() -> i32 {
 //    unsafe { TODO: call ffi::g_markup_collect_attributes() }
 //}
 
+pub fn markup_escape_text(text: &str) -> String {
+    let length = text.len() as isize;
+    unsafe {
+        from_glib_full(ffi::g_markup_escape_text(text.to_glib_none().0, length))
+    }
+}
+
 //pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<String> {
 //    unsafe { TODO: call ffi::g_markup_printf_escaped() }
 //}
