@@ -63,4 +63,11 @@ impl KeyFile {
             }
         }
     }
+
+    pub fn to_data(&self) -> String {
+        unsafe {
+            let ret = ffi::g_key_file_to_data(self.to_glib_none().0, ptr::null_mut(), ptr::null_mut());
+            from_glib_full(ret)
+        }
+    }
 }

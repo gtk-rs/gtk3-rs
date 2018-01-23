@@ -176,19 +176,19 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "convert"
-    #gsize
+    #unusable
     ignore = true
     [[object.function]]
     name = "filename_to_utf8"
-    #gsize
+    #unusable
     ignore = true
     [[object.function]]
     name = "locale_from_utf8"
-    #gsize
+    #unusable
     ignore = true
     [[object.function]]
     name = "locale_to_utf8"
-    #gsize
+    #unusable
     ignore = true
     [[object.function]]
     name = "markup_escape_text"
@@ -262,8 +262,8 @@ status = "generate"
        #[&str] to *mut i8
        ignore = true
        [[object.function]]
-       name = "load_from_data"
-       #gsize
+       name = "to_data"
+       #manual
        ignore = true
        [[object.function]]
        name = "set_double_list"
