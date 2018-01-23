@@ -195,6 +195,15 @@ impl KeyFile {
         }
     }
 
+    pub fn load_from_data(&self, data: &str, flags: KeyFileFlags) -> Result<(), Error> {
+        let length = data.len() as usize;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_key_file_load_from_data(self.to_glib_none().0, data.to_glib_none().0, length, flags.to_glib(), &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
+
     pub fn load_from_file<P: AsRef<std::path::Path>>(&self, file: P, flags: KeyFileFlags) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -298,15 +307,6 @@ impl KeyFile {
     pub fn set_value(&self, group_name: &str, key: &str, value: &str) {
         unsafe {
             ffi::g_key_file_set_value(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0);
-        }
-    }
-
-    pub fn to_data(&self) -> Result<(String, usize), Error> {
-        unsafe {
-            let mut length = mem::uninitialized();
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_key_file_to_data(self.to_glib_none().0, &mut length, &mut error);
-            if error.is_null() { Ok((from_glib_full(ret), length)) } else { Err(from_glib_full(error)) }
         }
     }
 }
