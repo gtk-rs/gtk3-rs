@@ -192,8 +192,8 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "markup_escape_text"
-    #gsize
-    ignore = true
+        [object.function.return]
+        nullable = false
     [[object.function]]
     name = "child_watch_source_new"
     # Need manual bindings to be useful
