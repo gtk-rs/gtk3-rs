@@ -29,6 +29,7 @@ impl ToGlib for SourceId {
 impl FromGlib<u32> for SourceId {
     #[inline]
     fn from_glib(val: u32) -> SourceId {
+        assert_ne!(val, 0);
         SourceId(val)
     }
 }
