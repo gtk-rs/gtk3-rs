@@ -14,9 +14,7 @@ use libc;
 use Source;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
-///
-/// A value of 0 is a good default as it is never a valid source ID.
-#[derive(Debug, Default, Eq, PartialEq)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct SourceId(u32);
 
 impl ToGlib for SourceId {
