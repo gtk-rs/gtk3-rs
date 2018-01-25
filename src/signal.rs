@@ -28,6 +28,7 @@ impl ToGlib for SignalHandlerId {
 impl FromGlib<c_ulong> for SignalHandlerId {
     #[inline]
     fn from_glib(val: c_ulong) -> SignalHandlerId {
+        assert_ne!(val, 0);
         SignalHandlerId(val)
     }
 }
