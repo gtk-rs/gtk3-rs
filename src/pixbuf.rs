@@ -160,7 +160,9 @@ impl Pixbuf {
             pixels[pos] = red;
             pixels[pos + 1] = green;
             pixels[pos + 2] = blue;
-            pixels[pos + 3] = alpha;
+            if n_channels == 4 {
+                pixels[pos + 3] = alpha;
+            }
         }
     }
 
