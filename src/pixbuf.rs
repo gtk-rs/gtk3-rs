@@ -153,6 +153,7 @@ impl Pixbuf {
     pub fn put_pixel(&self, x: i32, y: i32, red: u8, green: u8, blue: u8, alpha: u8) {
         unsafe {
             let n_channels = self.get_n_channels();
+            assert!(n_channels == 3 || n_channels == 4);
             let rowstride = self.get_rowstride();
             let pixels = self.get_pixels();
             let pos = (y * rowstride + x * n_channels) as usize;
@@ -160,7 +161,9 @@ impl Pixbuf {
             pixels[pos] = red;
             pixels[pos + 1] = green;
             pixels[pos + 2] = blue;
-            pixels[pos + 3] = alpha;
+            if n_channels == 4 {
+                pixels[pos + 3] = alpha;
+            }
         }
     }
 
