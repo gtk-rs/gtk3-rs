@@ -389,6 +389,78 @@ impl SetValue for PasswordSave {
     }
 }
 
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum ResolverRecordType {
+    Srv,
+    Mx,
+    Txt,
+    Soa,
+    Ns,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for ResolverRecordType {
+    type GlibType = ffi::GResolverRecordType;
+
+    fn to_glib(&self) -> ffi::GResolverRecordType {
+        match *self {
+            ResolverRecordType::Srv => ffi::G_RESOLVER_RECORD_SRV,
+            ResolverRecordType::Mx => ffi::G_RESOLVER_RECORD_MX,
+            ResolverRecordType::Txt => ffi::G_RESOLVER_RECORD_TXT,
+            ResolverRecordType::Soa => ffi::G_RESOLVER_RECORD_SOA,
+            ResolverRecordType::Ns => ffi::G_RESOLVER_RECORD_NS,
+            ResolverRecordType::__Unknown(value) => value
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<ffi::GResolverRecordType> for ResolverRecordType {
+    fn from_glib(value: ffi::GResolverRecordType) -> Self {
+        match value {
+            1 => ResolverRecordType::Srv,
+            2 => ResolverRecordType::Mx,
+            3 => ResolverRecordType::Txt,
+            4 => ResolverRecordType::Soa,
+            5 => ResolverRecordType::Ns,
+            value => ResolverRecordType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+impl StaticType for ResolverRecordType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_resolver_record_type_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for ResolverRecordType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+impl<'a> FromValue<'a> for ResolverRecordType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+impl SetValue for ResolverRecordType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum ResourceError {
     NotFound,

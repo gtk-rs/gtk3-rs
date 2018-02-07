@@ -128,6 +128,10 @@ mod permission;
 pub use self::permission::Permission;
 pub use self::permission::PermissionExt;
 
+mod resolver;
+pub use self::resolver::Resolver;
+pub use self::resolver::ResolverExt;
+
 mod settings;
 pub use self::settings::Settings;
 pub use self::settings::SettingsExt;
@@ -183,6 +187,9 @@ mod settings_schema_key;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::settings_schema_key::SettingsSchemaKey;
 
+mod srv_target;
+pub use self::srv_target::SrvTarget;
+
 mod enums;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
@@ -191,6 +198,8 @@ pub use self::enums::MountOperationResult;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 pub use self::enums::NotificationPriority;
 pub use self::enums::PasswordSave;
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+pub use self::enums::ResolverRecordType;
 pub use self::enums::ResourceError;
 pub use self::enums::SocketFamily;
 pub use self::enums::SocketProtocol;
@@ -244,6 +253,7 @@ pub mod traits {
     pub use super::NotificationExt;
     pub use super::OutputStreamExt;
     pub use super::PermissionExt;
+    pub use super::ResolverExt;
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;

@@ -22,8 +22,6 @@ glib_wrapper! {
 
 pub trait SocketAddressEnumeratorExt {
     fn next<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<SocketAddress, Error>;
-
-    fn next_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
@@ -34,25 +32,6 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_address_enumerator_next(self.to_glib_none().0, cancellable.0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    fn next_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn next_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            callback_guard!();
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_socket_address_enumerator_next_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = next_async_trampoline::<Q>;
-        unsafe {
-            ffi::g_socket_address_enumerator_next_async(self.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 }

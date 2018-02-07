@@ -48,6 +48,8 @@ generate = [
     "Gio.SocketAddress",
     "Gio.InetSocketAddress",
     "Gio.SocketConnectable",
+    "Gio.ResolverRecordType",
+    "Gio.SrvTarget",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
@@ -395,6 +397,14 @@ name = "Gio.SocketAddressEnumerator"
 status = "generate"
     [[object.function]]
     name = "next_async"
+    # broken
+    ignore = true
+
+[[object]]
+name = "Gio.Resolver"
+status = "generate"
+    [[object.function]]
+    pattern = ".*_async"
     # broken
     ignore = true
 
