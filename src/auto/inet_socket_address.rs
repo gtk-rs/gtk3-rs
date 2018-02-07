@@ -3,6 +3,7 @@
 
 use InetAddress;
 use SocketAddress;
+use SocketConnectable;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -18,7 +19,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass>): SocketAddress;
+    pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass>): SocketAddress, SocketConnectable;
 
     match fn {
         get_type => || ffi::g_inet_socket_address_get_type(),

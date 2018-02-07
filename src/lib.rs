@@ -30,6 +30,7 @@ mod memory_output_stream;
 mod output_stream;
 mod resource;
 mod socket;
+mod socket_address_enumerator;
 
 #[cfg(test)]
 mod test_util;
@@ -61,6 +62,7 @@ pub mod prelude {
     pub use input_stream::InputStreamExtManual;
     pub use output_stream::OutputStreamExtManual;
     pub use socket::SocketExtManual;
+    pub use socket_address_enumerator::SocketAddressEnumeratorExtManual;
 }
 
 pub use prelude::*;

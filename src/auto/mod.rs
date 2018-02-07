@@ -156,6 +156,14 @@ mod socket_address;
 pub use self::socket_address::SocketAddress;
 pub use self::socket_address::SocketAddressExt;
 
+mod socket_address_enumerator;
+pub use self::socket_address_enumerator::SocketAddressEnumerator;
+pub use self::socket_address_enumerator::SocketAddressEnumeratorExt;
+
+mod socket_connectable;
+pub use self::socket_connectable::SocketConnectable;
+pub use self::socket_connectable::SocketConnectableExt;
+
 mod themed_icon;
 pub use self::themed_icon::ThemedIcon;
 pub use self::themed_icon::ThemedIconExt;
@@ -241,6 +249,8 @@ pub mod traits {
     pub use super::SimpleActionGroupExt;
     pub use super::SocketExt;
     pub use super::SocketAddressExt;
+    pub use super::SocketAddressEnumeratorExt;
+    pub use super::SocketConnectableExt;
     pub use super::ThemedIconExt;
     pub use super::TlsCertificateExt;
 }

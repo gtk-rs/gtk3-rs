@@ -47,6 +47,7 @@ generate = [
     "Gio.SocketProtocol",
     "Gio.SocketAddress",
     "Gio.InetSocketAddress",
+    "Gio.SocketConnectable",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
@@ -387,6 +388,14 @@ status = "generate"
     [[object.function]]
     name = "to_bytes"
     # broken and needs some closer integration with the corresponding std types
+    ignore = true
+
+[[object]]
+name = "Gio.SocketAddressEnumerator"
+status = "generate"
+    [[object.function]]
+    name = "next_async"
+    # broken
     ignore = true
 
 [[object]]
