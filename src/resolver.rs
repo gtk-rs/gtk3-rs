@@ -10,9 +10,13 @@ use glib::translate::*;
 use std::ptr;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(any(feature = "v2_34", feature = "dox"))]use glib;
 use Resolver;
 use InetAddress;
 use SrvTarget;
+
+#[cfg(any(feature = "v2_34", feature = "dox"))]
+use ResolverRecordType;
 
 pub trait ResolverExtManual {
     fn lookup_by_address_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<String, Error>) + Send + 'static>(&self, address: &InetAddress, cancellable: P, callback: Q);
