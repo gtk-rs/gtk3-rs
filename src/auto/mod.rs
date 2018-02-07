@@ -172,6 +172,10 @@ mod socket_address_enumerator;
 pub use self::socket_address_enumerator::SocketAddressEnumerator;
 pub use self::socket_address_enumerator::SocketAddressEnumeratorExt;
 
+mod socket_client;
+pub use self::socket_client::SocketClient;
+pub use self::socket_client::SocketClientExt;
+
 mod socket_connectable;
 pub use self::socket_connectable::SocketConnectable;
 pub use self::socket_connectable::SocketConnectableExt;
@@ -229,6 +233,7 @@ pub use self::enums::PasswordSave;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 pub use self::enums::ResolverRecordType;
 pub use self::enums::ResourceError;
+pub use self::enums::SocketClientEvent;
 pub use self::enums::SocketFamily;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 pub use self::enums::SocketListenerEvent;
@@ -292,6 +297,7 @@ pub mod traits {
     pub use super::SocketExt;
     pub use super::SocketAddressExt;
     pub use super::SocketAddressEnumeratorExt;
+    pub use super::SocketClientExt;
     pub use super::SocketConnectableExt;
     pub use super::SocketConnectionExt;
     pub use super::SocketListenerExt;

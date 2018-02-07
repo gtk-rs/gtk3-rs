@@ -536,6 +536,83 @@ impl SetValue for ResourceError {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum SocketClientEvent {
+    Resolving,
+    Resolved,
+    Connecting,
+    Connected,
+    ProxyNegotiating,
+    ProxyNegotiated,
+    TlsHandshaking,
+    TlsHandshaked,
+    Complete,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for SocketClientEvent {
+    type GlibType = ffi::GSocketClientEvent;
+
+    fn to_glib(&self) -> ffi::GSocketClientEvent {
+        match *self {
+            SocketClientEvent::Resolving => ffi::G_SOCKET_CLIENT_RESOLVING,
+            SocketClientEvent::Resolved => ffi::G_SOCKET_CLIENT_RESOLVED,
+            SocketClientEvent::Connecting => ffi::G_SOCKET_CLIENT_CONNECTING,
+            SocketClientEvent::Connected => ffi::G_SOCKET_CLIENT_CONNECTED,
+            SocketClientEvent::ProxyNegotiating => ffi::G_SOCKET_CLIENT_PROXY_NEGOTIATING,
+            SocketClientEvent::ProxyNegotiated => ffi::G_SOCKET_CLIENT_PROXY_NEGOTIATED,
+            SocketClientEvent::TlsHandshaking => ffi::G_SOCKET_CLIENT_TLS_HANDSHAKING,
+            SocketClientEvent::TlsHandshaked => ffi::G_SOCKET_CLIENT_TLS_HANDSHAKED,
+            SocketClientEvent::Complete => ffi::G_SOCKET_CLIENT_COMPLETE,
+            SocketClientEvent::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GSocketClientEvent> for SocketClientEvent {
+    fn from_glib(value: ffi::GSocketClientEvent) -> Self {
+        match value {
+            0 => SocketClientEvent::Resolving,
+            1 => SocketClientEvent::Resolved,
+            2 => SocketClientEvent::Connecting,
+            3 => SocketClientEvent::Connected,
+            4 => SocketClientEvent::ProxyNegotiating,
+            5 => SocketClientEvent::ProxyNegotiated,
+            6 => SocketClientEvent::TlsHandshaking,
+            7 => SocketClientEvent::TlsHandshaked,
+            8 => SocketClientEvent::Complete,
+            value => SocketClientEvent::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for SocketClientEvent {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_socket_client_event_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for SocketClientEvent {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for SocketClientEvent {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for SocketClientEvent {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum SocketFamily {
     Invalid,
     Unix,
