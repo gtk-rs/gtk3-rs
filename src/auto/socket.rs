@@ -5,6 +5,7 @@ use Cancellable;
 use Error;
 use InetAddress;
 use SocketAddress;
+use SocketConnection;
 use SocketFamily;
 use SocketProtocol;
 use SocketType;
@@ -59,7 +60,7 @@ pub trait SocketExt {
 
     fn connect<'a, P: IsA<SocketAddress>, Q: Into<Option<&'a Cancellable>>>(&self, address: &P, cancellable: Q) -> Result<(), Error>;
 
-    //fn connection_factory_create_connection(&self) -> /*Ignored*/Option<SocketConnection>;
+    fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
 
     fn create_source<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P) -> Option<glib::Source>;
 
@@ -229,9 +230,11 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
         }
     }
 
-    //fn connection_factory_create_connection(&self) -> /*Ignored*/Option<SocketConnection> {
-    //    unsafe { TODO: call ffi::g_socket_connection_factory_create_connection() }
-    //}
+    fn connection_factory_create_connection(&self) -> Option<SocketConnection> {
+        unsafe {
+            from_glib_full(ffi::g_socket_connection_factory_create_connection(self.to_glib_none().0))
+        }
+    }
 
     fn create_source<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P) -> Option<glib::Source> {
         let cancellable = cancellable.into();

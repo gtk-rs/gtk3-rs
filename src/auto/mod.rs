@@ -168,6 +168,14 @@ mod socket_connectable;
 pub use self::socket_connectable::SocketConnectable;
 pub use self::socket_connectable::SocketConnectableExt;
 
+mod socket_connection;
+pub use self::socket_connection::SocketConnection;
+pub use self::socket_connection::SocketConnectionExt;
+
+mod tcp_connection;
+pub use self::tcp_connection::TcpConnection;
+pub use self::tcp_connection::TcpConnectionExt;
+
 mod themed_icon;
 pub use self::themed_icon::ThemedIcon;
 pub use self::themed_icon::ThemedIconExt;
@@ -261,6 +269,8 @@ pub mod traits {
     pub use super::SocketAddressExt;
     pub use super::SocketAddressEnumeratorExt;
     pub use super::SocketConnectableExt;
+    pub use super::SocketConnectionExt;
+    pub use super::TcpConnectionExt;
     pub use super::ThemedIconExt;
     pub use super::TlsCertificateExt;
 }
