@@ -178,6 +178,14 @@ macro_rules! glib_boxed_wrapper {
         }
 
         #[doc(hidden)]
+        impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
+            #[inline]
+            unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
+                $name($crate::translate::from_glib_none(ptr))
+            }
+        }
+
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
@@ -336,6 +344,15 @@ impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtrMut<'a, *mut T> for Box
 impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrNone<*mut T> for Boxed<T, MM> {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut T) -> Self {
+        assert!(!ptr.is_null());
+        let ptr = MM::copy(ptr);
+        from_glib_full(ptr)
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrNone<*const T> for Boxed<T, MM> {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const T) -> Self {
         assert!(!ptr.is_null());
         let ptr = MM::copy(ptr);
         from_glib_full(ptr)

@@ -158,6 +158,14 @@ macro_rules! glib_shared_wrapper {
         }
 
         #[doc(hidden)]
+        impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
+            #[inline]
+            unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
+                $name($crate::translate::from_glib_none(ptr))
+            }
+        }
+
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
@@ -332,6 +340,19 @@ impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*mut T> for Shared<
         MM::ref_(ptr);
         Shared {
             inner: ptr,
+            borrowed: false,
+            mm: PhantomData,
+        }
+    }
+}
+
+impl<T: 'static, MM: SharedMemoryManager<T>> FromGlibPtrNone<*const T> for Shared<T, MM> {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const T) -> Self {
+        assert!(!ptr.is_null());
+        MM::ref_(ptr as *mut _);
+        Shared {
+            inner: ptr as *mut _,
             borrowed: false,
             mm: PhantomData,
         }
