@@ -325,6 +325,15 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
+        impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
+            #[inline]
+            unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
+                debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
+                $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
+            }
+        }
+
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
