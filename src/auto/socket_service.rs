@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use SocketConnection;
+use SocketListener;
 use ffi;
 use glib;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
@@ -21,7 +22,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct SocketService(Object<ffi::GSocketService, ffi::GSocketServiceClass>);
+    pub struct SocketService(Object<ffi::GSocketService, ffi::GSocketServiceClass>): SocketListener;
 
     match fn {
         get_type => || ffi::g_socket_service_get_type(),

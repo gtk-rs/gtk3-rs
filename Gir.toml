@@ -50,6 +50,7 @@ generate = [
     "Gio.SocketConnectable",
     "Gio.SocketConnection",
     "Gio.SocketService",
+    "Gio.SocketListenerEvent",
     "Gio.ThreadedSocketService",
     "Gio.TcpConnection",
     "Gio.ResolverRecordType",
@@ -403,6 +404,14 @@ name = "Gio.SocketAddressEnumerator"
 status = "generate"
     [[object.function]]
     name = "next_async"
+    # broken
+    ignore = true
+
+[[object]]
+name = "Gio.SocketListener"
+status = "generate"
+    [[object.function]]
+    pattern = ".*_async"
     # broken
     ignore = true
 

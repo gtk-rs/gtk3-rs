@@ -2,6 +2,7 @@
 // DO NOT EDIT
 
 use SocketConnection;
+use SocketListener;
 use SocketService;
 use ffi;
 use glib;
@@ -20,7 +21,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass>): SocketService;
+    pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass>): SocketService, SocketListener;
 
     match fn {
         get_type => || ffi::g_threaded_socket_service_get_type(),

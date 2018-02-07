@@ -32,6 +32,7 @@ mod resource;
 mod socket;
 mod socket_address_enumerator;
 mod resolver;
+mod socket_listener;
 
 #[cfg(test)]
 mod test_util;
@@ -65,6 +66,7 @@ pub mod prelude {
     pub use socket::SocketExtManual;
     pub use socket_address_enumerator::SocketAddressEnumeratorExtManual;
     pub use resolver::ResolverExtManual;
+    pub use socket_listener::SocketListenerExtManual;
 }
 
 pub use prelude::*;

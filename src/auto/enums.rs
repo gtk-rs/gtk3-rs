@@ -597,6 +597,75 @@ impl SetValue for SocketFamily {
     }
 }
 
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum SocketListenerEvent {
+    Binding,
+    Bound,
+    Listening,
+    Listened,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for SocketListenerEvent {
+    type GlibType = ffi::GSocketListenerEvent;
+
+    fn to_glib(&self) -> ffi::GSocketListenerEvent {
+        match *self {
+            SocketListenerEvent::Binding => ffi::G_SOCKET_LISTENER_BINDING,
+            SocketListenerEvent::Bound => ffi::G_SOCKET_LISTENER_BOUND,
+            SocketListenerEvent::Listening => ffi::G_SOCKET_LISTENER_LISTENING,
+            SocketListenerEvent::Listened => ffi::G_SOCKET_LISTENER_LISTENED,
+            SocketListenerEvent::__Unknown(value) => value
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<ffi::GSocketListenerEvent> for SocketListenerEvent {
+    fn from_glib(value: ffi::GSocketListenerEvent) -> Self {
+        match value {
+            0 => SocketListenerEvent::Binding,
+            1 => SocketListenerEvent::Bound,
+            2 => SocketListenerEvent::Listening,
+            3 => SocketListenerEvent::Listened,
+            value => SocketListenerEvent::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+impl StaticType for SocketListenerEvent {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_socket_listener_event_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for SocketListenerEvent {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+impl<'a> FromValue<'a> for SocketListenerEvent {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+impl SetValue for SocketListenerEvent {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum SocketProtocol {
     Unknown,

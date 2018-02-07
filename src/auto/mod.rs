@@ -180,6 +180,10 @@ mod socket_connection;
 pub use self::socket_connection::SocketConnection;
 pub use self::socket_connection::SocketConnectionExt;
 
+mod socket_listener;
+pub use self::socket_listener::SocketListener;
+pub use self::socket_listener::SocketListenerExt;
+
 mod socket_service;
 pub use self::socket_service::SocketService;
 pub use self::socket_service::SocketServiceExt;
@@ -226,6 +230,8 @@ pub use self::enums::PasswordSave;
 pub use self::enums::ResolverRecordType;
 pub use self::enums::ResourceError;
 pub use self::enums::SocketFamily;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
+pub use self::enums::SocketListenerEvent;
 pub use self::enums::SocketProtocol;
 pub use self::enums::SocketType;
 
@@ -288,6 +294,7 @@ pub mod traits {
     pub use super::SocketAddressEnumeratorExt;
     pub use super::SocketConnectableExt;
     pub use super::SocketConnectionExt;
+    pub use super::SocketListenerExt;
     pub use super::SocketServiceExt;
     pub use super::TcpConnectionExt;
     pub use super::ThemedIconExt;
