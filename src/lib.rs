@@ -29,6 +29,7 @@ mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
 mod resource;
+mod socket;
 
 #[cfg(test)]
 mod test_util;
@@ -59,6 +60,7 @@ pub mod prelude {
     pub use file_output_stream::FileOutputStreamExt;
     pub use input_stream::InputStreamExtManual;
     pub use output_stream::OutputStreamExtManual;
+    pub use socket::SocketExtManual;
 }
 
 pub use prelude::*;
