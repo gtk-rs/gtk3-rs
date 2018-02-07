@@ -34,6 +34,5 @@ pub mod item;
 pub use item::Item;
 pub mod language;
 pub use language::Language;
-pub mod matrix;
 pub mod rectangle;
 pub use rectangle::Rectangle;

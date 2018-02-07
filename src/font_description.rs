@@ -6,13 +6,6 @@ use glib::translate::*;
 use ffi;
 use FontDescription;
 
-#[doc(hidden)]
-impl FromGlibPtrNone<*const ffi::PangoFontDescription> for FontDescription {
-    unsafe fn from_glib_none(ptr: *const ffi::PangoFontDescription) -> Self {
-        from_glib_none(mut_override(ptr))
-    }
-}
-
 impl FontDescription {
     pub fn set_family_static(&mut self, family: &'static str) {
         unsafe {
