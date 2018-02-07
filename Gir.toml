@@ -20,6 +20,7 @@ generate = [
     "GLib.TimeType",
     "GLib.TimeSpan",
     "GLib.FileTest",
+    "GLib.IOCondition",
 ]
 
 ignore = [
@@ -213,6 +214,10 @@ status = "generate"
     [[object.function]]
     name = "unix_signal_source_new"
     # Need manual bindings to be useful
+    ignore = true
+    [[object.function]]
+    pattern = "unix_fd.*"
+    # Need manual binding for RawFd
     ignore = true
 
 [[object]]
