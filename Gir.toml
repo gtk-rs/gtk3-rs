@@ -52,6 +52,8 @@ generate = [
     "Gio.TcpConnection",
     "Gio.ResolverRecordType",
     "Gio.SrvTarget",
+    "Gio.NetworkAddress",
+    "Gio.NetworkService",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",

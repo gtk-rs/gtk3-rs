@@ -113,6 +113,14 @@ mod mount_operation;
 pub use self::mount_operation::MountOperation;
 pub use self::mount_operation::MountOperationExt;
 
+mod network_address;
+pub use self::network_address::NetworkAddress;
+pub use self::network_address::NetworkAddressExt;
+
+mod network_service;
+pub use self::network_service::NetworkService;
+pub use self::network_service::NetworkServiceExt;
+
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod notification;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -257,6 +265,8 @@ pub mod traits {
     pub use super::MenuLinkIterExt;
     pub use super::MenuModelExt;
     pub use super::MountOperationExt;
+    pub use super::NetworkAddressExt;
+    pub use super::NetworkServiceExt;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub use super::NotificationExt;
     pub use super::OutputStreamExt;
