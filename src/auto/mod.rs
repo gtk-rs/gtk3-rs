@@ -180,6 +180,10 @@ mod socket_connection;
 pub use self::socket_connection::SocketConnection;
 pub use self::socket_connection::SocketConnectionExt;
 
+mod socket_service;
+pub use self::socket_service::SocketService;
+pub use self::socket_service::SocketServiceExt;
+
 mod tcp_connection;
 pub use self::tcp_connection::TcpConnection;
 pub use self::tcp_connection::TcpConnectionExt;
@@ -187,6 +191,10 @@ pub use self::tcp_connection::TcpConnectionExt;
 mod themed_icon;
 pub use self::themed_icon::ThemedIcon;
 pub use self::themed_icon::ThemedIconExt;
+
+mod threaded_socket_service;
+pub use self::threaded_socket_service::ThreadedSocketService;
+pub use self::threaded_socket_service::ThreadedSocketServiceExt;
 
 mod tls_certificate;
 pub use self::tls_certificate::TlsCertificate;
@@ -280,7 +288,9 @@ pub mod traits {
     pub use super::SocketAddressEnumeratorExt;
     pub use super::SocketConnectableExt;
     pub use super::SocketConnectionExt;
+    pub use super::SocketServiceExt;
     pub use super::TcpConnectionExt;
     pub use super::ThemedIconExt;
+    pub use super::ThreadedSocketServiceExt;
     pub use super::TlsCertificateExt;
 }

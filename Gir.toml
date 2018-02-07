@@ -49,6 +49,8 @@ generate = [
     "Gio.InetSocketAddress",
     "Gio.SocketConnectable",
     "Gio.SocketConnection",
+    "Gio.SocketService",
+    "Gio.ThreadedSocketService",
     "Gio.TcpConnection",
     "Gio.ResolverRecordType",
     "Gio.SrvTarget",
