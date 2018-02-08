@@ -5,9 +5,13 @@
 use Cancellable;
 use Error;
 use ffi;
+use glib_ffi;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::ptr;
+use std::cell::RefCell;
+use std::mem::transmute;
 use Socket;
 use SocketAddress;
 
@@ -52,6 +56,9 @@ pub trait SocketExtManual {
 
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
+
+    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    where F: FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'static;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
@@ -177,5 +184,41 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             FromRawSocket::from_raw_socket(ffi::g_socket_get_fd(self.to_glib_none().0) as _)
         }
     }
+
+    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    where F: FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'static {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let source = ffi::g_socket_create_source(self.to_glib_none().0, condition.to_glib(), cancellable.0);
+            let trampoline = trampoline as glib_ffi::gpointer;
+            glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure));
+            glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+            let name = name.into();
+            if let Some(name) = name {
+                glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+            }
+
+            from_glib_full(source)
+        }
+    }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+unsafe extern "C" fn trampoline(socket: *mut ffi::GSocket, condition: glib_ffi::GIOCondition, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
+    callback_guard!();
+    let func: &RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + 'static>> = transmute(func);
+    (&mut *func.borrow_mut())(&from_glib_borrow(socket), from_glib(condition)).to_glib()
+}
+
+unsafe extern "C" fn destroy_closure(ptr: glib_ffi::gpointer) {
+    callback_guard!();
+    Box::<RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + 'static>>>::from_raw(ptr as *mut _);
+}
+
+fn into_raw<F: FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'static>(func: F) -> glib_ffi::gpointer {
+    let func: Box<RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'static>>> =
+        Box::new(RefCell::new(Box::new(func)));
+    Box::into_raw(func) as glib_ffi::gpointer
+}

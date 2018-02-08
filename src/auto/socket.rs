@@ -62,8 +62,6 @@ pub trait SocketExt {
 
     fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
 
-    fn create_source<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P) -> Option<glib::Source>;
-
     fn get_available_bytes(&self) -> isize;
 
     fn get_blocking(&self) -> bool;
@@ -233,14 +231,6 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connection_factory_create_connection(&self) -> Option<SocketConnection> {
         unsafe {
             from_glib_full(ffi::g_socket_connection_factory_create_connection(self.to_glib_none().0))
-        }
-    }
-
-    fn create_source<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P) -> Option<glib::Source> {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        unsafe {
-            from_glib_full(ffi::g_socket_create_source(self.to_glib_none().0, condition.to_glib(), cancellable.0))
         }
     }
 
