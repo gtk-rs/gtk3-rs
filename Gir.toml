@@ -42,6 +42,22 @@ generate = [
     "Gio.SettingsSchema",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
+    "Gio.SocketFamily",
+    "Gio.SocketType",
+    "Gio.SocketProtocol",
+    "Gio.SocketAddress",
+    "Gio.InetSocketAddress",
+    "Gio.SocketConnectable",
+    "Gio.SocketConnection",
+    "Gio.SocketService",
+    "Gio.SocketListenerEvent",
+    "Gio.SocketClientEvent",
+    "Gio.ThreadedSocketService",
+    "Gio.TcpConnection",
+    "Gio.ResolverRecordType",
+    "Gio.SrvTarget",
+    "Gio.NetworkAddress",
+    "Gio.NetworkService",
     "Gio.ThemedIcon",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
@@ -58,6 +74,8 @@ manual = [
     "GLib.Error",
     "GLib.Variant",
     "GLib.VariantType",
+    "GLib.IOCondition",
+    "GLib.Source",
     "GObject.Object",
 ]
 
@@ -329,6 +347,89 @@ status = "generate"
     [[object.property]]
     name = "output-stream"
     #readonly
+    ignore = true
+
+[[object]]
+name = "Gio.Socket"
+status = "generate"
+    [[object.function]]
+    name = "new_from_fd"
+    # has to use RawFd / SOCKET
+    ignore = true
+
+    [[object.function]]
+    name = "get_fd"
+    # has to use RawFd / SOCKET
+    ignore = true
+
+    [[object.property]]
+    name = "fd"
+    # has to use RawFd / SOCKET
+    ignore = true
+
+    [[object.function]]
+    pattern = "receive.*"
+    # &[u8]
+    ignore = true
+
+    [[object.function]]
+    pattern = "send.*"
+    # &[u8]
+    ignore = true
+
+[[object]]
+name = "Gio.InetAddress"
+status = "generate"
+    [[object.function]]
+    name = "equal"
+    # conflicting implementations
+    ignore = true
+
+    [[object.function]]
+    name = "to_string"
+    # conflicting implementations
+    ignore = true
+
+    [[object.function]]
+    name = "new_from_bytes"
+    # broken and needs some closer integration with the corresponding std types
+    ignore = true
+
+    [[object.function]]
+    name = "to_bytes"
+    # broken and needs some closer integration with the corresponding std types
+    ignore = true
+
+[[object]]
+name = "Gio.SocketAddressEnumerator"
+status = "generate"
+    [[object.function]]
+    name = "next_async"
+    # broken
+    ignore = true
+
+[[object]]
+name = "Gio.SocketListener"
+status = "generate"
+    [[object.function]]
+    pattern = ".*_async"
+    # broken
+    ignore = true
+
+[[object]]
+name = "Gio.SocketClient"
+status = "generate"
+    [[object.function]]
+    pattern = ".*_async"
+    # broken
+    ignore = true
+
+[[object]]
+name = "Gio.Resolver"
+status = "generate"
+    [[object.function]]
+    pattern = ".*_async"
+    # broken
     ignore = true
 
 [[object]]

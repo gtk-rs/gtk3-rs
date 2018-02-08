@@ -29,6 +29,11 @@ mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
 mod resource;
+mod socket;
+mod socket_address_enumerator;
+mod resolver;
+mod socket_listener;
+mod socket_client;
 
 #[cfg(test)]
 mod test_util;
@@ -59,6 +64,11 @@ pub mod prelude {
     pub use file_output_stream::FileOutputStreamExt;
     pub use input_stream::InputStreamExtManual;
     pub use output_stream::OutputStreamExtManual;
+    pub use socket::SocketExtManual;
+    pub use socket_address_enumerator::SocketAddressEnumeratorExtManual;
+    pub use resolver::ResolverExtManual;
+    pub use socket_listener::SocketListenerExtManual;
+    pub use socket_client::SocketClientExtManual;
 }
 
 pub use prelude::*;
