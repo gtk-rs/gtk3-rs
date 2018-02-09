@@ -14,11 +14,13 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use Socket;
 use SocketAddress;
+#[cfg(all(not(unix), feature = "dox"))]
+use std::os::raw::c_int;
 
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(unix)]
 use std::os::unix::io::{IntoRawFd, FromRawFd};
 
-#[cfg(any(windows, feature = "dox"))]
+#[cfg(windows)]
 use std::os::windows::io::{IntoRawSocket, FromRawSocket};
 
 impl Socket {
@@ -221,4 +223,24 @@ fn into_raw<F: FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'sta
     let func: Box<RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + Send + 'static>>> =
         Box::new(RefCell::new(Box::new(func)));
     Box::into_raw(func) as glib_ffi::gpointer
+}
+
+#[cfg(all(not(unix), feature = "dox"))]
+pub trait IntoRawFd {
+    fn into_raw_fd(self) -> c_int;
+}
+
+#[cfg(all(not(unix), feature = "dox"))]
+pub trait FromRawFd {
+    unsafe fn from_raw_fd(fd: c_int) -> Self;
+}
+
+#[cfg(all(not(windows), feature = "dox"))]
+pub trait IntoRawSocket {
+    fn into_raw_socket(self) -> u64;
+}
+
+#[cfg(all(not(windows), feature = "dox"))]
+pub trait FromRawSocket {
+    unsafe fn from_raw_socket(sock: u64) -> Self;
 }
