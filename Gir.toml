@@ -368,6 +368,11 @@ status = "generate"
     ignore = true
 
     [[object.function]]
+    name = "create_source"
+    # needs custom impl for Source callback
+    ignore = true
+
+    [[object.function]]
     pattern = "receive.*"
     # &[u8]
     ignore = true
