@@ -10,6 +10,9 @@ description = "Rust bindings for the PangoCairo library"
 repository = "https://github.com/gtk-rs/pangocairo"
 license = "MIT"
 build = "build.rs"
+exclude = [
+    "gir-files/*",
+]
 
 [features]
 dox = ["glib/dox", "pango/dox", "cairo-rs/dox"]
