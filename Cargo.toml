@@ -10,6 +10,9 @@ version = "0.7.0"
 description = "Rust bindings for the GDK 3 library"
 repository = "https://github.com/gtk-rs/gdk"
 build = "build.rs"
+exclude = [
+    "gir-files/*",
+]
 
 [lib]
 name = "gdk"
