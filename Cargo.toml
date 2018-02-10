@@ -9,6 +9,9 @@ version = "0.4.0"
 keywords = ["glib", "gtk-rs", "gnome", "GUI"]
 repository = "https://github.com/gtk-rs/glib"
 license = "MIT"
+exclude = [
+    "gir-files/*",
+]
 
 [lib]
 name = "glib"
