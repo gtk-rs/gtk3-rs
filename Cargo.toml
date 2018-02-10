@@ -9,6 +9,9 @@ version = "0.3.0"
 description = "Rust bindings for the Pango library"
 repository = "https://github.com/gtk-rs/pango"
 license = "MIT"
+exclude = [
+    "gir-files/*",
+]
 
 [features]
 v1_31 = ["pango-sys/v1_31"]
