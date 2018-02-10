@@ -10,6 +10,9 @@ version = "0.3.0"
 description = "Rust bindings for the Gio library"
 repository = "https://github.com/gtk-rs/gio"
 build = "build.rs"
+exclude = [
+    "gir-files/*",
+]
 
 [lib]
 name = "gio"
