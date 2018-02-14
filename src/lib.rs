@@ -64,7 +64,7 @@ pub mod prelude {
     pub use file_output_stream::FileOutputStreamExt;
     pub use input_stream::InputStreamExtManual;
     pub use output_stream::OutputStreamExtManual;
-    pub use socket::SocketExtManual;
+    pub use socket::*;
     pub use socket_address_enumerator::SocketAddressEnumeratorExtManual;
     pub use resolver::ResolverExtManual;
     pub use socket_listener::SocketListenerExtManual;
