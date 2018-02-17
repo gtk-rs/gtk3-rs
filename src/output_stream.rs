@@ -36,7 +36,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn splice_async_trampoline<R: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_splice_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(ret as usize) } else { Err(from_glib_full(error)) };
@@ -60,7 +59,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::new(Some((Box::new(callback), buffer)));
         unsafe extern "C" fn write_async_trampoline<B: AsRef<[u8]> + Send + 'static, Q:FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
             let buffer = *buffer;
@@ -92,7 +90,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::new(Some((Box::new(callback), buffer)));
         unsafe extern "C" fn write_all_async_trampoline<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
             let buffer = *buffer;
@@ -121,7 +118,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn write_bytes_async_trampoline<Q: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_write_bytes_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(ret as usize) } else { Err(from_glib_full(error)) };

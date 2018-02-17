@@ -27,7 +27,6 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn accept_async_trampoline<Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut source_object = ptr::null_mut();
             let res = ffi::g_socket_listener_accept_finish(_source_object as *mut _, res, &mut source_object, &mut error);
@@ -47,7 +46,6 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn accept_socket_async_trampoline<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut source_object = ptr::null_mut();
             let res = ffi::g_socket_listener_accept_socket_finish(_source_object as *mut _, res, &mut source_object, &mut error);
