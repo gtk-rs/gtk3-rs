@@ -944,13 +944,11 @@ impl AnyValue {
     }
 
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
-        let _guard = ::source::CallbackGuard::new();
         let v = &*(v as *mut AnyValue);
         Box::into_raw(Box::new(v.clone())) as *mut c_void
     }
 
     unsafe extern "C" fn free(v: *mut c_void) {
-        let _guard = ::source::CallbackGuard::new();
         let _ = Box::from_raw(v as *mut AnyValue);
     }
 }
@@ -1021,13 +1019,11 @@ impl AnySendValue {
     }
 
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
-        let _guard = ::source::CallbackGuard::new();
         let v = &*(v as *mut AnySendValue);
         Box::into_raw(Box::new(v.clone())) as *mut c_void
     }
 
     unsafe extern "C" fn free(v: *mut c_void) {
-        let _guard = ::source::CallbackGuard::new();
         let _ = Box::from_raw(v as *mut AnySendValue);
     }
 }
