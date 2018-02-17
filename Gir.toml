@@ -56,7 +56,6 @@ generate = [
 
 manual = [
     "Gdk.Atom",
-    "Gdk.Atom_",
     "Gdk.EventButton",
     "Gdk.EventConfigure",
     "Gdk.EventCrossing",
