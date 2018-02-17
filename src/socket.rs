@@ -209,13 +209,11 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline(socket: *mut ffi::GSocket, condition: glib_ffi::GIOCondition, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
-    callback_guard!();
     let func: &RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + 'static>> = transmute(func);
     (&mut *func.borrow_mut())(&from_glib_borrow(socket), from_glib(condition)).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure(ptr: glib_ffi::gpointer) {
-    callback_guard!();
     Box::<RefCell<Box<FnMut(&Socket, glib::IOCondition) -> glib::Continue + 'static>>>::from_raw(ptr as *mut _);
 }
 

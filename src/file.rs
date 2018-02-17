@@ -48,7 +48,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn append_to_async_trampoline<Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_append_to_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -67,7 +66,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn create_async_trampoline<Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -86,7 +84,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn create_readwrite_async_trampoline<Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -105,7 +102,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn open_readwrite_async_trampoline<Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_open_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -124,10 +120,9 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn query_filesystem_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
-                let mut error = ptr::null_mut();
-                let ret = ffi::g_file_query_filesystem_info_finish(_source_object as *mut _, res, &mut error);
-                let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_query_filesystem_info_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
@@ -143,7 +138,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -162,7 +156,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn read_async_trampoline<Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_read_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -203,7 +196,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn replace_readwrite_async_trampoline<R: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_replace_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -222,7 +214,6 @@ impl<O: IsA<File>> FileExtManual for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn set_display_name_async_trampoline<Q: FnOnce(Result<File, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_set_display_name_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
