@@ -6,8 +6,6 @@
 use Cancellable;
 use Error;
 use ffi;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -26,11 +24,6 @@ pub trait InputStreamExtManual {
     fn read_all_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
 
     fn read_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn read_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(&self, count: usize, io_priority: Priority, cancellable: P, callback: Q);
-
-    fn skip_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, count: usize, io_priority: Priority, cancellable: P, callback: Q);
 }
 
 impl<O: IsA<InputStream>> InputStreamExtManual for O {
@@ -137,44 +130,6 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         let callback = read_async_trampoline::<B, Q>;
         unsafe {
             ffi::g_input_stream_read_async(self.to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
-        }
-    }
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn read_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(&self, count: usize, io_priority: Priority, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn read_bytes_async_trampoline<Q: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_input_stream_read_bytes_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = read_bytes_async_trampoline::<Q>;
-        unsafe {
-            ffi::g_input_stream_read_bytes_async(self.to_glib_none().0, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
-        }
-    }
-
-
-    fn skip_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, count: usize, io_priority: Priority, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn skip_async_trampoline<Q: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_input_stream_skip_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(ret as usize) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = skip_async_trampoline::<Q>;
-        unsafe {
-            ffi::g_input_stream_skip_async(self.to_glib_none().0, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 }

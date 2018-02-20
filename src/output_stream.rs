@@ -4,10 +4,7 @@
 
 use Cancellable;
 use Error;
-use InputStream;
-use OutputStreamSpliceFlags;
 use ffi;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -19,35 +16,13 @@ use std::ptr;
 use OutputStream;
 
 pub trait OutputStreamExtManual {
-    fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<usize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: Priority, cancellable: Q, callback: R);
-
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
-
-    fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: Priority, cancellable: P, callback: Q);
 }
 
 impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
-    fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<usize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: Priority, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn splice_async_trampoline<R: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_output_stream_splice_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(ret as usize) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = splice_async_trampoline::<R>;
-        unsafe {
-            ffi::g_output_stream_splice_async(self.to_glib_none().0, source.to_glib_none().0, flags.to_glib(), io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
-        }
-    }
-
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -109,24 +84,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let callback = write_all_async_trampoline::<B, Q>;
         unsafe {
             ffi::g_output_stream_write_all_async(self.to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
-        }
-    }
-
-    fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: Priority, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn write_bytes_async_trampoline<Q: FnOnce(Result<usize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_output_stream_write_bytes_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(ret as usize) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = write_bytes_async_trampoline::<Q>;
-        unsafe {
-            ffi::g_output_stream_write_bytes_async(self.to_glib_none().0, bytes.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 }

@@ -47,13 +47,16 @@ generate = [
     "Gio.SocketProtocol",
     "Gio.SocketAddress",
     "Gio.InetSocketAddress",
+    "Gio.SocketAddressEnumerator",
     "Gio.SocketConnectable",
     "Gio.SocketConnection",
     "Gio.SocketService",
     "Gio.SocketListenerEvent",
+    "Gio.SocketClient",
     "Gio.SocketClientEvent",
     "Gio.ThreadedSocketService",
     "Gio.TcpConnection",
+    "Gio.Resolver",
     "Gio.ResolverRecordType",
     "Gio.SrvTarget",
     "Gio.NetworkAddress",
@@ -76,6 +79,7 @@ manual = [
     "GLib.VariantType",
     "GLib.IOCondition",
     "GLib.Source",
+    "GLib.Priority",
     "GObject.Object",
 ]
 
@@ -111,10 +115,6 @@ status = "generate"
 name = "Gio.BufferedInputStream"
 status = "generate"
     [[object.function]]
-    name = "fill_async"
-    #manual return type
-    ignore = true
-    [[object.function]]
     name = "peek"
     #have almost same peek_buffer
     ignore = true
@@ -124,6 +124,11 @@ name = "Gio.DataInputStream"
 status = "generate"
     [[object.function]]
     name = "read_line"
+    #return vec of u8
+    ignore = true
+
+    [[object.function]]
+    name = "read_line_async"
     #return vec of u8
     ignore = true
 
@@ -156,46 +161,6 @@ status = "generate"
     [[object.function]]
     name = "find_enclosing_mount_async"
     # Mount
-    ignore = true
-    [[object.function]]
-    name = "append_to_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "create_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "create_readwrite_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "open_readwrite_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "query_filesystem_info_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "query_info_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "read_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "replace_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "replace_readwrite_async"
-    # wrong async return
-    ignore = true
-    [[object.function]]
-    name = "set_display_name_async"
-    # wrong async return
     ignore = true
 
 [[object]]
@@ -236,14 +201,6 @@ status = "generate"
     [[object.function]]
     pattern = "read(_all)?(_async)?"
     #mutable buffer
-    ignore = true
-    [[object.function]]
-    name = "read_bytes_async"
-    #wrong async callback type
-    ignore = true
-    [[object.function]]
-    name = "skip_async"
-    #wrong async callback type
     ignore = true
 
 [[object]]
@@ -302,20 +259,12 @@ status = "generate"
 name = "Gio.OutputStream"
 status = "generate"
     [[object.function]]
-    name = "splice_async"
-    #wrong async callback type
-    ignore = true
-    [[object.function]]
     name = "write_async"
-    #wrong async callback type
+    #AsRef<u8>
     ignore = true
     [[object.function]]
     name = "write_all_async"
     #AsRef<u8>
-    ignore = true
-    [[object.function]]
-    name = "write_bytes_async"
-    #wrong async callback type
     ignore = true
 
 [[object]]
@@ -406,35 +355,11 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Gio.SocketAddressEnumerator"
-status = "generate"
-    [[object.function]]
-    name = "next_async"
-    # broken
-    ignore = true
-
-[[object]]
 name = "Gio.SocketListener"
 status = "generate"
     [[object.function]]
-    pattern = ".*_async"
-    # broken
-    ignore = true
-
-[[object]]
-name = "Gio.SocketClient"
-status = "generate"
-    [[object.function]]
-    pattern = ".*_async"
-    # broken
-    ignore = true
-
-[[object]]
-name = "Gio.Resolver"
-status = "generate"
-    [[object.function]]
-    pattern = ".*_async"
-    # broken
+    name = "accept_socket_async"
+    # finish function misses nullable return annotation
     ignore = true
 
 [[object]]
