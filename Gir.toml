@@ -21,6 +21,9 @@ generate = [
     "Gio.DataStreamNewlineType",
     "Gio.FileCreateFlags",
     "Gio.FileInfo",
+    "Gio.FileInputStream",
+    "Gio.FileIOStream",
+    "Gio.FileOutputStream",
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
     "Gio.Icon",
@@ -70,9 +73,6 @@ ignore = [
 ]
 
 manual = [
-    "Gio.FileInputStream",
-    "Gio.FileIOStream",
-    "Gio.FileOutputStream",
     "GLib.Bytes",
     "GLib.Error",
     "GLib.Variant",
