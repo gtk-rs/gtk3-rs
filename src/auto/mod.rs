@@ -153,6 +153,10 @@ mod resolver;
 pub use self::resolver::Resolver;
 pub use self::resolver::ResolverExt;
 
+mod seekable;
+pub use self::seekable::Seekable;
+pub use self::seekable::SeekableExt;
+
 mod settings;
 pub use self::settings::Settings;
 pub use self::settings::SettingsExt;
@@ -339,6 +343,7 @@ pub mod traits {
     pub use super::OutputStreamExt;
     pub use super::PermissionExt;
     pub use super::ResolverExt;
+    pub use super::SeekableExt;
     pub use super::SettingsExt;
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;

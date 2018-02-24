@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use InputStream;
+use Seekable;
 use ffi;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 use glib;
@@ -15,7 +16,7 @@ use std::mem;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct MemoryInputStream(Object<ffi::GMemoryInputStream, ffi::GMemoryInputStreamClass>): InputStream;
+    pub struct MemoryInputStream(Object<ffi::GMemoryInputStream, ffi::GMemoryInputStreamClass>): InputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_memory_input_stream_get_type(),

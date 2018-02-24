@@ -6,6 +6,7 @@ use Cancellable;
 use Error;
 use FileInfo;
 use OutputStream;
+use Seekable;
 use ffi;
 use glib;
 use glib::object::IsA;
@@ -16,7 +17,7 @@ use std::mem;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct FileOutputStream(Object<ffi::GFileOutputStream, ffi::GFileOutputStreamClass>): OutputStream;
+    pub struct FileOutputStream(Object<ffi::GFileOutputStream, ffi::GFileOutputStreamClass>): OutputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_file_output_stream_get_type(),
