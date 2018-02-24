@@ -6,6 +6,7 @@ use Cancellable;
 use Error;
 use FilterInputStream;
 use InputStream;
+use Seekable;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -21,7 +22,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct BufferedInputStream(Object<ffi::GBufferedInputStream, ffi::GBufferedInputStreamClass>): FilterInputStream, InputStream;
+    pub struct BufferedInputStream(Object<ffi::GBufferedInputStream, ffi::GBufferedInputStreamClass>): FilterInputStream, InputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_buffered_input_stream_get_type(),

@@ -7,6 +7,7 @@ use DataStreamByteOrder;
 use Error;
 use FilterOutputStream;
 use OutputStream;
+use Seekable;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -22,7 +23,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass>): FilterOutputStream, OutputStream;
+    pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass>): FilterOutputStream, OutputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_data_output_stream_get_type(),

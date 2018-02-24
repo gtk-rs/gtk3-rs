@@ -4,6 +4,7 @@
 
 use FilterOutputStream;
 use OutputStream;
+use Seekable;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -19,7 +20,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct BufferedOutputStream(Object<ffi::GBufferedOutputStream, ffi::GBufferedOutputStreamClass>): FilterOutputStream, OutputStream;
+    pub struct BufferedOutputStream(Object<ffi::GBufferedOutputStream, ffi::GBufferedOutputStreamClass>): FilterOutputStream, OutputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_buffered_output_stream_get_type(),

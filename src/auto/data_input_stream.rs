@@ -9,6 +9,7 @@ use DataStreamNewlineType;
 use Error;
 use FilterInputStream;
 use InputStream;
+use Seekable;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -24,7 +25,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct DataInputStream(Object<ffi::GDataInputStream, ffi::GDataInputStreamClass>): BufferedInputStream, FilterInputStream, InputStream;
+    pub struct DataInputStream(Object<ffi::GDataInputStream, ffi::GDataInputStreamClass>): BufferedInputStream, FilterInputStream, InputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_data_input_stream_get_type(),
