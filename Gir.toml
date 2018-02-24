@@ -65,8 +65,20 @@ generate = [
     "Gio.TcpConnection",
     "Gio.ThreadedSocketService",
     "Gio.ThemedIcon",
+    "Gio.TlsAuthenticationMode",
     "Gio.TlsCertificate",
     "Gio.TlsCertificateFlags",
+    "Gio.TlsCertificateRequestFlags",
+    "Gio.TlsClientConnection",
+    "Gio.TlsConnection",
+    "Gio.TlsDatabase",
+    "Gio.TlsDatabaseLookupFlags",
+    "Gio.TlsDatabaseVerifyFlags",
+    "Gio.TlsInteraction",
+    "Gio.TlsInteractionResult",
+    "Gio.TlsPasswordFlags",
+    "Gio.TlsRehandshakeMode",
+    "Gio.TlsServerConnection",
 ]
 
 ignore = [
@@ -375,3 +387,16 @@ status = "generate"
 name = "Gio.SettingsSchemaKey"
 status = "generate"
 version = "2.40"
+
+[[object]]
+name = "Gio.TlsPassword"
+status = "generate"
+    [[object.function]]
+    name = "get_value"
+    # missing inout annotation
+    ignore = true
+
+    [[object.function]]
+    # missing (element-type guint8) annotation
+    name = "set_value"
+    ignore = true
