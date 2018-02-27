@@ -237,6 +237,10 @@ mod tls_database;
 pub use self::tls_database::TlsDatabase;
 pub use self::tls_database::TlsDatabaseExt;
 
+mod tls_file_database;
+pub use self::tls_file_database::TlsFileDatabase;
+pub use self::tls_file_database::TlsFileDatabaseExt;
+
 mod tls_interaction;
 pub use self::tls_interaction::TlsInteraction;
 pub use self::tls_interaction::TlsInteractionExt;
@@ -362,6 +366,7 @@ pub mod traits {
     pub use super::TlsClientConnectionExt;
     pub use super::TlsConnectionExt;
     pub use super::TlsDatabaseExt;
+    pub use super::TlsFileDatabaseExt;
     pub use super::TlsInteractionExt;
     pub use super::TlsPasswordExt;
     pub use super::TlsServerConnectionExt;
