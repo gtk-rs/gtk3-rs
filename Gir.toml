@@ -75,6 +75,7 @@ generate = [
     "Gio.TlsDatabase",
     "Gio.TlsDatabaseLookupFlags",
     "Gio.TlsDatabaseVerifyFlags",
+    "Gio.TlsFileDatabase",
     "Gio.TlsInteraction",
     "Gio.TlsInteractionResult",
     "Gio.TlsPasswordFlags",
