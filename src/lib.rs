@@ -5,6 +5,8 @@
 #[macro_use]
 extern crate bitflags;
 #[macro_use]
+extern crate lazy_static;
+#[macro_use]
 extern crate glib;
 
 extern crate gio_sys as ffi;
