@@ -12,6 +12,12 @@ extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate libc;
 
+macro_rules! callback_guard {
+    () => (
+        let _guard = ::glib::CallbackGuard::new();
+    )
+}
+
 mod application;
 mod input_stream;
 mod memory_input_stream;
