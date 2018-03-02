@@ -24,6 +24,9 @@ pub use glib::{
     Value,
 };
 
+#[macro_use]
+mod rt;
+
 mod auto;
 
 mod animation;

@@ -104,6 +104,7 @@ impl Pixbuf {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn new_from_stream_async_trampoline<R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut gio_ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
+            callback_guard!();
             let mut error = ptr::null_mut();
             let ptr = ffi::gdk_pixbuf_new_from_stream_finish(res, &mut error);
             let result = if error.is_null() {
@@ -126,6 +127,7 @@ impl Pixbuf {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn new_from_stream_at_scale_async_trampoline<R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut gio_ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
+            callback_guard!();
             let mut error = ptr::null_mut();
             let ptr = ffi::gdk_pixbuf_new_from_stream_finish(res, &mut error);
             let result = if error.is_null() {
@@ -185,6 +187,7 @@ impl Pixbuf {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn get_file_info_async_trampoline<Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut gio_ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
+            callback_guard!();
             let mut error = ptr::null_mut();
             let mut width = mem::uninitialized();
             let mut height = mem::uninitialized();
