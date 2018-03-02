@@ -9,6 +9,7 @@ use libc::{c_void, c_uint, c_ulong};
 use gobject_ffi::{self, GCallback};
 use ffi::{gboolean, GQuark};
 use object::{IsA, Object};
+use source::CallbackGuard;
 use translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
 
 /// The id of a signal that is returned by `connect`.
@@ -88,6 +89,7 @@ pub fn signal_stop_emission_by_name<T: IsA<Object>>(instance: &T, signal_name: &
 }
 
 unsafe extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
+    let _guard = CallbackGuard::new();
     // destroy
     Box::<Box<Fn()>>::from_raw(ptr as *mut _);
 }
