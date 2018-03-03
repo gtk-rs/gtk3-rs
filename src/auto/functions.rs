@@ -5,6 +5,7 @@
 use Cancellable;
 use Error;
 use File;
+use IOErrorEnum;
 use IOStream;
 use Icon;
 use InputStream;
@@ -247,9 +248,11 @@ pub fn dbus_is_unique_name(string: &str) -> bool {
     }
 }
 
-//pub fn io_error_from_errno(err_no: i32) -> /*Ignored*/IOErrorEnum {
-//    unsafe { TODO: call ffi::g_io_error_from_errno() }
-//}
+pub fn io_error_from_errno(err_no: i32) -> IOErrorEnum {
+    unsafe {
+        from_glib(ffi::g_io_error_from_errno(err_no))
+    }
+}
 
 //pub fn io_error_quark() -> /*Ignored*/glib::Quark {
 //    unsafe { TODO: call ffi::g_io_error_quark() }

@@ -271,6 +271,7 @@ mod enums;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::FileType;
+pub use self::enums::IOErrorEnum;
 pub use self::enums::MountOperationResult;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 pub use self::enums::NotificationPriority;
