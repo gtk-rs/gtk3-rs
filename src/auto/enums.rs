@@ -207,6 +207,260 @@ impl SetValue for FileType {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum IOErrorEnum {
+    Failed,
+    NotFound,
+    Exists,
+    IsDirectory,
+    NotDirectory,
+    NotEmpty,
+    NotRegularFile,
+    NotSymbolicLink,
+    NotMountableFile,
+    FilenameTooLong,
+    InvalidFilename,
+    TooManyLinks,
+    NoSpace,
+    InvalidArgument,
+    PermissionDenied,
+    NotSupported,
+    NotMounted,
+    AlreadyMounted,
+    Closed,
+    Cancelled,
+    Pending,
+    ReadOnly,
+    CantCreateBackup,
+    WrongEtag,
+    TimedOut,
+    WouldRecurse,
+    Busy,
+    WouldBlock,
+    HostNotFound,
+    WouldMerge,
+    FailedHandled,
+    TooManyOpenFiles,
+    NotInitialized,
+    AddressInUse,
+    PartialInput,
+    InvalidData,
+    DbusError,
+    HostUnreachable,
+    NetworkUnreachable,
+    ConnectionRefused,
+    ProxyFailed,
+    ProxyAuthFailed,
+    ProxyNeedAuth,
+    ProxyNotAllowed,
+    BrokenPipe,
+    NotConnected,
+    MessageTooLarge,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for IOErrorEnum {
+    type GlibType = ffi::GIOErrorEnum;
+
+    fn to_glib(&self) -> ffi::GIOErrorEnum {
+        match *self {
+            IOErrorEnum::Failed => ffi::G_IO_ERROR_FAILED,
+            IOErrorEnum::NotFound => ffi::G_IO_ERROR_NOT_FOUND,
+            IOErrorEnum::Exists => ffi::G_IO_ERROR_EXISTS,
+            IOErrorEnum::IsDirectory => ffi::G_IO_ERROR_IS_DIRECTORY,
+            IOErrorEnum::NotDirectory => ffi::G_IO_ERROR_NOT_DIRECTORY,
+            IOErrorEnum::NotEmpty => ffi::G_IO_ERROR_NOT_EMPTY,
+            IOErrorEnum::NotRegularFile => ffi::G_IO_ERROR_NOT_REGULAR_FILE,
+            IOErrorEnum::NotSymbolicLink => ffi::G_IO_ERROR_NOT_SYMBOLIC_LINK,
+            IOErrorEnum::NotMountableFile => ffi::G_IO_ERROR_NOT_MOUNTABLE_FILE,
+            IOErrorEnum::FilenameTooLong => ffi::G_IO_ERROR_FILENAME_TOO_LONG,
+            IOErrorEnum::InvalidFilename => ffi::G_IO_ERROR_INVALID_FILENAME,
+            IOErrorEnum::TooManyLinks => ffi::G_IO_ERROR_TOO_MANY_LINKS,
+            IOErrorEnum::NoSpace => ffi::G_IO_ERROR_NO_SPACE,
+            IOErrorEnum::InvalidArgument => ffi::G_IO_ERROR_INVALID_ARGUMENT,
+            IOErrorEnum::PermissionDenied => ffi::G_IO_ERROR_PERMISSION_DENIED,
+            IOErrorEnum::NotSupported => ffi::G_IO_ERROR_NOT_SUPPORTED,
+            IOErrorEnum::NotMounted => ffi::G_IO_ERROR_NOT_MOUNTED,
+            IOErrorEnum::AlreadyMounted => ffi::G_IO_ERROR_ALREADY_MOUNTED,
+            IOErrorEnum::Closed => ffi::G_IO_ERROR_CLOSED,
+            IOErrorEnum::Cancelled => ffi::G_IO_ERROR_CANCELLED,
+            IOErrorEnum::Pending => ffi::G_IO_ERROR_PENDING,
+            IOErrorEnum::ReadOnly => ffi::G_IO_ERROR_READ_ONLY,
+            IOErrorEnum::CantCreateBackup => ffi::G_IO_ERROR_CANT_CREATE_BACKUP,
+            IOErrorEnum::WrongEtag => ffi::G_IO_ERROR_WRONG_ETAG,
+            IOErrorEnum::TimedOut => ffi::G_IO_ERROR_TIMED_OUT,
+            IOErrorEnum::WouldRecurse => ffi::G_IO_ERROR_WOULD_RECURSE,
+            IOErrorEnum::Busy => ffi::G_IO_ERROR_BUSY,
+            IOErrorEnum::WouldBlock => ffi::G_IO_ERROR_WOULD_BLOCK,
+            IOErrorEnum::HostNotFound => ffi::G_IO_ERROR_HOST_NOT_FOUND,
+            IOErrorEnum::WouldMerge => ffi::G_IO_ERROR_WOULD_MERGE,
+            IOErrorEnum::FailedHandled => ffi::G_IO_ERROR_FAILED_HANDLED,
+            IOErrorEnum::TooManyOpenFiles => ffi::G_IO_ERROR_TOO_MANY_OPEN_FILES,
+            IOErrorEnum::NotInitialized => ffi::G_IO_ERROR_NOT_INITIALIZED,
+            IOErrorEnum::AddressInUse => ffi::G_IO_ERROR_ADDRESS_IN_USE,
+            IOErrorEnum::PartialInput => ffi::G_IO_ERROR_PARTIAL_INPUT,
+            IOErrorEnum::InvalidData => ffi::G_IO_ERROR_INVALID_DATA,
+            IOErrorEnum::DbusError => ffi::G_IO_ERROR_DBUS_ERROR,
+            IOErrorEnum::HostUnreachable => ffi::G_IO_ERROR_HOST_UNREACHABLE,
+            IOErrorEnum::NetworkUnreachable => ffi::G_IO_ERROR_NETWORK_UNREACHABLE,
+            IOErrorEnum::ConnectionRefused => ffi::G_IO_ERROR_CONNECTION_REFUSED,
+            IOErrorEnum::ProxyFailed => ffi::G_IO_ERROR_PROXY_FAILED,
+            IOErrorEnum::ProxyAuthFailed => ffi::G_IO_ERROR_PROXY_AUTH_FAILED,
+            IOErrorEnum::ProxyNeedAuth => ffi::G_IO_ERROR_PROXY_NEED_AUTH,
+            IOErrorEnum::ProxyNotAllowed => ffi::G_IO_ERROR_PROXY_NOT_ALLOWED,
+            IOErrorEnum::BrokenPipe => ffi::G_IO_ERROR_BROKEN_PIPE,
+            IOErrorEnum::NotConnected => ffi::G_IO_ERROR_NOT_CONNECTED,
+            IOErrorEnum::MessageTooLarge => ffi::G_IO_ERROR_MESSAGE_TOO_LARGE,
+            IOErrorEnum::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GIOErrorEnum> for IOErrorEnum {
+    fn from_glib(value: ffi::GIOErrorEnum) -> Self {
+        match value {
+            0 => IOErrorEnum::Failed,
+            1 => IOErrorEnum::NotFound,
+            2 => IOErrorEnum::Exists,
+            3 => IOErrorEnum::IsDirectory,
+            4 => IOErrorEnum::NotDirectory,
+            5 => IOErrorEnum::NotEmpty,
+            6 => IOErrorEnum::NotRegularFile,
+            7 => IOErrorEnum::NotSymbolicLink,
+            8 => IOErrorEnum::NotMountableFile,
+            9 => IOErrorEnum::FilenameTooLong,
+            10 => IOErrorEnum::InvalidFilename,
+            11 => IOErrorEnum::TooManyLinks,
+            12 => IOErrorEnum::NoSpace,
+            13 => IOErrorEnum::InvalidArgument,
+            14 => IOErrorEnum::PermissionDenied,
+            15 => IOErrorEnum::NotSupported,
+            16 => IOErrorEnum::NotMounted,
+            17 => IOErrorEnum::AlreadyMounted,
+            18 => IOErrorEnum::Closed,
+            19 => IOErrorEnum::Cancelled,
+            20 => IOErrorEnum::Pending,
+            21 => IOErrorEnum::ReadOnly,
+            22 => IOErrorEnum::CantCreateBackup,
+            23 => IOErrorEnum::WrongEtag,
+            24 => IOErrorEnum::TimedOut,
+            25 => IOErrorEnum::WouldRecurse,
+            26 => IOErrorEnum::Busy,
+            27 => IOErrorEnum::WouldBlock,
+            28 => IOErrorEnum::HostNotFound,
+            29 => IOErrorEnum::WouldMerge,
+            30 => IOErrorEnum::FailedHandled,
+            31 => IOErrorEnum::TooManyOpenFiles,
+            32 => IOErrorEnum::NotInitialized,
+            33 => IOErrorEnum::AddressInUse,
+            34 => IOErrorEnum::PartialInput,
+            35 => IOErrorEnum::InvalidData,
+            36 => IOErrorEnum::DbusError,
+            37 => IOErrorEnum::HostUnreachable,
+            38 => IOErrorEnum::NetworkUnreachable,
+            39 => IOErrorEnum::ConnectionRefused,
+            40 => IOErrorEnum::ProxyFailed,
+            41 => IOErrorEnum::ProxyAuthFailed,
+            42 => IOErrorEnum::ProxyNeedAuth,
+            43 => IOErrorEnum::ProxyNotAllowed,
+            44 => IOErrorEnum::BrokenPipe,
+            45 => IOErrorEnum::NotConnected,
+            46 => IOErrorEnum::MessageTooLarge,
+            value => IOErrorEnum::__Unknown(value),
+        }
+    }
+}
+
+impl ErrorDomain for IOErrorEnum {
+    fn domain() -> glib_ffi::GQuark {
+        unsafe { ffi::g_io_error_quark() }
+    }
+
+    fn code(self) -> i32 {
+        self.to_glib()
+    }
+
+    fn from(code: i32) -> Option<Self> {
+        match code {
+            0 => Some(IOErrorEnum::Failed),
+            1 => Some(IOErrorEnum::NotFound),
+            2 => Some(IOErrorEnum::Exists),
+            3 => Some(IOErrorEnum::IsDirectory),
+            4 => Some(IOErrorEnum::NotDirectory),
+            5 => Some(IOErrorEnum::NotEmpty),
+            6 => Some(IOErrorEnum::NotRegularFile),
+            7 => Some(IOErrorEnum::NotSymbolicLink),
+            8 => Some(IOErrorEnum::NotMountableFile),
+            9 => Some(IOErrorEnum::FilenameTooLong),
+            10 => Some(IOErrorEnum::InvalidFilename),
+            11 => Some(IOErrorEnum::TooManyLinks),
+            12 => Some(IOErrorEnum::NoSpace),
+            13 => Some(IOErrorEnum::InvalidArgument),
+            14 => Some(IOErrorEnum::PermissionDenied),
+            15 => Some(IOErrorEnum::NotSupported),
+            16 => Some(IOErrorEnum::NotMounted),
+            17 => Some(IOErrorEnum::AlreadyMounted),
+            18 => Some(IOErrorEnum::Closed),
+            19 => Some(IOErrorEnum::Cancelled),
+            20 => Some(IOErrorEnum::Pending),
+            21 => Some(IOErrorEnum::ReadOnly),
+            22 => Some(IOErrorEnum::CantCreateBackup),
+            23 => Some(IOErrorEnum::WrongEtag),
+            24 => Some(IOErrorEnum::TimedOut),
+            25 => Some(IOErrorEnum::WouldRecurse),
+            26 => Some(IOErrorEnum::Busy),
+            27 => Some(IOErrorEnum::WouldBlock),
+            28 => Some(IOErrorEnum::HostNotFound),
+            29 => Some(IOErrorEnum::WouldMerge),
+            30 => Some(IOErrorEnum::FailedHandled),
+            31 => Some(IOErrorEnum::TooManyOpenFiles),
+            32 => Some(IOErrorEnum::NotInitialized),
+            33 => Some(IOErrorEnum::AddressInUse),
+            34 => Some(IOErrorEnum::PartialInput),
+            35 => Some(IOErrorEnum::InvalidData),
+            36 => Some(IOErrorEnum::DbusError),
+            37 => Some(IOErrorEnum::HostUnreachable),
+            38 => Some(IOErrorEnum::NetworkUnreachable),
+            39 => Some(IOErrorEnum::ConnectionRefused),
+            40 => Some(IOErrorEnum::ProxyFailed),
+            41 => Some(IOErrorEnum::ProxyAuthFailed),
+            42 => Some(IOErrorEnum::ProxyNeedAuth),
+            43 => Some(IOErrorEnum::ProxyNotAllowed),
+            44 => Some(IOErrorEnum::BrokenPipe),
+            45 => Some(IOErrorEnum::NotConnected),
+            46 => Some(IOErrorEnum::MessageTooLarge),
+            _ => Some(IOErrorEnum::Failed),
+        }
+    }
+}
+
+impl StaticType for IOErrorEnum {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_io_error_enum_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for IOErrorEnum {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for IOErrorEnum {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for IOErrorEnum {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum MountOperationResult {
     Handled,
     Aborted,

@@ -29,6 +29,7 @@ generate = [
     "Gio.Icon",
     "Gio.InetSocketAddress",
     "Gio.IOStreamSpliceFlags",
+    "Gio.IOErrorEnum",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",
