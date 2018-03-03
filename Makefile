@@ -5,12 +5,17 @@ GIR_FILES = gir-files/Gio-2.0.gir
 # Run `gir` generating the bindings
 gir : src/auto/mod.rs
 
+regen_check: $(GIR) $(GIR_FILES)
+	rm src/auto/*
+	$(GIR) -c Gir.toml
+	git diff -R --exit-code
+
 src/auto/mod.rs : Gir.toml $(GIR) $(GIR_FILES)
 	$(GIR) -c Gir.toml
 
 $(GIR) : $(GIR_SRC)
 	rm -f gir/target/bin/gir
-	cargo install -q --path gir --root gir/target
+	cargo install --path gir --root gir/target
 	rm -f gir/target/.crates.toml
 
 $(GIR_SRC) $(GIR_FILES) :
