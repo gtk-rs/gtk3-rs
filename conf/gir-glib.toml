@@ -125,3 +125,11 @@ status = "generate"
     [[object.function]]
     name = "new_file"
     is_windows_utf8 = true
+
+[[object]]
+name = "GLib.Pid"
+status = "manual"
+
+[[object]]
+name = "GLib.PollFD"
+status = "manual"
