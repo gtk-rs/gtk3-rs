@@ -34,6 +34,10 @@ impl FromGlib<u32> for SourceId {
     }
 }
 
+/// Process identificator
+#[derive(Debug, Eq, PartialEq)]
+pub struct Pid(pub glib_ffi::GPid);
+
 /// Continue calling the closure in the future iterations or drop it.
 ///
 /// This is the return type of `idle_add` and `timeout_add` closures.
@@ -99,19 +103,19 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline_child_watch(pid: u32, status: i32, func: gpointer) {
+unsafe extern "C" fn trampoline_child_watch(pid: glib_ffi::GPid, status: i32, func: gpointer) {
     let _guard = CallbackGuard::new();
-    let func: &RefCell<Box<FnMut(u32, i32) + 'static>> = transmute(func);
-    (&mut *func.borrow_mut())(pid, status)
+    let func: &RefCell<Box<FnMut(Pid, i32) + 'static>> = transmute(func);
+    (&mut *func.borrow_mut())(Pid(pid), status)
 }
 
 unsafe extern "C" fn destroy_closure_child_watch(ptr: gpointer) {
     let _guard = CallbackGuard::new();
-    Box::<RefCell<Box<FnMut(u32, i32) + 'static>>>::from_raw(ptr as *mut _);
+    Box::<RefCell<Box<FnMut(Pid, i32) + 'static>>>::from_raw(ptr as *mut _);
 }
 
-fn into_raw_child_watch<F: FnMut(u32, i32) + Send + 'static>(func: F) -> gpointer {
-    let func: Box<RefCell<Box<FnMut(u32, i32) + Send + 'static>>> =
+fn into_raw_child_watch<F: FnMut(Pid, i32) + Send + 'static>(func: F) -> gpointer {
+    let func: Box<RefCell<Box<FnMut(Pid, i32) + Send + 'static>>> =
         Box::new(RefCell::new(Box::new(func)));
     Box::into_raw(func) as gpointer
 }
@@ -169,11 +173,11 @@ where F: FnMut() -> Continue + Send + 'static {
 /// process exits.
 ///
 /// `func` will be called when `pid` exits
-pub fn child_watch_add<'a, N: Into<Option<&'a str>>, F>(pid: u32, func: F) -> SourceId
-where F: FnMut(u32, i32) + Send + 'static {
+pub fn child_watch_add<'a, N: Into<Option<&'a str>>, F>(pid: Pid, func: F) -> SourceId
+where F: FnMut(Pid, i32) + Send + 'static {
     unsafe {
         let trampoline = trampoline_child_watch as *mut libc::c_void;
-        from_glib(glib_ffi::g_child_watch_add_full(glib_ffi::G_PRIORITY_DEFAULT, pid as i32,
+        from_glib(glib_ffi::g_child_watch_add_full(glib_ffi::G_PRIORITY_DEFAULT, pid.0,
             Some(transmute(trampoline)), into_raw_child_watch(func), Some(destroy_closure_child_watch)))
     }
 }
@@ -302,10 +306,10 @@ where F: FnMut() -> Continue + Send + 'static {
 /// process exits.
 ///
 /// `func` will be called when `pid` exits
-pub fn child_watch_source_new<'a, N: Into<Option<&'a str>>, F>(pid: u32, name: N, priority: Priority, func: F) -> Source
-where F: FnMut(u32, i32) + Send + 'static {
+pub fn child_watch_source_new<'a, N: Into<Option<&'a str>>, F>(pid: Pid, name: N, priority: Priority, func: F) -> Source
+where F: FnMut(Pid, i32) + Send + 'static {
     unsafe {
-        let source = glib_ffi::g_child_watch_source_new(pid as glib_ffi::GPid);
+        let source = glib_ffi::g_child_watch_source_new(pid.0);
         let trampoline = trampoline_child_watch as *mut libc::c_void;
         glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw_child_watch(func), Some(destroy_closure_child_watch));
         glib_ffi::g_source_set_priority(source, priority.to_glib());

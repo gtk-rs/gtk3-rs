@@ -219,6 +219,42 @@ status = "generate"
     pattern = "unix_fd.*"
     # Need manual binding for RawFd
     ignore = true
+    [[object.constant]]
+    pattern = "DIR_SEPARATOR(_S)?"
+    #not cross-platform
+    ignore = true
+    [[object.constant]]
+    pattern = "SEARCHPATH_SEPARATOR(_S)?"
+    #not cross-platform
+    ignore = true
+    [[object.constant]]
+    name = "MODULE_SUFFIX"
+    #not cross-platform
+    ignore = true
+    [[object.constant]]
+    pattern = "GU?INT(16)?(32)?(64)?(PTR)?_FORMAT"
+    #for C printf
+    ignore = true
+    [[object.constant]]
+    pattern = "GU?INT(16)?(32)?(64)?(PTR)?_MODIFIER"
+    #for C printf
+    ignore = true
+    [[object.constant]]
+    pattern = "GS?SIZE_(FORMAT)?(MODIFIER)?"
+    #for C printf
+    ignore = true
+    [[object.constant]]
+    pattern = "GNUC_(PRETTY_)?FUNCTION"
+    #for C printf
+    ignore = true
+    [[object.constant]]
+    pattern = "PID_FORMAT"
+    #for C printf
+    ignore = true
+    [[object.constant]]
+    pattern = "POLLFD_FORMAT"
+    #for C printf
+    ignore = true
 
 [[object]]
 name = "GLib.Checksum"

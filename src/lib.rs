@@ -136,37 +136,6 @@ pub use enums::{
     FlagsBuilder,
 };
 
-lazy_static! {
-  pub static ref KEY_FILE_DESKTOP_GROUP: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_GROUP).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_CATEGORIES: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_CATEGORIES).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_COMMENT: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_COMMENT).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_EXEC: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_EXEC).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_FULLNAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_FULLNAME).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_GENERIC_NAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_HIDDEN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_HIDDEN).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_ICON: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ICON).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_KEYWORDS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_KEYWORDS).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_MIME_TYPE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_MIME_TYPE).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_NAME: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NAME).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_NO_DISPLAY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_NO_DISPLAY).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_PATH: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_PATH).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_TERMINAL: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TERMINAL).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_TRY_EXEC: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TRY_EXEC).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_TYPE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_TYPE).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_URL: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_URL).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_KEY_VERSION: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_VERSION).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_TYPE_APPLICATION: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_APPLICATION).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_TYPE_DIRECTORY: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_DIRECTORY).to_str().unwrap()};
-  pub static ref KEY_FILE_DESKTOP_TYPE_LINK: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_TYPE_LINK).to_str().unwrap()};
-}
-
 #[macro_use]
 pub mod wrapper;
 #[macro_use]
@@ -181,6 +150,7 @@ pub use auto::functions::*;
 #[cfg_attr(feature = "cargo-clippy", allow(let_and_return))]
 #[cfg_attr(feature = "cargo-clippy", allow(let_unit_value))]
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
+#[allow(non_upper_case_globals)]
 mod auto;
 
 mod bytes;
