@@ -7,3 +7,12 @@ external_libraries = [
    "GLib",
    "GObject",
 ]
+
+ignore = [
+	"Atk.BINARY_AGE",
+	"Atk.INTERFACE_AGE",
+	"Atk.MAJOR_VERSION",
+	"Atk.MICRO_VERSION",
+	"Atk.MINOR_VERSION",
+	"Atk.VERSION_MIN_REQUIRED",
+]

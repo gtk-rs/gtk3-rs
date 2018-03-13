@@ -9,6 +9,14 @@ external_libraries = [
    "Gio",
 ]
 
+ignore = [
+	"GdkPixbuf.PIXBUF_FEATURES_H",
+	"GdkPixbuf.PIXBUF_MAJOR",
+	"GdkPixbuf.PIXBUF_MICRO",
+	"GdkPixbuf.PIXBUF_MINOR",
+	"GdkPixbuf.PIXBUF_VERSION",
+]
+
 [[object]]
 name = "GdkPixbuf.Pixbuf"
 status = "generate"
