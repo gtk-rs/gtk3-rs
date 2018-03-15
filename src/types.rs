@@ -4,9 +4,10 @@
 
 //! Runtime type information.
 
-use translate::{FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibPtr, ToGlibContainerFromSlice, from_glib, from_glib_none};
+use translate::{FromGlib, FromGlibContainerAsVec, ToGlib, ToGlibPtr, ToGlibPtrMut, ToGlibContainerFromSlice, from_glib, from_glib_none};
 use ffi as glib_ffi;
 use gobject_ffi;
+use value::{Value, FromValue, FromValueOptional, SetValue};
 
 use std::fmt;
 use std::mem;
@@ -141,6 +142,32 @@ impl fmt::Display for Type {
 pub trait StaticType {
     /// Returns the type identifier of `Self`.
     fn static_type() -> Type;
+}
+
+impl StaticType for Type {
+    fn static_type() -> Type {
+        unsafe {
+            from_glib(gobject_ffi::g_gtype_get_type())
+        }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for Type {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        Some(from_glib(gobject_ffi::g_value_get_gtype(value.to_glib_none().0)))
+    }
+}
+
+impl<'a> FromValue<'a> for Type {
+    unsafe fn from_value(value: &'a Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_gtype(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for Type {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_gtype(value.to_glib_none_mut().0, this.to_glib())
+    }
 }
 
 impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
