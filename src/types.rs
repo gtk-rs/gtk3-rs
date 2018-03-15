@@ -143,6 +143,14 @@ pub trait StaticType {
     fn static_type() -> Type;
 }
 
+impl StaticType for Type {
+    fn static_type() -> Type {
+        unsafe {
+            from_glib(gobject_ffi::g_gtype_get_type())
+        }
+    }
+}
+
 impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
     fn static_type() -> Type {
         T::static_type()
