@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 keywords = ["glib", "gio", "gtk-rs", "gnome"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/gio/"
-version = "0.3.0"
+version = "0.4.0"
 description = "Rust bindings for the Gio library"
 repository = "https://github.com/gtk-rs/gio"
 build = "build.rs"
@@ -42,17 +42,17 @@ bitflags = "1.0"
 lazy_static = "1.0"
 
 [dependencies.gio-sys]
-version = "0.5.0"
+version = "0.6.0"
 git = "https://github.com/gtk-rs/sys"
 
 [dependencies.glib-sys]
-version = "0.5.0"
+version = "0.6.0"
 git = "https://github.com/gtk-rs/sys"
 
 [dependencies.glib]
-version = "0.4.0"
+version = "0.5.0"
 git = "https://github.com/gtk-rs/glib"
 
 [dependencies.gobject-sys]
-version = "0.5.0"
+version = "0.6.0"
 git = "https://github.com/gtk-rs/sys"
