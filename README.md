@@ -36,11 +36,11 @@ env::var("DEP_GDK_CFG").unwrap() == "gdk_3_4 gdk_3_6 gdk_3_8 gdk_3_10 gdk_3_12"
 > make
 ```
 
-will build the [generator](https://github.com/gkoz/gir) in `gir` and
-generate the crates using specifications from `conf` and [GIR definitions]
-(https://github.com/gkoz/gir-files) from `gir-files`.
+will build the [generator](https://github.com/gtk-rs/gir) in `gir` and
+generate the crates using specifications from `conf` and
+[GIR definitions](https://github.com/gtk-rs/gir-files) from `gir-files`.
 
-Currently `gir-files` is populated from the [gnome-staging ppa]
-(https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3-staging).
+Currently `gir-files` is populated from the
+[gnome-staging ppa](https://launchpad.net/~gnome3-team/+archive/ubuntu/gnome3-staging).
 Using a single set of GIR definitions for all platforms and versions
 is considered good enough at this point.
