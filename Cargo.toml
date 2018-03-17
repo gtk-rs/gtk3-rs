@@ -5,7 +5,7 @@ homepage = "http://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "cairo", "gtk-rs", "gnome"]
 readme = "README.md"
-version = "0.4.0"
+version = "0.5.0"
 description = "Rust bindings for the PangoCairo library"
 repository = "https://github.com/gtk-rs/pangocairo"
 license = "MIT"
@@ -29,33 +29,33 @@ libc = "0.2"
 bitflags = "0.9"
 
 [dependencies.pango-sys]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.glib]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/glib"
-
-[dependencies.glib-sys]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.cairo-sys-rs]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/cairo"
-
-[dependencies.pangocairo-sys]
 version = "0.6.0"
 git = "https://github.com/gtk-rs/sys"
 
+[dependencies.glib]
+version = "0.5.0"
+git = "https://github.com/gtk-rs/glib"
+
+[dependencies.glib-sys]
+version = "0.6.0"
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gobject-sys]
+version = "0.6.0"
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.cairo-sys-rs]
+version = "0.6.0"
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.pangocairo-sys]
+version = "0.7.0"
+git = "https://github.com/gtk-rs/sys"
+
 [dependencies.pango]
-version = "0.3.0"
+version = "0.4.0"
 git = "https://github.com/gtk-rs/pango"
 
 [dependencies.cairo-rs]
-version = "0.3.0"
+version = "0.4.0"
 git = "https://github.com/gtk-rs/cairo"
