@@ -11,6 +11,8 @@ extern crate gobject_sys as gobject_ffi;
 extern crate glib;
 #[macro_use]
 extern crate bitflags;
+#[macro_use]
+extern crate lazy_static;
 extern crate libc;
 
 pub use glib::Error;
