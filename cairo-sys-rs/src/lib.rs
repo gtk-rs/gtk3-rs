@@ -230,6 +230,20 @@ pub struct Matrix {
     pub x0: c_double,
     pub y0: c_double,
 }
+
+impl Default for Matrix {
+    fn default() -> Matrix {
+        Matrix {
+            xx: 1.0,
+            yx: 0.0,
+            xy: 0.0,
+            yy: 1.0,
+            x0: 0.0,
+            y0: 0.0,
+        }
+    }
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, Default, Debug)]
 pub struct cairo_user_data_key_t {
