@@ -26,6 +26,7 @@ dox = ["pango-sys/dox", "glib/dox"]
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
+lazy_static = "1.0"
 
 [dependencies.pango-sys]
 version = "0.6.0"
