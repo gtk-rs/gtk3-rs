@@ -583,6 +583,42 @@ glib_object_wrapper! {
     Object, GObject, GObjectClass, @get_type gobject_ffi::g_object_get_type()
 }
 
+impl Object {
+    pub fn new(type_: Type, properties: &[(&str, &ToValue)]) -> Result<Object, BoolError> {
+        use std::ffi::CString;
+
+        if !type_.is_a(&Object::static_type()) {
+            return Err(BoolError("Can't instantiate non-GObject objects"));
+        }
+
+        let params = properties.iter()
+                               .map(|&(name, value)|
+                                    (CString::new(name).unwrap(), value.to_value()))
+                               .collect::<Vec<_>>();
+
+        let params_c = params.iter()
+                             .map(|&(ref name, ref value)|
+                                  gobject_ffi::GParameter {
+                                      name: name.as_ptr(),
+                                      value: unsafe { *value.to_glib_none().0 }
+                                  })
+                             .collect::<Vec<_>>();
+
+        unsafe {
+            let ptr = gobject_ffi::g_object_newv(type_.to_glib(), params_c.len() as u32, mut_override(params_c.as_ptr()));
+            if ptr.is_null() {
+                Err(BoolError("Can't instantiate object"))
+            } else {
+                if type_.is_a(&from_glib(gobject_ffi::g_initially_unowned_get_type())) {
+                    Ok(from_glib_none(ptr))
+                } else {
+                    Ok(from_glib_full(ptr))
+                }
+            }
+        }
+    }
+}
+
 pub trait ObjectExt: IsA<Object> {
     fn get_type(&self) -> Type;
 
