@@ -52,7 +52,7 @@ pub mod prelude {
     pub use output_stream::OutputStreamExtManual;
     pub use socket::*;
     pub use socket_listener::SocketListenerExtManual;
-    pub use unix_socket_address::{AddressType, UnixSocketAddressExtManual};
+    pub use unix_socket_address::AddressType;
 }
 
 pub use prelude::*;

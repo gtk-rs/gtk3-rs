@@ -83,8 +83,6 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
-    "Gio.UnixSocketAddress",
-    "Gio.UnixSocketAddressType",
 ]
 
 ignore = [
@@ -407,3 +405,13 @@ status = "generate"
     # missing (element-type guint8) annotation
     name = "set_value"
     ignore = true
+
+[[object]]
+name = "Gio.UnixSocketAddress"
+status = "generate"
+cfg_condition = "unix"
+
+[[object]]
+name = "Gio.UnixSocketAddressType"
+status = "generate"
+cfg_condition = "unix"
