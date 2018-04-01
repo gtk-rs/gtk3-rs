@@ -56,8 +56,6 @@ pub trait UnixSocketAddressExt {
 
     fn get_is_abstract(&self) -> bool;
 
-    fn get_path(&self) -> Option<String>;
-
     fn get_path_len(&self) -> usize;
 
     fn get_property_abstract(&self) -> bool;
@@ -67,8 +65,6 @@ pub trait UnixSocketAddressExt {
     fn connect_property_abstract_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_address_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_path_as_array_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -83,12 +79,6 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
     fn get_is_abstract(&self) -> bool {
         unsafe {
             from_glib(ffi::g_unix_socket_address_get_is_abstract(self.to_glib_none().0))
-        }
-    }
-
-    fn get_path(&self) -> Option<String> {
-        unsafe {
-            from_glib_none(ffi::g_unix_socket_address_get_path(self.to_glib_none().0))
         }
     }
 
@@ -130,14 +120,6 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
         }
     }
 
-    fn connect_property_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::path",
-                transmute(notify_path_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_path_as_array_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -155,13 +137,6 @@ where P: IsA<UnixSocketAddress> {
 }
 
 unsafe extern "C" fn notify_address_type_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<UnixSocketAddress> {
-    callback_guard!();
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_path_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<UnixSocketAddress> {
     callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);

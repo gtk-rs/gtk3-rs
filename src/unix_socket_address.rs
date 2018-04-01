@@ -2,19 +2,25 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::ffi::OsStr;
+use std::os::unix::ffi::OsStrExt;
 use std::path::Path;
 use std::ptr;
+use std::slice;
 
-use glib::object::Downcast;
+use glib;
+use glib::object::{Downcast, IsA};
 use glib::translate::*;
 
 use ffi;
 use SocketAddress;
 use UnixSocketAddress;
+use UnixSocketAddressExt;
 use UnixSocketAddressType;
 
 use self::AddressType::*;
 
+#[derive(Debug)]
 pub enum AddressType<'a> {
     Path(&'a Path),
     Anonymous,
@@ -45,6 +51,26 @@ impl UnixSocketAddress {
         unsafe {
             SocketAddress::from_glib_full(ffi::g_unix_socket_address_new_with_type(path, len as i32, type_.to_glib()))
                 .downcast_unchecked()
+        }
+    }
+}
+
+pub trait UnixSocketAddressExtManual {
+    fn get_path(&self) -> Option<AddressType>;
+}
+
+impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExtManual for O {
+    fn get_path(&self) -> Option<AddressType> {
+        let path = unsafe {
+            let path = ffi::g_unix_socket_address_get_path(self.to_glib_none().0);
+            slice::from_raw_parts(path as *mut u8, self.get_path_len())
+        };
+        match self.get_address_type() {
+            UnixSocketAddressType::Anonymous => Some(Anonymous),
+            UnixSocketAddressType::Path => Some(Path(Path::new(OsStr::from_bytes(path)))),
+            UnixSocketAddressType::Abstract => Some(Abstract(path)),
+            UnixSocketAddressType::AbstractPadded => Some(AbstractPadded(path)),
+            UnixSocketAddressType::Invalid | UnixSocketAddressType::__Unknown(_) => None,
         }
     }
 }
