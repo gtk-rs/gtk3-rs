@@ -4,7 +4,7 @@
 
 use std::ffi::OsStr;
 use std::os::unix::ffi::OsStrExt;
-use std::path::Path;
+use std::path;
 use std::ptr;
 use std::slice;
 
@@ -18,18 +18,18 @@ use UnixSocketAddress;
 use UnixSocketAddressExt;
 use UnixSocketAddressType;
 
-use self::AddressType::*;
-
 #[derive(Debug)]
-pub enum AddressType<'a> {
-    Path(&'a Path),
+pub enum UnixSocketAddressPath<'a> {
+    Path(&'a path::Path),
     Anonymous,
     Abstract(&'a [u8]),
     AbstractPadded(&'a [u8]),
 }
 
-impl<'a> AddressType<'a> {
+impl<'a> UnixSocketAddressPath<'a> {
     fn to_type(&self) -> UnixSocketAddressType {
+        use self::UnixSocketAddressPath::*;
+
         match *self {
             Path(_) => UnixSocketAddressType::Path,
             Anonymous => UnixSocketAddressType::Anonymous,
@@ -40,7 +40,9 @@ impl<'a> AddressType<'a> {
 }
 
 impl UnixSocketAddress {
-    pub fn new_with_type(address_type: AddressType) -> Self {
+    pub fn new_with_type(address_type: UnixSocketAddressPath) -> Self {
+        use self::UnixSocketAddressPath::*;
+
         let type_ = address_type.to_type();
         let (path, len) =
             match address_type {
@@ -56,18 +58,20 @@ impl UnixSocketAddress {
 }
 
 pub trait UnixSocketAddressExtManual {
-    fn get_path(&self) -> Option<AddressType>;
+    fn get_path(&self) -> Option<UnixSocketAddressPath>;
 }
 
 impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExtManual for O {
-    fn get_path(&self) -> Option<AddressType> {
+    fn get_path(&self) -> Option<UnixSocketAddressPath> {
+        use self::UnixSocketAddressPath::*;
+
         let path = unsafe {
             let path = ffi::g_unix_socket_address_get_path(self.to_glib_none().0);
             slice::from_raw_parts(path as *mut u8, self.get_path_len())
         };
         match self.get_address_type() {
             UnixSocketAddressType::Anonymous => Some(Anonymous),
-            UnixSocketAddressType::Path => Some(Path(Path::new(OsStr::from_bytes(path)))),
+            UnixSocketAddressType::Path => Some(Path(path::Path::new(OsStr::from_bytes(path)))),
             UnixSocketAddressType::Abstract => Some(Abstract(path)),
             UnixSocketAddressType::AbstractPadded => Some(AbstractPadded(path)),
             UnixSocketAddressType::Invalid | UnixSocketAddressType::__Unknown(_) => None,

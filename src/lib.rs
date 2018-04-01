@@ -54,7 +54,7 @@ pub mod prelude {
     pub use socket::*;
     pub use socket_listener::SocketListenerExtManual;
     #[cfg(any(unix, feature = "dox"))]
-    pub use unix_socket_address::{AddressType, UnixSocketAddressExtManual};
+    pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
 }
 
 pub use prelude::*;
