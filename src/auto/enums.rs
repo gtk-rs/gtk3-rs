@@ -1421,3 +1421,68 @@ impl SetValue for TlsRehandshakeMode {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum UnixSocketAddressType {
+    Invalid,
+    Anonymous,
+    Path,
+    Abstract,
+    AbstractPadded,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for UnixSocketAddressType {
+    type GlibType = ffi::GUnixSocketAddressType;
+
+    fn to_glib(&self) -> ffi::GUnixSocketAddressType {
+        match *self {
+            UnixSocketAddressType::Invalid => ffi::G_UNIX_SOCKET_ADDRESS_INVALID,
+            UnixSocketAddressType::Anonymous => ffi::G_UNIX_SOCKET_ADDRESS_ANONYMOUS,
+            UnixSocketAddressType::Path => ffi::G_UNIX_SOCKET_ADDRESS_PATH,
+            UnixSocketAddressType::Abstract => ffi::G_UNIX_SOCKET_ADDRESS_ABSTRACT,
+            UnixSocketAddressType::AbstractPadded => ffi::G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED,
+            UnixSocketAddressType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GUnixSocketAddressType> for UnixSocketAddressType {
+    fn from_glib(value: ffi::GUnixSocketAddressType) -> Self {
+        match value {
+            0 => UnixSocketAddressType::Invalid,
+            1 => UnixSocketAddressType::Anonymous,
+            2 => UnixSocketAddressType::Path,
+            3 => UnixSocketAddressType::Abstract,
+            4 => UnixSocketAddressType::AbstractPadded,
+            value => UnixSocketAddressType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for UnixSocketAddressType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_unix_socket_address_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for UnixSocketAddressType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for UnixSocketAddressType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for UnixSocketAddressType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+

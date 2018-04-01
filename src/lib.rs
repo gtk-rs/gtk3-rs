@@ -28,6 +28,7 @@ mod output_stream;
 mod resource;
 mod socket;
 mod socket_listener;
+mod unix_socket_address;
 
 #[cfg(test)]
 mod test_util;
@@ -51,6 +52,7 @@ pub mod prelude {
     pub use output_stream::OutputStreamExtManual;
     pub use socket::*;
     pub use socket_listener::SocketListenerExtManual;
+    pub use unix_socket_address::{AddressType, UnixSocketAddressExtManual};
 }
 
 pub use prelude::*;
