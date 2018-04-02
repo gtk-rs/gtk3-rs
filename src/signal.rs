@@ -52,8 +52,7 @@ impl ToGlib for Inhibit {
 pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
     let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
-        trampoline, closure as *mut _, Some(destroy_closure),
-        gobject_ffi::GConnectFlags::empty());
+        trampoline, closure as *mut _, Some(destroy_closure), 0);
     assert!(handle > 0);
     from_glib(handle)
 }
