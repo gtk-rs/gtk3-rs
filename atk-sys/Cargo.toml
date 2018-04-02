@@ -13,6 +13,10 @@ version = "0.6.0"
 path = "../gobject-sys"
 version = "0.6.0"
 
+[dev-dependencies]
+shell-words = "0.1.0"
+tempdir = "0.3"
+
 [features]
 dox = []
 v2_10 = ["v2_9_4"]

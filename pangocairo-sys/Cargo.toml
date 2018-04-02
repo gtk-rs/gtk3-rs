@@ -17,6 +17,10 @@ version = "0.6.0"
 path = "../pango-sys"
 version = "0.6.0"
 
+[dev-dependencies]
+shell-words = "0.1.0"
+tempdir = "0.3"
+
 [features]
 dox = []
 

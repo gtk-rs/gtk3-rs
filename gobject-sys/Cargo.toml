@@ -9,6 +9,10 @@ libc = "0.2"
 path = "../glib-sys"
 version = "0.6.0"
 
+[dev-dependencies]
+shell-words = "0.1.0"
+tempdir = "0.3"
+
 [features]
 dox = []
 v2_34 = []
