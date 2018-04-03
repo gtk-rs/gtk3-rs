@@ -57,15 +57,15 @@ impl Default for WindowAttr {
 
 impl WindowAttr {
     fn get_mask(&self) -> u32 {
-        let mut mask = ffi::GdkWindowAttributesType::empty();
-        if self.title.is_some() { mask.insert(ffi::GDK_WA_TITLE); }
-        if self.x.is_some() { mask.insert(ffi::GDK_WA_X); }
-        if self.y.is_some() { mask.insert(ffi::GDK_WA_Y); }
-        if self.cursor.is_some() { mask.insert(ffi::GDK_WA_CURSOR); }
-        if self.visual.is_some() { mask.insert(ffi::GDK_WA_VISUAL); }
-        if self.override_redirect { mask.insert(ffi::GDK_WA_NOREDIR); }
-        if self.type_hint.is_some() { mask.insert(ffi::GDK_WA_TYPE_HINT); }
-        mask.bits()
+        let mut mask : ffi::GdkWindowAttributesType = 0;
+        if self.title.is_some() { mask |= ffi::GDK_WA_TITLE; }
+        if self.x.is_some() { mask |= ffi::GDK_WA_X; }
+        if self.y.is_some() { mask |= ffi::GDK_WA_Y; }
+        if self.cursor.is_some() { mask |= ffi::GDK_WA_CURSOR; }
+        if self.visual.is_some() { mask |= ffi::GDK_WA_VISUAL; }
+        if self.override_redirect { mask |= ffi::GDK_WA_NOREDIR; }
+        if self.type_hint.is_some() { mask |= ffi::GDK_WA_TYPE_HINT; }
+        mask
     }
 }
 
