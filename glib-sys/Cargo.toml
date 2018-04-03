@@ -2,8 +2,11 @@
 pkg-config = "0.3.7"
 
 [dependencies]
-bitflags = "1.0"
 libc = "0.2"
+
+[dev-dependencies]
+shell-words = "0.1.0"
+tempdir = "0.3"
 
 [features]
 dox = []
