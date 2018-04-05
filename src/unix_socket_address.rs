@@ -40,6 +40,12 @@ impl<'a> UnixSocketAddressPath<'a> {
 }
 
 impl UnixSocketAddress {
+    pub fn new(path: &path::Path) -> UnixSocketAddress {
+        unsafe {
+            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0)).downcast_unchecked()
+        }
+    }
+
     pub fn new_with_type(address_type: UnixSocketAddressPath) -> Self {
         use self::UnixSocketAddressPath::*;
 

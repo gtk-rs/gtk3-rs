@@ -411,6 +411,9 @@ name = "Gio.UnixSocketAddress"
 status = "generate"
 cfg_condition = "unix"
     [[object.function]]
+    name = "new"
+    ignore = true
+    [[object.function]]
     name = "get_path"
     ignore = true
     [[object.property]]

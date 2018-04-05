@@ -30,12 +30,6 @@ glib_wrapper! {
 }
 
 impl UnixSocketAddress {
-    pub fn new(path: &str) -> UnixSocketAddress {
-        unsafe {
-            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0)).downcast_unchecked()
-        }
-    }
-
     //pub fn new_abstract(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }) -> UnixSocketAddress {
     //    unsafe { TODO: call ffi::g_unix_socket_address_new_abstract() }
     //}
