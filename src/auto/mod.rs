@@ -253,6 +253,13 @@ mod tls_server_connection;
 pub use self::tls_server_connection::TlsServerConnection;
 pub use self::tls_server_connection::TlsServerConnectionExt;
 
+#[cfg(any(unix, feature = "dox"))]
+mod unix_socket_address;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_socket_address::UnixSocketAddress;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_socket_address::UnixSocketAddressExt;
+
 mod resource;
 pub use self::resource::Resource;
 
@@ -291,6 +298,7 @@ pub use self::enums::TlsCertificateRequestFlags;
 pub use self::enums::TlsDatabaseLookupFlags;
 pub use self::enums::TlsInteractionResult;
 pub use self::enums::TlsRehandshakeMode;
+pub use self::enums::UnixSocketAddressType;
 
 mod flags;
 pub use self::flags::AppInfoCreateFlags;
@@ -484,4 +492,6 @@ pub mod traits {
     pub use super::TlsInteractionExt;
     pub use super::TlsPasswordExt;
     pub use super::TlsServerConnectionExt;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use super::UnixSocketAddressExt;
 }

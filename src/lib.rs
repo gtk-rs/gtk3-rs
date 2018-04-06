@@ -28,6 +28,8 @@ mod output_stream;
 mod resource;
 mod socket;
 mod socket_listener;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_socket_address;
 
 #[cfg(test)]
 mod test_util;
@@ -51,6 +53,8 @@ pub mod prelude {
     pub use output_stream::OutputStreamExtManual;
     pub use socket::*;
     pub use socket_listener::SocketListenerExtManual;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
 }
 
 pub use prelude::*;

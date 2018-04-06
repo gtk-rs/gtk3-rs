@@ -405,3 +405,22 @@ status = "generate"
     # missing (element-type guint8) annotation
     name = "set_value"
     ignore = true
+
+[[object]]
+name = "Gio.UnixSocketAddress"
+status = "generate"
+cfg_condition = "unix"
+    [[object.function]]
+    name = "new"
+    ignore = true
+    [[object.function]]
+    name = "get_path"
+    ignore = true
+    [[object.property]]
+    name = "path"
+    ignore = true
+
+[[object]]
+name = "Gio.UnixSocketAddressType"
+status = "generate"
+cfg_condition = "unix"
