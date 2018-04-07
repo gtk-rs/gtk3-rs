@@ -16,4 +16,4 @@ script:
   - echo 'paths = ["."]' > .cargo/config
   - git clone -q --depth 50 -b pending https://github.com/rust-gnome/examples _examples
   - cd _examples
-  - ./build.sh
+  - ./build_travis.sh
