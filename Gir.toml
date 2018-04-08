@@ -16,7 +16,6 @@ generate = [
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
-    "Gio.Cancellable",
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
@@ -135,6 +134,12 @@ status = "generate"
     name = "peek"
     #have almost same peek_buffer
     ignore = true
+
+[[object]]
+name = "Gio.Cancellable"
+status = "generate"
+trait = false
+concurrency = "send+sync"
 
 [[object]]
 name = "Gio.DataInputStream"
