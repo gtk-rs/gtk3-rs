@@ -664,14 +664,40 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
+        let property_value = value.to_value();
 
-        if let Err(error) = self.has_property(property_name, Some(value.to_value_type())) {
-            return Err(error);
-        }
-
-        let value = value.to_value();
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
+            let object = self.to_glib_none().0;
+            let klass = (*object).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+            if pspec.is_null() {
+                return Err(BoolError("property not found"));
+            }
+
+            let writeable = (*pspec).flags & gobject_ffi::G_PARAM_WRITABLE != 0;
+            if !writeable {
+                return Err(BoolError("property is not writeable"));
+            }
+
+            let mut transformed_value = Value::uninitialized();
+            gobject_ffi::g_value_init(transformed_value.to_glib_none_mut().0, (*pspec).value_type);
+            let transformed: bool = from_glib(gobject_ffi::g_value_transform(
+                    property_value.to_glib_none().0,
+                    transformed_value.to_glib_none_mut().0));
+            if !transformed {
+                return Err(BoolError("property can't be set from given type"));
+            }
+
+            let changed: bool = from_glib(gobject_ffi::g_param_value_validate(
+                    pspec, transformed_value.to_glib_none_mut().0));
+            let change_allowed = (*pspec).flags & gobject_ffi::G_PARAM_LAX_VALIDATION != 0;
+            if changed && !change_allowed {
+                return Err(BoolError("property can't be set from given value, it is invalid or out of range"));
+            }
+
+            gobject_ffi::g_object_set_property(self.to_glib_none().0,
+                                               property_name.to_glib_none().0,
+                                               transformed_value.to_glib_none().0);
         }
 
         Ok(())
