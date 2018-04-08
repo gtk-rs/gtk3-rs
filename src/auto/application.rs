@@ -4,6 +4,7 @@
 
 use ActionGroup;
 use ActionMap;
+use ApplicationCommandLine;
 use ApplicationFlags;
 use Cancellable;
 use Error;
@@ -21,6 +22,7 @@ use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use libc;
 use std::boxed::Box as Box_;
 use std::mem;
 use std::mem::transmute;
@@ -138,7 +140,7 @@ pub trait ApplicationExt {
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    //fn connect_command_line<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+    fn connect_command_line<F: Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>(&self, f: F) -> SignalHandlerId;
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
@@ -387,9 +389,13 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //fn connect_command_line<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Ignored command_line: Gio.ApplicationCommandLine
-    //}
+    fn connect_command_line<F: Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe {
+            let f: Box_<Box_<Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>> = Box_::new(Box_::new(f));
+            connect(self.to_glib_none().0, "command-line",
+                transmute(command_line_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+        }
+    }
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
@@ -483,6 +489,13 @@ where P: IsA<Application> {
     callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
+}
+
+unsafe extern "C" fn command_line_trampoline<P>(this: *mut ffi::GApplication, command_line: *mut ffi::GApplicationCommandLine, f: glib_ffi::gpointer) -> libc::c_int
+where P: IsA<Application> {
+    callback_guard!();
+    let f: &&(Fn(&P, &ApplicationCommandLine) -> i32 + 'static) = transmute(f);
+    f(&Application::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(command_line))
 }
 
 unsafe extern "C" fn shutdown_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)

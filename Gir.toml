@@ -13,6 +13,7 @@ generate = [
     "Gio.AppInfo",
     "Gio.AppInfoCreateFlags",
     "Gio.AppLaunchContext",
+    "Gio.ApplicationCommandLine",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
