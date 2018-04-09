@@ -40,7 +40,6 @@ pub use self::buffered_output_stream::BufferedOutputStreamExt;
 
 mod cancellable;
 pub use self::cancellable::Cancellable;
-pub use self::cancellable::CancellableExt;
 
 mod data_input_stream;
 pub use self::data_input_stream::DataInputStream;
@@ -444,7 +443,6 @@ pub mod traits {
     pub use super::ApplicationCommandLineExt;
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
-    pub use super::CancellableExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     pub use super::FileExt;
