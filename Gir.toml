@@ -140,6 +140,10 @@ name = "Gio.Cancellable"
 status = "generate"
 trait = false
 concurrency = "send+sync"
+    [[object.function]]
+    name = "reset"
+    #undefined behaviour
+    ignore = true
 
 [[object]]
 name = "Gio.DataInputStream"
