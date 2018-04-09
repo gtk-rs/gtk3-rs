@@ -26,6 +26,10 @@ mod application;
 pub use self::application::Application;
 pub use self::application::ApplicationExt;
 
+mod application_command_line;
+pub use self::application_command_line::ApplicationCommandLine;
+pub use self::application_command_line::ApplicationCommandLineExt;
+
 mod buffered_input_stream;
 pub use self::buffered_input_stream::BufferedInputStream;
 pub use self::buffered_input_stream::BufferedInputStreamExt;
@@ -437,6 +441,7 @@ pub mod traits {
     pub use super::AppInfoExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
+    pub use super::ApplicationCommandLineExt;
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
     pub use super::CancellableExt;
