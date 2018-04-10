@@ -826,7 +826,10 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 } else {
                     match ret {
                         Some(ret) => {
-                            if !ret.type_().is_a(&return_type) {
+                            let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                                    mut_override(ret.to_glib_none().0),
+                                    return_type.to_glib()));
+                            if !valid_type {
                                 panic!("Signal required return value of type {} but got {}",
                                        return_type.name(), ret.type_().name());
                             }
