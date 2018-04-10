@@ -679,17 +679,19 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 return Err(BoolError("property is not writeable"));
             }
 
-            let mut transformed_value = Value::uninitialized();
-            gobject_ffi::g_value_init(transformed_value.to_glib_none_mut().0, (*pspec).value_type);
-            let transformed: bool = from_glib(gobject_ffi::g_value_transform(
-                    property_value.to_glib_none().0,
-                    transformed_value.to_glib_none_mut().0));
-            if !transformed {
-                return Err(BoolError("property can't be set from given type"));
+            // While GLib actually allows all types that can somehow be transformed
+            // into the property type, we're more restrictive here to be consistent
+            // with Rust's type rules. We only allow the exact same type, or if the
+            // value type is a subtype of the property type
+            let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                    mut_override(property_value.to_glib_none().0),
+                    (*pspec).value_type));
+            if !valid_type {
+                return Err(BoolError("property can't be set from the given type"));
             }
 
             let changed: bool = from_glib(gobject_ffi::g_param_value_validate(
-                    pspec, transformed_value.to_glib_none_mut().0));
+                    pspec, mut_override(property_value.to_glib_none().0)));
             let change_allowed = (*pspec).flags & gobject_ffi::G_PARAM_LAX_VALIDATION != 0;
             if changed && !change_allowed {
                 return Err(BoolError("property can't be set from given value, it is invalid or out of range"));
@@ -697,7 +699,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
             gobject_ffi::g_object_set_property(self.to_glib_none().0,
                                                property_name.to_glib_none().0,
-                                               transformed_value.to_glib_none().0);
+                                               property_value.to_glib_none().0);
         }
 
         Ok(())
