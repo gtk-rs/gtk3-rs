@@ -81,12 +81,6 @@ impl Cancellable {
         }
     }
 
-    pub fn reset(&self) {
-        unsafe {
-            ffi::g_cancellable_reset(self.to_glib_none().0);
-        }
-    }
-
     pub fn set_error_if_cancelled(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
