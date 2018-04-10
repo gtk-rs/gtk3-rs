@@ -708,13 +708,20 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
         let property_name = property_name.into();
 
-        let property_type = match self.get_property_type(property_name) {
-            None => return Err(BoolError("Invalid property name")),
-            Some(property_type) => property_type,
-        };
-
         unsafe {
-            let mut value = Value::from_type(property_type);
+            let object = self.to_glib_none().0;
+            let klass = (*object).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+            if pspec.is_null() {
+                return Err(BoolError("property not found"));
+            }
+
+            let readable = (*pspec).flags & gobject_ffi::G_PARAM_READABLE != 0;
+            if !readable {
+                return Err(BoolError("property is not readable"));
+            }
+
+            let mut value = Value::from_type(from_glib((*pspec).value_type));
             gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
             // This can't really happen unless something goes wrong inside GObject
