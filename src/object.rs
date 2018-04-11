@@ -664,14 +664,42 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
+        let property_value = value.to_value();
 
-        if let Err(error) = self.has_property(property_name, Some(value.to_value_type())) {
-            return Err(error);
-        }
-
-        let value = value.to_value();
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none().0)
+            let object = self.to_glib_none().0;
+            let klass = (*object).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+            if pspec.is_null() {
+                return Err(BoolError("property not found"));
+            }
+
+            let writeable = (*pspec).flags & gobject_ffi::G_PARAM_WRITABLE != 0;
+            if !writeable {
+                return Err(BoolError("property is not writeable"));
+            }
+
+            // While GLib actually allows all types that can somehow be transformed
+            // into the property type, we're more restrictive here to be consistent
+            // with Rust's type rules. We only allow the exact same type, or if the
+            // value type is a subtype of the property type
+            let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                    mut_override(property_value.to_glib_none().0),
+                    (*pspec).value_type));
+            if !valid_type {
+                return Err(BoolError("property can't be set from the given type"));
+            }
+
+            let changed: bool = from_glib(gobject_ffi::g_param_value_validate(
+                    pspec, mut_override(property_value.to_glib_none().0)));
+            let change_allowed = (*pspec).flags & gobject_ffi::G_PARAM_LAX_VALIDATION != 0;
+            if changed && !change_allowed {
+                return Err(BoolError("property can't be set from given value, it is invalid or out of range"));
+            }
+
+            gobject_ffi::g_object_set_property(self.to_glib_none().0,
+                                               property_name.to_glib_none().0,
+                                               property_value.to_glib_none().0);
         }
 
         Ok(())
@@ -680,13 +708,20 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError> {
         let property_name = property_name.into();
 
-        let property_type = match self.get_property_type(property_name) {
-            None => return Err(BoolError("Invalid property name")),
-            Some(property_type) => property_type,
-        };
-
         unsafe {
-            let mut value = Value::from_type(property_type);
+            let object = self.to_glib_none().0;
+            let klass = (*object).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
+            let pspec = gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0);
+            if pspec.is_null() {
+                return Err(BoolError("property not found"));
+            }
+
+            let readable = (*pspec).flags & gobject_ffi::G_PARAM_READABLE != 0;
+            if !readable {
+                return Err(BoolError("property is not readable"));
+            }
+
+            let mut value = Value::from_type(from_glib((*pspec).value_type));
             gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
             // This can't really happen unless something goes wrong inside GObject
@@ -791,7 +826,10 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 } else {
                     match ret {
                         Some(ret) => {
-                            if !ret.type_().is_a(&return_type) {
+                            let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                                    mut_override(ret.to_glib_none().0),
+                                    return_type.to_glib()));
+                            if !valid_type {
                                 panic!("Signal required return value of type {} but got {}",
                                        return_type.name(), ret.type_().name());
                             }
