@@ -8,6 +8,7 @@ use std::ops::{Deref, DerefMut};
 use std::fmt;
 use std::marker::PhantomData;
 use std::mem;
+use std::ptr;
 use translate::*;
 
 /// Wrapper implementations for Boxed types. See `glib_wrapper!`.
@@ -254,8 +255,8 @@ macro_rules! glib_boxed_wrapper {
 
 enum AnyBox<T> {
     Native(Box<T>),
-    ForeignOwned(*mut T),
-    ForeignBorrowed(*mut T),
+    ForeignOwned(ptr::NonNull<T>),
+    ForeignBorrowed(ptr::NonNull<T>),
 }
 
 impl<T> fmt::Debug for AnyBox<T> {
@@ -311,7 +312,7 @@ impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtr<'a, *const T> for Boxe
         use self::AnyBox::*;
         let ptr = match self.inner {
             Native(ref b) => &**b as *const T,
-            ForeignOwned(p) | ForeignBorrowed(p) => p as *const T,
+            ForeignOwned(p) | ForeignBorrowed(p) => p.as_ptr(),
         };
         Stash(ptr, self)
     }
@@ -321,7 +322,7 @@ impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtr<'a, *const T> for Boxe
         use self::AnyBox::*;
         let ptr = match self.inner {
             Native(ref b) => &**b as *const T,
-            ForeignOwned(p) | ForeignBorrowed(p) => p as *const T,
+            ForeignOwned(p) | ForeignBorrowed(p) => p.as_ptr(),
         };
         unsafe { MM::copy(ptr) }
     }
@@ -335,7 +336,7 @@ impl<'a, T: 'static, MM: BoxedMemoryManager<T>> ToGlibPtrMut<'a, *mut T> for Box
         use self::AnyBox::*;
         let ptr = match self.inner {
             Native(ref mut b) => &mut **b as *mut T,
-            ForeignOwned(p) | ForeignBorrowed(p) => p,
+            ForeignOwned(p) | ForeignBorrowed(p) => p.as_ptr(),
         };
         StashMut(ptr, self)
     }
@@ -364,7 +365,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*mut T> for Boxed<T,
     unsafe fn from_glib_full(ptr: *mut T) -> Self {
         assert!(!ptr.is_null());
         Boxed {
-            inner: AnyBox::ForeignOwned(ptr),
+            inner: AnyBox::ForeignOwned(ptr::NonNull::new_unchecked(ptr)),
             _dummy: PhantomData,
         }
     }
@@ -375,7 +376,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrBorrow<*mut T> for Boxed<
     unsafe fn from_glib_borrow(ptr: *mut T) -> Self {
         assert!(!ptr.is_null());
         Boxed {
-            inner: AnyBox::ForeignBorrowed(ptr),
+            inner: AnyBox::ForeignBorrowed(ptr::NonNull::new_unchecked(ptr)),
             _dummy: PhantomData,
         }
     }
@@ -386,7 +387,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
     fn drop(&mut self) {
         unsafe {
             if let AnyBox::ForeignOwned(ptr) = self.inner {
-                MM::free(ptr);
+                MM::free(ptr.as_ptr());
             }
         }
     }
