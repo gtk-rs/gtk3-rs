@@ -171,7 +171,7 @@ impl Context {
         }
     }*/
 
-    pub fn pop_group(&self) -> Box<Pattern> {
+    pub fn pop_group(&self) -> Pattern {
         unsafe {
             wrap_pattern(ffi::cairo_pop_group(self.0))
         }
@@ -208,7 +208,7 @@ impl Context {
         self.ensure_status();
     }
 
-    pub fn get_source(&self) -> Box<Pattern> {
+    pub fn get_source(&self) -> Pattern {
         unsafe {
             wrap_pattern(ffi::cairo_get_source(self.0))
         }

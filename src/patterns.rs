@@ -11,7 +11,7 @@ use ffi::enums::{
     Extend,
     Filter,
     Status,
-    PatternType
+    PatternType as PatternTypeFfi
 };
 use ffi;
 use ffi::{
@@ -30,22 +30,46 @@ use ::{
 
 
 //TODO Does anyone know a way to do this without dynamic dispatch -- @mthq
-pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
-    let pattern_type = unsafe{ ffi::cairo_pattern_get_type(ptr) };
+pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Pattern {
+    let pattern_type = unsafe { ffi::cairo_pattern_get_type(ptr) };
 
     match pattern_type {
-        PatternType::Solid            => Box::new(SolidPattern::wrap(ptr))   as Box<Pattern>,
-        PatternType::Surface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
-        PatternType::LinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
-        PatternType::RadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
+        PatternTypeFfi::Solid            => Pattern::SolidPattern(SolidPattern::wrap(ptr)),
+        PatternTypeFfi::Surface          => Pattern::SurfacePattern(SurfacePattern::wrap(ptr)),
+        PatternTypeFfi::LinearGradient   => Pattern::LinearGradient(LinearGradient::wrap(ptr)),
+        PatternTypeFfi::RadialGradient   => Pattern::RadialGradient(RadialGradient::wrap(ptr)),
         #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternType::Mesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
+        PatternTypeFfi::Mesh             => Pattern::Mesh(Mesh::wrap(ptr)),
         #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternType::RasterSource     => panic!("Not implemented")
+        PatternTypeFfi::RasterSource     => panic!("Not implemented")
     }
 }
 
-pub trait Pattern {
+pub enum Pattern {
+    SolidPattern(SolidPattern),
+    SurfacePattern(SurfacePattern),
+    LinearGradient(LinearGradient),
+    RadialGradient(RadialGradient),
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
+    Mesh(Mesh),
+}
+
+impl Pattern {
+    pub fn get_ptr(&self) -> *mut cairo_pattern_t {
+        match *self {
+            Pattern::SolidPattern(ref solid) => solid.get_ptr(),
+            Pattern::SurfacePattern(ref surface) => surface.get_ptr(),
+            Pattern::LinearGradient(ref linear) => linear.get_ptr(),
+            Pattern::RadialGradient(ref radial) => radial.get_ptr(),
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            Pattern::Mesh(ref mesh) => mesh.get_ptr(),
+        }
+    }
+}
+
+pub trait PatternTrait {
+    type PatternType;
+
     #[doc(hidden)]
     fn get_ptr(&self) -> *mut cairo_pattern_t;
 
@@ -102,6 +126,10 @@ pub trait Pattern {
         }
         matrix
     }
+
+    fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType;
+
+    fn reference(&self) -> Self::PatternType;
 }
 
 macro_rules! pattern_type(
@@ -112,24 +140,24 @@ macro_rules! pattern_type(
             pointer: *mut cairo_pattern_t
         }
 
-        impl $pattern_type {
-            pub fn wrap(pointer: *mut cairo_pattern_t) -> $pattern_type {
-                $pattern_type{
+        impl PatternTrait for $pattern_type {
+            type PatternType = $pattern_type;
+
+            fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType {
+                $pattern_type {
                     pointer: pointer
                 }
             }
 
-            pub fn reference(&self) -> $pattern_type {
-                $pattern_type{
+            fn reference(&self) -> Self::PatternType {
+                $pattern_type {
                     pointer: unsafe {
                         ffi::cairo_pattern_reference(self.pointer)
                     }
                 }
             }
-        }
 
-        impl Pattern for $pattern_type {
-            fn get_ptr(&self) -> *mut cairo_pattern_t{
+            fn get_ptr(&self) -> *mut cairo_pattern_t {
                 self.pointer
             }
         }
@@ -174,7 +202,7 @@ impl SolidPattern {
 }
 
 
-pub trait Gradient : Pattern {
+pub trait Gradient : PatternTrait {
     fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
         unsafe {
             ffi::cairo_pattern_add_color_stop_rgb(self.get_ptr(), offset, red, green, blue)
