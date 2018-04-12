@@ -6,5 +6,6 @@ pub use matrices::MatrixTrait;
 pub use patterns::{
     Gradient,
     Pattern,
+    PatternTrait,
 };
 pub use surface::SurfaceExt;

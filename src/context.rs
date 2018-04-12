@@ -25,7 +25,7 @@ use ffi::{
     cairo_rectangle_list_t,
 };
 use ffi::enums::{Status, Antialias, LineCap, LineJoin, FillRule};
-use ::patterns::{wrap_pattern, Pattern};
+use ::patterns::{wrap_pattern, Pattern, PatternTrait};
 use surface::Surface;
 
 pub struct RectangleVec {
@@ -201,17 +201,24 @@ impl Context {
         }
     }
 
-    pub fn set_source(&self, source: &Pattern) {
+    pub fn set_source(&self, source: &mut Pattern) {
+        let mut old_source = self.get_source();
+        old_source.dereference_by_ctx();
         unsafe {
+            source.reference_by_ctx();
             ffi::cairo_set_source(self.0, source.get_ptr());
         }
         self.ensure_status();
     }
 
     pub fn get_source(&self) -> Pattern {
-        unsafe {
+        let mut pattern = unsafe {
             wrap_pattern(ffi::cairo_get_source(self.0))
-        }
+        };
+
+        pattern.reference_by_ctx();
+
+        pattern
     }
 
     pub fn set_source_surface<T: AsRef<Surface>>(&self, surface: &T, x: f64, y: f64) {
@@ -873,5 +880,31 @@ impl Context {
         unsafe {
             ffi::cairo_rel_move_to(self.0, dx, dy)
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ::image_surface::{ImageSurface};
+    use ::patterns::{LinearGradient};
+    use ffi::enums::{Format};
+
+    fn create_ctx() -> Context {
+        let surface = ImageSurface::create(Format::ARgb32, 10, 10).unwrap();
+        Context::new(&surface)
+    }
+
+    #[test]
+    fn drop_non_reference_pattern_from_ctx() {
+        let ctx = create_ctx();
+        ctx.get_source();
+    }
+
+    #[test]
+    fn drop_non_reference_pattern() {
+        let ctx = create_ctx();
+        let mut pattern = Pattern::LinearGradient(LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64));
+        ctx.set_source(&mut pattern);
     }
 }
