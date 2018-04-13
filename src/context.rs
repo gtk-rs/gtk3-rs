@@ -443,7 +443,11 @@ impl Context {
         }
     }
 
-    //fn ffi::cairo_mask_surface(cr: *mut cairo_t, surface: *mut cairo_surface_t, surface_x: c_double, surface_y: c_double);
+    pub fn mask_surface(&self, surface: &Surface, x: f64, y: f64) {
+        unsafe {
+            ffi::cairo_mask_surface(self.0, surface.as_ref().to_raw_none(), x, y);
+        }
+    }
 
     pub fn paint(&self) {
         unsafe {

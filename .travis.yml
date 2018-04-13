@@ -13,13 +13,13 @@ addons:
 script:
   - rustc --version
   - cargo test --features "png embed-lgpl-docs"
-  - cargo test --no-default-features --features "png" 
+  - cargo test --no-default-features --features "png"
   - cargo doc --features "dox"
   # catch any sneaked in lgpl docs
   - cargo build --features purge-lgpl-docs
   - git diff -R --exit-code
   - mkdir .cargo
-  - echo 'paths = ["."]' > .cargo/config
+  - echo 'paths = [".", "./cairo-sys-rs"]' > .cargo/config
   - git clone -q --depth 50 -b pending https://github.com/rust-gnome/examples _examples
   - cd _examples
   - ./build_travis.sh
