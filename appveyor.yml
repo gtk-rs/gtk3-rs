@@ -15,12 +15,13 @@ install:
   - SET PATH=C:\Users\appveyor\.cargo\bin;C:\msys64\mingw%BITS%\bin;%PATH%;C:\msys64\usr\bin
   - rustc -Vv
   - cargo -Vv
+  - pacman -Sy
   - pacman --noconfirm -S mingw-w64-%ARCH%-gtk3
 
 build_script:
   - cargo test --no-default-features --features "png"
   - mkdir .cargo
-  - echo 'paths = [".", "./cairo-sys-rs"]' > .cargo\config
+  - echo paths = [".", "./cairo-sys-rs"] > .cargo\config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - cargo build
