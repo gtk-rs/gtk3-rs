@@ -25,6 +25,12 @@ glib_wrapper! {
 }
 
 impl Event {
+    /// Creates a new event.
+    pub fn new(type_: EventType) -> Event {
+        assert_initialized_main_thread!();
+        unsafe { from_glib_none(ffi::gdk_event_new(type_.to_glib())) }
+    }
+
     /// Returns the event type.
     pub fn get_event_type(&self) -> EventType {
         from_glib(self.as_ref().type_)
