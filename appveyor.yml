@@ -21,7 +21,7 @@ install:
 build_script:
   - cargo test --no-default-features --features "png"
   - mkdir .cargo
-  - echo 'paths = [".", "./cairo-sys-rs"]' > .cargo\config
+  - echo paths = [".", "./cairo-sys-rs"] > .cargo\config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - cargo build
