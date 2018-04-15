@@ -190,3 +190,7 @@ pub use date::Date;
 
 #[cfg(feature="futures")]
 mod main_context_futures;
+#[cfg(feature="futures")]
+mod source_futures;
+#[cfg(feature="futures")]
+pub use source_futures::*;
