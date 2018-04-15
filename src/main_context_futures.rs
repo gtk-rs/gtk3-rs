@@ -278,3 +278,77 @@ impl Executor for MainContext {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::thread;
+    use std::sync::mpsc;
+    use futures_channel::oneshot;
+    use futures_util::future;
+
+    #[test]
+    fn test_spawn() {
+        let mut c = MainContext::new();
+        let l = ::MainLoop::new(Some(&c), false);
+
+        let (sender, receiver) = mpsc::channel();
+        let (o_sender, o_receiver) = oneshot::channel();
+
+        let l_clone = l.clone();
+        c.spawn(o_receiver
+                .map_err(|_| unimplemented!())
+                .and_then(move |()| {
+                    sender.send(()).unwrap();
+                    l_clone.quit();
+
+                    Ok(())
+                })
+        );
+
+        thread::spawn(move || {
+            l.run();
+        });
+
+        o_sender.send(()).unwrap();
+
+        let _ = receiver.recv().unwrap();
+    }
+
+    #[test]
+    fn test_spawn_local() {
+        let mut c = MainContext::new();
+        let l = ::MainLoop::new(Some(&c), false);
+
+        c.push_thread_default();
+        let l_clone = l.clone();
+        c.spawn_local(future::lazy(move |_ctx| {
+            l_clone.quit();
+
+            Ok(())
+        }));
+
+        l.run();
+
+        c.pop_thread_default();
+    }
+
+    #[test]
+    fn test_block_on() {
+        let mut c = MainContext::new();
+
+        let mut v = None;
+        {
+            let v = &mut v;
+
+            let future = future::lazy(|_ctx| {
+                *v = Some(123);
+                Ok::<i32, ()>(123)
+            });
+
+            let res = c.block_on(future);
+            assert_eq!(res, Ok(123));
+        }
+
+        assert_eq!(v, Some(123));
+    }
+}
