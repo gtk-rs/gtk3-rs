@@ -49,11 +49,13 @@ pub use error::{
 };
 
 pub use patterns::{
-    //Traits
+    // Enums
     Pattern,
+    // Traits
+    PatternTrait,
     Gradient,
 
-    //Structs
+    // Structs
     LinearGradient,
     RadialGradient,
     SolidPattern,

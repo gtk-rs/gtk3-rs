@@ -11,7 +11,7 @@ use ffi::enums::{
     Extend,
     Filter,
     Status,
-    PatternType
+    PatternType as PatternTypeFfi
 };
 use ffi;
 use ffi::{
@@ -30,22 +30,85 @@ use ::{
 
 
 //TODO Does anyone know a way to do this without dynamic dispatch -- @mthq
-pub fn wrap_pattern<'a>(ptr: *mut cairo_pattern_t) -> Box<Pattern + 'a> {
-    let pattern_type = unsafe{ ffi::cairo_pattern_get_type(ptr) };
+pub fn wrap_pattern(ptr: *mut cairo_pattern_t) -> Pattern {
+    let pattern_type = unsafe { ffi::cairo_pattern_get_type(ptr) };
 
     match pattern_type {
-        PatternType::Solid            => Box::new(SolidPattern::wrap(ptr))   as Box<Pattern>,
-        PatternType::Surface          => Box::new(SurfacePattern::wrap(ptr)) as Box<Pattern>,
-        PatternType::LinearGradient   => Box::new(LinearGradient::wrap(ptr)) as Box<Pattern>,
-        PatternType::RadialGradient   => Box::new(RadialGradient::wrap(ptr)) as Box<Pattern>,
+        PatternTypeFfi::Solid            => Pattern::SolidPattern(SolidPattern::wrap(ptr)),
+        PatternTypeFfi::Surface          => Pattern::SurfacePattern(SurfacePattern::wrap(ptr)),
+        PatternTypeFfi::LinearGradient   => Pattern::LinearGradient(LinearGradient::wrap(ptr)),
+        PatternTypeFfi::RadialGradient   => Pattern::RadialGradient(RadialGradient::wrap(ptr)),
         #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternType::Mesh             => Box::new(Mesh::wrap(ptr))           as Box<Pattern>,
+        PatternTypeFfi::Mesh             => Pattern::Mesh(Mesh::wrap(ptr)),
         #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternType::RasterSource     => panic!("Not implemented")
+        PatternTypeFfi::RasterSource     => panic!("Not implemented")
     }
 }
 
-pub trait Pattern {
+pub enum Pattern {
+    SolidPattern(SolidPattern),
+    SurfacePattern(SurfacePattern),
+    LinearGradient(LinearGradient),
+    RadialGradient(RadialGradient),
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
+    Mesh(Mesh),
+}
+
+impl PatternTrait for Pattern {
+    type PatternType = Pattern;
+
+    fn get_ptr(&self) -> *mut cairo_pattern_t {
+        match *self {
+            Pattern::SolidPattern(ref solid) => solid.get_ptr(),
+            Pattern::SurfacePattern(ref surface) => surface.get_ptr(),
+            Pattern::LinearGradient(ref linear) => linear.get_ptr(),
+            Pattern::RadialGradient(ref radial) => radial.get_ptr(),
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            Pattern::Mesh(ref mesh) => mesh.get_ptr(),
+        }
+    }
+
+    fn wrap(pointer: *mut cairo_pattern_t) -> Pattern {
+        wrap_pattern(pointer)
+    }
+
+    fn reference(&self) -> Pattern {
+        match *self {
+            Pattern::SolidPattern(ref solid) => Pattern::SolidPattern(solid.reference()),
+            Pattern::SurfacePattern(ref surface) => Pattern::SurfacePattern(surface.reference()),
+            Pattern::LinearGradient(ref linear) => Pattern::LinearGradient(linear.reference()),
+            Pattern::RadialGradient(ref radial) => Pattern::RadialGradient(radial.reference()),
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            Pattern::Mesh(ref mesh) => Pattern::Mesh(mesh.reference()),
+        }
+    }
+
+    fn reference_by_ctx(&mut self) {
+        match *self {
+            Pattern::SolidPattern(ref mut solid) => solid.reference_by_ctx(),
+            Pattern::SurfacePattern(ref mut surface) => surface.reference_by_ctx(),
+            Pattern::LinearGradient(ref mut linear) => linear.reference_by_ctx(),
+            Pattern::RadialGradient(ref mut radial) => radial.reference_by_ctx(),
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            Pattern::Mesh(ref mut mesh) => mesh.reference_by_ctx(),
+        }
+    }
+
+    fn dereference_by_ctx(&mut self) {
+        match *self {
+            Pattern::SolidPattern(ref mut solid) => solid.dereference_by_ctx(),
+            Pattern::SurfacePattern(ref mut surface) => surface.dereference_by_ctx(),
+            Pattern::LinearGradient(ref mut linear) => linear.dereference_by_ctx(),
+            Pattern::RadialGradient(ref mut radial) => radial.dereference_by_ctx(),
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            Pattern::Mesh(ref mut mesh) => mesh.dereference_by_ctx(),
+        }
+    }
+}
+
+pub trait PatternTrait {
+    type PatternType;
+
     #[doc(hidden)]
     fn get_ptr(&self) -> *mut cairo_pattern_t;
 
@@ -102,6 +165,15 @@ pub trait Pattern {
         }
         matrix
     }
+
+    fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType;
+
+    fn reference(&self) -> Self::PatternType;
+
+    #[doc(hidden)]
+    fn reference_by_ctx(&mut self);
+    #[doc(hidden)]
+    fn dereference_by_ctx(&mut self);
 }
 
 macro_rules! pattern_type(
@@ -109,35 +181,48 @@ macro_rules! pattern_type(
     ($pattern_type:ident) => (
 
         pub struct $pattern_type {
-            pointer: *mut cairo_pattern_t
+            pointer: *mut cairo_pattern_t,
+            referenced_by_ctx: bool
         }
 
-        impl $pattern_type {
-            pub fn wrap(pointer: *mut cairo_pattern_t) -> $pattern_type {
-                $pattern_type{
-                    pointer: pointer
+        impl PatternTrait for $pattern_type {
+            type PatternType = $pattern_type;
+
+            fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType {
+                $pattern_type {
+                    pointer: pointer,
+                    referenced_by_ctx: false,
                 }
             }
 
-            pub fn reference(&self) -> $pattern_type {
-                $pattern_type{
+            fn reference(&self) -> Self::PatternType {
+                $pattern_type {
                     pointer: unsafe {
                         ffi::cairo_pattern_reference(self.pointer)
-                    }
+                    },
+                    referenced_by_ctx: false,
                 }
             }
-        }
 
-        impl Pattern for $pattern_type {
-            fn get_ptr(&self) -> *mut cairo_pattern_t{
+            fn get_ptr(&self) -> *mut cairo_pattern_t {
                 self.pointer
+            }
+
+            fn reference_by_ctx(&mut self) {
+                self.referenced_by_ctx = true;
+            }
+
+            fn dereference_by_ctx(&mut self) {
+                self.referenced_by_ctx = false;
             }
         }
 
         impl Drop for $pattern_type {
             fn drop(&mut self){
                 unsafe {
-                    ffi::cairo_pattern_destroy(self.pointer)
+                    if !self.referenced_by_ctx && self.get_reference_count() > 0 {
+                        ffi::cairo_pattern_destroy(self.pointer)
+                    }
                 }
             }
         }
@@ -174,7 +259,7 @@ impl SolidPattern {
 }
 
 
-pub trait Gradient : Pattern {
+pub trait Gradient : PatternTrait {
     fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
         unsafe {
             ffi::cairo_pattern_add_color_stop_rgb(self.get_ptr(), offset, red, green, blue)
