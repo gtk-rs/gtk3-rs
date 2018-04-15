@@ -81,6 +81,15 @@ extern crate libc;
 extern crate glib_sys as ffi;
 extern crate gobject_sys as gobject_ffi;
 
+#[cfg(feature="futures")]
+extern crate futures_core;
+#[cfg(feature="futures")]
+extern crate futures_executor;
+#[cfg(feature="futures")]
+extern crate futures_channel;
+#[cfg(feature="futures")]
+extern crate futures_util;
+
 use std::ffi::CStr;
 pub use bytes::Bytes;
 pub use closure::Closure;
@@ -178,3 +187,6 @@ mod main_context;
 mod date_time;
 mod date;
 pub use date::Date;
+
+#[cfg(feature="futures")]
+mod main_context_futures;
