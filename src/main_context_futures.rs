@@ -71,7 +71,7 @@ unsafe extern "C" fn prepare(
         // XXX: This is not actually correct, we should not dispatch the
         // GSource here already but we need to know its current status so
         // that if it is not ready yet something can register to the waker
-        if let Async::Ready(_) = source.poll() {
+        if let Async::Ready(()) = source.poll() {
             source.state.store(DONE, Ordering::SeqCst);
             cur = DONE;
         } else {
@@ -114,7 +114,7 @@ unsafe extern "C" fn dispatch(
         .state
         .compare_and_swap(READY, NOT_READY, Ordering::SeqCst);
     if cur == READY {
-        if let Async::Ready(_) = source.poll() {
+        if let Async::Ready(()) = source.poll() {
             source.state.store(DONE, Ordering::SeqCst);
             cur = DONE;
         } else {
