@@ -317,6 +317,30 @@ pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> 
     })
 }
 
+#[cfg(any(unix, feature = "dox"))]
+/// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
+///
+/// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
+pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never>> {
+    unix_signal_stream_with_priority(::PRIORITY_DEFAULT, signum)
+}
+
+#[cfg(any(unix, feature = "dox"))]
+/// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
+///
+/// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
+pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<Stream<Item = (), Error = Never>> {
+    SourceStream::new(move |send| {
+        ::unix_signal_source_new(signum, None, priority, move || {
+            if send.unbounded_send(()).is_err() {
+                Continue(false)
+            } else {
+                Continue(true)
+            }
+        })
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
