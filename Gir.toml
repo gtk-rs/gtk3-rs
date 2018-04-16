@@ -150,6 +150,10 @@ concurrency = "send+sync"
     name = "reset"
     #undefined behaviour
     ignore = true
+    [[object.function]]
+    name = "source_new"
+    # Needs manual bindings for setting callback, etc
+    ignore = true
 
 [[object]]
 name = "Gio.DataInputStream"

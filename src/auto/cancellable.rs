@@ -4,7 +4,6 @@
 
 use Error;
 use ffi;
-use glib;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect;
 use glib::translate::*;
@@ -86,12 +85,6 @@ impl Cancellable {
             let mut error = ptr::null_mut();
             let _ = ffi::g_cancellable_set_error_if_cancelled(self.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    pub fn source_new(&self) -> Option<glib::Source> {
-        unsafe {
-            from_glib_full(ffi::g_cancellable_source_new(self.to_glib_none().0))
         }
     }
 
