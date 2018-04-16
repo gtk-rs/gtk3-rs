@@ -16,6 +16,7 @@ install:
   - pacman --noconfirm -S mingw-w64-%ARCH%-gtk3
 
 build_script:
+  - cargo doc --features "dox"
   - cargo test
   - mkdir .cargo
   - echo paths = ["."] > .cargo\config
