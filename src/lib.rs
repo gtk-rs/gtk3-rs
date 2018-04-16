@@ -31,6 +31,8 @@ mod socket_listener;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
 mod file;
+mod pollable_input_stream;
+mod pollable_output_stream;
 
 #[cfg(test)]
 mod test_util;
@@ -57,6 +59,8 @@ pub mod prelude {
     #[cfg(any(unix, feature = "dox"))]
     pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
     pub use file::FileExtManual;
+    pub use pollable_input_stream::PollableInputStreamExtManual;
+    pub use pollable_output_stream::PollableOutputStreamExtManual;
 }
 
 pub use prelude::*;

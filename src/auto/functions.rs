@@ -305,23 +305,6 @@ pub fn networking_init() {
 //    unsafe { TODO: call ffi::g_null_settings_backend_new() }
 //}
 
-pub fn pollable_source_new<P: IsA<glib::Object>>(pollable_stream: &P) -> Option<glib::Source> {
-    unsafe {
-        from_glib_full(ffi::g_pollable_source_new(pollable_stream.to_glib_none().0))
-    }
-}
-
-#[cfg(any(feature = "v2_34", feature = "dox"))]
-pub fn pollable_source_new_full<'a, 'b, P: IsA<glib::Object>, Q: Into<Option<&'a glib::Source>>, R: Into<Option<&'b Cancellable>>>(pollable_stream: &P, child_source: Q, cancellable: R) -> Option<glib::Source> {
-    let child_source = child_source.into();
-    let child_source = child_source.to_glib_none();
-    let cancellable = cancellable.into();
-    let cancellable = cancellable.to_glib_none();
-    unsafe {
-        from_glib_full(ffi::g_pollable_source_new_full(pollable_stream.to_glib_none().0, child_source.0, cancellable.0))
-    }
-}
-
 pub fn resources_enumerate_children(path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<String>, Error> {
     unsafe {
         let mut error = ptr::null_mut();
