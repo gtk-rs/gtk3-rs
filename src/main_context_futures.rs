@@ -217,19 +217,41 @@ impl TaskSource {
 }
 
 impl MainContext {
+    /// Spawn a new infallible `Future` on the main context.
+    ///
+    /// This can be called from any thread and will execute the future from the thread
+    /// where main context is running, e.g. via a `MainLoop`.
     pub fn spawn<F: Future<Item = (), Error = Never> + Send + 'static>(&mut self, f: F) {
         self.spawn_with_priority(::PRIORITY_DEFAULT, f);
     }
 
+    /// Spawn a new infallible `Future` on the main context.
+    ///
+    /// The given `Future` does not have to be `Send`.
+    ///
+    /// This can be called only from the thread where the main context is running, e.g.
+    /// from any other `Future` that is executed on this main context, or after calling
+    /// `push_thread_default` or `acquire` on the main context.
     pub fn spawn_local<F: Future<Item = (), Error = Never> + 'static>(&mut self, f: F) {
         self.spawn_local_with_priority(::PRIORITY_DEFAULT, f);
     }
 
+    /// Spawn a new infallible `Future` on the main context, with a non-default priority.
+    ///
+    /// This can be called from any thread and will execute the future from the thread
+    /// where main context is running, e.g. via a `MainLoop`.
     pub fn spawn_with_priority<F: Future<Item = (), Error = Never> + Send + 'static>(&mut self, priority: Priority, f: F) {
         let source = TaskSource::new(priority, Box::new(f));
         source.attach(Some(&*self));
     }
 
+    /// Spawn a new infallible `Future` on the main context, with a non-default priority.
+    ///
+    /// The given `Future` does not have to be `Send`.
+    ///
+    /// This can be called only from the thread where the main context is running, e.g.
+    /// from any other `Future` that is executed on this main context, or after calling
+    /// `push_thread_default` or `acquire` on the main context.
     pub fn spawn_local_with_priority<F: Future<Item = (), Error = Never> + 'static>(&mut self, priority: Priority, f: F) {
         assert!(self.is_owner());
         unsafe {
@@ -240,6 +262,13 @@ impl MainContext {
         }
     }
 
+    /// Runs a new, infallible `Future` on the main context and block until it finished, returning
+    /// the result of the `Future`.
+    ///
+    /// The given `Future` does not have to be `Send` or `'static`.
+    ///
+    /// This must only be called if no `MainLoop` or anything else is running on this specific main
+    /// context.
     pub fn block_on<F: Future>(&mut self, f: F) -> Result<F::Item, F::Error> {
         let mut res = None;
         let l = MainLoop::new(Some(&*self), false);

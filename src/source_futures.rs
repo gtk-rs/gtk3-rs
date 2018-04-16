@@ -12,6 +12,8 @@ use Source;
 use Continue;
 use Priority;
 
+/// Represents a `Future` around a `glib::Source`. The future will
+/// be resolved once the source has provided a value
 pub struct SourceFuture<F, T> {
     create_source: Option<F>,
     source: Option<(Source, oneshot::Receiver<T>)>,
@@ -21,6 +23,11 @@ impl<F, T: 'static> SourceFuture<F, T>
 where
     F: FnOnce(oneshot::Sender<T>) -> Source + Send + 'static,
 {
+    /// Create a new `SourceFuture`
+    ///
+    /// The provided closure should return a newly created `glib::Source` when called
+    /// and pass the value provided by the source to the oneshot sender that is passed
+    /// to the closure.
     pub fn new(create_source: F) -> Box<Future<Item = T, Error = Never>> {
         Box::new(SourceFuture {
             create_source: Some(create_source),
@@ -92,10 +99,16 @@ impl<T, F> Drop for SourceFuture<T, F> {
     }
 }
 
+/// Create a `Future` that will resolve after the given number of milliseconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future(value: u32) -> Box<Future<Item = (), Error = Never>> {
     timeout_future_with_priority(::PRIORITY_DEFAULT, value)
 }
 
+/// Create a `Future` that will resolve after the given number of milliseconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never>> {
     SourceFuture::new(move |send| {
         let mut send = Some(send);
@@ -106,10 +119,16 @@ pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Futur
     })
 }
 
+/// Create a `Future` that will resolve after the given number of seconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future_seconds(value: u32) -> Box<Future<Item = (), Error = Never>> {
     timeout_future_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
+/// Create a `Future` that will resolve after the given number of seconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never>> {
     SourceFuture::new(move |send| {
         let mut send = Some(send);
@@ -120,10 +139,20 @@ pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> B
     })
 }
 
+/// Create a `Future` that will resolve once the child process with the given pid exits
+///
+/// The `Future` will resolve to the pid of the child process and the exit code.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never>> {
     child_watch_future_with_priority(::PRIORITY_DEFAULT, pid)
 }
 
+/// Create a `Future` that will resolve once the child process with the given pid exits
+///
+/// The `Future` will resolve to the pid of the child process and the exit code.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never>> {
     SourceFuture::new(move |send| {
         let mut send = Some(send);
@@ -134,11 +163,17 @@ pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<F
 }
 
 #[cfg(any(unix, feature = "dox"))]
+/// Create a `Future` that will resolve once the given UNIX signal is raised
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never>> {
     unix_signal_future_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
 #[cfg(any(unix, feature = "dox"))]
+/// Create a `Future` that will resolve once the given UNIX signal is raised
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<Future<Item = (), Error = Never>> {
     SourceFuture::new(move |send| {
         let mut send = Some(send);
@@ -149,6 +184,8 @@ pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<
     })
 }
 
+/// Represents a `Stream` around a `glib::Source`. The stream will
+/// be provide all values that are provided by the source
 pub struct SourceStream<F, T> {
     create_source: Option<F>,
     source: Option<(Source, mpsc::UnboundedReceiver<T>)>,
@@ -158,6 +195,11 @@ impl<F, T: 'static> SourceStream<F, T>
 where
     F: FnOnce(mpsc::UnboundedSender<T>) -> Source + Send + 'static,
 {
+    /// Create a new `SourceStream`
+    ///
+    /// The provided closure should return a newly created `glib::Source` when called
+    /// and pass the values provided by the source to the sender that is passed
+    /// to the closure.
     pub fn new(create_source: F) -> Box<Stream<Item = T, Error = Never>> {
         Box::new(SourceStream {
             create_source: Some(create_source),
@@ -231,10 +273,16 @@ impl<T, F> Drop for SourceStream<T, F> {
     }
 }
 
+/// Create a `Stream` that will provide a value every given number of milliseconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream(value: u32) -> Box<Stream<Item = (), Error = Never>> {
     interval_stream_with_priority(::PRIORITY_DEFAULT, value)
 }
 
+/// Create a `Stream` that will provide a value every given number of milliseconds.
+///
+/// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never>> {
     SourceStream::new(move |send| {
         ::timeout_source_new(value, None, priority, move || {
@@ -247,11 +295,16 @@ pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stre
     })
 }
 
-
+/// Create a `Stream` that will provide a value every given number of seconds.
+///
+/// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream_seconds(value: u32) -> Box<Stream<Item = (), Error = Never>> {
     interval_stream_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
+/// Create a `Stream` that will provide a value every given number of seconds.
+///
+/// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never>> {
     SourceStream::new(move |send| {
         ::timeout_source_new_seconds(value, None, priority, move || {
