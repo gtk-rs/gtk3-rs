@@ -171,15 +171,6 @@ pub fn clear_error() -> Result<(), Error> {
 //    unsafe { TODO: call ffi::g_clear_pointer() }
 //}
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
-pub fn close(fd: i32) -> Result<(), Error> {
-    unsafe {
-        let mut error = ptr::null_mut();
-        let _ = ffi::g_close(fd, &mut error);
-        if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-    }
-}
-
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<String> {
     unsafe {
@@ -727,13 +718,6 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //    unsafe { TODO: call ffi::g_log_writer_format_fields() }
 //}
 
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn log_writer_is_journald(output_fd: i32) -> bool {
-    unsafe {
-        from_glib(ffi::g_log_writer_is_journald(output_fd))
-    }
-}
-
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_journald<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: P) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call ffi::g_log_writer_journald() }
@@ -743,13 +727,6 @@ pub fn log_writer_is_journald(output_fd: i32) -> bool {
 //pub fn log_writer_standard_streams<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: P) -> /*Ignored*/LogWriterOutput {
 //    unsafe { TODO: call ffi::g_log_writer_standard_streams() }
 //}
-
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn log_writer_supports_color(output_fd: i32) -> bool {
-    unsafe {
-        from_glib(ffi::g_log_writer_supports_color(output_fd))
-    }
-}
 
 //pub fn logv<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
 //    unsafe { TODO: call ffi::g_logv() }
@@ -1409,15 +1386,6 @@ pub fn test_trap_reached_timeout() -> bool {
 //pub fn unicode_script_to_iso15924(script: /*Ignored*/UnicodeScript) -> u32 {
 //    unsafe { TODO: call ffi::g_unicode_script_to_iso15924() }
 //}
-
-#[cfg(any(unix, feature = "dox"))]
-pub fn unix_set_fd_nonblocking(fd: i32, nonblock: bool) -> Result<(), Error> {
-    unsafe {
-        let mut error = ptr::null_mut();
-        let _ = ffi::g_unix_set_fd_nonblocking(fd, nonblock.to_glib(), &mut error);
-        if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-    }
-}
 
 //#[cfg(any(unix, feature = "dox"))]
 //pub fn unix_signal_add<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(signum: i32, handler: /*Unknown conversion*//*Unimplemented*/SourceFunc, user_data: P) -> u32 {
