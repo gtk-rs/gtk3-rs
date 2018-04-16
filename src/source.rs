@@ -4,10 +4,14 @@
 
 use std::cell::RefCell;
 use std::mem::transmute;
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+use std::os::unix::io::RawFd;
 use std::process;
 use std::thread;
 use ffi as glib_ffi;
 use ffi::{gboolean, gpointer};
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+use IOCondition;
 use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 use libc;
 
@@ -120,6 +124,27 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + Send + 'static>(func: F) -> gpointe
     Box::into_raw(func) as gpointer
 }
 
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+unsafe extern "C" fn trampoline_unix_fd(fd: i32, condition: glib_ffi::GIOCondition, func: gpointer) -> gboolean {
+    let _guard = CallbackGuard::new();
+    let func: &RefCell<Box<FnMut(RawFd, IOCondition) -> Continue + 'static>> = transmute(func);
+    (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
+}
+
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+unsafe extern "C" fn destroy_closure_unix_fd(ptr: gpointer) {
+    let _guard = CallbackGuard::new();
+    Box::<RefCell<Box<FnMut(RawFd, IOCondition) + 'static>>>::from_raw(ptr as *mut _);
+}
+
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+fn into_raw_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static>(func: F) -> gpointer {
+    let func: Box<RefCell<Box<FnMut(RawFd, IOCondition) -> Continue + Send + 'static>>> =
+        Box::new(RefCell::new(Box::new(func)));
+    Box::into_raw(func) as gpointer
+}
+
 /// Adds a closure to be called by the default main loop when it's idle.
 ///
 /// `func` will be called repeatedly until it returns `Continue(false)`.
@@ -195,6 +220,24 @@ where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         from_glib(glib_ffi::g_unix_signal_add_full(glib_ffi::G_PRIORITY_DEFAULT, signum,
             Some(trampoline), into_raw(func), Some(destroy_closure)))
+    }
+}
+
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+/// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
+/// UNIX file descriptor reaches the given IO condition.
+///
+/// `func` will be called repeatedly while the file descriptor matches the given IO condition
+/// until it returns `Continue(false)`.
+///
+/// The default main loop almost always is the main loop of the main thread.
+/// Thus the closure is called on the main thread.
+pub fn unix_fd_add<F>(fd: RawFd, condition: IOCondition, func: F) -> SourceId
+where F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static {
+    unsafe {
+        let trampoline = trampoline_unix_fd as *mut libc::c_void;
+        from_glib(glib_ffi::g_unix_fd_add_full(glib_ffi::G_PRIORITY_DEFAULT, fd, condition.to_glib(),
+            Some(transmute(trampoline)), into_raw_unix_fd(func), Some(destroy_closure_unix_fd)))
     }
 }
 
@@ -334,6 +377,29 @@ where F: FnMut() -> Continue + Send + 'static {
     unsafe {
         let source = glib_ffi::g_unix_signal_source_new(signum);
         glib_ffi::g_source_set_callback(source, Some(trampoline), into_raw(func), Some(destroy_closure));
+        glib_ffi::g_source_set_priority(source, priority.to_glib());
+
+        let name = name.into();
+        if let Some(name) = name {
+            glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+        }
+
+        from_glib_full(source)
+    }
+}
+
+#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+/// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
+/// UNIX file descriptor reaches the given IO condition.
+///
+/// `func` will be called repeatedly while the file descriptor matches the given IO condition
+/// until it returns `Continue(false)`.
+pub fn unix_fd_source_new<'a, N: Into<Option<&'a str>>, F>(fd: RawFd, condition: IOCondition, name: N, priority: Priority, func: F) -> Source
+where F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static {
+    unsafe {
+        let source = glib_ffi::g_unix_fd_source_new(fd, condition.to_glib());
+        let trampoline = trampoline_unix_fd as *mut libc::c_void;
+        glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw_unix_fd(func), Some(destroy_closure_unix_fd));
         glib_ffi::g_source_set_priority(source, priority.to_glib());
 
         let name = name.into();
