@@ -263,3 +263,46 @@ pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> 
         })
     })
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use futures_util::FutureExt;
+    use futures_util::StreamExt;
+
+    #[test]
+    fn test_timeout() {
+        let mut c = MainContext::new();
+
+        let res = c.block_on(timeout_future(20)
+            .and_then(move |_ctx| {
+                Ok(())
+            })
+        );
+
+        assert_eq!(res, Ok(()));
+    }
+
+    #[test]
+    fn test_interval() {
+        let mut c = MainContext::new();
+
+        let mut count = 0;
+
+        {
+            let count = &mut count;
+            let res = c.block_on(interval_stream(20)
+                .take(2)
+                .for_each(move |_ctx| {
+                    *count = *count + 1;
+                    Ok(())
+                })
+                .map(|_| ())
+            );
+
+            assert_eq!(res, Ok(()));
+        }
+
+        assert_eq!(count, 2);
+    }
+}
