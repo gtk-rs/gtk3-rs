@@ -19,6 +19,13 @@ pub use self::device_manager::DeviceManager;
 pub use self::device_manager::DeviceManagerExt;
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
+mod device_pad;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use self::device_pad::DevicePad;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use self::device_pad::DevicePadExt;
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 mod device_tool;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::device_tool::DeviceTool;
@@ -97,6 +104,7 @@ pub use self::enums::AxisUse;
 pub use self::enums::ByteOrder;
 pub use self::enums::CrossingMode;
 pub use self::enums::CursorType;
+pub use self::enums::DevicePadFeature;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::enums::DeviceToolType;
 pub use self::enums::DeviceType;
@@ -153,6 +161,8 @@ pub mod traits {
     pub use super::CursorExt;
     pub use super::DeviceExt;
     pub use super::DeviceManagerExt;
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub use super::DevicePadExt;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub use super::DeviceToolExt;
     pub use super::DisplayExt;

@@ -524,6 +524,66 @@ impl SetValue for CursorType {
     }
 }
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DevicePadFeature {
+    Button,
+    Ring,
+    Strip,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DevicePadFeature {
+    type GlibType = ffi::GdkDevicePadFeature;
+
+    fn to_glib(&self) -> ffi::GdkDevicePadFeature {
+        match *self {
+            DevicePadFeature::Button => ffi::GDK_DEVICE_PAD_FEATURE_BUTTON,
+            DevicePadFeature::Ring => ffi::GDK_DEVICE_PAD_FEATURE_RING,
+            DevicePadFeature::Strip => ffi::GDK_DEVICE_PAD_FEATURE_STRIP,
+            DevicePadFeature::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkDevicePadFeature> for DevicePadFeature {
+    fn from_glib(value: ffi::GdkDevicePadFeature) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => DevicePadFeature::Button,
+            1 => DevicePadFeature::Ring,
+            2 => DevicePadFeature::Strip,
+            value => DevicePadFeature::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for DevicePadFeature {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::gdk_device_pad_feature_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DevicePadFeature {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DevicePadFeature {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DevicePadFeature {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum DeviceToolType {
