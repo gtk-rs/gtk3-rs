@@ -28,11 +28,11 @@ where
     /// The provided closure should return a newly created `glib::Source` when called
     /// and pass the value provided by the source to the oneshot sender that is passed
     /// to the closure.
-    pub fn new(create_source: F) -> Box<Future<Item = T, Error = Never>> {
-        Box::new(SourceFuture {
+    pub fn new(create_source: F) -> SourceFuture<F, T> {
+        SourceFuture {
             create_source: Some(create_source),
             source: None,
-        })
+        }
     }
 }
 
@@ -102,41 +102,41 @@ impl<T, F> Drop for SourceFuture<T, F> {
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future(value: u32) -> Box<Future<Item = (), Error = Never>> {
+pub fn timeout_future(value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
     timeout_future_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never>> {
-    SourceFuture::new(move |send| {
+pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+    Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
-    })
+    }))
 }
 
 /// Create a `Future` that will resolve after the given number of seconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_seconds(value: u32) -> Box<Future<Item = (), Error = Never>> {
+pub fn timeout_future_seconds(value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
     timeout_future_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of seconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never>> {
-    SourceFuture::new(move |send| {
+pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+    Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new_seconds(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
-    })
+    }))
 }
 
 /// Create a `Future` that will resolve once the child process with the given pid exits
@@ -144,7 +144,7 @@ pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> B
 /// The `Future` will resolve to the pid of the child process and the exit code.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never>> {
+pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never> + Send> {
     child_watch_future_with_priority(::PRIORITY_DEFAULT, pid)
 }
 
@@ -153,20 +153,20 @@ pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error =
 /// The `Future` will resolve to the pid of the child process and the exit code.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never>> {
-    SourceFuture::new(move |send| {
+pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never> + Send> {
+    Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::child_watch_source_new(pid, None, priority, move |pid, code| {
             let _ = send.take().unwrap().send((pid, code));
         })
-    })
+    }))
 }
 
 #[cfg(any(unix, feature = "dox"))]
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never>> {
+pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never> + Send> {
     unix_signal_future_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -174,14 +174,14 @@ pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never>> 
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<Future<Item = (), Error = Never>> {
-    SourceFuture::new(move |send| {
+pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<Future<Item = (), Error = Never> + Send> {
+    Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::unix_signal_source_new(signum, None, priority, move || {
             let _ = send.take().unwrap().send(());
             Continue(false)
         })
-    })
+    }))
 }
 
 /// Represents a `Stream` around a `glib::Source`. The stream will
@@ -200,11 +200,11 @@ where
     /// The provided closure should return a newly created `glib::Source` when called
     /// and pass the values provided by the source to the sender that is passed
     /// to the closure.
-    pub fn new(create_source: F) -> Box<Stream<Item = T, Error = Never>> {
-        Box::new(SourceStream {
+    pub fn new(create_source: F) -> SourceStream<F, T> {
+        SourceStream {
             create_source: Some(create_source),
             source: None,
-        })
+        }
     }
 }
 
@@ -276,15 +276,15 @@ impl<T, F> Drop for SourceStream<T, F> {
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream(value: u32) -> Box<Stream<Item = (), Error = Never>> {
+pub fn interval_stream(value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
     interval_stream_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never>> {
-    SourceStream::new(move |send| {
+pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+    Box::new(SourceStream::new(move |send| {
         ::timeout_source_new(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
@@ -292,21 +292,21 @@ pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stre
                 Continue(true)
             }
         })
-    })
+    }))
 }
 
 /// Create a `Stream` that will provide a value every given number of seconds.
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_seconds(value: u32) -> Box<Stream<Item = (), Error = Never>> {
+pub fn interval_stream_seconds(value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
     interval_stream_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of seconds.
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never>> {
-    SourceStream::new(move |send| {
+pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+    Box::new(SourceStream::new(move |send| {
         ::timeout_source_new_seconds(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
@@ -314,14 +314,14 @@ pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> 
                 Continue(true)
             }
         })
-    })
+    }))
 }
 
 #[cfg(any(unix, feature = "dox"))]
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never>> {
+pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never> + Send> {
     unix_signal_stream_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -329,8 +329,8 @@ pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never>> 
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<Stream<Item = (), Error = Never>> {
-    SourceStream::new(move |send| {
+pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<Stream<Item = (), Error = Never> + Send> {
+    Box::new(SourceStream::new(move |send| {
         ::unix_signal_source_new(signum, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
@@ -338,7 +338,7 @@ pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<
                 Continue(true)
             }
         })
-    })
+    }))
 }
 
 #[cfg(test)]
@@ -358,6 +358,22 @@ mod tests {
         );
 
         assert_eq!(res, Ok(()));
+    }
+
+    #[test]
+    fn test_timeout_send() {
+        let mut c = MainContext::new();
+        let l = ::MainLoop::new(Some(&c), false);
+
+        let l_clone = l.clone();
+        c.spawn(timeout_future(20)
+            .and_then(move |_ctx| {
+                l_clone.quit();
+                Ok(())
+            })
+        );
+
+        l.run();
     }
 
     #[test]
