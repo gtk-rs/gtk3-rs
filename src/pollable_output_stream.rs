@@ -11,15 +11,16 @@ use glib::object::{IsA, Downcast};
 use glib::translate::*;
 use std::cell::RefCell;
 use std::mem::transmute;
+use send_cell::SendCell;
 
 pub trait PollableOutputStreamExtManual {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
-    where F: FnMut(&Self) -> glib::Continue + Send + 'static;
+    where F: FnMut(&Self) -> glib::Continue + 'static;
 }
 
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
-    where F: FnMut(&Self) -> glib::Continue + Send + 'static {
+    where F: FnMut(&Self) -> glib::Continue + 'static {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -42,18 +43,20 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(stream: *mut ffi::GPollableOutputStream, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
     callback_guard!();
-    let func: &RefCell<Box<FnMut(&O) -> glib::Continue + 'static>> = transmute(func);
-    (&mut *func.borrow_mut())(&PollableOutputStream::from_glib_borrow(stream).downcast_unchecked()).to_glib()
+    let func: &SendCell<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
+    let func = func.borrow();
+    let mut func = func.borrow_mut();
+    (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).downcast_unchecked()).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {
     callback_guard!();
-    Box::<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>::from_raw(ptr as *mut _);
+    Box::<SendCell<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
-fn into_raw<O, F: FnMut(&O) -> glib::Continue + Send + 'static>(func: F) -> glib_ffi::gpointer {
-    let func: Box<RefCell<Box<FnMut(&O) -> glib::Continue + Send + 'static>>> =
-        Box::new(RefCell::new(Box::new(func)));
+fn into_raw<O, F: FnMut(&O) -> glib::Continue + 'static>(func: F) -> glib_ffi::gpointer {
+    let func: Box<SendCell<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>> =
+        Box::new(SendCell::new(RefCell::new(Box::new(func))));
     Box::into_raw(func) as glib_ffi::gpointer
 }
 
