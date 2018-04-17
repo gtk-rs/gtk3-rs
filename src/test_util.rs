@@ -4,24 +4,23 @@
 
 
 use std::sync::mpsc::{channel, Sender};
-use std::thread;
 use glib::*;
 
 #[allow(dead_code)]
 pub fn run_async<T: Send + 'static, Q: FnOnce(Sender<T>, MainLoop) + Send + 'static>(start: Q) -> T {
-    let l = MainLoop::new(None, false);
-    let c = MainContext::default().unwrap();
+    let c = MainContext::new();
+    let l = MainLoop::new(&c, false);
     let l_clone = l.clone();
 
     let (tx, rx) = channel();
 
-    thread::spawn(move || {
-        c.invoke(move || {
-            start(tx, l_clone);
-        });
+    c.push_thread_default();
+    c.invoke(move || {
+        start(tx, l_clone);
     });
 
     l.run();
+    c.pop_thread_default();
 
     let ret = rx.recv().unwrap();
     ret
