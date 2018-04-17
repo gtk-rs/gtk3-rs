@@ -68,8 +68,8 @@ mod tests {
 
     #[test]
     fn test_invoke() {
-        let l = ::MainLoop::new(None, false);
-        let c = MainContext::default().unwrap();
+        let c = MainContext::new();
+        let l = ::MainLoop::new(&c, false);
 
         let l_clone = l.clone();
         thread::spawn(move || {
