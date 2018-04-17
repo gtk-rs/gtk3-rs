@@ -124,7 +124,7 @@ impl MainContext {
         }
     }
 
-    pub fn default() -> Option<MainContext> {
+    pub fn default() -> MainContext {
         unsafe {
             from_glib_none(ffi::g_main_context_default())
         }
