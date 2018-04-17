@@ -188,7 +188,8 @@ impl TaskSource {
                 *thread = Some(thread::current().id());
             }
             &mut Some(thread_id) => {
-                assert_eq!(thread::current().id(), thread_id);
+                assert_eq!(thread::current().id(), thread_id,
+                           "Task polled on a different thread than before");
             }
         }
 
@@ -262,7 +263,7 @@ impl MainContext {
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
     pub fn spawn_local_with_priority<F: Future<Item = (), Error = Never> + 'static>(&mut self, priority: Priority, f: F) {
-        assert!(self.is_owner());
+        assert!(self.is_owner(), "Spawning local futures only allowed on the thread owning the MainContext");
         unsafe {
             // Ensure that this task is never polled on another thread
             // than this one where it was spawned now.

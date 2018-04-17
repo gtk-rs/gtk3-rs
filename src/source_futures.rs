@@ -53,9 +53,9 @@ where
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
             match main_context {
-                None => unreachable!(),
+                None => panic!("Polled from an Executor not backed by a GLib main context"),
                 Some(ref main_context) => {
-                    assert!(main_context.is_owner());
+                    assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
 
                     // Channel for sending back the Source result to our future here.
                     //
@@ -79,7 +79,7 @@ where
             receiver.poll(ctx)
         };
         match res {
-            Err(_) => unreachable!(),
+            Err(_) => panic!("Source sender was unexpectedly closed"),
             Ok(Async::Ready(v)) => {
                 // Get rid of the reference to the source, it triggered
                 let _ = source.take();
@@ -225,9 +225,9 @@ where
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
             match main_context {
-                None => unreachable!(),
+                None => panic!("Polled from an Executor not backed by a GLib main context"),
                 Some(ref main_context) => {
-                    assert!(main_context.is_owner());
+                    assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
 
                     // Channel for sending back the Source result to our future here.
                     //
@@ -251,7 +251,7 @@ where
             receiver.poll_next(ctx)
         };
         match res {
-            Err(_) => unreachable!(),
+            Err(_) => panic!("Source sender was unexpectedly closed"),
             Ok(Async::Ready(v)) => {
                 if v.is_none() {
                     // Get rid of the reference to the source, it triggered
