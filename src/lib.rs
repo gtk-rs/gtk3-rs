@@ -92,6 +92,7 @@ extern crate futures_util;
 
 use std::ffi::CStr;
 pub use bytes::Bytes;
+pub use string::String;
 pub use closure::Closure;
 pub use error::{Error, BoolError};
 pub use file_error::FileError;
@@ -163,6 +164,7 @@ pub use auto::functions::*;
 mod auto;
 
 mod bytes;
+mod string;
 pub mod char;
 pub use char::*;
 mod checksum;
