@@ -84,6 +84,9 @@ mod window;
 pub use self::window::Window;
 pub use self::window::WindowExt;
 
+mod event_sequence;
+pub use self::event_sequence::EventSequence;
+
 #[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_timings;
 #[cfg(any(feature = "v3_8", feature = "dox"))]
