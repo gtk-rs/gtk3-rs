@@ -15,13 +15,13 @@ extern crate gobject_sys as gobject_ffi;
 extern crate libc;
 extern crate send_cell;
 
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 extern crate futures_core;
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 extern crate futures_executor;
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 extern crate futures_channel;
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 extern crate futures_util;
 
 macro_rules! callback_guard {
@@ -78,7 +78,7 @@ pub use prelude::*;
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 mod auto;
 
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 mod gio_future;
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 pub use gio_future::*;

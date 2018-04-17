@@ -13,19 +13,19 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use send_cell::SendCell;
 
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 use futures_core::{Future, Never};
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 use futures_core::stream::Stream;
 
 pub trait PollableOutputStreamExtManual {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static;
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>>;
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>>;
 }
 
@@ -50,7 +50,7 @@ impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManu
         }
     }
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> {
         use send_cell::SendCell;
 
@@ -67,7 +67,7 @@ impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManu
         }))
     }
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> {
         use send_cell::SendCell;
 

@@ -18,9 +18,9 @@ use SocketAddress;
 use std::os::raw::c_int;
 use send_cell::SendCell;
 
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 use futures_core::{Future, Never};
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 use futures_core::stream::Stream;
 
 #[cfg(unix)]
@@ -68,10 +68,10 @@ pub trait SocketExtManual: Sized {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>>;
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>>;
 }
 
@@ -218,7 +218,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         }
     }
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> {
         use send_cell::SendCell;
 
@@ -235,7 +235,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         }))
     }
 
-    #[cfg(feature="futures")]
+    #[cfg(feature = "futures")]
     fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> {
         use send_cell::SendCell;
 

@@ -5,6 +5,7 @@
 use Cancellable;
 use Error;
 use ffi;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -15,14 +16,28 @@ use std::mem;
 use std::ptr;
 use OutputStream;
 
-pub trait OutputStreamExtManual {
+#[cfg(feature = "futures")]
+use futures_core::Future;
+
+pub trait OutputStreamExtManual: Sized {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>>;
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>>;
 }
 
-impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
+impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExtManual for O {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -87,6 +102,62 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         unsafe {
             ffi::g_output_stream_write_all_async(self.to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+
+    #[cfg(feature = "futures")]
+    fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> {
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            use send_cell::SendCell;
+
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.write_async(
+                buffer,
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
+            );
+
+            cancellable
+        })
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> {
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            use send_cell::SendCell;
+
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.write_all_async(
+                buffer,
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
+            );
+
+            cancellable
+        })
     }
 }
 
