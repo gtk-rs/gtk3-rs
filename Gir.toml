@@ -9,6 +9,16 @@ min_cfg_version = "1.30"
 
 generate = [
     "Pango.Alignment",
+    # "Pango.Analysis",
+    # "Pango.AttrColor",
+    # "Pango.AttrFloat",
+    # "Pango.AttrFontDesc",
+    # "Pango.AttrFontFeatures",
+    # "Pango.AttrInt",
+    # "Pango.AttrLanguage",
+    # "Pango.AttrShape",
+    # "Pango.AttrSize",
+    # "Pango.AttrString",
     "Pango.Attribute",
     "Pango.AttrType",
     "Pango.BidiType",
@@ -22,19 +32,30 @@ generate = [
     "Pango.FontMask",
     "Pango.FontMetrics",
     "Pango.Fontset",
+    "Pango.FontsetSimple",
     "Pango.Gravity",
     "Pango.GravityHint",
     "Pango.Glyph",
+    # "Pango.GlyphGeometry",
+    # "Pango.GlyphInfo",
     "Pango.GlyphItem",
     "Pango.GlyphItemIter",
     "Pango.GlyphString",
+    "Pango.GlyphUnit",
+    # "Pango.GlyphVisAttr",
+    "Pango.Item",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
     "Pango.LayoutRun",
+    # "Pango.LogAttr",
+    # "Pango.Map",
+    # "Pango.MapEntry",
     "Pango.Matrix",
     "Pango.Renderer",
     "Pango.RenderPart",
     "Pango.Script",
+    # "Pango.ScriptForLang",
+    # "Pango.ScriptIter",
     "Pango.Stretch",
     "Pango.Style",
     "Pango.TabAlign",
@@ -71,6 +92,26 @@ status = "generate"
     [[object.function]]
     pattern = "attr_.+"
     #moved to Attribute
+    ignore = true
+    [[object.function]]
+    name = "itemize"
+        [[object.function.parameter]]
+        name = "cached_iter"
+        const = true
+    [[object.function]]
+    name = "itemize_with_base_dir"
+        [[object.function.parameter]]
+        name = "cached_iter"
+        const = true
+    [[object.function]]
+    name = "reorder_items"
+    ignore = true
+
+[[object]]
+name = "Pango.AttrIterator"
+status = "generate"
+    [[object.function]]
+    name = "get_font"
     ignore = true
 
 [[object]]
