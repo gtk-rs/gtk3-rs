@@ -219,6 +219,22 @@ status = "generate"
     pattern = "unix_fd.*"
     # Need manual binding for RawFd
     ignore = true
+    [[object.function]]
+    name = "close"
+    # Need manual binding for RawFd
+    ignore = true
+    [[object.function]]
+    name = "log_writer_is_journald"
+    # Need manual binding for RawFd
+    ignore = true
+    [[object.function]]
+    name = "log_writer_supports_color"
+    # Need manual binding for RawFd
+    ignore = true
+    [[object.function]]
+    name = "unix_set_fd_nonblocking"
+    # Need manual binding for RawFd
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform
