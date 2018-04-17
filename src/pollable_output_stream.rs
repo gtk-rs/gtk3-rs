@@ -13,12 +13,23 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use send_cell::SendCell;
 
+#[cfg(feature="futures")]
+use futures_core::{Future, Never};
+#[cfg(feature="futures")]
+use futures_core::stream::Stream;
+
 pub trait PollableOutputStreamExtManual {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static;
+
+    #[cfg(feature="futures")]
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>>;
+
+    #[cfg(feature="futures")]
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>>;
 }
 
-impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
+impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManual for O {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static {
         let cancellable = cancellable.into();
@@ -37,6 +48,43 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
 
             from_glib_full(source)
         }
+    }
+
+    #[cfg(feature="futures")]
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> {
+        use send_cell::SendCell;
+
+        let cancellable = cancellable.into();
+        let cancellable: Option<Cancellable> = cancellable.cloned();
+
+        let obj = SendCell::new(self.clone());
+        Box::new(glib::SourceFuture::new(move |send| {
+            let mut send = Some(SendCell::new(send));
+            obj.borrow().create_source(cancellable.as_ref(), None, priority, move |obj| {
+                let _ = send.take().unwrap().into_inner().send(obj.clone());
+                glib::Continue(false)
+            })
+        }))
+    }
+
+    #[cfg(feature="futures")]
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> {
+        use send_cell::SendCell;
+
+        let cancellable = cancellable.into();
+        let cancellable: Option<Cancellable> = cancellable.cloned();
+
+        let obj = SendCell::new(self.clone());
+        Box::new(glib::SourceStream::new(move |send| {
+            let send = Some(SendCell::new(send));
+            obj.borrow().create_source(cancellable.as_ref(), None, priority, move |obj| {
+                if send.as_ref().unwrap().borrow().unbounded_send(obj.clone()).is_err() {
+                    glib::Continue(false)
+                } else {
+                    glib::Continue(true)
+                }
+            })
+        }))
     }
 }
 

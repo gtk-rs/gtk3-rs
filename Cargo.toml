@@ -41,6 +41,10 @@ libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
 send-cell = "0.1"
+futures-core = { version = "0.2", optional = true }
+futures-executor = { version = "0.2", optional = true }
+futures-channel = { version = "0.2", optional = true }
+futures-util = { version = "0.2", optional = true }
 
 [dependencies.gio-sys]
 version = "0.6.0"
