@@ -23,6 +23,7 @@ generate = [
     "Gdk.DragCancelReason",
     "Gdk.DragProtocol",
     "Gdk.EventMask",
+    "Gdk.EventSequence",
     "Gdk.FrameClockPhase",
     "Gdk.FullscreenMode",
     "Gdk.GLContext",
