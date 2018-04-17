@@ -16,6 +16,8 @@ generate = [
     "Gdk.CrossingMode",
     "Gdk.CursorType",
     "Gdk.DeviceManager",
+    "Gdk.DevicePad",
+    "Gdk.DevicePadFeature",
     "Gdk.DeviceTool",
     "Gdk.DeviceToolType",
     "Gdk.DeviceType",
