@@ -12,27 +12,53 @@ use InputStream;
 use Resource;
 use ResourceLookupFlags;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
+use glib_ffi;
+use gobject_ffi;
 use std;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
 
-//pub fn bus_get<'a, 'b, P: Into<Option<&'a Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(bus_type: /*Ignored*/BusType, cancellable: P, callback: Q, user_data: R) {
+//pub fn bus_get<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: P, callback: Q) {
 //    unsafe { TODO: call ffi::g_bus_get() }
+//}
+
+//#[cfg(feature = "futures")]
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
+    //use GioFuture;
+    //use send_cell::SendCell;
+
+    //GioFuture::new(&(), move |_obj, send| {
+    //    let cancellable = Cancellable::new();
+    //    let send = SendCell::new(send);
+    //    bus_get(
+    //         bus_type,
+    //         Some(&cancellable),
+    //         move |res| {
+    //             let _ = send.into_inner().send(res);
+    //         },
+    //    );
+
+    //    cancellable
+    //})
 //}
 
 //pub fn bus_get_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result</*Ignored*/DBusConnection, Error> {
 //    unsafe { TODO: call ffi::g_bus_get_sync() }
 //}
 
-//pub fn bus_own_name<'a, 'b, 'c, 'd, P: Into<Option<&'a /*Unimplemented*/BusAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameAcquiredCallback>>, R: Into<Option<&'c /*Unimplemented*/BusNameLostCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>, T: Into<Option<&'d /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_handler: P, name_acquired_handler: Q, name_lost_handler: R, user_data: S, user_data_free_func: T) -> u32 {
+//pub fn bus_own_name<'a, 'b, 'c, 'd, P: Into<Option<&'a /*Unimplemented*/BusAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameAcquiredCallback>>, R: Into<Option<&'c /*Unimplemented*/BusNameLostCallback>>, S: Into<Option<&'d /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_handler: P, name_acquired_handler: Q, name_lost_handler: R, user_data_free_func: S) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name() }
 //}
 
-//pub fn bus_own_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameLostCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>, S: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: P, name_lost_handler: Q, user_data: R, user_data_free_func: S) -> u32 {
+//pub fn bus_own_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameLostCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: P, name_lost_handler: Q, user_data_free_func: R) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_on_connection() }
 //}
 
@@ -56,11 +82,11 @@ pub fn bus_unwatch_name(watcher_id: u32) {
     }
 }
 
-//pub fn bus_watch_name<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>, S: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data: R, user_data_free_func: S) -> u32 {
+//pub fn bus_watch_name<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data_free_func: R) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name() }
 //}
 
-//pub fn bus_watch_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>, S: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data: R, user_data_free_func: S) -> u32 {
+//pub fn bus_watch_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data_free_func: R) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_on_connection() }
 //}
 
@@ -175,9 +201,46 @@ pub fn dbus_address_escape_value(string: &str) -> Option<String> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_for_bus_sync() }
 //}
 
-//pub fn dbus_address_get_stream<'a, 'b, P: Into<Option<&'a Cancellable>>, Q: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(address: &str, cancellable: P, callback: Q, user_data: R) {
-//    unsafe { TODO: call ffi::g_dbus_address_get_stream() }
-//}
+pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(IOStream, String), Error>) + Send + 'static>(address: &str, cancellable: P, callback: Q) {
+    let cancellable = cancellable.into();
+    let cancellable = cancellable.to_glib_none();
+    let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
+    unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+    {
+        callback_guard!();
+        let mut error = ptr::null_mut();
+        let mut out_guid = ptr::null_mut();
+        let ret = ffi::g_dbus_address_get_stream_finish(res, &mut out_guid, &mut error);
+        let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(out_guid))) } else { Err(from_glib_full(error)) };
+        let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+        callback(result);
+    }
+    let callback = dbus_address_get_stream_trampoline::<Q>;
+    unsafe {
+        ffi::g_dbus_address_get_stream(address.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+    }
+}
+
+#[cfg(feature = "futures")]
+pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, String), Error = Error>> {
+    use GioFuture;
+    use send_cell::SendCell;
+
+    let address = String::from(address);
+    GioFuture::new(&(), move |_obj, send| {
+        let cancellable = Cancellable::new();
+        let send = SendCell::new(send);
+        dbus_address_get_stream(
+             &address,
+             Some(&cancellable),
+             move |res| {
+                 let _ = send.into_inner().send(res);
+             },
+        );
+
+        cancellable
+    })
+}
 
 pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(address: &str, cancellable: P) -> Result<(IOStream, String), Error> {
     let cancellable = cancellable.into();
@@ -282,7 +345,7 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, R: Into<Option<&'b Cancellable>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, user_data: P, notify: Q, io_priority: i32, cancellable: R) {
+//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, Q: Into<Option<&'b Cancellable>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, notify: P, io_priority: i32, cancellable: Q) {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
@@ -352,17 +415,17 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_error_in_idle<'a, 'b, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(object: Q, callback: R, user_data: S, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn simple_async_report_error_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi::g_simple_async_report_error_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_gerror_in_idle<'a, 'b, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(object: Q, callback: R, user_data: S, error: &Error) {
+//pub fn simple_async_report_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, error: &Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_gerror_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_take_gerror_in_idle<'a, 'b, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b /*Unimplemented*/AsyncReadyCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(object: Q, callback: R, user_data: S, error: &mut Error) {
+//pub fn simple_async_report_take_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, error: &mut Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_take_gerror_in_idle() }
 //}
 

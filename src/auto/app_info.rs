@@ -10,11 +10,17 @@ use Error;
 use File;
 use Icon;
 use ffi;
+#[cfg(feature = "futures")]
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use futures_core;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
+#[cfg(feature = "futures")]
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -101,6 +107,30 @@ impl AppInfo {
         unsafe {
             ffi::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, launch_context.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_50", feature = "dox"))]
+    pub fn launch_default_for_uri_async_future(uri: &str, launch_context: &AppLaunchContext) -> Box_<futures_core::Future<Item = (), Error = Error>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let uri = String::from(uri);
+        let launch_context = launch_context.clone();
+        GioFuture::new(&(), move |_obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            Self::launch_default_for_uri_async(
+                 &uri,
+                 &launch_context,
+                 Some(&cancellable),
+                 move |res| {
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     pub fn reset_type_associations(content_type: &str) {

@@ -8,6 +8,8 @@ use FilterInputStream;
 use InputStream;
 use Seekable;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
@@ -43,10 +45,13 @@ impl BufferedInputStream {
     }
 }
 
-pub trait BufferedInputStreamExt {
+pub trait BufferedInputStreamExt: Sized {
     fn fill<'a, P: Into<Option<&'a Cancellable>>>(&self, count: isize, cancellable: P) -> Result<isize, Error>;
 
     fn fill_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: isize, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
 
     fn get_available(&self) -> usize;
 
@@ -61,7 +66,7 @@ pub trait BufferedInputStreamExt {
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object>> BufferedInputStreamExt for O {
+impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object> + Clone + 'static> BufferedInputStreamExt for O {
     fn fill<'a, P: Into<Option<&'a Cancellable>>>(&self, count: isize, cancellable: P) -> Result<isize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -89,6 +94,30 @@ impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object>> BufferedInputStrea
         unsafe {
             ffi::g_buffered_input_stream_fill_async(self.to_glib_none().0, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.fill_async(
+                 count,
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn get_available(&self) -> usize {

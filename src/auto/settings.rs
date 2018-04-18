@@ -88,7 +88,7 @@ pub trait SettingsExt {
 
     fn bind<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags);
 
-    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, user_data: Q, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify);
+    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify);
 
     fn bind_writable<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, inverted: bool);
 
@@ -226,7 +226,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
         }
     }
 
-    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, user_data: Q, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
     //    unsafe { TODO: call ffi::g_settings_bind_with_mapping() }
     //}
 
