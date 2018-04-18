@@ -354,6 +354,10 @@ concurrency = "send+sync"
 name = "GLib.MainLoop"
 status = "generate"
 concurrency = "send+sync"
+       [[object.function]]
+       name = "get_context"
+           [object.function.return]
+           nullable = false
 
 [[object]]
 name = "GLib.Source"
