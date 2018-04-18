@@ -53,4 +53,27 @@ mod tests {
         let ret = strm.skip(10, None).unwrap();
         assert_eq!(ret, 0);
     }
+
+    #[test]
+    #[cfg(all(feature = "futures", feature = "v2_34"))]
+    fn read_async_future() {
+        use futures_util::FutureExt;
+
+        let mut c = glib::MainContext::new();
+
+        let buf = vec![0; 10];
+        let b = glib::Bytes::from_owned(vec![1, 2, 3]);
+        let strm = MemoryInputStream::new_from_bytes(&b);
+
+        let res = c.block_on(
+            strm.read_async_future(buf, glib::PRIORITY_DEFAULT)
+                .map_err(|(_obj, (_buf, err))| err)
+                .and_then(move |(_obj, (mut buf, len))| {
+                    buf.truncate(len);
+                    Ok(buf)
+                })
+        ).unwrap();
+
+        assert_eq!(res, vec![1, 2, 3]);
+    }
 }
