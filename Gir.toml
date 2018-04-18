@@ -189,6 +189,10 @@ status = "generate"
     name = "find_enclosing_mount_async"
     # Mount
     ignore = true
+    [[object.function]]
+    name = "replace_contents_async"
+    # AsRef
+    ignore = true
 
 [[object]]
 name = "Gio.FilterInputStream"
