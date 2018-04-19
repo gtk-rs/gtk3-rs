@@ -202,8 +202,6 @@ pub trait FileExt {
 
     fn replace_contents<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, contents: &[u8], etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q) -> Result<String, Error>;
 
-    fn replace_contents_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<String, Error>) + Send + 'static>(&self, contents: &[u8], etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R);
-
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn replace_contents_bytes_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: /*Unimplemented*/AsyncReadyCallback>(&self, contents: &glib::Bytes, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R);
 
@@ -813,29 +811,6 @@ impl<O: IsA<File>> FileExt for O {
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_replace_contents(self.to_glib_none().0, contents.to_glib_none().0, length, etag.0, make_backup.to_glib(), flags.to_glib(), &mut new_etag, cancellable.0, &mut error);
             if error.is_null() { Ok(from_glib_full(new_etag)) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    fn replace_contents_async<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<String, Error>) + Send + 'static>(&self, contents: &[u8], etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R) {
-        let etag = etag.into();
-        let etag = etag.to_glib_none();
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let length = contents.len() as usize;
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn replace_contents_async_trampoline<R: FnOnce(Result<String, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
-            callback_guard!();
-            let mut error = ptr::null_mut();
-            let mut new_etag = ptr::null_mut();
-            let _ = ffi::g_file_replace_contents_finish(_source_object as *mut _, res, &mut new_etag, &mut error);
-            let result = if error.is_null() { Ok(from_glib_full(new_etag)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = replace_contents_async_trampoline::<R>;
-        unsafe {
-            ffi::g_file_replace_contents_async(self.to_glib_none().0, contents.to_glib_none().0, length, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 

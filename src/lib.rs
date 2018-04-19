@@ -30,6 +30,7 @@ mod socket;
 mod socket_listener;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
+mod file;
 
 #[cfg(test)]
 mod test_util;
@@ -55,6 +56,7 @@ pub mod prelude {
     pub use socket_listener::SocketListenerExtManual;
     #[cfg(any(unix, feature = "dox"))]
     pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
+    pub use file::FileExtManual;
 }
 
 pub use prelude::*;
