@@ -330,6 +330,14 @@ status = "generate"
        name = "set_integer_list"
        #wrong array type
        ignore = true
+       [[object.function]]
+       name = "get_boolean"
+       #boolean return value needs to be returned
+       ignore = true
+       [[object.function]]
+       name = "has_key"
+       #boolean return value needs to be returned
+       ignore = true
 
 [[object]]
 name = "GLib.MainContext"

@@ -32,14 +32,6 @@ impl KeyFile {
         }
     }
 
-    pub fn get_boolean(&self, group_name: &str, key: &str) -> Result<(), Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_key_file_get_boolean(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     //pub fn get_boolean_list(&self, group_name: &str, key: &str) -> Result</*Unimplemented*/CArray TypeId { ns_id: 0, id: 1 }, Error> {
     //    unsafe { TODO: call ffi::g_key_file_get_boolean_list() }
     //}
@@ -176,14 +168,6 @@ impl KeyFile {
     pub fn has_group(&self, group_name: &str) -> bool {
         unsafe {
             from_glib(ffi::g_key_file_has_group(self.to_glib_none().0, group_name.to_glib_none().0))
-        }
-    }
-
-    pub fn has_key(&self, group_name: &str, key: &str) -> Result<(), Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_key_file_has_key(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
