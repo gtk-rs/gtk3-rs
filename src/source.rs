@@ -39,8 +39,11 @@ impl FromGlib<u32> for SourceId {
 }
 
 /// Process identificator
-#[derive(Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 pub struct Pid(pub glib_ffi::GPid);
+
+unsafe impl Send for Pid {}
+unsafe impl Sync for Pid {}
 
 /// Continue calling the closure in the future iterations or drop it.
 ///
