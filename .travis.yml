@@ -22,21 +22,21 @@ matrix:
     - os: osx
       rust: nightly
       env: GTK=3.4
-    - os: osx
-      rust: nightly
-      env: GTK=3.18
+    # - os: osx
+    #   rust: nightly
+    #   env: GTK=3.18
     - os: osx
       rust: beta
       env: GTK=3.4
-    - os: osx
-      rust: beta
-      env: GTK=3.18
+    # - os: osx
+    #   rust: beta
+    #   env: GTK=3.18
     - os: osx
       rust: stable
       env: GTK=3.4
-    - os: osx
-      rust: stable
-      env: GTK=3.18
+    # - os: osx
+    #   rust: stable
+    #   env: GTK=3.18
 sudo: true
 addons:
   apt:
