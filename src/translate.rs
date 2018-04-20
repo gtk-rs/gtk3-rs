@@ -131,7 +131,7 @@ impl ToBool for bool {
 impl ToBool for glib_ffi::gboolean {
     #[inline]
     fn to_bool(self) -> bool {
-        !(self == glib_ffi::GFALSE)
+        self != glib_ffi::GFALSE
     }
 }
 
@@ -800,7 +800,7 @@ pub fn from_glib<G, T: FromGlib<G>>(val: G) -> T {
 impl FromGlib<glib_ffi::gboolean> for bool {
     #[inline]
     fn from_glib(val: glib_ffi::gboolean) -> bool {
-        !(val == glib_ffi::GFALSE)
+        val != glib_ffi::GFALSE
     }
 }
 
