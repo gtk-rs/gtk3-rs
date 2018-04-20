@@ -613,12 +613,10 @@ impl Object {
             let ptr = gobject_ffi::g_object_newv(type_.to_glib(), params_c.len() as u32, mut_override(params_c.as_ptr()));
             if ptr.is_null() {
                 Err(BoolError("Can't instantiate object"))
+            } else if type_.is_a(&from_glib(gobject_ffi::g_initially_unowned_get_type())) {
+                Ok(from_glib_none(ptr))
             } else {
-                if type_.is_a(&from_glib(gobject_ffi::g_initially_unowned_get_type())) {
-                    Ok(from_glib_none(ptr))
-                } else {
-                    Ok(from_glib_full(ptr))
-                }
+                Ok(from_glib_full(ptr))
             }
         }
     }
