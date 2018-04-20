@@ -22,6 +22,7 @@ pub use glib::Error;
 mod auto;
 pub use auto::*;
 pub use auto::functions::*;
+pub use functions::*;
 
 pub use ffi::PANGO_SCALE as SCALE;
 
@@ -29,11 +30,11 @@ pub mod prelude;
 
 pub mod attr_class;
 pub use attr_class::AttrClass;
+pub mod attr_iterator;
 pub mod attr_list;
 pub mod attribute;
 pub mod font_description;
-pub mod item;
-pub use item::Item;
+mod functions;
 pub mod language;
 pub use language::Language;
 pub mod rectangle;
