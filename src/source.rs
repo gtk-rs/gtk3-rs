@@ -4,9 +4,9 @@
 
 use std::cell::RefCell;
 use std::mem::transmute;
-#[cfg(any(feature = "v2_36", unix))]
+#[cfg(all(unix, any(feature = "v2_36", feature = "dox")))]
 use std::os::unix::io::RawFd;
-#[cfg(any(feature = "v2_36", windows))]
+#[cfg(all(not(unix), feature = "dox"))]
 use libc::c_int as RawFd;
 use std::process;
 use std::thread;
