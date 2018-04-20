@@ -14,6 +14,8 @@ use SocketProtocol;
 use SocketType;
 use TlsCertificateFlags;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -51,24 +53,36 @@ impl Default for SocketClient {
     }
 }
 
-pub trait SocketClientExt {
+pub trait SocketClientExt: Sized {
     fn add_application_proxy(&self, protocol: &str);
 
     fn connect<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>>(&self, connectable: &P, cancellable: Q) -> Result<SocketConnection, Error>;
 
     fn connect_async<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, connectable: &P, cancellable: Q, callback: R);
 
+    #[cfg(feature = "futures")]
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+
     fn connect_to_host<'a, P: Into<Option<&'a Cancellable>>>(&self, host_and_port: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_host_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, host_and_port: &str, default_port: u16, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
 
     fn connect_to_service<'a, P: Into<Option<&'a Cancellable>>>(&self, domain: &str, service: &str, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_service_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, domain: &str, service: &str, cancellable: P, callback: Q);
 
+    #[cfg(feature = "futures")]
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+
     fn connect_to_uri<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_uri_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, uri: &str, default_port: u16, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
 
     fn get_enable_proxy(&self) -> bool;
 
@@ -134,7 +148,7 @@ pub trait SocketClientExt {
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SocketClient> + IsA<glib::object::Object>> SocketClientExt for O {
+impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketClientExt for O {
     fn add_application_proxy(&self, protocol: &str) {
         unsafe {
             ffi::g_socket_client_add_application_proxy(self.to_glib_none().0, protocol.to_glib_none().0);
@@ -170,6 +184,30 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object>> SocketClientExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let connectable = connectable.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.connect_async(
+                 &connectable,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     fn connect_to_host<'a, P: Into<Option<&'a Cancellable>>>(&self, host_and_port: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -197,6 +235,31 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object>> SocketClientExt for O {
         unsafe {
             ffi::g_socket_client_connect_to_host_async(self.to_glib_none().0, host_and_port.to_glib_none().0, default_port, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let host_and_port = String::from(host_and_port);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.connect_to_host_async(
+                 &host_and_port,
+                 default_port,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn connect_to_service<'a, P: Into<Option<&'a Cancellable>>>(&self, domain: &str, service: &str, cancellable: P) -> Result<SocketConnection, Error> {
@@ -228,6 +291,32 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object>> SocketClientExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let domain = String::from(domain);
+        let service = String::from(service);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.connect_to_service_async(
+                 &domain,
+                 &service,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     fn connect_to_uri<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -255,6 +344,31 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object>> SocketClientExt for O {
         unsafe {
             ffi::g_socket_client_connect_to_uri_async(self.to_glib_none().0, uri.to_glib_none().0, default_port, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let uri = String::from(uri);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.connect_to_uri_async(
+                 &uri,
+                 default_port,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn get_enable_proxy(&self) -> bool {

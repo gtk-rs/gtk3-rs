@@ -11,10 +11,15 @@ use TlsConnection;
 use TlsInteractionResult;
 use TlsPassword;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -26,10 +31,13 @@ glib_wrapper! {
     }
 }
 
-pub trait TlsInteractionExt {
+pub trait TlsInteractionExt: Sized {
     fn ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error>;
 
     fn ask_password_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, password: &TlsPassword, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>>;
 
     fn invoke_ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error>;
 
@@ -41,9 +49,13 @@ pub trait TlsInteractionExt {
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn request_certificate_async<'a, P: IsA<TlsConnection>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags, cancellable: Q, callback: R);
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>>;
 }
 
-impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
+impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsInteractionExt for O {
     fn ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -71,6 +83,30 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         unsafe {
             ffi::g_tls_interaction_ask_password_async(self.to_glib_none().0, password.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let password = password.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.ask_password_async(
+                 &password,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn invoke_ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error> {
@@ -123,5 +159,31 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         unsafe {
             ffi::g_tls_interaction_request_certificate_async(self.to_glib_none().0, connection.to_glib_none().0, flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let connection = connection.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.request_certificate_async(
+                 &connection,
+                 flags,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 }

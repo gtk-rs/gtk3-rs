@@ -7,6 +7,8 @@ use Error;
 use InputStream;
 use OutputStream;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -32,12 +34,15 @@ glib_wrapper! {
 
 impl IOStream {}
 
-pub trait IOStreamExt {
+pub trait IOStreamExt: Sized {
     fn clear_pending(&self);
 
     fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
     fn get_input_stream(&self) -> Option<InputStream>;
 
@@ -54,7 +59,7 @@ pub trait IOStreamExt {
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<IOStream> + IsA<glib::object::Object>> IOStreamExt for O {
+impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
             ffi::g_io_stream_clear_pending(self.to_glib_none().0);
@@ -88,6 +93,29 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object>> IOStreamExt for O {
         unsafe {
             ffi::g_io_stream_close_async(self.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.close_async(
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn get_input_stream(&self) -> Option<InputStream> {

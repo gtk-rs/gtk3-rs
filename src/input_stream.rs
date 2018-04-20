@@ -6,6 +6,7 @@
 use Cancellable;
 use Error;
 use ffi;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -15,7 +16,10 @@ use std::mem;
 use std::ptr;
 use InputStream;
 
-pub trait InputStreamExtManual {
+#[cfg(feature = "futures")]
+use futures_core::Future;
+
+pub trait InputStreamExtManual: Sized {
     fn read<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error>;
 
     fn read_all<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<(usize, Option<Error>), Error>;
@@ -24,9 +28,20 @@ pub trait InputStreamExtManual {
     fn read_all_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
 
     fn read_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>>;
+
+    #[cfg(feature = "futures")]
+    fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>>;
 }
 
-impl<O: IsA<InputStream>> InputStreamExtManual for O {
+impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtManual for O {
     fn read<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -134,6 +149,61 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         unsafe {
             ffi::g_input_stream_read_async(self.to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> {
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            use send_cell::SendCell;
+
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.read_all_async(
+                buffer,
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
+            );
+
+            cancellable
+        })
+    }
+
+    #[cfg(feature = "futures")]
+    fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+        &self, buffer: B, io_priority: Priority
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> {
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            use send_cell::SendCell;
+
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.read_async(
+                buffer,
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
+            );
+
+            cancellable
+        })
     }
 }
 

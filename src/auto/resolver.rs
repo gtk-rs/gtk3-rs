@@ -9,6 +9,8 @@ use InetAddress;
 use ResolverRecordType;
 use SrvTarget;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
@@ -46,14 +48,20 @@ impl Resolver {
     }
 }
 
-pub trait ResolverExt {
+pub trait ResolverExt: Sized {
     fn lookup_by_address<'a, P: Into<Option<&'a Cancellable>>>(&self, address: &InetAddress, cancellable: P) -> Result<String, Error>;
 
     fn lookup_by_address_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<String, Error>) + Send + 'static>(&self, address: &InetAddress, cancellable: P, callback: Q);
 
+    #[cfg(feature = "futures")]
+    fn lookup_by_address_async_future(&self, address: &InetAddress) -> Box_<futures_core::Future<Item = (Self, String), Error = (Self, Error)>>;
+
     fn lookup_by_name<'a, P: Into<Option<&'a Cancellable>>>(&self, hostname: &str, cancellable: P) -> Result<Vec<InetAddress>, Error>;
 
     fn lookup_by_name_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(&self, hostname: &str, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>>;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records<'a, P: Into<Option<&'a Cancellable>>>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: P) -> Result<Vec<glib::Variant>, Error>;
@@ -61,16 +69,23 @@ pub trait ResolverExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: P, callback: Q);
 
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>>;
+
     fn lookup_service<'a, P: Into<Option<&'a Cancellable>>>(&self, service: &str, protocol: &str, domain: &str, cancellable: P) -> Result<Vec<SrvTarget>, Error>;
 
     fn lookup_service_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(&self, service: &str, protocol: &str, domain: &str, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>>;
 
     fn set_default(&self);
 
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Resolver> + IsA<glib::object::Object>> ResolverExt for O {
+impl<O: IsA<Resolver> + IsA<glib::object::Object> + Clone + 'static> ResolverExt for O {
     fn lookup_by_address<'a, P: Into<Option<&'a Cancellable>>>(&self, address: &InetAddress, cancellable: P) -> Result<String, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -100,6 +115,30 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object>> ResolverExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    fn lookup_by_address_async_future(&self, address: &InetAddress) -> Box_<futures_core::Future<Item = (Self, String), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let address = address.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.lookup_by_address_async(
+                 &address,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     fn lookup_by_name<'a, P: Into<Option<&'a Cancellable>>>(&self, hostname: &str, cancellable: P) -> Result<Vec<InetAddress>, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -127,6 +166,30 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object>> ResolverExt for O {
         unsafe {
             ffi::g_resolver_lookup_by_name_async(self.to_glib_none().0, hostname.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let hostname = String::from(hostname);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.lookup_by_name_async(
+                 &hostname,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
@@ -160,6 +223,32 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object>> ResolverExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let rrname = String::from(rrname);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.lookup_records_async(
+                 &rrname,
+                 record_type,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     fn lookup_service<'a, P: Into<Option<&'a Cancellable>>>(&self, service: &str, protocol: &str, domain: &str, cancellable: P) -> Result<Vec<SrvTarget>, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -187,6 +276,34 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object>> ResolverExt for O {
         unsafe {
             ffi::g_resolver_lookup_service_async(self.to_glib_none().0, service.to_glib_none().0, protocol.to_glib_none().0, domain.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let service = String::from(service);
+        let protocol = String::from(protocol);
+        let domain = String::from(domain);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.lookup_service_async(
+                 &service,
+                 &protocol,
+                 &domain,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn set_default(&self) {

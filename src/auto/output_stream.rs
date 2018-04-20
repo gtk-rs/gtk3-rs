@@ -7,11 +7,15 @@ use Error;
 use InputStream;
 use OutputStreamSpliceFlags;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -23,16 +27,22 @@ glib_wrapper! {
     }
 }
 
-pub trait OutputStreamExt {
+pub trait OutputStreamExt: Sized {
     fn clear_pending(&self);
 
     fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
 
+    #[cfg(feature = "futures")]
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+
     fn flush<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn flush_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
     fn has_pending(&self) -> bool;
 
@@ -49,6 +59,9 @@ pub trait OutputStreamExt {
 
     fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
+    #[cfg(feature = "futures")]
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
+
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn vprintf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
 
@@ -59,9 +72,12 @@ pub trait OutputStreamExt {
     fn write_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, bytes: &glib::Bytes, cancellable: P) -> Result<isize, Error>;
 
     fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
 }
 
-impl<O: IsA<OutputStream>> OutputStreamExt for O {
+impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
             ffi::g_output_stream_clear_pending(self.to_glib_none().0);
@@ -97,6 +113,29 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.close_async(
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     fn flush<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -124,6 +163,29 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         unsafe {
             ffi::g_output_stream_flush_async(self.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.flush_async(
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn has_pending(&self) -> bool {
@@ -186,6 +248,32 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         }
     }
 
+    #[cfg(feature = "futures")]
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let source = source.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.splice_async(
+                 &source,
+                 flags,
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn vprintf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize> {
     //    unsafe { TODO: call ffi::g_output_stream_vprintf() }
@@ -241,5 +329,30 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         unsafe {
             ffi::g_output_stream_write_bytes_async(self.to_glib_none().0, bytes.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let bytes = bytes.clone();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.write_bytes_async(
+                 &bytes,
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 }

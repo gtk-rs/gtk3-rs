@@ -8,11 +8,15 @@ use FileInfo;
 use IOStream;
 use Seekable;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -24,15 +28,18 @@ glib_wrapper! {
     }
 }
 
-pub trait FileIOStreamExt {
+pub trait FileIOStreamExt: Sized {
     fn get_etag(&self) -> Option<String>;
 
     fn query_info<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, cancellable: P) -> Result<FileInfo, Error>;
 
     fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>>;
 }
 
-impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
+impl<O: IsA<FileIOStream> + IsA<glib::object::Object> + Clone + 'static> FileIOStreamExt for O {
     fn get_etag(&self) -> Option<String> {
         unsafe {
             from_glib_full(ffi::g_file_io_stream_get_etag(self.to_glib_none().0))
@@ -66,5 +73,30 @@ impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
         unsafe {
             ffi::g_file_io_stream_query_info_async(self.to_glib_none().0, attributes.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        let attributes = String::from(attributes);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.query_info_async(
+                 &attributes,
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 }

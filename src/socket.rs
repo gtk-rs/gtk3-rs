@@ -18,6 +18,11 @@ use SocketAddress;
 use std::os::raw::c_int;
 use send_cell::SendCell;
 
+#[cfg(feature = "futures")]
+use futures_core::{Future, Never};
+#[cfg(feature = "futures")]
+use futures_core::stream::Stream;
+
 #[cfg(unix)]
 use std::os::unix::io::{IntoRawFd, FromRawFd};
 
@@ -45,7 +50,7 @@ impl Socket {
     }
 }
 
-pub trait SocketExtManual {
+pub trait SocketExtManual: Sized {
     fn receive<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error>;
     fn receive_from<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<(usize, SocketAddress), Error>;
     fn receive_with_blocking<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, blocking: bool, cancellable: P) -> Result<usize, Error>;
@@ -62,9 +67,15 @@ pub trait SocketExtManual {
 
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
+
+    #[cfg(feature = "futures")]
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>>;
+
+    #[cfg(feature = "futures")]
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>>;
 }
 
-impl<O: IsA<Socket>> SocketExtManual for O {
+impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
     fn receive<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -205,6 +216,43 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 
             from_glib_full(source)
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> {
+        use send_cell::SendCell;
+
+        let cancellable = cancellable.into();
+        let cancellable: Option<Cancellable> = cancellable.cloned();
+
+        let obj = SendCell::new(self.clone());
+        Box::new(glib::SourceFuture::new(move |send| {
+            let mut send = Some(SendCell::new(send));
+            obj.borrow().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
+                let _ = send.take().unwrap().into_inner().send((obj.clone(), condition));
+                glib::Continue(false)
+            })
+        }))
+    }
+
+    #[cfg(feature = "futures")]
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> {
+        use send_cell::SendCell;
+
+        let cancellable = cancellable.into();
+        let cancellable: Option<Cancellable> = cancellable.cloned();
+
+        let obj = SendCell::new(self.clone());
+        Box::new(glib::SourceStream::new(move |send| {
+            let send = Some(SendCell::new(send));
+            obj.borrow().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
+                if send.as_ref().unwrap().borrow().unbounded_send((obj.clone(), condition)).is_err() {
+                    glib::Continue(false)
+                } else {
+                    glib::Continue(true)
+                }
+            })
+        }))
     }
 }
 

@@ -12,6 +12,8 @@ use SocketListenerEvent;
 use SocketProtocol;
 use SocketType;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -49,10 +51,13 @@ impl Default for SocketListener {
     }
 }
 
-pub trait SocketListenerExt {
+pub trait SocketListenerExt: Sized {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(SocketConnection, Option<glib::Object>), Error>;
 
     fn accept_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(SocketConnection, glib::Object), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>>;
 
     fn accept_socket<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Socket, Option<glib::Object>), Error>;
 
@@ -78,7 +83,7 @@ pub trait SocketListenerExt {
     fn connect_property_listen_backlog_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SocketListener> + IsA<glib::object::Object>> SocketListenerExt for O {
+impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> SocketListenerExt for O {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(SocketConnection, Option<glib::Object>), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -108,6 +113,28 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object>> SocketListenerExt for O
         unsafe {
             ffi::g_socket_listener_accept_async(self.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.accept_async(
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn accept_socket<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Socket, Option<glib::Object>), Error> {

@@ -11,6 +11,8 @@ use TlsDatabase;
 use TlsInteraction;
 use TlsRehandshakeMode;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -34,7 +36,7 @@ glib_wrapper! {
     }
 }
 
-pub trait TlsConnectionExt {
+pub trait TlsConnectionExt: Sized {
     fn emit_accept_certificate(&self, peer_cert: &TlsCertificate, errors: TlsCertificateFlags) -> bool;
 
     fn get_certificate(&self) -> Option<TlsCertificate>;
@@ -57,6 +59,9 @@ pub trait TlsConnectionExt {
     fn handshake<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn handshake_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
     fn set_certificate(&self, certificate: &TlsCertificate);
 
@@ -95,7 +100,7 @@ pub trait TlsConnectionExt {
     fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<TlsConnection> + IsA<glib::object::Object>> TlsConnectionExt for O {
+impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsConnectionExt for O {
     fn emit_accept_certificate(&self, peer_cert: &TlsCertificate, errors: TlsCertificateFlags) -> bool {
         unsafe {
             from_glib(ffi::g_tls_connection_emit_accept_certificate(self.to_glib_none().0, peer_cert.to_glib_none().0, errors.to_glib()))
@@ -177,6 +182,29 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object>> TlsConnectionExt for O {
         unsafe {
             ffi::g_tls_connection_handshake_async(self.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.handshake_async(
+                 io_priority,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn set_certificate(&self, certificate: &TlsCertificate) {

@@ -6,10 +6,15 @@ use Cancellable;
 use Error;
 use SocketAddress;
 use ffi;
+#[cfg(feature = "futures")]
+use futures_core;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -21,13 +26,16 @@ glib_wrapper! {
     }
 }
 
-pub trait SocketAddressEnumeratorExt {
+pub trait SocketAddressEnumeratorExt: Sized {
     fn next<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<SocketAddress, Error>;
 
     fn next_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>>;
 }
 
-impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
+impl<O: IsA<SocketAddressEnumerator> + IsA<glib::object::Object> + Clone + 'static> SocketAddressEnumeratorExt for O {
     fn next<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<SocketAddress, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -55,5 +63,27 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
         unsafe {
             ffi::g_socket_address_enumerator_next_async(self.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.next_async(
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 }

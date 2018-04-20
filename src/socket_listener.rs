@@ -14,11 +14,17 @@ use gobject_ffi;
 use SocketListener;
 use Socket;
 
-pub trait SocketListenerExtManual {
+#[cfg(feature = "futures")]
+use futures_core::Future;
+
+pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    fn accept_socket_async_future(&self) -> Box<Future<Item = (Self, (Socket, Option<glib::Object>)), Error = (Self, Error)>>;
 }
 
-impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
+impl<O: IsA<SocketListener> + IsA<glib::Object> + Clone + 'static> SocketListenerExtManual for O {
     fn accept_socket_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -37,5 +43,28 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         unsafe {
             ffi::g_socket_listener_accept_socket_async(self.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
+    }
+
+    #[cfg(feature = "futures")]
+    fn accept_socket_async_future(&self) -> Box<Future<Item = (Self, (Socket, Option<glib::Object>)), Error = (Self, Error)>> {
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            use send_cell::SendCell;
+
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.accept_socket_async(
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
+            );
+
+            cancellable
+        })
     }
 }
