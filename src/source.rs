@@ -1,11 +1,13 @@
-// Copyright 2013-2015, The Gtk-rs Project Developers.
+// Copyright 2013-2018, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::cell::RefCell;
 use std::mem::transmute;
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(feature = "v2_36", unix))]
 use std::os::unix::io::RawFd;
+#[cfg(any(feature = "v2_36", windows))]
+use libc::c_int as RawFd;
 use std::process;
 use std::thread;
 use ffi as glib_ffi;
