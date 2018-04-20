@@ -8,7 +8,6 @@ use std::borrow::{Borrow, Cow, ToOwned};
 use std::cmp::{PartialEq, Eq};
 use std::fmt;
 use std::hash::{Hash, Hasher};
-use std::mem;
 use std::ops::Deref;
 use std::slice;
 
@@ -66,7 +65,7 @@ impl Deref for VariantType {
     type Target = VariantTy;
     fn deref(&self) -> &VariantTy {
         unsafe {
-            mem::transmute(slice::from_raw_parts(self.ptr as *const u8, self.len))
+            &*(slice::from_raw_parts(self.ptr as *const u8, self.len) as *const [u8] as *const VariantTy)
         }
     }
 }
@@ -141,7 +140,7 @@ impl VariantTy {
             let ok = from_glib(glib_ffi::g_variant_type_string_scan(ptr as *const _,
                 limit as *const _, &mut end as *mut usize as *mut _));
             if ok && end == limit {
-                Ok(mem::transmute(type_string))
+                Ok(&*(type_string.as_bytes() as *const [u8] as *const VariantTy))
             } else {
                 Err(())
             }
@@ -150,7 +149,7 @@ impl VariantTy {
 
     /// Converts a type string into `&VariantTy` without any checks.
     pub unsafe fn from_str_unchecked(type_string: &str) -> &VariantTy {
-        mem::transmute(type_string)
+        &*(type_string as *const str as *const VariantTy)
     }
 
     /// Creates `&VariantTy` with a wildcard lifetime from a `GVariantType`
@@ -158,7 +157,7 @@ impl VariantTy {
     #[doc(hidden)]
     pub unsafe fn from_ptr<'a>(ptr: *const glib_ffi::GVariantType) -> &'a VariantTy {
         let len = glib_ffi::g_variant_type_get_string_length(ptr) as usize;
-        mem::transmute(slice::from_raw_parts(ptr as *const u8, len))
+        &*(slice::from_raw_parts(ptr as *const u8, len) as *const [u8] as *const VariantTy)
     }
 
     /// Returns a `GVariantType` pointer.
