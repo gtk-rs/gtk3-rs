@@ -152,6 +152,14 @@ mod permission;
 pub use self::permission::Permission;
 pub use self::permission::PermissionExt;
 
+mod pollable_input_stream;
+pub use self::pollable_input_stream::PollableInputStream;
+pub use self::pollable_input_stream::PollableInputStreamExt;
+
+mod pollable_output_stream;
+pub use self::pollable_output_stream::PollableOutputStream;
+pub use self::pollable_output_stream::PollableOutputStreamExt;
+
 mod resolver;
 pub use self::resolver::Resolver;
 pub use self::resolver::ResolverExt;
@@ -471,6 +479,8 @@ pub mod traits {
     pub use super::NotificationExt;
     pub use super::OutputStreamExt;
     pub use super::PermissionExt;
+    pub use super::PollableInputStreamExt;
+    pub use super::PollableOutputStreamExt;
     pub use super::ResolverExt;
     pub use super::SeekableExt;
     pub use super::SettingsExt;

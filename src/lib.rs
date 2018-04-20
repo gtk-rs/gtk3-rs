@@ -13,6 +13,7 @@ extern crate gio_sys as ffi;
 extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 extern crate libc;
+extern crate send_cell;
 
 macro_rules! callback_guard {
     () => (
@@ -31,6 +32,8 @@ mod socket_listener;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
 mod file;
+mod pollable_input_stream;
+mod pollable_output_stream;
 
 #[cfg(test)]
 mod test_util;
@@ -57,6 +60,8 @@ pub mod prelude {
     #[cfg(any(unix, feature = "dox"))]
     pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
     pub use file::FileExtManual;
+    pub use pollable_input_stream::PollableInputStreamExtManual;
+    pub use pollable_output_stream::PollableOutputStreamExtManual;
 }
 
 pub use prelude::*;

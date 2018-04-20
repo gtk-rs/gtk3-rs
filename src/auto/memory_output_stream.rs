@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use OutputStream;
+use PollableOutputStream;
 use Seekable;
 use ffi;
 use glib;
@@ -19,7 +20,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass>): OutputStream, Seekable;
+    pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass>): OutputStream, PollableOutputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_memory_output_stream_get_type(),

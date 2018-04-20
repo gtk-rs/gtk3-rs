@@ -40,6 +40,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
+send-cell = "0.1"
 
 [dependencies.gio-sys]
 version = "0.6.0"

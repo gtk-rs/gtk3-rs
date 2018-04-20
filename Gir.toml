@@ -111,6 +111,11 @@ status = "generate"
     #belong to Stream, works only with PollableStream, need mutable buffer reference
     ignore = true
 
+    [[object.function]]
+    pattern = "pollable_source_.+"
+    #belong to Stream, works only with PollableStream, need mutable buffer reference
+    ignore = true
+
 [[object]]
 name = "Gio.ActionGroup"
 status = "generate"
@@ -144,6 +149,10 @@ concurrency = "send+sync"
     [[object.function]]
     name = "reset"
     #undefined behaviour
+    ignore = true
+    [[object.function]]
+    name = "source_new"
+    # Needs manual bindings for setting callback, etc
     ignore = true
 
 [[object]]
@@ -296,6 +305,27 @@ status = "generate"
     [[object.function]]
     name = "write_all_async"
     #AsRef<u8>
+    ignore = true
+
+[[object]]
+name = "Gio.PollableOutputStream"
+status = "generate"
+    [[object.function]]
+    name = "create_source"
+    # manual source implementation
+    ignore = true
+
+[[object]]
+name = "Gio.PollableInputStream"
+status = "generate"
+    [[object.function]]
+    name = "create_source"
+    # manual source implementation
+    ignore = true
+
+    [[object.function]]
+    name = "read_nonblocking"
+    # wrong mutability
     ignore = true
 
 [[object]]
