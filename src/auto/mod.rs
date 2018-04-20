@@ -53,9 +53,9 @@ mod file;
 pub use self::file::File;
 pub use self::file::FileExt;
 
-mod file_i_o_stream;
-pub use self::file_i_o_stream::FileIOStream;
-pub use self::file_i_o_stream::FileIOStreamExt;
+mod file_io_stream;
+pub use self::file_io_stream::FileIOStream;
+pub use self::file_io_stream::FileIOStreamExt;
 
 mod file_info;
 pub use self::file_info::FileInfo;
@@ -77,9 +77,9 @@ mod filter_output_stream;
 pub use self::filter_output_stream::FilterOutputStream;
 pub use self::filter_output_stream::FilterOutputStreamExt;
 
-mod i_o_stream;
-pub use self::i_o_stream::IOStream;
-pub use self::i_o_stream::IOStreamExt;
+mod io_stream;
+pub use self::io_stream::IOStream;
+pub use self::io_stream::IOStreamExt;
 
 mod icon;
 pub use self::icon::Icon;
@@ -181,9 +181,9 @@ pub use self::simple_action_group::SimpleActionGroup;
 pub use self::simple_action_group::SimpleActionGroupExt;
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-mod simple_i_o_stream;
+mod simple_io_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::simple_i_o_stream::SimpleIOStream;
+pub use self::simple_io_stream::SimpleIOStream;
 
 mod simple_permission;
 pub use self::simple_permission::SimplePermission;
