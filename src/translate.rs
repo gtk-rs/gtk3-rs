@@ -861,7 +861,7 @@ impl FromGlib<i64> for Option<u64> {
 impl FromGlib<i32> for Option<u64> {
     #[inline]
     fn from_glib(val: i32) -> Option<u64> {
-        FromGlib::from_glib(val as i64)
+        FromGlib::from_glib(i64::from(val))
     }
 }
 
