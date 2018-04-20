@@ -300,7 +300,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut glib_ffi::GType> for Type {
     }
 
     fn to_glib_full_from_slice(t: &[Type]) -> *mut glib_ffi::GType {
-        if t.len() == 0 {
+        if t.is_empty() {
             return ptr::null_mut();
         }
 
