@@ -5,6 +5,7 @@ version = "2.0"
 min_cfg_version = "2.26"
 target_path = "."
 work_mode = "normal"
+single_version_file = true
 
 generate = [
     "GdkPixbuf.Colorspace",
@@ -80,6 +81,10 @@ status = "generate"
     ignore = true
     [[object.function]]
     name = "savev"
+    # manual complex param
+    ignore = true
+    [[object.function]]
+    name = "save_to_streamv_async"
     # manual complex param
     ignore = true
 
