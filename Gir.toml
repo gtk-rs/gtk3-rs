@@ -83,6 +83,10 @@ status = "generate"
     name = "savev"
     # manual complex param
     ignore = true
+    [[object.function]]
+    name = "save_to_streamv_async"
+    # manual complex param
+    ignore = true
 
 [[object]]
 name = "GdkPixbuf.PixbufFormat"

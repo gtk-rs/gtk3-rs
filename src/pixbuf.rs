@@ -305,6 +305,64 @@ impl Pixbuf {
         }
     }
 
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    pub fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)], cancellable: Q, callback: R) {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn save_to_streamv_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut gio_ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::gdk_pixbuf_save_to_stream_finish(res, &mut error);
+            let result = if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = save_to_streamv_async_trampoline::<R>;
+        unsafe {
+            let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
+            let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
+            ffi::gdk_pixbuf_save_to_streamv_async(self.to_glib_none().0, stream.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)]) -> Box<Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use gio::GioFuture;
+        use send_cell::SendCell;
+
+        let stream = stream.clone();
+        let type_ = String::from(type_);
+        let options = options.iter().map(|&(k, v)| (String::from(k), String::from(v))).collect::<Vec<(String, String)>>();
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = gio::Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            let options = options.iter().map(|&(ref k, ref v)| (k.as_str(), v.as_str())).collect::<Vec<(&str, &str)>>();
+
+            obj.save_to_streamv_async(
+                 &stream,
+                 &type_,
+                 options.as_slice(),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
+    }
+
     pub fn savev<T: AsRef<Path>>(&self, filename: T, type_: &str, options: &[(&str, &str)]) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();

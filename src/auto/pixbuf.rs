@@ -191,9 +191,6 @@ pub trait PixbufExt {
     //#[cfg(feature = "futures")]
     //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: /*Unimplemented*/gio::AsyncReadyCallback>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q, callback: R);
-
     fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType);
 
     fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType) -> Option<Pixbuf>;
@@ -425,11 +422,6 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
 
         //    cancellable
         //})
-    //}
-
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: /*Unimplemented*/gio::AsyncReadyCallback>(&self, stream: &P, type_: &str, option_keys: &[&str], option_values: &[&str], cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_streamv_async() }
     //}
 
     fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType) {
