@@ -6,6 +6,7 @@ min_cfg_version = "3.4"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
+single_version_file = true
 
 generate = [
     "Gdk.AnchorHints",
