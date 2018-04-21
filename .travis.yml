@@ -48,6 +48,9 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gtk+3 cairo atk; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig; fi
 script:
+  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.4" ]; then
+    make regen_check;
+    fi
   - cargo doc --features "dox"
   - cargo test
   - rustc --version
