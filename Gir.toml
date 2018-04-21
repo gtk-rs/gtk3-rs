@@ -5,6 +5,7 @@ version = "2.0"
 min_cfg_version = "2.26"
 target_path = "."
 work_mode = "normal"
+single_version_file = true
 
 generate = [
     "GdkPixbuf.Colorspace",
