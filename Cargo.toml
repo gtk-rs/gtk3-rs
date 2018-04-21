@@ -26,6 +26,7 @@ v2_36_8 = ["v2_36", "gdk-pixbuf-sys/v2_36_8"]
 dox = ["glib/dox", "gdk-pixbuf-sys/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+futures = ["futures-core", "glib/futures", "gio/futures"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
@@ -34,6 +35,8 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
+send-cell = "0.1"
+futures-core = { version = "0.2", optional = true }
 
 [dependencies.gdk-pixbuf-sys]
 version = "0.6.0"

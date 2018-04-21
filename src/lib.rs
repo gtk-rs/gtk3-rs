@@ -11,6 +11,11 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
+#[cfg(feature = "futures")]
+extern crate send_cell;
+#[cfg(feature = "futures")]
+extern crate futures_core;
+
 pub use glib::{
     Cast,
     Continue,
