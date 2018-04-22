@@ -55,6 +55,7 @@ script:
     make regen_check;
     fi
   - ./check_init_asserts
+  - cargo update
   - cargo test --features embed-lgpl-docs --jobs 1
   # catch any sneaked in lgpl docs
   - cargo build --features purge-lgpl-docs --jobs 1
@@ -64,4 +65,5 @@ script:
   - echo 'paths = ["."]' > .cargo/config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
+  - cargo update
   - ./build_travis.sh
