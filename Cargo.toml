@@ -24,6 +24,7 @@ futures-core = { version = "0.2", optional = true }
 futures-executor = { version = "0.2", optional = true }
 futures-channel = { version = "0.2", optional = true }
 futures-util = { version = "0.2", optional = true }
+futures-stable = { version = "0.2", optional = true }
 
 [dependencies.glib-sys]
 version = "0.6.0"
@@ -48,4 +49,5 @@ v2_50 = ["v2_48", "glib-sys/v2_50"]
 v2_52 = ["v2_50", "glib-sys/v2_52"]
 v2_54 = ["v2_52", "glib-sys/v2_54", "gobject-sys/v2_54"]
 futures = ["futures-core", "futures-executor", "futures-channel", "futures-util", "v2_36"]
+futures-nightly = ["futures", "futures-core/nightly", "futures-stable", "futures-stable/nightly"]
 dox = ["glib-sys/dox", "gobject-sys/dox"]
