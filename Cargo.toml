@@ -8,6 +8,10 @@ chrono = "0.4"
 url = "1.4"
 futures-core = { version = "0.2", optional = true }
 futures-util = { version = "0.2", optional = true }
+futures = { version = "0.2", optional = true }
+futures-macro-async = { version = "0.2", optional = true }
+futures-macro-await = { version = "0.2", optional = true }
+futures-async-runtime = { version = "0.2", optional = true }
 
 [dependencies.glib]
 git = "https://github.com/gtk-rs/glib"
@@ -32,13 +36,14 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-#default = ["gtk_3_22", "futures"]
+#default = ["gtk_3_22", "futures-stable"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
 gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
 gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
-futures = ["futures-core", "futures-util", "glib/futures", "gio/futures"]
+futures-stable = ["futures-core", "futures-util", "glib/futures", "gio/futures"]
+futures-nightly = ["futures-stable", "glib/futures-nightly", "futures", "futures/nightly", "futures-core/nightly", "futures-macro-async", "futures-macro-async/nightly", "futures-macro-await", "futures-async-runtime", "futures-async-runtime/nightly"]
 
 [[bin]]
 name = "basic"
@@ -70,6 +75,10 @@ name = "drag_and_drop_textview"
 [[bin]]
 name = "gio_futures"
 required-features = ["futures"]
+
+[[bin]]
+name = "gio_futures_await"
+required-features = ["futures-nightly"]
 
 [[bin]]
 name = "grid"
