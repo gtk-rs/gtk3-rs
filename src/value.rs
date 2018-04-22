@@ -931,16 +931,13 @@ impl AnyValue {
             copy_box
         });
 
-        Self {
-            val: val,
-            copy_fn: copy_fn,
-        }
+        Self { val, copy_fn }
     }
 
     /// Attempt the value to its concrete type.
     pub fn downcast<T: Any + Clone + 'static>(self) -> Result<T, Self> {
         let AnyValue { val, copy_fn } = self;
-        val.downcast::<T>().map(|val| *val).map_err(|val| AnyValue { val: val, copy_fn: copy_fn })
+        val.downcast::<T>().map(|val| *val).map_err(|val| AnyValue { val, copy_fn })
     }
 
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
@@ -959,7 +956,7 @@ impl Clone for AnyValue {
     fn clone(&self) -> Self {
         let val = (*self.copy_fn)(self.val.as_ref());
         Self {
-            val: val,
+            val,
             copy_fn: self.copy_fn.clone(),
         }
     }
@@ -1017,7 +1014,7 @@ impl AnySendValue {
     /// Attempt the value to its concrete type.
     pub fn downcast<T: Any + Clone + Send + 'static>(self) -> Result<T, Self> {
         let AnySendValue(AnyValue { val, copy_fn }) = self;
-        val.downcast::<T>().map(|val| *val).map_err(|val| AnySendValue(AnyValue { val: val, copy_fn: copy_fn }))
+        val.downcast::<T>().map(|val| *val).map_err(|val| AnySendValue(AnyValue { val, copy_fn }))
     }
 
     unsafe extern "C" fn copy(v: *mut c_void) -> *mut c_void {
