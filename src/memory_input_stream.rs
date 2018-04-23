@@ -59,7 +59,7 @@ mod tests {
     fn read_async_future() {
         use futures_util::FutureExt;
 
-        let mut c = glib::MainContext::new();
+        let c = glib::MainContext::new();
 
         let buf = vec![0; 10];
         let b = glib::Bytes::from_owned(vec![1, 2, 3]);
