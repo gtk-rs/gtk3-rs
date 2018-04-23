@@ -32,10 +32,6 @@ impl KeyFile {
         }
     }
 
-    //pub fn get_boolean_list(&self, group_name: &str, key: &str) -> Result</*Unimplemented*/CArray TypeId { ns_id: 0, id: 1 }, Error> {
-    //    unsafe { TODO: call ffi::g_key_file_get_boolean_list() }
-    //}
-
     pub fn get_comment<'a, P: Into<Option<&'a str>>>(&self, group_name: P, key: &str) -> Result<String, Error> {
         let group_name = group_name.into();
         let group_name = group_name.to_glib_none();

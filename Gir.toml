@@ -338,6 +338,10 @@ status = "generate"
        name = "has_key"
        #boolean return value needs to be returned
        ignore = true
+       [[object.function]]
+       name = "get_boolean_list"
+       #boolean array needs to be converted to Vec<bool>
+       ignore = true
 
 [[object]]
 name = "GLib.MainContext"
