@@ -12,7 +12,7 @@ use futures_util::FutureExt;
 use futures_util::future;
 
 fn main() {
-    let mut c = glib::MainContext::default();
+    let c = glib::MainContext::default();
     let l = glib::MainLoop::new(Some(&c), false);
 
     c.push_thread_default();

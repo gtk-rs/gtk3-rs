@@ -60,7 +60,7 @@ fn read_file(file: gio::File) -> Result<(), String> {
 }
 
 fn main() {
-    let mut c = glib::MainContext::default();
+    let c = glib::MainContext::default();
     let l = glib::MainLoop::new(Some(&c), false);
 
     c.push_thread_default();
