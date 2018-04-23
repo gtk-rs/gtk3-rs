@@ -57,7 +57,7 @@ unsafe impl UnsafeWake for TaskSource {
 
     unsafe fn wake(&self) {
         if self.state
-            .compare_and_swap(NOT_READY, READY, Ordering::SeqCst) == READY
+            .compare_and_swap(NOT_READY, READY, Ordering::SeqCst) == NOT_READY
         {
             glib_ffi::g_source_set_ready_time(mut_override(&self.source), 0);
         }
