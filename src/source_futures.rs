@@ -346,6 +346,7 @@ mod tests {
     use super::*;
     use futures_util::FutureExt;
     use futures_util::StreamExt;
+    use std::thread;
 
     #[test]
     fn test_timeout() {
@@ -397,5 +398,28 @@ mod tests {
         }
 
         assert_eq!(count, 2);
+    }
+
+    #[test]
+    fn test_timeout_and_channel() {
+        let c = MainContext::default();
+
+        let res = c.block_on(timeout_future(20)
+            .and_then(move |()| {
+                let (sender, receiver) = oneshot::channel();
+
+                thread::spawn(move || {
+                    sender.send(1).unwrap();
+                });
+
+                receiver.map_err(|_| unreachable!())
+                    .and_then(|i| {
+
+                        Ok(i)
+                    })
+            })
+        );
+
+        assert_eq!(res, Ok(1));
     }
 }
