@@ -242,7 +242,7 @@ impl MainContext {
     ///
     /// This can be called from any thread and will execute the future from the thread
     /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&mut self, f: F) {
+    pub fn spawn<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&self, f: F) {
         self.spawn_with_priority(::PRIORITY_DEFAULT, f);
     }
 
@@ -253,7 +253,7 @@ impl MainContext {
     /// This can be called only from the thread where the main context is running, e.g.
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local<F: StableFuture<Item = (), Error = Never> + 'static>(&mut self, f: F) {
+    pub fn spawn_local<F: StableFuture<Item = (), Error = Never> + 'static>(&self, f: F) {
         self.spawn_local_with_priority(::PRIORITY_DEFAULT, f);
     }
 
@@ -261,7 +261,7 @@ impl MainContext {
     ///
     /// This can be called from any thread and will execute the future from the thread
     /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn_with_priority<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&mut self, priority: Priority, f: F) {
+    pub fn spawn_with_priority<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&self, priority: Priority, f: F) {
         let f = f.pin();
         let source = TaskSource::new(priority, f);
         source.attach(Some(&*self));
@@ -274,7 +274,7 @@ impl MainContext {
     /// This can be called only from the thread where the main context is running, e.g.
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local_with_priority<F: StableFuture<Item = (), Error = Never> + 'static>(&mut self, priority: Priority, f: F) {
+    pub fn spawn_local_with_priority<F: StableFuture<Item = (), Error = Never> + 'static>(&self, priority: Priority, f: F) {
         assert!(self.is_owner(), "Spawning local futures only allowed on the thread owning the MainContext");
         let f = f.pin_local();
         unsafe {
@@ -292,7 +292,7 @@ impl MainContext {
     ///
     /// This must only be called if no `MainLoop` or anything else is running on this specific main
     /// context.
-    pub fn block_on<F: StableFuture>(&mut self, f: F) -> Result<F::Item, F::Error> {
+    pub fn block_on<F: StableFuture>(&self, f: F) -> Result<F::Item, F::Error> {
         let mut res = None;
         let l = MainLoop::new(Some(&*self), false);
         let l_clone = l.clone();
@@ -331,7 +331,7 @@ impl MainContext {
     ///
     /// This can be called from any thread and will execute the future from the thread
     /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn<F: Future<Item = (), Error = Never> + Send + 'static>(&mut self, f: F) {
+    pub fn spawn<F: Future<Item = (), Error = Never> + Send + 'static>(&self, f: F) {
         self.spawn_with_priority(::PRIORITY_DEFAULT, f);
     }
 
@@ -342,7 +342,7 @@ impl MainContext {
     /// This can be called only from the thread where the main context is running, e.g.
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local<F: Future<Item = (), Error = Never> + 'static>(&mut self, f: F) {
+    pub fn spawn_local<F: Future<Item = (), Error = Never> + 'static>(&self, f: F) {
         self.spawn_local_with_priority(::PRIORITY_DEFAULT, f);
     }
 
@@ -350,7 +350,7 @@ impl MainContext {
     ///
     /// This can be called from any thread and will execute the future from the thread
     /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn_with_priority<F: Future<Item = (), Error = Never> + Send + 'static>(&mut self, priority: Priority, f: F) {
+    pub fn spawn_with_priority<F: Future<Item = (), Error = Never> + Send + 'static>(&self, priority: Priority, f: F) {
         let f = Box::new(f);
         let source = TaskSource::new(priority, f);
         source.attach(Some(&*self));
@@ -363,7 +363,7 @@ impl MainContext {
     /// This can be called only from the thread where the main context is running, e.g.
     /// from any other `Future` that is executed on this main context, or after calling
     /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local_with_priority<F: Future<Item = (), Error = Never> + 'static>(&mut self, priority: Priority, f: F) {
+    pub fn spawn_local_with_priority<F: Future<Item = (), Error = Never> + 'static>(&self, priority: Priority, f: F) {
         assert!(self.is_owner(), "Spawning local futures only allowed on the thread owning the MainContext");
         let f = Box::new(f);
         unsafe {
@@ -381,7 +381,7 @@ impl MainContext {
     ///
     /// This must only be called if no `MainLoop` or anything else is running on this specific main
     /// context.
-    pub fn block_on<F: Future>(&mut self, f: F) -> Result<F::Item, F::Error> {
+    pub fn block_on<F: Future>(&self, f: F) -> Result<F::Item, F::Error> {
         let mut res = None;
         let l = MainLoop::new(Some(&*self), false);
         let l_clone = l.clone();
@@ -449,7 +449,7 @@ mod tests {
 
     #[test]
     fn test_spawn() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
         let l = ::MainLoop::new(Some(&c), false);
 
         let (sender, receiver) = mpsc::channel();
@@ -477,7 +477,7 @@ mod tests {
 
     #[test]
     fn test_spawn_local() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
         let l = ::MainLoop::new(Some(&c), false);
 
         c.push_thread_default();
@@ -495,7 +495,7 @@ mod tests {
 
     #[test]
     fn test_block_on() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
 
         let mut v = None;
         {

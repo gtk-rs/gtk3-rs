@@ -349,7 +349,7 @@ mod tests {
 
     #[test]
     fn test_timeout() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
 
         let res = c.block_on(timeout_future(20)
             .and_then(move |_ctx| {
@@ -362,7 +362,7 @@ mod tests {
 
     #[test]
     fn test_timeout_send() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
         let l = ::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
@@ -378,7 +378,7 @@ mod tests {
 
     #[test]
     fn test_interval() {
-        let mut c = MainContext::new();
+        let c = MainContext::new();
 
         let mut count = 0;
 
