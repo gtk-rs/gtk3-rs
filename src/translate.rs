@@ -1072,6 +1072,46 @@ where Self: Sized {
     unsafe fn from_glib_full_as_vec(ptr: PP) -> Vec<Self>;
 }
 
+impl FromGlibContainerAsVec<bool, *const glib_ffi::gboolean> for bool {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const glib_ffi::gboolean, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib(ptr::read(ptr.offset(i as isize))));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const glib_ffi::gboolean, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const glib_ffi::gboolean, _: usize) -> Vec<Self> {
+        // Can't really free a *const
+        unimplemented!();
+    }
+}
+
+impl FromGlibContainerAsVec<bool, *mut glib_ffi::gboolean> for bool {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut glib_ffi::gboolean, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr as *const _, num)
+    }
+
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut glib_ffi::gboolean, num: usize) -> Vec<Self> {
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut glib_ffi::gboolean, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
+    }
+}
+
 macro_rules! impl_from_glib_container_as_vec_fundamental {
     ($name:ty) => {
         impl FromGlibContainerAsVec<$name, *const $name> for $name {

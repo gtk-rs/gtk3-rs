@@ -96,8 +96,7 @@ impl KeyFile {
             if !error.is_null() {
                 return Err(from_glib_full(error));
             }
-            let v: Vec<ffi::gboolean> = FromGlibContainer::from_glib_container_num(ret, length as usize);
-            Ok(v.iter().map(|e| *e != 0).collect())
+            Ok(FromGlibContainer::from_glib_container_num(ret, length as usize))
         }
     }
 }
