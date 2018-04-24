@@ -78,9 +78,9 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
         };
         match self.get_address_type() {
             UnixSocketAddressType::Anonymous => Some(Anonymous),
-            #[cfg(not(dox))]
+            #[cfg(not(feature = "dox"))]
             UnixSocketAddressType::Path => Some(Path(path::Path::new(OsStr::from_bytes(path)))),
-            #[cfg(dox)]
+            #[cfg(feature = "dox")]
             UnixSocketAddressType::Path => unreachable!(),
             UnixSocketAddressType::Abstract => Some(Abstract(path)),
             UnixSocketAddressType::AbstractPadded => Some(AbstractPadded(path)),
