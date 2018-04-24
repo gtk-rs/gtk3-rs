@@ -6,7 +6,6 @@ use futures_macro_async::*;
 extern crate futures_macro_async;
 #[macro_use]
 extern crate futures_macro_await;
-extern crate futures_async_runtime;
 
 extern crate glib;
 
