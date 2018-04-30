@@ -1,4 +1,4 @@
-#![feature(proc_macro, generators, pin)]
+#![feature(proc_macro, proc_macro_non_items, generators, pin)]
 
 extern crate futures;
 
@@ -13,10 +13,6 @@ extern crate gio;
 use gio::prelude::*;
 
 use std::str;
-
-fn print_line(idx: u32, buf: &[u8]) {
-    println!("line {}: {:?}", idx, str::from_utf8(&buf).unwrap());
-}
 
 // Throughout our chained futures, we convert all errors to strings
 // via map_err() return them directly
@@ -44,9 +40,7 @@ fn read_file(file: gio::File) -> Result<(), String> {
 
         buf = b;
 
-        // FIXME: This does not compile because println! finds neither idx nor b/len
-        //println!("line {}: {:?}", idx, str::from_utf8(&buf[0..len]).unwrap());
-        print_line(idx, &buf[0..len]);
+        println!("line {}: {:?}", idx, str::from_utf8(&buf[0..len]).unwrap());
 
         idx += 1;
     }
