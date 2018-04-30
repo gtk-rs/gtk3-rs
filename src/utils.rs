@@ -5,6 +5,7 @@
 use ffi;
 use translate::*;
 use std;
+use std::ffi::{OsStr, OsString};
 use std::path::{Path, PathBuf};
 use error::BoolError;
 use Error;
@@ -36,39 +37,39 @@ pub fn set_prgname(name: Option<&str>) {
     }
 }
 
-pub fn getenv(variable_name: &str) -> Option<String> {
+pub fn getenv<K: AsRef<OsStr>>(variable_name: K) -> Option<OsString> {
     #[cfg(windows)]
     use ffi::g_getenv_utf8 as g_getenv;
     #[cfg(not(windows))]
     use ffi::g_getenv;
 
     unsafe {
-        from_glib_none(g_getenv(variable_name.to_glib_none().0))
+        from_glib_none(g_getenv(variable_name.as_ref().to_glib_none().0))
     }
 }
 
-pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> Result<(), BoolError> {
+pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(variable_name: K, value: V, overwrite: bool) -> Result<(), BoolError> {
     #[cfg(windows)]
     use ffi::g_setenv_utf8 as g_setenv;
     #[cfg(not(windows))]
     use ffi::g_setenv;
 
     unsafe {
-        BoolError::from_glib(g_setenv(variable_name.to_glib_none().0,
-                                value.to_glib_none().0,
+        BoolError::from_glib(g_setenv(variable_name.as_ref().to_glib_none().0,
+                                value.as_ref().to_glib_none().0,
                                 overwrite.to_glib()),
                              "Failed to set environment variable")
     }
 }
 
-pub fn unsetenv(variable_name: &str) {
+pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
     #[cfg(windows)]
     use ffi::g_unsetenv_utf8 as g_unsetenv;
     #[cfg(not(windows))]
     use ffi::g_unsetenv;
 
     unsafe {
-        g_unsetenv(variable_name.to_glib_none().0)
+        g_unsetenv(variable_name.as_ref().to_glib_none().0)
     }
 }
 
