@@ -177,3 +177,44 @@ pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
         g_mkstemp(tmpl.as_ref().to_glib_none().0)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use std::env;
+    use std::sync::Mutex;
+
+    //Mutex to prevent run environment tests parallel
+    lazy_static! { static ref LOCK: Mutex<()> = Mutex::new(()); }
+
+    const VAR_NAME: &str = "function_environment_test";
+
+    fn check_getenv(val: &str) {
+        let _data = LOCK.lock().unwrap();
+
+        env::set_var(VAR_NAME, val);
+        assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
+        assert_eq!(::getenv(VAR_NAME), Some(val.into()));
+
+        let environ = ::get_environ();
+        assert_eq!(::environ_getenv(&environ, VAR_NAME), Some(val.into()));
+    }
+
+    fn check_setenv(val: &str) {
+        let _data = LOCK.lock().unwrap();
+
+        ::setenv(VAR_NAME, val, true).unwrap();
+        assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
+    }
+
+    #[test]
+    fn getenv() {
+        check_getenv("Test");
+        check_getenv("Тест"); // "Test" in Russian
+    }
+
+    #[test]
+    fn setenv() {
+        check_setenv("Test");
+        check_setenv("Тест"); // "Test" in Russian
+    }
+}
