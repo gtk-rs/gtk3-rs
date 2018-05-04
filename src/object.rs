@@ -968,12 +968,18 @@ impl<T> WeakRef<T> {
         unsafe {
             let weak = WeakRef {
                 inner: Arc::new(WeakRefInner(mem::zeroed())),
-                thread: Some(thread::current().id()),
+                thread: None,
                 marker: PhantomData,
             };
             gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), ptr::null_mut());
             weak
         }
+    }
+}
+
+impl<T> Default for WeakRef<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
