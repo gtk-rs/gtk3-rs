@@ -963,6 +963,26 @@ pub struct WeakRef<T: ?Sized> {
     marker: PhantomData<*const T>,
 }
 
+impl<T> WeakRef<T> {
+    pub fn new() -> Self {
+        unsafe {
+            let weak = WeakRef {
+                inner: Arc::new(WeakRefInner(mem::zeroed())),
+                thread: None,
+                marker: PhantomData,
+            };
+            gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), ptr::null_mut());
+            weak
+        }
+    }
+}
+
+impl<T> Default for WeakRef<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 unsafe impl<T: ?Sized> Send for WeakRef<T> {}
 unsafe impl<T: ?Sized> Sync for WeakRef<T> {}
 
