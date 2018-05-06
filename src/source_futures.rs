@@ -52,25 +52,20 @@ where
 
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
-            match main_context {
-                None => panic!("Polled from an Executor not backed by a GLib main context"),
-                Some(ref main_context) => {
-                    assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
 
-                    // Channel for sending back the Source result to our future here.
-                    //
-                    // In theory we could directly continue polling the
-                    // corresponding task from the Source callback,
-                    // however this would break at the very least
-                    // the g_main_current_source() API.
-                    let (send, recv) = oneshot::channel();
+            // Channel for sending back the Source result to our future here.
+            //
+            // In theory we could directly continue polling the
+            // corresponding task from the Source callback,
+            // however this would break at the very least
+            // the g_main_current_source() API.
+            let (send, recv) = oneshot::channel();
 
-                    let s = create_source(send);
+            let s = create_source(send);
 
-                    s.attach(Some(main_context));
-                    *source = Some((s, recv));
-                }
-            }
+            s.attach(Some(&main_context));
+            *source = Some((s, recv));
         }
 
         // At this point we must have a receiver
@@ -224,25 +219,20 @@ where
 
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
-            match main_context {
-                None => panic!("Polled from an Executor not backed by a GLib main context"),
-                Some(ref main_context) => {
-                    assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
 
-                    // Channel for sending back the Source result to our future here.
-                    //
-                    // In theory we could directly continue polling the
-                    // corresponding task from the Source callback,
-                    // however this would break at the very least
-                    // the g_main_current_source() API.
-                    let (send, recv) = mpsc::unbounded();
+            // Channel for sending back the Source result to our future here.
+            //
+            // In theory we could directly continue polling the
+            // corresponding task from the Source callback,
+            // however this would break at the very least
+            // the g_main_current_source() API.
+            let (send, recv) = mpsc::unbounded();
 
-                    let s = create_source(send);
+            let s = create_source(send);
 
-                    s.attach(Some(main_context));
-                    *source = Some((s, recv));
-                }
-            }
+            s.attach(Some(&main_context));
+            *source = Some((s, recv));
         }
 
         // At this point we must have a receiver
