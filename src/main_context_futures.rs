@@ -212,6 +212,8 @@ impl TaskSource {
                 from_glib_none(glib_ffi::g_source_get_context(mut_override(source)))
             };
 
+            assert!(executor.is_owner(), "Polling futures only allowed if the thread is owning the MainContext");
+
             // Clone that we store in the task local data so that
             // it can be retrieved as needed
             executor.push_thread_default();
