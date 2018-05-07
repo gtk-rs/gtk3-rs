@@ -47,25 +47,20 @@ where
 
         if let Some(schedule_operation) = schedule_operation.take() {
             let main_context = glib::MainContext::ref_thread_default();
-            match main_context {
-                None => panic!("Polled from an Executor not backed by a GLib main context"),
-                Some(ref main_context) => {
-                    assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
 
-                    // Channel for sending back the GIO async operation
-                    // result to our future here.
-                    //
-                    // In theory we could directly continue polling the
-                    // corresponding task from the GIO async operation
-                    // callback, however this would break at the very
-                    // least the g_main_current_source() API.
-                    let (send, recv) = oneshot::channel();
+            // Channel for sending back the GIO async operation
+            // result to our future here.
+            //
+            // In theory we could directly continue polling the
+            // corresponding task from the GIO async operation
+            // callback, however this would break at the very
+            // least the g_main_current_source() API.
+            let (send, recv) = oneshot::channel();
 
-                    let c = schedule_operation(obj, send);
+            let c = schedule_operation(obj, send);
 
-                    *cancellable = Some((c, recv));
-                }
-            }
+            *cancellable = Some((c, recv));
         }
 
         // At this point we must have a receiver
