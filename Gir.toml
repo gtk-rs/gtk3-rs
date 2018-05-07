@@ -363,6 +363,11 @@ concurrency = "send+sync"
            [object.function.return]
            nullable = false
 
+       [[object.function]]
+       name = "ref_thread_default"
+           [object.function.return]
+           nullable = false
+
 [[object]]
 name = "GLib.MainLoop"
 status = "generate"

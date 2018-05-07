@@ -136,7 +136,7 @@ impl MainContext {
         }
     }
 
-    pub fn ref_thread_default() -> Option<MainContext> {
+    pub fn ref_thread_default() -> MainContext {
         unsafe {
             from_glib_full(ffi::g_main_context_ref_thread_default())
         }
