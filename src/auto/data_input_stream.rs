@@ -65,10 +65,13 @@ pub trait DataInputStreamExt: Sized {
 
     fn read_uint64<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<u64, Error>;
 
+    #[cfg_attr(feature = "v2_56", deprecated)]
     fn read_until<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(String, usize), Error>;
 
+    #[cfg_attr(feature = "v2_56", deprecated)]
     fn read_until_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
 
+    #[cfg_attr(feature = "v2_56", deprecated)]
     #[cfg(feature = "futures")]
     fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>>;
 

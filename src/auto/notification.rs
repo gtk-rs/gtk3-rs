@@ -64,6 +64,7 @@ pub trait NotificationExt {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_title(&self, title: &str);
 
+    #[cfg_attr(feature = "v2_42", deprecated)]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_urgent(&self, urgent: bool);
 }

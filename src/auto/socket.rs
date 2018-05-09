@@ -102,7 +102,13 @@ pub trait SocketExt {
 
     fn join_multicast_group<'a, P: Into<Option<&'a str>>>(&self, group: &InetAddress, source_specific: bool, iface: P) -> Result<(), Error>;
 
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn join_multicast_group_ssm<'a, 'b, P: Into<Option<&'a InetAddress>>, Q: Into<Option<&'b str>>>(&self, group: &InetAddress, source_specific: P, iface: Q) -> Result<(), Error>;
+
     fn leave_multicast_group<'a, P: Into<Option<&'a str>>>(&self, group: &InetAddress, source_specific: bool, iface: P) -> Result<(), Error>;
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn leave_multicast_group_ssm<'a, 'b, P: Into<Option<&'a InetAddress>>, Q: Into<Option<&'b str>>>(&self, group: &InetAddress, source_specific: P, iface: Q) -> Result<(), Error>;
 
     fn listen(&self) -> Result<(), Error>;
 
@@ -359,12 +365,38 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
         }
     }
 
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn join_multicast_group_ssm<'a, 'b, P: Into<Option<&'a InetAddress>>, Q: Into<Option<&'b str>>>(&self, group: &InetAddress, source_specific: P, iface: Q) -> Result<(), Error> {
+        let source_specific = source_specific.into();
+        let source_specific = source_specific.to_glib_none();
+        let iface = iface.into();
+        let iface = iface.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_socket_join_multicast_group_ssm(self.to_glib_none().0, group.to_glib_none().0, source_specific.0, iface.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
+
     fn leave_multicast_group<'a, P: Into<Option<&'a str>>>(&self, group: &InetAddress, source_specific: bool, iface: P) -> Result<(), Error> {
         let iface = iface.into();
         let iface = iface.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_leave_multicast_group(self.to_glib_none().0, group.to_glib_none().0, source_specific.to_glib(), iface.0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn leave_multicast_group_ssm<'a, 'b, P: Into<Option<&'a InetAddress>>, Q: Into<Option<&'b str>>>(&self, group: &InetAddress, source_specific: P, iface: Q) -> Result<(), Error> {
+        let source_specific = source_specific.into();
+        let source_specific = source_specific.to_glib_none();
+        let iface = iface.into();
+        let iface = iface.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_socket_leave_multicast_group_ssm(self.to_glib_none().0, group.to_glib_none().0, source_specific.0, iface.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }

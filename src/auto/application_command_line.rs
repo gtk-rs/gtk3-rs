@@ -31,13 +31,13 @@ glib_wrapper! {
 
 pub trait ApplicationCommandLineExt {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn create_file_for_arg(&self, arg: &str) -> Option<File>;
+    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File>;
 
-    fn get_arguments(&self) -> Vec<String>;
+    fn get_arguments(&self) -> Vec<std::ffi::OsString>;
 
     fn get_cwd(&self) -> Option<std::path::PathBuf>;
 
-    fn get_environ(&self) -> Vec<String>;
+    fn get_environ(&self) -> Vec<std::ffi::OsString>;
 
     fn get_exit_status(&self) -> i32;
 
@@ -51,7 +51,7 @@ pub trait ApplicationCommandLineExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_stdin(&self) -> Option<InputStream>;
 
-    fn getenv(&self, name: &str) -> Option<String>;
+    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<String>;
 
     //fn print(&self, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
@@ -70,13 +70,13 @@ pub trait ApplicationCommandLineExt {
 
 impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationCommandLineExt for O {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn create_file_for_arg(&self, arg: &str) -> Option<File> {
+    fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_application_command_line_create_file_for_arg(self.to_glib_none().0, arg.to_glib_none().0))
+            from_glib_full(ffi::g_application_command_line_create_file_for_arg(self.to_glib_none().0, arg.as_ref().to_glib_none().0))
         }
     }
 
-    fn get_arguments(&self) -> Vec<String> {
+    fn get_arguments(&self) -> Vec<std::ffi::OsString> {
         unsafe {
             let mut argc = mem::uninitialized();
             let ret = FromGlibContainer::from_glib_full_num(ffi::g_application_command_line_get_arguments(self.to_glib_none().0, &mut argc), argc as usize);
@@ -90,7 +90,7 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
         }
     }
 
-    fn get_environ(&self) -> Vec<String> {
+    fn get_environ(&self) -> Vec<std::ffi::OsString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_application_command_line_get_environ(self.to_glib_none().0))
         }
@@ -126,9 +126,9 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
         }
     }
 
-    fn getenv(&self, name: &str) -> Option<String> {
+    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<String> {
         unsafe {
-            from_glib_none(ffi::g_application_command_line_getenv(self.to_glib_none().0, name.to_glib_none().0))
+            from_glib_none(ffi::g_application_command_line_getenv(self.to_glib_none().0, name.as_ref().to_glib_none().0))
         }
     }
 

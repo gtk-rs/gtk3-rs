@@ -122,6 +122,15 @@ pub trait ApplicationExt {
 
     fn set_inactivity_timeout(&self, inactivity_timeout: u32);
 
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_description<'a, P: Into<Option<&'a str>>>(&self, description: P);
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_parameter_string<'a, P: Into<Option<&'a str>>>(&self, parameter_string: P);
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_summary<'a, P: Into<Option<&'a str>>>(&self, summary: P);
+
     #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn set_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_path: P);
 
@@ -334,6 +343,33 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
     fn set_inactivity_timeout(&self, inactivity_timeout: u32) {
         unsafe {
             ffi::g_application_set_inactivity_timeout(self.to_glib_none().0, inactivity_timeout);
+        }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_description<'a, P: Into<Option<&'a str>>>(&self, description: P) {
+        let description = description.into();
+        let description = description.to_glib_none();
+        unsafe {
+            ffi::g_application_set_option_context_description(self.to_glib_none().0, description.0);
+        }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_parameter_string<'a, P: Into<Option<&'a str>>>(&self, parameter_string: P) {
+        let parameter_string = parameter_string.into();
+        let parameter_string = parameter_string.to_glib_none();
+        unsafe {
+            ffi::g_application_set_option_context_parameter_string(self.to_glib_none().0, parameter_string.0);
+        }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn set_option_context_summary<'a, P: Into<Option<&'a str>>>(&self, summary: P) {
+        let summary = summary.into();
+        let summary = summary.to_glib_none();
+        unsafe {
+            ffi::g_application_set_option_context_summary(self.to_glib_none().0, summary.0);
         }
     }
 

@@ -436,6 +436,22 @@ pub fn unix_is_mount_path_system_internal<P: AsRef<std::path::Path>>(mount_path:
     }
 }
 
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_56", feature = "dox"))]
+pub fn unix_is_system_device_path<P: AsRef<std::path::Path>>(device_path: P) -> bool {
+    unsafe {
+        from_glib(ffi::g_unix_is_system_device_path(device_path.as_ref().to_glib_none().0))
+    }
+}
+
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_56", feature = "dox"))]
+pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
+    unsafe {
+        from_glib(ffi::g_unix_is_system_fs_type(fs_type.to_glib_none().0))
+    }
+}
+
 //#[cfg(any(unix, feature = "dox"))]
 //pub fn unix_mount_at<P: AsRef<std::path::Path>>(mount_path: P) -> (/*Ignored*/UnixMountEntry, u64) {
 //    unsafe { TODO: call ffi::g_unix_mount_at() }

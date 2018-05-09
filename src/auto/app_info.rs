@@ -33,12 +33,12 @@ glib_wrapper! {
 }
 
 impl AppInfo {
-    pub fn create_from_commandline<'a, P: Into<Option<&'a str>>>(commandline: &str, application_name: P, flags: AppInfoCreateFlags) -> Result<AppInfo, Error> {
+    pub fn create_from_commandline<'a, P: AsRef<std::ffi::OsStr>, Q: Into<Option<&'a str>>>(commandline: P, application_name: Q, flags: AppInfoCreateFlags) -> Result<AppInfo, Error> {
         let application_name = application_name.into();
         let application_name = application_name.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_app_info_create_from_commandline(commandline.to_glib_none().0, application_name.0, flags.to_glib(), &mut error);
+            let ret = ffi::g_app_info_create_from_commandline(commandline.as_ref().to_glib_none().0, application_name.0, flags.to_glib(), &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -79,50 +79,53 @@ impl AppInfo {
         }
     }
 
-    pub fn launch_default_for_uri<'a, P: Into<Option<&'a AppLaunchContext>>>(uri: &str, launch_context: P) -> Result<(), Error> {
-        let launch_context = launch_context.into();
-        let launch_context = launch_context.to_glib_none();
+    pub fn launch_default_for_uri<'a, P: Into<Option<&'a AppLaunchContext>>>(uri: &str, context: P) -> Result<(), Error> {
+        let context = context.into();
+        let context = context.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch_default_for_uri(uri.to_glib_none().0, launch_context.0, &mut error);
+            let _ = ffi::g_app_info_launch_default_for_uri(uri.to_glib_none().0, context.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, launch_context: &AppLaunchContext, cancellable: P, callback: Q) {
+    pub fn launch_default_for_uri_async<'a, 'b, P: Into<Option<&'a AppLaunchContext>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, context: P, cancellable: Q, callback: R) {
+        let context = context.into();
+        let context = context.to_glib_none();
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn launch_default_for_uri_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn launch_default_for_uri_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = launch_default_for_uri_async_trampoline::<Q>;
+        let callback = launch_default_for_uri_async_trampoline::<R>;
         unsafe {
-            ffi::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, launch_context.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, context.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async_future(uri: &str, launch_context: &AppLaunchContext) -> Box_<futures_core::Future<Item = (), Error = Error>> {
+    pub fn launch_default_for_uri_async_future<'a, P: Into<Option<&'a AppLaunchContext>>>(uri: &str, context: P) -> Box_<futures_core::Future<Item = (), Error = Error>> {
         use GioFuture;
         use send_cell::SendCell;
 
         let uri = String::from(uri);
-        let launch_context = launch_context.clone();
+        let context = context.into();
+        let context = context.map(ToOwned::to_owned);
         GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             Self::launch_default_for_uri_async(
                  &uri,
-                 &launch_context,
+                 context.as_ref().map(::std::borrow::Borrow::borrow),
                  Some(&cancellable),
                  move |res| {
                      let _ = send.into_inner().send(res);
@@ -170,9 +173,9 @@ pub trait AppInfoExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_supported_types(&self) -> Vec<String>;
 
-    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], launch_context: P) -> Result<(), Error>;
+    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], context: P) -> Result<(), Error>;
 
-    fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], launch_context: P) -> Result<(), Error>;
+    fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], context: P) -> Result<(), Error>;
 
     fn remove_supports_type(&self, content_type: &str) -> Result<(), Error>;
 
@@ -277,22 +280,22 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], launch_context: P) -> Result<(), Error> {
-        let launch_context = launch_context.into();
-        let launch_context = launch_context.to_glib_none();
+    fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], context: P) -> Result<(), Error> {
+        let context = context.into();
+        let context = context.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch(self.to_glib_none().0, files.to_glib_none().0, launch_context.0, &mut error);
+            let _ = ffi::g_app_info_launch(self.to_glib_none().0, files.to_glib_none().0, context.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], launch_context: P) -> Result<(), Error> {
-        let launch_context = launch_context.into();
-        let launch_context = launch_context.to_glib_none();
+    fn launch_uris<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, uris: &[&str], context: P) -> Result<(), Error> {
+        let context = context.into();
+        let context = context.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch_uris(self.to_glib_none().0, uris.to_glib_none().0, launch_context.0, &mut error);
+            let _ = ffi::g_app_info_launch_uris(self.to_glib_none().0, uris.to_glib_none().0, context.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
