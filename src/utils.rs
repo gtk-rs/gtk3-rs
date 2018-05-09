@@ -73,6 +73,12 @@ pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
     }
 }
 
+pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option<OsString> {
+    unsafe {
+        from_glib_none(ffi::g_environ_getenv(envp.to_glib_none().0, variable.as_ref().to_glib_none().0))
+    }
+}
+
 pub fn get_user_name() -> Option<String> {
     #[cfg(all(windows,target_arch="x86"))]
     use ffi::g_get_user_name_utf8 as g_get_user_name;
