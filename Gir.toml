@@ -6,6 +6,7 @@ target_path = "."
 work_mode = "normal"
 generate_safety_asserts = false
 min_cfg_version = "1.30"
+single_version_file = true
 
 generate = [
     "PangoCairo.Font",
