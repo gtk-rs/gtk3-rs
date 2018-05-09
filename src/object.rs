@@ -323,6 +323,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*mut $ffi_name> for $name {
             #[inline]
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
@@ -332,6 +333,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
             #[inline]
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
@@ -341,6 +343,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_full(ptr as *mut _), ::std::marker::PhantomData)
@@ -350,6 +353,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_borrow(ptr as *mut _),
@@ -464,6 +468,7 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
                 gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut gobject_ffi::GObject)
             }
@@ -471,6 +476,7 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
                 gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut gobject_ffi::GObject)
             }
