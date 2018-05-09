@@ -10,8 +10,6 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-use std::mem;
 use std::ptr;
 use File;
 use FileCreateFlags;
