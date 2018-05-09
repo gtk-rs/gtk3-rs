@@ -32,7 +32,8 @@ pub struct FontFace(*mut ffi::cairo_font_face_t);
 impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
         let font_face: FontFace = unsafe {
-            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(CString::new(family).unwrap().as_ptr(), slant, weight))
+            let family = CString::new(family).unwrap();
+            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(family.as_ptr(), slant, weight))
         };
         font_face.ensure_status();
         font_face

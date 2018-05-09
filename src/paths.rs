@@ -89,7 +89,7 @@ impl Iterator for PathSegments {
 
         self.i += length as usize;
 
-        let ref data = self.data.as_ref().unwrap();
+        let data = &self.data.as_ref().unwrap();
 
         Some(match data_type {
             PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(data.get(i + 1).unwrap())),

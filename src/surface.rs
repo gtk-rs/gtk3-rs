@@ -152,7 +152,7 @@ pub trait SurfacePriv {
 
 impl<O: AsRef<Surface>> SurfacePriv for O {
     unsafe fn set_user_data<K, T>(&self, key: &K, data: Box<T>) -> Result<(), Status> {
-        let status = ffi::cairo_surface_set_user_data(self.as_ref().0, mem::transmute(key),
+        let status = ffi::cairo_surface_set_user_data(self.as_ref().0, key as *const _ as *mut _,
             mem::transmute(data), Some(unbox::<T>));
         match status {
             Status::Success => Ok(()),
