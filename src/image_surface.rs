@@ -165,7 +165,7 @@ impl<'a> ImageSurfaceData<'a> {
             debug_assert!(!ptr.is_null());
             let len = (surface.get_stride() as usize) * (surface.get_height() as usize);
             ImageSurfaceData {
-                surface: surface,
+                surface,
                 slice: slice::from_raw_parts_mut(ptr, len),
                 dirty: false,
             }

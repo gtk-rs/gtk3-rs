@@ -452,7 +452,7 @@ impl Context {
 
     pub fn mask_surface(&self, surface: &Surface, x: f64, y: f64) {
         unsafe {
-            ffi::cairo_mask_surface(self.0, surface.as_ref().to_raw_none(), x, y);
+            ffi::cairo_mask_surface(self.0, surface.to_raw_none(), x, y);
         }
     }
 
@@ -622,7 +622,8 @@ impl Context {
 
     pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight) {
         unsafe {
-            ffi::cairo_select_font_face(self.0, CString::new(family).unwrap().as_ptr(), slant, weight)
+            let family = CString::new(family).unwrap();
+            ffi::cairo_select_font_face(self.0, family.as_ptr(), slant, weight)
         }
     }
 
@@ -687,7 +688,8 @@ impl Context {
 
     pub fn show_text(&self, text: &str) {
         unsafe {
-            ffi::cairo_show_text(self.0, CString::new(text).unwrap().as_ptr())
+            let text = CString::new(text).unwrap();
+            ffi::cairo_show_text(self.0, text.as_ptr())
         }
     }
 
@@ -703,8 +705,9 @@ impl Context {
                             clusters: &[TextCluster],
                             cluster_flags: TextClusterFlags) {
         unsafe {
+            let text = CString::new(text).unwrap();
             ffi::cairo_show_text_glyphs(self.0,
-                                        CString::new(text).unwrap().as_ptr(),
+                                        text.as_ptr(),
                                         -1 as c_int, //NULL terminated
                                         glyphs.as_ptr(),
                                         glyphs.len() as c_int,
@@ -741,7 +744,8 @@ impl Context {
         };
 
         unsafe {
-            ffi::cairo_text_extents(self.0, CString::new(text).unwrap().as_ptr(), &mut extents);
+            let text = CString::new(text).unwrap();
+            ffi::cairo_text_extents(self.0, text.as_ptr(), &mut extents);
         }
         extents
     }
@@ -854,7 +858,8 @@ impl Context {
 
     pub fn text_path(&self, str_: &str) {
         unsafe {
-            ffi::cairo_text_path(self.0, CString::new(str_).unwrap().as_ptr())
+            let str_ = CString::new(str_).unwrap();
+            ffi::cairo_text_path(self.0, str_.as_ptr())
         }
     }
 

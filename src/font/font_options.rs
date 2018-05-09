@@ -81,9 +81,9 @@ impl FontOptions {
         }
     }
 
-    pub fn hash(&self) -> u64{
+    pub fn hash(&self) -> u64 {
         unsafe {
-            ffi::cairo_font_options_hash(self.to_raw_none()) as u64
+            u64::from(ffi::cairo_font_options_hash(self.to_raw_none()))
         }
     }
 
@@ -141,5 +141,11 @@ impl PartialEq for FontOptions {
         unsafe {
             ffi::cairo_font_options_equal(self.to_raw_none(), other.to_raw_none()).as_bool()
         }
+    }
+}
+
+impl Default for FontOptions {
+    fn default() -> Self {
+        Self::new()
     }
 }
