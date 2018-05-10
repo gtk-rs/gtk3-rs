@@ -5,6 +5,7 @@
 use ffi;
 use translate::*;
 use std;
+use std::ffi::{OsStr, OsString};
 use std::path::{Path, PathBuf};
 use error::BoolError;
 use Error;
@@ -36,39 +37,45 @@ pub fn set_prgname(name: Option<&str>) {
     }
 }
 
-pub fn getenv(variable_name: &str) -> Option<String> {
+pub fn getenv<K: AsRef<OsStr>>(variable_name: K) -> Option<OsString> {
     #[cfg(windows)]
     use ffi::g_getenv_utf8 as g_getenv;
     #[cfg(not(windows))]
     use ffi::g_getenv;
 
     unsafe {
-        from_glib_none(g_getenv(variable_name.to_glib_none().0))
+        from_glib_none(g_getenv(variable_name.as_ref().to_glib_none().0))
     }
 }
 
-pub fn setenv(variable_name: &str, value: &str, overwrite: bool) -> Result<(), BoolError> {
+pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(variable_name: K, value: V, overwrite: bool) -> Result<(), BoolError> {
     #[cfg(windows)]
     use ffi::g_setenv_utf8 as g_setenv;
     #[cfg(not(windows))]
     use ffi::g_setenv;
 
     unsafe {
-        BoolError::from_glib(g_setenv(variable_name.to_glib_none().0,
-                                value.to_glib_none().0,
+        BoolError::from_glib(g_setenv(variable_name.as_ref().to_glib_none().0,
+                                value.as_ref().to_glib_none().0,
                                 overwrite.to_glib()),
                              "Failed to set environment variable")
     }
 }
 
-pub fn unsetenv(variable_name: &str) {
+pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
     #[cfg(windows)]
     use ffi::g_unsetenv_utf8 as g_unsetenv;
     #[cfg(not(windows))]
     use ffi::g_unsetenv;
 
     unsafe {
-        g_unsetenv(variable_name.to_glib_none().0)
+        g_unsetenv(variable_name.as_ref().to_glib_none().0)
+    }
+}
+
+pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option<OsString> {
+    unsafe {
+        from_glib_none(ffi::g_environ_getenv(envp.to_glib_none().0, variable.as_ref().to_glib_none().0))
     }
 }
 
@@ -175,5 +182,46 @@ pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
 
     unsafe {
         g_mkstemp(tmpl.as_ref().to_glib_none().0)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::env;
+    use std::sync::Mutex;
+
+    //Mutex to prevent run environment tests parallel
+    lazy_static! { static ref LOCK: Mutex<()> = Mutex::new(()); }
+
+    const VAR_NAME: &str = "function_environment_test";
+
+    fn check_getenv(val: &str) {
+        let _data = LOCK.lock().unwrap();
+
+        env::set_var(VAR_NAME, val);
+        assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
+        assert_eq!(::getenv(VAR_NAME), Some(val.into()));
+
+        let environ = ::get_environ();
+        assert_eq!(::environ_getenv(&environ, VAR_NAME), Some(val.into()));
+    }
+
+    fn check_setenv(val: &str) {
+        let _data = LOCK.lock().unwrap();
+
+        ::setenv(VAR_NAME, val, true).unwrap();
+        assert_eq!(env::var_os(VAR_NAME), Some(val.into()));
+    }
+
+    #[test]
+    fn getenv() {
+        check_getenv("Test");
+        check_getenv("Тест"); // "Test" in Russian
+    }
+
+    #[test]
+    fn setenv() {
+        check_setenv("Test");
+        check_setenv("Тест"); // "Test" in Russian
     }
 }

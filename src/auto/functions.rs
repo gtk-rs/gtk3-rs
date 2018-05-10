@@ -122,6 +122,11 @@ pub fn bit_storage(number: libc::c_ulong) -> u32 {
 //    unsafe { TODO: call ffi::g_build_filename() }
 //}
 
+//#[cfg(any(feature = "v2_56", feature = "dox"))]
+//pub fn build_filename_valist<P: AsRef<std::path::Path>>(first_element: P, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<std::path::PathBuf> {
+//    unsafe { TODO: call ffi::g_build_filename_valist() }
+//}
+
 pub fn build_filenamev(args: &[&std::path::Path]) -> Option<std::path::PathBuf> {
     unsafe {
         from_glib_full(ffi::g_build_filenamev(args.to_glib_none().0))
@@ -165,6 +170,11 @@ pub fn clear_error() -> Result<(), Error> {
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
+
+//#[cfg(any(feature = "v2_56", feature = "dox"))]
+//pub fn clear_handle_id(tag_ptr: u32, clear_func: /*Unknown conversion*//*Unimplemented*/ClearHandleFunc) {
+//    unsafe { TODO: call ffi::g_clear_handle_id() }
+//}
 
 //#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn clear_pointer(pp: /*Unimplemented*/Fundamental: Pointer, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
@@ -215,7 +225,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
     }
 }
 
-//pub fn convert_with_iconv(str: &str, converter: /*Ignored*/&IConv, bytes_read: usize, bytes_written: usize) -> Result<String, Error> {
+//pub fn convert_with_iconv(str: &[u8], converter: /*Ignored*/&IConv) -> Result<(Vec<u8>, usize), Error> {
 //    unsafe { TODO: call ffi::g_convert_with_iconv() }
 //}
 
@@ -249,11 +259,11 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //}
 
 //#[cfg(any(feature = "v2_34", feature = "dox"))]
-//pub fn datalist_id_replace_data<'a, 'b, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>, R: Into<Option<&'a /*Unimplemented*/DestroyNotify>>, S: Into<Option<&'b /*Unimplemented*/DestroyNotify>>>(datalist: /*Ignored*/&mut Data, key_id: Quark, oldval: P, newval: Q, destroy: R, old_destroy: S) -> bool {
+//pub fn datalist_id_replace_data<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>, R: Into<Option<&'a /*Unimplemented*/DestroyNotify>>>(datalist: /*Ignored*/&mut Data, key_id: Quark, oldval: P, newval: Q, destroy: R) -> bool {
 //    unsafe { TODO: call ffi::g_datalist_id_replace_data() }
 //}
 
-//pub fn datalist_id_set_data_full<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(datalist: /*Ignored*/&mut Data, key_id: Quark, data: P, destroy_func: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+//pub fn datalist_id_set_data_full<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Unimplemented*/DestroyNotify>>>(datalist: /*Ignored*/&mut Data, key_id: Quark, data: P, destroy_func: Q) {
 //    unsafe { TODO: call ffi::g_datalist_id_set_data_full() }
 //}
 
@@ -342,24 +352,6 @@ pub fn dpgettext2<'a, P: Into<Option<&'a str>>>(domain: P, context: &str, msgid:
     let domain = domain.to_glib_none();
     unsafe {
         from_glib_none(ffi::g_dpgettext2(domain.0, context.to_glib_none().0, msgid.to_glib_none().0))
-    }
-}
-
-pub fn environ_getenv(envp: &[&str], variable: &str) -> Option<String> {
-    unsafe {
-        from_glib_none(ffi::g_environ_getenv(envp.to_glib_none().0, variable.to_glib_none().0))
-    }
-}
-
-pub fn environ_setenv(envp: &[&str], variable: &str, value: &str, overwrite: bool) -> Vec<String> {
-    unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_environ_setenv(envp.to_glib_full(), variable.to_glib_none().0, value.to_glib_none().0, overwrite.to_glib()))
-    }
-}
-
-pub fn environ_unsetenv(envp: &[&str], variable: &str) -> Vec<String> {
-    unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_environ_unsetenv(envp.to_glib_full(), variable.to_glib_none().0))
     }
 }
 
@@ -472,7 +464,7 @@ pub fn get_codeset() -> Option<String> {
 //    unsafe { TODO: call ffi::g_get_current_time() }
 //}
 
-pub fn get_environ() -> Vec<String> {
+pub fn get_environ() -> Vec<std::ffi::OsString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_get_environ())
     }
@@ -647,7 +639,7 @@ pub fn intern_string<'a, P: Into<Option<&'a str>>>(string: P) -> Option<String> 
 //    unsafe { TODO: call ffi::g_io_create_watch() }
 //}
 
-pub fn listenv() -> Vec<String> {
+pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_listenv())
     }
@@ -701,6 +693,10 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_structured_array(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField]) {
 //    unsafe { TODO: call ffi::g_log_structured_array() }
+//}
+
+//pub fn log_structured_standard(log_domain: &str, log_level: /*Ignored*/LogLevelFlags, file: &str, line: &str, func: &str, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//    unsafe { TODO: call ffi::g_log_structured_standard() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -1006,26 +1002,26 @@ pub fn set_application_name(application_name: &str) {
 //    unsafe { TODO: call ffi::g_set_printerr_handler() }
 //}
 
-pub fn shell_parse_argv(command_line: &str) -> Result<Vec<String>, Error> {
+pub fn shell_parse_argv<P: AsRef<std::ffi::OsStr>>(command_line: P) -> Result<Vec<std::ffi::OsString>, Error> {
     unsafe {
         let mut argcp = mem::uninitialized();
         let mut argvp = ptr::null_mut();
         let mut error = ptr::null_mut();
-        let _ = ffi::g_shell_parse_argv(command_line.to_glib_none().0, &mut argcp, &mut argvp, &mut error);
+        let _ = ffi::g_shell_parse_argv(command_line.as_ref().to_glib_none().0, &mut argcp, &mut argvp, &mut error);
         if error.is_null() { Ok(FromGlibContainer::from_glib_full_num(argvp, argcp as usize)) } else { Err(from_glib_full(error)) }
     }
 }
 
-pub fn shell_quote(unquoted_string: &str) -> Option<String> {
+pub fn shell_quote<P: AsRef<std::ffi::OsStr>>(unquoted_string: P) -> Option<std::ffi::OsString> {
     unsafe {
-        from_glib_full(ffi::g_shell_quote(unquoted_string.to_glib_none().0))
+        from_glib_full(ffi::g_shell_quote(unquoted_string.as_ref().to_glib_none().0))
     }
 }
 
-pub fn shell_unquote(quoted_string: &str) -> Result<String, Error> {
+pub fn shell_unquote<P: AsRef<std::ffi::OsStr>>(quoted_string: P) -> Result<std::ffi::OsString, Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let ret = ffi::g_shell_unquote(quoted_string.to_glib_none().0, &mut error);
+        let ret = ffi::g_shell_unquote(quoted_string.as_ref().to_glib_none().0, &mut error);
         if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
 }
@@ -1072,11 +1068,11 @@ pub fn spaced_primes_closest(num: u32) -> u32 {
     }
 }
 
-//pub fn spawn_async<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<Pid, Error> {
+//pub fn spawn_async<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<Pid, Error> {
 //    unsafe { TODO: call ffi::g_spawn_async() }
 //}
 
-//pub fn spawn_async_with_pipes<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<(Pid, i32, i32, i32), Error> {
+//pub fn spawn_async_with_pipes<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<(Pid, i32, i32, i32), Error> {
 //    unsafe { TODO: call ffi::g_spawn_async_with_pipes() }
 //}
 
@@ -1090,19 +1086,19 @@ pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), Error> {
 }
 
 #[cfg(any(unix, feature = "dox"))]
-pub fn spawn_command_line_async(command_line: &str) -> Result<(), Error> {
+pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> Result<(), Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::g_spawn_command_line_async(command_line.to_glib_none().0, &mut error);
+        let _ = ffi::g_spawn_command_line_async(command_line.as_ref().to_glib_none().0, &mut error);
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
 
-//pub fn spawn_command_line_sync(command_line: &str, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
+//pub fn spawn_command_line_sync<P: AsRef<std::path::Path>>(command_line: P, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
 //    unsafe { TODO: call ffi::g_spawn_command_line_sync() }
 //}
 
-//pub fn spawn_sync<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<i32, Error> {
+//pub fn spawn_sync<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a /*Unimplemented*/SpawnChildSetupFunc>>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Q) -> Result<i32, Error> {
 //    unsafe { TODO: call ffi::g_spawn_sync() }
 //}
 

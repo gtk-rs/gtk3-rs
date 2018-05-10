@@ -51,8 +51,7 @@ use std::char;
 use std::cmp::Ordering;
 use std::collections::HashMap;
 use std::ffi::{CString, CStr};
-#[cfg(not(windows))]
-use std::ffi::OsString;
+use std::ffi::{OsStr, OsString};
 use std::mem;
 #[cfg(not(windows))]
 use std::os::unix::prelude::*;
@@ -442,6 +441,36 @@ fn path_to_c(path: &Path) -> CString {
     }.expect("Invalid path with NUL bytes")
 }
 
+#[cfg(not(windows))]
+fn os_str_to_c(s: &OsStr) -> CString {
+    // GLib OS string (environment strings) on UNIX are always in the local encoding,
+    // just like in Rust
+    //
+    // OS string on UNIX must not contain NUL bytes, in which case the conversion
+    // to a CString would fail. The only thing we can do then is to panic, as passing
+    // NULL or the empty string to GLib would cause undefined behaviour.
+    use std::os::unix::ffi::OsStrExt;
+    CString::new(s.as_bytes())
+        .expect("Invalid OS String with NUL bytes")
+}
+
+#[cfg(windows)]
+fn os_str_to_c(s: &OsStr) -> CString {
+    // GLib OS string (environment strings) are always UTF-8 strings on Windows,
+    // while in Rust they are WTF-8. As such, we need to convert to a UTF-8 string.
+    // This conversion can fail, see https://simonsapin.github.io/wtf-8/#converting-wtf-8-utf-8
+    //
+    // It's not clear what we're supposed to do if it fails: the OS string is not
+    // representable in UTF-8 and thus can't possibly be passed to GLib.
+    // Passing NULL or the empty string to GLib can lead to undefined behaviour, so
+    // the only safe option seems to be to simply panic here.
+    let os_str = s.to_str()
+        .expect("OS String can't be represented as UTF-8")
+        .to_owned();
+
+    CString::new(os_str.as_bytes()).expect("Invalid OS string with NUL bytes")
+}
+
 impl<'a> ToGlibPtr<'a, *const c_char> for Path {
     type Storage = CString;
 
@@ -487,6 +516,54 @@ impl GlibPtrDefault for Path {
 }
 
 impl GlibPtrDefault for PathBuf {
+    type GlibType = *mut c_char;
+}
+
+impl<'a> ToGlibPtr<'a, *const c_char> for OsStr {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
+        let tmp = os_str_to_c(self);
+        Stash(tmp.as_ptr(), tmp)
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *mut c_char> for OsStr {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
+        let tmp = os_str_to_c(self);
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *const c_char> for OsString {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
+        let tmp = os_str_to_c(self);
+        Stash(tmp.as_ptr(), tmp)
+    }
+}
+
+impl<'a> ToGlibPtr<'a, *mut c_char> for OsString {
+    type Storage = CString;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
+        let tmp = os_str_to_c(self);
+        Stash(tmp.as_ptr() as *mut c_char, tmp)
+    }
+}
+
+impl GlibPtrDefault for OsStr {
+    type GlibType = *mut c_char;
+}
+
+impl GlibPtrDefault for OsString {
     type GlibType = *mut c_char;
 }
 
@@ -590,6 +667,10 @@ impl_to_glib_container_from_slice_string!(&'a Path, *mut c_char);
 impl_to_glib_container_from_slice_string!(&'a Path, *const c_char);
 impl_to_glib_container_from_slice_string!(PathBuf, *mut c_char);
 impl_to_glib_container_from_slice_string!(PathBuf, *const c_char);
+impl_to_glib_container_from_slice_string!(&'a OsStr, *mut c_char);
+impl_to_glib_container_from_slice_string!(&'a OsStr, *const c_char);
+impl_to_glib_container_from_slice_string!(OsString, *mut c_char);
+impl_to_glib_container_from_slice_string!(OsString, *const c_char);
 
 impl<'a, T> ToGlibContainerFromSlice<'a, *mut glib_ffi::GList> for T
 where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
@@ -982,6 +1063,30 @@ unsafe fn c_to_path_buf(ptr: *const c_char) -> PathBuf {
         .into()
 }
 
+#[cfg(not(windows))]
+unsafe fn c_to_os_string(ptr: *const c_char) -> OsString {
+    assert!(!ptr.is_null());
+
+    // GLib OS string (environment strings) on UNIX are always in the local encoding,
+    // which can be UTF-8 or anything else really, but is always a NUL-terminated string
+    // and must not contain any other NUL bytes
+    OsString::from_vec(CStr::from_ptr(ptr).to_bytes().to_vec())
+}
+
+#[cfg(windows)]
+unsafe fn c_to_os_string(ptr: *const c_char) -> OsString {
+    assert!(!ptr.is_null());
+
+    // GLib OS string (environment strings) on Windows are always UTF-8,
+    // as such we can convert to a String
+    // first and then go to a OsString from there. Unless there is a bug
+    // in the C library, the conversion from UTF-8 can never fail so we can
+    // safely panic here if that ever happens
+    String::from_utf8(CStr::from_ptr(ptr).to_bytes().into())
+        .expect("Invalid, non-UTF8 path")
+        .into()
+}
+
 impl FromGlibPtrNone<*const c_char> for PathBuf {
     #[inline]
     unsafe fn from_glib_none(ptr: *const c_char) -> Self {
@@ -1008,6 +1113,40 @@ impl FromGlibPtrNone<*mut c_char> for PathBuf {
 }
 
 impl FromGlibPtrFull<*mut c_char> for PathBuf {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut c_char) -> Self {
+        let res = from_glib_none(ptr);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+}
+
+impl FromGlibPtrNone<*const c_char> for OsString {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const c_char) -> Self {
+        assert!(!ptr.is_null());
+        c_to_os_string(ptr)
+    }
+}
+
+impl FromGlibPtrFull<*const c_char> for OsString {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *const c_char) -> Self {
+        let res = from_glib_none(ptr);
+        glib_ffi::g_free(ptr as *mut _);
+        res
+    }
+}
+
+impl FromGlibPtrNone<*mut c_char> for OsString {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
+        assert!(!ptr.is_null());
+        c_to_os_string(ptr)
+    }
+}
+
+impl FromGlibPtrFull<*mut c_char> for OsString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut c_char) -> Self {
         let res = from_glib_none(ptr);
@@ -1252,6 +1391,8 @@ impl_from_glib_container_as_vec_string!(String, *const c_char);
 impl_from_glib_container_as_vec_string!(String, *mut c_char);
 impl_from_glib_container_as_vec_string!(PathBuf, *const c_char);
 impl_from_glib_container_as_vec_string!(PathBuf, *mut c_char);
+impl_from_glib_container_as_vec_string!(OsString, *const c_char);
+impl_from_glib_container_as_vec_string!(OsString, *mut c_char);
 
 impl <P, PP: Ptr, T: FromGlibContainerAsVec<P, PP>> FromGlibContainer<P, PP> for Vec<T> {
     unsafe fn from_glib_none_num(ptr: PP, num: usize) -> Vec<T> {

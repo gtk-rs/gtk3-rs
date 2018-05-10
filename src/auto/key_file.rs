@@ -101,6 +101,15 @@ impl KeyFile {
         }
     }
 
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    pub fn get_locale_for_key<'a, P: Into<Option<&'a str>>>(&self, group_name: &str, key: &str, locale: P) -> Option<String> {
+        let locale = locale.into();
+        let locale = locale.to_glib_none();
+        unsafe {
+            from_glib_full(ffi::g_key_file_get_locale_for_key(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, locale.0))
+        }
+    }
+
     pub fn get_locale_string<'a, P: Into<Option<&'a str>>>(&self, group_name: &str, key: &str, locale: P) -> Result<String, Error> {
         let locale = locale.into();
         let locale = locale.to_glib_none();

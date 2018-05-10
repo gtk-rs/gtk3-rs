@@ -236,6 +236,49 @@ status = "generate"
     name = "unix_set_fd_nonblocking"
     # Need manual binding for RawFd
     ignore = true
+    [[object.function]]
+    name = "environ_getenv"
+    # manual input &[OsString]
+    ignore = true
+    [[object.function]]
+    pattern = "environ_(un)?setenv"
+    # unusable
+    ignore = true
+    [[object.function]]
+    name = "get_environ"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "listenv"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "shell_parse_argv"
+        [[object.function.parameter]]
+        name = "command_line"
+        string_type = "os_string"
+        [[object.function.parameter]]
+        name = "argvp"
+        string_type = "os_string"
+    [[object.function]]
+    name = "shell_quote"
+        [[object.function.parameter]]
+        name = "unquoted_string"
+        string_type = "os_string"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "shell_unquote"
+        [[object.function.parameter]]
+        name = "quoted_string"
+        string_type = "os_string"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "spawn_command_line_async"
+        [[object.function.parameter]]
+        name = "command_line"
+        string_type = "os_string"
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform

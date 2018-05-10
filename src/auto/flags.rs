@@ -43,6 +43,7 @@ bitflags! {
         const DEFAULT = 0;
         const LONG_FORMAT = 1;
         const IEC_UNITS = 2;
+        const BITS = 4;
     }
 }
 
