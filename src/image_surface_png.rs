@@ -136,6 +136,7 @@ mod tests {
         assert!(slice[2] == 42);
     }
 
+    #[cfg(not(target_os = "macos"))]
     #[test]
     fn invalid_png_yields_error() {
         let png_data: Vec<u8> = vec![
@@ -153,6 +154,7 @@ mod tests {
         }
     }
 
+    #[cfg(not(target_os = "macos"))]
     #[test]
     fn io_error_yields_cairo_read_error() {
         let mut r = IoErrorReader;

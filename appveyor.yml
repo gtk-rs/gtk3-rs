@@ -19,6 +19,7 @@ install:
   - pacman --noconfirm -S mingw-w64-%ARCH%-gtk3
 
 build_script:
+  - cargo doc --features "dox"
   - cargo test --no-default-features --features "png"
   - mkdir .cargo
   - echo paths = [".", "./cairo-sys-rs"] > .cargo\config
