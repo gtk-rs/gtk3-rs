@@ -14,6 +14,10 @@ exclude = [
     "gir-files/*",
 ]
 
+[badges]
+appveyor = { repository = "GuillaumeGomez/gdk-pixbuf", service = "github" }
+travis-ci = { repository = "gtk-rs/gdk-pixbuf" }
+
 [lib]
 name = "gdk_pixbuf"
 
