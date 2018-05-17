@@ -11,6 +11,10 @@ description = "Rust bindings for the Cairo library"
 repository = "https://github.com/gtk-rs/cairo"
 build = "build.rs"
 
+[badges]
+appveyor = { repository = "GuillaumeGomez/cairo", service = "github" }
+travis-ci = { repository = "gtk-rs/cairo" }
+
 [lib]
 name = "cairo"
 
