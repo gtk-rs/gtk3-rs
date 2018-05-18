@@ -35,16 +35,21 @@ glib_wrapper! {
 }
 
 impl File {
-    pub fn new_for_commandline_arg(arg: &str) -> File {
+    //#[cfg(any(feature = "v2_56", feature = "dox"))]
+    //pub fn new_build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<File> {
+    //    unsafe { TODO: call ffi::g_file_new_build_filename() }
+    //}
+
+    pub fn new_for_commandline_arg<P: AsRef<std::ffi::OsStr>>(arg: P) -> File {
         unsafe {
-            from_glib_full(ffi::g_file_new_for_commandline_arg(arg.to_glib_none().0))
+            from_glib_full(ffi::g_file_new_for_commandline_arg(arg.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn new_for_commandline_arg_and_cwd<P: AsRef<std::path::Path>>(arg: &str, cwd: P) -> File {
+    pub fn new_for_commandline_arg_and_cwd<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::path::Path>>(arg: P, cwd: Q) -> File {
         unsafe {
-            from_glib_full(ffi::g_file_new_for_commandline_arg_and_cwd(arg.to_glib_none().0, cwd.as_ref().to_glib_none().0))
+            from_glib_full(ffi::g_file_new_for_commandline_arg_and_cwd(arg.as_ref().to_glib_none().0, cwd.as_ref().to_glib_none().0))
         }
     }
 
@@ -162,6 +167,16 @@ pub trait FileExt: Sized {
 
     fn is_native(&self) -> bool;
 
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(glib::Bytes, Option<String>), Error>;
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(glib::Bytes, String), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, String)), Error = (Self, Error)>>;
+
     fn load_contents<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Vec<u8>, String), Error>;
 
     fn load_contents_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(Vec<u8>, String), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
@@ -221,6 +236,9 @@ pub trait FileExt: Sized {
 
     #[cfg(feature = "futures")]
     fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>>;
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn peek_path(&self) -> Option<std::path::PathBuf>;
 
     fn poll_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
 
@@ -410,9 +428,9 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
 
         //let destination = destination.clone();
         //let progress_callback = progress_callback.into();
-        //let progress_callback = progress_callback.cloned();
+        //let progress_callback = progress_callback.map(ToOwned::to_owned);
         //let progress_callback_data = progress_callback_data.into();
-        //let progress_callback_data = progress_callback_data.cloned();
+        //let progress_callback_data = progress_callback_data.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
@@ -422,8 +440,8 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //         flags,
         //         io_priority,
         //         Some(&cancellable),
-        //         progress_callback.as_ref(),
-        //         progress_callback_data.as_ref(),
+        //         progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
+        //         progress_callback_data.as_ref().map(::std::borrow::Borrow::borrow),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
         //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
@@ -642,14 +660,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.cloned();
+        //let mount_operation = mount_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.eject_mountable_with_operation(
         //         flags,
-        //         mount_operation.as_ref(),
+        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
@@ -756,6 +774,62 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         unsafe {
             from_glib(ffi::g_file_is_native(self.to_glib_none().0))
         }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(glib::Bytes, Option<String>), Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut etag_out = ptr::null_mut();
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_load_bytes(self.to_glib_none().0, cancellable.0, &mut etag_out, &mut error);
+            if error.is_null() { Ok((from_glib_full(ret), from_glib_full(etag_out))) } else { Err(from_glib_full(error)) }
+        }
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(glib::Bytes, String), Error>) + Send + 'static>(&self, cancellable: P, callback: Q) {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn load_bytes_async_trampoline<Q: FnOnce(Result<(glib::Bytes, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let mut etag_out = ptr::null_mut();
+            let ret = ffi::g_file_load_bytes_finish(_source_object as *mut _, res, &mut etag_out, &mut error);
+            let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(etag_out))) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = load_bytes_async_trampoline::<Q>;
+        unsafe {
+            ffi::g_file_load_bytes_async(self.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, String)), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.load_bytes_async(
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
+
+            cancellable
+        })
     }
 
     fn load_contents<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Vec<u8>, String), Error> {
@@ -933,9 +1007,9 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let progress_callback = progress_callback.into();
-        //let progress_callback = progress_callback.cloned();
+        //let progress_callback = progress_callback.map(ToOwned::to_owned);
         //let progress_data = progress_data.into();
-        //let progress_data = progress_data.cloned();
+        //let progress_data = progress_data.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
@@ -944,8 +1018,8 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //         flags,
         //         io_priority,
         //         Some(&cancellable),
-        //         progress_callback.as_ref(),
-        //         progress_data.as_ref(),
+        //         progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
+        //         progress_data.as_ref().map(::std::borrow::Borrow::borrow),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
         //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
@@ -979,14 +1053,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.cloned();
+        //let mount_operation = mount_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.mount_enclosing_volume(
         //         flags,
-        //         mount_operation.as_ref(),
+        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
@@ -1009,14 +1083,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.cloned();
+        //let mount_operation = mount_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.mount_mountable(
         //         flags,
-        //         mount_operation.as_ref(),
+        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
@@ -1083,6 +1157,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
 
             cancellable
         })
+    }
+
+    #[cfg(any(feature = "v2_56", feature = "dox"))]
+    fn peek_path(&self) -> Option<std::path::PathBuf> {
+        unsafe {
+            from_glib_none(ffi::g_file_peek_path(self.to_glib_none().0))
+        }
     }
 
     fn poll_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q) {
@@ -1360,13 +1441,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         use send_cell::SendCell;
 
         let etag = etag.into();
-        let etag = etag.map(String::from);
+        let etag = etag.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             let obj_clone = SendCell::new(obj.clone());
             obj.replace_async(
-                 etag.as_ref().map(|s| s.as_str()),
+                 etag.as_ref().map(::std::borrow::Borrow::borrow),
                  make_backup,
                  flags,
                  io_priority,
@@ -1440,13 +1521,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         use send_cell::SendCell;
 
         let etag = etag.into();
-        let etag = etag.map(String::from);
+        let etag = etag.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             let obj_clone = SendCell::new(obj.clone());
             obj.replace_readwrite_async(
-                 etag.as_ref().map(|s| s.as_str()),
+                 etag.as_ref().map(::std::borrow::Borrow::borrow),
                  make_backup,
                  flags,
                  io_priority,
@@ -1652,14 +1733,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let start_operation = start_operation.into();
-        //let start_operation = start_operation.cloned();
+        //let start_operation = start_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.start_mountable(
         //         flags,
-        //         start_operation.as_ref(),
+        //         start_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
@@ -1682,14 +1763,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.cloned();
+        //let mount_operation = mount_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.stop_mountable(
         //         flags,
-        //         mount_operation.as_ref(),
+        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();
@@ -1799,14 +1880,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //use send_cell::SendCell;
 
         //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.cloned();
+        //let mount_operation = mount_operation.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.unmount_mountable_with_operation(
         //         flags,
-        //         mount_operation.as_ref(),
+        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
         //         Some(&cancellable),
         //         move |res| {
         //             let obj = obj_clone.into_inner();

@@ -110,14 +110,14 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
 
         let handle = String::from(handle);
         let interaction = interaction.into();
-        let interaction = interaction.cloned();
+        let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             let obj_clone = SendCell::new(obj.clone());
             obj.lookup_certificate_for_handle_async(
                  &handle,
-                 interaction.as_ref(),
+                 interaction.as_ref().map(::std::borrow::Borrow::borrow),
                  flags,
                  Some(&cancellable),
                  move |res| {
@@ -171,14 +171,14 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
 
         let certificate = certificate.clone();
         let interaction = interaction.into();
-        let interaction = interaction.cloned();
+        let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             let obj_clone = SendCell::new(obj.clone());
             obj.lookup_certificate_issuer_async(
                  &certificate,
-                 interaction.as_ref(),
+                 interaction.as_ref().map(::std::borrow::Borrow::borrow),
                  flags,
                  Some(&cancellable),
                  move |res| {
@@ -207,14 +207,14 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
 
         //let issuer_raw_dn = issuer_raw_dn.clone();
         //let interaction = interaction.into();
-        //let interaction = interaction.cloned();
+        //let interaction = interaction.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = SendCell::new(send);
         //    let obj_clone = SendCell::new(obj.clone());
         //    obj.lookup_certificates_issued_by_async(
         //         &issuer_raw_dn,
-        //         interaction.as_ref(),
+        //         interaction.as_ref().map(::std::borrow::Borrow::borrow),
         //         flags,
         //         Some(&cancellable),
         //         move |res| {
@@ -273,9 +273,9 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
         let chain = chain.clone();
         let purpose = String::from(purpose);
         let identity = identity.into();
-        let identity = identity.cloned();
+        let identity = identity.map(ToOwned::to_owned);
         let interaction = interaction.into();
-        let interaction = interaction.cloned();
+        let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
@@ -283,8 +283,8 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
             obj.verify_chain_async(
                  &chain,
                  &purpose,
-                 identity.as_ref(),
-                 interaction.as_ref(),
+                 identity.as_ref().map(::std::borrow::Borrow::borrow),
+                 interaction.as_ref().map(::std::borrow::Borrow::borrow),
                  flags,
                  Some(&cancellable),
                  move |res| {

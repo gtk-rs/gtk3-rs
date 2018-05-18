@@ -44,7 +44,7 @@ pub trait TlsPasswordExt {
 
     fn set_flags(&self, flags: TlsPasswordFlags);
 
-    //fn set_value_full<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, value: u8, length: isize, destroy: P);
+    //fn set_value_full<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, value: &[u8], destroy: P);
 
     fn set_warning(&self, warning: &str);
 
@@ -86,7 +86,7 @@ impl<O: IsA<TlsPassword> + IsA<glib::object::Object>> TlsPasswordExt for O {
         }
     }
 
-    //fn set_value_full<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, value: u8, length: isize, destroy: P) {
+    //fn set_value_full<'a, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, value: &[u8], destroy: P) {
     //    unsafe { TODO: call ffi::g_tls_password_set_value_full() }
     //}
 

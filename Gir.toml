@@ -10,10 +10,7 @@ single_version_file = true
 generate = [
     "Gio.Action",
     "Gio.ActionMap",
-    "Gio.AppInfo",
     "Gio.AppInfoCreateFlags",
-    "Gio.AppLaunchContext",
-    "Gio.ApplicationCommandLine",
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
@@ -110,11 +107,15 @@ status = "generate"
     pattern = "pollable_stream_.+"
     #belong to Stream, works only with PollableStream, need mutable buffer reference
     ignore = true
-
     [[object.function]]
     pattern = "pollable_source_.+"
     #belong to Stream, works only with PollableStream, need mutable buffer reference
     ignore = true
+    [[object.function]]
+    name = "unix_is_system_device_path"
+        [[object.function.parameter]]
+        name = "device_path"
+        string_type = "filename"
 
 [[object]]
 name = "Gio.ActionGroup"
@@ -122,6 +123,31 @@ status = "generate"
     [[object.function]]
     name = "query_action"
     ignore = true
+
+[[object]]
+name = "Gio.AppInfo"
+status = "generate"
+    [[object.function]]
+    name = "create_from_commandline"
+        [[object.function.parameter]]
+        name = "commandline"
+        string_type = "os_string"
+
+[[object]]
+name = "Gio.AppLaunchContext"
+status = "generate"
+    [[object.function]]
+    name = "get_environment"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    pattern = "(un)?setenv"
+        [[object.function.parameter]]
+        name = "variable"
+        string_type = "os_string"
+        [[object.function.parameter]]
+        name = "value"
+        string_type = "os_string"
 
 [[object]]
 name = "Gio.Application"
@@ -132,6 +158,28 @@ status = "generate"
     [[object.function]]
     name = "run"
     ignore = true
+
+[[object]]
+name = "Gio.ApplicationCommandLine"
+status = "generate"
+    [[object.function]]
+    name = "create_file_for_arg"
+        [[object.function.parameter]]
+        name = "arg"
+        string_type = "os_string"
+    [[object.function]]
+    name = "get_arguments"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "get_environ"
+        [object.function.return]
+        string_type = "os_string"
+    [[object.function]]
+    name = "getenv"
+        [[object.function.parameter]]
+        name = "name"
+        string_type = "os_string"
 
 [[object]]
 name = "Gio.BufferedInputStream"
@@ -181,10 +229,16 @@ status = "generate"
         nullable = false
     [[object.function]]
     name = "new_for_commandline_arg"
+        [[object.function.parameter]]
+        name = "arg"
+        string_type = "os_string"
         [object.function.return]
         nullable = false
     [[object.function]]
     name = "new_for_commandline_arg_and_cwd"
+        [[object.function.parameter]]
+        name = "arg"
+        string_type = "os_string"
         [object.function.return]
         nullable = false
     [[object.function]]
