@@ -13,6 +13,10 @@ exclude = [
     "gir-files/*",
 ]
 
+[badges]
+appveyor = { repository = "GuillaumeGomez/pango", service = "github" }
+travis-ci = { repository = "gtk-rs/pango" }
+
 [features]
 v1_31 = ["pango-sys/v1_31"]
 v1_32 = ["v1_31", "pango-sys/v1_32"]
