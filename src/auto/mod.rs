@@ -282,6 +282,9 @@ mod settings_schema_key;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::settings_schema_key::SettingsSchemaKey;
 
+mod settings_schema_source;
+pub use self::settings_schema_source::SettingsSchemaSource;
+
 mod srv_target;
 pub use self::srv_target::SrvTarget;
 
