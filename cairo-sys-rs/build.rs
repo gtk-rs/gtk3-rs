@@ -2,8 +2,8 @@ extern crate pkg_config;
 
 use pkg_config::{Config, Error};
 use std::env;
-use std::io::prelude::*;
 use std::io;
+use std::io::prelude::*;
 use std::process;
 
 fn main() {
@@ -29,7 +29,7 @@ fn find() -> Result<(), Error> {
             println!("cargo:rustc-link-lib=dylib={}", lib_);
         }
         println!("cargo:rustc-link-search=native={}", lib_dir);
-        return Ok(())
+        return Ok(());
     }
 
     let target = env::var("TARGET").unwrap();
@@ -37,6 +37,8 @@ fn find() -> Result<(), Error> {
 
     let mut config = Config::new();
     config.atleast_version(version);
+    config.print_system_libs(false);
+
     if hardcode_shared_libs {
         config.cargo_metadata(false);
     }
@@ -61,4 +63,3 @@ fn find() -> Result<(), Error> {
         Err(err) => Err(err),
     }
 }
-
