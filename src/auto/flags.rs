@@ -165,6 +165,52 @@ impl SetValue for AskPasswordFlags {
 }
 
 bitflags! {
+    pub struct DriveStartFlags: u32 {
+        const NONE = 0;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for DriveStartFlags {
+    type GlibType = ffi::GDriveStartFlags;
+
+    fn to_glib(&self) -> ffi::GDriveStartFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDriveStartFlags> for DriveStartFlags {
+    fn from_glib(value: ffi::GDriveStartFlags) -> DriveStartFlags {
+        DriveStartFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for DriveStartFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_drive_start_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DriveStartFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DriveStartFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DriveStartFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
     pub struct FileCreateFlags: u32 {
         const NONE = 0;
         const PRIVATE = 1;
@@ -303,6 +349,99 @@ impl<'a> FromValue<'a> for IOStreamSpliceFlags {
 }
 
 impl SetValue for IOStreamSpliceFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct MountMountFlags: u32 {
+        const NONE = 0;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for MountMountFlags {
+    type GlibType = ffi::GMountMountFlags;
+
+    fn to_glib(&self) -> ffi::GMountMountFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GMountMountFlags> for MountMountFlags {
+    fn from_glib(value: ffi::GMountMountFlags) -> MountMountFlags {
+        MountMountFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for MountMountFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_mount_mount_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for MountMountFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for MountMountFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for MountMountFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
+    pub struct MountUnmountFlags: u32 {
+        const NONE = 0;
+        const FORCE = 1;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for MountUnmountFlags {
+    type GlibType = ffi::GMountUnmountFlags;
+
+    fn to_glib(&self) -> ffi::GMountUnmountFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GMountUnmountFlags> for MountUnmountFlags {
+    fn from_glib(value: ffi::GMountUnmountFlags) -> MountUnmountFlags {
+        MountUnmountFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for MountUnmountFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_mount_unmount_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for MountUnmountFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for MountUnmountFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for MountUnmountFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }

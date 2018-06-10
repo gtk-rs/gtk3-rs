@@ -4,6 +4,7 @@
 
 use AppInfo;
 use Cancellable;
+use DriveStartFlags;
 use Error;
 use FileCreateFlags;
 use FileIOStream;
@@ -12,6 +13,10 @@ use FileInputStream;
 use FileOutputStream;
 use FileQueryInfoFlags;
 use FileType;
+use Mount;
+use MountMountFlags;
+use MountOperation;
+use MountUnmountFlags;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
@@ -123,23 +128,23 @@ pub trait FileExt: Sized {
 
     fn dup(&self) -> Option<File>;
 
-    //#[deprecated]
-    //fn eject_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, cancellable: P, callback: Q);
+    #[deprecated]
+    fn eject_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q);
 
-    //#[deprecated]
-    //#[cfg(feature = "futures")]
-    //fn eject_mountable_future(&self, flags: /*Ignored*/MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[deprecated]
+    #[cfg(feature = "futures")]
+    fn eject_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //fn eject_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn eject_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn eject_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn eject_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
     //fn enumerate_children<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: P) -> Result</*Ignored*/FileEnumerator, Error>;
 
     fn equal<P: IsA<File>>(&self, file2: &P) -> bool;
 
-    //fn find_enclosing_mount<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/Mount, Error>;
+    fn find_enclosing_mount<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<Mount, Error>;
 
     fn get_basename(&self) -> Option<std::path::PathBuf>;
 
@@ -218,15 +223,15 @@ pub trait FileExt: Sized {
 
     //fn monitor_file<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error>;
 
-    //fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn mount_enclosing_volume_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn mount_enclosing_volume_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //fn mount_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn mount_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn mount_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn mount_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>>;
 
     //fn move_<'a, 'b, P: IsA<File>, Q: Into<Option<&'a Cancellable>>, R: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Q, progress_callback: R, progress_callback_data: S) -> Result<(), Error>;
 
@@ -325,15 +330,15 @@ pub trait FileExt: Sized {
     #[cfg(feature = "futures")]
     fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>>;
 
-    //fn start_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/DriveStartFlags, start_operation: P, cancellable: Q, callback: R);
+    fn start_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, start_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn start_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/DriveStartFlags, start_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn start_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: DriveStartFlags, start_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //fn stop_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn stop_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn stop_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn stop_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
     fn supports_thread_contexts(&self) -> bool;
 
@@ -346,17 +351,17 @@ pub trait FileExt: Sized {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //#[deprecated]
-    //fn unmount_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, cancellable: P, callback: Q);
+    #[deprecated]
+    fn unmount_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q);
 
-    //#[deprecated]
-    //#[cfg(feature = "futures")]
-    //fn unmount_mountable_future(&self, flags: /*Ignored*/MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[deprecated]
+    #[cfg(feature = "futures")]
+    fn unmount_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 
-    //fn unmount_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn unmount_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
 
-    //#[cfg(feature = "futures")]
-    //fn unmount_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    #[cfg(feature = "futures")]
+    fn unmount_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
 }
 
 impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
@@ -623,62 +628,94 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         }
     }
 
-    //fn eject_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, cancellable: P, callback: Q) {
-    //    unsafe { TODO: call ffi::g_file_eject_mountable() }
-    //}
+    fn eject_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q) {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn eject_mountable_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_eject_mountable_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = eject_mountable_trampoline::<Q>;
+        unsafe {
+            ffi::g_file_eject_mountable(self.to_glib_none().0, flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn eject_mountable_future(&self, flags: /*Ignored*/MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn eject_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.eject_mountable(
-        //         flags,
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.eject_mountable(
+                 flags,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
-    //fn eject_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_eject_mountable_with_operation() }
-    //}
+    fn eject_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn eject_mountable_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_eject_mountable_with_operation_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = eject_mountable_with_operation_trampoline::<R>;
+        unsafe {
+            ffi::g_file_eject_mountable_with_operation(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn eject_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn eject_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.eject_mountable_with_operation(
-        //         flags,
-        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.eject_mountable_with_operation(
+                 flags,
+                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
     //fn enumerate_children<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: P) -> Result</*Ignored*/FileEnumerator, Error> {
     //    unsafe { TODO: call ffi::g_file_enumerate_children() }
@@ -690,9 +727,15 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         }
     }
 
-    //fn find_enclosing_mount<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result</*Ignored*/Mount, Error> {
-    //    unsafe { TODO: call ffi::g_file_find_enclosing_mount() }
-    //}
+    fn find_enclosing_mount<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<Mount, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_find_enclosing_mount(self.to_glib_none().0, cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn get_basename(&self) -> Option<std::path::PathBuf> {
         unsafe {
@@ -1043,65 +1086,99 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     //    unsafe { TODO: call ffi::g_file_monitor_file() }
     //}
 
-    //fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_mount_enclosing_volume() }
-    //}
+    fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn mount_enclosing_volume_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_mount_enclosing_volume_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = mount_enclosing_volume_trampoline::<R>;
+        unsafe {
+            ffi::g_file_mount_enclosing_volume(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn mount_enclosing_volume_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn mount_enclosing_volume_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.mount_enclosing_volume(
-        //         flags,
-        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.mount_enclosing_volume(
+                 flags,
+                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
-    //fn mount_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_mount_mountable() }
-    //}
+    fn mount_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn mount_mountable_trampoline<R: FnOnce(Result<File, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_mount_mountable_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = mount_mountable_trampoline::<R>;
+        unsafe {
+            ffi::g_file_mount_mountable(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn mount_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn mount_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.mount_mountable(
-        //         flags,
-        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.mount_mountable(
+                 flags,
+                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
     //fn move_<'a, 'b, P: IsA<File>, Q: Into<Option<&'a Cancellable>>, R: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Q, progress_callback: R, progress_callback_data: S) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_file_move() }
@@ -1723,65 +1800,99 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         })
     }
 
-    //fn start_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/DriveStartFlags, start_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_start_mountable() }
-    //}
+    fn start_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, start_operation: P, cancellable: Q, callback: R) {
+        let start_operation = start_operation.into();
+        let start_operation = start_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn start_mountable_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_start_mountable_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = start_mountable_trampoline::<R>;
+        unsafe {
+            ffi::g_file_start_mountable(self.to_glib_none().0, flags.to_glib(), start_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn start_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/DriveStartFlags, start_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn start_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: DriveStartFlags, start_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let start_operation = start_operation.into();
-        //let start_operation = start_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.start_mountable(
-        //         flags,
-        //         start_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let start_operation = start_operation.into();
+        let start_operation = start_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.start_mountable(
+                 flags,
+                 start_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
-    //fn stop_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_stop_mountable() }
-    //}
+    fn stop_mountable<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn stop_mountable_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_stop_mountable_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = stop_mountable_trampoline::<R>;
+        unsafe {
+            ffi::g_file_stop_mountable(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn stop_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn stop_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.stop_mountable(
-        //         flags,
-        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.stop_mountable(
+                 flags,
+                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
     fn supports_thread_contexts(&self) -> bool {
         unsafe {
@@ -1843,60 +1954,92 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         })
     }
 
-    //fn unmount_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, cancellable: P, callback: Q) {
-    //    unsafe { TODO: call ffi::g_file_unmount_mountable() }
-    //}
+    fn unmount_mountable<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q) {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn unmount_mountable_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_unmount_mountable_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = unmount_mountable_trampoline::<Q>;
+        unsafe {
+            ffi::g_file_unmount_mountable(self.to_glib_none().0, flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn unmount_mountable_future(&self, flags: /*Ignored*/MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn unmount_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.unmount_mountable(
-        //         flags,
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.unmount_mountable(
+                 flags,
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 
-    //fn unmount_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
-    //    unsafe { TODO: call ffi::g_file_unmount_mountable_with_operation() }
-    //}
+    fn unmount_mountable_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.to_glib_none();
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn unmount_mountable_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        {
+            callback_guard!();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_file_unmount_mountable_with_operation_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = unmount_mountable_with_operation_trampoline::<R>;
+        unsafe {
+            ffi::g_file_unmount_mountable_with_operation(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
 
-    //#[cfg(feature = "futures")]
-    //fn unmount_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: /*Ignored*/MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
-        //use GioFuture;
-        //use send_cell::SendCell;
+    #[cfg(feature = "futures")]
+    fn unmount_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+        use GioFuture;
+        use send_cell::SendCell;
 
-        //let mount_operation = mount_operation.into();
-        //let mount_operation = mount_operation.map(ToOwned::to_owned);
-        //GioFuture::new(self, move |obj, send| {
-        //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
-        //    obj.unmount_mountable_with_operation(
-        //         flags,
-        //         mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
-        //         Some(&cancellable),
-        //         move |res| {
-        //             let obj = obj_clone.into_inner();
-        //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-        //             let _ = send.into_inner().send(res);
-        //         },
-        //    );
+        let mount_operation = mount_operation.into();
+        let mount_operation = mount_operation.map(ToOwned::to_owned);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = SendCell::new(send);
+            let obj_clone = SendCell::new(obj.clone());
+            obj.unmount_mountable_with_operation(
+                 flags,
+                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
+                 Some(&cancellable),
+                 move |res| {
+                     let obj = obj_clone.into_inner();
+                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                     let _ = send.into_inner().send(res);
+                 },
+            );
 
-        //    cancellable
-        //})
-    //}
+            cancellable
+        })
+    }
 }

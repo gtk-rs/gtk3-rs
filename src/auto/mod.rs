@@ -18,6 +18,13 @@ mod app_info;
 pub use self::app_info::AppInfo;
 pub use self::app_info::AppInfoExt;
 
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+mod app_info_monitor;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::app_info_monitor::AppInfoMonitor;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::app_info_monitor::AppInfoMonitorExt;
+
 mod app_launch_context;
 pub use self::app_launch_context::AppLaunchContext;
 pub use self::app_launch_context::AppLaunchContextExt;
@@ -48,6 +55,10 @@ pub use self::data_input_stream::DataInputStreamExt;
 mod data_output_stream;
 pub use self::data_output_stream::DataOutputStream;
 pub use self::data_output_stream::DataOutputStreamExt;
+
+mod drive;
+pub use self::drive::Drive;
+pub use self::drive::DriveExt;
 
 mod file;
 pub use self::file::File;
@@ -124,6 +135,10 @@ pub use self::menu_link_iter::MenuLinkIterExt;
 mod menu_model;
 pub use self::menu_model::MenuModel;
 pub use self::menu_model::MenuModelExt;
+
+mod mount;
+pub use self::mount::Mount;
+pub use self::mount::MountExt;
 
 mod mount_operation;
 pub use self::mount_operation::MountOperation;
@@ -271,6 +286,10 @@ pub use self::unix_socket_address::UnixSocketAddress;
 #[cfg(any(unix, feature = "dox"))]
 pub use self::unix_socket_address::UnixSocketAddressExt;
 
+mod volume;
+pub use self::volume::Volume;
+pub use self::volume::VolumeExt;
+
 mod resource;
 pub use self::resource::Resource;
 
@@ -291,6 +310,7 @@ pub use self::srv_target::SrvTarget;
 mod enums;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
+pub use self::enums::DriveStartStopType;
 pub use self::enums::FileType;
 pub use self::enums::IOErrorEnum;
 pub use self::enums::MountOperationResult;
@@ -318,9 +338,12 @@ mod flags;
 pub use self::flags::AppInfoCreateFlags;
 pub use self::flags::ApplicationFlags;
 pub use self::flags::AskPasswordFlags;
+pub use self::flags::DriveStartFlags;
 pub use self::flags::FileCreateFlags;
 pub use self::flags::FileQueryInfoFlags;
 pub use self::flags::IOStreamSpliceFlags;
+pub use self::flags::MountMountFlags;
+pub use self::flags::MountUnmountFlags;
 pub use self::flags::OutputStreamSpliceFlags;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::SettingsBindFlags;
@@ -449,6 +472,8 @@ pub mod traits {
     pub use super::ActionGroupExt;
     pub use super::ActionMapExt;
     pub use super::AppInfoExt;
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    pub use super::AppInfoMonitorExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
     pub use super::ApplicationCommandLineExt;
@@ -456,6 +481,7 @@ pub mod traits {
     pub use super::BufferedOutputStreamExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
+    pub use super::DriveExt;
     pub use super::FileExt;
     pub use super::FileIOStreamExt;
     pub use super::FileInfoExt;
@@ -475,6 +501,7 @@ pub mod traits {
     pub use super::MenuItemExt;
     pub use super::MenuLinkIterExt;
     pub use super::MenuModelExt;
+    pub use super::MountExt;
     pub use super::MountOperationExt;
     pub use super::NetworkAddressExt;
     pub use super::NetworkServiceExt;
@@ -510,4 +537,5 @@ pub mod traits {
     pub use super::TlsServerConnectionExt;
     #[cfg(any(unix, feature = "dox"))]
     pub use super::UnixSocketAddressExt;
+    pub use super::VolumeExt;
 }
