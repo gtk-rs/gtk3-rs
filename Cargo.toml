@@ -14,6 +14,10 @@ exclude = [
     "gir-files/*",
 ]
 
+[badges]
+appveyor = { repository = "GuillaumeGomez/pangocairo", service = "github" }
+travis-ci = { repository = "gtk-rs/pangocairo" }
+
 [features]
 dox = ["glib/dox", "pango/dox", "cairo-rs/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs", "cairo-rs/purge-lgpl-docs"]
