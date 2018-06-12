@@ -17,6 +17,9 @@ generate = [
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
+    "Gio.Drive",
+    "Gio.DriveStartFlags",
+    "Gio.DriveStartStopType",
     "Gio.FileCreateFlags",
     "Gio.FileInfo",
     "Gio.FileInputStream",
@@ -33,8 +36,11 @@ generate = [
     "Gio.MenuItem",
     "Gio.MenuLinkIter",
     "Gio.MenuModel",
+    "Gio.Mount",
+    "Gio.MountMountFlags",
     "Gio.MountOperation",
     "Gio.MountOperationResult",
+    "Gio.MountUnmountFlags",
     "Gio.NetworkAddress",
     "Gio.NetworkService",
     "Gio.NotificationPriority",
@@ -81,6 +87,7 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
+    "Gio.Volume",
 ]
 
 ignore = [
@@ -133,6 +140,14 @@ status = "generate"
         [[object.function.parameter]]
         name = "commandline"
         string_type = "os_string"
+
+[[object]]
+name = "Gio.AppInfoMonitor"
+status = "generate"
+    [[object.function]]
+    name = "get"
+        [object.function.return]
+	nullable = false
 
 [[object]]
 name = "Gio.AppLaunchContext"

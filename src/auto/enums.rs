@@ -136,6 +136,71 @@ impl SetValue for DataStreamNewlineType {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum DriveStartStopType {
+    Unknown,
+    Shutdown,
+    Network,
+    Multidisk,
+    Password,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for DriveStartStopType {
+    type GlibType = ffi::GDriveStartStopType;
+
+    fn to_glib(&self) -> ffi::GDriveStartStopType {
+        match *self {
+            DriveStartStopType::Unknown => ffi::G_DRIVE_START_STOP_TYPE_UNKNOWN,
+            DriveStartStopType::Shutdown => ffi::G_DRIVE_START_STOP_TYPE_SHUTDOWN,
+            DriveStartStopType::Network => ffi::G_DRIVE_START_STOP_TYPE_NETWORK,
+            DriveStartStopType::Multidisk => ffi::G_DRIVE_START_STOP_TYPE_MULTIDISK,
+            DriveStartStopType::Password => ffi::G_DRIVE_START_STOP_TYPE_PASSWORD,
+            DriveStartStopType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GDriveStartStopType> for DriveStartStopType {
+    fn from_glib(value: ffi::GDriveStartStopType) -> Self {
+        match value {
+            0 => DriveStartStopType::Unknown,
+            1 => DriveStartStopType::Shutdown,
+            2 => DriveStartStopType::Network,
+            3 => DriveStartStopType::Multidisk,
+            4 => DriveStartStopType::Password,
+            value => DriveStartStopType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for DriveStartStopType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_drive_start_stop_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for DriveStartStopType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for DriveStartStopType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for DriveStartStopType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum FileType {
     Unknown,
     Regular,
