@@ -15,6 +15,68 @@ use glib_ffi;
 use gobject_ffi;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum ConverterResult {
+    Error,
+    Converted,
+    Finished,
+    Flushed,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for ConverterResult {
+    type GlibType = ffi::GConverterResult;
+
+    fn to_glib(&self) -> ffi::GConverterResult {
+        match *self {
+            ConverterResult::Error => ffi::G_CONVERTER_ERROR,
+            ConverterResult::Converted => ffi::G_CONVERTER_CONVERTED,
+            ConverterResult::Finished => ffi::G_CONVERTER_FINISHED,
+            ConverterResult::Flushed => ffi::G_CONVERTER_FLUSHED,
+            ConverterResult::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GConverterResult> for ConverterResult {
+    fn from_glib(value: ffi::GConverterResult) -> Self {
+        match value {
+            0 => ConverterResult::Error,
+            1 => ConverterResult::Converted,
+            2 => ConverterResult::Finished,
+            3 => ConverterResult::Flushed,
+            value => ConverterResult::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for ConverterResult {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_converter_result_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for ConverterResult {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for ConverterResult {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for ConverterResult {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum DataStreamByteOrder {
     BigEndian,
     LittleEndian,
@@ -195,6 +257,68 @@ impl<'a> FromValue<'a> for DriveStartStopType {
 }
 
 impl SetValue for DriveStartStopType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum EmblemOrigin {
+    Unknown,
+    Device,
+    Livemetadata,
+    Tag,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for EmblemOrigin {
+    type GlibType = ffi::GEmblemOrigin;
+
+    fn to_glib(&self) -> ffi::GEmblemOrigin {
+        match *self {
+            EmblemOrigin::Unknown => ffi::G_EMBLEM_ORIGIN_UNKNOWN,
+            EmblemOrigin::Device => ffi::G_EMBLEM_ORIGIN_DEVICE,
+            EmblemOrigin::Livemetadata => ffi::G_EMBLEM_ORIGIN_LIVEMETADATA,
+            EmblemOrigin::Tag => ffi::G_EMBLEM_ORIGIN_TAG,
+            EmblemOrigin::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GEmblemOrigin> for EmblemOrigin {
+    fn from_glib(value: ffi::GEmblemOrigin) -> Self {
+        match value {
+            0 => EmblemOrigin::Unknown,
+            1 => EmblemOrigin::Device,
+            2 => EmblemOrigin::Livemetadata,
+            3 => EmblemOrigin::Tag,
+            value => EmblemOrigin::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for EmblemOrigin {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_emblem_origin_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for EmblemOrigin {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for EmblemOrigin {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for EmblemOrigin {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
@@ -1546,6 +1670,65 @@ impl<'a> FromValue<'a> for UnixSocketAddressType {
 }
 
 impl SetValue for UnixSocketAddressType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum ZlibCompressorFormat {
+    Zlib,
+    Gzip,
+    Raw,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for ZlibCompressorFormat {
+    type GlibType = ffi::GZlibCompressorFormat;
+
+    fn to_glib(&self) -> ffi::GZlibCompressorFormat {
+        match *self {
+            ZlibCompressorFormat::Zlib => ffi::G_ZLIB_COMPRESSOR_FORMAT_ZLIB,
+            ZlibCompressorFormat::Gzip => ffi::G_ZLIB_COMPRESSOR_FORMAT_GZIP,
+            ZlibCompressorFormat::Raw => ffi::G_ZLIB_COMPRESSOR_FORMAT_RAW,
+            ZlibCompressorFormat::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GZlibCompressorFormat> for ZlibCompressorFormat {
+    fn from_glib(value: ffi::GZlibCompressorFormat) -> Self {
+        match value {
+            0 => ZlibCompressorFormat::Zlib,
+            1 => ZlibCompressorFormat::Gzip,
+            2 => ZlibCompressorFormat::Raw,
+            value => ZlibCompressorFormat::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for ZlibCompressorFormat {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_zlib_compressor_format_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for ZlibCompressorFormat {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for ZlibCompressorFormat {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for ZlibCompressorFormat {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
