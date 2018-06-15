@@ -2,9 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ConverterFlags;
-use ConverterResult;
-use Error;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
@@ -22,24 +19,10 @@ glib_wrapper! {
 }
 
 pub trait ConverterExt {
-    fn convert(&self, inbuf: &[u8], outbuf: &[u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error>;
-
     fn reset(&self);
 }
 
 impl<O: IsA<Converter>> ConverterExt for O {
-    fn convert(&self, inbuf: &[u8], outbuf: &[u8], flags: ConverterFlags) -> Result<(ConverterResult, usize, usize), Error> {
-        let inbuf_size = inbuf.len() as usize;
-        let outbuf_size = outbuf.len() as usize;
-        unsafe {
-            let mut bytes_read = mem::uninitialized();
-            let mut bytes_written = mem::uninitialized();
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_converter_convert(self.to_glib_none().0, inbuf.to_glib_none().0, inbuf_size, outbuf.to_glib_none().0, outbuf_size, flags.to_glib(), &mut bytes_read, &mut bytes_written, &mut error);
-            if error.is_null() { Ok((from_glib(ret), bytes_read, bytes_written)) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     fn reset(&self) {
         unsafe {
             ffi::g_converter_reset(self.to_glib_none().0);

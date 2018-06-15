@@ -33,6 +33,7 @@ macro_rules! callback_guard {
 mod application;
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
+mod converter;
 mod input_stream;
 mod memory_input_stream;
 mod memory_output_stream;
@@ -64,6 +65,8 @@ pub mod signal {
 pub mod prelude {
     pub use auto::traits::*;
     pub use application::*;
+    pub use converter::*;
+    #[cfg(any(not(windows), feature = "dox"))]
     pub use desktop_app_info::*;
     pub use input_stream::InputStreamExtManual;
     pub use output_stream::OutputStreamExtManual;

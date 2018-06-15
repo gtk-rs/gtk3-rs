@@ -14,7 +14,6 @@ generate = [
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
-    "Gio.Converter",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
     "Gio.DataOutputStream",
@@ -228,6 +227,14 @@ concurrency = "send+sync"
     name = "source_new"
     # Needs manual bindings for setting callback, etc
     ignore = true
+
+[[object]]
+name = "Gio.Converter"
+status = "generate"
+    [[object.function]]
+    name = "convert"
+    ignore = true
+
 
 [[object]]
 name = "Gio.DataInputStream"
