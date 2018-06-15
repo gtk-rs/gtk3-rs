@@ -14,12 +14,17 @@ generate = [
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
+    "Gio.ConverterFlags",
+    "Gio.ConverterResult",
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
     "Gio.Drive",
     "Gio.DriveStartFlags",
     "Gio.DriveStartStopType",
+    "Gio.Emblem",
+    "Gio.EmblemOrigin",
+    "Gio.EmblemedIcon",
     "Gio.FileCreateFlags",
     "Gio.FileInfo",
     "Gio.FileInputStream",
@@ -88,6 +93,9 @@ generate = [
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
     "Gio.Volume",
+    "Gio.ZlibCompressor",
+    "Gio.ZlibCompressorFormat",
+    "Gio.ZlibDecompressor",
 ]
 
 ignore = [
@@ -95,6 +103,7 @@ ignore = [
 
 manual = [
     "GLib.Bytes",
+    "GLib.KeyFile",
     "GLib.Error",
     "GLib.Variant",
     "GLib.VariantType",
@@ -220,6 +229,14 @@ concurrency = "send+sync"
     ignore = true
 
 [[object]]
+name = "Gio.Converter"
+status = "generate"
+    [[object.function]]
+    name = "convert"
+    ignore = true
+
+
+[[object]]
 name = "Gio.DataInputStream"
 status = "generate"
     [[object.function]]
@@ -230,6 +247,15 @@ status = "generate"
     [[object.function]]
     name = "read_line_async"
     #return vec of u8
+    ignore = true
+
+[[object]]
+name = "Gio.DesktopAppInfo"
+status = "generate"
+cfg_condition = "not(windows)"
+    [[object.function]]
+    name = "search"
+    # returns vec of string
     ignore = true
 
 [[object]]
