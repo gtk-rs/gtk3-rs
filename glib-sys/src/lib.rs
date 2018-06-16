@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
+#![cfg_attr(feature = "cargo-clippy", allow(approx_constant, type_complexity, unreadable_literal))]
 
 extern crate libc;
 
@@ -2658,18 +2659,18 @@ extern "C" {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_key_file_save_to_file(key_file: *mut GKeyFile, filename: *const c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_key_file_set_boolean(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: gboolean);
-    pub fn g_key_file_set_boolean_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: gboolean, length: size_t);
+    pub fn g_key_file_set_boolean_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *mut gboolean, length: size_t);
     pub fn g_key_file_set_comment(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, comment: *const c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_key_file_set_double(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: c_double);
-    pub fn g_key_file_set_double_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: c_double, length: size_t);
+    pub fn g_key_file_set_double_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *mut c_double, length: size_t);
     pub fn g_key_file_set_int64(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: i64);
     pub fn g_key_file_set_integer(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: c_int);
-    pub fn g_key_file_set_integer_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: c_int, length: size_t);
+    pub fn g_key_file_set_integer_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *mut c_int, length: size_t);
     pub fn g_key_file_set_list_separator(key_file: *mut GKeyFile, separator: c_char);
     pub fn g_key_file_set_locale_string(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, locale: *const c_char, string: *const c_char);
-    pub fn g_key_file_set_locale_string_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, locale: *const c_char, list: *mut c_char, length: size_t);
+    pub fn g_key_file_set_locale_string_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, locale: *const c_char, list: *const *const c_char, length: size_t);
     pub fn g_key_file_set_string(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, string: *const c_char);
-    pub fn g_key_file_set_string_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *mut c_char, length: size_t);
+    pub fn g_key_file_set_string_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *const *const c_char, length: size_t);
     pub fn g_key_file_set_uint64(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: u64);
     pub fn g_key_file_set_value(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: *const c_char);
     pub fn g_key_file_to_data(key_file: *mut GKeyFile, length: *mut size_t, error: *mut *mut GError) -> *mut c_char;
