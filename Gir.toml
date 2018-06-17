@@ -14,6 +14,9 @@ generate = [
     "Gio.ApplicationFlags",
     "Gio.AskPasswordFlags",
     "Gio.BufferedOutputStream",
+    "Gio.CharsetConverter",
+    "Gio.ConverterInputStream",
+    "Gio.ConverterOutputStream",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
     "Gio.DataOutputStream",
@@ -36,6 +39,7 @@ generate = [
     "Gio.InetSocketAddress",
     "Gio.IOStreamSpliceFlags",
     "Gio.IOErrorEnum",
+    "Gio.LoadableIcon",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
     "Gio.MenuItem",
@@ -213,6 +217,13 @@ status = "generate"
     name = "peek"
     #have almost same peek_buffer
     ignore = true
+
+[[object]]
+name = "Gio.BytesIcon"
+status = "generate"
+    [[object.property]]
+    name = "bytes"
+    version = "2.38"
 
 [[object]]
 name = "Gio.Cancellable"
