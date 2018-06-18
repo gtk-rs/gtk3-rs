@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use libc::{c_void};
 use types::Type;
 use types::StaticType;
 use ffi as glib_ffi;
@@ -13,7 +12,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
-use value::{Value, ToValue, SetValue, SetValueOptional, FromValueOptional};
+use value::{Value, ToValue, SetValue, FromValueOptional};
 use gobject_ffi;
 
 /// Describes `Variant` types.
@@ -219,21 +218,21 @@ impl StaticType for VariantTy {
     }
 }
 
+impl SetValue for VariantTy {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+    }
+}
+
 impl StaticType for VariantType {
     fn static_type() -> Type {
         unsafe { from_glib(glib_ffi::g_variant_type_get_gtype()) }
     }
 }
 
-impl SetValue for VariantTy {
+impl SetValue for VariantType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
-    }
-}
-
-impl SetValueOptional for VariantTy {
-    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
     }
 }
 
