@@ -45,12 +45,31 @@ mod buffered_output_stream;
 pub use self::buffered_output_stream::BufferedOutputStream;
 pub use self::buffered_output_stream::BufferedOutputStreamExt;
 
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+mod bytes_icon;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+pub use self::bytes_icon::BytesIcon;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+pub use self::bytes_icon::BytesIconExt;
+
 mod cancellable;
 pub use self::cancellable::Cancellable;
+
+mod charset_converter;
+pub use self::charset_converter::CharsetConverter;
+pub use self::charset_converter::CharsetConverterExt;
 
 mod converter;
 pub use self::converter::Converter;
 pub use self::converter::ConverterExt;
+
+mod converter_input_stream;
+pub use self::converter_input_stream::ConverterInputStream;
+pub use self::converter_input_stream::ConverterInputStreamExt;
+
+mod converter_output_stream;
+pub use self::converter_output_stream::ConverterOutputStream;
+pub use self::converter_output_stream::ConverterOutputStreamExt;
 
 mod data_input_stream;
 pub use self::data_input_stream::DataInputStream;
@@ -126,6 +145,10 @@ pub use self::inet_socket_address::InetSocketAddressExt;
 mod input_stream;
 pub use self::input_stream::InputStream;
 pub use self::input_stream::InputStreamExt;
+
+mod loadable_icon;
+pub use self::loadable_icon::LoadableIcon;
+pub use self::loadable_icon::LoadableIconExt;
 
 mod memory_input_stream;
 pub use self::memory_input_stream::MemoryInputStream;
@@ -510,7 +533,12 @@ pub mod traits {
     pub use super::ApplicationCommandLineExt;
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
+    #[cfg(any(feature = "v2_38", feature = "dox"))]
+    pub use super::BytesIconExt;
+    pub use super::CharsetConverterExt;
     pub use super::ConverterExt;
+    pub use super::ConverterInputStreamExt;
+    pub use super::ConverterOutputStreamExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(not(windows), feature = "dox"))]
@@ -530,6 +558,7 @@ pub mod traits {
     pub use super::InetAddressExt;
     pub use super::InetSocketAddressExt;
     pub use super::InputStreamExt;
+    pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
     pub use super::MemoryOutputStreamExt;
     pub use super::MenuExt;
