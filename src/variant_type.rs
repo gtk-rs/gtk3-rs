@@ -224,6 +224,17 @@ impl SetValue for VariantTy {
     }
 }
 
+impl<'a> FromValueOptional<'a> for &'a VariantTy {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        let cvty = gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType;
+        if cvty.is_null() {
+            None
+        } else {
+            Some(VariantTy::from_ptr(cvty))
+        }
+    }
+}
+
 impl StaticType for VariantType {
     fn static_type() -> Type {
         unsafe { from_glib(glib_ffi::g_variant_type_get_gtype()) }
