@@ -71,6 +71,10 @@ mod converter_output_stream;
 pub use self::converter_output_stream::ConverterOutputStream;
 pub use self::converter_output_stream::ConverterOutputStreamExt;
 
+mod credentials;
+pub use self::credentials::Credentials;
+pub use self::credentials::CredentialsExt;
+
 mod data_input_stream;
 pub use self::data_input_stream::DataInputStream;
 pub use self::data_input_stream::DataInputStreamExt;
@@ -106,6 +110,10 @@ mod file_io_stream;
 pub use self::file_io_stream::FileIOStream;
 pub use self::file_io_stream::FileIOStreamExt;
 
+mod file_icon;
+pub use self::file_icon::FileIcon;
+pub use self::file_icon::FileIconExt;
+
 mod file_info;
 pub use self::file_info::FileInfo;
 pub use self::file_info::FileInfoExt;
@@ -137,6 +145,10 @@ pub use self::icon::IconExt;
 mod inet_address;
 pub use self::inet_address::InetAddress;
 pub use self::inet_address::InetAddressExt;
+
+mod inet_address_mask;
+pub use self::inet_address_mask::InetAddressMask;
+pub use self::inet_address_mask::InetAddressMaskExt;
 
 mod inet_socket_address;
 pub use self::inet_socket_address::InetSocketAddress;
@@ -277,6 +289,20 @@ mod socket_service;
 pub use self::socket_service::SocketService;
 pub use self::socket_service::SocketServiceExt;
 
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+mod subprocess;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::subprocess::Subprocess;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::subprocess::SubprocessExt;
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+mod subprocess_launcher;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::subprocess_launcher::SubprocessLauncher;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::subprocess_launcher::SubprocessLauncherExt;
+
 mod tcp_connection;
 pub use self::tcp_connection::TcpConnection;
 pub use self::tcp_connection::TcpConnectionExt;
@@ -359,6 +385,7 @@ pub use self::srv_target::SrvTarget;
 
 mod enums;
 pub use self::enums::ConverterResult;
+pub use self::enums::CredentialsType;
 pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::DriveStartStopType;
@@ -401,6 +428,8 @@ pub use self::flags::MountUnmountFlags;
 pub use self::flags::OutputStreamSpliceFlags;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::SettingsBindFlags;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+pub use self::flags::SubprocessFlags;
 pub use self::flags::TlsCertificateFlags;
 pub use self::flags::TlsDatabaseVerifyFlags;
 pub use self::flags::TlsPasswordFlags;
@@ -539,6 +568,7 @@ pub mod traits {
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
     pub use super::ConverterOutputStreamExt;
+    pub use super::CredentialsExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(not(windows), feature = "dox"))]
@@ -548,6 +578,7 @@ pub mod traits {
     pub use super::EmblemedIconExt;
     pub use super::FileExt;
     pub use super::FileIOStreamExt;
+    pub use super::FileIconExt;
     pub use super::FileInfoExt;
     pub use super::FileInputStreamExt;
     pub use super::FileOutputStreamExt;
@@ -556,6 +587,7 @@ pub mod traits {
     pub use super::IOStreamExt;
     pub use super::IconExt;
     pub use super::InetAddressExt;
+    pub use super::InetAddressMaskExt;
     pub use super::InetSocketAddressExt;
     pub use super::InputStreamExt;
     pub use super::LoadableIconExt;
@@ -589,6 +621,10 @@ pub mod traits {
     pub use super::SocketConnectionExt;
     pub use super::SocketListenerExt;
     pub use super::SocketServiceExt;
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    pub use super::SubprocessExt;
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    pub use super::SubprocessLauncherExt;
     pub use super::TcpConnectionExt;
     pub use super::ThemedIconExt;
     pub use super::ThreadedSocketServiceExt;

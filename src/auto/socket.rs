@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use Cancellable;
+use Credentials;
 use Error;
 use InetAddress;
 use SocketAddress;
@@ -69,7 +70,7 @@ pub trait SocketExt {
 
     fn get_broadcast(&self) -> bool;
 
-    //fn get_credentials(&self) -> Result</*Ignored*/Credentials, Error>;
+    fn get_credentials(&self) -> Result<Credentials, Error>;
 
     fn get_family(&self) -> SocketFamily;
 
@@ -259,9 +260,13 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
         }
     }
 
-    //fn get_credentials(&self) -> Result</*Ignored*/Credentials, Error> {
-    //    unsafe { TODO: call ffi::g_socket_get_credentials() }
-    //}
+    fn get_credentials(&self) -> Result<Credentials, Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_socket_get_credentials(self.to_glib_none().0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn get_family(&self) -> SocketFamily {
         unsafe {

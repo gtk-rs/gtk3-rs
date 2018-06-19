@@ -77,6 +77,74 @@ impl SetValue for ConverterResult {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum CredentialsType {
+    Invalid,
+    LinuxUcred,
+    FreebsdCmsgcred,
+    OpenbsdSockpeercred,
+    SolarisUcred,
+    NetbsdUnpcbid,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for CredentialsType {
+    type GlibType = ffi::GCredentialsType;
+
+    fn to_glib(&self) -> ffi::GCredentialsType {
+        match *self {
+            CredentialsType::Invalid => ffi::G_CREDENTIALS_TYPE_INVALID,
+            CredentialsType::LinuxUcred => ffi::G_CREDENTIALS_TYPE_LINUX_UCRED,
+            CredentialsType::FreebsdCmsgcred => ffi::G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED,
+            CredentialsType::OpenbsdSockpeercred => ffi::G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED,
+            CredentialsType::SolarisUcred => ffi::G_CREDENTIALS_TYPE_SOLARIS_UCRED,
+            CredentialsType::NetbsdUnpcbid => ffi::G_CREDENTIALS_TYPE_NETBSD_UNPCBID,
+            CredentialsType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GCredentialsType> for CredentialsType {
+    fn from_glib(value: ffi::GCredentialsType) -> Self {
+        match value {
+            0 => CredentialsType::Invalid,
+            1 => CredentialsType::LinuxUcred,
+            2 => CredentialsType::FreebsdCmsgcred,
+            3 => CredentialsType::OpenbsdSockpeercred,
+            4 => CredentialsType::SolarisUcred,
+            5 => CredentialsType::NetbsdUnpcbid,
+            value => CredentialsType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for CredentialsType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_credentials_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for CredentialsType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for CredentialsType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for CredentialsType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum DataStreamByteOrder {
     BigEndian,
     LittleEndian,

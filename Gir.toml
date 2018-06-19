@@ -19,6 +19,7 @@ generate = [
     "Gio.ConverterOutputStream",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
+    "Gio.CredentialsType",
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
@@ -29,6 +30,7 @@ generate = [
     "Gio.EmblemOrigin",
     "Gio.EmblemedIcon",
     "Gio.FileCreateFlags",
+    "Gio.FileIcon",
     "Gio.FileInfo",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
@@ -36,6 +38,7 @@ generate = [
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
     "Gio.Icon",
+    "Gio.InetAddressMask",
     "Gio.InetSocketAddress",
     "Gio.IOStreamSpliceFlags",
     "Gio.IOErrorEnum",
@@ -78,6 +81,9 @@ generate = [
     "Gio.SocketService",
     "Gio.SocketType",
     "Gio.SrvTarget",
+    "Gio.Subprocess",
+    "Gio.SubprocessFlags",
+    "Gio.SubprocessLauncher",
     "Gio.TcpConnection",
     "Gio.ThreadedSocketService",
     "Gio.ThemedIcon",
@@ -246,6 +252,18 @@ status = "generate"
     name = "convert"
     ignore = true
 
+[[object]]
+name = "Gio.Credentials"
+status = "generate"
+    [[object.function]]
+    name = "get_unix_pid"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "get_unix_user"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "set_unix_user"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.DataInputStream"

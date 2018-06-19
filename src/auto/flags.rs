@@ -640,6 +640,67 @@ impl SetValue for SettingsBindFlags {
     }
 }
 
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+bitflags! {
+    pub struct SubprocessFlags: u32 {
+        const NONE = 0;
+        const STDIN_PIPE = 1;
+        const STDIN_INHERIT = 2;
+        const STDOUT_PIPE = 4;
+        const STDOUT_SILENCE = 8;
+        const STDERR_PIPE = 16;
+        const STDERR_SILENCE = 32;
+        const STDERR_MERGE = 64;
+        const INHERIT_FDS = 128;
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for SubprocessFlags {
+    type GlibType = ffi::GSubprocessFlags;
+
+    fn to_glib(&self) -> ffi::GSubprocessFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<ffi::GSubprocessFlags> for SubprocessFlags {
+    fn from_glib(value: ffi::GSubprocessFlags) -> SubprocessFlags {
+        SubprocessFlags::from_bits_truncate(value)
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+impl StaticType for SubprocessFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_subprocess_flags_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for SubprocessFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+impl<'a> FromValue<'a> for SubprocessFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+impl SetValue for SubprocessFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
 bitflags! {
     pub struct TlsCertificateFlags: u32 {
         const UNKNOWN_CA = 1;
