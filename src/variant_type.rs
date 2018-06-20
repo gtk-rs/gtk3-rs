@@ -12,7 +12,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
-use value::{Value, ToValue, SetValue, FromValueOptional};
+use value::{Value, ToValue, SetValue, FromValueOptional, SetValueOptional};
 use gobject_ffi;
 
 /// Describes `Variant` types.
@@ -224,14 +224,17 @@ impl SetValue for VariantTy {
     }
 }
 
+impl SetValueOptional for VariantTy {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+    }
+}
+
 impl<'a> FromValueOptional<'a> for &'a VariantTy {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let cvty = gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType;
-        if cvty.is_null() {
-            None
-        } else {
-            Some(VariantTy::from_ptr(cvty))
-        }
+        let cvty = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType;
+        assert!(cvty.is_null());
+        Some(VariantTy::from_ptr(cvty))
     }
 }
 
@@ -247,9 +250,15 @@ impl SetValue for VariantType {
     }
 }
 
+// impl SetValueOptional for VariantType {
+//     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+//         gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+//     }
+// }
+
 impl<'a> FromValueOptional<'a> for VariantType {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Option::<VariantType>::from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType)
+        Option::<VariantType>::from_glib_none(gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType)
     }
 }
 
