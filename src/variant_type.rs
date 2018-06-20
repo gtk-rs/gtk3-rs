@@ -233,7 +233,7 @@ impl SetValueOptional for VariantTy {
 impl<'a> FromValueOptional<'a> for &'a VariantTy {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
         let cvty = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType;
-        assert!(cvty.is_null());
+        assert!(!cvty.is_null());
         Some(VariantTy::from_ptr(cvty))
     }
 }
@@ -407,6 +407,11 @@ mod tests {
         let tyv = ty1.to_value();
         let ty2 = tyv.get::<VariantType>().unwrap();
         assert_eq!(ty1, ty2);
+
+        let ty3 = VariantTy::new("*").unwrap();
+        let tyv2 = ty1.to_value();
+        let ty4 = tyv2.get::<VariantType>().unwrap();
+        assert_eq!(ty3, ty4);
     }
 
 }
