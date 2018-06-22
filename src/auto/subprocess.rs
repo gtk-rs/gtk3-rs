@@ -46,7 +46,7 @@ impl Subprocess {
     //}
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn newv(argv: &[&std::path::Path], flags: SubprocessFlags) -> Result<Subprocess, Error> {
+    pub fn newv(argv: &[&std::ffi::OsStr], flags: SubprocessFlags) -> Result<Subprocess, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_subprocess_newv(argv.to_glib_none().0, flags.to_glib(), &mut error);

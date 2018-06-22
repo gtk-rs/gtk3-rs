@@ -66,28 +66,16 @@ pub trait SubprocessLauncherExt {
     fn set_stdout_file_path<P: AsRef<std::path::Path>>(&self, path: P);
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn setenv<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(&self, variable: P, value: Q, overwrite: bool);
+    fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(&self, variable: P, value: Q, overwrite: bool);
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn spawn(&self, error: &mut Error, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Subprocess>;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn spawnv(&self, argv: &[&std::path::Path]) -> Result<Subprocess, Error>;
+    fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, Error>;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_fd(&self, source_fd: i32, target_fd: i32);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stderr_fd(&self, fd: i32);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdin_fd(&self, fd: i32);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdout_fd(&self, fd: i32);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn unsetenv<P: AsRef<std::path::Path>>(&self, variable: P);
+    fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P);
 
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -148,7 +136,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn setenv<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(&self, variable: P, value: Q, overwrite: bool) {
+    fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(&self, variable: P, value: Q, overwrite: bool) {
         unsafe {
             ffi::g_subprocess_launcher_setenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0, value.as_ref().to_glib_none().0, overwrite.to_glib());
         }
@@ -160,7 +148,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     //}
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn spawnv(&self, argv: &[&std::path::Path]) -> Result<Subprocess, Error> {
+    fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_subprocess_launcher_spawnv(self.to_glib_none().0, argv.to_glib_none().0, &mut error);
@@ -169,35 +157,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_fd(&self, source_fd: i32, target_fd: i32) {
-        unsafe {
-            ffi::g_subprocess_launcher_take_fd(self.to_glib_none().0, source_fd, target_fd);
-        }
-    }
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stderr_fd(&self, fd: i32) {
-        unsafe {
-            ffi::g_subprocess_launcher_take_stderr_fd(self.to_glib_none().0, fd);
-        }
-    }
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdin_fd(&self, fd: i32) {
-        unsafe {
-            ffi::g_subprocess_launcher_take_stdin_fd(self.to_glib_none().0, fd);
-        }
-    }
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdout_fd(&self, fd: i32) {
-        unsafe {
-            ffi::g_subprocess_launcher_take_stdout_fd(self.to_glib_none().0, fd);
-        }
-    }
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn unsetenv<P: AsRef<std::path::Path>>(&self, variable: P) {
+    fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P) {
         unsafe {
             ffi::g_subprocess_launcher_unsetenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0);
         }

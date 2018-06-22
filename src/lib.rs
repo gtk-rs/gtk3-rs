@@ -35,6 +35,7 @@ mod application;
 mod desktop_app_info;
 mod converter;
 mod input_stream;
+mod gtk_raw_fd;
 mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
@@ -46,6 +47,7 @@ mod unix_socket_address;
 mod file;
 mod pollable_input_stream;
 mod pollable_output_stream;
+mod subprocess_launcher;
 
 #[cfg(test)]
 mod test_util;
@@ -57,6 +59,7 @@ pub use glib::{
 
 pub use auto::*;
 pub use auto::functions::*;
+pub use gtk_raw_fd::GtkRawFd;
 
 pub mod signal {
     pub use glib::signal::Inhibit;
@@ -77,6 +80,7 @@ pub mod prelude {
     pub use file::FileExtManual;
     pub use pollable_input_stream::PollableInputStreamExtManual;
     pub use pollable_output_stream::PollableOutputStreamExtManual;
+    pub use subprocess_launcher::SubprocessLauncherExtManual;
 }
 
 pub use prelude::*;

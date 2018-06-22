@@ -47,15 +47,6 @@ impl InetAddressMask {
     }
 }
 
-impl PartialEq for InetAddressMask {
-    #[inline]
-    fn eq(&self, other: &Self) -> bool {
-        InetAddressMaskExt::equal(self, other)
-    }
-}
-
-impl Eq for InetAddressMask {}
-
 impl fmt::Display for InetAddressMask {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -64,9 +55,7 @@ impl fmt::Display for InetAddressMask {
 }
 
 pub trait InetAddressMaskExt {
-    fn equal(&self, mask2: &InetAddressMask) -> bool;
-
-    fn get_address(&self) -> Option<InetAddress>;
+    fn get_address(&self) -> InetAddress;
 
     fn get_family(&self) -> SocketFamily;
 
@@ -88,13 +77,7 @@ pub trait InetAddressMaskExt {
 }
 
 impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for O {
-    fn equal(&self, mask2: &InetAddressMask) -> bool {
-        unsafe {
-            from_glib(ffi::g_inet_address_mask_equal(self.to_glib_none().0, mask2.to_glib_none().0))
-        }
-    }
-
-    fn get_address(&self) -> Option<InetAddress> {
+    fn get_address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_address_mask_get_address(self.to_glib_none().0))
         }
