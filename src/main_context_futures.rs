@@ -22,7 +22,6 @@ use MainContext;
 use MainLoop;
 use Source;
 use Priority;
-use ::source::CallbackGuard;
 
 #[cfg(feature = "futures-nightly")]
 type StoredFutureBox<T> = PinBox<T>;
@@ -68,8 +67,6 @@ unsafe extern "C" fn prepare(
     source: *mut glib_ffi::GSource,
     timeout: *mut i32,
 ) -> glib_ffi::gboolean {
-    let _guard = CallbackGuard::new();
-
     let source = &mut *(source as *mut TaskSource);
 
     *timeout = -1;
@@ -97,8 +94,6 @@ unsafe extern "C" fn prepare(
 }
 
 unsafe extern "C" fn check(source: *mut glib_ffi::GSource) -> glib_ffi::gboolean {
-    let _guard = CallbackGuard::new();
-
     let source = &mut *(source as *mut TaskSource);
 
     let cur = source.state.load(Ordering::SeqCst);
@@ -114,8 +109,6 @@ unsafe extern "C" fn dispatch(
     callback: glib_ffi::GSourceFunc,
     _user_data: glib_ffi::gpointer,
 ) -> glib_ffi::gboolean {
-    let _guard = CallbackGuard::new();
-
     let source = &mut *(source as *mut TaskSource);
     assert!(callback.is_none());
 
@@ -140,8 +133,6 @@ unsafe extern "C" fn dispatch(
 }
 
 unsafe extern "C" fn finalize(source: *mut glib_ffi::GSource) {
-    let _guard = CallbackGuard::new();
-
     let source = source as *mut TaskSource;
     let _ = (*source).future.take();
 }

@@ -13,7 +13,7 @@ use MainContext;
 use Source;
 use SourceId;
 
-use source::{CallbackGuard, Priority};
+use source::Priority;
 
 impl MainContext {
     pub fn prepare(&self) -> (bool, i32) {
@@ -64,7 +64,6 @@ impl MainContext {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<F: FnOnce() + Send + 'static>(func: gpointer) -> gboolean {
-    let _guard = CallbackGuard::new();
     let func: &mut Option<Box<F>> = transmute(func);
     let func = func.take().expect("MainContext::invoke() closure called multiple times");
     func();
@@ -72,7 +71,6 @@ unsafe extern "C" fn trampoline<F: FnOnce() + Send + 'static>(func: gpointer) ->
 }
 
 unsafe extern "C" fn destroy_closure<F: FnOnce() + Send + 'static>(ptr: gpointer) {
-    let _guard = CallbackGuard::new();
     Box::<Option<Box<F>>>::from_raw(ptr as *mut _);
 }
 
