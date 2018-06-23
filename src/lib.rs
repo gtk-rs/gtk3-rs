@@ -46,6 +46,7 @@ mod unix_socket_address;
 mod file;
 mod pollable_input_stream;
 mod pollable_output_stream;
+mod subprocess;
 mod subprocess_launcher;
 
 #[cfg(test)]
@@ -78,6 +79,7 @@ pub mod prelude {
     pub use file::FileExtManual;
     pub use pollable_input_stream::PollableInputStreamExtManual;
     pub use pollable_output_stream::PollableOutputStreamExtManual;
+    pub use subprocess::SubprocessExtManual;
     pub use subprocess_launcher::SubprocessLauncherExtManual;
 }
 
