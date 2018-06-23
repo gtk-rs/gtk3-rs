@@ -67,20 +67,24 @@ impl ToGlib for Continue {
 
 /// Unwinding propagation guard. Aborts the process if destroyed while
 /// panicking.
+#[deprecated(note="Rustc has this functionality built-in since 1.26.0")]
 pub struct CallbackGuard(());
 
+#[allow(deprecated)]
 impl CallbackGuard {
     pub fn new() -> CallbackGuard {
         CallbackGuard(())
     }
 }
 
+#[allow(deprecated)]
 impl Default for CallbackGuard {
     fn default() -> Self {
         Self::new()
     }
 }
 
+#[allow(deprecated)]
 impl Drop for CallbackGuard {
     fn drop(&mut self) {
         use std::io::stderr;
@@ -95,13 +99,11 @@ impl Drop for CallbackGuard {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline(func: gpointer) -> gboolean {
-    let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut() -> Continue + 'static>> = transmute(func);
     (&mut *func.borrow_mut())().to_glib()
 }
 
 unsafe extern "C" fn destroy_closure(ptr: gpointer) {
-    let _guard = CallbackGuard::new();
     Box::<RefCell<Box<FnMut() -> Continue + 'static>>>::from_raw(ptr as *mut _);
 }
 
@@ -113,13 +115,11 @@ fn into_raw<F: FnMut() -> Continue + Send + 'static>(func: F) -> gpointer {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_child_watch(pid: glib_ffi::GPid, status: i32, func: gpointer) {
-    let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut(Pid, i32) + 'static>> = transmute(func);
     (&mut *func.borrow_mut())(Pid(pid), status)
 }
 
 unsafe extern "C" fn destroy_closure_child_watch(ptr: gpointer) {
-    let _guard = CallbackGuard::new();
     Box::<RefCell<Box<FnMut(Pid, i32) + 'static>>>::from_raw(ptr as *mut _);
 }
 
@@ -132,14 +132,12 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + Send + 'static>(func: F) -> gpointe
 #[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_unix_fd(fd: i32, condition: glib_ffi::GIOCondition, func: gpointer) -> gboolean {
-    let _guard = CallbackGuard::new();
     let func: &RefCell<Box<FnMut(RawFd, IOCondition) -> Continue + 'static>> = transmute(func);
     (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
 }
 
 #[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
 unsafe extern "C" fn destroy_closure_unix_fd(ptr: gpointer) {
-    let _guard = CallbackGuard::new();
     Box::<RefCell<Box<FnMut(RawFd, IOCondition) + 'static>>>::from_raw(ptr as *mut _);
 }
 

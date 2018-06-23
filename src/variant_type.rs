@@ -12,7 +12,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
-use value::{Value, ToValue, SetValue, FromValueOptional, SetValueOptional};
+use value::{Value, SetValue, FromValueOptional, SetValueOptional};
 use gobject_ffi;
 
 /// Describes `Variant` types.
@@ -339,6 +339,7 @@ mod tests {
     use ffi as glib_ffi;
     use translate::*;
     use super::*;
+    use value::ToValue;
 
     unsafe fn equal<T, U>(ptr1: *const T, ptr2: *const U) -> bool {
         from_glib(glib_ffi::g_variant_type_equal(ptr1 as *const _, ptr2 as *const _))
