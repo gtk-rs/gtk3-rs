@@ -44,6 +44,7 @@ pub trait SubprocessLauncherExt {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn getenv<P: AsRef<std::path::Path>>(&self, variable: P) -> Option<std::path::PathBuf>;
 
+    //#[cfg(any(unix, feature = "dox"))]
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn set_child_setup(&self, child_setup: /*Unknown conversion*//*Unimplemented*/SpawnChildSetupFunc, destroy_notify: /*Unknown conversion*//*Unimplemented*/DestroyNotify);
 
@@ -56,12 +57,15 @@ pub trait SubprocessLauncherExt {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_flags(&self, flags: SubprocessFlags);
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stderr_file_path<P: AsRef<std::path::Path>>(&self, path: P);
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stdin_file_path(&self, path: &str);
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stdout_file_path<P: AsRef<std::path::Path>>(&self, path: P);
 
@@ -88,6 +92,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
         }
     }
 
+    //#[cfg(any(unix, feature = "dox"))]
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn set_child_setup(&self, child_setup: /*Unknown conversion*//*Unimplemented*/SpawnChildSetupFunc, destroy_notify: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
     //    unsafe { TODO: call ffi::g_subprocess_launcher_set_child_setup() }
@@ -114,6 +119,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
         }
     }
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stderr_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {
@@ -121,6 +127,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
         }
     }
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stdin_file_path(&self, path: &str) {
         unsafe {
@@ -128,6 +135,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
         }
     }
 
+    #[cfg(any(unix, feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn set_stdout_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {

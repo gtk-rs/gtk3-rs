@@ -604,6 +604,12 @@ status = "generate"
     [[object.function]]
     pattern = "take_.*"
     ignore = true
+    [[object.function]]
+    pattern = "set_std.*file_path"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "set_child_setup"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.TlsPassword"

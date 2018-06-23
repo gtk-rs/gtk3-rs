@@ -6,7 +6,7 @@ use ffi;
 use glib;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;
-#[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+#[cfg(any(all(feature = "v2_40", not(windows)), all(feature = "dox", not(windows))))]
 use std::os::unix::io::IntoRawFd;
 #[cfg(all(feature = "dox", windows))]
 pub trait IntoRawFd {}
