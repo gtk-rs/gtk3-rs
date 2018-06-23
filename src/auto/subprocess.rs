@@ -155,7 +155,6 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn communicate_async_trampoline<R: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
@@ -313,7 +312,6 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn wait_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -367,7 +365,6 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn wait_check_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait_check_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -422,14 +419,12 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
 
 unsafe extern "C" fn notify_argv_trampoline<P>(this: *mut ffi::GSubprocess, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Subprocess> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Subprocess::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GSubprocess, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Subprocess> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Subprocess::from_glib_borrow(this).downcast_unchecked())
 }

@@ -381,7 +381,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn append_to_async_trampoline<Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_append_to_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -478,7 +477,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn create_async_trampoline<Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -531,7 +529,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn create_readwrite_async_trampoline<Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_create_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -585,7 +582,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn delete_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_delete_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -634,7 +630,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_mountable_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_eject_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -678,7 +673,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_mountable_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_eject_mountable_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -838,7 +832,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn load_bytes_async_trampoline<Q: FnOnce(Result<(glib::Bytes, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut etag_out = ptr::null_mut();
             let ret = ffi::g_file_load_bytes_finish(_source_object as *mut _, res, &mut etag_out, &mut error);
@@ -894,7 +887,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn load_contents_async_trampoline<Q: FnOnce(Result<(Vec<u8>, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut contents = ptr::null_mut();
             let mut length = mem::uninitialized();
@@ -976,7 +968,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn make_directory_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_make_directory_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1094,7 +1085,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn mount_enclosing_volume_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_mount_enclosing_volume_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1141,7 +1131,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn mount_mountable_trampoline<R: FnOnce(Result<File, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_mount_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1200,7 +1189,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn open_readwrite_async_trampoline<Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_open_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1249,7 +1237,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn poll_mountable_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_poll_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1326,7 +1313,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn query_filesystem_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_query_filesystem_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1380,7 +1366,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1443,7 +1428,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn read_async_trampoline<Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_read_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1499,7 +1483,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn replace_async_trampoline<R: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_replace_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1579,7 +1562,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn replace_readwrite_async_trampoline<R: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_replace_readwrite_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1696,7 +1678,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn set_attributes_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut info = ptr::null_mut();
             let _ = ffi::g_file_set_attributes_finish(_source_object as *mut _, res, &mut info, &mut error);
@@ -1762,7 +1743,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn set_display_name_async_trampoline<Q: FnOnce(Result<File, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_set_display_name_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -1808,7 +1788,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn start_mountable_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_start_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1855,7 +1834,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn stop_mountable_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_stop_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1917,7 +1895,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn trash_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_trash_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -1960,7 +1937,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn unmount_mountable_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_unmount_mountable_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -2004,7 +1980,6 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn unmount_mountable_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_file_unmount_mountable_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };

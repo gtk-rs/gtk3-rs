@@ -77,7 +77,6 @@ impl<O: IsA<TlsServerConnection> + IsA<glib::object::Object>> TlsServerConnectio
 
 unsafe extern "C" fn notify_authentication_mode_trampoline<P>(this: *mut ffi::GTlsServerConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsServerConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsServerConnection::from_glib_borrow(this).downcast_unchecked())
 }

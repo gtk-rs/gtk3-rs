@@ -98,7 +98,6 @@ impl AppInfo {
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn launch_default_for_uri_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };

@@ -119,28 +119,24 @@ impl<O: IsA<NetworkService> + IsA<glib::object::Object>> NetworkServiceExt for O
 
 unsafe extern "C" fn notify_domain_trampoline<P>(this: *mut ffi::GNetworkService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkService> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&NetworkService::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_protocol_trampoline<P>(this: *mut ffi::GNetworkService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkService> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&NetworkService::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_scheme_trampoline<P>(this: *mut ffi::GNetworkService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkService> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&NetworkService::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_service_trampoline<P>(this: *mut ffi::GNetworkService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkService> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&NetworkService::from_glib_borrow(this).downcast_unchecked())
 }

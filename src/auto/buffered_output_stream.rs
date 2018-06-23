@@ -99,14 +99,12 @@ impl<O: IsA<BufferedOutputStream> + IsA<glib::object::Object>> BufferedOutputStr
 
 unsafe extern "C" fn notify_auto_grow_trampoline<P>(this: *mut ffi::GBufferedOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<BufferedOutputStream> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&BufferedOutputStream::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_buffer_size_trampoline<P>(this: *mut ffi::GBufferedOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<BufferedOutputStream> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&BufferedOutputStream::from_glib_borrow(this).downcast_unchecked())
 }

@@ -600,91 +600,78 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
 
 unsafe extern "C" fn notify_blocking_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_broadcast_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_keepalive_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_listen_backlog_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_local_address_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_multicast_loopback_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_multicast_ttl_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_protocol_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_remote_address_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_timeout_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_ttl_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_type_trampoline<P>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Socket::from_glib_borrow(this).downcast_unchecked())
 }

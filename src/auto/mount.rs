@@ -127,7 +127,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_mount_eject_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -171,7 +170,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_mount_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -271,7 +269,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn guess_content_type_trampoline<Q: FnOnce(Result<Vec<String>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_mount_guess_content_type_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -331,7 +328,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn remount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_mount_remount_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -382,7 +378,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn unmount_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_mount_unmount_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -426,7 +421,6 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn unmount_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_mount_unmount_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -498,21 +492,18 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
 
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<Mount> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Mount::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn pre_unmount_trampoline<P>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<Mount> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Mount::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn unmounted_trampoline<P>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<Mount> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Mount::from_glib_borrow(this).downcast_unchecked())
 }

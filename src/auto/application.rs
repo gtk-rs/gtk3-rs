@@ -522,56 +522,48 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
 
 unsafe extern "C" fn activate_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn command_line_trampoline<P>(this: *mut ffi::GApplication, command_line: *mut ffi::GApplicationCommandLine, f: glib_ffi::gpointer) -> libc::c_int
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P, &ApplicationCommandLine) -> i32 + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(command_line))
 }
 
 unsafe extern "C" fn shutdown_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn startup_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_action_group_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_application_id_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_inactivity_timeout_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
@@ -579,28 +571,24 @@ where P: IsA<Application> {
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 unsafe extern "C" fn notify_is_busy_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_registered_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_remote_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_resource_base_path_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Application::from_glib_borrow(this).downcast_unchecked())
 }

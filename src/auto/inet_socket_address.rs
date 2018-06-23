@@ -120,28 +120,24 @@ impl<O: IsA<InetSocketAddress> + IsA<glib::object::Object>> InetSocketAddressExt
 
 unsafe extern "C" fn notify_address_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_flowinfo_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_port_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_scope_id_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }

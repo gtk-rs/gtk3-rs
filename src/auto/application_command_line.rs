@@ -181,28 +181,24 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
 
 unsafe extern "C" fn notify_arguments_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_remote_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_options_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_platform_data_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
 }

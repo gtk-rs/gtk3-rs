@@ -69,7 +69,6 @@ impl<O: IsA<BytesIcon> + IsA<glib::object::Object>> BytesIconExt for O {
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 unsafe extern "C" fn notify_bytes_trampoline<P>(this: *mut ffi::GBytesIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<BytesIcon> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&BytesIcon::from_glib_borrow(this).downcast_unchecked())
 }

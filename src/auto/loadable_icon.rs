@@ -54,7 +54,6 @@ impl<O: IsA<LoadableIcon> + IsA<glib::object::Object> + Clone + 'static> Loadabl
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn load_async_trampoline<Q: FnOnce(Result<(InputStream, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut type_ = ptr::null_mut();
             let ret = ffi::g_loadable_icon_load_finish(_source_object as *mut _, res, &mut type_, &mut error);

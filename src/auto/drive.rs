@@ -146,7 +146,6 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_drive_eject_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -190,7 +189,6 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn eject_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_drive_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -315,7 +313,6 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn poll_for_media_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_drive_poll_for_media_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -358,7 +355,6 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn start_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_drive_start_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -405,7 +401,6 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn stop_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_drive_stop_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -479,28 +474,24 @@ impl<O: IsA<Drive> + IsA<glib::object::Object> + Clone + 'static> DriveExt for O
 
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<Drive> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Drive::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn disconnected_trampoline<P>(this: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<Drive> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Drive::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn eject_button_trampoline<P>(this: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<Drive> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Drive::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn stop_button_trampoline<P>(this: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<Drive> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Drive::from_glib_borrow(this).downcast_unchecked())
 }

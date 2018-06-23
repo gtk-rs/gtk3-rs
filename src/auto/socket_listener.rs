@@ -101,7 +101,6 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn accept_async_trampoline<Q: FnOnce(Result<(SocketConnection, glib::Object), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut source_object = ptr::null_mut();
             let ret = ffi::g_socket_listener_accept_finish(_source_object as *mut _, res, &mut source_object, &mut error);
@@ -236,14 +235,12 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 unsafe extern "C" fn event_trampoline<P>(this: *mut ffi::GSocketListener, event: ffi::GSocketListenerEvent, socket: *mut ffi::GSocket, f: glib_ffi::gpointer)
 where P: IsA<SocketListener> {
-    callback_guard!();
     let f: &&(Fn(&P, SocketListenerEvent, &Socket) + 'static) = transmute(f);
     f(&SocketListener::from_glib_borrow(this).downcast_unchecked(), from_glib(event), &from_glib_borrow(socket))
 }
 
 unsafe extern "C" fn notify_listen_backlog_trampoline<P>(this: *mut ffi::GSocketListener, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketListener> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&SocketListener::from_glib_borrow(this).downcast_unchecked())
 }

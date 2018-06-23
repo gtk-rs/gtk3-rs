@@ -75,7 +75,6 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn acquire_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_permission_acquire_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -150,7 +149,6 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn release_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_permission_release_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -212,21 +210,18 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
 
 unsafe extern "C" fn notify_allowed_trampoline<P>(this: *mut ffi::GPermission, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Permission> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Permission::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_can_acquire_trampoline<P>(this: *mut ffi::GPermission, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Permission> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Permission::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_can_release_trampoline<P>(this: *mut ffi::GPermission, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Permission> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Permission::from_glib_borrow(this).downcast_unchecked())
 }

@@ -177,28 +177,24 @@ impl<O: IsA<ActionGroup> + IsA<glib::object::Object>> ActionGroupExt for O {
 
 unsafe extern "C" fn action_added_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    callback_guard!();
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(action_name))
 }
 
 unsafe extern "C" fn action_enabled_changed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, enabled: glib_ffi::gboolean, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    callback_guard!();
     let f: &&(Fn(&P, &str, bool) + 'static) = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(action_name), from_glib(enabled))
 }
 
 unsafe extern "C" fn action_removed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    callback_guard!();
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(action_name))
 }
 
 unsafe extern "C" fn action_state_changed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    callback_guard!();
     let f: &&(Fn(&P, &str, &glib::Variant) + 'static) = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(action_name), &from_glib_borrow(value))
 }

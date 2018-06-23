@@ -166,7 +166,6 @@ impl<O: IsA<DataOutputStream> + IsA<glib::object::Object>> DataOutputStreamExt f
 
 unsafe extern "C" fn notify_byte_order_trampoline<P>(this: *mut ffi::GDataOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DataOutputStream> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DataOutputStream::from_glib_borrow(this).downcast_unchecked())
 }

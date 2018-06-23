@@ -70,7 +70,6 @@ impl<O: IsA<MemoryOutputStream> + IsA<glib::object::Object>> MemoryOutputStreamE
 
 unsafe extern "C" fn notify_data_size_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MemoryOutputStream> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
 }

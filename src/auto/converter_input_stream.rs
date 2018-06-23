@@ -60,7 +60,6 @@ impl<O: IsA<ConverterInputStream> + IsA<glib::object::Object>> ConverterInputStr
 
 unsafe extern "C" fn notify_converter_trampoline<P>(this: *mut ffi::GConverterInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ConverterInputStream> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ConverterInputStream::from_glib_borrow(this).downcast_unchecked())
 }

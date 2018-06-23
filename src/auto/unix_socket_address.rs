@@ -125,21 +125,18 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
 
 unsafe extern "C" fn notify_abstract_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<UnixSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_address_type_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<UnixSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_path_as_array_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<UnixSocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }

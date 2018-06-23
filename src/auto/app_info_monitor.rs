@@ -49,7 +49,6 @@ impl<O: IsA<AppInfoMonitor> + IsA<glib::object::Object>> AppInfoMonitorExt for O
 
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GAppInfoMonitor, f: glib_ffi::gpointer)
 where P: IsA<AppInfoMonitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&AppInfoMonitor::from_glib_borrow(this).downcast_unchecked())
 }

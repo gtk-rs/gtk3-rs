@@ -224,7 +224,6 @@ impl<O: IsA<DesktopAppInfo> + IsA<glib::object::Object>> DesktopAppInfoExt for O
 
 unsafe extern "C" fn notify_filename_trampoline<P>(this: *mut ffi::GDesktopAppInfo, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DesktopAppInfo> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DesktopAppInfo::from_glib_borrow(this).downcast_unchecked())
 }

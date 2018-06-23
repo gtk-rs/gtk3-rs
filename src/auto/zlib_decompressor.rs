@@ -81,14 +81,12 @@ impl<O: IsA<ZlibDecompressor> + IsA<glib::object::Object>> ZlibDecompressorExt f
 
 unsafe extern "C" fn notify_file_info_trampoline<P>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibDecompressor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ZlibDecompressor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_format_trampoline<P>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibDecompressor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ZlibDecompressor::from_glib_borrow(this).downcast_unchecked())
 }

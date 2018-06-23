@@ -118,21 +118,18 @@ impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
 
 unsafe extern "C" fn notify_name_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_names_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_use_default_fallbacks_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
 }

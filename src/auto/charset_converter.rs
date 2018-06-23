@@ -118,21 +118,18 @@ impl<O: IsA<CharsetConverter> + IsA<glib::object::Object>> CharsetConverterExt f
 
 unsafe extern "C" fn notify_from_charset_trampoline<P>(this: *mut ffi::GCharsetConverter, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<CharsetConverter> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&CharsetConverter::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_to_charset_trampoline<P>(this: *mut ffi::GCharsetConverter, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<CharsetConverter> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&CharsetConverter::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_use_fallback_trampoline<P>(this: *mut ffi::GCharsetConverter, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<CharsetConverter> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&CharsetConverter::from_glib_borrow(this).downcast_unchecked())
 }

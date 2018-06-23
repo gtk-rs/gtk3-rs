@@ -123,21 +123,18 @@ impl<O: IsA<TlsPassword> + IsA<glib::object::Object>> TlsPasswordExt for O {
 
 unsafe extern "C" fn notify_description_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_warning_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
 }
