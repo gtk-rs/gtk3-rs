@@ -99,28 +99,24 @@ impl<O: IsA<DeviceManager> + IsA<glib::object::Object>> DeviceManagerExt for O {
 
 unsafe extern "C" fn device_added_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
-    callback_guard!();
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
     f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_changed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
-    callback_guard!();
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
     f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_removed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
-    callback_guard!();
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
     f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkDeviceManager, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DeviceManager::from_glib_borrow(this).downcast_unchecked())
 }

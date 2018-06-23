@@ -144,28 +144,24 @@ impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
 
 unsafe extern "C" fn notify_axes_trampoline<P>(this: *mut ffi::GdkDeviceTool, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DeviceTool> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DeviceTool::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_hardware_id_trampoline<P>(this: *mut ffi::GdkDeviceTool, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DeviceTool> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DeviceTool::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_serial_trampoline<P>(this: *mut ffi::GdkDeviceTool, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DeviceTool> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DeviceTool::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_tool_type_trampoline<P>(this: *mut ffi::GdkDeviceTool, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DeviceTool> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DeviceTool::from_glib_borrow(this).downcast_unchecked())
 }

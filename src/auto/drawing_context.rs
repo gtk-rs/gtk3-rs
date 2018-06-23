@@ -104,7 +104,6 @@ impl<O: IsA<DrawingContext> + IsA<glib::object::Object>> DrawingContextExt for O
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_clip_trampoline<P>(this: *mut ffi::GdkDrawingContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DrawingContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DrawingContext::from_glib_borrow(this).downcast_unchecked())
 }
@@ -112,7 +111,6 @@ where P: IsA<DrawingContext> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_window_trampoline<P>(this: *mut ffi::GdkDrawingContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DrawingContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DrawingContext::from_glib_borrow(this).downcast_unchecked())
 }

@@ -125,7 +125,6 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
 
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkAppLaunchContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked())
 }

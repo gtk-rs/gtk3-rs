@@ -531,7 +531,6 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
 
 unsafe extern "C" fn closed_trampoline<P>(this: *mut ffi::GdkDisplay, is_error: glib_ffi::gboolean, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P, bool) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), from_glib(is_error))
 }
@@ -539,7 +538,6 @@ where P: IsA<Display> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn monitor_added_trampoline<P>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P, &Monitor) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(monitor))
 }
@@ -547,14 +545,12 @@ where P: IsA<Display> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn monitor_removed_trampoline<P>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P, &Monitor) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(monitor))
 }
 
 unsafe extern "C" fn opened_trampoline<P>(this: *mut ffi::GdkDisplay, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked())
 }
@@ -562,7 +558,6 @@ where P: IsA<Display> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn seat_added_trampoline<P>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P, &Seat) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(seat))
 }
@@ -570,7 +565,6 @@ where P: IsA<Display> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn seat_removed_trampoline<P>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer)
 where P: IsA<Display> {
-    callback_guard!();
     let f: &&(Fn(&P, &Seat) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(seat))
 }

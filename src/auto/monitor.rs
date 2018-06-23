@@ -336,28 +336,24 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
 
 unsafe extern "C" fn invalidate_trampoline<P>(this: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_geometry_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_height_mm_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
@@ -365,7 +361,6 @@ where P: IsA<Monitor> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_manufacturer_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
@@ -373,21 +368,18 @@ where P: IsA<Monitor> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_model_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_refresh_rate_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_scale_factor_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
@@ -395,21 +387,18 @@ where P: IsA<Monitor> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_subpixel_layout_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_width_mm_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_workarea_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Monitor::from_glib_borrow(this).downcast_unchecked())
 }

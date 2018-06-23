@@ -195,7 +195,6 @@ impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn action_changed_trampoline<P>(this: *mut ffi::GdkDragContext, action: ffi::GdkDragAction, f: glib_ffi::gpointer)
 where P: IsA<DragContext> {
-    callback_guard!();
     let f: &&(Fn(&P, DragAction) + 'static) = transmute(f);
     f(&DragContext::from_glib_borrow(this).downcast_unchecked(), from_glib(action))
 }
@@ -203,7 +202,6 @@ where P: IsA<DragContext> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn cancel_trampoline<P>(this: *mut ffi::GdkDragContext, reason: ffi::GdkDragCancelReason, f: glib_ffi::gpointer)
 where P: IsA<DragContext> {
-    callback_guard!();
     let f: &&(Fn(&P, DragCancelReason) + 'static) = transmute(f);
     f(&DragContext::from_glib_borrow(this).downcast_unchecked(), from_glib(reason))
 }
@@ -211,7 +209,6 @@ where P: IsA<DragContext> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn dnd_finished_trampoline<P>(this: *mut ffi::GdkDragContext, f: glib_ffi::gpointer)
 where P: IsA<DragContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DragContext::from_glib_borrow(this).downcast_unchecked())
 }
@@ -219,7 +216,6 @@ where P: IsA<DragContext> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn drop_performed_trampoline<P>(this: *mut ffi::GdkDragContext, time: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<DragContext> {
-    callback_guard!();
     let f: &&(Fn(&P, i32) + 'static) = transmute(f);
     f(&DragContext::from_glib_borrow(this).downcast_unchecked(), time)
 }
