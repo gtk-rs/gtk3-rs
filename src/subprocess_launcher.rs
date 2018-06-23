@@ -1,51 +1,62 @@
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use SubprocessLauncher;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;
-use GtkRawFd;
+#[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+use std::os::unix::io::IntoRawFd;
+#[cfg(all(feature = "dox", windows))]
+pub trait IntoRawFd {}
 
 pub trait SubprocessLauncherExtManual {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_fd(&self, source_fd: GtkRawFd, target_fd: GtkRawFd);
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_fd<F: IntoRawFd, G: IntoRawFd>(&self, source_fd: F, target_fd: G);
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stderr_fd(&self, fd: GtkRawFd);
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stderr_fd<F: IntoRawFd>(&self, fd: F);
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdin_fd(&self, fd: GtkRawFd);
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stdin_fd<F: IntoRawFd>(&self, fd: F);
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdout_fd(&self, fd: GtkRawFd);
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stdout_fd<F: IntoRawFd>(&self, fd: F);
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherExtManual for O {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_fd(&self, source_fd: GtkRawFd, target_fd: GtkRawFd) {
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_fd<F: IntoRawFd, G: IntoRawFd>(&self, source_fd: F, target_fd: G) {
         unsafe {
-            ffi::g_subprocess_launcher_take_fd(self.to_glib_none().0, source_fd, target_fd);
+            ffi::g_subprocess_launcher_take_fd(self.to_glib_none().0,
+                                               source_fd.into_raw_fd(),
+                                               target_fd.into_raw_fd());
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stderr_fd(&self, fd: GtkRawFd) {
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stderr_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stderr_fd(self.to_glib_none().0, fd);
+            ffi::g_subprocess_launcher_take_stderr_fd(self.to_glib_none().0,
+                                                      fd.into_raw_fd());
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdin_fd(&self, fd: GtkRawFd) {
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stdin_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stdin_fd(self.to_glib_none().0, fd);
+            ffi::g_subprocess_launcher_take_stdin_fd(self.to_glib_none().0,
+                                                     fd.into_raw_fd());
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn take_stdout_fd(&self, fd: GtkRawFd) {
+    #[cfg(any(all(feature = "v2_40", not(windows)), feature = "dox"))]
+    fn take_stdout_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stdout_fd(self.to_glib_none().0, fd);
+            ffi::g_subprocess_launcher_take_stdout_fd(self.to_glib_none().0,
+                                                      fd.into_raw_fd());
         }
     }
 }

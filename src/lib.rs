@@ -35,7 +35,6 @@ mod application;
 mod desktop_app_info;
 mod converter;
 mod input_stream;
-mod gtk_raw_fd;
 mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
@@ -59,7 +58,6 @@ pub use glib::{
 
 pub use auto::*;
 pub use auto::functions::*;
-pub use gtk_raw_fd::GtkRawFd;
 
 pub mod signal {
     pub use glib::signal::Inhibit;
