@@ -74,7 +74,6 @@ impl<O: IsA<PixbufSimpleAnim> + IsA<glib::object::Object>> PixbufSimpleAnimExt f
 
 unsafe extern "C" fn notify_loop_trampoline<P>(this: *mut ffi::GdkPixbufSimpleAnim, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<PixbufSimpleAnim> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&PixbufSimpleAnim::from_glib_borrow(this).downcast_unchecked())
 }

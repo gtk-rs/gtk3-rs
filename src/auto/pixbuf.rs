@@ -533,63 +533,54 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
 
 unsafe extern "C" fn notify_bits_per_sample_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_colorspace_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_has_alpha_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_height_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_n_channels_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_pixel_bytes_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_pixels_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_rowstride_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_width_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Pixbuf> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
