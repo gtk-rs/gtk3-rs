@@ -131,14 +131,12 @@ impl<O: IsA<Cursor> + IsA<glib::object::Object>> CursorExt for O {
 
 unsafe extern "C" fn notify_cursor_type_trampoline<P>(this: *mut ffi::GdkCursor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Cursor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Cursor::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkCursor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Cursor> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Cursor::from_glib_borrow(this).downcast_unchecked())
 }

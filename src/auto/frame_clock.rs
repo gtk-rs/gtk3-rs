@@ -184,49 +184,42 @@ impl<O: IsA<FrameClock> + IsA<glib::object::Object>> FrameClockExt for O {
 
 unsafe extern "C" fn after_paint_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn before_paint_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn flush_events_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn layout_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn paint_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn resume_events_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn update_trampoline<P>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
 where P: IsA<FrameClock> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&FrameClock::from_glib_borrow(this).downcast_unchecked())
 }

@@ -616,7 +616,6 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
 
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -624,14 +623,12 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn tool_changed_trampoline<P>(this: *mut ffi::GdkDevice, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P, &DeviceTool) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(tool))
 }
 
 unsafe extern "C" fn notify_associated_device_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -639,56 +636,48 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_axes_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_device_manager_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_has_cursor_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_input_mode_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_input_source_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_n_axes_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_name_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -696,7 +685,6 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn notify_num_touches_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -704,7 +692,6 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 unsafe extern "C" fn notify_product_id_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -712,7 +699,6 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn notify_seat_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -720,14 +706,12 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_tool_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_type_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
@@ -735,7 +719,6 @@ where P: IsA<Device> {
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 unsafe extern "C" fn notify_vendor_id_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }

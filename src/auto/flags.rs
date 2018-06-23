@@ -215,7 +215,7 @@ bitflags! {
         const SMOOTH_SCROLL_MASK = 8388608;
         const TOUCHPAD_GESTURE_MASK = 16777216;
         const TABLET_PAD_MASK = 33554432;
-        const ALL_EVENTS_MASK = 16777214;
+        const ALL_EVENTS_MASK = 67108862;
     }
 }
 

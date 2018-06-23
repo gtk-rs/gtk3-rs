@@ -254,7 +254,6 @@ impl<O: IsA<GLContext> + IsA<glib::object::Object>> GLContextExt for O {
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<GLContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&GLContext::from_glib_borrow(this).downcast_unchecked())
 }
@@ -262,7 +261,6 @@ where P: IsA<GLContext> {
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 unsafe extern "C" fn notify_shared_context_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<GLContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&GLContext::from_glib_borrow(this).downcast_unchecked())
 }
@@ -270,7 +268,6 @@ where P: IsA<GLContext> {
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 unsafe extern "C" fn notify_window_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<GLContext> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&GLContext::from_glib_borrow(this).downcast_unchecked())
 }
