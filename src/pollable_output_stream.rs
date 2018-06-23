@@ -90,7 +90,6 @@ impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManu
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(stream: *mut ffi::GPollableOutputStream, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
-    callback_guard!();
     let func: &SendCell<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.borrow();
     let mut func = func.borrow_mut();
@@ -98,7 +97,6 @@ unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(stream: *mut ffi::
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {
-    callback_guard!();
     Box::<SendCell<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 

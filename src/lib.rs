@@ -24,12 +24,6 @@ extern crate futures_channel;
 #[cfg(feature = "futures")]
 extern crate futures_util;
 
-macro_rules! callback_guard {
-    () => (
-        let _guard = ::glib::CallbackGuard::new();
-    )
-}
-
 mod application;
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;

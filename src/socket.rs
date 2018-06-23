@@ -258,7 +258,6 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut ffi::GSocket, condition: glib_ffi::GIOCondition, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
-    callback_guard!();
     let func: &SendCell<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.borrow();
     let mut func = func.borrow_mut();
@@ -266,7 +265,6 @@ unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut ffi::GSocket, condi
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {
-    callback_guard!();
     Box::<SendCell<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
