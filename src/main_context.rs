@@ -26,7 +26,7 @@ impl MainContext {
         }
     }
 
-    pub fn find_source_by_id(&self, source_id: SourceId) -> Option<Source> {
+    pub fn find_source_by_id(&self, source_id: &SourceId) -> Option<Source> {
         unsafe {
             from_glib_none(ffi::g_main_context_find_source_by_id(self.to_glib_none().0, source_id.to_glib()))
         }

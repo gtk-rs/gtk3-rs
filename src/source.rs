@@ -123,6 +123,7 @@ unsafe extern "C" fn destroy_closure_child_watch(ptr: gpointer) {
     Box::<RefCell<Box<FnMut(Pid, i32) + 'static>>>::from_raw(ptr as *mut _);
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 fn into_raw_child_watch<F: FnMut(Pid, i32) + Send + 'static>(func: F) -> gpointer {
     let func: Box<RefCell<Box<FnMut(Pid, i32) + Send + 'static>>> =
         Box::new(RefCell::new(Box::new(func)));
@@ -251,6 +252,7 @@ where F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static {
 ///
 /// For historical reasons, the native function always returns true, so we
 /// ignore it here.
+#[cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
 pub fn source_remove(source_id: SourceId) {
     unsafe {
         glib_ffi::g_source_remove(source_id.to_glib());
