@@ -22,10 +22,10 @@ glib_wrapper! {
 }
 
 impl PixbufAnimationIter {
-    pub fn advance(&self, start_time: &TimeVal) -> bool {
+    pub fn advance(&self, start_time: TimeVal) -> bool {
         unsafe {
             from_glib(ffi::gdk_pixbuf_animation_iter_advance(self.to_glib_none().0,
-                mem::transmute(start_time)))
+                &start_time as *const _))
         }
     }
 
@@ -90,7 +90,7 @@ impl PixbufAnimation {
 pub trait PixbufAnimationExt {
     fn get_width(&self) -> i32;
     fn get_height(&self) -> i32;
-    fn get_iter(&self, start_time: &TimeVal) -> PixbufAnimationIter;
+    fn get_iter(&self, start_time: TimeVal) -> PixbufAnimationIter;
     fn is_static_image(&self) -> bool;
     fn get_static_image(&self) -> Option<Pixbuf>;
 }
@@ -104,11 +104,11 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
         unsafe { ffi::gdk_pixbuf_animation_get_height(self.to_glib_none().0) }
     }
 
-    fn get_iter(&self, start_time: &TimeVal) -> PixbufAnimationIter {
+    fn get_iter(&self, start_time: TimeVal) -> PixbufAnimationIter {
         unsafe {
             from_glib_full(
                 ffi::gdk_pixbuf_animation_get_iter(self.to_glib_none().0,
-                                                   mem::transmute(start_time)))
+                                                   &start_time as *const _))
         }
     }
 

@@ -192,6 +192,7 @@ impl Pixbuf {
         })
     }
 
+    #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
     pub unsafe fn get_pixels(&self) -> &mut [u8] {
         let mut len = 0;
         let ptr = ffi::gdk_pixbuf_get_pixels_with_length(self.to_glib_none().0, &mut len);

@@ -2,6 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
+#![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+#![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
+
 extern crate gdk_pixbuf_sys as ffi;
 extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
