@@ -835,6 +835,7 @@ impl<'a, P: Ptr, T: ToGlibContainerFromSlice<'a, P>> ToGlibPtr<'a, P> for [T] {
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
 impl<'a> ToGlibPtr<'a, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     type Storage = (HashTable);
 
@@ -1693,6 +1694,7 @@ unsafe extern "C" fn read_string_hash_table(key: glib_ffi::gpointer, value: glib
     hash_map.insert(key, value);
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
 impl FromGlibContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none_num(ptr: *mut glib_ffi::GHashTable, _: usize) -> Self {
         FromGlibPtrContainer::from_glib_none(ptr)
@@ -1707,6 +1709,7 @@ impl FromGlibContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<Str
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
 impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none(ptr: *mut glib_ffi::GHashTable) -> Self {
         let mut map = HashMap::new();

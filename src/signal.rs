@@ -68,6 +68,7 @@ pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: &SignalH
     }
 }
 
+#[cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
 pub fn signal_handler_disconnect<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
     unsafe {
         gobject_ffi::g_signal_handler_disconnect(instance.to_glib_none().0, handler_id.to_glib());
