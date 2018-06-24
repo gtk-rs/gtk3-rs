@@ -282,6 +282,7 @@ impl Event {
     }
 
     /// Returns whether the event was sent explicitly.
+    #[cfg_attr(feature = "cargo-clippy", allow(cast_lossless))]
     pub fn get_send_event(&self) -> bool {
         from_glib(self.as_ref().send_event as i32)
     }
