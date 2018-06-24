@@ -35,11 +35,11 @@ impl Atom {
         unsafe { Atom(ffi::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
     }
 
-    pub fn name(&self) -> String {
+    pub fn name(self) -> String {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }
     }
 
-    pub unsafe fn value(&self) -> usize {
+    pub unsafe fn value(self) -> usize {
         self.0 as usize
     }
 }
