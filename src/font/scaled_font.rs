@@ -39,7 +39,7 @@ glib_wrapper! {
 pub struct ScaledFont(*mut ffi::cairo_scaled_font_t);
 
 impl ScaledFont {
-    pub fn new(font_face: FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
+    pub fn new(font_face: &FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
         let scaled_font: ScaledFont = unsafe {
             ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(font_face.to_raw_none(), font_matrix, ctm, options.to_raw_none()))
         };

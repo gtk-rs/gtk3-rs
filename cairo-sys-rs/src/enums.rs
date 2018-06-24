@@ -70,9 +70,9 @@ impl Debug for Status {
 }
 
 impl Status {
-    pub fn ensure_valid(&self) {
-        if *self != Status::Success {
-            panic!("Cairo error {:?}", *self)
+    pub fn ensure_valid(self) {
+        if self != Status::Success {
+            panic!("Cairo error {:?}", self)
         }
     }
 }
@@ -307,11 +307,11 @@ pub enum Format {
 }
 
 impl Format {
-    pub fn stride_for_width(&self, width: u32) -> Result<i32, ()> {
+    pub fn stride_for_width(self, width: u32) -> Result<i32, ()> {
         assert!(width <= i32::MAX as u32);
         let width = width as i32;
 
-        let stride = unsafe { super::cairo_format_stride_for_width(*self, width) };
+        let stride = unsafe { super::cairo_format_stride_for_width(self, width) };
         if stride == -1 {
             Err(())
         } else {

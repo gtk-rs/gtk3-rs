@@ -662,7 +662,7 @@ impl Context {
         out
     }
 
-    pub fn set_font_face(&self, font_face: FontFace) {
+    pub fn set_font_face(&self, font_face: &FontFace) {
         unsafe {
             ffi::cairo_set_font_face(self.0, font_face.to_raw_none())
         }
@@ -674,7 +674,7 @@ impl Context {
         }
     }
 
-    pub fn set_scaled_font(&self, scaled_font: ScaledFont) {
+    pub fn set_scaled_font(&self, scaled_font: &ScaledFont) {
         unsafe {
             ffi::cairo_set_scaled_font(self.0, scaled_font.to_raw_none())
         }
