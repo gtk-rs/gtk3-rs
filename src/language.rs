@@ -78,7 +78,7 @@ impl Language {
                                              range_list.to_glib_none().0).to_bool() }
     }
 
-    pub fn includes_script(&self, script: &Script) -> bool {
+    pub fn includes_script(&self, script: Script) -> bool {
         unsafe { ffi::pango_language_includes_script(self.to_glib_none().0, script.to_glib()).to_bool() }
     }
 
