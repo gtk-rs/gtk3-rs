@@ -6,7 +6,9 @@ set -e
 if [ "$GTK" = latest -o "$GTK" = "3.18" ]; then
 	BUNDLE="gtk-3.18.1-2"
 	if [ "$TRAVIS_RUST_VERSION" = "nightly" ]; then
-		FEATURES=gtk_3_18,futures-nightly
+		FEATURES=gtk_3_18,futures-stable
+# Disabled as nightly not compiles now
+#		FEATURES=gtk_3_18,futures-nightly
 	else
 		FEATURES=gtk_3_18,futures-stable
 	fi
