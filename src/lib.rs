@@ -19,6 +19,7 @@ pub use glib::Error;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[cfg_attr(feature = "cargo-clippy", allow(useless_transmute))]
+#[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
 mod auto;
 pub use auto::*;
 pub use auto::functions::*;
