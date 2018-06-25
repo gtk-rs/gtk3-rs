@@ -582,9 +582,6 @@ status = "generate"
     [[object.function]]
     name = "communicate_utf8_async"
     ignore = true
-    [[object.function]]
-    name = "communicate_utf8_async_future"
-    ignore = true
 
 [[object]]
 name = "Gio.SubprocessLauncher"

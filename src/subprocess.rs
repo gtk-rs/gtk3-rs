@@ -4,15 +4,26 @@ use Subprocess;
 use Cancellable;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use Error;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::translate::*;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib_ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use gobject_ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::ptr;
+#[cfg(feature = "futures")]
+use futures_core;
+#[cfg(feature = "futures")]
+use std::boxed::Box as Box_;
 
-pub trait SubprocessExtManual {
+pub trait SubprocessExtManual: Sized {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R);
 
@@ -26,10 +37,10 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
         let stdin_buf = stdin_buf.into();
-        let stdin_buf = stdin_buf.to_glib_none();
+        let stdin_buf = stdin_buf.to_glib_full();
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<(R, *mut i8)>> = Box::new(Box::new((callback, stdin_buf.0)));
+        let user_data: Box<Box<(R, *mut i8)>> = Box::new(Box::new((callback, stdin_buf)));
         unsafe extern "C" fn communicate_utf8_async_trampoline<R: FnOnce(Result<(String, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             callback_guard!();
@@ -44,7 +55,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         }
         let callback = communicate_utf8_async_trampoline::<R>;
         unsafe {
-            ffi::g_subprocess_communicate_utf8_async(self.to_glib_none().0, stdin_buf.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_communicate_utf8_async(self.to_glib_none().0, stdin_buf, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -55,13 +66,12 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         use send_cell::SendCell;
 
         let stdin_buf = stdin_buf.into();
-        let stdin_buf = stdin_buf.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = SendCell::new(send);
             let obj_clone = SendCell::new(obj.clone());
             obj.communicate_utf8_async(
-                 stdin_buf.as_ref().map(::std::borrow::Borrow::borrow),
+                 stdin_buf,
                  Some(&cancellable),
                  move |res| {
                      let obj = obj_clone.into_inner();
