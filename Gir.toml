@@ -19,6 +19,7 @@ generate = [
     "Gio.ConverterOutputStream",
     "Gio.ConverterFlags",
     "Gio.ConverterResult",
+    "Gio.CredentialsType",
     "Gio.DataOutputStream",
     "Gio.DataStreamByteOrder",
     "Gio.DataStreamNewlineType",
@@ -29,6 +30,7 @@ generate = [
     "Gio.EmblemOrigin",
     "Gio.EmblemedIcon",
     "Gio.FileCreateFlags",
+    "Gio.FileIcon",
     "Gio.FileInfo",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
@@ -78,6 +80,7 @@ generate = [
     "Gio.SocketService",
     "Gio.SocketType",
     "Gio.SrvTarget",
+    "Gio.SubprocessFlags",
     "Gio.TcpConnection",
     "Gio.ThreadedSocketService",
     "Gio.ThemedIcon",
@@ -160,7 +163,7 @@ status = "generate"
     [[object.function]]
     name = "get"
         [object.function.return]
-	nullable = false
+        nullable = false
 
 [[object]]
 name = "Gio.AppLaunchContext"
@@ -246,6 +249,18 @@ status = "generate"
     name = "convert"
     ignore = true
 
+[[object]]
+name = "Gio.Credentials"
+status = "generate"
+    [[object.function]]
+    name = "get_unix_pid"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "get_unix_user"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "set_unix_user"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.DataInputStream"
@@ -340,6 +355,18 @@ status = "generate"
     [[object.property]]
     name = "output-stream"
     #readonly
+    ignore = true
+
+[[object]]
+name =  "Gio.InetAddressMask"
+status = "generate"
+    [[object.function]]
+    name = "get_address"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "equal"
+    # conflicting implementations
     ignore = true
 
 [[object]]
@@ -543,6 +570,49 @@ status = "generate"
 name = "Gio.SettingsSchemaKey"
 status = "generate"
 version = "2.40"
+
+[[object]]
+name = "Gio.Subprocess"
+status = "generate"
+    [[object.function]]
+    name = "newv"
+        [[object.function.parameter]]
+        name = "argv"
+        string_type = "os_string"
+    [[object.function]]
+    name = "communicate_utf8_async"
+    ignore = true
+
+[[object]]
+name = "Gio.SubprocessLauncher"
+status = "generate"
+    [[object.function]]
+    name = "spawnv"
+        [[object.function.parameter]]
+        name = "argv"
+        string_type = "os_string"
+    [[object.function]]
+    name = "setenv"
+        [[object.function.parameter]]
+        name = "variable"
+        string_type = "os_string"
+        [[object.function.parameter]]
+        name = "value"
+        string_type = "os_string"
+    [[object.function]]
+    name = "unsetenv"
+        [[object.function.parameter]]
+        name = "variable"
+        string_type = "os_string"
+    [[object.function]]
+    pattern = "take_.*"
+    ignore = true
+    [[object.function]]
+    pattern = "set_std.*file_path"
+    cfg_condition = "unix"
+    [[object.function]]
+    name = "set_child_setup"
+    cfg_condition = "unix"
 
 [[object]]
 name = "Gio.TlsPassword"
