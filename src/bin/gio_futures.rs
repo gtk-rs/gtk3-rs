@@ -1,5 +1,4 @@
-extern crate futures_core;
-extern crate futures_util;
+extern crate futures;
 
 extern crate glib;
 
@@ -8,8 +7,8 @@ use gio::prelude::*;
 
 use std::str;
 
-use futures_util::FutureExt;
-use futures_util::future;
+use futures::FutureExt;
+use futures::future;
 
 fn main() {
     let c = glib::MainContext::default();
