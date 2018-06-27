@@ -37,7 +37,7 @@ v2_56 = ["v2_54", "gio-sys/v2_56"]
 dox = ["gio-sys/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-futures = ["futures-core", "futures-channel", "futures-util", "glib/futures"]
+futures = ["futures-core-preview", "futures-channel-preview", "futures-util-preview", "glib/futures"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
@@ -49,9 +49,9 @@ libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
 send-cell = "0.1"
-futures-core = { version = "0.2", optional = true }
-futures-channel = { version = "0.2", optional = true }
-futures-util = { version = "0.2", optional = true }
+futures-core-preview = { version = "0.2", optional = true }
+futures-channel-preview = { version = "0.2", optional = true }
+futures-util-preview = { version = "0.2", optional = true }
 
 [dependencies.gio-sys]
 version = "0.6.0"
