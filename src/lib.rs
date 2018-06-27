@@ -3,6 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 #![allow(deprecated)]
+#![cfg_attr(feature = "cargo-clippy", allow(let_and_return))]
+#![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
+#![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 
 #[macro_use]
 extern crate bitflags;
