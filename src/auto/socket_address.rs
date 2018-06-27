@@ -70,7 +70,6 @@ impl<O: IsA<SocketAddress> + IsA<glib::object::Object>> SocketAddressExt for O {
 
 unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&SocketAddress::from_glib_borrow(this).downcast_unchecked())
 }

@@ -146,21 +146,18 @@ impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for
 
 unsafe extern "C" fn notify_address_trampoline<P>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddressMask::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddressMask::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_length_trampoline<P>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddressMask::from_glib_borrow(this).downcast_unchecked())
 }

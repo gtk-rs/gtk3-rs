@@ -43,7 +43,6 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         let user_data: Box<Box<(R, *mut i8)>> = Box::new(Box::new((callback, stdin_buf)));
         unsafe extern "C" fn communicate_utf8_async_trampoline<R: FnOnce(Result<(String, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();

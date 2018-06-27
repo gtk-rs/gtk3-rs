@@ -154,28 +154,24 @@ impl<O: IsA<TlsClientConnection> + IsA<glib::object::Object>> TlsClientConnectio
 
 unsafe extern "C" fn notify_accepted_cas_trampoline<P>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsClientConnection::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_server_identity_trampoline<P>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsClientConnection::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_use_ssl3_trampoline<P>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsClientConnection::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_validation_flags_trampoline<P>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsClientConnection::from_glib_borrow(this).downcast_unchecked())
 }

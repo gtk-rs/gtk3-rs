@@ -54,7 +54,6 @@ impl<O: IsA<FileInputStream> + IsA<glib::object::Object> + Clone + 'static> File
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_input_stream_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };

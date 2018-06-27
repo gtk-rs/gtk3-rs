@@ -107,7 +107,6 @@ impl<O: IsA<MenuModel> + IsA<glib::object::Object>> MenuModelExt for O {
 
 unsafe extern "C" fn items_changed_trampoline<P>(this: *mut ffi::GMenuModel, position: libc::c_int, removed: libc::c_int, added: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<MenuModel> {
-    callback_guard!();
     let f: &&(Fn(&P, i32, i32, i32) + 'static) = transmute(f);
     f(&MenuModel::from_glib_borrow(this).downcast_unchecked(), position, removed, added)
 }

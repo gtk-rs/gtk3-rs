@@ -207,7 +207,6 @@ pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(R
     let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
     unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
     {
-        callback_guard!();
         let mut error = ptr::null_mut();
         let mut out_guid = ptr::null_mut();
         let ret = ffi::g_dbus_address_get_stream_finish(res, &mut out_guid, &mut error);

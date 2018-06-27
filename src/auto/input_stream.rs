@@ -82,7 +82,6 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn close_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_input_stream_close_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -148,7 +147,6 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn read_bytes_async_trampoline<Q: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_input_stream_read_bytes_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -210,7 +208,6 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn skip_async_trampoline<Q: FnOnce(Result<isize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_input_stream_skip_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) };

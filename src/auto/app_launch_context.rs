@@ -127,7 +127,6 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn launch_failed_trampoline<P>(this: *mut ffi::GAppLaunchContext, startup_notify_id: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
-    callback_guard!();
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
     f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(startup_notify_id))
 }
@@ -135,7 +134,6 @@ where P: IsA<AppLaunchContext> {
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn launched_trampoline<P>(this: *mut ffi::GAppLaunchContext, info: *mut ffi::GAppInfo, platform_data: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
-    callback_guard!();
     let f: &&(Fn(&P, &AppInfo, &glib::Variant) + 'static) = transmute(f);
     f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(info), &from_glib_borrow(platform_data))
 }

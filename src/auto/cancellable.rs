@@ -113,7 +113,6 @@ unsafe impl Send for Cancellable {}
 unsafe impl Sync for Cancellable {}
 
 unsafe extern "C" fn cancelled_trampoline(this: *mut ffi::GCancellable, f: glib_ffi::gpointer) {
-    callback_guard!();
     let f: &&(Fn(&Cancellable) + Send + Sync + 'static) = transmute(f);
     f(&from_glib_borrow(this))
 }

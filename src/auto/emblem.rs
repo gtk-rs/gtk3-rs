@@ -82,14 +82,12 @@ impl<O: IsA<Emblem> + IsA<glib::object::Object>> EmblemExt for O {
 
 unsafe extern "C" fn notify_icon_trampoline<P>(this: *mut ffi::GEmblem, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Emblem> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Emblem::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_origin_trampoline<P>(this: *mut ffi::GEmblem, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Emblem> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Emblem::from_glib_borrow(this).downcast_unchecked())
 }

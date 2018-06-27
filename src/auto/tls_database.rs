@@ -90,7 +90,6 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_lookup_certificate_for_handle_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -151,7 +150,6 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_lookup_certificate_issuer_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
@@ -252,7 +250,6 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
         let user_data: Box<Box<T>> = Box::new(Box::new(callback));
         unsafe extern "C" fn verify_chain_async_trampoline<T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_verify_chain_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) };

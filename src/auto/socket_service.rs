@@ -118,7 +118,6 @@ impl<O: IsA<SocketService> + IsA<glib::object::Object>> SocketServiceExt for O {
 
 unsafe extern "C" fn incoming_trampoline<P>(this: *mut ffi::GSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<SocketService> {
-    callback_guard!();
     let f: &&(Fn(&P, &SocketConnection, &Option<glib::Object>) -> bool + 'static) = transmute(f);
     f(&SocketService::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
 }
@@ -126,7 +125,6 @@ where P: IsA<SocketService> {
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 unsafe extern "C" fn notify_active_trampoline<P>(this: *mut ffi::GSocketService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketService> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&SocketService::from_glib_borrow(this).downcast_unchecked())
 }

@@ -277,84 +277,72 @@ impl<O: IsA<InetAddress> + IsA<glib::object::Object>> InetAddressExt for O {
 
 unsafe extern "C" fn notify_bytes_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_any_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_link_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_loopback_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_mc_global_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_mc_link_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_mc_node_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_mc_org_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_mc_site_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_multicast_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_site_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }

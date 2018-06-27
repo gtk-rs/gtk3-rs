@@ -83,7 +83,6 @@ impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> Soc
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn connect_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_connection_connect_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
@@ -159,7 +158,6 @@ impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> Soc
 
 unsafe extern "C" fn notify_socket_trampoline<P>(this: *mut ffi::GSocketConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketConnection> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&SocketConnection::from_glib_borrow(this).downcast_unchecked())
 }

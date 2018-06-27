@@ -73,7 +73,6 @@ impl<O: IsA<TlsFileDatabase> + IsA<glib::object::Object>> TlsFileDatabaseExt for
 
 unsafe extern "C" fn notify_anchors_trampoline<P>(this: *mut ffi::GTlsFileDatabase, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsFileDatabase> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&TlsFileDatabase::from_glib_borrow(this).downcast_unchecked())
 }

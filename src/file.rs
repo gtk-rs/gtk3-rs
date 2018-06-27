@@ -38,7 +38,6 @@ impl<O: IsA<File> + IsA<glib::Object> + Clone + 'static> FileExtManual for O {
         let user_data: Box<Option<(Box<R>, Box<B>)>> = Box::new(Some((Box::new(callback), contents)));
         unsafe extern "C" fn replace_contents_async_trampoline<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, String), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut user_data: Box<Option<(Box<R>, Box<B>)>> = Box::from_raw(user_data as *mut _);
             let (callback, contents) = user_data.take().unwrap();
             let contents = *contents;

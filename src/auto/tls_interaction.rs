@@ -72,7 +72,6 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
         unsafe extern "C" fn ask_password_async_trampoline<Q: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_interaction_ask_password_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) };
@@ -148,7 +147,6 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn request_certificate_async_trampoline<R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            callback_guard!();
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_interaction_request_certificate_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) };

@@ -96,7 +96,6 @@ impl<O: IsA<EmblemedIcon> + IsA<glib::object::Object>> EmblemedIconExt for O {
 
 unsafe extern "C" fn notify_gicon_trampoline<P>(this: *mut ffi::GEmblemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<EmblemedIcon> {
-    callback_guard!();
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&EmblemedIcon::from_glib_borrow(this).downcast_unchecked())
 }
