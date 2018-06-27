@@ -9,9 +9,6 @@ use glib::object::IsA;
 #[cfg(any(all(feature = "v2_40", unix), all(feature = "dox", unix)))]
 use std::os::unix::io::IntoRawFd;
 #[cfg(all(feature = "dox", not(unix)))]
-#[doc = "Replacement for "real" [`IntoRawFd`] trait for non-unix targets.
-
-[`IntoRawFd`]: https://doc.rust-lang.org/std/os/unix/io/trait.IntoRawFd.html"]
 pub trait IntoRawFd {}
 
 pub trait SubprocessLauncherExtManual {
