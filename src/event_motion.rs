@@ -25,4 +25,8 @@ impl EventMotion {
     pub fn get_time(&self) -> u32 {
         self.as_ref().time
     }
+
+    pub fn request_motions(&self) {
+        unsafe { ffi::gdk_event_request_motions(self.as_ref()) }
+    }
 }
