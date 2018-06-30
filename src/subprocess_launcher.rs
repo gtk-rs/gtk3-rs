@@ -9,7 +9,9 @@ use glib::object::IsA;
 #[cfg(any(all(feature = "v2_40", unix), all(feature = "dox", unix)))]
 use std::os::unix::io::IntoRawFd;
 #[cfg(all(feature = "dox", not(unix)))]
-pub trait IntoRawFd {}
+pub trait IntoRawFd: Sized {
+    fn into_raw_fd(self) -> i32 { 0 }
+}
 
 pub trait SubprocessLauncherExtManual {
     #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
