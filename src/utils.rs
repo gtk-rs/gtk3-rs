@@ -79,7 +79,7 @@ pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option
     }
 }
 
-pub fn get_user_name() -> Option<String> {
+pub fn get_user_name() -> Option<OsString> {
     #[cfg(all(windows,target_arch="x86"))]
     use ffi::g_get_user_name_utf8 as g_get_user_name;
     #[cfg(not(all(windows,target_arch="x86")))]
@@ -90,7 +90,7 @@ pub fn get_user_name() -> Option<String> {
     }
 }
 
-pub fn get_real_name() -> Option<std::path::PathBuf> {
+pub fn get_real_name() -> Option<OsString> {
     #[cfg(all(windows,target_arch="x86"))]
     use ffi::g_get_real_name_utf8 as g_get_real_name;
     #[cfg(not(all(windows,target_arch="x86")))]
