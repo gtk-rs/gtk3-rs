@@ -8237,8 +8237,8 @@ extern "C" {
     pub fn g_list_store_remove_all(store: *mut GListStore);
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     pub fn g_list_store_sort(store: *mut GListStore, compare_func: glib::GCompareDataFunc, user_data: gpointer);
-    //#[cfg(any(feature = "v2_44", feature = "dox"))]
-    //pub fn g_list_store_splice(store: *mut GListStore, position: c_uint, n_removals: c_uint, additions: /*Metadata mismatch*/*mut [c:type mismatch gpointer != GObject of Object], n_additions: c_uint);
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    pub fn g_list_store_splice(store: *mut GListStore, position: c_uint, n_removals: c_uint, additions: *mut *mut gobject::GObject, n_additions: c_uint);
 
     //=========================================================================
     // GMemoryInputStream
