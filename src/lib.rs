@@ -65,6 +65,7 @@ mod event_visibility;
 mod event_window_state;
 #[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_clock;
+mod functions;
 mod geometry;
 mod keys;
 mod screen;
@@ -118,6 +119,7 @@ pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
+pub use functions::*;
 pub use geometry::Geometry;
 pub use rectangle::Rectangle;
 pub use rgba::{RGBA, RgbaParseError};

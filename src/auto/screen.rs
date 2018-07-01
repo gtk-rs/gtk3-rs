@@ -122,7 +122,7 @@ pub trait ScreenExt {
 
     fn get_root_window(&self) -> Option<Window>;
 
-    //fn get_setting(&self, name: &str, value: /*Ignored*/&mut glib::Value) -> bool;
+    fn get_setting(&self, name: &str, value: &mut glib::Value) -> bool;
 
     fn get_system_visual(&self) -> Option<Visual>;
 
@@ -274,9 +274,11 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
         }
     }
 
-    //fn get_setting(&self, name: &str, value: /*Ignored*/&mut glib::Value) -> bool {
-    //    unsafe { TODO: call ffi::gdk_screen_get_setting() }
-    //}
+    fn get_setting(&self, name: &str, value: &mut glib::Value) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_screen_get_setting(self.to_glib_none().0, name.to_glib_none().0, value.to_glib_none_mut().0))
+        }
+    }
 
     fn get_system_visual(&self) -> Option<Visual> {
         unsafe {

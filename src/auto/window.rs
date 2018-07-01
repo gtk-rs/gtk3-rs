@@ -168,9 +168,6 @@ pub trait WindowExt {
 
     fn get_accept_focus(&self) -> bool;
 
-    //#[cfg_attr(feature = "v3_22", deprecated)]
-    //fn get_background_pattern(&self) -> /*Ignored*/Option<cairo::Pattern>;
-
     fn get_children(&self) -> Vec<Window>;
 
     //#[cfg(any(feature = "v3_10", feature = "dox"))]
@@ -332,9 +329,6 @@ pub trait WindowExt {
 
     //#[deprecated]
     //fn set_background(&self, color: /*Ignored*/&Color);
-
-    //#[cfg_attr(feature = "v3_22", deprecated)]
-    //fn set_background_pattern<'a, P: Into<Option<&'a /*Ignored*/cairo::Pattern>>>(&self, pattern: P);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn set_background_rgba(&self, rgba: &RGBA);
@@ -644,10 +638,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
             from_glib(ffi::gdk_window_get_accept_focus(self.to_glib_none().0))
         }
     }
-
-    //fn get_background_pattern(&self) -> /*Ignored*/Option<cairo::Pattern> {
-    //    unsafe { TODO: call ffi::gdk_window_get_background_pattern() }
-    //}
 
     fn get_children(&self) -> Vec<Window> {
         unsafe {
@@ -1134,10 +1124,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
 
     //fn set_background(&self, color: /*Ignored*/&Color) {
     //    unsafe { TODO: call ffi::gdk_window_set_background() }
-    //}
-
-    //fn set_background_pattern<'a, P: Into<Option<&'a /*Ignored*/cairo::Pattern>>>(&self, pattern: P) {
-    //    unsafe { TODO: call ffi::gdk_window_set_background_pattern() }
     //}
 
     fn set_background_rgba(&self, rgba: &RGBA) {
