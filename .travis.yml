@@ -10,5 +10,6 @@ addons:
 env:
   - GTK=3.4
   - GTK=3.18
+  - GTK=3.22.30
 script:
   - ./build_travis.sh
