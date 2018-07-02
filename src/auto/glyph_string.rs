@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use Analysis;
 use Font;
 use Rectangle;
 use ffi;
@@ -56,9 +57,14 @@ impl GlyphString {
         }
     }
 
-    //pub fn index_to_x(&mut self, text: &str, analysis: /*Ignored*/&mut Analysis, index_: i32, trailing: bool) -> i32 {
-    //    unsafe { TODO: call ffi::pango_glyph_string_index_to_x() }
-    //}
+    pub fn index_to_x(&mut self, text: &str, analysis: &mut Analysis, index_: i32, trailing: bool) -> i32 {
+        let length = text.len() as i32;
+        unsafe {
+            let mut x_pos = mem::uninitialized();
+            ffi::pango_glyph_string_index_to_x(self.to_glib_none_mut().0, text.to_glib_none().0, length, analysis.to_glib_none_mut().0, index_, trailing.to_glib(), &mut x_pos);
+            x_pos
+        }
+    }
 
     pub fn set_size(&mut self, new_len: i32) {
         unsafe {
@@ -66,9 +72,15 @@ impl GlyphString {
         }
     }
 
-    //pub fn x_to_index(&mut self, text: &str, analysis: /*Ignored*/&mut Analysis, x_pos: i32) -> (i32, i32) {
-    //    unsafe { TODO: call ffi::pango_glyph_string_x_to_index() }
-    //}
+    pub fn x_to_index(&mut self, text: &str, analysis: &mut Analysis, x_pos: i32) -> (i32, i32) {
+        let length = text.len() as i32;
+        unsafe {
+            let mut index_ = mem::uninitialized();
+            let mut trailing = mem::uninitialized();
+            ffi::pango_glyph_string_x_to_index(self.to_glib_none_mut().0, text.to_glib_none().0, length, analysis.to_glib_none_mut().0, x_pos, &mut index_, &mut trailing);
+            (index_, trailing)
+        }
+    }
 }
 
 impl Default for GlyphString {

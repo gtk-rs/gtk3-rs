@@ -6,6 +6,9 @@ mod context;
 pub use self::context::Context;
 pub use self::context::ContextExt;
 
+mod engine_lang;
+pub use self::engine_lang::EngineLang;
+
 mod engine_shape;
 pub use self::engine_shape::EngineShape;
 
