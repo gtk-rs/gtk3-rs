@@ -45,6 +45,8 @@ mod pollable_input_stream;
 mod pollable_output_stream;
 mod subprocess;
 mod subprocess_launcher;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+mod list_store;
 
 #[cfg(test)]
 mod test_util;
@@ -78,6 +80,8 @@ pub mod prelude {
     pub use pollable_output_stream::PollableOutputStreamExtManual;
     pub use subprocess::SubprocessExtManual;
     pub use subprocess_launcher::SubprocessLauncherExtManual;
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    pub use list_store::ListStoreExtManual;
 }
 
 pub use prelude::*;

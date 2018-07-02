@@ -158,6 +158,20 @@ mod input_stream;
 pub use self::input_stream::InputStream;
 pub use self::input_stream::InputStreamExt;
 
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+mod list_model;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_model::ListModel;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_model::ListModelExt;
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+mod list_store;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_store::ListStore;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_store::ListStoreExt;
+
 mod loadable_icon;
 pub use self::loadable_icon::LoadableIcon;
 pub use self::loadable_icon::LoadableIconExt;
@@ -590,6 +604,10 @@ pub mod traits {
     pub use super::InetAddressMaskExt;
     pub use super::InetSocketAddressExt;
     pub use super::InputStreamExt;
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    pub use super::ListModelExt;
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    pub use super::ListStoreExt;
     pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
     pub use super::MemoryOutputStreamExt;

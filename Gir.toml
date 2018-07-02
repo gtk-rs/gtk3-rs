@@ -103,6 +103,8 @@ generate = [
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
+    "Gio.ListModel",
+    "Gio.ListStore",
 ]
 
 ignore = [
