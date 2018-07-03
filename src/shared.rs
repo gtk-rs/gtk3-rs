@@ -21,6 +21,7 @@ macro_rules! glib_shared_wrapper {
 
         impl $crate::types::StaticType for $name {
             fn static_type() -> $crate::types::Type {
+                #[allow(unused_unsafe)]
                 unsafe { $crate::translate::from_glib($get_type_expr) }
             }
         }
