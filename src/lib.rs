@@ -195,6 +195,9 @@ mod date_time;
 mod date;
 pub use date::Date;
 
+mod binding;
+pub use binding::*;
+
 #[cfg(feature="futures")]
 mod main_context_futures;
 #[cfg(feature="futures")]

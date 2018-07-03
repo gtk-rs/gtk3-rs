@@ -655,6 +655,9 @@ pub trait ObjectExt: IsA<Object> {
     ///
     /// [downgrade_sync]: trait.SyncObjectExt.html#method.downgrade_sync
     fn downgrade(&self) -> WeakRef<Self>;
+
+    fn bind_property<'a, 'b, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&self, source_property: N, target: &O, target_property: M, flags: ::BindingFlags) -> Option<::Binding>;
+    fn bind_property_full<'a, 'b, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>, F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static, G: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(&self, source_property: N, target: &O, target_property: M, flags: ::BindingFlags, transform_to: Option<F>, transform_from: Option<G>) -> Option<::Binding>;
 }
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
@@ -929,6 +932,91 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             };
             gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), self.to_glib_none().0);
             weak
+        }
+    }
+
+    fn bind_property<'a, 'b, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&self, source_property: N, target: &O, target_property: M, flags: ::BindingFlags) -> Option<::Binding> {
+        let source_property = source_property.into();
+        let target_property = target_property.into();
+        unsafe {
+            from_glib_none(
+                gobject_ffi::g_object_bind_property(
+                    self.to_glib_none().0,
+                    source_property.to_glib_none().0,
+                    target.to_glib_none().0,
+                    target_property.to_glib_none().0,
+                    flags.to_glib(),
+                )
+            )
+        }
+    }
+
+    fn bind_property_full<'a, 'b, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>, F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static, G: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(&self, source_property: N, target: &O, target_property: M, flags: ::BindingFlags, transform_to: Option<F>, transform_from: Option<G>) -> Option<::Binding> {
+        let source_property = source_property.into();
+        let target_property = target_property.into();
+
+        let to_closure = if let Some(transform_to) = transform_to {
+            Some(::Closure::new(move |values| {
+                assert_eq!(values.len(), 3);
+                let binding = values[0].get::<::Binding>().unwrap();
+                let from = unsafe {
+                    let ptr = gobject_ffi::g_value_get_boxed(mut_override(&values[1] as *const Value as *const gobject_ffi::GValue));
+                    assert!(!ptr.is_null());
+                    &*(ptr as *const gobject_ffi::GValue as *const Value)
+                };
+
+                match transform_to(&binding, &from) {
+                    None => Some(false.to_value()),
+                    Some(value) => {
+                        unsafe {
+                            gobject_ffi::g_value_set_boxed(mut_override(&values[2] as *const Value as *const gobject_ffi::GValue), &value as *const Value as *const _);
+                        }
+
+                        Some(true.to_value())
+                    }
+                }
+            }))
+        } else {
+            None
+        };
+
+        let from_closure = if let Some(transform_from) = transform_from {
+            Some(::Closure::new(move |values| {
+                assert_eq!(values.len(), 3);
+                let binding = values[0].get::<::Binding>().unwrap();
+                let from = unsafe {
+                    let ptr = gobject_ffi::g_value_get_boxed(mut_override(&values[1] as *const Value as *const gobject_ffi::GValue));
+                    assert!(!ptr.is_null());
+                    &*(ptr as *const gobject_ffi::GValue as *const Value)
+                };
+
+                match transform_from(&binding, &from) {
+                    None => Some(false.to_value()),
+                    Some(value) => {
+                        unsafe {
+                            gobject_ffi::g_value_set_boxed(mut_override(&values[2] as *const Value as *const gobject_ffi::GValue), &value as *const Value as *const _);
+                        }
+
+                        Some(true.to_value())
+                    }
+                }
+            }))
+        } else {
+            None
+        };
+
+        unsafe {
+            from_glib_none(
+                gobject_ffi::g_object_bind_property_with_closures(
+                    self.to_glib_none().0,
+                    source_property.to_glib_none().0,
+                    target.to_glib_none().0,
+                    target_property.to_glib_none().0,
+                    flags.to_glib(),
+                    to_closure.to_glib_none().0,
+                    from_closure.to_glib_none().0,
+                )
+            )
         }
     }
 }
