@@ -168,6 +168,9 @@ pub use auto::functions::*;
 #[allow(non_upper_case_globals)]
 mod auto;
 
+pub use gobject::*;
+mod gobject;
+
 mod bytes;
 mod string;
 pub mod char;

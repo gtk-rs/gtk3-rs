@@ -656,6 +656,8 @@ pub trait ObjectExt: IsA<Object> {
     ///
     /// [downgrade_sync]: trait.SyncObjectExt.html#method.downgrade_sync
     fn downgrade(&self) -> WeakRef<Self>;
+
+    fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O>;
 }
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
@@ -932,6 +934,13 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             weak
         }
     }
+
+    fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O> {
+        let source_property = source_property.into();
+        let target_property = target_property.into();
+
+        BindingBuilder::new(self, source_property, target, target_property)
+    }
 }
 
 // This trait is only necessary because specialization with default impl is unstable.
@@ -1052,3 +1061,78 @@ impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> Wea
     }
 }
 
+pub struct BindingBuilder<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> {
+    source: &'a S,
+    source_property: &'a str,
+    target: &'a T,
+    target_property: &'a str,
+    flags: ::BindingFlags,
+    transform_to: Option<::Closure>,
+    transform_from: Option<::Closure>,
+}
+
+impl<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> BindingBuilder<'a, S, T> {
+    fn new(source: &'a S, source_property: &'a str, target: &'a T, target_property: &'a str) -> Self {
+        Self { source, source_property, target, target_property, flags: ::BindingFlags::DEFAULT, transform_to: None, transform_from: None }
+    }
+
+    fn transform_closure<F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(func: F) -> ::Closure {
+        ::Closure::new(move |values| {
+            assert_eq!(values.len(), 3);
+            let binding = values[0].get::<::Binding>().unwrap();
+            let from = unsafe {
+                let ptr = gobject_ffi::g_value_get_boxed(mut_override(&values[1] as *const Value as *const gobject_ffi::GValue));
+                assert!(!ptr.is_null());
+                &*(ptr as *const gobject_ffi::GValue as *const Value)
+            };
+
+            match func(&binding, &from) {
+                None => Some(false.to_value()),
+                Some(value) => {
+                    unsafe {
+                        gobject_ffi::g_value_set_boxed(mut_override(&values[2] as *const Value as *const gobject_ffi::GValue), &value as *const Value as *const _);
+                    }
+
+                    Some(true.to_value())
+                }
+            }
+        })
+    }
+
+    pub fn transform_from<F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(self, func: F) -> Self {
+        Self {
+            transform_from: Some(Self::transform_closure(func)),
+            ..self
+        }
+    }
+
+    pub fn transform_to<F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(self, func: F) -> Self {
+        Self {
+            transform_to: Some(Self::transform_closure(func)),
+            ..self
+        }
+    }
+
+    pub fn flags(self, flags: ::BindingFlags) -> Self {
+        Self {
+            flags: flags,
+            ..self
+        }
+    }
+
+    pub fn build(self) -> Option<::Binding> {
+        unsafe {
+            from_glib_none(
+                gobject_ffi::g_object_bind_property_with_closures(
+                    self.source.to_glib_none().0,
+                    self.source_property.to_glib_none().0,
+                    self.target.to_glib_none().0,
+                    self.target_property.to_glib_none().0,
+                    self.flags.to_glib(),
+                    self.transform_to.to_glib_none().0,
+                    self.transform_from.to_glib_none().0,
+                )
+            )
+        }
+    }
+}
