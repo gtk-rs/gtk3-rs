@@ -1,0 +1,25 @@
+[options]
+girs_dir = "gir-files"
+library = "GObject"
+version = "2.0"
+min_cfg_version = "2.32"
+target_path = "."
+auto_path = "src/gobject/auto"
+work_mode = "normal"
+single_version_file = true
+
+generate = [
+    "GObject.Binding",
+    "GObject.BindingFlags",
+]
+
+ignore = [
+]
+
+manual = [
+    "GObject.Object",
+]
+
+[[object]]
+name = "GObject.*"
+status = "ignore"

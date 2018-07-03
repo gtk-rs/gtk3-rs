@@ -168,6 +168,9 @@ pub use auto::functions::*;
 #[allow(non_upper_case_globals)]
 mod auto;
 
+pub use gobject::*;
+mod gobject;
+
 mod bytes;
 mod string;
 pub mod char;
@@ -194,9 +197,6 @@ mod main_context;
 mod date_time;
 mod date;
 pub use date::Date;
-
-mod binding;
-pub use binding::*;
 
 #[cfg(feature="futures")]
 mod main_context_futures;
