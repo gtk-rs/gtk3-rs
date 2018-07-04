@@ -10,6 +10,8 @@ use FileCreateFlags;
 use FileIOStream;
 use FileInfo;
 use FileInputStream;
+use FileMonitor;
+use FileMonitorFlags;
 use FileOutputStream;
 use FileQueryInfoFlags;
 use FileType;
@@ -217,11 +219,11 @@ pub trait FileExt: Sized {
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
     //fn measure_disk_usage_async_future<'b, Q: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q, progress_data: R) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>>;
 
-    //fn monitor<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error>;
+    fn monitor<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error>;
 
-    //fn monitor_directory<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error>;
+    fn monitor_directory<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error>;
 
-    //fn monitor_file<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error>;
+    fn monitor_file<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error>;
 
     fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
 
@@ -1065,17 +1067,35 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //})
     //}
 
-    //fn monitor<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error> {
-    //    unsafe { TODO: call ffi::g_file_monitor() }
-    //}
+    fn monitor<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_monitor(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn monitor_directory<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error> {
-    //    unsafe { TODO: call ffi::g_file_monitor_directory() }
-    //}
+    fn monitor_directory<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_monitor_directory(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn monitor_file<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: /*Ignored*/FileMonitorFlags, cancellable: P) -> Result</*Ignored*/FileMonitor, Error> {
-    //    unsafe { TODO: call ffi::g_file_monitor_file() }
-    //}
+    fn monitor_file<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileMonitorFlags, cancellable: P) -> Result<FileMonitor, Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = ffi::g_file_monitor_file(self.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn mount_enclosing_volume<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
         let mount_operation = mount_operation.into();

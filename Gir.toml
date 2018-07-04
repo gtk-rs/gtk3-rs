@@ -34,6 +34,10 @@ generate = [
     "Gio.FileInfo",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
+    "Gio.FileMonitor",
+    "Gio.FileMonitorFlags",
+    "Gio.FileMonitorEvent",
+    "Gio.FilenameCompleter",
     "Gio.FileOutputStream",
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
@@ -53,11 +57,15 @@ generate = [
     "Gio.MountOperationResult",
     "Gio.MountUnmountFlags",
     "Gio.NetworkAddress",
+    "Gio.NetworkConnectivity",
+    "Gio.NetworkMonitor",
     "Gio.NetworkService",
     "Gio.NotificationPriority",
     "Gio.OutputStreamSpliceFlags",
     "Gio.PasswordSave",
     "Gio.Permission",
+    "Gio.Proxy",
+    "Gio.ProxyResolver",
     "Gio.Resolver",
     "Gio.ResolverRecordType",
     "Gio.ResourceError",
@@ -100,6 +108,7 @@ generate = [
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
     "Gio.Volume",
+    "Gio.VolumeMonitor",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
@@ -463,6 +472,18 @@ status = "generate"
     name = "read_nonblocking"
     # wrong mutability
     ignore = true
+
+[[object]]
+name = "Gio.ProxyAddress"
+status = "generate"
+    [[object.function]]
+    name = "get_destination_hostname"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_protocol"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Gio.Settings"

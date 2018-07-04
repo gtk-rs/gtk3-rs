@@ -307,6 +307,56 @@ impl SetValue for FileCreateFlags {
 }
 
 bitflags! {
+    pub struct FileMonitorFlags: u32 {
+        const NONE = 0;
+        const WATCH_MOUNTS = 1;
+        const SEND_MOVED = 2;
+        const WATCH_HARD_LINKS = 4;
+        const WATCH_MOVES = 8;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileMonitorFlags {
+    type GlibType = ffi::GFileMonitorFlags;
+
+    fn to_glib(&self) -> ffi::GFileMonitorFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileMonitorFlags> for FileMonitorFlags {
+    fn from_glib(value: ffi::GFileMonitorFlags) -> FileMonitorFlags {
+        FileMonitorFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for FileMonitorFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_file_monitor_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for FileMonitorFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for FileMonitorFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for FileMonitorFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
     pub struct FileQueryInfoFlags: u32 {
         const NONE = 0;
         const NOFOLLOW_SYMLINKS = 1;
