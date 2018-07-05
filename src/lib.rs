@@ -29,6 +29,8 @@ pub use ffi::PANGO_SCALE as SCALE;
 
 pub mod prelude;
 
+pub mod analysis;
+pub use analysis::Analysis;
 pub mod attr_class;
 pub use attr_class::AttrClass;
 pub mod attr_iterator;
@@ -36,6 +38,7 @@ pub mod attr_list;
 pub mod attribute;
 pub mod font_description;
 mod functions;
+pub mod item;
 pub mod language;
 pub use language::Language;
 pub mod rectangle;

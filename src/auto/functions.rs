@@ -2,11 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use Analysis;
 use AttrIterator;
 use AttrList;
 use Context;
 use Direction;
 use Error;
+use GlyphString;
 use Item;
 use Rectangle;
 use Stretch;
@@ -20,7 +22,7 @@ use std::mem;
 use std::ptr;
 
 
-//pub fn break_(text: &str, analysis: /*Ignored*/&mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
+//pub fn break_(text: &str, analysis: &mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
 //    unsafe { TODO: call ffi::pango_break() }
 //}
 
@@ -38,7 +40,7 @@ pub fn config_key_get_system(key: &str) -> Option<String> {
     }
 }
 
-//pub fn default_break<'a, P: Into<Option<&'a /*Ignored*/Analysis>>>(text: &str, analysis: P, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
+//pub fn default_break<'a, P: Into<Option<&'a Analysis>>>(text: &str, analysis: P, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
 //    unsafe { TODO: call ffi::pango_default_break() }
 //}
 
@@ -217,14 +219,12 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
 //    unsafe { TODO: call ffi::pango_scan_word() }
 //}
 
-//pub fn shape(text: &str, analysis: /*Ignored*/&Analysis, glyphs: &mut GlyphString) {
-//    unsafe { TODO: call ffi::pango_shape() }
-//}
-
-//#[cfg(any(feature = "v1_32", feature = "dox"))]
-//pub fn shape_full<'a, P: Into<Option<&'a str>>>(item_text: &str, paragraph_text: P, analysis: /*Ignored*/&Analysis, glyphs: &mut GlyphString) {
-//    unsafe { TODO: call ffi::pango_shape_full() }
-//}
+pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
+    let length = text.len() as i32;
+    unsafe {
+        ffi::pango_shape(text.to_glib_none().0, length, analysis.to_glib_none().0, glyphs.to_glib_none_mut().0);
+    }
+}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn skip_space(pos: /*Unimplemented*/String) -> bool {

@@ -10,7 +10,6 @@ single_version_file = true
 
 generate = [
     "Pango.Alignment",
-    # "Pango.Analysis",
     # "Pango.AttrColor",
     # "Pango.AttrFloat",
     # "Pango.AttrFontDesc",
@@ -27,6 +26,7 @@ generate = [
     "Pango.CoverageLevel",
     "Pango.Direction",
     "Pango.EllipsizeMode",
+    "Pango.EngineLang",
     "Pango.EngineShape",
     "Pango.FontFace",
     "Pango.FontFamily",
@@ -68,6 +68,7 @@ generate = [
 ]
 
 manual = [
+    "Pango.Analysis",
     "Pango.AttrClass",
     "Pango.Language",
     "Pango.Rectangle",
@@ -106,6 +107,10 @@ status = "generate"
         const = true
     [[object.function]]
     name = "reorder_items"
+    ignore = true
+    [[object.function]]
+    name = "shape_full"
+    # invalid length computation on Stash instead of str
     ignore = true
 
 [[object]]
