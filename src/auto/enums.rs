@@ -393,6 +393,89 @@ impl SetValue for EmblemOrigin {
 }
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum FileMonitorEvent {
+    Changed,
+    ChangesDoneHint,
+    Deleted,
+    Created,
+    AttributeChanged,
+    PreUnmount,
+    Unmounted,
+    Moved,
+    Renamed,
+    MovedIn,
+    MovedOut,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for FileMonitorEvent {
+    type GlibType = ffi::GFileMonitorEvent;
+
+    fn to_glib(&self) -> ffi::GFileMonitorEvent {
+        match *self {
+            FileMonitorEvent::Changed => ffi::G_FILE_MONITOR_EVENT_CHANGED,
+            FileMonitorEvent::ChangesDoneHint => ffi::G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT,
+            FileMonitorEvent::Deleted => ffi::G_FILE_MONITOR_EVENT_DELETED,
+            FileMonitorEvent::Created => ffi::G_FILE_MONITOR_EVENT_CREATED,
+            FileMonitorEvent::AttributeChanged => ffi::G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED,
+            FileMonitorEvent::PreUnmount => ffi::G_FILE_MONITOR_EVENT_PRE_UNMOUNT,
+            FileMonitorEvent::Unmounted => ffi::G_FILE_MONITOR_EVENT_UNMOUNTED,
+            FileMonitorEvent::Moved => ffi::G_FILE_MONITOR_EVENT_MOVED,
+            FileMonitorEvent::Renamed => ffi::G_FILE_MONITOR_EVENT_RENAMED,
+            FileMonitorEvent::MovedIn => ffi::G_FILE_MONITOR_EVENT_MOVED_IN,
+            FileMonitorEvent::MovedOut => ffi::G_FILE_MONITOR_EVENT_MOVED_OUT,
+            FileMonitorEvent::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GFileMonitorEvent> for FileMonitorEvent {
+    fn from_glib(value: ffi::GFileMonitorEvent) -> Self {
+        match value {
+            0 => FileMonitorEvent::Changed,
+            1 => FileMonitorEvent::ChangesDoneHint,
+            2 => FileMonitorEvent::Deleted,
+            3 => FileMonitorEvent::Created,
+            4 => FileMonitorEvent::AttributeChanged,
+            5 => FileMonitorEvent::PreUnmount,
+            6 => FileMonitorEvent::Unmounted,
+            7 => FileMonitorEvent::Moved,
+            8 => FileMonitorEvent::Renamed,
+            9 => FileMonitorEvent::MovedIn,
+            10 => FileMonitorEvent::MovedOut,
+            value => FileMonitorEvent::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for FileMonitorEvent {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_file_monitor_event_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for FileMonitorEvent {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for FileMonitorEvent {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for FileMonitorEvent {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
 pub enum FileType {
     Unknown,
     Regular,
@@ -771,6 +854,75 @@ impl<'a> FromValue<'a> for MountOperationResult {
 }
 
 impl SetValue for MountOperationResult {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+pub enum NetworkConnectivity {
+    Local,
+    Limited,
+    Portal,
+    Full,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for NetworkConnectivity {
+    type GlibType = ffi::GNetworkConnectivity;
+
+    fn to_glib(&self) -> ffi::GNetworkConnectivity {
+        match *self {
+            NetworkConnectivity::Local => ffi::G_NETWORK_CONNECTIVITY_LOCAL,
+            NetworkConnectivity::Limited => ffi::G_NETWORK_CONNECTIVITY_LIMITED,
+            NetworkConnectivity::Portal => ffi::G_NETWORK_CONNECTIVITY_PORTAL,
+            NetworkConnectivity::Full => ffi::G_NETWORK_CONNECTIVITY_FULL,
+            NetworkConnectivity::__Unknown(value) => value
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<ffi::GNetworkConnectivity> for NetworkConnectivity {
+    fn from_glib(value: ffi::GNetworkConnectivity) -> Self {
+        match value {
+            1 => NetworkConnectivity::Local,
+            2 => NetworkConnectivity::Limited,
+            3 => NetworkConnectivity::Portal,
+            4 => NetworkConnectivity::Full,
+            value => NetworkConnectivity::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+impl StaticType for NetworkConnectivity {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::g_network_connectivity_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for NetworkConnectivity {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+impl<'a> FromValue<'a> for NetworkConnectivity {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+impl SetValue for NetworkConnectivity {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }

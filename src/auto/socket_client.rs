@@ -5,6 +5,8 @@
 use Cancellable;
 use Error;
 use IOStream;
+#[cfg(any(feature = "v2_36", feature = "dox"))]
+use ProxyResolver;
 use SocketAddress;
 use SocketClientEvent;
 use SocketConnectable;
@@ -92,8 +94,8 @@ pub trait SocketClientExt: Sized {
 
     fn get_protocol(&self) -> SocketProtocol;
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn get_proxy_resolver(&self) -> /*Ignored*/Option<ProxyResolver>;
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    fn get_proxy_resolver(&self) -> Option<ProxyResolver>;
 
     fn get_socket_type(&self) -> SocketType;
 
@@ -111,8 +113,8 @@ pub trait SocketClientExt: Sized {
 
     fn set_protocol(&self, protocol: SocketProtocol);
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn set_proxy_resolver<'a, P: IsA</*Ignored*/ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q);
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    fn set_proxy_resolver<'a, P: IsA<ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q);
 
     fn set_socket_type(&self, type_: SocketType);
 
@@ -391,10 +393,12 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
         }
     }
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn get_proxy_resolver(&self) -> /*Ignored*/Option<ProxyResolver> {
-    //    unsafe { TODO: call ffi::g_socket_client_get_proxy_resolver() }
-    //}
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    fn get_proxy_resolver(&self) -> Option<ProxyResolver> {
+        unsafe {
+            from_glib_none(ffi::g_socket_client_get_proxy_resolver(self.to_glib_none().0))
+        }
+    }
 
     fn get_socket_type(&self) -> SocketType {
         unsafe {
@@ -446,10 +450,14 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
         }
     }
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
-    //fn set_proxy_resolver<'a, P: IsA</*Ignored*/ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q) {
-    //    unsafe { TODO: call ffi::g_socket_client_set_proxy_resolver() }
-    //}
+    #[cfg(any(feature = "v2_36", feature = "dox"))]
+    fn set_proxy_resolver<'a, P: IsA<ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q) {
+        let proxy_resolver = proxy_resolver.into();
+        let proxy_resolver = proxy_resolver.to_glib_none();
+        unsafe {
+            ffi::g_socket_client_set_proxy_resolver(self.to_glib_none().0, proxy_resolver.0);
+        }
+    }
 
     fn set_socket_type(&self, type_: SocketType) {
         unsafe {

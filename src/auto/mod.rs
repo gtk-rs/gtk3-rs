@@ -122,9 +122,17 @@ mod file_input_stream;
 pub use self::file_input_stream::FileInputStream;
 pub use self::file_input_stream::FileInputStreamExt;
 
+mod file_monitor;
+pub use self::file_monitor::FileMonitor;
+pub use self::file_monitor::FileMonitorExt;
+
 mod file_output_stream;
 pub use self::file_output_stream::FileOutputStream;
 pub use self::file_output_stream::FileOutputStreamExt;
+
+mod filename_completer;
+pub use self::filename_completer::FilenameCompleter;
+pub use self::filename_completer::FilenameCompleterExt;
 
 mod filter_input_stream;
 pub use self::filter_input_stream::FilterInputStream;
@@ -216,6 +224,10 @@ mod network_address;
 pub use self::network_address::NetworkAddress;
 pub use self::network_address::NetworkAddressExt;
 
+mod network_monitor;
+pub use self::network_monitor::NetworkMonitor;
+pub use self::network_monitor::NetworkMonitorExt;
+
 mod network_service;
 pub use self::network_service::NetworkService;
 pub use self::network_service::NetworkServiceExt;
@@ -242,6 +254,18 @@ pub use self::pollable_input_stream::PollableInputStreamExt;
 mod pollable_output_stream;
 pub use self::pollable_output_stream::PollableOutputStream;
 pub use self::pollable_output_stream::PollableOutputStreamExt;
+
+mod proxy;
+pub use self::proxy::Proxy;
+pub use self::proxy::ProxyExt;
+
+mod proxy_address;
+pub use self::proxy_address::ProxyAddress;
+pub use self::proxy_address::ProxyAddressExt;
+
+mod proxy_resolver;
+pub use self::proxy_resolver::ProxyResolver;
+pub use self::proxy_resolver::ProxyResolverExt;
 
 mod resolver;
 pub use self::resolver::Resolver;
@@ -372,6 +396,10 @@ mod volume;
 pub use self::volume::Volume;
 pub use self::volume::VolumeExt;
 
+mod volume_monitor;
+pub use self::volume_monitor::VolumeMonitor;
+pub use self::volume_monitor::VolumeMonitorExt;
+
 mod zlib_compressor;
 pub use self::zlib_compressor::ZlibCompressor;
 pub use self::zlib_compressor::ZlibCompressorExt;
@@ -404,9 +432,12 @@ pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::DriveStartStopType;
 pub use self::enums::EmblemOrigin;
+pub use self::enums::FileMonitorEvent;
 pub use self::enums::FileType;
 pub use self::enums::IOErrorEnum;
 pub use self::enums::MountOperationResult;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::enums::NetworkConnectivity;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 pub use self::enums::NotificationPriority;
 pub use self::enums::PasswordSave;
@@ -435,6 +466,7 @@ pub use self::flags::AskPasswordFlags;
 pub use self::flags::ConverterFlags;
 pub use self::flags::DriveStartFlags;
 pub use self::flags::FileCreateFlags;
+pub use self::flags::FileMonitorFlags;
 pub use self::flags::FileQueryInfoFlags;
 pub use self::flags::IOStreamSpliceFlags;
 pub use self::flags::MountMountFlags;
@@ -595,7 +627,9 @@ pub mod traits {
     pub use super::FileIconExt;
     pub use super::FileInfoExt;
     pub use super::FileInputStreamExt;
+    pub use super::FileMonitorExt;
     pub use super::FileOutputStreamExt;
+    pub use super::FilenameCompleterExt;
     pub use super::FilterInputStreamExt;
     pub use super::FilterOutputStreamExt;
     pub use super::IOStreamExt;
@@ -619,6 +653,7 @@ pub mod traits {
     pub use super::MountExt;
     pub use super::MountOperationExt;
     pub use super::NetworkAddressExt;
+    pub use super::NetworkMonitorExt;
     pub use super::NetworkServiceExt;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub use super::NotificationExt;
@@ -626,6 +661,9 @@ pub mod traits {
     pub use super::PermissionExt;
     pub use super::PollableInputStreamExt;
     pub use super::PollableOutputStreamExt;
+    pub use super::ProxyExt;
+    pub use super::ProxyAddressExt;
+    pub use super::ProxyResolverExt;
     pub use super::ResolverExt;
     pub use super::SeekableExt;
     pub use super::SettingsExt;
@@ -657,6 +695,7 @@ pub mod traits {
     #[cfg(any(unix, feature = "dox"))]
     pub use super::UnixSocketAddressExt;
     pub use super::VolumeExt;
+    pub use super::VolumeMonitorExt;
     pub use super::ZlibCompressorExt;
     pub use super::ZlibDecompressorExt;
 }
