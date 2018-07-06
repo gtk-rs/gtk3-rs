@@ -197,6 +197,8 @@ mod main_context;
 mod date_time;
 mod date;
 pub use date::Date;
+mod value_array;
+pub use value_array::ValueArray;
 
 #[cfg(feature="futures")]
 mod main_context_futures;
