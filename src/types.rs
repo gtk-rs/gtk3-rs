@@ -176,6 +176,12 @@ impl<'a, T: ?Sized + StaticType> StaticType for &'a T {
     }
 }
 
+impl<'a, T: ?Sized + StaticType> StaticType for &'a mut T {
+    fn static_type() -> Type {
+        T::static_type()
+    }
+}
+
 macro_rules! builtin {
     ($name:ident, $val:ident) => {
         impl StaticType for $name {
