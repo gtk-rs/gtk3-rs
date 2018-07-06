@@ -61,3 +61,36 @@ impl SetValue for BindingFlags {
     }
 }
 
+bitflags! {
+    pub struct ParamFlags: u32 {
+        const READABLE = 1;
+        const WRITABLE = 2;
+        const READWRITE = 3;
+        const CONSTRUCT = 4;
+        const CONSTRUCT_ONLY = 8;
+        const LAX_VALIDATION = 16;
+        const STATIC_NAME = 32;
+        const PRIVATE = 32;
+        const STATIC_NICK = 64;
+        const STATIC_BLURB = 128;
+        const EXPLICIT_NOTIFY = 1073741824;
+        const DEPRECATED = 2147483648;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for ParamFlags {
+    type GlibType = ffi::GParamFlags;
+
+    fn to_glib(&self) -> ffi::GParamFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GParamFlags> for ParamFlags {
+    fn from_glib(value: ffi::GParamFlags) -> ParamFlags {
+        ParamFlags::from_bits_truncate(value)
+    }
+}
+
