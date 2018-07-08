@@ -279,6 +279,10 @@ mod settings;
 pub use self::settings::Settings;
 pub use self::settings::SettingsExt;
 
+mod settings_backend;
+pub use self::settings_backend::SettingsBackend;
+pub use self::settings_backend::SettingsBackendExt;
+
 mod simple_action;
 pub use self::simple_action::SimpleAction;
 pub use self::simple_action::SimpleActionExt;
@@ -391,6 +395,10 @@ mod unix_socket_address;
 pub use self::unix_socket_address::UnixSocketAddress;
 #[cfg(any(unix, feature = "dox"))]
 pub use self::unix_socket_address::UnixSocketAddressExt;
+
+mod vfs;
+pub use self::vfs::Vfs;
+pub use self::vfs::VfsExt;
 
 mod volume;
 pub use self::volume::Volume;
@@ -667,6 +675,7 @@ pub mod traits {
     pub use super::ResolverExt;
     pub use super::SeekableExt;
     pub use super::SettingsExt;
+    pub use super::SettingsBackendExt;
     pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;
     pub use super::SocketExt;
@@ -694,6 +703,7 @@ pub mod traits {
     pub use super::TlsServerConnectionExt;
     #[cfg(any(unix, feature = "dox"))]
     pub use super::UnixSocketAddressExt;
+    pub use super::VfsExt;
     pub use super::VolumeExt;
     pub use super::VolumeMonitorExt;
     pub use super::ZlibCompressorExt;

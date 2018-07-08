@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use Action;
+use SettingsBackend;
 use SettingsBindFlags;
 use SettingsSchema;
 use ffi;
@@ -38,17 +39,27 @@ impl Settings {
         }
     }
 
-    //pub fn new_full<'a, 'b, P: Into<Option<&'a /*Ignored*/SettingsBackend>>, Q: Into<Option<&'b str>>>(schema: &SettingsSchema, backend: P, path: Q) -> Settings {
-    //    unsafe { TODO: call ffi::g_settings_new_full() }
-    //}
+    pub fn new_full<'a, 'b, P: Into<Option<&'a SettingsBackend>>, Q: Into<Option<&'b str>>>(schema: &SettingsSchema, backend: P, path: Q) -> Settings {
+        let backend = backend.into();
+        let backend = backend.to_glib_none();
+        let path = path.into();
+        let path = path.to_glib_none();
+        unsafe {
+            from_glib_full(ffi::g_settings_new_full(schema.to_glib_none().0, backend.0, path.0))
+        }
+    }
 
-    //pub fn new_with_backend(schema_id: &str, backend: /*Ignored*/&SettingsBackend) -> Settings {
-    //    unsafe { TODO: call ffi::g_settings_new_with_backend() }
-    //}
+    pub fn new_with_backend(schema_id: &str, backend: &SettingsBackend) -> Settings {
+        unsafe {
+            from_glib_full(ffi::g_settings_new_with_backend(schema_id.to_glib_none().0, backend.to_glib_none().0))
+        }
+    }
 
-    //pub fn new_with_backend_and_path(schema_id: &str, backend: /*Ignored*/&SettingsBackend, path: &str) -> Settings {
-    //    unsafe { TODO: call ffi::g_settings_new_with_backend_and_path() }
-    //}
+    pub fn new_with_backend_and_path(schema_id: &str, backend: &SettingsBackend, path: &str) -> Settings {
+        unsafe {
+            from_glib_full(ffi::g_settings_new_with_backend_and_path(schema_id.to_glib_none().0, backend.to_glib_none().0, path.to_glib_none().0))
+        }
+    }
 
     pub fn new_with_path(schema_id: &str, path: &str) -> Settings {
         unsafe {
@@ -176,7 +187,7 @@ pub trait SettingsExt {
 
     fn set_value(&self, key: &str, value: &glib::Variant) -> bool;
 
-    //fn get_property_backend(&self) -> /*Ignored*/Option<SettingsBackend>;
+    fn get_property_backend(&self) -> Option<SettingsBackend>;
 
     fn get_property_delay_apply(&self) -> bool;
 
@@ -464,13 +475,13 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
         }
     }
 
-    //fn get_property_backend(&self) -> /*Ignored*/Option<SettingsBackend> {
-    //    unsafe {
-    //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "backend".to_glib_none().0, value.to_glib_none_mut().0);
-    //        value.get()
-    //    }
-    //}
+    fn get_property_backend(&self) -> Option<SettingsBackend> {
+        unsafe {
+            let mut value = Value::from_type(<SettingsBackend as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0, "backend".to_glib_none().0, value.to_glib_none_mut().0);
+            value.get()
+        }
+    }
 
     fn get_property_delay_apply(&self) -> bool {
         unsafe {

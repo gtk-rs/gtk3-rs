@@ -11,6 +11,7 @@ use Icon;
 use InputStream;
 use Resource;
 use ResourceLookupFlags;
+use SettingsBackend;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
@@ -348,13 +349,19 @@ pub fn io_scheduler_cancel_all_jobs() {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
-//pub fn keyfile_settings_backend_new<'a, P: Into<Option<&'a str>>>(filename: &str, root_path: &str, root_group: P) -> /*Ignored*/Option<SettingsBackend> {
-//    unsafe { TODO: call ffi::g_keyfile_settings_backend_new() }
-//}
+pub fn keyfile_settings_backend_new<'a, P: Into<Option<&'a str>>>(filename: &str, root_path: &str, root_group: P) -> Option<SettingsBackend> {
+    let root_group = root_group.into();
+    let root_group = root_group.to_glib_none();
+    unsafe {
+        from_glib_full(ffi::g_keyfile_settings_backend_new(filename.to_glib_none().0, root_path.to_glib_none().0, root_group.0))
+    }
+}
 
-//pub fn memory_settings_backend_new() -> /*Ignored*/Option<SettingsBackend> {
-//    unsafe { TODO: call ffi::g_memory_settings_backend_new() }
-//}
+pub fn memory_settings_backend_new() -> Option<SettingsBackend> {
+    unsafe {
+        from_glib_full(ffi::g_memory_settings_backend_new())
+    }
+}
 
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 pub fn networking_init() {
@@ -363,9 +370,11 @@ pub fn networking_init() {
     }
 }
 
-//pub fn null_settings_backend_new() -> /*Ignored*/Option<SettingsBackend> {
-//    unsafe { TODO: call ffi::g_null_settings_backend_new() }
-//}
+pub fn null_settings_backend_new() -> Option<SettingsBackend> {
+    unsafe {
+        from_glib_full(ffi::g_null_settings_backend_new())
+    }
+}
 
 pub fn resources_enumerate_children(path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<String>, Error> {
     unsafe {

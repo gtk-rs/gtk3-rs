@@ -45,6 +45,8 @@ generate = [
     "Gio.InetSocketAddress",
     "Gio.IOStreamSpliceFlags",
     "Gio.IOErrorEnum",
+    "Gio.ListModel",
+    "Gio.ListStore",
     "Gio.LoadableIcon",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
@@ -71,6 +73,10 @@ generate = [
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
     "Gio.Seekable",
+    "Gio.SettingsBackend",
+    "Gio.SettingsBindGetMapping",
+    "Gio.SettingsBindSetMapping",
+    "Gio.SettingsGetMapping",
     "Gio.SettingsBindFlags",
     "Gio.SettingsSchema",
     "Gio.SettingsSchemaSource",
@@ -89,6 +95,7 @@ generate = [
     "Gio.SocketType",
     "Gio.SrvTarget",
     "Gio.SubprocessFlags",
+    # "Gio.Task",
     "Gio.TcpConnection",
     "Gio.ThreadedSocketService",
     "Gio.ThemedIcon",
@@ -107,13 +114,12 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
+    "Gio.Vfs",
     "Gio.Volume",
     "Gio.VolumeMonitor",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
-    "Gio.ListModel",
-    "Gio.ListStore",
 ]
 
 ignore = [
@@ -121,14 +127,15 @@ ignore = [
 
 manual = [
     "GLib.Bytes",
-    "GLib.KeyFile",
     "GLib.Error",
-    "GLib.Variant",
-    "GLib.VariantType",
     "GLib.IOCondition",
+    "GLib.KeyFile",
+    "GLib.MainContext",
+    "GLib.Priority",
     "GLib.SeekType",
     "GLib.Source",
-    "GLib.Priority",
+    "GLib.Variant",
+    "GLib.VariantType",
     "GObject.Object",
 ]
 
