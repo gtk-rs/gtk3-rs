@@ -28,25 +28,25 @@ extern crate futures_channel;
 extern crate futures_util;
 
 mod application;
+mod converter;
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
-mod converter;
+mod file;
 mod input_stream;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
+mod pollable_input_stream;
+mod pollable_output_stream;
 mod resource;
 mod socket;
 mod socket_listener;
-#[cfg(any(unix, feature = "dox"))]
-mod unix_socket_address;
-mod file;
-mod pollable_input_stream;
-mod pollable_output_stream;
 mod subprocess;
 mod subprocess_launcher;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-mod list_store;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_socket_address;
 
 #[cfg(test)]
 mod test_util;
@@ -69,19 +69,19 @@ pub mod prelude {
     pub use converter::*;
     #[cfg(any(not(windows), feature = "dox"))]
     pub use desktop_app_info::*;
-    pub use input_stream::InputStreamExtManual;
-    pub use output_stream::OutputStreamExtManual;
-    pub use socket::*;
-    pub use socket_listener::SocketListenerExtManual;
-    #[cfg(any(unix, feature = "dox"))]
-    pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
     pub use file::FileExtManual;
-    pub use pollable_input_stream::PollableInputStreamExtManual;
-    pub use pollable_output_stream::PollableOutputStreamExtManual;
-    pub use subprocess::SubprocessExtManual;
-    pub use subprocess_launcher::SubprocessLauncherExtManual;
+    pub use input_stream::InputStreamExtManual;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub use list_store::ListStoreExtManual;
+    pub use output_stream::OutputStreamExtManual;
+    pub use pollable_input_stream::PollableInputStreamExtManual;
+    pub use pollable_output_stream::PollableOutputStreamExtManual;
+    pub use socket::*;
+    pub use socket_listener::SocketListenerExtManual;
+    pub use subprocess::SubprocessExtManual;
+    pub use subprocess_launcher::SubprocessLauncherExtManual;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};
 }
 
 pub use prelude::*;
