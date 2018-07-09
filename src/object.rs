@@ -648,6 +648,8 @@ pub trait ObjectExt: IsA<Object> {
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
+    fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId;
+
     /// Creates a new weak reference to this object.
     ///
     /// Returned reference can be upgraded back into strong reference only from the same thread.
@@ -761,6 +763,29 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn disconnect(&self, handler_id: SignalHandlerId) {
         unsafe {
             gobject_ffi::g_signal_handler_disconnect(self.to_glib_none().0, handler_id.to_glib());
+        }
+    }
+
+    fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId {
+        use std::mem::transmute;
+
+        unsafe extern "C" fn notify_trampoline<P>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
+        where P: IsA<Object> {
+            let f: &&(Fn(&P, &::ParamSpec) + Send + Sync + 'static) = transmute(f);
+            f(&Object::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(param_spec))
+        }
+
+        let name = name.into();
+        let signal_name = if let Some(name) = name {
+            format!("notify::{}", name)
+        } else {
+            "notify".into()
+        };
+
+        unsafe {
+            let f: Box<Box<Fn(&Self, &::ParamSpec) + Send + Sync + 'static>> = Box::new(Box::new(f));
+            ::signal::connect(self.to_glib_none().0, &signal_name,
+                transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
         }
     }
 
