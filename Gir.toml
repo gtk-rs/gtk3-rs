@@ -85,12 +85,16 @@ manual = [
     "cairo.Content",
     "cairo.Context",
     "cairo.FontOptions",
+    "cairo.Pattern",
     "cairo.Region",
     "cairo.Surface",
     "GdkPixbuf.Pixbuf",
     "Gio.Icon",
     "GLib.Error",
+    "GObject.Value",
     "Pango.Context",
+    "Pango.Layout",
+    "Pango.LayoutLine",
 ]
 
 [[object]]
@@ -104,6 +108,13 @@ status = "generate"
         [[object.function.parameter]]
         name = "surface"
         const = true
+    [[object.function]]
+    name = "setting_get"
+    # GValue initialized inside the function instead of passed as argument
+    ignore = true
+    [[object.function]]
+    name = "pango_layout_get_clip_region"
+    ignore = true
     [[object.function]]
     name = "selection_property_get"
     #data
@@ -316,6 +327,9 @@ name = "Gdk.Window"
 status = "generate"
     [[object.function]]
     name = "new"
+    ignore = true
+    [[object.function]]
+    pattern = "[gs]et_background_pattern"
     ignore = true
     [[object.function]]
     name = "get_effective_toplevel"

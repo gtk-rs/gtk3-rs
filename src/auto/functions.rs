@@ -237,11 +237,7 @@ pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
     }
 }
 
-//pub fn pango_layout_get_clip_region(layout: /*Ignored*/&pango::Layout, x_origin: i32, y_origin: i32, index_ranges: i32, n_ranges: i32) -> Option<cairo::Region> {
-//    unsafe { TODO: call ffi::gdk_pango_layout_get_clip_region() }
-//}
-
-//pub fn pango_layout_line_get_clip_region(line: /*Ignored*/&pango::LayoutLine, x_origin: i32, y_origin: i32, index_ranges: &[i32], n_ranges: i32) -> Option<cairo::Region> {
+//pub fn pango_layout_line_get_clip_region(line: &pango::LayoutLine, x_origin: i32, y_origin: i32, index_ranges: &[i32], n_ranges: i32) -> Option<cairo::Region> {
 //    unsafe { TODO: call ffi::gdk_pango_layout_line_get_clip_region() }
 //}
 
@@ -412,10 +408,6 @@ pub fn set_show_events(show_events: bool) {
         ffi::gdk_set_show_events(show_events.to_glib());
     }
 }
-
-//pub fn setting_get(name: &str, value: /*Ignored*/&mut glib::Value) -> bool {
-//    unsafe { TODO: call ffi::gdk_setting_get() }
-//}
 
 pub fn synthesize_window_state(window: &Window, unset_flags: WindowState, set_flags: WindowState) {
     skip_assert_initialized!();

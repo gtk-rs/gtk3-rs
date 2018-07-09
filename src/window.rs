@@ -4,7 +4,7 @@
 
 use std::ptr;
 use libc::{c_char, c_int};
-use cairo::{self, Surface};
+use cairo::{self, PatternTrait, Surface};
 use gdk_pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
@@ -139,6 +139,10 @@ pub trait WindowExtManual {
     fn offscreen_window_get_surface(&self) -> Option<Surface>;
 
     fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf>;
+
+    fn get_background_pattern(&self) -> Option<cairo::Pattern>;
+
+    fn set_background_pattern<'a, P: Into<Option<&'a cairo::Pattern>>>(&self, pattern: P);
 }
 
 impl<O: IsA<Window>> WindowExtManual for O {
@@ -182,6 +186,29 @@ impl<O: IsA<Window>> WindowExtManual for O {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_get_from_window(self.to_glib_none().0, src_x, src_y, width, height))
+        }
+    }
+
+    fn get_background_pattern(&self) -> Option<cairo::Pattern> {
+        unsafe {
+            let ret = ffi::gdk_window_get_background_pattern(self.to_glib_none().0);
+            if ret.is_null() {
+                None
+            } else {
+                Some(cairo::Pattern::wrap(ret))
+            }
+        }
+    }
+
+    fn set_background_pattern<'a, P: Into<Option<&'a cairo::Pattern>>>(&self, pattern: P) {
+        let pattern = pattern.into();
+        unsafe {
+            let ptr = if let Some(pattern) = pattern {
+                pattern.get_ptr()
+            } else {
+                ::std::ptr::null_mut()
+            };
+            ffi::gdk_window_set_background_pattern(self.to_glib_none().0, ptr);
         }
     }
 }

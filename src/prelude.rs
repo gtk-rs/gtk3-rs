@@ -9,5 +9,6 @@ pub use auto::traits::*;
 pub use device::DeviceExtManual;
 pub use device_manager::DeviceManagerExtManual;
 pub use drag_context::DragContextExtManual;
+pub use screen::ScreenExtManual;
 pub use visual::VisualExtManual;
 pub use window::WindowExtManual;
