@@ -199,6 +199,8 @@ mod date;
 pub use date::Date;
 mod value_array;
 pub use value_array::ValueArray;
+mod param_spec;
+pub use param_spec::ParamSpec;
 
 #[cfg(feature="futures")]
 mod main_context_futures;

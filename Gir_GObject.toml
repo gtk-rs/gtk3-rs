@@ -11,6 +11,7 @@ single_version_file = true
 generate = [
     "GObject.Binding",
     "GObject.BindingFlags",
+    "GObject.ParamFlags",
 ]
 
 ignore = [
@@ -18,6 +19,7 @@ ignore = [
 
 manual = [
     "GObject.Object",
+    "GObject.Value",
 ]
 
 [[object]]
