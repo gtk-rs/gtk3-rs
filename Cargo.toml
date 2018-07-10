@@ -32,6 +32,15 @@ git = "https://github.com/gtk-rs/gdk"
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk"
 
+[dependencies.gobject-subclass]
+git = "https://github.com/sdroege/gobject-subclass"
+
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/sys"
+
 [features]
 #default = ["gtk_3_22_30", "futures-nightly"]
 gtk_3_10 = ["gtk/v3_10"]
@@ -83,6 +92,10 @@ name = "grid"
 
 [[bin]]
 name = "gtktest"
+
+[[bin]]
+name = "listbox_model"
+required-features = ["gtk/v3_16", "gio/v2_44"]
 
 [[bin]]
 name = "menu_bar"
