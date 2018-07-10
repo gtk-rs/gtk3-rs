@@ -76,3 +76,6 @@ git = "https://github.com/gtk-rs/glib"
 [dependencies.pango]
 version = "0.4.0"
 git = "https://github.com/gtk-rs/pango"
+
+[dev-dependencies]
+gir-format-check = "^0.1"
