@@ -649,6 +649,8 @@ pub trait ObjectExt: IsA<Object> {
     fn disconnect(&self, handler_id: SignalHandlerId);
 
     fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId;
+    fn notify<'a, N: Into<&'a str>>(&self, property_name: N);
+    fn notify_by_pspec(&self, pspec: &::ParamSpec);
 
     /// Creates a new weak reference to this object.
     ///
@@ -786,6 +788,20 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             let f: Box<Box<Fn(&Self, &::ParamSpec) + Send + Sync + 'static>> = Box::new(Box::new(f));
             ::signal::connect(self.to_glib_none().0, &signal_name,
                 transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
+        }
+    }
+
+    fn notify<'a, N: Into<&'a str>>(&self, property_name: N) {
+        let property_name = property_name.into();
+
+        unsafe {
+            gobject_ffi::g_object_notify(self.to_glib_none().0, property_name.to_glib_none().0);
+        }
+    }
+
+    fn notify_by_pspec(&self, pspec: &::ParamSpec) {
+        unsafe {
+            gobject_ffi::g_object_notify_by_pspec(self.to_glib_none().0, pspec.to_glib_none().0);
         }
     }
 
