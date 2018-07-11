@@ -96,7 +96,7 @@ pub trait Cast: IsA<Object> {
     /// ```ignore
     /// let button = gtk::Button::new();
     /// let widget = button.dynamic_cast::<gtk::Widget>();
-    /// assert!(widget.is_ok);
+    /// assert!(widget.is_ok());
     /// let widget = widget.unwrap();
     /// assert!(widget.dynamic_cast::<gtk::Button>().is_ok());
     /// ```
