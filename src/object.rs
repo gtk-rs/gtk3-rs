@@ -50,6 +50,28 @@ pub trait Cast: IsA<Object> {
         unsafe { T::from(self.into()) }
     }
 
+    /// Upcasts an object to a reference of its superclass or interface `T`.
+    ///
+    /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
+    /// known at compile-time, whether a specific object implements an interface or not, in which case
+    /// `upcast` would fail to compile. `dynamic_cast` can be used in these circumstances, which
+    /// is checking the types at runtime.
+    ///
+    /// # Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.upcast_ref::<gtk::Widget>();
+    /// ```
+    #[inline]
+    fn upcast_ref<T>(&self) -> &T
+    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
+          Self: IsA<T> {
+        unsafe {
+            mem::transmute(self)
+        }
+    }
+
     /// Tries to downcast to a subclass or interface implementor `T`.
     ///
     /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
@@ -71,6 +93,29 @@ pub trait Cast: IsA<Object> {
     fn downcast<T>(self) -> Result<T, Self>
     where Self: Sized + Downcast<T> {
         Downcast::downcast(self)
+    }
+
+    /// Tries to downcast to a reference of its subclass or interface implementor `T`.
+    ///
+    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// otherwise.
+    ///
+    /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
+    /// known at compile-time, whether a specific object implements an interface or not, in which case
+    /// `upcast` would fail to compile. `dynamic_cast` can be used in these circumstances, which
+    /// is checking the types at runtime.
+    ///
+    /// # Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.upcast::<gtk::Widget>();
+    /// assert!(widget.downcast_ref::<gtk::Button>().is_some());
+    /// ```
+    #[inline]
+    fn downcast_ref<T>(&self) -> Option<&T>
+    where Self: Sized + Downcast<T> {
+        Downcast::downcast_ref(self)
     }
 
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
@@ -109,6 +154,35 @@ pub trait Cast: IsA<Object> {
             Ok(unsafe { T::from(self.into()) })
         }
     }
+
+    /// Tries to cast to reference to an object of type `T`. This handles upcasting, downcasting
+    /// and casting between interface and interface implementors. All checks are performed at
+    /// runtime, while `downcast` and `upcast` will do many checks at compile-time already.
+    ///
+    /// It is not always known at compile-time, whether a specific object implements an interface or
+    /// not, and checking as to be performed at runtime.
+    ///
+    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// otherwise.
+    ///
+    /// # Example
+    ///
+    /// ```ignore
+    /// let button = gtk::Button::new();
+    /// let widget = button.dynamic_cast_ref::<gtk::Widget>();
+    /// assert!(widget.is_some());
+    /// let widget = widget.unwrap();
+    /// assert!(widget.dynamic_cast_ref::<gtk::Button>().is_some());
+    /// ```
+    #[inline]
+    fn dynamic_cast_ref<T>(&self) -> Option<&T>
+    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+        if !self.is::<T>() {
+            None
+        } else {
+            Some(unsafe { mem::transmute(self) })
+        }
+    }
 }
 
 impl<T: IsA<Object>> Cast for T { }
@@ -144,10 +218,18 @@ pub trait Downcast<T> {
     ///
     /// Returns `Ok(T)` if the instance implements `T` and `Err(Self)` otherwise.
     fn downcast(self) -> Result<T, Self> where Self: Sized;
+    /// Tries to downcast to `&T`.
+    ///
+    /// Returns `Some(T)` if the instance implements `T` and `None` otherwise.
+    fn downcast_ref(&self) -> Option<&T>;
     /// Downcasts to `T` unconditionally.
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
     unsafe fn downcast_unchecked(self) -> T;
+    /// Downcasts to `&T` unconditionally.
+    ///
+    /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
+    unsafe fn downcast_ref_unchecked(&self) -> &T;
 }
 
 impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
@@ -169,9 +251,25 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
     }
 
     #[inline]
+    fn downcast_ref(&self) -> Option<&Sub> {
+        unsafe {
+            if !types::instance_of::<Sub>(self.to_glib_none().0 as *const _) {
+                return None;
+            }
+            Some(mem::transmute(self))
+        }
+    }
+
+    #[inline]
     unsafe fn downcast_unchecked(self) -> Sub {
         debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
         Sub::from(self.into())
+    }
+
+    #[inline]
+    unsafe fn downcast_ref_unchecked(&self) -> &Sub {
+        debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
+        mem::transmute(self)
     }
 }
 
