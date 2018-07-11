@@ -25,6 +25,7 @@ generate = [
     "Gdk.DragAction",
     "Gdk.DragCancelReason",
     "Gdk.DragProtocol",
+    "Gdk.DrawingContext",
     "Gdk.EventMask",
     "Gdk.EventSequence",
     "Gdk.FrameClockPhase",
@@ -55,11 +56,17 @@ generate = [
     "Gdk.WindowWindowClass",
     "Gdk.WMDecoration",
     "Gdk.WMFunction",
-    "Gdk.DrawingContext",
 ]
 
 manual = [
+    "cairo.Content",
+    "cairo.Context",
+    "cairo.FontOptions",
+    "cairo.Pattern",
+    "cairo.Region",
+    "cairo.Surface",
     "Gdk.Atom",
+    "Gdk.Event",
     "Gdk.EventButton",
     "Gdk.EventConfigure",
     "Gdk.EventCrossing",
@@ -72,7 +79,6 @@ manual = [
     "Gdk.EventOwnerChange",
     "Gdk.EventProperty",
     "Gdk.EventProximity",
-    "Gdk.Event",
     "Gdk.EventScroll",
     "Gdk.EventSelection",
     "Gdk.EventSetting",
@@ -82,12 +88,6 @@ manual = [
     "Gdk.Geometry",
     "Gdk.Rectangle",
     "Gdk.RGBA",
-    "cairo.Content",
-    "cairo.Context",
-    "cairo.FontOptions",
-    "cairo.Pattern",
-    "cairo.Region",
-    "cairo.Surface",
     "GdkPixbuf.Pixbuf",
     "Gio.Icon",
     "GLib.Error",
@@ -173,25 +173,6 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Gdk.EventType"
-status = "generate"
-    [[object.member]]
-    name = "2button_press"
-    alias = true
-    [[object.member]]
-    name = "3button_press"
-    alias = true
-    [[object.member]]
-    name = "touchpad_swipe"
-    version = "3.18"
-    [[object.member]]
-    name = "touchpad_pinch"
-    version = "3.18"
-    [[object.member]]
-    name = "event_last"
-    alias = true
-
-[[object]]
 name = "Gdk.Cursor"
 status = "generate"
     [[object.function]]
@@ -258,6 +239,25 @@ status = "generate"
     name = "get_source_window"
         [object.function.return]
         nullable = false
+
+[[object]]
+name = "Gdk.EventType"
+status = "generate"
+    [[object.member]]
+    name = "2button_press"
+    alias = true
+    [[object.member]]
+    name = "3button_press"
+    alias = true
+    [[object.member]]
+    name = "touchpad_swipe"
+    version = "3.18"
+    [[object.member]]
+    name = "touchpad_pinch"
+    version = "3.18"
+    [[object.member]]
+    name = "event_last"
+    alias = true
 
 [[object]]
 name = "Gdk.FrameClock"
