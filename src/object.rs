@@ -68,6 +68,10 @@ pub trait Cast: IsA<Object> {
     where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
           Self: IsA<T> {
         unsafe {
+            // This transmute is safe because all our wrapper types have the
+            // same representation except for the name and the phantom data
+            // type. IsA<> is an unsafe trait that must only be implemented
+            // if this is a valid wrapper type
             mem::transmute(self)
         }
     }
@@ -180,6 +184,10 @@ pub trait Cast: IsA<Object> {
         if !self.is::<T>() {
             None
         } else {
+            // This transmute is safe because all our wrapper types have the
+            // same representation except for the name and the phantom data
+            // type. IsA<> is an unsafe trait that must only be implemented
+            // if this is a valid wrapper type
             Some(unsafe { mem::transmute(self) })
         }
     }
@@ -256,6 +264,10 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
             if !types::instance_of::<Sub>(self.to_glib_none().0 as *const _) {
                 return None;
             }
+            // This transmute is safe because all our wrapper types have the
+            // same representation except for the name and the phantom data
+            // type. IsA<> is an unsafe trait that must only be implemented
+            // if this is a valid wrapper type
             Some(mem::transmute(self))
         }
     }
@@ -269,6 +281,10 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
     #[inline]
     unsafe fn downcast_ref_unchecked(&self) -> &Sub {
         debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
+        // This transmute is safe because all our wrapper types have the
+        // same representation except for the name and the phantom data
+        // type. IsA<> is an unsafe trait that must only be implemented
+        // if this is a valid wrapper type
         mem::transmute(self)
     }
 }

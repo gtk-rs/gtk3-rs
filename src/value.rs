@@ -149,6 +149,8 @@ impl Value {
                 gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
                     T::static_type().to_glib()));
             if ok {
+                // This transmute is safe because Value and TypedValue have the same
+                // representation: the only difference is the zero-sized phantom data
                 Some(mem::transmute(self))
             }
             else {
@@ -670,6 +672,8 @@ impl SendValue {
                 gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
                     T::static_type().to_glib()));
             if ok {
+                // This transmute is safe because Value and TypedValue have the same
+                // representation: the only difference is the zero-sized phantom data
                 Some(mem::transmute(self))
             }
             else {
