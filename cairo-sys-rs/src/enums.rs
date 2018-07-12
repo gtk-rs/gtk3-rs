@@ -392,6 +392,21 @@ gvalue_impl!(SurfaceType, ::gobject::cairo_gobject_surface_type_get_type);
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SvgUnit {
+    User = 0,
+    Em,
+    Ex,
+    Px,
+    In,
+    Cm,
+    Mm,
+    Pt,
+    Pc,
+    Percent,
+}
+
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Format {
     Invalid = -1,
     ARgb32 = 0,

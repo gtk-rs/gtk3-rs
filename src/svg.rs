@@ -8,7 +8,7 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ffi::enums::{SurfaceType, SvgVersion};
+use ffi::enums::{SurfaceType, SvgVersion, SvgUnit};
 use surface::{Surface, SurfaceExt};
 use support;
 
@@ -20,6 +20,16 @@ macro_rules! imp {
         pub fn restrict(&self, version: SvgVersion) {
             unsafe {
                 ffi::cairo_svg_surface_restrict_to_version(self.inner.to_raw_none(), version);
+            }
+        }
+        pub fn set_document_unit(&mut self, unit : SvgUnit) {
+            unsafe {
+                ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit);
+            }
+        }
+        pub fn get_document_unit(&self) -> SvgUnit {
+            unsafe {
+                ffi::cairo_svg_surface_get_document_unit(self.inner.to_raw_none())
             }
         }
     }
@@ -292,6 +302,17 @@ mod test {
         });
 
         draw(&surface);
+        surface.finish();
+    }
+
+    #[test]
+    fn unit() {
+        let file = ::std::fs::File::create("test1.svg").unwrap();
+        let mut surface = Writer::new(100., 100., file);
+
+        surface.set_document_unit(SvgUnit::Px);
+        let unit = surface.get_document_unit();
+        assert_eq!(unit, SvgUnit::Px);
         surface.finish();
     }
 }
