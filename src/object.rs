@@ -97,7 +97,7 @@ pub trait Cast: IsA<Object> {
 
     /// Tries to downcast to a reference of its subclass or interface implementor `T`.
     ///
-    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// Returns `Some(T)` if the object is an instance of `T` and `None`
     /// otherwise.
     ///
     /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
@@ -162,7 +162,7 @@ pub trait Cast: IsA<Object> {
     /// It is not always known at compile-time, whether a specific object implements an interface or
     /// not, and checking as to be performed at runtime.
     ///
-    /// Returns `Ok(T)` if the object is an instance of `T` and `Err(self)`
+    /// Returns `Some(T)` if the object is an instance of `T` and `None`
     /// otherwise.
     ///
     /// # Example
