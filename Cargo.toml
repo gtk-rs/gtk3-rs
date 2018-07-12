@@ -63,3 +63,6 @@ git = "https://github.com/gtk-rs/pango"
 [dependencies.cairo-rs]
 version = "0.4.0"
 git = "https://github.com/gtk-rs/cairo"
+
+[dev-dependencies]
+gir-format-check = "^0.1"
