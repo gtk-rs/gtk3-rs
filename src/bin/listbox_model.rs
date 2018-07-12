@@ -74,7 +74,7 @@ fn build_ui(application: &gtk::Application) {
     let listbox = gtk::ListBox::new();
     listbox.bind_model(&model, clone!(window => move |item| {
         let box_ = gtk::ListBoxRow::new();
-        let item = item.clone().downcast::<RowData>().unwrap();
+        let item = item.downcast_ref::<RowData>().unwrap();
 
         let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
 
