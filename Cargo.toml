@@ -48,3 +48,6 @@ git = "https://github.com/gtk-rs/sys"
 [dependencies.gobject-sys]
 version = "0.6.0"
 git = "https://github.com/gtk-rs/sys"
+
+[dev-dependencies]
+gir-format-check = "^0.1"

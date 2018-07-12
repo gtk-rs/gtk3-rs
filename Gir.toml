@@ -9,7 +9,6 @@ min_cfg_version = "1.30"
 single_version_file = true
 
 generate = [
-    "Pango.Alignment",
     # "Pango.AttrColor",
     # "Pango.AttrFloat",
     # "Pango.AttrFontDesc",
@@ -19,6 +18,15 @@ generate = [
     # "Pango.AttrShape",
     # "Pango.AttrSize",
     # "Pango.AttrString",
+    # "Pango.GlyphGeometry",
+    # "Pango.GlyphInfo",
+    # "Pango.GlyphVisAttr",
+    # "Pango.LogAttr",
+    # "Pango.Map",
+    # "Pango.MapEntry",
+    # "Pango.ScriptForLang",
+    # "Pango.ScriptIter",
+    "Pango.Alignment",
     "Pango.Attribute",
     "Pango.AttrType",
     "Pango.BidiType",
@@ -34,29 +42,21 @@ generate = [
     "Pango.FontMetrics",
     "Pango.Fontset",
     "Pango.FontsetSimple",
-    "Pango.Gravity",
-    "Pango.GravityHint",
     "Pango.Glyph",
-    # "Pango.GlyphGeometry",
-    # "Pango.GlyphInfo",
     "Pango.GlyphItem",
     "Pango.GlyphItemIter",
     "Pango.GlyphString",
     "Pango.GlyphUnit",
-    # "Pango.GlyphVisAttr",
+    "Pango.Gravity",
+    "Pango.GravityHint",
     "Pango.Item",
     "Pango.LayoutIter",
     "Pango.LayoutLine",
     "Pango.LayoutRun",
-    # "Pango.LogAttr",
-    # "Pango.Map",
-    # "Pango.MapEntry",
     "Pango.Matrix",
     "Pango.Renderer",
     "Pango.RenderPart",
     "Pango.Script",
-    # "Pango.ScriptForLang",
-    # "Pango.ScriptIter",
     "Pango.Stretch",
     "Pango.Style",
     "Pango.TabAlign",
@@ -68,11 +68,11 @@ generate = [
 ]
 
 manual = [
+    "GLib.Error",
     "Pango.Analysis",
     "Pango.AttrClass",
     "Pango.Language",
     "Pango.Rectangle",
-    "GLib.Error",
 ]
 
 [[object]]
@@ -161,23 +161,6 @@ status = "generate"
         nullable = false
 
 [[object]]
-name = "Pango.FontDescription"
-status = "generate"
-    [[object.function]]
-    name = "from_string"
-        [object.function.return]
-        nullable = false
-    [[object.function]]
-    name = "set_family_static"
-    ignore = true
-    [[object.function]]
-    name = "copy_static"
-    ignore = true
-    [[object.function]]
-    name = "merge_static"
-    ignore = true
-
-[[object]]
 name = "Pango.Font"
 status = "generate"
     [[object.function]]
@@ -198,6 +181,23 @@ status = "generate"
         [[object.function.parameter]]
         name = "language"
         const = true
+
+[[object]]
+name = "Pango.FontDescription"
+status = "generate"
+    [[object.function]]
+    name = "from_string"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "set_family_static"
+    ignore = true
+    [[object.function]]
+    name = "copy_static"
+    ignore = true
+    [[object.function]]
+    name = "merge_static"
+    ignore = true
 
 [[object]]
 name = "Pango.FontMap"
