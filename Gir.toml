@@ -15,8 +15,8 @@ generate = [
 
 manual = [
     "cairo.Context",
-    "cairo.FontType",
     "cairo.FontOptions",
+    "cairo.FontType",
     "cairo.ScaledFont",
     "GLib.Error",
     "Pango.Context",
