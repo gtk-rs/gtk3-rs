@@ -20,12 +20,12 @@ generate = [
 manual = [
     "GdkPixbuf.PixbufAnimation",
     "GdkPixbuf.PixbufAnimationIter",
-    "GLib.Bytes",
-    "GLib.Error",
     "Gio.AsyncReadyCallback",
     "Gio.Cancellable",
     "Gio.InputStream",
     "Gio.OutputStream",
+    "GLib.Bytes",
+    "GLib.Error",
 ]
 
 [[object]]
