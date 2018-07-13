@@ -102,6 +102,7 @@ name = "menu_bar"
 
 [[bin]]
 name = "menu_bar_system"
+required-features = ["gtk/v3_12"]
 
 [[bin]]
 name = "multi_windows"
