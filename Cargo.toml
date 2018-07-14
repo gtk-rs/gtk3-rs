@@ -41,41 +41,15 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 bitflags = "1.0"
 
-[dependencies.glib-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gdk-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.cairo-sys-rs]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/cairo"
-
-[dependencies.cairo-rs]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/cairo"
-
-[dependencies.gdk-pixbuf]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/gdk-pixbuf"
-
-[dependencies.gio]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/gio"
-
-[dependencies.glib]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/glib"
-
-[dependencies.pango]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/pango"
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gdk-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
+cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
+gdk-pixbuf = { git = "https://github.com/gtk-rs/gdk-pixbuf" }
+gio = { git = "https://github.com/gtk-rs/gio" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+pango = { git = "https://github.com/gtk-rs/pango" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
