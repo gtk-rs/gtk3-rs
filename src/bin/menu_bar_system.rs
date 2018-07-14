@@ -122,6 +122,14 @@ fn add_actions(application: &gtk::Application, switch: &gtk::Switch, label: &gtk
     application.add_action(&switch_action);
 }
 
+fn add_accelerators(application: &gtk::Application) {
+    application.set_accels_for_action("app.about", &["F1"]);
+    // `Primary` is a platform-agnostic accelerator modifier.
+    // On Windows and Linux, `Primary` maps to the `Ctrl` key,
+    // and on macOS it maps to the `command` key.
+    application.set_accels_for_action("app.quit", &["<Primary>Q"]);
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
 
@@ -146,6 +154,8 @@ fn build_ui(application: &gtk::Application) {
     build_system_menu(application);
 
     add_actions(application, &switch, &label, &window);
+
+    add_accelerators(application);
 
     window.show_all();
 }

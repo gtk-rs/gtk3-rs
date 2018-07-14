@@ -10,8 +10,8 @@ extern crate gtk;
 use gio::{ApplicationExt, ApplicationExtManual};
 use gtk::prelude::*;
 use gtk::{
-    AboutDialog, ApplicationWindow, CheckMenuItem, IconSize, Image, Label, Menu, MenuBar, MenuItem,
-    WindowPosition,
+    AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
+    Menu, MenuBar, MenuItem, WindowPosition,
 };
 
 use std::env::args;
@@ -49,6 +49,8 @@ fn build_ui(application: &gtk::Application) {
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
 
     let menu = Menu::new();
+    let accel_group = AccelGroup::new();
+    window.add_accel_group(&accel_group);
     let menu_bar = MenuBar::new();
     let file = MenuItem::new_with_label("File");
     let about = MenuItem::new_with_label("About");
@@ -96,6 +98,12 @@ fn build_ui(application: &gtk::Application) {
     quit.connect_activate(clone!(window => move |_| {
         window.destroy();
     }));
+
+    // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
+    // It isn't available directly through gdk::ModifierType, since it has
+    // different values on different platforms.
+    let (key, modifier) = gtk::accelerator_parse("<Primary>Q");
+    quit.add_accelerator("activate", &accel_group, key, modifier, AccelFlags::VISIBLE);
 
     let label = Label::new(Some("MenuBar example"));
 
