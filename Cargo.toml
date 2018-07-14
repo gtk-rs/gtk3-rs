@@ -33,21 +33,10 @@ libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
 
-[dependencies.pango-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.glib]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/glib"
-
-[dependencies.glib-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
+pango-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
