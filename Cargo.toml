@@ -30,39 +30,16 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-bitflags = "0.9"
+bitflags = "1.0"
 
-[dependencies.pango-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.glib]
-version = "0.5.0"
-git = "https://github.com/gtk-rs/glib"
-
-[dependencies.glib-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.cairo-sys-rs]
-version = "0.6.0"
-git = "https://github.com/gtk-rs/cairo"
-
-[dependencies.pangocairo-sys]
-version = "0.7.0"
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.pango]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/pango"
-
-[dependencies.cairo-rs]
-version = "0.4.0"
-git = "https://github.com/gtk-rs/cairo"
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+pango-sys = { git = "https://github.com/gtk-rs/sys" }
+cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
+pangocairo-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+pango = { git = "https://github.com/gtk-rs/pango" }
+cairo-rs = { git = "https://github.com/gtk-rs/cairo" }
 
 [dev-dependencies]
 gir-format-check = "^0.1"
