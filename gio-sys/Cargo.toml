@@ -4,13 +4,8 @@ pkg-config = "0.3.7"
 [dependencies]
 libc = "0.2"
 
-[dependencies.glib-sys]
-path = "../glib-sys"
-version = "0.6.0"
-
-[dependencies.gobject-sys]
-path = "../gobject-sys"
-version = "0.6.0"
+glib-sys = { path = "../glib-sys" }
+gobject-sys = { path = "../gobject-sys" }
 
 [dev-dependencies]
 shell-words = "0.1.0"
