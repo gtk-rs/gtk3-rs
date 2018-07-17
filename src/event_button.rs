@@ -29,4 +29,8 @@ impl EventButton {
     pub fn get_button(&self) -> u32 {
         self.as_ref().button
     }
+
+    pub fn get_device(&self) -> Option<::Device> {
+        unsafe { from_glib_none(self.as_ref().device) }
+    }
 }

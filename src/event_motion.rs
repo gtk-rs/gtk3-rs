@@ -29,4 +29,8 @@ impl EventMotion {
     pub fn request_motions(&self) {
         unsafe { ffi::gdk_event_request_motions(self.as_ref()) }
     }
+
+    pub fn get_device(&self) -> Option<::Device> {
+        unsafe { from_glib_none(self.as_ref().device) }
+    }
 }
