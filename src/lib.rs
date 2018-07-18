@@ -55,12 +55,20 @@ mod event_grab_broken;
 mod event_key;
 mod event_motion;
 mod event_owner_change;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+mod event_pad_axis;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+mod event_pad_button;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+mod event_pad_group_mode;
 mod event_property;
 mod event_proximity;
 mod event_scroll;
 mod event_selection;
 mod event_setting;
 mod event_touch;
+mod event_touchpad_pinch;
+mod event_touchpad_swipe;
 mod event_visibility;
 mod event_window_state;
 #[cfg(any(feature = "v3_8", feature = "dox"))]
@@ -111,12 +119,20 @@ pub use event_grab_broken::EventGrabBroken;
 pub use event_key::EventKey;
 pub use event_motion::EventMotion;
 pub use event_owner_change::EventOwnerChange;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use event_pad_axis::EventPadAxis;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use event_pad_button::EventPadButton;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use event_pad_group_mode::EventPadGroupMode;
 pub use event_property::EventProperty;
 pub use event_proximity::EventProximity;
 pub use event_scroll::EventScroll;
 pub use event_selection::EventSelection;
 pub use event_setting::EventSetting;
 pub use event_touch::EventTouch;
+pub use event_touchpad_pinch::EventTouchpadPinch;
+pub use event_touchpad_swipe::EventTouchpadSwipe;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
 pub use functions::*;

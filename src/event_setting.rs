@@ -10,3 +10,13 @@ pub struct EventSetting(::Event);
 
 event_wrapper!(EventSetting, GdkEventSetting);
 event_subtype!(EventSetting, ffi::GDK_SETTING);
+
+impl EventSetting {
+    pub fn get_name(&self) -> Option<String> {
+        unsafe { from_glib_none(self.as_ref().name) }
+    }
+
+    pub fn get_action(&self) -> ::SettingAction {
+        from_glib(self.as_ref().action)
+    }
+}

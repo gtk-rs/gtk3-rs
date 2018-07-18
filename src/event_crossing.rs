@@ -37,4 +37,14 @@ impl EventCrossing {
     pub fn get_time(&self) -> u32 {
         self.as_ref().time
     }
+
+    pub fn get_root(&self) -> (f64, f64) {
+        let x_root = self.as_ref().x_root;
+        let y_root = self.as_ref().y_root;
+        (x_root, y_root)
+    }
+
+    pub fn get_focus(&self) -> bool {
+        from_glib(self.as_ref().focus)
+    }
 }
