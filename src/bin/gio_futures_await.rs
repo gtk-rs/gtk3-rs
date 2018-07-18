@@ -1,11 +1,8 @@
-#![feature(proc_macro, proc_macro_non_items, generators, pin)]
+#![feature(use_extern_macros, proc_macro_non_items, generators, pin)]
 
 extern crate futures;
-
-use futures_macro_async::*;
-extern crate futures_macro_async;
-#[macro_use]
-extern crate futures_macro_await;
+use futures::prelude::*;
+use futures::prelude::await;
 
 extern crate glib;
 
