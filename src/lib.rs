@@ -66,8 +66,11 @@ mod event_proximity;
 mod event_scroll;
 mod event_selection;
 mod event_setting;
+#[cfg(any(feature = "v3_4", feature = "dox"))]
 mod event_touch;
+#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod event_touchpad_pinch;
+#[cfg(any(feature = "v3_18", feature = "dox"))]
 mod event_touchpad_swipe;
 mod event_visibility;
 mod event_window_state;
@@ -130,8 +133,11 @@ pub use event_proximity::EventProximity;
 pub use event_scroll::EventScroll;
 pub use event_selection::EventSelection;
 pub use event_setting::EventSetting;
+#[cfg(any(feature = "v3_4", feature = "dox"))]
 pub use event_touch::EventTouch;
+#[cfg(any(feature = "v3_18", feature = "dox"))]
 pub use event_touchpad_pinch::EventTouchpadPinch;
+#[cfg(any(feature = "v3_18", feature = "dox"))]
 pub use event_touchpad_swipe::EventTouchpadSwipe;
 pub use event_visibility::EventVisibility;
 pub use event_window_state::EventWindowState;
