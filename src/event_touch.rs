@@ -33,4 +33,26 @@ impl EventTouch {
     pub fn get_device(&self) -> Option<::Device> {
         unsafe { from_glib_none(self.as_ref().device) }
     }
+
+    pub fn get_axes(&self) -> Option<(f64, f64)> {
+        let axes = self.as_ref().axes;
+
+        if axes.is_null() {
+            None
+        } else {
+            unsafe { Some((*axes, *axes.offset(1))) }
+        }
+    }
+
+    pub fn get_root(&self) -> (f64, f64) {
+        let x_root = self.as_ref().x_root;
+        let y_root = self.as_ref().y_root;
+        (x_root, y_root)
+    }
+
+    pub fn get_event_sequence(&self) -> Option<::EventSequence> {
+        unsafe {
+            from_glib_none(self.as_ref().sequence)
+        }
+    }
 }
