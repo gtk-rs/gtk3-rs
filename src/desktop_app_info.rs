@@ -20,7 +20,7 @@ impl DesktopAppInfo {
             let mut ret = Vec::new();
             let mut it = 0;
             loop {
-                let tmp: *mut *mut i8 = *out.offset(it);
+                let tmp: *mut *mut libc::c_char = *out.offset(it);
 
                 if tmp.is_null() {
                     break;

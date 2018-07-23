@@ -9,6 +9,7 @@ use std::path;
 use std::ptr;
 use std::slice;
 
+use libc;
 use glib;
 use glib::object::{Downcast, IsA};
 use glib::translate::*;
@@ -54,7 +55,7 @@ impl UnixSocketAddress {
         let (path, len) =
             match address_type {
                 Path(path) => (path.to_glib_none().0, path.as_os_str().len()),
-                Abstract(path) | AbstractPadded(path) => (path.to_glib_none().0 as *mut i8, path.len()),
+                Abstract(path) | AbstractPadded(path) => (path.to_glib_none().0 as *mut libc::c_char, path.len()),
                 Anonymous => (ptr::null_mut(), 0),
             };
         unsafe {
