@@ -74,7 +74,11 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
 
         let path = unsafe {
             let path = ffi::g_unix_socket_address_get_path(self.to_glib_none().0);
-            slice::from_raw_parts(path as *mut u8, self.get_path_len())
+            if path.is_null() {
+                &[]
+            } else {
+                slice::from_raw_parts(path as *const u8, self.get_path_len())
+            }
         };
         match self.get_address_type() {
             UnixSocketAddressType::Anonymous => Some(Anonymous),
