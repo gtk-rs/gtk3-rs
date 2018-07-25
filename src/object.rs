@@ -9,15 +9,12 @@ use types::{self, StaticType};
 use wrapper::{UnsafeFrom, Wrapper};
 use ffi as glib_ffi;
 use gobject_ffi;
-use std::error;
-use std::fmt;
-use std::iter;
-use std::marker::PhantomData;
 use std::mem;
 use std::ptr;
-use std::result;
-use std::sync::Arc;
+use std::iter;
 use std::thread;
+use std::ops;
+use std::marker::PhantomData;
 
 use Value;
 use value::{ToValue, SetValue};
@@ -766,15 +763,6 @@ pub trait ObjectExt: IsA<Object> {
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N);
     fn notify_by_pspec(&self, pspec: &::ParamSpec);
 
-    /// Creates a new weak reference to this object.
-    ///
-    /// Returned reference can be upgraded back into strong reference only from the same thread.
-    /// Attempts to do so from different threads will be unsuccessful.
-    ///
-    /// See also [`downgrade_sync`][downgrade_sync] which allows upgrading references from
-    /// different threads.
-    ///
-    /// [downgrade_sync]: trait.SyncObjectExt.html#method.downgrade_sync
     fn downgrade(&self) -> WeakRef<Self>;
 
     fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O>;
@@ -1091,13 +1079,9 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
     fn downgrade(&self) -> WeakRef<T> {
         unsafe {
-            let weak = WeakRef {
-                inner: Arc::new(WeakRefInner(mem::zeroed())),
-                thread: Some(thread::current().id()),
-                marker: PhantomData,
-            };
-            gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), self.to_glib_none().0);
-            weak
+            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), self.to_glib_none().0);
+            w
         }
     }
 
@@ -1109,123 +1093,118 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     }
 }
 
-// This trait is only necessary because specialization with default impl is unstable.
-pub trait SyncObjectExt: ObjectExt {
-    /// Creates a new weak reference to this object.
-    ///
-    /// Returned reference can be upgraded back into strong reference from any thread.
-    ///
-    /// See also [`downgrade`][downgrade] for objects that aren't `Sync`.
-    ///
-    /// [downgrade]: trait.ObjectExt.html#tymethod.downgrade
-    fn downgrade_sync(&self) -> WeakRef<Self>;
-}
+pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
-impl<T: IsA<Object> + ObjectExt + Sync> SyncObjectExt for T {
-    fn downgrade_sync(&self) -> WeakRef<T> {
+impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
+    pub fn new() -> WeakRef<T> {
         unsafe {
-            let weak = WeakRef {
-                inner: Arc::new(WeakRefInner(mem::zeroed())),
-                thread: None,
-                marker: PhantomData,
-            };
-            gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), self.to_glib_none().0);
-            weak
+            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), ptr::null_mut());
+            w
+        }
+    }
+
+    pub fn upgrade(&self) -> Option<T> {
+        unsafe {
+            let ptr = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
+            if ptr.is_null() {
+                None
+            } else {
+                let obj: Object = from_glib_full(ptr);
+                Some(T::from(obj.into()))
+            }
         }
     }
 }
 
-#[derive(Clone, Debug)]
-pub struct WeakRef<T: ?Sized> {
-    /// The only way to add another weak reference to GObject WeakRef is to upgrade it first. This
-    /// wouldn't be thread-safe for types that aren't `Sync`, so instead we add another layer of
-    /// indirection.
-    inner: Arc<WeakRefInner>,
-    thread: Option<thread::ThreadId>,
-    marker: PhantomData<*const T>,
-}
-
-impl<T> WeakRef<T> {
-    pub fn new() -> Self {
+impl<T: IsA<Object> + ?Sized> Drop for WeakRef<T> {
+    fn drop(&mut self) {
         unsafe {
-            let weak = WeakRef {
-                inner: Arc::new(WeakRefInner(mem::zeroed())),
-                thread: None,
-                marker: PhantomData,
-            };
-            gobject_ffi::g_weak_ref_init(mut_override(&weak.inner.0), ptr::null_mut());
-            weak
+            gobject_ffi::g_weak_ref_clear(mut_override(&*self.0));
         }
     }
 }
 
-impl<T> Default for WeakRef<T> {
+impl<T: IsA<Object> + ?Sized> Clone for WeakRef<T> {
+    fn clone(&self) -> Self {
+        unsafe {
+            let c = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+
+            let o = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
+            gobject_ffi::g_weak_ref_init(mut_override(&*c.0), o);
+            if !o.is_null() {
+                gobject_ffi::g_object_unref(o);
+            }
+
+            c
+        }
+    }
+}
+
+impl<T: IsA<Object>> Default for WeakRef<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-unsafe impl<T: ?Sized> Send for WeakRef<T> {}
-unsafe impl<T: ?Sized> Sync for WeakRef<T> {}
+unsafe impl<T: IsA<Object> + Sync + Sync> Sync for WeakRef<T> {}
+unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
 
-/// RAII for GWeakRef.
-#[derive(Debug)]
-struct WeakRefInner(gobject_ffi::GWeakRef);
+/// A weak reference to the object it was created for that can be sent to
+/// different threads even for object types that don't implement `Send`.
+///
+/// Trying to upgrade the weak reference from another thread than the one
+/// where it was created on will panic but dropping or cloning can be done
+/// safely from any thread.
+pub struct SendWeakRef<T: IsA<Object>>(WeakRef<T>, Option<thread::ThreadId>);
 
-impl Drop for WeakRefInner {
-    fn drop(&mut self) {
-        unsafe {
-            gobject_ffi::g_weak_ref_clear(mut_override(&self.0));
+impl<T: IsA<Object>> SendWeakRef<T> {
+    pub fn new() -> SendWeakRef<T> {
+        SendWeakRef(WeakRef::new(), None)
+    }
+
+    pub fn into_weak_ref(self) -> WeakRef<T> {
+        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+            panic!("SendWeakRef dereferenced on a different thread");
         }
+
+        self.0
     }
 }
 
-/// An error returned by [`WeakRef::try_upgrade`](struct.WeakRef.html#method.try_upgrade).
-#[derive(Debug)]
-pub struct UpgradeError {
-    _private: (),
-}
+impl<T: IsA<Object>> ops::Deref for SendWeakRef<T> {
+    type Target = WeakRef<T>;
 
-impl fmt::Display for UpgradeError {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        fmt::Display::fmt(error::Error::description(self), f)
-    }
-}
-
-impl error::Error for UpgradeError {
-    fn description(&self) -> &str {
-        "upgrading weak reference could violate thread-safety"
-    }
-}
-
-impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
-
-    /// Attempts to acquire strong reference to the object. Returns None if object no longer has
-    /// any strong references.
-    ///
-    /// # Panics
-    ///
-    /// Panics when trying to upgrade the weak reference on a thread where it could violate
-    /// thread-safety.
-    pub fn upgrade(&self) -> Option<T> {
-        self.try_upgrade().unwrap()
-    }
-
-    pub fn try_upgrade(&self) -> result::Result<Option<T>, UpgradeError> {
-        match self.thread {
-            Some(thread_id) if thread_id != thread::current().id() => Err(UpgradeError {_private: ()}),
-            _ => unsafe {
-                let ptr = gobject_ffi::g_weak_ref_get(mut_override(&self.inner.0));
-                if ptr.is_null() {
-                    Ok(None)
-                } else {
-                    let obj: Object = from_glib_full(ptr);
-                    Ok(Some(T::from(obj.into())))
-                }
-            }
+    fn deref(&self) -> &WeakRef<T> {
+        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+            panic!("SendWeakRef dereferenced on a different thread");
         }
+
+        &self.0
     }
 }
+
+// Deriving this gives the wrong trait bounds
+impl<T: IsA<Object>> Clone for SendWeakRef<T> {
+    fn clone(&self) -> Self {
+        SendWeakRef(self.0.clone(), self.1.clone())
+    }
+}
+
+impl<T: IsA<Object>> Default for SendWeakRef<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<T: IsA<Object>> From<WeakRef<T>> for SendWeakRef<T> {
+    fn from(v: WeakRef<T>) -> SendWeakRef<T> {
+        SendWeakRef(v, Some(thread::current().id()))
+    }
+}
+
+unsafe impl<T: IsA<Object>> Sync for SendWeakRef<T> {}
+unsafe impl<T: IsA<Object>> Send for SendWeakRef<T> {}
 
 pub struct BindingBuilder<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> {
     source: &'a S,

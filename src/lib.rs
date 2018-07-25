@@ -106,6 +106,7 @@ pub use object::{
     Object,
     ObjectExt,
     WeakRef,
+    SendWeakRef,
 };
 pub use signal::{
     SignalHandlerId,
