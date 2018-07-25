@@ -12,6 +12,8 @@ use gobject_ffi;
 use std::mem;
 use std::ptr;
 use std::iter;
+use std::thread;
+use std::ops;
 use std::marker::PhantomData;
 
 use Value;
@@ -1147,6 +1149,62 @@ impl<T: IsA<Object>> Default for WeakRef<T> {
 
 unsafe impl<T: IsA<Object> + Sync + Sync> Sync for WeakRef<T> {}
 unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
+
+/// A weak reference to the object it was created for that can be sent to
+/// different threads even for object types that don't implement `Send`.
+///
+/// Trying to upgrade the weak reference from another thread than the one
+/// where it was created on will panic but dropping or cloning can be done
+/// safely from any thread.
+pub struct SendWeakRef<T: IsA<Object>>(WeakRef<T>, Option<thread::ThreadId>);
+
+impl<T: IsA<Object>> SendWeakRef<T> {
+    pub fn new() -> SendWeakRef<T> {
+        SendWeakRef(WeakRef::new(), None)
+    }
+
+    pub fn into_weak_ref(self) -> WeakRef<T> {
+        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+            panic!("SendWeakRef dereferenced on a different thread");
+        }
+
+        self.0
+    }
+}
+
+impl<T: IsA<Object>> ops::Deref for SendWeakRef<T> {
+    type Target = WeakRef<T>;
+
+    fn deref(&self) -> &WeakRef<T> {
+        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+            panic!("SendWeakRef dereferenced on a different thread");
+        }
+
+        &self.0
+    }
+}
+
+// Deriving this gives the wrong trait bounds
+impl<T: IsA<Object>> Clone for SendWeakRef<T> {
+    fn clone(&self) -> Self {
+        SendWeakRef(self.0.clone(), self.1.clone())
+    }
+}
+
+impl<T: IsA<Object>> Default for SendWeakRef<T> {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
+impl<T: IsA<Object>> From<WeakRef<T>> for SendWeakRef<T> {
+    fn from(v: WeakRef<T>) -> SendWeakRef<T> {
+        SendWeakRef(v, Some(thread::current().id()))
+    }
+}
+
+unsafe impl<T: IsA<Object>> Sync for SendWeakRef<T> {}
+unsafe impl<T: IsA<Object>> Send for SendWeakRef<T> {}
 
 pub struct BindingBuilder<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> {
     source: &'a S,
