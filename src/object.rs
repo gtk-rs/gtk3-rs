@@ -1081,7 +1081,6 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
             gobject_ffi::g_weak_ref_init(mut_override(&*w.0), self.to_glib_none().0);
             w
         }
-
     }
 
     fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O> {
@@ -1095,6 +1094,14 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
 impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
+    pub fn new() -> WeakRef<T> {
+        unsafe {
+            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), ptr::null_mut());
+            w
+        }
+    }
+
     pub fn upgrade(&self) -> Option<T> {
         unsafe {
             let ptr = gobject_ffi::g_weak_ref_get(mut_override(&*self.0));
@@ -1129,6 +1136,12 @@ impl<T: IsA<Object> + ?Sized> Clone for WeakRef<T> {
 
             c
         }
+    }
+}
+
+impl<T: IsA<Object>> Default for WeakRef<T> {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
