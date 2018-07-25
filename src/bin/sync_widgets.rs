@@ -12,24 +12,6 @@ use gtk::prelude::*;
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("sync_widgets.glade");
     let builder = Builder::new();
@@ -49,10 +31,10 @@ fn build_ui(application: &gtk::Application) {
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(application);
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     window.show_all();
 }

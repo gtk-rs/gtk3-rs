@@ -9,24 +9,6 @@ use std::collections::HashMap;
 use std::env::args;
 use std::rc::Rc;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 fn create_sub_window(title: &str, main_window_entry: gtk::Entry, id: usize,
                      windows: Rc<RefCell<HashMap<usize, gtk::Window>>>) {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
@@ -60,10 +42,10 @@ fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow 
     window.set_default_size(400, 200);
     window.set_position(gtk::WindowPosition::Center);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     window.show_all();
     window

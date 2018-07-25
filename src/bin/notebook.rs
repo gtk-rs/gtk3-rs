@@ -7,24 +7,6 @@ use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 struct Notebook {
     notebook: gtk::Notebook,
     tabs: Vec<gtk::Box>
@@ -75,10 +57,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(640, 480);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     let mut notebook = Notebook::new();
 

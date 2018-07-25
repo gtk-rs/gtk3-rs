@@ -15,24 +15,6 @@ use gtk::prelude::*;
 use gtk::{DestDefaults, TargetFlags};
 use url::Url;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("Drag and Drop Example with a TextView");
@@ -82,10 +64,10 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
     window.show_all();
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 }
 
 fn main() {

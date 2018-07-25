@@ -43,22 +43,22 @@ mod example {
         window.set_application(application);
         let grid: Grid = builder.get_object("grid").expect("Couldn't get grid");
         let button6: Button = builder.get_object("button6").expect("Couldn't get button6");
-        button6.connect_clicked(clone!(grid, button6 => move |_| {
-            let height = grid.get_cell_height(&button6);
+        button6.connect_clicked(clone!(grid => move |button| {
+            let height = grid.get_cell_height(button);
             let new_height = if height == 2 { 1 } else { 2 };
-            grid.set_cell_height(&button6, new_height);
+            grid.set_cell_height(button, new_height);
         }));
         let button7: Button = builder.get_object("button7").expect("Couldn't get button7");
-        button7.connect_clicked(clone!(grid, button7 => move |_| {
-            let left_attach = grid.get_cell_left_attach(&button7);
+        button7.connect_clicked(clone!(grid => move |button| {
+            let left_attach = grid.get_cell_left_attach(button);
             let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
-            grid.set_cell_left_attach(&button7, new_left_attach);
+            grid.set_cell_left_attach(button, new_left_attach);
         }));
 
-        window.connect_delete_event(clone!(window => move |_, _| {
-            window.destroy();
+        window.connect_delete_event(move |win, _| {
+            win.destroy();
             Inhibit(false)
-        }));
+        });
 
         window.show_all();
     }

@@ -12,24 +12,6 @@ use gtk::DrawingArea;
 use cairo::enums::{FontSlant, FontWeight};
 use cairo::Context;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 fn build_ui(application: &gtk::Application) {
     drawable(application, 500, 500, |_, cr| {
         cr.set_dash(&[3., 2., 1.], 1.);
@@ -129,10 +111,10 @@ where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
 
     window.set_default_size(width, height);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
     window.add(&drawing_area);
     window.show_all();
 }

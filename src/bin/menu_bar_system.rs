@@ -138,10 +138,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
     let label = gtk::Label::new("Nothing happened yet");
