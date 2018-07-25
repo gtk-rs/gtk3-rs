@@ -1132,6 +1132,9 @@ impl<T: IsA<Object> + ?Sized> Clone for WeakRef<T> {
     }
 }
 
+unsafe impl<T: IsA<Object> + Sync + Sync> Sync for WeakRef<T> {}
+unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
+
 pub struct BindingBuilder<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> {
     source: &'a S,
     source_property: &'a str,
