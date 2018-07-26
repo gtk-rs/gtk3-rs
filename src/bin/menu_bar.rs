@@ -41,10 +41,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(WindowPosition::Center);
     window.set_size_request(400, 400);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
 

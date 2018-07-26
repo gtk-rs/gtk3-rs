@@ -73,10 +73,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(200, 200);
     window.add(&vbox);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     window.show_all();
 }
