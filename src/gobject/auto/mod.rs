@@ -4,7 +4,6 @@
 
 mod binding;
 pub use self::binding::Binding;
-pub use self::binding::BindingExt;
 
 mod flags;
 pub use self::flags::BindingFlags;
@@ -12,5 +11,4 @@ pub use self::flags::ParamFlags;
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::BindingExt;
 }
