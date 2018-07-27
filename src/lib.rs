@@ -209,3 +209,18 @@ mod main_context_futures;
 mod source_futures;
 #[cfg(feature="futures")]
 pub use source_futures::*;
+
+// Actual thread IDs can be reused by the OS once the old thread finished.
+// This works around it by using our own counter for threads.
+//
+// Taken from the fragile crate
+use std::sync::atomic::{AtomicUsize, Ordering, ATOMIC_USIZE_INIT};
+fn next_thread_id() -> usize {
+    static mut COUNTER: AtomicUsize = ATOMIC_USIZE_INIT;
+    unsafe { COUNTER.fetch_add(1, Ordering::SeqCst) }
+}
+
+pub(crate) fn get_thread_id() -> usize {
+    thread_local!(static THREAD_ID: usize = next_thread_id());
+    THREAD_ID.with(|&x| x)
+}

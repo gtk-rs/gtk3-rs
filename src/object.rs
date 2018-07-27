@@ -12,7 +12,6 @@ use gobject_ffi;
 use std::mem;
 use std::ptr;
 use std::iter;
-use std::thread;
 use std::ops;
 use std::marker::PhantomData;
 
@@ -22,6 +21,8 @@ use Type;
 use BoolError;
 use Closure;
 use SignalHandlerId;
+
+use get_thread_id;
 
 /// Upcasting and downcasting support.
 ///
@@ -1156,7 +1157,7 @@ unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
 /// Trying to upgrade the weak reference from another thread than the one
 /// where it was created on will panic but dropping or cloning can be done
 /// safely from any thread.
-pub struct SendWeakRef<T: IsA<Object>>(WeakRef<T>, Option<thread::ThreadId>);
+pub struct SendWeakRef<T: IsA<Object>>(WeakRef<T>, Option<usize>);
 
 impl<T: IsA<Object>> SendWeakRef<T> {
     pub fn new() -> SendWeakRef<T> {
@@ -1164,7 +1165,7 @@ impl<T: IsA<Object>> SendWeakRef<T> {
     }
 
     pub fn into_weak_ref(self) -> WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+        if self.1.is_some() && self.1 != Some(get_thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -1176,7 +1177,7 @@ impl<T: IsA<Object>> ops::Deref for SendWeakRef<T> {
     type Target = WeakRef<T>;
 
     fn deref(&self) -> &WeakRef<T> {
-        if self.1.is_some() && self.1 != Some(thread::current().id()) {
+        if self.1.is_some() && self.1 != Some(get_thread_id()) {
             panic!("SendWeakRef dereferenced on a different thread");
         }
 
@@ -1199,7 +1200,7 @@ impl<T: IsA<Object>> Default for SendWeakRef<T> {
 
 impl<T: IsA<Object>> From<WeakRef<T>> for SendWeakRef<T> {
     fn from(v: WeakRef<T>) -> SendWeakRef<T> {
-        SendWeakRef(v, Some(thread::current().id()))
+        SendWeakRef(v, Some(get_thread_id()))
     }
 }
 

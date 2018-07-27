@@ -4,7 +4,6 @@
 
 use std::mem;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use std::thread;
 
 use futures_core;
 use futures_core::executor::{Executor, SpawnError};
@@ -22,6 +21,8 @@ use MainContext;
 use MainLoop;
 use Source;
 use Priority;
+
+use get_thread_id;
 
 #[cfg(feature = "futures-nightly")]
 type StoredFutureBox<T> = PinBox<T>;
@@ -41,7 +42,7 @@ const DONE: usize = 3;
 struct TaskSource {
     source: glib_ffi::GSource,
     future: Option<(StoredFutureBox<Future<Item = (), Error = Never>>, Box<LocalMap>)>,
-    thread: Option<thread::ThreadId>,
+    thread: Option<usize>,
     state: AtomicUsize,
 }
 
@@ -158,7 +159,7 @@ impl TaskSource {
     // thread where the main context is running
     unsafe fn new_unsafe(
         priority: Priority,
-        thread: Option<thread::ThreadId>,
+        thread: Option<usize>,
         future: StoredFutureBox<Future<Item = (), Error = Never> + 'static>,
     ) -> Source {
         let source = glib_ffi::g_source_new(
@@ -186,10 +187,10 @@ impl TaskSource {
         // any other thread.
         match &mut self.thread {
             thread @ &mut None => {
-                *thread = Some(thread::current().id());
+                *thread = Some(get_thread_id());
             }
             &mut Some(thread_id) => {
-                assert_eq!(thread::current().id(), thread_id,
+                assert_eq!(get_thread_id(), thread_id,
                            "Task polled on a different thread than before");
             }
         }
@@ -273,7 +274,7 @@ impl MainContext {
         unsafe {
             // Ensure that this task is never polled on another thread
             // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(priority, Some(thread::current().id()), f);
+            let source = TaskSource::new_unsafe(priority, Some(get_thread_id()), f);
             source.attach(Some(&*self));
         }
     }
@@ -308,7 +309,7 @@ impl MainContext {
 
             // Ensure that this task is never polled on another thread
             // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(::PRIORITY_DEFAULT, Some(thread::current().id()), f);
+            let source = TaskSource::new_unsafe(::PRIORITY_DEFAULT, Some(get_thread_id()), f);
             source.attach(Some(&*self));
         }
 
@@ -362,7 +363,7 @@ impl MainContext {
         unsafe {
             // Ensure that this task is never polled on another thread
             // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(priority, Some(thread::current().id()), f);
+            let source = TaskSource::new_unsafe(priority, Some(get_thread_id()), f);
             source.attach(Some(&*self));
         }
     }
@@ -393,7 +394,7 @@ impl MainContext {
 
             // Ensure that this task is never polled on another thread
             // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(::PRIORITY_DEFAULT, Some(thread::current().id()), f);
+            let source = TaskSource::new_unsafe(::PRIORITY_DEFAULT, Some(get_thread_id()), f);
             source.attach(Some(&*self));
         }
 
