@@ -611,22 +611,6 @@ pub fn hostname_to_unicode(hostname: &str) -> Option<String> {
 //    unsafe { TODO: call ffi::g_int_hash() }
 //}
 
-pub fn intern_static_string<'a, P: Into<Option<&'a str>>>(string: P) -> Option<String> {
-    let string = string.into();
-    let string = string.to_glib_none();
-    unsafe {
-        from_glib_none(ffi::g_intern_static_string(string.0))
-    }
-}
-
-pub fn intern_string<'a, P: Into<Option<&'a str>>>(string: P) -> Option<String> {
-    let string = string.into();
-    let string = string.to_glib_none();
-    unsafe {
-        from_glib_none(ffi::g_intern_string(string.0))
-    }
-}
-
 //pub fn io_add_watch<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(channel: /*Ignored*/&IOChannel, condition: IOCondition, func: /*Unknown conversion*//*Unimplemented*/IOFunc, user_data: P) -> u32 {
 //    unsafe { TODO: call ffi::g_io_add_watch() }
 //}

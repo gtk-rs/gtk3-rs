@@ -279,6 +279,12 @@ status = "generate"
         [[object.function.parameter]]
         name = "command_line"
         string_type = "os_string"
+    [[object.function]]
+    name = "intern_static_string"
+    ignore = true
+    [[object.function]]
+    name = "intern_string"
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform
