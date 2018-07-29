@@ -3,7 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use error::ErrorDomain;
+use Quark;
 use ffi as glib_ffi;
+use translate::from_glib;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum FileError {
@@ -35,8 +37,8 @@ pub enum FileError {
 }
 
 impl ErrorDomain for FileError {
-    fn domain() -> glib_ffi::GQuark {
-        unsafe { glib_ffi::g_file_error_quark() }
+    fn domain() -> Quark {
+        unsafe { from_glib(glib_ffi::g_file_error_quark()) }
     }
 
     fn code(self) -> i32 {
