@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::Quark;
 use glib::StaticType;
 use glib::Type;
 use glib::error::ErrorDomain;
@@ -11,7 +12,6 @@ use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
-use glib_ffi;
 use gobject_ffi;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
@@ -233,8 +233,8 @@ impl FromGlib<ffi::GdkPixbufError> for PixbufError {
 }
 
 impl ErrorDomain for PixbufError {
-    fn domain() -> glib_ffi::GQuark {
-        unsafe { ffi::gdk_pixbuf_error_quark() }
+    fn domain() -> Quark {
+        unsafe { from_glib(ffi::gdk_pixbuf_error_quark()) }
     }
 
     fn code(self) -> i32 {
