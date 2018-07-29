@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::Quark;
 use glib::StaticType;
 use glib::Type;
 use glib::error::ErrorDomain;
@@ -11,7 +12,6 @@ use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
-use glib_ffi;
 use gobject_ffi;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
@@ -714,8 +714,8 @@ impl FromGlib<ffi::GIOErrorEnum> for IOErrorEnum {
 }
 
 impl ErrorDomain for IOErrorEnum {
-    fn domain() -> glib_ffi::GQuark {
-        unsafe { ffi::g_io_error_quark() }
+    fn domain() -> Quark {
+        unsafe { from_glib(ffi::g_io_error_quark()) }
     }
 
     fn code(self) -> i32 {
@@ -1161,8 +1161,8 @@ impl FromGlib<ffi::GResourceError> for ResourceError {
 }
 
 impl ErrorDomain for ResourceError {
-    fn domain() -> glib_ffi::GQuark {
-        unsafe { ffi::g_resource_error_quark() }
+    fn domain() -> Quark {
+        unsafe { from_glib(ffi::g_resource_error_quark()) }
     }
 
     fn code(self) -> i32 {
