@@ -2,9 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use Quark;
 use error::ErrorDomain;
 use ffi;
-use ffi as glib_ffi;
 use translate::*;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
@@ -214,8 +214,8 @@ impl FromGlib<ffi::GKeyFileError> for KeyFileError {
 }
 
 impl ErrorDomain for KeyFileError {
-    fn domain() -> glib_ffi::GQuark {
-        unsafe { ffi::g_key_file_error_quark() }
+    fn domain() -> Quark {
+        unsafe { from_glib(ffi::g_key_file_error_quark()) }
     }
 
     fn code(self) -> i32 {

@@ -5,6 +5,7 @@
 //! `Error` binding and helper trait.
 
 use std::ffi::CStr;
+use Quark;
 use std::error;
 use std::fmt;
 use std::str;
@@ -33,13 +34,13 @@ impl Error {
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
             from_glib_full(
-                glib_ffi::g_error_new_literal(T::domain(), error.code(), message.to_glib_none().0))
+                glib_ffi::g_error_new_literal(T::domain().to_glib(), error.code(), message.to_glib_none().0))
         }
     }
 
     /// Checks if the error domain matches `T`.
     pub fn is<T: ErrorDomain>(&self) -> bool {
-        self.0.domain == T::domain()
+        self.0.domain == T::domain().to_glib()
     }
 
     /// Tries to convert to a specific error enum.
@@ -67,7 +68,7 @@ impl Error {
     /// }
     /// ```
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
-        if self.0.domain == T::domain() {
+        if self.0.domain == T::domain().to_glib() {
             T::from(self.0.code)
         }
         else {
@@ -110,7 +111,7 @@ pub trait ErrorDomain: Copy {
     /// Returns the quark identifying the error domain.
     ///
     /// As returned from `g_some_error_quark`.
-    fn domain() -> glib_ffi::GQuark;
+    fn domain() -> Quark;
 
     /// Gets the integer representation of the variant.
     fn code(self) -> i32;
