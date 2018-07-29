@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::Quark;
 use glib::StaticType;
 use glib::Type;
 use glib::error::ErrorDomain;
@@ -11,7 +12,6 @@ use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
-use glib_ffi;
 use gobject_ffi;
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
@@ -1174,9 +1174,9 @@ impl FromGlib<ffi::GdkGLError> for GLError {
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 impl ErrorDomain for GLError {
-    fn domain() -> glib_ffi::GQuark {
+    fn domain() -> Quark {
         skip_assert_initialized!();
-        unsafe { ffi::gdk_gl_error_quark() }
+        unsafe { from_glib(ffi::gdk_gl_error_quark()) }
     }
 
     fn code(self) -> i32 {
