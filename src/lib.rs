@@ -113,7 +113,6 @@ pub use signal::{
     signal_handler_block,
     signal_handler_disconnect,
     signal_handler_unblock,
-    signal_stop_emission,
     signal_stop_emission_by_name
 };
 

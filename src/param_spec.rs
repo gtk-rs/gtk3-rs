@@ -63,10 +63,10 @@ impl ParamSpec {
         }
     }
 
-    //#[cfg(any(feature = "v2_46", feature = "dox"))]
-    //pub fn get_name_quark(&self) -> /*Ignored*/glib::Quark {
-    //    unsafe { TODO: call ffi::g_param_spec_get_name_quark() }
-    //}
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
+    pub fn get_name_quark(&self) -> ::Quark {
+        unsafe { from_glib(ffi::g_param_spec_get_name_quark(self.to_glib_none().0)) }
+    }
 
     pub fn get_nick(&self) -> String {
         unsafe {
