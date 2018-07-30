@@ -45,6 +45,20 @@ macro_rules! clone {
     );
 }
 
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
+        }
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
+}
+
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
 
@@ -53,10 +67,11 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(320, 480);
 
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
+    let window_weak = window.downgrade();
 
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 5);
 
@@ -72,7 +87,7 @@ fn build_ui(application: &gtk::Application) {
     //
     // The gtk::ListBoxRow can contain any possible widgets.
     let listbox = gtk::ListBox::new();
-    listbox.bind_model(&model, clone!(window => move |item| {
+    listbox.bind_model(&model, clone!(window_weak => move |item| {
         let box_ = gtk::ListBoxRow::new();
         let item = item.downcast_ref::<RowData>().unwrap();
 
@@ -102,7 +117,9 @@ fn build_ui(application: &gtk::Application) {
         // When the edit button is clicked, a new modal dialog is created for editing
         // the corresponding row
         let edit_button = gtk::Button::new_with_label("Edit");
-        edit_button.connect_clicked(clone!(window, item => move |_| {
+        edit_button.connect_clicked(clone!(window_weak, item => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             let dialog = gtk::Dialog::new_with_buttons(Some("Edit Item"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("Close", 0)]);
             dialog.set_default_response(0);
@@ -121,7 +138,9 @@ fn build_ui(application: &gtk::Application) {
 
             // Activating the entry (enter) will send response 0 to the dialog, which
             // is the response code we used for the Close button. It will close the dialog
-            entry.connect_activate(clone!(dialog => move |_| {
+            let dialog_weak = dialog.downgrade();
+            entry.connect_activate(clone!(dialog_weak => move |_| {
+                let dialog = upgrade_weak!(dialog_weak);
                 dialog.response(0);
             }));
             content_area.add(&entry);
@@ -140,7 +159,9 @@ fn build_ui(application: &gtk::Application) {
 
         // When a row is activated (select + enter) we simply emit the clicked
         // signal on the corresponding edit button to open the edit dialog
-        box_.connect_activate(clone!(edit_button => move |_| {
+        let edit_button_weak = edit_button.downgrade();
+        box_.connect_activate(clone!(edit_button_weak => move |_| {
+            let edit_button = upgrade_weak!(edit_button_weak);
             edit_button.emit_clicked();
         }));
 
@@ -160,7 +181,9 @@ fn build_ui(application: &gtk::Application) {
     // then add it to the model. Once added to the model, it will immediately
     // appear in the listbox UI
     let add_button = gtk::Button::new_with_label("Add");
-    add_button.connect_clicked(clone!(window, model => move |_| {
+    add_button.connect_clicked(clone!(window_weak, model => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             let dialog = gtk::Dialog::new_with_buttons(Some("Add Item"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("Ok", 0), ("Cancel", 1)]);
             dialog.set_default_response(0);
@@ -168,7 +191,9 @@ fn build_ui(application: &gtk::Application) {
             let content_area = dialog.get_content_area();
 
             let entry = gtk::Entry::new();
-            entry.connect_activate(clone!(dialog => move |_| {
+            let dialog_weak = dialog.downgrade();
+            entry.connect_activate(clone!(dialog_weak => move |_| {
+                let dialog = upgrade_weak!(dialog_weak);
                 dialog.response(0);
             }));
             content_area.add(&entry);
