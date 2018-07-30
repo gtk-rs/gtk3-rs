@@ -71,6 +71,12 @@ impl Type {
         }
     }
 
+    pub fn qname(&self) -> ::Quark {
+        unsafe {
+            from_glib(gobject_ffi::g_type_qname(self.to_glib()))
+        }
+    }
+
     pub fn is_a(&self, other: &Type) -> bool {
         unsafe {
             from_glib(gobject_ffi::g_type_is_a(self.to_glib(), other.to_glib()))
