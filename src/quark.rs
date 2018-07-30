@@ -5,6 +5,7 @@
 use ffi;
 use translate::*;
 
+use std::fmt;
 use std::ffi::CStr;
 
 #[derive(Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -31,6 +32,12 @@ impl Quark {
                 x => Some(from_glib(x)),
             }
         }
+    }
+}
+
+impl fmt::Debug for Quark {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.write_str(Quark::to_string(self))
     }
 }
 
