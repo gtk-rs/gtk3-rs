@@ -15,6 +15,19 @@ mod example {
 
     use std::env::args;
 
+    // upgrade weak reference or return
+    #[macro_export]
+    macro_rules! upgrade_weak {
+        ($x:ident, $r:expr) => {{
+            match $x.upgrade() {
+                Some(o) => o,
+                None => return $r,
+            }
+        }};
+        ($x:ident) => {
+            upgrade_weak!($x, ())
+        };
+    }
 
     pub fn build_ui(application: &gtk::Application) {
         let glade_src = include_str!("grid.glade");
@@ -26,10 +39,7 @@ mod example {
         let button6: Button = builder.get_object("button6").expect("Couldn't get button6");
         let weak_grid = grid.downgrade();
         button6.connect_clicked(move |button| {
-            let grid = match weak_grid.upgrade() {
-                Some(grid) => grid,
-                None => return,
-            };
+            let grid = upgrade_weak!(weak_grid);
             let height = grid.get_cell_height(button);
             let new_height = if height == 2 { 1 } else { 2 };
             grid.set_cell_height(button, new_height);
@@ -37,10 +47,7 @@ mod example {
         let button7: Button = builder.get_object("button7").expect("Couldn't get button7");
         let weak_grid = grid.downgrade();
         button7.connect_clicked(move |button| {
-            let grid = match weak_grid.upgrade() {
-                Some(grid) => grid,
-                None => return,
-            };
+            let grid = upgrade_weak!(weak_grid);
             let left_attach = grid.get_cell_left_attach(button);
             let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
             grid.set_cell_left_attach(button, new_left_attach);

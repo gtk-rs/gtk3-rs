@@ -14,22 +14,18 @@ use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::Builder;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
         }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
 }
 
 pub fn build_ui(application: &gtk::Application) {
@@ -44,7 +40,10 @@ pub fn build_ui(application: &gtk::Application) {
     let text_view: gtk::TextView = builder.get_object("text_view")
                                           .expect("Couldn't get text_view");
 
-    open_button.connect_clicked(clone!(window => move |_| {
+    let window_weak = window.downgrade();
+    open_button.connect_clicked(move |_| {
+        let window = upgrade_weak!(window_weak);
+
         // TODO move this to a impl?
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"), Some(&window), gtk::FileChooserAction::Open);
@@ -64,9 +63,9 @@ pub fn build_ui(application: &gtk::Application) {
         }
 
         file_chooser.destroy();
-    }));
+    });
 
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
@@ -79,7 +78,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

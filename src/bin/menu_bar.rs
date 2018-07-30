@@ -16,22 +16,18 @@ use gtk::{
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
         }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -41,7 +37,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(WindowPosition::Center);
     window.set_size_request(400, 400);
 
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
@@ -95,9 +91,11 @@ fn build_ui(application: &gtk::Application) {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    quit.connect_activate(clone!(window => move |_| {
+    let window_weak = window.downgrade();
+    quit.connect_activate(move |_| {
+        let window = upgrade_weak!(window_weak);
         window.destroy();
-    }));
+    });
 
     // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
     // It isn't available directly through gdk::ModifierType, since it has
@@ -137,7 +135,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

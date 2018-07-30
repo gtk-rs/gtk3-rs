@@ -138,7 +138,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
@@ -165,7 +165,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

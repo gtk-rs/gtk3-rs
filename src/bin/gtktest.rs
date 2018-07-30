@@ -1,5 +1,6 @@
 #![cfg_attr(not(feature = "gtk_3_10"), allow(unused_variables, unused_mut))]
 
+extern crate glib;
 extern crate gdk;
 extern crate gio;
 extern crate gtk;
@@ -36,8 +37,21 @@ mod example {
         );
     }
 
-    fn about_clicked(button: &Button, builder: &Builder) {
-        let dialog: AboutDialog = builder.get_object("dialog").expect("Couldn't get dialog");
+    // upgrade weak reference or return
+    #[macro_export]
+    macro_rules! upgrade_weak {
+        ($x:ident, $r:expr) => {{
+            match $x.upgrade() {
+                Some(o) => o,
+                None => return $r,
+            }
+        }};
+        ($x:ident) => {
+            upgrade_weak!($x, ())
+        };
+    }
+
+    fn about_clicked(button: &Button, dialog: &AboutDialog) {
         if let Some(window) = button.get_toplevel().and_then(|w| w.downcast::<Window>().ok()) {
             dialog.set_transient_for(Some(&window));
         }
@@ -87,9 +101,17 @@ mod example {
 
         let window: ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
         window.set_application(application);
+
+        let window_weak = window.downgrade();
+
         let button: Button = builder.get_object("button").expect("Couldn't get button");
         let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
-        button.connect_clicked(clone!(window, entry => move |_| {
+
+        let entry_weak = entry.downgrade();
+        button.connect_clicked(clone!(window_weak, entry_weak => move |_| {
+            let window = upgrade_weak!(window_weak);
+            let entry = upgrade_weak!(entry_weak);
+
             let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("No", 0), ("Yes", 1), ("Yes!", 2)]);
 
@@ -102,7 +124,9 @@ mod example {
 
         let button_font: Button = builder.get_object("button_font")
                                          .expect("Couldn't get button_font");
-        button_font.connect_clicked(clone!(window => move |_| {
+        button_font.connect_clicked(clone!(window_weak => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
             dialog.run();
@@ -111,7 +135,9 @@ mod example {
 
         let button_recent: Button = builder.get_object("button_recent")
                                            .expect("Couldn't get button_recent");
-        button_recent.connect_clicked(clone!(window => move |_| {
+        button_recent.connect_clicked(clone!(window_weak => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
             dialog.add_buttons(&[
                 ("Ok", ResponseType::Ok.into()),
@@ -124,7 +150,9 @@ mod example {
 
         let file_button: Button = builder.get_object("file_button")
                                          .expect("Couldn't get file_button");
-        file_button.connect_clicked(clone!(window => move |_| {
+        file_button.connect_clicked(clone!(window_weak => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             //entry.set_text("Clicked!");
             let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
                                                 FileChooserAction::Open);
@@ -142,7 +170,9 @@ mod example {
         }));
 
         let app_button: Button = builder.get_object("app_button").expect("Couldn't get app_button");
-        app_button.connect_clicked(clone!(window => move |_| {
+        app_button.connect_clicked(clone!(window_weak => move |_| {
+            let window = upgrade_weak!(window_weak);
+
             //entry.set_text("Clicked!");
             let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DialogFlags::MODAL,
                 "sh");
@@ -152,7 +182,9 @@ mod example {
         }));
 
         let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
-        switch.connect_changed_active(clone!(entry => move |switch| {
+        switch.connect_changed_active(clone!(entry_weak => move |switch| {
+            let entry = upgrade_weak!(entry_weak);
+
             if switch.get_active() {
                 entry.set_text("Switch On");
             } else {
@@ -162,11 +194,14 @@ mod example {
 
         let button_about: Button = builder.get_object("button_about")
                                           .expect("Couldn't get button_about");
+        let dialog: AboutDialog = builder.get_object("dialog").expect("Couldn't get dialog");
         button_about.connect_clicked(move |x| {
-            about_clicked(x, &builder)
+            about_clicked(x, &dialog)
         });
 
-        window.connect_key_press_event(clone!(entry => move |_, key| {
+        window.connect_key_press_event(clone!(entry_weak => move |_, key| {
+            let entry = upgrade_weak!(entry_weak, Inhibit(false));
+
             let keyval = key.get_keyval();
             let keystate = key.get_state();
 
@@ -180,7 +215,7 @@ mod example {
             Inhibit(false)
         }));
 
-        window.connect_delete_event(move |win, _| {
+        window.connect_delete_event(|win, _| {
             win.destroy();
             Inhibit(false)
         });
@@ -193,7 +228,7 @@ mod example {
                                                 gio::ApplicationFlags::empty())
                                            .expect("Initialization failed...");
 
-        application.connect_startup(move |app| {
+        application.connect_startup(|app| {
             build_ui(app);
         });
         application.connect_activate(|_| {});
