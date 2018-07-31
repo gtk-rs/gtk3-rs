@@ -53,7 +53,6 @@ fn build_ui(application: &gtk::Application) {
     let minus_button = Button::new_with_label("-");
     vbox.add(&minus_button);
 
-    // TODO unneeded strong references but no bug
     minus_button.connect_clicked(clone!(counter_label => move |_| {
         let nb = u32::from_str(counter_label.get_text()
                                            .unwrap_or("0".to_owned())
