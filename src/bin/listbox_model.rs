@@ -139,10 +139,10 @@ fn build_ui(application: &gtk::Application) {
             // Activating the entry (enter) will send response 0 to the dialog, which
             // is the response code we used for the Close button. It will close the dialog
             let dialog_weak = dialog.downgrade();
-            entry.connect_activate(clone!(dialog_weak => move |_| {
+            entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
                 dialog.response(0);
-            }));
+            });
             content_area.add(&entry);
 
             let spin_button = gtk::SpinButton::new_with_range(0.0, 100.0, 1.0);
@@ -160,10 +160,10 @@ fn build_ui(application: &gtk::Application) {
         // When a row is activated (select + enter) we simply emit the clicked
         // signal on the corresponding edit button to open the edit dialog
         let edit_button_weak = edit_button.downgrade();
-        box_.connect_activate(clone!(edit_button_weak => move |_| {
+        box_.connect_activate(move |_| {
             let edit_button = upgrade_weak!(edit_button_weak);
             edit_button.emit_clicked();
-        }));
+        });
 
         box_.show_all();
 
@@ -192,10 +192,10 @@ fn build_ui(application: &gtk::Application) {
 
             let entry = gtk::Entry::new();
             let dialog_weak = dialog.downgrade();
-            entry.connect_activate(clone!(dialog_weak => move |_| {
+            entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
                 dialog.response(0);
-            }));
+            });
             content_area.add(&entry);
 
             let spin_button = gtk::SpinButton::new_with_range(0.0, 100.0, 1.0);
