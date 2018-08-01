@@ -14,6 +14,7 @@ use std::slice;
 use translate::*;
 
 glib_wrapper! {
+    #[derive(Debug)]
     pub struct ValueArray(Boxed<ffi::GValueArray>);
 
     match fn {
