@@ -18,6 +18,7 @@ use Value;
 use ToValue;
 
 glib_wrapper! {
+    #[derive(PartialEq, Eq, Debug, Hash)]
     pub struct Closure(Shared<gobject_ffi::GClosure>);
 
     match fn {
