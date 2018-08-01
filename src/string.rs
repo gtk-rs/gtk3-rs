@@ -11,6 +11,7 @@ use std::mem;
 use std::ops;
 use std::ptr;
 use std::slice;
+use std::hash;
 use std::str;
 use translate::*;
 
@@ -97,6 +98,12 @@ impl Default for String {
     }
 }
 
+impl fmt::Debug for String {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.to_string_lossy())
+    }
+}
+
 impl fmt::Display for String {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.to_string_lossy())
@@ -113,6 +120,12 @@ impl PartialEq for String {
 }
 
 impl Eq for String {}
+
+impl hash::Hash for String {
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        hash::Hash::hash_slice(self.as_ref(), state)
+    }
+}
 
 impl convert::AsRef<[u8]> for String {
     fn as_ref(&self) -> &[u8] {
