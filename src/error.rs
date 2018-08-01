@@ -104,6 +104,16 @@ impl error::Error for Error {
     }
 }
 
+impl fmt::Debug for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Error")
+            .field("domain", &self.0.domain)
+            .field("code", &self.0.code)
+            .field("message", &self.message())
+            .finish()
+    }
+}
+
 /// `GLib` error domain.
 ///
 /// This trait is implemented by error enums that represent error domains (types).
