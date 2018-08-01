@@ -6,6 +6,7 @@
 
 use std::ops::{Deref, DerefMut};
 use std::fmt;
+use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use std::mem;
 use std::ptr;
@@ -397,6 +398,20 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
 impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Boxed {{ inner: {:?} }}", self.inner)
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> PartialEq for Boxed<T, MM> {
+    fn eq(&self, other: &Self) -> bool {
+        self.to_glib_none().0 == other.to_glib_none().0
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> Eq for Boxed<T, MM> {}
+
+impl<T, MM: BoxedMemoryManager<T>> Hash for Boxed<T, MM> {
+    fn hash<H>(&self, state: &mut H) where H: Hasher {
+        self.to_glib_none().0.hash(state)
     }
 }
 
