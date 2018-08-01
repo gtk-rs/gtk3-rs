@@ -53,7 +53,7 @@ macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
-        #[derive(Clone, Debug)]
+        #[derive(Clone)]
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
