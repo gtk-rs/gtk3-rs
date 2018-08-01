@@ -309,6 +309,10 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
+        // Always derive Debug/Hash (and below impl PartialEq, Eq) for object types. Due to
+        // inheritance and up/downcasting we must implement these by pointer or otherwise
+        // they would potentially give differeny results for the same object depending on
+        // the type we currently know for it
         #[derive(Clone, Debug, Hash)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
