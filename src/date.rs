@@ -14,6 +14,8 @@ use libc;
 use std::cmp;
 use std::mem;
 use std::ptr;
+use std::fmt;
+use std::hash;
 use translate::*;
 
 glib_wrapper! {
@@ -335,5 +337,23 @@ impl Ord for Date {
     #[inline]
     fn cmp(&self, other: &Self) -> cmp::Ordering {
         self.compare(other).cmp(&0)
+    }
+}
+
+impl fmt::Debug for Date {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Date")
+            .field("year", &self.get_year())
+            .field("month", &self.get_month())
+            .field("day", &self.get_day())
+            .finish()
+    }
+}
+
+impl hash::Hash for Date {
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        self.get_year().hash(state);
+        self.get_month().hash(state);
+        self.get_day().hash(state);
     }
 }
