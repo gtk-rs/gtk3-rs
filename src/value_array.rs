@@ -97,7 +97,7 @@ impl ops::DerefMut for ValueArray {
 
 unsafe extern "C" fn compare_func_trampoline(a: glib_ffi::gconstpointer, b: glib_ffi::gconstpointer, func: glib_ffi::gpointer) -> i32
 {
-    let func = func as *const &mut (FnMut(&Value, &Value) -> Ordering);
+    let func = func as *mut &mut (FnMut(&Value, &Value) -> Ordering);
 
     let a = &*(a as *const Value);
     let b = &*(b as *const Value);
