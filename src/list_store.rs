@@ -54,7 +54,7 @@ impl<O: IsA<ListStore> + IsA<glib::object::Object>> ListStoreExtManual for O {
 
 unsafe extern "C" fn compare_func_trampoline(a: glib_ffi::gconstpointer, b: glib_ffi::gconstpointer, func: glib_ffi::gpointer) -> i32
 {
-    let func = func as *const &mut (FnMut(&Object, &Object) -> Ordering);
+    let func = func as *mut &mut (FnMut(&Object, &Object) -> Ordering);
 
     let a = from_glib_borrow(a as *mut gobject_ffi::GObject);
     let b = from_glib_borrow(b as *mut gobject_ffi::GObject);
