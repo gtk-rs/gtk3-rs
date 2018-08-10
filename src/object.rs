@@ -309,11 +309,11 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
-        // Always derive Debug/Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
+        // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
         // otherwise they would potentially give differeny results for the same object depending on
         // the type we currently know for it
-        #[derive(Clone, Debug, Hash, Ord)]
+        #[derive(Clone, Hash, Ord)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
         #[doc(hidden)]
@@ -582,6 +582,15 @@ macro_rules! glib_object_wrapper {
             fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
                 use $crate::translate::ToGlibPtr;
                 self.0.to_glib_none().0.partial_cmp(&other.to_glib_none().0)
+            }
+        }
+
+        impl ::std::fmt::Debug for $name {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                f.debug_struct(stringify!($name))
+                    .field("inner", &self.0)
+                    .field("type", &<$name as $crate::ObjectExt>::get_type(self))
+                    .finish()
             }
         }
 
