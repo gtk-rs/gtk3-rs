@@ -266,9 +266,15 @@ impl<T> fmt::Debug for AnyBox<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::AnyBox::*;
         match *self {
-            Native(ref b) => write!(f, "Native({:?})", &**b as *const T),
-            ForeignOwned(ptr) => write!(f, "ForeignOwned({:?})", ptr),
-            ForeignBorrowed(ptr) => write!(f, "ForeignBorrowed({:?})", ptr),
+            Native(ref b) => f.debug_tuple("Native")
+                                .field(&(&**b as *const T))
+                                .finish(),
+            ForeignOwned(ptr) => f.debug_tuple("ForeignOwned")
+                                    .field(&ptr)
+                                    .finish(),
+            ForeignBorrowed(ptr) => f.debug_tuple("ForeignBorrowed")
+                                        .field(&ptr)
+                                        .finish(),
         }
     }
 }
@@ -398,7 +404,10 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
 
 impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Boxed {{ inner: {:?} }}", self.inner)
+        f.debug_struct("Boxed")
+            .field("inner", &self.inner)
+            .finish()
+    }
 }
 
 impl<T, MM: BoxedMemoryManager<T>> PartialOrd for Boxed<T, MM> {

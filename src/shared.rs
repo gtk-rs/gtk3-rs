@@ -302,7 +302,10 @@ impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
 
 impl<T, MM: SharedMemoryManager<T>> fmt::Debug for Shared<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Shared {{ inner: {:?}, borrowed: {} }}", self.inner, self.borrowed)
+        f.debug_struct("Shared")
+            .field("inner", &self.inner)
+            .field("borrowed", &self.borrowed)
+            .finish()
     }
 }
 
