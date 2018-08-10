@@ -6,6 +6,7 @@
 
 use std::fmt;
 use std::ptr;
+use std::cmp;
 use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use translate::*;
@@ -302,6 +303,18 @@ impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
 impl<T, MM: SharedMemoryManager<T>> fmt::Debug for Shared<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Shared {{ inner: {:?}, borrowed: {} }}", self.inner, self.borrowed)
+    }
+}
+
+impl<T, MM: SharedMemoryManager<T>> PartialOrd for Shared<T, MM> {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        self.inner.partial_cmp(&other.inner)
+    }
+}
+
+impl<T, MM: SharedMemoryManager<T>> Ord for Shared<T, MM> {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
+        self.inner.cmp(&other.inner)
     }
 }
 
