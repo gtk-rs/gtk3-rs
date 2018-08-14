@@ -22,6 +22,13 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
     fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_region_t, &'a Region> {
         Stash(self.0, *self)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut ffi::cairo_region_t {
+        unsafe {
+            ffi::cairo_region_reference(self.0)
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]

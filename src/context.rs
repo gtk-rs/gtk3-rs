@@ -51,6 +51,13 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
     fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_t, &'a Context> {
         Stash(self.0, *self)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut ffi::cairo_t {
+        unsafe {
+            ffi::cairo_reference(self.0)
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]
