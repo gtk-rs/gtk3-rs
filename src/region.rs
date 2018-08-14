@@ -36,6 +36,8 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
 impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
     type Storage = &'a mut Self;
 
+    // FIXME: This is unsafe: regions are reference counted so we could get multiple mutable
+    // references here
     #[inline]
     fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_region_t, Self> {
         StashMut(self.0, self)
