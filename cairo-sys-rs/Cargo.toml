@@ -20,10 +20,12 @@ v1_14 = ["v1_12"]
 xlib = ["x11"]
 png = []
 xcb = []
+use_glib = ["glib-sys"]
 
 [dependencies]
 x11 = { version = "2.16", features = ["xlib"], optional = true }
 libc = "0.2"
+glib-sys = { git = "https://github.com/gtk-rs/sys", optional = true }
 
 [target.'cfg(windows)'.dependencies]
 winapi = { version = "0.3.2", features = ["windef"] }
