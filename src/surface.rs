@@ -113,6 +113,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
     }
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Surface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
+
 impl AsRef<Surface> for Surface {
     fn as_ref(&self) -> &Surface {
         self

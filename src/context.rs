@@ -84,6 +84,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
     }
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Context, cairo_t, ffi::gobject::cairo_gobject_context_get_type);
+
 impl AsRef<Context> for Context {
     fn as_ref(&self) -> &Context {
         self

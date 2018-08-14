@@ -112,6 +112,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PDFSurface {
     }
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(PDFSurface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
+
 #[cfg(test)]
 mod tests {
     use super::*;

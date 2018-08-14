@@ -7,6 +7,45 @@ use std::ffi::CStr;
 use std::i32;
 use std::u32;
 
+#[cfg(feature = "use_glib")]
+use glib;
+#[cfg(feature = "use_glib")]
+use glib::translate::*;
+#[cfg(feature = "use_glib")]
+use gobject_ffi;
+#[cfg(feature = "use_glib")]
+use std::mem;
+
+// Helper macro for our GValue related trait impls
+#[cfg(feature = "use_glib")]
+macro_rules! gvalue_impl {
+    ($name:ty, $get_type:expr) => {
+        impl glib::types::StaticType for $name {
+            fn static_type() -> glib::Type {
+                unsafe { from_glib($get_type()) }
+            }
+        }
+
+        impl<'a> glib::value::FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(value: &glib::value::Value) -> Option<Self> {
+                Some(glib::value::FromValue::from_value(value))
+            }
+        }
+
+        impl<'a> glib::value::FromValue<'a> for $name {
+            unsafe fn from_value(value: &glib::value::Value) -> Self {
+                mem::transmute::<i32, $name>(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+            }
+        }
+
+        impl glib::value::SetValue for $name {
+            unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
+                gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, *this as i32)
+            }
+        }
+    }
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum Status {
@@ -77,6 +116,9 @@ impl Status {
     }
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Status, ::gobject::cairo_gobject_status_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum Antialias {
@@ -93,12 +135,18 @@ pub enum Antialias {
     Best
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Antialias, ::gobject::cairo_gobject_antialias_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum FillRule {
     Winding,
     EvenOdd
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FillRule, ::gobject::cairo_gobject_fill_rule_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -108,6 +156,9 @@ pub enum LineCap {
     Square
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(LineCap, ::gobject::cairo_gobject_line_cap_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum LineJoin {
@@ -115,6 +166,9 @@ pub enum LineJoin {
     Round,
     Bevel
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(LineJoin, ::gobject::cairo_gobject_line_join_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -154,6 +208,9 @@ pub enum Operator {
     HslLuminosity
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Operator, ::gobject::cairo_gobject_operator_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum PathDataType {
@@ -163,6 +220,9 @@ pub enum PathDataType {
     ClosePath
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(PathDataType, ::gobject::cairo_gobject_path_data_type_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum Content {
@@ -170,6 +230,9 @@ pub enum Content {
     Alpha      = 0x2000,
     ColorAlpha = 0x3000
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Content, ::gobject::cairo_gobject_content_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -179,6 +242,9 @@ pub enum Extend {
     Reflect,
     Pad
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Extend, ::gobject::cairo_gobject_extend_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -190,6 +256,9 @@ pub enum Filter {
     Bilinear,
     Gaussian
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Filter, ::gobject::cairo_gobject_filter_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -204,6 +273,9 @@ pub enum PatternType {
     RasterSource
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(PatternType, ::gobject::cairo_gobject_pattern_type_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum FontSlant {
@@ -212,6 +284,9 @@ pub enum FontSlant {
     Oblique
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontSlant, ::gobject::cairo_gobject_font_slant_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum FontWeight {
@@ -219,12 +294,18 @@ pub enum FontWeight {
     Bold
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontWeight, ::gobject::cairo_gobject_font_weight_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum TextClusterFlags {
     None     = 0x00000000,
     Backward = 0x00000001
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(TextClusterFlags, ::gobject::cairo_gobject_text_cluster_flags_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -236,6 +317,9 @@ pub enum FontType {
     FontTypeUser
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontType, ::gobject::cairo_gobject_font_type_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum SubpixelOrder {
@@ -245,6 +329,9 @@ pub enum SubpixelOrder {
     Vrgb,
     Vbgr
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(SubpixelOrder, ::gobject::cairo_gobject_subpixel_order_get_type);
 
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
@@ -256,6 +343,9 @@ pub enum HintStyle {
     Full
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(HintStyle, ::gobject::cairo_gobject_hint_style_get_type);
+
 #[repr(C)]
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum HintMetrics {
@@ -263,6 +353,9 @@ pub enum HintMetrics {
     Off,
     On
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(HintMetrics, ::gobject::cairo_gobject_hint_metrics_get_type);
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -294,6 +387,9 @@ pub enum SurfaceType {
     Cogl,
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(SurfaceType, ::gobject::cairo_gobject_surface_type_get_type);
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Format {
@@ -305,6 +401,9 @@ pub enum Format {
     Rgb16_565 = 4,
     Rgb30 = 5,
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Format, ::gobject::cairo_gobject_format_get_type);
 
 impl Format {
     pub fn stride_for_width(self, width: u32) -> Result<i32, ()> {
@@ -327,6 +426,9 @@ pub enum RegionOverlap {
     Out,
     Part,
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(RegionOverlap, ::gobject::cairo_gobject_region_overlap_get_type);
 
 #[cfg(test)]
 mod tests {

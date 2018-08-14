@@ -2,6 +2,8 @@
 use glib::translate::*;
 #[cfg(feature = "use_glib")]
 use glib_ffi;
+#[cfg(feature = "use_glib")]
+use gobject_ffi;
 use std::ptr;
 #[cfg(feature = "use_glib")]
 use std::mem;
@@ -32,6 +34,7 @@ glib_wrapper! {
     match fn {
         ref => |ptr| ffi::cairo_scaled_font_reference(ptr),
         unref => |ptr| ffi::cairo_scaled_font_destroy(ptr),
+        get_type => || ffi::gobject::cairo_gobject_scaled_font_get_type(),
     }
 }
 

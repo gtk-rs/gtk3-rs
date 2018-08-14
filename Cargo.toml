@@ -21,7 +21,7 @@ name = "cairo"
 [features]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 png = ["cairo-sys-rs/png"]
-use_glib = ["glib", "glib-sys"]
+use_glib = ["glib", "glib-sys", "gobject-sys", "cairo-sys-rs/use_glib"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 v1_12 = ["cairo-sys-rs/v1_12"]
 default = ["use_glib"]
@@ -41,6 +41,10 @@ optional = true
 git = "https://github.com/gtk-rs/glib"
 
 [dependencies.glib-sys]
+optional = true
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gobject-sys]
 optional = true
 git = "https://github.com/gtk-rs/sys"
 

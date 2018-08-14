@@ -71,6 +71,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_region_t> for Region {
     }
 }
 
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Region, ffi::cairo_region_t, ffi::gobject::cairo_gobject_region_get_type);
+
 impl AsRef<Region> for Region {
     fn as_ref(&self) -> &Region {
         self
