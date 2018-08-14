@@ -9,21 +9,19 @@ use std::process;
 fn main() {
     if cfg!(feature = "use_glib") {
         // This include cairo linker flags
-        if let Err(s) = find("cairo-gobject") {
+        if let Err(s) = find("cairo-gobject", &["cairo", "cairo-gobject"]) {
             let _ = writeln!(io::stderr(), "{}", s);
             process::exit(1);
         }
     } else {
-        if let Err(s) = find("cairo") {
+        if let Err(s) = find("cairo", &["cairo"]) {
             let _ = writeln!(io::stderr(), "{}", s);
             process::exit(1);
         }
     }
 }
 
-fn find(name: &str) -> Result<(), Error> {
-    let package_name = name;
-    let shared_libs = [name];
+fn find(package_name: &str, shared_libs: &[&str]) -> Result<(), Error> {
     let version = if cfg!(feature = "1.14") {
         "1.14"
     } else if cfg!(feature = "1.12") {
