@@ -22,6 +22,13 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
     fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_region_t, &'a Region> {
         Stash(self.0, *self)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut ffi::cairo_region_t {
+        unsafe {
+            ffi::cairo_region_reference(self.0)
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]
@@ -29,6 +36,8 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_region_t> for &'a Region {
 impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_region_t> for Region {
     type Storage = &'a mut Self;
 
+    // FIXME: This is unsafe: regions are reference counted so we could get multiple mutable
+    // references here
     #[inline]
     fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_region_t, Self> {
         StashMut(self.0, self)
@@ -61,6 +70,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_region_t> for Region {
         Self::from_raw_full(ptr)
     }
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Region, ffi::cairo_region_t, ffi::gobject::cairo_gobject_region_get_type);
 
 impl AsRef<Region> for Region {
     fn as_ref(&self) -> &Region {

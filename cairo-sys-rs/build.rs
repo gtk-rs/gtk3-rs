@@ -7,15 +7,21 @@ use std::io::prelude::*;
 use std::process;
 
 fn main() {
-    if let Err(s) = find() {
-        let _ = writeln!(io::stderr(), "{}", s);
-        process::exit(1);
+    if cfg!(feature = "use_glib") {
+        // This include cairo linker flags
+        if let Err(s) = find("cairo-gobject", &["cairo", "cairo-gobject"]) {
+            let _ = writeln!(io::stderr(), "{}", s);
+            process::exit(1);
+        }
+    } else {
+        if let Err(s) = find("cairo", &["cairo"]) {
+            let _ = writeln!(io::stderr(), "{}", s);
+            process::exit(1);
+        }
     }
 }
 
-fn find() -> Result<(), Error> {
-    let package_name = "cairo";
-    let shared_libs = ["cairo"];
+fn find(package_name: &str, shared_libs: &[&str]) -> Result<(), Error> {
     let version = if cfg!(feature = "1.14") {
         "1.14"
     } else if cfg!(feature = "1.12") {

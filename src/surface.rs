@@ -80,6 +80,13 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Surface {
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
         Stash(self.to_raw_none(), self)
     }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut ffi::cairo_surface_t {
+        unsafe {
+            ffi::cairo_surface_reference(self.to_raw_none())
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]
@@ -105,6 +112,9 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
         Self::from_raw_full(ptr)
     }
 }
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Surface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
 
 impl AsRef<Surface> for Surface {
     fn as_ref(&self) -> &Surface {

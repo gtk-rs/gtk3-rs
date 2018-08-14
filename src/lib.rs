@@ -13,6 +13,53 @@ extern crate glib;
 #[cfg(feature = "use_glib")]
 extern crate glib_sys as glib_ffi;
 
+#[cfg(feature = "use_glib")]
+extern crate gobject_sys as gobject_ffi;
+
+
+// Helper macro for our GValue related trait impls
+#[cfg(feature = "use_glib")]
+macro_rules! gvalue_impl {
+    ($name:ty, $ffi_name:ty, $get_type:expr) => {
+        use glib;
+        #[allow(unused_imports)]
+        use glib::translate::*;
+        use glib_ffi;
+        use gobject_ffi;
+        use std::ptr;
+
+        impl glib::types::StaticType for $name {
+            fn static_type() -> glib::types::Type {
+                unsafe { from_glib($get_type()) }
+            }
+        }
+
+        impl<'a> glib::value::FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(v: &'a glib::value::Value) -> Option<Self> {
+                let ptr = gobject_ffi::g_value_get_boxed(v.to_glib_none().0);
+                assert!(!ptr.is_null());
+                from_glib_none(ptr as *mut $ffi_name)
+            }
+        }
+
+        impl glib::value::SetValue for $name {
+            unsafe fn set_value(v: &mut glib::value::Value, s: &Self) {
+                gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, s.to_glib_none().0 as glib_ffi::gpointer);
+            }
+        }
+
+        impl glib::value::SetValueOptional for $name {
+            unsafe fn set_value_optional(v: &mut glib::value::Value, s: Option<&Self>) {
+                if let Some(s) = s {
+                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, s.to_glib_none().0 as glib_ffi::gpointer);
+                } else {
+                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ptr::null_mut());
+                }
+            }
+        }
+    }
+}
+
 pub use ffi::enums;
 pub use ffi::cairo_rectangle_t as Rectangle;
 

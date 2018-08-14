@@ -3,6 +3,8 @@ use glib::translate::*;
 #[cfg(feature = "use_glib")]
 use glib_ffi;
 #[cfg(feature = "use_glib")]
+use gobject_ffi;
+#[cfg(feature = "use_glib")]
 use std::ptr;
 #[cfg(feature = "use_glib")]
 use std::mem;
@@ -28,6 +30,7 @@ glib_wrapper! {
             ptr
         },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
+        get_type => || ffi::gobject::cairo_gobject_font_options_get_type(),
     }
 }
 
