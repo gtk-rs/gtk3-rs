@@ -43,17 +43,22 @@ impl ImageSurface {
         unsafe { Self::from_raw_full(ffi::cairo_image_surface_create(format, width, height)) }
     }
 
-    pub fn create_for_data<F>(data: Box<[u8]>, free: F, format: Format, width: i32, height: i32,
-                              stride: i32) -> Result<ImageSurface, Status>
-    where F: FnOnce(Box<[u8]>) + 'static {
-        assert!(data.len() >= (height * stride) as usize);
+    pub fn create_for_data<D: AsMut<[u8]> + Send + 'static>(data: D, format: Format, width: i32, height: i32,
+                              stride: i32) -> Result<ImageSurface, Status> {
+        let mut data: Box<AsMut<[u8]> + Send + 'static> = Box::new(data);
+
+        let (ptr, len) = {
+            let mut data = (*data).as_mut();
+
+            (data.as_mut_ptr(), data.len())
+        };
+
+        assert!(len >= (height * stride) as usize);
         unsafe {
-            let mut data = Box::new(AsyncBorrow::new(data, free));
-            let ptr = (*data).as_mut().as_mut_ptr();
             let r = ImageSurface::from_raw_full(
                 ffi::cairo_image_surface_create_for_data(ptr, format, width, height, stride));
             match r {
-                Ok(surface) => surface.set_user_data(&IMAGE_SURFACE_DATA, data).map (|_| surface),
+                Ok(surface) => surface.set_user_data(&IMAGE_SURFACE_DATA, Box::new(data)).map (|_| surface),
                 Err(status) => Err(status)
             }
         }
@@ -206,31 +211,6 @@ impl<'a> DerefMut for ImageSurfaceData<'a> {
     }
 }
 
-struct AsyncBorrow<T, F: FnOnce(T) + 'static> {
-    data: Option<T>,
-    free: Option<F>,
-}
-
-impl<T, F: FnOnce(T) + 'static> AsyncBorrow<T, F> {
-    fn new(data: T, free: F) -> Self {
-        AsyncBorrow { data: Some(data), free: Some(free) }
-    }
-}
-
-impl<T, F: FnOnce(T) + 'static> AsMut<T> for AsyncBorrow<T, F> {
-    fn as_mut(&mut self) -> &mut T {
-        self.data.as_mut().unwrap()
-    }
-}
-
-impl<T, F: FnOnce(T) + 'static> Drop for AsyncBorrow<T, F> {
-    fn drop(&mut self) {
-        if let (Some(x), Some(f)) = (self.data.take(), self.free.take()) {
-            f(x);
-        }
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -243,8 +223,7 @@ mod tests {
 
     #[test]
     fn create_for_data_with_invalid_stride_yields_error() {
-        let result = ImageSurface::create_for_data(Box::new([0u8; 10]),
-                                                   |_| (),
+        let result = ImageSurface::create_for_data(vec![0u8; 10],
                                                    Format::ARgb32,
                                                    1, 2,
                                                    5); // unaligned stride
@@ -256,8 +235,7 @@ mod tests {
         let result = ImageSurface::create(Format::ARgb32, 10, 10);
         assert! (result.is_ok());
 
-        let result = ImageSurface::create_for_data(Box::new([0u8; 40 * 10]),
-                                                   |_| (),
+        let result = ImageSurface::create_for_data(vec![0u8; 40 * 10],
                                                    Format::ARgb32,
                                                    10, 10, 40);
         assert! (result.is_ok());
