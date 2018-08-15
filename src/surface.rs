@@ -162,8 +162,12 @@ pub trait SurfacePriv {
 
 impl<O: AsRef<Surface>> SurfacePriv for O {
     unsafe fn set_user_data<K, T>(&self, key: &K, data: Box<T>) -> Result<(), Status> {
+        let ptr: *mut T = Box::into_raw(data);
+
+        assert_eq!(mem::size_of::<*mut c_void>(), mem::size_of_val(&ptr));
+
         let status = ffi::cairo_surface_set_user_data(self.as_ref().0, key as *const _ as *mut _,
-            mem::transmute(data), Some(unbox::<T>));
+            ptr as *mut c_void, Some(unbox::<T>));
         match status {
             Status::Success => Ok(()),
             x => Err(x),
@@ -172,6 +176,6 @@ impl<O: AsRef<Surface>> SurfacePriv for O {
 }
 
 unsafe extern "C" fn unbox<T>(data: *mut c_void) {
-    let data: Box<T> = mem::transmute(data);
+    let data: Box<T> = Box::from_raw(data as *mut T);
     drop(data);
 }
