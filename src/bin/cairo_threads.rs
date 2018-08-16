@@ -129,7 +129,7 @@ fn build_ui(application: &gtk::Application) {
     gtk::timeout_add(100, move || {
         while let Ok((thread_num, mut image)) = ready_rx.try_recv() {
             let &mut (ref mut images, ref origins, ref workers) = &mut *cell.borrow_mut();
-            let tx = workers[thread_num].clone();
+            let tx = &workers[thread_num];
             mem::swap(&mut images[thread_num], &mut image);
             let _ = tx.send(image);
             area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, width, height);
