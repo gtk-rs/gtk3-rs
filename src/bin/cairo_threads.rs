@@ -44,18 +44,17 @@ macro_rules! clone {
 // | 2 | 3 |
 // +---+---+
 //
-// Each worker thread waits for a buffer (Box<[u8]>) to render into, wraps
-// it into ImageSurface, sleeps for a while, does the drawing, then sends the
-// underlying buffer back and waits for the next one.
+// Each worker thread waits for an image (cairo::ImageSurface) to render into, sleeps for a while,
+// does the drawing, then sends the image back and waits for the next one.
 //
 // The GUI thread holds an ImageSurface per image part at all times, these
 // surfaces are painted on a DrawingArea in its 'draw' signal handler. This
-// thread periodically checks if any worker has sent a freshly rendered buffer.
+// thread periodically checks if any worker has sent a freshly rendered image.
 // Upon receipt it's wrapped in ImageSurface and swapped with the previously
-// held surface, whose buffer is sent to the worker thread again. Then the
+// held surface, whose image is sent to the worker thread again. Then the
 // appropriate part of the DrawingArea is invalidated prompting a redraw.
 //
-// The two buffers per thread are allocated and initialized once and sent back
+// The two images per thread are allocated and initialized once and sent back
 // and forth repeatedly.
 
 fn build_ui(application: &gtk::Application) {
@@ -123,10 +122,6 @@ fn build_ui(application: &gtk::Application) {
         let (ref images, ref origins, _) = *cell.borrow();
         for (image, origin) in images.iter().zip(origins.iter()) {
             draw_image_if_dirty(&cr, image, *origin, (width, height));
-            // if we don't reset the source, the context may hold on to
-            // the surface indefinitely, the buffer will be stuck there
-            // and the worker thread will starve
-            cr.set_source_rgb(0., 0., 0.);
         }
         Inhibit(false)
     }));
