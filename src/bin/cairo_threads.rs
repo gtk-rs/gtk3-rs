@@ -73,7 +73,7 @@ fn build_ui(application: &gtk::Application) {
     let height = 200;
     area.set_size_request(width * 2, height * 2);
 
-    let (initial_buf, stride) = draw_initial(format, width, height);
+    let initial_image = draw_initial(format, width, height);
     let (ready_tx, ready_rx) = mpsc::channel();
 
     let mut images = Vec::new();
@@ -82,15 +82,13 @@ fn build_ui(application: &gtk::Application) {
 
     for thread_num in 0..4 {
         let (tx, rx) = mpsc::channel();
-        // allocate two buffers and copy the initial pattern into them
-        let buf0 = initial_buf.clone();
-        let buf1 = initial_buf.clone();
-        // wrap the first one in a surface and set it up to be sent to the
-        // worker when the surface is destroyed
-        images.push(ImageSurface::create_for_data(buf0, clone!(tx => move |b| { let _ = tx.send(b); }),
-            format, width, height, stride).expect("Can't create surface"));
+        // copy the initial image in two images for the workers
+        let image0 = duplicate_image(&initial_image);
+        let image1 = duplicate_image(&initial_image);
+        // store the first one in our vec
+        images.push(image0);
         // send the second one immediately
-        let _ = tx.send(buf1);
+        let _ = tx.send(image1);
         origins.push(match thread_num {
             0 => (0, 0),
             1 => (width, 0),
@@ -106,16 +104,13 @@ fn build_ui(application: &gtk::Application) {
         // spawn the worker thread
         thread::spawn(clone!(ready_tx => move || {
             let mut n = 0;
-            for buf in rx.iter() {
+            for image in rx.iter() {
                 n = (n + 1) % 0x10000;
-                // create the surface and send the buffer back when it's destroyed
-                let image = ImageSurface::create_for_data(buf,
-                    clone!(ready_tx => move |b| { let _ = ready_tx.send((thread_num, b)); }),
-                    format, width, height, stride).expect("Can't create surface");
                 let cr = Context::new(&image);
                 // draw an arc with a weirdly calculated radius
                 draw_slow(&cr, delay, x, y, 1.2_f64.powi(((n as i32) << thread_num) % 32));
                 image.flush();
+                let _ = ready_tx.send((thread_num, image));
             }
         }));
     }
@@ -137,12 +132,11 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     gtk::timeout_add(100, move || {
-        while let Ok((thread_num, buf)) = ready_rx.try_recv() {
+        while let Ok((thread_num, mut image)) = ready_rx.try_recv() {
             let &mut (ref mut images, ref origins, ref workers) = &mut *cell.borrow_mut();
             let tx = workers[thread_num].clone();
-            let mut image = ImageSurface::create_for_data(buf, move |b| { let _ = tx.send(b); },
-                format, width, height, stride).expect("Can't create surface");
             mem::swap(&mut images[thread_num], &mut image);
+            let _ = tx.send(image);
             area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, width, height);
         }
         Continue(true)
@@ -164,17 +158,16 @@ fn main() {
     application.run(&args().collect::<Vec<_>>());
 }
 
-fn draw_initial(format: Format, width: i32, height: i32) -> (Box<[u8]>, i32) {
-    let mut image = ImageSurface::create(format, width, height).expect("Can't create surface");
+fn draw_initial(format: Format, width: i32, height: i32) -> ImageSurface {
+    let image = ImageSurface::create(format, width, height).expect("Can't create surface");
     {
         let cr = Context::new(&image);
         cr.set_source_rgb(0., 1., 0.);
         cr.paint();
         // Destroying the context releases its reference to `image`.
     }
-    // We have a unique reference to `image` again.
-    let buf = image.get_data().expect("Couldn't get data from image").to_vec();
-    (buf.into_boxed_slice(), image.get_stride())
+    // We have a unique reference to `image` again and return it
+    image
 }
 
 fn draw_slow(cr: &Context, delay: Duration, x: f64, y: f64, radius: f64) {
@@ -198,4 +191,15 @@ fn draw_image_if_dirty(cr: &Context, image: &ImageSurface, origin: (i32, i32),
     }
     cr.set_source_surface(image, x, y);
     cr.paint();
+}
+
+fn duplicate_image(image: &ImageSurface) -> ImageSurface {
+    let image_dup = ImageSurface::create(image.get_format(), image.get_width(), image.get_height()).expect("Can't create surface");
+    {
+        let cr = Context::new(&image_dup);
+        cr.set_source_surface(image, 0.0, 0.0);
+        cr.paint();
+    }
+
+    image_dup
 }
