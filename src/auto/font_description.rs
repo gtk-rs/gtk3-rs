@@ -13,10 +13,12 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::fmt;
+use std::hash;
 use std::mem;
 use std::ptr;
 
 glib_wrapper! {
+    #[derive(Debug, PartialOrd, Ord)]
     pub struct FontDescription(Boxed<ffi::PangoFontDescription>);
 
     match fn {
@@ -101,7 +103,7 @@ impl FontDescription {
         }
     }
 
-    pub fn hash(&self) -> u32 {
+    fn hash(&self) -> u32 {
         unsafe {
             ffi::pango_font_description_hash(self.to_glib_none().0)
         }
@@ -207,5 +209,12 @@ impl fmt::Display for FontDescription {
     #[inline]
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.to_string())
+    }
+}
+
+impl hash::Hash for FontDescription {
+    #[inline]
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        hash::Hash::hash(&self.hash(), state)
     }
 }

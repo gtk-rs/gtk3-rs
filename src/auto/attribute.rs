@@ -10,6 +10,7 @@ use std::mem;
 use std::ptr;
 
 glib_wrapper! {
+    #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Attribute(Boxed<ffi::PangoAttribute>);
 
     match fn {

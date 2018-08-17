@@ -12,7 +12,8 @@ use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Alignment {
     Left,
     Center,
@@ -71,7 +72,8 @@ impl SetValue for Alignment {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum AttrType {
     Invalid,
     Language,
@@ -199,7 +201,8 @@ impl SetValue for AttrType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum BidiType {
     L,
     Lre,
@@ -306,7 +309,8 @@ impl SetValue for BidiType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum CoverageLevel {
     None,
     Fallback,
@@ -368,7 +372,8 @@ impl SetValue for CoverageLevel {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Direction {
     Ltr,
     Rtl,
@@ -439,7 +444,8 @@ impl SetValue for Direction {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum EllipsizeMode {
     None,
     Start,
@@ -501,7 +507,8 @@ impl SetValue for EllipsizeMode {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Gravity {
     South,
     East,
@@ -566,7 +573,8 @@ impl SetValue for Gravity {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum GravityHint {
     Natural,
     Strong,
@@ -625,7 +633,8 @@ impl SetValue for GravityHint {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum RenderPart {
     Foreground,
     Background,
@@ -687,7 +696,8 @@ impl SetValue for RenderPart {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Script {
     InvalidCode,
     Common,
@@ -1091,7 +1101,8 @@ impl SetValue for Script {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Stretch {
     UltraCondensed,
     ExtraCondensed,
@@ -1168,7 +1179,8 @@ impl SetValue for Stretch {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Style {
     Normal,
     Oblique,
@@ -1227,7 +1239,8 @@ impl SetValue for Style {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TabAlign {
     Left,
     #[doc(hidden)]
@@ -1280,7 +1293,8 @@ impl SetValue for TabAlign {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Underline {
     None,
     Single,
@@ -1345,7 +1359,8 @@ impl SetValue for Underline {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Variant {
     Normal,
     SmallCaps,
@@ -1401,7 +1416,8 @@ impl SetValue for Variant {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Weight {
     Thin,
     Ultralight,
@@ -1487,7 +1503,8 @@ impl SetValue for Weight {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum WrapMode {
     Word,
     Char,
