@@ -11,7 +11,9 @@ use std::mem;
 use std::ops;
 use std::ptr;
 use std::slice;
+use std::hash;
 use std::str;
+use std::cmp;
 use translate::*;
 
 glib_wrapper! {
@@ -39,12 +41,6 @@ impl String {
                     val.to_glib_none().0, 
                     val.len() as isize); }
         self
-    }
-
-    pub fn hash(&self) -> u32 {
-        unsafe {
-            glib_ffi::g_string_hash(self.to_glib_none().0)
-        }
     }
 
     pub fn insert(&mut self, pos: isize, val: &str) -> &mut Self {
@@ -97,6 +93,12 @@ impl Default for String {
     }
 }
 
+impl fmt::Debug for String {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.to_string_lossy())
+    }
+}
+
 impl fmt::Display for String {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.to_string_lossy())
@@ -113,6 +115,24 @@ impl PartialEq for String {
 }
 
 impl Eq for String {}
+
+impl cmp::PartialOrd for String {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl cmp::Ord for String {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
+        self.as_ref().cmp(other.as_ref())
+    }
+}
+
+impl hash::Hash for String {
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        hash::Hash::hash_slice(self.as_ref(), state)
+    }
+}
 
 impl convert::AsRef<[u8]> for String {
     fn as_ref(&self) -> &[u8] {

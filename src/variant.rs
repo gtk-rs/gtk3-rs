@@ -43,7 +43,7 @@ use ffi as glib_ffi;
 use gobject_ffi;
 use translate::*;
 use std::borrow::Cow;
-use std::cmp::{PartialEq, Eq};
+use std::cmp::{PartialEq, Eq, PartialOrd, Ordering};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::slice;
@@ -134,6 +134,30 @@ impl PartialEq for Variant {
 }
 
 impl Eq for Variant { }
+
+impl PartialOrd for Variant {
+    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+        unsafe {
+            if glib_ffi::g_variant_classify(self.to_glib_none().0) !=
+               glib_ffi::g_variant_classify(other.to_glib_none().0) {
+                return None;
+            }
+
+            if glib_ffi::g_variant_is_container(self.to_glib_none().0) != glib_ffi::GFALSE {
+                return None;
+            }
+
+            let res = glib_ffi::g_variant_compare(self.to_glib_none().0 as *const _, other.to_glib_none().0 as *const _);
+            if res < 0 {
+                Some(Ordering::Less)
+            } else if res > 0 {
+                Some(Ordering::Equal)
+            } else {
+                Some(Ordering::Greater)
+            }
+        }
+    }
+}
 
 impl Hash for Variant {
     fn hash<H: Hasher>(&self, state: &mut H) {

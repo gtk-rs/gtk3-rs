@@ -17,6 +17,7 @@ use gobject_ffi;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
+    #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Error(Boxed<glib_ffi::GError>);
 
     match fn {
@@ -94,13 +95,23 @@ impl Error {
 
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.message())
+        f.write_str(self.message())
     }
 }
 
 impl error::Error for Error {
     fn description(&self) -> &str {
         self.message()
+    }
+}
+
+impl fmt::Debug for Error {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Error")
+            .field("domain", &self.0.domain)
+            .field("code", &self.0.code)
+            .field("message", &self.message())
+            .finish()
     }
 }
 

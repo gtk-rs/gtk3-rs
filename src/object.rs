@@ -295,7 +295,7 @@ pub use gobject_ffi::GObjectClass;
 
 glib_wrapper! {
     #[doc(hidden)]
-    #[derive(Debug, PartialEq, Eq, Hash)]
+    #[derive(Debug, Ord, PartialOrd, PartialEq, Eq, Hash)]
     pub struct ObjectRef(Shared<GObject>);
 
     match fn {
@@ -309,7 +309,11 @@ glib_wrapper! {
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
-        #[derive(Clone, Debug, Hash)]
+        // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
+        // types. Due to inheritance and up/downcasting we must implement these by pointer or
+        // otherwise they would potentially give differeny results for the same object depending on
+        // the type we currently know for it
+        #[derive(Clone, Hash, Ord)]
         pub struct $name($crate::object::ObjectRef, ::std::marker::PhantomData<$ffi_name>);
 
         #[doc(hidden)]
@@ -571,6 +575,25 @@ macro_rules! glib_object_wrapper {
             }
         }
 
+        impl ::std::cmp::Eq for $name { }
+
+        impl<T: $crate::object::IsA<$crate::object::Object>> ::std::cmp::PartialOrd<T> for $name {
+            #[inline]
+            fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
+                use $crate::translate::ToGlibPtr;
+                self.0.to_glib_none().0.partial_cmp(&other.to_glib_none().0)
+            }
+        }
+
+        impl ::std::fmt::Debug for $name {
+            fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+                f.debug_struct(stringify!($name))
+                    .field("inner", &self.0)
+                    .field("type", &<$name as $crate::ObjectExt>::get_type(self))
+                    .finish()
+            }
+        }
+
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
@@ -594,8 +617,6 @@ macro_rules! glib_object_wrapper {
                 gobject_ffi::g_value_set_object(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut gobject_ffi::GObject)
             }
         }
-
-        impl ::std::cmp::Eq for $name { }
     };
 
     (@munch_impls $name:ident, ) => { };

@@ -6,6 +6,8 @@
 
 use std::ops::{Deref, DerefMut};
 use std::fmt;
+use std::cmp;
+use std::hash::{Hash, Hasher};
 use std::marker::PhantomData;
 use std::mem;
 use std::ptr;
@@ -52,7 +54,7 @@ macro_rules! glib_boxed_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr,
      @free $free_arg:ident $free_expr:expr) => {
         $(#[$attr])*
-        #[derive(Clone, Debug)]
+        #[derive(Clone)]
         pub struct $name($crate::boxed::Boxed<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
@@ -264,9 +266,15 @@ impl<T> fmt::Debug for AnyBox<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::AnyBox::*;
         match *self {
-            Native(ref b) => write!(f, "Native({:?})", &**b as *const T),
-            ForeignOwned(ptr) => write!(f, "ForeignOwned({:?})", ptr),
-            ForeignBorrowed(ptr) => write!(f, "ForeignBorrowed({:?})", ptr),
+            Native(ref b) => f.debug_tuple("Native")
+                                .field(&(&**b as *const T))
+                                .finish(),
+            ForeignOwned(ptr) => f.debug_tuple("ForeignOwned")
+                                    .field(&ptr)
+                                    .finish(),
+            ForeignBorrowed(ptr) => f.debug_tuple("ForeignBorrowed")
+                                        .field(&ptr)
+                                        .finish(),
         }
     }
 }
@@ -396,7 +404,35 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
 
 impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Boxed {{ inner: {:?} }}", self.inner)
+        f.debug_struct("Boxed")
+            .field("inner", &self.inner)
+            .finish()
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> PartialOrd for Boxed<T, MM> {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        self.to_glib_none().0.partial_cmp(&other.to_glib_none().0)
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> Ord for Boxed<T, MM> {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
+        self.to_glib_none().0.cmp(&other.to_glib_none().0)
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> PartialEq for Boxed<T, MM> {
+    fn eq(&self, other: &Self) -> bool {
+        self.to_glib_none().0 == other.to_glib_none().0
+    }
+}
+
+impl<T, MM: BoxedMemoryManager<T>> Eq for Boxed<T, MM> {}
+
+impl<T, MM: BoxedMemoryManager<T>> Hash for Boxed<T, MM> {
+    fn hash<H>(&self, state: &mut H) where H: Hasher {
+        self.to_glib_none().0.hash(state)
     }
 }
 
