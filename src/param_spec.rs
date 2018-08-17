@@ -16,7 +16,7 @@ use translate::*;
 use ParamFlags;
 
 glib_wrapper! {
-    #[derive(Debug, PartialEq, Eq, Hash)]
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ParamSpec(Shared<ffi::GParamSpec>);
 
     match fn {

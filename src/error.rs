@@ -17,6 +17,7 @@ use gobject_ffi;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
+    #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Error(Boxed<glib_ffi::GError>);
 
     match fn {
