@@ -9,6 +9,7 @@ use glib_ffi;
 use gobject_ffi;
 use std::ptr;
 use std::mem;
+use std::fmt;
 
 use AxisUse;
 use Device;
@@ -26,6 +27,7 @@ use Window;
 
 glib_wrapper! {
     /// A generic GDK event.
+    #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Event(Boxed<ffi::GdkEvent>);
 
     match fn {
@@ -295,6 +297,15 @@ impl Event {
     /// Tries to downcast to a specific event type.
     pub fn downcast<T: FromEvent>(self) -> Result<T, Self> {
         T::from(self)
+    }
+}
+
+impl fmt::Debug for Event {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        fmt.debug_struct("Event")
+            .field("inner", &self.0)
+            .field("type", &self.get_event_type())
+            .finish()
     }
 }
 
