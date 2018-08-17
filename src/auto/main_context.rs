@@ -10,6 +10,7 @@ use std::ptr;
 use translate::*;
 
 glib_wrapper! {
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct MainContext(Shared<ffi::GMainContext>);
 
     match fn {

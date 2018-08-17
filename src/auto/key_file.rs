@@ -16,6 +16,7 @@ use std::ptr;
 use translate::*;
 
 glib_wrapper! {
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct KeyFile(Shared<ffi::GKeyFile>);
 
     match fn {

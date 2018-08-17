@@ -11,6 +11,7 @@ use std::ptr;
 use translate::*;
 
 glib_wrapper! {
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Source(Shared<ffi::GSource>);
 
     match fn {
