@@ -14,7 +14,8 @@ use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum ConverterResult {
     Error,
     Converted,
@@ -76,7 +77,8 @@ impl SetValue for ConverterResult {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum CredentialsType {
     Invalid,
     LinuxUcred,
@@ -144,7 +146,8 @@ impl SetValue for CredentialsType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum DataStreamByteOrder {
     BigEndian,
     LittleEndian,
@@ -203,7 +206,8 @@ impl SetValue for DataStreamByteOrder {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum DataStreamNewlineType {
     Lf,
     Cr,
@@ -265,7 +269,8 @@ impl SetValue for DataStreamNewlineType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum DriveStartStopType {
     Unknown,
     Shutdown,
@@ -330,7 +335,8 @@ impl SetValue for DriveStartStopType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum EmblemOrigin {
     Unknown,
     Device,
@@ -392,7 +398,8 @@ impl SetValue for EmblemOrigin {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum FileMonitorEvent {
     Changed,
     ChangesDoneHint,
@@ -475,7 +482,8 @@ impl SetValue for FileMonitorEvent {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum FileType {
     Unknown,
     Regular,
@@ -546,7 +554,8 @@ impl SetValue for FileType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum IOErrorEnum {
     Failed,
     NotFound,
@@ -800,7 +809,8 @@ impl SetValue for IOErrorEnum {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum MountOperationResult {
     Handled,
     Aborted,
@@ -860,7 +870,8 @@ impl SetValue for MountOperationResult {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum NetworkConnectivity {
     Local,
     Limited,
@@ -929,7 +940,8 @@ impl SetValue for NetworkConnectivity {
 }
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum NotificationPriority {
     Normal,
     Low,
@@ -997,7 +1009,8 @@ impl SetValue for NotificationPriority {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum PasswordSave {
     Never,
     ForSession,
@@ -1057,7 +1070,8 @@ impl SetValue for PasswordSave {
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum ResolverRecordType {
     Srv,
     Mx,
@@ -1128,7 +1142,8 @@ impl SetValue for ResolverRecordType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum ResourceError {
     NotFound,
     Internal,
@@ -1202,7 +1217,8 @@ impl SetValue for ResourceError {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SocketClientEvent {
     Resolving,
     Resolved,
@@ -1279,7 +1295,8 @@ impl SetValue for SocketClientEvent {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SocketFamily {
     Invalid,
     Unix,
@@ -1342,7 +1359,8 @@ impl SetValue for SocketFamily {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SocketListenerEvent {
     Binding,
     Bound,
@@ -1410,7 +1428,8 @@ impl SetValue for SocketListenerEvent {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SocketProtocol {
     Unknown,
     Default,
@@ -1475,7 +1494,8 @@ impl SetValue for SocketProtocol {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SocketType {
     Invalid,
     Stream,
@@ -1537,7 +1557,8 @@ impl SetValue for SocketType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TlsAuthenticationMode {
     None,
     Requested,
@@ -1597,7 +1618,8 @@ impl SetValue for TlsAuthenticationMode {
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TlsCertificateRequestFlags {
     None,
     #[doc(hidden)]
@@ -1656,7 +1678,8 @@ impl SetValue for TlsCertificateRequestFlags {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TlsDatabaseLookupFlags {
     None,
     Keypair,
@@ -1712,7 +1735,8 @@ impl SetValue for TlsDatabaseLookupFlags {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TlsInteractionResult {
     Unhandled,
     Handled,
@@ -1771,7 +1795,8 @@ impl SetValue for TlsInteractionResult {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TlsRehandshakeMode {
     Never,
     Safely,
@@ -1830,7 +1855,8 @@ impl SetValue for TlsRehandshakeMode {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum UnixSocketAddressType {
     Invalid,
     Anonymous,
@@ -1895,7 +1921,8 @@ impl SetValue for UnixSocketAddressType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum ZlibCompressorFormat {
     Zlib,
     Gzip,

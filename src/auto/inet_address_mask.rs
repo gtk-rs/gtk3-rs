@@ -16,7 +16,6 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
-use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -44,13 +43,6 @@ impl InetAddressMask {
             let ret = ffi::g_inet_address_mask_new_from_string(mask_string.to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
-    }
-}
-
-impl fmt::Display for InetAddressMask {
-    #[inline]
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", InetAddressMaskExt::to_string(self))
     }
 }
 
