@@ -13,6 +13,7 @@ use std::mem;
 use std::ptr;
 
 glib_wrapper! {
+    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct GlyphString(Boxed<ffi::PangoGlyphString>);
 
     match fn {
