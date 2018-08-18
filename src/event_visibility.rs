@@ -5,7 +5,7 @@
 use glib::translate::*;
 use ffi;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventVisibility(::Event);
 
 event_wrapper!(EventVisibility, GdkEventVisibility);

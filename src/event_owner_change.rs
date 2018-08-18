@@ -5,7 +5,7 @@
 use glib::translate::*;
 use ffi;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventOwnerChange(::Event);
 
 event_wrapper!(EventOwnerChange, GdkEventOwnerChange);
