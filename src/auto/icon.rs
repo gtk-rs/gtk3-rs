@@ -29,9 +29,11 @@ impl Icon {
         }
     }
 
-    //pub fn hash(icon: /*Unimplemented*/Fundamental: Pointer) -> u32 {
-    //    unsafe { TODO: call ffi::g_icon_hash() }
-    //}
+    pub fn hash(&self) -> u32 {
+        unsafe {
+            ffi::g_icon_hash(ToGlibPtr::<*mut ffi::GIcon>::to_glib_none(self).0 as glib_ffi::gconstpointer)
+        }
+    }
 
     pub fn new_for_string(str: &str) -> Result<Icon, Error> {
         unsafe {
