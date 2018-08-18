@@ -8,11 +8,13 @@ use ffi;
 use ffi as glib_ffi;
 use gobject_ffi;
 use std::cmp;
+use std::hash;
 use std::mem;
 use std::ptr;
 use translate::*;
 
 glib_wrapper! {
+    #[derive(Debug)]
     pub struct DateTime(Shared<ffi::GDateTime>);
 
     match fn {
@@ -282,17 +284,23 @@ impl DateTime {
         }
     }
 
-    //pub fn compare(dt1: /*Unimplemented*/Fundamental: Pointer, dt2: /*Unimplemented*/Fundamental: Pointer) -> i32 {
-    //    unsafe { TODO: call ffi::g_date_time_compare() }
-    //}
+    fn compare(&self, dt2: &DateTime) -> i32 {
+        unsafe {
+            ffi::g_date_time_compare(ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as glib_ffi::gconstpointer, ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as glib_ffi::gconstpointer)
+        }
+    }
 
-    //pub fn equal(dt1: /*Unimplemented*/Fundamental: Pointer, dt2: /*Unimplemented*/Fundamental: Pointer) -> bool {
-    //    unsafe { TODO: call ffi::g_date_time_equal() }
-    //}
+    fn equal(&self, dt2: &DateTime) -> bool {
+        unsafe {
+            from_glib(ffi::g_date_time_equal(ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as glib_ffi::gconstpointer, ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(dt2).0 as glib_ffi::gconstpointer))
+        }
+    }
 
-    //pub fn hash(datetime: /*Unimplemented*/Fundamental: Pointer) -> u32 {
-    //    unsafe { TODO: call ffi::g_date_time_hash() }
-    //}
+    fn hash(&self) -> u32 {
+        unsafe {
+            ffi::g_date_time_hash(ToGlibPtr::<*mut ffi::GDateTime>::to_glib_none(self).0 as glib_ffi::gconstpointer)
+        }
+    }
 }
 
 impl PartialOrd for DateTime {
@@ -317,3 +325,10 @@ impl PartialEq for DateTime {
 }
 
 impl Eq for DateTime {}
+
+impl hash::Hash for DateTime {
+    #[inline]
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        hash::Hash::hash(&self.hash(), state)
+    }
+}

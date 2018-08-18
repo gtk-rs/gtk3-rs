@@ -7,7 +7,8 @@ use error::ErrorDomain;
 use ffi;
 use translate::*;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum ChecksumType {
     Md5,
     Sha1,
@@ -54,7 +55,8 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum DateMonth {
     BadMonth,
     January,
@@ -119,7 +121,8 @@ impl FromGlib<ffi::GDateMonth> for DateMonth {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum DateWeekday {
     BadWeekday,
     Monday,
@@ -169,7 +172,8 @@ impl FromGlib<ffi::GDateWeekday> for DateWeekday {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum KeyFileError {
     UnknownEncoding,
     Parse,
@@ -235,7 +239,8 @@ impl ErrorDomain for KeyFileError {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SeekType {
     Cur,
     Set,
@@ -270,7 +275,8 @@ impl FromGlib<ffi::GSeekType> for SeekType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum TimeType {
     Standard,
     Daylight,
