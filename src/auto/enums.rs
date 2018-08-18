@@ -14,7 +14,8 @@ use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Colorspace {
     Rgb,
     #[doc(hidden)]
@@ -67,7 +68,8 @@ impl SetValue for Colorspace {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum InterpType {
     Nearest,
     Tiles,
@@ -129,7 +131,8 @@ impl SetValue for InterpType {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum PixbufAlphaMode {
     Bilevel,
     Full,
@@ -185,7 +188,8 @@ impl SetValue for PixbufAlphaMode {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum PixbufError {
     CorruptImage,
     InsufficientMemory,
@@ -279,7 +283,8 @@ impl SetValue for PixbufError {
     }
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Hash)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum PixbufRotation {
     None,
     Counterclockwise,
