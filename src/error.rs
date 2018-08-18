@@ -108,7 +108,7 @@ impl error::Error for Error {
 impl fmt::Debug for Error {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Error")
-            .field("domain", &self.0.domain)
+            .field("domain", &::Quark::from_glib(self.0.domain))
             .field("code", &self.0.code)
             .field("message", &self.message())
             .finish()
