@@ -6,6 +6,7 @@ use Display;
 use Screen;
 use ffi;
 use gio;
+use gio_ffi;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -22,7 +23,9 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>);
+    pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>): [
+        gio::AppLaunchContext => gio_ffi::GAppLaunchContext,
+    ];
 
     match fn {
         get_type => || ffi::gdk_app_launch_context_get_type(),

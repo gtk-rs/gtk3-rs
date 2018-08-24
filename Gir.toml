@@ -89,6 +89,7 @@ manual = [
     "Gdk.Rectangle",
     "Gdk.RGBA",
     "GdkPixbuf.Pixbuf",
+    "Gio.AppLaunchContext",
     "Gio.Icon",
     "GLib.Error",
     "GObject.Value",
