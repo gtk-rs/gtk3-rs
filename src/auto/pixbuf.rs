@@ -9,6 +9,7 @@ use PixbufFormat;
 use PixbufRotation;
 use ffi;
 use gio;
+use gio_ffi;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -25,7 +26,10 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Pixbuf(Object<ffi::GdkPixbuf>);
+    pub struct Pixbuf(Object<ffi::GdkPixbuf>): [
+        gio::Icon => gio_ffi::GIcon,
+        gio::LoadableIcon => gio_ffi::GLoadableIcon,
+    ];
 
     match fn {
         get_type => || ffi::gdk_pixbuf_get_type(),
