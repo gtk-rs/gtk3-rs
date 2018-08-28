@@ -788,6 +788,8 @@ pub trait ObjectExt: IsA<Object> {
     fn downgrade(&self) -> WeakRef<Self>;
 
     fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O>;
+
+    fn ref_count(&self) -> u32;
 }
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
@@ -1112,6 +1114,13 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         let target_property = target_property.into();
 
         BindingBuilder::new(self, source_property, target, target_property)
+    }
+
+    fn ref_count(&self) -> u32 {
+        let stash = self.to_glib_none();
+        let ptr: *mut gobject_ffi::GObject = stash.0;
+
+        unsafe { glib_ffi::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
     }
 }
 
