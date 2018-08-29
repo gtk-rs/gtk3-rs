@@ -325,6 +325,7 @@ status = "generate"
 [[object]]
 name = "GLib.Checksum"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "get_digest"
     #wrong array definition
@@ -439,6 +440,7 @@ concurrency = "send+sync"
 [[object]]
 name = "GLib.TimeZone"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "adjust_time"
     # in-out parameter

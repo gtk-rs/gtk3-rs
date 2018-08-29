@@ -102,6 +102,9 @@ impl Closure {
     }
 }
 
+unsafe impl Send for Closure {}
+unsafe impl Sync for Closure {}
+
 #[cfg(test)]
 mod tests {
     use std::sync::Arc;

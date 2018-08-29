@@ -25,6 +25,7 @@ manual = [
 name = "GObject.Binding"
 status = "generate"
 trait = false
+concurrency = "send+sync"
 
 [[object]]
 name = "GObject.*"

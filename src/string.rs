@@ -27,6 +27,9 @@ glib_wrapper! {
     }
 }
 
+unsafe impl Send for String {}
+unsafe impl Sync for String {}
+
 impl String {
     pub fn new<T: AsRef<[u8]>>(data: T) -> String {
         let bytes = data.as_ref();
