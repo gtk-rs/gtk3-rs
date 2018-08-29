@@ -29,6 +29,7 @@ glib_wrapper! {
 }
 
 unsafe impl Send for Date { }
+unsafe impl Sync for Date { }
 
 impl Date {
     pub fn new() -> Date {

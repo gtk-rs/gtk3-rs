@@ -47,3 +47,6 @@ impl Checksum {
         }
     }
 }
+
+unsafe impl Send for Checksum {}
+unsafe impl Sync for Checksum {}

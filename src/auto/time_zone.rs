@@ -66,3 +66,6 @@ impl TimeZone {
         }
     }
 }
+
+unsafe impl Send for TimeZone {}
+unsafe impl Sync for TimeZone {}

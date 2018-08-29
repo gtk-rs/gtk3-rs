@@ -26,6 +26,9 @@ glib_wrapper! {
     }
 }
 
+unsafe impl Send for ParamSpec {}
+unsafe impl Sync for ParamSpec {}
+
 impl ParamSpec {
     pub fn get_value_type(&self) -> ::Type {
         unsafe {
