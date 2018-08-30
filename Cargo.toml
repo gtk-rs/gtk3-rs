@@ -48,7 +48,6 @@ gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
 gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
 gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
-futures-nightly = ["futures-stable", "glib/futures-nightly", "futures-preview/nightly"]
 
 [[bin]]
 name = "basic"
@@ -81,9 +80,9 @@ name = "drag_and_drop_textview"
 name = "gio_futures"
 required-features = ["futures-stable"]
 
-[[bin]]
-name = "gio_futures_await"
-required-features = ["futures-nightly"]
+#[[bin]]
+#name = "gio_futures_await"
+#required-features = ["futures-nightly"]
 
 [[bin]]
 name = "grid"
