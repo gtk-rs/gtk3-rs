@@ -12,22 +12,12 @@ use futures_core::{Async, Future, Never};
 use futures_executor;
 use futures_util::future::FutureExt;
 
-#[cfg(feature = "futures-nightly")]
-use futures_stable::{StableFuture, StableExecutor};
-#[cfg(feature = "futures-nightly")]
-use std::boxed::PinBox;
-
 use MainContext;
 use MainLoop;
 use Source;
 use Priority;
 
 use get_thread_id;
-
-#[cfg(feature = "futures-nightly")]
-type StoredFutureBox<T> = PinBox<T>;
-#[cfg(not(feature = "futures-nightly"))]
-type StoredFutureBox<T> = Box<T>;
 
 use ::translate::{from_glib_none, from_glib_full, mut_override, ToGlib};
 use ffi as glib_ffi;
@@ -41,7 +31,7 @@ const DONE: usize = 3;
 #[repr(C)]
 struct TaskSource {
     source: glib_ffi::GSource,
-    future: Option<(StoredFutureBox<Future<Item = (), Error = Never>>, Box<LocalMap>)>,
+    future: Option<(Box<Future<Item = (), Error = Never>>, Box<LocalMap>)>,
     thread: Option<usize>,
     state: AtomicUsize,
 }
@@ -150,7 +140,7 @@ static SOURCE_FUNCS: glib_ffi::GSourceFuncs = glib_ffi::GSourceFuncs {
 impl TaskSource {
     fn new(
         priority: Priority,
-        future: StoredFutureBox<Future<Item = (), Error = Never> + 'static + Send>,
+        future: Box<Future<Item = (), Error = Never> + 'static + Send>,
     ) -> Source {
         unsafe { Self::new_unsafe(priority, None, future) }
     }
@@ -160,7 +150,7 @@ impl TaskSource {
     unsafe fn new_unsafe(
         priority: Priority,
         thread: Option<usize>,
-        future: StoredFutureBox<Future<Item = (), Error = Never> + 'static>,
+        future: Box<Future<Item = (), Error = Never> + 'static>,
     ) -> Source {
         let source = glib_ffi::g_source_new(
             mut_override(&SOURCE_FUNCS),
@@ -230,96 +220,6 @@ impl TaskSource {
     }
 }
 
-#[cfg(feature = "futures-nightly")]
-impl MainContext {
-    /// Spawn a new infallible `Future` on the main context.
-    ///
-    /// This can be called from any thread and will execute the future from the thread
-    /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&self, f: F) {
-        self.spawn_with_priority(::PRIORITY_DEFAULT, f);
-    }
-
-    /// Spawn a new infallible `Future` on the main context.
-    ///
-    /// The given `Future` does not have to be `Send`.
-    ///
-    /// This can be called only from the thread where the main context is running, e.g.
-    /// from any other `Future` that is executed on this main context, or after calling
-    /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local<F: StableFuture<Item = (), Error = Never> + 'static>(&self, f: F) {
-        self.spawn_local_with_priority(::PRIORITY_DEFAULT, f);
-    }
-
-    /// Spawn a new infallible `Future` on the main context, with a non-default priority.
-    ///
-    /// This can be called from any thread and will execute the future from the thread
-    /// where main context is running, e.g. via a `MainLoop`.
-    pub fn spawn_with_priority<F: StableFuture<Item = (), Error = Never> + Send + 'static>(&self, priority: Priority, f: F) {
-        let f = f.pin();
-        let source = TaskSource::new(priority, f);
-        source.attach(Some(&*self));
-    }
-
-    /// Spawn a new infallible `Future` on the main context, with a non-default priority.
-    ///
-    /// The given `Future` does not have to be `Send`.
-    ///
-    /// This can be called only from the thread where the main context is running, e.g.
-    /// from any other `Future` that is executed on this main context, or after calling
-    /// `push_thread_default` or `acquire` on the main context.
-    pub fn spawn_local_with_priority<F: StableFuture<Item = (), Error = Never> + 'static>(&self, priority: Priority, f: F) {
-        assert!(self.is_owner(), "Spawning local futures only allowed on the thread owning the MainContext");
-        let f = f.pin_local();
-        unsafe {
-            // Ensure that this task is never polled on another thread
-            // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(priority, Some(get_thread_id()), f);
-            source.attach(Some(&*self));
-        }
-    }
-
-    /// Runs a new, infallible `Future` on the main context and block until it finished, returning
-    /// the result of the `Future`.
-    ///
-    /// The given `Future` does not have to be `Send` or `'static`.
-    ///
-    /// This must only be called if no `MainLoop` or anything else is running on this specific main
-    /// context.
-    pub fn block_on<F: StableFuture>(&self, f: F) -> Result<F::Item, F::Error> {
-        let mut res = None;
-        let l = MainLoop::new(Some(&*self), false);
-        let l_clone = l.clone();
-
-        unsafe {
-            let f = f.pin_local();
-
-            let f = f.then(|r| {
-                res = Some(r);
-                l_clone.quit();
-                Ok::<(), Never>(())
-            });
-
-            let f: *mut Future<Item = (), Error = Never> = Box::into_raw(Box::new(f));
-            // XXX: Transmute to get a 'static lifetime here, super unsafe
-            let f: *mut (Future<Item = (), Error = Never> + 'static) = mem::transmute(f);
-            let f: Box<Future<Item = (), Error = Never> + 'static> = Box::from_raw(f);
-
-            let f = f.pin_local();
-
-            // Ensure that this task is never polled on another thread
-            // than this one where it was spawned now.
-            let source = TaskSource::new_unsafe(::PRIORITY_DEFAULT, Some(get_thread_id()), f);
-            source.attach(Some(&*self));
-        }
-
-        l.run();
-
-        res.unwrap()
-    }
-}
-
-#[cfg(not(feature = "futures-nightly"))]
 impl MainContext {
     /// Spawn a new infallible `Future` on the main context.
     ///
@@ -404,29 +304,9 @@ impl MainContext {
     }
 }
 
-#[cfg(feature = "futures-nightly")]
-impl Executor for MainContext {
-    fn spawn(&mut self, f: Box<Future<Item = (), Error = Never> + Send>) -> Result<(), SpawnError> {
-        let f = f.pin();
-        let source = TaskSource::new(::PRIORITY_DEFAULT, f);
-        source.attach(Some(&*self));
-        Ok(())
-    }
-}
-
-#[cfg(not(feature = "futures-nightly"))]
 impl Executor for MainContext {
     fn spawn(&mut self, f: Box<Future<Item = (), Error = Never> + Send>) -> Result<(), SpawnError> {
         let f = Box::new(f);
-        let source = TaskSource::new(::PRIORITY_DEFAULT, f);
-        source.attach(Some(&*self));
-        Ok(())
-    }
-}
-
-#[cfg(feature = "futures-nightly")]
-impl StableExecutor for MainContext {
-    fn spawn_pinned(&mut self, f: PinBox<Future<Item = (), Error = Never> + Send>) -> Result<(), SpawnError> {
         let source = TaskSource::new(::PRIORITY_DEFAULT, f);
         source.attach(Some(&*self));
         Ok(())

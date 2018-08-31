@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#![cfg_attr(feature = "futures-nightly", feature(pin))]
-
 //! # **glib**, **gobject** and **gio** bindings for Rust
 //!
 //! This library contains
@@ -91,8 +89,6 @@ extern crate futures_executor;
 extern crate futures_channel;
 #[cfg(feature="futures")]
 extern crate futures_util;
-#[cfg(feature="futures-nightly")]
-extern crate futures_stable;
 
 use std::ffi::CStr;
 pub use bytes::Bytes;
