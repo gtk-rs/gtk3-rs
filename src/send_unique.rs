@@ -6,6 +6,14 @@ use std::ops;
 use std::cell::RefCell;
 
 /// Like `Send` but only if we have the unique reference to the object
+///
+/// Note that implementing this trait has to be done especially careful.
+/// It must only be implemented on types where the uniqueness of a reference
+/// can be determined, i.e. the reference count field is accessible and it
+/// must only have references itself to other types that are `Send`.
+/// `SendUnique` is *not* enough for the other types unless uniqueness of
+/// all of them can be guaranteed, which is e.g. not the case if there's a
+/// getter for them.
 pub unsafe trait SendUnique: 'static {
     fn is_unique(&self) -> bool;
 }
