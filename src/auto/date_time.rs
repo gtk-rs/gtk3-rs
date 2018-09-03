@@ -332,3 +332,6 @@ impl hash::Hash for DateTime {
         hash::Hash::hash(&self.hash(), state)
     }
 }
+
+unsafe impl Send for DateTime {}
+unsafe impl Sync for DateTime {}

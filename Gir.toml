@@ -10,7 +10,6 @@ single_version_file = true
 generate = [
     "GLib.DateDay",
     "GLib.DateMonth",
-    "GLib.DateTime",
     "GLib.DateWeekday",
     "GLib.DateYear",
     "GLib.FormatSizeFlags",
@@ -393,6 +392,11 @@ status = "generate"
        name = "get_boolean_list"
        #boolean array needs to be converted to Vec<bool>
        ignore = true
+
+[[object]]
+name = "GLib.DateTime"
+status = "generate"
+concurrency = "send+sync"
 
 [[object]]
 name = "GLib.MainContext"
