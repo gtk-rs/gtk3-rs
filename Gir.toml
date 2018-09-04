@@ -43,7 +43,6 @@ generate = [
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
     "Gio.Icon",
-    "Gio.InetSocketAddress",
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
     "Gio.ListModel",
@@ -59,7 +58,6 @@ generate = [
     "Gio.MountOperation",
     "Gio.MountOperationResult",
     "Gio.MountUnmountFlags",
-    "Gio.NetworkAddress",
     "Gio.NetworkConnectivity",
     "Gio.NetworkMonitor",
     "Gio.NetworkService",
@@ -83,7 +81,6 @@ generate = [
     "Gio.SettingsSchemaSource",
     "Gio.SimpleActionGroup",
     "Gio.SimplePermission",
-    "Gio.SocketAddress",
     "Gio.SocketAddressEnumerator",
     "Gio.SocketClient",
     "Gio.SocketClientEvent",
@@ -305,6 +302,7 @@ cfg_condition = "not(windows)"
 [[object]]
 name = "Gio.File"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "new_for_path"
         [object.function.return]
@@ -362,6 +360,7 @@ status = "generate"
 [[object]]
 name =  "Gio.InetAddressMask"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "get_address"
         [object.function.return]
@@ -374,6 +373,7 @@ status = "generate"
 [[object]]
 name = "Gio.InetAddress"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "equal"
     # conflicting implementations
@@ -393,6 +393,11 @@ status = "generate"
     name = "to_bytes"
     # broken and needs some closer integration with the corresponding std types
     ignore = true
+
+[[object]]
+name = "Gio.InetSocketAddress"
+status = "generate"
+concurrency = "send+sync"
 
 [[object]]
 name = "Gio.InputStream"
@@ -465,6 +470,10 @@ status = "generate"
     name = "realloc-function"
     #unsupported memory allocators
     ignore = true
+[[object]]
+name = "Gio.NetworkAddress"
+status = "generate"
+concurrency = "send+sync"
 
 [[object]]
 name = "Gio.Notification"
@@ -505,6 +514,7 @@ status = "generate"
 [[object]]
 name = "Gio.ProxyAddress"
 status = "generate"
+concurrency = "send+sync"
     [[object.function]]
     name = "get_destination_hostname"
         [object.function.return]
@@ -562,6 +572,7 @@ status = "generate"
 [[object]]
 name = "Gio.Socket"
 status = "generate"
+concurrency = "send-unique"
     [[object.function]]
     name = "new_from_fd"
     # has to use RawFd / SOCKET
@@ -591,6 +602,11 @@ status = "generate"
     pattern = "send.*"
     # &[u8]
     ignore = true
+
+[[object]]
+name = "Gio.SocketAddress"
+status = "generate"
+concurrency = "send+sync"
 
 [[object]]
 name = "Gio.SocketListener"
@@ -659,6 +675,7 @@ status = "generate"
 [[object]]
 name = "Gio.UnixSocketAddress"
 status = "generate"
+concurrency = "send+sync"
 cfg_condition = "unix"
     [[object.function]]
     name = "new"

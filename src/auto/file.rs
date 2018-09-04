@@ -88,6 +88,9 @@ impl File {
     }
 }
 
+unsafe impl Send for File {}
+unsafe impl Sync for File {}
+
 pub trait FileExt: Sized {
     fn append_to<'a, P: Into<Option<&'a Cancellable>>>(&self, flags: FileCreateFlags, cancellable: P) -> Result<FileOutputStream, Error>;
 

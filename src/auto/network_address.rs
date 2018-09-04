@@ -57,6 +57,9 @@ impl NetworkAddress {
     }
 }
 
+unsafe impl Send for NetworkAddress {}
+unsafe impl Sync for NetworkAddress {}
+
 pub trait NetworkAddressExt {
     fn get_hostname(&self) -> Option<String>;
 
@@ -64,11 +67,11 @@ pub trait NetworkAddressExt {
 
     fn get_scheme(&self) -> Option<String>;
 
-    fn connect_property_hostname_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_port_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_scheme_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<NetworkAddress> + IsA<glib::object::Object>> NetworkAddressExt for O {
@@ -90,25 +93,25 @@ impl<O: IsA<NetworkAddress> + IsA<glib::object::Object>> NetworkAddressExt for O
         }
     }
 
-    fn connect_property_hostname_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::hostname",
                 transmute(notify_hostname_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_port_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::port",
                 transmute(notify_port_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_scheme_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::scheme",
                 transmute(notify_scheme_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
@@ -117,18 +120,18 @@ impl<O: IsA<NetworkAddress> + IsA<glib::object::Object>> NetworkAddressExt for O
 
 unsafe extern "C" fn notify_hostname_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_port_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_scheme_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
 }
