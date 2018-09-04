@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use libc::c_void;
 use glib::translate::*;
 use ffi;
 
@@ -51,6 +52,37 @@ impl Event {
 
     pub fn put(&self) {
         unsafe { ffi::gdk_event_put(self.to_glib_none().0) }
+    }
+
+    /// Set the event handler.
+    /// 
+    /// The callback `func` is called for each event. If `None`, event handling
+    /// is disabled.
+    /// 
+    /// The `data` pointer is passed to `func` and `notify` when called.
+    /// 
+    /// Should another event handler be set in the future, `notify` will be
+    /// called before doing so, if not `None`.
+    pub fn set_handler<T>(
+        func: Option<&'static Fn(Event, Option<*mut T>)>,
+        data: Option<*mut T>,
+        notify: Option<&'static Fn(Option<*mut T>)>)
+    {
+        let data = data.unwrap_or(ptr::null_mut()) as *mut c_void;
+        unsafe{
+            CB_EVENT_HANDLER = mem::transmute::<
+                Option<&'static Fn(Event, Option<*mut T>)>,
+                Option<&'static Fn(Event, Option<*mut ()>)>
+                >(func);
+            CB_EVENT_HANDLER_NOTIFY = mem::transmute::<
+                Option<&'static Fn(Option<*mut T>)>,
+                Option<&'static Fn(Option<*mut ()>)>
+                >(notify);
+            ffi::gdk_event_handler_set(
+                Some(event_handler),
+                data,
+                Some(event_handler_notify))
+        }
     }
 
     pub fn get_axis(&self, axis_use: AxisUse) -> Option<f64> {
@@ -420,4 +452,24 @@ macro_rules! event_subtype {
             }
         }
     }
+}
+
+static mut CB_EVENT_HANDLER: Option<&Fn(Event, Option<*mut ()>)> = None;
+static mut CB_EVENT_HANDLER_NOTIFY: Option<&Fn(Option<*mut ()>)> = None;
+
+extern "C" fn event_handler(event: *mut ffi::GdkEvent, p: glib_ffi::gpointer) {
+    let cb = unsafe {
+        if let Some(cb) = CB_EVENT_HANDLER { cb } else { return; }
+    };
+    let event = unsafe { from_glib_none(event) };
+    let p = if p == ptr::null_mut() { None } else { Some(p as *mut ()) };
+    (cb)(event, p);
+}
+
+extern "C" fn event_handler_notify(p: glib_ffi::gpointer) {
+    let cb = unsafe {
+        if let Some(cb) = CB_EVENT_HANDLER_NOTIFY { cb } else { return; }
+    };
+    let p = if p == ptr::null_mut() { None } else { Some(p as *mut ()) };
+    (cb)(p);
 }
