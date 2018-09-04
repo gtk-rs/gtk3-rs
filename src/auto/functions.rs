@@ -10,6 +10,7 @@ use EventMask;
 use EventType;
 use GrabStatus;
 use ModifierType;
+use PropMode;
 use Screen;
 use Visual;
 use Window;
@@ -288,9 +289,12 @@ pub fn pre_parse_libgtk_only() {
     }
 }
 
-//pub fn property_change(window: &Window, property: &Atom, type_: &Atom, format: i32, mode: /*Ignored*/PropMode, data: u8, nelements: i32) {
-//    unsafe { TODO: call ffi::gdk_property_change() }
-//}
+pub fn property_change(window: &Window, property: &Atom, type_: &Atom, format: i32, mode: PropMode, data: u8, nelements: i32) {
+    skip_assert_initialized!();
+    unsafe {
+        ffi::gdk_property_change(window.to_glib_none().0, property.to_glib_none().0, type_.to_glib_none().0, format, mode.to_glib(), data, nelements);
+    }
+}
 
 pub fn property_delete(window: &Window, property: &Atom) {
     skip_assert_initialized!();
