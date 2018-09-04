@@ -40,6 +40,9 @@ impl ProxyAddress {
     }
 }
 
+unsafe impl Send for ProxyAddress {}
+unsafe impl Sync for ProxyAddress {}
+
 pub trait ProxyAddressExt {
     fn get_destination_hostname(&self) -> String;
 
@@ -57,21 +60,21 @@ pub trait ProxyAddressExt {
 
     fn get_username(&self) -> Option<String>;
 
-    fn connect_property_destination_hostname_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_destination_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_destination_port_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn connect_property_destination_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_destination_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn connect_property_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_destination_protocol_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_password_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
+
+    fn connect_property_protocol_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn connect_property_uri_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
+
+    fn connect_property_username_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ProxyAddress> + IsA<glib::object::Object>> ProxyAddressExt for O {
@@ -119,59 +122,59 @@ impl<O: IsA<ProxyAddress> + IsA<glib::object::Object>> ProxyAddressExt for O {
         }
     }
 
-    fn connect_property_destination_hostname_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_destination_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::destination-hostname",
                 transmute(notify_destination_hostname_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_destination_port_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_destination_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::destination-port",
                 transmute(notify_destination_port_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn connect_property_destination_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_destination_protocol_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::destination-protocol",
                 transmute(notify_destination_protocol_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_password_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::password",
                 transmute(notify_password_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_protocol_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::protocol",
                 transmute(notify_protocol_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn connect_property_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_uri_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::uri",
                 transmute(notify_uri_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_property_username_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::username",
                 transmute(notify_username_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
@@ -180,44 +183,44 @@ impl<O: IsA<ProxyAddress> + IsA<glib::object::Object>> ProxyAddressExt for O {
 
 unsafe extern "C" fn notify_destination_hostname_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_destination_port_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 unsafe extern "C" fn notify_destination_protocol_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_password_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_protocol_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 unsafe extern "C" fn notify_uri_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_username_trampoline<P>(this: *mut ffi::GProxyAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ProxyAddress> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
     f(&ProxyAddress::from_glib_borrow(this).downcast_unchecked())
 }
