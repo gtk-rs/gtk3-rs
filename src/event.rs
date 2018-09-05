@@ -58,22 +58,23 @@ impl Event {
     /// 
     /// The callback `handler` is called for each event. If `None`, event
     /// handling is disabled.
-    pub fn set_handler<F: Fn(&mut Event) + Send +'static>(handler: Option<F>) {
+    /// 
+    /// This function is marked unsafe since it is a static function with no
+    /// protection against re-entry. It may be called by any thread but must
+    /// not be called concurrently with itself or with either `gtk::init` or
+    /// `gtk::Application::new`.
+    pub unsafe fn set_handler<F: Fn(&mut Event) + Send +'static>(handler: Option<F>) {
         if let Some(handler) = handler {
             // allocate and convert to target type
             // double box to reduce a fat pointer to a simple pointer
             let boxed: Box<Box<Fn(&mut Event) + Send + 'static>> = Box::new(Box::new(handler));
             let ptr: *mut c_void = Box::into_raw(boxed) as *mut _;
-            unsafe{
-                ffi::gdk_event_handler_set(
-                    Some(event_handler_trampoline),
-                    ptr,
-                    Some(event_handler_destroy))
-            }
+            ffi::gdk_event_handler_set(
+                Some(event_handler_trampoline),
+                ptr,
+                Some(event_handler_destroy))
         } else {
-            unsafe{
-                ffi::gdk_event_handler_set(None, ptr::null_mut(), None)
-            }
+            ffi::gdk_event_handler_set(None, ptr::null_mut(), None)
         }
     }
 
@@ -446,19 +447,19 @@ macro_rules! event_subtype {
     }
 }
 
-extern "C" fn event_handler_trampoline(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
-    let mut event = unsafe { from_glib_none(event) };
+unsafe extern "C" fn event_handler_trampoline(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
+    let mut event = from_glib_none(event);
     if ptr != ptr::null_mut() {
         let raw: *mut Box<dyn Fn(&mut Event) + Send +'static> = ptr as _;
-        let f: &(dyn Fn(&mut Event) + Send +'static) = unsafe { &**raw };
+        let f: &(dyn Fn(&mut Event) + Send +'static) = &**raw;
         f(&mut event)
     }
 }
 
-extern "C" fn event_handler_destroy(ptr: glib_ffi::gpointer) {
+unsafe extern "C" fn event_handler_destroy(ptr: glib_ffi::gpointer) {
     if ptr != ptr::null_mut() {
         // convert back to Box and free
         let raw: *mut Box<dyn Fn(&mut Event) + Send +'static> = ptr as _;
-        let _boxed: Box<Box<dyn Fn(&mut Event) + Send +'static>> = unsafe { Box::from_raw(raw) };
+        let _boxed: Box<Box<dyn Fn(&mut Event) + Send +'static>> = Box::from_raw(raw);
     }
 }
