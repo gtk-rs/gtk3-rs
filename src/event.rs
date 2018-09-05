@@ -56,32 +56,24 @@ impl Event {
 
     /// Set the event handler.
     /// 
-    /// The callback `func` is called for each event. If `None`, event handling
-    /// is disabled.
-    /// 
-    /// The `data` pointer is passed to `func` and `notify` when called.
-    /// 
-    /// Should another event handler be set in the future, `notify` will be
-    /// called before doing so, if not `None`.
-    pub fn set_handler<T>(
-        func: Option<&'static Fn(Event, Option<*mut T>)>,
-        data: Option<*mut T>,
-        notify: Option<&'static Fn(Option<*mut T>)>)
-    {
-        let data = data.unwrap_or(ptr::null_mut()) as *mut c_void;
-        unsafe{
-            CB_EVENT_HANDLER = mem::transmute::<
-                Option<&'static Fn(Event, Option<*mut T>)>,
-                Option<&'static Fn(Event, Option<*mut ()>)>
-                >(func);
-            CB_EVENT_HANDLER_NOTIFY = mem::transmute::<
-                Option<&'static Fn(Option<*mut T>)>,
-                Option<&'static Fn(Option<*mut ()>)>
-                >(notify);
-            ffi::gdk_event_handler_set(
-                Some(event_handler),
-                data,
-                Some(event_handler_notify))
+    /// The callback `handler` is called for each event. If `None`, event
+    /// handling is disabled.
+    pub fn set_handler<F: Fn(&mut Event) + Send +'static>(handler: Option<F>) {
+        if let Some(handler) = handler {
+            // allocate and convert to target type
+            // double box to reduce a fat pointer to a simple pointer
+            let boxed: Box<Box<Fn(&mut Event) + Send + 'static>> = Box::new(Box::new(handler));
+            let ptr: *mut c_void = Box::into_raw(boxed) as *mut _;
+            unsafe{
+                ffi::gdk_event_handler_set(
+                    Some(event_handler_trampoline),
+                    ptr,
+                    Some(event_handler_destroy))
+            }
+        } else {
+            unsafe{
+                ffi::gdk_event_handler_set(None, ptr::null_mut(), None)
+            }
         }
     }
 
@@ -454,22 +446,19 @@ macro_rules! event_subtype {
     }
 }
 
-static mut CB_EVENT_HANDLER: Option<&Fn(Event, Option<*mut ()>)> = None;
-static mut CB_EVENT_HANDLER_NOTIFY: Option<&Fn(Option<*mut ()>)> = None;
-
-extern "C" fn event_handler(event: *mut ffi::GdkEvent, p: glib_ffi::gpointer) {
-    let cb = unsafe {
-        if let Some(cb) = CB_EVENT_HANDLER { cb } else { return; }
-    };
-    let event = unsafe { from_glib_none(event) };
-    let p = if p == ptr::null_mut() { None } else { Some(p as *mut ()) };
-    (cb)(event, p);
+extern "C" fn event_handler_trampoline(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
+    let mut event = unsafe { from_glib_none(event) };
+    if ptr != ptr::null_mut() {
+        let raw: *mut Box<dyn Fn(&mut Event) + Send +'static> = ptr as _;
+        let f: &(dyn Fn(&mut Event) + Send +'static) = unsafe { &**raw };
+        f(&mut event)
+    }
 }
 
-extern "C" fn event_handler_notify(p: glib_ffi::gpointer) {
-    let cb = unsafe {
-        if let Some(cb) = CB_EVENT_HANDLER_NOTIFY { cb } else { return; }
-    };
-    let p = if p == ptr::null_mut() { None } else { Some(p as *mut ()) };
-    (cb)(p);
+extern "C" fn event_handler_destroy(ptr: glib_ffi::gpointer) {
+    if ptr != ptr::null_mut() {
+        // convert back to Box and free
+        let raw: *mut Box<dyn Fn(&mut Event) + Send +'static> = ptr as _;
+        let _boxed: Box<Box<dyn Fn(&mut Event) + Send +'static>> = unsafe { Box::from_raw(raw) };
+    }
 }
