@@ -82,13 +82,7 @@ extern crate glib_sys as ffi;
 extern crate gobject_sys as gobject_ffi;
 
 #[cfg(feature="futures")]
-extern crate futures_core;
-#[cfg(feature="futures")]
-extern crate futures_executor;
-#[cfg(feature="futures")]
-extern crate futures_channel;
-#[cfg(feature="futures")]
-extern crate futures_util;
+pub extern crate futures;
 
 use std::ffi::CStr;
 pub use bytes::Bytes;

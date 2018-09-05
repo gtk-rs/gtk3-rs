@@ -5,12 +5,11 @@
 use std::mem;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
-use futures_core;
-use futures_core::executor::{Executor, SpawnError};
-use futures_core::task::{LocalMap, UnsafeWake, Waker};
-use futures_core::{Async, Future, Never};
-use futures_executor;
-use futures_util::future::FutureExt;
+use futures;
+use futures::prelude::*;
+use futures::executor::{Executor, SpawnError};
+use futures::task::{LocalMap, UnsafeWake, Waker};
+use futures::{Async, Future, Never};
 
 use MainContext;
 use MainLoop;
@@ -201,9 +200,9 @@ impl TaskSource {
             executor.push_thread_default();
 
             let res = {
-                let enter = futures_executor::enter().unwrap();
+                let enter = futures::executor::enter().unwrap();
                 let mut context =
-                    futures_core::task::Context::new(local_map, &waker, &mut executor);
+                    futures::task::Context::new(local_map, &waker, &mut executor);
 
                 let res = future.poll(&mut context).unwrap_or(Async::Ready(()));
 

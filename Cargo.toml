@@ -24,10 +24,7 @@ name = "glib"
 lazy_static = "1.0"
 libc = "0.2"
 bitflags = "1.0"
-futures-core-preview = { version = "0.2", optional = true }
-futures-executor-preview = { version = "0.2", optional = true }
-futures-channel-preview = { version = "0.2", optional = true }
-futures-util-preview = { version = "0.2", optional = true }
+futures-preview = { version = "0.2", optional = true }
 
 glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }
@@ -47,5 +44,5 @@ v2_50 = ["v2_48", "glib-sys/v2_50"]
 v2_52 = ["v2_50", "glib-sys/v2_52"]
 v2_54 = ["v2_52", "glib-sys/v2_54", "gobject-sys/v2_54"]
 v2_56 = ["v2_54", "glib-sys/v2_56"]
-futures = ["futures-core-preview", "futures-executor-preview", "futures-channel-preview", "futures-util-preview", "v2_36"]
+futures = ["futures-preview", "v2_36"]
 dox = ["glib-sys/dox", "gobject-sys/dox"]
