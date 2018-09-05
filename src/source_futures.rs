@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures_channel::{mpsc, oneshot};
-use futures_core::stream::Stream;
-use futures_core::task::Context;
-use futures_core::{Async, Future, Never};
+use futures::prelude::*;
+use futures::channel::{mpsc, oneshot};
+use futures::task;
 
 use MainContext;
 use Source;
@@ -43,7 +42,7 @@ where
     type Item = T;
     type Error = Never;
 
-    fn poll(&mut self, ctx: &mut Context) -> Result<Async<T>, Never> {
+    fn poll(&mut self, ctx: &mut task::Context) -> Result<Async<T>, Never> {
         let SourceFuture {
             ref mut create_source,
             ref mut source,
@@ -210,7 +209,7 @@ where
     type Item = T;
     type Error = Never;
 
-    fn poll_next(&mut self, ctx: &mut Context) -> Result<Async<Option<T>>, Never> {
+    fn poll_next(&mut self, ctx: &mut task::Context) -> Result<Async<Option<T>>, Never> {
         let SourceStream {
             ref mut create_source,
             ref mut source,
@@ -334,8 +333,6 @@ pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<
 #[cfg(test)]
 mod tests {
     use super::*;
-    use futures_util::FutureExt;
-    use futures_util::StreamExt;
     use std::thread;
 
     #[test]
