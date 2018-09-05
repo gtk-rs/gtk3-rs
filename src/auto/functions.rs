@@ -34,11 +34,11 @@ use std::ptr;
 //#[cfg(feature = "futures")]
 //pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
     //use GioFuture;
-    //use send_cell::SendCell;
+    //use fragile::Fragile;
 
     //GioFuture::new(&(), move |_obj, send| {
     //    let cancellable = Cancellable::new();
-    //    let send = SendCell::new(send);
+    //    let send = Fragile::new(send);
     //    bus_get(
     //         bus_type,
     //         Some(&cancellable),
@@ -224,12 +224,12 @@ pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(R
 #[cfg(feature = "futures")]
 pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, String), Error = Error>> {
     use GioFuture;
-    use send_cell::SendCell;
+    use fragile::Fragile;
 
     let address = String::from(address);
     GioFuture::new(&(), move |_obj, send| {
         let cancellable = Cancellable::new();
-        let send = SendCell::new(send);
+        let send = Fragile::new(send);
         dbus_address_get_stream(
              &address,
              Some(&cancellable),

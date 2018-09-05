@@ -16,7 +16,7 @@ use Socket;
 use SocketAddress;
 #[cfg(all(not(unix), feature = "dox"))]
 use std::os::raw::c_int;
-use send_cell::SendCell;
+use fragile::Fragile;
 
 #[cfg(feature = "futures")]
 use futures_core::{Future, Never};
@@ -220,15 +220,13 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
 
     #[cfg(feature = "futures")]
     fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> {
-        use send_cell::SendCell;
-
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
-        let obj = SendCell::new(self.clone());
+        let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
-            let mut send = Some(SendCell::new(send));
-            obj.borrow().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
+            let mut send = Some(Fragile::new(send));
+            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
                 let _ = send.take().unwrap().into_inner().send((obj.clone(), condition));
                 glib::Continue(false)
             })
@@ -237,16 +235,14 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
 
     #[cfg(feature = "futures")]
     fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> {
-        use send_cell::SendCell;
-
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
-        let obj = SendCell::new(self.clone());
+        let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
-            let send = Some(SendCell::new(send));
-            obj.borrow().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
-                if send.as_ref().unwrap().borrow().unbounded_send((obj.clone(), condition)).is_err() {
+            let send = Some(Fragile::new(send));
+            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
+                if send.as_ref().unwrap().get().unbounded_send((obj.clone(), condition)).is_err() {
                     glib::Continue(false)
                 } else {
                     glib::Continue(true)
@@ -258,19 +254,19 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut ffi::GSocket, condition: glib_ffi::GIOCondition, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
-    let func: &SendCell<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
-    let func = func.borrow();
+    let func: &Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
+    let func = func.get();
     let mut func = func.borrow_mut();
     (&mut *func)(&Socket::from_glib_borrow(socket).downcast_unchecked(), from_glib(condition)).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {
-    Box::<SendCell<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
+    Box::<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
 fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(func: F) -> glib_ffi::gpointer {
-    let func: Box<SendCell<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
-        Box::new(SendCell::new(RefCell::new(Box::new(func))));
+    let func: Box<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
+        Box::new(Fragile::new(RefCell::new(Box::new(func))));
     Box::into_raw(func) as glib_ffi::gpointer
 }
 

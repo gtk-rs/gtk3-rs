@@ -142,12 +142,12 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.eject(
                  flags,
                  Some(&cancellable),
@@ -185,14 +185,14 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.eject_with_operation(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -284,12 +284,12 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn guess_content_type_future(&self, force_rescan: bool) -> Box_<futures_core::Future<Item = (Self, Vec<String>), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.guess_content_type(
                  force_rescan,
                  Some(&cancellable),
@@ -343,14 +343,14 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn remount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.remount(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -393,12 +393,12 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn unmount_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.unmount(
                  flags,
                  Some(&cancellable),
@@ -436,14 +436,14 @@ impl<O: IsA<Mount> + IsA<glib::object::Object> + Clone + 'static> MountExt for O
     #[cfg(feature = "futures")]
     fn unmount_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.unmount_with_operation(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),

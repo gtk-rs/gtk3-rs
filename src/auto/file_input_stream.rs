@@ -69,13 +69,13 @@ impl<O: IsA<FileInputStream> + IsA<glib::object::Object> + Clone + 'static> File
     #[cfg(feature = "futures")]
     fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let attributes = String::from(attributes);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.query_info_async(
                  &attributes,
                  io_priority,

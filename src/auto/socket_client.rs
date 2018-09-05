@@ -188,13 +188,13 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     #[cfg(feature = "futures")]
     fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let connectable = connectable.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
                  &connectable,
                  Some(&cancellable),
@@ -240,13 +240,13 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     #[cfg(feature = "futures")]
     fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let host_and_port = String::from(host_and_port);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_host_async(
                  &host_and_port,
                  default_port,
@@ -293,14 +293,14 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     #[cfg(feature = "futures")]
     fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let domain = String::from(domain);
         let service = String::from(service);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_service_async(
                  &domain,
                  &service,
@@ -347,13 +347,13 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     #[cfg(feature = "futures")]
     fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let uri = String::from(uri);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_uri_async(
                  &uri,
                  default_port,

@@ -49,11 +49,11 @@ impl<O: IsA<SocketListener> + IsA<glib::Object> + Clone + 'static> SocketListene
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
-            use send_cell::SendCell;
+            use fragile::Fragile;
 
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.accept_socket_async(
                 Some(&cancellable),
                 move |res| {

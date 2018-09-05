@@ -97,12 +97,12 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt
     #[cfg(feature = "futures")]
     fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.close_async(
                  io_priority,
                  Some(&cancellable),

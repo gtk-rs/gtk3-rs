@@ -97,12 +97,12 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
     #[cfg(feature = "futures")]
     fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.close_async(
                  io_priority,
                  Some(&cancellable),
@@ -163,12 +163,12 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.read_bytes_async(
                  count,
                  io_priority,
@@ -223,12 +223,12 @@ impl<O: IsA<InputStream> + IsA<glib::object::Object> + Clone + 'static> InputStr
     #[cfg(feature = "futures")]
     fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.skip_async(
                  count,
                  io_priority,

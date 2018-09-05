@@ -82,13 +82,13 @@ impl<O: IsA<ProxyResolver> + IsA<glib::object::Object> + Clone + 'static> ProxyR
     #[cfg(feature = "futures")]
     fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<String>), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let uri = String::from(uri);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_async(
                  &uri,
                  Some(&cancellable),

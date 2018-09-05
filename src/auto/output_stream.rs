@@ -115,12 +115,12 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     #[cfg(feature = "futures")]
     fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.close_async(
                  io_priority,
                  Some(&cancellable),
@@ -166,12 +166,12 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     #[cfg(feature = "futures")]
     fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.flush_async(
                  io_priority,
                  Some(&cancellable),
@@ -248,13 +248,13 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     #[cfg(feature = "futures")]
     fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let source = source.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.splice_async(
                  &source,
                  flags,
@@ -330,13 +330,13 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     #[cfg(feature = "futures")]
     fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let bytes = bytes.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.write_bytes_async(
                  &bytes,
                  io_priority,
