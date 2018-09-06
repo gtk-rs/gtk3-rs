@@ -48,10 +48,10 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
-send-cell = "0.1"
 futures-core-preview = { version = "0.2", optional = true }
 futures-channel-preview = { version = "0.2", optional = true }
 futures-util-preview = { version = "0.2", optional = true }
+fragile = "0.3"
 
 gio-sys = { git = "https://github.com/gtk-rs/sys" }
 glib-sys = { git = "https://github.com/gtk-rs/sys" }

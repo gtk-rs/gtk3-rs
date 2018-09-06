@@ -173,14 +173,14 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let stdin_buf = stdin_buf.into();
         let stdin_buf = stdin_buf.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.communicate_async(
                  stdin_buf.as_ref().map(::std::borrow::Borrow::borrow),
                  Some(&cancellable),
@@ -328,12 +328,12 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.wait_async(
                  Some(&cancellable),
                  move |res| {
@@ -381,12 +381,12 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.wait_check_async(
                  Some(&cancellable),
                  move |res| {

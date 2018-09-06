@@ -105,15 +105,15 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     #[cfg(feature = "futures")]
     fn lookup_certificate_for_handle_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let handle = String::from(handle);
         let interaction = interaction.into();
         let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_certificate_for_handle_async(
                  &handle,
                  interaction.as_ref().map(::std::borrow::Borrow::borrow),
@@ -165,15 +165,15 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     #[cfg(feature = "futures")]
     fn lookup_certificate_issuer_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let certificate = certificate.clone();
         let interaction = interaction.into();
         let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_certificate_issuer_async(
                  &certificate,
                  interaction.as_ref().map(::std::borrow::Borrow::borrow),
@@ -201,15 +201,15 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     //#[cfg(feature = "futures")]
     //fn lookup_certificates_issued_by_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, Vec<TlsCertificate>), Error = (Self, Error)>> {
         //use GioFuture;
-        //use send_cell::SendCell;
+        //use fragile::Fragile;
 
         //let issuer_raw_dn = issuer_raw_dn.clone();
         //let interaction = interaction.into();
         //let interaction = interaction.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
+        //    let send = Fragile::new(send);
+        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.lookup_certificates_issued_by_async(
         //         &issuer_raw_dn,
         //         interaction.as_ref().map(::std::borrow::Borrow::borrow),
@@ -265,7 +265,7 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     #[cfg(feature = "futures")]
     fn verify_chain_async_future<'a, 'b, P: IsA<SocketConnectable> + Clone + 'static, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificateFlags), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let chain = chain.clone();
         let purpose = String::from(purpose);
@@ -275,8 +275,8 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
         let interaction = interaction.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.verify_chain_async(
                  &chain,
                  &purpose,

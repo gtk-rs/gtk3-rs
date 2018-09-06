@@ -114,14 +114,14 @@ impl AppInfo {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     pub fn launch_default_for_uri_async_future<'a, P: Into<Option<&'a AppLaunchContext>>>(uri: &str, context: P) -> Box_<futures_core::Future<Item = (), Error = Error>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let uri = String::from(uri);
         let context = context.into();
         let context = context.map(ToOwned::to_owned);
         GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
+            let send = Fragile::new(send);
             Self::launch_default_for_uri_async(
                  &uri,
                  context.as_ref().map(::std::borrow::Borrow::borrow),

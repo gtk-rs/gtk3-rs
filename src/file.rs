@@ -57,14 +57,14 @@ impl<O: IsA<File> + IsA<glib::Object> + Clone + 'static> FileExtManual for O {
     #[cfg(feature = "futures")]
     fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, String)), Error = (Self, (B, Error))>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let etag = etag.into();
         let etag = etag.map(String::from);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.replace_contents_async(
                  contents,
                  etag.as_ref().map(|s| s.as_str()),

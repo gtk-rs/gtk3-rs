@@ -87,13 +87,13 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
     #[cfg(feature = "futures")]
     fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let password = password.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.ask_password_async(
                  &password,
                  Some(&cancellable),
@@ -163,13 +163,13 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let connection = connection.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.request_certificate_async(
                  &connection,
                  flags,

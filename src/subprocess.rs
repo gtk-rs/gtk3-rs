@@ -62,13 +62,13 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let stdin_buf = stdin_buf.into();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.communicate_utf8_async(
                  stdin_buf,
                  Some(&cancellable),

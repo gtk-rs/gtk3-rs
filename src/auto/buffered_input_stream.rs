@@ -98,12 +98,12 @@ impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object> + Clone + 'static> 
     #[cfg(feature = "futures")]
     fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.fill_async(
                  count,
                  io_priority,

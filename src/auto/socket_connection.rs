@@ -98,13 +98,13 @@ impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> Soc
     #[cfg(feature = "futures")]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let address = address.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
                  &address,
                  Some(&cancellable),

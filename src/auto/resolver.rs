@@ -117,13 +117,13 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object> + Clone + 'static> ResolverExt
     #[cfg(feature = "futures")]
     fn lookup_by_address_async_future(&self, address: &InetAddress) -> Box_<futures_core::Future<Item = (Self, String), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let address = address.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_by_address_async(
                  &address,
                  Some(&cancellable),
@@ -169,13 +169,13 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object> + Clone + 'static> ResolverExt
     #[cfg(feature = "futures")]
     fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let hostname = String::from(hostname);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_by_name_async(
                  &hostname,
                  Some(&cancellable),
@@ -224,13 +224,13 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object> + Clone + 'static> ResolverExt
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let rrname = String::from(rrname);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_records_async(
                  &rrname,
                  record_type,
@@ -277,15 +277,15 @@ impl<O: IsA<Resolver> + IsA<glib::object::Object> + Clone + 'static> ResolverExt
     #[cfg(feature = "futures")]
     fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let service = String::from(service);
         let protocol = String::from(protocol);
         let domain = String::from(domain);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_service_async(
                  &service,
                  &protocol,

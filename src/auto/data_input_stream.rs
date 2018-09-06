@@ -222,13 +222,13 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     #[cfg(feature = "futures")]
     fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let stop_chars = String::from(stop_chars);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.read_until_async(
                  &stop_chars,
                  io_priority,
@@ -279,13 +279,13 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     #[cfg(feature = "futures")]
     fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let stop_chars = String::from(stop_chars);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.read_upto_async(
                  &stop_chars,
                  io_priority,

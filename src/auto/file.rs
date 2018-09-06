@@ -401,12 +401,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.append_to_async(
                  flags,
                  io_priority,
@@ -433,7 +433,7 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     //#[cfg(feature = "futures")]
     //fn copy_async_future<'b, P: IsA<File> + Clone + 'static, R: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: R, progress_callback_data: S) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         //use GioFuture;
-        //use send_cell::SendCell;
+        //use fragile::Fragile;
 
         //let destination = destination.clone();
         //let progress_callback = progress_callback.into();
@@ -442,8 +442,8 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //let progress_callback_data = progress_callback_data.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
+        //    let send = Fragile::new(send);
+        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.copy_async(
         //         &destination,
         //         flags,
@@ -497,12 +497,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.create_async(
                  flags,
                  io_priority,
@@ -549,12 +549,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.create_readwrite_async(
                  flags,
                  io_priority,
@@ -603,12 +603,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.delete_async(
                  io_priority,
                  Some(&cancellable),
@@ -650,12 +650,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn eject_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.eject_mountable(
                  flags,
                  Some(&cancellable),
@@ -693,14 +693,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn eject_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.eject_mountable_with_operation(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -854,12 +854,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, String)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.load_bytes_async(
                  Some(&cancellable),
                  move |res| {
@@ -910,12 +910,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn load_contents_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, String)), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.load_contents_async(
                  Some(&cancellable),
                  move |res| {
@@ -936,12 +936,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     //#[cfg(feature = "futures")]
     //fn load_partial_contents_async_future(&self, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, String)), Error = (Self, Error)>> {
         //use GioFuture;
-        //use send_cell::SendCell;
+        //use fragile::Fragile;
 
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
+        //    let send = Fragile::new(send);
+        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.load_partial_contents_async(
         //         Some(&cancellable),
         //         read_more_callback,
@@ -989,12 +989,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.make_directory_async(
                  io_priority,
                  Some(&cancellable),
@@ -1043,7 +1043,7 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
     //fn measure_disk_usage_async_future<'b, Q: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q, progress_data: R) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>> {
         //use GioFuture;
-        //use send_cell::SendCell;
+        //use fragile::Fragile;
 
         //let progress_callback = progress_callback.into();
         //let progress_callback = progress_callback.map(ToOwned::to_owned);
@@ -1051,8 +1051,8 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
         //let progress_data = progress_data.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
+        //    let send = Fragile::new(send);
+        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.measure_disk_usage_async(
         //         flags,
         //         io_priority,
@@ -1123,14 +1123,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn mount_enclosing_volume_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.mount_enclosing_volume(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -1169,14 +1169,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn mount_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.mount_mountable(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -1227,12 +1227,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.open_readwrite_async(
                  io_priority,
                  Some(&cancellable),
@@ -1275,12 +1275,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn poll_mountable_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.poll_mountable(
                  Some(&cancellable),
                  move |res| {
@@ -1351,13 +1351,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let attributes = String::from(attributes);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.query_filesystem_info_async(
                  &attributes,
                  io_priority,
@@ -1404,13 +1404,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let attributes = String::from(attributes);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.query_info_async(
                  &attributes,
                  flags,
@@ -1466,12 +1466,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn read_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.read_async(
                  io_priority,
                  Some(&cancellable),
@@ -1521,14 +1521,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn replace_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let etag = etag.into();
         let etag = etag.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.replace_async(
                  etag.as_ref().map(::std::borrow::Borrow::borrow),
                  make_backup,
@@ -1600,14 +1600,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn replace_readwrite_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let etag = etag.into();
         let etag = etag.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.replace_readwrite_async(
                  etag.as_ref().map(::std::borrow::Borrow::borrow),
                  make_backup,
@@ -1717,13 +1717,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn set_attributes_async_future(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let info = info.clone();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.set_attributes_async(
                  &info,
                  flags,
@@ -1781,13 +1781,13 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let display_name = String::from(display_name);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.set_display_name_async(
                  &display_name,
                  io_priority,
@@ -1826,14 +1826,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn start_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: DriveStartFlags, start_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let start_operation = start_operation.into();
         let start_operation = start_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.start_mountable(
                  flags,
                  start_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -1872,14 +1872,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn stop_mountable_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.stop_mountable(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
@@ -1934,12 +1934,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.trash_async(
                  io_priority,
                  Some(&cancellable),
@@ -1975,12 +1975,12 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn unmount_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.unmount_mountable(
                  flags,
                  Some(&cancellable),
@@ -2018,14 +2018,14 @@ impl<O: IsA<File> + IsA<glib::object::Object> + Clone + 'static> FileExt for O {
     #[cfg(feature = "futures")]
     fn unmount_mountable_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         use GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let mount_operation = mount_operation.into();
         let mount_operation = mount_operation.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             obj.unmount_mountable_with_operation(
                  flags,
                  mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
