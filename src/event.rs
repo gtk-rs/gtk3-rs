@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use libc::c_void;
 use glib::translate::*;
 use ffi;
 
@@ -51,6 +52,28 @@ impl Event {
 
     pub fn put(&self) {
         unsafe { ffi::gdk_event_put(self.to_glib_none().0) }
+    }
+
+    /// Set the event handler.
+    /// 
+    /// The callback `handler` is called for each event. If `None`, event
+    /// handling is disabled.
+    pub fn set_handler<F: Fn(&mut Event) +'static>(handler: Option<F>) {
+        assert_initialized_main_thread!();
+        if let Some(handler) = handler {
+            // allocate and convert to target type
+            // double box to reduce a fat pointer to a simple pointer
+            let boxed: Box<Box<Fn(&mut Event) + 'static>> = Box::new(Box::new(handler));
+            let ptr: *mut c_void = Box::into_raw(boxed) as *mut _;
+            unsafe {
+                ffi::gdk_event_handler_set(
+                    Some(event_handler_trampoline),
+                    ptr,
+                    Some(event_handler_destroy))
+            }
+        } else {
+            unsafe { ffi::gdk_event_handler_set(None, ptr::null_mut(), None) }
+        }
     }
 
     pub fn get_axis(&self, axis_use: AxisUse) -> Option<f64> {
@@ -419,5 +442,22 @@ macro_rules! event_subtype {
                 &mut self.0
             }
         }
+    }
+}
+
+unsafe extern "C" fn event_handler_trampoline(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
+    if ptr != ptr::null_mut() {
+        let raw: *mut Box<dyn Fn(&mut Event) +'static> = ptr as _;
+        let f: &(dyn Fn(&mut Event) +'static) = &**raw;
+        let mut event = from_glib_none(event);
+        f(&mut event)
+    }
+}
+
+unsafe extern "C" fn event_handler_destroy(ptr: glib_ffi::gpointer) {
+    if ptr != ptr::null_mut() {
+        // convert back to Box and free
+        let raw: *mut Box<dyn Fn(&mut Event) +'static> = ptr as _;
+        let _boxed: Box<Box<dyn Fn(&mut Event) +'static>> = Box::from_raw(raw);
     }
 }
