@@ -404,14 +404,14 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //#[cfg(feature = "futures")]
     //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
         //use gio::GioFuture;
-        //use send_cell::SendCell;
+        //use fragile::Fragile;
 
         //let stream = stream.clone();
         //let type_ = String::from(type_);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = gio::Cancellable::new();
-        //    let send = SendCell::new(send);
-        //    let obj_clone = SendCell::new(obj.clone());
+        //    let send = Fragile::new(send);
+        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.save_to_stream_async(
         //         &stream,
         //         &type_,
