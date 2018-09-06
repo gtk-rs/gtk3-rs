@@ -56,3 +56,12 @@ pub fn setting_get(name: &str) -> Option<glib::Value> {
         }
     }
 }
+
+pub fn property_change(window: &super::Window, property: &super::Atom, type_: &super::Atom,
+                       format: i32, mode: super::PropMode, data: super::ChangeData) {
+    skip_assert_initialized!();
+    let nelements = data.len();
+    unsafe {
+        ffi::gdk_property_change(window.to_glib_none().0, property.to_glib_none().0, type_.to_glib_none().0, format, mode.to_glib(), data.to_glib(), nelements as i32);
+    }
+}

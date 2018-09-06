@@ -121,6 +121,10 @@ status = "generate"
     # GValue initialized inside the function instead of passed as argument
     ignore = true
     [[object.function]]
+    name = "property_change"
+    # data parameter needed to be more
+    ignore = true
+    [[object.function]]
     name = "pango_layout_get_clip_region"
     ignore = true
     [[object.function]]

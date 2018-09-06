@@ -43,6 +43,7 @@ pub mod enums;
 
 mod atom;
 mod cairo_interaction;
+mod change_data;
 mod device;
 mod device_manager;
 mod drag_context;
@@ -112,6 +113,7 @@ pub use atom::SELECTION_TYPE_INTEGER;
 pub use atom::SELECTION_TYPE_PIXMAP;
 pub use atom::SELECTION_TYPE_WINDOW;
 pub use atom::SELECTION_TYPE_STRING;
+pub use change_data::ChangeData;
 pub use event::Event;
 pub use event_button::EventButton;
 pub use event_configure::EventConfigure;
