@@ -129,10 +129,10 @@ impl Pixbuf {
 
         let stream = stream.clone();
         GioFuture::new(&(), move |_obj, send| {
-            use send_cell::SendCell;
+            use fragile::Fragile;
 
             let cancellable = gio::Cancellable::new();
-            let send = SendCell::new(send);
+            let send = Fragile::new(send);
             Self::new_from_stream_async(
                 &stream,
                 Some(&cancellable),
@@ -173,10 +173,10 @@ impl Pixbuf {
 
         let stream = stream.clone();
         GioFuture::new(&(), move |_obj, send| {
-            use send_cell::SendCell;
+            use fragile::Fragile;
 
             let cancellable = gio::Cancellable::new();
-            let send = SendCell::new(send);
+            let send = Fragile::new(send);
             Self::new_from_stream_at_scale_async(
                 &stream,
                 width,
@@ -262,10 +262,10 @@ impl Pixbuf {
         use gio::GioFuture;
 
         GioFuture::new(&(), move |_obj, send| {
-            use send_cell::SendCell;
+            use fragile::Fragile;
 
             let cancellable = gio::Cancellable::new();
-            let send = SendCell::new(send);
+            let send = Fragile::new(send);
             Self::get_file_info_async(
                 filename,
                 Some(&cancellable),
@@ -333,15 +333,15 @@ impl Pixbuf {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)]) -> Box<Future<Item = (Self, ()), Error = (Self, Error)>> {
         use gio::GioFuture;
-        use send_cell::SendCell;
+        use fragile::Fragile;
 
         let stream = stream.clone();
         let type_ = String::from(type_);
         let options = options.iter().map(|&(k, v)| (String::from(k), String::from(v))).collect::<Vec<(String, String)>>();
         GioFuture::new(self, move |obj, send| {
             let cancellable = gio::Cancellable::new();
-            let send = SendCell::new(send);
-            let obj_clone = SendCell::new(obj.clone());
+            let send = Fragile::new(send);
+            let obj_clone = Fragile::new(obj.clone());
             let options = options.iter().map(|&(ref k, ref v)| (k.as_str(), v.as_str())).collect::<Vec<(&str, &str)>>();
 
             obj.save_to_streamv_async(
