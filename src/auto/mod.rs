@@ -124,6 +124,7 @@ pub use self::enums::InputSource;
 pub use self::enums::ModifierIntent;
 pub use self::enums::NotifyType;
 pub use self::enums::OwnerChange;
+pub use self::enums::PropMode;
 pub use self::enums::PropertyState;
 pub use self::enums::ScrollDirection;
 pub use self::enums::SettingAction;

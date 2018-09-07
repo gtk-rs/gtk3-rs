@@ -288,10 +288,6 @@ pub fn pre_parse_libgtk_only() {
     }
 }
 
-//pub fn property_change(window: &Window, property: &Atom, type_: &Atom, format: i32, mode: /*Ignored*/PropMode, data: u8, nelements: i32) {
-//    unsafe { TODO: call ffi::gdk_property_change() }
-//}
-
 pub fn property_delete(window: &Window, property: &Atom) {
     skip_assert_initialized!();
     unsafe {

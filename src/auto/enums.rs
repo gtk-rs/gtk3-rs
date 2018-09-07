@@ -1793,6 +1793,67 @@ impl SetValue for OwnerChange {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
+pub enum PropMode {
+    Replace,
+    Prepend,
+    Append,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for PropMode {
+    type GlibType = ffi::GdkPropMode;
+
+    fn to_glib(&self) -> ffi::GdkPropMode {
+        match *self {
+            PropMode::Replace => ffi::GDK_PROP_MODE_REPLACE,
+            PropMode::Prepend => ffi::GDK_PROP_MODE_PREPEND,
+            PropMode::Append => ffi::GDK_PROP_MODE_APPEND,
+            PropMode::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GdkPropMode> for PropMode {
+    fn from_glib(value: ffi::GdkPropMode) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => PropMode::Replace,
+            1 => PropMode::Prepend,
+            2 => PropMode::Append,
+            value => PropMode::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for PropMode {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::gdk_prop_mode_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for PropMode {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for PropMode {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for PropMode {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum PropertyState {
     NewValue,
     Delete,

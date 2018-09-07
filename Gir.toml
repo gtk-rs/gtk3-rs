@@ -42,6 +42,7 @@ generate = [
     "Gdk.NotifyType",
     "Gdk.OwnerChange",
     "Gdk.PropertyState",
+    "Gdk.PropMode",
     "Gdk.ScrollDirection",
     "Gdk.SeatCapabilities",
     "Gdk.SettingAction",
@@ -67,6 +68,7 @@ manual = [
     "cairo.Surface",
     "Gdk.Atom",
     "Gdk.Event",
+    "Gdk.EventAny",
     "Gdk.EventButton",
     "Gdk.EventConfigure",
     "Gdk.EventCrossing",
@@ -77,12 +79,17 @@ manual = [
     "Gdk.EventKey",
     "Gdk.EventMotion",
     "Gdk.EventOwnerChange",
+    "Gdk.EventPadAxis",
+    "Gdk.EventPadButton",
+    "Gdk.EventPadGroupMode",
     "Gdk.EventProperty",
     "Gdk.EventProximity",
     "Gdk.EventScroll",
     "Gdk.EventSelection",
     "Gdk.EventSetting",
     "Gdk.EventTouch",
+    "Gdk.EventTouchpadPinch",
+    "Gdk.EventTouchpadSwipe",
     "Gdk.EventVisibility",
     "Gdk.EventWindowState",
     "Gdk.Geometry",
@@ -112,6 +119,10 @@ status = "generate"
     [[object.function]]
     name = "setting_get"
     # GValue initialized inside the function instead of passed as argument
+    ignore = true
+    [[object.function]]
+    name = "property_change"
+    # data parameter needed to be more
     ignore = true
     [[object.function]]
     name = "pango_layout_get_clip_region"
