@@ -317,8 +317,8 @@ mod tests {
     use super::*;
     use std::thread;
     use std::sync::mpsc;
-    use futures_channel::oneshot;
-    use futures_util::future;
+    use futures::future;
+    use futures::channel::oneshot;
 
     #[test]
     fn test_spawn() {
