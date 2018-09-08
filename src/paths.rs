@@ -2,14 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem::transmute;
 use std::iter::Iterator;
-use c_vec::CVec;
 use ffi::enums::PathDataType;
-use ffi::{
-    cairo_path_t,
-    cairo_path_data_header
-};
+use ffi::cairo_path_t;
 use ffi;
 
 pub struct Path(*mut cairo_path_t);
@@ -35,11 +30,13 @@ impl Path {
     }
 
     pub fn iter(&self) -> PathSegments {
+        use std::slice;
+
         unsafe {
             let ptr: *mut cairo_path_t = self.get_ptr();
             let length = (*ptr).num_data as usize;
             let data_ptr = (*ptr).data;
-            let data_vec = if length != 0 { Some(CVec::new(data_ptr, length)) } else { None };
+            let data_vec = if length != 0 && !data_ptr.is_null() { slice::from_raw_parts(data_ptr, length) } else { &[] };
 
             PathSegments {
                 data: data_vec,
@@ -66,40 +63,35 @@ pub enum PathSegment {
     ClosePath
 }
 
-pub struct PathSegments {
-    data: Option<CVec<[f64; 2]>>,
+pub struct PathSegments<'a> {
+    data: &'a [ffi::cairo_path_data],
     i: usize,
     num_data: usize
 }
 
-impl Iterator for PathSegments {
+impl<'a> Iterator for PathSegments<'a> {
     type Item = PathSegment;
 
     fn next(&mut self) -> Option<PathSegment> {
-        let i = self.i;
-
-        if i >= self.num_data{
+        if self.i >= self.num_data {
             return None;
         }
 
-        let (data_type, length) = unsafe {
-            let data_header: &cairo_path_data_header = transmute(self.data.as_ref().unwrap().get(i));
-            (data_header.data_type, data_header.length)
-        };
+        unsafe {
+            let res = match self.data[self.i].header.data_type {
+                PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(&self.data[self.i + 1].point)),
+                PathDataType::LineTo => PathSegment::LineTo(to_tuple(&self.data[self.i + 1].point)),
+                PathDataType::CurveTo => {
+                    PathSegment::CurveTo(to_tuple(&self.data[self.i + 1].point),
+                        to_tuple(&self.data[self.i + 2].point), to_tuple(&self.data[self.i + 3].point))
+                }
+                PathDataType::ClosePath => PathSegment::ClosePath
+            };
 
-        self.i += length as usize;
+            self.i += self.data[self.i].header.length as usize;
 
-        let data = &self.data.as_ref().unwrap();
-
-        Some(match data_type {
-            PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(data.get(i + 1).unwrap())),
-            PathDataType::LineTo => PathSegment::LineTo(to_tuple(data.get(i + 1).unwrap())),
-            PathDataType::CurveTo => {
-                PathSegment::CurveTo(to_tuple(data.get(i + 1).unwrap()),
-                    to_tuple(data.get(i + 2).unwrap()), to_tuple(data.get(i + 3).unwrap()))
-            }
-            PathDataType::ClosePath => PathSegment::ClosePath
-        })
+            Some(res)
+        }
     }
 }
 

@@ -4,10 +4,10 @@
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use c_vec::CVec;
 use std::mem::transmute;
-use libc::{c_double, c_int};
+use libc::c_int;
 use std::ffi::CString;
+use std::ops;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
@@ -25,15 +25,33 @@ use ffi::{
     cairo_rectangle_list_t,
 };
 use ffi::enums::{Status, Antialias, LineCap, LineJoin, FillRule};
-use ::patterns::{wrap_pattern, Pattern, PatternTrait};
+use ::patterns::{Pattern, PatternTrait};
 use surface::Surface;
 
-pub struct RectangleVec {
+pub struct RectangleList {
     ptr: *mut cairo_rectangle_list_t,
-    pub rectangles: CVec<Rectangle>,
 }
 
-impl Drop for RectangleVec {
+impl ops::Deref for RectangleList {
+    type Target = [Rectangle];
+
+    fn deref(&self) -> &[Rectangle] {
+        use std::slice;
+
+        unsafe {
+            let ptr = (*self.ptr).rectangles;
+            let len = (*self.ptr).num_rectangles;
+
+            if ptr.is_null() || len == 0 {
+                &[]
+            } else {
+                slice::from_raw_parts(ptr, len as usize)
+            }
+        }
+    }
+}
+
+impl Drop for RectangleList {
     fn drop(&mut self) {
         unsafe {
             ffi::cairo_rectangle_list_destroy(self.ptr);
@@ -410,16 +428,14 @@ impl Context {
         self.ensure_status()
     }
 
-    pub fn copy_clip_rectangle_list(&self) -> RectangleVec {
+    pub fn copy_clip_rectangle_list(&self) -> RectangleList {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0);
 
             (*rectangle_list).status.ensure_valid();
 
-            RectangleVec {
+            RectangleList {
                 ptr: rectangle_list,
-                rectangles: CVec::new((*rectangle_list).rectangles,
-                                      (*rectangle_list).num_rectangles as usize),
             }
         }
     }

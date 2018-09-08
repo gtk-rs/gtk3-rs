@@ -4,7 +4,6 @@
 
 extern crate cairo_sys as ffi;
 extern crate libc;
-extern crate c_vec;
 
 #[cfg(feature = "use_glib")]
 #[macro_use]
@@ -65,7 +64,7 @@ pub use ffi::cairo_rectangle_t as Rectangle;
 
 pub use context::{
     Context,
-    RectangleVec,
+    RectangleList,
 };
 
 pub use paths::{
