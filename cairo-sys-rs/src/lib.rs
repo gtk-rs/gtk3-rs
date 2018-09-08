@@ -168,6 +168,12 @@ pub struct cairo_path_data_header{
     pub length:    c_int,
 }
 #[repr(C)]
+#[derive(Clone, Copy)]
+pub union cairo_path_data{
+    pub header: cairo_path_data_header,
+    pub point: [f64; 2],
+}
+#[repr(C)]
 pub struct cairo_glyph_t(c_void);
 debug_impl!(cairo_glyph_t);
 
