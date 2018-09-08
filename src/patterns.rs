@@ -26,24 +26,7 @@ use ::{
 
 //Quite some changes from the C api but all suggested by the cairo devs.
 //See http://cairographics.org/manual/bindings-patterns.html for more info
-
-
-//TODO Does anyone know a way to do this without dynamic dispatch -- @mthq
-pub fn wrap_pattern(ptr: *mut cairo_pattern_t) -> Pattern {
-    let pattern_type = unsafe { ffi::cairo_pattern_get_type(ptr) };
-
-    match pattern_type {
-        PatternTypeFfi::Solid            => Pattern::SolidPattern(SolidPattern::wrap(ptr)),
-        PatternTypeFfi::Surface          => Pattern::SurfacePattern(SurfacePattern::wrap(ptr)),
-        PatternTypeFfi::LinearGradient   => Pattern::LinearGradient(LinearGradient::wrap(ptr)),
-        PatternTypeFfi::RadialGradient   => Pattern::RadialGradient(RadialGradient::wrap(ptr)),
-        #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternTypeFfi::Mesh             => Pattern::Mesh(Mesh::wrap(ptr)),
-        #[cfg(any(feature = "v1_12", feature = "dox"))]
-        PatternTypeFfi::RasterSource     => panic!("Not implemented")
-    }
-}
-
+#[derive(Debug, Clone)]
 pub enum Pattern {
     SolidPattern(SolidPattern),
     SurfacePattern(SurfacePattern),
@@ -56,51 +39,34 @@ pub enum Pattern {
 impl PatternTrait for Pattern {
     type PatternType = Pattern;
 
-    fn get_ptr(&self) -> *mut cairo_pattern_t {
+    fn as_ptr(&self) -> *mut cairo_pattern_t {
         match *self {
-            Pattern::SolidPattern(ref solid) => solid.get_ptr(),
-            Pattern::SurfacePattern(ref surface) => surface.get_ptr(),
-            Pattern::LinearGradient(ref linear) => linear.get_ptr(),
-            Pattern::RadialGradient(ref radial) => radial.get_ptr(),
+            Pattern::SolidPattern(ref solid) => solid.as_ptr(),
+            Pattern::SurfacePattern(ref surface) => surface.as_ptr(),
+            Pattern::LinearGradient(ref linear) => linear.as_ptr(),
+            Pattern::RadialGradient(ref radial) => radial.as_ptr(),
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            Pattern::Mesh(ref mesh) => mesh.get_ptr(),
+            Pattern::Mesh(ref mesh) => mesh.as_ptr(),
         }
     }
 
-    fn wrap(pointer: *mut cairo_pattern_t) -> Pattern {
-        wrap_pattern(pointer)
+    unsafe fn from_raw_none(pointer: *mut cairo_pattern_t) -> Pattern {
+        ffi::cairo_pattern_reference(pointer);
+        Self::from_raw_full(pointer)
     }
 
-    fn reference(&self) -> Pattern {
-        match *self {
-            Pattern::SolidPattern(ref solid) => Pattern::SolidPattern(solid.reference()),
-            Pattern::SurfacePattern(ref surface) => Pattern::SurfacePattern(surface.reference()),
-            Pattern::LinearGradient(ref linear) => Pattern::LinearGradient(linear.reference()),
-            Pattern::RadialGradient(ref radial) => Pattern::RadialGradient(radial.reference()),
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
-            Pattern::Mesh(ref mesh) => Pattern::Mesh(mesh.reference()),
-        }
-    }
+    unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Pattern {
+        let pattern_type = ffi::cairo_pattern_get_type(pointer);
 
-    fn reference_by_ctx(&mut self) {
-        match *self {
-            Pattern::SolidPattern(ref mut solid) => solid.reference_by_ctx(),
-            Pattern::SurfacePattern(ref mut surface) => surface.reference_by_ctx(),
-            Pattern::LinearGradient(ref mut linear) => linear.reference_by_ctx(),
-            Pattern::RadialGradient(ref mut radial) => radial.reference_by_ctx(),
+        match pattern_type {
+            PatternTypeFfi::Solid            => Pattern::SolidPattern(SolidPattern::from_raw_full(pointer)),
+            PatternTypeFfi::Surface          => Pattern::SurfacePattern(SurfacePattern::from_raw_full(pointer)),
+            PatternTypeFfi::LinearGradient   => Pattern::LinearGradient(LinearGradient::from_raw_full(pointer)),
+            PatternTypeFfi::RadialGradient   => Pattern::RadialGradient(RadialGradient::from_raw_full(pointer)),
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            Pattern::Mesh(ref mut mesh) => mesh.reference_by_ctx(),
-        }
-    }
-
-    fn dereference_by_ctx(&mut self) {
-        match *self {
-            Pattern::SolidPattern(ref mut solid) => solid.dereference_by_ctx(),
-            Pattern::SurfacePattern(ref mut surface) => surface.dereference_by_ctx(),
-            Pattern::LinearGradient(ref mut linear) => linear.dereference_by_ctx(),
-            Pattern::RadialGradient(ref mut radial) => radial.dereference_by_ctx(),
+            PatternTypeFfi::Mesh             => Pattern::Mesh(Mesh::from_raw_full(pointer)),
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            Pattern::Mesh(ref mut mesh) => mesh.dereference_by_ctx(),
+            PatternTypeFfi::RasterSource     => panic!("Not implemented")
         }
     }
 }
@@ -108,8 +74,7 @@ impl PatternTrait for Pattern {
 pub trait PatternTrait {
     type PatternType;
 
-    #[doc(hidden)]
-    fn get_ptr(&self) -> *mut cairo_pattern_t;
+    fn as_ptr(&self) -> *mut cairo_pattern_t;
 
     fn ensure_status(&self) {
         self.status().ensure_valid();
@@ -117,111 +82,99 @@ pub trait PatternTrait {
 
     fn status(&self) -> Status {
         unsafe {
-            ffi::cairo_pattern_status(self.get_ptr())
+            ffi::cairo_pattern_status(self.as_ptr())
         }
     }
 
     fn get_reference_count(&self) -> isize {
         unsafe {
-            ffi::cairo_pattern_get_reference_count(self.get_ptr()) as isize
+            ffi::cairo_pattern_get_reference_count(self.as_ptr()) as isize
         }
     }
 
     fn set_extend(&self, extend: Extend) {
         unsafe {
-            ffi::cairo_pattern_set_extend(self.get_ptr(), extend)
+            ffi::cairo_pattern_set_extend(self.as_ptr(), extend)
         }
     }
 
     fn get_extend(&self) -> Extend {
         unsafe {
-            ffi::cairo_pattern_get_extend(self.get_ptr())
+            ffi::cairo_pattern_get_extend(self.as_ptr())
         }
     }
 
     fn set_filter(&self, filter: Filter) {
         unsafe {
-            ffi::cairo_pattern_set_filter(self.get_ptr(), filter)
+            ffi::cairo_pattern_set_filter(self.as_ptr(), filter)
         }
     }
 
     fn get_filter(&self) -> Filter {
         unsafe {
-            ffi::cairo_pattern_get_filter(self.get_ptr())
+            ffi::cairo_pattern_get_filter(self.as_ptr())
         }
     }
 
     fn set_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_pattern_set_matrix (self.get_ptr(), &matrix)
+            ffi::cairo_pattern_set_matrix (self.as_ptr(), &matrix)
         }
     }
 
     fn get_matrix(&self) -> Matrix {
-        let mut matrix = <Matrix as MatrixTrait>::null();
+        let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_pattern_get_matrix(self.get_ptr(), &mut matrix);
+            ffi::cairo_pattern_get_matrix(self.as_ptr(), &mut matrix);
         }
         matrix
     }
 
-    fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType;
+    unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Self::PatternType;
 
-    fn reference(&self) -> Self::PatternType;
-
-    #[doc(hidden)]
-    fn reference_by_ctx(&mut self);
-    #[doc(hidden)]
-    fn dereference_by_ctx(&mut self);
+    unsafe fn from_raw_none(pointer: *mut cairo_pattern_t) -> Self::PatternType {
+        ffi::cairo_pattern_reference(pointer);
+        Self::from_raw_full(pointer)
+    }
 }
 
 macro_rules! pattern_type(
     //Signals without arguments
     ($pattern_type:ident) => (
 
+        #[derive(Debug)]
         pub struct $pattern_type {
             pointer: *mut cairo_pattern_t,
-            referenced_by_ctx: bool
         }
 
         impl PatternTrait for $pattern_type {
             type PatternType = $pattern_type;
 
-            fn wrap(pointer: *mut cairo_pattern_t) -> Self::PatternType {
+            unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Self::PatternType {
                 $pattern_type {
                     pointer: pointer,
-                    referenced_by_ctx: false,
                 }
             }
 
-            fn reference(&self) -> Self::PatternType {
+            fn as_ptr(&self) -> *mut cairo_pattern_t {
+                self.pointer
+            }
+        }
+
+        impl Clone for $pattern_type {
+            fn clone(&self) -> Self {
                 $pattern_type {
                     pointer: unsafe {
                         ffi::cairo_pattern_reference(self.pointer)
                     },
-                    referenced_by_ctx: false,
                 }
-            }
-
-            fn get_ptr(&self) -> *mut cairo_pattern_t {
-                self.pointer
-            }
-
-            fn reference_by_ctx(&mut self) {
-                self.referenced_by_ctx = true;
-            }
-
-            fn dereference_by_ctx(&mut self) {
-                self.referenced_by_ctx = false;
             }
         }
 
         impl Drop for $pattern_type {
             fn drop(&mut self){
                 unsafe {
-                    if !self.referenced_by_ctx && self.get_reference_count() > 0 {
-                        ffi::cairo_pattern_destroy(self.pointer)
-                    }
+                    ffi::cairo_pattern_destroy(self.pointer)
                 }
             }
         }
@@ -232,15 +185,19 @@ pattern_type!(SolidPattern);
 
 impl SolidPattern {
     pub fn from_rgb(red: f64, green: f64, blue: f64) -> SolidPattern {
-        SolidPattern::wrap(unsafe {
-            ffi::cairo_pattern_create_rgb(red, green, blue)
-        })
+        unsafe {
+            SolidPattern::from_raw_full(
+                ffi::cairo_pattern_create_rgb(red, green, blue)
+            )
+        }
     }
 
     pub fn from_rgba(red: f64, green: f64, blue: f64, alpha: f64) -> SolidPattern {
-        SolidPattern::wrap(unsafe {
-            ffi::cairo_pattern_create_rgba(red, green, blue, alpha)
-        })
+        unsafe {
+            SolidPattern::from_raw_full(
+                ffi::cairo_pattern_create_rgba(red, green, blue, alpha)
+                )
+        }
     }
 
     pub fn get_rgba(&self) -> (f64, f64, f64, f64) {
@@ -261,20 +218,20 @@ impl SolidPattern {
 pub trait Gradient : PatternTrait {
     fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
         unsafe {
-            ffi::cairo_pattern_add_color_stop_rgb(self.get_ptr(), offset, red, green, blue)
+            ffi::cairo_pattern_add_color_stop_rgb(self.as_ptr(), offset, red, green, blue)
         }
     }
 
     fn add_color_stop_rgba(&self, offset: f64, red: f64, green: f64, blue: f64, alpha: f64) {
         unsafe {
-            ffi::cairo_pattern_add_color_stop_rgba(self.get_ptr(), offset, red, green, blue, alpha)
+            ffi::cairo_pattern_add_color_stop_rgba(self.as_ptr(), offset, red, green, blue, alpha)
         }
     }
 
     fn get_color_stop_count(&self) -> isize {
         unsafe {
             let mut count = 0;
-            let result = ffi::cairo_pattern_get_color_stop_count(self.get_ptr(), &mut count);
+            let result = ffi::cairo_pattern_get_color_stop_count(self.as_ptr(), &mut count);
 
             result.ensure_valid(); // Not sure if these are needed
             count as isize
@@ -289,7 +246,7 @@ pub trait Gradient : PatternTrait {
             let mut blue   = 0.0;
             let mut alpha  = 0.0;
 
-            ffi::cairo_pattern_get_color_stop_rgba(self.get_ptr(), index as c_int, &mut offset, &mut red, &mut green, &mut blue, &mut alpha).ensure_valid();
+            ffi::cairo_pattern_get_color_stop_rgba(self.as_ptr(), index as c_int, &mut offset, &mut red, &mut green, &mut blue, &mut alpha).ensure_valid();
             (offset, red, green, blue, alpha)
         }
     }
@@ -299,9 +256,11 @@ pattern_type!(LinearGradient);
 
 impl LinearGradient {
     pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> LinearGradient {
-        LinearGradient::wrap(unsafe {
-            ffi::cairo_pattern_create_linear(x0, y0, x1, y1)
-        })
+        unsafe {
+            LinearGradient::from_raw_full(
+                ffi::cairo_pattern_create_linear(x0, y0, x1, y1)
+                )
+        }
     }
 
     pub fn get_linear_points(&self) -> (f64, f64, f64, f64) {
@@ -324,9 +283,11 @@ pattern_type!(RadialGradient);
 
 impl RadialGradient {
     pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> RadialGradient {
-        RadialGradient::wrap(unsafe{
-            ffi::cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1)
-        })
+        unsafe {
+            RadialGradient::from_raw_full(
+                ffi::cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1)
+            )
+        }
     }
 
     pub fn get_radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
@@ -351,9 +312,11 @@ pattern_type!(SurfacePattern);
 
 impl SurfacePattern {
     pub fn create<T: AsRef<Surface>>(surface: &T) -> SurfacePattern {
-        SurfacePattern::wrap(unsafe {
-            ffi::cairo_pattern_create_for_surface(surface.as_ref().to_raw_none())
-        })
+        unsafe {
+            SurfacePattern::from_raw_full(
+                ffi::cairo_pattern_create_for_surface(surface.as_ref().to_raw_none())
+            )
+        }
     }
 
     pub fn get_surface(&self) -> Surface {
@@ -381,9 +344,11 @@ pattern_type!(Mesh);
 #[cfg(any(feature = "v1_12", feature = "dox"))]
 impl Mesh {
     pub fn new() -> Mesh {
-        Mesh::wrap(unsafe {
-            ffi::cairo_pattern_create_mesh()
-        })
+        unsafe {
+            Mesh::from_raw_full(
+                ffi::cairo_pattern_create_mesh()
+            )
+        }
     }
 
     pub fn begin_patch(&self) {

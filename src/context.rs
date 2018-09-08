@@ -200,7 +200,7 @@ impl Context {
 
     pub fn pop_group(&self) -> Pattern {
         unsafe {
-            wrap_pattern(ffi::cairo_pop_group(self.0))
+            Pattern::from_raw_full(ffi::cairo_pop_group(self.0))
         }
     }
 
@@ -228,24 +228,17 @@ impl Context {
         }
     }
 
-    pub fn set_source(&self, source: &mut Pattern) {
-        let mut old_source = self.get_source();
-        old_source.dereference_by_ctx();
+    pub fn set_source(&self, source: &Pattern) {
         unsafe {
-            source.reference_by_ctx();
-            ffi::cairo_set_source(self.0, source.get_ptr());
+            ffi::cairo_set_source(self.0, source.as_ptr());
         }
         self.ensure_status();
     }
 
     pub fn get_source(&self) -> Pattern {
-        let mut pattern = unsafe {
-            wrap_pattern(ffi::cairo_get_source(self.0))
-        };
-
-        pattern.reference_by_ctx();
-
-        pattern
+        unsafe {
+            Pattern::from_raw_none(ffi::cairo_get_source(self.0))
+        }
     }
 
     pub fn set_source_surface<T: AsRef<Surface>>(&self, surface: &T, x: f64, y: f64) {
@@ -471,7 +464,7 @@ impl Context {
 
     pub fn mask(&self, pattern: &Pattern) {
         unsafe {
-            ffi::cairo_mask(self.0, pattern.get_ptr())
+            ffi::cairo_mask(self.0, pattern.as_ptr())
         }
     }
 
