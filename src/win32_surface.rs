@@ -25,7 +25,6 @@ impl Win32Surface {
         }
     }
 
-    #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Win32Surface, Status> {
         let surface = Self::from(Surface::from_raw_full(ptr)).unwrap();
         let status = surface.status();

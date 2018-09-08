@@ -35,7 +35,6 @@ impl PDFSurface {
         }
     }
 
-    #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> PDFSurface {
         Self::from(Surface::from_raw_full(ptr)).unwrap()
     }

@@ -23,27 +23,23 @@ use ffi::enums::{
 pub struct Surface(*mut ffi::cairo_surface_t, bool);
 
 impl Surface {
-    #[doc(hidden)]
     pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         ffi::cairo_surface_reference(ptr);
         Surface(ptr, false)
     }
 
-    #[doc(hidden)]
     pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         Surface(ptr, true)
     }
 
 
-    #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         Surface(ptr, false)
     }
 
-    #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
         self.0
     }

@@ -128,25 +128,24 @@ impl Drop for Context {
 
 impl Context {
     #[inline]
-    unsafe fn from_raw_none(ptr: *mut ffi::cairo_t) -> Context {
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         ffi::cairo_reference(ptr);
         Context(ptr, false)
     }
 
     #[inline]
-    unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> Context {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         Context(ptr, true)
     }
 
     #[inline]
-    unsafe fn from_raw_full(ptr: *mut ffi::cairo_t) -> Context {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_t) -> Context {
         assert!(!ptr.is_null());
         Context(ptr, false)
     }
 
-    #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_t {
         self.0
     }
