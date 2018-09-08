@@ -4,8 +4,6 @@
 
 use std::slice;
 use std::io::{Read, Write, Error};
-use std::process;
-use std::thread;
 
 use libc::{c_void, c_uint};
 
@@ -14,24 +12,12 @@ use ffi::enums::Status;
 use error::IoError;
 use ImageSurface;
 
-
-struct CallbackGuard;
-
-impl Drop for CallbackGuard {
-    fn drop(&mut self) {
-        if thread::panicking() {
-            process::exit(101);
-        }
-    }
-}
-
 struct ReadEnv<'a, R: 'a + Read> {
     reader: &'a mut R,
     error: Option<Error>,
 }
 
 unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> Status {
-    let _cbguard = CallbackGuard;
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
     let buffer = slice::from_raw_parts_mut(data, len as usize);
     match read_env.reader.read_exact(buffer) {
@@ -49,7 +35,6 @@ struct WriteEnv<'a, W: 'a + Write> {
 }
 
 unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> Status {
-    let _cbguard = CallbackGuard;
     let write_env: &mut WriteEnv<W> = &mut *(closure as *mut WriteEnv<W>);
     let buffer = slice::from_raw_parts(data, len as usize);
     match write_env.writer.write_all(buffer) {
