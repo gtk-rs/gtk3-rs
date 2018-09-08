@@ -102,6 +102,8 @@ impl PartialEq for Region {
     }
 }
 
+impl Eq for Region { }
+
 impl Region {
     #[inline]
     unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
