@@ -48,10 +48,6 @@ impl Surface {
         self.0
     }
 
-    pub fn status(&self) -> Status {
-        unsafe { ffi::cairo_surface_status(self.0) }
-    }
-
     pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
         unsafe { Self::from_raw_full(ffi::cairo_surface_create_similar(self.0, content, width, height)) }
     }
@@ -140,6 +136,7 @@ pub trait SurfaceExt {
     fn flush(&self);
     fn finish(&self);
     fn get_type(&self) -> SurfaceType;
+    fn status(&self) -> Status;
 }
 
 impl<O: AsRef<Surface>> SurfaceExt for O {
@@ -153,6 +150,10 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
 
     fn get_type(&self) -> SurfaceType {
         unsafe { ffi::cairo_surface_get_type(self.as_ref().0) }
+    }
+
+    fn status(&self) -> Status {
+        unsafe { ffi::cairo_surface_status(self.as_ref().0) }
     }
 }
 
