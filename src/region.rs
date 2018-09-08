@@ -139,11 +139,11 @@ impl Region {
         }
     }
 
-    // pub fn create_rectangles(rectangle: &[&RectangleInt]) -> Region {
-    //     unsafe {
-    //         Self::from_raw_full(ffi::cairo_region_create_rectangles(rectangle.to_raw_none()))
-    //     }
-    // }
+    pub fn create_rectangles(rectangles: &[RectangleInt]) -> Region {
+        unsafe {
+            Self::from_raw_full(ffi::cairo_region_create_rectangles(rectangles.as_ptr() as *mut ffi::cairo_rectangle_int_t, rectangles.len() as i32))
+        }
+    }
 
     pub fn copy(&self) -> Region {
         unsafe {
