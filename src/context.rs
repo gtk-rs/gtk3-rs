@@ -15,6 +15,7 @@ use ffi::enums::{
     FontWeight,
     TextClusterFlags,
     Operator,
+    Content,
 };
 use Rectangle;
 use ffi;
@@ -191,12 +192,11 @@ impl Context {
         }
     }
 
-    /*
     pub fn push_group_with_content(&self, content: Content){
         unsafe {
             ffi::cairo_push_group_with_content(self.0, content)
         }
-    }*/
+    }
 
     pub fn pop_group(&self) -> Pattern {
         unsafe {
