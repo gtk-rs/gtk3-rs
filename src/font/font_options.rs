@@ -152,3 +152,21 @@ impl Default for FontOptions {
         Self::new()
     }
 }
+
+#[cfg(not(feature = "use_glib"))]
+impl Drop for FontOptions {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::cairo_font_options_destroy(self.to_raw_none());
+        }
+    }
+}
+
+#[cfg(not(feature = "use_glib"))]
+impl Clone for FontOptions {
+    fn clone(&self) -> FontOptions {
+        unsafe {
+            FontOptions::from_raw_full(ffi::cairo_font_options_copy(self.to_raw_none()))
+        }
+    }
+}

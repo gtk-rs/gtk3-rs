@@ -260,3 +260,21 @@ impl ScaledFont {
         matrix
     }
 }
+
+#[cfg(not(feature = "use_glib"))]
+impl Drop for ScaledFont {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::cairo_scaled_font_destroy(self.to_raw_none());
+        }
+    }
+}
+
+#[cfg(not(feature = "use_glib"))]
+impl Clone for ScaledFont {
+    fn clone(&self) -> ScaledFont {
+        unsafe {
+            ScaledFont::from_raw_none(self.to_raw_none())
+        }
+    }
+}

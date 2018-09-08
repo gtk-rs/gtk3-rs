@@ -118,6 +118,24 @@ impl FontFace {
     }
 }
 
+#[cfg(not(feature = "use_glib"))]
+impl Drop for FontFace {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::cairo_font_face_destroy(self.to_raw_none());
+        }
+    }
+}
+
+#[cfg(not(feature = "use_glib"))]
+impl Clone for FontFace {
+    fn clone(&self) -> FontFace {
+        unsafe {
+            FontFace::from_raw_none(self.to_raw_none())
+        }
+    }
+}
+
 unsafe fn to_optional_string(str: *const c_char) -> Option<String> {
     if str.is_null() { 
         None
