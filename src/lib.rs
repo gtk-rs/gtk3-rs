@@ -176,6 +176,11 @@ mod matrices;
 #[cfg(any(feature = "xcb", feature = "dox"))]
 mod xcb;
 
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+mod quartz_surface;
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+pub use quartz_surface::QuartzSurface;
+
 #[cfg(any(windows, feature = "dox"))]
 mod win32_surface;
 

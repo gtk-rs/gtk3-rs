@@ -5,11 +5,6 @@
 use std::mem;
 use libc::c_void;
 
-#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-use ffi::enums::Format;
-#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-use ffi::CGContextRef;
-
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
@@ -46,21 +41,6 @@ impl Surface {
 
     pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
         unsafe { Self::from_raw_full(ffi::cairo_surface_create_similar(self.0, content, width, height)) }
-    }
-
-    #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-    pub fn quartz_create(format: Format, width: u32, height: u32) -> Surface {
-        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create(format, width, height)) }
-    }
-
-    #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-    pub fn quartz_create_for_cg_context(cg_context: CGContextRef, width: u32, height: u32) -> Surface {
-        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create_for_cg_context(cg_context, width, height)) }
-    }
-
-    #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-    pub fn quartz_get_cg_context(&self) -> CGContextRef {
-        unsafe { ffi::cairo_quartz_surface_get_cg_context(self.to_raw_none()) }
     }
 }
 
