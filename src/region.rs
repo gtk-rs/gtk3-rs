@@ -11,6 +11,7 @@ use ffi;
 use ffi::cairo_region_t;
 use ffi::enums::Status;
 
+#[derive(Debug)]
 pub struct Region(*mut cairo_region_t, bool);
 
 #[cfg(feature = "use_glib")]
@@ -102,27 +103,28 @@ impl PartialEq for Region {
     }
 }
 
+impl Eq for Region { }
+
 impl Region {
     #[inline]
-    unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
+    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         ffi::cairo_region_reference(ptr);
         Region(ptr, false)
     }
 
     #[inline]
-    unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
+    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         Region(ptr, true)
     }
 
     #[inline]
-    unsafe fn from_raw_full(ptr: *mut ffi::cairo_region_t) -> Region {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_region_t) -> Region {
         assert!(!ptr.is_null());
         Region(ptr, false)
     }
 
-    #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_region_t {
         self.0
     }
@@ -139,11 +141,11 @@ impl Region {
         }
     }
 
-    // pub fn create_rectangles(rectangle: &[&RectangleInt]) -> Region {
-    //     unsafe {
-    //         Self::from_raw_full(ffi::cairo_region_create_rectangles(rectangle.to_raw_none()))
-    //     }
-    // }
+    pub fn create_rectangles(rectangles: &[RectangleInt]) -> Region {
+        unsafe {
+            Self::from_raw_full(ffi::cairo_region_create_rectangles(rectangles.as_ptr() as *mut ffi::cairo_rectangle_int_t, rectangles.len() as i32))
+        }
+    }
 
     pub fn copy(&self) -> Region {
         unsafe {

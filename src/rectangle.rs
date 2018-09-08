@@ -74,7 +74,6 @@ impl FromGlibPtrNone<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
 gvalue_impl!(RectangleInt, ffi::cairo_rectangle_int_t, ffi::gobject::cairo_gobject_rectangle_int_get_type);
 
 impl RectangleInt {
-    #[doc(hidden)]
     pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_int_t {
         let ptr = &*self as *const RectangleInt as usize;
         ptr as *mut ffi::cairo_rectangle_int_t

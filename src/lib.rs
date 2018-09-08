@@ -4,7 +4,6 @@
 
 extern crate cairo_sys as ffi;
 extern crate libc;
-extern crate c_vec;
 
 #[cfg(feature = "use_glib")]
 #[macro_use]
@@ -65,7 +64,7 @@ pub use ffi::cairo_rectangle_t as Rectangle;
 
 pub use context::{
     Context,
-    RectangleVec,
+    RectangleList,
 };
 
 pub use paths::{
@@ -176,6 +175,11 @@ mod surface;
 mod matrices;
 #[cfg(any(feature = "xcb", feature = "dox"))]
 mod xcb;
+
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+mod quartz_surface;
+#[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
+pub use quartz_surface::QuartzSurface;
 
 #[cfg(any(windows, feature = "dox"))]
 mod win32_surface;

@@ -8,7 +8,7 @@ use ffi;
 
 use surface::Surface;
 
-
+#[derive(Debug)]
 pub struct XCBDrawable(pub u32);
 
 impl XCBDrawable {
@@ -17,7 +17,7 @@ impl XCBDrawable {
     }
 }
 
-
+#[derive(Debug)]
 pub struct XCBPixmap(pub u32);
 
 impl XCBPixmap {
@@ -26,7 +26,7 @@ impl XCBPixmap {
     }
 }
 
-
+#[derive(Debug)]
 pub struct XCBConnection(pub *mut ffi::xcb_connection_t);
 
 impl XCBConnection {
@@ -96,7 +96,7 @@ impl Clone for XCBConnection {
     }
 }
 
-
+#[derive(Debug)]
 pub struct XCBRenderPictFormInfo(pub *mut ffi::xcb_render_pictforminfo_t);
 
 impl XCBRenderPictFormInfo {
@@ -166,7 +166,7 @@ impl Clone for XCBRenderPictFormInfo {
     }
 }
 
-
+#[derive(Debug)]
 pub struct XCBScreen(pub *mut ffi::xcb_screen_t);
 
 impl XCBScreen {
@@ -299,7 +299,7 @@ impl XCBSurface for Surface {
     }
 }
 
-
+#[derive(Debug)]
 pub struct XCBVisualType(pub *mut ffi::xcb_visualtype_t);
 
 impl XCBVisualType {
@@ -369,7 +369,7 @@ impl Clone for XCBVisualType {
     }
 }
 
-
+#[derive(Debug)]
 pub struct Device(pub *mut ffi::cairo_device_t);
 
 impl Device {

@@ -148,24 +148,30 @@ pub struct cairo_rectangle_int_t {
     pub height: i32,
 }
 #[repr(C)]
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct cairo_rectangle_list_t {
     pub status: Status,
     pub rectangles: *mut cairo_rectangle_t,
     pub num_rectangles: c_int,
 }
 #[repr(C)]
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct cairo_path_t {
     pub status: Status,
-    pub data: *mut [c_double; 2],
+    pub data: *mut cairo_path_data,
     pub num_data: c_int,
 }
 #[repr(C)]
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct cairo_path_data_header{
     pub data_type: PathDataType,
     pub length:    c_int,
+}
+#[repr(C)]
+#[derive(Clone, Copy)]
+pub union cairo_path_data{
+    pub header: cairo_path_data_header,
+    pub point: [f64; 2],
 }
 #[repr(C)]
 pub struct cairo_glyph_t(c_void);
@@ -241,7 +247,7 @@ pub struct cairo_user_data_key_t {
     pub unused: c_int,
 }
 #[repr(C)]
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct cairo_bool_t{
     value: c_int
 }

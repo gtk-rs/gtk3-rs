@@ -17,6 +17,7 @@ use surface::{Surface, SurfaceExt};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+#[derive(Debug)]
 pub struct PDFSurface(Surface);
 
 extern "C" {
@@ -34,7 +35,6 @@ impl PDFSurface {
         }
     }
 
-    #[doc(hidden)]
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> PDFSurface {
         Self::from(Surface::from_raw_full(ptr)).unwrap()
     }
