@@ -195,7 +195,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
             if ret.is_null() {
                 None
             } else {
-                Some(cairo::Pattern::wrap(ret))
+                Some(cairo::Pattern::from_raw_none(ret))
             }
         }
     }
@@ -204,7 +204,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
         let pattern = pattern.into();
         unsafe {
             let ptr = if let Some(pattern) = pattern {
-                pattern.get_ptr()
+                pattern.as_ptr()
             } else {
                 ::std::ptr::null_mut()
             };
