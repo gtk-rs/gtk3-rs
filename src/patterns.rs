@@ -6,7 +6,6 @@
 
 use libc::{c_double, c_int, c_uint};
 use std::ptr;
-use std::mem::transmute;
 use ffi::enums::{
     Extend,
     Filter,
@@ -246,14 +245,14 @@ impl SolidPattern {
 
     pub fn get_rgba(&self) -> (f64, f64, f64, f64) {
         unsafe {
-            let red  : *mut c_double = transmute(Box::new(0.0f64));
-            let green: *mut c_double = transmute(Box::new(0.0f64));
-            let blue : *mut c_double = transmute(Box::new(0.0f64));
-            let alpha: *mut c_double = transmute(Box::new(0.0f64));
+            let mut red   = 0.0;
+            let mut green = 0.0;
+            let mut blue  = 0.0;
+            let mut alpha = 0.0;
 
-            ffi::cairo_pattern_get_rgba(self.pointer, red, green, blue, alpha).ensure_valid();
+            ffi::cairo_pattern_get_rgba(self.pointer, &mut red, &mut green, &mut blue, &mut alpha).ensure_valid();
 
-            (*red, *green, *blue, *alpha)
+            (red, green, blue, alpha)
         }
     }
 }
@@ -274,8 +273,8 @@ pub trait Gradient : PatternTrait {
 
     fn get_color_stop_count(&self) -> isize {
         unsafe {
-            let count : *mut c_int = transmute(Box::new(0i32));
-            let result = ffi::cairo_pattern_get_color_stop_count(self.get_ptr(), count);
+            let mut count = 0;
+            let result = ffi::cairo_pattern_get_color_stop_count(self.get_ptr(), &mut count);
 
             result.ensure_valid(); // Not sure if these are needed
             count as isize
@@ -284,14 +283,14 @@ pub trait Gradient : PatternTrait {
 
     fn get_color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
         unsafe {
-            let offset: *mut c_double = transmute(Box::new(0.0f64));
-            let red   : *mut c_double = transmute(Box::new(0.0f64));
-            let green : *mut c_double = transmute(Box::new(0.0f64));
-            let blue  : *mut c_double = transmute(Box::new(0.0f64));
-            let alpha : *mut c_double = transmute(Box::new(0.0f64));
+            let mut offset = 0.0;
+            let mut red    = 0.0;
+            let mut green  = 0.0;
+            let mut blue   = 0.0;
+            let mut alpha  = 0.0;
 
-            ffi::cairo_pattern_get_color_stop_rgba(self.get_ptr(), index as c_int, offset, red, green, blue, alpha).ensure_valid();
-            (*offset, *red, *green, *blue, *alpha)
+            ffi::cairo_pattern_get_color_stop_rgba(self.get_ptr(), index as c_int, &mut offset, &mut red, &mut green, &mut blue, &mut alpha).ensure_valid();
+            (offset, red, green, blue, alpha)
         }
     }
 }
@@ -307,13 +306,13 @@ impl LinearGradient {
 
     pub fn get_linear_points(&self) -> (f64, f64, f64, f64) {
         unsafe {
-            let x0 : *mut c_double = transmute(Box::new(0.0f64));
-            let y0 : *mut c_double = transmute(Box::new(0.0f64));
-            let x1 : *mut c_double = transmute(Box::new(0.0f64));
-            let y1 : *mut c_double = transmute(Box::new(0.0f64));
+            let mut x0 = 0.0;
+            let mut y0 = 0.0;
+            let mut x1 = 0.0;
+            let mut y1 = 0.0;
 
-            ffi::cairo_pattern_get_linear_points(self.pointer, x0, y0, x1, y1).ensure_valid();
-            (*x0, *y0, *x1, *y1)
+            ffi::cairo_pattern_get_linear_points(self.pointer, &mut x0, &mut y0, &mut x1, &mut y1).ensure_valid();
+            (x0, y0, x1, y1)
         }
     }
 }
@@ -330,17 +329,17 @@ impl RadialGradient {
         })
     }
 
-    pub fn get_radial_circles(&self) -> (f64,f64,f64,f64) {
+    pub fn get_radial_circles(&self) -> (f64, f64, f64, f64, f64, f64) {
         unsafe{
-            let x0 : *mut c_double = transmute(Box::new(0.0f64));
-            let y0 : *mut c_double = transmute(Box::new(0.0f64));
-            let r0 : *mut c_double = transmute(Box::new(0.0f64));
-            let x1 : *mut c_double = transmute(Box::new(0.0f64));
-            let y1 : *mut c_double = transmute(Box::new(0.0f64));
-            let r1 : *mut c_double = transmute(Box::new(0.0f64));
+            let mut x0 = 0.0;
+            let mut y0 = 0.0;
+            let mut r0 = 0.0;
+            let mut x1 = 0.0;
+            let mut y1 = 0.0;
+            let mut r1 = 0.0;
 
-            ffi::cairo_pattern_get_radial_circles(self.pointer, x0, y0, r0, x1, y1, r1).ensure_valid();
-            (*x0, *y0, *x1, *y1)
+            ffi::cairo_pattern_get_radial_circles(self.pointer, &mut x0, &mut y0, &mut r0, &mut x1, &mut y1, &mut r1).ensure_valid();
+            (x0, y0, r0, x1, y1, r1)
         }
     }
 }

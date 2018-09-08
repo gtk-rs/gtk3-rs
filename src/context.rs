@@ -4,7 +4,6 @@
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use std::mem::transmute;
 use libc::c_int;
 use std::ffi::CString;
 use std::ops;
@@ -588,59 +587,31 @@ impl Context {
         }
     }
 
-    pub fn user_to_device(&self, x: f64, y: f64) -> (f64, f64) {
+    pub fn user_to_device(&self, mut x: f64, mut y: f64) -> (f64, f64) {
         unsafe {
-            let x_ptr: *mut c_double = transmute(Box::new(x));
-            let y_ptr: *mut c_double = transmute(Box::new(y));
-
-            ffi::cairo_user_to_device(self.0, x_ptr, y_ptr);
-
-            let x_box: Box<f64> = transmute(x_ptr);
-            let y_box: Box<f64> = transmute(y_ptr);
-
-            (*x_box, *y_box)
+            ffi::cairo_user_to_device(self.0, &mut x, &mut y);
+            (x, y)
         }
     }
 
-    pub fn user_to_device_distance(&self, dx: f64, dy: f64) -> (f64, f64) {
+    pub fn user_to_device_distance(&self, mut dx: f64, mut dy: f64) -> (f64, f64) {
         unsafe {
-            let dx_ptr: *mut c_double = transmute(Box::new(dx));
-            let dy_ptr: *mut c_double = transmute(Box::new(dy));
-
-            ffi::cairo_user_to_device_distance(self.0, dx_ptr, dy_ptr);
-
-            let dx_box: Box<f64> = transmute(dx_ptr);
-            let dy_box: Box<f64> = transmute(dy_ptr);
-
-            (*dx_box, *dy_box)
+            ffi::cairo_user_to_device_distance(self.0, &mut dx, &mut dy);
+            (dx, dy)
         }
     }
 
-    pub fn device_to_user(&self, x: f64, y: f64) -> (f64, f64) {
+    pub fn device_to_user(&self, mut x: f64, mut y: f64) -> (f64, f64) {
         unsafe {
-            let x_ptr: *mut c_double = transmute(Box::new(x));
-            let y_ptr: *mut c_double = transmute(Box::new(y));
-
-            ffi::cairo_device_to_user(self.0, x_ptr, y_ptr);
-
-            let x_box: Box<f64> = transmute(x_ptr);
-            let y_box: Box<f64> = transmute(y_ptr);
-
-            (*x_box, *y_box)
+            ffi::cairo_device_to_user(self.0, &mut x, &mut y);
+            (x, y)
         }
     }
 
-    pub fn device_to_user_distance(&self, dx: f64, dy: f64) -> (f64, f64) {
+    pub fn device_to_user_distance(&self, mut dx: f64, mut dy: f64) -> (f64, f64) {
         unsafe {
-            let dx_ptr: *mut c_double = transmute(Box::new(dx));
-            let dy_ptr: *mut c_double = transmute(Box::new(dy));
-
-            ffi::cairo_device_to_user_distance(self.0, dx_ptr, dy_ptr);
-
-            let dx_box: Box<f64> = transmute(dx_ptr);
-            let dy_box: Box<f64> = transmute(dy_ptr);
-
-            (*dx_box, *dy_box)
+            ffi::cairo_device_to_user_distance(self.0, &mut dx, &mut dy);
+            (dx, dy)
         }
     }
 
@@ -821,10 +792,10 @@ impl Context {
 
     pub fn get_current_point(&self) -> (f64, f64) {
         unsafe {
-            let x = transmute(Box::new(0.0f64));
-            let y = transmute(Box::new(0.0f64));
-            ffi::cairo_get_current_point(self.0, x, y);
-            (*x, *y)
+            let mut x = 0.0;
+            let mut y = 0.0;
+            ffi::cairo_get_current_point(self.0, &mut x, &mut y);
+            (x, y)
         }
     }
 
