@@ -20,6 +20,7 @@ use ffi::enums::{
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
+    #[derive(Debug)]
     pub struct FontFace(Shared<ffi::cairo_font_face_t>);
 
     match fn {
@@ -30,6 +31,7 @@ glib_wrapper! {
 }
 
 #[cfg(not(feature = "use_glib"))]
+#[derive(Debug)]
 pub struct FontFace(*mut ffi::cairo_font_face_t);
 
 impl FontFace {

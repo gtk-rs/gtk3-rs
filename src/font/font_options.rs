@@ -21,6 +21,7 @@ use ffi::enums::{
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
+    #[derive(Debug)]
     pub struct FontOptions(Boxed<ffi::cairo_font_options_t>);
 
     match fn {
@@ -36,6 +37,7 @@ glib_wrapper! {
 }
 
 #[cfg(not(feature = "use_glib"))]
+#[derive(Debug)]
 pub struct FontOptions(*mut ffi::cairo_font_options_t);
 
 impl FontOptions {

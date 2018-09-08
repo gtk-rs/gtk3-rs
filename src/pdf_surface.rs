@@ -17,6 +17,7 @@ use surface::{Surface, SurfaceExt};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+#[derive(Debug)]
 pub struct PDFSurface(Surface);
 
 extern "C" {

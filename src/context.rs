@@ -59,6 +59,7 @@ impl Drop for RectangleList {
     }
 }
 
+#[derive(Debug)]
 pub struct Context(*mut cairo_t, bool);
 
 #[cfg(feature = "use_glib")]

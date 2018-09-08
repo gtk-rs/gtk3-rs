@@ -7,6 +7,7 @@ use ffi::enums::PathDataType;
 use ffi::cairo_path_t;
 use ffi;
 
+#[derive(Debug)]
 pub struct Path(*mut cairo_path_t);
 
 impl Path {

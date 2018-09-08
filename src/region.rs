@@ -11,6 +11,7 @@ use ffi;
 use ffi::cairo_region_t;
 use ffi::enums::Status;
 
+#[derive(Debug)]
 pub struct Region(*mut cairo_region_t, bool);
 
 #[cfg(feature = "use_glib")]
