@@ -474,9 +474,11 @@ impl Mesh {
     }
 
     pub fn get_path(&self, patch_num: usize) -> Path {
-        let path: Path = Path::wrap(unsafe {
-            ffi::cairo_mesh_pattern_get_path(self.pointer, patch_num as c_uint)
-        });
+        let path: Path = unsafe {
+            Path::from_raw_full(
+                ffi::cairo_mesh_pattern_get_path(self.pointer, patch_num as c_uint)
+            )
+        };
         path.ensure_status();
         path
     }

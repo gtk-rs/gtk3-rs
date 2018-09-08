@@ -10,22 +10,18 @@ use ffi;
 pub struct Path(*mut cairo_path_t);
 
 impl Path {
-    #[doc(hidden)]
-    pub fn get_ptr(&self) -> *mut cairo_path_t {
-        let Path(ptr) = *self;
-
-        ptr
+    pub fn as_ptr(&self) -> *mut cairo_path_t {
+        self.0
     }
 
     pub fn ensure_status(&self) {
         unsafe {
-            let ptr: *mut cairo_path_t = self.get_ptr();
+            let ptr: *mut cairo_path_t = self.as_ptr();
             (*ptr).status.ensure_valid()
         }
     }
 
-    #[doc(hidden)]
-    pub fn wrap(pointer: *mut cairo_path_t) -> Path {
+    pub unsafe fn from_raw_full(pointer: *mut cairo_path_t) -> Path {
         Path(pointer)
     }
 
@@ -33,7 +29,7 @@ impl Path {
         use std::slice;
 
         unsafe {
-            let ptr: *mut cairo_path_t = self.get_ptr();
+            let ptr: *mut cairo_path_t = self.as_ptr();
             let length = (*ptr).num_data as usize;
             let data_ptr = (*ptr).data;
             let data_vec = if length != 0 && !data_ptr.is_null() { slice::from_raw_parts(data_ptr, length) } else { &[] };
@@ -50,7 +46,7 @@ impl Path {
 impl Drop for Path {
     fn drop(&mut self) {
         unsafe{
-            ffi::cairo_path_destroy(self.get_ptr());
+            ffi::cairo_path_destroy(self.as_ptr());
         }
     }
 }

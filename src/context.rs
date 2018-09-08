@@ -768,19 +768,19 @@ impl Context {
 
     pub fn copy_path(&self) -> Path {
         unsafe {
-            Path::wrap(ffi::cairo_copy_path(self.0))
+            Path::from_raw_full(ffi::cairo_copy_path(self.0))
         }
     }
 
     pub fn copy_path_flat(&self) -> Path {
         unsafe {
-            Path::wrap(ffi::cairo_copy_path_flat(self.0))
+            Path::from_raw_full(ffi::cairo_copy_path_flat(self.0))
         }
     }
 
     pub fn append_path(&self, path: &Path) {
         unsafe {
-            ffi::cairo_append_path(self.0, path.get_ptr())
+            ffi::cairo_append_path(self.0, path.as_ptr())
         }
     }
 
