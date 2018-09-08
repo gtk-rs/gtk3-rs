@@ -367,11 +367,12 @@ impl SurfacePattern {
 
 #[cfg(any(feature = "v1_12", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Copy)]
+#[repr(u32)]
 pub enum MeshCorner {
-    MeshCorner0,
-    MeshCorner1,
-    MeshCorner2,
-    MeshCorner3
+    MeshCorner0 = 0,
+    MeshCorner1 = 1,
+    MeshCorner2 = 2,
+    MeshCorner3 = 3,
 }
 
 #[cfg(any(feature = "v1_12", feature = "dox"))]
