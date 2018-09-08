@@ -157,7 +157,7 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
     }
 }
 
-pub trait SurfacePriv {
+pub(crate) trait SurfacePriv {
     unsafe fn set_user_data<K, T>(&self, key: &K, data: Box<T>) -> Result<(), Status>;
 }
 
