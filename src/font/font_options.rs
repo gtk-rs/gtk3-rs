@@ -8,6 +8,7 @@ use gobject_ffi;
 use std::ptr;
 #[cfg(feature = "use_glib")]
 use std::mem;
+use std::hash;
 use std::cmp::PartialEq;
 use ffi;
 
@@ -84,12 +85,6 @@ impl FontOptions {
         }
     }
 
-    pub fn hash(&self) -> u64 {
-        unsafe {
-            u64::from(ffi::cairo_font_options_hash(self.to_raw_none()))
-        }
-    }
-
     pub fn set_antialias(&mut self, antialias: Antialias) {
         unsafe {
             ffi::cairo_font_options_set_antialias(self.to_raw_none(), antialias)
@@ -143,6 +138,16 @@ impl PartialEq for FontOptions {
     fn eq(&self, other: &FontOptions) -> bool {
         unsafe {
             ffi::cairo_font_options_equal(self.to_raw_none(), other.to_raw_none()).as_bool()
+        }
+    }
+}
+
+impl Eq for FontOptions { }
+
+impl hash::Hash for FontOptions {
+    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+        unsafe {
+            hash::Hash::hash(&ffi::cairo_font_options_hash(self.to_raw_none()), state)
         }
     }
 }
