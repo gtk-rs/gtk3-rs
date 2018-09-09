@@ -4,12 +4,23 @@ pkg-config = "0.3.7"
 [dependencies]
 libc = "0.2"
 
-cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo" }
-gdk-pixbuf-sys = { path = "../gdk-pixbuf-sys" }
-gio-sys = { path = "../gio-sys" }
-glib-sys = { path = "../glib-sys" }
-gobject-sys = { path = "../gobject-sys" }
-pango-sys = { path = "../pango-sys" }
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.gdk-pixbuf-sys]
+path = "../gdk-pixbuf-sys"
+
+[dependencies.gio-sys]
+path = "../gio-sys"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+
+[dependencies.gobject-sys]
+path = "../gobject-sys"
+
+[dependencies.pango-sys]
+path = "../pango-sys"
 
 [dev-dependencies]
 shell-words = "0.1.0"
