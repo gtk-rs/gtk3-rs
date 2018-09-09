@@ -14,24 +14,6 @@ use gtk::{
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 fn create_and_fill_model() -> ListStore {
     // Creation of a model with two rows.
     let model = ListStore::new(&[u32::static_type(), String::static_type()]);
@@ -71,10 +53,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("Simple TreeView example");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(move |win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     // Creating a vertical layout to place both tree view and label in the window.
     let vertical_layout = gtk::Box::new(Orientation::Vertical, 0);

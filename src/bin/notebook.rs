@@ -7,22 +7,18 @@ use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
         }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
 }
 
 struct Notebook {
@@ -55,11 +51,12 @@ impl Notebook {
 
         let index = self.notebook.append_page(&widget, Some(&tab));
 
-        let notebook_clone = self.notebook.clone();
+        let notebook_weak = self.notebook.downgrade();
         button.connect_clicked(move |_| {
-            let index = notebook_clone.page_num(&widget)
-                                      .expect("Couldn't get page_num from notebook_clone");
-            notebook_clone.remove_page(Some(index));
+            let notebook = upgrade_weak!(notebook_weak);
+            let index = notebook.page_num(&widget)
+                                .expect("Couldn't get page_num from notebook");
+            notebook.remove_page(Some(index));
         });
 
         self.tabs.push(tab);
@@ -75,10 +72,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(640, 480);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(|win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     let mut notebook = Notebook::new();
 
@@ -97,7 +94,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

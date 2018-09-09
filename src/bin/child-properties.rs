@@ -73,10 +73,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(200, 200);
     window.add(&vbox);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(|win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     window.show_all();
 }
@@ -86,7 +86,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

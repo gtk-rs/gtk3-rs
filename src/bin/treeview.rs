@@ -50,10 +50,10 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("TreeView Sample");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(|win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     // left pane
 
@@ -96,15 +96,14 @@ fn build_ui(application: &gtk::Application) {
             msg.push_str("\nRelaunch this example from the same level \
                           as the `resources` folder");
         }
-        let window = window.clone();
 
-        gtk::idle_add(move || {
+        gtk::idle_add(clone!(window => move || {
             let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                 MessageType::Error, ButtonsType::Ok, &msg);
             dialog.run();
             dialog.destroy();
             Continue(false)
-        });
+        }));
 
         Err(())
     }).ok();
@@ -121,16 +120,15 @@ fn build_ui(application: &gtk::Application) {
     // selection and path manipulation
 
     let left_selection = left_tree.get_selection();
-    let right_tree1 = right_tree.clone();
-    left_selection.connect_changed(move |tree_selection| {
+    left_selection.connect_changed(clone!(right_tree => move |tree_selection| {
         let (left_model, iter) = tree_selection.get_selected().expect("Couldn't get selected");
         let mut path = left_model.get_path(&iter).expect("Couldn't get path");
         // get the top-level element path
         while path.get_depth() > 1 {
             path.up();
         }
-        right_tree1.get_selection().select_path(&path);
-    });
+        right_tree.get_selection().select_path(&path);
+    }));
 
     // display the panes
 
@@ -149,7 +147,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});
