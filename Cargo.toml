@@ -5,7 +5,7 @@ homepage = "http://gtk-rs.org/"
 authors = ["The Gtk-rs Project Developers"]
 keywords = ["pango", "gtk-rs", "gnome"]
 readme = "README.md"
-version = "0.4.0"
+version = "0.5.0"
 description = "Rust bindings for the Pango library"
 repository = "https://github.com/gtk-rs/pango"
 license = "MIT"
@@ -32,7 +32,6 @@ dox = ["pango-sys/dox", "glib/dox"]
 libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
-
 pango-sys = { git = "https://github.com/gtk-rs/sys" }
 glib = { git = "https://github.com/gtk-rs/glib" }
 glib-sys = { git = "https://github.com/gtk-rs/sys" }
