@@ -4,9 +4,14 @@ pkg-config = "0.3.7"
 [dependencies]
 libc = "0.2"
 
-cairo-sys-rs = { git = "https://github.com/gtk-rs/cairo"}
-glib-sys = { path = "../glib-sys"}
-pango-sys = { path = "../pango-sys"}
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+
+[dependencies.pango-sys]
+path = "../pango-sys"
 
 [dev-dependencies]
 shell-words = "0.1.0"
