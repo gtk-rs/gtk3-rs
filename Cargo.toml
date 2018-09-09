@@ -6,7 +6,7 @@ authors = ["The Gtk-rs Project Developers"]
 keywords = ["gdk", "gtk", "gtk-rs", "gnome", "GUI"]
 readme = "README.md"
 documentation = "http://gtk-rs.org/docs/gdk/"
-version = "0.8.0"
+version = "0.9.0"
 description = "Rust bindings for the GDK 3 library"
 repository = "https://github.com/gtk-rs/gdk"
 build = "build.rs"
@@ -40,7 +40,6 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 [dependencies]
 libc = "0.2"
 bitflags = "1.0"
-
 glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gdk-sys = { git = "https://github.com/gtk-rs/sys" }
 gio-sys = { git = "https://github.com/gtk-rs/sys" }
