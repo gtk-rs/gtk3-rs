@@ -14,6 +14,7 @@
   <object class="GtkMessageDialog" id="messagedialog1">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
+    <property name="transient_for">window1</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="messagedialog-vbox1">
         <property name="name">msgdialog</property>

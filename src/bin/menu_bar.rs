@@ -10,28 +10,24 @@ extern crate gtk;
 use gio::{ApplicationExt, ApplicationExtManual};
 use gtk::prelude::*;
 use gtk::{
-    AboutDialog, ApplicationWindow, CheckMenuItem, IconSize, Image, Label, Menu, MenuBar, MenuItem,
-    WindowPosition,
+    AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
+    Menu, MenuBar, MenuItem, WindowPosition,
 };
 
 use std::env::args;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
         }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -41,14 +37,16 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(WindowPosition::Center);
     window.set_size_request(400, 400);
 
-    window.connect_delete_event(clone!(window => move |_, _| {
-        window.destroy();
+    window.connect_delete_event(|win, _| {
+        win.destroy();
         Inhibit(false)
-    }));
+    });
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
 
     let menu = Menu::new();
+    let accel_group = AccelGroup::new();
+    window.add_accel_group(&accel_group);
     let menu_bar = MenuBar::new();
     let file = MenuItem::new_with_label("File");
     let about = MenuItem::new_with_label("About");
@@ -93,9 +91,17 @@ fn build_ui(application: &gtk::Application) {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    quit.connect_activate(clone!(window => move |_| {
+    let window_weak = window.downgrade();
+    quit.connect_activate(move |_| {
+        let window = upgrade_weak!(window_weak);
         window.destroy();
-    }));
+    });
+
+    // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
+    // It isn't available directly through gdk::ModifierType, since it has
+    // different values on different platforms.
+    let (key, modifier) = gtk::accelerator_parse("<Primary>Q");
+    quit.add_accelerator("activate", &accel_group, key, modifier, AccelFlags::VISIBLE);
 
     let label = Label::new(Some("MenuBar example"));
 
@@ -129,7 +135,7 @@ fn main() {
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_startup(|app| {
         build_ui(app);
     });
     application.connect_activate(|_| {});

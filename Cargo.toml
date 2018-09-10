@@ -5,6 +5,11 @@ authors = ["The Gtk-rs Project Developers"]
 
 [dependencies]
 chrono = "0.4"
+url = "1.4"
+futures-preview = { version = "0.2", optional = true }
+gobject-subclass = "^0"
+glib-sys = "^0"
+gobject-sys = "^0"
 glib = "^0"
 gio = "^0"
 gdk = "^0"
@@ -14,9 +19,90 @@ pango = "^0"
 cairo-rs = { version = "^0", features = ["png"] }
 
 [features]
-#default = ["gtk_3_22"]
+#default = ["gtk_3_22_30", "futures-stable"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
 gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
 gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
+gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
+futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
+
+[[bin]]
+name = "basic"
+
+[[bin]]
+name = "builder_basics"
+
+[[bin]]
+name = "cairo_png"
+
+[[bin]]
+name = "cairo_threads"
+
+[[bin]]
+name = "cairotest"
+
+[[bin]]
+name = "child-properties"
+
+[[bin]]
+name = "clock"
+
+[[bin]]
+name = "drag_and_drop"
+
+[[bin]]
+name = "drag_and_drop_textview"
+
+[[bin]]
+name = "gio_futures"
+required-features = ["futures-stable"]
+
+#[[bin]]
+#name = "gio_futures_await"
+#required-features = ["futures-nightly"]
+
+[[bin]]
+name = "grid"
+
+[[bin]]
+name = "gtktest"
+
+[[bin]]
+name = "listbox_model"
+required-features = ["gtk/v3_16", "gio/v2_44"]
+
+[[bin]]
+name = "menu_bar"
+
+[[bin]]
+name = "menu_bar_system"
+required-features = ["gtk/v3_12"]
+
+[[bin]]
+name = "multi_windows"
+
+[[bin]]
+name = "multithreading_context"
+
+[[bin]]
+name = "notebook"
+
+[[bin]]
+name = "pango_attributes"
+
+[[bin]]
+name = "simple_treeview"
+
+[[bin]]
+name = "sync_widgets"
+
+[[bin]]
+name = "text_viewer"
+
+[[bin]]
+name = "transparent_main_window"
+
+[[bin]]
+name = "treeview"

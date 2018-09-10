@@ -18,24 +18,6 @@ mod example {
     use std::env::args;
 
 
-    // make moving clones into closures more convenient
-    macro_rules! clone {
-        (@param _) => ( _ );
-        (@param $x:ident) => ( $x );
-        ($($n:ident),+ => move || $body:expr) => (
-            {
-                $( let $n = $n.clone(); )+
-                move || $body
-            }
-        );
-        ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-            {
-                $( let $n = $n.clone(); )+
-                move |$(clone!(@param $p),)+| $body
-            }
-        );
-    }
-
     pub fn build_ui(application: &gtk::Application) {
         let glade_src = include_str!("builder_basics.glade");
         let builder = Builder::new_from_string(glade_src);
@@ -46,10 +28,10 @@ mod example {
                                            .expect("Couldn't get messagedialog1");
 
         window.set_application(application);
-        window.connect_delete_event(clone!(window => move |_, _| {
-            window.destroy();
+        window.connect_delete_event(move |win, _| {
+            win.destroy();
             Inhibit(false)
-        }));
+        });
 
         bigbutton.connect_clicked(move |_| {
             dialog.run();
