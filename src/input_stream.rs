@@ -75,7 +75,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
             } else if bytes_read != 0 {
                 Ok((bytes_read, Some(from_glib_full(error))))
             } else {
-                Err( from_glib_full(error))
+                Err(from_glib_full(error))
             }
         }
     }

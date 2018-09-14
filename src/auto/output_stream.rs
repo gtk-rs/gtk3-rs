@@ -67,8 +67,6 @@ pub trait OutputStreamExt: Sized {
 
     fn write<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<isize, Error>;
 
-    fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<usize, Error>;
-
     fn write_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, bytes: &glib::Bytes, cancellable: P) -> Result<isize, Error>;
 
     fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: P, callback: Q);
@@ -284,18 +282,6 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_write(self.to_glib_none().0, buffer.to_glib_none().0, count, cancellable.0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
-        }
-    }
-
-    fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let count = buffer.len() as usize;
-        unsafe {
-            let mut bytes_written = mem::uninitialized();
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_output_stream_write_all(self.to_glib_none().0, buffer.to_glib_none().0, count, &mut bytes_written, cancellable.0, &mut error);
-            if error.is_null() { Ok(bytes_written) } else { Err(from_glib_full(error)) }
         }
     }
 
