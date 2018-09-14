@@ -490,6 +490,10 @@ status = "generate"
     name = "write_all_async"
     #AsRef<u8>
     ignore = true
+    [[object.function]]
+    name = "write_all"
+    # special return value
+    ignore = true
 
 [[object]]
 name = "Gio.PollableInputStream"

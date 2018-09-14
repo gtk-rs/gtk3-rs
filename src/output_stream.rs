@@ -11,7 +11,6 @@ use glib::translate::*;
 use glib::Priority;
 use glib_ffi;
 use gobject_ffi;
-#[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::mem;
 use std::ptr;
 use OutputStream;
@@ -21,6 +20,8 @@ use futures_core::Future;
 
 pub trait OutputStreamExtManual: Sized {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+
+    fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
@@ -65,6 +66,25 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
         let callback = write_async_trampoline::<B, Q>;
         unsafe {
             ffi::g_output_stream_write_async(self.to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        }
+    }
+
+    fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<(usize, Option<Error>), Error> {
+        let cancellable = cancellable.into();
+        let cancellable = cancellable.to_glib_none();
+        let count = buffer.len() as usize;
+        unsafe {
+            let mut bytes_written = mem::uninitialized();
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_output_stream_write_all(self.to_glib_none().0, buffer.to_glib_none().0, count, &mut bytes_written, cancellable.0, &mut error);
+
+            if error.is_null() {
+                Ok((bytes_written, None))
+            } else if bytes_written != 0 {
+                Ok((bytes_written, Some(from_glib_full(error))))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
