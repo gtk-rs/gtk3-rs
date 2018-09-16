@@ -321,6 +321,28 @@ impl Event {
     pub fn downcast<T: FromEvent>(self) -> Result<T, Self> {
         T::from(self)
     }
+
+    /// Tries to downcast to a specific event type.
+    pub fn downcast_ref<T: FromEvent>(&self) -> Option<&T> {
+        if T::is(self) {
+            unsafe {
+                Some(mem::transmute::<&Event, &T>(self))
+            }
+        } else {
+            None
+        }
+    }
+
+    /// Tries to downcast to a specific event type.
+    pub fn downcast_mut<T: FromEvent>(&mut self) -> Option<&mut T> {
+        if T::is(self) {
+            unsafe {
+                Some(mem::transmute::<&mut Event, &mut T>(self))
+            }
+        } else {
+            None
+        }
+    }
 }
 
 impl fmt::Debug for Event {
