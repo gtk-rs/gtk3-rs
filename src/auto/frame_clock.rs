@@ -86,7 +86,7 @@ impl<O: IsA<FrameClock> + IsA<glib::object::Object>> FrameClockExt for O {
     #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_current_timings(&self) -> Option<FrameTimings> {
         unsafe {
-            from_glib_full(ffi::gdk_frame_clock_get_current_timings(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_frame_clock_get_current_timings(self.to_glib_none().0))
         }
     }
 
@@ -114,7 +114,7 @@ impl<O: IsA<FrameClock> + IsA<glib::object::Object>> FrameClockExt for O {
     #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_timings(&self, frame_counter: i64) -> Option<FrameTimings> {
         unsafe {
-            from_glib_full(ffi::gdk_frame_clock_get_timings(self.to_glib_none().0, frame_counter))
+            from_glib_none(ffi::gdk_frame_clock_get_timings(self.to_glib_none().0, frame_counter))
         }
     }
 
