@@ -2,6 +2,8 @@
 //!
 //! This sample demonstrates how to create a StatusIcon.
 
+#![allow(deprecated)]
+
 extern crate gdk_pixbuf;
 extern crate gio;
 extern crate glib;
