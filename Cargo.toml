@@ -41,7 +41,7 @@ git = "https://github.com/gtk-rs/sys"
 git = "https://github.com/gtk-rs/sys"
 
 [features]
-#default = ["gtk_3_22_30", "futures-stable"]
+#default = ["gtk_3_22_30", "futures-stable", "gio_2_40"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools

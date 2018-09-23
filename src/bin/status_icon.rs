@@ -1,4 +1,4 @@
-//! # TreeView Sample
+//! # Status Icon example
 //!
 //! This sample demonstrates how to create a StatusIcon.
 
@@ -35,8 +35,7 @@ fn main() {
     let c_is_shown = is_shown.clone();
     dialog_item.connect_activate(move |_| {
         *c_is_shown.borrow_mut() = false;
-        let parent: Option<&gtk::Window> = None; // stupid hack to avoid rustc error
-        let diag = MessageDialog::new(parent,
+        let diag = MessageDialog::new(None::<&gtk::Window>, // stupid hack to avoid rustc error
                                       DialogFlags::MODAL,
                                       MessageType::Error,
                                       ButtonsType::Ok,
@@ -74,8 +73,7 @@ fn main() {
         *is_shown.borrow_mut() = new_shown;
     });
     status_icon.connect_activate(|_| {
-        let parent: Option<&gtk::Window> = None; // stupid hack to avoid rustc error
-        let diag = MessageDialog::new(parent,
+        let diag = MessageDialog::new(None::<&gtk::Window>, // stupid hack to avoid rustc error
                                       DialogFlags::MODAL,
                                       MessageType::Info,
                                       ButtonsType::Ok,
