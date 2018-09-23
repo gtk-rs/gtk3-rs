@@ -2,6 +2,7 @@
 name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
+autobins = false
 
 [dependencies]
 chrono = "0.4"
@@ -40,13 +41,14 @@ git = "https://github.com/gtk-rs/sys"
 git = "https://github.com/gtk-rs/sys"
 
 [features]
-#default = ["gtk_3_22_30", "futures-stable"]
+#default = ["gtk_3_22_30", "futures-stable", "gio_2_40"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
 gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
 gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
 gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
+gio_2_40 = ["gio/v2_40"]
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
 
 [[bin]]
@@ -127,3 +129,7 @@ name = "transparent_main_window"
 
 [[bin]]
 name = "treeview"
+
+[[bin]]
+name = "status_icon"
+required-features = ["gio_2_40"]
