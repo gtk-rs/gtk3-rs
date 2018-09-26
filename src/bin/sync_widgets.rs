@@ -1,8 +1,9 @@
 //! # Synchronizing Widgets
 //!
-//! You can use signals in order to synchronize the values of widgets. In this example a spin
-//! button and a horizontal scale will get interlocked.
+//! You can use property bindings in order to synchronize the values of widgets. In this example a
+//! spin button and a horizontal scale will get interlocked.
 
+extern crate glib;
 extern crate gio;
 extern crate gtk;
 
@@ -21,13 +22,10 @@ fn build_ui(application: &gtk::Application) {
     let spin_button: gtk::SpinButton = builder.get_object("spin_button")
                                               .expect("Couldn't get spin_button");
     let slider_adj = slider.get_adjustment();
-    spin_button.get_adjustment().connect_value_changed(move |adj| {
-        slider_adj.set_value(adj.get_value());
-    });
     let spin_button_adj = spin_button.get_adjustment();
-    slider.get_adjustment().connect_value_changed(move |adj| {
-        spin_button_adj.set_value(adj.get_value());
-    });
+    slider_adj.bind_property("value", &spin_button_adj, "value")
+        .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
+        .build();
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(application);
