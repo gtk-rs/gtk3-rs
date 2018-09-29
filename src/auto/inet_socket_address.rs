@@ -6,17 +6,12 @@ use InetAddress;
 use SocketAddress;
 use SocketConnectable;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -53,17 +48,9 @@ pub trait InetSocketAddressExt {
     fn get_port(&self) -> u16;
 
     fn get_scope_id(&self) -> u32;
-
-    fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_flowinfo_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_scope_id_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<InetSocketAddress> + IsA<glib::object::Object>> InetSocketAddressExt for O {
+impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
     fn get_address(&self) -> Option<InetAddress> {
         unsafe {
             from_glib_none(ffi::g_inet_socket_address_get_address(self.to_glib_none().0))
@@ -87,60 +74,4 @@ impl<O: IsA<InetSocketAddress> + IsA<glib::object::Object>> InetSocketAddressExt
             ffi::g_inet_socket_address_get_scope_id(self.to_glib_none().0)
         }
     }
-
-    fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::address",
-                transmute(notify_address_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_flowinfo_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::flowinfo",
-                transmute(notify_flowinfo_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::port",
-                transmute(notify_port_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_scope_id_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::scope-id",
-                transmute(notify_scope_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_address_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_flowinfo_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_port_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_scope_id_trampoline<P>(this: *mut ffi::GInetSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }

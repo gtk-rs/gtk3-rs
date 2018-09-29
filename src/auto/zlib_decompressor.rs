@@ -43,8 +43,6 @@ pub trait ZlibDecompressorExt {
     fn get_property_format(&self) -> ZlibCompressorFormat;
 
     fn connect_property_file_info_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_format_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ZlibDecompressor> + IsA<glib::object::Object>> ZlibDecompressorExt for O {
@@ -69,23 +67,9 @@ impl<O: IsA<ZlibDecompressor> + IsA<glib::object::Object>> ZlibDecompressorExt f
                 transmute(notify_file_info_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_format_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::format",
-                transmute(notify_format_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
 }
 
 unsafe extern "C" fn notify_file_info_trampoline<P>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ZlibDecompressor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ZlibDecompressor::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_format_trampoline<P>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibDecompressor> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ZlibDecompressor::from_glib_borrow(this).downcast_unchecked())

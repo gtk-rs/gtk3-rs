@@ -59,13 +59,7 @@ pub trait ApplicationCommandLineExt {
 
     fn set_exit_status(&self, exit_status: i32);
 
-    fn connect_property_arguments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_options_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_platform_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationCommandLineExt for O {
@@ -146,14 +140,6 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
         }
     }
 
-    fn connect_property_arguments_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::arguments",
-                transmute(notify_arguments_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -161,43 +147,9 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
                 transmute(notify_is_remote_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_options_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::options",
-                transmute(notify_options_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_platform_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::platform-data",
-                transmute(notify_platform_data_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_arguments_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ApplicationCommandLine> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_remote_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ApplicationCommandLine> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_options_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ApplicationCommandLine> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_platform_data_trampoline<P>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ApplicationCommandLine::from_glib_borrow(this).downcast_unchecked())

@@ -9,18 +9,12 @@ use Subprocess;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use SubprocessFlags;
 use ffi;
-use glib;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -80,11 +74,9 @@ pub trait SubprocessLauncherExt {
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P);
-
-    fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherExt for O {
+impl<O: IsA<SubprocessLauncher>> SubprocessLauncherExt for O {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn getenv<P: AsRef<std::path::Path>>(&self, variable: P) -> Option<std::path::PathBuf> {
         unsafe {
@@ -170,18 +162,4 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
             ffi::g_subprocess_launcher_unsetenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0);
         }
     }
-
-    fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::flags",
-                transmute(notify_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GSubprocessLauncher, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<SubprocessLauncher> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&SubprocessLauncher::from_glib_borrow(this).downcast_unchecked())
 }

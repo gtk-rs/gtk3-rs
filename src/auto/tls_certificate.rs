@@ -9,17 +9,12 @@ use ffi;
 use glib;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -76,16 +71,6 @@ pub trait TlsCertificateExt {
     //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray>;
 
     fn get_property_certificate_pem(&self) -> Option<String>;
-
-    fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_certificate_pem_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_issuer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_private_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_private_key_pem_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsCertificate> + IsA<glib::object::Object>> TlsCertificateExt for O {
@@ -127,74 +112,4 @@ impl<O: IsA<TlsCertificate> + IsA<glib::object::Object>> TlsCertificateExt for O
             value.get()
         }
     }
-
-    fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::certificate",
-                transmute(notify_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_certificate_pem_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::certificate-pem",
-                transmute(notify_certificate_pem_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_issuer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::issuer",
-                transmute(notify_issuer_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_private_key_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::private-key",
-                transmute(notify_private_key_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_private_key_pem_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::private-key-pem",
-                transmute(notify_private_key_pem_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_certificate_trampoline<P>(this: *mut ffi::GTlsCertificate, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsCertificate> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsCertificate::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_certificate_pem_trampoline<P>(this: *mut ffi::GTlsCertificate, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsCertificate> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsCertificate::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_issuer_trampoline<P>(this: *mut ffi::GTlsCertificate, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsCertificate> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsCertificate::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_private_key_trampoline<P>(this: *mut ffi::GTlsCertificate, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsCertificate> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsCertificate::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_private_key_pem_trampoline<P>(this: *mut ffi::GTlsCertificate, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsCertificate> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsCertificate::from_glib_borrow(this).downcast_unchecked())
 }

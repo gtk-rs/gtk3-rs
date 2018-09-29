@@ -5,17 +5,11 @@
 use Error;
 use SocketConnectable;
 use ffi;
-use glib;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -66,15 +60,9 @@ pub trait NetworkAddressExt {
     fn get_port(&self) -> u16;
 
     fn get_scheme(&self) -> Option<String>;
-
-    fn connect_property_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_scheme_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<NetworkAddress> + IsA<glib::object::Object>> NetworkAddressExt for O {
+impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
     fn get_hostname(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::g_network_address_get_hostname(self.to_glib_none().0))
@@ -92,46 +80,4 @@ impl<O: IsA<NetworkAddress> + IsA<glib::object::Object>> NetworkAddressExt for O
             from_glib_none(ffi::g_network_address_get_scheme(self.to_glib_none().0))
         }
     }
-
-    fn connect_property_hostname_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::hostname",
-                transmute(notify_hostname_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_port_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::port",
-                transmute(notify_port_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_scheme_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::scheme",
-                transmute(notify_scheme_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_hostname_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_port_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_scheme_trampoline<P>(this: *mut ffi::GNetworkAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<NetworkAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&NetworkAddress::from_glib_borrow(this).downcast_unchecked())
 }

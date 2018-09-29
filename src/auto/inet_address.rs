@@ -75,10 +75,6 @@ pub trait InetAddressExt {
 
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
-    fn connect_property_bytes_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_is_any_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_is_link_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
@@ -181,22 +177,6 @@ impl<O: IsA<InetAddress> + IsA<glib::object::Object>> InetAddressExt for O {
     //    }
     //}
 
-    fn connect_property_bytes_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::bytes",
-                transmute(notify_bytes_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::family",
-                transmute(notify_family_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_is_any_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
@@ -276,18 +256,6 @@ impl<O: IsA<InetAddress> + IsA<glib::object::Object>> InetAddressExt for O {
                 transmute(notify_is_site_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-}
-
-unsafe extern "C" fn notify_bytes_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<InetAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_is_any_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
