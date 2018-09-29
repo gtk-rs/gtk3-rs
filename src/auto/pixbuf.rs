@@ -13,16 +13,11 @@ use gio_ffi;
 use glib;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -204,24 +199,6 @@ pub trait PixbufExt {
     fn get_property_pixel_bytes(&self) -> Option<glib::Bytes>;
 
     //fn get_property_pixels(&self) -> /*Unimplemented*/Fundamental: Pointer;
-
-    fn connect_property_bits_per_sample_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_colorspace_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_has_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_n_channels_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_pixel_bytes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_pixels_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_rowstride_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
@@ -461,130 +438,4 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //        value.get().unwrap()
     //    }
     //}
-
-    fn connect_property_bits_per_sample_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::bits-per-sample",
-                transmute(notify_bits_per_sample_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_colorspace_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::colorspace",
-                transmute(notify_colorspace_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_has_alpha_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::has-alpha",
-                transmute(notify_has_alpha_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_height_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::height",
-                transmute(notify_height_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_n_channels_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::n-channels",
-                transmute(notify_n_channels_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_pixel_bytes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::pixel-bytes",
-                transmute(notify_pixel_bytes_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_pixels_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::pixels",
-                transmute(notify_pixels_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_rowstride_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::rowstride",
-                transmute(notify_rowstride_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_width_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::width",
-                transmute(notify_width_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_bits_per_sample_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_colorspace_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_has_alpha_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_height_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_n_channels_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_pixel_bytes_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_pixels_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_rowstride_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_width_trampoline<P>(this: *mut ffi::GdkPixbuf, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Pixbuf> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Pixbuf::from_glib_borrow(this).downcast_unchecked())
 }
