@@ -70,9 +70,6 @@ pub trait SeatExt {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn connect_tool_removed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
@@ -158,15 +155,6 @@ impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
                 transmute(tool_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::display",
-                transmute(notify_display_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -195,11 +183,4 @@ unsafe extern "C" fn tool_removed_trampoline<P>(this: *mut ffi::GdkSeat, tool: *
 where P: IsA<Seat> {
     let f: &&(Fn(&P, &DeviceTool) + 'static) = transmute(f);
     f(&Seat::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(tool))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkSeat, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Seat> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Seat::from_glib_borrow(this).downcast_unchecked())
 }

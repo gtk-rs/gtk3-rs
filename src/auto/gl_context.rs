@@ -9,22 +9,11 @@ use Error;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use Window;
 use ffi;
-use glib;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use glib::object::Downcast;
 use glib::object::IsA;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use std::boxed::Box as Box_;
 use std::mem;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -98,18 +87,9 @@ pub trait GLContextExt {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn set_use_es(&self, use_es: i32);
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_shared_context_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<GLContext> + IsA<glib::object::Object>> GLContextExt for O {
+impl<O: IsA<GLContext>> GLContextExt for O {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn get_debug_enabled(&self) -> bool {
         unsafe {
@@ -222,52 +202,4 @@ impl<O: IsA<GLContext> + IsA<glib::object::Object>> GLContextExt for O {
             ffi::gdk_gl_context_set_use_es(self.to_glib_none().0, use_es);
         }
     }
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::display",
-                transmute(notify_display_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_shared_context_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::shared-context",
-                transmute(notify_shared_context_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_window_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::window",
-                transmute(notify_window_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<GLContext> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&GLContext::from_glib_borrow(this).downcast_unchecked())
-}
-
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-unsafe extern "C" fn notify_shared_context_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<GLContext> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&GLContext::from_glib_borrow(this).downcast_unchecked())
-}
-
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-unsafe extern "C" fn notify_window_trampoline<P>(this: *mut ffi::GdkGLContext, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<GLContext> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&GLContext::from_glib_borrow(this).downcast_unchecked())
 }

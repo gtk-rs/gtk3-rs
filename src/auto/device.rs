@@ -165,25 +165,9 @@ pub trait DeviceExt {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn connect_property_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_device_manager_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_has_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_input_source_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_property_num_touches_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_product_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn connect_property_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -192,9 +176,6 @@ pub trait DeviceExt {
     fn connect_property_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_vendor_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
@@ -504,30 +485,6 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
         }
     }
 
-    fn connect_property_device_manager_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::device-manager",
-                transmute(notify_device_manager_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::display",
-                transmute(notify_display_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_has_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::has-cursor",
-                transmute(notify_has_cursor_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -536,45 +493,11 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
         }
     }
 
-    fn connect_property_input_source_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::input-source",
-                transmute(notify_input_source_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::n-axes",
                 transmute(notify_n_axes_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::name",
-                transmute(notify_name_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_property_num_touches_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::num-touches",
-                transmute(notify_num_touches_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_product_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::product-id",
-                transmute(notify_product_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
@@ -601,15 +524,6 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::type",
                 transmute(notify_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn connect_property_vendor_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::vendor-id",
-                transmute(notify_vendor_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 }
@@ -640,57 +554,13 @@ where P: IsA<Device> {
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
-unsafe extern "C" fn notify_device_manager_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_has_cursor_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
 unsafe extern "C" fn notify_input_mode_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
 }
 
-unsafe extern "C" fn notify_input_source_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
 unsafe extern "C" fn notify_n_axes_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_name_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn notify_num_touches_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-unsafe extern "C" fn notify_product_id_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())
@@ -711,13 +581,6 @@ where P: IsA<Device> {
 }
 
 unsafe extern "C" fn notify_type_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Device> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Device::from_glib_borrow(this).downcast_unchecked())
-}
-
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-unsafe extern "C" fn notify_vendor_id_trampoline<P>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Device> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Device::from_glib_borrow(this).downcast_unchecked())

@@ -207,6 +207,9 @@ status = "generate"
     [[object.property]]
     name = "tool"
     version = "3.22"
+    [[object.property]]
+    name = "type"
+    generate = ["get", "notify"]
 
 [[object]]
 name = "Gdk.Display"
