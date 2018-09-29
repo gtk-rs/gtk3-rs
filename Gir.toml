@@ -94,7 +94,6 @@ generate = [
     "Gio.SrvTarget",
     "Gio.SubprocessFlags",
     "Gio.TcpConnection",
-    "Gio.ThemedIcon",
     "Gio.ThreadedSocketService",
     "Gio.TlsAuthenticationMode",
     "Gio.TlsCertificate",
@@ -356,6 +355,10 @@ status = "generate"
     name = "base-stream"
     #readonly
     ignore = true
+    [[object.property]]
+    name = "close-base-stream"
+    #has get/set function, ConstructOnly
+    generate = ["notify"]
 
 [[object]]
 name =  "Gio.InetAddressMask"
@@ -662,6 +665,14 @@ status = "generate"
     [[object.function]]
     name = "set_child_setup"
     cfg_condition = "unix"
+
+[[object]]
+name = "Gio.ThemedIcon"
+status = "generate"
+    [[object.property]]
+    name = "names"
+    # ConstructOnly
+    generate = ["notify"]
 
 [[object]]
 name = "Gio.TlsPassword"

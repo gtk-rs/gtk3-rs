@@ -17,18 +17,16 @@ use ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use futures_core;
 use glib;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use std;
+#[cfg(feature = "futures")]
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -124,10 +122,6 @@ pub trait SubprocessExt: Sized {
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
-
-    fn connect_property_argv_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> SubprocessExt for O {
@@ -399,32 +393,4 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
             cancellable
         })
     }
-
-    fn connect_property_argv_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::argv",
-                transmute(notify_argv_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::flags",
-                transmute(notify_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_argv_trampoline<P>(this: *mut ffi::GSubprocess, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Subprocess> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Subprocess::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GSubprocess, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Subprocess> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Subprocess::from_glib_borrow(this).downcast_unchecked())
 }

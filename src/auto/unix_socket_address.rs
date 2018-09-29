@@ -9,16 +9,11 @@ use ffi;
 use glib;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -58,12 +53,6 @@ pub trait UnixSocketAddressExt {
     fn get_property_abstract(&self) -> bool;
 
     //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray>;
-
-    fn connect_property_abstract_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_address_type_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_path_as_array_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt for O {
@@ -100,46 +89,4 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
     //        value.get()
     //    }
     //}
-
-    fn connect_property_abstract_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::abstract",
-                transmute(notify_abstract_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_address_type_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::address-type",
-                transmute(notify_address_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_path_as_array_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::path-as-array",
-                transmute(notify_path_as_array_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_abstract_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<UnixSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_address_type_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<UnixSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_path_as_array_trampoline<P>(this: *mut ffi::GUnixSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<UnixSocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&UnixSocketAddress::from_glib_borrow(this).downcast_unchecked())
 }

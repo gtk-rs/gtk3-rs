@@ -57,8 +57,6 @@ pub trait SimpleActionExt {
 
     fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -108,14 +106,6 @@ impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
         }
     }
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::name",
-                transmute(notify_name_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -138,12 +128,6 @@ where P: IsA<SimpleAction> {
 }
 
 unsafe extern "C" fn notify_enabled_trampoline<P>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<SimpleAction> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&SimpleAction::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_name_trampoline<P>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SimpleAction> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&SimpleAction::from_glib_borrow(this).downcast_unchecked())

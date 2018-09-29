@@ -41,8 +41,6 @@ pub trait ThreadedSocketServiceExt {
     fn get_property_max_threads(&self) -> i32;
 
     fn connect_run<F: Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_max_threads_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ThreadedSocketService> + IsA<glib::object::Object>> ThreadedSocketServiceExt for O {
@@ -61,24 +59,10 @@ impl<O: IsA<ThreadedSocketService> + IsA<glib::object::Object>> ThreadedSocketSe
                 transmute(run_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_max_threads_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::max-threads",
-                transmute(notify_max_threads_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
 }
 
 unsafe extern "C" fn run_trampoline<P>(this: *mut ffi::GThreadedSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<ThreadedSocketService> {
     let f: &&(Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static) = transmute(f);
     f(&ThreadedSocketService::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
-}
-
-unsafe extern "C" fn notify_max_threads_trampoline<P>(this: *mut ffi::GThreadedSocketService, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ThreadedSocketService> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ThreadedSocketService::from_glib_borrow(this).downcast_unchecked())
 }

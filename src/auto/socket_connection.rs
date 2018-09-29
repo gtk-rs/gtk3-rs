@@ -13,16 +13,13 @@ use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
 use glib;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -62,8 +59,6 @@ pub trait SocketConnectionExt: Sized {
     fn get_socket(&self) -> Option<Socket>;
 
     fn is_connected(&self) -> bool;
-
-    fn connect_property_socket_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> SocketConnectionExt for O {
@@ -146,18 +141,4 @@ impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> Soc
             from_glib(ffi::g_socket_connection_is_connected(self.to_glib_none().0))
         }
     }
-
-    fn connect_property_socket_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::socket",
-                transmute(notify_socket_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_socket_trampoline<P>(this: *mut ffi::GSocketConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<SocketConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&SocketConnection::from_glib_borrow(this).downcast_unchecked())
 }

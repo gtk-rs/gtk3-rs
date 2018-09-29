@@ -208,20 +208,9 @@ pub trait SettingsExt {
 
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_property_backend_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[deprecated]
-    fn connect_property_schema_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_schema_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_settings_schema_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
@@ -551,14 +540,6 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
         }
     }
 
-    fn connect_property_backend_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::backend",
-                transmute(notify_backend_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -572,38 +553,6 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
             connect(self.to_glib_none().0, "notify::has-unapplied",
                 transmute(notify_has_unapplied_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::path",
-                transmute(notify_path_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_schema_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::schema",
-                transmute(notify_schema_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_schema_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::schema-id",
-                transmute(notify_schema_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_settings_schema_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::settings-schema",
-                transmute(notify_settings_schema_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
 }
@@ -626,12 +575,6 @@ where P: IsA<Settings> {
     f(&Settings::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(key))
 }
 
-unsafe extern "C" fn notify_backend_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked())
-}
-
 unsafe extern "C" fn notify_delay_apply_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
@@ -639,30 +582,6 @@ where P: IsA<Settings> {
 }
 
 unsafe extern "C" fn notify_has_unapplied_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_path_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_schema_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_schema_id_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_settings_schema_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Settings::from_glib_borrow(this).downcast_unchecked())

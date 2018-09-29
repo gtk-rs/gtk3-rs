@@ -57,11 +57,7 @@ pub trait ThemedIconExt {
 
     fn get_property_use_default_fallbacks(&self) -> bool;
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
     fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_use_default_fallbacks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
@@ -91,14 +87,6 @@ impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
         }
     }
 
-    fn connect_property_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::name",
-                transmute(notify_name_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -106,29 +94,9 @@ impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
                 transmute(notify_names_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
-
-    fn connect_property_use_default_fallbacks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::use-default-fallbacks",
-                transmute(notify_use_default_fallbacks_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_name_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ThemedIcon> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
 }
 
 unsafe extern "C" fn notify_names_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<ThemedIcon> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_use_default_fallbacks_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&ThemedIcon::from_glib_borrow(this).downcast_unchecked())
