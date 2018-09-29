@@ -8,17 +8,11 @@ use Display;
 use cairo;
 use ffi;
 use gdk_pixbuf;
-use glib;
-use glib::object::Downcast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-use std::boxed::Box as Box_;
 use std::mem;
-use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
@@ -77,13 +71,9 @@ pub trait CursorExt {
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64);
-
-    fn connect_property_cursor_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Cursor> + IsA<glib::object::Object>> CursorExt for O {
+impl<O: IsA<Cursor>> CursorExt for O {
     fn get_cursor_type(&self) -> CursorType {
         unsafe {
             from_glib(ffi::gdk_cursor_get_cursor_type(self.to_glib_none().0))
@@ -111,32 +101,4 @@ impl<O: IsA<Cursor> + IsA<glib::object::Object>> CursorExt for O {
             (ret, x_hot, y_hot)
         }
     }
-
-    fn connect_property_cursor_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::cursor-type",
-                transmute(notify_cursor_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
-    fn connect_property_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::display",
-                transmute(notify_display_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-}
-
-unsafe extern "C" fn notify_cursor_type_trampoline<P>(this: *mut ffi::GdkCursor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Cursor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Cursor::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_display_trampoline<P>(this: *mut ffi::GdkCursor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Cursor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Cursor::from_glib_borrow(this).downcast_unchecked())
 }
