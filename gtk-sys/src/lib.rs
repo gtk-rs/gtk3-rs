@@ -7359,7 +7359,7 @@ pub struct GtkStyleClass {
     pub clone: Option<unsafe extern "C" fn(*mut GtkStyle) -> *mut GtkStyle>,
     pub init_from_rc: Option<unsafe extern "C" fn(*mut GtkStyle, *mut GtkRcStyle)>,
     pub set_background: Option<unsafe extern "C" fn(*mut GtkStyle, *mut gdk::GdkWindow, GtkStateType)>,
-    pub render_icon: Option<unsafe extern "C" fn(*mut GtkStyle, *const GtkIconSource, GtkTextDirection, GtkStateType, c_int, *mut GtkWidget, *const c_char) -> *mut gdk_pixbuf::GdkPixbuf>,
+    pub render_icon: Option<unsafe extern "C" fn(*mut GtkStyle, *const GtkIconSource, GtkTextDirection, GtkStateType, GtkIconSize, *mut GtkWidget, *const c_char) -> *mut gdk_pixbuf::GdkPixbuf>,
     pub draw_hline: Option<unsafe extern "C" fn(*mut GtkStyle, *mut cairo::cairo_t, GtkStateType, *mut GtkWidget, *const c_char, c_int, c_int, c_int)>,
     pub draw_vline: Option<unsafe extern "C" fn(*mut GtkStyle, *mut cairo::cairo_t, GtkStateType, *mut GtkWidget, *const c_char, c_int, c_int, c_int)>,
     pub draw_shadow: Option<unsafe extern "C" fn(*mut GtkStyle, *mut cairo::cairo_t, GtkStateType, GtkShadowType, *mut GtkWidget, *const c_char, c_int, c_int, c_int, c_int)>,
@@ -13491,12 +13491,12 @@ extern "C" {
     // GtkIconSize
     //=========================================================================
     pub fn gtk_icon_size_get_type() -> GType;
-    pub fn gtk_icon_size_from_name(name: *const c_char) -> c_int;
-    pub fn gtk_icon_size_get_name(size: c_int) -> *const c_char;
-    pub fn gtk_icon_size_lookup(size: c_int, width: *mut c_int, height: *mut c_int) -> gboolean;
-    pub fn gtk_icon_size_lookup_for_settings(settings: *mut GtkSettings, size: c_int, width: *mut c_int, height: *mut c_int) -> gboolean;
-    pub fn gtk_icon_size_register(name: *const c_char, width: c_int, height: c_int) -> c_int;
-    pub fn gtk_icon_size_register_alias(alias: *const c_char, target: c_int);
+    pub fn gtk_icon_size_from_name(name: *const c_char) -> GtkIconSize;
+    pub fn gtk_icon_size_get_name(size: GtkIconSize) -> *const c_char;
+    pub fn gtk_icon_size_lookup(size: GtkIconSize, width: *mut c_int, height: *mut c_int) -> gboolean;
+    pub fn gtk_icon_size_lookup_for_settings(settings: *mut GtkSettings, size: GtkIconSize, width: *mut c_int, height: *mut c_int) -> gboolean;
+    pub fn gtk_icon_size_register(name: *const c_char, width: c_int, height: c_int) -> GtkIconSize;
+    pub fn gtk_icon_size_register_alias(alias: *const c_char, target: GtkIconSize);
 
     //=========================================================================
     // GtkIconThemeError
@@ -14045,12 +14045,12 @@ extern "C" {
     pub fn gtk_icon_set_new_from_pixbuf(pixbuf: *mut gdk_pixbuf::GdkPixbuf) -> *mut GtkIconSet;
     pub fn gtk_icon_set_add_source(icon_set: *mut GtkIconSet, source: *const GtkIconSource);
     pub fn gtk_icon_set_copy(icon_set: *mut GtkIconSet) -> *mut GtkIconSet;
-    pub fn gtk_icon_set_get_sizes(icon_set: *mut GtkIconSet, sizes: *mut *mut c_int, n_sizes: *mut c_int);
+    pub fn gtk_icon_set_get_sizes(icon_set: *mut GtkIconSet, sizes: *mut *mut GtkIconSize, n_sizes: *mut c_int);
     pub fn gtk_icon_set_ref(icon_set: *mut GtkIconSet) -> *mut GtkIconSet;
-    pub fn gtk_icon_set_render_icon(icon_set: *mut GtkIconSet, style: *mut GtkStyle, direction: GtkTextDirection, state: GtkStateType, size: c_int, widget: *mut GtkWidget, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gtk_icon_set_render_icon_pixbuf(icon_set: *mut GtkIconSet, context: *mut GtkStyleContext, size: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_icon_set_render_icon(icon_set: *mut GtkIconSet, style: *mut GtkStyle, direction: GtkTextDirection, state: GtkStateType, size: GtkIconSize, widget: *mut GtkWidget, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_icon_set_render_icon_pixbuf(icon_set: *mut GtkIconSet, context: *mut GtkStyleContext, size: GtkIconSize) -> *mut gdk_pixbuf::GdkPixbuf;
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    pub fn gtk_icon_set_render_icon_surface(icon_set: *mut GtkIconSet, context: *mut GtkStyleContext, size: c_int, scale: c_int, for_window: *mut gdk::GdkWindow) -> *mut cairo::cairo_surface_t;
+    pub fn gtk_icon_set_render_icon_surface(icon_set: *mut GtkIconSet, context: *mut GtkStyleContext, size: GtkIconSize, scale: c_int, for_window: *mut gdk::GdkWindow) -> *mut cairo::cairo_surface_t;
     pub fn gtk_icon_set_unref(icon_set: *mut GtkIconSet);
 
     //=========================================================================
@@ -14065,7 +14065,7 @@ extern "C" {
     pub fn gtk_icon_source_get_filename(source: *const GtkIconSource) -> *const c_char;
     pub fn gtk_icon_source_get_icon_name(source: *const GtkIconSource) -> *const c_char;
     pub fn gtk_icon_source_get_pixbuf(source: *const GtkIconSource) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gtk_icon_source_get_size(source: *const GtkIconSource) -> c_int;
+    pub fn gtk_icon_source_get_size(source: *const GtkIconSource) -> GtkIconSize;
     pub fn gtk_icon_source_get_size_wildcarded(source: *const GtkIconSource) -> gboolean;
     pub fn gtk_icon_source_get_state(source: *const GtkIconSource) -> GtkStateType;
     pub fn gtk_icon_source_get_state_wildcarded(source: *const GtkIconSource) -> gboolean;
@@ -14074,7 +14074,7 @@ extern "C" {
     pub fn gtk_icon_source_set_filename(source: *mut GtkIconSource, filename: *const c_char);
     pub fn gtk_icon_source_set_icon_name(source: *mut GtkIconSource, icon_name: *const c_char);
     pub fn gtk_icon_source_set_pixbuf(source: *mut GtkIconSource, pixbuf: *mut gdk_pixbuf::GdkPixbuf);
-    pub fn gtk_icon_source_set_size(source: *mut GtkIconSource, size: c_int);
+    pub fn gtk_icon_source_set_size(source: *mut GtkIconSource, size: GtkIconSize);
     pub fn gtk_icon_source_set_size_wildcarded(source: *mut GtkIconSource, setting: gboolean);
     pub fn gtk_icon_source_set_state(source: *mut GtkIconSource, state: GtkStateType);
     pub fn gtk_icon_source_set_state_wildcarded(source: *mut GtkIconSource, setting: gboolean);
@@ -14563,7 +14563,7 @@ extern "C" {
     pub fn gtk_action_activate(action: *mut GtkAction);
     pub fn gtk_action_block_activate(action: *mut GtkAction);
     pub fn gtk_action_connect_accelerator(action: *mut GtkAction);
-    pub fn gtk_action_create_icon(action: *mut GtkAction, icon_size: c_int) -> *mut GtkWidget;
+    pub fn gtk_action_create_icon(action: *mut GtkAction, icon_size: GtkIconSize) -> *mut GtkWidget;
     pub fn gtk_action_create_menu(action: *mut GtkAction) -> *mut GtkWidget;
     pub fn gtk_action_create_menu_item(action: *mut GtkAction) -> *mut GtkWidget;
     pub fn gtk_action_create_tool_item(action: *mut GtkAction) -> *mut GtkWidget;
@@ -14903,7 +14903,7 @@ extern "C" {
     pub fn gtk_button_get_type() -> GType;
     pub fn gtk_button_new() -> *mut GtkWidget;
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    pub fn gtk_button_new_from_icon_name(icon_name: *const c_char, size: c_int) -> *mut GtkWidget;
+    pub fn gtk_button_new_from_icon_name(icon_name: *const c_char, size: GtkIconSize) -> *mut GtkWidget;
     pub fn gtk_button_new_from_stock(stock_id: *const c_char) -> *mut GtkWidget;
     pub fn gtk_button_new_with_label(label: *const c_char) -> *mut GtkWidget;
     pub fn gtk_button_new_with_mnemonic(label: *const c_char) -> *mut GtkWidget;
@@ -16390,31 +16390,31 @@ extern "C" {
     pub fn gtk_image_new() -> *mut GtkWidget;
     pub fn gtk_image_new_from_animation(animation: *mut gdk_pixbuf::GdkPixbufAnimation) -> *mut GtkWidget;
     pub fn gtk_image_new_from_file(filename: *const c_char) -> *mut GtkWidget;
-    pub fn gtk_image_new_from_gicon(icon: *mut gio::GIcon, size: c_int) -> *mut GtkWidget;
-    pub fn gtk_image_new_from_icon_name(icon_name: *const c_char, size: c_int) -> *mut GtkWidget;
-    pub fn gtk_image_new_from_icon_set(icon_set: *mut GtkIconSet, size: c_int) -> *mut GtkWidget;
+    pub fn gtk_image_new_from_gicon(icon: *mut gio::GIcon, size: GtkIconSize) -> *mut GtkWidget;
+    pub fn gtk_image_new_from_icon_name(icon_name: *const c_char, size: GtkIconSize) -> *mut GtkWidget;
+    pub fn gtk_image_new_from_icon_set(icon_set: *mut GtkIconSet, size: GtkIconSize) -> *mut GtkWidget;
     pub fn gtk_image_new_from_pixbuf(pixbuf: *mut gdk_pixbuf::GdkPixbuf) -> *mut GtkWidget;
     pub fn gtk_image_new_from_resource(resource_path: *const c_char) -> *mut GtkWidget;
-    pub fn gtk_image_new_from_stock(stock_id: *const c_char, size: c_int) -> *mut GtkWidget;
+    pub fn gtk_image_new_from_stock(stock_id: *const c_char, size: GtkIconSize) -> *mut GtkWidget;
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gtk_image_new_from_surface(surface: *mut cairo::cairo_surface_t) -> *mut GtkWidget;
     pub fn gtk_image_clear(image: *mut GtkImage);
     pub fn gtk_image_get_animation(image: *mut GtkImage) -> *mut gdk_pixbuf::GdkPixbufAnimation;
-    pub fn gtk_image_get_gicon(image: *mut GtkImage, gicon: *mut *mut gio::GIcon, size: *mut c_int);
-    pub fn gtk_image_get_icon_name(image: *mut GtkImage, icon_name: *mut *const c_char, size: *mut c_int);
-    pub fn gtk_image_get_icon_set(image: *mut GtkImage, icon_set: *mut *mut GtkIconSet, size: *mut c_int);
+    pub fn gtk_image_get_gicon(image: *mut GtkImage, gicon: *mut *mut gio::GIcon, size: *mut GtkIconSize);
+    pub fn gtk_image_get_icon_name(image: *mut GtkImage, icon_name: *mut *const c_char, size: *mut GtkIconSize);
+    pub fn gtk_image_get_icon_set(image: *mut GtkImage, icon_set: *mut *mut GtkIconSet, size: *mut GtkIconSize);
     pub fn gtk_image_get_pixbuf(image: *mut GtkImage) -> *mut gdk_pixbuf::GdkPixbuf;
     pub fn gtk_image_get_pixel_size(image: *mut GtkImage) -> c_int;
-    pub fn gtk_image_get_stock(image: *mut GtkImage, stock_id: *mut *mut c_char, size: *mut c_int);
+    pub fn gtk_image_get_stock(image: *mut GtkImage, stock_id: *mut *mut c_char, size: *mut GtkIconSize);
     pub fn gtk_image_get_storage_type(image: *mut GtkImage) -> GtkImageType;
     pub fn gtk_image_set_from_animation(image: *mut GtkImage, animation: *mut gdk_pixbuf::GdkPixbufAnimation);
     pub fn gtk_image_set_from_file(image: *mut GtkImage, filename: *const c_char);
-    pub fn gtk_image_set_from_gicon(image: *mut GtkImage, icon: *mut gio::GIcon, size: c_int);
-    pub fn gtk_image_set_from_icon_name(image: *mut GtkImage, icon_name: *const c_char, size: c_int);
-    pub fn gtk_image_set_from_icon_set(image: *mut GtkImage, icon_set: *mut GtkIconSet, size: c_int);
+    pub fn gtk_image_set_from_gicon(image: *mut GtkImage, icon: *mut gio::GIcon, size: GtkIconSize);
+    pub fn gtk_image_set_from_icon_name(image: *mut GtkImage, icon_name: *const c_char, size: GtkIconSize);
+    pub fn gtk_image_set_from_icon_set(image: *mut GtkImage, icon_set: *mut GtkIconSet, size: GtkIconSize);
     pub fn gtk_image_set_from_pixbuf(image: *mut GtkImage, pixbuf: *mut gdk_pixbuf::GdkPixbuf);
     pub fn gtk_image_set_from_resource(image: *mut GtkImage, resource_path: *const c_char);
-    pub fn gtk_image_set_from_stock(image: *mut GtkImage, stock_id: *const c_char, size: c_int);
+    pub fn gtk_image_set_from_stock(image: *mut GtkImage, stock_id: *const c_char, size: GtkIconSize);
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gtk_image_set_from_surface(image: *mut GtkImage, surface: *mut cairo::cairo_surface_t);
     pub fn gtk_image_set_pixel_size(image: *mut GtkImage, pixel_size: c_int);
@@ -17652,7 +17652,7 @@ extern "C" {
     // GtkScaleButton
     //=========================================================================
     pub fn gtk_scale_button_get_type() -> GType;
-    pub fn gtk_scale_button_new(size: c_int, min: c_double, max: c_double, step: c_double, icons: *mut *mut c_char) -> *mut GtkWidget;
+    pub fn gtk_scale_button_new(size: GtkIconSize, min: c_double, max: c_double, step: c_double, icons: *mut *mut c_char) -> *mut GtkWidget;
     pub fn gtk_scale_button_get_adjustment(button: *mut GtkScaleButton) -> *mut GtkAdjustment;
     pub fn gtk_scale_button_get_minus_button(button: *mut GtkScaleButton) -> *mut GtkButton;
     pub fn gtk_scale_button_get_plus_button(button: *mut GtkScaleButton) -> *mut GtkButton;
@@ -18040,7 +18040,7 @@ extern "C" {
     pub fn gtk_style_has_context(style: *mut GtkStyle) -> gboolean;
     pub fn gtk_style_lookup_color(style: *mut GtkStyle, color_name: *const c_char, color: *mut gdk::GdkColor) -> gboolean;
     pub fn gtk_style_lookup_icon_set(style: *mut GtkStyle, stock_id: *const c_char) -> *mut GtkIconSet;
-    pub fn gtk_style_render_icon(style: *mut GtkStyle, source: *const GtkIconSource, direction: GtkTextDirection, state: GtkStateType, size: c_int, widget: *mut GtkWidget, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_style_render_icon(style: *mut GtkStyle, source: *const GtkIconSource, direction: GtkTextDirection, state: GtkStateType, size: GtkIconSize, widget: *mut GtkWidget, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
     pub fn gtk_style_set_background(style: *mut GtkStyle, window: *mut gdk::GdkWindow, state_type: GtkStateType);
 
     //=========================================================================
@@ -18489,7 +18489,7 @@ extern "C" {
     pub fn gtk_tool_item_get_ellipsize_mode(tool_item: *mut GtkToolItem) -> pango::PangoEllipsizeMode;
     pub fn gtk_tool_item_get_expand(tool_item: *mut GtkToolItem) -> gboolean;
     pub fn gtk_tool_item_get_homogeneous(tool_item: *mut GtkToolItem) -> gboolean;
-    pub fn gtk_tool_item_get_icon_size(tool_item: *mut GtkToolItem) -> c_int;
+    pub fn gtk_tool_item_get_icon_size(tool_item: *mut GtkToolItem) -> GtkIconSize;
     pub fn gtk_tool_item_get_is_important(tool_item: *mut GtkToolItem) -> gboolean;
     pub fn gtk_tool_item_get_orientation(tool_item: *mut GtkToolItem) -> GtkOrientation;
     pub fn gtk_tool_item_get_proxy_menu_item(tool_item: *mut GtkToolItem, menu_item_id: *const c_char) -> *mut GtkWidget;
@@ -18551,14 +18551,14 @@ extern "C" {
     pub fn gtk_tool_palette_get_expand(palette: *mut GtkToolPalette, group: *mut GtkToolItemGroup) -> gboolean;
     pub fn gtk_tool_palette_get_group_position(palette: *mut GtkToolPalette, group: *mut GtkToolItemGroup) -> c_int;
     pub fn gtk_tool_palette_get_hadjustment(palette: *mut GtkToolPalette) -> *mut GtkAdjustment;
-    pub fn gtk_tool_palette_get_icon_size(palette: *mut GtkToolPalette) -> c_int;
+    pub fn gtk_tool_palette_get_icon_size(palette: *mut GtkToolPalette) -> GtkIconSize;
     pub fn gtk_tool_palette_get_style(palette: *mut GtkToolPalette) -> GtkToolbarStyle;
     pub fn gtk_tool_palette_get_vadjustment(palette: *mut GtkToolPalette) -> *mut GtkAdjustment;
     pub fn gtk_tool_palette_set_drag_source(palette: *mut GtkToolPalette, targets: GtkToolPaletteDragTargets);
     pub fn gtk_tool_palette_set_exclusive(palette: *mut GtkToolPalette, group: *mut GtkToolItemGroup, exclusive: gboolean);
     pub fn gtk_tool_palette_set_expand(palette: *mut GtkToolPalette, group: *mut GtkToolItemGroup, expand: gboolean);
     pub fn gtk_tool_palette_set_group_position(palette: *mut GtkToolPalette, group: *mut GtkToolItemGroup, position: c_int);
-    pub fn gtk_tool_palette_set_icon_size(palette: *mut GtkToolPalette, icon_size: c_int);
+    pub fn gtk_tool_palette_set_icon_size(palette: *mut GtkToolPalette, icon_size: GtkIconSize);
     pub fn gtk_tool_palette_set_style(palette: *mut GtkToolPalette, style: GtkToolbarStyle);
     pub fn gtk_tool_palette_unset_icon_size(palette: *mut GtkToolPalette);
     pub fn gtk_tool_palette_unset_style(palette: *mut GtkToolPalette);
@@ -18591,9 +18591,9 @@ extern "C" {
     pub fn gtk_tooltip_trigger_tooltip_query(display: *mut gdk::GdkDisplay);
     pub fn gtk_tooltip_set_custom(tooltip: *mut GtkTooltip, custom_widget: *mut GtkWidget);
     pub fn gtk_tooltip_set_icon(tooltip: *mut GtkTooltip, pixbuf: *mut gdk_pixbuf::GdkPixbuf);
-    pub fn gtk_tooltip_set_icon_from_gicon(tooltip: *mut GtkTooltip, gicon: *mut gio::GIcon, size: c_int);
-    pub fn gtk_tooltip_set_icon_from_icon_name(tooltip: *mut GtkTooltip, icon_name: *const c_char, size: c_int);
-    pub fn gtk_tooltip_set_icon_from_stock(tooltip: *mut GtkTooltip, stock_id: *const c_char, size: c_int);
+    pub fn gtk_tooltip_set_icon_from_gicon(tooltip: *mut GtkTooltip, gicon: *mut gio::GIcon, size: GtkIconSize);
+    pub fn gtk_tooltip_set_icon_from_icon_name(tooltip: *mut GtkTooltip, icon_name: *const c_char, size: GtkIconSize);
+    pub fn gtk_tooltip_set_icon_from_stock(tooltip: *mut GtkTooltip, stock_id: *const c_char, size: GtkIconSize);
     pub fn gtk_tooltip_set_markup(tooltip: *mut GtkTooltip, markup: *const c_char);
     pub fn gtk_tooltip_set_text(tooltip: *mut GtkTooltip, text: *const c_char);
     pub fn gtk_tooltip_set_tip_area(tooltip: *mut GtkTooltip, rect: *const gdk::GdkRectangle);
@@ -19155,8 +19155,8 @@ extern "C" {
     pub fn gtk_widget_remove_mnemonic_label(widget: *mut GtkWidget, label: *mut GtkWidget);
     #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn gtk_widget_remove_tick_callback(widget: *mut GtkWidget, id: c_uint);
-    pub fn gtk_widget_render_icon(widget: *mut GtkWidget, stock_id: *const c_char, size: c_int, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gtk_widget_render_icon_pixbuf(widget: *mut GtkWidget, stock_id: *const c_char, size: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_widget_render_icon(widget: *mut GtkWidget, stock_id: *const c_char, size: GtkIconSize, detail: *const c_char) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_widget_render_icon_pixbuf(widget: *mut GtkWidget, stock_id: *const c_char, size: GtkIconSize) -> *mut gdk_pixbuf::GdkPixbuf;
     pub fn gtk_widget_reparent(widget: *mut GtkWidget, new_parent: *mut GtkWidget);
     pub fn gtk_widget_reset_rc_styles(widget: *mut GtkWidget);
     pub fn gtk_widget_reset_style(widget: *mut GtkWidget);
@@ -19676,7 +19676,7 @@ extern "C" {
     //=========================================================================
     pub fn gtk_tool_shell_get_type() -> GType;
     pub fn gtk_tool_shell_get_ellipsize_mode(shell: *mut GtkToolShell) -> pango::PangoEllipsizeMode;
-    pub fn gtk_tool_shell_get_icon_size(shell: *mut GtkToolShell) -> c_int;
+    pub fn gtk_tool_shell_get_icon_size(shell: *mut GtkToolShell) -> GtkIconSize;
     pub fn gtk_tool_shell_get_orientation(shell: *mut GtkToolShell) -> GtkOrientation;
     pub fn gtk_tool_shell_get_relief_style(shell: *mut GtkToolShell) -> GtkReliefStyle;
     pub fn gtk_tool_shell_get_style(shell: *mut GtkToolShell) -> GtkToolbarStyle;
@@ -19869,7 +19869,7 @@ extern "C" {
     pub fn gtk_render_frame_gap(context: *mut GtkStyleContext, cr: *mut cairo::cairo_t, x: c_double, y: c_double, width: c_double, height: c_double, gap_side: GtkPositionType, xy0_gap: c_double, xy1_gap: c_double);
     pub fn gtk_render_handle(context: *mut GtkStyleContext, cr: *mut cairo::cairo_t, x: c_double, y: c_double, width: c_double, height: c_double);
     pub fn gtk_render_icon(context: *mut GtkStyleContext, cr: *mut cairo::cairo_t, pixbuf: *mut gdk_pixbuf::GdkPixbuf, x: c_double, y: c_double);
-    pub fn gtk_render_icon_pixbuf(context: *mut GtkStyleContext, source: *const GtkIconSource, size: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gtk_render_icon_pixbuf(context: *mut GtkStyleContext, source: *const GtkIconSource, size: GtkIconSize) -> *mut gdk_pixbuf::GdkPixbuf;
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gtk_render_icon_surface(context: *mut GtkStyleContext, cr: *mut cairo::cairo_t, surface: *mut cairo::cairo_surface_t, x: c_double, y: c_double);
     pub fn gtk_render_insertion_cursor(context: *mut GtkStyleContext, cr: *mut cairo::cairo_t, x: c_double, y: c_double, layout: *mut pango::PangoLayout, index: c_int, direction: pango::PangoDirection);
