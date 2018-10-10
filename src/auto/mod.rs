@@ -255,6 +255,13 @@ mod pollable_output_stream;
 pub use self::pollable_output_stream::PollableOutputStream;
 pub use self::pollable_output_stream::PollableOutputStreamExt;
 
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+mod property_action;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+pub use self::property_action::PropertyAction;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
+pub use self::property_action::PropertyActionExt;
+
 mod proxy;
 pub use self::proxy::Proxy;
 pub use self::proxy::ProxyExt;
@@ -266,6 +273,10 @@ pub use self::proxy_address::ProxyAddressExt;
 mod proxy_resolver;
 pub use self::proxy_resolver::ProxyResolver;
 pub use self::proxy_resolver::ProxyResolverExt;
+
+mod remote_action_group;
+pub use self::remote_action_group::RemoteActionGroup;
+pub use self::remote_action_group::RemoteActionGroupExt;
 
 mod resolver;
 pub use self::resolver::Resolver;
@@ -669,9 +680,12 @@ pub mod traits {
     pub use super::PermissionExt;
     pub use super::PollableInputStreamExt;
     pub use super::PollableOutputStreamExt;
+    #[cfg(any(feature = "v2_38", feature = "dox"))]
+    pub use super::PropertyActionExt;
     pub use super::ProxyExt;
     pub use super::ProxyAddressExt;
     pub use super::ProxyResolverExt;
+    pub use super::RemoteActionGroupExt;
     pub use super::ResolverExt;
     pub use super::SeekableExt;
     pub use super::SettingsExt;
