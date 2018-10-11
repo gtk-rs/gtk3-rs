@@ -319,7 +319,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut glib_ffi::GType> for Type {
         unsafe {
             let res = glib_ffi::g_malloc0(mem::size_of::<glib_ffi::GType>() * (t.len() + 1)) as *mut glib_ffi::GType;
             for (i, v) in t.iter().enumerate() {
-                *res.offset(i as isize) = v.to_glib();
+                *res.add(i) = v.to_glib();
             }
             res
         }
@@ -335,7 +335,7 @@ impl FromGlibContainerAsVec<Type, *const glib_ffi::GType> for Type {
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push(from_glib(*ptr.offset(i as isize)));
+            res.push(from_glib(*ptr.add(i)));
         }
         res
     }

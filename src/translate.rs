@@ -635,7 +635,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
 
                     for (i, s) in v.iter().enumerate() {
-                        ptr::write(v_ptr.offset(i as isize), s.0);
+                        ptr::write(v_ptr.add(i), s.0);
                     }
 
                     v_ptr
@@ -649,7 +649,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
 
                     for (i, s) in t.iter().enumerate() {
-                        ptr::write(v_ptr.offset(i as isize), s.to_glib_full());
+                        ptr::write(v_ptr.add(i), s.to_glib_full());
                     }
 
                     v_ptr
@@ -1291,7 +1291,7 @@ impl FromGlibContainerAsVec<bool, *const glib_ffi::gboolean> for bool {
 
         let mut res = Vec::with_capacity(num);
         for i in 0..num {
-            res.push(from_glib(ptr::read(ptr.offset(i as isize))));
+            res.push(from_glib(ptr::read(ptr.add(i))));
         }
         res
     }
@@ -1333,7 +1333,7 @@ macro_rules! impl_from_glib_container_as_vec_fundamental {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push(ptr::read(ptr.offset(i as isize)));
+                    res.push(ptr::read(ptr.add(i)));
                 }
                 res
             }
@@ -1388,7 +1388,7 @@ macro_rules! impl_from_glib_container_as_vec_string {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push(from_glib_none(ptr::read(ptr.offset(i as isize)) as $ffi_name));
+                    res.push(from_glib_none(ptr::read(ptr.add(i)) as $ffi_name));
                 }
                 res
             }
@@ -1422,7 +1422,7 @@ macro_rules! impl_from_glib_container_as_vec_string {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push(from_glib_full(ptr::read(ptr.offset(i as isize))));
+                    res.push(from_glib_full(ptr::read(ptr.add(i))));
                 }
                 glib_ffi::g_free(ptr as *mut _);
                 res

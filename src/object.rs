@@ -394,7 +394,7 @@ macro_rules! glib_object_wrapper {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
 
                     for (i, s) in v.iter().enumerate() {
-                        ptr::write(v_ptr.offset(i as isize), s.0);
+                        ptr::write(v_ptr.add(i), s.0);
                     }
 
                     v_ptr
@@ -408,7 +408,7 @@ macro_rules! glib_object_wrapper {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<*mut $ffi_name>() * (t.len() + 1)) as *mut *mut $ffi_name;
 
                     for (i, s) in t.iter().enumerate() {
-                        ptr::write(v_ptr.offset(i as isize), s.to_glib_full());
+                        ptr::write(v_ptr.add(i), s.to_glib_full());
                     }
 
                     v_ptr
@@ -486,7 +486,7 @@ macro_rules! glib_object_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_none(ptr::read(ptr.offset(i as isize))));
+                    res.push($crate::translate::from_glib_none(ptr::read(ptr.add(i))));
                 }
                 res
             }
@@ -504,7 +504,7 @@ macro_rules! glib_object_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_full(ptr::read(ptr.offset(i as isize))));
+                    res.push($crate::translate::from_glib_full(ptr::read(ptr.add(i))));
                 }
                 glib_ffi::g_free(ptr as *mut _);
                 res
@@ -1063,9 +1063,9 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
                 return Err(BoolError("Incompatible number of arguments"));
             }
 
-            for i in 0..details.n_params {
-                let arg_type = *(details.param_types.offset(i as isize)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
-                if arg_type != args[i as usize].to_value_type().to_glib() {
+            for i in 0..(details.n_params as usize) {
+                let arg_type = *(details.param_types.add(i)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
+                if arg_type != args[i].to_value_type().to_glib() {
                     return Err(BoolError("Incompatible argument types"));
                 }
             }

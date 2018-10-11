@@ -120,8 +120,8 @@ impl EnumClass {
         unsafe {
             let n = (*self.0).n_values;
             let mut res = Vec::with_capacity(n as usize);
-            for i in 0..n {
-                res.push(EnumValue((*self.0).values.offset(i as isize), self.clone()))
+            for i in 0..(n as usize) {
+                res.push(EnumValue((*self.0).values.add(i), self.clone()))
             }
             res
         }
@@ -305,8 +305,8 @@ impl FlagsClass {
         unsafe {
             let n = (*self.0).n_values;
             let mut res = Vec::with_capacity(n as usize);
-            for i in 0..n {
-                res.push(FlagsValue((*self.0).values.offset(i as isize), self.clone()))
+            for i in 0..(n as usize) {
+                res.push(FlagsValue((*self.0).values.add(i), self.clone()))
             }
             res
         }
