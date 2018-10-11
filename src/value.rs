@@ -331,8 +331,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
         unsafe {
             let res = glib_ffi::g_malloc(mem::size_of::<gobject_ffi::GValue>() * t.len()) as *mut gobject_ffi::GValue;
             for (i, v) in t.iter().enumerate() {
-                gobject_ffi::g_value_init(res.offset(i as isize), v.type_().to_glib());
-                gobject_ffi::g_value_copy(v.to_glib_none().0, res.offset(i as isize));
+                gobject_ffi::g_value_init(res.add(i), v.type_().to_glib());
+                gobject_ffi::g_value_copy(v.to_glib_none().0, res.add(i));
             }
             res
         }
@@ -389,7 +389,7 @@ macro_rules! from_glib {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push(from_glib_none(ptr::read(ptr.offset(i as isize))));
+                    res.push(from_glib_none(ptr::read(ptr.add(i))));
                 }
                 res
             }
@@ -407,7 +407,7 @@ macro_rules! from_glib {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push(from_glib_full(ptr::read(ptr.offset(i as isize))));
+                    res.push(from_glib_full(ptr::read(ptr.add(i))));
                 }
                 glib_ffi::g_free(ptr as *mut _);
                 res
