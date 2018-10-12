@@ -114,7 +114,6 @@ generate = [
     "Gio.TlsServerConnection",
     "Gio.Vfs",
     "Gio.Volume",
-    "Gio.VolumeMonitor",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
     "Gio.ZlibDecompressor",
@@ -708,3 +707,11 @@ cfg_condition = "unix"
 name = "Gio.UnixSocketAddressType"
 status = "generate"
 cfg_condition = "unix"
+
+[[object]]
+name = "Gio.VolumeMonitor"
+status = "generate"
+    [[object.function]]
+    name = "get"
+        [object.function.return]
+        nullable = false
