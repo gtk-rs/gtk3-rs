@@ -35,7 +35,7 @@ impl VolumeMonitor {
         }
     }
 
-    pub fn get() -> Option<VolumeMonitor> {
+    pub fn get() -> VolumeMonitor {
         unsafe {
             from_glib_full(ffi::g_volume_monitor_get())
         }
