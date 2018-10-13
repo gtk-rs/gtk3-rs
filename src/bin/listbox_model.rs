@@ -23,6 +23,8 @@ extern crate gobject_subclass;
 use gio::prelude::*;
 use gtk::prelude::*;
 
+use gtk::ResponseType;
+
 use std::env::args;
 
 use row_data::RowData;
@@ -121,8 +123,8 @@ fn build_ui(application: &gtk::Application) {
             let window = upgrade_weak!(window_weak);
 
             let dialog = gtk::Dialog::new_with_buttons(Some("Edit Item"), Some(&window), gtk::DialogFlags::MODAL,
-                &[("Close", 0)]);
-            dialog.set_default_response(0);
+                &[("Close", ResponseType::Close)]);
+            dialog.set_default_response(ResponseType::Close);
             dialog.connect_response(|dialog, _| dialog.destroy());
 
             let content_area = dialog.get_content_area();
@@ -141,7 +143,7 @@ fn build_ui(application: &gtk::Application) {
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
-                dialog.response(0);
+                dialog.response(ResponseType::Close);
             });
             content_area.add(&entry);
 
@@ -185,8 +187,8 @@ fn build_ui(application: &gtk::Application) {
             let window = upgrade_weak!(window_weak);
 
             let dialog = gtk::Dialog::new_with_buttons(Some("Add Item"), Some(&window), gtk::DialogFlags::MODAL,
-                &[("Ok", 0), ("Cancel", 1)]);
-            dialog.set_default_response(0);
+                &[("Ok", ResponseType::Ok), ("Cancel", ResponseType::Cancel)]);
+            dialog.set_default_response(ResponseType::Ok);
 
             let content_area = dialog.get_content_area();
 
@@ -194,7 +196,7 @@ fn build_ui(application: &gtk::Application) {
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
-                dialog.response(0);
+                dialog.response(ResponseType::Ok);
             });
             content_area.add(&entry);
 
@@ -203,7 +205,7 @@ fn build_ui(application: &gtk::Application) {
 
             dialog.connect_response(clone!(model, entry, spin_button => move |dialog, resp| {
                 if let Some(text) = entry.get_text() {
-                    if !text.is_empty() && resp == 0 {
+                    if !text.is_empty() && resp == ResponseType::Ok {
                         model.append(&RowData::new(&text, spin_button.get_value() as u32));
                     }
                 }

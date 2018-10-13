@@ -112,8 +112,12 @@ mod example {
             let window = upgrade_weak!(window_weak);
             let entry = upgrade_weak!(entry_weak);
 
-            let dialog = Dialog::new_with_buttons(Some("Hello!"), Some(&window), gtk::DialogFlags::MODAL,
-                &[("No", 0), ("Yes", 1), ("Yes!", 2)]);
+            let dialog = Dialog::new_with_buttons(Some("Hello!"),
+                                                  Some(&window),
+                                                  gtk::DialogFlags::MODAL,
+                                                  &[("No", ResponseType::No),
+                                                    ("Yes", ResponseType::Yes),
+                                                    ("Custom", ResponseType::Other(0))]);
 
             let ret = dialog.run();
 
