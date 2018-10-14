@@ -43,20 +43,6 @@ impl FrameTimings {
     }
 
     #[cfg(any(feature = "v3_8", feature = "dox"))]
-    pub fn get_predicted_presentation_time(&self) -> i64 {
-        unsafe {
-            ffi::gdk_frame_timings_get_predicted_presentation_time(self.to_glib_none().0)
-        }
-    }
-
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
-    pub fn get_presentation_time(&self) -> i64 {
-        unsafe {
-            ffi::gdk_frame_timings_get_presentation_time(self.to_glib_none().0)
-        }
-    }
-
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn get_refresh_interval(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0)
