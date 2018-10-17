@@ -286,6 +286,14 @@ status = "generate"
 name = "Gdk.FrameTimings"
 status = "generate"
 version = "3.8"
+    [[object.function]]
+    name = "get_predicted_presentation_time"
+    # Use an `Option` for the return value
+    ignore = true
+    [[object.function]]
+    name = "get_presentation_time"
+    # Use an `Option` for the return value
+    ignore = true
 
 [[object]]
 name = "Gdk.Monitor"

@@ -78,6 +78,8 @@ mod event_visibility;
 mod event_window_state;
 #[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_clock;
+#[cfg(any(feature = "v3_8", feature = "dox"))]
+mod frame_timings;
 mod functions;
 mod geometry;
 mod keys;
