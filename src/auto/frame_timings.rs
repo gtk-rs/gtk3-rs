@@ -41,11 +41,4 @@ impl FrameTimings {
             ffi::gdk_frame_timings_get_frame_time(self.to_glib_none().0)
         }
     }
-
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
-    pub fn get_refresh_interval(&self) -> i64 {
-        unsafe {
-            ffi::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0)
-        }
-    }
 }
