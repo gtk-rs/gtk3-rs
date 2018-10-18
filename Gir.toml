@@ -294,6 +294,10 @@ version = "3.8"
     name = "get_presentation_time"
     # Use an `Option` for the return value
     ignore = true
+    [[object.function]]
+    name = "get_refresh_interval"
+    # Use an `Option` for the return value
+    ignore = true
 
 [[object]]
 name = "Gdk.Monitor"

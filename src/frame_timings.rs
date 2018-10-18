@@ -29,4 +29,15 @@ impl FrameTimings {
         // `0` means the value is not available
         NonZeroU64::new(presentation_time as u64)
     }
+
+    #[cfg(any(feature = "v3_8", feature = "dox"))]
+    pub fn get_refresh_interval(&self) -> Option<NonZeroU64> {
+        let refresh_interval = unsafe {
+            ffi::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0)
+        };
+        // assuming refresh interval is always positive
+        assert!(refresh_interval >= 0);
+        // `0` means the value is not available
+        NonZeroU64::new(refresh_interval as u64)
+    }
 }
