@@ -29,7 +29,7 @@ fn build_ui(application: &gtk::Application) {
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(application);
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
@@ -38,14 +38,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.sync_widgets",
+    let application = gtk::Application::new("com.github.gtk-rs.examples.sync_widgets",
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -228,14 +228,13 @@ mod example {
     }
 
     pub fn main() {
-        let application = gtk::Application::new("com.github.gtktest",
+        let application = gtk::Application::new("com.github.gtk-rs.examples.gtktest",
                                                 gio::ApplicationFlags::empty())
                                            .expect("Initialization failed...");
 
-        application.connect_startup(|app| {
+        application.connect_activate(|app| {
             build_ui(app);
         });
-        application.connect_activate(|_| {});
 
         application.run(&args().collect::<Vec<_>>());
     }

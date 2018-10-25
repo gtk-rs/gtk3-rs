@@ -53,7 +53,7 @@ mod example {
             grid.set_cell_left_attach(button, new_left_attach);
         });
 
-        window.connect_delete_event(move |win, _| {
+        window.connect_delete_event(|win, _| {
             win.destroy();
             Inhibit(false)
         });
@@ -62,14 +62,13 @@ mod example {
     }
 
     pub fn main() {
-        let application = gtk::Application::new("com.github.grid",
+        let application = gtk::Application::new("com.github.gtk-rs.examples.grid",
                                                 gio::ApplicationFlags::empty())
                                            .expect("Initialization failed...");
 
-        application.connect_startup(move |app| {
+        application.connect_activate(|app| {
             build_ui(app);
         });
-        application.connect_activate(|_| {});
 
         application.run(&args().collect::<Vec<_>>());
     }

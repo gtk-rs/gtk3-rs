@@ -138,8 +138,7 @@ fn build_ui(application: &gtk::Application) {
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
                 .build();
 
-            // Activating the entry (enter) will send response 0 to the dialog, which
-            // is the response code we used for the Close button. It will close the dialog
+            // Activating the entry (enter) will send response `ResponseType::Close` to the dialog
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
@@ -248,10 +247,9 @@ fn main() {
                                             gio::ApplicationFlags::empty())
         .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

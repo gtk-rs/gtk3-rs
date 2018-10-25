@@ -155,20 +155,20 @@ fn build_ui(application: &gtk::Application) {
 
     add_actions(application, &switch, &label, &window);
 
-    add_accelerators(application);
-
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.basic",
+    let application = gtk::Application::new("com.github.gtk-rs.examples.menu_bar_system",
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
     application.connect_startup(|app| {
+        add_accelerators(app);
+    });
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

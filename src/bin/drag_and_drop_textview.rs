@@ -64,21 +64,20 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
     window.show_all();
 
-    window.connect_delete_event(move |win, _| {
+    window.connect_delete_event(|win, _| {
         win.destroy();
         Inhibit(false)
     });
 }
 
 fn main() {
-    let application = gtk::Application::new("org.gtk-rs.examples.drag_and_drop_textview",
+    let application = gtk::Application::new("com.github.gtk-rs.examples.drag_and_drop_textview",
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }
