@@ -32,6 +32,7 @@ mod converter;
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
 mod file;
+mod flags;
 mod input_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
