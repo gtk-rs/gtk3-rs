@@ -63,11 +63,6 @@ fn build_ui(application: &gtk::Application) {
     // Create a new window
     window.add(&vbox);
     window.show_all();
-
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 }
 
 fn main() {

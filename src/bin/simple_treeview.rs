@@ -53,11 +53,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("Simple TreeView example");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     // Creating a vertical layout to place both tree view and label in the window.
     let vertical_layout = gtk::Box::new(Orientation::Vertical, 0);
 

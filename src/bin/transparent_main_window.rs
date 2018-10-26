@@ -18,7 +18,6 @@ fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
     set_visual(&window, &None);
 
-    window.connect_delete_event(quit);
     window.connect_screen_changed(set_visual);
     window.connect_draw(draw);
 
@@ -60,10 +59,5 @@ fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> Inhibit {
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
     ctx.set_operator(cairo::enums::Operator::Screen);
     ctx.paint();
-    Inhibit(false)
-}
-
-fn quit(_window: &ApplicationWindow, _event: &gdk::Event) -> Inhibit {
-    _window.destroy();
     Inhibit(false)
 }

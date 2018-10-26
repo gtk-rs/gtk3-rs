@@ -7,7 +7,6 @@ extern crate gtk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
-    use gio;
     use gtk;
 
     use gio::prelude::*;
@@ -27,11 +26,6 @@ mod example {
         let bigbutton: Button = builder.get_object("button1").expect("Couldn't get button1");
         let dialog: MessageDialog = builder.get_object("messagedialog1")
                                            .expect("Couldn't get messagedialog1");
-
-        window.connect_delete_event(|win, _| {
-            win.destroy();
-            Inhibit(false)
-        });
 
         bigbutton.connect_clicked(move |_| {
             dialog.run();

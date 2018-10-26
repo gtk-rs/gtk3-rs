@@ -62,11 +62,6 @@ fn build_ui(application: &gtk::Application) {
     let area = DrawingArea::new();
     window.add(&area);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let format = Format::Rgb24;
     let width = 200;
     let height = 200;

@@ -69,10 +69,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(320, 480);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
     let window_weak = window.downgrade();
 
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 5);

@@ -72,11 +72,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(640, 480);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let mut notebook = Notebook::new();
 
     for i in 1..4 {

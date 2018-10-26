@@ -5,7 +5,6 @@ extern crate gtk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
-    use gio;
     use gtk;
     use gio::prelude::*;
     use gtk::prelude::*;
@@ -51,11 +50,6 @@ mod example {
             let left_attach = grid.get_cell_left_attach(button);
             let new_left_attach = if left_attach == 2 { 0 } else { left_attach + 1 };
             grid.set_cell_left_attach(button, new_left_attach);
-        });
-
-        window.connect_delete_event(|win, _| {
-            win.destroy();
-            Inhibit(false)
         });
 
         window.show_all();

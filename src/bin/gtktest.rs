@@ -8,7 +8,6 @@ extern crate gtk;
 #[cfg(feature = "gtk_3_10")]
 mod example {
     use gdk;
-    use gio;
     use gio::prelude::*;
     use gtk::prelude::*;
     use gtk::{
@@ -218,11 +217,6 @@ mod example {
 
             Inhibit(false)
         }));
-
-        window.connect_delete_event(|win, _| {
-            win.destroy();
-            Inhibit(false)
-        });
 
         window.show_all();
     }

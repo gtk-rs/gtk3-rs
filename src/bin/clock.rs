@@ -25,11 +25,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(260, 40);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let time = current_time();
     let label = gtk::Label::new(None);
     label.set_text(&time);

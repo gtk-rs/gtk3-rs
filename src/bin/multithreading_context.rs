@@ -19,11 +19,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(600, 400);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let text_view = gtk::TextView::new();
     let scroll = gtk::ScrolledWindow::new(None, None);
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);

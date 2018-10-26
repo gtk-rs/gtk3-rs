@@ -76,11 +76,6 @@ fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow 
     window.set_default_size(400, 200);
     window.set_position(gtk::WindowPosition::Center);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     window.show_all();
     window
 }

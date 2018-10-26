@@ -41,12 +41,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(200, 100);
     window.add(&hbox);
     window.show_all();
-
-    // GTK & main window boilerplate
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 }
 
 fn main() {

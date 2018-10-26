@@ -9,7 +9,7 @@ extern crate gtk;
 
 use gio::prelude::*;
 use gtk::{
-    ApplicationWindow, BoxExt, Button, ButtonExt, ContainerExt, GtkWindowExt, Inhibit, Label,
+    ApplicationWindow, BoxExt, Button, ButtonExt, ContainerExt, GtkWindowExt, Label,
     LabelExt, PackType, WidgetExt,
 };
 use gtk::Orientation::Vertical;
@@ -72,11 +72,6 @@ fn build_ui(application: &gtk::Application) {
 
     window.set_default_size(200, 200);
     window.add(&vbox);
-
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 
     window.show_all();
 }

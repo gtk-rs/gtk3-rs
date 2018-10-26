@@ -29,10 +29,6 @@ fn build_ui(application: &gtk::Application) {
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(application);
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 
     window.show_all();
 }

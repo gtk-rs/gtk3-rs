@@ -110,10 +110,6 @@ where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
 
     window.set_default_size(width, height);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
     window.add(&drawing_area);
     window.show_all();
 }
