@@ -71,7 +71,7 @@ thread_local!(
 
 fn main() {
     let application = gtk::Application::new("com.github.gtk-rs.examples.multithreading_context",
-                                            gio::ApplicationFlags::empty())
+                                            Default::default())
                                        .expect("Initialization failed...");
 
     application.connect_activate(|app| {

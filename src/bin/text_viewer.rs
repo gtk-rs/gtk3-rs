@@ -75,7 +75,7 @@ pub fn build_ui(application: &gtk::Application) {
 
 fn main() {
     let application = gtk::Application::new("com.github.gtk-rs.examples.text_viewer",
-                                            gio::ApplicationFlags::empty())
+                                            Default::default())
                                        .expect("Initialization failed...");
 
     application.connect_activate(|app| {

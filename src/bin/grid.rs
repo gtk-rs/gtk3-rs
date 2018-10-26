@@ -63,7 +63,7 @@ mod example {
 
     pub fn main() {
         let application = gtk::Application::new("com.github.gtk-rs.examples.grid",
-                                                gio::ApplicationFlags::empty())
+                                                Default::default())
                                            .expect("Initialization failed...");
 
         application.connect_activate(|app| {

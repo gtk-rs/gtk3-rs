@@ -43,7 +43,7 @@ mod example {
 
     pub fn main() {
         let application = gtk::Application::new("com.github.gtk-rs.examples.builder_basics",
-                                                gio::ApplicationFlags::empty())
+                                                Default::default())
                                            .expect("Initialization failed...");
 
         application.connect_activate(|app| {
