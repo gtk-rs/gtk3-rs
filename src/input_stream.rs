@@ -16,7 +16,7 @@ use std::io;
 use std::mem;
 use std::ptr;
 use InputStream;
-use super::error::to_std_io_result;
+use error::to_std_io_result;
 
 #[cfg(feature = "futures")]
 use futures_core::Future;
