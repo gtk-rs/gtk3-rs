@@ -212,6 +212,12 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
 
 pub struct InputStreamRead<T: InputStreamExtManual>(T);
 
+impl <T: InputStreamExtManual> InputStreamRead<T> {
+    pub fn into_input_stream(self) -> T {
+        self.0
+    }
+}
+
 impl <T: InputStreamExtManual> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         let gio_result = self.0.read(buf, None);
@@ -342,5 +348,15 @@ mod tests {
         assert_eq!(buf[0], 1);
         assert_eq!(buf[1], 2);
         assert_eq!(buf[2], 3);
+    }
+
+    #[test]
+    fn into_input_stream() {
+        let b = Bytes::from_owned(vec![1, 2, 3]);
+        let stream = MemoryInputStream::new_from_bytes(&b);
+        let stream_clone = stream.clone();
+        let stream = stream.into_read().into_input_stream();
+
+        assert_eq!(stream, stream_clone);
     }
 }
