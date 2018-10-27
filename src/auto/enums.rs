@@ -241,6 +241,60 @@ impl ErrorDomain for KeyFileError {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
+pub enum OptionArg {
+    None,
+    String,
+    Int,
+    Callback,
+    Filename,
+    StringArray,
+    FilenameArray,
+    Double,
+    Int64,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for OptionArg {
+    type GlibType = ffi::GOptionArg;
+
+    fn to_glib(&self) -> ffi::GOptionArg {
+        match *self {
+            OptionArg::None => ffi::G_OPTION_ARG_NONE,
+            OptionArg::String => ffi::G_OPTION_ARG_STRING,
+            OptionArg::Int => ffi::G_OPTION_ARG_INT,
+            OptionArg::Callback => ffi::G_OPTION_ARG_CALLBACK,
+            OptionArg::Filename => ffi::G_OPTION_ARG_FILENAME,
+            OptionArg::StringArray => ffi::G_OPTION_ARG_STRING_ARRAY,
+            OptionArg::FilenameArray => ffi::G_OPTION_ARG_FILENAME_ARRAY,
+            OptionArg::Double => ffi::G_OPTION_ARG_DOUBLE,
+            OptionArg::Int64 => ffi::G_OPTION_ARG_INT64,
+            OptionArg::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GOptionArg> for OptionArg {
+    fn from_glib(value: ffi::GOptionArg) -> Self {
+        match value {
+            0 => OptionArg::None,
+            1 => OptionArg::String,
+            2 => OptionArg::Int,
+            3 => OptionArg::Callback,
+            4 => OptionArg::Filename,
+            5 => OptionArg::StringArray,
+            6 => OptionArg::FilenameArray,
+            7 => OptionArg::Double,
+            8 => OptionArg::Int64,
+            value => OptionArg::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum SeekType {
     Cur,
     Set,
