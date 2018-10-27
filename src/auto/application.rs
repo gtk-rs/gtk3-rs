@@ -61,8 +61,8 @@ impl Application {
 pub trait ApplicationExt {
     fn activate(&self);
 
-    //#[cfg(any(feature = "v2_42", feature = "dox"))]
-    //fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: /*Ignored*/glib::OptionFlags, arg: /*Ignored*/glib::OptionArg, description: &str, arg_description: P);
+    #[cfg(any(feature = "v2_42", feature = "dox"))]
+    fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: glib::OptionFlags, arg: glib::OptionArg, description: &str, arg_description: P);
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]);
@@ -183,10 +183,14 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_42", feature = "dox"))]
-    //fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: /*Ignored*/glib::OptionFlags, arg: /*Ignored*/glib::OptionArg, description: &str, arg_description: P) {
-    //    unsafe { TODO: call ffi::g_application_add_main_option() }
-    //}
+    #[cfg(any(feature = "v2_42", feature = "dox"))]
+    fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: glib::OptionFlags, arg: glib::OptionArg, description: &str, arg_description: P) {
+        let arg_description = arg_description.into();
+        let arg_description = arg_description.to_glib_none();
+        unsafe {
+            ffi::g_application_add_main_option(self.to_glib_none().0, long_name.to_glib_none().0, short_name.to_glib(), flags.to_glib(), arg.to_glib(), description.to_glib_none().0, arg_description.0);
+        }
+    }
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]) {
