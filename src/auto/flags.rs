@@ -138,3 +138,32 @@ impl FromGlib<ffi::GKeyFileFlags> for KeyFileFlags {
     }
 }
 
+bitflags! {
+    pub struct OptionFlags: u32 {
+        const NONE = 0;
+        const HIDDEN = 1;
+        const IN_MAIN = 2;
+        const REVERSE = 4;
+        const NO_ARG = 8;
+        const FILENAME = 16;
+        const OPTIONAL_ARG = 32;
+        const NOALIAS = 64;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for OptionFlags {
+    type GlibType = ffi::GOptionFlags;
+
+    fn to_glib(&self) -> ffi::GOptionFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GOptionFlags> for OptionFlags {
+    fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
+        OptionFlags::from_bits_truncate(value)
+    }
+}
+
