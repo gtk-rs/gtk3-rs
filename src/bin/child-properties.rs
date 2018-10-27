@@ -8,10 +8,8 @@ extern crate gio;
 extern crate gtk;
 
 use gio::prelude::*;
-use gtk::{
-    ApplicationWindow, BoxExt, Button, ButtonExt, ContainerExt, GtkWindowExt, Label,
-    LabelExt, PackType, WidgetExt,
-};
+use gtk::prelude::*;
+use gtk::{ApplicationWindow, Button, Label, PackType};
 use gtk::Orientation::Vertical;
 
 use std::env::args;

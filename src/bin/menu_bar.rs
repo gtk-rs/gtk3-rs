@@ -7,7 +7,7 @@
 extern crate gio;
 extern crate gtk;
 
-use gio::{ApplicationExt, ApplicationExtManual};
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,

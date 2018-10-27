@@ -1,4 +1,4 @@
-//! # Basic Sample
+//! # System MenuBar Sample
 //!
 //! This sample demonstrates how to create a "system" menu bar. It should always be preferred
 //! over the `gtk::MenuBar` since it adapts to the targetted system.
@@ -7,10 +7,8 @@ extern crate gio;
 extern crate gtk;
 
 use gio::prelude::*;
-use gtk::{
-    AboutDialog, AboutDialogExt, BoxExt, ContainerExt, DialogExt, GtkApplicationExt, GtkWindowExt,
-    LabelExt, SwitchExt, ToVariant, WidgetExt,
-};
+use gtk::prelude::*;
+use gtk::{AboutDialog, ToVariant};
 
 use std::env::args;
 

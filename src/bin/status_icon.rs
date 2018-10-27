@@ -12,9 +12,10 @@ extern crate gtk;
 use gdk_pixbuf::Pixbuf;
 use gio::MemoryInputStream;
 use glib::Bytes;
+use gtk::prelude::*;
 use gtk::{
-    ButtonsType, DialogExt, DialogFlags, Menu, GtkMenuExt, GtkMenuItemExt, GtkMenuExtManual,
-    MenuItem, MenuShellExt, MessageDialog, MessageType, StatusIcon, StatusIconExt, WidgetExt,
+    ButtonsType, DialogFlags, Menu, MenuItem,
+    MessageDialog, MessageType, StatusIcon,
 };
 
 use std::rc::Rc;

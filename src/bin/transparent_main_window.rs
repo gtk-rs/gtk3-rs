@@ -7,7 +7,7 @@ extern crate gdk;
 extern crate gio;
 extern crate gtk;
 
-use gdk::ScreenExt; // import get_rgba_visual
+use gdk::prelude::*;
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Fixed, Button};
