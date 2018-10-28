@@ -69,10 +69,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(320, 480);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
     let window_weak = window.downgrade();
 
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 5);
@@ -138,8 +134,7 @@ fn build_ui(application: &gtk::Application) {
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
                 .build();
 
-            // Activating the entry (enter) will send response 0 to the dialog, which
-            // is the response code we used for the Close button. It will close the dialog
+            // Activating the entry (enter) will send response `ResponseType::Close` to the dialog
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
@@ -245,13 +240,12 @@ fn build_ui(application: &gtk::Application) {
 
 fn main() {
     let application = gtk::Application::new("com.github.gtk-rs.examples.listbox-model",
-                                            gio::ApplicationFlags::empty())
+                                            Default::default())
         .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

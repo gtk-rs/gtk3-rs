@@ -53,11 +53,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("Simple TreeView example");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     // Creating a vertical layout to place both tree view and label in the window.
     let vertical_layout = gtk::Box::new(Orientation::Vertical, 0);
 
@@ -100,14 +95,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.simple_treeview",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.simple_treeview",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

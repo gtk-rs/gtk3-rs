@@ -19,11 +19,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(600, 400);
 
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let text_view = gtk::TextView::new();
     let scroll = gtk::ScrolledWindow::new(None, None);
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
@@ -70,14 +65,13 @@ thread_local!(
 );
 
 fn main() {
-    let application = gtk::Application::new("com.github.multithreading_context",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.multithreading_context",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

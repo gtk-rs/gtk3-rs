@@ -76,11 +76,6 @@ fn create_main_window(application: &gtk::Application) -> gtk::ApplicationWindow 
     window.set_default_size(400, 200);
     window.set_position(gtk::WindowPosition::Center);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     window.show_all();
     window
 }
@@ -140,14 +135,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.multi_windows",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.multi_windows",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -7,7 +7,6 @@ extern crate gtk;
 
 #[cfg(feature = "gtk_3_10")]
 mod example {
-    use gio;
     use gtk;
 
     use gio::prelude::*;
@@ -23,15 +22,10 @@ mod example {
         let builder = Builder::new_from_string(glade_src);
 
         let window: ApplicationWindow = builder.get_object("window1").expect("Couldn't get window1");
+        window.set_application(application);
         let bigbutton: Button = builder.get_object("button1").expect("Couldn't get button1");
         let dialog: MessageDialog = builder.get_object("messagedialog1")
                                            .expect("Couldn't get messagedialog1");
-
-        window.set_application(application);
-        window.connect_delete_event(move |win, _| {
-            win.destroy();
-            Inhibit(false)
-        });
 
         bigbutton.connect_clicked(move |_| {
             dialog.run();
@@ -42,14 +36,13 @@ mod example {
     }
 
     pub fn main() {
-        let application = gtk::Application::new("com.github.builder_basics",
-                                                gio::ApplicationFlags::empty())
+        let application = gtk::Application::new("com.github.gtk-rs.examples.builder_basics",
+                                                Default::default())
                                            .expect("Initialization failed...");
 
-        application.connect_startup(move |app| {
+        application.connect_activate(|app| {
             build_ui(app);
         });
-        application.connect_activate(|_| {});
 
         application.run(&args().collect::<Vec<_>>());
     }

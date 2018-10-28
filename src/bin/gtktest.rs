@@ -8,7 +8,6 @@ extern crate gtk;
 #[cfg(feature = "gtk_3_10")]
 mod example {
     use gdk;
-    use gio;
     use gio::prelude::*;
     use gtk::prelude::*;
     use gtk::{
@@ -219,23 +218,17 @@ mod example {
             Inhibit(false)
         }));
 
-        window.connect_delete_event(|win, _| {
-            win.destroy();
-            Inhibit(false)
-        });
-
         window.show_all();
     }
 
     pub fn main() {
-        let application = gtk::Application::new("com.github.gtktest",
-                                                gio::ApplicationFlags::empty())
+        let application = gtk::Application::new("com.github.gtk-rs.examples.gtktest",
+                                                Default::default())
                                            .expect("Initialization failed...");
 
-        application.connect_startup(|app| {
+        application.connect_activate(|app| {
             build_ui(app);
         });
-        application.connect_activate(|_| {});
 
         application.run(&args().collect::<Vec<_>>());
     }

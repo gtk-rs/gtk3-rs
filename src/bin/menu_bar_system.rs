@@ -1,4 +1,4 @@
-//! # Basic Sample
+//! # System MenuBar Sample
 //!
 //! This sample demonstrates how to create a "system" menu bar. It should always be preferred
 //! over the `gtk::MenuBar` since it adapts to the targetted system.
@@ -7,10 +7,8 @@ extern crate gio;
 extern crate gtk;
 
 use gio::prelude::*;
-use gtk::{
-    AboutDialog, AboutDialogExt, BoxExt, ContainerExt, DialogExt, GtkApplicationExt, GtkWindowExt,
-    Inhibit, LabelExt, SwitchExt, ToVariant, WidgetExt,
-};
+use gtk::prelude::*;
+use gtk::{AboutDialog, ToVariant};
 
 use std::env::args;
 
@@ -138,11 +136,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
     let label = gtk::Label::new("Nothing happened yet");
     let switch = gtk::Switch::new();
@@ -155,20 +148,20 @@ fn build_ui(application: &gtk::Application) {
 
     add_actions(application, &switch, &label, &window);
 
-    add_accelerators(application);
-
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.basic",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.menu_bar_system",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
     application.connect_startup(|app| {
+        add_accelerators(app);
+    });
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

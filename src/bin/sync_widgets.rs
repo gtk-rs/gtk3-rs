@@ -3,13 +3,13 @@
 //! You can use property bindings in order to synchronize the values of widgets. In this example a
 //! spin button and a horizontal scale will get interlocked.
 
-extern crate glib;
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
-use gtk::Builder;
 use gtk::prelude::*;
+use gtk::Builder;
 
 use std::env::args;
 
@@ -29,23 +29,18 @@ fn build_ui(application: &gtk::Application) {
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(application);
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.sync_widgets",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.sync_widgets",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -90,14 +90,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.cairotest",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.cairotest",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }
@@ -111,10 +110,6 @@ where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
 
     window.set_default_size(width, height);
 
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
     window.add(&drawing_area);
     window.show_all();
 }

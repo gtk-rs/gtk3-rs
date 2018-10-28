@@ -7,7 +7,7 @@ extern crate gdk;
 extern crate gio;
 extern crate gtk;
 
-use gdk::ScreenExt; // import get_rgba_visual
+use gdk::prelude::*;
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Fixed, Button};
@@ -18,7 +18,6 @@ fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
     set_visual(&window, &None);
 
-    window.connect_delete_event(quit);
     window.connect_screen_changed(set_visual);
     window.connect_draw(draw);
 
@@ -36,14 +35,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.transparent_main_window",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.transparent_main_window",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(move |app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }
@@ -61,10 +59,5 @@ fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> Inhibit {
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
     ctx.set_operator(cairo::enums::Operator::Screen);
     ctx.paint();
-    Inhibit(false)
-}
-
-fn quit(_window: &ApplicationWindow, _event: &gdk::Event) -> Inhibit {
-    _window.destroy();
     Inhibit(false)
 }
