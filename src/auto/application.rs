@@ -145,7 +145,7 @@ pub trait ApplicationExt {
 
     fn get_property_resource_base_path(&self) -> Option<String>;
 
-    fn set_property_resource_base_path(&self, resource_base_path: Option<&str>);
+    fn set_property_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_base_path: P);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -411,7 +411,8 @@ impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExt for O {
         }
     }
 
-    fn set_property_resource_base_path(&self, resource_base_path: Option<&str>) {
+    fn set_property_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_base_path: P) {
+        let resource_base_path = resource_base_path.into();
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0, "resource-base-path".to_glib_none().0, Value::from(resource_base_path).to_glib_none().0);
         }

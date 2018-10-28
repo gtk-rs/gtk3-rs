@@ -42,7 +42,7 @@ impl TlsFileDatabase {
 pub trait TlsFileDatabaseExt {
     fn get_property_anchors(&self) -> Option<String>;
 
-    fn set_property_anchors(&self, anchors: Option<&str>);
+    fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P);
 
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -56,7 +56,8 @@ impl<O: IsA<TlsFileDatabase> + IsA<glib::object::Object>> TlsFileDatabaseExt for
         }
     }
 
-    fn set_property_anchors(&self, anchors: Option<&str>) {
+    fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P) {
+        let anchors = anchors.into();
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0, "anchors".to_glib_none().0, Value::from(anchors).to_glib_none().0);
         }
