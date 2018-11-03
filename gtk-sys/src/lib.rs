@@ -5466,7 +5466,7 @@ impl ::std::fmt::Debug for GtkMountOperationPrivate {
 #[derive(Copy, Clone)]
 pub struct GtkNativeDialogClass {
     pub parent_class: gobject::GObjectClass,
-    pub response: Option<unsafe extern "C" fn(*mut GtkNativeDialog, c_int)>,
+    pub response: Option<unsafe extern "C" fn(*mut GtkNativeDialog, GtkResponseType)>,
     pub show: Option<unsafe extern "C" fn(*mut GtkNativeDialog)>,
     pub hide: Option<unsafe extern "C" fn(*mut GtkNativeDialog)>,
     pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
@@ -15424,21 +15424,21 @@ extern "C" {
     pub fn gtk_dialog_get_type() -> GType;
     pub fn gtk_dialog_new() -> *mut GtkWidget;
     pub fn gtk_dialog_new_with_buttons(title: *const c_char, parent: *mut GtkWindow, flags: GtkDialogFlags, first_button_text: *const c_char, ...) -> *mut GtkWidget;
-    pub fn gtk_dialog_add_action_widget(dialog: *mut GtkDialog, child: *mut GtkWidget, response_id: c_int);
-    pub fn gtk_dialog_add_button(dialog: *mut GtkDialog, button_text: *const c_char, response_id: c_int) -> *mut GtkWidget;
+    pub fn gtk_dialog_add_action_widget(dialog: *mut GtkDialog, child: *mut GtkWidget, response_id: GtkResponseType);
+    pub fn gtk_dialog_add_button(dialog: *mut GtkDialog, button_text: *const c_char, response_id: GtkResponseType) -> *mut GtkWidget;
     pub fn gtk_dialog_add_buttons(dialog: *mut GtkDialog, first_button_text: *const c_char, ...);
     pub fn gtk_dialog_get_action_area(dialog: *mut GtkDialog) -> *mut GtkWidget;
     pub fn gtk_dialog_get_content_area(dialog: *mut GtkDialog) -> *mut GtkBox;
     #[cfg(any(feature = "v3_12", feature = "dox"))]
     pub fn gtk_dialog_get_header_bar(dialog: *mut GtkDialog) -> *mut GtkWidget;
     pub fn gtk_dialog_get_response_for_widget(dialog: *mut GtkDialog, widget: *mut GtkWidget) -> c_int;
-    pub fn gtk_dialog_get_widget_for_response(dialog: *mut GtkDialog, response_id: c_int) -> *mut GtkWidget;
-    pub fn gtk_dialog_response(dialog: *mut GtkDialog, response_id: c_int);
+    pub fn gtk_dialog_get_widget_for_response(dialog: *mut GtkDialog, response_id: GtkResponseType) -> *mut GtkWidget;
+    pub fn gtk_dialog_response(dialog: *mut GtkDialog, response_id: GtkResponseType);
     pub fn gtk_dialog_run(dialog: *mut GtkDialog) -> c_int;
     pub fn gtk_dialog_set_alternative_button_order(dialog: *mut GtkDialog, first_response_id: c_int, ...);
     pub fn gtk_dialog_set_alternative_button_order_from_array(dialog: *mut GtkDialog, n_params: c_int, new_order: *mut c_int);
-    pub fn gtk_dialog_set_default_response(dialog: *mut GtkDialog, response_id: c_int);
-    pub fn gtk_dialog_set_response_sensitive(dialog: *mut GtkDialog, response_id: c_int, setting: gboolean);
+    pub fn gtk_dialog_set_default_response(dialog: *mut GtkDialog, response_id: GtkResponseType);
+    pub fn gtk_dialog_set_response_sensitive(dialog: *mut GtkDialog, response_id: GtkResponseType, setting: gboolean);
 
     //=========================================================================
     // GtkDrawingArea
@@ -16451,8 +16451,8 @@ extern "C" {
     pub fn gtk_info_bar_get_type() -> GType;
     pub fn gtk_info_bar_new() -> *mut GtkWidget;
     pub fn gtk_info_bar_new_with_buttons(first_button_text: *const c_char, ...) -> *mut GtkWidget;
-    pub fn gtk_info_bar_add_action_widget(info_bar: *mut GtkInfoBar, child: *mut GtkWidget, response_id: c_int);
-    pub fn gtk_info_bar_add_button(info_bar: *mut GtkInfoBar, button_text: *const c_char, response_id: c_int) -> *mut GtkButton;
+    pub fn gtk_info_bar_add_action_widget(info_bar: *mut GtkInfoBar, child: *mut GtkWidget, response_id: GtkResponseType);
+    pub fn gtk_info_bar_add_button(info_bar: *mut GtkInfoBar, button_text: *const c_char, response_id: GtkResponseType) -> *mut GtkButton;
     pub fn gtk_info_bar_add_buttons(info_bar: *mut GtkInfoBar, first_button_text: *const c_char, ...);
     pub fn gtk_info_bar_get_action_area(info_bar: *mut GtkInfoBar) -> *mut GtkWidget;
     pub fn gtk_info_bar_get_content_area(info_bar: *mut GtkInfoBar) -> *mut GtkWidget;
@@ -16461,10 +16461,10 @@ extern "C" {
     pub fn gtk_info_bar_get_revealed(info_bar: *mut GtkInfoBar) -> gboolean;
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn gtk_info_bar_get_show_close_button(info_bar: *mut GtkInfoBar) -> gboolean;
-    pub fn gtk_info_bar_response(info_bar: *mut GtkInfoBar, response_id: c_int);
-    pub fn gtk_info_bar_set_default_response(info_bar: *mut GtkInfoBar, response_id: c_int);
+    pub fn gtk_info_bar_response(info_bar: *mut GtkInfoBar, response_id: GtkResponseType);
+    pub fn gtk_info_bar_set_default_response(info_bar: *mut GtkInfoBar, response_id: GtkResponseType);
     pub fn gtk_info_bar_set_message_type(info_bar: *mut GtkInfoBar, message_type: GtkMessageType);
-    pub fn gtk_info_bar_set_response_sensitive(info_bar: *mut GtkInfoBar, response_id: c_int, setting: gboolean);
+    pub fn gtk_info_bar_set_response_sensitive(info_bar: *mut GtkInfoBar, response_id: GtkResponseType, setting: gboolean);
     #[cfg(any(feature = "v3_22_29", feature = "dox"))]
     pub fn gtk_info_bar_set_revealed(info_bar: *mut GtkInfoBar, revealed: gboolean);
     #[cfg(any(feature = "v3_10", feature = "dox"))]
