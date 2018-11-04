@@ -1207,7 +1207,7 @@ impl ::std::fmt::Debug for GtkBindingArg_d {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union GtkTextAppearance_u1 {
-    pub rgba: [gdk::GdkRGBA; 2],
+    pub rgba: [*mut gdk::GdkRGBA; 2],
     pub padding: [c_uint; 4],
 }
 
@@ -11819,7 +11819,7 @@ impl ::std::fmt::Debug for GtkRangeAccessible {
 pub struct GtkRcStyle {
     pub parent_instance: gobject::GObject,
     pub name: *mut c_char,
-    pub bg_pixmap_name: [c_char; 5],
+    pub bg_pixmap_name: [*mut c_char; 5],
     pub font_desc: *mut pango::PangoFontDescription,
     pub color_flags: [GtkRcFlags; 5],
     pub fg: [gdk::GdkColor; 5],
