@@ -113,6 +113,9 @@ name = "multithreading_context"
 name = "notebook"
 
 [[bin]]
+name = "overlay"
+
+[[bin]]
 name = "pango_attributes"
 
 [[bin]]
