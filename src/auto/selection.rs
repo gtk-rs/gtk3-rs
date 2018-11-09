@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use Object;
 use ffi;
 use glib;
 use glib::object::Downcast;
@@ -33,6 +34,8 @@ pub trait SelectionExt {
 
     fn is_child_selected(&self, i: i32) -> bool;
 
+    fn ref_selection(&self, i: i32) -> Option<Object>;
+
     fn remove_selection(&self, i: i32) -> bool;
 
     fn select_all_selection(&self) -> bool;
@@ -62,6 +65,12 @@ impl<O: IsA<Selection> + IsA<glib::object::Object>> SelectionExt for O {
     fn is_child_selected(&self, i: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_selection_is_child_selected(self.to_glib_none().0, i))
+        }
+    }
+
+    fn ref_selection(&self, i: i32) -> Option<Object> {
+        unsafe {
+            from_glib_full(ffi::atk_selection_ref_selection(self.to_glib_none().0, i))
         }
     }
 

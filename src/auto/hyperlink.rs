@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use Action;
+use Object;
 use ffi;
 use glib;
 use glib::StaticType;
@@ -32,31 +33,23 @@ pub trait HyperlinkExt {
 
     fn get_n_anchors(&self) -> i32;
 
+    fn get_object(&self, i: i32) -> Option<Object>;
+
     fn get_start_index(&self) -> i32;
 
     fn get_uri(&self, i: i32) -> Option<String>;
 
     fn is_inline(&self) -> bool;
 
-    #[cfg_attr(feature = "v1_8", deprecated)]
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
-    fn is_selected_link(&self) -> bool;
-
     fn is_valid(&self) -> bool;
 
     fn get_property_number_of_anchors(&self) -> i32;
-
-    #[cfg_attr(feature = "v1_8", deprecated)]
-    fn get_property_selected_link(&self) -> bool;
 
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v1_8", deprecated)]
-    fn connect_property_selected_link_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -71,6 +64,12 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn get_n_anchors(&self) -> i32 {
         unsafe {
             ffi::atk_hyperlink_get_n_anchors(self.to_glib_none().0)
+        }
+    }
+
+    fn get_object(&self, i: i32) -> Option<Object> {
+        unsafe {
+            from_glib_none(ffi::atk_hyperlink_get_object(self.to_glib_none().0, i))
         }
     }
 
@@ -92,13 +91,6 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
-    fn is_selected_link(&self) -> bool {
-        unsafe {
-            from_glib(ffi::atk_hyperlink_is_selected_link(self.to_glib_none().0))
-        }
-    }
-
     fn is_valid(&self) -> bool {
         unsafe {
             from_glib(ffi::atk_hyperlink_is_valid(self.to_glib_none().0))
@@ -109,14 +101,6 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
             gobject_ffi::g_object_get_property(self.to_glib_none().0, "number-of-anchors".to_glib_none().0, value.to_glib_none_mut().0);
-            value.get().unwrap()
-        }
-    }
-
-    fn get_property_selected_link(&self) -> bool {
-        unsafe {
-            let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "selected-link".to_glib_none().0, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -145,14 +129,6 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
         }
     }
 
-    fn connect_property_selected_link_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::selected-link",
-                transmute(notify_selected_link_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
-        }
-    }
-
     fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -175,12 +151,6 @@ where P: IsA<Hyperlink> {
 }
 
 unsafe extern "C" fn notify_number_of_anchors_trampoline<P>(this: *mut ffi::AtkHyperlink, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Hyperlink> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())
-}
-
-unsafe extern "C" fn notify_selected_link_trampoline<P>(this: *mut ffi::AtkHyperlink, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Hyperlink> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())

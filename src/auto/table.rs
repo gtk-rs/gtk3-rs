@@ -55,10 +55,6 @@ pub trait TableExt {
 
     fn get_row_header(&self, row: i32) -> Option<Object>;
 
-    fn get_selected_columns(&self, selected: i32) -> i32;
-
-    fn get_selected_rows(&self, selected: i32) -> i32;
-
     fn get_summary(&self) -> Option<Object>;
 
     fn is_column_selected(&self, column: i32) -> bool;
@@ -182,18 +178,6 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn get_row_header(&self, row: i32) -> Option<Object> {
         unsafe {
             from_glib_none(ffi::atk_table_get_row_header(self.to_glib_none().0, row))
-        }
-    }
-
-    fn get_selected_columns(&self, selected: i32) -> i32 {
-        unsafe {
-            ffi::atk_table_get_selected_columns(self.to_glib_none().0, selected)
-        }
-    }
-
-    fn get_selected_rows(&self, selected: i32) -> i32 {
-        unsafe {
-            ffi::atk_table_get_selected_rows(self.to_glib_none().0, selected)
         }
     }
 

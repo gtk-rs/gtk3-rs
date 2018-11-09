@@ -27,10 +27,8 @@ glib_wrapper! {
 }
 
 pub trait DocumentExt {
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn get_attribute_value(&self, attribute_name: &str) -> Option<String>;
 
-    //#[cfg(any(feature = "v1_12", feature = "dox"))]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
@@ -46,7 +44,6 @@ pub trait DocumentExt {
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_page_count(&self) -> i32;
 
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool;
 
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -60,14 +57,12 @@ pub trait DocumentExt {
 }
 
 impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn get_attribute_value(&self, attribute_name: &str) -> Option<String> {
         unsafe {
             from_glib_none(ffi::atk_document_get_attribute_value(self.to_glib_none().0, attribute_name.to_glib_none().0))
         }
     }
 
-    //#[cfg(any(feature = "v1_12", feature = "dox"))]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call ffi::atk_document_get_attributes() }
     //}
@@ -102,7 +97,6 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn set_attribute_value(&self, attribute_name: &str, attribute_value: &str) -> bool {
         unsafe {
             from_glib(ffi::atk_document_set_attribute_value(self.to_glib_none().0, attribute_name.to_glib_none().0, attribute_value.to_glib_none().0))

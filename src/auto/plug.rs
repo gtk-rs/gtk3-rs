@@ -37,12 +37,10 @@ impl Default for Plug {
 }
 
 pub trait PlugExt {
-    #[cfg(any(feature = "v1_30", feature = "dox"))]
     fn get_id(&self) -> Option<String>;
 }
 
 impl<O: IsA<Plug>> PlugExt for O {
-    #[cfg(any(feature = "v1_30", feature = "dox"))]
     fn get_id(&self) -> Option<String> {
         unsafe {
             from_glib_full(ffi::atk_plug_get_id(self.to_glib_none().0))

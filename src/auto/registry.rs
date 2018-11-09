@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use ObjectFactory;
 use ffi;
 use glib;
 use glib::object::IsA;
@@ -20,7 +21,7 @@ glib_wrapper! {
 }
 
 pub trait RegistryExt {
-    //fn get_factory(&self, type_: glib::types::Type) -> /*Ignored*/Option<ObjectFactory>;
+    fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
 
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type;
 
@@ -28,9 +29,11 @@ pub trait RegistryExt {
 }
 
 impl<O: IsA<Registry>> RegistryExt for O {
-    //fn get_factory(&self, type_: glib::types::Type) -> /*Ignored*/Option<ObjectFactory> {
-    //    unsafe { TODO: call ffi::atk_registry_get_factory() }
-    //}
+    fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {
+        unsafe {
+            from_glib_none(ffi::atk_registry_get_factory(self.to_glib_none().0, type_.to_glib()))
+        }
+    }
 
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type {
         unsafe {
