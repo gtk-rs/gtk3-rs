@@ -1,0 +1,68 @@
+[options]
+girs_dir = "gir-files"
+library = "Atk"
+version = "1.0"
+min_cfg_version = "1.0"
+target_path = "."
+work_mode = "normal"
+generate_safety_asserts = true
+deprecate_by_min_version = true
+single_version_file = true
+
+generate = [
+    "Atk.Action",
+    # "Atk.Attribute",
+    # "Atk.AttributeSet",
+    "Atk.Component",
+    "Atk.Document",
+    "Atk.Hypertext",
+    "Atk.Image",
+    "Atk.Layer",
+    "Atk.Misc",
+    "Atk.Range",
+    "Atk.Rectangle",
+    "Atk.Registry",
+    "Atk.Role",
+    "Atk.State",
+    "Atk.Table",
+    "Atk.TableCell",
+    "Atk.Text",
+]
+
+ignore = [
+    "Atk.Relation",
+    "Atk.Plug", # conflicting implementations of trait `glib::IsA<glib::Object>` for type `auto::plug::Plug`
+    "Atk.Window", # conflicting implementations of trait `glib::translate::ToGlibPtr<'_, *mut gobject_ffi::GObject>` for type `auto::window::Window`
+]
+
+manual = [
+    # "GLib.SList",
+]
+
+
+[[object]]
+name = "Atk.EditableText"
+status = "generate"
+    [[object.function]]
+    name = "insert_text"
+    # Expected pointer, received integer
+    ignore = true
+
+[[object]]
+name = "Atk.Hyperlink"
+status = "generate"
+    [[object.function]]
+    name = "get_object"
+    ignore = true
+
+[[object]]
+name = "Atk.Selection"
+status = "generate"
+    [[object.function]]
+    name = "ref_selection" # Object instead of AtkObject
+    ignore = true
+
+[[object]]
+name = "Atk.Object"
+status = "generate"
+trait_name = "AtkObjectExt"

@@ -1,0 +1,48 @@
+[package]
+documentation = "http://gtk-rs.org/docs/atk/"
+categories = ["api-bindings", "gui"]
+license = "MIT"
+description = "Rust bindings for the ATK library"
+name = "atk"
+homepage = "http://gtk-rs.org/"
+authors = ["The Gtk-rs Project Developers"]
+readme = "README.md"
+version = "0.5.0"
+keywords = ["atk", "gtk-rs", "gnome", "accessibility"]
+repository = "https://github.com/gtk-rs/atk"
+build = "build.rs"
+exclude = [
+    "gir-files/*",
+]
+
+[badges]
+appveyor = { repository = "GuillaumeGomez/atk", service = "github" }
+travis-ci = { repository = "gtk-rs/atk" }
+
+[lib]
+name = "atk"
+
+[features]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+dox = ["atk-sys/dox"]
+
+[target.'cfg(target_os = "macos")'.build-dependencies]
+cc = "^1.0"
+
+[build-dependencies.gtk-rs-lgpl-docs]
+version = "0.1.3"
+optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
+
+[dependencies]
+libc = "0.2"
+bitflags = "1.0"
+lazy_static = "1.0"
+fragile = { version = "0.3", optional = true }
+atk-sys = { git = "https://github.com/gtk-rs/sys" }
+glib-sys = { git = "https://github.com/gtk-rs/sys" }
+gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+glib = { git = "https://github.com/gtk-rs/glib" }
+
+[dev-dependencies]
+gir-format-check = "^0.1"
