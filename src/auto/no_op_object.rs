@@ -16,6 +16,9 @@ use Text;
 use Value;
 use Window;
 use ffi;
+use glib;
+use glib::object::Downcast;
+use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
@@ -31,7 +34,10 @@ glib_wrapper! {
 }
 
 impl NoOpObject {
-    //pub fn new<P: IsA</*Ignored*/glib::Object>>(obj: &P) -> NoOpObject {
-    //    unsafe { TODO: call ffi::atk_no_op_object_new() }
-    //}
+    pub fn new<P: IsA<glib::Object>>(obj: &P) -> NoOpObject {
+        assert_initialized_main_thread!();
+        unsafe {
+            Object::from_glib_full(ffi::atk_no_op_object_new(obj.to_glib_none().0)).downcast_unchecked()
+        }
+    }
 }

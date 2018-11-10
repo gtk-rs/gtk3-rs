@@ -27,13 +27,13 @@ impl Misc {
     }
 }
 
-pub trait MiscExt {
+pub trait AtkMiscExt {
     fn threads_enter(&self);
 
     fn threads_leave(&self);
 }
 
-impl<O: IsA<Misc>> MiscExt for O {
+impl<O: IsA<Misc>> AtkMiscExt for O {
     fn threads_enter(&self) {
         unsafe {
             ffi::atk_misc_threads_enter(self.to_glib_none().0);

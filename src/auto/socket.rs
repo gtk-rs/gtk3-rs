@@ -36,13 +36,13 @@ impl Default for Socket {
     }
 }
 
-pub trait SocketExt {
+pub trait AtkSocketExt {
     fn embed(&self, plug_id: &str);
 
     fn is_occupied(&self) -> bool;
 }
 
-impl<O: IsA<Socket>> SocketExt for O {
+impl<O: IsA<Socket>> AtkSocketExt for O {
     fn embed(&self, plug_id: &str) {
         unsafe {
             ffi::atk_socket_embed(self.to_glib_none().0, plug_id.to_glib_none().0);

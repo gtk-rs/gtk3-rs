@@ -4,7 +4,7 @@
 
 mod action;
 pub use self::action::Action;
-pub use self::action::ActionExt;
+pub use self::action::AtkActionExt;
 
 mod component;
 pub use self::component::Component;
@@ -36,11 +36,16 @@ pub use self::hypertext::HypertextExt;
 
 mod image;
 pub use self::image::Image;
-pub use self::image::ImageExt;
+pub use self::image::AtkImageExt;
 
 mod misc;
 pub use self::misc::Misc;
-pub use self::misc::MiscExt;
+pub use self::misc::AtkMiscExt;
+
+#[cfg(any(feature = "v2_12", feature = "dox"))]
+mod no_op_object;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
+pub use self::no_op_object::NoOpObject;
 
 mod no_op_object_factory;
 pub use self::no_op_object_factory::NoOpObjectFactory;
@@ -55,7 +60,7 @@ pub use self::object_factory::ObjectFactoryExt;
 
 mod plug;
 pub use self::plug::Plug;
-pub use self::plug::PlugExt;
+pub use self::plug::AtkPlugExt;
 
 mod registry;
 pub use self::registry::Registry;
@@ -75,7 +80,7 @@ pub use self::selection::SelectionExt;
 
 mod socket;
 pub use self::socket::Socket;
-pub use self::socket::SocketExt;
+pub use self::socket::AtkSocketExt;
 
 mod state_set;
 pub use self::state_set::StateSet;
@@ -109,7 +114,7 @@ pub use self::value::ValueExt;
 
 mod window;
 pub use self::window::Window;
-pub use self::window::WindowExt;
+pub use self::window::AtkWindowExt;
 
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 mod range;
@@ -142,7 +147,7 @@ pub use self::alias::State;
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::ActionExt;
+    pub use super::AtkActionExt;
     pub use super::ComponentExt;
     pub use super::DocumentExt;
     pub use super::EditableTextExt;
@@ -150,16 +155,16 @@ pub mod traits {
     pub use super::HyperlinkExt;
     pub use super::HyperlinkImplExt;
     pub use super::HypertextExt;
-    pub use super::ImageExt;
-    pub use super::MiscExt;
+    pub use super::AtkImageExt;
+    pub use super::AtkMiscExt;
     pub use super::AtkObjectExt;
     pub use super::ObjectFactoryExt;
-    pub use super::PlugExt;
+    pub use super::AtkPlugExt;
     pub use super::RegistryExt;
     pub use super::RelationExt;
     pub use super::RelationSetExt;
     pub use super::SelectionExt;
-    pub use super::SocketExt;
+    pub use super::AtkSocketExt;
     pub use super::StateSetExt;
     pub use super::StreamableContentExt;
     pub use super::TableExt;
@@ -167,5 +172,5 @@ pub mod traits {
     pub use super::TableCellExt;
     pub use super::TextExt;
     pub use super::ValueExt;
-    pub use super::WindowExt;
+    pub use super::AtkWindowExt;
 }

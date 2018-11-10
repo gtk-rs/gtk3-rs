@@ -19,7 +19,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ImageExt {
+pub trait AtkImageExt {
     fn get_image_description(&self) -> Option<String>;
 
     fn get_image_locale(&self) -> Option<String>;
@@ -31,7 +31,7 @@ pub trait ImageExt {
     fn set_image_description(&self, description: &str) -> bool;
 }
 
-impl<O: IsA<Image>> ImageExt for O {
+impl<O: IsA<Image>> AtkImageExt for O {
     fn get_image_description(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_description(self.to_glib_none().0))

@@ -31,7 +31,7 @@ glib_wrapper! {
     }
 }
 
-pub trait WindowExt {
+pub trait AtkWindowExt {
     #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -60,7 +60,7 @@ pub trait WindowExt {
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
+impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {

@@ -36,11 +36,11 @@ impl Default for Plug {
     }
 }
 
-pub trait PlugExt {
+pub trait AtkPlugExt {
     fn get_id(&self) -> Option<String>;
 }
 
-impl<O: IsA<Plug>> PlugExt for O {
+impl<O: IsA<Plug>> AtkPlugExt for O {
     fn get_id(&self) -> Option<String> {
         unsafe {
             from_glib_full(ffi::atk_plug_get_id(self.to_glib_none().0))

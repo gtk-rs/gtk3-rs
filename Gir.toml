@@ -10,7 +10,6 @@ deprecate_by_min_version = true
 single_version_file = true
 
 generate = [
-    "Atk.Action",
     "Atk.Component",
     "Atk.CoordType",
     "Atk.Document",
@@ -22,18 +21,13 @@ generate = [
     "Atk.HyperlinkImpl",
     "Atk.HyperlinkStateFlags",
     "Atk.Hypertext",
-    "Atk.Image",
     # "Atk.Implementor",
     # "Atk.KeyEventStruct",
     "Atk.Layer",
-    "Atk.Misc",
-    # "Atk.NoOpObject",
     "Atk.NoOpObjectFactory",
     "Atk.ObjectFactory",
-    "Atk.Plug",
     "Atk.PropertyChangeHandler",
     # "Atk.PropertyValues",
-    "Atk.Range",
     "Atk.Rectangle",
     "Atk.Registry",
     "Atk.Relation",
@@ -41,13 +35,11 @@ generate = [
     "Atk.RelationSet",
     "Atk.Role",
     "Atk.Selection",
-    "Atk.Socket",
     "Atk.State",
     "Atk.StateType",
     "Atk.StateSet",
     "Atk.StreamableContent",
     "Atk.TableCell",
-    "Atk.Text",
     "Atk.TextAttribute",
     "Atk.TextBoundary",
     "Atk.TextClipType",
@@ -56,7 +48,6 @@ generate = [
     "Atk.Util",
     "Atk.Value",
     "Atk.ValueType",
-    "Atk.Window",
 ]
 
 ignore = [
@@ -74,6 +65,11 @@ manual = [
 ]
 
 [[object]]
+name = "Atk.Action"
+status = "generate"
+trait_name = "AtkActionExt" # duplicate with gio
+
+[[object]]
 name = "Atk.EditableText"
 status = "generate"
     [[object.function]]
@@ -82,9 +78,29 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Atk.Image"
+status = "generate"
+trait_name = "AtkImageExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.Misc"
+status = "generate"
+trait_name = "AtkMiscExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.NoOpObject"
+status = "generate"
+version = "2.12"
+
+[[object]]
 name = "Atk.Object"
 status = "generate"
 trait_name = "AtkObjectExt"
+
+[[object]]
+name = "Atk.Range"
+status = "generate"
+trait_name = "AtkRangeExt" # duplicate with gtk
 
 [[object]]
 name = "Atk.Table"
@@ -102,3 +118,18 @@ status = "generate"
     [[object.function]]
     name = "free_ranges"
     ignore = true # don't know yet how to give back memory...
+
+[[object]]
+name = "Atk.Window"
+status = "generate"
+trait_name = "AtkWindowExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.Plug"
+status = "generate"
+trait_name = "AtkPlugExt"
+
+[[object]]
+name = "Atk.Socket"
+status = "generate"
+trait_name = "AtkSocketExt"

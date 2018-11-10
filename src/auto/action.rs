@@ -18,7 +18,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ActionExt {
+pub trait AtkActionExt {
     fn do_action(&self, i: i32) -> bool;
 
     fn get_description(&self, i: i32) -> Option<String>;
@@ -34,7 +34,7 @@ pub trait ActionExt {
     fn set_description(&self, i: i32, desc: &str) -> bool;
 }
 
-impl<O: IsA<Action>> ActionExt for O {
+impl<O: IsA<Action>> AtkActionExt for O {
     fn do_action(&self, i: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_action_do_action(self.to_glib_none().0, i))

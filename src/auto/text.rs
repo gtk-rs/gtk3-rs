@@ -32,15 +32,6 @@ glib_wrapper! {
     }
 }
 
-impl Text {
-    pub fn free_ranges(ranges: &[&TextRange]) {
-        assert_initialized_main_thread!();
-        unsafe {
-            ffi::atk_text_free_ranges(ranges.to_glib_none().0);
-        }
-    }
-}
-
 pub trait TextExt {
     fn add_selection(&self, start_offset: i32, end_offset: i32) -> bool;
 

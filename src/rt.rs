@@ -11,8 +11,3 @@ macro_rules! assert_initialized_main_thread {
 macro_rules! skip_assert_initialized {
     () => ()
 }
-
-/// No-op.
-macro_rules! assert_not_initialized {
-    () => ()
-}
