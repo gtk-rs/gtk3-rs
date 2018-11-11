@@ -2,6 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use CoordType;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
@@ -18,36 +19,39 @@ glib_wrapper! {
     }
 }
 
-pub trait ImageExt {
+pub trait AtkImageExt {
     fn get_image_description(&self) -> Option<String>;
 
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn get_image_locale(&self) -> Option<String>;
 
-    //fn get_image_position(&self, coord_type: /*Ignored*/CoordType) -> (i32, i32);
+    fn get_image_position(&self, coord_type: CoordType) -> (i32, i32);
 
     fn get_image_size(&self) -> (i32, i32);
 
     fn set_image_description(&self, description: &str) -> bool;
 }
 
-impl<O: IsA<Image>> ImageExt for O {
+impl<O: IsA<Image>> AtkImageExt for O {
     fn get_image_description(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_description(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     fn get_image_locale(&self) -> Option<String> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_locale(self.to_glib_none().0))
         }
     }
 
-    //fn get_image_position(&self, coord_type: /*Ignored*/CoordType) -> (i32, i32) {
-    //    unsafe { TODO: call ffi::atk_image_get_image_position() }
-    //}
+    fn get_image_position(&self, coord_type: CoordType) -> (i32, i32) {
+        unsafe {
+            let mut x = mem::uninitialized();
+            let mut y = mem::uninitialized();
+            ffi::atk_image_get_image_position(self.to_glib_none().0, &mut x, &mut y, coord_type.to_glib());
+            (x, y)
+        }
+    }
 
     fn get_image_size(&self) -> (i32, i32) {
         unsafe {

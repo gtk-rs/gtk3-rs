@@ -14,6 +14,64 @@ use gobject_ffi;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
+pub enum CoordType {
+    Screen,
+    Window,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for CoordType {
+    type GlibType = ffi::AtkCoordType;
+
+    fn to_glib(&self) -> ffi::AtkCoordType {
+        match *self {
+            CoordType::Screen => ffi::ATK_XY_SCREEN,
+            CoordType::Window => ffi::ATK_XY_WINDOW,
+            CoordType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkCoordType> for CoordType {
+    fn from_glib(value: ffi::AtkCoordType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => CoordType::Screen,
+            1 => CoordType::Window,
+            value => CoordType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for CoordType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_coord_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for CoordType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for CoordType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for CoordType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum Layer {
     Invalid,
     Background,
@@ -83,6 +141,124 @@ impl<'a> FromValue<'a> for Layer {
 }
 
 impl SetValue for Layer {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum RelationType {
+    Null,
+    ControlledBy,
+    ControllerFor,
+    LabelFor,
+    LabelledBy,
+    MemberOf,
+    NodeChildOf,
+    FlowsTo,
+    FlowsFrom,
+    SubwindowOf,
+    Embeds,
+    EmbeddedBy,
+    PopupFor,
+    ParentWindowOf,
+    DescribedBy,
+    DescriptionFor,
+    NodeParentOf,
+    Details,
+    DetailsFor,
+    ErrorMessage,
+    ErrorFor,
+    LastDefined,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for RelationType {
+    type GlibType = ffi::AtkRelationType;
+
+    fn to_glib(&self) -> ffi::AtkRelationType {
+        match *self {
+            RelationType::Null => ffi::ATK_RELATION_NULL,
+            RelationType::ControlledBy => ffi::ATK_RELATION_CONTROLLED_BY,
+            RelationType::ControllerFor => ffi::ATK_RELATION_CONTROLLER_FOR,
+            RelationType::LabelFor => ffi::ATK_RELATION_LABEL_FOR,
+            RelationType::LabelledBy => ffi::ATK_RELATION_LABELLED_BY,
+            RelationType::MemberOf => ffi::ATK_RELATION_MEMBER_OF,
+            RelationType::NodeChildOf => ffi::ATK_RELATION_NODE_CHILD_OF,
+            RelationType::FlowsTo => ffi::ATK_RELATION_FLOWS_TO,
+            RelationType::FlowsFrom => ffi::ATK_RELATION_FLOWS_FROM,
+            RelationType::SubwindowOf => ffi::ATK_RELATION_SUBWINDOW_OF,
+            RelationType::Embeds => ffi::ATK_RELATION_EMBEDS,
+            RelationType::EmbeddedBy => ffi::ATK_RELATION_EMBEDDED_BY,
+            RelationType::PopupFor => ffi::ATK_RELATION_POPUP_FOR,
+            RelationType::ParentWindowOf => ffi::ATK_RELATION_PARENT_WINDOW_OF,
+            RelationType::DescribedBy => ffi::ATK_RELATION_DESCRIBED_BY,
+            RelationType::DescriptionFor => ffi::ATK_RELATION_DESCRIPTION_FOR,
+            RelationType::NodeParentOf => ffi::ATK_RELATION_NODE_PARENT_OF,
+            RelationType::Details => ffi::ATK_RELATION_DETAILS,
+            RelationType::DetailsFor => ffi::ATK_RELATION_DETAILS_FOR,
+            RelationType::ErrorMessage => ffi::ATK_RELATION_ERROR_MESSAGE,
+            RelationType::ErrorFor => ffi::ATK_RELATION_ERROR_FOR,
+            RelationType::LastDefined => ffi::ATK_RELATION_LAST_DEFINED,
+            RelationType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkRelationType> for RelationType {
+    fn from_glib(value: ffi::AtkRelationType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => RelationType::Null,
+            1 => RelationType::ControlledBy,
+            2 => RelationType::ControllerFor,
+            3 => RelationType::LabelFor,
+            4 => RelationType::LabelledBy,
+            5 => RelationType::MemberOf,
+            6 => RelationType::NodeChildOf,
+            7 => RelationType::FlowsTo,
+            8 => RelationType::FlowsFrom,
+            9 => RelationType::SubwindowOf,
+            10 => RelationType::Embeds,
+            11 => RelationType::EmbeddedBy,
+            12 => RelationType::PopupFor,
+            13 => RelationType::ParentWindowOf,
+            14 => RelationType::DescribedBy,
+            15 => RelationType::DescriptionFor,
+            16 => RelationType::NodeParentOf,
+            17 => RelationType::Details,
+            18 => RelationType::DetailsFor,
+            19 => RelationType::ErrorMessage,
+            20 => RelationType::ErrorFor,
+            21 => RelationType::LastDefined,
+            value => RelationType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for RelationType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_relation_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for RelationType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for RelationType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for RelationType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
@@ -507,6 +683,633 @@ impl<'a> FromValue<'a> for Role {
 }
 
 impl SetValue for Role {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum StateType {
+    Invalid,
+    Active,
+    Armed,
+    Busy,
+    Checked,
+    Defunct,
+    Editable,
+    Enabled,
+    Expandable,
+    Expanded,
+    Focusable,
+    Focused,
+    Horizontal,
+    Iconified,
+    Modal,
+    MultiLine,
+    Multiselectable,
+    Opaque,
+    Pressed,
+    Resizable,
+    Selectable,
+    Selected,
+    Sensitive,
+    Showing,
+    SingleLine,
+    Stale,
+    Transient,
+    Vertical,
+    Visible,
+    ManagesDescendants,
+    Indeterminate,
+    Truncated,
+    Required,
+    InvalidEntry,
+    SupportsAutocompletion,
+    SelectableText,
+    Default,
+    Animated,
+    Visited,
+    Checkable,
+    HasPopup,
+    HasTooltip,
+    ReadOnly,
+    LastDefined,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for StateType {
+    type GlibType = ffi::AtkStateType;
+
+    fn to_glib(&self) -> ffi::AtkStateType {
+        match *self {
+            StateType::Invalid => ffi::ATK_STATE_INVALID,
+            StateType::Active => ffi::ATK_STATE_ACTIVE,
+            StateType::Armed => ffi::ATK_STATE_ARMED,
+            StateType::Busy => ffi::ATK_STATE_BUSY,
+            StateType::Checked => ffi::ATK_STATE_CHECKED,
+            StateType::Defunct => ffi::ATK_STATE_DEFUNCT,
+            StateType::Editable => ffi::ATK_STATE_EDITABLE,
+            StateType::Enabled => ffi::ATK_STATE_ENABLED,
+            StateType::Expandable => ffi::ATK_STATE_EXPANDABLE,
+            StateType::Expanded => ffi::ATK_STATE_EXPANDED,
+            StateType::Focusable => ffi::ATK_STATE_FOCUSABLE,
+            StateType::Focused => ffi::ATK_STATE_FOCUSED,
+            StateType::Horizontal => ffi::ATK_STATE_HORIZONTAL,
+            StateType::Iconified => ffi::ATK_STATE_ICONIFIED,
+            StateType::Modal => ffi::ATK_STATE_MODAL,
+            StateType::MultiLine => ffi::ATK_STATE_MULTI_LINE,
+            StateType::Multiselectable => ffi::ATK_STATE_MULTISELECTABLE,
+            StateType::Opaque => ffi::ATK_STATE_OPAQUE,
+            StateType::Pressed => ffi::ATK_STATE_PRESSED,
+            StateType::Resizable => ffi::ATK_STATE_RESIZABLE,
+            StateType::Selectable => ffi::ATK_STATE_SELECTABLE,
+            StateType::Selected => ffi::ATK_STATE_SELECTED,
+            StateType::Sensitive => ffi::ATK_STATE_SENSITIVE,
+            StateType::Showing => ffi::ATK_STATE_SHOWING,
+            StateType::SingleLine => ffi::ATK_STATE_SINGLE_LINE,
+            StateType::Stale => ffi::ATK_STATE_STALE,
+            StateType::Transient => ffi::ATK_STATE_TRANSIENT,
+            StateType::Vertical => ffi::ATK_STATE_VERTICAL,
+            StateType::Visible => ffi::ATK_STATE_VISIBLE,
+            StateType::ManagesDescendants => ffi::ATK_STATE_MANAGES_DESCENDANTS,
+            StateType::Indeterminate => ffi::ATK_STATE_INDETERMINATE,
+            StateType::Truncated => ffi::ATK_STATE_TRUNCATED,
+            StateType::Required => ffi::ATK_STATE_REQUIRED,
+            StateType::InvalidEntry => ffi::ATK_STATE_INVALID_ENTRY,
+            StateType::SupportsAutocompletion => ffi::ATK_STATE_SUPPORTS_AUTOCOMPLETION,
+            StateType::SelectableText => ffi::ATK_STATE_SELECTABLE_TEXT,
+            StateType::Default => ffi::ATK_STATE_DEFAULT,
+            StateType::Animated => ffi::ATK_STATE_ANIMATED,
+            StateType::Visited => ffi::ATK_STATE_VISITED,
+            StateType::Checkable => ffi::ATK_STATE_CHECKABLE,
+            StateType::HasPopup => ffi::ATK_STATE_HAS_POPUP,
+            StateType::HasTooltip => ffi::ATK_STATE_HAS_TOOLTIP,
+            StateType::ReadOnly => ffi::ATK_STATE_READ_ONLY,
+            StateType::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
+            StateType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkStateType> for StateType {
+    fn from_glib(value: ffi::AtkStateType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => StateType::Invalid,
+            1 => StateType::Active,
+            2 => StateType::Armed,
+            3 => StateType::Busy,
+            4 => StateType::Checked,
+            5 => StateType::Defunct,
+            6 => StateType::Editable,
+            7 => StateType::Enabled,
+            8 => StateType::Expandable,
+            9 => StateType::Expanded,
+            10 => StateType::Focusable,
+            11 => StateType::Focused,
+            12 => StateType::Horizontal,
+            13 => StateType::Iconified,
+            14 => StateType::Modal,
+            15 => StateType::MultiLine,
+            16 => StateType::Multiselectable,
+            17 => StateType::Opaque,
+            18 => StateType::Pressed,
+            19 => StateType::Resizable,
+            20 => StateType::Selectable,
+            21 => StateType::Selected,
+            22 => StateType::Sensitive,
+            23 => StateType::Showing,
+            24 => StateType::SingleLine,
+            25 => StateType::Stale,
+            26 => StateType::Transient,
+            27 => StateType::Vertical,
+            28 => StateType::Visible,
+            29 => StateType::ManagesDescendants,
+            30 => StateType::Indeterminate,
+            31 => StateType::Truncated,
+            32 => StateType::Required,
+            33 => StateType::InvalidEntry,
+            34 => StateType::SupportsAutocompletion,
+            35 => StateType::SelectableText,
+            36 => StateType::Default,
+            37 => StateType::Animated,
+            38 => StateType::Visited,
+            39 => StateType::Checkable,
+            40 => StateType::HasPopup,
+            41 => StateType::HasTooltip,
+            42 => StateType::ReadOnly,
+            43 => StateType::LastDefined,
+            value => StateType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for StateType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_state_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for StateType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for StateType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for StateType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum TextAttribute {
+    Invalid,
+    LeftMargin,
+    RightMargin,
+    Indent,
+    Invisible,
+    Editable,
+    PixelsAboveLines,
+    PixelsBelowLines,
+    PixelsInsideWrap,
+    BgFullHeight,
+    Rise,
+    Underline,
+    Strikethrough,
+    Size,
+    Scale,
+    Weight,
+    Language,
+    FamilyName,
+    BgColor,
+    FgColor,
+    BgStipple,
+    FgStipple,
+    WrapMode,
+    Direction,
+    Justification,
+    Stretch,
+    Variant,
+    Style,
+    LastDefined,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for TextAttribute {
+    type GlibType = ffi::AtkTextAttribute;
+
+    fn to_glib(&self) -> ffi::AtkTextAttribute {
+        match *self {
+            TextAttribute::Invalid => ffi::ATK_TEXT_ATTR_INVALID,
+            TextAttribute::LeftMargin => ffi::ATK_TEXT_ATTR_LEFT_MARGIN,
+            TextAttribute::RightMargin => ffi::ATK_TEXT_ATTR_RIGHT_MARGIN,
+            TextAttribute::Indent => ffi::ATK_TEXT_ATTR_INDENT,
+            TextAttribute::Invisible => ffi::ATK_TEXT_ATTR_INVISIBLE,
+            TextAttribute::Editable => ffi::ATK_TEXT_ATTR_EDITABLE,
+            TextAttribute::PixelsAboveLines => ffi::ATK_TEXT_ATTR_PIXELS_ABOVE_LINES,
+            TextAttribute::PixelsBelowLines => ffi::ATK_TEXT_ATTR_PIXELS_BELOW_LINES,
+            TextAttribute::PixelsInsideWrap => ffi::ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP,
+            TextAttribute::BgFullHeight => ffi::ATK_TEXT_ATTR_BG_FULL_HEIGHT,
+            TextAttribute::Rise => ffi::ATK_TEXT_ATTR_RISE,
+            TextAttribute::Underline => ffi::ATK_TEXT_ATTR_UNDERLINE,
+            TextAttribute::Strikethrough => ffi::ATK_TEXT_ATTR_STRIKETHROUGH,
+            TextAttribute::Size => ffi::ATK_TEXT_ATTR_SIZE,
+            TextAttribute::Scale => ffi::ATK_TEXT_ATTR_SCALE,
+            TextAttribute::Weight => ffi::ATK_TEXT_ATTR_WEIGHT,
+            TextAttribute::Language => ffi::ATK_TEXT_ATTR_LANGUAGE,
+            TextAttribute::FamilyName => ffi::ATK_TEXT_ATTR_FAMILY_NAME,
+            TextAttribute::BgColor => ffi::ATK_TEXT_ATTR_BG_COLOR,
+            TextAttribute::FgColor => ffi::ATK_TEXT_ATTR_FG_COLOR,
+            TextAttribute::BgStipple => ffi::ATK_TEXT_ATTR_BG_STIPPLE,
+            TextAttribute::FgStipple => ffi::ATK_TEXT_ATTR_FG_STIPPLE,
+            TextAttribute::WrapMode => ffi::ATK_TEXT_ATTR_WRAP_MODE,
+            TextAttribute::Direction => ffi::ATK_TEXT_ATTR_DIRECTION,
+            TextAttribute::Justification => ffi::ATK_TEXT_ATTR_JUSTIFICATION,
+            TextAttribute::Stretch => ffi::ATK_TEXT_ATTR_STRETCH,
+            TextAttribute::Variant => ffi::ATK_TEXT_ATTR_VARIANT,
+            TextAttribute::Style => ffi::ATK_TEXT_ATTR_STYLE,
+            TextAttribute::LastDefined => ffi::ATK_TEXT_ATTR_LAST_DEFINED,
+            TextAttribute::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
+    fn from_glib(value: ffi::AtkTextAttribute) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => TextAttribute::Invalid,
+            1 => TextAttribute::LeftMargin,
+            2 => TextAttribute::RightMargin,
+            3 => TextAttribute::Indent,
+            4 => TextAttribute::Invisible,
+            5 => TextAttribute::Editable,
+            6 => TextAttribute::PixelsAboveLines,
+            7 => TextAttribute::PixelsBelowLines,
+            8 => TextAttribute::PixelsInsideWrap,
+            9 => TextAttribute::BgFullHeight,
+            10 => TextAttribute::Rise,
+            11 => TextAttribute::Underline,
+            12 => TextAttribute::Strikethrough,
+            13 => TextAttribute::Size,
+            14 => TextAttribute::Scale,
+            15 => TextAttribute::Weight,
+            16 => TextAttribute::Language,
+            17 => TextAttribute::FamilyName,
+            18 => TextAttribute::BgColor,
+            19 => TextAttribute::FgColor,
+            20 => TextAttribute::BgStipple,
+            21 => TextAttribute::FgStipple,
+            22 => TextAttribute::WrapMode,
+            23 => TextAttribute::Direction,
+            24 => TextAttribute::Justification,
+            25 => TextAttribute::Stretch,
+            26 => TextAttribute::Variant,
+            27 => TextAttribute::Style,
+            28 => TextAttribute::LastDefined,
+            value => TextAttribute::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for TextAttribute {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_text_attribute_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for TextAttribute {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for TextAttribute {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for TextAttribute {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum TextBoundary {
+    Char,
+    WordStart,
+    WordEnd,
+    SentenceStart,
+    SentenceEnd,
+    LineStart,
+    LineEnd,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for TextBoundary {
+    type GlibType = ffi::AtkTextBoundary;
+
+    fn to_glib(&self) -> ffi::AtkTextBoundary {
+        match *self {
+            TextBoundary::Char => ffi::ATK_TEXT_BOUNDARY_CHAR,
+            TextBoundary::WordStart => ffi::ATK_TEXT_BOUNDARY_WORD_START,
+            TextBoundary::WordEnd => ffi::ATK_TEXT_BOUNDARY_WORD_END,
+            TextBoundary::SentenceStart => ffi::ATK_TEXT_BOUNDARY_SENTENCE_START,
+            TextBoundary::SentenceEnd => ffi::ATK_TEXT_BOUNDARY_SENTENCE_END,
+            TextBoundary::LineStart => ffi::ATK_TEXT_BOUNDARY_LINE_START,
+            TextBoundary::LineEnd => ffi::ATK_TEXT_BOUNDARY_LINE_END,
+            TextBoundary::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
+    fn from_glib(value: ffi::AtkTextBoundary) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => TextBoundary::Char,
+            1 => TextBoundary::WordStart,
+            2 => TextBoundary::WordEnd,
+            3 => TextBoundary::SentenceStart,
+            4 => TextBoundary::SentenceEnd,
+            5 => TextBoundary::LineStart,
+            6 => TextBoundary::LineEnd,
+            value => TextBoundary::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for TextBoundary {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_text_boundary_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for TextBoundary {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for TextBoundary {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for TextBoundary {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum TextClipType {
+    None,
+    Min,
+    Max,
+    Both,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for TextClipType {
+    type GlibType = ffi::AtkTextClipType;
+
+    fn to_glib(&self) -> ffi::AtkTextClipType {
+        match *self {
+            TextClipType::None => ffi::ATK_TEXT_CLIP_NONE,
+            TextClipType::Min => ffi::ATK_TEXT_CLIP_MIN,
+            TextClipType::Max => ffi::ATK_TEXT_CLIP_MAX,
+            TextClipType::Both => ffi::ATK_TEXT_CLIP_BOTH,
+            TextClipType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkTextClipType> for TextClipType {
+    fn from_glib(value: ffi::AtkTextClipType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => TextClipType::None,
+            1 => TextClipType::Min,
+            2 => TextClipType::Max,
+            3 => TextClipType::Both,
+            value => TextClipType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for TextClipType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_text_clip_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for TextClipType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for TextClipType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for TextClipType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum TextGranularity {
+    Char,
+    Word,
+    Sentence,
+    Line,
+    Paragraph,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for TextGranularity {
+    type GlibType = ffi::AtkTextGranularity;
+
+    fn to_glib(&self) -> ffi::AtkTextGranularity {
+        match *self {
+            TextGranularity::Char => ffi::ATK_TEXT_GRANULARITY_CHAR,
+            TextGranularity::Word => ffi::ATK_TEXT_GRANULARITY_WORD,
+            TextGranularity::Sentence => ffi::ATK_TEXT_GRANULARITY_SENTENCE,
+            TextGranularity::Line => ffi::ATK_TEXT_GRANULARITY_LINE,
+            TextGranularity::Paragraph => ffi::ATK_TEXT_GRANULARITY_PARAGRAPH,
+            TextGranularity::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
+    fn from_glib(value: ffi::AtkTextGranularity) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => TextGranularity::Char,
+            1 => TextGranularity::Word,
+            2 => TextGranularity::Sentence,
+            3 => TextGranularity::Line,
+            4 => TextGranularity::Paragraph,
+            value => TextGranularity::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for TextGranularity {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_text_granularity_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for TextGranularity {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for TextGranularity {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for TextGranularity {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum ValueType {
+    VeryWeak,
+    Weak,
+    Acceptable,
+    Strong,
+    VeryStrong,
+    VeryLow,
+    Low,
+    Medium,
+    High,
+    VeryHigh,
+    VeryBad,
+    Bad,
+    Good,
+    VeryGood,
+    Best,
+    LastDefined,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl ToGlib for ValueType {
+    type GlibType = ffi::AtkValueType;
+
+    fn to_glib(&self) -> ffi::AtkValueType {
+        match *self {
+            ValueType::VeryWeak => ffi::ATK_VALUE_VERY_WEAK,
+            ValueType::Weak => ffi::ATK_VALUE_WEAK,
+            ValueType::Acceptable => ffi::ATK_VALUE_ACCEPTABLE,
+            ValueType::Strong => ffi::ATK_VALUE_STRONG,
+            ValueType::VeryStrong => ffi::ATK_VALUE_VERY_STRONG,
+            ValueType::VeryLow => ffi::ATK_VALUE_VERY_LOW,
+            ValueType::Low => ffi::ATK_VALUE_LOW,
+            ValueType::Medium => ffi::ATK_VALUE_MEDIUM,
+            ValueType::High => ffi::ATK_VALUE_HIGH,
+            ValueType::VeryHigh => ffi::ATK_VALUE_VERY_HIGH,
+            ValueType::VeryBad => ffi::ATK_VALUE_VERY_BAD,
+            ValueType::Bad => ffi::ATK_VALUE_BAD,
+            ValueType::Good => ffi::ATK_VALUE_GOOD,
+            ValueType::VeryGood => ffi::ATK_VALUE_VERY_GOOD,
+            ValueType::Best => ffi::ATK_VALUE_BEST,
+            ValueType::LastDefined => ffi::ATK_VALUE_LAST_DEFINED,
+            ValueType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::AtkValueType> for ValueType {
+    fn from_glib(value: ffi::AtkValueType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => ValueType::VeryWeak,
+            1 => ValueType::Weak,
+            2 => ValueType::Acceptable,
+            3 => ValueType::Strong,
+            4 => ValueType::VeryStrong,
+            5 => ValueType::VeryLow,
+            6 => ValueType::Low,
+            7 => ValueType::Medium,
+            8 => ValueType::High,
+            9 => ValueType::VeryHigh,
+            10 => ValueType::VeryBad,
+            11 => ValueType::Bad,
+            12 => ValueType::Good,
+            13 => ValueType::VeryGood,
+            14 => ValueType::Best,
+            15 => ValueType::LastDefined,
+            value => ValueType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for ValueType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_value_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for ValueType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for ValueType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for ValueType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }

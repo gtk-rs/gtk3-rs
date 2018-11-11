@@ -2,7 +2,7 @@
 girs_dir = "gir-files"
 library = "Atk"
 version = "1.0"
-min_cfg_version = "1.0"
+min_cfg_version = "2.0"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
@@ -10,35 +10,64 @@ deprecate_by_min_version = true
 single_version_file = true
 
 generate = [
-    "Atk.Action",
-    # "Atk.Attribute",
-    # "Atk.AttributeSet",
     "Atk.Component",
+    "Atk.CoordType",
     "Atk.Document",
+    "Atk.EventListener",
+    "Atk.EventListenerInit",
+    "Atk.FocusHandler",
+    "Atk.GObjectAccessible",
+    "Atk.Hyperlink",
+    "Atk.HyperlinkImpl",
+    "Atk.HyperlinkStateFlags",
     "Atk.Hypertext",
-    "Atk.Image",
+    # "Atk.Implementor",
+    # "Atk.KeyEventStruct",
     "Atk.Layer",
-    "Atk.Misc",
-    "Atk.Range",
+    "Atk.NoOpObjectFactory",
+    "Atk.ObjectFactory",
+    "Atk.PropertyChangeHandler",
+    # "Atk.PropertyValues",
     "Atk.Rectangle",
     "Atk.Registry",
+    "Atk.Relation",
+    "Atk.RelationType",
+    "Atk.RelationSet",
     "Atk.Role",
+    "Atk.Selection",
     "Atk.State",
-    "Atk.Table",
+    "Atk.StateType",
+    "Atk.StateSet",
+    "Atk.StreamableContent",
     "Atk.TableCell",
-    "Atk.Text",
+    "Atk.TextAttribute",
+    "Atk.TextBoundary",
+    "Atk.TextClipType",
+    "Atk.TextGranularity",
+    "Atk.TextRange",
+    "Atk.Util",
+    "Atk.Value",
+    "Atk.ValueType",
 ]
 
 ignore = [
-    "Atk.Relation",
-    "Atk.Plug", # conflicting implementations of trait `glib::IsA<glib::Object>` for type `auto::plug::Plug`
-    "Atk.Window", # conflicting implementations of trait `glib::translate::ToGlibPtr<'_, *mut gobject_ffi::GObject>` for type `auto::window::Window`
 ]
 
 manual = [
+    "Atk.Attribute",
+    "Atk.AttributeSet",
+    "Atk.TextRectangle",
     # "GLib.SList",
+    # "GLib.IOChannel",
+    "GObject.Object",
+    "GObject.Value",
+    "GObject.ValueArray",
 ]
 
+[[object]]
+name = "Atk.Action"
+status = "generate"
+trait_name = "AtkActionExt" # duplicate with gio
 
 [[object]]
 name = "Atk.EditableText"
@@ -49,20 +78,58 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Atk.Hyperlink"
+name = "Atk.Image"
 status = "generate"
-    [[object.function]]
-    name = "get_object"
-    ignore = true
+trait_name = "AtkImageExt" # duplicate with gtk
 
 [[object]]
-name = "Atk.Selection"
+name = "Atk.Misc"
 status = "generate"
-    [[object.function]]
-    name = "ref_selection" # Object instead of AtkObject
-    ignore = true
+trait_name = "AtkMiscExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.NoOpObject"
+status = "generate"
+version = "2.12"
 
 [[object]]
 name = "Atk.Object"
 status = "generate"
 trait_name = "AtkObjectExt"
+
+[[object]]
+name = "Atk.Range"
+status = "generate"
+trait_name = "AtkRangeExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.Table"
+status = "generate"
+    [[object.function]]
+    name = "get_selected_columns"
+    ignore = true
+    [[object.function]]
+    name = "get_selected_rows"
+    ignore = true
+
+[[object]]
+name = "Atk.Text"
+status = "generate"
+    [[object.function]]
+    name = "free_ranges"
+    ignore = true # don't know yet how to give back memory...
+
+[[object]]
+name = "Atk.Window"
+status = "generate"
+trait_name = "AtkWindowExt" # duplicate with gtk
+
+[[object]]
+name = "Atk.Plug"
+status = "generate"
+trait_name = "AtkPlugExt"
+
+[[object]]
+name = "Atk.Socket"
+status = "generate"
+trait_name = "AtkSocketExt"

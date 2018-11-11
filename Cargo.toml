@@ -25,9 +25,12 @@ name = "atk"
 [features]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 dox = ["atk-sys/dox"]
-
-[target.'cfg(target_os = "macos")'.build-dependencies]
-cc = "^1.0"
+v2_7_90 = ["atk-sys/v2_7_90"]
+v2_8 = ["atk-sys/v2_8", "v2_7_90"]
+v2_9_3 = ["atk-sys/v2_9_3", "v2_8"]
+v2_9_4 = ["atk-sys/v2_9_4", "v2_9_3"]
+v2_10 = ["atk-sys/v2_10", "v2_9_4"]
+v2_12 = ["atk-sys/v2_12", "v2_10"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"

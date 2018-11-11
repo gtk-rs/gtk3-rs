@@ -6,4 +6,4 @@
 
 pub use auto::traits::*;
 pub use editable_text::EditableTextExtManual;
-pub use selection::SelectionExtManual;
+pub use table::TableExtManual;

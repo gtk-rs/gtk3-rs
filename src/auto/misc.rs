@@ -19,7 +19,6 @@ glib_wrapper! {
 }
 
 impl Misc {
-    #[cfg(any(feature = "v1_13", feature = "dox"))]
     pub fn get_instance() -> Option<Misc> {
         assert_initialized_main_thread!();
         unsafe {
@@ -28,23 +27,19 @@ impl Misc {
     }
 }
 
-pub trait MiscExt {
-    #[cfg(any(feature = "v1_13", feature = "dox"))]
+pub trait AtkMiscExt {
     fn threads_enter(&self);
 
-    #[cfg(any(feature = "v1_13", feature = "dox"))]
     fn threads_leave(&self);
 }
 
-impl<O: IsA<Misc>> MiscExt for O {
-    #[cfg(any(feature = "v1_13", feature = "dox"))]
+impl<O: IsA<Misc>> AtkMiscExt for O {
     fn threads_enter(&self) {
         unsafe {
             ffi::atk_misc_threads_enter(self.to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v1_13", feature = "dox"))]
     fn threads_leave(&self) {
         unsafe {
             ffi::atk_misc_threads_leave(self.to_glib_none().0);

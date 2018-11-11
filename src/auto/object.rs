@@ -3,8 +3,11 @@
 // DO NOT EDIT
 
 use Layer;
+use RelationSet;
+use RelationType;
 use Role;
 use State;
+use StateSet;
 use ffi;
 use glib;
 use glib::StaticType;
@@ -31,11 +34,10 @@ glib_wrapper! {
 }
 
 pub trait AtkObjectExt {
-    //fn add_relationship<P: IsA<Object>>(&self, relationship: /*Ignored*/RelationType, target: &P) -> bool;
+    fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     //fn connect_property_change_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/PropertyChangeHandler) -> u32;
 
-    //#[cfg(any(feature = "v1_12", feature = "dox"))]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
     fn get_description(&self) -> Option<String>;
@@ -65,13 +67,13 @@ pub trait AtkObjectExt {
 
     fn ref_accessible_child(&self, i: i32) -> Option<Object>;
 
-    //fn ref_relation_set(&self) -> /*Ignored*/Option<RelationSet>;
+    fn ref_relation_set(&self) -> Option<RelationSet>;
 
-    //fn ref_state_set(&self) -> /*Ignored*/Option<StateSet>;
+    fn ref_state_set(&self) -> Option<StateSet>;
 
     fn remove_property_change_handler(&self, handler_id: u32);
 
-    //fn remove_relationship<P: IsA<Object>>(&self, relationship: /*Ignored*/RelationType, target: &P) -> bool;
+    fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
     fn set_description(&self, description: &str);
 
@@ -180,15 +182,16 @@ pub trait AtkObjectExt {
 }
 
 impl<O: IsA<Object> + IsA<glib::object::Object>> AtkObjectExt for O {
-    //fn add_relationship<P: IsA<Object>>(&self, relationship: /*Ignored*/RelationType, target: &P) -> bool {
-    //    unsafe { TODO: call ffi::atk_object_add_relationship() }
-    //}
+    fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
+        unsafe {
+            from_glib(ffi::atk_object_add_relationship(self.to_glib_none().0, relationship.to_glib(), target.to_glib_none().0))
+        }
+    }
 
     //fn connect_property_change_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/PropertyChangeHandler) -> u32 {
     //    unsafe { TODO: call ffi::atk_object_connect_property_change_handler() }
     //}
 
-    //#[cfg(any(feature = "v1_12", feature = "dox"))]
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call ffi::atk_object_get_attributes() }
     //}
@@ -270,13 +273,17 @@ impl<O: IsA<Object> + IsA<glib::object::Object>> AtkObjectExt for O {
         }
     }
 
-    //fn ref_relation_set(&self) -> /*Ignored*/Option<RelationSet> {
-    //    unsafe { TODO: call ffi::atk_object_ref_relation_set() }
-    //}
+    fn ref_relation_set(&self) -> Option<RelationSet> {
+        unsafe {
+            from_glib_full(ffi::atk_object_ref_relation_set(self.to_glib_none().0))
+        }
+    }
 
-    //fn ref_state_set(&self) -> /*Ignored*/Option<StateSet> {
-    //    unsafe { TODO: call ffi::atk_object_ref_state_set() }
-    //}
+    fn ref_state_set(&self) -> Option<StateSet> {
+        unsafe {
+            from_glib_full(ffi::atk_object_ref_state_set(self.to_glib_none().0))
+        }
+    }
 
     fn remove_property_change_handler(&self, handler_id: u32) {
         unsafe {
@@ -284,9 +291,11 @@ impl<O: IsA<Object> + IsA<glib::object::Object>> AtkObjectExt for O {
         }
     }
 
-    //fn remove_relationship<P: IsA<Object>>(&self, relationship: /*Ignored*/RelationType, target: &P) -> bool {
-    //    unsafe { TODO: call ffi::atk_object_remove_relationship() }
-    //}
+    fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
+        unsafe {
+            from_glib(ffi::atk_object_remove_relationship(self.to_glib_none().0, relationship.to_glib(), target.to_glib_none().0))
+        }
+    }
 
     fn set_description(&self, description: &str) {
         unsafe {

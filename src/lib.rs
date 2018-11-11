@@ -18,27 +18,12 @@
 extern crate libc;
 #[macro_use]
 extern crate bitflags;
-#[macro_use]
-extern crate lazy_static;
 
 extern crate atk_sys as ffi;
 extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 #[macro_use]
 extern crate glib;
-
-pub use glib::{
-    Cast,
-    Continue,
-    Error,
-    IsA,
-    Object,
-    StaticType,
-    ToValue,
-    Type,
-    TypedValue,
-    Value,
-};
 
 #[macro_use]
 mod rt;
@@ -56,5 +41,12 @@ pub mod prelude;
 
 pub use prelude::*;
 
+pub use attribute::Attribute;
+pub use attribute_set::AttributeSet;
+pub use text_rectangle::TextRectangle;
+
+mod attribute;
+mod attribute_set;
 mod editable_text;
-mod selection;
+mod table;
+mod text_rectangle;
