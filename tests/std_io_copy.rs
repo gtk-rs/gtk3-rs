@@ -7,11 +7,13 @@ use gio::prelude::*;
 #[test]
 fn std_io_copy_with_gio() {
     let bytes = glib::Bytes::from_owned([1, 2, 3]);
-    let stream = gio::MemoryInputStream::new_from_bytes(&bytes);
-    let mut out: Vec<u8> = Vec::new();
+    let mut read = gio::MemoryInputStream::new_from_bytes(&bytes).into_read();
+    let mut write = gio::MemoryOutputStream::new_resizable().into_write();
 
-    let result = io::copy(&mut stream.into_read(), &mut out);
+    let result = io::copy(&mut read, &mut write);
 
+    let out_stream = write.into_output_stream();
+    out_stream.close(None).unwrap();
     assert_eq!(result.unwrap(), 3);
-    assert_eq!(out, [1, 2, 3]);
+    assert_eq!(out_stream.steal_as_bytes().unwrap(), bytes);
 }
