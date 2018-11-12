@@ -11,14 +11,17 @@ use glib::translate::*;
 use glib::Priority;
 use glib_ffi;
 use gobject_ffi;
+use std::io;
 use std::mem;
 use std::ptr;
 use OutputStream;
+use OutputStreamExt;
+use error::to_std_io_result;
 
 #[cfg(feature = "futures")]
 use futures_core::Future;
 
-pub trait OutputStreamExtManual: Sized {
+pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
 
     fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<(usize, Option<Error>), Error>;
@@ -36,6 +39,10 @@ pub trait OutputStreamExtManual: Sized {
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
     ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>>;
+
+    fn into_write(self) -> OutputStreamWrite<Self> {
+        OutputStreamWrite(self)
+    }
 }
 
 impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExtManual for O {
@@ -179,9 +186,30 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
     }
 }
 
+pub struct OutputStreamWrite<T: OutputStreamExt>(T);
+
+impl <T: OutputStreamExt> OutputStreamWrite<T> {
+    pub fn into_output_stream(self) -> T {
+        self.0
+    }
+}
+
+impl <T: OutputStreamExt> io::Write for OutputStreamWrite<T> {
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        let result = self.0.write(buf, None).map(|size| size as usize);
+        to_std_io_result(result)
+    }
+
+    fn flush(&mut self) -> io::Result<()> {
+        let gio_result = self.0.flush(None);
+        to_std_io_result(gio_result)
+    }
+}
+
 #[cfg(all(test,any(feature = "v2_36", feature = "dox")))]
 mod tests {
     use glib::*;
+    use std::io::Write;
     use test_util::run_async;
     use *;
 
@@ -252,5 +280,27 @@ mod tests {
         });
 
         assert_eq!(ret.unwrap(), 3);
+    }
+
+    #[test]
+    fn std_io_write() {
+        let b = Bytes::from_owned(vec![1, 2, 3]);
+        let mut write = MemoryOutputStream::new_resizable().into_write();
+
+        let ret = write.write(&b);
+
+        let stream = write.into_output_stream();
+        stream.close(None).unwrap();
+        assert_eq!(ret.unwrap(), 3);
+        assert_eq!(stream.steal_as_bytes().unwrap(), [1, 2, 3].as_ref());
+    }
+
+    #[test]
+    fn into_output_stream() {
+        let stream = MemoryOutputStream::new_resizable();
+        let stream_clone = stream.clone();
+        let stream = stream.into_write().into_output_stream();
+
+        assert_eq!(stream, stream_clone);
     }
 }
