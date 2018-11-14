@@ -227,7 +227,14 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
                            &abi_cmd, &output).into());
     }
 
-    Ok(str::from_utf8(&output.stdout)?.trim().to_owned())
+    let output = str::from_utf8(&output.stdout)?.trim();
+    if !output.starts_with("###gir test###") ||
+       !output.ends_with("###gir test###") {
+        return Err(format!("command {:?} return invalid output, {:?}",
+                           &abi_cmd, &output).into());
+    }
+
+    Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
@@ -244,42 +251,42 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
-    ("GDK_COLORSPACE_RGB", "0"),
-    ("GDK_INTERP_BILINEAR", "2"),
-    ("GDK_INTERP_HYPER", "3"),
-    ("GDK_INTERP_NEAREST", "0"),
-    ("GDK_INTERP_TILES", "1"),
-    ("GDK_PIXBUF_ALPHA_BILEVEL", "0"),
-    ("GDK_PIXBUF_ALPHA_FULL", "1"),
-    ("GDK_PIXBUF_ERROR_BAD_OPTION", "2"),
-    ("GDK_PIXBUF_ERROR_CORRUPT_IMAGE", "0"),
-    ("GDK_PIXBUF_ERROR_FAILED", "5"),
-    ("GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION", "6"),
-    ("GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY", "1"),
-    ("GDK_PIXBUF_ERROR_UNKNOWN_TYPE", "3"),
-    ("GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION", "4"),
+    ("(gint) GDK_COLORSPACE_RGB", "0"),
+    ("(gint) GDK_INTERP_BILINEAR", "2"),
+    ("(gint) GDK_INTERP_HYPER", "3"),
+    ("(gint) GDK_INTERP_NEAREST", "0"),
+    ("(gint) GDK_INTERP_TILES", "1"),
+    ("(gint) GDK_PIXBUF_ALPHA_BILEVEL", "0"),
+    ("(gint) GDK_PIXBUF_ALPHA_FULL", "1"),
+    ("(gint) GDK_PIXBUF_ERROR_BAD_OPTION", "2"),
+    ("(gint) GDK_PIXBUF_ERROR_CORRUPT_IMAGE", "0"),
+    ("(gint) GDK_PIXBUF_ERROR_FAILED", "5"),
+    ("(gint) GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION", "6"),
+    ("(gint) GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY", "1"),
+    ("(gint) GDK_PIXBUF_ERROR_UNKNOWN_TYPE", "3"),
+    ("(gint) GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION", "4"),
     ("GDK_PIXBUF_MAGIC_NUMBER", "1197763408"),
-    ("GDK_PIXBUF_ROTATE_CLOCKWISE", "270"),
-    ("GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE", "90"),
-    ("GDK_PIXBUF_ROTATE_NONE", "0"),
-    ("GDK_PIXBUF_ROTATE_UPSIDEDOWN", "180"),
-    ("GDK_PIXDATA_COLOR_TYPE_MASK", "255"),
-    ("GDK_PIXDATA_COLOR_TYPE_RGB", "1"),
-    ("GDK_PIXDATA_COLOR_TYPE_RGBA", "2"),
-    ("GDK_PIXDATA_DUMP_CONST", "1024"),
-    ("GDK_PIXDATA_DUMP_CTYPES", "256"),
-    ("GDK_PIXDATA_DUMP_GTYPES", "0"),
-    ("GDK_PIXDATA_DUMP_MACROS", "2"),
-    ("GDK_PIXDATA_DUMP_PIXDATA_STREAM", "0"),
-    ("GDK_PIXDATA_DUMP_PIXDATA_STRUCT", "1"),
-    ("GDK_PIXDATA_DUMP_RLE_DECODER", "65536"),
-    ("GDK_PIXDATA_DUMP_STATIC", "512"),
-    ("GDK_PIXDATA_ENCODING_MASK", "251658240"),
-    ("GDK_PIXDATA_ENCODING_RAW", "16777216"),
-    ("GDK_PIXDATA_ENCODING_RLE", "33554432"),
+    ("(gint) GDK_PIXBUF_ROTATE_CLOCKWISE", "270"),
+    ("(gint) GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE", "90"),
+    ("(gint) GDK_PIXBUF_ROTATE_NONE", "0"),
+    ("(gint) GDK_PIXBUF_ROTATE_UPSIDEDOWN", "180"),
+    ("(guint) GDK_PIXDATA_COLOR_TYPE_MASK", "255"),
+    ("(guint) GDK_PIXDATA_COLOR_TYPE_RGB", "1"),
+    ("(guint) GDK_PIXDATA_COLOR_TYPE_RGBA", "2"),
+    ("(guint) GDK_PIXDATA_DUMP_CONST", "1024"),
+    ("(guint) GDK_PIXDATA_DUMP_CTYPES", "256"),
+    ("(guint) GDK_PIXDATA_DUMP_GTYPES", "0"),
+    ("(guint) GDK_PIXDATA_DUMP_MACROS", "2"),
+    ("(guint) GDK_PIXDATA_DUMP_PIXDATA_STREAM", "0"),
+    ("(guint) GDK_PIXDATA_DUMP_PIXDATA_STRUCT", "1"),
+    ("(guint) GDK_PIXDATA_DUMP_RLE_DECODER", "65536"),
+    ("(guint) GDK_PIXDATA_DUMP_STATIC", "512"),
+    ("(guint) GDK_PIXDATA_ENCODING_MASK", "251658240"),
+    ("(guint) GDK_PIXDATA_ENCODING_RAW", "16777216"),
+    ("(guint) GDK_PIXDATA_ENCODING_RLE", "33554432"),
     ("GDK_PIXDATA_HEADER_LENGTH", "24"),
-    ("GDK_PIXDATA_SAMPLE_WIDTH_8", "65536"),
-    ("GDK_PIXDATA_SAMPLE_WIDTH_MASK", "983040"),
+    ("(guint) GDK_PIXDATA_SAMPLE_WIDTH_8", "65536"),
+    ("(guint) GDK_PIXDATA_SAMPLE_WIDTH_MASK", "983040"),
 ];
 
 
