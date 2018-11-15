@@ -35,9 +35,6 @@ mod rt;
 #[cfg_attr(feature = "cargo-clippy", allow(wrong_self_convention))]
 mod auto;
 
-#[doc(hidden)]
-pub use glib::{Cast, Continue, Error, IsA, StaticType, ToValue, Type, TypedValue};
-
 pub use auto::*;
 
 pub mod prelude;

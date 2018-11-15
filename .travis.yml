@@ -57,7 +57,7 @@ script:
     rustup component add clippy-preview;
     cargo clippy;
     fi
-  - cargo build --features v2_v12
+  - cargo build --features v2_10
   - cargo test --features embed-lgpl-docs --jobs 1
   - cargo doc --features "dox"
   # catch any sneaked in lgpl docs

@@ -4,22 +4,16 @@
 
 use Object;
 use ffi;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use glib;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use glib::object::Downcast;
 use glib::object::IsA;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use glib::signal::connect;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::mem;
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 use std::mem::transmute;
 use std::ptr;
 
@@ -32,36 +26,26 @@ glib_wrapper! {
 }
 
 pub trait AtkWindowExt {
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -70,7 +54,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -79,7 +62,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -88,7 +70,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -97,7 +78,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -106,7 +86,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -115,7 +94,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -124,7 +102,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -133,7 +110,6 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_2", feature = "dox"))]
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
@@ -143,63 +119,54 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     }
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn activate_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn create_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn deactivate_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn destroy_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn maximize_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn minimize_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn move_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn resize_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Window::from_glib_borrow(this).downcast_unchecked())
 }
 
-#[cfg(any(feature = "v2_2", feature = "dox"))]
 unsafe extern "C" fn restore_trampoline<P>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
