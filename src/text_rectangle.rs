@@ -45,6 +45,7 @@ impl fmt::Display for TextRectangle {
 #[doc(hidden)]
 impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
     fn from_glib(value: ffi::AtkTextRectangle) -> Self {
+        skip_assert_initialized!();
         TextRectangle {
             x: value.x,
             y: value.y,

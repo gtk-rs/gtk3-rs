@@ -23,6 +23,7 @@ impl fmt::Display for Attribute {
 #[doc(hidden)]
 impl FromGlib<ffi::AtkAttribute> for Attribute {
     fn from_glib(value: ffi::AtkAttribute) -> Self {
+        skip_assert_initialized!();
         unsafe {
             Attribute {
                 name: from_glib_full(value.name),
