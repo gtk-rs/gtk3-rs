@@ -14,10 +14,10 @@ matrix:
       rust: beta
       env: GTK=3.22.30
     - os: linux
-      rust: stable
+      rust: 1.28.0 # to check gstreamer compatibility
       env: GTK=3.4
     - os: linux
-      rust: stable
+      rust: 1.28.0 # to check gstreamer compatibility
       env: GTK=3.22.30
     - os: osx
       rust: nightly
@@ -57,6 +57,7 @@ script:
     rustup component add clippy-preview;
     cargo clippy;
     fi
+  - cargo build --features v2_v12
   - cargo test --features embed-lgpl-docs --jobs 1
   - cargo doc --features "dox"
   # catch any sneaked in lgpl docs
