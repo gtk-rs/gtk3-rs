@@ -64,6 +64,13 @@ use enums::{
     Operator,
 };
 
+#[cfg(any(feature = "pdf", feature = "dox"))]
+use enums::PdfVersion;
+#[cfg(any(feature = "svg", feature = "dox"))]
+use enums::SvgVersion;
+#[cfg(any(feature = "ps", feature = "dox"))]
+use enums::PsLevel;
+
 macro_rules! debug_impl {
     ($name:ty) => {
         impl ::std::fmt::Debug for $name {
@@ -564,6 +571,57 @@ extern "C" {
     pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
     #[cfg(any(feature = "png", feature = "dox"))]
     pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
+
+    // CAIRO PDF
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_create (filename: *const c_char,
+                                     width_in_points: c_double,
+                                     height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_create_for_stream (write_func: cairo_write_func_t,
+                                                closure: *mut c_void,
+                                                width_in_points: c_double,
+                                                height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: PdfVersion);
+    // CAIRO SVG
+    #[cfg(any(feature = "svg", feature = "dox"))]
+    pub fn cairo_svg_surface_create (filename: *const c_char,
+                                     width_in_points: c_double,
+                                     height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "svg", feature = "dox"))]
+    pub fn cairo_svg_surface_create_for_stream (write_func: cairo_write_func_t,
+                                                closure: *mut c_void,
+                                                width_in_points: c_double,
+                                                height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "svg", feature = "dox"))]
+    pub fn cairo_svg_surface_restrict_to_version (surface: *mut cairo_surface_t, version: SvgVersion);
+    // CAIRO PS
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_create (filename: *const c_char,
+                                    width_in_points: c_double,
+                                    height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_create_for_stream (write_func: cairo_write_func_t,
+                                               closure: *mut c_void,
+                                               width_in_points: c_double,
+                                               height_in_points: c_double) -> *mut cairo_surface_t;
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_restrict_to_level (surface: *mut cairo_surface_t, version: PsLevel);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_set_eps (surface: *mut cairo_surface_t, eps: cairo_bool_t);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_get_eps (surface: *mut cairo_surface_t) -> cairo_bool_t;
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_set_size (surface: *mut cairo_surface_t,
+                                      width_in_points: f64,
+                                      height_in_points: f64);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_dsc_begin_setup (surface: *mut cairo_surface_t);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_dsc_begin_page_setup (surface: *mut cairo_surface_t);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_surface_dsc_comment (surface: *mut cairo_surface_t, comment: *const c_char);
 
     // CAIRO XCB
     #[cfg(any(feature = "xcb", feature = "dox"))]

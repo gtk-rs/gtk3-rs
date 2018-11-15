@@ -144,8 +144,6 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
-pub use pdf_surface::PDFSurface;
-
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
     XCBConnection,
@@ -163,7 +161,6 @@ pub mod prelude;
 mod font;
 mod context;
 mod error;
-mod pdf_surface;
 mod image_surface;
 #[cfg(any(feature = "png", feature = "dox"))]
 mod image_surface_png;
@@ -175,6 +172,15 @@ mod surface;
 mod matrices;
 #[cfg(any(feature = "xcb", feature = "dox"))]
 mod xcb;
+
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+mod support;
+#[cfg(any(feature = "pdf", feature = "dox"))]
+pub mod pdf;
+#[cfg(any(feature = "svg", feature = "dox"))]
+pub mod svg;
+#[cfg(any(feature = "ps", feature = "dox"))]
+pub mod ps;
 
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 mod quartz_surface;
