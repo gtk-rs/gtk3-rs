@@ -430,6 +430,28 @@ pub enum RegionOverlap {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(RegionOverlap, ::gobject::cairo_gobject_region_overlap_get_type);
 
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PdfVersion {
+    _1_4,
+    _1_5,
+}
+#[cfg(any(feature = "svg", feature = "dox"))]
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SvgVersion {
+    _1_1,
+    _1_2,
+}
+#[cfg(any(feature = "ps", feature = "dox"))]
+#[repr(C)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PsLevel {
+    _2,
+    _3,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
