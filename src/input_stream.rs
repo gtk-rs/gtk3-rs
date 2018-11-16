@@ -12,9 +12,11 @@ use glib::translate::*;
 use glib::Priority;
 use glib_ffi;
 use gobject_ffi;
+use std::io;
 use std::mem;
 use std::ptr;
 use InputStream;
+use error::to_std_io_result;
 
 #[cfg(feature = "futures")]
 use futures_core::Future;
@@ -39,6 +41,10 @@ pub trait InputStreamExtManual: Sized {
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
     ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>>;
+
+    fn into_read(self) -> InputStreamRead<Self> {
+        InputStreamRead(self)
+    }
 }
 
 impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtManual for O {
@@ -204,9 +210,25 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
     }
 }
 
+pub struct InputStreamRead<T: InputStreamExtManual>(T);
+
+impl <T: InputStreamExtManual> InputStreamRead<T> {
+    pub fn into_input_stream(self) -> T {
+        self.0
+    }
+}
+
+impl <T: InputStreamExtManual> io::Read for InputStreamRead<T> {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        let gio_result = self.0.read(buf, None);
+        to_std_io_result(gio_result)
+    }
+}
+
 #[cfg(all(test,any(feature = "v2_34", feature = "dox")))]
 mod tests {
     use glib::*;
+    use std::io::Read;
     use test_util::run_async;
     use *;
 
@@ -312,5 +334,29 @@ mod tests {
 
         let skipped = ret.unwrap();
         assert_eq!(skipped, 3);
+    }
+
+    #[test]
+    fn std_io_read() {
+        let b = Bytes::from_owned(vec![1, 2, 3]);
+        let mut read = MemoryInputStream::new_from_bytes(&b).into_read();
+        let mut buf = [0u8; 10];
+
+        let ret = read.read(&mut buf);
+
+        assert_eq!(ret.unwrap(), 3);
+        assert_eq!(buf[0], 1);
+        assert_eq!(buf[1], 2);
+        assert_eq!(buf[2], 3);
+    }
+
+    #[test]
+    fn into_input_stream() {
+        let b = Bytes::from_owned(vec![1, 2, 3]);
+        let stream = MemoryInputStream::new_from_bytes(&b);
+        let stream_clone = stream.clone();
+        let stream = stream.into_read().into_input_stream();
+
+        assert_eq!(stream, stream_clone);
     }
 }

@@ -31,6 +31,7 @@ mod application;
 mod converter;
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
+mod error;
 mod file;
 mod flags;
 mod input_stream;
