@@ -9,6 +9,7 @@ use glib_ffi;
 use gobject_ffi;
 use pango;
 use pango_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -64,5 +65,11 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         unsafe {
             ffi::pango_cairo_font_map_set_resolution(self.to_glib_none().0, dpi);
         }
+    }
+}
+
+impl fmt::Display for FontMap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontMap")
     }
 }
