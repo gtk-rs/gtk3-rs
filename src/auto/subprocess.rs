@@ -26,6 +26,7 @@ use std;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -392,5 +393,11 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
 
             cancellable
         })
+    }
+}
+
+impl fmt::Display for Subprocess {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Subprocess")
     }
 }

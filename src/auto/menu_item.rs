@@ -11,6 +11,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -180,5 +181,11 @@ impl<O: IsA<MenuItem>> MenuItemExt for O {
         unsafe {
             ffi::g_menu_item_set_submenu(self.to_glib_none().0, submenu.0);
         }
+    }
+}
+
+impl fmt::Display for MenuItem {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MenuItem")
     }
 }

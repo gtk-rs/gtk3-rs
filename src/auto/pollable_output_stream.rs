@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -51,5 +52,11 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
             let ret = ffi::g_pollable_output_stream_write_nonblocking(self.to_glib_none().0, buffer.to_glib_none().0, count, cancellable.0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
+    }
+}
+
+impl fmt::Display for PollableOutputStream {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PollableOutputStream")
     }
 }

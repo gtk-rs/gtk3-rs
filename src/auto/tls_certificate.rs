@@ -14,6 +14,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -111,5 +112,11 @@ impl<O: IsA<TlsCertificate> + IsA<glib::object::Object>> TlsCertificateExt for O
             gobject_ffi::g_object_get_property(self.to_glib_none().0, "certificate-pem".to_glib_none().0, value.to_glib_none_mut().0);
             value.get()
         }
+    }
+}
+
+impl fmt::Display for TlsCertificate {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TlsCertificate")
     }
 }

@@ -16,6 +16,7 @@ use glib_ffi;
 use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -105,5 +106,11 @@ impl<O: IsA<Proxy> + IsA<glib::object::Object> + Clone + 'static> ProxyExt for O
         unsafe {
             from_glib(ffi::g_proxy_supports_hostname(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Proxy {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Proxy")
     }
 }

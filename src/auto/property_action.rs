@@ -21,6 +21,7 @@ use glib_ffi;
 use gobject_ffi;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use std::mem::transmute;
@@ -133,4 +134,10 @@ unsafe extern "C" fn notify_state_type_trampoline<P>(this: *mut ffi::GPropertyAc
 where P: IsA<PropertyAction> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&PropertyAction::from_glib_borrow(this).downcast_unchecked())
+}
+
+impl fmt::Display for PropertyAction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PropertyAction")
+    }
 }

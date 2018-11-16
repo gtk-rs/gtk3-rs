@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -46,5 +47,11 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_to_string(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for SocketConnectable {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SocketConnectable")
     }
 }

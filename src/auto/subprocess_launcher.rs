@@ -14,6 +14,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -161,5 +162,11 @@ impl<O: IsA<SubprocessLauncher>> SubprocessLauncherExt for O {
         unsafe {
             ffi::g_subprocess_launcher_unsetenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0);
         }
+    }
+}
+
+impl fmt::Display for SubprocessLauncher {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SubprocessLauncher")
     }
 }

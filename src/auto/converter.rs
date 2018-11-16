@@ -7,6 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -27,5 +28,11 @@ impl<O: IsA<Converter>> ConverterExt for O {
         unsafe {
             ffi::g_converter_reset(self.to_glib_none().0);
         }
+    }
+}
+
+impl fmt::Display for Converter {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Converter")
     }
 }

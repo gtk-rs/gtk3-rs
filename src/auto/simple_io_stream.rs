@@ -13,6 +13,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -30,5 +31,11 @@ impl SimpleIOStream {
         unsafe {
             IOStream::from_glib_full(ffi::g_simple_io_stream_new(input_stream.to_glib_none().0, output_stream.to_glib_none().0)).downcast_unchecked()
         }
+    }
+}
+
+impl fmt::Display for SimpleIOStream {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SimpleIOStream")
     }
 }

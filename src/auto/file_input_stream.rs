@@ -17,6 +17,7 @@ use glib_ffi;
 use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -89,5 +90,11 @@ impl<O: IsA<FileInputStream> + IsA<glib::object::Object> + Clone + 'static> File
 
             cancellable
         })
+    }
+}
+
+impl fmt::Display for FileInputStream {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FileInputStream")
     }
 }

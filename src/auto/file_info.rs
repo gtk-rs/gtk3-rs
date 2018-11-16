@@ -11,6 +11,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -523,5 +524,11 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         unsafe {
             ffi::g_file_info_unset_attribute_mask(self.to_glib_none().0);
         }
+    }
+}
+
+impl fmt::Display for FileInfo {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FileInfo")
     }
 }

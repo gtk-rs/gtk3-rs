@@ -15,6 +15,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -276,4 +277,10 @@ unsafe extern "C" fn volume_removed_trampoline<P>(this: *mut ffi::GVolumeMonitor
 where P: IsA<VolumeMonitor> {
     let f: &&(Fn(&P, &Volume) + 'static) = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(volume))
+}
+
+impl fmt::Display for VolumeMonitor {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "VolumeMonitor")
+    }
 }

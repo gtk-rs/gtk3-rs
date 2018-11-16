@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -73,5 +74,11 @@ impl<O: IsA<Icon>> IconExt for O {
         unsafe {
             from_glib_full(ffi::g_icon_to_string(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Icon {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Icon")
     }
 }

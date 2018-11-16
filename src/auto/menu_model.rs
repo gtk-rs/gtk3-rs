@@ -15,6 +15,7 @@ use glib_ffi;
 use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -109,4 +110,10 @@ unsafe extern "C" fn items_changed_trampoline<P>(this: *mut ffi::GMenuModel, pos
 where P: IsA<MenuModel> {
     let f: &&(Fn(&P, i32, i32, i32) + 'static) = transmute(f);
     f(&MenuModel::from_glib_borrow(this).downcast_unchecked(), position, removed, added)
+}
+
+impl fmt::Display for MenuModel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MenuModel")
+    }
 }
