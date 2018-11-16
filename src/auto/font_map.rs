@@ -13,6 +13,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -89,5 +90,11 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         unsafe {
             from_glib_full(ffi::pango_font_map_load_fontset(self.to_glib_none().0, context.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
         }
+    }
+}
+
+impl fmt::Display for FontMap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontMap")
     }
 }

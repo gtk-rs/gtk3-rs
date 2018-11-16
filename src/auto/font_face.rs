@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -55,5 +56,11 @@ impl<O: IsA<FontFace>> FontFaceExt for O {
             ffi::pango_font_face_list_sizes(self.to_glib_none().0, &mut sizes, &mut n_sizes);
             FromGlibContainer::from_glib_full_num(sizes, n_sizes as usize)
         }
+    }
+}
+
+impl fmt::Display for FontFace {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontFace")
     }
 }
