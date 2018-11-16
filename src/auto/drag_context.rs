@@ -25,6 +25,7 @@ use gobject_ffi;
 use libc;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::mem::transmute;
@@ -218,4 +219,10 @@ unsafe extern "C" fn drop_performed_trampoline<P>(this: *mut ffi::GdkDragContext
 where P: IsA<DragContext> {
     let f: &&(Fn(&P, i32) + 'static) = transmute(f);
     f(&DragContext::from_glib_borrow(this).downcast_unchecked(), time)
+}
+
+impl fmt::Display for DragContext {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DragContext")
+    }
 }

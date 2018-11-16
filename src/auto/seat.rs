@@ -24,6 +24,7 @@ use glib_ffi;
 use gobject_ffi;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::mem::transmute;
@@ -183,4 +184,10 @@ unsafe extern "C" fn tool_removed_trampoline<P>(this: *mut ffi::GdkSeat, tool: *
 where P: IsA<Seat> {
     let f: &&(Fn(&P, &DeviceTool) + 'static) = transmute(f);
     f(&Seat::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(tool))
+}
+
+impl fmt::Display for Seat {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Seat")
+    }
 }

@@ -13,6 +13,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -201,5 +202,11 @@ impl<O: IsA<GLContext>> GLContextExt for O {
         unsafe {
             ffi::gdk_gl_context_set_use_es(self.to_glib_none().0, use_es);
         }
+    }
+}
+
+impl fmt::Display for GLContext {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "GLContext")
     }
 }

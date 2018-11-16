@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -167,5 +168,11 @@ impl<O: IsA<Visual>> VisualExt for O {
         unsafe {
             from_glib(ffi::gdk_visual_get_visual_type(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Visual {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Visual")
     }
 }
