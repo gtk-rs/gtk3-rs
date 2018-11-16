@@ -13,6 +13,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
+use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
@@ -20,6 +21,15 @@ pub enum Colorspace {
     Rgb,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Colorspace {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Colorspace::{}", match *self {
+            Colorspace::Rgb => "Rgb",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -77,6 +87,18 @@ pub enum InterpType {
     Hyper,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for InterpType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "InterpType::{}", match *self {
+            InterpType::Nearest => "Nearest",
+            InterpType::Tiles => "Tiles",
+            InterpType::Bilinear => "Bilinear",
+            InterpType::Hyper => "Hyper",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -140,6 +162,16 @@ pub enum PixbufAlphaMode {
     __Unknown(i32),
 }
 
+impl fmt::Display for PixbufAlphaMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PixbufAlphaMode::{}", match *self {
+            PixbufAlphaMode::Bilevel => "Bilevel",
+            PixbufAlphaMode::Full => "Full",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for PixbufAlphaMode {
     type GlibType = ffi::GdkPixbufAlphaMode;
@@ -200,6 +232,21 @@ pub enum PixbufError {
     IncompleteAnimation,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for PixbufError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PixbufError::{}", match *self {
+            PixbufError::CorruptImage => "CorruptImage",
+            PixbufError::InsufficientMemory => "InsufficientMemory",
+            PixbufError::BadOption => "BadOption",
+            PixbufError::UnknownType => "UnknownType",
+            PixbufError::UnsupportedOperation => "UnsupportedOperation",
+            PixbufError::Failed => "Failed",
+            PixbufError::IncompleteAnimation => "IncompleteAnimation",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -292,6 +339,18 @@ pub enum PixbufRotation {
     Clockwise,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for PixbufRotation {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PixbufRotation::{}", match *self {
+            PixbufRotation::None => "None",
+            PixbufRotation::Counterclockwise => "Counterclockwise",
+            PixbufRotation::Upsidedown => "Upsidedown",
+            PixbufRotation::Clockwise => "Clockwise",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
