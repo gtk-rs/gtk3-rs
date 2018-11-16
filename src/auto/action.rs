@@ -7,6 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -75,5 +76,11 @@ impl<O: IsA<Action>> AtkActionExt for O {
         unsafe {
             from_glib(ffi::atk_action_set_description(self.to_glib_none().0, i, desc.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Action {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Action")
     }
 }

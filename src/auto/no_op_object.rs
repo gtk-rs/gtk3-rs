@@ -22,6 +22,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -39,5 +40,11 @@ impl NoOpObject {
         unsafe {
             Object::from_glib_full(ffi::atk_no_op_object_new(obj.to_glib_none().0)).downcast_unchecked()
         }
+    }
+}
+
+impl fmt::Display for NoOpObject {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "NoOpObject")
     }
 }
