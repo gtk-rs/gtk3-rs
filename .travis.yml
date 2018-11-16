@@ -14,10 +14,10 @@ matrix:
       rust: beta
       env: GTK=3.18
     - os: linux
-      rust: stable
+      rust: 1.28.0
       env: GTK=3.4
     - os: linux
-      rust: stable
+      rust: 1.28.0
       env: GTK=3.18
     - os: osx
       rust: nightly
