@@ -13,6 +13,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -100,4 +101,10 @@ unsafe extern "C" fn notify_default_display_trampoline<P>(this: *mut ffi::GdkDis
 where P: IsA<DisplayManager> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DisplayManager::from_glib_borrow(this).downcast_unchecked())
+}
+
+impl fmt::Display for DisplayManager {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DisplayManager")
+    }
 }

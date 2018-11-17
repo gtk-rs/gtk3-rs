@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -62,5 +63,11 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
         unsafe {
             ffi::gdk_device_pad_get_n_groups(self.to_glib_none().0)
         }
+    }
+}
+
+impl fmt::Display for DevicePad {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DevicePad")
     }
 }

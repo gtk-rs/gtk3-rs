@@ -13,6 +13,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
+use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
@@ -30,6 +31,25 @@ pub enum AxisUse {
     Last,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for AxisUse {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AxisUse::{}", match *self {
+            AxisUse::Ignore => "Ignore",
+            AxisUse::X => "X",
+            AxisUse::Y => "Y",
+            AxisUse::Pressure => "Pressure",
+            AxisUse::Xtilt => "Xtilt",
+            AxisUse::Ytilt => "Ytilt",
+            AxisUse::Wheel => "Wheel",
+            AxisUse::Distance => "Distance",
+            AxisUse::Rotation => "Rotation",
+            AxisUse::Slider => "Slider",
+            AxisUse::Last => "Last",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -108,6 +128,16 @@ pub enum ByteOrder {
     __Unknown(i32),
 }
 
+impl fmt::Display for ByteOrder {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ByteOrder::{}", match *self {
+            ByteOrder::LsbFirst => "LsbFirst",
+            ByteOrder::MsbFirst => "MsbFirst",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ByteOrder {
     type GlibType = ffi::GdkByteOrder;
@@ -171,6 +201,23 @@ pub enum CrossingMode {
     DeviceSwitch,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for CrossingMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CrossingMode::{}", match *self {
+            CrossingMode::Normal => "Normal",
+            CrossingMode::Grab => "Grab",
+            CrossingMode::Ungrab => "Ungrab",
+            CrossingMode::GtkGrab => "GtkGrab",
+            CrossingMode::GtkUngrab => "GtkUngrab",
+            CrossingMode::StateChanged => "StateChanged",
+            CrossingMode::TouchBegin => "TouchBegin",
+            CrossingMode::TouchEnd => "TouchEnd",
+            CrossingMode::DeviceSwitch => "DeviceSwitch",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -321,6 +368,94 @@ pub enum CursorType {
     CursorIsPixmap,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for CursorType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CursorType::{}", match *self {
+            CursorType::XCursor => "XCursor",
+            CursorType::Arrow => "Arrow",
+            CursorType::BasedArrowDown => "BasedArrowDown",
+            CursorType::BasedArrowUp => "BasedArrowUp",
+            CursorType::Boat => "Boat",
+            CursorType::Bogosity => "Bogosity",
+            CursorType::BottomLeftCorner => "BottomLeftCorner",
+            CursorType::BottomRightCorner => "BottomRightCorner",
+            CursorType::BottomSide => "BottomSide",
+            CursorType::BottomTee => "BottomTee",
+            CursorType::BoxSpiral => "BoxSpiral",
+            CursorType::CenterPtr => "CenterPtr",
+            CursorType::Circle => "Circle",
+            CursorType::Clock => "Clock",
+            CursorType::CoffeeMug => "CoffeeMug",
+            CursorType::Cross => "Cross",
+            CursorType::CrossReverse => "CrossReverse",
+            CursorType::Crosshair => "Crosshair",
+            CursorType::DiamondCross => "DiamondCross",
+            CursorType::Dot => "Dot",
+            CursorType::Dotbox => "Dotbox",
+            CursorType::DoubleArrow => "DoubleArrow",
+            CursorType::DraftLarge => "DraftLarge",
+            CursorType::DraftSmall => "DraftSmall",
+            CursorType::DrapedBox => "DrapedBox",
+            CursorType::Exchange => "Exchange",
+            CursorType::Fleur => "Fleur",
+            CursorType::Gobbler => "Gobbler",
+            CursorType::Gumby => "Gumby",
+            CursorType::Hand1 => "Hand1",
+            CursorType::Hand2 => "Hand2",
+            CursorType::Heart => "Heart",
+            CursorType::Icon => "Icon",
+            CursorType::IronCross => "IronCross",
+            CursorType::LeftPtr => "LeftPtr",
+            CursorType::LeftSide => "LeftSide",
+            CursorType::LeftTee => "LeftTee",
+            CursorType::Leftbutton => "Leftbutton",
+            CursorType::LlAngle => "LlAngle",
+            CursorType::LrAngle => "LrAngle",
+            CursorType::Man => "Man",
+            CursorType::Middlebutton => "Middlebutton",
+            CursorType::Mouse => "Mouse",
+            CursorType::Pencil => "Pencil",
+            CursorType::Pirate => "Pirate",
+            CursorType::Plus => "Plus",
+            CursorType::QuestionArrow => "QuestionArrow",
+            CursorType::RightPtr => "RightPtr",
+            CursorType::RightSide => "RightSide",
+            CursorType::RightTee => "RightTee",
+            CursorType::Rightbutton => "Rightbutton",
+            CursorType::RtlLogo => "RtlLogo",
+            CursorType::Sailboat => "Sailboat",
+            CursorType::SbDownArrow => "SbDownArrow",
+            CursorType::SbHDoubleArrow => "SbHDoubleArrow",
+            CursorType::SbLeftArrow => "SbLeftArrow",
+            CursorType::SbRightArrow => "SbRightArrow",
+            CursorType::SbUpArrow => "SbUpArrow",
+            CursorType::SbVDoubleArrow => "SbVDoubleArrow",
+            CursorType::Shuttle => "Shuttle",
+            CursorType::Sizing => "Sizing",
+            CursorType::Spider => "Spider",
+            CursorType::Spraycan => "Spraycan",
+            CursorType::Star => "Star",
+            CursorType::Target => "Target",
+            CursorType::Tcross => "Tcross",
+            CursorType::TopLeftArrow => "TopLeftArrow",
+            CursorType::TopLeftCorner => "TopLeftCorner",
+            CursorType::TopRightCorner => "TopRightCorner",
+            CursorType::TopSide => "TopSide",
+            CursorType::TopTee => "TopTee",
+            CursorType::Trek => "Trek",
+            CursorType::UlAngle => "UlAngle",
+            CursorType::Umbrella => "Umbrella",
+            CursorType::UrAngle => "UrAngle",
+            CursorType::Watch => "Watch",
+            CursorType::Xterm => "Xterm",
+            CursorType::LastCursor => "LastCursor",
+            CursorType::BlankCursor => "BlankCursor",
+            CursorType::CursorIsPixmap => "CursorIsPixmap",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -538,6 +673,17 @@ pub enum DevicePadFeature {
     __Unknown(i32),
 }
 
+impl fmt::Display for DevicePadFeature {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DevicePadFeature::{}", match *self {
+            DevicePadFeature::Button => "Button",
+            DevicePadFeature::Ring => "Ring",
+            DevicePadFeature::Strip => "Strip",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DevicePadFeature {
     type GlibType = ffi::GdkDevicePadFeature;
@@ -603,6 +749,23 @@ pub enum DeviceToolType {
     Lens,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+impl fmt::Display for DeviceToolType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DeviceToolType::{}", match *self {
+            DeviceToolType::Unknown => "Unknown",
+            DeviceToolType::Pen => "Pen",
+            DeviceToolType::Eraser => "Eraser",
+            DeviceToolType::Brush => "Brush",
+            DeviceToolType::Pencil => "Pencil",
+            DeviceToolType::Airbrush => "Airbrush",
+            DeviceToolType::Mouse => "Mouse",
+            DeviceToolType::Lens => "Lens",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -682,6 +845,17 @@ pub enum DeviceType {
     __Unknown(i32),
 }
 
+impl fmt::Display for DeviceType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DeviceType::{}", match *self {
+            DeviceType::Master => "Master",
+            DeviceType::Slave => "Slave",
+            DeviceType::Floating => "Floating",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for DeviceType {
     type GlibType = ffi::GdkDeviceType;
@@ -742,6 +916,18 @@ pub enum DragCancelReason {
     Error,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+impl fmt::Display for DragCancelReason {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DragCancelReason::{}", match *self {
+            DragCancelReason::NoTarget => "NoTarget",
+            DragCancelReason::UserCancelled => "UserCancelled",
+            DragCancelReason::Error => "Error",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -814,6 +1000,22 @@ pub enum DragProtocol {
     Wayland,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for DragProtocol {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DragProtocol::{}", match *self {
+            DragProtocol::None => "None",
+            DragProtocol::Motif => "Motif",
+            DragProtocol::Xdnd => "Xdnd",
+            DragProtocol::Rootwin => "Rootwin",
+            DragProtocol::Win32Dropfiles => "Win32Dropfiles",
+            DragProtocol::Ole2 => "Ole2",
+            DragProtocol::Local => "Local",
+            DragProtocol::Wayland => "Wayland",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -932,6 +1134,64 @@ pub enum EventType {
     PadGroupMode,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for EventType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "EventType::{}", match *self {
+            EventType::Nothing => "Nothing",
+            EventType::Delete => "Delete",
+            EventType::Destroy => "Destroy",
+            EventType::Expose => "Expose",
+            EventType::MotionNotify => "MotionNotify",
+            EventType::ButtonPress => "ButtonPress",
+            EventType::DoubleButtonPress => "DoubleButtonPress",
+            EventType::TripleButtonPress => "TripleButtonPress",
+            EventType::ButtonRelease => "ButtonRelease",
+            EventType::KeyPress => "KeyPress",
+            EventType::KeyRelease => "KeyRelease",
+            EventType::EnterNotify => "EnterNotify",
+            EventType::LeaveNotify => "LeaveNotify",
+            EventType::FocusChange => "FocusChange",
+            EventType::Configure => "Configure",
+            EventType::Map => "Map",
+            EventType::Unmap => "Unmap",
+            EventType::PropertyNotify => "PropertyNotify",
+            EventType::SelectionClear => "SelectionClear",
+            EventType::SelectionRequest => "SelectionRequest",
+            EventType::SelectionNotify => "SelectionNotify",
+            EventType::ProximityIn => "ProximityIn",
+            EventType::ProximityOut => "ProximityOut",
+            EventType::DragEnter => "DragEnter",
+            EventType::DragLeave => "DragLeave",
+            EventType::DragMotion => "DragMotion",
+            EventType::DragStatus => "DragStatus",
+            EventType::DropStart => "DropStart",
+            EventType::DropFinished => "DropFinished",
+            EventType::ClientEvent => "ClientEvent",
+            EventType::VisibilityNotify => "VisibilityNotify",
+            EventType::Scroll => "Scroll",
+            EventType::WindowState => "WindowState",
+            EventType::Setting => "Setting",
+            EventType::OwnerChange => "OwnerChange",
+            EventType::GrabBroken => "GrabBroken",
+            EventType::Damage => "Damage",
+            EventType::TouchBegin => "TouchBegin",
+            EventType::TouchUpdate => "TouchUpdate",
+            EventType::TouchEnd => "TouchEnd",
+            EventType::TouchCancel => "TouchCancel",
+            #[cfg(any(feature = "v3_18", feature = "dox"))]
+            EventType::TouchpadSwipe => "TouchpadSwipe",
+            #[cfg(any(feature = "v3_18", feature = "dox"))]
+            EventType::TouchpadPinch => "TouchpadPinch",
+            EventType::PadButtonPress => "PadButtonPress",
+            EventType::PadButtonRelease => "PadButtonRelease",
+            EventType::PadRing => "PadRing",
+            EventType::PadStrip => "PadStrip",
+            EventType::PadGroupMode => "PadGroupMode",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1090,6 +1350,17 @@ pub enum FullscreenMode {
 }
 
 #[cfg(any(feature = "v3_8", feature = "dox"))]
+impl fmt::Display for FullscreenMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FullscreenMode::{}", match *self {
+            FullscreenMode::CurrentMonitor => "CurrentMonitor",
+            FullscreenMode::AllMonitors => "AllMonitors",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for FullscreenMode {
     type GlibType = ffi::GdkFullscreenMode;
@@ -1153,6 +1424,18 @@ pub enum GLError {
     UnsupportedProfile,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+impl fmt::Display for GLError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "GLError::{}", match *self {
+            GLError::NotAvailable => "NotAvailable",
+            GLError::UnsupportedFormat => "UnsupportedFormat",
+            GLError::UnsupportedProfile => "UnsupportedProfile",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -1244,6 +1527,17 @@ pub enum GrabOwnership {
     __Unknown(i32),
 }
 
+impl fmt::Display for GrabOwnership {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "GrabOwnership::{}", match *self {
+            GrabOwnership::None => "None",
+            GrabOwnership::Window => "Window",
+            GrabOwnership::Application => "Application",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for GrabOwnership {
     type GlibType = ffi::GdkGrabOwnership;
@@ -1306,6 +1600,20 @@ pub enum GrabStatus {
     Failed,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for GrabStatus {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "GrabStatus::{}", match *self {
+            GrabStatus::Success => "Success",
+            GrabStatus::AlreadyGrabbed => "AlreadyGrabbed",
+            GrabStatus::InvalidTime => "InvalidTime",
+            GrabStatus::NotViewable => "NotViewable",
+            GrabStatus::Frozen => "Frozen",
+            GrabStatus::Failed => "Failed",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1380,6 +1688,24 @@ pub enum Gravity {
     Static,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Gravity {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Gravity::{}", match *self {
+            Gravity::NorthWest => "NorthWest",
+            Gravity::North => "North",
+            Gravity::NorthEast => "NorthEast",
+            Gravity::West => "West",
+            Gravity::Center => "Center",
+            Gravity::East => "East",
+            Gravity::SouthWest => "SouthWest",
+            Gravity::South => "South",
+            Gravity::SouthEast => "SouthEast",
+            Gravity::Static => "Static",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1457,6 +1783,17 @@ pub enum InputMode {
     __Unknown(i32),
 }
 
+impl fmt::Display for InputMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "InputMode::{}", match *self {
+            InputMode::Disabled => "Disabled",
+            InputMode::Screen => "Screen",
+            InputMode::Window => "Window",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for InputMode {
     type GlibType = ffi::GdkInputMode;
@@ -1522,6 +1859,23 @@ pub enum InputSource {
     TabletPad,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for InputSource {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "InputSource::{}", match *self {
+            InputSource::Mouse => "Mouse",
+            InputSource::Pen => "Pen",
+            InputSource::Eraser => "Eraser",
+            InputSource::Cursor => "Cursor",
+            InputSource::Keyboard => "Keyboard",
+            InputSource::Touchscreen => "Touchscreen",
+            InputSource::Touchpad => "Touchpad",
+            InputSource::Trackpoint => "Trackpoint",
+            InputSource::TabletPad => "TabletPad",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1601,6 +1955,21 @@ pub enum ModifierIntent {
     __Unknown(i32),
 }
 
+impl fmt::Display for ModifierIntent {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ModifierIntent::{}", match *self {
+            ModifierIntent::PrimaryAccelerator => "PrimaryAccelerator",
+            ModifierIntent::ContextMenu => "ContextMenu",
+            ModifierIntent::ExtendSelection => "ExtendSelection",
+            ModifierIntent::ModifySelection => "ModifySelection",
+            ModifierIntent::NoTextInput => "NoTextInput",
+            ModifierIntent::ShiftGroup => "ShiftGroup",
+            ModifierIntent::DefaultModMask => "DefaultModMask",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for ModifierIntent {
     type GlibType = ffi::GdkModifierIntent;
@@ -1673,6 +2042,20 @@ pub enum NotifyType {
     __Unknown(i32),
 }
 
+impl fmt::Display for NotifyType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "NotifyType::{}", match *self {
+            NotifyType::Ancestor => "Ancestor",
+            NotifyType::Virtual => "Virtual",
+            NotifyType::Inferior => "Inferior",
+            NotifyType::Nonlinear => "Nonlinear",
+            NotifyType::NonlinearVirtual => "NonlinearVirtual",
+            NotifyType::Unknown => "Unknown",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for NotifyType {
     type GlibType = ffi::GdkNotifyType;
@@ -1740,6 +2123,17 @@ pub enum OwnerChange {
     __Unknown(i32),
 }
 
+impl fmt::Display for OwnerChange {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "OwnerChange::{}", match *self {
+            OwnerChange::NewOwner => "NewOwner",
+            OwnerChange::Destroy => "Destroy",
+            OwnerChange::Close => "Close",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for OwnerChange {
     type GlibType = ffi::GdkOwnerChange;
@@ -1799,6 +2193,17 @@ pub enum PropMode {
     Append,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for PropMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PropMode::{}", match *self {
+            PropMode::Replace => "Replace",
+            PropMode::Prepend => "Prepend",
+            PropMode::Append => "Append",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1861,6 +2266,16 @@ pub enum PropertyState {
     __Unknown(i32),
 }
 
+impl fmt::Display for PropertyState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PropertyState::{}", match *self {
+            PropertyState::NewValue => "NewValue",
+            PropertyState::Delete => "Delete",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for PropertyState {
     type GlibType = ffi::GdkPropertyState;
@@ -1920,6 +2335,19 @@ pub enum ScrollDirection {
     Smooth,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for ScrollDirection {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ScrollDirection::{}", match *self {
+            ScrollDirection::Up => "Up",
+            ScrollDirection::Down => "Down",
+            ScrollDirection::Left => "Left",
+            ScrollDirection::Right => "Right",
+            ScrollDirection::Smooth => "Smooth",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1987,6 +2415,17 @@ pub enum SettingAction {
     __Unknown(i32),
 }
 
+impl fmt::Display for SettingAction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SettingAction::{}", match *self {
+            SettingAction::New => "New",
+            SettingAction::Changed => "Changed",
+            SettingAction::Deleted => "Deleted",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for SettingAction {
     type GlibType = ffi::GdkSettingAction;
@@ -2050,6 +2489,21 @@ pub enum SubpixelLayout {
     VerticalBgr,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+impl fmt::Display for SubpixelLayout {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SubpixelLayout::{}", match *self {
+            SubpixelLayout::Unknown => "Unknown",
+            SubpixelLayout::None => "None",
+            SubpixelLayout::HorizontalRgb => "HorizontalRgb",
+            SubpixelLayout::HorizontalBgr => "HorizontalBgr",
+            SubpixelLayout::VerticalRgb => "VerticalRgb",
+            SubpixelLayout::VerticalBgr => "VerticalBgr",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -2125,6 +2579,17 @@ pub enum VisibilityState {
     __Unknown(i32),
 }
 
+impl fmt::Display for VisibilityState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "VisibilityState::{}", match *self {
+            VisibilityState::Unobscured => "Unobscured",
+            VisibilityState::Partial => "Partial",
+            VisibilityState::FullyObscured => "FullyObscured",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for VisibilityState {
     type GlibType = ffi::GdkVisibilityState;
@@ -2187,6 +2652,20 @@ pub enum VisualType {
     DirectColor,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for VisualType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "VisualType::{}", match *self {
+            VisualType::StaticGray => "StaticGray",
+            VisualType::Grayscale => "Grayscale",
+            VisualType::StaticColor => "StaticColor",
+            VisualType::PseudoColor => "PseudoColor",
+            VisualType::TrueColor => "TrueColor",
+            VisualType::DirectColor => "DirectColor",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -2259,6 +2738,22 @@ pub enum WindowEdge {
     SouthEast,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for WindowEdge {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "WindowEdge::{}", match *self {
+            WindowEdge::NorthWest => "NorthWest",
+            WindowEdge::North => "North",
+            WindowEdge::NorthEast => "NorthEast",
+            WindowEdge::West => "West",
+            WindowEdge::East => "East",
+            WindowEdge::SouthWest => "SouthWest",
+            WindowEdge::South => "South",
+            WindowEdge::SouthEast => "SouthEast",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -2334,6 +2829,21 @@ pub enum WindowType {
     Subsurface,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for WindowType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "WindowType::{}", match *self {
+            WindowType::Root => "Root",
+            WindowType::Toplevel => "Toplevel",
+            WindowType::Child => "Child",
+            WindowType::Temp => "Temp",
+            WindowType::Foreign => "Foreign",
+            WindowType::Offscreen => "Offscreen",
+            WindowType::Subsurface => "Subsurface",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -2416,6 +2926,28 @@ pub enum WindowTypeHint {
     __Unknown(i32),
 }
 
+impl fmt::Display for WindowTypeHint {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "WindowTypeHint::{}", match *self {
+            WindowTypeHint::Normal => "Normal",
+            WindowTypeHint::Dialog => "Dialog",
+            WindowTypeHint::Menu => "Menu",
+            WindowTypeHint::Toolbar => "Toolbar",
+            WindowTypeHint::Splashscreen => "Splashscreen",
+            WindowTypeHint::Utility => "Utility",
+            WindowTypeHint::Dock => "Dock",
+            WindowTypeHint::Desktop => "Desktop",
+            WindowTypeHint::DropdownMenu => "DropdownMenu",
+            WindowTypeHint::PopupMenu => "PopupMenu",
+            WindowTypeHint::Tooltip => "Tooltip",
+            WindowTypeHint::Notification => "Notification",
+            WindowTypeHint::Combo => "Combo",
+            WindowTypeHint::Dnd => "Dnd",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for WindowTypeHint {
     type GlibType = ffi::GdkWindowTypeHint;
@@ -2496,6 +3028,16 @@ pub enum WindowWindowClass {
     InputOnly,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for WindowWindowClass {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "WindowWindowClass::{}", match *self {
+            WindowWindowClass::InputOutput => "InputOutput",
+            WindowWindowClass::InputOnly => "InputOnly",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]

@@ -24,6 +24,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -567,4 +568,10 @@ unsafe extern "C" fn seat_removed_trampoline<P>(this: *mut ffi::GdkDisplay, seat
 where P: IsA<Display> {
     let f: &&(Fn(&P, &Seat) + 'static) = transmute(f);
     f(&Display::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(seat))
+}
+
+impl fmt::Display for Display {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Display")
+    }
 }
