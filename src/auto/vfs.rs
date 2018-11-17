@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -92,5 +93,11 @@ impl<O: IsA<Vfs>> VfsExt for O {
         unsafe {
             from_glib(ffi::g_vfs_unregister_uri_scheme(self.to_glib_none().0, scheme.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Vfs {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Vfs")
     }
 }

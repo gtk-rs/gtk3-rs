@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -98,5 +99,11 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
         unsafe {
             ffi::g_list_store_splice(self.to_glib_none().0, position, n_removals, additions.to_glib_none().0, n_additions);
         }
+    }
+}
+
+impl fmt::Display for ListStore {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ListStore")
     }
 }

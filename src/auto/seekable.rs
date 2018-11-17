@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -70,5 +71,11 @@ impl<O: IsA<Seekable>> SeekableExt for O {
             let _ = ffi::g_seekable_truncate(self.to_glib_none().0, offset, cancellable.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
+    }
+}
+
+impl fmt::Display for Seekable {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Seekable")
     }
 }

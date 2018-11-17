@@ -13,6 +13,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -147,5 +148,11 @@ impl<O: IsA<Notification>> NotificationExt for O {
         unsafe {
             ffi::g_notification_set_urgent(self.to_glib_none().0, urgent.to_glib());
         }
+    }
+}
+
+impl fmt::Display for Notification {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Notification")
     }
 }

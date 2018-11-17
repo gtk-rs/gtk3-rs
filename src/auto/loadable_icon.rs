@@ -16,6 +16,7 @@ use glib_ffi;
 use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -88,5 +89,11 @@ impl<O: IsA<LoadableIcon> + IsA<glib::object::Object> + Clone + 'static> Loadabl
 
             cancellable
         })
+    }
+}
+
+impl fmt::Display for LoadableIcon {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "LoadableIcon")
     }
 }

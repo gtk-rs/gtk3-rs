@@ -22,6 +22,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -340,4 +341,10 @@ unsafe extern "C" fn notify_newline_type_trampoline<P>(this: *mut ffi::GDataInpu
 where P: IsA<DataInputStream> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&DataInputStream::from_glib_borrow(this).downcast_unchecked())
+}
+
+impl fmt::Display for DataInputStream {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DataInputStream")
+    }
 }

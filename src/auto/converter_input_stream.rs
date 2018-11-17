@@ -12,6 +12,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -40,5 +41,11 @@ impl<O: IsA<ConverterInputStream>> ConverterInputStreamExt for O {
         unsafe {
             from_glib_none(ffi::g_converter_input_stream_get_converter(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for ConverterInputStream {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ConverterInputStream")
     }
 }

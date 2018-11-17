@@ -17,6 +17,7 @@ use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -65,4 +66,10 @@ unsafe extern "C" fn run_trampoline<P>(this: *mut ffi::GThreadedSocketService, c
 where P: IsA<ThreadedSocketService> {
     let f: &&(Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static) = transmute(f);
     f(&ThreadedSocketService::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
+}
+
+impl fmt::Display for ThreadedSocketService {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ThreadedSocketService")
+    }
 }

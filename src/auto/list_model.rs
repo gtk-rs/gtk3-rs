@@ -19,6 +19,7 @@ use gobject_ffi;
 use libc;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::mem::transmute;
@@ -101,4 +102,10 @@ unsafe extern "C" fn items_changed_trampoline<P>(this: *mut ffi::GListModel, pos
 where P: IsA<ListModel> {
     let f: &&(Fn(&P, u32, u32, u32) + 'static) = transmute(f);
     f(&ListModel::from_glib_borrow(this).downcast_unchecked(), position, removed, added)
+}
+
+impl fmt::Display for ListModel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ListModel")
+    }
 }

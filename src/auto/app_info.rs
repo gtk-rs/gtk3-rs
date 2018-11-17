@@ -21,6 +21,7 @@ use std;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -347,5 +348,11 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         unsafe {
             from_glib(ffi::g_app_info_supports_uris(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for AppInfo {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AppInfo")
     }
 }

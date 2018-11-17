@@ -8,6 +8,7 @@ use glib::object::Downcast;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -24,5 +25,11 @@ impl SimplePermission {
         unsafe {
             Permission::from_glib_full(ffi::g_simple_permission_new(allowed.to_glib())).downcast_unchecked()
         }
+    }
+}
+
+impl fmt::Display for SimplePermission {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SimplePermission")
     }
 }

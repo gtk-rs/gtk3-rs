@@ -21,6 +21,7 @@ use libc;
 use std;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::mem::transmute;
@@ -136,4 +137,10 @@ unsafe extern "C" fn launched_trampoline<P>(this: *mut ffi::GAppLaunchContext, i
 where P: IsA<AppLaunchContext> {
     let f: &&(Fn(&P, &AppInfo, &glib::Variant) + 'static) = transmute(f);
     f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(info), &from_glib_borrow(platform_data))
+}
+
+impl fmt::Display for AppLaunchContext {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AppLaunchContext")
+    }
 }

@@ -13,6 +13,7 @@ use glib_ffi;
 use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -197,4 +198,10 @@ unsafe extern "C" fn action_state_changed_trampoline<P>(this: *mut ffi::GActionG
 where P: IsA<ActionGroup> {
     let f: &&(Fn(&P, &str, &glib::Variant) + 'static) = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(action_name), &from_glib_borrow(value))
+}
+
+impl fmt::Display for ActionGroup {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ActionGroup")
+    }
 }

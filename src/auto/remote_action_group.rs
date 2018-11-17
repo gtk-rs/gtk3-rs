@@ -9,6 +9,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -39,5 +40,11 @@ impl<O: IsA<RemoteActionGroup>> RemoteActionGroupExt for O {
         unsafe {
             ffi::g_remote_action_group_change_action_state_full(self.to_glib_none().0, action_name.to_glib_none().0, value.to_glib_none().0, platform_data.to_glib_none().0);
         }
+    }
+}
+
+impl fmt::Display for RemoteActionGroup {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RemoteActionGroup")
     }
 }
