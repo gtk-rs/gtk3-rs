@@ -6,6 +6,7 @@ use ffi;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -18,3 +19,9 @@ glib_wrapper! {
 }
 
 impl EngineLang {}
+
+impl fmt::Display for EngineLang {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "EngineLang")
+    }
+}

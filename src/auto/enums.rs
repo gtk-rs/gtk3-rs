@@ -11,6 +11,7 @@ use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
 use gobject_ffi;
+use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
@@ -20,6 +21,17 @@ pub enum Alignment {
     Right,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Alignment {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Alignment::{}", match *self {
+            Alignment::Left => "Left",
+            Alignment::Center => "Center",
+            Alignment::Right => "Right",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -103,6 +115,40 @@ pub enum AttrType {
     BackgroundAlpha,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for AttrType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "AttrType::{}", match *self {
+            AttrType::Invalid => "Invalid",
+            AttrType::Language => "Language",
+            AttrType::Family => "Family",
+            AttrType::Style => "Style",
+            AttrType::Weight => "Weight",
+            AttrType::Variant => "Variant",
+            AttrType::Stretch => "Stretch",
+            AttrType::Size => "Size",
+            AttrType::FontDesc => "FontDesc",
+            AttrType::Foreground => "Foreground",
+            AttrType::Background => "Background",
+            AttrType::Underline => "Underline",
+            AttrType::Strikethrough => "Strikethrough",
+            AttrType::Rise => "Rise",
+            AttrType::Shape => "Shape",
+            AttrType::Scale => "Scale",
+            AttrType::Fallback => "Fallback",
+            AttrType::LetterSpacing => "LetterSpacing",
+            AttrType::UnderlineColor => "UnderlineColor",
+            AttrType::StrikethroughColor => "StrikethroughColor",
+            AttrType::AbsoluteSize => "AbsoluteSize",
+            AttrType::Gravity => "Gravity",
+            AttrType::GravityHint => "GravityHint",
+            AttrType::FontFeatures => "FontFeatures",
+            AttrType::ForegroundAlpha => "ForegroundAlpha",
+            AttrType::BackgroundAlpha => "BackgroundAlpha",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -227,6 +273,33 @@ pub enum BidiType {
     __Unknown(i32),
 }
 
+impl fmt::Display for BidiType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "BidiType::{}", match *self {
+            BidiType::L => "L",
+            BidiType::Lre => "Lre",
+            BidiType::Lro => "Lro",
+            BidiType::R => "R",
+            BidiType::Al => "Al",
+            BidiType::Rle => "Rle",
+            BidiType::Rlo => "Rlo",
+            BidiType::Pdf => "Pdf",
+            BidiType::En => "En",
+            BidiType::Es => "Es",
+            BidiType::Et => "Et",
+            BidiType::An => "An",
+            BidiType::Cs => "Cs",
+            BidiType::Nsm => "Nsm",
+            BidiType::Bn => "Bn",
+            BidiType::B => "B",
+            BidiType::S => "S",
+            BidiType::Ws => "Ws",
+            BidiType::On => "On",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for BidiType {
     type GlibType = ffi::PangoBidiType;
@@ -320,6 +393,18 @@ pub enum CoverageLevel {
     __Unknown(i32),
 }
 
+impl fmt::Display for CoverageLevel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "CoverageLevel::{}", match *self {
+            CoverageLevel::None => "None",
+            CoverageLevel::Fallback => "Fallback",
+            CoverageLevel::Approximate => "Approximate",
+            CoverageLevel::Exact => "Exact",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for CoverageLevel {
     type GlibType = ffi::PangoCoverageLevel;
@@ -384,6 +469,21 @@ pub enum Direction {
     Neutral,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Direction {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Direction::{}", match *self {
+            Direction::Ltr => "Ltr",
+            Direction::Rtl => "Rtl",
+            Direction::TtbLtr => "TtbLtr",
+            Direction::TtbRtl => "TtbRtl",
+            Direction::WeakLtr => "WeakLtr",
+            Direction::WeakRtl => "WeakRtl",
+            Direction::Neutral => "Neutral",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -455,6 +555,18 @@ pub enum EllipsizeMode {
     __Unknown(i32),
 }
 
+impl fmt::Display for EllipsizeMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "EllipsizeMode::{}", match *self {
+            EllipsizeMode::None => "None",
+            EllipsizeMode::Start => "Start",
+            EllipsizeMode::Middle => "Middle",
+            EllipsizeMode::End => "End",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for EllipsizeMode {
     type GlibType = ffi::PangoEllipsizeMode;
@@ -517,6 +629,19 @@ pub enum Gravity {
     Auto,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Gravity {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Gravity::{}", match *self {
+            Gravity::South => "South",
+            Gravity::East => "East",
+            Gravity::North => "North",
+            Gravity::West => "West",
+            Gravity::Auto => "Auto",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -583,6 +708,17 @@ pub enum GravityHint {
     __Unknown(i32),
 }
 
+impl fmt::Display for GravityHint {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "GravityHint::{}", match *self {
+            GravityHint::Natural => "Natural",
+            GravityHint::Strong => "Strong",
+            GravityHint::Line => "Line",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for GravityHint {
     type GlibType = ffi::PangoGravityHint;
@@ -642,6 +778,18 @@ pub enum RenderPart {
     Strikethrough,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for RenderPart {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RenderPart::{}", match *self {
+            RenderPart::Foreground => "Foreground",
+            RenderPart::Background => "Background",
+            RenderPart::Underline => "Underline",
+            RenderPart::Strikethrough => "Strikethrough",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -819,6 +967,132 @@ pub enum Script {
     Signwriting,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Script {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Script::{}", match *self {
+            Script::InvalidCode => "InvalidCode",
+            Script::Common => "Common",
+            Script::Inherited => "Inherited",
+            Script::Arabic => "Arabic",
+            Script::Armenian => "Armenian",
+            Script::Bengali => "Bengali",
+            Script::Bopomofo => "Bopomofo",
+            Script::Cherokee => "Cherokee",
+            Script::Coptic => "Coptic",
+            Script::Cyrillic => "Cyrillic",
+            Script::Deseret => "Deseret",
+            Script::Devanagari => "Devanagari",
+            Script::Ethiopic => "Ethiopic",
+            Script::Georgian => "Georgian",
+            Script::Gothic => "Gothic",
+            Script::Greek => "Greek",
+            Script::Gujarati => "Gujarati",
+            Script::Gurmukhi => "Gurmukhi",
+            Script::Han => "Han",
+            Script::Hangul => "Hangul",
+            Script::Hebrew => "Hebrew",
+            Script::Hiragana => "Hiragana",
+            Script::Kannada => "Kannada",
+            Script::Katakana => "Katakana",
+            Script::Khmer => "Khmer",
+            Script::Lao => "Lao",
+            Script::Latin => "Latin",
+            Script::Malayalam => "Malayalam",
+            Script::Mongolian => "Mongolian",
+            Script::Myanmar => "Myanmar",
+            Script::Ogham => "Ogham",
+            Script::OldItalic => "OldItalic",
+            Script::Oriya => "Oriya",
+            Script::Runic => "Runic",
+            Script::Sinhala => "Sinhala",
+            Script::Syriac => "Syriac",
+            Script::Tamil => "Tamil",
+            Script::Telugu => "Telugu",
+            Script::Thaana => "Thaana",
+            Script::Thai => "Thai",
+            Script::Tibetan => "Tibetan",
+            Script::CanadianAboriginal => "CanadianAboriginal",
+            Script::Yi => "Yi",
+            Script::Tagalog => "Tagalog",
+            Script::Hanunoo => "Hanunoo",
+            Script::Buhid => "Buhid",
+            Script::Tagbanwa => "Tagbanwa",
+            Script::Braille => "Braille",
+            Script::Cypriot => "Cypriot",
+            Script::Limbu => "Limbu",
+            Script::Osmanya => "Osmanya",
+            Script::Shavian => "Shavian",
+            Script::LinearB => "LinearB",
+            Script::TaiLe => "TaiLe",
+            Script::Ugaritic => "Ugaritic",
+            Script::NewTaiLue => "NewTaiLue",
+            Script::Buginese => "Buginese",
+            Script::Glagolitic => "Glagolitic",
+            Script::Tifinagh => "Tifinagh",
+            Script::SylotiNagri => "SylotiNagri",
+            Script::OldPersian => "OldPersian",
+            Script::Kharoshthi => "Kharoshthi",
+            Script::Unknown => "Unknown",
+            Script::Balinese => "Balinese",
+            Script::Cuneiform => "Cuneiform",
+            Script::Phoenician => "Phoenician",
+            Script::PhagsPa => "PhagsPa",
+            Script::Nko => "Nko",
+            Script::KayahLi => "KayahLi",
+            Script::Lepcha => "Lepcha",
+            Script::Rejang => "Rejang",
+            Script::Sundanese => "Sundanese",
+            Script::Saurashtra => "Saurashtra",
+            Script::Cham => "Cham",
+            Script::OlChiki => "OlChiki",
+            Script::Vai => "Vai",
+            Script::Carian => "Carian",
+            Script::Lycian => "Lycian",
+            Script::Lydian => "Lydian",
+            Script::Batak => "Batak",
+            Script::Brahmi => "Brahmi",
+            Script::Mandaic => "Mandaic",
+            Script::Chakma => "Chakma",
+            Script::MeroiticCursive => "MeroiticCursive",
+            Script::MeroiticHieroglyphs => "MeroiticHieroglyphs",
+            Script::Miao => "Miao",
+            Script::Sharada => "Sharada",
+            Script::SoraSompeng => "SoraSompeng",
+            Script::Takri => "Takri",
+            Script::BassaVah => "BassaVah",
+            Script::CaucasianAlbanian => "CaucasianAlbanian",
+            Script::Duployan => "Duployan",
+            Script::Elbasan => "Elbasan",
+            Script::Grantha => "Grantha",
+            Script::Khojki => "Khojki",
+            Script::Khudawadi => "Khudawadi",
+            Script::LinearA => "LinearA",
+            Script::Mahajani => "Mahajani",
+            Script::Manichaean => "Manichaean",
+            Script::MendeKikakui => "MendeKikakui",
+            Script::Modi => "Modi",
+            Script::Mro => "Mro",
+            Script::Nabataean => "Nabataean",
+            Script::OldNorthArabian => "OldNorthArabian",
+            Script::OldPermic => "OldPermic",
+            Script::PahawhHmong => "PahawhHmong",
+            Script::Palmyrene => "Palmyrene",
+            Script::PauCinHau => "PauCinHau",
+            Script::PsalterPahlavi => "PsalterPahlavi",
+            Script::Siddham => "Siddham",
+            Script::Tirhuta => "Tirhuta",
+            Script::WarangCiti => "WarangCiti",
+            Script::Ahom => "Ahom",
+            Script::AnatolianHieroglyphs => "AnatolianHieroglyphs",
+            Script::Hatran => "Hatran",
+            Script::Multani => "Multani",
+            Script::OldHungarian => "OldHungarian",
+            Script::Signwriting => "Signwriting",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1117,6 +1391,23 @@ pub enum Stretch {
     __Unknown(i32),
 }
 
+impl fmt::Display for Stretch {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Stretch::{}", match *self {
+            Stretch::UltraCondensed => "UltraCondensed",
+            Stretch::ExtraCondensed => "ExtraCondensed",
+            Stretch::Condensed => "Condensed",
+            Stretch::SemiCondensed => "SemiCondensed",
+            Stretch::Normal => "Normal",
+            Stretch::SemiExpanded => "SemiExpanded",
+            Stretch::Expanded => "Expanded",
+            Stretch::ExtraExpanded => "ExtraExpanded",
+            Stretch::UltraExpanded => "UltraExpanded",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for Stretch {
     type GlibType = ffi::PangoStretch;
@@ -1189,6 +1480,17 @@ pub enum Style {
     __Unknown(i32),
 }
 
+impl fmt::Display for Style {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Style::{}", match *self {
+            Style::Normal => "Normal",
+            Style::Oblique => "Oblique",
+            Style::Italic => "Italic",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for Style {
     type GlibType = ffi::PangoStyle;
@@ -1247,6 +1549,15 @@ pub enum TabAlign {
     __Unknown(i32),
 }
 
+impl fmt::Display for TabAlign {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TabAlign::{}", match *self {
+            TabAlign::Left => "Left",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[doc(hidden)]
 impl ToGlib for TabAlign {
     type GlibType = ffi::PangoTabAlign;
@@ -1303,6 +1614,19 @@ pub enum Underline {
     Error,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Underline {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Underline::{}", match *self {
+            Underline::None => "None",
+            Underline::Single => "Single",
+            Underline::Double => "Double",
+            Underline::Low => "Low",
+            Underline::Error => "Error",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1366,6 +1690,16 @@ pub enum Variant {
     SmallCaps,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Variant {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Variant::{}", match *self {
+            Variant::Normal => "Normal",
+            Variant::SmallCaps => "SmallCaps",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1433,6 +1767,26 @@ pub enum Weight {
     Ultraheavy,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for Weight {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Weight::{}", match *self {
+            Weight::Thin => "Thin",
+            Weight::Ultralight => "Ultralight",
+            Weight::Light => "Light",
+            Weight::Semilight => "Semilight",
+            Weight::Book => "Book",
+            Weight::Normal => "Normal",
+            Weight::Medium => "Medium",
+            Weight::Semibold => "Semibold",
+            Weight::Bold => "Bold",
+            Weight::Ultrabold => "Ultrabold",
+            Weight::Heavy => "Heavy",
+            Weight::Ultraheavy => "Ultraheavy",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]
@@ -1511,6 +1865,17 @@ pub enum WrapMode {
     WordChar,
     #[doc(hidden)]
     __Unknown(i32),
+}
+
+impl fmt::Display for WrapMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "WrapMode::{}", match *self {
+            WrapMode::Word => "Word",
+            WrapMode::Char => "Char",
+            WrapMode::WordChar => "WordChar",
+            _ => "Unknown",
+        })
+    }
 }
 
 #[doc(hidden)]

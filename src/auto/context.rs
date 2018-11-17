@@ -18,6 +18,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -224,5 +225,11 @@ impl<O: IsA<Context>> ContextExt for O {
         unsafe {
             ffi::pango_context_set_matrix(self.to_glib_none().0, matrix.0);
         }
+    }
+}
+
+impl fmt::Display for Context {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Context")
     }
 }

@@ -17,6 +17,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -519,5 +520,11 @@ impl<O: IsA<Layout>> LayoutExt for O {
             let ret = from_glib(ffi::pango_layout_xy_to_index(self.to_glib_none().0, x, y, &mut index_, &mut trailing));
             (ret, index_, trailing)
         }
+    }
+}
+
+impl fmt::Display for Layout {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Layout")
     }
 }
