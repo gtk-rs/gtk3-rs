@@ -7,6 +7,7 @@ use Object;
 use gobject_ffi as ffi;
 use ffi as glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 use translate::*;
@@ -60,3 +61,9 @@ impl Binding {
 
 unsafe impl Send for Binding {}
 unsafe impl Sync for Binding {}
+
+impl fmt::Display for Binding {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Binding")
+    }
+}
