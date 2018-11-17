@@ -10,6 +10,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -53,5 +54,11 @@ impl<O: IsA<Socket>> AtkSocketExt for O {
         unsafe {
             from_glib(ffi::atk_socket_is_occupied(self.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Socket {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Socket")
     }
 }

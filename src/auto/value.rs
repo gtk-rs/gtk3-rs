@@ -20,6 +20,7 @@ use gobject_ffi;
 use libc;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem::transmute;
@@ -155,4 +156,10 @@ unsafe extern "C" fn value_changed_trampoline<P>(this: *mut ffi::AtkValue, value
 where P: IsA<Value> {
     let f: &&(Fn(&P, f64, &str) + 'static) = transmute(f);
     f(&Value::from_glib_borrow(this).downcast_unchecked(), value, &String::from_glib_none(text))
+}
+
+impl fmt::Display for Value {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Value")
+    }
 }

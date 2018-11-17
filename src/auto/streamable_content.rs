@@ -7,6 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -49,5 +50,11 @@ impl<O: IsA<StreamableContent>> StreamableContentExt for O {
         unsafe {
             from_glib_none(ffi::atk_streamable_content_get_uri(self.to_glib_none().0, mime_type.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for StreamableContent {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "StreamableContent")
     }
 }

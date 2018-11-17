@@ -14,6 +14,7 @@ use glib_ffi;
 use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -68,4 +69,10 @@ unsafe extern "C" fn link_selected_trampoline<P>(this: *mut ffi::AtkHypertext, a
 where P: IsA<Hypertext> {
     let f: &&(Fn(&P, i32) + 'static) = transmute(f);
     f(&Hypertext::from_glib_borrow(this).downcast_unchecked(), arg1)
+}
+
+impl fmt::Display for Hypertext {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Hypertext")
+    }
 }

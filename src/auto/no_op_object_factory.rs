@@ -8,6 +8,7 @@ use glib::object::Downcast;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -31,5 +32,11 @@ impl NoOpObjectFactory {
 impl Default for NoOpObjectFactory {
     fn default() -> Self {
         Self::new()
+    }
+}
+
+impl fmt::Display for NoOpObjectFactory {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "NoOpObjectFactory")
     }
 }

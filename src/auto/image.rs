@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -66,5 +67,11 @@ impl<O: IsA<Image>> AtkImageExt for O {
         unsafe {
             from_glib(ffi::atk_image_set_image_description(self.to_glib_none().0, description.to_glib_none().0))
         }
+    }
+}
+
+impl fmt::Display for Image {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Image")
     }
 }

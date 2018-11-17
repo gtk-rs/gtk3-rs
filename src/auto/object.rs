@@ -21,6 +21,7 @@ use glib_ffi;
 use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
+use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -781,4 +782,10 @@ unsafe extern "C" fn notify_accessible_value_trampoline<P>(this: *mut ffi::AtkOb
 where P: IsA<Object> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
     f(&Object::from_glib_borrow(this).downcast_unchecked())
+}
+
+impl fmt::Display for Object {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Object")
+    }
 }
