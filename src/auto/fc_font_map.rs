@@ -9,6 +9,7 @@ use glib_ffi;
 use gobject_ffi;
 use pango;
 use pango_ffi;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -24,3 +25,9 @@ glib_wrapper! {
 }
 
 impl FcFontMap {}
+
+impl fmt::Display for FcFontMap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FcFontMap")
+    }
+}
