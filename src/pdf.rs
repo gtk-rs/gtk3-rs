@@ -15,6 +15,16 @@ use support;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+macro_rules! imp {
+    () => {
+        pub fn restrict(&self, version: PdfVersion) {
+            unsafe {
+                ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
+            }
+        }
+    }
+}
+
 pub struct File {
     inner: Surface
 }
@@ -43,11 +53,7 @@ impl File {
         }
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
-        unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
-        }
-    }
+    imp!();
 }
 
 impl AsRef<Surface> for File {
@@ -116,11 +122,7 @@ impl Buffer {
         }
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
-        unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
-        }
-    }
+    imp!();
 }
 
 impl AsRef<[u8]> for Buffer {
@@ -171,11 +173,7 @@ impl<'a> Writer<'a> {
         }
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
-        unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
-        }
-    }
+    imp!();
 }
 
 impl<'a> AsRef<Surface> for Writer<'a> {
@@ -223,11 +221,7 @@ impl<'a> Stream<'a> {
         }
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
-        unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
-        }
-    }
+    imp!();
 }
 
 impl<'a> AsRef<Surface> for Stream<'a> {
