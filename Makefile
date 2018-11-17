@@ -10,7 +10,9 @@ not_bound: $(GIR) $(GIR_FILES)
 
 regen_check: $(GIR) $(GIR_FILES)
 	rm src/auto/*
+	rm src/gobject/auto/*
 	$(GIR) -c Gir.toml
+	$(GIR) -c Gir_GObject.toml
 	git diff -R --exit-code
 
 src/auto/mod.rs : Gir.toml $(GIR) $(GIR_FILES)
