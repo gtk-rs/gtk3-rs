@@ -86,20 +86,20 @@ pub unsafe trait ClassStruct: Sized + 'static {
 
     fn override_vfuncs(&mut self)
     where
-        <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable,
+        <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
                 as *mut <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType);
-            base.override_vfuncs::<Self::Type>();
+            base.override_vfuncs();
         }
     }
 }
 
 /// Trait for subclassable class structs
-pub unsafe trait IsSubclassable: IsClassFor {
+pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
     /// Override the virtual methods of this class for the given subclass
-    unsafe fn override_vfuncs<T: ObjectSubclass>(&mut self);
+    fn override_vfuncs(&mut self);
 }
 
 /// Type-specific data that is filled in during type creation
