@@ -214,6 +214,17 @@ unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
+/// Trait for declaring the subclass relationship between classes
+///
+/// This is the class version of `IsA`.
+pub unsafe trait IsAClass<T> {}
+
+/// Trait for mapping a class struct type to its corresponding instance type
+pub unsafe trait IsClassFor {
+    /// Corresponding Rust instance type for this class
+    type Instance;
+}
+
 /// Downcasts support.
 pub trait Downcast<T> {
     /// Checks if it's possible to downcast to `T`.
@@ -727,7 +738,7 @@ macro_rules! glib_object_wrapper {
 
 glib_object_wrapper! {
     [doc = "The base class in the object hierarchy."]
-    Object, GObject, GObjectClass, ::wrapper::Void, @get_type gobject_ffi::g_object_get_type()
+    Object, GObject, GObjectClass, ObjectClass, @get_type gobject_ffi::g_object_get_type()
 }
 
 impl Object {
@@ -1125,6 +1136,25 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         unsafe { glib_ffi::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
     }
 }
+
+/// Class struct for `glib::Object`
+///
+/// All actual functionality is provided via the [`ObjectClassExt`] trait.
+///
+/// [`ObjectClassExt`]: trait.ObjectClassExt.html
+#[repr(C)]
+pub struct ObjectClass(gobject_ffi::GObjectClass);
+
+impl ObjectClass {
+    // TODO all the non-subclassing methods
+}
+
+unsafe impl IsClassFor for ObjectClass {
+    type Instance = Object;
+}
+
+unsafe impl Send for ObjectClass {}
+unsafe impl Sync for ObjectClass {}
 
 pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 

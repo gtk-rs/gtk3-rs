@@ -93,8 +93,11 @@ pub use file_error::FileError;
 pub use object::{
     Cast,
     IsA,
+    IsAClass,
+    IsClassFor,
     Object,
     ObjectExt,
+    ObjectClass,
     WeakRef,
     SendWeakRef,
 };
@@ -220,3 +223,6 @@ pub(crate) fn get_thread_id() -> usize {
     thread_local!(static THREAD_ID: usize = next_thread_id());
     THREAD_ID.with(|&x| x)
 }
+
+#[macro_use]
+pub mod subclass;
