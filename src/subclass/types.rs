@@ -12,6 +12,7 @@ use gobject_ffi;
 use std::mem;
 use std::ops;
 use std::ptr;
+use std::marker;
 
 use translate::*;
 use wrapper::Wrapper;
@@ -24,9 +25,9 @@ use super::object::ObjectImpl;
 /// This allows running additional type-setup functions, e.g. for implementing
 /// interfaces on the type
 #[derive(Debug, PartialEq, Eq)]
-pub struct InitializingType(Type);
+pub struct InitializingType<T: ObjectSubclass>(Type, marker::PhantomData<T>);
 
-impl ops::Deref for InitializingType {
+impl<T: ObjectSubclass> ops::Deref for InitializingType<T> {
     type Target = Type;
 
     fn deref(&self) -> &Type {
@@ -243,7 +244,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// for implementing `GObject` interfaces.
     ///
     /// Optional
-    fn type_init(_type_: &InitializingType) {}
+    fn type_init(_type_: &InitializingType<Self>) {}
 
     /// Class initialization
     ///
@@ -405,7 +406,7 @@ pub fn register_type<T: ObjectSubclass>() -> Type {
             gobject_ffi::g_type_add_instance_private(type_.to_glib(), mem::size_of::<Option<T>>());
         (*data.as_mut()).private_offset = private_offset as isize;
 
-        T::type_init(&InitializingType(type_));
+        T::type_init(&InitializingType::<T>(type_, marker::PhantomData));
 
         type_
     }
