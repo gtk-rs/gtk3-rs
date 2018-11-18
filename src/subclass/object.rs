@@ -285,8 +285,9 @@ unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
 
 #[cfg(test)]
 mod test {
-    use super::super::super::subclass;
     use super::*;
+    use super::super::super::object::ObjectExt;
+    use super::super::super::subclass;
 
     pub struct SimpleObject {}
 
@@ -322,6 +323,9 @@ mod test {
     #[test]
     fn test_create() {
         let type_ = SimpleObject::get_type();
-        let _obj = Object::new(type_, &[]).unwrap();
+        let obj = Object::new(type_, &[]).unwrap();
+        let weak = obj.downgrade();
+        drop(obj);
+        assert!(weak.upgrade().is_none());
     }
 }
