@@ -93,7 +93,6 @@ pub use file_error::FileError;
 pub use object::{
     Cast,
     IsA,
-    IsAClass,
     IsClassFor,
     Object,
     ObjectExt,

@@ -214,13 +214,8 @@ unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-/// Trait for declaring the subclass relationship between classes
-///
-/// This is the class version of `IsA`.
-pub unsafe trait IsAClass<T> {}
-
 /// Trait for mapping a class struct type to its corresponding instance type
-pub unsafe trait IsClassFor {
+pub unsafe trait IsClassFor: Sized + 'static {
     /// Corresponding Rust instance type for this class
     type Instance;
 }
