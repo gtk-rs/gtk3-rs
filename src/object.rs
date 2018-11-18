@@ -226,6 +226,60 @@ pub unsafe trait IsClassFor: Sized + 'static {
             from_glib((*klass).g_type)
         }
     }
+
+    /// Casts this class to a reference to a parent type's class
+    fn upcast_ref<U: IsClassFor>(&self) -> &U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *const _ as *const U;
+            &*klass
+        }
+    }
+
+    /// Casts this class to a mutable reference to a parent type's class
+    fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            &mut *klass
+        }
+    }
+
+    /// Casts this class to a reference to a child type's class or
+    /// fails if this class is not implementing the child class
+    fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *const _ as *const U;
+            Some(&*klass)
+        }
+    }
+
+    /// Casts this class to a mutable reference to a child type's class or
+    /// fails if this class is not implementing the child class
+    fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            Some(&mut *klass)
+        }
+    }
 }
 
 /// Downcasts support.
