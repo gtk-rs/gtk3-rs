@@ -321,8 +321,6 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
 }
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
-    glib_floating_reference_guard!(obj);
-
     // Retrieve the private struct, take it out of its storage and
     // drop it for freeing all associated memory
     let mut data = T::type_data();
