@@ -307,7 +307,7 @@ glib_wrapper! {
 /// Wrapper implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr) => {
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -339,6 +339,7 @@ macro_rules! glib_object_wrapper {
         impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
+            type RustClassType = $rust_class_name;
         }
 
         #[doc(hidden)]
@@ -690,9 +691,10 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr,
-     @implements $($implements:tt)*) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr);
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path,
+        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
 
         #[doc(hidden)]
@@ -716,16 +718,16 @@ macro_rules! glib_object_wrapper {
         unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr,
      [$($implements:path),*]) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
-            @implements $($implements),*);
-    }
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, @implements $($implements),*);
+    };
 }
 
 glib_object_wrapper! {
     [doc = "The base class in the object hierarchy."]
-    Object, GObject, GObjectClass, @get_type gobject_ffi::g_object_get_type()
+    Object, GObject, GObjectClass, ::wrapper::Void, @get_type gobject_ffi::g_object_get_type()
 }
 
 impl Object {

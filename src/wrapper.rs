@@ -299,7 +299,7 @@ macro_rules! glib_wrapper {
             @unref $unref_arg $unref_expr, @get_type $get_type_expr);
     };
 
-    // Object, no class struct, no parents
+    // Object, no class struct, no rust class struct, no parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path>);
@@ -308,10 +308,10 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr, []);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void, @get_type $get_type_expr, []);
     };
 
-    // Object, class struct, no parents
+    // Object, class struct, no rust class struct, no parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>);
@@ -320,10 +320,22 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr, []);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void, @get_type $get_type_expr, []);
     };
 
-    // Object, no class struct, parents in other crates
+    // Object, class struct, rust class struct, no parents
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>);
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, []);
+    };
+
+    // Object, no class struct, no rust class struct, parents in other crates
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
@@ -332,11 +344,11 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr,
-            @implements $($implements)+);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
+            @get_type $get_type_expr, @implements $($implements)+);
     };
 
-    // Object, class struct, parents in other crates
+    // Object, class struct, no rust class struct, parents in other crates
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): [$($implements:tt)+];
@@ -345,11 +357,24 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void, @get_type $get_type_expr,
             @implements $($implements)+);
     };
 
-    // Object, no class struct, parents
+    // Object, class struct, rust class struct, parents in other crates
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>): [$($implements:tt)+];
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr,
+            @implements $($implements)+);
+    };
+
+    // Object, no class struct, no rust class struct, parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path>): $($implements:path),+;
@@ -358,11 +383,11 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, @get_type $get_type_expr,
-            [$($implements),+]);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
+            @get_type $get_type_expr, [$($implements),+]);
     };
 
-    // Object, class struct, parents
+    // Object, class struct, no rust class struct, parents
     (
         $(#[$attr:meta])*
         pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): $($implements:path),+;
@@ -371,17 +396,32 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
-            [$($implements),+]);
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void,
+            @get_type $get_type_expr, [$($implements),+]);
+    };
+
+    // Object, class struct, rust class struct, parents
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>): $($implements:path),+;
+
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, [$($implements),+]);
     };
 }
 
 /// Represents a pair of structures (instance, class) as exposed by descendants of GObject
 pub trait Wrapper {
-    /// type of the Instance structure
+    /// type of the FFI Instance structure
     type GlibType: 'static;
-    /// type of the Class structure
+    /// type of the FFI Class structure
     type GlibClassType: 'static;
+    /// type of the Rust Class structure
+    type RustClassType: 'static;
 }
 
 pub trait UnsafeFrom<T> {
