@@ -109,7 +109,7 @@ pub struct TypeData {
     #[doc(hidden)]
     pub parent_class: ffi::gpointer,
     #[doc(hidden)]
-    pub interfaces: *const Vec<(ffi::GType, ffi::gpointer)>,
+    pub interface_data: *const Vec<(ffi::GType, ffi::gpointer)>,
     #[doc(hidden)]
     pub private_offset: isize,
 }
@@ -131,16 +131,16 @@ impl TypeData {
         self.parent_class
     }
 
-    /// Returns a pointer to the interface implementation
+    /// Returns a pointer to the interface implementation specific data
     ///
-    /// This is used for calling the interface method implementations
-    pub fn get_interface(&self, type_: ffi::GType) -> ffi::gpointer {
+    /// This is used for interface implementations to store additional data.
+    pub fn get_interface_data(&self, type_: ffi::GType) -> ffi::gpointer {
         unsafe {
-            if self.interfaces.is_null() {
+            if self.interface_data.is_null() {
                 return ptr::null_mut();
             }
 
-            for &(t, p) in &(*self.interfaces) {
+            for &(t, p) in &(*self.interface_data) {
                 if t == type_ {
                     return p;
                 }
@@ -167,7 +167,7 @@ macro_rules! glib_object_subclass {
             static mut DATA: $crate::subclass::TypeData = $crate::subclass::TypeData {
                 type_: $crate::Type::Invalid,
                 parent_class: ::std::ptr::null_mut(),
-                interfaces: ::std::ptr::null_mut(),
+                interface_data: ::std::ptr::null_mut(),
                 private_offset: 0,
             };
 
