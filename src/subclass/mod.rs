@@ -6,6 +6,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+//! Module containing infrastructure for subclassing `GObject`s
+
 #[macro_use]
 #[doc(hidden)]
 pub mod guard;

@@ -19,8 +19,8 @@ use gobject_ffi;
 ///
 /// Pass a valid, C `GObject` pointer to the macro. It can only be used inside `unsafe` blocks.
 ///
-/// [`FloatingReferenceGuard`]: guard/struct.FloatingReferenceGuard.html
-macro_rules! floating_reference_guard {
+/// [`FloatingReferenceGuard`]: subclass/guard/struct.FloatingReferenceGuard.html
+macro_rules! glib_floating_reference_guard {
     ($obj:ident) => {
         let _guard = $crate::subclass::guard::FloatingReferenceGuard::new($obj as *mut _);
     };
@@ -31,7 +31,7 @@ macro_rules! floating_reference_guard {
 ///
 /// This should be created via the [`floating_reference_guard!`] macro.
 ///
-/// [`floating_reference_guard!`]: ../macro.floating_reference_guard.html
+/// [`floating_reference_guard!`]: ../../macro.floating_reference_guard.html
 pub struct FloatingReferenceGuard(ptr::NonNull<gobject_ffi::GObject>);
 
 impl FloatingReferenceGuard {
