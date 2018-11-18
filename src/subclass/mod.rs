@@ -26,5 +26,4 @@ pub mod prelude {
     pub use super::types::{ClassStruct, InstanceStruct, IsSubclassable, ObjectSubclass};
 }
 
-pub use super::subclass::types::register_type;
-pub use super::subclass::types::TypeData;
+pub use self::types::{InitializingType, TypeData, register_type};
