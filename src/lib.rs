@@ -224,4 +224,5 @@ pub(crate) fn get_thread_id() -> usize {
 }
 
 #[macro_use]
+#[cfg(feature="subclassing")]
 pub mod subclass;
