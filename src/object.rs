@@ -214,12 +214,12 @@ unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
-/// Trait for mapping a class struct type to its corresponding instance type
+/// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
-    /// Corresponding Rust instance type for this class
+    /// Corresponding Rust instance type for this class.
     type Instance;
 
-    /// Get the type id for this class
+    /// Get the type id for this class.
     fn get_type(&self) -> Type {
         unsafe {
             let klass = self as *const _ as *const gobject_ffi::GTypeClass;
@@ -227,7 +227,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
         }
     }
 
-    /// Casts this class to a reference to a parent type's class
+    /// Casts this class to a reference to a parent type's class.
     fn upcast_ref<U: IsClassFor>(&self) -> &U
         where Self::Instance: IsA<U::Instance>,
             U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
@@ -238,7 +238,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
         }
     }
 
-    /// Casts this class to a mutable reference to a parent type's class
+    /// Casts this class to a mutable reference to a parent type's class.
     fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
         where Self::Instance: IsA<U::Instance>,
             U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
@@ -250,7 +250,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     }
 
     /// Casts this class to a reference to a child type's class or
-    /// fails if this class is not implementing the child class
+    /// fails if this class is not implementing the child class.
     fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
         where U::Instance: IsA<Self::Instance>,
             Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
@@ -266,7 +266,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     }
 
     /// Casts this class to a mutable reference to a child type's class or
-    /// fails if this class is not implementing the child class
+    /// fails if this class is not implementing the child class.
     fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
         where U::Instance: IsA<Self::Instance>,
             Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
@@ -1172,7 +1172,7 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     }
 }
 
-/// Class struct for `glib::Object`
+/// Class struct for `glib::Object`.
 ///
 /// All actual functionality is provided via the [`ObjectClassExt`] trait.
 ///

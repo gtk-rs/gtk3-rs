@@ -12,7 +12,7 @@ use ffi;
 use gobject_ffi;
 
 #[macro_export]
-/// Macro for creating a [`FloatingReferenceGuard`]
+/// Macro for creating a [`FloatingReferenceGuard`].
 ///
 /// This is creating a guard type for keeping the `GObject` floating reference flag intact inside
 /// virtual method implementations.
@@ -27,7 +27,7 @@ macro_rules! glib_floating_reference_guard {
 }
 
 /// Guard type for keeping the `GObject` floating reference flag intact
-/// inside virtual method implementations
+/// inside virtual method implementations.
 ///
 /// This should be created via the [`floating_reference_guard!`] macro.
 ///

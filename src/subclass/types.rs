@@ -5,7 +5,9 @@
 // <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
-//! Module that contains the basic infrastructure for subclassing `GObject`
+
+//! Module that contains the basic infrastructure for subclassing `GObject`.
+
 use ffi;
 use gobject_ffi;
 
@@ -20,10 +22,10 @@ use {IsA, IsClassFor, Object, StaticType, Type};
 
 use super::object::ObjectImpl;
 
-/// A newly registered `glib::Type` that is currently still being initialized
+/// A newly registered `glib::Type` that is currently still being initialized.
 ///
 /// This allows running additional type-setup functions, e.g. for implementing
-/// interfaces on the type
+/// interfaces on the type.
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T: ObjectSubclass>(Type, marker::PhantomData<T>);
 
@@ -35,7 +37,7 @@ impl<T: ObjectSubclass> ops::Deref for InitializingType<T> {
     }
 }
 
-/// Trait implemented by structs that implement a `GObject` C instance struct
+/// Trait implemented by structs that implement a `GObject` C instance struct.
 ///
 /// The struct must be `#[repr(C)]` and have the parent type's instance struct
 /// as the first field.
@@ -46,7 +48,7 @@ impl<T: ObjectSubclass> ops::Deref for InitializingType<T> {
 ///
 /// [`simple::InstanceStruct`]: ../simple/struct.InstanceStruct.html
 pub unsafe trait InstanceStruct: Sized + 'static {
-    /// Corresponding object subclass type for this instance struct
+    /// Corresponding object subclass type for this instance struct.
     type Type: ObjectSubclass;
 
     /// Returns the implementation for from this instance struct, that
@@ -65,13 +67,13 @@ pub unsafe trait InstanceStruct: Sized + 'static {
         }
     }
 
-    /// Returns the class struct for this specific instance
+    /// Returns the class struct for this specific instance.
     fn get_class(&self) -> &<Self::Type as ObjectSubclass>::Class {
         unsafe { &**(self as *const _ as *const *const <Self::Type as ObjectSubclass>::Class) }
     }
 }
 
-/// Trait implemented by structs that implement a `GObject` C class struct
+/// Trait implemented by structs that implement a `GObject` C class struct.
 ///
 /// The struct must be `#[repr(C)]` and have the parent type's class struct
 /// as the first field.
@@ -82,10 +84,10 @@ pub unsafe trait InstanceStruct: Sized + 'static {
 ///
 /// [`simple::ClassStruct`]: ../simple/struct.ClassStruct.html
 pub unsafe trait ClassStruct: Sized + 'static {
-    /// Corresponding object subclass type for this class struct
+    /// Corresponding object subclass type for this class struct.
     type Type: ObjectSubclass;
 
-    /// Override the vfuncs of all parent types
+    /// Override the vfuncs of all parent types.
     ///
     /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self)
@@ -101,15 +103,15 @@ pub unsafe trait ClassStruct: Sized + 'static {
     }
 }
 
-/// Trait for subclassable class structs
+/// Trait for subclassable class structs.
 pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
-    /// Override the virtual methods of this class for the given subclass
+    /// Override the virtual methods of this class for the given subclass.
     ///
     /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self);
 }
 
-/// Type-specific data that is filled in during type creation
+/// Type-specific data that is filled in during type creation.
 pub struct TypeData {
     #[doc(hidden)]
     pub type_: Type,
@@ -125,20 +127,20 @@ unsafe impl Send for TypeData {}
 unsafe impl Sync for TypeData {}
 
 impl TypeData {
-    /// Returns the type ID
+    /// Returns the type ID.
     pub fn get_type(&self) -> Type {
         self.type_
     }
 
-    /// Returns a pointer to the native parent class
+    /// Returns a pointer to the native parent class.
     ///
     /// This is used for chaining up to the parent class' implementation
-    /// of virtual methods
+    /// of virtual methods.
     pub fn get_parent_class(&self) -> ffi::gpointer {
         self.parent_class
     }
 
-    /// Returns a pointer to the interface implementation specific data
+    /// Returns a pointer to the interface implementation specific data.
     ///
     /// This is used for interface implementations to store additional data.
     pub fn get_interface_data(&self, type_: ffi::GType) -> ffi::gpointer {
@@ -158,14 +160,14 @@ impl TypeData {
     }
 
     /// Returns the offset of the private struct in bytes relative to the
-    /// beginning of the instance struct
+    /// beginning of the instance struct.
     pub fn get_private_offset(&self) -> isize {
         self.private_offset
     }
 }
 
 #[macro_export]
-/// Macro for boilerplate of [`ObjectSubclass`] implementations
+/// Macro for boilerplate of [`ObjectSubclass`] implementations.
 ///
 /// [`ObjectSubclass`]: subclass/types/trait.ObjectSubclass.html
 macro_rules! glib_object_subclass {
@@ -183,7 +185,7 @@ macro_rules! glib_object_subclass {
     };
 }
 
-/// The central trait for subclassing a `GObject` type
+/// The central trait for subclassing a `GObject` type.
 ///
 /// Links together the type name, parent type and the instance and
 /// class structs for type registration and allows subclasses to
@@ -199,37 +201,37 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// This must be unique in the whole process.
     const NAME: &'static str;
 
-    /// Parent Rust type to inherit from
+    /// Parent Rust type to inherit from.
     type ParentType: IsA<Object> + FromGlibPtrBorrow<*mut <Self::ParentType as Wrapper>::GlibType>;
 
-    /// The C instance struct
+    /// The C instance struct.
     ///
     /// See [`simple::InstanceStruct`] for an basic instance struct that should be
-    /// used in most cases
+    /// used in most cases.
     ///
     /// [`simple::InstanceStruct`]: ../simple/struct.InstanceStruct.html
     // TODO: Should default to simple::InstanceStruct<Self> once associated
     // type defaults are stabilized https://github.com/rust-lang/rust/issues/29661
     type Instance: InstanceStruct<Type = Self>;
 
-    /// The C class struct
+    /// The C class struct.
     ///
     /// See [`simple::ClassStruct`] for an basic instance struct that should be
-    /// used in most cases
+    /// used in most cases.
     ///
     /// [`simple::ClassStruct`]: ../simple/struct.ClassStruct.html
     // TODO: Should default to simple::ClassStruct<Self> once associated
     // type defaults are stabilized https://github.com/rust-lang/rust/issues/29661
     type Class: ClassStruct<Type = Self>;
 
-    /// Storage for the type-specific data used during registration
+    /// Storage for the type-specific data used during registration.
     ///
     /// This is usually generated by the [`object_subclass!`] macro.
     ///
     /// [`object_subclass!`]: ../../macro.glib_object_subclass.html
     fn type_data() -> ptr::NonNull<TypeData>;
 
-    /// Returns the `glib::Type` ID of the subclass
+    /// Returns the `glib::Type` ID of the subclass.
     ///
     /// This will panic if called before the type was registered at
     /// runtime with the `GObject` type system.
@@ -243,7 +245,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
         }
     }
 
-    /// Additional type initialization
+    /// Additional type initialization.
     ///
     /// This is called right after the type was registered and allows
     /// subclasses to do additional type-specific initialization, e.g.
@@ -252,7 +254,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// Optional
     fn type_init(_type_: &InitializingType<Self>) {}
 
-    /// Class initialization
+    /// Class initialization.
     ///
     /// This is called after `type_init` and before the first instance
     /// of the subclass is created. Subclasses can use this to do class-
@@ -262,7 +264,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// Optional
     fn class_init(_klass: &mut Self::Class) {}
 
-    /// Constructor
+    /// Constructor.
     ///
     /// This is called during object instantiation before further subclasses
     /// are initialized, and should return a new instance of the subclass
@@ -277,14 +279,14 @@ where
     let mut data = T::type_data();
 
     // We have to update the private struct offset once the class is actually
-    // being initialized
+    // being initialized.
     {
         let mut private_offset = data.as_ref().private_offset as i32;
         gobject_ffi::g_type_class_adjust_private_offset(klass, &mut private_offset);
         (*data.as_mut()).private_offset = private_offset as isize;
     }
 
-    // Set trampolines for the basic GObject virtual methods
+    // Set trampolines for the basic GObject virtual methods.
     {
         let gobject_klass = &mut *(klass as *mut gobject_ffi::GObjectClass);
 
@@ -293,7 +295,7 @@ where
 
     // And finally peek the parent class struct (containing the parent class'
     // implementations of virtual methods for chaining up), and call the subclass'
-    // class initialization function
+    // class initialization function.
     {
         let klass = &mut *(klass as *mut T::Class);
         let parent_class = gobject_ffi::g_type_class_peek_parent(klass as *mut _ as ffi::gpointer)
@@ -314,7 +316,7 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     glib_floating_reference_guard!(obj);
 
     // Get offset to the storage of our private struct, create it
-    // and actually store it in that place
+    // and actually store it in that place.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
@@ -328,7 +330,7 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
     // Retrieve the private struct, take it out of its storage and
-    // drop it for freeing all associated memory
+    // drop it for freeing all associated memory.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
@@ -338,7 +340,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
     let imp = (*imp_storage).take().expect("No private struct");
     drop(imp);
 
-    // Chain up to the parent class' finalize implementation, if any
+    // Chain up to the parent class' finalize implementation, if any.
     let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_ffi::GObjectClass);
     if let Some(ref func) = parent_class.finalize {
         func(obj);
@@ -346,7 +348,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
 }
 
 #[macro_export]
-/// Macro for defining a `get_type` function
+/// Macro for defining a `get_type` function.
 ///
 /// This returns a `glib::Type` and registers `Self` via [`register_type`]
 /// the first time it is called.
@@ -367,7 +369,7 @@ macro_rules! glib_object_get_type {
     };
 }
 
-/// Register a `glib::Type` ID for `T`
+/// Register a `glib::Type` ID for `T`.
 ///
 /// This must be called only once and will panic on a second call.
 ///

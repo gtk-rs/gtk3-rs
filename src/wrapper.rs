@@ -414,13 +414,13 @@ macro_rules! glib_wrapper {
     };
 }
 
-/// Represents a pair of structures (instance, class) as exposed by descendants of GObject
+/// Represents a pair of structures (instance, class) as exposed by descendants of GObject.
 pub trait Wrapper {
-    /// type of the FFI Instance structure
+    /// type of the FFI Instance structure.
     type GlibType: 'static;
-    /// type of the FFI Class structure
+    /// type of the FFI Class structure.
     type GlibClassType: 'static;
-    /// type of the Rust Class structure
+    /// type of the Rust Class structure.
     type RustClassType: 'static;
 }
 
