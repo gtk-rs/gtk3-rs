@@ -17,7 +17,6 @@ use translate::*;
 use {Closure, Object, ObjectClass, Type, Value};
 
 use super::prelude::*;
-use super::properties::*;
 use super::types;
 
 #[macro_export]
@@ -127,6 +126,9 @@ unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObje
     imp.constructed(&from_glib_borrow(obj));
 }
 
+/// Definition of a property
+pub struct Property<'a>(&'a str, fn() -> ::ParamSpec);
+
 /// Extension trait for `glib::Object`'s class struct
 ///
 /// This contains various class methods and allows subclasses to override the virtual methods.
@@ -135,11 +137,6 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     ///
     /// The index in the properties array is going to be the index passed to the
     /// property setters and getters.
-    // TODO: Use a different Property struct
-    //   struct Property {
-    //     name: &'static str,
-    //     pspec: fn () -> glib::ParamSpec,
-    //   }
     fn install_properties(&mut self, properties: &[Property]) {
         if properties.is_empty() {
             return;
@@ -147,17 +144,25 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
 
         let mut pspecs = Vec::with_capacity(properties.len());
 
-        pspecs.push(ptr::null_mut());
-
         for property in properties {
-            pspecs.push(property.into());
+            let pspec = (property.1)();
+            assert_eq!(property.0, pspec.get_name());
+            pspecs.push(pspec);
         }
 
         unsafe {
+            let mut pspecs_ptrs = Vec::with_capacity(properties.len());
+
+            pspecs_ptrs.push(ptr::null_mut());
+
+            for pspec in &pspecs {
+                pspecs_ptrs.push(pspec.to_glib_none().0);
+            }
+
             gobject_ffi::g_object_class_install_properties(
                 self as *mut _ as *mut gobject_ffi::GObjectClass,
-                pspecs.len() as u32,
-                pspecs.as_mut_ptr(),
+                pspecs_ptrs.len() as u32,
+                pspecs_ptrs.as_mut_ptr(),
             );
         }
     }
@@ -284,9 +289,24 @@ unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
 mod test {
     use super::super::super::object::ObjectExt;
     use super::super::super::subclass;
+    use super::super::super::value::{ToValue, Value};
     use super::*;
 
-    pub struct SimpleObject {}
+    use std::cell::RefCell;
+
+    static PROPERTIES: [Property; 1] = [Property("name", || {
+        ::ParamSpec::string(
+            "name",
+            "Name",
+            "Name of this object",
+            None,
+            ::ParamFlags::READWRITE,
+        )
+    })];
+
+    pub struct SimpleObject {
+        name: RefCell<Option<String>>,
+    }
 
     impl SimpleObject {
         glib_object_get_type!();
@@ -300,13 +320,40 @@ mod test {
 
         glib_object_subclass!();
 
+        fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
+            klass.install_properties(&PROPERTIES);
+        }
+
         fn new() -> Self {
-            Self {}
+            Self {
+                name: RefCell::new(None),
+            }
         }
     }
 
     impl ObjectImpl for SimpleObject {
         glib_object_impl!();
+
+        fn set_property(&self, _obj: &Object, id: u32, value: &Value) {
+            let prop = &PROPERTIES[id as usize];
+
+            match *prop {
+                Property("name", ..) => {
+                    let name = value.get();
+                    self.name.replace(name.clone());
+                }
+                _ => unimplemented!(),
+            }
+        }
+
+        fn get_property(&self, _obj: &Object, id: u32) -> Result<Value, ()> {
+            let prop = &PROPERTIES[id as usize];
+
+            match *prop {
+                Property("name", ..) => Ok(self.name.borrow().clone().to_value()),
+                _ => unimplemented!(),
+            }
+        }
 
         fn constructed(&self, obj: &Object) {
             self.parent_constructed(obj);
@@ -317,6 +364,14 @@ mod test {
     fn test_create() {
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[]).unwrap();
+
+        assert_eq!(obj.get_property("name").unwrap().get::<&str>(), None);
+        obj.set_property("name", &"test").unwrap();
+        assert_eq!(
+            obj.get_property("name").unwrap().get::<&str>(),
+            Some("test")
+        );
+
         let weak = obj.downgrade();
         drop(obj);
         assert!(weak.upgrade().is_none());

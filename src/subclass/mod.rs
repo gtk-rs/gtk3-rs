@@ -18,7 +18,6 @@ pub mod types;
 
 #[macro_use]
 pub mod object;
-pub mod properties;
 
 pub mod prelude {
     //! Prelude that re-exports all important traits from this crate
@@ -27,3 +26,4 @@ pub mod prelude {
 }
 
 pub use self::types::{InitializingType, TypeData, register_type};
+pub use self::object::Property;
