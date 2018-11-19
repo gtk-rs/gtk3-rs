@@ -18,8 +18,6 @@ extern crate gtk;
 extern crate glib_sys as glib_ffi;
 extern crate gobject_sys as gobject_ffi;
 
-extern crate gobject_subclass;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 
@@ -87,7 +85,7 @@ fn build_ui(application: &gtk::Application) {
     let listbox = gtk::ListBox::new();
     listbox.bind_model(&model, clone!(window_weak => move |item| {
         let box_ = gtk::ListBoxRow::new();
-        let item = item.downcast_ref::<RowData>().unwrap();
+        let item = item.downcast_ref::<RowData>().expect("Row data is of wrong type");
 
         let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
 
@@ -258,8 +256,8 @@ fn main() {
 mod row_data {
     use super::*;
 
-    use gobject_subclass::object::*;
-
+    use glib::subclass;
+    use glib::subclass::prelude::*;
     use glib::translate::*;
 
     use std::ptr;
@@ -278,63 +276,64 @@ mod row_data {
         }
 
         // GObject property definitions for our two values
-        static PROPERTIES: [Property; 2] = [
-            Property::String(
+        static PROPERTIES: [subclass::Property; 2] = [
+            subclass::Property(
                 "name",
-                "Name",
-                "Name",
-                None, // Default value
-                PropertyMutability::ReadWrite,
+                || {
+                    glib::ParamSpec::string(
+                        "name",
+                        "Name",
+                        "Name",
+                        None, // Default value
+                        glib::ParamFlags::READWRITE,
+                    )
+                }
             ),
-            Property::UInt(
+            subclass::Property(
                 "count",
-                "Count",
-                "Count",
-                (0, 100), 0, // Allowed range and default value
-                PropertyMutability::ReadWrite,
+                || {
+                    glib::ParamSpec::uint(
+                        "count",
+                        "Count",
+                        "Count",
+                        0, 100, 0, // Allowed range and default value
+                        glib::ParamFlags::READWRITE,
+                    )
+                }
             ),
         ];
 
         impl RowData {
-            // glib::Type registration of the RowData type. The very first time
-            // this registers the type with GObject and afterwards only returns
-            // the type id that was registered the first time
-            pub fn get_type() -> glib::Type {
-                use std::sync::{Once, ONCE_INIT};
+            // This defines a
+            //   fn get_type() -> glib::Type
+            // for RowData
+            glib_object_get_type!();
+        }
 
-                // unsafe code here because static mut variables are inherently
-                // unsafe. Via std::sync::Once we guarantee here that the variable
-                // is only ever set once, and from that point onwards is only ever
-                // read, which makes its usage safe.
-                static ONCE: Once = ONCE_INIT;
-                static mut TYPE: glib::Type = glib::Type::Invalid;
+        // Basic declaration of our type for the GObject type system
+        impl ObjectSubclass for RowData {
+            const NAME: &'static str = "RowData";
+            type ParentType = glib::Object;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
 
-                ONCE.call_once(|| {
-                    let t = register_type(RowDataStatic);
-                    unsafe {
-                        TYPE = t;
-                    }
-                });
-
-                unsafe { TYPE }
-            }
+            glib_object_subclass!();
 
             // Called exactly once before the first instantiation of an instance. This
             // sets up any type-specific things, in this specific case it installs the
             // properties so that GObject knows about their existence and they can be
             // used on instances of our type
-            fn class_init(klass: &mut ObjectClass) {
+            fn class_init(klass: &mut Self::Class) {
                 klass.install_properties(&PROPERTIES);
             }
 
             // Called once at the very beginning of instantiation of each instance and
             // creates the data structure that contains all our state
-            fn init(_obj: &Object) -> Box<ObjectImpl<Object>> {
-                let imp = Self {
+            fn new() -> Self {
+                Self {
                     name: RefCell::new(None),
                     count: RefCell::new(0),
-                };
-                Box::new(imp)
+                }
             }
         }
 
@@ -344,52 +343,33 @@ mod row_data {
         //
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
-        impl ObjectImpl<Object> for RowData {
-            fn set_property(&self, _obj: &glib::Object, id: u32, value: &glib::Value) {
-                let prop = &PROPERTIES[id as usize];
+        impl ObjectImpl for RowData {
+            glib_object_impl!();
+
+            fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+                let prop = &PROPERTIES[id];
 
                 match *prop {
-                    Property::String("name", ..) => {
+                    subclass::Property("name", ..) => {
                         let name = value.get();
-                        self.name.replace(name.clone());
+                        self.name.replace(name);
                     }
-                    Property::UInt("count", ..) => {
-                        let count = value.get().unwrap();
+                    subclass::Property("count", ..) => {
+                        let count = value.get().expect("Got value of wrong type");
                         self.count.replace(count);
                     }
                     _ => unimplemented!(),
                 }
             }
 
-            fn get_property(&self, _obj: &glib::Object, id: u32) -> Result<glib::Value, ()> {
-                let prop = &PROPERTIES[id as usize];
+            fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+                let prop = &PROPERTIES[id];
 
                 match *prop {
-                    Property::String("name", ..) => Ok(self.name.borrow().clone().to_value()),
-                    Property::UInt("count", ..) => Ok(self.count.borrow().clone().to_value()),
+                    subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
+                    subclass::Property("count", ..) => Ok(self.count.borrow().to_value()),
                     _ => unimplemented!(),
                 }
-            }
-        }
-
-        // Static, per-type data that is used for actually registering the type
-        // and providing the name of our type and how to initialize it to GObject
-        //
-        // It is used above in the get_type() function for passing that information
-        // to GObject
-        struct RowDataStatic;
-
-        impl ImplTypeStatic<Object> for RowDataStatic {
-            fn get_name(&self) -> &str {
-                "RowData"
-            }
-
-            fn new(&self, obj: &Object) -> Box<ObjectImpl<Object>> {
-                RowData::init(obj)
-            }
-
-            fn class_init(&self, klass: &mut ObjectClass) {
-                RowData::class_init(klass);
             }
         }
     }
@@ -397,8 +377,7 @@ mod row_data {
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
     glib_wrapper! {
-        pub struct RowData(Object<imp::RowData>):
-            [Object => InstanceStruct<Object>];
+        pub struct RowData(Object<subclass::simple::InstanceStruct<imp::RowData>, subclass::simple::ClassStruct<imp::RowData>>);
 
         match fn {
             get_type => || imp::RowData::get_type().to_glib(),
@@ -409,17 +388,14 @@ mod row_data {
     // initial values for our two properties and then returns the new instance
     impl RowData {
         pub fn new(name: &str, count: u32) -> RowData {
-            use glib::object::Downcast;
-
-            unsafe {
-                glib::Object::new(
-                    Self::static_type(),
-                    &[("name", &name),
-                      ("count", &count),
-                    ])
-                    .unwrap()
-                    .downcast_unchecked()
-            }
+            glib::Object::new(
+                Self::static_type(),
+                &[("name", &name),
+                  ("count", &count),
+                ])
+                .expect("Failed to create row data")
+                .downcast()
+                .expect("Created row data is of wrong type")
         }
     }
 }
