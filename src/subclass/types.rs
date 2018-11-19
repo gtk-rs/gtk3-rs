@@ -9,10 +9,10 @@
 use ffi;
 use gobject_ffi;
 
+use std::marker;
 use std::mem;
 use std::ops;
 use std::ptr;
-use std::marker;
 
 use translate::*;
 use wrapper::Wrapper;
@@ -85,9 +85,13 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// Corresponding object subclass type for this class struct
     type Type: ObjectSubclass;
 
+    /// Override the vfuncs of all parent types
+    ///
+    /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self)
     where
-        <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<Self::Type>,
+        <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType:
+            IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
@@ -100,6 +104,8 @@ pub unsafe trait ClassStruct: Sized + 'static {
 /// Trait for subclassable class structs
 pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
     /// Override the virtual methods of this class for the given subclass
+    ///
+    /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self);
 }
 
@@ -264,10 +270,10 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     fn new() -> Self;
 }
 
-unsafe extern "C" fn class_init<T: ObjectSubclass>(
-    klass: ffi::gpointer,
-    _klass_data: ffi::gpointer,
-) {
+unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
+where
+    <<T as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<T>,
+{
     let mut data = T::type_data();
 
     // We have to update the private struct offset once the class is actually
@@ -296,6 +302,7 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
 
         (*data.as_mut()).parent_class = parent_class as ffi::gpointer;
 
+        klass.override_vfuncs();
         T::class_init(klass);
     }
 }
@@ -368,7 +375,10 @@ macro_rules! glib_object_get_type {
 /// this is only called once and returns the type id.
 ///
 /// [`object_get_type!`]: ../../macro.glib_object_get_type.html
-pub fn register_type<T: ObjectSubclass>() -> Type {
+pub fn register_type<T: ObjectSubclass>() -> Type
+where
+    <<T as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<T>,
+{
     unsafe {
         use std::ffi::CString;
 

@@ -133,11 +133,8 @@ unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObje
 pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     /// Install properties on the subclass
     ///
-    /// This must be called after [`override_vfuncs`] to work correctly.
     /// The index in the properties array is going to be the index passed to the
     /// property setters and getters.
-    ///
-    /// [`override_vfuncs`]: #method.override_vfuncs
     // TODO: Use a different Property struct
     //   struct Property {
     //     name: &'static str,
@@ -285,9 +282,9 @@ unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
 
 #[cfg(test)]
 mod test {
-    use super::*;
     use super::super::super::object::ObjectExt;
     use super::super::super::subclass;
+    use super::*;
 
     pub struct SimpleObject {}
 
@@ -302,10 +299,6 @@ mod test {
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib_object_subclass!();
-
-        fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
-            klass.override_vfuncs();
-        }
 
         fn new() -> Self {
             Self {}
