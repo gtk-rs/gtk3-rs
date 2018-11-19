@@ -307,7 +307,7 @@ mod test {
             klass.override_vfuncs();
         }
 
-        fn new(_obj: &Object) -> Self {
+        fn new() -> Self {
             Self {}
         }
     }

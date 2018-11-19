@@ -261,7 +261,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// This is called during object instantiation before further subclasses
     /// are initialized, and should return a new instance of the subclass
     /// private struct.
-    fn new(obj: &Self::ParentType) -> Self;
+    fn new() -> Self;
 }
 
 unsafe extern "C" fn class_init<T: ObjectSubclass>(
@@ -305,8 +305,6 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     _klass: ffi::gpointer,
 ) {
     glib_floating_reference_guard!(obj);
-    let rs_instance: T::ParentType =
-        from_glib_borrow(obj as *mut <T::ParentType as Wrapper>::GlibType);
 
     // Get offset to the storage of our private struct, create it
     // and actually store it in that place
@@ -316,7 +314,7 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     let priv_ptr = ptr.offset(private_offset);
     let imp_storage = priv_ptr as *mut Option<T>;
 
-    let imp = T::new(&rs_instance);
+    let imp = T::new();
 
     ptr::write(imp_storage, Some(imp));
 }
