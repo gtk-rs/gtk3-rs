@@ -359,7 +359,7 @@ mod test {
             match *prop {
                 Property("name", ..) => {
                     let name = value.get();
-                    self.name.replace(name.clone());
+                    self.name.replace(name);
                 }
                 _ => unimplemented!(),
             }
@@ -369,8 +369,8 @@ mod test {
             let prop = &PROPERTIES[id];
 
             match *prop {
-                Property("name", ..) => Ok(self.name.borrow().clone().to_value()),
-                Property("constructed", ..) => Ok(self.constructed.borrow().clone().to_value()),
+                Property("name", ..) => Ok(self.name.borrow().to_value()),
+                Property("constructed", ..) => Ok(self.constructed.borrow().to_value()),
                 _ => unimplemented!(),
             }
         }

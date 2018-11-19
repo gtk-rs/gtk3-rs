@@ -95,7 +95,7 @@
 //!         match *prop {
 //!             subclass::Property("name", ..) => {
 //!                 let name = value.get();
-//!                 self.name.replace(name.clone());
+//!                 self.name.replace(name);
 //!             }
 //!             _ => unimplemented!(),
 //!         }
@@ -107,7 +107,7 @@
 //!         let prop = &PROPERTIES[id];
 //!
 //!         match *prop {
-//!             subclass::Property("name", ..) => Ok(self.name.borrow().clone().to_value()),
+//!             subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
 //!             _ => unimplemented!(),
 //!         }
 //!     }
