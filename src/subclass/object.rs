@@ -127,7 +127,7 @@ unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObje
 }
 
 /// Definition of a property
-pub struct Property<'a>(&'a str, fn() -> ::ParamSpec);
+pub struct Property<'a>(pub &'a str, pub fn() -> ::ParamSpec);
 
 /// Extension trait for `glib::Object`'s class struct
 ///
