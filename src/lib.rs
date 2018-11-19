@@ -57,6 +57,10 @@
 //! `ObjectExt` and `gtk::WidgetExt`), which are blanketly implemented for all
 //! their subtypes.
 //!
+//! For creating new subclasses of `Object` or other object types this crate has to be compiled
+//! with the `subclassing` feature to enable the [`subclass`](subclass/index.html) module. Check
+//! the module's documentation for further details and a code example.
+//!
 //! # Under the hood
 //!
 //! GLib-based libraries largely operate on pointers to various boxed or
