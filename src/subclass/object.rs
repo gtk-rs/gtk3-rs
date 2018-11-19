@@ -46,7 +46,7 @@ pub trait ObjectImpl: 'static {
     ///
     /// This is called whenever the property of this specific subclass with the
     /// given index is set. The new value is passed as `glib::Value`.
-    fn set_property(&self, _obj: &Object, _id: u32, _value: &Value) {
+    fn set_property(&self, _obj: &Object, _id: usize, _value: &Value) {
         unimplemented!()
     }
 
@@ -54,7 +54,7 @@ pub trait ObjectImpl: 'static {
     ///
     /// This is called whenever the property value of the specific subclass with the
     /// given index should be returned.
-    fn get_property(&self, _obj: &Object, _id: u32) -> Result<Value, ()> {
+    fn get_property(&self, _obj: &Object, _id: usize) -> Result<Value, ()> {
         unimplemented!()
     }
 
@@ -92,7 +92,7 @@ unsafe extern "C" fn get_property<T: ObjectSubclass>(
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
-    match imp.get_property(&from_glib_borrow(obj), id - 1) {
+    match imp.get_property(&from_glib_borrow(obj), (id - 1) as usize) {
         Ok(v) => {
             // Here we overwrite the value directly with ours
             // and forget ours because otherwise we would do
@@ -115,7 +115,7 @@ unsafe extern "C" fn set_property<T: ObjectSubclass>(
     glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
-    imp.set_property(&from_glib_borrow(obj), id - 1, &*(value as *mut Value));
+    imp.set_property(&from_glib_borrow(obj), (id - 1) as usize, &*(value as *mut Value));
 }
 
 unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
@@ -334,8 +334,8 @@ mod test {
     impl ObjectImpl for SimpleObject {
         glib_object_impl!();
 
-        fn set_property(&self, _obj: &Object, id: u32, value: &Value) {
-            let prop = &PROPERTIES[id as usize];
+        fn set_property(&self, _obj: &Object, id: usize, value: &Value) {
+            let prop = &PROPERTIES[id];
 
             match *prop {
                 Property("name", ..) => {
@@ -346,8 +346,8 @@ mod test {
             }
         }
 
-        fn get_property(&self, _obj: &Object, id: u32) -> Result<Value, ()> {
-            let prop = &PROPERTIES[id as usize];
+        fn get_property(&self, _obj: &Object, id: usize) -> Result<Value, ()> {
+            let prop = &PROPERTIES[id];
 
             match *prop {
                 Property("name", ..) => Ok(self.name.borrow().clone().to_value()),

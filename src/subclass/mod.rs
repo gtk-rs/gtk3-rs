@@ -93,8 +93,8 @@
 //!
 //!     // Called whenever a property is set on this instance. The id
 //!     // is the same as the index of the property in the PROPERTIES array
-//!     fn set_property(&self, _obj: &glib::Object, id: u32, value: &glib::Value) {
-//!         let prop = &PROPERTIES[id as usize];
+//!     fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+//!         let prop = &PROPERTIES[id];
 //!
 //!         match *prop {
 //!             subclass::Property("name", ..) => {
@@ -107,8 +107,8 @@
 //!
 //!     // Called whenever a property is retrieved from this instance. The id
 //!     // is the same as the index of the property in the PROPERTIES array
-//!     fn get_property(&self, _obj: &glib::Object, id: u32) -> Result<glib::Value, ()> {
-//!         let prop = &PROPERTIES[id as usize];
+//!     fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+//!         let prop = &PROPERTIES[id];
 //!
 //!         match *prop {
 //!             subclass::Property("name", ..) => Ok(self.name.borrow().clone().to_value()),
