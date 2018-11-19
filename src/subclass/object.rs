@@ -115,7 +115,11 @@ unsafe extern "C" fn set_property<T: ObjectSubclass>(
     glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
-    imp.set_property(&from_glib_borrow(obj), (id - 1) as usize, &*(value as *mut Value));
+    imp.set_property(
+        &from_glib_borrow(obj),
+        (id - 1) as usize,
+        &*(value as *mut Value),
+    );
 }
 
 unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
@@ -294,18 +298,30 @@ mod test {
 
     use std::cell::RefCell;
 
-    static PROPERTIES: [Property; 1] = [Property("name", || {
-        ::ParamSpec::string(
-            "name",
-            "Name",
-            "Name of this object",
-            None,
-            ::ParamFlags::READWRITE,
-        )
-    })];
+    static PROPERTIES: [Property; 2] = [
+        Property("name", || {
+            ::ParamSpec::string(
+                "name",
+                "Name",
+                "Name of this object",
+                None,
+                ::ParamFlags::READWRITE,
+            )
+        }),
+        Property("constructed", || {
+            ::ParamSpec::boolean(
+                "constructed",
+                "Constructed",
+                "True if the constructed() virtual method was called",
+                false,
+                ::ParamFlags::READABLE,
+            )
+        }),
+    ];
 
     pub struct SimpleObject {
         name: RefCell<Option<String>>,
+        constructed: RefCell<bool>,
     }
 
     impl SimpleObject {
@@ -327,6 +343,7 @@ mod test {
         fn new() -> Self {
             Self {
                 name: RefCell::new(None),
+                constructed: RefCell::new(false),
             }
         }
     }
@@ -351,12 +368,14 @@ mod test {
 
             match *prop {
                 Property("name", ..) => Ok(self.name.borrow().clone().to_value()),
+                Property("constructed", ..) => Ok(self.constructed.borrow().clone().to_value()),
                 _ => unimplemented!(),
             }
         }
 
         fn constructed(&self, obj: &Object) {
             self.parent_constructed(obj);
+            *self.constructed.borrow_mut() = true;
         }
     }
 
@@ -364,6 +383,11 @@ mod test {
     fn test_create() {
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[]).unwrap();
+
+        assert_eq!(
+            obj.get_property("constructed").unwrap().get::<bool>(),
+            Some(true)
+        );
 
         assert_eq!(obj.get_property("name").unwrap().get::<&str>(), None);
         obj.set_property("name", &"test").unwrap();
