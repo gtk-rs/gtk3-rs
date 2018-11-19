@@ -2,6 +2,10 @@
 
 GLib bindings for Rust.
 
+Alongside GLib bindings, this crate also includes the infrastructure to
+subclass `GObject` for extending libraries like GTK+. A code example can
+be found in the documentation of this crate in the `subclass` module.
+
 - [Gtk-rs project site](http://gtk-rs.org/)
 
 - [Online documentation](http://gtk-rs.org/docs/)
