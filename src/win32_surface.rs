@@ -9,7 +9,7 @@ use std::ops::Deref;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
-use ffi::enums::{Format, SurfaceType};
+use ::enums::{Format, SurfaceType};
 use surface::{Surface, SurfaceExt};
 use Status;
 
@@ -39,16 +39,23 @@ impl Win32Surface {
     }
 
     pub fn create_with_dib(format: Format, width: i32, height: i32) -> Result<Win32Surface, Status> {
-        unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create_with_dib(format, width, height)) }
+        unsafe {
+            Self::from_raw_full(ffi::cairo_win32_surface_create_with_dib(format.into(),
+                                                                         width,
+                                                                         height))
+        }
     }
 
     pub fn create_with_ddb(hdc: winapi::HDC,
                            format: Format,
                            width: i32,
-                           height: i32)
-                           -> Result<Win32Surface, Status> {
+                           height: i32,
+    ) -> Result<Win32Surface, Status> {
         unsafe {
-            Self::from_raw_full(ffi::cairo_win32_surface_create_with_ddb(hdc, format, width, height))
+            Self::from_raw_full(ffi::cairo_win32_surface_create_with_ddb(hdc,
+                                                                         format.into(),
+                                                                         width,
+                                                                         height))
         }
     }
 

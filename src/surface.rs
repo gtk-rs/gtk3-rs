@@ -8,7 +8,7 @@ use libc::c_void;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
-use ffi::enums::{
+use ::enums::{
     Content,
     Status,
     SurfaceType,
@@ -40,7 +40,12 @@ impl Surface {
     }
 
     pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
-        unsafe { Self::from_raw_full(ffi::cairo_surface_create_similar(self.0, content, width, height)) }
+        unsafe {
+            Self::from_raw_full(ffi::cairo_surface_create_similar(self.0,
+                                                                  content.into(),
+                                                                  width,
+                                                                  height))
+        }
     }
 }
 
@@ -125,11 +130,11 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
     }
 
     fn get_type(&self) -> SurfaceType {
-        unsafe { ffi::cairo_surface_get_type(self.as_ref().0) }
+        unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.as_ref().0)) }
     }
 
     fn status(&self) -> Status {
-        unsafe { ffi::cairo_surface_status(self.as_ref().0) }
+        unsafe { Status::from(ffi::cairo_surface_status(self.as_ref().0)) }
     }
 }
 
@@ -145,7 +150,7 @@ impl<O: AsRef<Surface>> SurfacePriv for O {
 
         let status = ffi::cairo_surface_set_user_data(self.as_ref().0, key as *const _ as *mut _,
             ptr as *mut c_void, Some(unbox::<T>));
-        match status {
+        match Status::from(status) {
             Status::Success => Ok(()),
             x => Err(x),
         }

@@ -7,8 +7,8 @@ use std::io::{Read, Write, Error};
 
 use libc::{c_void, c_uint};
 
-use ffi;
-use ffi::enums::Status;
+use ffi::{self, CairoStatus};
+use ::enums::Status;
 use error::IoError;
 use ImageSurface;
 
@@ -17,7 +17,7 @@ struct ReadEnv<'a, R: 'a + Read> {
     error: Option<Error>,
 }
 
-unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> Status {
+unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> CairoStatus {
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
     let buffer = slice::from_raw_parts_mut(data, len as usize);
     match read_env.reader.read_exact(buffer) {
@@ -26,7 +26,7 @@ unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len
             read_env.error = Some(error);
             Status::ReadError
         },
-    }
+    }.into()
 }
 
 struct WriteEnv<'a, W: 'a + Write> {
@@ -34,7 +34,7 @@ struct WriteEnv<'a, W: 'a + Write> {
     error: Option<Error>,
 }
 
-unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> Status {
+unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> CairoStatus {
     let write_env: &mut WriteEnv<W> = &mut *(closure as *mut WriteEnv<W>);
     let buffer = slice::from_raw_parts(data, len as usize);
     match write_env.writer.write_all(buffer) {
@@ -43,7 +43,7 @@ unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, l
             write_env.error = Some(error);
             Status::WriteError
         },
-    }
+    }.into()
 }
 
 
@@ -69,9 +69,9 @@ impl ImageSurface {
         let status = unsafe { ffi::cairo_surface_write_to_png_stream(self.to_raw_none(),
             Some(write_func::<W>), &mut env as *mut WriteEnv<W> as *mut c_void) };
         match env.error {
-            None => match status {
+            None => match Status::from(status) {
                 Status::Success => Ok(()),
-                st => Err(IoError::Cairo(st)),
+                st => Err(IoError::Cairo(st.into())),
             },
             Some(err) => Err(IoError::Io(err)),
         }
@@ -82,7 +82,7 @@ impl ImageSurface {
 mod tests {
     use std::io::ErrorKind;
     use super::*;
-    use ffi::enums::Format;
+    use ::enums::Format;
 
     struct IoErrorReader;
 

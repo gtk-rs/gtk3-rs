@@ -8,7 +8,7 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ffi::enums::{SurfaceType, PsLevel};
+use ::enums::{SurfaceType, PsLevel};
 use surface::{Surface, SurfaceExt};
 use support;
 
@@ -16,7 +16,7 @@ use support;
 use glib::translate::*;
 
 pub struct File {
-    inner: Surface
+    inner: Surface,
 }
 
 #[cfg(feature = "use_glib")]
@@ -80,7 +80,7 @@ impl File {
 
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
-            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level);
+            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level.into());
         }
     }
 }
@@ -117,7 +117,7 @@ impl Buffer {
 
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
-            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level);
+            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level.into());
         }
     }
 }
@@ -171,7 +171,7 @@ impl<'a> Writer<'a> {
 
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
-            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level);
+            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level.into());
         }
     }
 }
@@ -221,7 +221,7 @@ impl<'a> Stream<'a> {
 
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
-            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level);
+            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level.into());
         }
     }
 }

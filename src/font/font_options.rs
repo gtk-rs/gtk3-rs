@@ -12,11 +12,12 @@ use std::hash;
 use std::cmp::PartialEq;
 use ffi;
 
-use ffi::enums::{
+use ::enums::{
     Antialias,
-    SubpixelOrder,
     HintStyle,
     HintMetrics,
+    Status,
+    SubpixelOrder,
 };
 
 #[cfg(feature = "use_glib")]
@@ -28,7 +29,7 @@ glib_wrapper! {
         copy => |ptr| {
             let ptr = ffi::cairo_font_options_copy(ptr);
             let status = ffi::cairo_font_options_status(ptr);
-            status.ensure_valid();
+            Status::from(status).ensure_valid();
             ptr
         },
         free => |ptr| ffi::cairo_font_options_destroy(ptr),
@@ -74,7 +75,7 @@ impl FontOptions {
         let status = unsafe {
             ffi::cairo_font_options_status(self.to_raw_none())
         };
-        status.ensure_valid()
+        Status::from(status).ensure_valid()
     }
 
     pub fn merge(&mut self, other: &FontOptions) {
@@ -85,49 +86,49 @@ impl FontOptions {
 
     pub fn set_antialias(&mut self, antialias: Antialias) {
         unsafe {
-            ffi::cairo_font_options_set_antialias(self.to_raw_none(), antialias)
+            ffi::cairo_font_options_set_antialias(self.to_raw_none(), antialias.into())
         }
     }
 
     pub fn get_antialias(&self) -> Antialias {
         unsafe {
-            ffi::cairo_font_options_get_antialias(self.to_raw_none())
+            Antialias::from(ffi::cairo_font_options_get_antialias(self.to_raw_none()))
         }
     }
 
     pub fn set_subpixel_order(&mut self, order: SubpixelOrder) {
         unsafe {
-            ffi::cairo_font_options_set_subpixel_order(self.to_raw_none(), order)
+            ffi::cairo_font_options_set_subpixel_order(self.to_raw_none(), order.into())
         }
     }
 
     pub fn get_subpixel_order(&self) -> SubpixelOrder {
         unsafe {
-            ffi::cairo_font_options_get_subpixel_order(self.to_raw_none())
+            SubpixelOrder::from(ffi::cairo_font_options_get_subpixel_order(self.to_raw_none()))
         }
     }
 
     pub fn set_hint_style(&mut self, hint_style: HintStyle) {
         unsafe {
-            ffi::cairo_font_options_set_hint_style(self.to_raw_none(), hint_style)
+            ffi::cairo_font_options_set_hint_style(self.to_raw_none(), hint_style.into())
         }
     }
 
     pub fn get_hint_style(&self) -> HintStyle {
         unsafe {
-            ffi::cairo_font_options_get_hint_style(self.to_raw_none())
+            HintStyle::from(ffi::cairo_font_options_get_hint_style(self.to_raw_none()))
         }
     }
 
     pub fn set_hint_metrics(&mut self, hint_metrics: HintMetrics) {
         unsafe {
-            ffi::cairo_font_options_set_hint_metrics(self.to_raw_none(), hint_metrics)
+            ffi::cairo_font_options_set_hint_metrics(self.to_raw_none(), hint_metrics.into())
         }
     }
 
     pub fn get_hint_metrics(&self) -> HintMetrics {
         unsafe {
-            ffi::cairo_font_options_get_hint_metrics(self.to_raw_none())
+            HintMetrics::from(ffi::cairo_font_options_get_hint_metrics(self.to_raw_none()))
         }
     }
 }

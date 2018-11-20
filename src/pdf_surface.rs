@@ -10,7 +10,7 @@ extern crate libc;
 use libc::{c_char, c_double};
 
 use ffi;
-use ffi::enums::SurfaceType;
+use ::enums::SurfaceType;
 
 use surface::{Surface, SurfaceExt};
 

@@ -6,7 +6,7 @@ mod font_options;
 mod font_face;
 mod scaled_font;
 
-pub use ffi::enums::{
+pub use ::enums::{
     Antialias,
     SubpixelOrder,
     HintStyle,
