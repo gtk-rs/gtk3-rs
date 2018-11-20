@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
+use std::slice;
 use libc::c_void;
 
 #[cfg(feature = "use_glib")]
@@ -29,7 +30,6 @@ impl Surface {
         Surface(ptr, true)
     }
 
-
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
         assert!(!ptr.is_null());
         Surface(ptr, false)
@@ -45,6 +45,61 @@ impl Surface {
                                                                   content.into(),
                                                                   width,
                                                                   height))
+        }
+    }
+
+    pub fn get_mime_data(&self, mime_type: &str) -> Option<&[u8]> {
+        let mut data_ptr: *mut u8 = ptr::null_mut();
+        let mut length = 0u64;
+        unsafe {
+            ffi::cairo_surface_get_mime_data(
+                self.to_raw_none(),
+                mime_type.to_glib_none().0,
+                &mut data_ptr,
+                &mut length,
+            );
+            if !data_ptr.is_null() && length != 0 {
+                Some(slice::from_raw_parts(
+                    data_ptr as *const u8,
+                    length as usize,
+                ))
+            } else {
+                None
+            }
+        }
+    }
+
+    pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(&self,
+                                                          mime_type: &str,
+                                                          slice: T) -> Result<(), Status> {
+        let b = Box::new(slice);
+        let (size, data) = {
+            let slice = (*b).as_ref();
+            (slice.len(), slice.as_ptr())
+        };
+
+        let user_data = Box::into_raw(b);
+
+        let status = unsafe {
+            ffi::cairo_surface_set_mime_data(
+                self.to_raw_none(),
+                mime_type.to_glib_none().0,
+                data,
+                size as u64,
+                Some(unbox::<T>),
+                user_data as *mut _,
+                )
+        };
+
+        match Status::from(status) {
+            Status::Success => Ok(()),
+            x => Err(x),
+        }
+    }
+
+    pub fn supports_mime_type(&self, mime_type: &str) -> bool {
+        unsafe {
+            ffi::cairo_surface_supports_mime_type(self.0, mime_type.to_glib_none().0).as_bool()
         }
     }
 }
@@ -160,4 +215,22 @@ impl<O: AsRef<Surface>> SurfacePriv for O {
 unsafe extern "C" fn unbox<T>(data: *mut c_void) {
     let data: Box<T> = Box::from_raw(data as *mut T);
     drop(data);
+}
+
+#[cfg(test)]
+mod tests {
+    use Format;
+    use ImageSurface;
+
+    #[test]
+    fn mime_data() {
+        let surface = ImageSurface::create(Format::ARgb32, 500, 500).unwrap();
+        let data = surface.get_mime_data("image/png");
+        /* Initially the data for any mime type has to be none */
+        assert!(data.is_none());
+
+        surface.set_mime_data("image/png", &[1u8, 10u8]);
+        let data = surface.get_mime_data("image/png").unwrap();
+        assert_eq!(data, &[1u8, 10u8]);
+    }
 }

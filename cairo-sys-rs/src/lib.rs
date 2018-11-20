@@ -539,6 +539,9 @@ extern "C" {
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
     pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_surface_get_mime_data(surface: *mut cairo_surface_t, mime_type: *const c_char, data : *const *mut u8, length: *mut c_ulong);
+    pub fn cairo_surface_set_mime_data(surface: *mut cairo_surface_t, mime_type: *const c_char, data : *const u8, length: c_ulong, destroy: cairo_destroy_func_t, closure: *const u8) -> cairo_status_t;
+    pub fn cairo_surface_supports_mime_type (surface: *mut cairo_surface_t, mime_type: *const c_char) -> cairo_bool_t;
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: cairo_format_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
