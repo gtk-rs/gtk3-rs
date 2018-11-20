@@ -34,9 +34,6 @@ git = "https://github.com/gtk-rs/gdk"
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk"
 
-[dependencies.gobject-subclass]
-git = "https://github.com/gtk-rs/gobject-subclass"
-
 [dependencies.glib-sys]
 git = "https://github.com/gtk-rs/sys"
 
@@ -44,7 +41,7 @@ git = "https://github.com/gtk-rs/sys"
 git = "https://github.com/gtk-rs/sys"
 
 [features]
-#default = ["gtk_3_22_30", "futures-stable", "gio_2_40"]
+#default = ["gtk_3_22_30", "futures-stable", "gio_2_40", "subclassing"]
 gtk_3_10 = ["gtk/v3_10"]
 gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
@@ -53,6 +50,7 @@ gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
 gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
 gio_2_40 = ["gio/v2_40"]
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
+subclassing = ["glib/subclassing"]
 
 [[bin]]
 name = "accessibility"
@@ -100,7 +98,7 @@ name = "gtktest"
 
 [[bin]]
 name = "listbox_model"
-required-features = ["gtk/v3_16", "gio/v2_44"]
+required-features = ["gtk/v3_16", "gio/v2_44", "subclassing"]
 
 [[bin]]
 name = "menu_bar"
