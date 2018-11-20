@@ -266,6 +266,20 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// are initialized, and should return a new instance of the subclass
     /// private struct.
     fn new() -> Self;
+
+    /// Constructor.
+    ///
+    /// This is called during object instantiation before further subclasses
+    /// are initialized, and should return a new instance of the subclass
+    /// private struct.
+    ///
+    /// Different to `new()` above it also gets the class of this type passed
+    /// to itself for providing additional context.
+    ///
+    /// Optional, calls `new()` by default.
+    fn new_with_class(_klass: &Self::Class) -> Self {
+        Self::new()
+    }
 }
 
 unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
@@ -307,7 +321,7 @@ where
 
 unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     obj: *mut gobject_ffi::GTypeInstance,
-    _klass: ffi::gpointer,
+    klass: ffi::gpointer,
 ) {
     glib_floating_reference_guard!(obj);
 
@@ -319,7 +333,9 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     let priv_ptr = ptr.offset(private_offset);
     let imp_storage = priv_ptr as *mut Option<T>;
 
-    let imp = T::new();
+    let klass = &*(klass as *const T::Class);
+
+    let imp = T::new_with_class(klass);
 
     ptr::write(imp_storage, Some(imp));
 }
