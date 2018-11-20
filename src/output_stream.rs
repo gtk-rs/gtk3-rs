@@ -186,6 +186,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
     }
 }
 
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct OutputStreamWrite<T: OutputStreamExt>(T);
 
 impl <T: OutputStreamExt> OutputStreamWrite<T> {
