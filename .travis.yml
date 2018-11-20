@@ -51,7 +51,7 @@ script:
     make regen_check;
     fi
   - cargo doc --features "dox"
-  - cargo test
+  - cargo test --features "subclassing"
   - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
