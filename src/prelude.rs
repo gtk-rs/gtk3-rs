@@ -4,6 +4,7 @@ pub use {
     Cast,
     Continue,
     IsA,
+    IsClassFor,
     ObjectExt,
     StaticType,
     StaticVariantType,

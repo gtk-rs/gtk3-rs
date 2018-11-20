@@ -214,6 +214,74 @@ unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
     for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
 
+/// Trait for mapping a class struct type to its corresponding instance type.
+pub unsafe trait IsClassFor: Sized + 'static {
+    /// Corresponding Rust instance type for this class.
+    type Instance;
+
+    /// Get the type id for this class.
+    fn get_type(&self) -> Type {
+        unsafe {
+            let klass = self as *const _ as *const gobject_ffi::GTypeClass;
+            from_glib((*klass).g_type)
+        }
+    }
+
+    /// Casts this class to a reference to a parent type's class.
+    fn upcast_ref<U: IsClassFor>(&self) -> &U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *const _ as *const U;
+            &*klass
+        }
+    }
+
+    /// Casts this class to a mutable reference to a parent type's class.
+    fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            &mut *klass
+        }
+    }
+
+    /// Casts this class to a reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *const _ as *const U;
+            Some(&*klass)
+        }
+    }
+
+    /// Casts this class to a mutable reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            Some(&mut *klass)
+        }
+    }
+}
+
 /// Downcasts support.
 pub trait Downcast<T> {
     /// Checks if it's possible to downcast to `T`.
@@ -307,7 +375,7 @@ glib_wrapper! {
 /// Wrapper implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr) => {
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -339,6 +407,7 @@ macro_rules! glib_object_wrapper {
         impl $crate::wrapper::Wrapper for $name {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
+            type RustClassType = $rust_class_name;
         }
 
         #[doc(hidden)]
@@ -690,9 +759,10 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr,
-     @implements $($implements:tt)*) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr);
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path,
+        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
 
         #[doc(hidden)]
@@ -716,16 +786,16 @@ macro_rules! glib_object_wrapper {
         unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, @get_type $get_type_expr:expr,
+    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr,
      [$($implements:path),*]) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, @get_type $get_type_expr,
-            @implements $($implements),*);
-    }
+        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, @implements $($implements),*);
+    };
 }
 
 glib_object_wrapper! {
     [doc = "The base class in the object hierarchy."]
-    Object, GObject, GObjectClass, @get_type gobject_ffi::g_object_get_type()
+    Object, GObject, GObjectClass, ObjectClass, @get_type gobject_ffi::g_object_get_type()
 }
 
 impl Object {
@@ -764,6 +834,7 @@ impl Object {
 
 pub trait ObjectExt: IsA<Object> {
     fn get_type(&self) -> Type;
+    fn get_object_class(&self) -> &ObjectClass;
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
@@ -794,10 +865,14 @@ pub trait ObjectExt: IsA<Object> {
 
 impl<T: IsA<Object> + SetValue> ObjectExt for T {
     fn get_type(&self) -> Type {
+        self.get_object_class().get_type()
+    }
+
+    fn get_object_class(&self) -> &ObjectClass {
         unsafe {
             let obj = self.to_glib_none().0;
-            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GTypeClass;
-            from_glib((*klass).g_type)
+            let klass = (*obj).g_type_instance.g_class as *const ObjectClass;
+            &*klass
         }
     }
 
@@ -932,46 +1007,19 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
     }
 
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError> {
-        let property_name = property_name.into();
-        let ptype = self.get_property_type(property_name);
-
-        match (ptype, type_) {
-            (None, _) => Err(BoolError("Invalid property name")),
-            (Some(_), None) => Ok(()),
-            (Some(ptype), Some(type_)) => {
-                if ptype == type_ {
-                    Ok(())
-                } else {
-                    Err(BoolError("Invalid property type"))
-                }
-            },
-        }
+        self.get_object_class().has_property(property_name, type_)
     }
 
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
-        self.find_property(property_name).map(|pspec| pspec.get_value_type())
+        self.get_object_class().get_property_type(property_name)
     }
 
     fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<::ParamSpec> {
-        let property_name = property_name.into();
-        unsafe {
-            let obj = self.to_glib_none().0;
-            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
-
-            from_glib_none(gobject_ffi::g_object_class_find_property(klass, property_name.to_glib_none().0))
-        }
+        self.get_object_class().find_property(property_name)
     }
 
     fn list_properties(&self) -> Vec<::ParamSpec> {
-        unsafe {
-            let obj = self.to_glib_none().0;
-            let klass = (*obj).g_type_instance.g_class as *mut gobject_ffi::GObjectClass;
-
-            let mut n_properties = 0;
-
-            let props = gobject_ffi::g_object_class_list_properties(klass, &mut n_properties);
-            FromGlibContainer::from_glib_none_num(props, n_properties as usize)
-        }
+        self.get_object_class().list_properties()
     }
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
@@ -1123,6 +1171,64 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
         unsafe { glib_ffi::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
     }
 }
+
+/// Class struct for `glib::Object`.
+///
+/// All actual functionality is provided via the [`ObjectClassExt`] trait.
+///
+/// [`ObjectClassExt`]: trait.ObjectClassExt.html
+#[repr(C)]
+pub struct ObjectClass(gobject_ffi::GObjectClass);
+
+impl ObjectClass {
+    pub fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError> {
+        let property_name = property_name.into();
+        let ptype = self.get_property_type(property_name);
+
+        match (ptype, type_) {
+            (None, _) => Err(BoolError("Invalid property name")),
+            (Some(_), None) => Ok(()),
+            (Some(ptype), Some(type_)) => {
+                if ptype == type_ {
+                    Ok(())
+                } else {
+                    Err(BoolError("Invalid property type"))
+                }
+            },
+        }
+    }
+
+    pub fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type> {
+        self.find_property(property_name).map(|pspec| pspec.get_value_type())
+    }
+
+    pub fn find_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<::ParamSpec> {
+        let property_name = property_name.into();
+        unsafe {
+            let klass = self as *const _ as *const gobject_ffi::GObjectClass;
+
+            from_glib_none(gobject_ffi::g_object_class_find_property(klass as *mut _, property_name.to_glib_none().0))
+        }
+    }
+
+    pub fn list_properties(&self) -> Vec<::ParamSpec> {
+        unsafe {
+            let klass = self as *const _ as *const gobject_ffi::GObjectClass;
+
+            let mut n_properties = 0;
+
+            let props = gobject_ffi::g_object_class_list_properties(klass as *mut _, &mut n_properties);
+            FromGlibContainer::from_glib_none_num(props, n_properties as usize)
+        }
+    }
+}
+
+unsafe impl IsClassFor for ObjectClass {
+    type Instance = Object;
+}
+
+unsafe impl Send for ObjectClass {}
+unsafe impl Sync for ObjectClass {}
 
 pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
