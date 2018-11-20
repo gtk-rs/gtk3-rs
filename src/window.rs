@@ -117,7 +117,7 @@ impl Window {
 
     pub fn create_similar_surface(&self, content: cairo::Content, width: i32, height: i32) -> Option<Surface> {
         unsafe {
-            from_glib_full(ffi::gdk_window_create_similar_surface(self.to_glib_none().0, content, width, height))
+            from_glib_full(ffi::gdk_window_create_similar_surface(self.to_glib_none().0, content.into(), width, height))
         }
     }
 }
