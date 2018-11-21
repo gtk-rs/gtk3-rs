@@ -9,8 +9,7 @@ use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::DrawingArea;
 
-use cairo::enums::{FontSlant, FontWeight};
-use cairo::Context;
+use cairo::{Context, FontSlant, FontWeight};
 
 fn build_ui(application: &gtk::Application) {
     drawable(application, 500, 500, |_, cr| {

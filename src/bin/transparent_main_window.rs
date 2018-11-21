@@ -57,7 +57,7 @@ fn set_visual(window: &ApplicationWindow, _screen: &Option<gdk::Screen>) {
 fn draw(_window: &ApplicationWindow, ctx: &cairo::Context) -> Inhibit {
     // crucial for transparency
     ctx.set_source_rgba(1.0, 0.0, 0.0, 0.4);
-    ctx.set_operator(cairo::enums::Operator::Screen);
+    ctx.set_operator(cairo::Operator::Screen);
     ctx.paint();
     Inhibit(false)
 }
