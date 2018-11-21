@@ -102,49 +102,49 @@ pub enum Status {
 impl Into<ffi::CairoStatus> for Status {
     fn into(self) -> ffi::CairoStatus {
         match self {
-            Status::Success => 0,
-            Status::NoMemory => 1,
-            Status::InvalidRestore => 2,
-            Status::InvalidPopGroup => 3,
-            Status::NoCurrentPoint => 4,
-            Status::InvalidMatrix => 5,
-            Status::InvalidStatus => 6,
-            Status::NullPointer => 7,
-            Status::InvalidString => 8,
-            Status::InvalidPathData => 9,
-            Status::ReadError => 10,
-            Status::WriteError => 11,
-            Status::SurfaceFinished => 12,
-            Status::SurfaceTypeMismatch => 13,
-            Status::PatternTypeMismatch => 14,
-            Status::InvalidContent => 15,
-            Status::InvalidFormat => 16,
-            Status::InvalidVisual => 17,
-            Status::FileNotFound => 18,
-            Status::InvalidDash => 19,
-            Status::InvalidDscComment => 20,
-            Status::InvalidIndex => 21,
-            Status::ClipNotRepresentable => 22,
-            Status::TempFileError => 23,
-            Status::InvalidStride => 24,
-            Status::FontTypeMismatch => 25,
-            Status::UserFontImmutable => 26,
-            Status::UserFontError => 27,
-            Status::NegativeCount => 28,
-            Status::InvalidClusters => 29,
-            Status::InvalidSlant => 30,
-            Status::InvalidWeight => 31,
-            Status::InvalidSize => 32,
-            Status::UserFontNotImplemented => 33,
-            Status::DeviceTypeMismatch => 34,
-            Status::DeviceError => 35,
-            Status::InvalidMeshConstruction => 36,
-            Status::DeviceFinished => 37,
-            Status::JBig2GlobalMissing => 38,
-            Status::PngError => 39,
-            Status::FreetypeError => 40,
-            Status::Win32GdiError => 41,
-            Status::LastStatus => 42,
+            Status::Success => ffi::STATUS_SUCCESS,
+            Status::NoMemory => ffi::STATUS_NO_MEMORY,
+            Status::InvalidRestore => ffi::STATUS_INVALID_RESTORE,
+            Status::InvalidPopGroup => ffi::STATUS_INVALID_POP_GROUP,
+            Status::NoCurrentPoint => ffi::STATUS_NO_CURRENT_POINT,
+            Status::InvalidMatrix => ffi::STATUS_INVALID_MATRIX,
+            Status::InvalidStatus => ffi::STATUS_INVALID_STATUS,
+            Status::NullPointer => ffi::STATUS_NULL_POINTER,
+            Status::InvalidString => ffi::STATUS_INVALID_STRING,
+            Status::InvalidPathData => ffi::STATUS_INVALID_PATH_DATA,
+            Status::ReadError => ffi::STATUS_READ_ERROR,
+            Status::WriteError => ffi::STATUS_WRITE_ERROR,
+            Status::SurfaceFinished => ffi::STATUS_SURFACE_FINISHED,
+            Status::SurfaceTypeMismatch => ffi::STATUS_SURFACE_TYPE_MISMATCH,
+            Status::PatternTypeMismatch => ffi::STATUS_PATTERN_TYPE_MISMATCH,
+            Status::InvalidContent => ffi::STATUS_INVALID_CONTENT,
+            Status::InvalidFormat => ffi::STATUS_INVALID_FORMAT,
+            Status::InvalidVisual => ffi::STATUS_INVALID_VISUAL,
+            Status::FileNotFound => ffi::STATUS_FILE_NOT_FOUND,
+            Status::InvalidDash => ffi::STATUS_INVALID_DASH,
+            Status::InvalidDscComment => ffi::STATUS_INVALID_DSC_COMMENT,
+            Status::InvalidIndex => ffi::STATUS_INVALID_INDEX,
+            Status::ClipNotRepresentable => ffi::STATUS_CLIP_NOT_REPRESENTABLE,
+            Status::TempFileError => ffi::STATUS_TEMP_FILE_ERROR,
+            Status::InvalidStride => ffi::STATUS_INVALID_STRIDE,
+            Status::FontTypeMismatch => ffi::STATUS_FONT_TYPE_MISMATCH,
+            Status::UserFontImmutable => ffi::STATUS_USER_FONT_IMMUTABLE,
+            Status::UserFontError => ffi::STATUS_USER_FONT_ERROR,
+            Status::NegativeCount => ffi::STATUS_NEGATIVE_COUNT,
+            Status::InvalidClusters => ffi::STATUS_INVALID_CLUSTERS,
+            Status::InvalidSlant => ffi::STATUS_INVALID_SLANT,
+            Status::InvalidWeight => ffi::STATUS_INVALID_WEIGHT,
+            Status::InvalidSize => ffi::STATUS_INVALID_SIZE,
+            Status::UserFontNotImplemented => ffi::STATUS_USER_FONT_NOT_IMPLEMENTED,
+            Status::DeviceTypeMismatch => ffi::STATUS_DEVICE_TYPE_MISMATCH,
+            Status::DeviceError => ffi::STATUS_DEVICE_ERROR,
+            Status::InvalidMeshConstruction => ffi::STATUS_INVALID_MESH_CONSTRUCTION,
+            Status::DeviceFinished => ffi::STATUS_DEVICE_FINISHED,
+            Status::JBig2GlobalMissing => ffi::STATUS_J_BIG2_GLOBAL_MISSING,
+            Status::PngError => ffi::STATUS_PNG_ERROR,
+            Status::FreetypeError => ffi::STATUS_FREETYPE_ERROR,
+            Status::Win32GdiError => ffi::STATUS_WIN32_GDI_ERROR,
+            Status::LastStatus => ffi::STATUS_LAST_STATUS,
             Status::__Unknown(value) => value,
         }
     }
@@ -154,49 +154,49 @@ impl Into<ffi::CairoStatus> for Status {
 impl From<ffi::CairoStatus> for Status {
     fn from(value: ffi::CairoStatus) -> Self {
         match value {
-            0 => Status::Success,
-            1 => Status::NoMemory,
-            2 => Status::InvalidRestore,
-            3 => Status::InvalidPopGroup,
-            4 => Status::NoCurrentPoint,
-            5 => Status::InvalidMatrix,
-            6 => Status::InvalidStatus,
-            7 => Status::NullPointer,
-            8 => Status::InvalidString,
-            9 => Status::InvalidPathData,
-            10 => Status::ReadError,
-            11 => Status::WriteError,
-            12 => Status::SurfaceFinished,
-            13 => Status::SurfaceTypeMismatch,
-            14 => Status::PatternTypeMismatch,
-            15 => Status::InvalidContent,
-            16 => Status::InvalidFormat,
-            17 => Status::InvalidVisual,
-            18 => Status::FileNotFound,
-            19 => Status::InvalidDash,
-            20 => Status::InvalidDscComment,
-            21 => Status::InvalidIndex,
-            22 => Status::ClipNotRepresentable,
-            23 => Status::TempFileError,
-            24 => Status::InvalidStride,
-            25 => Status::FontTypeMismatch,
-            26 => Status::UserFontImmutable,
-            27 => Status::UserFontError,
-            28 => Status::NegativeCount,
-            29 => Status::InvalidClusters,
-            30 => Status::InvalidSlant,
-            31 => Status::InvalidWeight,
-            32 => Status::InvalidSize,
-            33 => Status::UserFontNotImplemented,
-            34 => Status::DeviceTypeMismatch,
-            35 => Status::DeviceError,
-            36 => Status::InvalidMeshConstruction,
-            37 => Status::DeviceFinished,
-            38 => Status::JBig2GlobalMissing,
-            39 => Status::PngError,
-            40 => Status::FreetypeError,
-            41 => Status::Win32GdiError,
-            42 => Status::LastStatus,
+            ffi::STATUS_SUCCESS => Status::Success,
+            ffi::STATUS_NO_MEMORY => Status::NoMemory,
+            ffi::STATUS_INVALID_RESTORE => Status::InvalidRestore,
+            ffi::STATUS_INVALID_POP_GROUP => Status::InvalidPopGroup,
+            ffi::STATUS_NO_CURRENT_POINT => Status::NoCurrentPoint,
+            ffi::STATUS_INVALID_MATRIX => Status::InvalidMatrix,
+            ffi::STATUS_INVALID_STATUS => Status::InvalidStatus,
+            ffi::STATUS_NULL_POINTER => Status::NullPointer,
+            ffi::STATUS_INVALID_STRING => Status::InvalidString,
+            ffi::STATUS_INVALID_PATH_DATA => Status::InvalidPathData,
+            ffi::STATUS_READ_ERROR => Status::ReadError,
+            ffi::STATUS_WRITE_ERROR => Status::WriteError,
+            ffi::STATUS_SURFACE_FINISHED => Status::SurfaceFinished,
+            ffi::STATUS_SURFACE_TYPE_MISMATCH => Status::SurfaceTypeMismatch,
+            ffi::STATUS_PATTERN_TYPE_MISMATCH => Status::PatternTypeMismatch,
+            ffi::STATUS_INVALID_CONTENT => Status::InvalidContent,
+            ffi::STATUS_INVALID_FORMAT => Status::InvalidFormat,
+            ffi::STATUS_INVALID_VISUAL => Status::InvalidVisual,
+            ffi::STATUS_FILE_NOT_FOUND => Status::FileNotFound,
+            ffi::STATUS_INVALID_DASH => Status::InvalidDash,
+            ffi::STATUS_INVALID_DSC_COMMENT => Status::InvalidDscComment,
+            ffi::STATUS_INVALID_INDEX => Status::InvalidIndex,
+            ffi::STATUS_CLIP_NOT_REPRESENTABLE => Status::ClipNotRepresentable,
+            ffi::STATUS_TEMP_FILE_ERROR => Status::TempFileError,
+            ffi::STATUS_INVALID_STRIDE => Status::InvalidStride,
+            ffi::STATUS_FONT_TYPE_MISMATCH => Status::FontTypeMismatch,
+            ffi::STATUS_USER_FONT_IMMUTABLE => Status::UserFontImmutable,
+            ffi::STATUS_USER_FONT_ERROR => Status::UserFontError,
+            ffi::STATUS_NEGATIVE_COUNT => Status::NegativeCount,
+            ffi::STATUS_INVALID_CLUSTERS => Status::InvalidClusters,
+            ffi::STATUS_INVALID_SLANT => Status::InvalidSlant,
+            ffi::STATUS_INVALID_WEIGHT => Status::InvalidWeight,
+            ffi::STATUS_INVALID_SIZE => Status::InvalidSize,
+            ffi::STATUS_USER_FONT_NOT_IMPLEMENTED => Status::UserFontNotImplemented,
+            ffi::STATUS_DEVICE_TYPE_MISMATCH => Status::DeviceTypeMismatch,
+            ffi::STATUS_DEVICE_ERROR => Status::DeviceError,
+            ffi::STATUS_INVALID_MESH_CONSTRUCTION => Status::InvalidMeshConstruction,
+            ffi::STATUS_DEVICE_FINISHED => Status::DeviceFinished,
+            ffi::STATUS_J_BIG2_GLOBAL_MISSING => Status::JBig2GlobalMissing,
+            ffi::STATUS_PNG_ERROR => Status::PngError,
+            ffi::STATUS_FREETYPE_ERROR => Status::FreetypeError,
+            ffi::STATUS_WIN32_GDI_ERROR => Status::Win32GdiError,
+            ffi::STATUS_LAST_STATUS => Status::LastStatus,
             value => Status::__Unknown(value),
         }
     }
@@ -245,13 +245,13 @@ pub enum Antialias {
 impl Into<ffi::CairoAntialias> for Antialias {
     fn into(self) -> ffi::CairoAntialias {
         match self {
-            Antialias::Default => 0,
-            Antialias::None => 1,
-            Antialias::Gray => 2,
-            Antialias::Subpixel => 3,
-            Antialias::Fast => 4,
-            Antialias::Good => 5,
-            Antialias::Best => 6,
+            Antialias::Default => ffi::ANTIALIAS_DEFAULT,
+            Antialias::None => ffi::ANTIALIAS_NONE,
+            Antialias::Gray => ffi::ANTIALIAS_GRAY,
+            Antialias::Subpixel => ffi::ANTIALIAS_SUBPIXEL,
+            Antialias::Fast => ffi::ANTIALIAS_FAST,
+            Antialias::Good => ffi::ANTIALIAS_GOOD,
+            Antialias::Best => ffi::ANTIALIAS_BEST,
             Antialias::__Unknown(value) => value,
         }
     }
@@ -261,13 +261,13 @@ impl Into<ffi::CairoAntialias> for Antialias {
 impl From<ffi::CairoAntialias> for Antialias {
     fn from(value: ffi::CairoAntialias) -> Self {
         match value {
-            0 => Antialias::Default,
-            1 => Antialias::None,
-            2 => Antialias::Gray,
-            3 => Antialias::Subpixel,
-            4 => Antialias::Fast,
-            5 => Antialias::Good,
-            6 => Antialias::Best,
+            ffi::ANTIALIAS_DEFAULT => Antialias::Default,
+            ffi::ANTIALIAS_NONE => Antialias::None,
+            ffi::ANTIALIAS_GRAY => Antialias::Gray,
+            ffi::ANTIALIAS_SUBPIXEL => Antialias::Subpixel,
+            ffi::ANTIALIAS_FAST => Antialias::Fast,
+            ffi::ANTIALIAS_GOOD => Antialias::Good,
+            ffi::ANTIALIAS_BEST => Antialias::Best,
             value => Antialias::__Unknown(value),
         }
     }
@@ -288,8 +288,8 @@ pub enum FillRule {
 impl Into<ffi::CairoFillRule> for FillRule {
     fn into(self) -> ffi::CairoFillRule {
         match self {
-            FillRule::Winding => 0,
-            FillRule::EvenOdd => 1,
+            FillRule::Winding => ffi::FILL_RULE_WINDING,
+            FillRule::EvenOdd => ffi::FILL_RULE_EVEN_ODD,
             FillRule::__Unknown(value) => value,
         }
     }
@@ -299,8 +299,8 @@ impl Into<ffi::CairoFillRule> for FillRule {
 impl From<ffi::CairoFillRule> for FillRule {
     fn from(value: ffi::CairoFillRule) -> Self {
         match value {
-            0 => FillRule::Winding,
-            1 => FillRule::EvenOdd,
+            ffi::FILL_RULE_WINDING => FillRule::Winding,
+            ffi::FILL_RULE_EVEN_ODD => FillRule::EvenOdd,
             value => FillRule::__Unknown(value),
         }
     }
@@ -322,9 +322,9 @@ pub enum LineCap {
 impl Into<ffi::CairoLineCap> for LineCap {
     fn into(self) -> ffi::CairoLineCap {
         match self {
-            LineCap::Butt => 0,
-            LineCap::Round => 1,
-            LineCap::Square => 2,
+            LineCap::Butt => ffi::LINE_CAP_BUTT,
+            LineCap::Round => ffi::LINE_CAP_ROUND,
+            LineCap::Square => ffi::LINE_CAP_SQUARE,
             LineCap::__Unknown(value) => value,
         }
     }
@@ -334,9 +334,9 @@ impl Into<ffi::CairoLineCap> for LineCap {
 impl From<ffi::CairoLineCap> for LineCap {
     fn from(value: ffi::CairoLineCap) -> Self {
         match value {
-            0 => LineCap::Butt,
-            1 => LineCap::Round,
-            2 => LineCap::Square,
+            ffi::LINE_CAP_BUTT => LineCap::Butt,
+            ffi::LINE_CAP_ROUND => LineCap::Round,
+            ffi::LINE_CAP_SQUARE => LineCap::Square,
             value => LineCap::__Unknown(value),
         }
     }
@@ -358,9 +358,9 @@ pub enum LineJoin {
 impl Into<ffi::CairoLineJoin> for LineJoin {
     fn into(self) -> ffi::CairoLineJoin {
         match self {
-            LineJoin::Miter => 0,
-            LineJoin::Round => 1,
-            LineJoin::Bevel => 2,
+            LineJoin::Miter => ffi::LINE_JOIN_MITER,
+            LineJoin::Round => ffi::LINE_JOIN_ROUND,
+            LineJoin::Bevel => ffi::LINE_JOIN_BEVEL,
             LineJoin::__Unknown(value) => value,
         }
     }
@@ -370,9 +370,9 @@ impl Into<ffi::CairoLineJoin> for LineJoin {
 impl From<ffi::CairoLineJoin> for LineJoin {
     fn from(value: ffi::CairoLineJoin) -> Self {
         match value {
-            0 => LineJoin::Miter,
-            1 => LineJoin::Round,
-            2 => LineJoin::Bevel,
+            ffi::LINE_JOIN_MITER => LineJoin::Miter,
+            ffi::LINE_JOIN_ROUND => LineJoin::Round,
+            ffi::LINE_JOIN_BEVEL => LineJoin::Bevel,
             value => LineJoin::__Unknown(value),
         }
     }
@@ -424,35 +424,35 @@ pub enum Operator {
 impl Into<ffi::CairoOperator> for Operator {
     fn into(self) -> ffi::CairoOperator {
         match self {
-            Operator::Clear => 0,
-            Operator::Source => 1,
-            Operator::Over => 2,
-            Operator::In => 3,
-            Operator::Out => 4,
-            Operator::Atop => 5,
-            Operator::Dest => 6,
-            Operator::DestOver => 7,
-            Operator::DestIn => 8,
-            Operator::DestOut => 9,
-            Operator::DestAtop => 10,
-            Operator::Xor => 11,
-            Operator::Add => 12,
-            Operator::Saturate => 13,
-            Operator::Multiply => 14,
-            Operator::Screen => 15,
-            Operator::Overlay => 16,
-            Operator::Darken => 17,
-            Operator::Lighten => 18,
-            Operator::ColorDodge => 19,
-            Operator::ColorBurn => 20,
-            Operator::HardLight => 21,
-            Operator::SoftLight => 22,
-            Operator::Difference => 23,
-            Operator::Exclusion => 24,
-            Operator::HslHue => 25,
-            Operator::HslSaturation => 26,
-            Operator::HslColor => 27,
-            Operator::HslLuminosity => 28,
+            Operator::Clear => ffi::OPERATOR_CLEAR,
+            Operator::Source => ffi::OPERATOR_SOURCE,
+            Operator::Over => ffi::OPERATOR_OVER,
+            Operator::In => ffi::OPERATOR_IN,
+            Operator::Out => ffi::OPERATOR_OUT,
+            Operator::Atop => ffi::OPERATOR_ATOP,
+            Operator::Dest => ffi::OPERATOR_DEST,
+            Operator::DestOver => ffi::OPERATOR_DEST_OVER,
+            Operator::DestIn => ffi::OPERATOR_DEST_IN,
+            Operator::DestOut => ffi::OPERATOR_DEST_OUT,
+            Operator::DestAtop => ffi::OPERATOR_DEST_ATOP,
+            Operator::Xor => ffi::OPERATOR_XOR,
+            Operator::Add => ffi::OPERATOR_ADD,
+            Operator::Saturate => ffi::OPERATOR_SATURATE,
+            Operator::Multiply => ffi::OPERATOR_MULTIPLY,
+            Operator::Screen => ffi::OPERATOR_SCREEN,
+            Operator::Overlay => ffi::OPERATOR_OVERLAY,
+            Operator::Darken => ffi::OPERATOR_DARKEN,
+            Operator::Lighten => ffi::OPERATOR_LIGHTEN,
+            Operator::ColorDodge => ffi::OPERATOR_COLOR_DODGE,
+            Operator::ColorBurn => ffi::OPERATOR_COLOR_BURN,
+            Operator::HardLight => ffi::OPERATOR_HARD_LIGHT,
+            Operator::SoftLight => ffi::OPERATOR_SOFT_LIGHT,
+            Operator::Difference => ffi::OPERATOR_DIFFERENCE,
+            Operator::Exclusion => ffi::OPERATOR_EXCLUSION,
+            Operator::HslHue => ffi::OPERATOR_HSL_HUE,
+            Operator::HslSaturation => ffi::OPERATOR_HSL_SATURATION,
+            Operator::HslColor => ffi::OPERATOR_HSL_COLOR,
+            Operator::HslLuminosity => ffi::OPERATOR_HSL_LUMINOSITY,
             Operator::__Unknown(value) => value,
         }
     }
@@ -462,35 +462,35 @@ impl Into<ffi::CairoOperator> for Operator {
 impl From<ffi::CairoOperator> for Operator {
     fn from(value: ffi::CairoOperator) -> Self {
         match value {
-            0 => Operator::Clear,
-            1 => Operator::Source,
-            2 => Operator::Over,
-            3 => Operator::In,
-            4 => Operator::Out,
-            5 => Operator::Atop,
-            6 => Operator::Dest,
-            7 => Operator::DestOver,
-            8 => Operator::DestIn,
-            9 => Operator::DestOut,
-            10 => Operator::DestAtop,
-            11 => Operator::Xor,
-            12 => Operator::Add,
-            13 => Operator::Saturate,
-            14 => Operator::Multiply,
-            15 => Operator::Screen,
-            16 => Operator::Overlay,
-            17 => Operator::Darken,
-            18 => Operator::Lighten,
-            19 => Operator::ColorDodge,
-            20 => Operator::ColorBurn,
-            21 => Operator::HardLight,
-            22 => Operator::SoftLight,
-            23 => Operator::Difference,
-            24 => Operator::Exclusion,
-            25 => Operator::HslHue,
-            26 => Operator::HslSaturation,
-            27 => Operator::HslColor,
-            28 => Operator::HslLuminosity,
+            ffi::OPERATOR_CLEAR => Operator::Clear,
+            ffi::OPERATOR_SOURCE => Operator::Source,
+            ffi::OPERATOR_OVER => Operator::Over,
+            ffi::OPERATOR_IN => Operator::In,
+            ffi::OPERATOR_OUT => Operator::Out,
+            ffi::OPERATOR_ATOP => Operator::Atop,
+            ffi::OPERATOR_DEST => Operator::Dest,
+            ffi::OPERATOR_DEST_OVER => Operator::DestOver,
+            ffi::OPERATOR_DEST_IN => Operator::DestIn,
+            ffi::OPERATOR_DEST_OUT => Operator::DestOut,
+            ffi::OPERATOR_DEST_ATOP => Operator::DestAtop,
+            ffi::OPERATOR_XOR => Operator::Xor,
+            ffi::OPERATOR_ADD => Operator::Add,
+            ffi::OPERATOR_SATURATE => Operator::Saturate,
+            ffi::OPERATOR_MULTIPLY => Operator::Multiply,
+            ffi::OPERATOR_SCREEN => Operator::Screen,
+            ffi::OPERATOR_OVERLAY => Operator::Overlay,
+            ffi::OPERATOR_DARKEN => Operator::Darken,
+            ffi::OPERATOR_LIGHTEN => Operator::Lighten,
+            ffi::OPERATOR_COLOR_DODGE => Operator::ColorDodge,
+            ffi::OPERATOR_COLOR_BURN => Operator::ColorBurn,
+            ffi::OPERATOR_HARD_LIGHT => Operator::HardLight,
+            ffi::OPERATOR_SOFT_LIGHT => Operator::SoftLight,
+            ffi::OPERATOR_DIFFERENCE => Operator::Difference,
+            ffi::OPERATOR_EXCLUSION => Operator::Exclusion,
+            ffi::OPERATOR_HSL_HUE => Operator::HslHue,
+            ffi::OPERATOR_HSL_SATURATION => Operator::HslSaturation,
+            ffi::OPERATOR_HSL_COLOR => Operator::HslColor,
+            ffi::OPERATOR_HSL_LUMINOSITY => Operator::HslLuminosity,
             value => Operator::__Unknown(value),
         }
     }
@@ -513,10 +513,10 @@ pub enum PathDataType {
 impl Into<ffi::CairoPathDataType> for PathDataType {
     fn into(self) -> ffi::CairoPathDataType {
         match self {
-            PathDataType::MoveTo => 0,
-            PathDataType::LineTo => 1,
-            PathDataType::CurveTo => 2,
-            PathDataType::ClosePath => 3,
+            PathDataType::MoveTo => ffi::PATH_DATA_TYPE_MOVE_TO,
+            PathDataType::LineTo => ffi::PATH_DATA_TYPE_LINE_TO,
+            PathDataType::CurveTo => ffi::PATH_DATA_TYPE_CURVE_TO,
+            PathDataType::ClosePath => ffi::PATH_DATA_TYPE_CLOSE_PATH,
             PathDataType::__Unknown(value) => value,
         }
     }
@@ -526,10 +526,10 @@ impl Into<ffi::CairoPathDataType> for PathDataType {
 impl From<ffi::CairoPathDataType> for PathDataType {
     fn from(value: ffi::CairoPathDataType) -> Self {
         match value {
-            0 => PathDataType::MoveTo,
-            1 => PathDataType::LineTo,
-            2 => PathDataType::CurveTo,
-            3 => PathDataType::ClosePath,
+            ffi::PATH_DATA_TYPE_MOVE_TO => PathDataType::MoveTo,
+            ffi::PATH_DATA_TYPE_LINE_TO => PathDataType::LineTo,
+            ffi::PATH_DATA_TYPE_CURVE_TO => PathDataType::CurveTo,
+            ffi::PATH_DATA_TYPE_CLOSE_PATH => PathDataType::ClosePath,
             value => PathDataType::__Unknown(value),
         }
     }
@@ -551,9 +551,9 @@ pub enum Content {
 impl Into<ffi::CairoContent> for Content {
     fn into(self) -> ffi::CairoContent {
         match self {
-            Content::Color      => 0x1000,
-            Content::Alpha      => 0x2000,
-            Content::ColorAlpha => 0x3000,
+            Content::Color      => ffi::CONTENT_COLOR     ,
+            Content::Alpha      => ffi::CONTENT_ALPHA     ,
+            Content::ColorAlpha => ffi::CONTENT_COLOR_ALPHA,
             Content::__Unknown(value) => value,
         }
     }
@@ -563,9 +563,9 @@ impl Into<ffi::CairoContent> for Content {
 impl From<ffi::CairoContent> for Content {
     fn from(value: ffi::CairoContent) -> Self {
         match value {
-            0x1000 => Content::Color,
-            0x2000 => Content::Alpha,
-            0x3000 => Content::ColorAlpha,
+            ffi::CONTENT_COLOR => Content::Color,
+            ffi::CONTENT_ALPHA => Content::Alpha,
+            ffi::CONTENT_COLOR_ALPHA => Content::ColorAlpha,
             value => Content::__Unknown(value),
         }
     }
@@ -588,10 +588,10 @@ pub enum Extend {
 impl Into<ffi::CairoExtend> for Extend {
     fn into(self) -> ffi::CairoExtend {
         match self {
-            Extend::None => 0,
-            Extend::Repeat => 1,
-            Extend::Reflect => 2,
-            Extend::Pad => 3,
+            Extend::None => ffi::EXTEND_NONE,
+            Extend::Repeat => ffi::EXTEND_REPEAT,
+            Extend::Reflect => ffi::EXTEND_REFLECT,
+            Extend::Pad => ffi::EXTEND_PAD,
             Extend::__Unknown(value) => value,
         }
     }
@@ -601,10 +601,10 @@ impl Into<ffi::CairoExtend> for Extend {
 impl From<ffi::CairoExtend> for Extend {
     fn from(value: ffi::CairoExtend) -> Self {
         match value {
-            0 => Extend::None,
-            1 => Extend::Repeat,
-            2 => Extend::Reflect,
-            3 => Extend::Pad,
+            ffi::EXTEND_NONE => Extend::None,
+            ffi::EXTEND_REPEAT => Extend::Repeat,
+            ffi::EXTEND_REFLECT => Extend::Reflect,
+            ffi::EXTEND_PAD => Extend::Pad,
             value => Extend::__Unknown(value),
         }
     }
@@ -629,12 +629,12 @@ pub enum Filter {
 impl Into<ffi::CairoFilter> for Filter {
     fn into(self) -> ffi::CairoFilter {
         match self {
-            Filter::Fast => 0,
-            Filter::Good => 1,
-            Filter::Best => 2,
-            Filter::Nearest => 3,
-            Filter::Bilinear => 4,
-            Filter::Gaussian => 5,
+            Filter::Fast => ffi::FILTER_FAST,
+            Filter::Good => ffi::FILTER_GOOD,
+            Filter::Best => ffi::FILTER_BEST,
+            Filter::Nearest => ffi::FILTER_NEAREST,
+            Filter::Bilinear => ffi::FILTER_BILINEAR,
+            Filter::Gaussian => ffi::FILTER_GAUSSIAN,
             Filter::__Unknown(value) => value,
         }
     }
@@ -644,12 +644,12 @@ impl Into<ffi::CairoFilter> for Filter {
 impl From<ffi::CairoFilter> for Filter {
     fn from(value: ffi::CairoFilter) -> Self {
         match value {
-            0 => Filter::Fast,
-            1 => Filter::Good,
-            2 => Filter::Best,
-            3 => Filter::Nearest,
-            4 => Filter::Bilinear,
-            5 => Filter::Gaussian,
+            ffi::FILTER_FAST => Filter::Fast,
+            ffi::FILTER_GOOD => Filter::Good,
+            ffi::FILTER_BEST => Filter::Best,
+            ffi::FILTER_NEAREST => Filter::Nearest,
+            ffi::FILTER_BILINEAR => Filter::Bilinear,
+            ffi::FILTER_GAUSSIAN => Filter::Gaussian,
             value => Filter::__Unknown(value),
         }
     }
@@ -676,14 +676,14 @@ pub enum PatternType {
 impl Into<ffi::CairoPatternType> for PatternType {
     fn into(self) -> ffi::CairoPatternType {
         match self {
-            PatternType::Solid => 0,
-            PatternType::Surface => 1,
-            PatternType::LinearGradient => 2,
-            PatternType::RadialGradient => 3,
+            PatternType::Solid => ffi::PATTERN_TYPE_SOLID,
+            PatternType::Surface => ffi::PATTERN_TYPE_SURFACE,
+            PatternType::LinearGradient => ffi::PATTERN_TYPE_LINEAR_GRADIENT,
+            PatternType::RadialGradient => ffi::PATTERN_TYPE_RADIAL_GRADIENT,
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            PatternType::Mesh => 4,
+            PatternType::Mesh => ffi::PATTERN_TYPE_MESH,
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            PatternType::RasterSource => 5,
+            PatternType::RasterSource => ffi::PATTERN_TYPE_RASTER_SOURCE,
             PatternType::__Unknown(value) => value,
         }
     }
@@ -693,14 +693,14 @@ impl Into<ffi::CairoPatternType> for PatternType {
 impl From<ffi::CairoPatternType> for PatternType {
     fn from(value: ffi::CairoPatternType) -> Self {
         match value {
-            0 => PatternType::Solid,
-            1 => PatternType::Surface,
-            2 => PatternType::LinearGradient,
-            3 => PatternType::RadialGradient,
+            ffi::PATTERN_TYPE_SOLID => PatternType::Solid,
+            ffi::PATTERN_TYPE_SURFACE => PatternType::Surface,
+            ffi::PATTERN_TYPE_LINEAR_GRADIENT => PatternType::LinearGradient,
+            ffi::PATTERN_TYPE_RADIAL_GRADIENT => PatternType::RadialGradient,
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            4 => PatternType::Mesh,
+            ffi::PATTERN_TYPE_MESH => PatternType::Mesh,
             #[cfg(any(feature = "v1_12", feature = "dox"))]
-            5 => PatternType::RasterSource,
+            ffi::PATTERN_TYPE_RASTER_SOURCE => PatternType::RasterSource,
             value => PatternType::__Unknown(value),
         }
     }
@@ -722,9 +722,9 @@ pub enum FontSlant {
 impl Into<ffi::CairoFontSlant> for FontSlant {
     fn into(self) -> ffi::CairoFontSlant {
         match self {
-            FontSlant::Normal => 0,
-            FontSlant::Italic => 1,
-            FontSlant::Oblique => 2,
+            FontSlant::Normal => ffi::FONT_SLANT_NORMAL,
+            FontSlant::Italic => ffi::FONT_SLANT_ITALIC,
+            FontSlant::Oblique => ffi::FONT_SLANT_OBLIQUE,
             FontSlant::__Unknown(value) => value,
         }
     }
@@ -734,9 +734,9 @@ impl Into<ffi::CairoFontSlant> for FontSlant {
 impl From<ffi::CairoFontSlant> for FontSlant {
     fn from(value: ffi::CairoFontSlant) -> Self {
         match value {
-            0 => FontSlant::Normal,
-            1 => FontSlant::Italic,
-            2 => FontSlant::Oblique,
+            ffi::FONT_SLANT_NORMAL => FontSlant::Normal,
+            ffi::FONT_SLANT_ITALIC => FontSlant::Italic,
+            ffi::FONT_SLANT_OBLIQUE => FontSlant::Oblique,
             value => FontSlant::__Unknown(value),
         }
     }
@@ -757,8 +757,8 @@ pub enum FontWeight {
 impl Into<ffi::CairoFontWeight> for FontWeight {
     fn into(self) -> ffi::CairoFontWeight {
         match self {
-            FontWeight::Normal => 0,
-            FontWeight::Bold => 1,
+            FontWeight::Normal => ffi::FONT_WEIGHT_NORMAL,
+            FontWeight::Bold => ffi::FONT_WEIGHT_BOLD,
             FontWeight::__Unknown(value) => value,
         }
     }
@@ -768,8 +768,8 @@ impl Into<ffi::CairoFontWeight> for FontWeight {
 impl From<ffi::CairoFontWeight> for FontWeight {
     fn from(value: ffi::CairoFontWeight) -> Self {
         match value {
-            0 => FontWeight::Normal,
-            1 => FontWeight::Bold,
+            ffi::FONT_WEIGHT_NORMAL => FontWeight::Normal,
+            ffi::FONT_WEIGHT_BOLD => FontWeight::Bold,
             value => FontWeight::__Unknown(value),
         }
     }
@@ -790,8 +790,8 @@ pub enum TextClusterFlags {
 impl Into<ffi::CairoTextClusterFlags> for TextClusterFlags {
     fn into(self) -> ffi::CairoTextClusterFlags {
         match self {
-            TextClusterFlags::None     => 0x00000000,
-            TextClusterFlags::Backward => 0x00000001,
+            TextClusterFlags::None     => ffi::TEXT_CLUSTER_FLAGS_NONE    ,
+            TextClusterFlags::Backward => ffi::TEXT_CLUSTER_FLAGS_BACKWARD,
             TextClusterFlags::__Unknown(value) => value,
         }
     }
@@ -801,8 +801,8 @@ impl Into<ffi::CairoTextClusterFlags> for TextClusterFlags {
 impl From<ffi::CairoTextClusterFlags> for TextClusterFlags {
     fn from(value: ffi::CairoTextClusterFlags) -> Self {
         match value {
-            0x00000000 => TextClusterFlags::None,
-            0x00000001 => TextClusterFlags::Backward,
+            ffi::TEXT_CLUSTER_FLAGS_NONE => TextClusterFlags::None,
+            ffi::TEXT_CLUSTER_FLAGS_BACKWARD => TextClusterFlags::Backward,
             value => TextClusterFlags::__Unknown(value),
         }
     }
@@ -826,11 +826,11 @@ pub enum FontType {
 impl Into<ffi::CairoFontType> for FontType {
     fn into(self) -> ffi::CairoFontType {
         match self {
-            FontType::FontTypeToy => 0,
-            FontType::FontTypeFt => 1,
-            FontType::FontTypeWin32 => 2,
-            FontType::FontTypeQuartz => 3,
-            FontType::FontTypeUser => 4,
+            FontType::FontTypeToy => ffi::FONT_TYPE_FONT_TYPE_TOY,
+            FontType::FontTypeFt => ffi::FONT_TYPE_FONT_TYPE_FT,
+            FontType::FontTypeWin32 => ffi::FONT_TYPE_FONT_TYPE_WIN32,
+            FontType::FontTypeQuartz => ffi::FONT_TYPE_FONT_TYPE_QUARTZ,
+            FontType::FontTypeUser => ffi::FONT_TYPE_FONT_TYPE_USER,
             FontType::__Unknown(value) => value,
         }
     }
@@ -840,11 +840,11 @@ impl Into<ffi::CairoFontType> for FontType {
 impl From<ffi::CairoFontType> for FontType {
     fn from(value: ffi::CairoFontType) -> Self {
         match value {
-            0 => FontType::FontTypeToy,
-            1 => FontType::FontTypeFt,
-            2 => FontType::FontTypeWin32,
-            3 => FontType::FontTypeQuartz,
-            4 => FontType::FontTypeUser,
+            ffi::FONT_TYPE_FONT_TYPE_TOY => FontType::FontTypeToy,
+            ffi::FONT_TYPE_FONT_TYPE_FT => FontType::FontTypeFt,
+            ffi::FONT_TYPE_FONT_TYPE_WIN32 => FontType::FontTypeWin32,
+            ffi::FONT_TYPE_FONT_TYPE_QUARTZ => FontType::FontTypeQuartz,
+            ffi::FONT_TYPE_FONT_TYPE_USER => FontType::FontTypeUser,
             value => FontType::__Unknown(value),
         }
     }
@@ -868,11 +868,11 @@ pub enum SubpixelOrder {
 impl Into<ffi::CairoSubpixelOrder> for SubpixelOrder {
     fn into(self) -> ffi::CairoSubpixelOrder {
         match self {
-            SubpixelOrder::Default => 0,
-            SubpixelOrder::Rgb => 1,
-            SubpixelOrder::Bgr => 2,
-            SubpixelOrder::Vrgb => 3,
-            SubpixelOrder::Vbgr => 4,
+            SubpixelOrder::Default => ffi::SUBPIXEL_ORDER_DEFAULT,
+            SubpixelOrder::Rgb => ffi::SUBPIXEL_ORDER_RGB,
+            SubpixelOrder::Bgr => ffi::SUBPIXEL_ORDER_BGR,
+            SubpixelOrder::Vrgb => ffi::SUBPIXEL_ORDER_VRGB,
+            SubpixelOrder::Vbgr => ffi::SUBPIXEL_ORDER_VBGR,
             SubpixelOrder::__Unknown(value) => value,
         }
     }
@@ -882,11 +882,11 @@ impl Into<ffi::CairoSubpixelOrder> for SubpixelOrder {
 impl From<ffi::CairoSubpixelOrder> for SubpixelOrder {
     fn from(value: ffi::CairoSubpixelOrder) -> Self {
         match value {
-            0 => SubpixelOrder::Default,
-            1 => SubpixelOrder::Rgb,
-            2 => SubpixelOrder::Bgr,
-            3 => SubpixelOrder::Vrgb,
-            4 => SubpixelOrder::Vbgr,
+            ffi::SUBPIXEL_ORDER_DEFAULT => SubpixelOrder::Default,
+            ffi::SUBPIXEL_ORDER_RGB => SubpixelOrder::Rgb,
+            ffi::SUBPIXEL_ORDER_BGR => SubpixelOrder::Bgr,
+            ffi::SUBPIXEL_ORDER_VRGB => SubpixelOrder::Vrgb,
+            ffi::SUBPIXEL_ORDER_VBGR => SubpixelOrder::Vbgr,
             value => SubpixelOrder::__Unknown(value),
         }
     }
@@ -910,11 +910,11 @@ pub enum HintStyle {
 impl Into<ffi::CairoHintStyle> for HintStyle {
     fn into(self) -> ffi::CairoHintStyle {
         match self {
-            HintStyle::Default => 0,
-            HintStyle::None => 1,
-            HintStyle::Slight => 2,
-            HintStyle::Medium => 3,
-            HintStyle::Full => 4,
+            HintStyle::Default => ffi::HINT_STYLE_DEFAULT,
+            HintStyle::None => ffi::HINT_STYLE_NONE,
+            HintStyle::Slight => ffi::HINT_STYLE_SLIGHT,
+            HintStyle::Medium => ffi::HINT_STYLE_MEDIUM,
+            HintStyle::Full => ffi::HINT_STYLE_FULL,
             HintStyle::__Unknown(value) => value,
         }
     }
@@ -924,11 +924,11 @@ impl Into<ffi::CairoHintStyle> for HintStyle {
 impl From<ffi::CairoHintStyle> for HintStyle {
     fn from(value: ffi::CairoHintStyle) -> Self {
         match value {
-            0 => HintStyle::Default,
-            1 => HintStyle::None,
-            2 => HintStyle::Slight,
-            3 => HintStyle::Medium,
-            4 => HintStyle::Full,
+            ffi::HINT_STYLE_DEFAULT => HintStyle::Default,
+            ffi::HINT_STYLE_NONE => HintStyle::None,
+            ffi::HINT_STYLE_SLIGHT => HintStyle::Slight,
+            ffi::HINT_STYLE_MEDIUM => HintStyle::Medium,
+            ffi::HINT_STYLE_FULL => HintStyle::Full,
             value => HintStyle::__Unknown(value),
         }
     }
@@ -950,9 +950,9 @@ pub enum HintMetrics {
 impl Into<ffi::CairoHintMetrics> for HintMetrics {
     fn into(self) -> ffi::CairoHintMetrics {
         match self {
-            HintMetrics::Default => 0,
-            HintMetrics::Off => 1,
-            HintMetrics::On => 2,
+            HintMetrics::Default => ffi::HINT_METRICS_DEFAULT,
+            HintMetrics::Off => ffi::HINT_METRICS_OFF,
+            HintMetrics::On => ffi::HINT_METRICS_ON,
             HintMetrics::__Unknown(value) => value,
         }
     }
@@ -962,9 +962,9 @@ impl Into<ffi::CairoHintMetrics> for HintMetrics {
 impl From<ffi::CairoHintMetrics> for HintMetrics {
     fn from(value: ffi::CairoHintMetrics) -> Self {
         match value {
-            0 => HintMetrics::Default,
-            1 => HintMetrics::Off,
-            2 => HintMetrics::On,
+            ffi::HINT_METRICS_DEFAULT => HintMetrics::Default,
+            ffi::HINT_METRICS_OFF => HintMetrics::Off,
+            ffi::HINT_METRICS_ON => HintMetrics::On,
             value => HintMetrics::__Unknown(value),
         }
     }
@@ -1008,31 +1008,31 @@ pub enum SurfaceType {
 impl Into<ffi::CairoSurfaceType> for SurfaceType {
     fn into(self) -> ffi::CairoSurfaceType {
         match self {
-            SurfaceType::Image => 0,
-            SurfaceType::Pdf => 1,
-            SurfaceType::Ps => 2,
-            SurfaceType::Xlib => 3,
-            SurfaceType::Xcb => 4,
-            SurfaceType::Glitz => 5,
-            SurfaceType::Quartz => 6,
-            SurfaceType::Win32 => 7,
-            SurfaceType::BeOs => 8,
-            SurfaceType::DirectFb => 9,
-            SurfaceType::Svg => 10,
-            SurfaceType::Os2 => 11,
-            SurfaceType::Win32Printing => 12,
-            SurfaceType::QuartzImage => 13,
-            SurfaceType::Script => 14,
-            SurfaceType::Qt => 15,
-            SurfaceType::Recording => 16,
-            SurfaceType::Vg => 17,
-            SurfaceType::Gl => 18,
-            SurfaceType::Drm => 19,
-            SurfaceType::Tee => 20,
-            SurfaceType::Xml => 21,
-            SurfaceType::Skia => 22,
-            SurfaceType::Subsurface => 23,
-            SurfaceType::Cogl => 24,
+            SurfaceType::Image => ffi::SURFACE_TYPE_IMAGE,
+            SurfaceType::Pdf => ffi::SURFACE_TYPE_PDF,
+            SurfaceType::Ps => ffi::SURFACE_TYPE_PS,
+            SurfaceType::Xlib => ffi::SURFACE_TYPE_XLIB,
+            SurfaceType::Xcb => ffi::SURFACE_TYPE_XCB,
+            SurfaceType::Glitz => ffi::SURFACE_TYPE_GLITZ,
+            SurfaceType::Quartz => ffi::SURFACE_TYPE_QUARTZ,
+            SurfaceType::Win32 => ffi::SURFACE_TYPE_WIN32,
+            SurfaceType::BeOs => ffi::SURFACE_TYPE_BE_OS,
+            SurfaceType::DirectFb => ffi::SURFACE_TYPE_DIRECT_FB,
+            SurfaceType::Svg => ffi::SURFACE_TYPE_SVG,
+            SurfaceType::Os2 => ffi::SURFACE_TYPE_OS2,
+            SurfaceType::Win32Printing => ffi::SURFACE_TYPE_WIN32_PRINTING,
+            SurfaceType::QuartzImage => ffi::SURFACE_TYPE_QUARTZ_IMAGE,
+            SurfaceType::Script => ffi::SURFACE_TYPE_SCRIPT,
+            SurfaceType::Qt => ffi::SURFACE_TYPE_QT,
+            SurfaceType::Recording => ffi::SURFACE_TYPE_RECORDING,
+            SurfaceType::Vg => ffi::SURFACE_TYPE_VG,
+            SurfaceType::Gl => ffi::SURFACE_TYPE_GL,
+            SurfaceType::Drm => ffi::SURFACE_TYPE_DRM,
+            SurfaceType::Tee => ffi::SURFACE_TYPE_TEE,
+            SurfaceType::Xml => ffi::SURFACE_TYPE_XML,
+            SurfaceType::Skia => ffi::SURFACE_TYPE_SKIA,
+            SurfaceType::Subsurface => ffi::SURFACE_TYPE_SUBSURFACE,
+            SurfaceType::Cogl => ffi::SURFACE_TYPE_COGL,
             SurfaceType::__Unknown(value) => value,
         }
     }
@@ -1042,31 +1042,31 @@ impl Into<ffi::CairoSurfaceType> for SurfaceType {
 impl From<ffi::CairoSurfaceType> for SurfaceType {
     fn from(value: ffi::CairoSurfaceType) -> Self {
         match value {
-            0 => SurfaceType::Image,
-            1 => SurfaceType::Pdf,
-            2 => SurfaceType::Ps,
-            3 => SurfaceType::Xlib,
-            4 => SurfaceType::Xcb,
-            5 => SurfaceType::Glitz,
-            6 => SurfaceType::Quartz,
-            7 => SurfaceType::Win32,
-            8 => SurfaceType::BeOs,
-            9 => SurfaceType::DirectFb,
-            10 => SurfaceType::Svg,
-            11 => SurfaceType::Os2,
-            12 => SurfaceType::Win32Printing,
-            13 => SurfaceType::QuartzImage,
-            14 => SurfaceType::Script,
-            15 => SurfaceType::Qt,
-            16 => SurfaceType::Recording,
-            17 => SurfaceType::Vg,
-            18 => SurfaceType::Gl,
-            19 => SurfaceType::Drm,
-            20 => SurfaceType::Tee,
-            21 => SurfaceType::Xml,
-            22 => SurfaceType::Skia,
-            23 => SurfaceType::Subsurface,
-            24 => SurfaceType::Cogl,
+            ffi::SURFACE_TYPE_IMAGE => SurfaceType::Image,
+            ffi::SURFACE_TYPE_PDF => SurfaceType::Pdf,
+            ffi::SURFACE_TYPE_PS => SurfaceType::Ps,
+            ffi::SURFACE_TYPE_XLIB => SurfaceType::Xlib,
+            ffi::SURFACE_TYPE_XCB => SurfaceType::Xcb,
+            ffi::SURFACE_TYPE_GLITZ => SurfaceType::Glitz,
+            ffi::SURFACE_TYPE_QUARTZ => SurfaceType::Quartz,
+            ffi::SURFACE_TYPE_WIN32 => SurfaceType::Win32,
+            ffi::SURFACE_TYPE_BE_OS => SurfaceType::BeOs,
+            ffi::SURFACE_TYPE_DIRECT_FB => SurfaceType::DirectFb,
+            ffi::SURFACE_TYPE_SVG => SurfaceType::Svg,
+            ffi::SURFACE_TYPE_OS2 => SurfaceType::Os2,
+            ffi::SURFACE_TYPE_WIN32_PRINTING => SurfaceType::Win32Printing,
+            ffi::SURFACE_TYPE_QUARTZ_IMAGE => SurfaceType::QuartzImage,
+            ffi::SURFACE_TYPE_SCRIPT => SurfaceType::Script,
+            ffi::SURFACE_TYPE_QT => SurfaceType::Qt,
+            ffi::SURFACE_TYPE_RECORDING => SurfaceType::Recording,
+            ffi::SURFACE_TYPE_VG => SurfaceType::Vg,
+            ffi::SURFACE_TYPE_GL => SurfaceType::Gl,
+            ffi::SURFACE_TYPE_DRM => SurfaceType::Drm,
+            ffi::SURFACE_TYPE_TEE => SurfaceType::Tee,
+            ffi::SURFACE_TYPE_XML => SurfaceType::Xml,
+            ffi::SURFACE_TYPE_SKIA => SurfaceType::Skia,
+            ffi::SURFACE_TYPE_SUBSURFACE => SurfaceType::Subsurface,
+            ffi::SURFACE_TYPE_COGL => SurfaceType::Cogl,
             value => SurfaceType::__Unknown(value),
         }
     }
@@ -1095,16 +1095,16 @@ pub enum SvgUnit {
 impl Into<ffi::CairoSvgUnit> for SvgUnit {
     fn into(self) -> ffi::CairoSvgUnit {
         match self {
-            SvgUnit::User => 0,
-            SvgUnit::Em => 1,
-            SvgUnit::Ex => 2,
-            SvgUnit::Px => 3,
-            SvgUnit::In => 4,
-            SvgUnit::Cm => 5,
-            SvgUnit::Mm => 6,
-            SvgUnit::Pt => 7,
-            SvgUnit::Pc => 8,
-            SvgUnit::Percent => 9,
+            SvgUnit::User => ffi::SVG_UNIT_USER,
+            SvgUnit::Em => ffi::SVG_UNIT_EM,
+            SvgUnit::Ex => ffi::SVG_UNIT_EX,
+            SvgUnit::Px => ffi::SVG_UNIT_PX,
+            SvgUnit::In => ffi::SVG_UNIT_IN,
+            SvgUnit::Cm => ffi::SVG_UNIT_CM,
+            SvgUnit::Mm => ffi::SVG_UNIT_MM,
+            SvgUnit::Pt => ffi::SVG_UNIT_PT,
+            SvgUnit::Pc => ffi::SVG_UNIT_PC,
+            SvgUnit::Percent => ffi::SVG_UNIT_PERCENT,
             SvgUnit::__Unknown(value) => value,
         }
     }
@@ -1114,16 +1114,16 @@ impl Into<ffi::CairoSvgUnit> for SvgUnit {
 impl From<ffi::CairoSvgUnit> for SvgUnit {
     fn from(value: ffi::CairoSvgUnit) -> Self {
         match value {
-            0 => SvgUnit::User,
-            1 => SvgUnit::Em,
-            2 => SvgUnit::Ex,
-            3 => SvgUnit::Px,
-            4 => SvgUnit::In,
-            5 => SvgUnit::Cm,
-            6 => SvgUnit::Mm,
-            7 => SvgUnit::Pt,
-            8 => SvgUnit::Pc,
-            9 => SvgUnit::Percent,
+            ffi::SVG_UNIT_USER => SvgUnit::User,
+            ffi::SVG_UNIT_EM => SvgUnit::Em,
+            ffi::SVG_UNIT_EX => SvgUnit::Ex,
+            ffi::SVG_UNIT_PX => SvgUnit::Px,
+            ffi::SVG_UNIT_IN => SvgUnit::In,
+            ffi::SVG_UNIT_CM => SvgUnit::Cm,
+            ffi::SVG_UNIT_MM => SvgUnit::Mm,
+            ffi::SVG_UNIT_PT => SvgUnit::Pt,
+            ffi::SVG_UNIT_PC => SvgUnit::Pc,
+            ffi::SVG_UNIT_PERCENT => SvgUnit::Percent,
             value => SvgUnit::__Unknown(value),
         }
     }
@@ -1146,13 +1146,13 @@ pub enum Format {
 impl Into<ffi::CairoFormat> for Format {
     fn into(self) -> ffi::CairoFormat {
         match self {
-            Format::Invalid => -1,
-            Format::ARgb32 => 0,
-            Format::Rgb24 => 1,
-            Format::A8 => 2,
-            Format::A1 => 3,
-            Format::Rgb16_565 => 4,
-            Format::Rgb30 => 5,
+            Format::Invalid => ffi::FORMAT_INVALID,
+            Format::ARgb32 => ffi::FORMAT_A_RGB32,
+            Format::Rgb24 => ffi::FORMAT_RGB24,
+            Format::A8 => ffi::FORMAT_A8,
+            Format::A1 => ffi::FORMAT_A1,
+            Format::Rgb16_565 => ffi::FORMAT_RGB16_565,
+            Format::Rgb30 => ffi::FORMAT_RGB30,
             Format::__Unknown(value) => value,
         }
     }
@@ -1162,13 +1162,13 @@ impl Into<ffi::CairoFormat> for Format {
 impl From<ffi::CairoFormat> for Format {
     fn from(value: ffi::CairoFormat) -> Self {
         match value {
-            -1 => Format::Invalid,
-            0 => Format::ARgb32,
-            1 => Format::Rgb24,
-            2 => Format::A8,
-            3 => Format::A1,
-            4 => Format::Rgb16_565,
-            5 => Format::Rgb30,
+            ffi::FORMAT_INVALID => Format::Invalid,
+            ffi::FORMAT_A_RGB32 => Format::ARgb32,
+            ffi::FORMAT_RGB24 => Format::Rgb24,
+            ffi::FORMAT_A8 => Format::A8,
+            ffi::FORMAT_A1 => Format::A1,
+            ffi::FORMAT_RGB16_565 => Format::Rgb16_565,
+            ffi::FORMAT_RGB30 => Format::Rgb30,
             value => Format::__Unknown(value),
         }
     }
@@ -1204,9 +1204,9 @@ pub enum RegionOverlap {
 impl Into<ffi::CairoRegionOverlap> for RegionOverlap {
     fn into(self) -> ffi::CairoRegionOverlap {
         match self {
-            RegionOverlap::In => 0,
-            RegionOverlap::Out => 1,
-            RegionOverlap::Part => 2,
+            RegionOverlap::In => ffi::REGION_OVERLAP_IN,
+            RegionOverlap::Out => ffi::REGION_OVERLAP_OUT,
+            RegionOverlap::Part => ffi::REGION_OVERLAP_PART,
             RegionOverlap::__Unknown(value) => value,
         }
     }
@@ -1216,9 +1216,9 @@ impl Into<ffi::CairoRegionOverlap> for RegionOverlap {
 impl From<ffi::CairoRegionOverlap> for RegionOverlap {
     fn from(value: ffi::CairoRegionOverlap) -> Self {
         match value {
-            0 => RegionOverlap::In,
-            1 => RegionOverlap::Out,
-            2 => RegionOverlap::Part,
+            ffi::REGION_OVERLAP_IN => RegionOverlap::In,
+            ffi::REGION_OVERLAP_OUT => RegionOverlap::Out,
+            ffi::REGION_OVERLAP_PART => RegionOverlap::Part,
             value => RegionOverlap::__Unknown(value),
         }
     }
@@ -1241,8 +1241,8 @@ pub enum PdfVersion {
 impl Into<ffi::CairoPdfVersion> for PdfVersion {
     fn into(self) -> ffi::CairoPdfVersion {
         match self {
-            PdfVersion::_1_4 => 0,
-            PdfVersion::_1_5 => 1,
+            PdfVersion::_1_4 => ffi::PDF_VERSION__1_4,
+            PdfVersion::_1_5 => ffi::PDF_VERSION__1_5,
             PdfVersion::__Unknown(value) => value,
         }
     }
@@ -1253,8 +1253,8 @@ impl Into<ffi::CairoPdfVersion> for PdfVersion {
 impl From<ffi::CairoPdfVersion> for PdfVersion {
     fn from(value: ffi::CairoPdfVersion) -> Self {
         match value {
-            0 => PdfVersion::_1_4,
-            1 => PdfVersion::_1_5,
+            ffi::PDF_VERSION__1_4 => PdfVersion::_1_4,
+            ffi::PDF_VERSION__1_5 => PdfVersion::_1_5,
             value => PdfVersion::__Unknown(value),
         }
     }
@@ -1274,8 +1274,8 @@ pub enum SvgVersion {
 impl Into<ffi::CairoSvgVersion> for SvgVersion {
     fn into(self) -> ffi::CairoSvgVersion {
         match self {
-            SvgVersion::_1_1 => 0,
-            SvgVersion::_1_2 => 1,
+            SvgVersion::_1_1 => ffi::SVG_VERSION__1_1,
+            SvgVersion::_1_2 => ffi::SVG_VERSION__1_2,
             SvgVersion::__Unknown(value) => value,
         }
     }
@@ -1286,8 +1286,8 @@ impl Into<ffi::CairoSvgVersion> for SvgVersion {
 impl From<ffi::CairoSvgVersion> for SvgVersion {
     fn from(value: ffi::CairoSvgVersion) -> Self {
         match value {
-            0 => SvgVersion::_1_1,
-            1 => SvgVersion::_1_2,
+            ffi::SVG_VERSION__1_1 => SvgVersion::_1_1,
+            ffi::SVG_VERSION__1_2 => SvgVersion::_1_2,
             value => SvgVersion::__Unknown(value),
         }
     }
@@ -1307,8 +1307,8 @@ pub enum PsLevel {
 impl Into<ffi::CairoPsLevel> for PsLevel {
     fn into(self) -> ffi::CairoPsLevel {
         match self {
-            PsLevel::_2 => 0,
-            PsLevel::_3 => 1,
+            PsLevel::_2 => ffi::PS_LEVEL__2,
+            PsLevel::_3 => ffi::PS_LEVEL__3,
             PsLevel::__Unknown(value) => value,
         }
     }
@@ -1319,8 +1319,8 @@ impl Into<ffi::CairoPsLevel> for PsLevel {
 impl From<ffi::CairoPsLevel> for PsLevel {
     fn from(value: ffi::CairoPsLevel) -> Self {
         match value {
-            0 => PsLevel::_2,
-            1 => PsLevel::_3,
+            ffi::PS_LEVEL__2 => PsLevel::_2,
+            ffi::PS_LEVEL__3 => PsLevel::_3,
             value => PsLevel::__Unknown(value),
         }
     }
@@ -1342,10 +1342,10 @@ pub enum MeshCorner {
 impl Into<ffi::CairoMeshCorner> for MeshCorner {
     fn into(self) -> ffi::CairoMeshCorner {
         match self {
-            MeshCorner::MeshCorner0 => 0,
-            MeshCorner::MeshCorner1 => 1,
-            MeshCorner::MeshCorner2 => 2,
-            MeshCorner::MeshCorner3 => 3,
+            MeshCorner::MeshCorner0 => ffi::MESH_CORNER_MESH_CORNER0,
+            MeshCorner::MeshCorner1 => ffi::MESH_CORNER_MESH_CORNER1,
+            MeshCorner::MeshCorner2 => ffi::MESH_CORNER_MESH_CORNER2,
+            MeshCorner::MeshCorner3 => ffi::MESH_CORNER_MESH_CORNER3,
             MeshCorner::__Unknown(value) => value,
         }
     }
@@ -1356,10 +1356,10 @@ impl Into<ffi::CairoMeshCorner> for MeshCorner {
 impl From<ffi::CairoMeshCorner> for MeshCorner {
     fn from(value: ffi::CairoMeshCorner) -> Self {
         match value {
-            0 => MeshCorner::MeshCorner0,
-            1 => MeshCorner::MeshCorner1,
-            2 => MeshCorner::MeshCorner2,
-            3 => MeshCorner::MeshCorner3,
+            ffi::MESH_CORNER_MESH_CORNER0 => MeshCorner::MeshCorner0,
+            ffi::MESH_CORNER_MESH_CORNER1 => MeshCorner::MeshCorner1,
+            ffi::MESH_CORNER_MESH_CORNER2 => MeshCorner::MeshCorner2,
+            ffi::MESH_CORNER_MESH_CORNER3 => MeshCorner::MeshCorner3,
             value => MeshCorner::__Unknown(value),
         }
     }
