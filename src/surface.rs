@@ -221,16 +221,17 @@ unsafe extern "C" fn unbox<T>(data: *mut c_void) {
 mod tests {
     use Format;
     use ImageSurface;
+    use constants::MIME_TYPE_PNG;
 
     #[test]
     fn mime_data() {
         let surface = ImageSurface::create(Format::ARgb32, 500, 500).unwrap();
-        let data = surface.get_mime_data("image/png");
+        let data = surface.get_mime_data(MIME_TYPE_PNG);
         /* Initially the data for any mime type has to be none */
         assert!(data.is_none());
 
-        surface.set_mime_data("image/png", &[1u8, 10u8]);
-        let data = surface.get_mime_data("image/png").unwrap();
+        assert!(surface.set_mime_data(MIME_TYPE_PNG, &[1u8, 10u8]).is_ok());
+        let data = surface.get_mime_data(MIME_TYPE_PNG).unwrap();
         assert_eq!(data, &[1u8, 10u8]);
     }
 }
