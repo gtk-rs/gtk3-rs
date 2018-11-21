@@ -23,20 +23,12 @@ pdf = []
 svg = []
 ps = []
 xcb = []
-use_glib = ["glib-sys", "gobject-sys", "glib"]
+use_glib = ["glib-sys"]
 
 [dependencies]
 libc = "0.2"
 
-[dependencies.glib]
-optional = true
-git = "https://github.com/gtk-rs/glib"
-
 [dependencies.glib-sys]
-optional = true
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
 optional = true
 git = "https://github.com/gtk-rs/sys"
 

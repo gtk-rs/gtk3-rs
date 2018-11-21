@@ -72,23 +72,7 @@ pub use paths::{
     PathSegment
 };
 
-pub use enums::{
-    Status,
-    Antialias,
-    Content,
-    Extend,
-    FillRule,
-    Filter,
-    LineCap,
-    LineJoin,
-    Operator,
-    PathDataType,
-    Format,
-    RegionOverlap,
-    SurfaceType,
-};
-#[cfg(any(feature = "v1_12", feature = "dox"))]
-pub use enums::MeshCorner;
+pub use enums::*;
 
 pub use error::{
     BorrowError,

@@ -9,10 +9,6 @@ extern crate libc;
 
 #[cfg(feature = "use_glib")]
 extern crate glib_sys as glib_ffi;
-#[cfg(feature = "use_glib")]
-extern crate gobject_sys as gobject_ffi;
-#[cfg(feature = "use_glib")]
-extern crate glib;
 
 #[cfg(any(feature = "xlib", feature = "dox"))]
 extern crate x11;

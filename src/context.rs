@@ -10,7 +10,7 @@ use std::ops;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
-use ::enums::{
+use ::{
     Antialias,
     Content,
     FillRule,
