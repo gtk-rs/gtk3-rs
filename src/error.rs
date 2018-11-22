@@ -5,7 +5,7 @@
 use std::error::Error;
 use std::fmt;
 use std::io;
-use ffi::enums::Status;
+use ::enums::Status;
 
 #[derive(Debug)]
 pub enum BorrowError {

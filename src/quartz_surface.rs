@@ -7,7 +7,7 @@ use std::ops::Deref;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
-use ffi::enums::{Format, SurfaceType};
+use ::enums::{Format, SurfaceType};
 use surface::{Surface, SurfaceExt};
 use Status;
 
@@ -35,7 +35,9 @@ impl QuartzSurface {
     }
 
     pub fn create(format: Format, width: u32, height: u32) -> Result<QuartzSurface, Status> {
-        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create(format, width, height)) }
+        unsafe {
+            Self::from_raw_full(ffi::cairo_quartz_surface_create(format.into(), width, height))
+        }
     }
 
     pub fn create_for_cg_context(cg_context: CGContextRef, width: u32, height: u32) -> Result<QuartzSurface, Status> {

@@ -12,10 +12,11 @@ use libc::c_char;
 use ffi;
 use std::ffi::{CString, CStr};
 
-use ffi::enums::{
+use ::enums::{
+    FontSlant,
     FontType,
     FontWeight,
-    FontSlant,
+    Status,
 };
 
 #[cfg(feature = "use_glib")]
@@ -38,7 +39,9 @@ impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
         let font_face: FontFace = unsafe {
             let family = CString::new(family).unwrap();
-            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(family.as_ptr(), slant, weight))
+            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(family.as_ptr(),
+                                                                    slant.into(),
+                                                                    weight.into()))
         };
         font_face.ensure_status();
         font_face
@@ -84,13 +87,13 @@ impl FontFace {
 
     pub fn toy_get_slant(&self) -> FontSlant {
         unsafe {
-            ffi::cairo_toy_font_face_get_slant(self.to_raw_none())
+            FontSlant::from(ffi::cairo_toy_font_face_get_slant(self.to_raw_none()))
         }
     }
 
     pub fn toy_get_weight(&self) -> FontWeight {
         unsafe {
-            ffi::cairo_toy_font_face_get_weight(self.to_raw_none())
+            FontWeight::from(ffi::cairo_toy_font_face_get_weight(self.to_raw_none()))
         }
     }
 
@@ -98,12 +101,12 @@ impl FontFace {
         let status = unsafe {
             ffi::cairo_font_face_status(self.to_raw_none())
         };
-        status.ensure_valid()
+        Status::from(status).ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {
         unsafe {
-            ffi::cairo_font_face_get_type(self.to_raw_none())
+            FontType::from(ffi::cairo_font_face_get_type(self.to_raw_none()))
         }
     }
 

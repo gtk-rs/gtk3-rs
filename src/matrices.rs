@@ -4,7 +4,7 @@
 
 pub use ffi::Matrix;
 use ffi;
-use ffi::enums::Status;
+use ::enums::Status;
 
 pub trait MatrixTrait {
     fn null() -> Matrix;
@@ -29,7 +29,7 @@ impl MatrixTrait for Matrix {
             xy: 0.0,
             yy: 0.0,
             x0: 0.0,
-            y0: 0.0
+            y0: 0.0,
         }
     }
 
@@ -83,14 +83,14 @@ impl MatrixTrait for Matrix {
         let result = unsafe{
             ffi::cairo_matrix_invert(self)
         };
-        result.ensure_valid();
+        Status::from(result).ensure_valid();
     }
 
     fn try_invert(&self) -> Result<Matrix, Status> {
         let mut matrix = *self;
 
         let result = unsafe {
-            ffi::cairo_matrix_invert(&mut matrix)
+            Status::from(ffi::cairo_matrix_invert(&mut matrix))
         };
 
         match result {

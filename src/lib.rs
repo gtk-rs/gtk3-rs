@@ -59,7 +59,6 @@ macro_rules! gvalue_impl {
     }
 }
 
-pub use ffi::enums;
 pub use ffi::cairo_rectangle_t as Rectangle;
 
 pub use context::{
@@ -73,21 +72,7 @@ pub use paths::{
     PathSegment
 };
 
-pub use enums::{
-    Status,
-    Antialias,
-    Content,
-    Extend,
-    FillRule,
-    Filter,
-    LineCap,
-    LineJoin,
-    Operator,
-    PathDataType,
-    Format,
-    RegionOverlap,
-    SurfaceType,
-};
+pub use enums::*;
 
 pub use error::{
     BorrowError,
@@ -111,7 +96,6 @@ pub use patterns::{
 #[cfg(any(feature = "v1_12", feature = "dox"))]
 pub use patterns::{
     Mesh,
-    MeshCorner,
 };
 
 pub use font::{
@@ -160,6 +144,7 @@ pub mod prelude;
 
 mod font;
 mod context;
+mod enums;
 mod error;
 mod image_surface;
 #[cfg(any(feature = "png", feature = "dox"))]

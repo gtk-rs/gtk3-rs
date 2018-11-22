@@ -8,7 +8,7 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ffi::enums::{SurfaceType, PdfVersion};
+use ::enums::{SurfaceType, PdfVersion};
 use surface::{Surface, SurfaceExt};
 use support;
 
@@ -19,14 +19,15 @@ macro_rules! imp {
     () => {
         pub fn restrict(&self, version: PdfVersion) {
             unsafe {
-                ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version);
+                ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(),
+                                                           version.into());
             }
         }
     }
 }
 
 pub struct File {
-    inner: Surface
+    inner: Surface,
 }
 
 impl File {

@@ -5,9 +5,9 @@
 use std::io;
 use std::slice;
 
-use ffi;
+use ffi::{self, CairoStatus};
 use libc::{c_void, c_uchar, c_uint, c_double};
-use ffi::enums::Status;
+use ::enums::Status;
 
 pub type Constructor = unsafe extern fn (ffi::cairo_write_func_t, *mut c_void, c_double, c_double) -> *mut ffi::cairo_surface_t;
 
@@ -21,7 +21,7 @@ impl<'a> Stream<'a> {
         where F: 'b + FnMut(&[u8]) -> Result<(), ()>
     {
         unsafe {
-            unsafe extern fn write_to(func: *mut c_void, data: *mut c_uchar, length: c_uint) -> Status
+            unsafe extern fn write_to(func: *mut c_void, data: *mut c_uchar, length: c_uint) -> CairoStatus
             {
                 // This is perfectly fine, lifetimes don't really exist.
                 let mut func: Box<Box<FnMut(&[u8]) -> Result<(), ()>>> = Box::from_raw(func as *mut _);
@@ -36,7 +36,7 @@ impl<'a> Stream<'a> {
                 // into limbo.
                 Box::into_raw(func);
 
-                result
+                result.into()
             }
 
             // Type inference can't into this.

@@ -9,10 +9,6 @@ extern crate libc;
 
 #[cfg(feature = "use_glib")]
 extern crate glib_sys as glib_ffi;
-#[cfg(feature = "use_glib")]
-extern crate gobject_sys as gobject_ffi;
-#[cfg(feature = "use_glib")]
-extern crate glib;
 
 #[cfg(any(feature = "xlib", feature = "dox"))]
 extern crate x11;
@@ -38,39 +34,46 @@ use libc::{c_void, c_int, c_uint, c_char, c_uchar, c_double, c_ulong};
 #[cfg(any(feature = "xlib", feature = "dox"))]
 use x11::xlib;
 
-pub mod enums;
+pub type CairoAntialias = c_int;
+pub type CairoContent = c_int;
+pub type CairoExtend = c_int;
+pub type CairoFillRule = c_int;
+pub type CairoFilter = c_int;
+pub type CairoFontSlant = c_int;
+pub type CairoFontType = c_int;
+pub type CairoFontWeight = c_int;
+pub type CairoFormat = c_int;
+pub type CairoHintMetrics = c_int;
+pub type CairoHintStyle = c_int;
+pub type CairoLineCap = c_int;
+pub type CairoLineJoin = c_int;
+pub type CairoOperator = c_int;
+pub type CairoPatternType = c_int;
+pub type CairoPathDataType = c_int;
+pub type CairoRegionOverlap = c_int;
+pub type CairoStatus = c_int;
+pub type CairoSubpixelOrder = c_int;
+pub type CairoSurfaceType = c_int;
+pub type CairoSvgUnit = c_int;
+pub type CairoTextClusterFlags = c_int;
 
-use enums::{
-    Status,
-    Content,
-    Antialias,
-    LineCap,
-    LineJoin,
-    FillRule,
-    FontSlant,
-    FontWeight,
-    TextClusterFlags,
-    FontType,
-    SubpixelOrder,
-    HintStyle,
-    HintMetrics,
-    Extend,
-    Filter,
-    RegionOverlap,
-    PathDataType,
-    PatternType,
-    Format,
-    SurfaceType,
-    SvgUnit,
-    Operator,
-};
+pub type cairo_antialias_t = CairoAntialias;
+pub type cairo_line_join_t = CairoLineJoin;
+pub type cairo_line_cap_t = CairoLineCap;
+pub type cairo_content_t = CairoContent;
+pub type cairo_svg_unit_t = CairoSvgUnit;
+pub type cairo_extend_t = CairoExtend;
+pub type cairo_filter_t = CairoFilter;
+pub type cairo_region_overlap_t = CairoRegionOverlap;
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
-use enums::PdfVersion;
+pub type CairoPdfVersion = c_int;
 #[cfg(any(feature = "svg", feature = "dox"))]
-use enums::SvgVersion;
+pub type CairoSvgVersion = c_int;
 #[cfg(any(feature = "ps", feature = "dox"))]
-use enums::PsLevel;
+pub type CairoPsLevel = c_int;
+
+pub type CairoMeshCorner = c_uint;
 
 macro_rules! debug_impl {
     ($name:ty) => {
@@ -97,12 +100,6 @@ pub struct cairo_pattern_t(u8);
 #[repr(C)]
 pub struct cairo_fill_rule_t(c_void);
 debug_impl!(cairo_fill_rule_t);
-
-pub type cairo_antialias_t = Antialias;
-pub type cairo_line_join_t = LineJoin;
-pub type cairo_line_cap_t = LineCap;
-pub type cairo_content_t = Content;
-pub type cairo_svg_unit_t = SvgUnit;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
@@ -159,21 +156,21 @@ pub struct cairo_rectangle_int_t {
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct cairo_rectangle_list_t {
-    pub status: Status,
+    pub status: CairoStatus,
     pub rectangles: *mut cairo_rectangle_t,
     pub num_rectangles: c_int,
 }
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct cairo_path_t {
-    pub status: Status,
+    pub status: CairoStatus,
     pub data: *mut cairo_path_data,
     pub num_data: c_int,
 }
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct cairo_path_data_header{
-    pub data_type: PathDataType,
+    pub data_type: CairoPathDataType,
     pub length:    c_int,
 }
 #[repr(C)]
@@ -201,10 +198,6 @@ debug_impl!(cairo_scaled_font_t);
 #[repr(C)]
 pub struct cairo_font_options_t(c_void);
 debug_impl!(cairo_font_options_t);
-
-pub type cairo_extend_t = Extend;
-pub type cairo_filter_t = Filter;
-pub type cairo_region_overlap_t = RegionOverlap;
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug)]
@@ -270,20 +263,20 @@ impl cairo_bool_t {
 pub type CGContextRef = *mut c_void;
 
 pub type cairo_destroy_func_t = Option<unsafe extern fn (*mut c_void)>;
-pub type cairo_read_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> Status>;
-pub type cairo_write_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> Status>;
+pub type cairo_read_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> CairoStatus>;
+pub type cairo_write_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> CairoStatus>;
 
 extern "C" {
     //CAIRO CONTEXT
     pub fn cairo_create (target: *mut cairo_surface_t) -> *mut cairo_t;
     pub fn cairo_reference (cr: *mut cairo_t) -> *mut cairo_t;
     pub fn cairo_destroy (cr: *mut cairo_t);
-    pub fn cairo_status (cr: *mut cairo_t) -> Status;
+    pub fn cairo_status (cr: *mut cairo_t) -> CairoStatus;
     pub fn cairo_save (cr: *mut cairo_t);
     pub fn cairo_restore (cr: *mut cairo_t);
     pub fn cairo_get_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
     pub fn cairo_push_group (cr: *mut cairo_t);
-    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: Content);
+    pub fn cairo_push_group_with_content (cr: *mut cairo_t, content: CairoContent);
     pub fn cairo_pop_group (cr: *mut cairo_t) -> *mut cairo_pattern_t;
     pub fn cairo_pop_group_to_source (cr: *mut cairo_t);
     pub fn cairo_get_group_target (cr: *mut cairo_t) -> *mut cairo_surface_t;
@@ -292,23 +285,23 @@ extern "C" {
     pub fn cairo_set_source (cr: *mut cairo_t, source: *mut cairo_pattern_t);
     pub fn cairo_set_source_surface (cr: *mut cairo_t, surface: *mut cairo_surface_t, x: c_double, y: c_double);
     pub fn cairo_get_source (cr: *mut cairo_t) -> *mut cairo_pattern_t;
-    pub fn cairo_set_antialias (cr: *mut cairo_t, antialias: Antialias);
-    pub fn cairo_get_antialias (cr: *mut cairo_t) -> Antialias;
+    pub fn cairo_set_antialias (cr: *mut cairo_t, antialias: CairoAntialias);
+    pub fn cairo_get_antialias (cr: *mut cairo_t) -> CairoAntialias;
     pub fn cairo_set_dash (cr: *mut cairo_t, dashes : *const c_double, num_dashes: c_int, offset: c_double);
     pub fn cairo_get_dash_count (cr: *mut cairo_t) -> c_int;
     pub fn cairo_get_dash (cr: *mut cairo_t, dashes: *mut c_double, offset: *mut c_double);
-    pub fn cairo_set_fill_rule (cr: *mut cairo_t, fill_rule: FillRule);
-    pub fn cairo_get_fill_rule (cr: *mut cairo_t) -> FillRule;
-    pub fn cairo_set_line_cap (cr: *mut cairo_t, line_cap: LineCap);
-    pub fn cairo_get_line_cap (cr: *mut cairo_t) -> LineCap;
-    pub fn cairo_set_line_join (cr: *mut cairo_t, line_join: LineJoin);
-    pub fn cairo_get_line_join (cr: *mut cairo_t) -> LineJoin;
+    pub fn cairo_set_fill_rule (cr: *mut cairo_t, fill_rule: CairoFillRule);
+    pub fn cairo_get_fill_rule (cr: *mut cairo_t) -> CairoFillRule;
+    pub fn cairo_set_line_cap (cr: *mut cairo_t, line_cap: CairoLineCap);
+    pub fn cairo_get_line_cap (cr: *mut cairo_t) -> CairoLineCap;
+    pub fn cairo_set_line_join (cr: *mut cairo_t, line_join: CairoLineJoin);
+    pub fn cairo_get_line_join (cr: *mut cairo_t) -> CairoLineJoin;
     pub fn cairo_set_line_width (cr: *mut cairo_t, width: c_double);
     pub fn cairo_get_line_width (cr: *mut cairo_t) -> c_double;
     pub fn cairo_set_miter_limit (cr: *mut cairo_t, limit: c_double);
     pub fn cairo_get_miter_limit (cr: *mut cairo_t) -> c_double;
-    pub fn cairo_set_operator (cr: *mut cairo_t, op: Operator);
-    pub fn cairo_get_operator (cr: *mut cairo_t) -> Operator;
+    pub fn cairo_set_operator (cr: *mut cairo_t, op: CairoOperator);
+    pub fn cairo_get_operator (cr: *mut cairo_t) -> CairoOperator;
     pub fn cairo_set_tolerance (cr: *mut cairo_t, tolerance: c_double);
     pub fn cairo_get_tolerance (cr: *mut cairo_t) -> c_double;
     pub fn cairo_clip (cr: *mut cairo_t);
@@ -335,7 +328,7 @@ extern "C" {
     pub fn cairo_get_reference_count (cr: *mut cairo_t) -> c_uint;
 
     //CAIRO UTILS: Error handling
-    pub fn cairo_status_to_string (status : Status) -> *const c_char;
+    pub fn cairo_status_to_string (status : CairoStatus) -> *const c_char;
 
 
     //CAIRO PATHS
@@ -377,42 +370,42 @@ extern "C" {
     //CAIRO PATTERNS
     pub fn cairo_pattern_add_color_stop_rgb(pattern: *mut cairo_pattern_t, offset: c_double, red: c_double, green: c_double, blue: c_double);
     pub fn cairo_pattern_add_color_stop_rgba(pattern: *mut cairo_pattern_t, offset: c_double, red: c_double, green: c_double, blue: c_double, alpha: c_double);
-    pub fn cairo_pattern_get_color_stop_count(pattern: *mut cairo_pattern_t, count: *mut c_int) -> Status;
-    pub fn cairo_pattern_get_color_stop_rgba(pattern: *mut cairo_pattern_t, index: c_int, offset: *mut c_double, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> Status;
+    pub fn cairo_pattern_get_color_stop_count(pattern: *mut cairo_pattern_t, count: *mut c_int) -> CairoStatus;
+    pub fn cairo_pattern_get_color_stop_rgba(pattern: *mut cairo_pattern_t, index: c_int, offset: *mut c_double, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> CairoStatus;
     pub fn cairo_pattern_create_rgb(red: c_double, green: c_double, blue: c_double) -> *mut cairo_pattern_t;
     pub fn cairo_pattern_create_rgba(red: c_double, green: c_double, blue: c_double, alpha: c_double) -> *mut cairo_pattern_t;
-    pub fn cairo_pattern_get_rgba(pattern: *mut cairo_pattern_t, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> Status;
+    pub fn cairo_pattern_get_rgba(pattern: *mut cairo_pattern_t, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> CairoStatus;
     pub fn cairo_pattern_create_for_surface(surface: *mut cairo_surface_t) -> *mut cairo_pattern_t;
-    pub fn cairo_pattern_get_surface(pattern: *mut cairo_pattern_t, surface: *mut *mut cairo_surface_t) -> Status;
+    pub fn cairo_pattern_get_surface(pattern: *mut cairo_pattern_t, surface: *mut *mut cairo_surface_t) -> CairoStatus;
     pub fn cairo_pattern_create_linear(x0: c_double, y0: c_double, x1: c_double, y1: c_double) -> *mut cairo_pattern_t;
-    pub fn cairo_pattern_get_linear_points(pattern: *mut cairo_pattern_t, x0: *mut c_double, y0: *mut c_double, x1: *mut c_double, y1: *mut c_double) -> Status;
+    pub fn cairo_pattern_get_linear_points(pattern: *mut cairo_pattern_t, x0: *mut c_double, y0: *mut c_double, x1: *mut c_double, y1: *mut c_double) -> CairoStatus;
     pub fn cairo_pattern_create_radial(cx0: c_double, cy0: c_double, radius0: c_double, cx1: c_double, cy1: c_double, radius1: c_double) -> *mut cairo_pattern_t;
-    pub fn cairo_pattern_get_radial_circles(pattern: *mut cairo_pattern_t, x0: *mut c_double, y0: *mut c_double, r0: *mut c_double, x1: *mut c_double, y1: *mut c_double, r1: *mut c_double) -> Status;
+    pub fn cairo_pattern_get_radial_circles(pattern: *mut cairo_pattern_t, x0: *mut c_double, y0: *mut c_double, r0: *mut c_double, x1: *mut c_double, y1: *mut c_double, r1: *mut c_double) -> CairoStatus;
     pub fn cairo_pattern_create_mesh() -> *mut cairo_pattern_t;
     pub fn cairo_mesh_pattern_begin_patch(pattern: *mut cairo_pattern_t);
     pub fn cairo_mesh_pattern_end_patch(pattern: *mut cairo_pattern_t);
     pub fn cairo_mesh_pattern_move_to(pattern: *mut cairo_pattern_t, x: c_double, y: c_double);
     pub fn cairo_mesh_pattern_line_to(pattern: *mut cairo_pattern_t, x: c_double, y: c_double);
     pub fn cairo_mesh_pattern_curve_to(pattern: *mut cairo_pattern_t, x1: c_double, y1: c_double, x2: c_double, y2: c_double, x3: c_double, y3: c_double);
-    pub fn cairo_mesh_pattern_set_control_point(pattern: *mut cairo_pattern_t, point_num: c_uint, x: c_double, y: c_double);
-    pub fn cairo_mesh_pattern_set_corner_color_rgb(pattern: *mut cairo_pattern_t, corner_num: c_uint, red: c_double, green: c_double, blue: c_double);
-    pub fn cairo_mesh_pattern_set_corner_color_rgba(pattern: *mut cairo_pattern_t, corner_num: c_uint, red: c_double, green: c_double, blue: c_double, alpha: c_double);
-    pub fn cairo_mesh_pattern_get_patch_count(pattern: *mut cairo_pattern_t, count: *mut c_uint) -> Status;
+    pub fn cairo_mesh_pattern_set_control_point(pattern: *mut cairo_pattern_t, point_num: CairoMeshCorner, x: c_double, y: c_double);
+    pub fn cairo_mesh_pattern_set_corner_color_rgb(pattern: *mut cairo_pattern_t, corner_num: CairoMeshCorner, red: c_double, green: c_double, blue: c_double);
+    pub fn cairo_mesh_pattern_set_corner_color_rgba(pattern: *mut cairo_pattern_t, corner_num: CairoMeshCorner, red: c_double, green: c_double, blue: c_double, alpha: c_double);
+    pub fn cairo_mesh_pattern_get_patch_count(pattern: *mut cairo_pattern_t, count: *mut c_uint) -> CairoStatus;
     pub fn cairo_mesh_pattern_get_path(pattern: *mut cairo_pattern_t, patch_num: c_uint) -> *mut cairo_path_t;
-    pub fn cairo_mesh_pattern_get_control_point(pattern: *mut cairo_pattern_t, patch_num: c_uint, point_num: c_uint, x: *mut c_double, y: *mut c_double) -> Status;
-    pub fn cairo_mesh_pattern_get_corner_color_rgba(pattern: *mut cairo_pattern_t, patch_num: c_uint, corner_num: c_uint, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> Status;
+    pub fn cairo_mesh_pattern_get_control_point(pattern: *mut cairo_pattern_t, patch_num: c_uint, point_num: CairoMeshCorner, x: *mut c_double, y: *mut c_double) -> CairoStatus;
+    pub fn cairo_mesh_pattern_get_corner_color_rgba(pattern: *mut cairo_pattern_t, patch_num: c_uint, corner_num: CairoMeshCorner, red: *mut c_double, green: *mut c_double, blue: *mut c_double, alpha: *mut c_double) -> CairoStatus;
     pub fn cairo_pattern_reference(pattern: *mut cairo_pattern_t) -> *mut cairo_pattern_t;
     pub fn cairo_pattern_destroy(pattern: *mut cairo_pattern_t);
-    pub fn cairo_pattern_status(pattern: *mut cairo_pattern_t) -> Status;
-    pub fn cairo_pattern_set_extend(pattern: *mut cairo_pattern_t, extend: Extend);
-    pub fn cairo_pattern_get_extend(pattern: *mut cairo_pattern_t) -> Extend;
-    pub fn cairo_pattern_set_filter(pattern: *mut cairo_pattern_t, filter: Filter);
-    pub fn cairo_pattern_get_filter(pattern: *mut cairo_pattern_t) -> Filter;
+    pub fn cairo_pattern_status(pattern: *mut cairo_pattern_t) -> CairoStatus;
+    pub fn cairo_pattern_set_extend(pattern: *mut cairo_pattern_t, extend: CairoExtend);
+    pub fn cairo_pattern_get_extend(pattern: *mut cairo_pattern_t) -> CairoExtend;
+    pub fn cairo_pattern_set_filter(pattern: *mut cairo_pattern_t, filter: CairoFilter);
+    pub fn cairo_pattern_get_filter(pattern: *mut cairo_pattern_t) -> CairoFilter;
     pub fn cairo_pattern_set_matrix(pattern: *mut cairo_pattern_t, matrix: *const Matrix);
     pub fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
-    pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> PatternType;
+    pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> CairoPatternType;
     pub fn cairo_pattern_get_reference_count(pattern: *mut cairo_pattern_t) -> c_uint;
-    //pub fn cairo_pattern_set_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> Status;
+    //pub fn cairo_pattern_set_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> CairoStatus;
     //pub fn cairo_pattern_get_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
     //CAIRO REGIONS
@@ -422,26 +415,26 @@ extern "C" {
     pub fn cairo_region_copy(original: *mut cairo_region_t) -> *mut cairo_region_t;
     pub fn cairo_region_reference(region: *mut cairo_region_t) -> *mut cairo_region_t;
     pub fn cairo_region_destroy(region: *mut cairo_region_t);
-    pub fn cairo_region_status(region: *mut cairo_region_t) -> Status;
+    pub fn cairo_region_status(region: *mut cairo_region_t) -> CairoStatus;
     pub fn cairo_region_get_extents(region: *mut cairo_region_t, extents: *mut cairo_rectangle_int_t);
     pub fn cairo_region_num_rectangles(region: *mut cairo_region_t) -> c_int;
     pub fn cairo_region_get_rectangle(region: *mut cairo_region_t, nth: c_int, rectangle: *mut cairo_rectangle_int_t);
     pub fn cairo_region_is_empty(region: *mut cairo_region_t) -> cairo_bool_t;
     pub fn cairo_region_contains_point(region: *mut cairo_region_t, x: c_int, y: c_int) -> cairo_bool_t;
-    pub fn cairo_region_contains_rectangle(region: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> RegionOverlap;
+    pub fn cairo_region_contains_rectangle(region: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> CairoRegionOverlap;
     pub fn cairo_region_equal(a: *mut cairo_region_t, b: *mut cairo_region_t) -> cairo_bool_t;
     pub fn cairo_region_translate(region: *mut cairo_region_t, dx: c_int, dy: c_int);
-    pub fn cairo_region_intersect(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> Status;
-    pub fn cairo_region_intersect_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> Status;
-    pub fn cairo_region_subtract(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> Status;
-    pub fn cairo_region_subtract_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> Status;
-    pub fn cairo_region_union(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> Status;
-    pub fn cairo_region_union_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> Status;
-    pub fn cairo_region_xor(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> Status;
-    pub fn cairo_region_xor_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> Status;
+    pub fn cairo_region_intersect(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> CairoStatus;
+    pub fn cairo_region_intersect_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> CairoStatus;
+    pub fn cairo_region_subtract(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> CairoStatus;
+    pub fn cairo_region_subtract_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> CairoStatus;
+    pub fn cairo_region_union(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> CairoStatus;
+    pub fn cairo_region_union_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> CairoStatus;
+    pub fn cairo_region_xor(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> CairoStatus;
+    pub fn cairo_region_xor_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> CairoStatus;
 
     //text
-    pub fn cairo_select_font_face(cr: *mut cairo_t, family: *const c_char, slant: FontSlant, weight: FontWeight);
+    pub fn cairo_select_font_face(cr: *mut cairo_t, family: *const c_char, slant: CairoFontSlant, weight: CairoFontWeight);
     pub fn cairo_set_font_size(cr: *mut cairo_t, size: c_double);
     pub fn cairo_set_font_matrix(cr: *mut cairo_t, matrix: *const Matrix);
     pub fn cairo_get_font_matrix(cr: *mut cairo_t, matrix: *mut Matrix);
@@ -453,14 +446,14 @@ extern "C" {
     pub fn cairo_get_scaled_font(cr: *mut cairo_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_show_text(cr: *mut cairo_t, utf8: *const c_char);
     pub fn cairo_show_glyphs(cr: *mut cairo_t, glyphs: *const Glyph, num_glyphs: c_int);
-    pub fn cairo_show_text_glyphs(cr: *mut cairo_t, utf8: *const c_char, utf8_len: c_int, glyphs: *const Glyph, num_glyphs: c_int, clusters: *const TextCluster, num_clusters: c_int, cluster_flags: TextClusterFlags);
+    pub fn cairo_show_text_glyphs(cr: *mut cairo_t, utf8: *const c_char, utf8_len: c_int, glyphs: *const Glyph, num_glyphs: c_int, clusters: *const TextCluster, num_clusters: c_int, cluster_flags: CairoTextClusterFlags);
     pub fn cairo_font_extents(cr: *mut cairo_t, extents: *mut FontExtents);
     pub fn cairo_text_extents(cr: *mut cairo_t, utf8: *const c_char, extents: *mut TextExtents);
     pub fn cairo_glyph_extents(cr: *mut cairo_t, glyphs: *const Glyph, num_glyphs: c_int, extents: *mut TextExtents);
-    pub fn cairo_toy_font_face_create(family: *const c_char, slant: FontSlant, weight: FontWeight) -> *mut cairo_font_face_t;
+    pub fn cairo_toy_font_face_create(family: *const c_char, slant: CairoFontSlant, weight: CairoFontWeight) -> *mut cairo_font_face_t;
     pub fn cairo_toy_font_face_get_family(font_face: *mut cairo_font_face_t) -> *const c_char;
-    pub fn cairo_toy_font_face_get_slant(font_face: *mut cairo_font_face_t) -> FontSlant;
-    pub fn cairo_toy_font_face_get_weight(font_face: *mut cairo_font_face_t) -> FontWeight;
+    pub fn cairo_toy_font_face_get_slant(font_face: *mut cairo_font_face_t) -> CairoFontSlant;
+    pub fn cairo_toy_font_face_get_weight(font_face: *mut cairo_font_face_t) -> CairoFontWeight;
     pub fn cairo_glyph_allocate(num_glyphs: c_int) -> *mut Glyph;
     pub fn cairo_glyph_free(glyphs: *mut Glyph);
     pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut TextCluster;
@@ -494,47 +487,47 @@ extern "C" {
     //CAIRO FONT
     pub fn cairo_font_face_reference(font_face: *mut cairo_font_face_t) -> *mut cairo_font_face_t;
     pub fn cairo_font_face_destroy(font_face: *mut cairo_font_face_t);
-    pub fn cairo_font_face_status(font_face: *mut cairo_font_face_t) -> Status;
-    pub fn cairo_font_face_get_type(font_face: *mut cairo_font_face_t) -> FontType;
+    pub fn cairo_font_face_status(font_face: *mut cairo_font_face_t) -> CairoStatus;
+    pub fn cairo_font_face_get_type(font_face: *mut cairo_font_face_t) -> CairoFontType;
     pub fn cairo_font_face_get_reference_count(font_face: *mut cairo_font_face_t) -> c_uint;
-    //pub fn cairo_font_face_set_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> Status;
+    //pub fn cairo_font_face_set_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> CairoStatus;
     //pub fn cairo_font_face_get_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
     //CAIRO SCALED FONT
     pub fn cairo_scaled_font_create(font_face: *mut cairo_font_face_t, font_matrix: *const Matrix, ctm: *const Matrix, options: *const cairo_font_options_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_reference(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_destroy(scaled_font: *mut cairo_scaled_font_t);
-    pub fn cairo_scaled_font_status(scaled_font: *mut cairo_scaled_font_t) -> Status;
+    pub fn cairo_scaled_font_status(scaled_font: *mut cairo_scaled_font_t) -> CairoStatus;
     pub fn cairo_scaled_font_extents(scaled_font: *mut cairo_scaled_font_t, extents: *mut FontExtents);
     pub fn cairo_scaled_font_text_extents(scaled_font: *mut cairo_scaled_font_t, utf8: *const c_char, extents: *mut TextExtents);
     pub fn cairo_scaled_font_glyph_extents(scaled_font: *mut cairo_scaled_font_t, glyphs: *const Glyph, num_glyphs: c_int, extents: *mut TextExtents);
-    pub fn cairo_scaled_font_text_to_glyphs(scaled_font: *mut cairo_scaled_font_t, x: c_double, y: c_double, utf8: *const c_char, utf8_len: c_int, glyphs: *mut *mut Glyph, num_glyphs: *mut c_int, clusters: *mut *mut TextCluster, num_clusters: *mut c_int, cluster_flags: *mut TextClusterFlags) -> Status;
+    pub fn cairo_scaled_font_text_to_glyphs(scaled_font: *mut cairo_scaled_font_t, x: c_double, y: c_double, utf8: *const c_char, utf8_len: c_int, glyphs: *mut *mut Glyph, num_glyphs: *mut c_int, clusters: *mut *mut TextCluster, num_clusters: *mut c_int, cluster_flags: *mut CairoTextClusterFlags) -> CairoStatus;
     pub fn cairo_scaled_font_get_font_face(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_font_face_t;
     pub fn cairo_scaled_font_get_font_options(scaled_font: *mut cairo_scaled_font_t, options: *mut cairo_font_options_t);
     pub fn cairo_scaled_font_get_font_matrix(scaled_font: *mut cairo_scaled_font_t, font_matrix: *mut Matrix);
     pub fn cairo_scaled_font_get_ctm(scaled_font: *mut cairo_scaled_font_t, ctm: *mut Matrix);
     pub fn cairo_scaled_font_get_scale_matrix(scaled_font: *mut cairo_scaled_font_t, scale_matrix: *mut Matrix);
-    pub fn cairo_scaled_font_get_type(scaled_font: *mut cairo_scaled_font_t) -> FontType;
+    pub fn cairo_scaled_font_get_type(scaled_font: *mut cairo_scaled_font_t) -> CairoFontType;
     pub fn cairo_scaled_font_get_reference_count(font_face: *mut cairo_scaled_font_t) -> c_uint;
-    //pub fn cairo_scaled_font_set_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> Status;
+    //pub fn cairo_scaled_font_set_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> CairoStatus;
     //pub fn cairo_scaled_font_get_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
     //CAIRO FONT OPTIONS
     pub fn cairo_font_options_create() -> *mut cairo_font_options_t;
     pub fn cairo_font_options_copy(original: *const cairo_font_options_t) -> *mut cairo_font_options_t;
     pub fn cairo_font_options_destroy(options: *mut cairo_font_options_t);
-    pub fn cairo_font_options_status(options: *mut cairo_font_options_t) -> Status;
+    pub fn cairo_font_options_status(options: *mut cairo_font_options_t) -> CairoStatus;
     pub fn cairo_font_options_merge(options: *mut cairo_font_options_t, other: *const cairo_font_options_t);
     pub fn cairo_font_options_hash(options: *const cairo_font_options_t) -> c_ulong;
     pub fn cairo_font_options_equal(options: *const cairo_font_options_t, other: *const cairo_font_options_t) -> cairo_bool_t;
-    pub fn cairo_font_options_set_antialias(options: *mut cairo_font_options_t, antialias: Antialias);
-    pub fn cairo_font_options_get_antialias(options: *const cairo_font_options_t) -> Antialias;
-    pub fn cairo_font_options_set_subpixel_order(options: *mut cairo_font_options_t, subpixel_order: SubpixelOrder);
-    pub fn cairo_font_options_get_subpixel_order(options: *const cairo_font_options_t) -> SubpixelOrder;
-    pub fn cairo_font_options_set_hint_style(options: *mut cairo_font_options_t, hint_style: HintStyle);
-    pub fn cairo_font_options_get_hint_style(options: *const cairo_font_options_t) -> HintStyle;
-    pub fn cairo_font_options_set_hint_metrics(options: *mut cairo_font_options_t, hint_metrics: HintMetrics);
-    pub fn cairo_font_options_get_hint_metrics(options: *const cairo_font_options_t) -> HintMetrics;
+    pub fn cairo_font_options_set_antialias(options: *mut cairo_font_options_t, antialias: CairoAntialias);
+    pub fn cairo_font_options_get_antialias(options: *const cairo_font_options_t) -> CairoAntialias;
+    pub fn cairo_font_options_set_subpixel_order(options: *mut cairo_font_options_t, subpixel_order: CairoSubpixelOrder);
+    pub fn cairo_font_options_get_subpixel_order(options: *const cairo_font_options_t) -> CairoSubpixelOrder;
+    pub fn cairo_font_options_set_hint_style(options: *mut cairo_font_options_t, hint_style: CairoHintStyle);
+    pub fn cairo_font_options_get_hint_style(options: *const cairo_font_options_t) -> CairoHintStyle;
+    pub fn cairo_font_options_set_hint_metrics(options: *mut cairo_font_options_t, hint_metrics: CairoHintMetrics);
+    pub fn cairo_font_options_get_hint_metrics(options: *const cairo_font_options_t) -> CairoHintMetrics;
 
     // CAIRO MATRIX
     pub fn cairo_matrix_multiply(matrix: *mut Matrix, left: *const Matrix, right: *const Matrix);
@@ -543,7 +536,7 @@ extern "C" {
     pub fn cairo_matrix_translate(matrix: *mut Matrix, tx: f64, ty: f64);
     pub fn cairo_matrix_scale(matrix: *mut Matrix, sx: f64, sy: f64);
     pub fn cairo_matrix_rotate(matrix: *mut Matrix, angle: f64);
-    pub fn cairo_matrix_invert(matrix: *mut Matrix) -> Status;
+    pub fn cairo_matrix_invert(matrix: *mut Matrix) -> CairoStatus;
     pub fn cairo_matrix_transform_distance(matrix: *const Matrix, dx: *mut f64, dy: *mut f64);
     pub fn cairo_matrix_transform_point(matrix: *const Matrix, x: *mut f64, y: *mut f64);
 
@@ -551,28 +544,28 @@ extern "C" {
     pub fn cairo_surface_destroy(surface: *mut cairo_surface_t);
     pub fn cairo_surface_flush(surface: *mut cairo_surface_t);
     pub fn cairo_surface_finish(surface: *mut cairo_surface_t);
-    pub fn cairo_surface_status(surface: *mut cairo_surface_t) -> Status;
-    pub fn cairo_surface_get_type(surface: *mut cairo_surface_t) -> SurfaceType;
+    pub fn cairo_surface_status(surface: *mut cairo_surface_t) -> CairoStatus;
+    pub fn cairo_surface_get_type(surface: *mut cairo_surface_t) -> CairoSurfaceType;
     pub fn cairo_surface_reference(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
     pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t) -> *mut c_void;
-    pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> Status;
+    pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> CairoStatus;
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
-    pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: Content, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: CairoContent, width: c_int, height: c_int) -> *mut cairo_surface_t;
 
     // CAIRO IMAGE SURFACE
-    pub fn cairo_image_surface_create(format: Format, width: c_int, height: c_int) -> *mut cairo_surface_t;
-    pub fn cairo_image_surface_create_for_data(data: *mut u8, format: Format, width: c_int, height: c_int, stride: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_image_surface_create(format: CairoFormat, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_image_surface_create_for_data(data: *mut u8, format: CairoFormat, width: c_int, height: c_int, stride: c_int) -> *mut cairo_surface_t;
     pub fn cairo_image_surface_get_data(surface: *mut cairo_surface_t) -> *mut u8;
-    pub fn cairo_image_surface_get_format(surface: *mut cairo_surface_t) -> Format;
+    pub fn cairo_image_surface_get_format(surface: *mut cairo_surface_t) -> CairoFormat;
     pub fn cairo_image_surface_get_height(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_stride(surface: *mut cairo_surface_t) -> c_int;
     pub fn cairo_image_surface_get_width(surface: *mut cairo_surface_t) -> c_int;
-    pub fn cairo_format_stride_for_width(format: Format, width: c_int) -> c_int;
+    pub fn cairo_format_stride_for_width(format: CairoFormat, width: c_int) -> c_int;
     #[cfg(any(feature = "png", feature = "dox"))]
     pub fn cairo_image_surface_create_from_png_stream(read_func: cairo_read_func_t, closure: *mut c_void) -> *mut cairo_surface_t;
     #[cfg(any(feature = "png", feature = "dox"))]
-    pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> Status;
+    pub fn cairo_surface_write_to_png_stream(surface: *mut cairo_surface_t, write_func: cairo_write_func_t, closure: *mut c_void) -> CairoStatus;
 
     // CAIRO PDF
     #[cfg(any(feature = "pdf", feature = "dox"))]
@@ -585,7 +578,7 @@ extern "C" {
                                                 width_in_points: c_double,
                                                 height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "pdf", feature = "dox"))]
-    pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: PdfVersion);
+    pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: CairoPdfVersion);
     // CAIRO SVG
     #[cfg(any(feature = "svg", feature = "dox"))]
     pub fn cairo_svg_surface_create (filename: *const c_char,
@@ -597,11 +590,11 @@ extern "C" {
                                                 width_in_points: c_double,
                                                 height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "svg", feature = "dox"))]
-    pub fn cairo_svg_surface_restrict_to_version (surface: *mut cairo_surface_t, version: SvgVersion);
+    pub fn cairo_svg_surface_restrict_to_version (surface: *mut cairo_surface_t, version: CairoSvgVersion);
     #[cfg(any(feature = "svg", feature = "dox"))]
-    pub fn cairo_svg_surface_get_document_unit(surface: *const cairo_surface_t) -> SvgUnit;
+    pub fn cairo_svg_surface_get_document_unit(surface: *const cairo_surface_t) -> CairoSvgUnit;
     #[cfg(any(feature = "svg", feature = "dox"))]
-    pub fn cairo_svg_surface_set_document_unit(surface: *mut cairo_surface_t, unit: SvgUnit);
+    pub fn cairo_svg_surface_set_document_unit(surface: *mut cairo_surface_t, unit: CairoSvgUnit);
     // CAIRO PS
     #[cfg(any(feature = "ps", feature = "dox"))]
     pub fn cairo_ps_surface_create (filename: *const c_char,
@@ -613,7 +606,7 @@ extern "C" {
                                                width_in_points: c_double,
                                                height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "ps", feature = "dox"))]
-    pub fn cairo_ps_surface_restrict_to_level (surface: *mut cairo_surface_t, version: PsLevel);
+    pub fn cairo_ps_surface_restrict_to_level (surface: *mut cairo_surface_t, version: CairoPsLevel);
     #[cfg(any(feature = "ps", feature = "dox"))]
     pub fn cairo_ps_surface_set_eps (surface: *mut cairo_surface_t, eps: cairo_bool_t);
     #[cfg(any(feature = "ps", feature = "dox"))]
@@ -724,13 +717,13 @@ extern "C" {
     #[cfg(any(windows, feature = "dox"))]
     pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
     #[cfg(any(windows, feature = "dox"))]
-    pub fn cairo_win32_surface_create_with_dib(format: Format,
+    pub fn cairo_win32_surface_create_with_dib(format: CairoFormat,
                                                width: c_int,
                                                height: c_int)
                                                -> *mut cairo_surface_t;
     #[cfg(any(windows, feature = "dox"))]
     pub fn cairo_win32_surface_create_with_ddb(hdc: winapi::HDC,
-                                               format: Format,
+                                               format: CairoFormat,
                                                width: c_int,
                                                height: c_int)
                                                -> *mut cairo_surface_t;
@@ -742,7 +735,7 @@ extern "C" {
     pub fn cairo_win32_surface_get_image(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
 
     #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
-    pub fn cairo_quartz_surface_create(format: Format,
+    pub fn cairo_quartz_surface_create(format: CairoFormat,
                                        width: c_uint,
                                        height: c_uint)
                                        -> *mut cairo_surface_t;
@@ -757,3 +750,194 @@ extern "C" {
 
 #[cfg(feature = "use_glib")]
 pub mod gobject;
+
+pub const STATUS_SUCCESS: i32 = 0;
+pub const STATUS_NO_MEMORY: i32 = 1;
+pub const STATUS_INVALID_RESTORE: i32 = 2;
+pub const STATUS_INVALID_POP_GROUP: i32 = 3;
+pub const STATUS_NO_CURRENT_POINT: i32 = 4;
+pub const STATUS_INVALID_MATRIX: i32 = 5;
+pub const STATUS_INVALID_STATUS: i32 = 6;
+pub const STATUS_NULL_POINTER: i32 = 7;
+pub const STATUS_INVALID_STRING: i32 = 8;
+pub const STATUS_INVALID_PATH_DATA: i32 = 9;
+pub const STATUS_READ_ERROR: i32 = 10;
+pub const STATUS_WRITE_ERROR: i32 = 11;
+pub const STATUS_SURFACE_FINISHED: i32 = 12;
+pub const STATUS_SURFACE_TYPE_MISMATCH: i32 = 13;
+pub const STATUS_PATTERN_TYPE_MISMATCH: i32 = 14;
+pub const STATUS_INVALID_CONTENT: i32 = 15;
+pub const STATUS_INVALID_FORMAT: i32 = 16;
+pub const STATUS_INVALID_VISUAL: i32 = 17;
+pub const STATUS_FILE_NOT_FOUND: i32 = 18;
+pub const STATUS_INVALID_DASH: i32 = 19;
+pub const STATUS_INVALID_DSC_COMMENT: i32 = 20;
+pub const STATUS_INVALID_INDEX: i32 = 21;
+pub const STATUS_CLIP_NOT_REPRESENTABLE: i32 = 22;
+pub const STATUS_TEMP_FILE_ERROR: i32 = 23;
+pub const STATUS_INVALID_STRIDE: i32 = 24;
+pub const STATUS_FONT_TYPE_MISMATCH: i32 = 25;
+pub const STATUS_USER_FONT_IMMUTABLE: i32 = 26;
+pub const STATUS_USER_FONT_ERROR: i32 = 27;
+pub const STATUS_NEGATIVE_COUNT: i32 = 28;
+pub const STATUS_INVALID_CLUSTERS: i32 = 29;
+pub const STATUS_INVALID_SLANT: i32 = 30;
+pub const STATUS_INVALID_WEIGHT: i32 = 31;
+pub const STATUS_INVALID_SIZE: i32 = 32;
+pub const STATUS_USER_FONT_NOT_IMPLEMENTED: i32 = 33;
+pub const STATUS_DEVICE_TYPE_MISMATCH: i32 = 34;
+pub const STATUS_DEVICE_ERROR: i32 = 35;
+pub const STATUS_INVALID_MESH_CONSTRUCTION: i32 = 36;
+pub const STATUS_DEVICE_FINISHED: i32 = 37;
+pub const STATUS_J_BIG2_GLOBAL_MISSING: i32 = 38;
+pub const STATUS_PNG_ERROR: i32 = 39;
+pub const STATUS_FREETYPE_ERROR: i32 = 40;
+pub const STATUS_WIN32_GDI_ERROR: i32 = 41;
+pub const STATUS_LAST_STATUS: i32 = 42;
+pub const ANTIALIAS_DEFAULT: i32 = 0;
+pub const ANTIALIAS_NONE: i32 = 1;
+pub const ANTIALIAS_GRAY: i32 = 2;
+pub const ANTIALIAS_SUBPIXEL: i32 = 3;
+pub const ANTIALIAS_FAST: i32 = 4;
+pub const ANTIALIAS_GOOD: i32 = 5;
+pub const ANTIALIAS_BEST: i32 = 6;
+pub const FILL_RULE_WINDING: i32 = 0;
+pub const FILL_RULE_EVEN_ODD: i32 = 1;
+pub const LINE_CAP_BUTT: i32 = 0;
+pub const LINE_CAP_ROUND: i32 = 1;
+pub const LINE_CAP_SQUARE: i32 = 2;
+pub const LINE_JOIN_MITER: i32 = 0;
+pub const LINE_JOIN_ROUND: i32 = 1;
+pub const LINE_JOIN_BEVEL: i32 = 2;
+pub const OPERATOR_CLEAR: i32 = 0;
+pub const OPERATOR_SOURCE: i32 = 1;
+pub const OPERATOR_OVER: i32 = 2;
+pub const OPERATOR_IN: i32 = 3;
+pub const OPERATOR_OUT: i32 = 4;
+pub const OPERATOR_ATOP: i32 = 5;
+pub const OPERATOR_DEST: i32 = 6;
+pub const OPERATOR_DEST_OVER: i32 = 7;
+pub const OPERATOR_DEST_IN: i32 = 8;
+pub const OPERATOR_DEST_OUT: i32 = 9;
+pub const OPERATOR_DEST_ATOP: i32 = 10;
+pub const OPERATOR_XOR: i32 = 11;
+pub const OPERATOR_ADD: i32 = 12;
+pub const OPERATOR_SATURATE: i32 = 13;
+pub const OPERATOR_MULTIPLY: i32 = 14;
+pub const OPERATOR_SCREEN: i32 = 15;
+pub const OPERATOR_OVERLAY: i32 = 16;
+pub const OPERATOR_DARKEN: i32 = 17;
+pub const OPERATOR_LIGHTEN: i32 = 18;
+pub const OPERATOR_COLOR_DODGE: i32 = 19;
+pub const OPERATOR_COLOR_BURN: i32 = 20;
+pub const OPERATOR_HARD_LIGHT: i32 = 21;
+pub const OPERATOR_SOFT_LIGHT: i32 = 22;
+pub const OPERATOR_DIFFERENCE: i32 = 23;
+pub const OPERATOR_EXCLUSION: i32 = 24;
+pub const OPERATOR_HSL_HUE: i32 = 25;
+pub const OPERATOR_HSL_SATURATION: i32 = 26;
+pub const OPERATOR_HSL_COLOR: i32 = 27;
+pub const OPERATOR_HSL_LUMINOSITY: i32 = 28;
+pub const PATH_DATA_TYPE_MOVE_TO: i32 = 0;
+pub const PATH_DATA_TYPE_LINE_TO: i32 = 1;
+pub const PATH_DATA_TYPE_CURVE_TO: i32 = 2;
+pub const PATH_DATA_TYPE_CLOSE_PATH: i32 = 3;
+pub const CONTENT_COLOR     : i32 = 0x1000;
+pub const CONTENT_ALPHA     : i32 = 0x2000;
+pub const CONTENT_COLOR_ALPHA: i32 = 0x3000;
+pub const EXTEND_NONE: i32 = 0;
+pub const EXTEND_REPEAT: i32 = 1;
+pub const EXTEND_REFLECT: i32 = 2;
+pub const EXTEND_PAD: i32 = 3;
+pub const FILTER_FAST: i32 = 0;
+pub const FILTER_GOOD: i32 = 1;
+pub const FILTER_BEST: i32 = 2;
+pub const FILTER_NEAREST: i32 = 3;
+pub const FILTER_BILINEAR: i32 = 4;
+pub const FILTER_GAUSSIAN: i32 = 5;
+pub const PATTERN_TYPE_SOLID: i32 = 0;
+pub const PATTERN_TYPE_SURFACE: i32 = 1;
+pub const PATTERN_TYPE_LINEAR_GRADIENT: i32 = 2;
+pub const PATTERN_TYPE_RADIAL_GRADIENT: i32 = 3;
+pub const PATTERN_TYPE_MESH: i32 = 4;
+pub const PATTERN_TYPE_RASTER_SOURCE: i32 = 5;
+pub const FONT_SLANT_NORMAL: i32 = 0;
+pub const FONT_SLANT_ITALIC: i32 = 1;
+pub const FONT_SLANT_OBLIQUE: i32 = 2;
+pub const FONT_WEIGHT_NORMAL: i32 = 0;
+pub const FONT_WEIGHT_BOLD: i32 = 1;
+pub const TEXT_CLUSTER_FLAGS_NONE    : i32 = 0x00000000;
+pub const TEXT_CLUSTER_FLAGS_BACKWARD: i32 = 0x00000001;
+pub const FONT_TYPE_FONT_TYPE_TOY: i32 = 0;
+pub const FONT_TYPE_FONT_TYPE_FT: i32 = 1;
+pub const FONT_TYPE_FONT_TYPE_WIN32: i32 = 2;
+pub const FONT_TYPE_FONT_TYPE_QUARTZ: i32 = 3;
+pub const FONT_TYPE_FONT_TYPE_USER: i32 = 4;
+pub const SUBPIXEL_ORDER_DEFAULT: i32 = 0;
+pub const SUBPIXEL_ORDER_RGB: i32 = 1;
+pub const SUBPIXEL_ORDER_BGR: i32 = 2;
+pub const SUBPIXEL_ORDER_VRGB: i32 = 3;
+pub const SUBPIXEL_ORDER_VBGR: i32 = 4;
+pub const HINT_STYLE_DEFAULT: i32 = 0;
+pub const HINT_STYLE_NONE: i32 = 1;
+pub const HINT_STYLE_SLIGHT: i32 = 2;
+pub const HINT_STYLE_MEDIUM: i32 = 3;
+pub const HINT_STYLE_FULL: i32 = 4;
+pub const HINT_METRICS_DEFAULT: i32 = 0;
+pub const HINT_METRICS_OFF: i32 = 1;
+pub const HINT_METRICS_ON: i32 = 2;
+pub const SURFACE_TYPE_IMAGE: i32 = 0;
+pub const SURFACE_TYPE_PDF: i32 = 1;
+pub const SURFACE_TYPE_PS: i32 = 2;
+pub const SURFACE_TYPE_XLIB: i32 = 3;
+pub const SURFACE_TYPE_XCB: i32 = 4;
+pub const SURFACE_TYPE_GLITZ: i32 = 5;
+pub const SURFACE_TYPE_QUARTZ: i32 = 6;
+pub const SURFACE_TYPE_WIN32: i32 = 7;
+pub const SURFACE_TYPE_BE_OS: i32 = 8;
+pub const SURFACE_TYPE_DIRECT_FB: i32 = 9;
+pub const SURFACE_TYPE_SVG: i32 = 10;
+pub const SURFACE_TYPE_OS2: i32 = 11;
+pub const SURFACE_TYPE_WIN32_PRINTING: i32 = 12;
+pub const SURFACE_TYPE_QUARTZ_IMAGE: i32 = 13;
+pub const SURFACE_TYPE_SCRIPT: i32 = 14;
+pub const SURFACE_TYPE_QT: i32 = 15;
+pub const SURFACE_TYPE_RECORDING: i32 = 16;
+pub const SURFACE_TYPE_VG: i32 = 17;
+pub const SURFACE_TYPE_GL: i32 = 18;
+pub const SURFACE_TYPE_DRM: i32 = 19;
+pub const SURFACE_TYPE_TEE: i32 = 20;
+pub const SURFACE_TYPE_XML: i32 = 21;
+pub const SURFACE_TYPE_SKIA: i32 = 22;
+pub const SURFACE_TYPE_SUBSURFACE: i32 = 23;
+pub const SURFACE_TYPE_COGL: i32 = 24;
+pub const SVG_UNIT_USER: i32 = 0;
+pub const SVG_UNIT_EM: i32 = 1;
+pub const SVG_UNIT_EX: i32 = 2;
+pub const SVG_UNIT_PX: i32 = 3;
+pub const SVG_UNIT_IN: i32 = 4;
+pub const SVG_UNIT_CM: i32 = 5;
+pub const SVG_UNIT_MM: i32 = 6;
+pub const SVG_UNIT_PT: i32 = 7;
+pub const SVG_UNIT_PC: i32 = 8;
+pub const SVG_UNIT_PERCENT: i32 = 9;
+pub const FORMAT_INVALID: i32 = -1;
+pub const FORMAT_A_RGB32: i32 = 0;
+pub const FORMAT_RGB24: i32 = 1;
+pub const FORMAT_A8: i32 = 2;
+pub const FORMAT_A1: i32 = 3;
+pub const FORMAT_RGB16_565: i32 = 4;
+pub const FORMAT_RGB30: i32 = 5;
+pub const REGION_OVERLAP_IN: i32 = 0;
+pub const REGION_OVERLAP_OUT: i32 = 1;
+pub const REGION_OVERLAP_PART: i32 = 2;
+pub const PDF_VERSION__1_4: i32 = 0;
+pub const PDF_VERSION__1_5: i32 = 1;
+pub const SVG_VERSION__1_1: i32 = 0;
+pub const SVG_VERSION__1_2: i32 = 1;
+pub const PS_LEVEL__2: i32 = 0;
+pub const PS_LEVEL__3: i32 = 1;
+pub const MESH_CORNER_MESH_CORNER0: u32 = 0;
+pub const MESH_CORNER_MESH_CORNER1: u32 = 1;
+pub const MESH_CORNER_MESH_CORNER2: u32 = 2;
+pub const MESH_CORNER_MESH_CORNER3: u32 = 3;

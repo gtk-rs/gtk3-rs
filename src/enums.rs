@@ -1,0 +1,1387 @@
+// Copyright 2013-2015, The Gtk-rs Project Developers.
+// See the COPYRIGHT file at the top-level directory of this distribution.
+// Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
+
+use std::fmt::{Error, Debug};
+use std::ffi::CStr;
+use std::i32;
+use std::u32;
+
+use ffi;
+
+#[cfg(feature = "use_glib")]
+use glib;
+#[cfg(feature = "use_glib")]
+use glib::translate::*;
+#[cfg(feature = "use_glib")]
+use gobject_ffi;
+
+// Helper macro for our GValue related trait impls
+#[cfg(feature = "use_glib")]
+macro_rules! gvalue_impl {
+    ($name:ty, $get_type:expr) => {
+        impl glib::types::StaticType for $name {
+            fn static_type() -> glib::Type {
+                unsafe { from_glib($get_type()) }
+            }
+        }
+
+        impl<'a> glib::value::FromValueOptional<'a> for $name {
+            unsafe fn from_value_optional(value: &glib::value::Value) -> Option<Self> {
+                Some(glib::value::FromValue::from_value(value))
+            }
+        }
+
+        impl<'a> glib::value::FromValue<'a> for $name {
+            unsafe fn from_value(value: &glib::value::Value) -> Self {
+                Self::from(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+            }
+        }
+
+        impl glib::value::SetValue for $name {
+            unsafe fn set_value(value: &mut glib::value::Value, this: &Self) {
+                gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, (*this).into())
+            }
+        }
+    }
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub enum Status {
+    Success,
+
+    NoMemory,
+    InvalidRestore,
+    InvalidPopGroup,
+    NoCurrentPoint,
+    InvalidMatrix,
+    InvalidStatus,
+    NullPointer,
+    InvalidString,
+    InvalidPathData,
+    ReadError,
+    WriteError,
+    SurfaceFinished,
+    SurfaceTypeMismatch,
+    PatternTypeMismatch,
+    InvalidContent,
+    InvalidFormat,
+    InvalidVisual,
+    FileNotFound,
+    InvalidDash,
+    InvalidDscComment,
+    InvalidIndex,
+    ClipNotRepresentable,
+    TempFileError,
+    InvalidStride,
+    FontTypeMismatch,
+    UserFontImmutable,
+    UserFontError,
+    NegativeCount,
+    InvalidClusters,
+    InvalidSlant,
+    InvalidWeight,
+    InvalidSize,
+    UserFontNotImplemented,
+    DeviceTypeMismatch,
+    DeviceError,
+    InvalidMeshConstruction,
+    DeviceFinished,
+    // CAIRO_MIME_TYPE_JBIG2_GLOBAL_ID has been used on at least one image but no
+    // image provided `JBig2Global` (Since 1.14)
+    JBig2GlobalMissing,
+    PngError,
+    FreetypeError,
+    Win32GdiError,
+    LastStatus,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoStatus> for Status {
+    fn into(self) -> ffi::CairoStatus {
+        match self {
+            Status::Success => ffi::STATUS_SUCCESS,
+            Status::NoMemory => ffi::STATUS_NO_MEMORY,
+            Status::InvalidRestore => ffi::STATUS_INVALID_RESTORE,
+            Status::InvalidPopGroup => ffi::STATUS_INVALID_POP_GROUP,
+            Status::NoCurrentPoint => ffi::STATUS_NO_CURRENT_POINT,
+            Status::InvalidMatrix => ffi::STATUS_INVALID_MATRIX,
+            Status::InvalidStatus => ffi::STATUS_INVALID_STATUS,
+            Status::NullPointer => ffi::STATUS_NULL_POINTER,
+            Status::InvalidString => ffi::STATUS_INVALID_STRING,
+            Status::InvalidPathData => ffi::STATUS_INVALID_PATH_DATA,
+            Status::ReadError => ffi::STATUS_READ_ERROR,
+            Status::WriteError => ffi::STATUS_WRITE_ERROR,
+            Status::SurfaceFinished => ffi::STATUS_SURFACE_FINISHED,
+            Status::SurfaceTypeMismatch => ffi::STATUS_SURFACE_TYPE_MISMATCH,
+            Status::PatternTypeMismatch => ffi::STATUS_PATTERN_TYPE_MISMATCH,
+            Status::InvalidContent => ffi::STATUS_INVALID_CONTENT,
+            Status::InvalidFormat => ffi::STATUS_INVALID_FORMAT,
+            Status::InvalidVisual => ffi::STATUS_INVALID_VISUAL,
+            Status::FileNotFound => ffi::STATUS_FILE_NOT_FOUND,
+            Status::InvalidDash => ffi::STATUS_INVALID_DASH,
+            Status::InvalidDscComment => ffi::STATUS_INVALID_DSC_COMMENT,
+            Status::InvalidIndex => ffi::STATUS_INVALID_INDEX,
+            Status::ClipNotRepresentable => ffi::STATUS_CLIP_NOT_REPRESENTABLE,
+            Status::TempFileError => ffi::STATUS_TEMP_FILE_ERROR,
+            Status::InvalidStride => ffi::STATUS_INVALID_STRIDE,
+            Status::FontTypeMismatch => ffi::STATUS_FONT_TYPE_MISMATCH,
+            Status::UserFontImmutable => ffi::STATUS_USER_FONT_IMMUTABLE,
+            Status::UserFontError => ffi::STATUS_USER_FONT_ERROR,
+            Status::NegativeCount => ffi::STATUS_NEGATIVE_COUNT,
+            Status::InvalidClusters => ffi::STATUS_INVALID_CLUSTERS,
+            Status::InvalidSlant => ffi::STATUS_INVALID_SLANT,
+            Status::InvalidWeight => ffi::STATUS_INVALID_WEIGHT,
+            Status::InvalidSize => ffi::STATUS_INVALID_SIZE,
+            Status::UserFontNotImplemented => ffi::STATUS_USER_FONT_NOT_IMPLEMENTED,
+            Status::DeviceTypeMismatch => ffi::STATUS_DEVICE_TYPE_MISMATCH,
+            Status::DeviceError => ffi::STATUS_DEVICE_ERROR,
+            Status::InvalidMeshConstruction => ffi::STATUS_INVALID_MESH_CONSTRUCTION,
+            Status::DeviceFinished => ffi::STATUS_DEVICE_FINISHED,
+            Status::JBig2GlobalMissing => ffi::STATUS_J_BIG2_GLOBAL_MISSING,
+            Status::PngError => ffi::STATUS_PNG_ERROR,
+            Status::FreetypeError => ffi::STATUS_FREETYPE_ERROR,
+            Status::Win32GdiError => ffi::STATUS_WIN32_GDI_ERROR,
+            Status::LastStatus => ffi::STATUS_LAST_STATUS,
+            Status::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoStatus> for Status {
+    fn from(value: ffi::CairoStatus) -> Self {
+        match value {
+            ffi::STATUS_SUCCESS => Status::Success,
+            ffi::STATUS_NO_MEMORY => Status::NoMemory,
+            ffi::STATUS_INVALID_RESTORE => Status::InvalidRestore,
+            ffi::STATUS_INVALID_POP_GROUP => Status::InvalidPopGroup,
+            ffi::STATUS_NO_CURRENT_POINT => Status::NoCurrentPoint,
+            ffi::STATUS_INVALID_MATRIX => Status::InvalidMatrix,
+            ffi::STATUS_INVALID_STATUS => Status::InvalidStatus,
+            ffi::STATUS_NULL_POINTER => Status::NullPointer,
+            ffi::STATUS_INVALID_STRING => Status::InvalidString,
+            ffi::STATUS_INVALID_PATH_DATA => Status::InvalidPathData,
+            ffi::STATUS_READ_ERROR => Status::ReadError,
+            ffi::STATUS_WRITE_ERROR => Status::WriteError,
+            ffi::STATUS_SURFACE_FINISHED => Status::SurfaceFinished,
+            ffi::STATUS_SURFACE_TYPE_MISMATCH => Status::SurfaceTypeMismatch,
+            ffi::STATUS_PATTERN_TYPE_MISMATCH => Status::PatternTypeMismatch,
+            ffi::STATUS_INVALID_CONTENT => Status::InvalidContent,
+            ffi::STATUS_INVALID_FORMAT => Status::InvalidFormat,
+            ffi::STATUS_INVALID_VISUAL => Status::InvalidVisual,
+            ffi::STATUS_FILE_NOT_FOUND => Status::FileNotFound,
+            ffi::STATUS_INVALID_DASH => Status::InvalidDash,
+            ffi::STATUS_INVALID_DSC_COMMENT => Status::InvalidDscComment,
+            ffi::STATUS_INVALID_INDEX => Status::InvalidIndex,
+            ffi::STATUS_CLIP_NOT_REPRESENTABLE => Status::ClipNotRepresentable,
+            ffi::STATUS_TEMP_FILE_ERROR => Status::TempFileError,
+            ffi::STATUS_INVALID_STRIDE => Status::InvalidStride,
+            ffi::STATUS_FONT_TYPE_MISMATCH => Status::FontTypeMismatch,
+            ffi::STATUS_USER_FONT_IMMUTABLE => Status::UserFontImmutable,
+            ffi::STATUS_USER_FONT_ERROR => Status::UserFontError,
+            ffi::STATUS_NEGATIVE_COUNT => Status::NegativeCount,
+            ffi::STATUS_INVALID_CLUSTERS => Status::InvalidClusters,
+            ffi::STATUS_INVALID_SLANT => Status::InvalidSlant,
+            ffi::STATUS_INVALID_WEIGHT => Status::InvalidWeight,
+            ffi::STATUS_INVALID_SIZE => Status::InvalidSize,
+            ffi::STATUS_USER_FONT_NOT_IMPLEMENTED => Status::UserFontNotImplemented,
+            ffi::STATUS_DEVICE_TYPE_MISMATCH => Status::DeviceTypeMismatch,
+            ffi::STATUS_DEVICE_ERROR => Status::DeviceError,
+            ffi::STATUS_INVALID_MESH_CONSTRUCTION => Status::InvalidMeshConstruction,
+            ffi::STATUS_DEVICE_FINISHED => Status::DeviceFinished,
+            ffi::STATUS_J_BIG2_GLOBAL_MISSING => Status::JBig2GlobalMissing,
+            ffi::STATUS_PNG_ERROR => Status::PngError,
+            ffi::STATUS_FREETYPE_ERROR => Status::FreetypeError,
+            ffi::STATUS_WIN32_GDI_ERROR => Status::Win32GdiError,
+            ffi::STATUS_LAST_STATUS => Status::LastStatus,
+            value => Status::__Unknown(value),
+        }
+    }
+}
+
+impl Debug for Status {
+    fn fmt(&self, formatter: &mut ::std::fmt::Formatter) -> Result<(), Error> {
+        unsafe {
+            let char_ptr = ffi::cairo_status_to_string((*self).into());
+            let tmp = String::from_utf8_lossy(CStr::from_ptr(char_ptr).to_bytes()).into_owned();
+
+            tmp.fmt(formatter)
+        }
+    }
+}
+
+impl Status {
+    pub fn ensure_valid(self) {
+        if self != Status::Success {
+            panic!("Cairo error {:?}", self)
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Status, ffi::gobject::cairo_gobject_status_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum Antialias {
+    Default,
+
+    /* method */
+    None,
+    Gray,
+    Subpixel,
+
+    /* hints */
+    Fast,
+    Good,
+    Best,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoAntialias> for Antialias {
+    fn into(self) -> ffi::CairoAntialias {
+        match self {
+            Antialias::Default => ffi::ANTIALIAS_DEFAULT,
+            Antialias::None => ffi::ANTIALIAS_NONE,
+            Antialias::Gray => ffi::ANTIALIAS_GRAY,
+            Antialias::Subpixel => ffi::ANTIALIAS_SUBPIXEL,
+            Antialias::Fast => ffi::ANTIALIAS_FAST,
+            Antialias::Good => ffi::ANTIALIAS_GOOD,
+            Antialias::Best => ffi::ANTIALIAS_BEST,
+            Antialias::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoAntialias> for Antialias {
+    fn from(value: ffi::CairoAntialias) -> Self {
+        match value {
+            ffi::ANTIALIAS_DEFAULT => Antialias::Default,
+            ffi::ANTIALIAS_NONE => Antialias::None,
+            ffi::ANTIALIAS_GRAY => Antialias::Gray,
+            ffi::ANTIALIAS_SUBPIXEL => Antialias::Subpixel,
+            ffi::ANTIALIAS_FAST => Antialias::Fast,
+            ffi::ANTIALIAS_GOOD => Antialias::Good,
+            ffi::ANTIALIAS_BEST => Antialias::Best,
+            value => Antialias::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Antialias, ffi::gobject::cairo_gobject_antialias_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum FillRule {
+    Winding,
+    EvenOdd,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFillRule> for FillRule {
+    fn into(self) -> ffi::CairoFillRule {
+        match self {
+            FillRule::Winding => ffi::FILL_RULE_WINDING,
+            FillRule::EvenOdd => ffi::FILL_RULE_EVEN_ODD,
+            FillRule::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFillRule> for FillRule {
+    fn from(value: ffi::CairoFillRule) -> Self {
+        match value {
+            ffi::FILL_RULE_WINDING => FillRule::Winding,
+            ffi::FILL_RULE_EVEN_ODD => FillRule::EvenOdd,
+            value => FillRule::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FillRule, ffi::gobject::cairo_gobject_fill_rule_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum LineCap {
+    Butt,
+    Round,
+    Square,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoLineCap> for LineCap {
+    fn into(self) -> ffi::CairoLineCap {
+        match self {
+            LineCap::Butt => ffi::LINE_CAP_BUTT,
+            LineCap::Round => ffi::LINE_CAP_ROUND,
+            LineCap::Square => ffi::LINE_CAP_SQUARE,
+            LineCap::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoLineCap> for LineCap {
+    fn from(value: ffi::CairoLineCap) -> Self {
+        match value {
+            ffi::LINE_CAP_BUTT => LineCap::Butt,
+            ffi::LINE_CAP_ROUND => LineCap::Round,
+            ffi::LINE_CAP_SQUARE => LineCap::Square,
+            value => LineCap::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(LineCap, ffi::gobject::cairo_gobject_line_cap_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum LineJoin {
+    Miter,
+    Round,
+    Bevel,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoLineJoin> for LineJoin {
+    fn into(self) -> ffi::CairoLineJoin {
+        match self {
+            LineJoin::Miter => ffi::LINE_JOIN_MITER,
+            LineJoin::Round => ffi::LINE_JOIN_ROUND,
+            LineJoin::Bevel => ffi::LINE_JOIN_BEVEL,
+            LineJoin::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoLineJoin> for LineJoin {
+    fn from(value: ffi::CairoLineJoin) -> Self {
+        match value {
+            ffi::LINE_JOIN_MITER => LineJoin::Miter,
+            ffi::LINE_JOIN_ROUND => LineJoin::Round,
+            ffi::LINE_JOIN_BEVEL => LineJoin::Bevel,
+            value => LineJoin::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(LineJoin, ffi::gobject::cairo_gobject_line_join_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum Operator {
+    Clear,
+
+    Source,
+    Over,
+    In,
+    Out,
+    Atop,
+
+    Dest,
+    DestOver,
+    DestIn,
+    DestOut,
+    DestAtop,
+
+    Xor,
+    Add,
+    Saturate,
+
+    Multiply,
+    Screen,
+    Overlay,
+    Darken,
+    Lighten,
+    ColorDodge,
+    ColorBurn,
+    HardLight,
+    SoftLight,
+    Difference,
+    Exclusion,
+    HslHue,
+    HslSaturation,
+    HslColor,
+    HslLuminosity,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoOperator> for Operator {
+    fn into(self) -> ffi::CairoOperator {
+        match self {
+            Operator::Clear => ffi::OPERATOR_CLEAR,
+            Operator::Source => ffi::OPERATOR_SOURCE,
+            Operator::Over => ffi::OPERATOR_OVER,
+            Operator::In => ffi::OPERATOR_IN,
+            Operator::Out => ffi::OPERATOR_OUT,
+            Operator::Atop => ffi::OPERATOR_ATOP,
+            Operator::Dest => ffi::OPERATOR_DEST,
+            Operator::DestOver => ffi::OPERATOR_DEST_OVER,
+            Operator::DestIn => ffi::OPERATOR_DEST_IN,
+            Operator::DestOut => ffi::OPERATOR_DEST_OUT,
+            Operator::DestAtop => ffi::OPERATOR_DEST_ATOP,
+            Operator::Xor => ffi::OPERATOR_XOR,
+            Operator::Add => ffi::OPERATOR_ADD,
+            Operator::Saturate => ffi::OPERATOR_SATURATE,
+            Operator::Multiply => ffi::OPERATOR_MULTIPLY,
+            Operator::Screen => ffi::OPERATOR_SCREEN,
+            Operator::Overlay => ffi::OPERATOR_OVERLAY,
+            Operator::Darken => ffi::OPERATOR_DARKEN,
+            Operator::Lighten => ffi::OPERATOR_LIGHTEN,
+            Operator::ColorDodge => ffi::OPERATOR_COLOR_DODGE,
+            Operator::ColorBurn => ffi::OPERATOR_COLOR_BURN,
+            Operator::HardLight => ffi::OPERATOR_HARD_LIGHT,
+            Operator::SoftLight => ffi::OPERATOR_SOFT_LIGHT,
+            Operator::Difference => ffi::OPERATOR_DIFFERENCE,
+            Operator::Exclusion => ffi::OPERATOR_EXCLUSION,
+            Operator::HslHue => ffi::OPERATOR_HSL_HUE,
+            Operator::HslSaturation => ffi::OPERATOR_HSL_SATURATION,
+            Operator::HslColor => ffi::OPERATOR_HSL_COLOR,
+            Operator::HslLuminosity => ffi::OPERATOR_HSL_LUMINOSITY,
+            Operator::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoOperator> for Operator {
+    fn from(value: ffi::CairoOperator) -> Self {
+        match value {
+            ffi::OPERATOR_CLEAR => Operator::Clear,
+            ffi::OPERATOR_SOURCE => Operator::Source,
+            ffi::OPERATOR_OVER => Operator::Over,
+            ffi::OPERATOR_IN => Operator::In,
+            ffi::OPERATOR_OUT => Operator::Out,
+            ffi::OPERATOR_ATOP => Operator::Atop,
+            ffi::OPERATOR_DEST => Operator::Dest,
+            ffi::OPERATOR_DEST_OVER => Operator::DestOver,
+            ffi::OPERATOR_DEST_IN => Operator::DestIn,
+            ffi::OPERATOR_DEST_OUT => Operator::DestOut,
+            ffi::OPERATOR_DEST_ATOP => Operator::DestAtop,
+            ffi::OPERATOR_XOR => Operator::Xor,
+            ffi::OPERATOR_ADD => Operator::Add,
+            ffi::OPERATOR_SATURATE => Operator::Saturate,
+            ffi::OPERATOR_MULTIPLY => Operator::Multiply,
+            ffi::OPERATOR_SCREEN => Operator::Screen,
+            ffi::OPERATOR_OVERLAY => Operator::Overlay,
+            ffi::OPERATOR_DARKEN => Operator::Darken,
+            ffi::OPERATOR_LIGHTEN => Operator::Lighten,
+            ffi::OPERATOR_COLOR_DODGE => Operator::ColorDodge,
+            ffi::OPERATOR_COLOR_BURN => Operator::ColorBurn,
+            ffi::OPERATOR_HARD_LIGHT => Operator::HardLight,
+            ffi::OPERATOR_SOFT_LIGHT => Operator::SoftLight,
+            ffi::OPERATOR_DIFFERENCE => Operator::Difference,
+            ffi::OPERATOR_EXCLUSION => Operator::Exclusion,
+            ffi::OPERATOR_HSL_HUE => Operator::HslHue,
+            ffi::OPERATOR_HSL_SATURATION => Operator::HslSaturation,
+            ffi::OPERATOR_HSL_COLOR => Operator::HslColor,
+            ffi::OPERATOR_HSL_LUMINOSITY => Operator::HslLuminosity,
+            value => Operator::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Operator, ffi::gobject::cairo_gobject_operator_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum PathDataType {
+    MoveTo,
+    LineTo,
+    CurveTo,
+    ClosePath,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoPathDataType> for PathDataType {
+    fn into(self) -> ffi::CairoPathDataType {
+        match self {
+            PathDataType::MoveTo => ffi::PATH_DATA_TYPE_MOVE_TO,
+            PathDataType::LineTo => ffi::PATH_DATA_TYPE_LINE_TO,
+            PathDataType::CurveTo => ffi::PATH_DATA_TYPE_CURVE_TO,
+            PathDataType::ClosePath => ffi::PATH_DATA_TYPE_CLOSE_PATH,
+            PathDataType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoPathDataType> for PathDataType {
+    fn from(value: ffi::CairoPathDataType) -> Self {
+        match value {
+            ffi::PATH_DATA_TYPE_MOVE_TO => PathDataType::MoveTo,
+            ffi::PATH_DATA_TYPE_LINE_TO => PathDataType::LineTo,
+            ffi::PATH_DATA_TYPE_CURVE_TO => PathDataType::CurveTo,
+            ffi::PATH_DATA_TYPE_CLOSE_PATH => PathDataType::ClosePath,
+            value => PathDataType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(PathDataType, ffi::gobject::cairo_gobject_path_data_type_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum Content {
+    Color,
+    Alpha,
+    ColorAlpha,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoContent> for Content {
+    fn into(self) -> ffi::CairoContent {
+        match self {
+            Content::Color      => ffi::CONTENT_COLOR     ,
+            Content::Alpha      => ffi::CONTENT_ALPHA     ,
+            Content::ColorAlpha => ffi::CONTENT_COLOR_ALPHA,
+            Content::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoContent> for Content {
+    fn from(value: ffi::CairoContent) -> Self {
+        match value {
+            ffi::CONTENT_COLOR => Content::Color,
+            ffi::CONTENT_ALPHA => Content::Alpha,
+            ffi::CONTENT_COLOR_ALPHA => Content::ColorAlpha,
+            value => Content::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Content, ffi::gobject::cairo_gobject_content_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum Extend {
+    None,
+    Repeat,
+    Reflect,
+    Pad,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoExtend> for Extend {
+    fn into(self) -> ffi::CairoExtend {
+        match self {
+            Extend::None => ffi::EXTEND_NONE,
+            Extend::Repeat => ffi::EXTEND_REPEAT,
+            Extend::Reflect => ffi::EXTEND_REFLECT,
+            Extend::Pad => ffi::EXTEND_PAD,
+            Extend::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoExtend> for Extend {
+    fn from(value: ffi::CairoExtend) -> Self {
+        match value {
+            ffi::EXTEND_NONE => Extend::None,
+            ffi::EXTEND_REPEAT => Extend::Repeat,
+            ffi::EXTEND_REFLECT => Extend::Reflect,
+            ffi::EXTEND_PAD => Extend::Pad,
+            value => Extend::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Extend, ffi::gobject::cairo_gobject_extend_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum Filter {
+    Fast,
+    Good,
+    Best,
+    Nearest,
+    Bilinear,
+    Gaussian,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFilter> for Filter {
+    fn into(self) -> ffi::CairoFilter {
+        match self {
+            Filter::Fast => ffi::FILTER_FAST,
+            Filter::Good => ffi::FILTER_GOOD,
+            Filter::Best => ffi::FILTER_BEST,
+            Filter::Nearest => ffi::FILTER_NEAREST,
+            Filter::Bilinear => ffi::FILTER_BILINEAR,
+            Filter::Gaussian => ffi::FILTER_GAUSSIAN,
+            Filter::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFilter> for Filter {
+    fn from(value: ffi::CairoFilter) -> Self {
+        match value {
+            ffi::FILTER_FAST => Filter::Fast,
+            ffi::FILTER_GOOD => Filter::Good,
+            ffi::FILTER_BEST => Filter::Best,
+            ffi::FILTER_NEAREST => Filter::Nearest,
+            ffi::FILTER_BILINEAR => Filter::Bilinear,
+            ffi::FILTER_GAUSSIAN => Filter::Gaussian,
+            value => Filter::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Filter, ffi::gobject::cairo_gobject_filter_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum PatternType {
+    Solid,
+    Surface,
+    LinearGradient,
+    RadialGradient,
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
+    Mesh,
+    #[cfg(any(feature = "v1_12", feature = "dox"))]
+    RasterSource,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoPatternType> for PatternType {
+    fn into(self) -> ffi::CairoPatternType {
+        match self {
+            PatternType::Solid => ffi::PATTERN_TYPE_SOLID,
+            PatternType::Surface => ffi::PATTERN_TYPE_SURFACE,
+            PatternType::LinearGradient => ffi::PATTERN_TYPE_LINEAR_GRADIENT,
+            PatternType::RadialGradient => ffi::PATTERN_TYPE_RADIAL_GRADIENT,
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            PatternType::Mesh => ffi::PATTERN_TYPE_MESH,
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            PatternType::RasterSource => ffi::PATTERN_TYPE_RASTER_SOURCE,
+            PatternType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoPatternType> for PatternType {
+    fn from(value: ffi::CairoPatternType) -> Self {
+        match value {
+            ffi::PATTERN_TYPE_SOLID => PatternType::Solid,
+            ffi::PATTERN_TYPE_SURFACE => PatternType::Surface,
+            ffi::PATTERN_TYPE_LINEAR_GRADIENT => PatternType::LinearGradient,
+            ffi::PATTERN_TYPE_RADIAL_GRADIENT => PatternType::RadialGradient,
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            ffi::PATTERN_TYPE_MESH => PatternType::Mesh,
+            #[cfg(any(feature = "v1_12", feature = "dox"))]
+            ffi::PATTERN_TYPE_RASTER_SOURCE => PatternType::RasterSource,
+            value => PatternType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(PatternType, ffi::gobject::cairo_gobject_pattern_type_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum FontSlant {
+    Normal,
+    Italic,
+    Oblique,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFontSlant> for FontSlant {
+    fn into(self) -> ffi::CairoFontSlant {
+        match self {
+            FontSlant::Normal => ffi::FONT_SLANT_NORMAL,
+            FontSlant::Italic => ffi::FONT_SLANT_ITALIC,
+            FontSlant::Oblique => ffi::FONT_SLANT_OBLIQUE,
+            FontSlant::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFontSlant> for FontSlant {
+    fn from(value: ffi::CairoFontSlant) -> Self {
+        match value {
+            ffi::FONT_SLANT_NORMAL => FontSlant::Normal,
+            ffi::FONT_SLANT_ITALIC => FontSlant::Italic,
+            ffi::FONT_SLANT_OBLIQUE => FontSlant::Oblique,
+            value => FontSlant::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontSlant, ffi::gobject::cairo_gobject_font_slant_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum FontWeight {
+    Normal,
+    Bold,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFontWeight> for FontWeight {
+    fn into(self) -> ffi::CairoFontWeight {
+        match self {
+            FontWeight::Normal => ffi::FONT_WEIGHT_NORMAL,
+            FontWeight::Bold => ffi::FONT_WEIGHT_BOLD,
+            FontWeight::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFontWeight> for FontWeight {
+    fn from(value: ffi::CairoFontWeight) -> Self {
+        match value {
+            ffi::FONT_WEIGHT_NORMAL => FontWeight::Normal,
+            ffi::FONT_WEIGHT_BOLD => FontWeight::Bold,
+            value => FontWeight::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontWeight, ffi::gobject::cairo_gobject_font_weight_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum TextClusterFlags {
+    None,
+    Backward,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoTextClusterFlags> for TextClusterFlags {
+    fn into(self) -> ffi::CairoTextClusterFlags {
+        match self {
+            TextClusterFlags::None     => ffi::TEXT_CLUSTER_FLAGS_NONE    ,
+            TextClusterFlags::Backward => ffi::TEXT_CLUSTER_FLAGS_BACKWARD,
+            TextClusterFlags::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoTextClusterFlags> for TextClusterFlags {
+    fn from(value: ffi::CairoTextClusterFlags) -> Self {
+        match value {
+            ffi::TEXT_CLUSTER_FLAGS_NONE => TextClusterFlags::None,
+            ffi::TEXT_CLUSTER_FLAGS_BACKWARD => TextClusterFlags::Backward,
+            value => TextClusterFlags::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(TextClusterFlags, ffi::gobject::cairo_gobject_text_cluster_flags_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum FontType {
+    FontTypeToy,
+    FontTypeFt,
+    FontTypeWin32,
+    FontTypeQuartz,
+    FontTypeUser,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFontType> for FontType {
+    fn into(self) -> ffi::CairoFontType {
+        match self {
+            FontType::FontTypeToy => ffi::FONT_TYPE_FONT_TYPE_TOY,
+            FontType::FontTypeFt => ffi::FONT_TYPE_FONT_TYPE_FT,
+            FontType::FontTypeWin32 => ffi::FONT_TYPE_FONT_TYPE_WIN32,
+            FontType::FontTypeQuartz => ffi::FONT_TYPE_FONT_TYPE_QUARTZ,
+            FontType::FontTypeUser => ffi::FONT_TYPE_FONT_TYPE_USER,
+            FontType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFontType> for FontType {
+    fn from(value: ffi::CairoFontType) -> Self {
+        match value {
+            ffi::FONT_TYPE_FONT_TYPE_TOY => FontType::FontTypeToy,
+            ffi::FONT_TYPE_FONT_TYPE_FT => FontType::FontTypeFt,
+            ffi::FONT_TYPE_FONT_TYPE_WIN32 => FontType::FontTypeWin32,
+            ffi::FONT_TYPE_FONT_TYPE_QUARTZ => FontType::FontTypeQuartz,
+            ffi::FONT_TYPE_FONT_TYPE_USER => FontType::FontTypeUser,
+            value => FontType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(FontType, ffi::gobject::cairo_gobject_font_type_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum SubpixelOrder {
+    Default,
+    Rgb,
+    Bgr,
+    Vrgb,
+    Vbgr,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoSubpixelOrder> for SubpixelOrder {
+    fn into(self) -> ffi::CairoSubpixelOrder {
+        match self {
+            SubpixelOrder::Default => ffi::SUBPIXEL_ORDER_DEFAULT,
+            SubpixelOrder::Rgb => ffi::SUBPIXEL_ORDER_RGB,
+            SubpixelOrder::Bgr => ffi::SUBPIXEL_ORDER_BGR,
+            SubpixelOrder::Vrgb => ffi::SUBPIXEL_ORDER_VRGB,
+            SubpixelOrder::Vbgr => ffi::SUBPIXEL_ORDER_VBGR,
+            SubpixelOrder::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoSubpixelOrder> for SubpixelOrder {
+    fn from(value: ffi::CairoSubpixelOrder) -> Self {
+        match value {
+            ffi::SUBPIXEL_ORDER_DEFAULT => SubpixelOrder::Default,
+            ffi::SUBPIXEL_ORDER_RGB => SubpixelOrder::Rgb,
+            ffi::SUBPIXEL_ORDER_BGR => SubpixelOrder::Bgr,
+            ffi::SUBPIXEL_ORDER_VRGB => SubpixelOrder::Vrgb,
+            ffi::SUBPIXEL_ORDER_VBGR => SubpixelOrder::Vbgr,
+            value => SubpixelOrder::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(SubpixelOrder, ffi::gobject::cairo_gobject_subpixel_order_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum HintStyle {
+    Default,
+    None,
+    Slight,
+    Medium,
+    Full,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoHintStyle> for HintStyle {
+    fn into(self) -> ffi::CairoHintStyle {
+        match self {
+            HintStyle::Default => ffi::HINT_STYLE_DEFAULT,
+            HintStyle::None => ffi::HINT_STYLE_NONE,
+            HintStyle::Slight => ffi::HINT_STYLE_SLIGHT,
+            HintStyle::Medium => ffi::HINT_STYLE_MEDIUM,
+            HintStyle::Full => ffi::HINT_STYLE_FULL,
+            HintStyle::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoHintStyle> for HintStyle {
+    fn from(value: ffi::CairoHintStyle) -> Self {
+        match value {
+            ffi::HINT_STYLE_DEFAULT => HintStyle::Default,
+            ffi::HINT_STYLE_NONE => HintStyle::None,
+            ffi::HINT_STYLE_SLIGHT => HintStyle::Slight,
+            ffi::HINT_STYLE_MEDIUM => HintStyle::Medium,
+            ffi::HINT_STYLE_FULL => HintStyle::Full,
+            value => HintStyle::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(HintStyle, ffi::gobject::cairo_gobject_hint_style_get_type);
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum HintMetrics {
+    Default,
+    Off,
+    On,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoHintMetrics> for HintMetrics {
+    fn into(self) -> ffi::CairoHintMetrics {
+        match self {
+            HintMetrics::Default => ffi::HINT_METRICS_DEFAULT,
+            HintMetrics::Off => ffi::HINT_METRICS_OFF,
+            HintMetrics::On => ffi::HINT_METRICS_ON,
+            HintMetrics::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoHintMetrics> for HintMetrics {
+    fn from(value: ffi::CairoHintMetrics) -> Self {
+        match value {
+            ffi::HINT_METRICS_DEFAULT => HintMetrics::Default,
+            ffi::HINT_METRICS_OFF => HintMetrics::Off,
+            ffi::HINT_METRICS_ON => HintMetrics::On,
+            value => HintMetrics::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(HintMetrics, ffi::gobject::cairo_gobject_hint_metrics_get_type);
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SurfaceType {
+    Image,
+    Pdf,
+    Ps,
+    Xlib,
+    Xcb,
+    Glitz,
+    Quartz,
+    Win32,
+    BeOs,
+    DirectFb,
+    Svg,
+    Os2,
+    Win32Printing,
+    QuartzImage,
+    Script,
+    Qt,
+    Recording,
+    Vg,
+    Gl,
+    Drm,
+    Tee,
+    Xml,
+    Skia,
+    Subsurface,
+    Cogl,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoSurfaceType> for SurfaceType {
+    fn into(self) -> ffi::CairoSurfaceType {
+        match self {
+            SurfaceType::Image => ffi::SURFACE_TYPE_IMAGE,
+            SurfaceType::Pdf => ffi::SURFACE_TYPE_PDF,
+            SurfaceType::Ps => ffi::SURFACE_TYPE_PS,
+            SurfaceType::Xlib => ffi::SURFACE_TYPE_XLIB,
+            SurfaceType::Xcb => ffi::SURFACE_TYPE_XCB,
+            SurfaceType::Glitz => ffi::SURFACE_TYPE_GLITZ,
+            SurfaceType::Quartz => ffi::SURFACE_TYPE_QUARTZ,
+            SurfaceType::Win32 => ffi::SURFACE_TYPE_WIN32,
+            SurfaceType::BeOs => ffi::SURFACE_TYPE_BE_OS,
+            SurfaceType::DirectFb => ffi::SURFACE_TYPE_DIRECT_FB,
+            SurfaceType::Svg => ffi::SURFACE_TYPE_SVG,
+            SurfaceType::Os2 => ffi::SURFACE_TYPE_OS2,
+            SurfaceType::Win32Printing => ffi::SURFACE_TYPE_WIN32_PRINTING,
+            SurfaceType::QuartzImage => ffi::SURFACE_TYPE_QUARTZ_IMAGE,
+            SurfaceType::Script => ffi::SURFACE_TYPE_SCRIPT,
+            SurfaceType::Qt => ffi::SURFACE_TYPE_QT,
+            SurfaceType::Recording => ffi::SURFACE_TYPE_RECORDING,
+            SurfaceType::Vg => ffi::SURFACE_TYPE_VG,
+            SurfaceType::Gl => ffi::SURFACE_TYPE_GL,
+            SurfaceType::Drm => ffi::SURFACE_TYPE_DRM,
+            SurfaceType::Tee => ffi::SURFACE_TYPE_TEE,
+            SurfaceType::Xml => ffi::SURFACE_TYPE_XML,
+            SurfaceType::Skia => ffi::SURFACE_TYPE_SKIA,
+            SurfaceType::Subsurface => ffi::SURFACE_TYPE_SUBSURFACE,
+            SurfaceType::Cogl => ffi::SURFACE_TYPE_COGL,
+            SurfaceType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoSurfaceType> for SurfaceType {
+    fn from(value: ffi::CairoSurfaceType) -> Self {
+        match value {
+            ffi::SURFACE_TYPE_IMAGE => SurfaceType::Image,
+            ffi::SURFACE_TYPE_PDF => SurfaceType::Pdf,
+            ffi::SURFACE_TYPE_PS => SurfaceType::Ps,
+            ffi::SURFACE_TYPE_XLIB => SurfaceType::Xlib,
+            ffi::SURFACE_TYPE_XCB => SurfaceType::Xcb,
+            ffi::SURFACE_TYPE_GLITZ => SurfaceType::Glitz,
+            ffi::SURFACE_TYPE_QUARTZ => SurfaceType::Quartz,
+            ffi::SURFACE_TYPE_WIN32 => SurfaceType::Win32,
+            ffi::SURFACE_TYPE_BE_OS => SurfaceType::BeOs,
+            ffi::SURFACE_TYPE_DIRECT_FB => SurfaceType::DirectFb,
+            ffi::SURFACE_TYPE_SVG => SurfaceType::Svg,
+            ffi::SURFACE_TYPE_OS2 => SurfaceType::Os2,
+            ffi::SURFACE_TYPE_WIN32_PRINTING => SurfaceType::Win32Printing,
+            ffi::SURFACE_TYPE_QUARTZ_IMAGE => SurfaceType::QuartzImage,
+            ffi::SURFACE_TYPE_SCRIPT => SurfaceType::Script,
+            ffi::SURFACE_TYPE_QT => SurfaceType::Qt,
+            ffi::SURFACE_TYPE_RECORDING => SurfaceType::Recording,
+            ffi::SURFACE_TYPE_VG => SurfaceType::Vg,
+            ffi::SURFACE_TYPE_GL => SurfaceType::Gl,
+            ffi::SURFACE_TYPE_DRM => SurfaceType::Drm,
+            ffi::SURFACE_TYPE_TEE => SurfaceType::Tee,
+            ffi::SURFACE_TYPE_XML => SurfaceType::Xml,
+            ffi::SURFACE_TYPE_SKIA => SurfaceType::Skia,
+            ffi::SURFACE_TYPE_SUBSURFACE => SurfaceType::Subsurface,
+            ffi::SURFACE_TYPE_COGL => SurfaceType::Cogl,
+            value => SurfaceType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(SurfaceType, ffi::gobject::cairo_gobject_surface_type_get_type);
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SvgUnit {
+    User,
+    Em,
+    Ex,
+    Px,
+    In,
+    Cm,
+    Mm,
+    Pt,
+    Pc,
+    Percent,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoSvgUnit> for SvgUnit {
+    fn into(self) -> ffi::CairoSvgUnit {
+        match self {
+            SvgUnit::User => ffi::SVG_UNIT_USER,
+            SvgUnit::Em => ffi::SVG_UNIT_EM,
+            SvgUnit::Ex => ffi::SVG_UNIT_EX,
+            SvgUnit::Px => ffi::SVG_UNIT_PX,
+            SvgUnit::In => ffi::SVG_UNIT_IN,
+            SvgUnit::Cm => ffi::SVG_UNIT_CM,
+            SvgUnit::Mm => ffi::SVG_UNIT_MM,
+            SvgUnit::Pt => ffi::SVG_UNIT_PT,
+            SvgUnit::Pc => ffi::SVG_UNIT_PC,
+            SvgUnit::Percent => ffi::SVG_UNIT_PERCENT,
+            SvgUnit::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoSvgUnit> for SvgUnit {
+    fn from(value: ffi::CairoSvgUnit) -> Self {
+        match value {
+            ffi::SVG_UNIT_USER => SvgUnit::User,
+            ffi::SVG_UNIT_EM => SvgUnit::Em,
+            ffi::SVG_UNIT_EX => SvgUnit::Ex,
+            ffi::SVG_UNIT_PX => SvgUnit::Px,
+            ffi::SVG_UNIT_IN => SvgUnit::In,
+            ffi::SVG_UNIT_CM => SvgUnit::Cm,
+            ffi::SVG_UNIT_MM => SvgUnit::Mm,
+            ffi::SVG_UNIT_PT => SvgUnit::Pt,
+            ffi::SVG_UNIT_PC => SvgUnit::Pc,
+            ffi::SVG_UNIT_PERCENT => SvgUnit::Percent,
+            value => SvgUnit::__Unknown(value),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Format {
+    Invalid,
+    ARgb32,
+    Rgb24,
+    A8,
+    A1,
+    Rgb16_565,
+    Rgb30,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoFormat> for Format {
+    fn into(self) -> ffi::CairoFormat {
+        match self {
+            Format::Invalid => ffi::FORMAT_INVALID,
+            Format::ARgb32 => ffi::FORMAT_A_RGB32,
+            Format::Rgb24 => ffi::FORMAT_RGB24,
+            Format::A8 => ffi::FORMAT_A8,
+            Format::A1 => ffi::FORMAT_A1,
+            Format::Rgb16_565 => ffi::FORMAT_RGB16_565,
+            Format::Rgb30 => ffi::FORMAT_RGB30,
+            Format::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoFormat> for Format {
+    fn from(value: ffi::CairoFormat) -> Self {
+        match value {
+            ffi::FORMAT_INVALID => Format::Invalid,
+            ffi::FORMAT_A_RGB32 => Format::ARgb32,
+            ffi::FORMAT_RGB24 => Format::Rgb24,
+            ffi::FORMAT_A8 => Format::A8,
+            ffi::FORMAT_A1 => Format::A1,
+            ffi::FORMAT_RGB16_565 => Format::Rgb16_565,
+            ffi::FORMAT_RGB30 => Format::Rgb30,
+            value => Format::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(Format, ffi::gobject::cairo_gobject_format_get_type);
+
+impl Format {
+    pub fn stride_for_width(self, width: u32) -> Result<i32, ()> {
+        assert!(width <= i32::MAX as u32);
+        let width = width as i32;
+
+        let stride = unsafe { ffi::cairo_format_stride_for_width(self.into(), width) };
+        if stride == -1 {
+            Err(())
+        } else {
+            Ok(stride)
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RegionOverlap {
+    In,
+    Out,
+    Part,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::CairoRegionOverlap> for RegionOverlap {
+    fn into(self) -> ffi::CairoRegionOverlap {
+        match self {
+            RegionOverlap::In => ffi::REGION_OVERLAP_IN,
+            RegionOverlap::Out => ffi::REGION_OVERLAP_OUT,
+            RegionOverlap::Part => ffi::REGION_OVERLAP_PART,
+            RegionOverlap::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::CairoRegionOverlap> for RegionOverlap {
+    fn from(value: ffi::CairoRegionOverlap) -> Self {
+        match value {
+            ffi::REGION_OVERLAP_IN => RegionOverlap::In,
+            ffi::REGION_OVERLAP_OUT => RegionOverlap::Out,
+            ffi::REGION_OVERLAP_PART => RegionOverlap::Part,
+            value => RegionOverlap::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(RegionOverlap, ffi::gobject::cairo_gobject_region_overlap_get_type);
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PdfVersion {
+    _1_4,
+    _1_5,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[doc(hidden)]
+impl Into<ffi::CairoPdfVersion> for PdfVersion {
+    fn into(self) -> ffi::CairoPdfVersion {
+        match self {
+            PdfVersion::_1_4 => ffi::PDF_VERSION__1_4,
+            PdfVersion::_1_5 => ffi::PDF_VERSION__1_5,
+            PdfVersion::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[doc(hidden)]
+impl From<ffi::CairoPdfVersion> for PdfVersion {
+    fn from(value: ffi::CairoPdfVersion) -> Self {
+        match value {
+            ffi::PDF_VERSION__1_4 => PdfVersion::_1_4,
+            ffi::PDF_VERSION__1_5 => PdfVersion::_1_5,
+            value => PdfVersion::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "svg", feature = "dox"))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SvgVersion {
+    _1_1,
+    _1_2,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "svg", feature = "dox"))]
+#[doc(hidden)]
+impl Into<ffi::CairoSvgVersion> for SvgVersion {
+    fn into(self) -> ffi::CairoSvgVersion {
+        match self {
+            SvgVersion::_1_1 => ffi::SVG_VERSION__1_1,
+            SvgVersion::_1_2 => ffi::SVG_VERSION__1_2,
+            SvgVersion::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "svg", feature = "dox"))]
+#[doc(hidden)]
+impl From<ffi::CairoSvgVersion> for SvgVersion {
+    fn from(value: ffi::CairoSvgVersion) -> Self {
+        match value {
+            ffi::SVG_VERSION__1_1 => SvgVersion::_1_1,
+            ffi::SVG_VERSION__1_2 => SvgVersion::_1_2,
+            value => SvgVersion::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "ps", feature = "dox"))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PsLevel {
+    _2,
+    _3,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "ps", feature = "dox"))]
+#[doc(hidden)]
+impl Into<ffi::CairoPsLevel> for PsLevel {
+    fn into(self) -> ffi::CairoPsLevel {
+        match self {
+            PsLevel::_2 => ffi::PS_LEVEL__2,
+            PsLevel::_3 => ffi::PS_LEVEL__3,
+            PsLevel::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "ps", feature = "dox"))]
+#[doc(hidden)]
+impl From<ffi::CairoPsLevel> for PsLevel {
+    fn from(value: ffi::CairoPsLevel) -> Self {
+        match value {
+            ffi::PS_LEVEL__2 => PsLevel::_2,
+            ffi::PS_LEVEL__3 => PsLevel::_3,
+            value => PsLevel::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v1_12", feature = "dox"))]
+#[derive(Clone, PartialEq, PartialOrd, Copy)]
+pub enum MeshCorner {
+    MeshCorner0,
+    MeshCorner1,
+    MeshCorner2,
+    MeshCorner3,
+    #[doc(hidden)]
+    __Unknown(u32),
+}
+
+#[cfg(any(feature = "v1_12", feature = "dox"))]
+#[doc(hidden)]
+impl Into<ffi::CairoMeshCorner> for MeshCorner {
+    fn into(self) -> ffi::CairoMeshCorner {
+        match self {
+            MeshCorner::MeshCorner0 => ffi::MESH_CORNER_MESH_CORNER0,
+            MeshCorner::MeshCorner1 => ffi::MESH_CORNER_MESH_CORNER1,
+            MeshCorner::MeshCorner2 => ffi::MESH_CORNER_MESH_CORNER2,
+            MeshCorner::MeshCorner3 => ffi::MESH_CORNER_MESH_CORNER3,
+            MeshCorner::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "v1_12", feature = "dox"))]
+#[doc(hidden)]
+impl From<ffi::CairoMeshCorner> for MeshCorner {
+    fn from(value: ffi::CairoMeshCorner) -> Self {
+        match value {
+            ffi::MESH_CORNER_MESH_CORNER0 => MeshCorner::MeshCorner0,
+            ffi::MESH_CORNER_MESH_CORNER1 => MeshCorner::MeshCorner1,
+            ffi::MESH_CORNER_MESH_CORNER2 => MeshCorner::MeshCorner2,
+            ffi::MESH_CORNER_MESH_CORNER3 => MeshCorner::MeshCorner3,
+            value => MeshCorner::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn stride_panics_on_bad_value() {
+        let _ = Format::Rgb24.stride_for_width(u32::MAX);
+    }
+
+    #[test]
+    fn stride_errors_on_large_width() {
+        assert!(Format::Rgb24.stride_for_width(i32::MAX as u32).is_err());
+    }
+
+    #[test]
+    fn stride_works() {
+        assert!(Format::Rgb24.stride_for_width(1).unwrap() == 4);
+    }
+}

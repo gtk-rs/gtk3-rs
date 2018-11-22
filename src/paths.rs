@@ -3,7 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::iter::Iterator;
-use ffi::enums::PathDataType;
+use ::enums::{
+    PathDataType,
+    Status,
+};
 use ffi::cairo_path_t;
 use ffi;
 
@@ -18,7 +21,7 @@ impl Path {
     pub fn ensure_status(&self) {
         unsafe {
             let ptr: *mut cairo_path_t = self.as_ptr();
-            (*ptr).status.ensure_valid()
+            Status::from((*ptr).status).ensure_valid()
         }
     }
 
@@ -75,14 +78,15 @@ impl<'a> Iterator for PathSegments<'a> {
         }
 
         unsafe {
-            let res = match self.data[self.i].header.data_type {
+            let res = match PathDataType::from(self.data[self.i].header.data_type) {
                 PathDataType::MoveTo => PathSegment::MoveTo(to_tuple(&self.data[self.i + 1].point)),
                 PathDataType::LineTo => PathSegment::LineTo(to_tuple(&self.data[self.i + 1].point)),
                 PathDataType::CurveTo => {
                     PathSegment::CurveTo(to_tuple(&self.data[self.i + 1].point),
                         to_tuple(&self.data[self.i + 2].point), to_tuple(&self.data[self.i + 3].point))
                 }
-                PathDataType::ClosePath => PathSegment::ClosePath
+                PathDataType::ClosePath => PathSegment::ClosePath,
+                PathDataType::__Unknown(x) => panic!("Unknown value: {}", x),
             };
 
             self.i += self.data[self.i].header.length as usize;
@@ -101,7 +105,7 @@ mod tests {
     use super::*;
     use context::*;
     use image_surface::*;
-    use ffi::enums::Format;
+    use ::enums::Format;
 
     fn make_cr() -> Context {
         let surface = ImageSurface::create(Format::Rgb24, 1, 1).unwrap ();

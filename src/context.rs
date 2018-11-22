@@ -10,12 +10,17 @@ use std::ops;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
-use ffi::enums::{
+use ::{
+    Antialias,
+    Content,
+    FillRule,
     FontSlant,
     FontWeight,
-    TextClusterFlags,
+    LineCap,
+    LineJoin,
     Operator,
-    Content,
+    TextClusterFlags,
+    Status,
 };
 use Rectangle;
 use ffi;
@@ -24,7 +29,6 @@ use ffi::{
     cairo_t,
     cairo_rectangle_list_t,
 };
-use ffi::enums::{Status, Antialias, LineCap, LineJoin, FillRule};
 use ::patterns::{Pattern, PatternTrait};
 use surface::Surface;
 
@@ -162,7 +166,7 @@ impl Context {
 
     pub fn status(&self) -> Status {
         unsafe {
-            ffi::cairo_status(self.0)
+            Status::from(ffi::cairo_status(self.0))
         }
     }
 
@@ -192,9 +196,9 @@ impl Context {
         }
     }
 
-    pub fn push_group_with_content(&self, content: Content){
+    pub fn push_group_with_content(&self, content: Content) {
         unsafe {
-            ffi::cairo_push_group_with_content(self.0, content)
+            ffi::cairo_push_group_with_content(self.0, content.into())
         }
     }
 
@@ -247,14 +251,14 @@ impl Context {
 
     pub fn set_antialias(&self, antialias : Antialias) {
         unsafe {
-            ffi::cairo_set_antialias(self.0, antialias)
+            ffi::cairo_set_antialias(self.0, antialias.into())
         }
         self.ensure_status()
     }
 
     pub fn get_antialias(&self) -> Antialias {
         unsafe {
-            ffi::cairo_get_antialias(self.0)
+            Antialias::from(ffi::cairo_get_antialias(self.0))
         }
     }
 
@@ -295,40 +299,40 @@ impl Context {
 
     pub fn set_fill_rule(&self, fill_rule : FillRule) {
         unsafe {
-            ffi::cairo_set_fill_rule(self.0, fill_rule);
+            ffi::cairo_set_fill_rule(self.0, fill_rule.into());
         }
         self.ensure_status();
     }
 
     pub fn get_fill_rule(&self) -> FillRule {
         unsafe {
-            ffi::cairo_get_fill_rule(self.0)
+            FillRule::from(ffi::cairo_get_fill_rule(self.0))
         }
     }
 
     pub fn set_line_cap(&self, arg: LineCap) {
         unsafe {
-            ffi::cairo_set_line_cap(self.0, arg)
+            ffi::cairo_set_line_cap(self.0, arg.into())
         }
         self.ensure_status();
     }
 
     pub fn get_line_cap(&self) -> LineCap {
         unsafe {
-            ffi::cairo_get_line_cap(self.0)
+            LineCap::from(ffi::cairo_get_line_cap(self.0))
         }
     }
 
     pub fn set_line_join(&self, arg: LineJoin) {
         unsafe {
-            ffi::cairo_set_line_join(self.0, arg)
+            ffi::cairo_set_line_join(self.0, arg.into())
         }
         self.ensure_status();
     }
 
     pub fn get_line_join(&self) -> LineJoin {
         unsafe {
-            ffi::cairo_get_line_join(self.0)
+            LineJoin::from(ffi::cairo_get_line_join(self.0))
         }
     }
 
@@ -360,13 +364,13 @@ impl Context {
 
     pub fn set_operator(&self, op: Operator) {
         unsafe {
-            ffi::cairo_set_operator(self.0, op);
+            ffi::cairo_set_operator(self.0, op.into());
         }
     }
 
     pub fn get_operator(&self) -> Operator {
         unsafe {
-            ffi::cairo_get_operator(self.0)
+            Operator::from(ffi::cairo_get_operator(self.0))
         }
     }
 
@@ -424,7 +428,7 @@ impl Context {
         unsafe {
             let rectangle_list = ffi::cairo_copy_clip_rectangle_list(self.0);
 
-            (*rectangle_list).status.ensure_valid();
+            Status::from((*rectangle_list).status).ensure_valid();
 
             RectangleList {
                 ptr: rectangle_list,
@@ -613,7 +617,7 @@ impl Context {
     pub fn select_font_face(&self, family: &str, slant: FontSlant, weight: FontWeight) {
         unsafe {
             let family = CString::new(family).unwrap();
-            ffi::cairo_select_font_face(self.0, family.as_ptr(), slant, weight)
+            ffi::cairo_select_font_face(self.0, family.as_ptr(), slant.into(), weight.into())
         }
     }
 
@@ -703,7 +707,7 @@ impl Context {
                                         glyphs.len() as c_int,
                                         clusters.as_ptr(),
                                         clusters.len() as c_int,
-                                        cluster_flags)
+                                        cluster_flags.into())
         }
     }
 
@@ -883,7 +887,7 @@ mod tests {
     use super::*;
     use ::image_surface::{ImageSurface};
     use ::patterns::{LinearGradient};
-    use ffi::enums::{Format};
+    use ::enums::{Format};
 
     fn create_ctx() -> Context {
         let surface = ImageSurface::create(Format::ARgb32, 10, 10).unwrap();

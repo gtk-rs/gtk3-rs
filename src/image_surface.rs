@@ -8,7 +8,7 @@ use std::slice;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
-use ffi::enums::{
+use ::enums::{
     Format,
     SurfaceType,
 };
@@ -40,7 +40,9 @@ impl ImageSurface {
     }
 
     pub fn create(format: Format, width: i32, height: i32) -> Result<ImageSurface, Status> {
-        unsafe { Self::from_raw_full(ffi::cairo_image_surface_create(format, width, height)) }
+        unsafe {
+            Self::from_raw_full(ffi::cairo_image_surface_create(format.into(), width, height))
+        }
     }
 
     pub fn create_for_data<D: AsMut<[u8]> + Send + 'static>(data: D, format: Format, width: i32, height: i32,
@@ -56,7 +58,7 @@ impl ImageSurface {
         assert!(len >= (height * stride) as usize);
         unsafe {
             let r = ImageSurface::from_raw_full(
-                ffi::cairo_image_surface_create_for_data(ptr, format, width, height, stride));
+                ffi::cairo_image_surface_create_for_data(ptr, format.into(), width, height, stride));
             match r {
                 Ok(surface) => surface.set_user_data(&IMAGE_SURFACE_DATA, Box::new(data)).map (|_| surface),
                 Err(status) => Err(status)
@@ -82,7 +84,9 @@ impl ImageSurface {
     }
 
     pub fn get_format(&self) -> Format {
-        unsafe { ffi::cairo_image_surface_get_format(self.to_raw_none()) }
+        unsafe {
+            Format::from(ffi::cairo_image_surface_get_format(self.to_raw_none()))
+        }
     }
 
     pub fn get_height(&self) -> i32 {
