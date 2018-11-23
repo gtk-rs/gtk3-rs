@@ -71,9 +71,9 @@ extern "C" {
     pub fn pango_cairo_font_map_get_type() -> GType;
     pub fn pango_cairo_font_map_get_default() -> *mut pango::PangoFontMap;
     pub fn pango_cairo_font_map_new() -> *mut pango::PangoFontMap;
-    pub fn pango_cairo_font_map_new_for_font_type(fonttype: cairo::enums::FontType) -> *mut pango::PangoFontMap;
+    pub fn pango_cairo_font_map_new_for_font_type(fonttype: cairo::cairo_font_type_t) -> *mut pango::PangoFontMap;
     pub fn pango_cairo_font_map_create_context(fontmap: *mut PangoCairoFontMap) -> *mut pango::PangoContext;
-    pub fn pango_cairo_font_map_get_font_type(fontmap: *mut PangoCairoFontMap) -> cairo::enums::FontType;
+    pub fn pango_cairo_font_map_get_font_type(fontmap: *mut PangoCairoFontMap) -> cairo::cairo_font_type_t;
     pub fn pango_cairo_font_map_get_resolution(fontmap: *mut PangoCairoFontMap) -> c_double;
     pub fn pango_cairo_font_map_set_default(fontmap: *mut PangoCairoFontMap);
     pub fn pango_cairo_font_map_set_resolution(fontmap: *mut PangoCairoFontMap, dpi: c_double);
