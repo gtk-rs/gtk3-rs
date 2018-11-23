@@ -5,7 +5,7 @@
 use std::io;
 use std::slice;
 
-use ffi::{self, CairoStatus};
+use ffi::{self, cairo_status_t};
 use libc::{c_void, c_uchar, c_uint, c_double};
 use ::enums::Status;
 
@@ -21,7 +21,7 @@ impl<'a> Stream<'a> {
         where F: 'b + FnMut(&[u8]) -> Result<(), ()>
     {
         unsafe {
-            unsafe extern fn write_to(func: *mut c_void, data: *mut c_uchar, length: c_uint) -> CairoStatus
+            unsafe extern fn write_to(func: *mut c_void, data: *mut c_uchar, length: c_uint) -> cairo_status_t
             {
                 // This is perfectly fine, lifetimes don't really exist.
                 let mut func: Box<Box<FnMut(&[u8]) -> Result<(), ()>>> = Box::from_raw(func as *mut _);
