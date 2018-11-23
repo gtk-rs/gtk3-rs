@@ -377,6 +377,9 @@ mod test {
 
         fn constructed(&self, obj: &Object) {
             self.parent_constructed(obj);
+
+            assert_eq!(obj, &self.get_instance());
+
             *self.constructed.borrow_mut() = true;
         }
     }
