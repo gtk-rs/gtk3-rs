@@ -198,7 +198,9 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     const NAME: &'static str;
 
     /// Parent Rust type to inherit from.
-    type ParentType: IsA<Object> + FromGlibPtrBorrow<*mut <Self::ParentType as Wrapper>::GlibType>;
+    type ParentType: IsA<Object>
+        + FromGlibPtrBorrow<*mut <Self::ParentType as Wrapper>::GlibType>
+        + FromGlibPtrNone<*mut <Self::ParentType as Wrapper>::GlibType>;
 
     /// The C instance struct.
     ///
@@ -238,6 +240,24 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
             assert_ne!(type_, Type::Invalid);
 
             type_
+        }
+    }
+
+    /// Returns the corresponding object instance.
+    fn get_instance(&self) -> Self::ParentType {
+        unsafe {
+            let data = Self::type_data();
+            let type_ = data.as_ref().get_type();
+            assert_ne!(type_, Type::Invalid);
+
+            let offset = -data.as_ref().private_offset;
+            assert_ne!(offset, 0);
+
+            let ptr = self as *const Self as *const u8;
+            let ptr = ptr.offset(offset);
+            let ptr = ptr as *mut u8 as *mut <Self::ParentType as Wrapper>::GlibType;
+
+            from_glib_none(ptr)
         }
     }
 
