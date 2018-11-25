@@ -99,8 +99,8 @@ pub enum Status {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoStatus> for Status {
-    fn into(self) -> ffi::CairoStatus {
+impl Into<ffi::cairo_status_t> for Status {
+    fn into(self) -> ffi::cairo_status_t {
         match self {
             Status::Success => ffi::STATUS_SUCCESS,
             Status::NoMemory => ffi::STATUS_NO_MEMORY,
@@ -151,8 +151,8 @@ impl Into<ffi::CairoStatus> for Status {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoStatus> for Status {
-    fn from(value: ffi::CairoStatus) -> Self {
+impl From<ffi::cairo_status_t> for Status {
+    fn from(value: ffi::cairo_status_t) -> Self {
         match value {
             ffi::STATUS_SUCCESS => Status::Success,
             ffi::STATUS_NO_MEMORY => Status::NoMemory,
@@ -242,8 +242,8 @@ pub enum Antialias {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoAntialias> for Antialias {
-    fn into(self) -> ffi::CairoAntialias {
+impl Into<ffi::cairo_antialias_t> for Antialias {
+    fn into(self) -> ffi::cairo_antialias_t {
         match self {
             Antialias::Default => ffi::ANTIALIAS_DEFAULT,
             Antialias::None => ffi::ANTIALIAS_NONE,
@@ -258,8 +258,8 @@ impl Into<ffi::CairoAntialias> for Antialias {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoAntialias> for Antialias {
-    fn from(value: ffi::CairoAntialias) -> Self {
+impl From<ffi::cairo_antialias_t> for Antialias {
+    fn from(value: ffi::cairo_antialias_t) -> Self {
         match value {
             ffi::ANTIALIAS_DEFAULT => Antialias::Default,
             ffi::ANTIALIAS_NONE => Antialias::None,
@@ -285,8 +285,8 @@ pub enum FillRule {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFillRule> for FillRule {
-    fn into(self) -> ffi::CairoFillRule {
+impl Into<ffi::cairo_fill_rule_t> for FillRule {
+    fn into(self) -> ffi::cairo_fill_rule_t {
         match self {
             FillRule::Winding => ffi::FILL_RULE_WINDING,
             FillRule::EvenOdd => ffi::FILL_RULE_EVEN_ODD,
@@ -296,8 +296,8 @@ impl Into<ffi::CairoFillRule> for FillRule {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFillRule> for FillRule {
-    fn from(value: ffi::CairoFillRule) -> Self {
+impl From<ffi::cairo_fill_rule_t> for FillRule {
+    fn from(value: ffi::cairo_fill_rule_t) -> Self {
         match value {
             ffi::FILL_RULE_WINDING => FillRule::Winding,
             ffi::FILL_RULE_EVEN_ODD => FillRule::EvenOdd,
@@ -319,8 +319,8 @@ pub enum LineCap {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoLineCap> for LineCap {
-    fn into(self) -> ffi::CairoLineCap {
+impl Into<ffi::cairo_line_cap_t> for LineCap {
+    fn into(self) -> ffi::cairo_line_cap_t {
         match self {
             LineCap::Butt => ffi::LINE_CAP_BUTT,
             LineCap::Round => ffi::LINE_CAP_ROUND,
@@ -331,8 +331,8 @@ impl Into<ffi::CairoLineCap> for LineCap {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoLineCap> for LineCap {
-    fn from(value: ffi::CairoLineCap) -> Self {
+impl From<ffi::cairo_line_cap_t> for LineCap {
+    fn from(value: ffi::cairo_line_cap_t) -> Self {
         match value {
             ffi::LINE_CAP_BUTT => LineCap::Butt,
             ffi::LINE_CAP_ROUND => LineCap::Round,
@@ -355,8 +355,8 @@ pub enum LineJoin {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoLineJoin> for LineJoin {
-    fn into(self) -> ffi::CairoLineJoin {
+impl Into<ffi::cairo_line_join_t> for LineJoin {
+    fn into(self) -> ffi::cairo_line_join_t {
         match self {
             LineJoin::Miter => ffi::LINE_JOIN_MITER,
             LineJoin::Round => ffi::LINE_JOIN_ROUND,
@@ -367,8 +367,8 @@ impl Into<ffi::CairoLineJoin> for LineJoin {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoLineJoin> for LineJoin {
-    fn from(value: ffi::CairoLineJoin) -> Self {
+impl From<ffi::cairo_line_join_t> for LineJoin {
+    fn from(value: ffi::cairo_line_join_t) -> Self {
         match value {
             ffi::LINE_JOIN_MITER => LineJoin::Miter,
             ffi::LINE_JOIN_ROUND => LineJoin::Round,
@@ -421,8 +421,8 @@ pub enum Operator {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoOperator> for Operator {
-    fn into(self) -> ffi::CairoOperator {
+impl Into<ffi::cairo_operator_t> for Operator {
+    fn into(self) -> ffi::cairo_operator_t {
         match self {
             Operator::Clear => ffi::OPERATOR_CLEAR,
             Operator::Source => ffi::OPERATOR_SOURCE,
@@ -459,8 +459,8 @@ impl Into<ffi::CairoOperator> for Operator {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoOperator> for Operator {
-    fn from(value: ffi::CairoOperator) -> Self {
+impl From<ffi::cairo_operator_t> for Operator {
+    fn from(value: ffi::cairo_operator_t) -> Self {
         match value {
             ffi::OPERATOR_CLEAR => Operator::Clear,
             ffi::OPERATOR_SOURCE => Operator::Source,
@@ -510,8 +510,8 @@ pub enum PathDataType {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoPathDataType> for PathDataType {
-    fn into(self) -> ffi::CairoPathDataType {
+impl Into<ffi::cairo_path_data_type_t> for PathDataType {
+    fn into(self) -> ffi::cairo_path_data_type_t {
         match self {
             PathDataType::MoveTo => ffi::PATH_DATA_TYPE_MOVE_TO,
             PathDataType::LineTo => ffi::PATH_DATA_TYPE_LINE_TO,
@@ -523,8 +523,8 @@ impl Into<ffi::CairoPathDataType> for PathDataType {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoPathDataType> for PathDataType {
-    fn from(value: ffi::CairoPathDataType) -> Self {
+impl From<ffi::cairo_path_data_type_t> for PathDataType {
+    fn from(value: ffi::cairo_path_data_type_t) -> Self {
         match value {
             ffi::PATH_DATA_TYPE_MOVE_TO => PathDataType::MoveTo,
             ffi::PATH_DATA_TYPE_LINE_TO => PathDataType::LineTo,
@@ -548,8 +548,8 @@ pub enum Content {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoContent> for Content {
-    fn into(self) -> ffi::CairoContent {
+impl Into<ffi::cairo_content_t> for Content {
+    fn into(self) -> ffi::cairo_content_t {
         match self {
             Content::Color      => ffi::CONTENT_COLOR     ,
             Content::Alpha      => ffi::CONTENT_ALPHA     ,
@@ -560,8 +560,8 @@ impl Into<ffi::CairoContent> for Content {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoContent> for Content {
-    fn from(value: ffi::CairoContent) -> Self {
+impl From<ffi::cairo_content_t> for Content {
+    fn from(value: ffi::cairo_content_t) -> Self {
         match value {
             ffi::CONTENT_COLOR => Content::Color,
             ffi::CONTENT_ALPHA => Content::Alpha,
@@ -585,8 +585,8 @@ pub enum Extend {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoExtend> for Extend {
-    fn into(self) -> ffi::CairoExtend {
+impl Into<ffi::cairo_extend_t> for Extend {
+    fn into(self) -> ffi::cairo_extend_t {
         match self {
             Extend::None => ffi::EXTEND_NONE,
             Extend::Repeat => ffi::EXTEND_REPEAT,
@@ -598,8 +598,8 @@ impl Into<ffi::CairoExtend> for Extend {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoExtend> for Extend {
-    fn from(value: ffi::CairoExtend) -> Self {
+impl From<ffi::cairo_extend_t> for Extend {
+    fn from(value: ffi::cairo_extend_t) -> Self {
         match value {
             ffi::EXTEND_NONE => Extend::None,
             ffi::EXTEND_REPEAT => Extend::Repeat,
@@ -626,8 +626,8 @@ pub enum Filter {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFilter> for Filter {
-    fn into(self) -> ffi::CairoFilter {
+impl Into<ffi::cairo_filter_t> for Filter {
+    fn into(self) -> ffi::cairo_filter_t {
         match self {
             Filter::Fast => ffi::FILTER_FAST,
             Filter::Good => ffi::FILTER_GOOD,
@@ -641,8 +641,8 @@ impl Into<ffi::CairoFilter> for Filter {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFilter> for Filter {
-    fn from(value: ffi::CairoFilter) -> Self {
+impl From<ffi::cairo_filter_t> for Filter {
+    fn from(value: ffi::cairo_filter_t) -> Self {
         match value {
             ffi::FILTER_FAST => Filter::Fast,
             ffi::FILTER_GOOD => Filter::Good,
@@ -673,8 +673,8 @@ pub enum PatternType {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoPatternType> for PatternType {
-    fn into(self) -> ffi::CairoPatternType {
+impl Into<ffi::cairo_pattern_type_t> for PatternType {
+    fn into(self) -> ffi::cairo_pattern_type_t {
         match self {
             PatternType::Solid => ffi::PATTERN_TYPE_SOLID,
             PatternType::Surface => ffi::PATTERN_TYPE_SURFACE,
@@ -690,8 +690,8 @@ impl Into<ffi::CairoPatternType> for PatternType {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoPatternType> for PatternType {
-    fn from(value: ffi::CairoPatternType) -> Self {
+impl From<ffi::cairo_pattern_type_t> for PatternType {
+    fn from(value: ffi::cairo_pattern_type_t) -> Self {
         match value {
             ffi::PATTERN_TYPE_SOLID => PatternType::Solid,
             ffi::PATTERN_TYPE_SURFACE => PatternType::Surface,
@@ -719,8 +719,8 @@ pub enum FontSlant {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFontSlant> for FontSlant {
-    fn into(self) -> ffi::CairoFontSlant {
+impl Into<ffi::cairo_font_slant_t> for FontSlant {
+    fn into(self) -> ffi::cairo_font_slant_t {
         match self {
             FontSlant::Normal => ffi::FONT_SLANT_NORMAL,
             FontSlant::Italic => ffi::FONT_SLANT_ITALIC,
@@ -731,8 +731,8 @@ impl Into<ffi::CairoFontSlant> for FontSlant {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFontSlant> for FontSlant {
-    fn from(value: ffi::CairoFontSlant) -> Self {
+impl From<ffi::cairo_font_slant_t> for FontSlant {
+    fn from(value: ffi::cairo_font_slant_t) -> Self {
         match value {
             ffi::FONT_SLANT_NORMAL => FontSlant::Normal,
             ffi::FONT_SLANT_ITALIC => FontSlant::Italic,
@@ -754,8 +754,8 @@ pub enum FontWeight {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFontWeight> for FontWeight {
-    fn into(self) -> ffi::CairoFontWeight {
+impl Into<ffi::cairo_font_weight_t> for FontWeight {
+    fn into(self) -> ffi::cairo_font_weight_t {
         match self {
             FontWeight::Normal => ffi::FONT_WEIGHT_NORMAL,
             FontWeight::Bold => ffi::FONT_WEIGHT_BOLD,
@@ -765,8 +765,8 @@ impl Into<ffi::CairoFontWeight> for FontWeight {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFontWeight> for FontWeight {
-    fn from(value: ffi::CairoFontWeight) -> Self {
+impl From<ffi::cairo_font_weight_t> for FontWeight {
+    fn from(value: ffi::cairo_font_weight_t) -> Self {
         match value {
             ffi::FONT_WEIGHT_NORMAL => FontWeight::Normal,
             ffi::FONT_WEIGHT_BOLD => FontWeight::Bold,
@@ -787,8 +787,8 @@ pub enum TextClusterFlags {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoTextClusterFlags> for TextClusterFlags {
-    fn into(self) -> ffi::CairoTextClusterFlags {
+impl Into<ffi::cairo_text_cluster_flags_t> for TextClusterFlags {
+    fn into(self) -> ffi::cairo_text_cluster_flags_t {
         match self {
             TextClusterFlags::None     => ffi::TEXT_CLUSTER_FLAGS_NONE    ,
             TextClusterFlags::Backward => ffi::TEXT_CLUSTER_FLAGS_BACKWARD,
@@ -798,8 +798,8 @@ impl Into<ffi::CairoTextClusterFlags> for TextClusterFlags {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoTextClusterFlags> for TextClusterFlags {
-    fn from(value: ffi::CairoTextClusterFlags) -> Self {
+impl From<ffi::cairo_text_cluster_flags_t> for TextClusterFlags {
+    fn from(value: ffi::cairo_text_cluster_flags_t) -> Self {
         match value {
             ffi::TEXT_CLUSTER_FLAGS_NONE => TextClusterFlags::None,
             ffi::TEXT_CLUSTER_FLAGS_BACKWARD => TextClusterFlags::Backward,
@@ -823,8 +823,8 @@ pub enum FontType {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFontType> for FontType {
-    fn into(self) -> ffi::CairoFontType {
+impl Into<ffi::cairo_font_type_t> for FontType {
+    fn into(self) -> ffi::cairo_font_type_t {
         match self {
             FontType::FontTypeToy => ffi::FONT_TYPE_FONT_TYPE_TOY,
             FontType::FontTypeFt => ffi::FONT_TYPE_FONT_TYPE_FT,
@@ -837,8 +837,8 @@ impl Into<ffi::CairoFontType> for FontType {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFontType> for FontType {
-    fn from(value: ffi::CairoFontType) -> Self {
+impl From<ffi::cairo_font_type_t> for FontType {
+    fn from(value: ffi::cairo_font_type_t) -> Self {
         match value {
             ffi::FONT_TYPE_FONT_TYPE_TOY => FontType::FontTypeToy,
             ffi::FONT_TYPE_FONT_TYPE_FT => FontType::FontTypeFt,
@@ -865,8 +865,8 @@ pub enum SubpixelOrder {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoSubpixelOrder> for SubpixelOrder {
-    fn into(self) -> ffi::CairoSubpixelOrder {
+impl Into<ffi::cairo_subpixel_order_t> for SubpixelOrder {
+    fn into(self) -> ffi::cairo_subpixel_order_t {
         match self {
             SubpixelOrder::Default => ffi::SUBPIXEL_ORDER_DEFAULT,
             SubpixelOrder::Rgb => ffi::SUBPIXEL_ORDER_RGB,
@@ -879,8 +879,8 @@ impl Into<ffi::CairoSubpixelOrder> for SubpixelOrder {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoSubpixelOrder> for SubpixelOrder {
-    fn from(value: ffi::CairoSubpixelOrder) -> Self {
+impl From<ffi::cairo_subpixel_order_t> for SubpixelOrder {
+    fn from(value: ffi::cairo_subpixel_order_t) -> Self {
         match value {
             ffi::SUBPIXEL_ORDER_DEFAULT => SubpixelOrder::Default,
             ffi::SUBPIXEL_ORDER_RGB => SubpixelOrder::Rgb,
@@ -907,8 +907,8 @@ pub enum HintStyle {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoHintStyle> for HintStyle {
-    fn into(self) -> ffi::CairoHintStyle {
+impl Into<ffi::cairo_hint_style_t> for HintStyle {
+    fn into(self) -> ffi::cairo_hint_style_t {
         match self {
             HintStyle::Default => ffi::HINT_STYLE_DEFAULT,
             HintStyle::None => ffi::HINT_STYLE_NONE,
@@ -921,8 +921,8 @@ impl Into<ffi::CairoHintStyle> for HintStyle {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoHintStyle> for HintStyle {
-    fn from(value: ffi::CairoHintStyle) -> Self {
+impl From<ffi::cairo_hint_style_t> for HintStyle {
+    fn from(value: ffi::cairo_hint_style_t) -> Self {
         match value {
             ffi::HINT_STYLE_DEFAULT => HintStyle::Default,
             ffi::HINT_STYLE_NONE => HintStyle::None,
@@ -947,8 +947,8 @@ pub enum HintMetrics {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoHintMetrics> for HintMetrics {
-    fn into(self) -> ffi::CairoHintMetrics {
+impl Into<ffi::cairo_hint_metrics_t> for HintMetrics {
+    fn into(self) -> ffi::cairo_hint_metrics_t {
         match self {
             HintMetrics::Default => ffi::HINT_METRICS_DEFAULT,
             HintMetrics::Off => ffi::HINT_METRICS_OFF,
@@ -959,8 +959,8 @@ impl Into<ffi::CairoHintMetrics> for HintMetrics {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoHintMetrics> for HintMetrics {
-    fn from(value: ffi::CairoHintMetrics) -> Self {
+impl From<ffi::cairo_hint_metrics_t> for HintMetrics {
+    fn from(value: ffi::cairo_hint_metrics_t) -> Self {
         match value {
             ffi::HINT_METRICS_DEFAULT => HintMetrics::Default,
             ffi::HINT_METRICS_OFF => HintMetrics::Off,
@@ -1005,8 +1005,8 @@ pub enum SurfaceType {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoSurfaceType> for SurfaceType {
-    fn into(self) -> ffi::CairoSurfaceType {
+impl Into<ffi::cairo_surface_type_t> for SurfaceType {
+    fn into(self) -> ffi::cairo_surface_type_t {
         match self {
             SurfaceType::Image => ffi::SURFACE_TYPE_IMAGE,
             SurfaceType::Pdf => ffi::SURFACE_TYPE_PDF,
@@ -1039,8 +1039,8 @@ impl Into<ffi::CairoSurfaceType> for SurfaceType {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoSurfaceType> for SurfaceType {
-    fn from(value: ffi::CairoSurfaceType) -> Self {
+impl From<ffi::cairo_surface_type_t> for SurfaceType {
+    fn from(value: ffi::cairo_surface_type_t) -> Self {
         match value {
             ffi::SURFACE_TYPE_IMAGE => SurfaceType::Image,
             ffi::SURFACE_TYPE_PDF => SurfaceType::Pdf,
@@ -1092,8 +1092,8 @@ pub enum SvgUnit {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoSvgUnit> for SvgUnit {
-    fn into(self) -> ffi::CairoSvgUnit {
+impl Into<ffi::cairo_svg_unit_t> for SvgUnit {
+    fn into(self) -> ffi::cairo_svg_unit_t {
         match self {
             SvgUnit::User => ffi::SVG_UNIT_USER,
             SvgUnit::Em => ffi::SVG_UNIT_EM,
@@ -1111,8 +1111,8 @@ impl Into<ffi::CairoSvgUnit> for SvgUnit {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoSvgUnit> for SvgUnit {
-    fn from(value: ffi::CairoSvgUnit) -> Self {
+impl From<ffi::cairo_svg_unit_t> for SvgUnit {
+    fn from(value: ffi::cairo_svg_unit_t) -> Self {
         match value {
             ffi::SVG_UNIT_USER => SvgUnit::User,
             ffi::SVG_UNIT_EM => SvgUnit::Em,
@@ -1143,8 +1143,8 @@ pub enum Format {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoFormat> for Format {
-    fn into(self) -> ffi::CairoFormat {
+impl Into<ffi::cairo_format_t> for Format {
+    fn into(self) -> ffi::cairo_format_t {
         match self {
             Format::Invalid => ffi::FORMAT_INVALID,
             Format::ARgb32 => ffi::FORMAT_A_RGB32,
@@ -1159,8 +1159,8 @@ impl Into<ffi::CairoFormat> for Format {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoFormat> for Format {
-    fn from(value: ffi::CairoFormat) -> Self {
+impl From<ffi::cairo_format_t> for Format {
+    fn from(value: ffi::cairo_format_t) -> Self {
         match value {
             ffi::FORMAT_INVALID => Format::Invalid,
             ffi::FORMAT_A_RGB32 => Format::ARgb32,
@@ -1201,8 +1201,8 @@ pub enum RegionOverlap {
 }
 
 #[doc(hidden)]
-impl Into<ffi::CairoRegionOverlap> for RegionOverlap {
-    fn into(self) -> ffi::CairoRegionOverlap {
+impl Into<ffi::cairo_region_overlap_t> for RegionOverlap {
+    fn into(self) -> ffi::cairo_region_overlap_t {
         match self {
             RegionOverlap::In => ffi::REGION_OVERLAP_IN,
             RegionOverlap::Out => ffi::REGION_OVERLAP_OUT,
@@ -1213,8 +1213,8 @@ impl Into<ffi::CairoRegionOverlap> for RegionOverlap {
 }
 
 #[doc(hidden)]
-impl From<ffi::CairoRegionOverlap> for RegionOverlap {
-    fn from(value: ffi::CairoRegionOverlap) -> Self {
+impl From<ffi::cairo_region_overlap_t> for RegionOverlap {
+    fn from(value: ffi::cairo_region_overlap_t) -> Self {
         match value {
             ffi::REGION_OVERLAP_IN => RegionOverlap::In,
             ffi::REGION_OVERLAP_OUT => RegionOverlap::Out,
@@ -1238,8 +1238,8 @@ pub enum PdfVersion {
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[doc(hidden)]
-impl Into<ffi::CairoPdfVersion> for PdfVersion {
-    fn into(self) -> ffi::CairoPdfVersion {
+impl Into<ffi::cairo_pdf_version_t> for PdfVersion {
+    fn into(self) -> ffi::cairo_pdf_version_t {
         match self {
             PdfVersion::_1_4 => ffi::PDF_VERSION__1_4,
             PdfVersion::_1_5 => ffi::PDF_VERSION__1_5,
@@ -1250,8 +1250,8 @@ impl Into<ffi::CairoPdfVersion> for PdfVersion {
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[doc(hidden)]
-impl From<ffi::CairoPdfVersion> for PdfVersion {
-    fn from(value: ffi::CairoPdfVersion) -> Self {
+impl From<ffi::cairo_pdf_version_t> for PdfVersion {
+    fn from(value: ffi::cairo_pdf_version_t) -> Self {
         match value {
             ffi::PDF_VERSION__1_4 => PdfVersion::_1_4,
             ffi::PDF_VERSION__1_5 => PdfVersion::_1_5,
@@ -1271,8 +1271,8 @@ pub enum SvgVersion {
 
 #[cfg(any(feature = "svg", feature = "dox"))]
 #[doc(hidden)]
-impl Into<ffi::CairoSvgVersion> for SvgVersion {
-    fn into(self) -> ffi::CairoSvgVersion {
+impl Into<ffi::cairo_svg_version_t> for SvgVersion {
+    fn into(self) -> ffi::cairo_svg_version_t {
         match self {
             SvgVersion::_1_1 => ffi::SVG_VERSION__1_1,
             SvgVersion::_1_2 => ffi::SVG_VERSION__1_2,
@@ -1283,8 +1283,8 @@ impl Into<ffi::CairoSvgVersion> for SvgVersion {
 
 #[cfg(any(feature = "svg", feature = "dox"))]
 #[doc(hidden)]
-impl From<ffi::CairoSvgVersion> for SvgVersion {
-    fn from(value: ffi::CairoSvgVersion) -> Self {
+impl From<ffi::cairo_svg_version_t> for SvgVersion {
+    fn from(value: ffi::cairo_svg_version_t) -> Self {
         match value {
             ffi::SVG_VERSION__1_1 => SvgVersion::_1_1,
             ffi::SVG_VERSION__1_2 => SvgVersion::_1_2,
@@ -1304,8 +1304,8 @@ pub enum PsLevel {
 
 #[cfg(any(feature = "ps", feature = "dox"))]
 #[doc(hidden)]
-impl Into<ffi::CairoPsLevel> for PsLevel {
-    fn into(self) -> ffi::CairoPsLevel {
+impl Into<ffi::cairo_ps_level_t> for PsLevel {
+    fn into(self) -> ffi::cairo_ps_level_t {
         match self {
             PsLevel::_2 => ffi::PS_LEVEL__2,
             PsLevel::_3 => ffi::PS_LEVEL__3,
@@ -1316,8 +1316,8 @@ impl Into<ffi::CairoPsLevel> for PsLevel {
 
 #[cfg(any(feature = "ps", feature = "dox"))]
 #[doc(hidden)]
-impl From<ffi::CairoPsLevel> for PsLevel {
-    fn from(value: ffi::CairoPsLevel) -> Self {
+impl From<ffi::cairo_ps_level_t> for PsLevel {
+    fn from(value: ffi::cairo_ps_level_t) -> Self {
         match value {
             ffi::PS_LEVEL__2 => PsLevel::_2,
             ffi::PS_LEVEL__3 => PsLevel::_3,
@@ -1339,8 +1339,8 @@ pub enum MeshCorner {
 
 #[cfg(any(feature = "v1_12", feature = "dox"))]
 #[doc(hidden)]
-impl Into<ffi::CairoMeshCorner> for MeshCorner {
-    fn into(self) -> ffi::CairoMeshCorner {
+impl Into<ffi::cairo_mesh_corner_t> for MeshCorner {
+    fn into(self) -> ffi::cairo_mesh_corner_t {
         match self {
             MeshCorner::MeshCorner0 => ffi::MESH_CORNER_MESH_CORNER0,
             MeshCorner::MeshCorner1 => ffi::MESH_CORNER_MESH_CORNER1,
@@ -1353,8 +1353,8 @@ impl Into<ffi::CairoMeshCorner> for MeshCorner {
 
 #[cfg(any(feature = "v1_12", feature = "dox"))]
 #[doc(hidden)]
-impl From<ffi::CairoMeshCorner> for MeshCorner {
-    fn from(value: ffi::CairoMeshCorner) -> Self {
+impl From<ffi::cairo_mesh_corner_t> for MeshCorner {
+    fn from(value: ffi::cairo_mesh_corner_t) -> Self {
         match value {
             ffi::MESH_CORNER_MESH_CORNER0 => MeshCorner::MeshCorner0,
             ffi::MESH_CORNER_MESH_CORNER1 => MeshCorner::MeshCorner1,
