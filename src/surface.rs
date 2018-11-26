@@ -5,6 +5,7 @@
 use std::mem;
 use std::slice;
 use libc::c_void;
+use std::ffi::CString;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -49,12 +50,13 @@ impl Surface {
     }
 
     pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
-        let mut data_ptr: *mut u8 = ptr::null_mut();
+        let mut data_ptr: *mut u8 = std::ptr::null_mut();
         let mut length = 0u64;
         unsafe {
+            let mime_type = CString::new(mime_type).unwrap();
             ffi::cairo_surface_get_mime_data(
                 self.to_raw_none(),
-                mime_type.to_glib_none().0,
+                mime_type.as_ptr(),
                 &mut data_ptr,
                 &mut length,
             );
@@ -82,8 +84,9 @@ impl Surface {
         let user_data = Box::into_raw(b);
 
         let status = unsafe {
-                ffi::cairo_surface_set_mime_data(self.to_raw_none(),
-                mime_type.to_glib_none().0,
+            let mime_type = CString::new(mime_type).unwrap();
+            ffi::cairo_surface_set_mime_data(self.to_raw_none(),
+                mime_type.as_ptr(),
                 data,
                 size as u64,
                 Some(unbox::<T>),
@@ -99,7 +102,8 @@ impl Surface {
 
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {
         unsafe {
-            ffi::cairo_surface_supports_mime_type(self.0, mime_type.to_glib_none().0).as_bool()
+            let mime_type = CString::new(mime_type).unwrap();
+            ffi::cairo_surface_supports_mime_type(self.0, mime_type.as_ptr()).as_bool()
         }
     }
 }
