@@ -69,9 +69,10 @@ impl Surface {
         }
     }
 
-    pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(&self,
-                                                          mime_type: &str,
-                                                          slice: T) -> Result<(), Status> {
+    pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(
+        &self,
+        mime_type: &str,
+        slice: T) -> Result<(), Status> {
         let b = Box::new(slice);
         let (size, data) = {
             let slice = (*b).as_ref();
@@ -81,13 +82,13 @@ impl Surface {
         let user_data = Box::into_raw(b);
 
         let status = unsafe {
-            ffi::cairo_surface_set_mime_data(
-                self.to_raw_none(),
+                ffi::cairo_surface_set_mime_data(self.to_raw_none(),
                 mime_type.to_glib_none().0,
                 data,
                 size as u64,
                 Some(unbox::<T>),
-                user_data as *mut _)
+                user_data as *mut _,
+            )
         };
 
         match Status::from(status) {
