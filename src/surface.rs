@@ -4,7 +4,7 @@
 
 use std::mem;
 use std::slice;
-use libc::c_void;
+use libc::{c_ulong, c_void};
 use std::ffi::CString;
 
 #[cfg(feature = "use_glib")]
@@ -51,7 +51,7 @@ impl Surface {
 
     pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
         let mut data_ptr: *mut u8 = std::ptr::null_mut();
-        let mut length = 0u64;
+        let mut length: c_ulong = 0;
         unsafe {
             let mime_type = CString::new(mime_type).unwrap();
             ffi::cairo_surface_get_mime_data(
@@ -88,7 +88,7 @@ impl Surface {
             ffi::cairo_surface_set_mime_data(self.to_raw_none(),
                 mime_type.as_ptr(),
                 data,
-                size as u64,
+                size as c_ulong,
                 Some(unbox::<T>),
                 user_data as *mut _,
             )
