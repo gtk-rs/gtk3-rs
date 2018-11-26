@@ -25,7 +25,6 @@ macro_rules! gvalue_impl {
         use glib::translate::*;
         use glib_ffi;
         use gobject_ffi;
-        use std::ptr;
 
         impl glib::types::StaticType for $name {
             fn static_type() -> glib::types::Type {
@@ -52,7 +51,7 @@ macro_rules! gvalue_impl {
                 if let Some(s) = s {
                     gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, s.to_glib_none().0 as glib_ffi::gpointer);
                 } else {
-                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ptr::null_mut());
+                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ::std::ptr::null_mut());
                 }
             }
         }

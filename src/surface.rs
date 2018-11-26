@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
+use std::ptr;
 use std::slice;
 use libc::{c_ulong, c_void};
 use std::ffi::CString;
@@ -50,7 +51,7 @@ impl Surface {
     }
 
     pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
-        let mut data_ptr: *mut u8 = std::ptr::null_mut();
+        let mut data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
         unsafe {
             let mime_type = CString::new(mime_type).unwrap();
