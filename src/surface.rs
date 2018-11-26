@@ -48,7 +48,7 @@ impl Surface {
         }
     }
 
-    pub fn get_mime_data(&self, mime_type: &str) -> Option<&[u8]> {
+    pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
         let mut data_ptr: *mut u8 = ptr::null_mut();
         let mut length = 0u64;
         unsafe {
@@ -62,7 +62,7 @@ impl Surface {
                 Some(slice::from_raw_parts(
                     data_ptr as *const u8,
                     length as usize,
-                ))
+                ).to_vec())
             } else {
                 None
             }
@@ -87,8 +87,7 @@ impl Surface {
                 data,
                 size as u64,
                 Some(unbox::<T>),
-                user_data as *mut _,
-                )
+                user_data as *mut _)
         };
 
         match Status::from(status) {
