@@ -9,11 +9,8 @@ use Quark;
 use std::error;
 use std::fmt;
 use std::str;
-use std::ptr;
-use std::mem;
 use translate::*;
 use ffi as glib_ffi;
-use gobject_ffi;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).

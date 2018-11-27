@@ -32,21 +32,21 @@ macro_rules! glib_boxed_wrapper {
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                Option::<$name>::from_glib_full(gobject_ffi::g_value_dup_boxed(value.to_glib_none().0) as *mut $ffi_name)
+                $crate::translate::from_glib_full($crate::gobject_ffi::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
             }
         }
 
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
-                gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as glib_ffi::gpointer)
+                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(this).0 as $crate::ffi::gpointer)
             }
         }
 
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
-                gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as glib_ffi::gpointer)
+                $crate::gobject_ffi::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*const $ffi_name>::to_glib_none(&this).0 as $crate::ffi::gpointer)
             }
         }
     };
@@ -91,13 +91,13 @@ macro_rules! glib_boxed_wrapper {
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
-                let stash = self.0.to_glib_none();
+                let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
                 $crate::translate::Stash(stash.0, stash.1)
             }
 
             #[inline]
             fn to_glib_full(&self) -> *const $ffi_name {
-                (&self.0).to_glib_full()
+                $crate::translate::ToGlibPtr::to_glib_full(&self.0)
             }
         }
 
@@ -107,31 +107,31 @@ macro_rules! glib_boxed_wrapper {
 
             #[inline]
             fn to_glib_none_mut(&'a mut self) -> $crate::translate::StashMut<'a, *mut $ffi_name, Self> {
-                let stash = self.0.to_glib_none_mut();
+                let stash = $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut self.0);
                 $crate::translate::StashMut(stash.0, stash.1)
             }
         }
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibContainerFromSlice<'a, *mut *const $ffi_name> for $name {
-            type Storage = (Vec<Stash<'a, *const $ffi_name, $name>>, Option<Vec<*const $ffi_name>>);
+            type Storage = (Vec<$crate::translate::Stash<'a, *const $ffi_name, $name>>, Option<Vec<*const $ffi_name>>);
 
             fn to_glib_none_from_slice(t: &'a [$name]) -> (*mut *const $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(|s| $crate::translate::ToGlibPtr::to_glib_none(s)).collect();
                 let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
-                v_ptr.push(ptr::null_mut() as *const $ffi_name);
+                v_ptr.push(::std::ptr::null_mut() as *const $ffi_name);
 
                 (v_ptr.as_ptr() as *mut *const $ffi_name, (v, Some(v_ptr)))
             }
 
             fn to_glib_container_from_slice(t: &'a [$name]) -> (*mut *const $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(|s| $crate::translate::ToGlibPtr::to_glib_none(s)).collect();
 
                 let v_ptr = unsafe {
-                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<*const $ffi_name>() * (t.len() + 1)) as *mut *const $ffi_name;
+                    let v_ptr = $crate::ffi::g_malloc0(::std::mem::size_of::<*const $ffi_name>() * (t.len() + 1)) as *mut *const $ffi_name;
 
                     for (i, s) in v.iter().enumerate() {
-                        ptr::write(v_ptr.add(i), s.0);
+                        ::std::ptr::write(v_ptr.add(i), s.0);
                     }
 
                     v_ptr
@@ -142,10 +142,10 @@ macro_rules! glib_boxed_wrapper {
 
             fn to_glib_full_from_slice(t: &[$name]) -> *mut *const $ffi_name {
                 unsafe {
-                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<*const $ffi_name>() * (t.len() + 1)) as *mut *const $ffi_name;
+                    let v_ptr = $crate::ffi::g_malloc0(::std::mem::size_of::<*const $ffi_name>() * (t.len() + 1)) as *mut *const $ffi_name;
 
                     for (i, s) in t.iter().enumerate() {
-                        ptr::write(v_ptr.add(i), s.to_glib_full());
+                        ::std::ptr::write(v_ptr.add(i), $crate::translate::ToGlibPtr::to_glib_full(s));
                     }
 
                     v_ptr
@@ -155,7 +155,7 @@ macro_rules! glib_boxed_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibContainerFromSlice<'a, *const *const $ffi_name> for $name {
-            type Storage = (Vec<Stash<'a, *const $ffi_name, $name>>, Option<Vec<*const $ffi_name>>);
+            type Storage = (Vec<$crate::translate::Stash<'a, *const $ffi_name, $name>>, Option<Vec<*const $ffi_name>>);
 
             fn to_glib_none_from_slice(t: &'a [$name]) -> (*const *const $ffi_name, Self::Storage) {
                 let (ptr, stash) = $crate::translate::ToGlibContainerFromSlice::<'a, *mut *const $ffi_name>::to_glib_none_from_slice(t);
@@ -214,14 +214,14 @@ macro_rules! glib_boxed_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_none(ptr::read(ptr.add(i))));
+                    res.push($crate::translate::from_glib_none(::std::ptr::read(ptr.add(i))));
                 }
                 res
             }
 
             unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 let res = $crate::translate::FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
-                glib_ffi::g_free(ptr as *mut _);
+                $crate::ffi::g_free(ptr as *mut _);
                 res
             }
 
@@ -232,9 +232,9 @@ macro_rules! glib_boxed_wrapper {
 
                 let mut res = Vec::with_capacity(num);
                 for i in 0..num {
-                    res.push($crate::translate::from_glib_full(ptr::read(ptr.add(i))));
+                    res.push($crate::translate::from_glib_full(::std::ptr::read(ptr.add(i))));
                 }
-                glib_ffi::g_free(ptr as *mut _);
+                $crate::ffi::g_free(ptr as *mut _);
                 res
             }
         }

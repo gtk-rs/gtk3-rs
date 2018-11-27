@@ -5,9 +5,6 @@
 use Value;
 use gobject_ffi as ffi;
 use ffi as glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 use std::cmp::Ordering;
 use std::ops;
 use std::slice;

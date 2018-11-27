@@ -40,7 +40,6 @@
 
 use VariantTy;
 use ffi as glib_ffi;
-use gobject_ffi;
 use translate::*;
 use std::borrow::Cow;
 use std::cmp::{PartialEq, Eq, PartialOrd, Ordering};
@@ -48,8 +47,6 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::slice;
 use std::str;
-use std::ptr;
-use std::mem;
 
 glib_wrapper! {
     /// A generic immutable value capable of carrying various types.
