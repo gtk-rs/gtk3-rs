@@ -116,7 +116,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn downcast_ref<T>(&self) -> Option<&T>
-    where Self: Sized + Downcast<T> {
+    where Self: Downcast<T> {
         Downcast::downcast_ref(self)
     }
 
@@ -208,11 +208,11 @@ impl<T: IsA<Object>> Cast for T { }
 /// `T` always implements `IsA<T>`.
 pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
 
 unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
