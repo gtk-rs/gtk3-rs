@@ -65,12 +65,35 @@ impl Surface {
                 Some(slice::from_raw_parts(
                     data_ptr as *const u8,
                     length as usize,
-                ).to_vec())
+                    ).to_vec()
+                )
             } else {
                 None
             }
         }
     }
+
+    pub unsafe fn get_mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
+        let mut data_ptr: *mut u8 = ptr::null_mut();
+        let mut length: c_ulong = 0;
+        let mime_type = CString::new(mime_type).unwrap();
+        ffi::cairo_surface_get_mime_data(
+            self.to_raw_none(),
+            mime_type.as_ptr(),
+            &mut data_ptr,
+            &mut length,
+        );
+        if !data_ptr.is_null() && length != 0 {
+            Some(slice::from_raw_parts(
+                    data_ptr as *const u8,
+                    length as usize,
+                )
+            )
+        } else {
+            None
+        }
+    }
+
 
     pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(
         &self,
