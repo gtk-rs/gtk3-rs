@@ -140,7 +140,9 @@ pub use xcb::{
 };
 
 pub mod prelude;
-pub mod constants;
+
+mod constants;
+pub use constants::*;
 
 mod font;
 mod context;
