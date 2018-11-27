@@ -389,8 +389,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
 macro_rules! glib_object_get_type {
     () => {
         pub fn get_type() -> $crate::Type {
-            use std::sync::Once;
-            static ONCE: Once = Once::new();
+            static ONCE: ::std::sync::Once = ::std::sync::Once::new();
 
             ONCE.call_once(|| {
                 $crate::subclass::register_type::<Self>();

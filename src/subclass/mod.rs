@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-//! Module containing infrastructure for subclassing `GObject`s.
+//! Module containing infrastructure for subclassing `GObject`s and registering boxed types.
 //!
-//! # Example
+//! # Example for registering a `glib::Object` subclass
 //!
 //! The following code implements a subclass of `glib::Object` with a
 //! string-typed "name" property.
@@ -135,6 +135,44 @@
 //!     );
 //! }
 //! ```
+//!
+//! # Example for registering a boxed type for a Rust struct
+//!
+//! The following code boxed type for a tuple struct around `String` and uses it in combination
+//! with `glib::Value`.
+//!
+//! ```rust
+//! #[macro_use]
+//! extern crate glib;
+//! use glib::prelude::*;
+//! use glib::subclass;
+//! use glib::subclass::prelude::*;
+//!
+//! #[derive(Clone, Debug, PartialEq, Eq)]
+//! struct MyBoxed(String);
+//!
+//! impl BoxedType for MyBoxed {
+//!     // This type name must be unique per process.
+//!     const NAME: &'static str = "MyBoxed";
+//!
+//!     // This macro defines a
+//!     //   fn get_type() -> glib::Type
+//!     // function
+//!     glib_boxed_get_type!();
+//! }
+//!
+//! // This macro derives some traits on the struct
+//! glib_boxed_derive_traits!(MyBoxed);
+//!
+//! pub fn main() {
+//!     assert_ne!(glib::Type::Invalid, MyBoxed::get_type());
+//!
+//!     let b = MyBoxed(String::from("abc"));
+//!     let v = b.to_value();
+//!     let b2 = v.get::<&MyBoxed>().unwrap();
+//!     assert_eq!(&b, b2);
+//! }
+//! ```
 
 #[macro_use]
 #[doc(hidden)]
@@ -147,11 +185,16 @@ pub mod types;
 #[macro_use]
 pub mod object;
 
+#[macro_use]
+pub mod boxed;
+
 pub mod prelude {
     //! Prelude that re-exports all important traits from this crate.
     pub use super::object::{ObjectClassSubclassExt, ObjectImpl};
     pub use super::types::{ClassStruct, InstanceStruct, IsSubclassable, ObjectSubclass};
+    pub use super::boxed::BoxedType;
 }
 
 pub use self::object::Property;
 pub use self::types::{register_type, InitializingType, TypeData};
+pub use self::boxed::register_boxed_type;

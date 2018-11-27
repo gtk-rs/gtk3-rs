@@ -82,8 +82,11 @@ extern crate bitflags;
 #[macro_use]
 extern crate lazy_static;
 extern crate libc;
-extern crate glib_sys as ffi;
-extern crate gobject_sys as gobject_ffi;
+
+#[doc(hidden)]
+pub extern crate glib_sys as ffi;
+#[doc(hidden)]
+pub extern crate gobject_sys as gobject_ffi;
 
 #[cfg(feature="futures")]
 pub extern crate futures;
@@ -122,8 +125,6 @@ pub use value::{
     TypedValue,
     SendValue,
     Value,
-    AnyValue,
-    AnySendValue,
 };
 pub use variant::{
     StaticVariantType,
