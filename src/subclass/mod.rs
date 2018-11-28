@@ -36,15 +36,6 @@
 //!     name: RefCell<Option<String>>,
 //! }
 //!
-//! // impl block for the new type.
-//! impl SimpleObject {
-//!     // This macro defines a
-//!     //   fn get_type() -> glib::Type
-//!     // that registers the new type with the type system
-//!     // on the first call and returns its type id.
-//!     glib_object_get_type!();
-//! }
-//!
 //! // ObjectSubclass is the trait that defines the new type and
 //! // contains all information needed by the GObject type system,
 //! // including the new type's name, parent type, etc.
