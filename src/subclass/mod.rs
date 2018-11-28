@@ -149,7 +149,7 @@
 //!     // This macro defines a
 //!     //   fn get_type() -> glib::Type
 //!     // function
-//!     glib_boxed_get_type!();
+//!     glib_boxed_type!();
 //! }
 //!
 //! // This macro derives some traits on the struct
