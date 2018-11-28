@@ -28,9 +28,9 @@ pub trait BoxedType: Clone + Sized + 'static {
 
     /// Returns the type ID.
     ///
-    /// This is usually defined via the [`glib_boxed_get_type!`] macro.
+    /// This is usually defined via the [`glib_boxed_type!`] macro.
     ///
-    /// [`glib_boxed_get_type!`]: ../../macro.glib_boxed_get_type.html
+    /// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
     fn get_type() -> ::Type;
 }
 
@@ -38,10 +38,10 @@ pub trait BoxedType: Clone + Sized + 'static {
 ///
 /// This must be called only once and will panic on a second call.
 ///
-/// See [`glib_boxed_get_type!`] for defining a function that ensures that
+/// See [`glib_boxed_type!`] for defining a function that ensures that
 /// this is only called once and returns the type id.
 ///
-/// [`glib_boxed_get_type!`]: ../../macro.glib_boxed_get_type.html
+/// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
 pub fn register_boxed_type<T: BoxedType>() -> ::Type {
     unsafe {
         use std::ffi::CString;
@@ -79,7 +79,7 @@ unsafe extern "C" fn boxed_free<T: BoxedType>(v: ffi::gpointer) {
 /// the first time it is called.
 ///
 /// [`register_boxed_type`]: subclass/boxed/fn.register_boxed_type.html
-macro_rules! glib_boxed_get_type {
+macro_rules! glib_boxed_type {
     () => {
         fn get_type() -> $crate::Type {
             static mut TYPE_: $crate::Type = $crate::Type::Invalid;
@@ -212,7 +212,7 @@ mod test {
     impl BoxedType for MyBoxed {
         const NAME: &'static str = "MyBoxed";
 
-        glib_boxed_get_type!();
+        glib_boxed_type!();
     }
 
     glib_boxed_derive_traits!(MyBoxed);
