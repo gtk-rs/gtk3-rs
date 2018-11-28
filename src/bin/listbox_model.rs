@@ -15,9 +15,6 @@ extern crate glib;
 extern crate gio;
 extern crate gtk;
 
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
-
 use gio::prelude::*;
 use gtk::prelude::*;
 
@@ -260,9 +257,6 @@ mod row_data {
     use glib::subclass::prelude::*;
     use glib::translate::*;
 
-    use std::ptr;
-    use std::mem;
-
     // Implementation sub-module of the GObject
     mod imp {
         use super::*;
@@ -302,13 +296,6 @@ mod row_data {
                 }
             ),
         ];
-
-        impl RowData {
-            // This defines a
-            //   fn get_type() -> glib::Type
-            // for RowData
-            glib_object_get_type!();
-        }
 
         // Basic declaration of our type for the GObject type system
         impl ObjectSubclass for RowData {
