@@ -3,15 +3,12 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use ffi as glib_ffi;
-use gobject_ffi;
 use std::borrow::Borrow;
 use std::cmp::{Eq, Ord, Ordering, PartialEq, PartialOrd};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
-use std::ptr;
-use std::mem;
 use translate::*;
 
 glib_wrapper! {

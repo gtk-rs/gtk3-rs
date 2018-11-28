@@ -7,7 +7,6 @@ use gobject_ffi;
 use std::borrow;
 use std::convert;
 use std::fmt;
-use std::mem;
 use std::ops;
 use std::ptr;
 use std::slice;

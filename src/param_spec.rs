@@ -7,10 +7,7 @@
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use Value;
 use gobject_ffi as ffi;
-use ffi as glib_ffi;
 use gobject_ffi;
-use std::mem;
-use std::ptr;
 use libc;
 use translate::*;
 use ParamFlags;
