@@ -34,12 +34,6 @@ git = "https://github.com/gtk-rs/gdk"
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk"
 
-[dependencies.glib-sys]
-git = "https://github.com/gtk-rs/sys"
-
-[dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/sys"
-
 [features]
 #default = ["gtk_3_22_30", "futures-stable", "gio_2_40", "subclassing"]
 gtk_3_10 = ["gtk/v3_10"]
