@@ -11,12 +11,11 @@ use ffi as glib_ffi;
 use gobject_ffi;
 use std::mem;
 use std::ptr;
-use std::iter;
 use std::ops;
 use std::marker::PhantomData;
 
 use Value;
-use value::{ToValue, SetValue};
+use value::ToValue;
 use Type;
 use BoolError;
 use Closure;
@@ -116,7 +115,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn downcast_ref<T>(&self) -> Option<&T>
-    where Self: Sized + Downcast<T> {
+    where Self: Downcast<T> {
         Downcast::downcast_ref(self)
     }
 
@@ -208,11 +207,11 @@ impl<T: IsA<Object>> Cast for T { }
 /// `T` always implements `IsA<T>`.
 pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
 
 unsafe impl<T> IsA<T> for T
 where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> { }
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
@@ -861,7 +860,7 @@ pub trait ObjectExt: IsA<Object> {
     fn ref_count(&self) -> u32;
 }
 
-impl<T: IsA<Object> + SetValue> ObjectExt for T {
+impl<T: IsA<Object>> ObjectExt for T {
     fn get_type(&self) -> Type {
         self.get_object_class().get_type()
     }
@@ -1118,14 +1117,22 @@ impl<T: IsA<Object> + SetValue> ObjectExt for T {
 
             let mut v_args: Vec<Value>;
             let mut s_args: [Value; 10] = mem::zeroed();
+            let self_v = {
+                let mut v = Value::uninitialized();
+                gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
+                gobject_ffi::g_value_set_object(v.to_glib_none_mut().0, self.to_glib_none().0);
+                v
+            };
             let args = if args.len() < 10 {
-                for (i, arg) in iter::once(&(self as &ToValue)).chain(args).enumerate() {
-                    s_args[i] = arg.to_value();
+                s_args[0] = self_v;
+                for (i, arg) in args.iter().enumerate() {
+                    s_args[i+1] = arg.to_value();
                 }
                 &s_args[0..args.len()+1]
             } else {
                 v_args = Vec::with_capacity(args.len() + 1);
-                for arg in iter::once(&(self as &ToValue)).chain(args) {
+                v_args.push(self_v);
+                for arg in args {
                     v_args.push(arg.to_value());
                 }
                 v_args.as_slice()
@@ -1228,9 +1235,9 @@ unsafe impl IsClassFor for ObjectClass {
 unsafe impl Send for ObjectClass {}
 unsafe impl Sync for ObjectClass {}
 
-pub struct WeakRef<T: IsA<Object> + ?Sized>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
+pub struct WeakRef<T: IsA<Object>>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
-impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> WeakRef<T> {
+impl<T: IsA<Object>> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
             let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
@@ -1252,7 +1259,7 @@ impl<T: IsA<Object> + StaticType + UnsafeFrom<ObjectRef> + Wrapper + ?Sized> Wea
     }
 }
 
-impl<T: IsA<Object> + ?Sized> Drop for WeakRef<T> {
+impl<T: IsA<Object>> Drop for WeakRef<T> {
     fn drop(&mut self) {
         unsafe {
             gobject_ffi::g_weak_ref_clear(mut_override(&*self.0));
@@ -1260,7 +1267,7 @@ impl<T: IsA<Object> + ?Sized> Drop for WeakRef<T> {
     }
 }
 
-impl<T: IsA<Object> + ?Sized> Clone for WeakRef<T> {
+impl<T: IsA<Object>> Clone for WeakRef<T> {
     fn clone(&self) -> Self {
         unsafe {
             let c = WeakRef(Box::new(mem::uninitialized()), PhantomData);
