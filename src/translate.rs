@@ -329,7 +329,7 @@ impl<'a> ToGlibPtr<'a, *const c_char> for str {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *const c_char, Self> {
-        let tmp = CString::new(self).unwrap();
+        let tmp = CString::new(self).expect("str::ToGlibPtr<*const c_char>: unexpected '\0' character");
         Stash(tmp.as_ptr(), tmp)
     }
 
@@ -347,7 +347,7 @@ impl<'a> ToGlibPtr<'a, *mut c_char> for str {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut c_char, Self> {
-        let tmp = CString::new(self).unwrap();
+        let tmp = CString::new(self).expect("str::ToGlibPtr<*mut c_char>: unexpected '\0' character");
         Stash(tmp.as_ptr() as *mut c_char, tmp)
     }
 
@@ -364,7 +364,7 @@ impl <'a> ToGlibPtr<'a, *const c_char> for String {
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, *const c_char, String> {
-        let tmp = CString::new(&self[..]).unwrap();
+        let tmp = CString::new(&self[..]).expect("String::ToGlibPtr<*const c_char>: unexpected '\0' character");
         Stash(tmp.as_ptr(), tmp)
     }
 
@@ -382,7 +382,7 @@ impl <'a> ToGlibPtr<'a, *mut c_char> for String {
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, *mut c_char, String> {
-        let tmp = CString::new(&self[..]).unwrap();
+        let tmp = CString::new(&self[..]).expect("String::ToGlibPtr<*mut c_char>: unexpected '\0' character");
         Stash(tmp.as_ptr() as *mut c_char, tmp)
     }
 
