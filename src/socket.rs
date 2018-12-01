@@ -31,22 +31,18 @@ use std::os::windows::io::{IntoRawSocket, FromRawSocket};
 
 impl Socket {
     #[cfg(any(unix, feature = "dox"))]
-    pub fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
         let fd = fd.into_raw_fd();
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_new_from_fd(fd, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-        }
+        let mut error = ptr::null_mut();
+        let ret = ffi::g_socket_new_from_fd(fd, &mut error);
+        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
     #[cfg(any(windows, feature = "dox"))]
-    pub fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
         let socket = socket.into_raw_socket();
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_new_from_fd(socket as i32, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-        }
+        let mut error = ptr::null_mut();
+        let ret = ffi::g_socket_new_from_fd(socket as i32, &mut error);
+        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
 }
 
