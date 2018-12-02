@@ -193,6 +193,10 @@ impl <T: OutputStreamExt> OutputStreamWrite<T> {
     pub fn into_output_stream(self) -> T {
         self.0
     }
+
+    pub fn output_stream(&self) -> &T {
+        &self.0
+    }
 }
 
 impl <T: OutputStreamExt> io::Write for OutputStreamWrite<T> {

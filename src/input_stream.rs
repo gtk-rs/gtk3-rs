@@ -217,6 +217,10 @@ impl <T: InputStreamExtManual> InputStreamRead<T> {
     pub fn into_input_stream(self) -> T {
         self.0
     }
+
+    pub fn input_stream(&self) -> &T {
+        &self.0
+    }
 }
 
 impl <T: InputStreamExtManual> io::Read for InputStreamRead<T> {
