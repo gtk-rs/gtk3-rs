@@ -210,11 +210,16 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
     }
 }
 
+#[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct InputStreamRead<T: InputStreamExtManual>(T);
 
 impl <T: InputStreamExtManual> InputStreamRead<T> {
     pub fn into_input_stream(self) -> T {
         self.0
+    }
+
+    pub fn input_stream(&self) -> &T {
+        &self.0
     }
 }
 

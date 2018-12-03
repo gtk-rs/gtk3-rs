@@ -1,3 +1,5 @@
+#![cfg(feature = "v2_36")]
+
 extern crate glib;
 extern crate gio;
 
