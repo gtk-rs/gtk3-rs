@@ -14,6 +14,8 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use Socket;
 use SocketAddress;
+#[cfg(all(not(windows), feature = "dox"))]
+use std::os::raw::c_void;
 #[cfg(all(not(unix), feature = "dox"))]
 use std::os::raw::c_int;
 use fragile::Fragile;
@@ -24,28 +26,42 @@ use futures_core::{Future, Never};
 use futures_core::stream::Stream;
 
 #[cfg(unix)]
-use std::os::unix::io::{IntoRawFd, FromRawFd};
+use std::os::unix::io::{RawFd, AsRawFd, IntoRawFd, FromRawFd};
 
 #[cfg(windows)]
-use std::os::windows::io::{IntoRawSocket, FromRawSocket};
+use std::os::windows::io::{RawSocket, AsRawSocket, IntoRawSocket, FromRawSocket};
 
 impl Socket {
     #[cfg(any(unix, feature = "dox"))]
-    pub fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
         let fd = fd.into_raw_fd();
-        unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_new_from_fd(fd, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
-        }
+        let mut error = ptr::null_mut();
+        let ret = ffi::g_socket_new_from_fd(fd, &mut error);
+        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
     #[cfg(any(windows, feature = "dox"))]
-    pub fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
         let socket = socket.into_raw_socket();
+        let mut error = ptr::null_mut();
+        let ret = ffi::g_socket_new_from_fd(socket as i32, &mut error);
+        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+    }
+}
+
+#[cfg(any(unix, feature = "dox"))]
+impl AsRawFd for Socket {
+    fn as_raw_fd(&self) -> RawFd {
         unsafe {
-            let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_new_from_fd(socket as i32, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+            ffi::g_socket_get_fd(self.to_glib_none().0) as _
+        }
+    }
+}
+
+#[cfg(any(windows, feature = "dox"))]
+impl AsRawSocket for Socket {
+    fn as_raw_socket(&self) -> RawSocket {
+        unsafe {
+            ffi::g_socket_get_fd(self.to_glib_none().0) as _
         }
     }
 }
@@ -280,6 +296,14 @@ pub trait FromRawFd {
     unsafe fn from_raw_fd(fd: c_int) -> Self;
 }
 
+#[cfg(all(not(unix), feature = "dox"))]
+pub trait AsRawFd {
+    fn as_raw_fd(&self) -> RawFd;
+}
+
+#[cfg(all(not(unix), feature = "dox"))]
+pub struct RawFd(c_int);
+
 #[cfg(all(not(windows), feature = "dox"))]
 pub trait IntoRawSocket {
     fn into_raw_socket(self) -> u64;
@@ -289,3 +313,11 @@ pub trait IntoRawSocket {
 pub trait FromRawSocket {
     unsafe fn from_raw_socket(sock: u64) -> Self;
 }
+
+#[cfg(all(not(windows), feature = "dox"))]
+pub trait AsRawSocket {
+    fn as_raw_socket(&self) -> RawSocket;
+}
+
+#[cfg(all(not(windows), feature = "dox"))]
+pub struct RawSocket(*mut c_void);
