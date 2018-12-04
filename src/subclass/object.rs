@@ -375,6 +375,7 @@ mod test {
             self.parent_constructed(obj);
 
             assert_eq!(obj, &self.get_instance());
+            assert_eq!(self as *const _, Self::from_instance(obj) as *const _);
 
             *self.constructed.borrow_mut() = true;
         }
