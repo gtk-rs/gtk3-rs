@@ -112,7 +112,10 @@ macro_rules! glib_boxed_derive_traits {
         impl $crate::value::SetValue for $name {
             unsafe fn set_value(value: &mut $crate::value::Value, this: &Self) {
                 let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_ffi::g_value_take_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, ptr as *mut _);
+                $crate::gobject_ffi::g_value_take_boxed(
+                    $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ptr as *mut _,
+                );
             }
         }
 
@@ -120,13 +123,18 @@ macro_rules! glib_boxed_derive_traits {
             unsafe fn set_value_optional(value: &mut $crate::value::Value, this: Option<&Self>) {
                 let this = this.expect("None not allowed");
                 let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_ffi::g_value_take_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, ptr as *mut _);
+                $crate::gobject_ffi::g_value_take_boxed(
+                    $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
+                    ptr as *mut _,
+                );
             }
         }
 
         impl<'a> $crate::value::FromValueOptional<'a> for &'a $name {
             unsafe fn from_value_optional(value: &'a $crate::value::Value) -> Option<Self> {
-                let ptr = $crate::gobject_ffi::g_value_get_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                let ptr = $crate::gobject_ffi::g_value_get_boxed(
+                    $crate::translate::ToGlibPtr::to_glib_none(value).0,
+                );
                 assert!(!ptr.is_null());
                 Some(&*(ptr as *mut $name))
             }
@@ -134,7 +142,9 @@ macro_rules! glib_boxed_derive_traits {
 
         impl<'a> $crate::value::FromValue<'a> for &'a $name {
             unsafe fn from_value(value: &'a $crate::value::Value) -> Self {
-                let ptr = $crate::gobject_ffi::g_value_get_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0);
+                let ptr = $crate::gobject_ffi::g_value_get_boxed(
+                    $crate::translate::ToGlibPtr::to_glib_none(value).0,
+                );
                 assert!(!ptr.is_null());
                 &*(ptr as *mut $name)
             }
