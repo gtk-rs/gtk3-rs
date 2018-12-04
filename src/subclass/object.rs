@@ -297,6 +297,7 @@ mod test {
     use super::super::super::subclass;
     use super::super::super::value::{ToValue, Value};
     use super::*;
+    use prelude::*;
 
     use std::cell::RefCell;
 
@@ -336,6 +337,26 @@ mod test {
 
         fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
             klass.install_properties(&PROPERTIES);
+
+            klass.add_signal("name-changed", &[String::static_type()], ::Type::Unit);
+
+            klass.add_action_signal(
+                "change-name",
+                &[String::static_type()],
+                String::static_type(),
+                |args| {
+                    let obj = args[0].get::<Object>().unwrap();
+                    let new_name = args[1].get::<String>().unwrap();
+                    let imp = Self::from_instance(&obj);
+
+                    let old_name = imp.name.borrow_mut().take();
+                    *imp.name.borrow_mut() = Some(new_name);
+
+                    obj.emit("name-changed", &[&*imp.name.borrow()]).unwrap();
+
+                    Some(old_name.to_value())
+                },
+            );
         }
 
         fn new() -> Self {
@@ -349,13 +370,14 @@ mod test {
     impl ObjectImpl for SimpleObject {
         glib_object_impl!();
 
-        fn set_property(&self, _obj: &Object, id: usize, value: &Value) {
+        fn set_property(&self, obj: &Object, id: usize, value: &Value) {
             let prop = &PROPERTIES[id];
 
             match *prop {
                 Property("name", ..) => {
                     let name = value.get();
                     self.name.replace(name);
+                    obj.emit("name-changed", &[&*self.name.borrow()]).unwrap();
                 }
                 _ => unimplemented!(),
             }
@@ -401,5 +423,40 @@ mod test {
         let weak = obj.downgrade();
         drop(obj);
         assert!(weak.upgrade().is_none());
+    }
+
+    #[test]
+    fn test_signals() {
+        use std::sync::{Arc, Mutex};
+
+        let type_ = SimpleObject::get_type();
+        let obj = Object::new(type_, &[("name", &"old-name")]).unwrap();
+
+        let name_changed_triggered = Arc::new(Mutex::new(false));
+        let name_changed_clone = name_changed_triggered.clone();
+        obj.connect("name-changed", false, move |args| {
+            let _obj = args[0].get::<Object>().unwrap();
+            let name = args[1].get::<&str>().unwrap();
+
+            assert_eq!(name, "new-name");
+            *name_changed_clone.lock().unwrap() = true;
+
+            None
+        })
+        .unwrap();
+
+        assert_eq!(
+            obj.get_property("name").unwrap().get::<&str>(),
+            Some("old-name")
+        );
+        assert!(!*name_changed_triggered.lock().unwrap());
+
+        let old_name = obj
+            .emit("change-name", &[&"new-name"])
+            .unwrap()
+            .unwrap()
+            .get::<String>();
+        assert_eq!(old_name, Some(String::from("old-name")));
+        assert!(*name_changed_triggered.lock().unwrap());
     }
 }
