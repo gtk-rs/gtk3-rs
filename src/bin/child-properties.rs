@@ -52,17 +52,17 @@ fn build_ui(application: &gtk::Application) {
     vbox.add(&minus_button);
 
     minus_button.connect_clicked(clone!(counter_label => move |_| {
-        let nb = u32::from_str(counter_label.get_text()
-                                           .unwrap_or("0".to_owned())
-                                           .as_str()).unwrap_or(0);
+        let nb = counter_label.get_text()
+            .and_then(|s| u32::from_str(&s).ok())
+            .unwrap_or(0);
         if nb > 0 {
             counter_label.set_text(&format!("{}", nb - 1));
         }
     }));
     plus_button.connect_clicked(clone!(counter_label => move |_| {
-        let nb = u32::from_str(counter_label.get_text()
-                                           .unwrap_or("0".to_owned())
-                                           .as_str()).unwrap_or(0);
+        let nb = counter_label.get_text()
+            .and_then(|s| u32::from_str(&s).ok())
+            .unwrap_or(0);
         counter_label.set_text(&format!("{}", nb + 1));
     }));
 
