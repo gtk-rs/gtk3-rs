@@ -4,7 +4,7 @@
 
 //! `IMPL` Low level signal support.
 
-use libc::{c_void, c_ulong};
+use libc::{c_char, c_void, c_ulong};
 
 use gobject_ffi::{self, GCallback};
 use ffi::gboolean;
@@ -50,7 +50,12 @@ impl ToGlib for Inhibit {
 
 pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
                       closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
-    let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name.to_glib_none().0,
+    connect_raw(receiver, signal_name.to_glib_none().0, trampoline, closure)
+}
+
+pub unsafe fn connect_raw(receiver: *mut gobject_ffi::GObject, signal_name: *const c_char, trampoline: GCallback,
+                      closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
+    let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name,
         trampoline, closure as *mut _, Some(destroy_closure), 0);
     assert!(handle > 0);
     from_glib(handle)
