@@ -41,8 +41,9 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     button.connect_clicked(move |_| {
-        let value = label.get_text().unwrap_or_else(|| "0".to_owned());
-        let value = u32::from_str_radix(&value, 10).unwrap_or_else(|_| 0) + 1;
+        let value = label.get_text()
+            .and_then(|s| u32::from_str_radix(&s, 10).ok())
+            .unwrap_or(0) + 1;
         label.set_text(&value.to_string());
     });
 
