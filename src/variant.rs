@@ -39,6 +39,7 @@
 //! ```
 
 use VariantTy;
+use Type;
 use ffi as glib_ffi;
 use translate::*;
 use std::borrow::Cow;
@@ -57,7 +58,7 @@ glib_wrapper! {
     match fn {
         ref => |ptr| glib_ffi::g_variant_ref_sink(ptr),
         unref => |ptr| glib_ffi::g_variant_unref(ptr),
-        get_type => || glib_ffi::g_variant_type_get_gtype(),
+        get_type => || Type::Variant.to_glib(),
     }
 }
 
