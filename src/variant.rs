@@ -39,8 +39,12 @@
 //! ```
 
 use VariantTy;
+use StaticType;
 use Type;
+use Value;
+use value;
 use ffi as glib_ffi;
+use gobject_ffi;
 use translate::*;
 use std::borrow::Cow;
 use std::cmp::{PartialEq, Eq, PartialOrd, Ordering};
@@ -58,7 +62,33 @@ glib_wrapper! {
     match fn {
         ref => |ptr| glib_ffi::g_variant_ref_sink(ptr),
         unref => |ptr| glib_ffi::g_variant_unref(ptr),
-        get_type => || Type::Variant.to_glib(),
+    }
+}
+
+impl StaticType for Variant {
+    fn static_type() -> Type {
+        Type::Variant
+    }
+}
+
+#[doc(hidden)]
+impl<'a> value::FromValueOptional<'a> for Variant {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        from_glib_full(gobject_ffi::g_value_dup_variant(ToGlibPtr::to_glib_none(value).0))
+    }
+}
+
+#[doc(hidden)]
+impl value::SetValue for Variant {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_variant(ToGlibPtrMut::to_glib_none_mut(value).0, ToGlibPtr::<*mut glib_ffi::GVariant>::to_glib_none(this).0)
+    }
+}
+
+#[doc(hidden)]
+impl value::SetValueOptional for Variant {
+    unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
+        gobject_ffi::g_value_set_variant(ToGlibPtrMut::to_glib_none_mut(value).0, ToGlibPtr::<*mut glib_ffi::GVariant>::to_glib_none(&this).0)
     }
 }
 
