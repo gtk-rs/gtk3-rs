@@ -19,12 +19,13 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
+#[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -53,7 +54,7 @@ unsafe impl glib::SendUnique for Socket {
     }
 }
 
-pub trait SocketExt {
+pub trait SocketExt: 'static {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<Socket, Error>;
 
     fn bind<P: IsA<SocketAddress>>(&self, address: &P, allow_reuse: bool) -> Result<(), Error>;
@@ -167,7 +168,7 @@ pub trait SocketExt {
     fn connect_property_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
+impl<O: IsA<Socket>> SocketExt for O {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<Socket, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -490,7 +491,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn get_property_type(&self) -> SocketType {
         unsafe {
             let mut value = Value::from_type(<SocketType as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "type".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -498,7 +499,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_blocking_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::blocking",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::blocking\0".as_ptr() as *const _,
                 transmute(notify_blocking_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -506,7 +507,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_broadcast_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::broadcast",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::broadcast\0".as_ptr() as *const _,
                 transmute(notify_broadcast_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -514,7 +515,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_keepalive_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::keepalive",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::keepalive\0".as_ptr() as *const _,
                 transmute(notify_keepalive_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -522,7 +523,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::listen-backlog",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::listen-backlog\0".as_ptr() as *const _,
                 transmute(notify_listen_backlog_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -530,7 +531,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_local_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::local-address",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::local-address\0".as_ptr() as *const _,
                 transmute(notify_local_address_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -538,7 +539,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::multicast-loopback",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::multicast-loopback\0".as_ptr() as *const _,
                 transmute(notify_multicast_loopback_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -546,7 +547,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::multicast-ttl",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::multicast-ttl\0".as_ptr() as *const _,
                 transmute(notify_multicast_ttl_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -554,7 +555,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_remote_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::remote-address",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::remote-address\0".as_ptr() as *const _,
                 transmute(notify_remote_address_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -562,7 +563,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_timeout_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::timeout",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::timeout\0".as_ptr() as *const _,
                 transmute(notify_timeout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -570,7 +571,7 @@ impl<O: IsA<Socket> + IsA<glib::object::Object>> SocketExt for O {
     fn connect_property_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::ttl",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::ttl\0".as_ptr() as *const _,
                 transmute(notify_ttl_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

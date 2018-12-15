@@ -8,10 +8,7 @@ use OutputStream;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -22,7 +19,7 @@ glib_wrapper! {
     }
 }
 
-pub trait PollableOutputStreamExt {
+pub trait PollableOutputStreamExt: 'static {
     fn can_poll(&self) -> bool;
 
     fn is_writable(&self) -> bool;

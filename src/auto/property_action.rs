@@ -4,6 +4,7 @@
 
 use Action;
 use ffi;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use glib::StaticType;
@@ -15,17 +16,17 @@ use glib::object::IsA;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib_ffi;
+#[cfg(any(feature = "v2_46", feature = "dox"))]
 use gobject_ffi;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct PropertyAction(Object<ffi::GPropertyAction>): Action;
@@ -44,7 +45,7 @@ impl PropertyAction {
     }
 }
 
-pub trait PropertyActionExt {
+pub trait PropertyActionExt: 'static {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn get_property_invert_boolean(&self) -> bool;
 
@@ -61,12 +62,12 @@ pub trait PropertyActionExt {
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<PropertyAction> + IsA<glib::object::Object>> PropertyActionExt for O {
+impl<O: IsA<PropertyAction>> PropertyActionExt for O {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn get_property_invert_boolean(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "invert-boolean".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"invert-boolean\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -75,7 +76,7 @@ impl<O: IsA<PropertyAction> + IsA<glib::object::Object>> PropertyActionExt for O
     fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::enabled",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::enabled\0".as_ptr() as *const _,
                 transmute(notify_enabled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -84,7 +85,7 @@ impl<O: IsA<PropertyAction> + IsA<glib::object::Object>> PropertyActionExt for O
     fn connect_property_parameter_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::parameter-type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::parameter-type\0".as_ptr() as *const _,
                 transmute(notify_parameter_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -93,7 +94,7 @@ impl<O: IsA<PropertyAction> + IsA<glib::object::Object>> PropertyActionExt for O
     fn connect_property_state_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::state",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::state\0".as_ptr() as *const _,
                 transmute(notify_state_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -102,7 +103,7 @@ impl<O: IsA<PropertyAction> + IsA<glib::object::Object>> PropertyActionExt for O
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::state-type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::state-type\0".as_ptr() as *const _,
                 transmute(notify_state_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

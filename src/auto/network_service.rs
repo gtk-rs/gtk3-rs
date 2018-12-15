@@ -4,19 +4,16 @@
 
 use SocketConnectable;
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct NetworkService(Object<ffi::GNetworkService, ffi::GNetworkServiceClass>): SocketConnectable;
@@ -34,40 +31,40 @@ impl NetworkService {
     }
 }
 
-pub trait NetworkServiceExt {
-    fn get_domain(&self) -> Option<String>;
+pub trait NetworkServiceExt: 'static {
+    fn get_domain(&self) -> Option<GString>;
 
-    fn get_protocol(&self) -> Option<String>;
+    fn get_protocol(&self) -> Option<GString>;
 
-    fn get_scheme(&self) -> Option<String>;
+    fn get_scheme(&self) -> Option<GString>;
 
-    fn get_service(&self) -> Option<String>;
+    fn get_service(&self) -> Option<GString>;
 
     fn set_scheme(&self, scheme: &str);
 
     fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<NetworkService> + IsA<glib::object::Object>> NetworkServiceExt for O {
-    fn get_domain(&self) -> Option<String> {
+impl<O: IsA<NetworkService>> NetworkServiceExt for O {
+    fn get_domain(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_service_get_domain(self.to_glib_none().0))
         }
     }
 
-    fn get_protocol(&self) -> Option<String> {
+    fn get_protocol(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_service_get_protocol(self.to_glib_none().0))
         }
     }
 
-    fn get_scheme(&self) -> Option<String> {
+    fn get_scheme(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_service_get_scheme(self.to_glib_none().0))
         }
     }
 
-    fn get_service(&self) -> Option<String> {
+    fn get_service(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_service_get_service(self.to_glib_none().0))
         }
@@ -82,7 +79,7 @@ impl<O: IsA<NetworkService> + IsA<glib::object::Object>> NetworkServiceExt for O
     fn connect_property_scheme_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::scheme",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::scheme\0".as_ptr() as *const _,
                 transmute(notify_scheme_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

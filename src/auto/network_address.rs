@@ -5,12 +5,10 @@
 use Error;
 use SocketConnectable;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -55,16 +53,16 @@ impl NetworkAddress {
 unsafe impl Send for NetworkAddress {}
 unsafe impl Sync for NetworkAddress {}
 
-pub trait NetworkAddressExt {
-    fn get_hostname(&self) -> Option<String>;
+pub trait NetworkAddressExt: 'static {
+    fn get_hostname(&self) -> Option<GString>;
 
     fn get_port(&self) -> u16;
 
-    fn get_scheme(&self) -> Option<String>;
+    fn get_scheme(&self) -> Option<GString>;
 }
 
 impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
-    fn get_hostname(&self) -> Option<String> {
+    fn get_hostname(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_address_get_hostname(self.to_glib_none().0))
         }
@@ -76,7 +74,7 @@ impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
         }
     }
 
-    fn get_scheme(&self) -> Option<String> {
+    fn get_scheme(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_network_address_get_scheme(self.to_glib_none().0))
         }

@@ -5,11 +5,10 @@
 use Error;
 use SettingsSchema;
 use ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -35,7 +34,7 @@ impl SettingsSchemaSource {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn list_schemas(&self, recursive: bool) -> (Vec<String>, Vec<String>) {
+    pub fn list_schemas(&self, recursive: bool) -> (Vec<GString>, Vec<GString>) {
         unsafe {
             let mut non_relocatable = ptr::null_mut();
             let mut relocatable = ptr::null_mut();

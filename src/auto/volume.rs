@@ -14,17 +14,16 @@ use MountUnmountFlags;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -36,7 +35,7 @@ glib_wrapper! {
     }
 }
 
-pub trait VolumeExt: Sized {
+pub trait VolumeExt: 'static {
     fn can_eject(&self) -> bool;
 
     fn can_mount(&self) -> bool;
@@ -46,14 +45,14 @@ pub trait VolumeExt: Sized {
 
     #[deprecated]
     #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn eject_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    fn enumerate_identifiers(&self) -> Vec<String>;
+    fn enumerate_identifiers(&self) -> Vec<GString>;
 
     fn get_activation_root(&self) -> Option<File>;
 
@@ -61,23 +60,23 @@ pub trait VolumeExt: Sized {
 
     fn get_icon(&self) -> Option<Icon>;
 
-    fn get_identifier(&self, kind: &str) -> Option<String>;
+    fn get_identifier(&self, kind: &str) -> Option<GString>;
 
     fn get_mount(&self) -> Option<Mount>;
 
-    fn get_name(&self) -> Option<String>;
+    fn get_name(&self) -> Option<GString>;
 
-    fn get_sort_key(&self) -> Option<String>;
+    fn get_sort_key(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon>;
 
-    fn get_uuid(&self) -> Option<String>;
+    fn get_uuid(&self) -> Option<GString>;
 
     fn mount<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn should_automount(&self) -> bool;
 
@@ -86,7 +85,7 @@ pub trait VolumeExt: Sized {
     fn connect_removed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for O {
+impl<O: IsA<Volume>> VolumeExt for O {
     fn can_eject(&self) -> bool {
         unsafe {
             from_glib(ffi::g_volume_can_eject(self.to_glib_none().0))
@@ -118,7 +117,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
     }
 
     #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -161,7 +160,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
     }
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -186,7 +185,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
         })
     }
 
-    fn enumerate_identifiers(&self) -> Vec<String> {
+    fn enumerate_identifiers(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_volume_enumerate_identifiers(self.to_glib_none().0))
         }
@@ -210,7 +209,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
         }
     }
 
-    fn get_identifier(&self, kind: &str) -> Option<String> {
+    fn get_identifier(&self, kind: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_volume_get_identifier(self.to_glib_none().0, kind.to_glib_none().0))
         }
@@ -222,13 +221,13 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
         }
     }
 
-    fn get_name(&self) -> Option<String> {
+    fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_volume_get_name(self.to_glib_none().0))
         }
     }
 
-    fn get_sort_key(&self) -> Option<String> {
+    fn get_sort_key(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_volume_get_sort_key(self.to_glib_none().0))
         }
@@ -241,7 +240,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
         }
     }
 
-    fn get_uuid(&self) -> Option<String> {
+    fn get_uuid(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_volume_get_uuid(self.to_glib_none().0))
         }
@@ -268,7 +267,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
     }
 
     #[cfg(feature = "futures")]
-    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -302,7 +301,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -310,7 +309,7 @@ impl<O: IsA<Volume> + IsA<glib::object::Object> + Clone + 'static> VolumeExt for
     fn connect_removed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"removed\0".as_ptr() as *const _,
                 transmute(removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

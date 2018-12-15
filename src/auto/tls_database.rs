@@ -13,7 +13,7 @@ use TlsInteraction;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -21,7 +21,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -32,40 +31,40 @@ glib_wrapper! {
     }
 }
 
-pub trait TlsDatabaseExt: Sized {
-    fn create_certificate_handle(&self, certificate: &TlsCertificate) -> Option<String>;
+pub trait TlsDatabaseExt: 'static {
+    fn create_certificate_handle(&self, certificate: &TlsCertificate) -> Option<GString>;
 
     fn lookup_certificate_for_handle<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q) -> Result<Option<TlsCertificate>, Error>;
 
     fn lookup_certificate_for_handle_async<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn lookup_certificate_for_handle_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>>;
+    fn lookup_certificate_for_handle_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn lookup_certificate_issuer<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q) -> Result<TlsCertificate, Error>;
 
     fn lookup_certificate_issuer_async<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn lookup_certificate_issuer_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>>;
+    fn lookup_certificate_issuer_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn lookup_certificates_issued_by<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q) -> Result<Vec<TlsCertificate>, Error>;
 
     //fn lookup_certificates_issued_by_async<'a, 'b, P: Into<Option<&'a TlsInteraction>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<Vec<TlsCertificate>, Error>) + Send + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags, cancellable: Q, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn lookup_certificates_issued_by_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, Vec<TlsCertificate>), Error = (Self, Error)>>;
+    //fn lookup_certificates_issued_by_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, Vec<TlsCertificate>), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn verify_chain<'a, 'b, 'c, P: IsA<SocketConnectable> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>, S: Into<Option<&'c Cancellable>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags, cancellable: S) -> Result<TlsCertificateFlags, Error>;
 
     fn verify_chain_async<'a, 'b, 'c, P: IsA<SocketConnectable> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>, S: Into<Option<&'c Cancellable>>, T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn verify_chain_async_future<'a, 'b, P: IsA<SocketConnectable> + Clone + 'static, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificateFlags), Error = (Self, Error)>>;
+    fn verify_chain_async_future<'a, 'b, P: IsA<SocketConnectable> + Clone + 'static, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificateFlags), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatabaseExt for O {
-    fn create_certificate_handle(&self, certificate: &TlsCertificate) -> Option<String> {
+impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
+    fn create_certificate_handle(&self, certificate: &TlsCertificate) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_tls_database_create_certificate_handle(self.to_glib_none().0, certificate.to_glib_none().0))
         }
@@ -104,7 +103,7 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_certificate_for_handle_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> {
+    fn lookup_certificate_for_handle_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, handle: &str, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -164,7 +163,7 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_certificate_issuer_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> {
+    fn lookup_certificate_issuer_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, certificate: &TlsCertificate, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificate), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -200,7 +199,7 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     //}
 
     //#[cfg(feature = "futures")]
-    //fn lookup_certificates_issued_by_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, Vec<TlsCertificate>), Error = (Self, Error)>> {
+    //fn lookup_certificates_issued_by_async_future<'a, P: Into<Option<&'a TlsInteraction>>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: P, flags: TlsDatabaseLookupFlags) -> Box_<futures_core::Future<Item = (Self, Vec<TlsCertificate>), Error = (Self, Error)>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -264,7 +263,7 @@ impl<O: IsA<TlsDatabase> + IsA<glib::object::Object> + Clone + 'static> TlsDatab
     }
 
     #[cfg(feature = "futures")]
-    fn verify_chain_async_future<'a, 'b, P: IsA<SocketConnectable> + Clone + 'static, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificateFlags), Error = (Self, Error)>> {
+    fn verify_chain_async_future<'a, 'b, P: IsA<SocketConnectable> + Clone + 'static, Q: Into<Option<&'a P>>, R: Into<Option<&'b TlsInteraction>>>(&self, chain: &TlsCertificate, purpose: &str, identity: Q, interaction: R, flags: TlsDatabaseVerifyFlags) -> Box_<futures_core::Future<Item = (Self, TlsCertificateFlags), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

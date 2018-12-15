@@ -5,11 +5,7 @@
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct SettingsBackend(Object<ffi::GSettingsBackend, ffi::GSettingsBackendClass>);
@@ -20,7 +16,7 @@ glib_wrapper! {
 }
 
 impl SettingsBackend {
-    //pub fn flatten_tree(tree: /*Ignored*/&glib::Tree) -> (String, Vec<String>, Vec<glib::Variant>) {
+    //pub fn flatten_tree(tree: /*Ignored*/&glib::Tree) -> (GString, Vec<GString>, Vec<glib::Variant>) {
     //    unsafe { TODO: call ffi::g_settings_backend_flatten_tree() }
     //}
 
@@ -31,7 +27,7 @@ impl SettingsBackend {
     }
 }
 
-pub trait SettingsBackendExt {
+pub trait SettingsBackendExt: 'static {
     //fn changed<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, origin_tag: P);
 
     //fn changed_tree<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, tree: /*Ignored*/&glib::Tree, origin_tag: P);

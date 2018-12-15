@@ -8,11 +8,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass>): ListModel;
@@ -31,7 +27,7 @@ impl ListStore {
     }
 }
 
-pub trait ListStoreExt {
+pub trait ListStoreExt: 'static {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn append<P: IsA<glib::Object>>(&self, item: &P);
 

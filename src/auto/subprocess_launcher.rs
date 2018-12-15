@@ -11,11 +11,9 @@ use SubprocessFlags;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std;
 use std::fmt;
-use std::mem;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -35,7 +33,7 @@ impl SubprocessLauncher {
     }
 }
 
-pub trait SubprocessLauncherExt {
+pub trait SubprocessLauncherExt: 'static {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn getenv<P: AsRef<std::path::Path>>(&self, variable: P) -> Option<std::path::PathBuf>;
 

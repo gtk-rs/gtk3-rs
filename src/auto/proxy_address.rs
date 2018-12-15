@@ -7,14 +7,11 @@ use InetSocketAddress;
 use SocketAddress;
 use SocketConnectable;
 use ffi;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass>): InetSocketAddress, SocketAddress, SocketConnectable;
@@ -39,26 +36,26 @@ impl ProxyAddress {
 unsafe impl Send for ProxyAddress {}
 unsafe impl Sync for ProxyAddress {}
 
-pub trait ProxyAddressExt {
-    fn get_destination_hostname(&self) -> String;
+pub trait ProxyAddressExt: 'static {
+    fn get_destination_hostname(&self) -> GString;
 
     fn get_destination_port(&self) -> u16;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_destination_protocol(&self) -> Option<String>;
+    fn get_destination_protocol(&self) -> Option<GString>;
 
-    fn get_password(&self) -> Option<String>;
+    fn get_password(&self) -> Option<GString>;
 
-    fn get_protocol(&self) -> String;
+    fn get_protocol(&self) -> GString;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_uri(&self) -> Option<String>;
+    fn get_uri(&self) -> Option<GString>;
 
-    fn get_username(&self) -> Option<String>;
+    fn get_username(&self) -> Option<GString>;
 }
 
 impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
-    fn get_destination_hostname(&self) -> String {
+    fn get_destination_hostname(&self) -> GString {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_destination_hostname(self.to_glib_none().0))
         }
@@ -71,32 +68,32 @@ impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_destination_protocol(&self) -> Option<String> {
+    fn get_destination_protocol(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_destination_protocol(self.to_glib_none().0))
         }
     }
 
-    fn get_password(&self) -> Option<String> {
+    fn get_password(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_password(self.to_glib_none().0))
         }
     }
 
-    fn get_protocol(&self) -> String {
+    fn get_protocol(&self) -> GString {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_protocol(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_uri(&self) -> Option<String> {
+    fn get_uri(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_uri(self.to_glib_none().0))
         }
     }
 
-    fn get_username(&self) -> Option<String> {
+    fn get_username(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_proxy_address_get_username(self.to_glib_none().0))
         }

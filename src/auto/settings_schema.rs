@@ -5,11 +5,8 @@
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use SettingsSchemaKey;
 use ffi;
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -23,7 +20,7 @@ glib_wrapper! {
 }
 
 impl SettingsSchema {
-    pub fn get_id(&self) -> Option<String> {
+    pub fn get_id(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_get_id(self.to_glib_none().0))
         }
@@ -36,7 +33,7 @@ impl SettingsSchema {
         }
     }
 
-    pub fn get_path(&self) -> Option<String> {
+    pub fn get_path(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_get_path(self.to_glib_none().0))
         }
@@ -50,14 +47,14 @@ impl SettingsSchema {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    pub fn list_children(&self) -> Vec<String> {
+    pub fn list_children(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_children(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
-    pub fn list_keys(&self) -> Vec<String> {
+    pub fn list_keys(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_schema_list_keys(self.to_glib_none().0))
         }

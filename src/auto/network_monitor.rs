@@ -10,17 +10,15 @@ use SocketConnectable;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -40,13 +38,13 @@ impl NetworkMonitor {
     }
 }
 
-pub trait NetworkMonitorExt: Sized {
+pub trait NetworkMonitorExt: 'static {
     fn can_reach<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>>(&self, connectable: &P, cancellable: Q) -> Result<(), Error>;
 
     fn can_reach_async<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, connectable: &P, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn get_connectivity(&self) -> NetworkConnectivity;
@@ -67,7 +65,7 @@ pub trait NetworkMonitorExt: Sized {
     fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> NetworkMonitorExt for O {
+impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     fn can_reach<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>>(&self, connectable: &P, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -97,7 +95,7 @@ impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> Netwo
     }
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -143,7 +141,7 @@ impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> Netwo
     fn connect_network_changed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, bool) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "network-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"network-changed\0".as_ptr() as *const _,
                 transmute(network_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -152,7 +150,7 @@ impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> Netwo
     fn connect_property_connectivity_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::connectivity",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::connectivity\0".as_ptr() as *const _,
                 transmute(notify_connectivity_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -160,7 +158,7 @@ impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> Netwo
     fn connect_property_network_available_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::network-available",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::network-available\0".as_ptr() as *const _,
                 transmute(notify_network_available_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -169,7 +167,7 @@ impl<O: IsA<NetworkMonitor> + IsA<glib::object::Object> + Clone + 'static> Netwo
     fn connect_property_network_metered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::network-metered",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::network-metered\0".as_ptr() as *const _,
                 transmute(notify_network_metered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

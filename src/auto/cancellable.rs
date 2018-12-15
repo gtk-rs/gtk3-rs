@@ -5,14 +5,12 @@
 use Error;
 use ffi;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -98,7 +96,7 @@ impl Cancellable {
     pub fn connect_cancelled<F: Fn(&Cancellable) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Cancellable) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "cancelled",
+            connect_raw(self.to_glib_none().0, b"cancelled\0".as_ptr() as *const _,
                 transmute(cancelled_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }

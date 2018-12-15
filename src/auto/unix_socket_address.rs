@@ -6,16 +6,12 @@ use SocketAddress;
 use SocketConnectable;
 use UnixSocketAddressType;
 use ffi;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
 use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct UnixSocketAddress(Object<ffi::GUnixSocketAddress, ffi::GUnixSocketAddressClass>): SocketAddress, SocketConnectable;
@@ -44,7 +40,7 @@ impl UnixSocketAddress {
 unsafe impl Send for UnixSocketAddress {}
 unsafe impl Sync for UnixSocketAddress {}
 
-pub trait UnixSocketAddressExt {
+pub trait UnixSocketAddressExt: 'static {
     fn get_address_type(&self) -> UnixSocketAddressType;
 
     fn get_is_abstract(&self) -> bool;
@@ -56,7 +52,7 @@ pub trait UnixSocketAddressExt {
     //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray>;
 }
 
-impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt for O {
+impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
     fn get_address_type(&self) -> UnixSocketAddressType {
         unsafe {
             from_glib(ffi::g_unix_socket_address_get_address_type(self.to_glib_none().0))
@@ -78,7 +74,7 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
     fn get_property_abstract(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "abstract".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"abstract\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -86,7 +82,7 @@ impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExt
     //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray> {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "path-as-array".to_glib_none().0, value.to_glib_none_mut().0);
+    //        gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"path-as-array\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get()
     //    }
     //}

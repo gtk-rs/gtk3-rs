@@ -9,11 +9,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct BytesIcon(Object<ffi::GBytesIcon>): Icon, LoadableIcon;
@@ -32,7 +28,7 @@ impl BytesIcon {
     }
 }
 
-pub trait BytesIconExt {
+pub trait BytesIconExt: 'static {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn get_bytes(&self) -> Option<glib::Bytes>;
 }

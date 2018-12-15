@@ -4,12 +4,10 @@
 
 use MenuModel;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -20,10 +18,10 @@ glib_wrapper! {
     }
 }
 
-pub trait MenuLinkIterExt {
-    fn get_name(&self) -> Option<String>;
+pub trait MenuLinkIterExt: 'static {
+    fn get_name(&self) -> Option<GString>;
 
-    fn get_next(&self) -> Option<(String, MenuModel)>;
+    fn get_next(&self) -> Option<(GString, MenuModel)>;
 
     fn get_value(&self) -> Option<MenuModel>;
 
@@ -31,13 +29,13 @@ pub trait MenuLinkIterExt {
 }
 
 impl<O: IsA<MenuLinkIter>> MenuLinkIterExt for O {
-    fn get_name(&self) -> Option<String> {
+    fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_menu_link_iter_get_name(self.to_glib_none().0))
         }
     }
 
-    fn get_next(&self) -> Option<(String, MenuModel)> {
+    fn get_next(&self) -> Option<(GString, MenuModel)> {
         unsafe {
             let mut out_link = ptr::null();
             let mut value = ptr::null_mut();

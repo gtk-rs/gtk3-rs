@@ -8,15 +8,12 @@ use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct SimpleAction(Object<ffi::GSimpleAction>): Action;
@@ -44,7 +41,7 @@ impl SimpleAction {
     }
 }
 
-pub trait SimpleActionExt {
+pub trait SimpleActionExt: 'static {
     fn set_enabled(&self, enabled: bool);
 
     fn set_state(&self, value: &glib::Variant);
@@ -61,7 +58,7 @@ pub trait SimpleActionExt {
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
+impl<O: IsA<SimpleAction>> SimpleActionExt for O {
     fn set_enabled(&self, enabled: bool) {
         unsafe {
             ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
@@ -86,7 +83,7 @@ impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
     fn connect_activate<F: Fn(&Self, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Option<glib::Variant>) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "activate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"activate\0".as_ptr() as *const _,
                 transmute(activate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -94,7 +91,7 @@ impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
     fn connect_change_state<F: Fn(&Self, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Option<glib::Variant>) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "change-state",
+            connect_raw(self.to_glib_none().0 as *mut _, b"change-state\0".as_ptr() as *const _,
                 transmute(change_state_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -102,7 +99,7 @@ impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
     fn connect_property_enabled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::enabled",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::enabled\0".as_ptr() as *const _,
                 transmute(notify_enabled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -110,7 +107,7 @@ impl<O: IsA<SimpleAction> + IsA<glib::object::Object>> SimpleActionExt for O {
     fn connect_property_state_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::state-type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::state-type\0".as_ptr() as *const _,
                 transmute(notify_state_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

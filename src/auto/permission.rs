@@ -7,17 +7,15 @@ use Error;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -29,13 +27,13 @@ glib_wrapper! {
     }
 }
 
-pub trait PermissionExt: Sized {
+pub trait PermissionExt: 'static {
     fn acquire<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn acquire_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn acquire_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn acquire_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_allowed(&self) -> bool;
 
@@ -50,7 +48,7 @@ pub trait PermissionExt: Sized {
     fn release_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn release_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn release_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -59,7 +57,7 @@ pub trait PermissionExt: Sized {
     fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> PermissionExt for O {
+impl<O: IsA<Permission>> PermissionExt for O {
     fn acquire<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -89,7 +87,7 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
     }
 
     #[cfg(feature = "futures")]
-    fn acquire_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn acquire_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -163,7 +161,7 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
     }
 
     #[cfg(feature = "futures")]
-    fn release_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn release_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -187,7 +185,7 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
     fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::allowed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::allowed\0".as_ptr() as *const _,
                 transmute(notify_allowed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -195,7 +193,7 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
     fn connect_property_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::can-acquire",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::can-acquire\0".as_ptr() as *const _,
                 transmute(notify_can_acquire_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -203,7 +201,7 @@ impl<O: IsA<Permission> + IsA<glib::object::Object> + Clone + 'static> Permissio
     fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::can-release",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::can-release\0".as_ptr() as *const _,
                 transmute(notify_can_release_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

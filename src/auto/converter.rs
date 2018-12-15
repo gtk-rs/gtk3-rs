@@ -5,11 +5,7 @@
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Converter(Object<ffi::GConverter, ffi::GConverterIface>);
@@ -19,7 +15,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ConverterExt {
+pub trait ConverterExt: 'static {
     fn reset(&self);
 }
 

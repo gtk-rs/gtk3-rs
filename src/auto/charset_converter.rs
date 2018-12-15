@@ -5,19 +5,18 @@
 use Converter;
 use Error;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -39,21 +38,21 @@ impl CharsetConverter {
     }
 }
 
-pub trait CharsetConverterExt {
+pub trait CharsetConverterExt: 'static {
     fn get_num_fallbacks(&self) -> u32;
 
     fn get_use_fallback(&self) -> bool;
 
     fn set_use_fallback(&self, use_fallback: bool);
 
-    fn get_property_from_charset(&self) -> Option<String>;
+    fn get_property_from_charset(&self) -> Option<GString>;
 
-    fn get_property_to_charset(&self) -> Option<String>;
+    fn get_property_to_charset(&self) -> Option<GString>;
 
     fn connect_property_use_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<CharsetConverter> + IsA<glib::object::Object>> CharsetConverterExt for O {
+impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
     fn get_num_fallbacks(&self) -> u32 {
         unsafe {
             ffi::g_charset_converter_get_num_fallbacks(self.to_glib_none().0)
@@ -72,18 +71,18 @@ impl<O: IsA<CharsetConverter> + IsA<glib::object::Object>> CharsetConverterExt f
         }
     }
 
-    fn get_property_from_charset(&self) -> Option<String> {
+    fn get_property_from_charset(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "from-charset".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"from-charset\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
-    fn get_property_to_charset(&self) -> Option<String> {
+    fn get_property_to_charset(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "to-charset".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"to-charset\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -91,7 +90,7 @@ impl<O: IsA<CharsetConverter> + IsA<glib::object::Object>> CharsetConverterExt f
     fn connect_property_use_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::use-fallback",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::use-fallback\0".as_ptr() as *const _,
                 transmute(notify_use_fallback_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

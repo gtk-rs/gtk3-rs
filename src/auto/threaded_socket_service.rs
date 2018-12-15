@@ -12,15 +12,13 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass>): SocketService, SocketListener;
@@ -38,17 +36,17 @@ impl ThreadedSocketService {
     }
 }
 
-pub trait ThreadedSocketServiceExt {
+pub trait ThreadedSocketServiceExt: 'static {
     fn get_property_max_threads(&self) -> i32;
 
     fn connect_run<F: Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<ThreadedSocketService> + IsA<glib::object::Object>> ThreadedSocketServiceExt for O {
+impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
     fn get_property_max_threads(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "max-threads".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"max-threads\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -56,7 +54,7 @@ impl<O: IsA<ThreadedSocketService> + IsA<glib::object::Object>> ThreadedSocketSe
     fn connect_run<F: Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "run",
+            connect_raw(self.to_glib_none().0 as *mut _, b"run\0".as_ptr() as *const _,
                 transmute(run_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

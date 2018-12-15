@@ -13,16 +13,18 @@ use ffi;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 use futures_core;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
 use glib_ffi;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
 use gobject_ffi;
 use std;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -143,7 +145,7 @@ impl AppInfo {
     }
 }
 
-pub trait AppInfoExt {
+pub trait AppInfoExt: 'static {
     fn add_supports_type(&self, content_type: &str) -> Result<(), Error>;
 
     fn can_delete(&self) -> bool;
@@ -158,20 +160,20 @@ pub trait AppInfoExt {
 
     fn get_commandline(&self) -> Option<std::path::PathBuf>;
 
-    fn get_description(&self) -> Option<String>;
+    fn get_description(&self) -> Option<GString>;
 
-    fn get_display_name(&self) -> Option<String>;
+    fn get_display_name(&self) -> Option<GString>;
 
     fn get_executable(&self) -> Option<std::path::PathBuf>;
 
     fn get_icon(&self) -> Option<Icon>;
 
-    fn get_id(&self) -> Option<String>;
+    fn get_id(&self) -> Option<GString>;
 
-    fn get_name(&self) -> Option<String>;
+    fn get_name(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_supported_types(&self) -> Vec<String>;
+    fn get_supported_types(&self) -> Vec<GString>;
 
     fn launch<'a, P: Into<Option<&'a AppLaunchContext>>>(&self, files: &[File], context: P) -> Result<(), Error>;
 
@@ -237,13 +239,13 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_description(&self) -> Option<String> {
+    fn get_description(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_description(self.to_glib_none().0))
         }
     }
 
-    fn get_display_name(&self) -> Option<String> {
+    fn get_display_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_display_name(self.to_glib_none().0))
         }
@@ -261,20 +263,20 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn get_id(&self) -> Option<String> {
+    fn get_id(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_id(self.to_glib_none().0))
         }
     }
 
-    fn get_name(&self) -> Option<String> {
+    fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_app_info_get_name(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_supported_types(&self) -> Vec<String> {
+    fn get_supported_types(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_app_info_get_supported_types(self.to_glib_none().0))
         }

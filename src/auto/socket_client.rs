@@ -18,19 +18,17 @@ use TlsCertificateFlags;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -56,7 +54,7 @@ impl Default for SocketClient {
     }
 }
 
-pub trait SocketClientExt: Sized {
+pub trait SocketClientExt: 'static {
     fn add_application_proxy(&self, protocol: &str);
 
     fn connect<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>>(&self, connectable: &P, cancellable: Q) -> Result<SocketConnection, Error>;
@@ -64,28 +62,28 @@ pub trait SocketClientExt: Sized {
     fn connect_async<'a, P: IsA<SocketConnectable>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, connectable: &P, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_host<'a, P: Into<Option<&'a Cancellable>>>(&self, host_and_port: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_host_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, host_and_port: &str, default_port: u16, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_service<'a, P: Into<Option<&'a Cancellable>>>(&self, domain: &str, service: &str, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_service_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, domain: &str, service: &str, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_uri<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, default_port: u16, cancellable: P) -> Result<SocketConnection, Error>;
 
     fn connect_to_uri_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, uri: &str, default_port: u16, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>>;
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_enable_proxy(&self) -> bool;
 
@@ -151,7 +149,7 @@ pub trait SocketClientExt: Sized {
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketClientExt for O {
+impl<O: IsA<SocketClient>> SocketClientExt for O {
     fn add_application_proxy(&self, protocol: &str) {
         unsafe {
             ffi::g_socket_client_add_application_proxy(self.to_glib_none().0, protocol.to_glib_none().0);
@@ -187,7 +185,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -239,7 +237,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -292,7 +290,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -346,7 +344,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> {
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -487,21 +485,21 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn get_property_type(&self) -> SocketType {
         unsafe {
             let mut value = Value::from_type(<SocketType as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "type".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_type(&self, type_: SocketType) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "type".to_glib_none().0, Value::from(&type_).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"type\0".as_ptr() as *const _, Value::from(&type_).to_glib_none().0);
         }
     }
 
     fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, &Option<IOStream>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, SocketClientEvent, &SocketConnectable, &Option<IOStream>) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "event",
+            connect_raw(self.to_glib_none().0 as *mut _, b"event\0".as_ptr() as *const _,
                 transmute(event_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -509,7 +507,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::enable-proxy",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::enable-proxy\0".as_ptr() as *const _,
                 transmute(notify_enable_proxy_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -517,7 +515,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::family",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::family\0".as_ptr() as *const _,
                 transmute(notify_family_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -525,7 +523,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_local_address_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::local-address",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::local-address\0".as_ptr() as *const _,
                 transmute(notify_local_address_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -533,7 +531,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::protocol",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::protocol\0".as_ptr() as *const _,
                 transmute(notify_protocol_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -542,7 +540,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::proxy-resolver",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::proxy-resolver\0".as_ptr() as *const _,
                 transmute(notify_proxy_resolver_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -550,7 +548,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::timeout",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::timeout\0".as_ptr() as *const _,
                 transmute(notify_timeout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -558,7 +556,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::tls",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::tls\0".as_ptr() as *const _,
                 transmute(notify_tls_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -566,7 +564,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_tls_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::tls-validation-flags",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::tls-validation-flags\0".as_ptr() as *const _,
                 transmute(notify_tls_validation_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -574,7 +572,7 @@ impl<O: IsA<SocketClient> + IsA<glib::object::Object> + Clone + 'static> SocketC
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::type\0".as_ptr() as *const _,
                 transmute(notify_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

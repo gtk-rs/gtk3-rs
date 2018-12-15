@@ -9,17 +9,14 @@ use FilterOutputStream;
 use OutputStream;
 use Seekable;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -39,7 +36,7 @@ impl DataOutputStream {
     }
 }
 
-pub trait DataOutputStreamExt {
+pub trait DataOutputStreamExt: 'static {
     fn get_byte_order(&self) -> DataStreamByteOrder;
 
     fn put_byte<'a, P: Into<Option<&'a Cancellable>>>(&self, data: u8, cancellable: P) -> Result<(), Error>;
@@ -63,7 +60,7 @@ pub trait DataOutputStreamExt {
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<DataOutputStream> + IsA<glib::object::Object>> DataOutputStreamExt for O {
+impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn get_byte_order(&self) -> DataStreamByteOrder {
         unsafe {
             from_glib(ffi::g_data_output_stream_get_byte_order(self.to_glib_none().0))
@@ -159,7 +156,7 @@ impl<O: IsA<DataOutputStream> + IsA<glib::object::Object>> DataOutputStreamExt f
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::byte-order",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::byte-order\0".as_ptr() as *const _,
                 transmute(notify_byte_order_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

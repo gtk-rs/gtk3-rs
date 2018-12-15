@@ -6,12 +6,11 @@ use Error;
 use ffi;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -45,13 +44,13 @@ impl Icon {
     }
 }
 
-pub trait IconExt {
+pub trait IconExt: 'static {
     fn equal<'a, P: IsA<Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon2: Q) -> bool;
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn serialize(&self) -> Option<glib::Variant>;
 
-    fn to_string(&self) -> Option<String>;
+    fn to_string(&self) -> Option<GString>;
 }
 
 impl<O: IsA<Icon>> IconExt for O {
@@ -70,7 +69,7 @@ impl<O: IsA<Icon>> IconExt for O {
         }
     }
 
-    fn to_string(&self) -> Option<String> {
+    fn to_string(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_icon_to_string(self.to_glib_none().0))
         }

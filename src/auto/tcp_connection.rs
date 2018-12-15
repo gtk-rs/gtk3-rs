@@ -5,19 +5,15 @@
 use IOStream;
 use SocketConnection;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct TcpConnection(Object<ffi::GTcpConnection, ffi::GTcpConnectionClass>): SocketConnection, IOStream;
@@ -27,7 +23,7 @@ glib_wrapper! {
     }
 }
 
-pub trait TcpConnectionExt {
+pub trait TcpConnectionExt: 'static {
     fn get_graceful_disconnect(&self) -> bool;
 
     fn set_graceful_disconnect(&self, graceful_disconnect: bool);
@@ -35,7 +31,7 @@ pub trait TcpConnectionExt {
     fn connect_property_graceful_disconnect_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<TcpConnection> + IsA<glib::object::Object>> TcpConnectionExt for O {
+impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
     fn get_graceful_disconnect(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tcp_connection_get_graceful_disconnect(self.to_glib_none().0))
@@ -51,7 +47,7 @@ impl<O: IsA<TcpConnection> + IsA<glib::object::Object>> TcpConnectionExt for O {
     fn connect_property_graceful_disconnect_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::graceful-disconnect",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::graceful-disconnect\0".as_ptr() as *const _,
                 transmute(notify_graceful_disconnect_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

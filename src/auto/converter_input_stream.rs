@@ -10,11 +10,7 @@ use ffi;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ConverterInputStream(Object<ffi::GConverterInputStream, ffi::GConverterInputStreamClass>): FilterInputStream, InputStream, PollableInputStream;
@@ -32,7 +28,7 @@ impl ConverterInputStream {
     }
 }
 
-pub trait ConverterInputStreamExt {
+pub trait ConverterInputStreamExt: 'static {
     fn get_converter(&self) -> Option<Converter>;
 }
 

@@ -7,9 +7,8 @@ use InputStream;
 use ResourceLookupFlags;
 use ffi;
 use glib;
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std;
 use std::mem;
 use std::ptr;
@@ -26,7 +25,7 @@ glib_wrapper! {
 }
 
 impl Resource {
-    pub fn enumerate_children(&self, path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<String>, Error> {
+    pub fn enumerate_children(&self, path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_resource_enumerate_children(self.to_glib_none().0, path.to_glib_none().0, lookup_flags.to_glib(), &mut error);

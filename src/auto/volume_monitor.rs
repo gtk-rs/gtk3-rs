@@ -6,19 +6,15 @@ use Drive;
 use Mount;
 use Volume;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct VolumeMonitor(Object<ffi::GVolumeMonitor, ffi::GVolumeMonitorClass>);
@@ -43,7 +39,7 @@ impl VolumeMonitor {
     }
 }
 
-pub trait VolumeMonitorExt {
+pub trait VolumeMonitorExt: 'static {
     fn get_connected_drives(&self) -> Vec<Drive>;
 
     fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount>;
@@ -79,7 +75,7 @@ pub trait VolumeMonitorExt {
     fn connect_volume_removed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
+impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
     fn get_connected_drives(&self) -> Vec<Drive> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_volume_monitor_get_connected_drives(self.to_glib_none().0))
@@ -113,7 +109,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_drive_changed<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drive-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drive-changed\0".as_ptr() as *const _,
                 transmute(drive_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -121,7 +117,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_drive_connected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drive-connected",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drive-connected\0".as_ptr() as *const _,
                 transmute(drive_connected_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -129,7 +125,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_drive_disconnected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drive-disconnected",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drive-disconnected\0".as_ptr() as *const _,
                 transmute(drive_disconnected_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -137,7 +133,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_drive_eject_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drive-eject-button",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drive-eject-button\0".as_ptr() as *const _,
                 transmute(drive_eject_button_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -145,7 +141,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_drive_stop_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drive-stop-button",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drive-stop-button\0".as_ptr() as *const _,
                 transmute(drive_stop_button_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -153,7 +149,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_mount_added<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "mount-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"mount-added\0".as_ptr() as *const _,
                 transmute(mount_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -161,7 +157,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_mount_changed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "mount-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"mount-changed\0".as_ptr() as *const _,
                 transmute(mount_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -169,7 +165,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_mount_pre_unmount<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "mount-pre-unmount",
+            connect_raw(self.to_glib_none().0 as *mut _, b"mount-pre-unmount\0".as_ptr() as *const _,
                 transmute(mount_pre_unmount_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -177,7 +173,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_mount_removed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "mount-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"mount-removed\0".as_ptr() as *const _,
                 transmute(mount_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -185,7 +181,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_volume_added<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "volume-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"volume-added\0".as_ptr() as *const _,
                 transmute(volume_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -193,7 +189,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_volume_changed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "volume-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"volume-changed\0".as_ptr() as *const _,
                 transmute(volume_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -201,7 +197,7 @@ impl<O: IsA<VolumeMonitor> + IsA<glib::object::Object>> VolumeMonitorExt for O {
     fn connect_volume_removed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "volume-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"volume-removed\0".as_ptr() as *const _,
                 transmute(volume_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

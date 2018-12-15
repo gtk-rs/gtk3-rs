@@ -11,11 +11,7 @@ use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct MemoryInputStream(Object<ffi::GMemoryInputStream, ffi::GMemoryInputStreamClass>): InputStream, PollableInputStream, Seekable;
@@ -46,7 +42,7 @@ impl Default for MemoryInputStream {
     }
 }
 
-pub trait MemoryInputStreamExt {
+pub trait MemoryInputStreamExt: 'static {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn add_bytes(&self, bytes: &glib::Bytes);
 }

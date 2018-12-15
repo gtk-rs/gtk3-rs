@@ -5,11 +5,10 @@
 use ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+use glib::GString;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -31,14 +30,14 @@ impl SettingsSchemaKey {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn get_description(&self) -> Option<String> {
+    pub fn get_description(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_description(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    pub fn get_name(&self) -> Option<String> {
+    pub fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_name(self.to_glib_none().0))
         }
@@ -52,7 +51,7 @@ impl SettingsSchemaKey {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn get_summary(&self) -> Option<String> {
+    pub fn get_summary(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_settings_schema_key_get_summary(self.to_glib_none().0))
         }

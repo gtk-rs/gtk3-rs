@@ -9,7 +9,6 @@ use ProxyAddress;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -17,7 +16,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -36,18 +34,18 @@ impl Proxy {
     }
 }
 
-pub trait ProxyExt: Sized {
+pub trait ProxyExt: 'static {
     fn connect<'a, P: IsA<IOStream>, Q: Into<Option<&'a Cancellable>>>(&self, connection: &P, proxy_address: &ProxyAddress, cancellable: Q) -> Result<IOStream, Error>;
 
     fn connect_async<'a, P: IsA<IOStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &ProxyAddress, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static>(&self, connection: &P, proxy_address: &ProxyAddress) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>>;
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static>(&self, connection: &P, proxy_address: &ProxyAddress) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn supports_hostname(&self) -> bool;
 }
 
-impl<O: IsA<Proxy> + IsA<glib::object::Object> + Clone + 'static> ProxyExt for O {
+impl<O: IsA<Proxy>> ProxyExt for O {
     fn connect<'a, P: IsA<IOStream>, Q: Into<Option<&'a Cancellable>>>(&self, connection: &P, proxy_address: &ProxyAddress, cancellable: Q) -> Result<IOStream, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -77,7 +75,7 @@ impl<O: IsA<Proxy> + IsA<glib::object::Object> + Clone + 'static> ProxyExt for O
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static>(&self, connection: &P, proxy_address: &ProxyAddress) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> {
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static>(&self, connection: &P, proxy_address: &ProxyAddress) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

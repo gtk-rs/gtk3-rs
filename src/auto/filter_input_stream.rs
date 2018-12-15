@@ -4,19 +4,15 @@
 
 use InputStream;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FilterInputStream(Object<ffi::GFilterInputStream, ffi::GFilterInputStreamClass>): InputStream;
@@ -26,7 +22,7 @@ glib_wrapper! {
     }
 }
 
-pub trait FilterInputStreamExt {
+pub trait FilterInputStreamExt: 'static {
     fn get_base_stream(&self) -> Option<InputStream>;
 
     fn get_close_base_stream(&self) -> bool;
@@ -36,7 +32,7 @@ pub trait FilterInputStreamExt {
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<FilterInputStream> + IsA<glib::object::Object>> FilterInputStreamExt for O {
+impl<O: IsA<FilterInputStream>> FilterInputStreamExt for O {
     fn get_base_stream(&self) -> Option<InputStream> {
         unsafe {
             from_glib_none(ffi::g_filter_input_stream_get_base_stream(self.to_glib_none().0))
@@ -58,7 +54,7 @@ impl<O: IsA<FilterInputStream> + IsA<glib::object::Object>> FilterInputStreamExt
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::close-base-stream",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::close-base-stream\0".as_ptr() as *const _,
                 transmute(notify_close_base_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

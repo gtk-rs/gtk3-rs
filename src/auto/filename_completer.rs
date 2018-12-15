@@ -3,19 +3,16 @@
 // DO NOT EDIT
 
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FilenameCompleter(Object<ffi::GFilenameCompleter, ffi::GFilenameCompleterClass>);
@@ -39,24 +36,24 @@ impl Default for FilenameCompleter {
     }
 }
 
-pub trait FilenameCompleterExt {
-    fn get_completion_suffix(&self, initial_text: &str) -> Option<String>;
+pub trait FilenameCompleterExt: 'static {
+    fn get_completion_suffix(&self, initial_text: &str) -> Option<GString>;
 
-    fn get_completions(&self, initial_text: &str) -> Vec<String>;
+    fn get_completions(&self, initial_text: &str) -> Vec<GString>;
 
     fn set_dirs_only(&self, dirs_only: bool);
 
     fn connect_got_completion_data<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<FilenameCompleter> + IsA<glib::object::Object>> FilenameCompleterExt for O {
-    fn get_completion_suffix(&self, initial_text: &str) -> Option<String> {
+impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
+    fn get_completion_suffix(&self, initial_text: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_filename_completer_get_completion_suffix(self.to_glib_none().0, initial_text.to_glib_none().0))
         }
     }
 
-    fn get_completions(&self, initial_text: &str) -> Vec<String> {
+    fn get_completions(&self, initial_text: &str) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_filename_completer_get_completions(self.to_glib_none().0, initial_text.to_glib_none().0))
         }
@@ -71,7 +68,7 @@ impl<O: IsA<FilenameCompleter> + IsA<glib::object::Object>> FilenameCompleterExt
     fn connect_got_completion_data<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "got-completion-data",
+            connect_raw(self.to_glib_none().0 as *mut _, b"got-completion-data\0".as_ptr() as *const _,
                 transmute(got_completion_data_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

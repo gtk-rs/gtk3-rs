@@ -5,21 +5,18 @@
 use File;
 use FileMonitorEvent;
 use ffi;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FileMonitor(Object<ffi::GFileMonitor, ffi::GFileMonitorClass>);
@@ -29,7 +26,7 @@ glib_wrapper! {
     }
 }
 
-pub trait FileMonitorExt {
+pub trait FileMonitorExt: 'static {
     fn cancel(&self) -> bool;
 
     fn emit_event<P: IsA<File>, Q: IsA<File>>(&self, child: &P, other_file: &Q, event_type: FileMonitorEvent);
@@ -49,7 +46,7 @@ pub trait FileMonitorExt {
     fn connect_property_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
+impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn cancel(&self) -> bool {
         unsafe {
             from_glib(ffi::g_file_monitor_cancel(self.to_glib_none().0))
@@ -77,7 +74,7 @@ impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
     fn get_property_cancelled(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "cancelled".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"cancelled\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -85,7 +82,7 @@ impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
     fn get_property_rate_limit(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "rate-limit".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"rate-limit\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -93,7 +90,7 @@ impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
     fn connect_changed<F: Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -101,7 +98,7 @@ impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
     fn connect_property_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::cancelled",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::cancelled\0".as_ptr() as *const _,
                 transmute(notify_cancelled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -109,7 +106,7 @@ impl<O: IsA<FileMonitor> + IsA<glib::object::Object>> FileMonitorExt for O {
     fn connect_property_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::rate-limit",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::rate-limit\0".as_ptr() as *const _,
                 transmute(notify_rate_limit_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

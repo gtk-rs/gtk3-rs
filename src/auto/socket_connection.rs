@@ -20,7 +20,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -45,13 +44,13 @@ impl SocketConnection {
     }
 }
 
-pub trait SocketConnectionExt: Sized {
+pub trait SocketConnectionExt: 'static {
     fn connect<'a, P: IsA<SocketAddress>, Q: Into<Option<&'a Cancellable>>>(&self, address: &P, cancellable: Q) -> Result<(), Error>;
 
     fn connect_async<'a, P: IsA<SocketAddress>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_local_address(&self) -> Result<SocketAddress, Error>;
 
@@ -62,7 +61,7 @@ pub trait SocketConnectionExt: Sized {
     fn is_connected(&self) -> bool;
 }
 
-impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> SocketConnectionExt for O {
+impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
     fn connect<'a, P: IsA<SocketAddress>, Q: Into<Option<&'a Cancellable>>>(&self, address: &P, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -92,7 +91,7 @@ impl<O: IsA<SocketConnection> + IsA<glib::object::Object> + Clone + 'static> Soc
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

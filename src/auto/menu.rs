@@ -7,11 +7,7 @@ use MenuModel;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Menu(Object<ffi::GMenu>): MenuModel;
@@ -35,7 +31,7 @@ impl Default for Menu {
     }
 }
 
-pub trait MenuExt {
+pub trait MenuExt: 'static {
     fn append<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, label: P, detailed_action: Q);
 
     fn append_item(&self, item: &MenuItem);

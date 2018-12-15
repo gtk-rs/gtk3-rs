@@ -6,18 +6,17 @@ use Error;
 use InetAddress;
 use SocketFamily;
 use ffi;
-use glib;
+use glib::GString;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -50,7 +49,7 @@ impl InetAddressMask {
 unsafe impl Send for InetAddressMask {}
 unsafe impl Sync for InetAddressMask {}
 
-pub trait InetAddressMaskExt {
+pub trait InetAddressMaskExt: 'static {
     fn get_address(&self) -> InetAddress;
 
     fn get_family(&self) -> SocketFamily;
@@ -59,7 +58,7 @@ pub trait InetAddressMaskExt {
 
     fn matches(&self, address: &InetAddress) -> bool;
 
-    fn to_string(&self) -> String;
+    fn to_string(&self) -> GString;
 
     fn set_property_address(&self, address: Option<&InetAddress>);
 
@@ -72,7 +71,7 @@ pub trait InetAddressMaskExt {
     fn connect_property_length_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for O {
+impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
     fn get_address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_address_mask_get_address(self.to_glib_none().0))
@@ -97,7 +96,7 @@ impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for
         }
     }
 
-    fn to_string(&self) -> String {
+    fn to_string(&self) -> GString {
         unsafe {
             from_glib_full(ffi::g_inet_address_mask_to_string(self.to_glib_none().0))
         }
@@ -105,20 +104,20 @@ impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for
 
     fn set_property_address(&self, address: Option<&InetAddress>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "address".to_glib_none().0, Value::from(address).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"address\0".as_ptr() as *const _, Value::from(address).to_glib_none().0);
         }
     }
 
     fn set_property_length(&self, length: u32) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "length".to_glib_none().0, Value::from(&length).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"length\0".as_ptr() as *const _, Value::from(&length).to_glib_none().0);
         }
     }
 
     fn connect_property_address_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::address",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::address\0".as_ptr() as *const _,
                 transmute(notify_address_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -126,7 +125,7 @@ impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::family",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::family\0".as_ptr() as *const _,
                 transmute(notify_family_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -134,7 +133,7 @@ impl<O: IsA<InetAddressMask> + IsA<glib::object::Object>> InetAddressMaskExt for
     fn connect_property_length_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::length",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::length\0".as_ptr() as *const _,
                 transmute(notify_length_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

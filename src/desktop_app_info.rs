@@ -7,9 +7,10 @@ use libc;
 use ffi;
 use glib_ffi;
 use glib::translate::*;
+use glib::GString;
 
 impl DesktopAppInfo {
-    pub fn search(search_string: &str) -> Vec<Vec<String>> {
+    pub fn search(search_string: &str) -> Vec<Vec<GString>> {
         unsafe {
             let out = ffi::g_desktop_app_info_search(search_string.to_glib_none().0);
 
@@ -25,7 +26,7 @@ impl DesktopAppInfo {
                 if tmp.is_null() {
                     break;
                 }
-                let v: Vec<String> = FromGlibPtrContainer::from_glib_full(tmp);
+                let v: Vec<GString> = FromGlibPtrContainer::from_glib_full(tmp);
                 ret.push(v);
                 it += 1;
             }

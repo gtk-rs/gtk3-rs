@@ -7,11 +7,7 @@ use Icon;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Emblem(Object<ffi::GEmblem, ffi::GEmblemClass>): Icon;
@@ -35,7 +31,7 @@ impl Emblem {
     }
 }
 
-pub trait EmblemExt {
+pub trait EmblemExt: 'static {
     fn get_icon(&self) -> Option<Icon>;
 
     fn get_origin(&self) -> EmblemOrigin;

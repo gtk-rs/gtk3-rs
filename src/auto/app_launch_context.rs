@@ -5,27 +5,27 @@
 use AppInfo;
 use File;
 use ffi;
+#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib;
+use glib::GString;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::object::Downcast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use libc;
 use std;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct AppLaunchContext(Object<ffi::GAppLaunchContext, ffi::GAppLaunchContextClass>);
@@ -49,12 +49,12 @@ impl Default for AppLaunchContext {
     }
 }
 
-pub trait AppLaunchContextExt {
-    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<String>;
+pub trait AppLaunchContextExt: 'static {
+    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString>;
 
     fn get_environment(&self) -> Vec<std::ffi::OsString>;
 
-    fn get_startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<String>;
+    fn get_startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString>;
 
     fn launch_failed(&self, startup_notify_id: &str);
 
@@ -69,8 +69,8 @@ pub trait AppLaunchContextExt {
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt for O {
-    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<String> {
+impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
+    fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_app_launch_context_get_display(self.to_glib_none().0, info.to_glib_none().0, files.to_glib_none().0))
         }
@@ -82,7 +82,7 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
         }
     }
 
-    fn get_startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<String> {
+    fn get_startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_app_launch_context_get_startup_notify_id(self.to_glib_none().0, info.to_glib_none().0, files.to_glib_none().0))
         }
@@ -110,7 +110,7 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "launch-failed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"launch-failed\0".as_ptr() as *const _,
                 transmute(launch_failed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -119,7 +119,7 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &AppInfo, &glib::Variant) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "launched",
+            connect_raw(self.to_glib_none().0 as *mut _, b"launched\0".as_ptr() as *const _,
                 transmute(launched_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -129,7 +129,7 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
 unsafe extern "C" fn launch_failed_trampoline<P>(this: *mut ffi::GAppLaunchContext, startup_notify_id: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
-    f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(startup_notify_id))
+    f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(startup_notify_id))
 }
 
 #[cfg(any(feature = "v2_36", feature = "dox"))]
