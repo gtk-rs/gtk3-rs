@@ -3,11 +3,10 @@
 // DO NOT EDIT
 
 use ffi;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
+use glib::GString;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -30,7 +29,7 @@ impl Range {
     }
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
-    pub fn get_description(&mut self) -> Option<String> {
+    pub fn get_description(&mut self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_range_get_description(self.to_glib_none_mut().0))
         }

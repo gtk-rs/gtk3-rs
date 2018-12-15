@@ -5,14 +5,11 @@
 use Component;
 use Object;
 use ffi;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass>): Object, Component;
@@ -37,12 +34,12 @@ impl Default for Plug {
     }
 }
 
-pub trait AtkPlugExt {
-    fn get_id(&self) -> Option<String>;
+pub trait AtkPlugExt: 'static {
+    fn get_id(&self) -> Option<GString>;
 }
 
 impl<O: IsA<Plug>> AtkPlugExt for O {
-    fn get_id(&self) -> Option<String> {
+    fn get_id(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::atk_plug_get_id(self.to_glib_none().0))
         }

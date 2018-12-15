@@ -5,11 +5,7 @@
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass>);
@@ -28,7 +24,7 @@ impl Misc {
     }
 }
 
-pub trait AtkMiscExt {
+pub trait AtkMiscExt: 'static {
     fn threads_enter(&self);
 
     fn threads_leave(&self);

@@ -2,13 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib::GString;
 use glib::translate::*;
 use ffi;
 use std::fmt;
 
 pub struct Attribute {
-    pub name: String,
-    pub value: String,
+    pub name: GString,
+    pub value: GString,
 }
 
 impl fmt::Display for Attribute {
@@ -40,7 +41,7 @@ impl ToGlib for Attribute {
     fn to_glib(&self) -> ffi::AtkAttribute {
         ffi::AtkAttribute {
             name: self.name.to_glib_none().0,
-            value: self.value.to_glib_none().0,
+            value: self.value.to_glib_none().0
         }
     }
 }

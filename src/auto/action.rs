@@ -3,13 +3,10 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Action(Object<ffi::AtkAction, ffi::AtkActionIface>);
@@ -19,18 +16,18 @@ glib_wrapper! {
     }
 }
 
-pub trait AtkActionExt {
+pub trait AtkActionExt: 'static {
     fn do_action(&self, i: i32) -> bool;
 
-    fn get_description(&self, i: i32) -> Option<String>;
+    fn get_description(&self, i: i32) -> Option<GString>;
 
-    fn get_keybinding(&self, i: i32) -> Option<String>;
+    fn get_keybinding(&self, i: i32) -> Option<GString>;
 
-    fn get_localized_name(&self, i: i32) -> Option<String>;
+    fn get_localized_name(&self, i: i32) -> Option<GString>;
 
     fn get_n_actions(&self) -> i32;
 
-    fn get_name(&self, i: i32) -> Option<String>;
+    fn get_name(&self, i: i32) -> Option<GString>;
 
     fn set_description(&self, i: i32, desc: &str) -> bool;
 }
@@ -42,19 +39,19 @@ impl<O: IsA<Action>> AtkActionExt for O {
         }
     }
 
-    fn get_description(&self, i: i32) -> Option<String> {
+    fn get_description(&self, i: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_action_get_description(self.to_glib_none().0, i))
         }
     }
 
-    fn get_keybinding(&self, i: i32) -> Option<String> {
+    fn get_keybinding(&self, i: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_action_get_keybinding(self.to_glib_none().0, i))
         }
     }
 
-    fn get_localized_name(&self, i: i32) -> Option<String> {
+    fn get_localized_name(&self, i: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_action_get_localized_name(self.to_glib_none().0, i))
         }
@@ -66,7 +63,7 @@ impl<O: IsA<Action>> AtkActionExt for O {
         }
     }
 
-    fn get_name(&self, i: i32) -> Option<String> {
+    fn get_name(&self, i: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_action_get_name(self.to_glib_none().0, i))
         }

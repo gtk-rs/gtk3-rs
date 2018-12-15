@@ -5,11 +5,7 @@
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct EditableText(Object<ffi::AtkEditableText, ffi::AtkEditableTextIface>);
@@ -19,7 +15,7 @@ glib_wrapper! {
     }
 }
 
-pub trait EditableTextExt {
+pub trait EditableTextExt: 'static {
     fn copy_text(&self, start_pos: i32, end_pos: i32);
 
     fn cut_text(&self, start_pos: i32, end_pos: i32);

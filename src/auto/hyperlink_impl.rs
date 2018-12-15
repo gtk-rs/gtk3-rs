@@ -6,11 +6,7 @@ use Hyperlink;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct HyperlinkImpl(Object<ffi::AtkHyperlinkImpl, ffi::AtkHyperlinkImplIface>);
@@ -20,7 +16,7 @@ glib_wrapper! {
     }
 }
 
-pub trait HyperlinkImplExt {
+pub trait HyperlinkImplExt: 'static {
     fn get_hyperlink(&self) -> Option<Hyperlink>;
 }
 

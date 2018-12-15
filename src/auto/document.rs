@@ -3,21 +3,18 @@
 // DO NOT EDIT
 
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Document(Object<ffi::AtkDocument, ffi::AtkDocumentIface>);
@@ -27,8 +24,8 @@ glib_wrapper! {
     }
 }
 
-pub trait DocumentExt {
-    fn get_attribute_value(&self, attribute_name: &str) -> Option<String>;
+pub trait DocumentExt: 'static {
+    fn get_attribute_value(&self, attribute_name: &str) -> Option<GString>;
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
@@ -37,10 +34,10 @@ pub trait DocumentExt {
 
     //fn get_document(&self) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
-    fn get_document_type(&self) -> Option<String>;
+    fn get_document_type(&self) -> Option<GString>;
 
     #[cfg_attr(feature = "v2_7_90", deprecated)]
-    fn get_locale(&self) -> Option<String>;
+    fn get_locale(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_page_count(&self) -> i32;
@@ -57,8 +54,8 @@ pub trait DocumentExt {
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
-    fn get_attribute_value(&self, attribute_name: &str) -> Option<String> {
+impl<O: IsA<Document>> DocumentExt for O {
+    fn get_attribute_value(&self, attribute_name: &str) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_document_get_attribute_value(self.to_glib_none().0, attribute_name.to_glib_none().0))
         }
@@ -79,13 +76,13 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
     //    unsafe { TODO: call ffi::atk_document_get_document() }
     //}
 
-    fn get_document_type(&self) -> Option<String> {
+    fn get_document_type(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_document_get_document_type(self.to_glib_none().0))
         }
     }
 
-    fn get_locale(&self) -> Option<String> {
+    fn get_locale(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_document_get_locale(self.to_glib_none().0))
         }
@@ -107,7 +104,7 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "load-complete",
+            connect_raw(self.to_glib_none().0 as *mut _, b"load-complete\0".as_ptr() as *const _,
                 transmute(load_complete_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -115,7 +112,7 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "load-stopped",
+            connect_raw(self.to_glib_none().0 as *mut _, b"load-stopped\0".as_ptr() as *const _,
                 transmute(load_stopped_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -124,7 +121,7 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "page-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"page-changed\0".as_ptr() as *const _,
                 transmute(page_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -132,7 +129,7 @@ impl<O: IsA<Document> + IsA<glib::object::Object>> DocumentExt for O {
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "reload",
+            connect_raw(self.to_glib_none().0 as *mut _, b"reload\0".as_ptr() as *const _,
                 transmute(reload_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

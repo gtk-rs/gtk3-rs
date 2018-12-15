@@ -6,11 +6,7 @@ use StateType;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct StateSet(Object<ffi::AtkStateSet, ffi::AtkStateSetClass>);
@@ -35,7 +31,7 @@ impl Default for StateSet {
     }
 }
 
-pub trait StateSetExt {
+pub trait StateSetExt: 'static {
     fn add_state(&self, type_: StateType) -> bool;
 
     //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 67 });

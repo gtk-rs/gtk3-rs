@@ -4,19 +4,15 @@
 
 use Object;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Selection(Object<ffi::AtkSelection, ffi::AtkSelectionIface>);
@@ -26,7 +22,7 @@ glib_wrapper! {
     }
 }
 
-pub trait SelectionExt {
+pub trait SelectionExt: 'static {
     fn add_selection(&self, i: i32) -> bool;
 
     fn clear_selection(&self) -> bool;
@@ -44,7 +40,7 @@ pub trait SelectionExt {
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Selection> + IsA<glib::object::Object>> SelectionExt for O {
+impl<O: IsA<Selection>> SelectionExt for O {
     fn add_selection(&self, i: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_selection_add_selection(self.to_glib_none().0, i))
@@ -90,7 +86,7 @@ impl<O: IsA<Selection> + IsA<glib::object::Object>> SelectionExt for O {
     fn connect_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "selection-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"selection-changed\0".as_ptr() as *const _,
                 transmute(selection_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

@@ -7,19 +7,16 @@ use Layer;
 use Object;
 use Rectangle;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Component(Object<ffi::AtkComponent, ffi::AtkComponentIface>);
@@ -29,7 +26,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ComponentExt {
+pub trait ComponentExt: 'static {
     //#[cfg_attr(feature = "v2_9_4", deprecated)]
     //fn add_focus_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/FocusHandler) -> u32;
 
@@ -63,7 +60,7 @@ pub trait ComponentExt {
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Component> + IsA<glib::object::Object>> ComponentExt for O {
+impl<O: IsA<Component>> ComponentExt for O {
     //fn add_focus_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/FocusHandler) -> u32 {
     //    unsafe { TODO: call ffi::atk_component_add_focus_handler() }
     //}
@@ -160,7 +157,7 @@ impl<O: IsA<Component> + IsA<glib::object::Object>> ComponentExt for O {
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Rectangle) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "bounds-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"bounds-changed\0".as_ptr() as *const _,
                 transmute(bounds_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
