@@ -9,10 +9,9 @@ use FontFamily;
 use Fontset;
 use Language;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
 use std::ptr;
@@ -25,7 +24,7 @@ glib_wrapper! {
     }
 }
 
-pub trait FontMapExt {
+pub trait FontMapExt: 'static {
     #[cfg(any(feature = "v1_34", feature = "dox"))]
     fn changed(&self);
 
@@ -35,7 +34,7 @@ pub trait FontMapExt {
     fn get_serial(&self) -> u32;
 
     #[cfg_attr(feature = "v1_38", deprecated)]
-    fn get_shape_engine_type(&self) -> Option<String>;
+    fn get_shape_engine_type(&self) -> Option<GString>;
 
     fn list_families(&self) -> Vec<FontFamily>;
 
@@ -65,7 +64,7 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    fn get_shape_engine_type(&self) -> Option<String> {
+    fn get_shape_engine_type(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::pango_font_map_get_shape_engine_type(self.to_glib_none().0))
         }

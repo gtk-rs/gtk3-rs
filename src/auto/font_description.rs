@@ -9,13 +9,10 @@ use Style;
 use Variant;
 use Weight;
 use ffi;
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::hash;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord)]
@@ -49,7 +46,7 @@ impl FontDescription {
         }
     }
 
-    pub fn get_family(&self) -> Option<String> {
+    pub fn get_family(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::pango_font_description_get_family(self.to_glib_none().0))
         }
@@ -165,13 +162,13 @@ impl FontDescription {
         }
     }
 
-    pub fn to_filename(&self) -> Option<String> {
+    pub fn to_filename(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::pango_font_description_to_filename(self.to_glib_none().0))
         }
     }
 
-    fn to_string(&self) -> String {
+    fn to_string(&self) -> GString {
         unsafe {
             from_glib_full(ffi::pango_font_description_to_string(self.to_glib_none().0))
         }

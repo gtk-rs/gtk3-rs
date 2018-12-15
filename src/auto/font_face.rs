@@ -4,10 +4,9 @@
 
 use FontDescription;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
 use std::ptr;
@@ -20,10 +19,10 @@ glib_wrapper! {
     }
 }
 
-pub trait FontFaceExt {
+pub trait FontFaceExt: 'static {
     fn describe(&self) -> Option<FontDescription>;
 
-    fn get_face_name(&self) -> Option<String>;
+    fn get_face_name(&self) -> Option<GString>;
 
     fn is_synthesized(&self) -> bool;
 
@@ -37,7 +36,7 @@ impl<O: IsA<FontFace>> FontFaceExt for O {
         }
     }
 
-    fn get_face_name(&self) -> Option<String> {
+    fn get_face_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::pango_font_face_get_face_name(self.to_glib_none().0))
         }

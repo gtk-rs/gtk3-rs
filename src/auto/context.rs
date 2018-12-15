@@ -16,8 +16,6 @@ use Matrix;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
 use std::ptr;
@@ -44,7 +42,7 @@ impl Default for Context {
     }
 }
 
-pub trait ContextExt {
+pub trait ContextExt: 'static {
     #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn changed(&self);
 

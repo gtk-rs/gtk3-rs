@@ -7,11 +7,7 @@ use FontMetrics;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Fontset(Object<ffi::PangoFontset, ffi::PangoFontsetClass>);
@@ -21,7 +17,7 @@ glib_wrapper! {
     }
 }
 
-pub trait FontsetExt {
+pub trait FontsetExt: 'static {
     //fn foreach<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, func: /*Unknown conversion*//*Unimplemented*/FontsetForeachFunc, data: P);
 
     fn get_font(&self, wc: u32) -> Option<Font>;

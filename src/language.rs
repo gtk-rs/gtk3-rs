@@ -4,6 +4,7 @@
 
 use Script;
 use ffi;
+use glib::GString;
 use glib::translate::*;
 
 pub struct Language(*mut ffi::PangoLanguage);
@@ -70,7 +71,7 @@ impl Language {
         unsafe { from_glib_full(ffi::pango_language_from_string(language.to_glib_none().0)) }
     }
 
-    pub fn to_string(&self) -> String {
+    pub fn to_string(&self) -> GString {
         unsafe { from_glib_full(ffi::pango_language_to_string(self.to_glib_none().0)) }
     }
 
@@ -99,7 +100,7 @@ impl Language {
         }
     }
 
-    pub fn get_sample_string(&self) -> String {
+    pub fn get_sample_string(&self) -> GString {
         unsafe { from_glib_full(ffi::pango_language_get_sample_string(self.to_glib_none().0)) }
     }
 }

@@ -6,9 +6,7 @@ use AttrType;
 use Attribute;
 use ffi;
 use glib::translate::*;
-use glib_ffi;
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
