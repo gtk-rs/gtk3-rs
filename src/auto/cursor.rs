@@ -10,11 +10,9 @@ use ffi;
 use gdk_pixbuf;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
+#[cfg(any(feature = "v3_10", feature = "dox"))]
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Cursor(Object<ffi::GdkCursor>);
@@ -63,7 +61,7 @@ impl Cursor {
     }
 }
 
-pub trait CursorExt {
+pub trait CursorExt: 'static {
     fn get_cursor_type(&self) -> CursorType;
 
     fn get_display(&self) -> Display;

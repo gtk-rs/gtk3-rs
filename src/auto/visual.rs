@@ -8,11 +8,8 @@ use VisualType;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Visual(Object<ffi::GdkVisual>);
@@ -80,7 +77,7 @@ impl Visual {
     }
 }
 
-pub trait VisualExt {
+pub trait VisualExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn get_bits_per_rgb(&self) -> i32;
 

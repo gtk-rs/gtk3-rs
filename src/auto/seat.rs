@@ -11,24 +11,21 @@ use Display;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use SeatCapabilities;
 use ffi;
-use glib;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::object::Downcast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Seat(Object<ffi::GdkSeat>);
@@ -38,7 +35,7 @@ glib_wrapper! {
     }
 }
 
-pub trait SeatExt {
+pub trait SeatExt: 'static {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn get_capabilities(&self) -> SeatCapabilities;
 
@@ -73,7 +70,7 @@ pub trait SeatExt {
     fn connect_tool_removed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
+impl<O: IsA<Seat>> SeatExt for O {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn get_capabilities(&self) -> SeatCapabilities {
         unsafe {
@@ -125,7 +122,7 @@ impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
     fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "device-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"device-added\0".as_ptr() as *const _,
                 transmute(device_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -134,7 +131,7 @@ impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
     fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "device-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"device-removed\0".as_ptr() as *const _,
                 transmute(device_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -143,7 +140,7 @@ impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
     fn connect_tool_added<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &DeviceTool) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "tool-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"tool-added\0".as_ptr() as *const _,
                 transmute(tool_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -152,7 +149,7 @@ impl<O: IsA<Seat> + IsA<glib::object::Object>> SeatExt for O {
     fn connect_tool_removed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &DeviceTool) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "tool-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"tool-removed\0".as_ptr() as *const _,
                 transmute(tool_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

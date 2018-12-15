@@ -9,11 +9,7 @@ use cairo;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DrawingContext(Object<ffi::GdkDrawingContext, ffi::GdkDrawingContextClass>);
@@ -23,7 +19,7 @@ glib_wrapper! {
     }
 }
 
-pub trait DrawingContextExt {
+pub trait DrawingContextExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_cairo_context(&self) -> Option<cairo::Context>;
 

@@ -15,14 +15,13 @@ use Screen;
 use Seat;
 use Window;
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -61,7 +60,7 @@ impl Display {
     }
 }
 
-pub trait DisplayExt {
+pub trait DisplayExt: 'static {
     fn beep(&self);
 
     fn close(&self);
@@ -103,7 +102,7 @@ pub trait DisplayExt {
     #[cfg_attr(feature = "v3_10", deprecated)]
     fn get_n_screens(&self) -> i32;
 
-    fn get_name(&self) -> String;
+    fn get_name(&self) -> GString;
 
     #[deprecated]
     fn get_pointer(&self) -> (Screen, i32, i32, ModifierType);
@@ -187,7 +186,7 @@ pub trait DisplayExt {
     fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
+impl<O: IsA<Display>> DisplayExt for O {
     fn beep(&self) {
         unsafe {
             ffi::gdk_display_beep(self.to_glib_none().0);
@@ -298,7 +297,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
         }
     }
 
-    fn get_name(&self) -> String {
+    fn get_name(&self) -> GString {
         unsafe {
             from_glib_none(ffi::gdk_display_get_name(self.to_glib_none().0))
         }
@@ -480,7 +479,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_closed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, bool) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "closed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"closed\0".as_ptr() as *const _,
                 transmute(closed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -489,7 +488,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_monitor_added<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Monitor) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "monitor-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"monitor-added\0".as_ptr() as *const _,
                 transmute(monitor_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -498,7 +497,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_monitor_removed<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Monitor) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "monitor-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"monitor-removed\0".as_ptr() as *const _,
                 transmute(monitor_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -506,7 +505,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_opened<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "opened",
+            connect_raw(self.to_glib_none().0 as *mut _, b"opened\0".as_ptr() as *const _,
                 transmute(opened_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -515,7 +514,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_seat_added<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Seat) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "seat-added",
+            connect_raw(self.to_glib_none().0 as *mut _, b"seat-added\0".as_ptr() as *const _,
                 transmute(seat_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -524,7 +523,7 @@ impl<O: IsA<Display> + IsA<glib::object::Object>> DisplayExt for O {
     fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Seat) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "seat-removed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"seat-removed\0".as_ptr() as *const _,
                 transmute(seat_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

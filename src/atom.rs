@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use ffi;
+use glib::GString;
 use glib_ffi;
 use std::ptr;
 use std::mem;
@@ -35,7 +36,7 @@ impl Atom {
         unsafe { Atom(ffi::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
     }
 
-    pub fn name(self) -> String {
+    pub fn name(self) -> GString {
         unsafe { from_glib_full(ffi::gdk_atom_name(self.0)) }
     }
 

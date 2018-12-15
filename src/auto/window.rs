@@ -37,14 +37,12 @@ use cairo;
 use cairo_ffi;
 use ffi;
 use gdk_pixbuf;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
@@ -99,7 +97,7 @@ impl Window {
     }
 }
 
-pub trait WindowExt {
+pub trait WindowExt: 'static {
     //fn add_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P);
 
     fn beep(&self);
@@ -454,7 +452,7 @@ pub trait WindowExt {
     fn connect_property_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
+impl<O: IsA<Window>> WindowExt for O {
     //fn add_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P) {
     //    unsafe { TODO: call ffi::gdk_window_add_filter() }
     //}
@@ -1436,7 +1434,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
     fn connect_create_surface<F: Fn(&Self, i32, i32) -> cairo::Surface + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32, i32) -> cairo::Surface + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "create-surface",
+            connect_raw(self.to_glib_none().0 as *mut _, b"create-surface\0".as_ptr() as *const _,
                 transmute(create_surface_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -1455,7 +1453,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
     fn connect_pick_embedded_child<F: Fn(&Self, f64, f64) -> Option<Window> + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, f64, f64) -> Option<Window> + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "pick-embedded-child",
+            connect_raw(self.to_glib_none().0 as *mut _, b"pick-embedded-child\0".as_ptr() as *const _,
                 transmute(pick_embedded_child_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -1468,7 +1466,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> WindowExt for O {
     fn connect_property_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::cursor",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::cursor\0".as_ptr() as *const _,
                 transmute(notify_cursor_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

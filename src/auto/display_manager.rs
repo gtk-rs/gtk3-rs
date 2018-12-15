@@ -4,19 +4,15 @@
 
 use Display;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DisplayManager(Object<ffi::GdkDisplayManager>);
@@ -35,7 +31,7 @@ impl DisplayManager {
     }
 }
 
-pub trait DisplayManagerExt {
+pub trait DisplayManagerExt: 'static {
     fn get_default_display(&self) -> Option<Display>;
 
     fn list_displays(&self) -> Vec<Display>;
@@ -49,7 +45,7 @@ pub trait DisplayManagerExt {
     fn connect_property_default_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<DisplayManager> + IsA<glib::object::Object>> DisplayManagerExt for O {
+impl<O: IsA<DisplayManager>> DisplayManagerExt for O {
     fn get_default_display(&self) -> Option<Display> {
         unsafe {
             from_glib_none(ffi::gdk_display_manager_get_default_display(self.to_glib_none().0))
@@ -77,7 +73,7 @@ impl<O: IsA<DisplayManager> + IsA<glib::object::Object>> DisplayManagerExt for O
     fn connect_display_opened<F: Fn(&Self, &Display) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Display) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "display-opened",
+            connect_raw(self.to_glib_none().0 as *mut _, b"display-opened\0".as_ptr() as *const _,
                 transmute(display_opened_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -85,7 +81,7 @@ impl<O: IsA<DisplayManager> + IsA<glib::object::Object>> DisplayManagerExt for O
     fn connect_property_default_display_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::default-display",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::default-display\0".as_ptr() as *const _,
                 transmute(notify_default_display_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

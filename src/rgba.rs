@@ -78,7 +78,7 @@ impl RGBA {
 
 impl fmt::Display for RGBA {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let string: String = unsafe {
+        let string: glib::GString = unsafe {
             from_glib_full(ffi::gdk_rgba_to_string(self.to_glib_none().0))
         };
         f.write_str(&string)

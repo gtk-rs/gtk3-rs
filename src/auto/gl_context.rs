@@ -11,10 +11,10 @@ use Window;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
 use std::mem;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -43,7 +43,7 @@ impl GLContext {
     }
 }
 
-pub trait GLContextExt {
+pub trait GLContextExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn get_debug_enabled(&self) -> bool;
 

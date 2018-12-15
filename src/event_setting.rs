@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib::GString;
 use glib::translate::*;
 use ffi;
 
@@ -12,7 +13,7 @@ event_wrapper!(EventSetting, GdkEventSetting);
 event_subtype!(EventSetting, ffi::GDK_SETTING);
 
 impl EventSetting {
-    pub fn get_name(&self) -> Option<String> {
+    pub fn get_name(&self) -> Option<GString> {
         unsafe { from_glib_none(self.as_ref().name) }
     }
 

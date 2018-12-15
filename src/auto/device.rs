@@ -23,13 +23,13 @@ use Screen;
 use Seat;
 use Window;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
@@ -64,7 +64,7 @@ impl Device {
     }
 }
 
-pub trait DeviceExt {
+pub trait DeviceExt: 'static {
     fn get_associated_device(&self) -> Option<Device>;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -95,7 +95,7 @@ pub trait DeviceExt {
 
     fn get_n_keys(&self) -> i32;
 
-    fn get_name(&self) -> Option<String>;
+    fn get_name(&self) -> Option<GString>;
 
     fn get_position(&self) -> (Screen, i32, i32);
 
@@ -103,7 +103,7 @@ pub trait DeviceExt {
     fn get_position_double(&self) -> (Screen, f64, f64);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn get_product_id(&self) -> Option<String>;
+    fn get_product_id(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn get_seat(&self) -> Option<Seat>;
@@ -113,7 +113,7 @@ pub trait DeviceExt {
     //fn get_state(&self, window: &Window, axes: &[f64]) -> ModifierType;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn get_vendor_id(&self) -> Option<String>;
+    fn get_vendor_id(&self) -> Option<GString>;
 
     fn get_window_at_position(&self) -> (Option<Window>, i32, i32);
 
@@ -179,7 +179,7 @@ pub trait DeviceExt {
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
+impl<O: IsA<Device>> DeviceExt for O {
     fn get_associated_device(&self) -> Option<Device> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_associated_device(self.to_glib_none().0))
@@ -263,7 +263,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
         }
     }
 
-    fn get_name(&self) -> Option<String> {
+    fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_name(self.to_glib_none().0))
         }
@@ -291,7 +291,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn get_product_id(&self) -> Option<String> {
+    fn get_product_id(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_product_id(self.to_glib_none().0))
         }
@@ -315,7 +315,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     //}
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn get_vendor_id(&self) -> Option<String> {
+    fn get_vendor_id(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_vendor_id(self.to_glib_none().0))
         }
@@ -392,7 +392,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn get_property_device_manager(&self) -> Option<DeviceManager> {
         unsafe {
             let mut value = Value::from_type(<DeviceManager as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "device-manager".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"device-manager\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -400,21 +400,21 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn get_property_input_mode(&self) -> InputMode {
         unsafe {
             let mut value = Value::from_type(<InputMode as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "input-mode".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"input-mode\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_input_mode(&self, input_mode: InputMode) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "input-mode".to_glib_none().0, Value::from(&input_mode).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"input-mode\0".as_ptr() as *const _, Value::from(&input_mode).to_glib_none().0);
         }
     }
 
     fn get_property_input_source(&self) -> InputSource {
         unsafe {
             let mut value = Value::from_type(<InputSource as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "input-source".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"input-source\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -423,7 +423,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn get_property_num_touches(&self) -> u32 {
         unsafe {
             let mut value = Value::from_type(<u32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "num-touches".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"num-touches\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -431,7 +431,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     fn set_property_seat(&self, seat: Option<&Seat>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "seat".to_glib_none().0, Value::from(seat).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"seat\0".as_ptr() as *const _, Value::from(seat).to_glib_none().0);
         }
     }
 
@@ -439,7 +439,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn get_property_tool(&self) -> Option<DeviceTool> {
         unsafe {
             let mut value = Value::from_type(<DeviceTool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "tool".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"tool\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -447,7 +447,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn get_property_type(&self) -> DeviceType {
         unsafe {
             let mut value = Value::from_type(<DeviceType as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "type".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -455,7 +455,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -464,7 +464,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_tool_changed<F: Fn(&Self, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &DeviceTool) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "tool-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"tool-changed\0".as_ptr() as *const _,
                 transmute(tool_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -472,7 +472,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_associated_device_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::associated-device",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::associated-device\0".as_ptr() as *const _,
                 transmute(notify_associated_device_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -481,7 +481,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::axes",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::axes\0".as_ptr() as *const _,
                 transmute(notify_axes_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -489,7 +489,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_input_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::input-mode",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::input-mode\0".as_ptr() as *const _,
                 transmute(notify_input_mode_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -497,7 +497,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_n_axes_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::n-axes",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::n-axes\0".as_ptr() as *const _,
                 transmute(notify_n_axes_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -506,7 +506,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_seat_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::seat",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::seat\0".as_ptr() as *const _,
                 transmute(notify_seat_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -515,7 +515,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_tool_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::tool",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::tool\0".as_ptr() as *const _,
                 transmute(notify_tool_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -523,7 +523,7 @@ impl<O: IsA<Device> + IsA<glib::object::Object>> DeviceExt for O {
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::type\0".as_ptr() as *const _,
                 transmute(notify_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

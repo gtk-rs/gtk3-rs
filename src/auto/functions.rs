@@ -17,6 +17,7 @@ use WindowState;
 use cairo;
 use ffi;
 use gdk_pixbuf;
+use glib::GString;
 use glib::translate::*;
 use libc;
 use pango;
@@ -100,21 +101,21 @@ pub fn flush() {
 }
 
 #[cfg_attr(feature = "v3_8", deprecated)]
-pub fn get_display() -> Option<String> {
+pub fn get_display() -> Option<GString> {
     assert_initialized_main_thread!();
     unsafe {
         from_glib_full(ffi::gdk_get_display())
     }
 }
 
-pub fn get_display_arg_name() -> Option<String> {
+pub fn get_display_arg_name() -> Option<GString> {
     assert_initialized_main_thread!();
     unsafe {
         from_glib_none(ffi::gdk_get_display_arg_name())
     }
 }
 
-pub fn get_program_class() -> Option<String> {
+pub fn get_program_class() -> Option<GString> {
     assert_initialized_main_thread!();
     unsafe {
         from_glib_none(ffi::gdk_get_program_class())
@@ -128,7 +129,7 @@ pub fn get_show_events() -> bool {
     }
 }
 
-//pub fn init_check(argv: /*Unimplemented*/Vec<String>) -> bool {
+//pub fn init_check(argv: /*Unimplemented*/Vec<GString>) -> bool {
 //    unsafe { TODO: call ffi::gdk_init_check() }
 //}
 
@@ -241,7 +242,7 @@ pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
 //    unsafe { TODO: call ffi::gdk_pango_layout_line_get_clip_region() }
 //}
 
-//pub fn parse_args(argv: /*Unimplemented*/Vec<String>) {
+//pub fn parse_args(argv: /*Unimplemented*/Vec<GString>) {
 //    unsafe { TODO: call ffi::gdk_parse_args() }
 //}
 
@@ -433,7 +434,7 @@ pub fn test_simulate_key(window: &Window, x: i32, y: i32, keyval: u32, modifiers
     }
 }
 
-pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom, format: i32, text: &[u8]) -> (i32, Vec<String>) {
+pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom, format: i32, text: &[u8]) -> (i32, Vec<GString>) {
     skip_assert_initialized!();
     let length = text.len() as i32;
     unsafe {
@@ -503,7 +504,7 @@ pub fn unicode_to_keyval(wc: u32) -> u32 {
     }
 }
 
-pub fn utf8_to_string_target(str: &str) -> Option<String> {
+pub fn utf8_to_string_target(str: &str) -> Option<GString> {
     assert_initialized_main_thread!();
     unsafe {
         from_glib_full(ffi::gdk_utf8_to_string_target(str.to_glib_none().0))

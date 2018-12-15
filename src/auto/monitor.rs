@@ -7,21 +7,20 @@ use Rectangle;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use SubpixelLayout;
 use ffi;
-use glib;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Monitor(Object<ffi::GdkMonitor, ffi::GdkMonitorClass>);
@@ -31,7 +30,7 @@ glib_wrapper! {
     }
 }
 
-pub trait MonitorExt {
+pub trait MonitorExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_display(&self) -> Option<Display>;
 
@@ -42,10 +41,10 @@ pub trait MonitorExt {
     fn get_height_mm(&self) -> i32;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_manufacturer(&self) -> Option<String>;
+    fn get_manufacturer(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_model(&self) -> Option<String>;
+    fn get_model(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_refresh_rate(&self) -> i32;
@@ -103,7 +102,7 @@ pub trait MonitorExt {
     fn connect_property_workarea_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
+impl<O: IsA<Monitor>> MonitorExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_display(&self) -> Option<Display> {
         unsafe {
@@ -128,14 +127,14 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_manufacturer(&self) -> Option<String> {
+    fn get_manufacturer(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_monitor_get_manufacturer(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_model(&self) -> Option<String> {
+    fn get_model(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_monitor_get_model(self.to_glib_none().0))
         }
@@ -188,7 +187,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_display(&self) -> Option<Display> {
         unsafe {
             let mut value = Value::from_type(<Display as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "display".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -196,7 +195,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_geometry(&self) -> Option<Rectangle> {
         unsafe {
             let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "geometry".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"geometry\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -204,7 +203,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_height_mm(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "height-mm".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"height-mm\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -212,7 +211,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_refresh_rate(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "refresh-rate".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"refresh-rate\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -220,7 +219,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_scale_factor(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "scale-factor".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"scale-factor\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -228,7 +227,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_width_mm(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "width-mm".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"width-mm\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -236,7 +235,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn get_property_workarea(&self) -> Option<Rectangle> {
         unsafe {
             let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "workarea".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"workarea\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -244,7 +243,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_invalidate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "invalidate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"invalidate\0".as_ptr() as *const _,
                 transmute(invalidate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -252,7 +251,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_geometry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::geometry",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::geometry\0".as_ptr() as *const _,
                 transmute(notify_geometry_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -260,7 +259,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_height_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::height-mm",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::height-mm\0".as_ptr() as *const _,
                 transmute(notify_height_mm_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -269,7 +268,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_manufacturer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::manufacturer",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::manufacturer\0".as_ptr() as *const _,
                 transmute(notify_manufacturer_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -278,7 +277,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::model",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::model\0".as_ptr() as *const _,
                 transmute(notify_model_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -286,7 +285,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_refresh_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::refresh-rate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::refresh-rate\0".as_ptr() as *const _,
                 transmute(notify_refresh_rate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -294,7 +293,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::scale-factor",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::scale-factor\0".as_ptr() as *const _,
                 transmute(notify_scale_factor_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -303,7 +302,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_subpixel_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::subpixel-layout",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::subpixel-layout\0".as_ptr() as *const _,
                 transmute(notify_subpixel_layout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -311,7 +310,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_width_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::width-mm",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::width-mm\0".as_ptr() as *const _,
                 transmute(notify_width_mm_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -319,7 +318,7 @@ impl<O: IsA<Monitor> + IsA<glib::object::Object>> MonitorExt for O {
     fn connect_property_workarea_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::workarea",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::workarea\0".as_ptr() as *const _,
                 transmute(notify_workarea_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
