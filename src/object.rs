@@ -11,6 +11,8 @@ use gobject_ffi;
 use std::mem;
 use std::ptr;
 use std::ops;
+use std::hash;
+use std::fmt;
 use std::marker::PhantomData;
 
 use Value;
@@ -25,6 +27,7 @@ use get_thread_id;
 /// Implemented by types representing `glib::Object` and subclasses of it.
 pub unsafe trait ObjectType: UnsafeFrom<ObjectRef> + Into<ObjectRef>
         + StaticType
+        + fmt::Debug + Clone + PartialEq + Eq + PartialOrd + Ord + hash::Hash
         + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
         + 'static {
     /// type of the FFI Instance structure.
