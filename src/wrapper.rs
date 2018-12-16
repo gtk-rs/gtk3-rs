@@ -190,35 +190,6 @@
 /// }
 /// ```
 ///
-/// #### Wrapping objects with parents/interfaces from different crates
-///
-/// Implementing types whose parents or interfaces come from different
-/// crates requires specifying the wrapped names of the
-/// parents/interfaces and their FFI counterparts as well.  Note that
-/// these must be specified inside square brackets "`[]`", as
-/// comma-delimited pairs like
-/// "`crate_name::WrappedName => ffi_crate_name::Name`".
-///
-/// Here, note that the parent class for `ffi::GtkApplication` is
-/// `gio::Application`, which is the Rust wrapper for
-/// `gio_ffi::GApplication`.  Similarly, the `ActionGroup` and
-/// `ActionMap` interfaces, and their corresponding ffi structs, come
-/// from different crates.
-///
-/// ```ignore
-/// glib_wrapper! {
-///     pub struct Application(Object<ffi::GtkApplication, ffi::GtkApplicationClass>): [
-///         gio::Application => gio_ffi::GApplication,
-///         gio::ActionGroup => gio_ffi::GActionGroup,
-///         gio::ActionMap   => gio_ffi::GActionMap,
-///     ];
-///
-///     match fn {
-///         get_type => || ffi::gtk_application_get_type(),
-///     }
-/// }
-/// ```
-///
 /// #### Non-derivable classes
 ///
 /// By convention, GObject implements "final" classes, i.e. those who
@@ -333,45 +304,6 @@ macro_rules! glib_wrapper {
         }
     ) => {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, []);
-    };
-
-    // Object, no class struct, no rust class struct, parents in other crates
-    (
-        $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
-
-        match fn {
-            get_type => || $get_type_expr:expr,
-        }
-    ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
-            @get_type $get_type_expr, @implements $($implements)+);
-    };
-
-    // Object, class struct, no rust class struct, parents in other crates
-    (
-        $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): [$($implements:tt)+];
-
-        match fn {
-            get_type => || $get_type_expr:expr,
-        }
-    ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void, @get_type $get_type_expr,
-            @implements $($implements)+);
-    };
-
-    // Object, class struct, rust class struct, parents in other crates
-    (
-        $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>): [$($implements:tt)+];
-
-        match fn {
-            get_type => || $get_type_expr:expr,
-        }
-    ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr,
-            @implements $($implements)+);
     };
 
     // Object, no class struct, no rust class struct, parents

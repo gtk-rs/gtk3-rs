@@ -687,31 +687,13 @@ macro_rules! glib_object_wrapper {
         }
     };
 
-    (@munch_impls $name:ident, $super_name:path => $super_ffi:path) => {
-        unsafe impl $crate::object::IsA<$super_name> for $name { }
-
-        #[doc(hidden)]
-        impl AsRef<$super_name> for $name {
-            fn as_ref(&self) -> &$super_name {
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
-            }
-        }
-    };
-
-    (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
+    (@munch_impls $name:ident, $super_name:path, $($implements:path)*) => {
         glib_object_wrapper!(@munch_impls $name, $super_name);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
-    (@munch_impls $name:ident, $super_name:path => $super_ffi:path, $($implements:tt)*) => {
-        glib_object_wrapper!(@munch_impls $name, $super_name => $super_ffi);
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
-    };
-
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path,
-        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        @get_type $get_type_expr:expr, @implements $($implements:path)*) => {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
@@ -726,12 +708,6 @@ macro_rules! glib_object_wrapper {
                 }
             }
         }
-    };
-
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr,
-     [$($implements:path),*]) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
-            @get_type $get_type_expr, @implements $($implements),*);
     };
 }
 
