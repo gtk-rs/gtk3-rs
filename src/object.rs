@@ -5,7 +5,7 @@
 //! `IMPL` Object wrapper implementation and `Object` binding.
 
 use translate::*;
-use types::{self, StaticType};
+use types::StaticType;
 use wrapper::{UnsafeFrom, Wrapper};
 use ffi as glib_ffi;
 use gobject_ffi;
@@ -116,6 +116,12 @@ pub unsafe trait IsClassFor: Sized + 'static {
 ///
 /// Provides conversions up and down the class hierarchy tree.
 pub trait Cast: IsA<Object> {
+    /// Returns `true` if the object is an instance of (can be cast to) `T`.
+    fn is<T>(&self) -> bool
+    where T: StaticType {
+        self.get_type().is_a(&T::static_type())
+    }
+
     /// Upcasts an object to a superclass or interface `T`.
     ///
     /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
@@ -133,7 +139,9 @@ pub trait Cast: IsA<Object> {
     fn upcast<T>(self) -> T
     where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
           Self: IsA<T> {
-        unsafe { T::from(self.into()) }
+        unsafe {
+            self.unsafe_cast()
+        }
     }
 
     /// Upcasts an object to a reference of its superclass or interface `T`.
@@ -154,11 +162,7 @@ pub trait Cast: IsA<Object> {
     where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
           Self: IsA<T> {
         unsafe {
-            // This transmute is safe because all our wrapper types have the
-            // same representation except for the name and the phantom data
-            // type. IsA<> is an unsafe trait that must only be implemented
-            // if this is a valid wrapper type
-            mem::transmute(self)
+            self.unsafe_cast_ref()
         }
     }
 
@@ -181,8 +185,13 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn downcast<T>(self) -> Result<T, Self>
-    where Self: Sized + Downcast<T> {
-        Downcast::downcast(self)
+    where Self: Sized + CanDowncast<T>,
+          T: StaticType + Wrapper + UnsafeFrom<ObjectRef> {
+        if self.is::<T>() {
+            Ok(unsafe { self.unsafe_cast() })
+        } else {
+            Err(self)
+        }
     }
 
     /// Tries to downcast to a reference of its subclass or interface implementor `T`.
@@ -204,15 +213,12 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn downcast_ref<T>(&self) -> Option<&T>
-    where Self: Downcast<T> {
-        Downcast::downcast_ref(self)
-    }
-
-    /// Returns `true` if the object is an instance of (can be cast to) `T`.
-    fn is<T>(&self) -> bool
-    where T: StaticType {
-        unsafe {
-            types::instance_of::<T>(self.to_glib_none().0 as *const _)
+    where Self: CanDowncast<T>,
+          T: StaticType + Wrapper + UnsafeFrom<ObjectRef> {
+        if self.is::<T>() {
+            Some(unsafe { self.unsafe_cast_ref() })
+        } else {
+            None
         }
     }
 
@@ -241,7 +247,7 @@ pub trait Cast: IsA<Object> {
         if !self.is::<T>() {
             Err(self)
         } else {
-            Ok(unsafe { T::from(self.into()) })
+            Ok(unsafe { self.unsafe_cast() })
         }
     }
 
@@ -274,78 +280,25 @@ pub trait Cast: IsA<Object> {
             // same representation except for the name and the phantom data
             // type. IsA<> is an unsafe trait that must only be implemented
             // if this is a valid wrapper type
-            Some(unsafe { mem::transmute(self) })
+            Some(unsafe { self.unsafe_cast_ref() })
         }
     }
-}
 
-impl<T: IsA<Object>> Cast for T { }
-
-/// Downcasts support.
-pub trait Downcast<T> {
-    /// Checks if it's possible to downcast to `T`.
-    ///
-    /// Returns `true` if the instance implements `T` and `false` otherwise.
-    fn can_downcast(&self) -> bool;
-    /// Tries to downcast to `T`.
-    ///
-    /// Returns `Ok(T)` if the instance implements `T` and `Err(Self)` otherwise.
-    fn downcast(self) -> Result<T, Self> where Self: Sized;
-    /// Tries to downcast to `&T`.
-    ///
-    /// Returns `Some(T)` if the instance implements `T` and `None` otherwise.
-    fn downcast_ref(&self) -> Option<&T>;
-    /// Downcasts to `T` unconditionally.
+    /// Casts to `T` unconditionally.
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
-    unsafe fn downcast_unchecked(self) -> T;
-    /// Downcasts to `&T` unconditionally.
+    unsafe fn unsafe_cast<T>(self) -> T
+      where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+        debug_assert!(self.is::<T>());
+        T::from(self.into())
+    }
+
+    /// Casts to `&T` unconditionally.
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
-    unsafe fn downcast_ref_unchecked(&self) -> &T;
-}
-
-impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
-    #[inline]
-    fn can_downcast(&self) -> bool {
-        unsafe {
-            types::instance_of::<Sub>(self.to_glib_none().0 as *const _)
-        }
-    }
-
-    #[inline]
-    fn downcast(self) -> Result<Sub, Super> {
-        unsafe {
-            if !types::instance_of::<Sub>(self.to_glib_none().0 as *const _) {
-                return Err(self);
-            }
-            Ok(Sub::from(self.into()))
-        }
-    }
-
-    #[inline]
-    fn downcast_ref(&self) -> Option<&Sub> {
-        unsafe {
-            if !types::instance_of::<Sub>(self.to_glib_none().0 as *const _) {
-                return None;
-            }
-            // This transmute is safe because all our wrapper types have the
-            // same representation except for the name and the phantom data
-            // type. IsA<> is an unsafe trait that must only be implemented
-            // if this is a valid wrapper type
-            Some(mem::transmute(self))
-        }
-    }
-
-    #[inline]
-    unsafe fn downcast_unchecked(self) -> Sub {
-        debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
-        Sub::from(self.into())
-    }
-
-    #[inline]
-    unsafe fn downcast_ref_unchecked(&self) -> &Sub {
-        debug_assert!(types::instance_of::<Sub>(self.to_glib_none().0 as *const _));
+    unsafe fn unsafe_cast_ref<T>(&self) -> &T
+       where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+        debug_assert!(self.is::<T>());
         // This transmute is safe because all our wrapper types have the
         // same representation except for the name and the phantom data
         // type. IsA<> is an unsafe trait that must only be implemented
@@ -353,6 +306,13 @@ impl<Super: IsA<Super>, Sub: IsA<Super>> Downcast<Sub> for Super {
         mem::transmute(self)
     }
 }
+
+impl<T: IsA<Object>> Cast for T { }
+
+/// Marker trait for the statically known possibility of downcasting from `Self` to `T`.
+pub trait CanDowncast<T> { }
+
+impl<Super: IsA<Super>, Sub: IsA<Super>> CanDowncast<Sub> for Super { }
 
 #[doc(hidden)]
 pub use gobject_ffi::GObject;
@@ -664,7 +624,7 @@ macro_rules! glib_object_wrapper {
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
                 Option::<$name>::from_glib_full($crate::gobject_ffi::g_value_dup_object($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
-                    .map(|o| $crate::object::Downcast::downcast_unchecked(o))
+                    .map(|o| $crate::object::Cast::unsafe_cast(o))
             }
         }
 
@@ -974,7 +934,7 @@ impl<T: IsA<Object>> ObjectExt for T {
         unsafe extern "C" fn notify_trampoline<P>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
         where P: IsA<Object> {
             let f: &&(Fn(&P, &::ParamSpec) + Send + Sync + 'static) = transmute(f);
-            f(&Object::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(param_spec))
+            f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
 
         let name = name.into();
