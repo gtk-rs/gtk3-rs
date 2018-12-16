@@ -23,7 +23,10 @@ use SignalHandlerId;
 use get_thread_id;
 
 /// Implemented by types representing `glib::Object` and subclasses of it.
-pub trait ObjectType {
+pub unsafe trait ObjectType: UnsafeFrom<ObjectRef> + Into<ObjectRef>
+        + StaticType
+        + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
+        + 'static {
     /// type of the FFI Instance structure.
     type GlibType: 'static;
     /// type of the FFI Class structure.
@@ -50,18 +53,15 @@ pub trait UnsafeFrom<T> {
 /// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
-pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + ObjectType>: StaticType + ObjectType +
-    Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+pub unsafe trait IsA<T: ObjectType>: ObjectType +
     for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
 
-unsafe impl<T> IsA<T> for T
-where T: StaticType + ObjectType + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
+unsafe impl<T: ObjectType> IsA<T> for T {}
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
     /// Corresponding Rust instance type for this class.
-    type Instance;
+    type Instance: ObjectType;
 
     /// Get the type id for this class.
     fn get_type(&self) -> Type {
@@ -74,7 +74,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// Casts this class to a reference to a parent type's class.
     fn upcast_ref<U: IsClassFor>(&self) -> &U
         where Self::Instance: IsA<U::Instance>,
-            U::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
+            U::Instance: ObjectType
     {
         unsafe {
             let klass = self as *const _ as *const U;
@@ -85,7 +85,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// Casts this class to a mutable reference to a parent type's class.
     fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
         where Self::Instance: IsA<U::Instance>,
-            U::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
+            U::Instance: ObjectType
     {
         unsafe {
             let klass = self as *mut _ as *mut U;
@@ -97,7 +97,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// fails if this class is not implementing the child class.
     fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
         where U::Instance: IsA<Self::Instance>,
-            Self::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
+            Self::Instance: ObjectType
     {
         if !self.get_type().is_a(&U::Instance::static_type()) {
             return None;
@@ -113,7 +113,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// fails if this class is not implementing the child class.
     fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
         where U::Instance: IsA<Self::Instance>,
-            Self::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
+            Self::Instance: ObjectType
     {
         if !self.get_type().is_a(&U::Instance::static_type()) {
             return None;
@@ -131,8 +131,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
 /// Provides conversions up and down the class hierarchy tree.
 pub trait Cast: IsA<Object> {
     /// Returns `true` if the object is an instance of (can be cast to) `T`.
-    fn is<T>(&self) -> bool
-    where T: StaticType {
+    fn is<T: StaticType>(&self) -> bool {
         self.get_type().is_a(&T::static_type())
     }
 
@@ -150,9 +149,8 @@ pub trait Cast: IsA<Object> {
     /// let widget = button.upcast::<gtk::Widget>();
     /// ```
     #[inline]
-    fn upcast<T>(self) -> T
-    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType,
-          Self: IsA<T> {
+    fn upcast<T: ObjectType>(self) -> T
+    where Self: IsA<T> {
         unsafe {
             self.unsafe_cast()
         }
@@ -172,9 +170,8 @@ pub trait Cast: IsA<Object> {
     /// let widget = button.upcast_ref::<gtk::Widget>();
     /// ```
     #[inline]
-    fn upcast_ref<T>(&self) -> &T
-    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType,
-          Self: IsA<T> {
+    fn upcast_ref<T: ObjectType>(&self) -> &T
+    where Self: IsA<T> {
         unsafe {
             self.unsafe_cast_ref()
         }
@@ -198,9 +195,8 @@ pub trait Cast: IsA<Object> {
     /// assert!(widget.downcast::<gtk::Button>().is_ok());
     /// ```
     #[inline]
-    fn downcast<T>(self) -> Result<T, Self>
-    where Self: Sized + CanDowncast<T>,
-          T: StaticType + ObjectType + UnsafeFrom<ObjectRef> {
+    fn downcast<T: ObjectType>(self) -> Result<T, Self>
+    where Self: Sized + CanDowncast<T> {
         if self.is::<T>() {
             Ok(unsafe { self.unsafe_cast() })
         } else {
@@ -226,9 +222,8 @@ pub trait Cast: IsA<Object> {
     /// assert!(widget.downcast_ref::<gtk::Button>().is_some());
     /// ```
     #[inline]
-    fn downcast_ref<T>(&self) -> Option<&T>
-    where Self: CanDowncast<T>,
-          T: StaticType + ObjectType + UnsafeFrom<ObjectRef> {
+    fn downcast_ref<T: ObjectType>(&self) -> Option<&T>
+    where Self: CanDowncast<T> {
         if self.is::<T>() {
             Some(unsafe { self.unsafe_cast_ref() })
         } else {
@@ -256,8 +251,7 @@ pub trait Cast: IsA<Object> {
     /// assert!(widget.dynamic_cast::<gtk::Button>().is_ok());
     /// ```
     #[inline]
-    fn dynamic_cast<T>(self) -> Result<T, Self>
-    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
+    fn dynamic_cast<T: ObjectType>(self) -> Result<T, Self> {
         if !self.is::<T>() {
             Err(self)
         } else {
@@ -285,8 +279,7 @@ pub trait Cast: IsA<Object> {
     /// assert!(widget.dynamic_cast_ref::<gtk::Button>().is_some());
     /// ```
     #[inline]
-    fn dynamic_cast_ref<T>(&self) -> Option<&T>
-    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
+    fn dynamic_cast_ref<T: ObjectType>(&self) -> Option<&T> {
         if !self.is::<T>() {
             None
         } else {
@@ -301,8 +294,7 @@ pub trait Cast: IsA<Object> {
     /// Casts to `T` unconditionally.
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
-    unsafe fn unsafe_cast<T>(self) -> T
-      where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
+    unsafe fn unsafe_cast<T: ObjectType>(self) -> T {
         debug_assert!(self.is::<T>());
         T::unsafe_from(self.into())
     }
@@ -310,8 +302,7 @@ pub trait Cast: IsA<Object> {
     /// Casts to `&T` unconditionally.
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
-    unsafe fn unsafe_cast_ref<T>(&self) -> &T
-       where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
+    unsafe fn unsafe_cast_ref<T: ObjectType>(&self) -> &T {
         debug_assert!(self.is::<T>());
         // This transmute is safe because all our wrapper types have the
         // same representation except for the name and the phantom data
@@ -377,7 +368,7 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl $crate::object::ObjectType for $name {
+        unsafe impl $crate::object::ObjectType for $name {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
             type RustClassType = $rust_class_name;
@@ -841,7 +832,7 @@ impl<T: IsA<Object>> ObjectExt for T {
 
     fn get_object_class(&self) -> &ObjectClass {
         unsafe {
-            let obj = self.to_glib_none().0;
+            let obj: *mut gobject_ffi::GObject = self.to_glib_none().0;
             let klass = (*obj).g_type_instance.g_class as *const ObjectClass;
             &*klass
         }
