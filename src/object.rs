@@ -662,20 +662,16 @@ macro_rules! glib_object_wrapper {
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
                     *mut <$super_name as $crate::object::ObjectType>::GlibType, Self> {
+                debug_assert!($crate::object::Cast::is::<$super_name>(self));
                 let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
-                unsafe {
-                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
-                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
             fn to_glib_full(&self)
                     -> *mut <$super_name as $crate::object::ObjectType>::GlibType {
+                debug_assert!($crate::object::Cast::is::<$super_name>(self));
                 let ptr = $crate::translate::ToGlibPtr::to_glib_full(&self.0);
-                unsafe {
-                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
-                }
                 ptr as *mut _
             }
         }
@@ -691,19 +687,15 @@ macro_rules! glib_object_wrapper {
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $super_ffi, Self> {
+                debug_assert!($crate::object::Cast::is::<$super_name>(self));
                 let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
-                unsafe {
-                    debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
-                }
                 $crate::translate::Stash(stash.0 as *mut _, stash.1)
             }
 
             #[inline]
             fn to_glib_full(&self) -> *mut $super_ffi {
+                debug_assert!($crate::object::Cast::is::<$super_name>(self));
                 let ptr = $crate::translate::ToGlibPtr::to_glib_full(&self.0);
-                unsafe {
-                    debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));
-                }
                 ptr as *mut _
             }
         }
