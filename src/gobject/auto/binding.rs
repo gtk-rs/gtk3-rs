@@ -10,7 +10,7 @@ use std::fmt;
 use translate::*;
 
 glib_wrapper! {
-    pub struct Binding(Object<ffi::GBinding>);
+    pub struct Binding(Object<ffi::GBinding, BindingClass>);
 
     match fn {
         get_type => || ffi::g_binding_get_type(),

@@ -339,7 +339,7 @@ glib_wrapper! {
 /// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr) => {
+    (@generic_impl [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
         $(#[$attr])*
         // Always derive Hash/Ord (and below impl Debug, PartialEq, Eq, PartialOrd) for object
         // types. Due to inheritance and up/downcasting we must implement these by pointer or
@@ -687,34 +687,85 @@ macro_rules! glib_object_wrapper {
         }
     };
 
-    (@munch_impls $name:ident, $super_name:path, $($implements:path)*) => {
+    (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
         glib_object_wrapper!(@munch_impls $name, $super_name);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
     };
 
-    ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path,
-        @get_type $get_type_expr:expr, @implements $($implements:path)*) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
-            @get_type $get_type_expr);
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+    // If there is only one parent class
+    (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path) => {
+        glib_object_wrapper!(@munch_impls $name, $super_name);
 
-        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
+        impl ::std::ops::Deref for $rust_class_name {
+            type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
 
-        #[doc(hidden)]
-        impl AsRef<$crate::object::Object> for $name {
-            fn as_ref(&self) -> &$crate::object::Object {
+            fn deref(&self) -> &Self::Target {
                 unsafe {
                     ::std::mem::transmute(self)
                 }
             }
         }
     };
+
+    // If there is more than one parent class
+    (@munch_first_impl $name:ident, $rust_class_name:ident, $super_name:path, $($implements:tt)*) => {
+        glib_object_wrapper!(@munch_impls $name, $super_name);
+
+        impl ::std::ops::Deref for $rust_class_name {
+            type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
+
+            fn deref(&self) -> &Self::Target {
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
+
+        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+    };
+
+    (@class_impl $name:ident, $ffi_class_name:path, $rust_class_name:ident) => {
+        #[repr(C)]
+        pub struct $rust_class_name($ffi_class_name);
+
+        unsafe impl $crate::object::IsClassFor for $rust_class_name {
+            type Instance = $name;
+        }
+
+        unsafe impl Send for $rust_class_name { }
+        unsafe impl Sync for $rust_class_name { }
+    };
+
+    // This case is only for glib::Object itself below. All other cases have glib::Object in its
+    // parent class list
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident, @get_type $get_type_expr:expr) => {
+        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr);
+        glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+    };
+
+    (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
+        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr);
+        glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($implements)*);
+        glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+    };
+
+    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
+        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr);
+        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+
+        // We don't do anything with the $ffi_class_name and $rust_class_name for now
+    };
 }
 
-glib_object_wrapper! {
+glib_object_wrapper!(@object
     [doc = "The base class in the object hierarchy."]
     Object, GObject, GObjectClass, ObjectClass, @get_type gobject_ffi::g_object_get_type()
-}
+);
 
 impl Object {
     pub fn new(type_: Type, properties: &[(&str, &ToValue)]) -> Result<Object, BoolError> {
@@ -1107,14 +1158,6 @@ impl<T: ObjectType> ObjectExt for T {
     }
 }
 
-/// Class struct for `glib::Object`.
-///
-/// All actual functionality is provided via the [`ObjectClassExt`] trait.
-///
-/// [`ObjectClassExt`]: trait.ObjectClassExt.html
-#[repr(C)]
-pub struct ObjectClass(gobject_ffi::GObjectClass);
-
 impl ObjectClass {
     pub fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError> {
         let property_name = property_name.into();
@@ -1157,13 +1200,6 @@ impl ObjectClass {
         }
     }
 }
-
-unsafe impl IsClassFor for ObjectClass {
-    type Instance = Object;
-}
-
-unsafe impl Send for ObjectClass {}
-unsafe impl Sync for ObjectClass {}
 
 pub struct WeakRef<T: ObjectType>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
