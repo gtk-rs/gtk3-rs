@@ -425,7 +425,7 @@ pub trait Wrapper {
 }
 
 pub trait UnsafeFrom<T> {
-    unsafe fn from(t: T) -> Self;
+    unsafe fn unsafe_from(t: T) -> Self;
 }
 
 // So we can refer to the empty type by a path

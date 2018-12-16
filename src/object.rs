@@ -290,7 +290,7 @@ pub trait Cast: IsA<Object> {
     unsafe fn unsafe_cast<T>(self) -> T
       where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
         debug_assert!(self.is::<T>());
-        T::from(self.into())
+        T::unsafe_from(self.into())
     }
 
     /// Casts to `&T` unconditionally.
@@ -352,7 +352,7 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::wrapper::UnsafeFrom<$crate::object::ObjectRef> for $name {
-            unsafe fn from(t: $crate::object::ObjectRef) -> Self {
+            unsafe fn unsafe_from(t: $crate::object::ObjectRef) -> Self {
                 $name(t, ::std::marker::PhantomData)
             }
         }
@@ -1215,7 +1215,7 @@ impl<T: IsA<Object>> WeakRef<T> {
                 None
             } else {
                 let obj: Object = from_glib_full(ptr);
-                Some(T::from(obj.into()))
+                Some(T::unsafe_from(obj.into()))
             }
         }
     }
