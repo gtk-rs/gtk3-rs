@@ -4,10 +4,6 @@
 
 use ChecksumType;
 use ffi;
-use ffi as glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 use translate::*;
 
 glib_wrapper! {

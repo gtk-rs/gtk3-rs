@@ -2,12 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use GString;
 use MainContext;
 use ffi;
-use ffi as glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 use translate::*;
 
 glib_wrapper! {
@@ -78,7 +75,7 @@ impl Source {
         }
     }
 
-    pub fn get_name(&self) -> Option<String> {
+    pub fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_source_get_name(self.to_glib_none().0))
         }

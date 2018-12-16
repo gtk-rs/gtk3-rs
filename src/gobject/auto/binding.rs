@@ -3,13 +3,10 @@
 // DO NOT EDIT
 
 use BindingFlags;
+use GString;
 use Object;
 use gobject_ffi as ffi;
-use ffi as glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 use translate::*;
 
 glib_wrapper! {
@@ -33,7 +30,7 @@ impl Binding {
         }
     }
 
-    pub fn get_source_property(&self) -> Option<String> {
+    pub fn get_source_property(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_binding_get_source_property(self.to_glib_none().0))
         }
@@ -45,7 +42,7 @@ impl Binding {
         }
     }
 
-    pub fn get_target_property(&self) -> Option<String> {
+    pub fn get_target_property(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_binding_get_target_property(self.to_glib_none().0))
         }

@@ -2,15 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use GString;
 use TimeSpan;
 use TimeZone;
 use ffi;
 use ffi as glib_ffi;
-use gobject_ffi;
 use std::cmp;
 use std::hash;
 use std::mem;
-use std::ptr;
 use translate::*;
 
 glib_wrapper! {
@@ -150,7 +149,7 @@ impl DateTime {
         }
     }
 
-    pub fn format(&self, format: &str) -> Option<String> {
+    pub fn format(&self, format: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_date_time_format(self.to_glib_none().0, format.to_glib_none().0))
         }
@@ -210,7 +209,7 @@ impl DateTime {
         }
     }
 
-    pub fn get_timezone_abbreviation(&self) -> Option<String> {
+    pub fn get_timezone_abbreviation(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_date_time_get_timezone_abbreviation(self.to_glib_none().0))
         }
