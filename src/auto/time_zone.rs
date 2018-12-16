@@ -2,12 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use GString;
 use TimeType;
 use ffi;
-use ffi as glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 use translate::*;
 
 glib_wrapper! {
@@ -48,7 +45,7 @@ impl TimeZone {
         }
     }
 
-    pub fn get_abbreviation(&self, interval: i32) -> Option<String> {
+    pub fn get_abbreviation(&self, interval: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_time_zone_get_abbreviation(self.to_glib_none().0, interval))
         }

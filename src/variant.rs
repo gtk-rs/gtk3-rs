@@ -52,6 +52,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::slice;
 use std::str;
+use gstring::GString;
 
 glib_wrapper! {
     /// A generic immutable value capable of carrying various types.
@@ -144,7 +145,7 @@ impl fmt::Debug for Variant {
 
 impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let serialized: String = unsafe {
+        let serialized: GString = unsafe {
             from_glib_full(glib_ffi::g_variant_print(self.to_glib_none().0, false.to_glib()))
         };
         f.write_str(&serialized)

@@ -85,6 +85,7 @@ use libc::{c_char, c_void};
 
 use translate::*;
 use types::{StaticType, Type};
+use gstring::GString;
 
 use ffi as glib_ffi;
 use gobject_ffi;
@@ -229,7 +230,7 @@ impl Drop for Value {
 impl fmt::Debug for Value {
     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         unsafe {
-            let s: String = from_glib_full(
+            let s: GString = from_glib_full(
                 gobject_ffi::g_strdup_value_contents(self.to_glib_none().0));
 
             f.debug_tuple("Value")
@@ -830,6 +831,19 @@ impl<'a> FromValue<'a> for Vec<String> {
     }
 }
 
+impl<'a> FromValueOptional<'a> for Vec<GString> {
+    unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
+        Some(<Vec<GString> as FromValue>::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for Vec<GString> {
+    unsafe fn from_value(value: &'a Value) -> Self {
+        let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *const *const c_char;
+        FromGlibPtrContainer::from_glib_none(ptr)
+    }
+}
+
 impl<'a> SetValue for [&'a str] {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         let ptr: *mut *mut c_char = this.to_glib_full();
@@ -948,9 +962,9 @@ mod tests {
     #[test]
     fn test_strv() {
         let v = vec!["123", "456"].to_value();
-        assert_eq!(v.get::<Vec<String>>(), Some(vec!["123".into(), "456".into()]));
+        assert_eq!(v.get::<Vec<GString>>(), Some(vec![GString::from("123"), GString::from("456")]));
 
         let v = vec![String::from("123"), String::from("456")].to_value();
-        assert_eq!(v.get::<Vec<String>>(), Some(vec!["123".into(), "456".into()]));
+        assert_eq!(v.get::<Vec<GString>>(), Some(vec![GString::from("123"), GString::from("456")]));
     }
 }

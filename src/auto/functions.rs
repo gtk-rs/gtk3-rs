@@ -8,6 +8,7 @@ use ChecksumType;
 use Error;
 use FileTest;
 use FormatSizeFlags;
+use GString;
 use Source;
 use UserDirectory;
 use ffi;
@@ -78,7 +79,7 @@ pub fn base64_decode(text: &str) -> Vec<u8> {
 //    unsafe { TODO: call ffi::g_base64_decode_step() }
 //}
 
-pub fn base64_encode(data: &[u8]) -> Option<String> {
+pub fn base64_encode(data: &[u8]) -> Option<GString> {
     let len = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_base64_encode(data.to_glib_none().0, len))
@@ -149,7 +150,7 @@ pub fn chdir<P: AsRef<std::path::Path>>(path: P) -> i32 {
     }
 }
 
-pub fn check_version(required_major: u32, required_minor: u32, required_micro: u32) -> Option<String> {
+pub fn check_version(required_major: u32, required_minor: u32, required_micro: u32) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::glib_check_version(required_major, required_minor, required_micro))
     }
@@ -182,20 +183,20 @@ pub fn clear_error() -> Result<(), Error> {
 //}
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
-pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<String> {
+pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_bytes(checksum_type.to_glib(), data.to_glib_none().0))
     }
 }
 
-pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> Option<String> {
+pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> Option<GString> {
     let length = data.len() as usize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_data(checksum_type.to_glib(), data.to_glib_none().0, length))
     }
 }
 
-pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Option<String> {
+pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Option<GString> {
     let length = str.len() as isize;
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_string(checksum_type.to_glib(), str.to_glib_none().0, length))
@@ -203,13 +204,13 @@ pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Op
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
-pub fn compute_hmac_for_bytes(digest_type: ChecksumType, key: &Bytes, data: &Bytes) -> Option<String> {
+pub fn compute_hmac_for_bytes(digest_type: ChecksumType, key: &Bytes, data: &Bytes) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_compute_hmac_for_bytes(digest_type.to_glib(), key.to_glib_none().0, data.to_glib_none().0))
     }
 }
 
-pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8]) -> Option<String> {
+pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8]) -> Option<GString> {
     let key_len = key.len() as usize;
     let length = data.len() as usize;
     unsafe {
@@ -217,7 +218,7 @@ pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8])
     }
 }
 
-pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str) -> Option<String> {
+pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str) -> Option<GString> {
     let key_len = key.len() as usize;
     let length = str.len() as isize;
     unsafe {
@@ -299,7 +300,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call ffi::g_dataset_id_set_data_full() }
 //}
 
-pub fn dcgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, category: i32) -> Option<String> {
+pub fn dcgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, category: i32) -> Option<GString> {
     let domain = domain.into();
     let domain = domain.to_glib_none();
     unsafe {
@@ -307,7 +308,7 @@ pub fn dcgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, category:
     }
 }
 
-pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<String> {
+pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<GString> {
     let domain = domain.into();
     let domain = domain.to_glib_none();
     unsafe {
@@ -323,7 +324,7 @@ pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<
 //    unsafe { TODO: call ffi::g_direct_hash() }
 //}
 
-pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<String> {
+pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<GString> {
     let domain = domain.into();
     let domain = domain.to_glib_none();
     unsafe {
@@ -339,7 +340,7 @@ pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plu
 //    unsafe { TODO: call ffi::g_double_hash() }
 //}
 
-pub fn dpgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgctxtid: &str, msgidoffset: usize) -> Option<String> {
+pub fn dpgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
     let domain = domain.into();
     let domain = domain.to_glib_none();
     unsafe {
@@ -347,7 +348,7 @@ pub fn dpgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgctxtid: &str, msgid
     }
 }
 
-pub fn dpgettext2<'a, P: Into<Option<&'a str>>>(domain: P, context: &str, msgid: &str) -> Option<String> {
+pub fn dpgettext2<'a, P: Into<Option<&'a str>>>(domain: P, context: &str, msgid: &str) -> Option<GString> {
     let domain = domain.into();
     let domain = domain.to_glib_none();
     unsafe {
@@ -401,32 +402,32 @@ pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool
     }
 }
 
-pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Option<String> {
+pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_filename_display_basename(filename.as_ref().to_glib_none().0))
     }
 }
 
-pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<String> {
+pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_filename_display_name(filename.as_ref().to_glib_none().0))
     }
 }
 
-pub fn format_size(size: u64) -> Option<String> {
+pub fn format_size(size: u64) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_format_size(size))
     }
 }
 
 #[deprecated]
-pub fn format_size_for_display(size: i64) -> Option<String> {
+pub fn format_size_for_display(size: i64) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_format_size_for_display(size))
     }
 }
 
-pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<String> {
+pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_format_size_full(size, flags.to_glib()))
     }
@@ -440,13 +441,13 @@ pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<String> {
 //    unsafe { TODO: call ffi::g_free() }
 //}
 
-pub fn get_application_name() -> Option<String> {
+pub fn get_application_name() -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_get_application_name())
     }
 }
 
-pub fn get_charset() -> Option<String> {
+pub fn get_charset() -> Option<GString> {
     unsafe {
         let mut charset = ptr::null();
         let ret = from_glib(ffi::g_get_charset(&mut charset));
@@ -454,7 +455,7 @@ pub fn get_charset() -> Option<String> {
     }
 }
 
-pub fn get_codeset() -> Option<String> {
+pub fn get_codeset() -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_get_codeset())
     }
@@ -470,19 +471,19 @@ pub fn get_environ() -> Vec<std::ffi::OsString> {
     }
 }
 
-pub fn get_host_name() -> Option<String> {
+pub fn get_host_name() -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_get_host_name())
     }
 }
 
-pub fn get_language_names() -> Vec<String> {
+pub fn get_language_names() -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names())
     }
 }
 
-pub fn get_locale_variants(locale: &str) -> Vec<String> {
+pub fn get_locale_variants(locale: &str) -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_get_locale_variants(locale.to_glib_none().0))
     }
@@ -567,13 +568,13 @@ pub fn hostname_is_non_ascii(hostname: &str) -> bool {
     }
 }
 
-pub fn hostname_to_ascii(hostname: &str) -> Option<String> {
+pub fn hostname_to_ascii(hostname: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_hostname_to_ascii(hostname.to_glib_none().0))
     }
 }
 
-pub fn hostname_to_unicode(hostname: &str) -> Option<String> {
+pub fn hostname_to_unicode(hostname: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_hostname_to_unicode(hostname.to_glib_none().0))
     }
@@ -694,7 +695,7 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_writer_format_fields(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> Option<String> {
+//pub fn log_writer_format_fields(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_log_writer_format_fields() }
 //}
 
@@ -744,18 +745,18 @@ pub fn main_depth() -> i32 {
 //    unsafe { TODO: call ffi::g_markup_collect_attributes() }
 //}
 
-pub fn markup_escape_text(text: &str) -> String {
+pub fn markup_escape_text(text: &str) -> GString {
     let length = text.len() as isize;
     unsafe {
         from_glib_full(ffi::g_markup_escape_text(text.to_glib_none().0, length))
     }
 }
 
-//pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<String> {
+//pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_markup_printf_escaped() }
 //}
 
-//pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<String> {
+//pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_markup_vprintf_escaped() }
 //}
 
@@ -1090,7 +1091,7 @@ pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> R
 //    unsafe { TODO: call ffi::g_sprintf() }
 //}
 
-pub fn stpcpy(dest: &str, src: &str) -> Option<String> {
+pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_stpcpy(dest.to_glib_none().0, src.to_glib_none().0))
     }
@@ -1132,7 +1133,7 @@ pub fn test_bug_base(uri_pattern: &str) {
 }
 
 //#[cfg(any(feature = "v2_38", feature = "dox"))]
-//pub fn test_build_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<String> {
+//pub fn test_build_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_build_filename() }
 //}
 
@@ -1168,7 +1169,7 @@ pub fn test_failed() -> bool {
 //}
 
 //#[cfg(any(feature = "v2_38", feature = "dox"))]
-//pub fn test_get_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<String> {
+//pub fn test_get_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_get_filename() }
 //}
 
@@ -1193,7 +1194,7 @@ pub fn test_incomplete<'a, P: Into<Option<&'a str>>>(msg: P) {
 //    unsafe { TODO: call ffi::g_test_log_set_fatal_handler() }
 //}
 
-//pub fn test_log_type_name(log_type: /*Ignored*/TestLogType) -> Option<String> {
+//pub fn test_log_type_name(log_type: /*Ignored*/TestLogType) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_log_type_name() }
 //}
 
@@ -1383,7 +1384,7 @@ pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
     }
 }
 
-pub fn uri_escape_string<'a, P: Into<Option<&'a str>>>(unescaped: &str, reserved_chars_allowed: P, allow_utf8: bool) -> Option<String> {
+pub fn uri_escape_string<'a, P: Into<Option<&'a str>>>(unescaped: &str, reserved_chars_allowed: P, allow_utf8: bool) -> Option<GString> {
     let reserved_chars_allowed = reserved_chars_allowed.into();
     let reserved_chars_allowed = reserved_chars_allowed.to_glib_none();
     unsafe {
@@ -1391,19 +1392,19 @@ pub fn uri_escape_string<'a, P: Into<Option<&'a str>>>(unescaped: &str, reserved
     }
 }
 
-pub fn uri_list_extract_uris(uri_list: &str) -> Vec<String> {
+pub fn uri_list_extract_uris(uri_list: &str) -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_uri_list_extract_uris(uri_list.to_glib_none().0))
     }
 }
 
-pub fn uri_parse_scheme(uri: &str) -> Option<String> {
+pub fn uri_parse_scheme(uri: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_uri_parse_scheme(uri.to_glib_none().0))
     }
 }
 
-pub fn uri_unescape_segment<'a, 'b, 'c, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>, R: Into<Option<&'c str>>>(escaped_string: P, escaped_string_end: Q, illegal_characters: R) -> Option<String> {
+pub fn uri_unescape_segment<'a, 'b, 'c, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>, R: Into<Option<&'c str>>>(escaped_string: P, escaped_string_end: Q, illegal_characters: R) -> Option<GString> {
     let escaped_string = escaped_string.into();
     let escaped_string = escaped_string.to_glib_none();
     let escaped_string_end = escaped_string_end.into();
@@ -1415,7 +1416,7 @@ pub fn uri_unescape_segment<'a, 'b, 'c, P: Into<Option<&'a str>>, Q: Into<Option
     }
 }
 
-pub fn uri_unescape_string<'a, P: Into<Option<&'a str>>>(escaped_string: &str, illegal_characters: P) -> Option<String> {
+pub fn uri_unescape_string<'a, P: Into<Option<&'a str>>>(escaped_string: &str, illegal_characters: P) -> Option<GString> {
     let illegal_characters = illegal_characters.into();
     let illegal_characters = illegal_characters.to_glib_none();
     unsafe {
@@ -1437,7 +1438,7 @@ pub fn uuid_string_is_valid(str: &str) -> bool {
 }
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
-pub fn uuid_string_random() -> Option<String> {
+pub fn uuid_string_random() -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_uuid_string_random())
     }
