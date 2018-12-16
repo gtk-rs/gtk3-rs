@@ -59,8 +59,7 @@ pub trait UnsafeFrom<T> {
 /// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
-pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> +
-    for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
+pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> + 'static { }
 
 unsafe impl<T: ObjectType + AsRef<T>> IsA<T> for T {}
 
@@ -676,29 +675,6 @@ macro_rules! glib_object_wrapper {
     (@munch_impls $name:ident, ) => { };
 
     (@munch_impls $name:ident, $super_name:path) => {
-        #[doc(hidden)]
-        impl<'a> $crate::translate::ToGlibPtr<'a,
-                *mut <$super_name as $crate::object::ObjectType>::GlibType> for $name {
-            type Storage = <$crate::object::ObjectRef as
-                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
-
-            #[inline]
-            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
-                    *mut <$super_name as $crate::object::ObjectType>::GlibType, Self> {
-                debug_assert!($crate::object::Cast::is::<$super_name>(self));
-                let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
-                $crate::translate::Stash(stash.0 as *mut _, stash.1)
-            }
-
-            #[inline]
-            fn to_glib_full(&self)
-                    -> *mut <$super_name as $crate::object::ObjectType>::GlibType {
-                debug_assert!($crate::object::Cast::is::<$super_name>(self));
-                let ptr = $crate::translate::ToGlibPtr::to_glib_full(&self.0);
-                ptr as *mut _
-            }
-        }
-
         unsafe impl $crate::object::IsA<$super_name> for $name { }
 
         #[doc(hidden)]
@@ -712,26 +688,6 @@ macro_rules! glib_object_wrapper {
     };
 
     (@munch_impls $name:ident, $super_name:path => $super_ffi:path) => {
-        #[doc(hidden)]
-        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $super_ffi> for $name {
-            type Storage = <$crate::object::ObjectRef as
-                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
-
-            #[inline]
-            fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *mut $super_ffi, Self> {
-                debug_assert!($crate::object::Cast::is::<$super_name>(self));
-                let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
-                $crate::translate::Stash(stash.0 as *mut _, stash.1)
-            }
-
-            #[inline]
-            fn to_glib_full(&self) -> *mut $super_ffi {
-                debug_assert!($crate::object::Cast::is::<$super_name>(self));
-                let ptr = $crate::translate::ToGlibPtr::to_glib_full(&self.0);
-                ptr as *mut _
-            }
-        }
-
         unsafe impl $crate::object::IsA<$super_name> for $name { }
 
         #[doc(hidden)]
@@ -759,24 +715,6 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
-
-        #[doc(hidden)]
-        impl<'a> $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject> for $name {
-            type Storage = <$crate::object::ObjectRef as
-                $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
-
-            #[inline]
-            fn to_glib_none(&'a self)
-                    -> $crate::translate::Stash<'a, *mut $crate::object::GObject, Self> {
-                let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
-                $crate::translate::Stash(stash.0 as *mut _, stash.1)
-            }
-
-            #[inline]
-            fn to_glib_full(&self) -> *mut $crate::object::GObject {
-                $crate::translate::ToGlibPtr::to_glib_full(&self.0) as *mut _
-            }
-        }
 
         unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
 
