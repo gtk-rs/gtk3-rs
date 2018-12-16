@@ -1085,6 +1085,7 @@ impl FromGlibPtrNone<*const c_char> for String {
     }
 }
 
+// TODO: Deprecate this
 impl FromGlibPtrFull<*const c_char> for String {
     #[inline]
     unsafe fn from_glib_full(ptr: *const c_char) -> Self {
@@ -1094,6 +1095,7 @@ impl FromGlibPtrFull<*const c_char> for String {
     }
 }
 
+// TODO: Deprecate this
 impl FromGlibPtrNone<*mut c_char> for String {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut c_char) -> Self {
@@ -1102,6 +1104,7 @@ impl FromGlibPtrNone<*mut c_char> for String {
     }
 }
 
+// TODO: Deprecate this
 impl FromGlibPtrFull<*mut c_char> for String {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut c_char) -> Self {
@@ -1459,8 +1462,10 @@ macro_rules! impl_from_glib_container_as_vec_string {
     }
 }
 
+// TODO: Deprecate this
 impl_from_glib_container_as_vec_string!(String, *const c_char);
 impl_from_glib_container_as_vec_string!(String, *mut c_char);
+
 impl_from_glib_container_as_vec_string!(PathBuf, *const c_char);
 impl_from_glib_container_as_vec_string!(PathBuf, *mut c_char);
 impl_from_glib_container_as_vec_string!(OsString, *const c_char);
@@ -1738,6 +1743,7 @@ mod tests {
     use std::collections::HashMap;
     use ffi as glib_ffi;
     use super::*;
+    use gstring::GString;
 
     #[test]
     fn string_hash_map() {
@@ -1760,6 +1766,17 @@ mod tests {
         let ptr_copy = unsafe { glib_ffi::g_strdupv(ptr) };
 
         let actual: Vec<String> = unsafe { FromGlibPtrContainer::from_glib_full(ptr_copy) };
+        assert_eq!(v, actual);
+    }
+
+    #[test]
+    fn gstring_array() {
+        let v = vec!["A".to_string(), "B".to_string(), "C".to_string()];
+        let stash = v.to_glib_none();
+        let ptr: *mut *mut c_char = stash.0;
+        let ptr_copy = unsafe { glib_ffi::g_strdupv(ptr) };
+
+        let actual: Vec<GString> = unsafe { FromGlibPtrContainer::from_glib_full(ptr_copy) };
         assert_eq!(v, actual);
     }
 

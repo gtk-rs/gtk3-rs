@@ -183,7 +183,10 @@ pub mod signal;
 pub mod source;
 pub use source::*;
 mod time_val;
+#[macro_use]
 pub mod translate;
+mod gstring;
+pub use gstring::GString;
 pub mod types;
 mod utils;
 pub use utils::*;
