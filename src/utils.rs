@@ -10,6 +10,7 @@ use std::path::{Path, PathBuf};
 use error::BoolError;
 use Error;
 use std::ptr;
+use gstring::GString;
 
 /// Same as [`get_prgname()`].
 ///
@@ -112,7 +113,7 @@ pub fn get_current_dir() -> Option<PathBuf> {
     }
 }
 
-pub fn filename_to_uri<'a, P: AsRef<Path>, Q: Into<Option<&'a str>>>(filename: P, hostname: Q) -> Result<String, Error> {
+pub fn filename_to_uri<'a, P: AsRef<Path>, Q: Into<Option<&'a str>>>(filename: P, hostname: Q) -> Result<GString, Error> {
     #[cfg(windows)]
     use ffi::g_filename_to_uri_utf8 as g_filename_to_uri;
     #[cfg(not(windows))]
@@ -127,7 +128,7 @@ pub fn filename_to_uri<'a, P: AsRef<Path>, Q: Into<Option<&'a str>>>(filename: P
     }
 }
 
-pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<String>), Error> {
+pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<GString>), Error> {
     #[cfg(windows)]
     use ffi::g_filename_from_uri_utf8 as g_filename_from_uri;
     #[cfg(not(windows))]
@@ -137,7 +138,7 @@ pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<String
         let mut hostname = ptr::null_mut();
         let mut error = ptr::null_mut();
         let ret = g_filename_from_uri(uri.to_glib_none().0, &mut hostname, &mut error);
-        if error.is_null() { Ok((from_glib_full(ret), from_glib_full(hostname))) } else { Err(from_glib_full(error)) }
+        if error.is_null() { Ok((from_glib_full(ret), Some(from_glib_full(hostname)))) } else { Err(from_glib_full(error)) }
     }
 }
 

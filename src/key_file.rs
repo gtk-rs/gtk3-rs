@@ -11,6 +11,7 @@ use std::ptr;
 use std::path;
 use error::Error;
 use auto::KeyFileFlags;
+use gstring::GString;
 
 use KeyFile;
 
@@ -37,8 +38,8 @@ impl KeyFile {
                                                         &mut full_path,
                                                         flags.to_glib(), &mut error);
             if error.is_null() {
-                let path: String = from_glib_full(full_path);
-                Ok(path::PathBuf::from(path))
+                let path: GString = from_glib_full(full_path);
+                Ok(path::PathBuf::from(&path))
             } else {
                 Err(from_glib_full(error))
             }
@@ -57,15 +58,15 @@ impl KeyFile {
                                                    &mut full_path,
                                                    flags.to_glib(), &mut error);
             if error.is_null() {
-                let path: String = from_glib_full(full_path);
-                Ok(path::PathBuf::from(path))
+                let path: GString = from_glib_full(full_path);
+                Ok(path::PathBuf::from(&path))
             } else {
                 Err(from_glib_full(error))
             }
         }
     }
 
-    pub fn to_data(&self) -> String {
+    pub fn to_data(&self) -> GString {
         unsafe {
             let ret = ffi::g_key_file_to_data(self.to_glib_none().0, ptr::null_mut(), ptr::null_mut());
             from_glib_full(ret)
