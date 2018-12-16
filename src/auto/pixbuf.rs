@@ -32,7 +32,7 @@ glib_wrapper! {
 }
 
 impl Pixbuf {
-    pub fn new(colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32) -> Pixbuf {
+    pub fn new(colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_new(colorspace.to_glib(), has_alpha.to_glib(), bits_per_sample, width, height))
         }
