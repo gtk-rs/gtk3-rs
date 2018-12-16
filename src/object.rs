@@ -23,6 +23,95 @@ use SignalHandlerId;
 
 use get_thread_id;
 
+/// Declares the "is a" relationship.
+///
+/// `Self` is said to implement `T`.
+///
+/// For instance, since originally `GtkWidget` is a subclass of `GObject` and
+/// implements the `GtkBuildable` interface, `gtk::Widget` implements
+/// `IsA<glib::Object>` and `IsA<gtk::Buildable>`.
+///
+///
+/// The trait can only be implemented if the appropriate `ToGlibPtr`
+/// implementations exist.
+///
+/// `T` always implements `IsA<T>`.
+pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
+    Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
+
+unsafe impl<T> IsA<T> for T
+where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
+
+/// Trait for mapping a class struct type to its corresponding instance type.
+pub unsafe trait IsClassFor: Sized + 'static {
+    /// Corresponding Rust instance type for this class.
+    type Instance;
+
+    /// Get the type id for this class.
+    fn get_type(&self) -> Type {
+        unsafe {
+            let klass = self as *const _ as *const gobject_ffi::GTypeClass;
+            from_glib((*klass).g_type)
+        }
+    }
+
+    /// Casts this class to a reference to a parent type's class.
+    fn upcast_ref<U: IsClassFor>(&self) -> &U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *const _ as *const U;
+            &*klass
+        }
+    }
+
+    /// Casts this class to a mutable reference to a parent type's class.
+    fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
+        where Self::Instance: IsA<U::Instance>,
+            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            &mut *klass
+        }
+    }
+
+    /// Casts this class to a reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *const _ as *const U;
+            Some(&*klass)
+        }
+    }
+
+    /// Casts this class to a mutable reference to a child type's class or
+    /// fails if this class is not implementing the child class.
+    fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
+        where U::Instance: IsA<Self::Instance>,
+            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+    {
+        if !self.get_type().is_a(&U::Instance::static_type()) {
+            return None;
+        }
+
+        unsafe {
+            let klass = self as *mut _ as *mut U;
+            Some(&mut *klass)
+        }
+    }
+}
+
 /// Upcasting and downcasting support.
 ///
 /// Provides conversions up and down the class hierarchy tree.
@@ -191,95 +280,6 @@ pub trait Cast: IsA<Object> {
 }
 
 impl<T: IsA<Object>> Cast for T { }
-
-/// Declares the "is a" relationship.
-///
-/// `Self` is said to implement `T`.
-///
-/// For instance, since originally `GtkWidget` is a subclass of `GObject` and
-/// implements the `GtkBuildable` interface, `gtk::Widget` implements
-/// `IsA<glib::Object>` and `IsA<gtk::Buildable>`.
-///
-///
-/// The trait can only be implemented if the appropriate `ToGlibPtr`
-/// implementations exist.
-///
-/// `T` always implements `IsA<T>`.
-pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
-    Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
-
-unsafe impl<T> IsA<T> for T
-where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
-
-/// Trait for mapping a class struct type to its corresponding instance type.
-pub unsafe trait IsClassFor: Sized + 'static {
-    /// Corresponding Rust instance type for this class.
-    type Instance;
-
-    /// Get the type id for this class.
-    fn get_type(&self) -> Type {
-        unsafe {
-            let klass = self as *const _ as *const gobject_ffi::GTypeClass;
-            from_glib((*klass).g_type)
-        }
-    }
-
-    /// Casts this class to a reference to a parent type's class.
-    fn upcast_ref<U: IsClassFor>(&self) -> &U
-        where Self::Instance: IsA<U::Instance>,
-            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
-    {
-        unsafe {
-            let klass = self as *const _ as *const U;
-            &*klass
-        }
-    }
-
-    /// Casts this class to a mutable reference to a parent type's class.
-    fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
-        where Self::Instance: IsA<U::Instance>,
-            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
-    {
-        unsafe {
-            let klass = self as *mut _ as *mut U;
-            &mut *klass
-        }
-    }
-
-    /// Casts this class to a reference to a child type's class or
-    /// fails if this class is not implementing the child class.
-    fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
-        where U::Instance: IsA<Self::Instance>,
-            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
-    {
-        if !self.get_type().is_a(&U::Instance::static_type()) {
-            return None;
-        }
-
-        unsafe {
-            let klass = self as *const _ as *const U;
-            Some(&*klass)
-        }
-    }
-
-    /// Casts this class to a mutable reference to a child type's class or
-    /// fails if this class is not implementing the child class.
-    fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
-        where U::Instance: IsA<Self::Instance>,
-            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
-    {
-        if !self.get_type().is_a(&U::Instance::static_type()) {
-            return None;
-        }
-
-        unsafe {
-            let klass = self as *mut _ as *mut U;
-            Some(&mut *klass)
-        }
-    }
-}
 
 /// Downcasts support.
 pub trait Downcast<T> {
