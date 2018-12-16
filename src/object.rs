@@ -6,7 +6,6 @@
 
 use translate::*;
 use types::StaticType;
-use wrapper::{UnsafeFrom, Wrapper};
 use ffi as glib_ffi;
 use gobject_ffi;
 use std::mem;
@@ -23,6 +22,21 @@ use SignalHandlerId;
 
 use get_thread_id;
 
+/// Implemented by types representing `glib::Object` and subclasses of it.
+pub trait ObjectType {
+    /// type of the FFI Instance structure.
+    type GlibType: 'static;
+    /// type of the FFI Class structure.
+    type GlibClassType: 'static;
+    /// type of the Rust Class structure.
+    type RustClassType: 'static;
+}
+
+/// Unsafe variant of the `From` trait.
+pub trait UnsafeFrom<T> {
+    unsafe fn unsafe_from(t: T) -> Self;
+}
+
 /// Declares the "is a" relationship.
 ///
 /// `Self` is said to implement `T`.
@@ -36,13 +50,13 @@ use get_thread_id;
 /// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
-pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + Wrapper>: StaticType + Wrapper +
+pub unsafe trait IsA<T: StaticType + UnsafeFrom<ObjectRef> + ObjectType>: StaticType + ObjectType +
     Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
+    for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
 
 unsafe impl<T> IsA<T> for T
-where T: StaticType + Wrapper + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
-    for<'a> ToGlibPtr<'a, *mut <T as Wrapper>::GlibType> + 'static { }
+where T: StaticType + ObjectType + Into<ObjectRef> + UnsafeFrom<ObjectRef> +
+    for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
@@ -60,7 +74,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// Casts this class to a reference to a parent type's class.
     fn upcast_ref<U: IsClassFor>(&self) -> &U
         where Self::Instance: IsA<U::Instance>,
-            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+            U::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
     {
         unsafe {
             let klass = self as *const _ as *const U;
@@ -71,7 +85,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// Casts this class to a mutable reference to a parent type's class.
     fn upcast_ref_mut<U: IsClassFor>(&mut self) -> &mut U
         where Self::Instance: IsA<U::Instance>,
-            U::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+            U::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
     {
         unsafe {
             let klass = self as *mut _ as *mut U;
@@ -83,7 +97,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// fails if this class is not implementing the child class.
     fn downcast_ref<U: IsClassFor>(&self) -> Option<&U>
         where U::Instance: IsA<Self::Instance>,
-            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+            Self::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
     {
         if !self.get_type().is_a(&U::Instance::static_type()) {
             return None;
@@ -99,7 +113,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
     /// fails if this class is not implementing the child class.
     fn downcast_ref_mut<U: IsClassFor>(&mut self) -> Option<&mut U>
         where U::Instance: IsA<Self::Instance>,
-            Self::Instance: Wrapper + StaticType + UnsafeFrom<ObjectRef>
+            Self::Instance: ObjectType + StaticType + UnsafeFrom<ObjectRef>
     {
         if !self.get_type().is_a(&U::Instance::static_type()) {
             return None;
@@ -137,7 +151,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn upcast<T>(self) -> T
-    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
+    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType,
           Self: IsA<T> {
         unsafe {
             self.unsafe_cast()
@@ -159,7 +173,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn upcast_ref<T>(&self) -> &T
-    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper,
+    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType,
           Self: IsA<T> {
         unsafe {
             self.unsafe_cast_ref()
@@ -186,7 +200,7 @@ pub trait Cast: IsA<Object> {
     #[inline]
     fn downcast<T>(self) -> Result<T, Self>
     where Self: Sized + CanDowncast<T>,
-          T: StaticType + Wrapper + UnsafeFrom<ObjectRef> {
+          T: StaticType + ObjectType + UnsafeFrom<ObjectRef> {
         if self.is::<T>() {
             Ok(unsafe { self.unsafe_cast() })
         } else {
@@ -214,7 +228,7 @@ pub trait Cast: IsA<Object> {
     #[inline]
     fn downcast_ref<T>(&self) -> Option<&T>
     where Self: CanDowncast<T>,
-          T: StaticType + Wrapper + UnsafeFrom<ObjectRef> {
+          T: StaticType + ObjectType + UnsafeFrom<ObjectRef> {
         if self.is::<T>() {
             Some(unsafe { self.unsafe_cast_ref() })
         } else {
@@ -243,7 +257,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn dynamic_cast<T>(self) -> Result<T, Self>
-    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
         if !self.is::<T>() {
             Err(self)
         } else {
@@ -272,7 +286,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn dynamic_cast_ref<T>(&self) -> Option<&T>
-    where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+    where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
         if !self.is::<T>() {
             None
         } else {
@@ -288,7 +302,7 @@ pub trait Cast: IsA<Object> {
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
     unsafe fn unsafe_cast<T>(self) -> T
-      where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+      where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
         debug_assert!(self.is::<T>());
         T::unsafe_from(self.into())
     }
@@ -297,7 +311,7 @@ pub trait Cast: IsA<Object> {
     ///
     /// Panics if compiled with `debug_assertions` and the instance doesn't implement `T`.
     unsafe fn unsafe_cast_ref<T>(&self) -> &T
-       where T: StaticType + UnsafeFrom<ObjectRef> + Wrapper {
+       where T: StaticType + UnsafeFrom<ObjectRef> + ObjectType {
         debug_assert!(self.is::<T>());
         // This transmute is safe because all our wrapper types have the
         // same representation except for the name and the phantom data
@@ -331,7 +345,7 @@ glib_wrapper! {
     }
 }
 
-/// Wrapper implementations for Object types. See `glib_wrapper!`.
+/// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr) => {
@@ -351,7 +365,7 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl $crate::wrapper::UnsafeFrom<$crate::object::ObjectRef> for $name {
+        impl $crate::object::UnsafeFrom<$crate::object::ObjectRef> for $name {
             unsafe fn unsafe_from(t: $crate::object::ObjectRef) -> Self {
                 $name(t, ::std::marker::PhantomData)
             }
@@ -363,7 +377,7 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl $crate::wrapper::Wrapper for $name {
+        impl $crate::object::ObjectType for $name {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
             type RustClassType = $rust_class_name;
@@ -650,13 +664,13 @@ macro_rules! glib_object_wrapper {
     (@munch_impls $name:ident, $super_name:path) => {
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a,
-                *mut <$super_name as $crate::wrapper::Wrapper>::GlibType> for $name {
+                *mut <$super_name as $crate::object::ObjectType>::GlibType> for $name {
             type Storage = <$crate::object::ObjectRef as
                 $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
 
             #[inline]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a,
-                    *mut <$super_name as $crate::wrapper::Wrapper>::GlibType, Self> {
+                    *mut <$super_name as $crate::object::ObjectType>::GlibType, Self> {
                 let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
                 unsafe {
                     debug_assert!($crate::types::instance_of::<$super_name>(stash.0 as *const _));
@@ -666,7 +680,7 @@ macro_rules! glib_object_wrapper {
 
             #[inline]
             fn to_glib_full(&self)
-                    -> *mut <$super_name as $crate::wrapper::Wrapper>::GlibType {
+                    -> *mut <$super_name as $crate::object::ObjectType>::GlibType {
                 let ptr = $crate::translate::ToGlibPtr::to_glib_full(&self.0);
                 unsafe {
                     debug_assert!($crate::types::instance_of::<$super_name>(ptr as *const _));

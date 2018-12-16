@@ -7,14 +7,14 @@
 //! structs and don't provide any new virtual methods.
 
 use super::prelude::*;
-use wrapper::Wrapper;
+use object::ObjectType;
 
 use std::ops;
 
 /// A simple instance struct that does not store any additional data.
 #[repr(C)]
 pub struct InstanceStruct<T: ObjectSubclass> {
-    parent: <T::ParentType as Wrapper>::GlibType,
+    parent: <T::ParentType as ObjectType>::GlibType,
 }
 
 unsafe impl<T: ObjectSubclass> super::types::InstanceStruct for InstanceStruct<T> {
@@ -25,7 +25,7 @@ unsafe impl<T: ObjectSubclass> super::types::InstanceStruct for InstanceStruct<T
 /// or virtual methods.
 #[repr(C)]
 pub struct ClassStruct<T: ObjectSubclass> {
-    parent_class: <T::ParentType as Wrapper>::GlibClassType,
+    parent_class: <T::ParentType as ObjectType>::GlibClassType,
 }
 
 unsafe impl<T: ObjectSubclass> super::types::ClassStruct for ClassStruct<T> {
@@ -33,7 +33,7 @@ unsafe impl<T: ObjectSubclass> super::types::ClassStruct for ClassStruct<T> {
 }
 
 impl<T: ObjectSubclass> ops::Deref for ClassStruct<T> {
-    type Target = <<T as ObjectSubclass>::ParentType as Wrapper>::RustClassType;
+    type Target = <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType;
 
     fn deref(&self) -> &Self::Target {
         unsafe { &*(self as *const _ as *const Self::Target) }

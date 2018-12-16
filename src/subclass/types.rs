@@ -12,8 +12,8 @@ use std::mem;
 use std::ptr;
 
 use translate::*;
-use wrapper::Wrapper;
 use {IsA, IsClassFor, Object, StaticType, Type};
+use object::ObjectType;
 
 use super::object::ObjectImpl;
 use object::ObjectExt;
@@ -106,12 +106,12 @@ pub unsafe trait ClassStruct: Sized + 'static {
     /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self)
     where
-        <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType:
+        <<Self::Type as ObjectSubclass>::ParentType as ObjectType>::RustClassType:
             IsSubclassable<Self::Type>,
     {
         unsafe {
             let base = &mut *(self as *mut _
-                as *mut <<Self::Type as ObjectSubclass>::ParentType as Wrapper>::RustClassType);
+                as *mut <<Self::Type as ObjectSubclass>::ParentType as ObjectType>::RustClassType);
             base.override_vfuncs();
         }
     }
@@ -239,8 +239,8 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
 
     /// Parent Rust type to inherit from.
     type ParentType: IsA<Object>
-        + FromGlibPtrBorrow<*mut <Self::ParentType as Wrapper>::GlibType>
-        + FromGlibPtrNone<*mut <Self::ParentType as Wrapper>::GlibType>;
+        + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
+        + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
 
     /// The C instance struct.
     ///
@@ -289,7 +289,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
 
             let ptr = self as *const Self as *const u8;
             let ptr = ptr.offset(offset);
-            let ptr = ptr as *mut u8 as *mut <Self::ParentType as Wrapper>::GlibType;
+            let ptr = ptr as *mut u8 as *mut <Self::ParentType as ObjectType>::GlibType;
 
             from_glib_none(ptr)
         }
@@ -359,7 +359,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
 
 unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: ffi::gpointer, _klass_data: ffi::gpointer)
 where
-    <<T as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<T>,
+    <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
 {
     let mut data = T::type_data();
 
@@ -384,7 +384,7 @@ where
     {
         let klass = &mut *(klass as *mut T::Class);
         let parent_class = gobject_ffi::g_type_class_peek_parent(klass as *mut _ as ffi::gpointer)
-            as *mut <T::ParentType as Wrapper>::GlibClassType;
+            as *mut <T::ParentType as ObjectType>::GlibClassType;
         assert!(!parent_class.is_null());
 
         (*data.as_mut()).parent_class = parent_class as ffi::gpointer;
@@ -444,7 +444,7 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject)
 /// [`glib_object_subclass!`]: ../../macro.glib_object_subclass.html
 pub fn register_type<T: ObjectSubclass>() -> Type
 where
-    <<T as ObjectSubclass>::ParentType as Wrapper>::RustClassType: IsSubclassable<T>,
+    <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
 {
     unsafe {
         use std::ffi::CString;
