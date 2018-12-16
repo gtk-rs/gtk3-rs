@@ -680,6 +680,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl AsRef<$super_name> for $name {
             fn as_ref(&self) -> &$super_name {
+                debug_assert!($crate::object::ObjectExt::is::<$super_name>(self));
                 unsafe {
                     ::std::mem::transmute(self)
                 }
