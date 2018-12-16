@@ -12,11 +12,10 @@ use std::mem;
 use std::ptr;
 
 use translate::*;
-use {IsA, IsClassFor, Object, StaticType, Type};
-use object::ObjectType;
+use {IsA, IsClassFor, StaticType, Type};
+use object::{ObjectType, ObjectExt};
 
 use super::object::ObjectImpl;
-use object::ObjectExt;
 
 /// A newly registered `glib::Type` that is currently still being initialized.
 ///
@@ -238,7 +237,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     const NAME: &'static str;
 
     /// Parent Rust type to inherit from.
-    type ParentType: IsA<Object>
+    type ParentType: ObjectType
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
 
@@ -298,7 +297,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// Returns the implementation from an instance.
     ///
     /// Panics if called on an object of the wrong type.
-    fn from_instance<T: IsA<Self::ParentType> + IsA<::object::Object>>(obj: &T) -> &Self {
+    fn from_instance<T: IsA<Self::ParentType>>(obj: &T) -> &Self {
         unsafe {
             let data = Self::type_data();
             let type_ = data.as_ref().get_type();
@@ -306,8 +305,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
 
             assert!(obj.get_type().is_a(&type_));
 
-            let ptr: *mut gobject_ffi::GObject = obj.to_glib_none().0;
-            let ptr = ptr as *const Self::Instance;
+            let ptr = obj.as_ptr() as *const Self::Instance;
             (*ptr).get_impl()
         }
     }

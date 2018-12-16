@@ -33,6 +33,9 @@ pub unsafe trait ObjectType: UnsafeFrom<ObjectRef> + Into<ObjectRef>
     type GlibClassType: 'static;
     /// type of the Rust Class structure.
     type RustClassType: 'static;
+
+    fn as_object_ref(&self) -> &ObjectRef;
+    fn as_ptr(&self) -> *mut Self::GlibType;
 }
 
 /// Unsafe variant of the `From` trait.
@@ -53,10 +56,10 @@ pub trait UnsafeFrom<T> {
 /// implementations exist.
 ///
 /// `T` always implements `IsA<T>`.
-pub unsafe trait IsA<T: ObjectType>: ObjectType +
+pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> +
     for<'a> ToGlibPtr<'a, *mut <T as ObjectType>::GlibType> + 'static { }
 
-unsafe impl<T: ObjectType> IsA<T> for T {}
+unsafe impl<T: ObjectType + AsRef<T>> IsA<T> for T {}
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
@@ -129,12 +132,7 @@ pub unsafe trait IsClassFor: Sized + 'static {
 /// Upcasting and downcasting support.
 ///
 /// Provides conversions up and down the class hierarchy tree.
-pub trait Cast: IsA<Object> {
-    /// Returns `true` if the object is an instance of (can be cast to) `T`.
-    fn is<T: StaticType>(&self) -> bool {
-        self.get_type().is_a(&T::static_type())
-    }
-
+pub trait Cast: ObjectType {
     /// Upcasts an object to a superclass or interface `T`.
     ///
     /// *NOTE*: This statically checks at compile-time if casting is possible. It is not always
@@ -196,7 +194,7 @@ pub trait Cast: IsA<Object> {
     /// ```
     #[inline]
     fn downcast<T: ObjectType>(self) -> Result<T, Self>
-    where Self: Sized + CanDowncast<T> {
+    where Self: CanDowncast<T> {
         if self.is::<T>() {
             Ok(unsafe { self.unsafe_cast() })
         } else {
@@ -312,7 +310,7 @@ pub trait Cast: IsA<Object> {
     }
 }
 
-impl<T: IsA<Object>> Cast for T { }
+impl<T: ObjectType> Cast for T { }
 
 /// Marker trait for the statically known possibility of downcasting from `Self` to `T`.
 pub trait CanDowncast<T> { }
@@ -372,6 +370,28 @@ macro_rules! glib_object_wrapper {
             type GlibType = $ffi_name;
             type GlibClassType = $ffi_class_name;
             type RustClassType = $rust_class_name;
+
+            fn as_object_ref(&self) -> &$crate::object::ObjectRef {
+                &self.0
+            }
+
+            fn as_ptr(&self) -> *mut Self::GlibType {
+                self.0.to_glib_none().0 as *mut _
+            }
+        }
+
+        #[doc(hidden)]
+        impl AsRef<$crate::object::ObjectRef> for $name {
+            fn as_ref(&self) -> &$crate::object::ObjectRef {
+                &self.0
+            }
+        }
+
+        #[doc(hidden)]
+        impl AsRef<$name> for $name {
+            fn as_ref(&self) -> &$name {
+                self
+            }
         }
 
         #[doc(hidden)]
@@ -600,19 +620,19 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        impl<T: $crate::object::IsA<$crate::object::Object>> ::std::cmp::PartialEq<T> for $name {
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialEq<T> for $name {
             #[inline]
             fn eq(&self, other: &T) -> bool {
-                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0 == $crate::translate::ToGlibPtr::to_glib_none(other).0
+                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0 == $crate::translate::ToGlibPtr::to_glib_none($crate::object::ObjectType::as_object_ref(other)).0
             }
         }
 
         impl ::std::cmp::Eq for $name { }
 
-        impl<T: $crate::object::IsA<$crate::object::Object>> ::std::cmp::PartialOrd<T> for $name {
+        impl<T: $crate::object::ObjectType> ::std::cmp::PartialOrd<T> for $name {
             #[inline]
             fn partial_cmp(&self, other: &T) -> Option<::std::cmp::Ordering> {
-                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0.partial_cmp(&$crate::translate::ToGlibPtr::to_glib_none(other).0)
+                $crate::translate::ToGlibPtr::to_glib_none(&self.0).0.partial_cmp(&$crate::translate::ToGlibPtr::to_glib_none($crate::object::ObjectType::as_object_ref(other)).0)
             }
         }
 
@@ -677,6 +697,15 @@ macro_rules! glib_object_wrapper {
         }
 
         unsafe impl $crate::object::IsA<$super_name> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$super_name> for $name {
+            fn as_ref(&self) -> &$super_name {
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 
     (@munch_impls $name:ident, $super_name:path => $super_ffi:path) => {
@@ -701,6 +730,15 @@ macro_rules! glib_object_wrapper {
         }
 
         unsafe impl $crate::object::IsA<$super_name> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$super_name> for $name {
+            fn as_ref(&self) -> &$super_name {
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 
     (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
@@ -738,6 +776,15 @@ macro_rules! glib_object_wrapper {
         }
 
         unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$crate::object::Object> for $name {
+            fn as_ref(&self) -> &$crate::object::Object {
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 
     ([$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:path, @get_type $get_type_expr:expr,
@@ -786,7 +833,10 @@ impl Object {
     }
 }
 
-pub trait ObjectExt: IsA<Object> {
+pub trait ObjectExt: ObjectType {
+    /// Returns `true` if the object is an instance of (can be cast to) `T`.
+    fn is<T: StaticType>(&self) -> bool;
+
     fn get_type(&self) -> Type;
     fn get_object_class(&self) -> &ObjectClass;
 
@@ -812,19 +862,23 @@ pub trait ObjectExt: IsA<Object> {
 
     fn downgrade(&self) -> WeakRef<Self>;
 
-    fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O>;
+    fn bind_property<'a, O: ObjectType, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a>;
 
     fn ref_count(&self) -> u32;
 }
 
-impl<T: IsA<Object>> ObjectExt for T {
+impl<T: ObjectType> ObjectExt for T {
+    fn is<U: StaticType>(&self) -> bool {
+        self.get_type().is_a(&U::static_type())
+    }
+
     fn get_type(&self) -> Type {
         self.get_object_class().get_type()
     }
 
     fn get_object_class(&self) -> &ObjectClass {
         unsafe {
-            let obj: *mut gobject_ffi::GObject = self.to_glib_none().0;
+            let obj: *mut gobject_ffi::GObject = self.as_object_ref().to_glib_none().0;
             let klass = (*obj).g_type_instance.g_class as *const ObjectClass;
             &*klass
         }
@@ -866,7 +920,7 @@ impl<T: IsA<Object>> ObjectExt for T {
                 ));
             }
 
-            gobject_ffi::g_object_set_property(self.to_glib_none().0,
+            gobject_ffi::g_object_set_property(self.as_object_ref().to_glib_none().0,
                                                property_name.to_glib_none().0,
                                                property_value.to_glib_none().0);
         }
@@ -890,7 +944,7 @@ impl<T: IsA<Object>> ObjectExt for T {
 
         unsafe {
             let mut value = Value::from_type(pspec.get_value_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.as_object_ref().to_glib_none().0, property_name.to_glib_none().0, value.to_glib_none_mut().0);
 
             // This can't really happen unless something goes wrong inside GObject
             if value.type_() == ::Type::Invalid {
@@ -903,25 +957,25 @@ impl<T: IsA<Object>> ObjectExt for T {
 
     fn block_signal(&self, handler_id: &SignalHandlerId) {
         unsafe {
-            gobject_ffi::g_signal_handler_block(self.to_glib_none().0, handler_id.to_glib());
+            gobject_ffi::g_signal_handler_block(self.as_object_ref().to_glib_none().0, handler_id.to_glib());
         }
     }
 
     fn unblock_signal(&self, handler_id: &SignalHandlerId) {
         unsafe {
-            gobject_ffi::g_signal_handler_unblock(self.to_glib_none().0, handler_id.to_glib());
+            gobject_ffi::g_signal_handler_unblock(self.as_object_ref().to_glib_none().0, handler_id.to_glib());
         }
     }
 
     fn stop_signal_emission(&self, signal_name: &str) {
         unsafe {
-            gobject_ffi::g_signal_stop_emission_by_name(self.to_glib_none().0, signal_name.to_glib_none().0);
+            gobject_ffi::g_signal_stop_emission_by_name(self.as_object_ref().to_glib_none().0, signal_name.to_glib_none().0);
         }
     }
 
     fn disconnect(&self, handler_id: SignalHandlerId) {
         unsafe {
-            gobject_ffi::g_signal_handler_disconnect(self.to_glib_none().0, handler_id.to_glib());
+            gobject_ffi::g_signal_handler_disconnect(self.as_object_ref().to_glib_none().0, handler_id.to_glib());
         }
     }
 
@@ -929,7 +983,7 @@ impl<T: IsA<Object>> ObjectExt for T {
         use std::mem::transmute;
 
         unsafe extern "C" fn notify_trampoline<P>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
-        where P: IsA<Object> {
+        where P: ObjectType {
             let f: &&(Fn(&P, &::ParamSpec) + Send + Sync + 'static) = transmute(f);
             f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
@@ -943,7 +997,7 @@ impl<T: IsA<Object>> ObjectExt for T {
 
         unsafe {
             let f: Box<Box<Fn(&Self, &::ParamSpec) + Send + Sync + 'static>> = Box::new(Box::new(f));
-            ::signal::connect(self.to_glib_none().0, &signal_name,
+            ::signal::connect(self.as_object_ref().to_glib_none().0, &signal_name,
                 transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
         }
     }
@@ -952,13 +1006,13 @@ impl<T: IsA<Object>> ObjectExt for T {
         let property_name = property_name.into();
 
         unsafe {
-            gobject_ffi::g_object_notify(self.to_glib_none().0, property_name.to_glib_none().0);
+            gobject_ffi::g_object_notify(self.as_object_ref().to_glib_none().0, property_name.to_glib_none().0);
         }
     }
 
     fn notify_by_pspec(&self, pspec: &::ParamSpec) {
         unsafe {
-            gobject_ffi::g_object_notify_by_pspec(self.to_glib_none().0, pspec.to_glib_none().0);
+            gobject_ffi::g_object_notify_by_pspec(self.as_object_ref().to_glib_none().0, pspec.to_glib_none().0);
         }
     }
 
@@ -1030,7 +1084,7 @@ impl<T: IsA<Object>> ObjectExt for T {
                     }
                 }
             });
-            let handler = gobject_ffi::g_signal_connect_closure_by_id(self.to_glib_none().0, signal_id, signal_detail,
+            let handler = gobject_ffi::g_signal_connect_closure_by_id(self.as_object_ref().to_glib_none().0, signal_id, signal_detail,
                                                                       closure.to_glib_none().0, after.to_glib());
 
             if handler == 0 {
@@ -1079,7 +1133,7 @@ impl<T: IsA<Object>> ObjectExt for T {
             let self_v = {
                 let mut v = Value::uninitialized();
                 gobject_ffi::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
-                gobject_ffi::g_value_set_object(v.to_glib_none_mut().0, self.to_glib_none().0);
+                gobject_ffi::g_value_set_object(v.to_glib_none_mut().0, self.as_object_ref().to_glib_none().0);
                 v
             };
             let args = if args.len() < 10 {
@@ -1116,12 +1170,12 @@ impl<T: IsA<Object>> ObjectExt for T {
     fn downgrade(&self) -> WeakRef<T> {
         unsafe {
             let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
-            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), self.to_glib_none().0);
+            gobject_ffi::g_weak_ref_init(mut_override(&*w.0), self.as_object_ref().to_glib_none().0);
             w
         }
     }
 
-    fn bind_property<'a, O: IsA<Object>, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a, Self, O> {
+    fn bind_property<'a, O: ObjectType, N: Into<&'a str>, M: Into<&'a str>>(&'a self, source_property: N, target: &'a O, target_property: M) -> BindingBuilder<'a> {
         let source_property = source_property.into();
         let target_property = target_property.into();
 
@@ -1129,7 +1183,7 @@ impl<T: IsA<Object>> ObjectExt for T {
     }
 
     fn ref_count(&self) -> u32 {
-        let stash = self.to_glib_none();
+        let stash = self.as_object_ref().to_glib_none();
         let ptr: *mut gobject_ffi::GObject = stash.0;
 
         unsafe { glib_ffi::g_atomic_int_get(&(*ptr).ref_count as *const u32 as *const i32) as u32 }
@@ -1194,9 +1248,9 @@ unsafe impl IsClassFor for ObjectClass {
 unsafe impl Send for ObjectClass {}
 unsafe impl Sync for ObjectClass {}
 
-pub struct WeakRef<T: IsA<Object>>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
+pub struct WeakRef<T: ObjectType>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
-impl<T: IsA<Object>> WeakRef<T> {
+impl<T: ObjectType> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
             let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
@@ -1218,7 +1272,7 @@ impl<T: IsA<Object>> WeakRef<T> {
     }
 }
 
-impl<T: IsA<Object>> Drop for WeakRef<T> {
+impl<T: ObjectType> Drop for WeakRef<T> {
     fn drop(&mut self) {
         unsafe {
             gobject_ffi::g_weak_ref_clear(mut_override(&*self.0));
@@ -1226,7 +1280,7 @@ impl<T: IsA<Object>> Drop for WeakRef<T> {
     }
 }
 
-impl<T: IsA<Object>> Clone for WeakRef<T> {
+impl<T: ObjectType> Clone for WeakRef<T> {
     fn clone(&self) -> Self {
         unsafe {
             let c = WeakRef(Box::new(mem::uninitialized()), PhantomData);
@@ -1242,14 +1296,14 @@ impl<T: IsA<Object>> Clone for WeakRef<T> {
     }
 }
 
-impl<T: IsA<Object>> Default for WeakRef<T> {
+impl<T: ObjectType> Default for WeakRef<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-unsafe impl<T: IsA<Object> + Sync + Sync> Sync for WeakRef<T> {}
-unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
+unsafe impl<T: ObjectType + Sync + Sync> Sync for WeakRef<T> {}
+unsafe impl<T: ObjectType + Send + Sync> Send for WeakRef<T> {}
 
 /// A weak reference to the object it was created for that can be sent to
 /// different threads even for object types that don't implement `Send`.
@@ -1257,9 +1311,9 @@ unsafe impl<T: IsA<Object> + Send + Sync> Send for WeakRef<T> {}
 /// Trying to upgrade the weak reference from another thread than the one
 /// where it was created on will panic but dropping or cloning can be done
 /// safely from any thread.
-pub struct SendWeakRef<T: IsA<Object>>(WeakRef<T>, Option<usize>);
+pub struct SendWeakRef<T: ObjectType>(WeakRef<T>, Option<usize>);
 
-impl<T: IsA<Object>> SendWeakRef<T> {
+impl<T: ObjectType> SendWeakRef<T> {
     pub fn new() -> SendWeakRef<T> {
         SendWeakRef(WeakRef::new(), None)
     }
@@ -1273,7 +1327,7 @@ impl<T: IsA<Object>> SendWeakRef<T> {
     }
 }
 
-impl<T: IsA<Object>> ops::Deref for SendWeakRef<T> {
+impl<T: ObjectType> ops::Deref for SendWeakRef<T> {
     type Target = WeakRef<T>;
 
     fn deref(&self) -> &WeakRef<T> {
@@ -1286,40 +1340,40 @@ impl<T: IsA<Object>> ops::Deref for SendWeakRef<T> {
 }
 
 // Deriving this gives the wrong trait bounds
-impl<T: IsA<Object>> Clone for SendWeakRef<T> {
+impl<T: ObjectType> Clone for SendWeakRef<T> {
     fn clone(&self) -> Self {
         SendWeakRef(self.0.clone(), self.1.clone())
     }
 }
 
-impl<T: IsA<Object>> Default for SendWeakRef<T> {
+impl<T: ObjectType> Default for SendWeakRef<T> {
     fn default() -> Self {
         Self::new()
     }
 }
 
-impl<T: IsA<Object>> From<WeakRef<T>> for SendWeakRef<T> {
+impl<T: ObjectType> From<WeakRef<T>> for SendWeakRef<T> {
     fn from(v: WeakRef<T>) -> SendWeakRef<T> {
         SendWeakRef(v, Some(get_thread_id()))
     }
 }
 
-unsafe impl<T: IsA<Object>> Sync for SendWeakRef<T> {}
-unsafe impl<T: IsA<Object>> Send for SendWeakRef<T> {}
+unsafe impl<T: ObjectType> Sync for SendWeakRef<T> {}
+unsafe impl<T: ObjectType> Send for SendWeakRef<T> {}
 
-pub struct BindingBuilder<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> {
-    source: &'a S,
+pub struct BindingBuilder<'a> {
+    source: &'a ObjectRef,
     source_property: &'a str,
-    target: &'a T,
+    target: &'a ObjectRef,
     target_property: &'a str,
     flags: ::BindingFlags,
     transform_to: Option<::Closure>,
     transform_from: Option<::Closure>,
 }
 
-impl<'a, S: IsA<Object> + 'a, T: IsA<Object> + 'a> BindingBuilder<'a, S, T> {
-    fn new(source: &'a S, source_property: &'a str, target: &'a T, target_property: &'a str) -> Self {
-        Self { source, source_property, target, target_property, flags: ::BindingFlags::DEFAULT, transform_to: None, transform_from: None }
+impl<'a> BindingBuilder<'a> {
+    fn new<S: ObjectType, T: ObjectType>(source: &'a S, source_property: &'a str, target: &'a T, target_property: &'a str) -> Self {
+        Self { source: source.as_object_ref(), source_property, target: target.as_object_ref(), target_property, flags: ::BindingFlags::DEFAULT, transform_to: None, transform_from: None }
     }
 
     fn transform_closure<F: Fn(&::Binding, &Value) -> Option<Value> + Send + Sync + 'static>(func: F) -> ::Closure {
