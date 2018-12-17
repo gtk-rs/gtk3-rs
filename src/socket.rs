@@ -302,7 +302,7 @@ pub trait AsRawFd {
 }
 
 #[cfg(all(not(unix), feature = "dox"))]
-pub struct RawFd(c_int);
+pub type RawFd = c_int;
 
 #[cfg(all(not(windows), feature = "dox"))]
 pub trait IntoRawSocket {
@@ -320,4 +320,4 @@ pub trait AsRawSocket {
 }
 
 #[cfg(all(not(windows), feature = "dox"))]
-pub struct RawSocket(*mut c_void);
+pub type RawSocket = *mut c_void;
