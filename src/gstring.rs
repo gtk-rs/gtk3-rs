@@ -206,10 +206,10 @@ impl From<Box<str>> for GString {
     }
 }
 
-impl From<&'static str> for GString {
+impl<'a> From<&'a str> for GString {
     #[inline]
-    fn from(s: &'static str) -> Self {
-        GString::Borrowed(s.as_ptr() as *const c_char, s.len())
+    fn from(s: &'a str) -> Self {
+        s.as_bytes().to_vec().into()
     }
 }
 
