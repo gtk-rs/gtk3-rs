@@ -332,29 +332,28 @@ macro_rules! glib_wrapper {
             @get_type $get_type_expr, @implements $($implements),+);
     };
 
-    // Interface, class struct, no prerequisites
+    // Interface, no prerequisites
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Interface<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>);
+        pub struct $name:ident(Interface<$ffi_name:path>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @implements $crate::object::Object);
+        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @implements $crate::object::Object);
     };
 
-    // Interface, class struct, prerequisites
+    // Interface, prerequisites
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Interface<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>): $($implements:path),+;
+        pub struct $name:ident(Interface<$ffi_name:path>): $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
-            @get_type $get_type_expr, @implements $($implements),+);
+        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @implements $($implements),+);
     };
 }
 

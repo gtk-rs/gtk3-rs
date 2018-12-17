@@ -753,13 +753,10 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
     };
 
-    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
-        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
-        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
             @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
-
-        // We don't do anything with the $ffi_class_name and $rust_class_name for now
     };
 }
 
