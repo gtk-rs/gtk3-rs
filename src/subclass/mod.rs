@@ -19,9 +19,9 @@
 //! use std::cell::RefCell;
 //!
 //! // Static array for defining the properties of the new type.
-//! static PROPERTIES: [subclass::Property; 1] = [subclass::Property("name", || {
+//! static PROPERTIES: [subclass::Property; 1] = [subclass::Property("name", |name| {
 //!     glib::ParamSpec::string(
-//!         "name",
+//!         name,
 //!         "Name",
 //!         "Name of this object",
 //!         None,

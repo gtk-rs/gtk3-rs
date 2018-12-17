@@ -133,7 +133,7 @@ unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObje
 }
 
 /// Definition of a property.
-pub struct Property<'a>(pub &'a str, pub fn() -> ::ParamSpec);
+pub struct Property<'a>(pub &'a str, pub fn(&str) -> ::ParamSpec);
 
 /// Extension trait for `glib::Object`'s class struct.
 ///
@@ -151,8 +151,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         let mut pspecs = Vec::with_capacity(properties.len());
 
         for property in properties {
-            let pspec = (property.1)();
-            assert_eq!(property.0, pspec.get_name());
+            let pspec = (property.1)(property.0);
             pspecs.push(pspec);
         }
 
@@ -302,18 +301,18 @@ mod test {
     use std::cell::RefCell;
 
     static PROPERTIES: [Property; 2] = [
-        Property("name", || {
+        Property("name", |name| {
             ::ParamSpec::string(
-                "name",
+                name,
                 "Name",
                 "Name of this object",
                 None,
                 ::ParamFlags::READWRITE,
             )
         }),
-        Property("constructed", || {
+        Property("constructed", |name| {
             ::ParamSpec::boolean(
-                "constructed",
+                name,
                 "Constructed",
                 "True if the constructed() virtual method was called",
                 false,
