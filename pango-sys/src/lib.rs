@@ -508,11 +508,11 @@ impl ::std::fmt::Debug for PangoAttrShape {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PangoAttrSize {
     pub attr: PangoAttribute,
     pub size: c_int,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field absolute has incomplete type
+    pub absolute: c_uint,
 }
 
 impl ::std::fmt::Debug for PangoAttrSize {
@@ -520,6 +520,7 @@ impl ::std::fmt::Debug for PangoAttrSize {
         f.debug_struct(&format!("PangoAttrSize @ {:?}", self as *const _))
          .field("attr", &self.attr)
          .field("size", &self.size)
+         .field("absolute", &self.absolute)
          .finish()
     }
 }
@@ -883,11 +884,11 @@ impl ::std::fmt::Debug for PangoGlyphGeometry {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PangoGlyphInfo {
     pub glyph: PangoGlyph,
     pub geometry: PangoGlyphGeometry,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field attr has incomplete type
+    pub attr: PangoGlyphVisAttr,
 }
 
 impl ::std::fmt::Debug for PangoGlyphInfo {
@@ -895,6 +896,7 @@ impl ::std::fmt::Debug for PangoGlyphInfo {
         f.debug_struct(&format!("PangoGlyphInfo @ {:?}", self as *const _))
          .field("glyph", &self.glyph)
          .field("geometry", &self.geometry)
+         .field("attr", &self.attr)
          .finish()
     }
 }
@@ -963,14 +965,15 @@ impl ::std::fmt::Debug for PangoGlyphString {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct PangoGlyphVisAttr {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field is_cluster_start has incomplete type
+    pub is_cluster_start: c_uint,
 }
 
 impl ::std::fmt::Debug for PangoGlyphVisAttr {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PangoGlyphVisAttr @ {:?}", self as *const _))
+         .field("is_cluster_start", &self.is_cluster_start)
          .finish()
     }
 }
@@ -1051,8 +1054,9 @@ pub struct PangoLayoutLine {
     pub start_index: c_int,
     pub length: c_int,
     pub runs: *mut glib::GSList,
+    pub is_paragraph_start: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field is_paragraph_start has incomplete type
+    // field resolved_dir has incomplete type
 }
 
 impl ::std::fmt::Debug for PangoLayoutLine {
@@ -1062,19 +1066,22 @@ impl ::std::fmt::Debug for PangoLayoutLine {
          .field("start_index", &self.start_index)
          .field("length", &self.length)
          .field("runs", &self.runs)
+         .field("is_paragraph_start", &self.is_paragraph_start)
          .finish()
     }
 }
 
 #[repr(C)]
 pub struct PangoLogAttr {
+    pub is_line_break: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field is_line_break has incomplete type
+    // field is_mandatory_break has incomplete type
 }
 
 impl ::std::fmt::Debug for PangoLogAttr {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("PangoLogAttr @ {:?}", self as *const _))
+         .field("is_line_break", &self.is_line_break)
          .finish()
     }
 }

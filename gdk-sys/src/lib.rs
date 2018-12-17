@@ -2845,11 +2845,63 @@ pub const GDK_WINDOW_STATE_LEFT_RESIZABLE: GdkWindowState = 65536;
 
 // Unions
 #[repr(C)]
-pub struct GdkEvent(c_void);
+#[derive(Copy, Clone)]
+pub union GdkEvent {
+    pub type_: GdkEventType,
+    pub any: GdkEventAny,
+    pub expose: GdkEventExpose,
+    pub visibility: GdkEventVisibility,
+    pub motion: GdkEventMotion,
+    pub button: GdkEventButton,
+    pub touch: GdkEventTouch,
+    pub scroll: GdkEventScroll,
+    pub key: GdkEventKey,
+    pub crossing: GdkEventCrossing,
+    pub focus_change: GdkEventFocus,
+    pub configure: GdkEventConfigure,
+    pub property: GdkEventProperty,
+    pub selection: GdkEventSelection,
+    pub owner_change: GdkEventOwnerChange,
+    pub proximity: GdkEventProximity,
+    pub dnd: GdkEventDND,
+    pub window_state: GdkEventWindowState,
+    pub setting: GdkEventSetting,
+    pub grab_broken: GdkEventGrabBroken,
+    pub touchpad_swipe: GdkEventTouchpadSwipe,
+    pub touchpad_pinch: GdkEventTouchpadPinch,
+    pub pad_button: GdkEventPadButton,
+    pub pad_axis: GdkEventPadAxis,
+    pub pad_group_mode: GdkEventPadGroupMode,
+}
 
 impl ::std::fmt::Debug for GdkEvent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEvent @ {:?}", self as *const _))
+         .field("type_", unsafe { &self.type_ })
+         .field("any", unsafe { &self.any })
+         .field("expose", unsafe { &self.expose })
+         .field("visibility", unsafe { &self.visibility })
+         .field("motion", unsafe { &self.motion })
+         .field("button", unsafe { &self.button })
+         .field("touch", unsafe { &self.touch })
+         .field("scroll", unsafe { &self.scroll })
+         .field("key", unsafe { &self.key })
+         .field("crossing", unsafe { &self.crossing })
+         .field("focus_change", unsafe { &self.focus_change })
+         .field("configure", unsafe { &self.configure })
+         .field("property", unsafe { &self.property })
+         .field("selection", unsafe { &self.selection })
+         .field("owner_change", unsafe { &self.owner_change })
+         .field("proximity", unsafe { &self.proximity })
+         .field("dnd", unsafe { &self.dnd })
+         .field("window_state", unsafe { &self.window_state })
+         .field("setting", unsafe { &self.setting })
+         .field("grab_broken", unsafe { &self.grab_broken })
+         .field("touchpad_swipe", unsafe { &self.touchpad_swipe })
+         .field("touchpad_pinch", unsafe { &self.touchpad_pinch })
+         .field("pad_button", unsafe { &self.pad_button })
+         .field("pad_axis", unsafe { &self.pad_axis })
+         .field("pad_group_mode", unsafe { &self.pad_group_mode })
          .finish()
     }
 }
@@ -3120,6 +3172,7 @@ impl ::std::fmt::Debug for GdkEventGrabBroken {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GdkEventKey {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3131,8 +3184,7 @@ pub struct GdkEventKey {
     pub string: *mut c_char,
     pub hardware_keycode: u16,
     pub group: u8,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field is_modifier has incomplete type
+    pub is_modifier: c_uint,
 }
 
 impl ::std::fmt::Debug for GdkEventKey {
@@ -3148,6 +3200,7 @@ impl ::std::fmt::Debug for GdkEventKey {
          .field("string", &self.string)
          .field("hardware_keycode", &self.hardware_keycode)
          .field("group", &self.group)
+         .field("is_modifier", &self.is_modifier)
          .finish()
     }
 }
@@ -3341,6 +3394,7 @@ impl ::std::fmt::Debug for GdkEventProximity {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GdkEventScroll {
     pub type_: GdkEventType,
     pub window: *mut GdkWindow,
@@ -3355,8 +3409,7 @@ pub struct GdkEventScroll {
     pub y_root: c_double,
     pub delta_x: c_double,
     pub delta_y: c_double,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field is_stop has incomplete type
+    pub is_stop: c_uint,
 }
 
 impl ::std::fmt::Debug for GdkEventScroll {
@@ -3375,6 +3428,7 @@ impl ::std::fmt::Debug for GdkEventScroll {
          .field("y_root", &self.y_root)
          .field("delta_x", &self.delta_x)
          .field("delta_y", &self.delta_y)
+         .field("is_stop", &self.is_stop)
          .finish()
     }
 }
