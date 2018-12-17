@@ -6,11 +6,7 @@ use Action;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ActionMap(Object<ffi::GActionMap, ffi::GActionMapInterface>);
@@ -20,7 +16,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ActionMapExt {
+pub trait ActionMapExt: 'static {
     fn add_action<P: IsA<Action>>(&self, action: &P);
 
     //fn add_action_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P);

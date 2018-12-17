@@ -7,11 +7,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct RemoteActionGroup(Object<ffi::GRemoteActionGroup, ffi::GRemoteActionGroupInterface>): ActionGroup;
@@ -21,7 +17,7 @@ glib_wrapper! {
     }
 }
 
-pub trait RemoteActionGroupExt {
+pub trait RemoteActionGroupExt: 'static {
     fn activate_action_full<'a, P: Into<Option<&'a glib::Variant>>>(&self, action_name: &str, parameter: P, platform_data: &glib::Variant);
 
     fn change_action_state_full(&self, action_name: &str, value: &glib::Variant, platform_data: &glib::Variant);

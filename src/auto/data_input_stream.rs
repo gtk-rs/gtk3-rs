@@ -14,10 +14,11 @@ use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
 use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
@@ -43,7 +44,7 @@ impl DataInputStream {
     }
 }
 
-pub trait DataInputStreamExt: Sized {
+pub trait DataInputStreamExt: 'static {
     fn get_byte_order(&self) -> DataStreamByteOrder;
 
     fn get_newline_type(&self) -> DataStreamNewlineType;
@@ -56,9 +57,9 @@ pub trait DataInputStreamExt: Sized {
 
     fn read_int64<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<i64, Error>;
 
-    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<String>, usize), Error>;
+    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<GString>, usize), Error>;
 
-    fn read_line_utf8<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Option<String>, usize), Error>;
+    fn read_line_utf8<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Option<GString>, usize), Error>;
 
     fn read_uint16<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<u16, Error>;
 
@@ -67,21 +68,21 @@ pub trait DataInputStreamExt: Sized {
     fn read_uint64<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<u64, Error>;
 
     #[cfg_attr(feature = "v2_56", deprecated)]
-    fn read_until<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(String, usize), Error>;
+    fn read_until<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(GString, usize), Error>;
 
     #[cfg_attr(feature = "v2_56", deprecated)]
-    fn read_until_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
+    fn read_until_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg_attr(feature = "v2_56", deprecated)]
     #[cfg(feature = "futures")]
-    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>>;
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    fn read_upto<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(String, usize), Error>;
+    fn read_upto<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(GString, usize), Error>;
 
-    fn read_upto_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
+    fn read_upto_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>>;
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
@@ -92,7 +93,7 @@ pub trait DataInputStreamExt: Sized {
     fn connect_property_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> DataInputStreamExt for O {
+impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn get_byte_order(&self) -> DataStreamByteOrder {
         unsafe {
             from_glib(ffi::g_data_input_stream_get_byte_order(self.to_glib_none().0))
@@ -145,11 +146,11 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
         }
     }
 
-    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<String>, usize), Error> {
+    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<GString>, usize), Error> {
     //    unsafe { TODO: call ffi::g_data_input_stream_read_line_finish_utf8() }
     //}
 
-    fn read_line_utf8<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Option<String>, usize), Error> {
+    fn read_line_utf8<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Option<GString>, usize), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -190,7 +191,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
         }
     }
 
-    fn read_until<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(String, usize), Error> {
+    fn read_until<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(GString, usize), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -201,11 +202,11 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
         }
     }
 
-    fn read_until_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q) {
+    fn read_until_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn read_until_async_trampoline<Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        unsafe extern "C" fn read_until_async_trampoline<Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let mut length = mem::uninitialized();
@@ -221,7 +222,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     }
 
     #[cfg(feature = "futures")]
-    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>> {
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -245,7 +246,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
         })
     }
 
-    fn read_upto<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(String, usize), Error> {
+    fn read_upto<'a, P: Into<Option<&'a Cancellable>>>(&self, stop_chars: &str, cancellable: P) -> Result<(GString, usize), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let stop_chars_len = stop_chars.len() as isize;
@@ -257,12 +258,12 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
         }
     }
 
-    fn read_upto_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q) {
+    fn read_upto_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let stop_chars_len = stop_chars.len() as isize;
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn read_upto_async_trampoline<Q: FnOnce(Result<(String, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        unsafe extern "C" fn read_upto_async_trampoline<Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let mut length = mem::uninitialized();
@@ -278,7 +279,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     }
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (String, usize)), Error = (Self, Error)>> {
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -317,7 +318,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::byte-order",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::byte-order\0".as_ptr() as *const _,
                 transmute(notify_byte_order_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -325,7 +326,7 @@ impl<O: IsA<DataInputStream> + IsA<glib::object::Object> + Clone + 'static> Data
     fn connect_property_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::newline-type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::newline-type\0".as_ptr() as *const _,
                 transmute(notify_newline_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

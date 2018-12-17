@@ -6,16 +6,14 @@ use Error;
 use SocketConnectable;
 use TlsCertificateFlags;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
 use gobject_ffi;
 use std;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -61,7 +59,7 @@ impl TlsCertificate {
     }
 }
 
-pub trait TlsCertificateExt {
+pub trait TlsCertificateExt: 'static {
     fn get_issuer(&self) -> Option<TlsCertificate>;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
@@ -71,10 +69,10 @@ pub trait TlsCertificateExt {
 
     //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray>;
 
-    fn get_property_certificate_pem(&self) -> Option<String>;
+    fn get_property_certificate_pem(&self) -> Option<GString>;
 }
 
-impl<O: IsA<TlsCertificate> + IsA<glib::object::Object>> TlsCertificateExt for O {
+impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
     fn get_issuer(&self) -> Option<TlsCertificate> {
         unsafe {
             from_glib_none(ffi::g_tls_certificate_get_issuer(self.to_glib_none().0))
@@ -101,15 +99,15 @@ impl<O: IsA<TlsCertificate> + IsA<glib::object::Object>> TlsCertificateExt for O
     //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray> {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "certificate".to_glib_none().0, value.to_glib_none_mut().0);
+    //        gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"certificate\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get()
     //    }
     //}
 
-    fn get_property_certificate_pem(&self) -> Option<String> {
+    fn get_property_certificate_pem(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "certificate-pem".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"certificate-pem\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }

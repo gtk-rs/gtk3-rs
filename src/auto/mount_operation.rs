@@ -6,20 +6,17 @@ use AskPasswordFlags;
 use MountOperationResult;
 use PasswordSave;
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct MountOperation(Object<ffi::GMountOperation, ffi::GMountOperationClass>);
@@ -43,18 +40,18 @@ impl Default for MountOperation {
     }
 }
 
-pub trait MountOperationExt {
+pub trait MountOperationExt: 'static {
     fn get_anonymous(&self) -> bool;
 
     fn get_choice(&self) -> i32;
 
-    fn get_domain(&self) -> Option<String>;
+    fn get_domain(&self) -> Option<GString>;
 
-    fn get_password(&self) -> Option<String>;
+    fn get_password(&self) -> Option<GString>;
 
     fn get_password_save(&self) -> PasswordSave;
 
-    fn get_username(&self) -> Option<String>;
+    fn get_username(&self) -> Option<GString>;
 
     fn reply(&self, result: MountOperationResult);
 
@@ -96,7 +93,7 @@ pub trait MountOperationExt {
     fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O {
+impl<O: IsA<MountOperation>> MountOperationExt for O {
     fn get_anonymous(&self) -> bool {
         unsafe {
             from_glib(ffi::g_mount_operation_get_anonymous(self.to_glib_none().0))
@@ -109,13 +106,13 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
         }
     }
 
-    fn get_domain(&self) -> Option<String> {
+    fn get_domain(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_domain(self.to_glib_none().0))
         }
     }
 
-    fn get_password(&self) -> Option<String> {
+    fn get_password(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_password(self.to_glib_none().0))
         }
@@ -127,7 +124,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
         }
     }
 
-    fn get_username(&self) -> Option<String> {
+    fn get_username(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_mount_operation_get_username(self.to_glib_none().0))
         }
@@ -178,7 +175,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_aborted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "aborted",
+            connect_raw(self.to_glib_none().0 as *mut _, b"aborted\0".as_ptr() as *const _,
                 transmute(aborted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -186,7 +183,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_ask_password<F: Fn(&Self, &str, &str, &str, AskPasswordFlags) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str, &str, &str, AskPasswordFlags) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "ask-password",
+            connect_raw(self.to_glib_none().0 as *mut _, b"ask-password\0".as_ptr() as *const _,
                 transmute(ask_password_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -198,7 +195,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_reply<F: Fn(&Self, MountOperationResult) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, MountOperationResult) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "reply",
+            connect_raw(self.to_glib_none().0 as *mut _, b"reply\0".as_ptr() as *const _,
                 transmute(reply_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -212,7 +209,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str, i64, i64) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "show-unmount-progress",
+            connect_raw(self.to_glib_none().0 as *mut _, b"show-unmount-progress\0".as_ptr() as *const _,
                 transmute(show_unmount_progress_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -220,7 +217,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::anonymous",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::anonymous\0".as_ptr() as *const _,
                 transmute(notify_anonymous_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -228,7 +225,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::choice",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::choice\0".as_ptr() as *const _,
                 transmute(notify_choice_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -236,7 +233,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::domain",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::domain\0".as_ptr() as *const _,
                 transmute(notify_domain_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -244,7 +241,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::password",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::password\0".as_ptr() as *const _,
                 transmute(notify_password_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -252,7 +249,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_password_save_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::password-save",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::password-save\0".as_ptr() as *const _,
                 transmute(notify_password_save_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -260,7 +257,7 @@ impl<O: IsA<MountOperation> + IsA<glib::object::Object>> MountOperationExt for O
     fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::username",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::username\0".as_ptr() as *const _,
                 transmute(notify_username_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -275,7 +272,7 @@ where P: IsA<MountOperation> {
 unsafe extern "C" fn ask_password_trampoline<P>(this: *mut ffi::GMountOperation, message: *mut libc::c_char, default_user: *mut libc::c_char, default_domain: *mut libc::c_char, flags: ffi::GAskPasswordFlags, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
     let f: &&(Fn(&P, &str, &str, &str, AskPasswordFlags) + 'static) = transmute(f);
-    f(&MountOperation::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(message), &String::from_glib_none(default_user), &String::from_glib_none(default_domain), from_glib(flags))
+    f(&MountOperation::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(message), &GString::from_glib_borrow(default_user), &GString::from_glib_borrow(default_domain), from_glib(flags))
 }
 
 unsafe extern "C" fn reply_trampoline<P>(this: *mut ffi::GMountOperation, result: ffi::GMountOperationResult, f: glib_ffi::gpointer)
@@ -288,7 +285,7 @@ where P: IsA<MountOperation> {
 unsafe extern "C" fn show_unmount_progress_trampoline<P>(this: *mut ffi::GMountOperation, message: *mut libc::c_char, time_left: i64, bytes_left: i64, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
     let f: &&(Fn(&P, &str, i64, i64) + 'static) = transmute(f);
-    f(&MountOperation::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(message), time_left, bytes_left)
+    f(&MountOperation::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(message), time_left, bytes_left)
 }
 
 unsafe extern "C" fn notify_anonymous_trampoline<P>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)

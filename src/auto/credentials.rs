@@ -4,12 +4,10 @@
 
 use Error;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -34,7 +32,7 @@ impl Default for Credentials {
     }
 }
 
-pub trait CredentialsExt {
+pub trait CredentialsExt: 'static {
     //fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg(any(unix, feature = "dox"))]
@@ -51,7 +49,7 @@ pub trait CredentialsExt {
     #[cfg(any(unix, feature = "dox"))]
     fn set_unix_user(&self, uid: u32) -> Result<(), Error>;
 
-    fn to_string(&self) -> String;
+    fn to_string(&self) -> GString;
 }
 
 impl<O: IsA<Credentials>> CredentialsExt for O {
@@ -99,7 +97,7 @@ impl<O: IsA<Credentials>> CredentialsExt for O {
         }
     }
 
-    fn to_string(&self) -> String {
+    fn to_string(&self) -> GString {
         unsafe {
             from_glib_full(ffi::g_credentials_to_string(self.to_glib_none().0))
         }

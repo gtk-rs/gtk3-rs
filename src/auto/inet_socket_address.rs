@@ -9,11 +9,7 @@ use ffi;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass>): SocketAddress, SocketConnectable;
@@ -41,7 +37,7 @@ impl InetSocketAddress {
 unsafe impl Send for InetSocketAddress {}
 unsafe impl Sync for InetSocketAddress {}
 
-pub trait InetSocketAddressExt {
+pub trait InetSocketAddressExt: 'static {
     fn get_address(&self) -> Option<InetAddress>;
 
     fn get_flowinfo(&self) -> u32;

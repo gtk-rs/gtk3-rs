@@ -7,14 +7,11 @@ use AppInfo;
 use AppLaunchContext;
 use ffi;
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DesktopAppInfo(Object<ffi::GDesktopAppInfo, ffi::GDesktopAppInfoClass>): AppInfo;
@@ -58,35 +55,35 @@ impl DesktopAppInfo {
     }
 }
 
-pub trait DesktopAppInfoExt {
+pub trait DesktopAppInfoExt: 'static {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn get_action_name(&self, action_name: &str) -> Option<String>;
+    fn get_action_name(&self, action_name: &str) -> Option<GString>;
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_boolean(&self, key: &str) -> bool;
 
-    fn get_categories(&self) -> Option<String>;
+    fn get_categories(&self) -> Option<GString>;
 
     fn get_filename(&self) -> Option<std::path::PathBuf>;
 
-    fn get_generic_name(&self) -> Option<String>;
+    fn get_generic_name(&self) -> Option<GString>;
 
     fn get_is_hidden(&self) -> bool;
 
-    fn get_keywords(&self) -> Vec<String>;
+    fn get_keywords(&self) -> Vec<GString>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn get_locale_string(&self, key: &str) -> Option<String>;
+    fn get_locale_string(&self, key: &str) -> Option<GString>;
 
     fn get_nodisplay(&self) -> bool;
 
     fn get_show_in<'a, P: Into<Option<&'a str>>>(&self, desktop_env: P) -> bool;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_startup_wm_class(&self) -> Option<String>;
+    fn get_startup_wm_class(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn get_string(&self, key: &str) -> Option<String>;
+    fn get_string(&self, key: &str) -> Option<GString>;
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn has_key(&self, key: &str) -> bool;
@@ -97,12 +94,12 @@ pub trait DesktopAppInfoExt {
     //fn launch_uris_as_manager<'a, 'b, 'c, P: Into<Option<&'a AppLaunchContext>>, Q: Into<Option<&'b /*Ignored*/glib::SpawnChildSetupFunc>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>, S: Into<Option<&'c /*Unimplemented*/DesktopAppLaunchCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, uris: &[&str], launch_context: P, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: Q, user_setup_data: R, pid_callback: S, pid_callback_data: T) -> Result<(), Error>;
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn list_actions(&self) -> Vec<String>;
+    fn list_actions(&self) -> Vec<GString>;
 }
 
 impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn get_action_name(&self, action_name: &str) -> Option<String> {
+    fn get_action_name(&self, action_name: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_action_name(self.to_glib_none().0, action_name.to_glib_none().0))
         }
@@ -115,7 +112,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    fn get_categories(&self) -> Option<String> {
+    fn get_categories(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_categories(self.to_glib_none().0))
         }
@@ -127,7 +124,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    fn get_generic_name(&self) -> Option<String> {
+    fn get_generic_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_generic_name(self.to_glib_none().0))
         }
@@ -139,14 +136,14 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    fn get_keywords(&self) -> Vec<String> {
+    fn get_keywords(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_desktop_app_info_get_keywords(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn get_locale_string(&self, key: &str) -> Option<String> {
+    fn get_locale_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_locale_string(self.to_glib_none().0, key.to_glib_none().0))
         }
@@ -167,14 +164,14 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_startup_wm_class(&self) -> Option<String> {
+    fn get_startup_wm_class(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_startup_wm_class(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn get_string(&self, key: &str) -> Option<String> {
+    fn get_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_string(self.to_glib_none().0, key.to_glib_none().0))
         }
@@ -201,7 +198,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     //}
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn list_actions(&self) -> Vec<String> {
+    fn list_actions(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_desktop_app_info_list_actions(self.to_glib_none().0))
         }

@@ -9,7 +9,7 @@ use InputStream;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -17,7 +17,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -28,17 +27,17 @@ glib_wrapper! {
     }
 }
 
-pub trait LoadableIconExt: Sized {
-    fn load<'a, P: Into<Option<&'a Cancellable>>>(&self, size: i32, cancellable: P) -> Result<(InputStream, String), Error>;
+pub trait LoadableIconExt: 'static {
+    fn load<'a, P: Into<Option<&'a Cancellable>>>(&self, size: i32, cancellable: P) -> Result<(InputStream, GString), Error>;
 
-    fn load_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(InputStream, String), Error>) + Send + 'static>(&self, size: i32, cancellable: P, callback: Q);
+    fn load_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, String)), Error = (Self, Error)>>;
+    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<LoadableIcon> + IsA<glib::object::Object> + Clone + 'static> LoadableIconExt for O {
-    fn load<'a, P: Into<Option<&'a Cancellable>>>(&self, size: i32, cancellable: P) -> Result<(InputStream, String), Error> {
+impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
+    fn load<'a, P: Into<Option<&'a Cancellable>>>(&self, size: i32, cancellable: P) -> Result<(InputStream, GString), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -49,11 +48,11 @@ impl<O: IsA<LoadableIcon> + IsA<glib::object::Object> + Clone + 'static> Loadabl
         }
     }
 
-    fn load_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(InputStream, String), Error>) + Send + 'static>(&self, size: i32, cancellable: P, callback: Q) {
+    fn load_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn load_async_trampoline<Q: FnOnce(Result<(InputStream, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        unsafe extern "C" fn load_async_trampoline<Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let mut type_ = ptr::null_mut();
@@ -69,7 +68,7 @@ impl<O: IsA<LoadableIcon> + IsA<glib::object::Object> + Clone + 'static> Loadabl
     }
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, String)), Error = (Self, Error)>> {
+    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

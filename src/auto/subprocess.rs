@@ -16,10 +16,15 @@ use ffi;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use futures_core;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib_ffi;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use gobject_ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use std;
@@ -27,7 +32,7 @@ use std;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -54,7 +59,7 @@ impl Subprocess {
     }
 }
 
-pub trait SubprocessExt: Sized {
+pub trait SubprocessExt: 'static {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error>;
 
@@ -63,10 +68,10 @@ pub trait SubprocessExt: Sized {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>>;
+    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<String>, Option<String>), Error>;
+    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<GString>, Option<GString>), Error>;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn force_exit(&self);
@@ -75,7 +80,7 @@ pub trait SubprocessExt: Sized {
     fn get_exit_status(&self) -> i32;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_identifier(&self) -> Option<String>;
+    fn get_identifier(&self) -> Option<GString>;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn get_if_exited(&self) -> bool;
@@ -112,7 +117,7 @@ pub trait SubprocessExt: Sized {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn wait_check<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
@@ -122,10 +127,10 @@ pub trait SubprocessExt: Sized {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> SubprocessExt for O {
+impl<O: IsA<Subprocess>> SubprocessExt for O {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
         let stdin_buf = stdin_buf.into();
@@ -166,7 +171,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> {
+    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -191,7 +196,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<String>, Option<String>), Error> {
+    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>>(&self, stdin_buf: P, cancellable: Q) -> Result<(Option<GString>, Option<GString>), Error> {
         let stdin_buf = stdin_buf.into();
         let stdin_buf = stdin_buf.to_glib_none();
         let cancellable = cancellable.into();
@@ -220,7 +225,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_identifier(&self) -> Option<String> {
+    fn get_identifier(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0))
         }
@@ -321,7 +326,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -374,7 +379,7 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

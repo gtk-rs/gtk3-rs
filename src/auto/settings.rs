@@ -8,12 +8,13 @@ use SettingsBindFlags;
 use SettingsSchema;
 use ffi;
 use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
@@ -21,9 +22,7 @@ use libc;
 use signal::Inhibit;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Settings(Object<ffi::GSettings, ffi::GSettingsClass>);
@@ -69,14 +68,14 @@ impl Settings {
     }
 
     #[cfg_attr(feature = "v2_40", deprecated)]
-    pub fn list_relocatable_schemas() -> Vec<String> {
+    pub fn list_relocatable_schemas() -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_settings_list_relocatable_schemas())
         }
     }
 
     #[cfg_attr(feature = "v2_40", deprecated)]
-    pub fn list_schemas() -> Vec<String> {
+    pub fn list_schemas() -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_settings_list_schemas())
         }
@@ -95,7 +94,7 @@ impl Settings {
     }
 }
 
-pub trait SettingsExt {
+pub trait SettingsExt: 'static {
     fn apply(&self);
 
     fn bind<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags);
@@ -135,9 +134,9 @@ pub trait SettingsExt {
     #[cfg_attr(feature = "v2_40", deprecated)]
     fn get_range(&self, key: &str) -> Option<glib::Variant>;
 
-    fn get_string(&self, key: &str) -> Option<String>;
+    fn get_string(&self, key: &str) -> Option<GString>;
 
-    fn get_strv(&self, key: &str) -> Vec<String>;
+    fn get_strv(&self, key: &str) -> Vec<GString>;
 
     fn get_uint(&self, key: &str) -> u32;
 
@@ -151,9 +150,9 @@ pub trait SettingsExt {
 
     fn is_writable(&self, name: &str) -> bool;
 
-    fn list_children(&self) -> Vec<String>;
+    fn list_children(&self) -> Vec<GString>;
 
-    fn list_keys(&self) -> Vec<String>;
+    fn list_keys(&self) -> Vec<GString>;
 
     #[cfg_attr(feature = "v2_40", deprecated)]
     fn range_check(&self, key: &str, value: &glib::Variant) -> bool;
@@ -192,12 +191,12 @@ pub trait SettingsExt {
 
     fn get_property_delay_apply(&self) -> bool;
 
-    fn get_property_path(&self) -> Option<String>;
+    fn get_property_path(&self) -> Option<GString>;
 
     #[deprecated]
-    fn get_property_schema(&self) -> Option<String>;
+    fn get_property_schema(&self) -> Option<GString>;
 
-    fn get_property_schema_id(&self) -> Option<String>;
+    fn get_property_schema_id(&self) -> Option<GString>;
 
     fn get_property_settings_schema(&self) -> Option<SettingsSchema>;
 
@@ -214,7 +213,7 @@ pub trait SettingsExt {
     fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
+impl<O: IsA<Settings>> SettingsExt for O {
     fn apply(&self) {
         unsafe {
             ffi::g_settings_apply(self.to_glib_none().0);
@@ -319,13 +318,13 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
         }
     }
 
-    fn get_string(&self, key: &str) -> Option<String> {
+    fn get_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_settings_get_string(self.to_glib_none().0, key.to_glib_none().0))
         }
     }
 
-    fn get_strv(&self, key: &str) -> Vec<String> {
+    fn get_strv(&self, key: &str) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_get_strv(self.to_glib_none().0, key.to_glib_none().0))
         }
@@ -363,13 +362,13 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
         }
     }
 
-    fn list_children(&self) -> Vec<String> {
+    fn list_children(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_children(self.to_glib_none().0))
         }
     }
 
-    fn list_keys(&self) -> Vec<String> {
+    fn list_keys(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_keys(self.to_glib_none().0))
         }
@@ -468,7 +467,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn get_property_backend(&self) -> Option<SettingsBackend> {
         unsafe {
             let mut value = Value::from_type(<SettingsBackend as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "backend".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"backend\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -476,31 +475,31 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn get_property_delay_apply(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "delay-apply".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"delay-apply\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn get_property_path(&self) -> Option<String> {
+    fn get_property_path(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "path".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"path\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
-    fn get_property_schema(&self) -> Option<String> {
+    fn get_property_schema(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "schema".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"schema\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
-    fn get_property_schema_id(&self) -> Option<String> {
+    fn get_property_schema_id(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "schema-id".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"schema-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -508,7 +507,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn get_property_settings_schema(&self) -> Option<SettingsSchema> {
         unsafe {
             let mut value = Value::from_type(<SettingsSchema as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "settings-schema".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"settings-schema\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -520,7 +519,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -528,7 +527,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn connect_writable_change_event<F: Fn(&Self, u32) -> Inhibit + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, u32) -> Inhibit + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "writable-change-event",
+            connect_raw(self.to_glib_none().0 as *mut _, b"writable-change-event\0".as_ptr() as *const _,
                 transmute(writable_change_event_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -536,7 +535,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "writable-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"writable-changed\0".as_ptr() as *const _,
                 transmute(writable_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -544,7 +543,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::delay-apply",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::delay-apply\0".as_ptr() as *const _,
                 transmute(notify_delay_apply_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -552,7 +551,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
     fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::has-unapplied",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::has-unapplied\0".as_ptr() as *const _,
                 transmute(notify_has_unapplied_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -561,7 +560,7 @@ impl<O: IsA<Settings> + IsA<glib::object::Object>> SettingsExt for O {
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(key))
+    f(&Settings::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(key))
 }
 
 unsafe extern "C" fn writable_change_event_trampoline<P>(this: *mut ffi::GSettings, key: libc::c_uint, f: glib_ffi::gpointer) -> glib_ffi::gboolean
@@ -573,7 +572,7 @@ where P: IsA<Settings> {
 unsafe extern "C" fn writable_changed_trampoline<P>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
-    f(&Settings::from_glib_borrow(this).downcast_unchecked(), &String::from_glib_none(key))
+    f(&Settings::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(key))
 }
 
 unsafe extern "C" fn notify_delay_apply_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)

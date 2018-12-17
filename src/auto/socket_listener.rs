@@ -20,13 +20,12 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -52,13 +51,13 @@ impl Default for SocketListener {
     }
 }
 
-pub trait SocketListenerExt: Sized {
+pub trait SocketListenerExt: 'static {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(SocketConnection, Option<glib::Object>), Error>;
 
     fn accept_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(SocketConnection, glib::Object), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>>;
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn accept_socket<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(Socket, Option<glib::Object>), Error>;
 
@@ -84,7 +83,7 @@ pub trait SocketListenerExt: Sized {
     fn connect_property_listen_backlog_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> SocketListenerExt for O {
+impl<O: IsA<SocketListener>> SocketListenerExt for O {
     fn accept<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(SocketConnection, Option<glib::Object>), Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -116,7 +115,7 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
     }
 
     #[cfg(feature = "futures")]
-    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> {
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -204,14 +203,14 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
     fn get_property_listen_backlog(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "listen-backlog".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"listen-backlog\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_listen_backlog(&self, listen_backlog: i32) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "listen-backlog".to_glib_none().0, Value::from(&listen_backlog).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"listen-backlog\0".as_ptr() as *const _, Value::from(&listen_backlog).to_glib_none().0);
         }
     }
 
@@ -219,7 +218,7 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
     fn connect_event<F: Fn(&Self, SocketListenerEvent, &Socket) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, SocketListenerEvent, &Socket) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "event",
+            connect_raw(self.to_glib_none().0 as *mut _, b"event\0".as_ptr() as *const _,
                 transmute(event_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -227,7 +226,7 @@ impl<O: IsA<SocketListener> + IsA<glib::object::Object> + Clone + 'static> Socke
     fn connect_property_listen_backlog_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::listen-backlog",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::listen-backlog\0".as_ptr() as *const _,
                 transmute(notify_listen_backlog_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

@@ -3,11 +3,8 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -27,7 +24,7 @@ impl SrvTarget {
         }
     }
 
-    pub fn get_hostname(&mut self) -> Option<String> {
+    pub fn get_hostname(&mut self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_srv_target_get_hostname(self.to_glib_none_mut().0))
         }

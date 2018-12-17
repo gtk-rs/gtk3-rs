@@ -7,7 +7,7 @@ use Error;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -15,7 +15,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -34,25 +33,25 @@ impl ProxyResolver {
     }
 }
 
-pub trait ProxyResolverExt: Sized {
+pub trait ProxyResolverExt: 'static {
     fn is_supported(&self) -> bool;
 
-    fn lookup<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, cancellable: P) -> Result<Vec<String>, Error>;
+    fn lookup<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, cancellable: P) -> Result<Vec<GString>, Error>;
 
-    fn lookup_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<String>, Error>) + Send + 'static>(&self, uri: &str, cancellable: P, callback: Q);
+    fn lookup_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<String>), Error = (Self, Error)>>;
+    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<GString>), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<ProxyResolver> + IsA<glib::object::Object> + Clone + 'static> ProxyResolverExt for O {
+impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     fn is_supported(&self) -> bool {
         unsafe {
             from_glib(ffi::g_proxy_resolver_is_supported(self.to_glib_none().0))
         }
     }
 
-    fn lookup<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, cancellable: P) -> Result<Vec<String>, Error> {
+    fn lookup<'a, P: Into<Option<&'a Cancellable>>>(&self, uri: &str, cancellable: P) -> Result<Vec<GString>, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -62,11 +61,11 @@ impl<O: IsA<ProxyResolver> + IsA<glib::object::Object> + Clone + 'static> ProxyR
         }
     }
 
-    fn lookup_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<String>, Error>) + Send + 'static>(&self, uri: &str, cancellable: P, callback: Q) {
+    fn lookup_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_async_trampoline<Q: FnOnce(Result<Vec<String>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        unsafe extern "C" fn lookup_async_trampoline<Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
@@ -81,7 +80,7 @@ impl<O: IsA<ProxyResolver> + IsA<glib::object::Object> + Clone + 'static> ProxyR
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<String>), Error = (Self, Error)>> {
+    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<GString>), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

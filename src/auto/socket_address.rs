@@ -5,19 +5,15 @@
 use SocketConnectable;
 use SocketFamily;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct SocketAddress(Object<ffi::GSocketAddress, ffi::GSocketAddressClass>): SocketConnectable;
@@ -36,7 +32,7 @@ impl SocketAddress {
 unsafe impl Send for SocketAddress {}
 unsafe impl Sync for SocketAddress {}
 
-pub trait SocketAddressExt {
+pub trait SocketAddressExt: 'static {
     fn get_family(&self) -> SocketFamily;
 
     fn get_native_size(&self) -> isize;
@@ -46,7 +42,7 @@ pub trait SocketAddressExt {
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<SocketAddress> + IsA<glib::object::Object>> SocketAddressExt for O {
+impl<O: IsA<SocketAddress>> SocketAddressExt for O {
     fn get_family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_socket_address_get_family(self.to_glib_none().0))
@@ -66,7 +62,7 @@ impl<O: IsA<SocketAddress> + IsA<glib::object::Object>> SocketAddressExt for O {
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::family",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::family\0".as_ptr() as *const _,
                 transmute(notify_family_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

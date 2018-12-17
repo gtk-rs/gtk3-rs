@@ -4,13 +4,11 @@
 
 use SocketAddressEnumerator;
 use ffi;
+#[cfg(any(feature = "v2_48", feature = "dox"))]
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct SocketConnectable(Object<ffi::GSocketConnectable, ffi::GSocketConnectableIface>);
@@ -20,13 +18,13 @@ glib_wrapper! {
     }
 }
 
-pub trait SocketConnectableExt {
+pub trait SocketConnectableExt: 'static {
     fn enumerate(&self) -> Option<SocketAddressEnumerator>;
 
     fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator>;
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
-    fn to_string(&self) -> Option<String>;
+    fn to_string(&self) -> Option<GString>;
 }
 
 impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
@@ -43,7 +41,7 @@ impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
     }
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
-    fn to_string(&self) -> Option<String> {
+    fn to_string(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_socket_connectable_to_string(self.to_glib_none().0))
         }

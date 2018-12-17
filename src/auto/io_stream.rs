@@ -15,13 +15,12 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -35,7 +34,7 @@ glib_wrapper! {
 
 impl IOStream {}
 
-pub trait IOStreamExt: Sized {
+pub trait IOStreamExt: 'static {
     fn clear_pending(&self);
 
     fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
@@ -43,7 +42,7 @@ pub trait IOStreamExt: Sized {
     fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_input_stream(&self) -> Option<InputStream>;
 
@@ -60,7 +59,7 @@ pub trait IOStreamExt: Sized {
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt for O {
+impl<O: IsA<IOStream>> IOStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
             ffi::g_io_stream_clear_pending(self.to_glib_none().0);
@@ -96,7 +95,7 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -153,7 +152,7 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt
     fn get_property_closed(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "closed".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"closed\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -161,7 +160,7 @@ impl<O: IsA<IOStream> + IsA<glib::object::Object> + Clone + 'static> IOStreamExt
     fn connect_property_closed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::closed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::closed\0".as_ptr() as *const _,
                 transmute(notify_closed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

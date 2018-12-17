@@ -8,10 +8,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -22,7 +19,7 @@ glib_wrapper! {
     }
 }
 
-pub trait SeekableExt {
+pub trait SeekableExt: 'static {
     fn can_seek(&self) -> bool;
 
     fn can_truncate(&self) -> bool;

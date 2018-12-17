@@ -4,21 +4,19 @@
 
 use Icon;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ThemedIcon(Object<ffi::GThemedIcon, ffi::GThemedIconClass>): Icon;
@@ -49,10 +47,10 @@ impl ThemedIcon {
     }
 }
 
-pub trait ThemedIconExt {
+pub trait ThemedIconExt: 'static {
     fn append_name(&self, iconname: &str);
 
-    fn get_names(&self) -> Vec<String>;
+    fn get_names(&self) -> Vec<GString>;
 
     fn prepend_name(&self, iconname: &str);
 
@@ -61,14 +59,14 @@ pub trait ThemedIconExt {
     fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
+impl<O: IsA<ThemedIcon>> ThemedIconExt for O {
     fn append_name(&self, iconname: &str) {
         unsafe {
             ffi::g_themed_icon_append_name(self.to_glib_none().0, iconname.to_glib_none().0);
         }
     }
 
-    fn get_names(&self) -> Vec<String> {
+    fn get_names(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_themed_icon_get_names(self.to_glib_none().0))
         }
@@ -83,7 +81,7 @@ impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
     fn get_property_use_default_fallbacks(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "use-default-fallbacks".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"use-default-fallbacks\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -91,7 +89,7 @@ impl<O: IsA<ThemedIcon> + IsA<glib::object::Object>> ThemedIconExt for O {
     fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::names",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::names\0".as_ptr() as *const _,
                 transmute(notify_names_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

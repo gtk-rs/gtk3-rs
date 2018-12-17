@@ -4,13 +4,10 @@
 
 use File;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Vfs(Object<ffi::GVfs, ffi::GVfsClass>);
@@ -34,12 +31,12 @@ impl Vfs {
     }
 }
 
-pub trait VfsExt {
+pub trait VfsExt: 'static {
     fn get_file_for_path(&self, path: &str) -> Option<File>;
 
     fn get_file_for_uri(&self, uri: &str) -> Option<File>;
 
-    fn get_supported_uri_schemes(&self) -> Vec<String>;
+    fn get_supported_uri_schemes(&self) -> Vec<GString>;
 
     fn is_active(&self) -> bool;
 
@@ -65,7 +62,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    fn get_supported_uri_schemes(&self) -> Vec<String> {
+    fn get_supported_uri_schemes(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_vfs_get_supported_uri_schemes(self.to_glib_none().0))
         }

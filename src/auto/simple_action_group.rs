@@ -8,11 +8,7 @@ use ActionMap;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct SimpleActionGroup(Object<ffi::GSimpleActionGroup, ffi::GSimpleActionGroupClass>): ActionGroup, ActionMap;
@@ -36,7 +32,7 @@ impl Default for SimpleActionGroup {
     }
 }
 
-pub trait SimpleActionGroupExt {
+pub trait SimpleActionGroupExt: 'static {
     //#[cfg_attr(feature = "v2_38", deprecated)]
     //fn add_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P);
 

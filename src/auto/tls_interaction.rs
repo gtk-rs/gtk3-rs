@@ -13,7 +13,6 @@ use TlsPassword;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -21,7 +20,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -32,13 +30,13 @@ glib_wrapper! {
     }
 }
 
-pub trait TlsInteractionExt: Sized {
+pub trait TlsInteractionExt: 'static {
     fn ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error>;
 
     fn ask_password_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, password: &TlsPassword, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>>;
+    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn invoke_ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error>;
 
@@ -53,10 +51,10 @@ pub trait TlsInteractionExt: Sized {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>>;
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsInteractionExt for O {
+impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     fn ask_password<'a, P: Into<Option<&'a Cancellable>>>(&self, password: &TlsPassword, cancellable: P) -> Result<TlsInteractionResult, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -86,7 +84,7 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
     }
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
+    fn ask_password_async_future(&self, password: &TlsPassword) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -162,7 +160,7 @@ impl<O: IsA<TlsInteraction> + IsA<glib::object::Object> + Clone + 'static> TlsIn
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> {
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

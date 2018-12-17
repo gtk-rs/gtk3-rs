@@ -9,11 +9,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct MenuItem(Object<ffi::GMenuItem>);
@@ -58,7 +54,7 @@ impl MenuItem {
     }
 }
 
-pub trait MenuItemExt {
+pub trait MenuItemExt: 'static {
     //#[cfg(any(feature = "v2_34", feature = "dox"))]
     //fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 

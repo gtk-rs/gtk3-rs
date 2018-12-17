@@ -4,12 +4,10 @@
 
 use ffi;
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -20,10 +18,10 @@ glib_wrapper! {
     }
 }
 
-pub trait MenuAttributeIterExt {
-    fn get_name(&self) -> Option<String>;
+pub trait MenuAttributeIterExt: 'static {
+    fn get_name(&self) -> Option<GString>;
 
-    fn get_next(&self) -> Option<(String, glib::Variant)>;
+    fn get_next(&self) -> Option<(GString, glib::Variant)>;
 
     fn get_value(&self) -> Option<glib::Variant>;
 
@@ -31,13 +29,13 @@ pub trait MenuAttributeIterExt {
 }
 
 impl<O: IsA<MenuAttributeIter>> MenuAttributeIterExt for O {
-    fn get_name(&self) -> Option<String> {
+    fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_menu_attribute_iter_get_name(self.to_glib_none().0))
         }
     }
 
-    fn get_next(&self) -> Option<(String, glib::Variant)> {
+    fn get_next(&self) -> Option<(GString, glib::Variant)> {
         unsafe {
             let mut out_name = ptr::null();
             let mut value = ptr::null_mut();

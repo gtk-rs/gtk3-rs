@@ -11,6 +11,7 @@ use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -18,7 +19,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -29,19 +29,19 @@ glib_wrapper! {
     }
 }
 
-pub trait FileOutputStreamExt: Sized {
-    fn get_etag(&self) -> Option<String>;
+pub trait FileOutputStreamExt: 'static {
+    fn get_etag(&self) -> Option<GString>;
 
     fn query_info<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, cancellable: P) -> Result<FileInfo, Error>;
 
     fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>>;
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<FileOutputStream> + IsA<glib::object::Object> + Clone + 'static> FileOutputStreamExt for O {
-    fn get_etag(&self) -> Option<String> {
+impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
+    fn get_etag(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_file_output_stream_get_etag(self.to_glib_none().0))
         }
@@ -76,7 +76,7 @@ impl<O: IsA<FileOutputStream> + IsA<glib::object::Object> + Clone + 'static> Fil
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

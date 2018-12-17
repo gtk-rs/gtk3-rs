@@ -8,11 +8,7 @@ use LoadableIcon;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FileIcon(Object<ffi::GFileIcon, ffi::GFileIconClass>): Icon, LoadableIcon;
@@ -30,7 +26,7 @@ impl FileIcon {
     }
 }
 
-pub trait FileIconExt {
+pub trait FileIconExt: 'static {
     fn get_file(&self) -> Option<File>;
 }
 

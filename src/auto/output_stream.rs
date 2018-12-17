@@ -17,7 +17,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -28,7 +27,7 @@ glib_wrapper! {
     }
 }
 
-pub trait OutputStreamExt: Sized {
+pub trait OutputStreamExt: 'static {
     fn clear_pending(&self);
 
     fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
@@ -36,14 +35,14 @@ pub trait OutputStreamExt: Sized {
     fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn flush<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
 
     fn flush_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn has_pending(&self) -> bool;
 
@@ -61,7 +60,7 @@ pub trait OutputStreamExt: Sized {
     fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn vprintf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
@@ -73,10 +72,10 @@ pub trait OutputStreamExt: Sized {
     fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputStreamExt for O {
+impl<O: IsA<OutputStream>> OutputStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
             ffi::g_output_stream_clear_pending(self.to_glib_none().0);
@@ -112,7 +111,7 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -163,7 +162,7 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     }
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -245,7 +244,7 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     }
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -315,7 +314,7 @@ impl<O: IsA<OutputStream> + IsA<glib::object::Object> + Clone + 'static> OutputS
     }
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

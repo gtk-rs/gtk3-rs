@@ -6,11 +6,7 @@ use InputStream;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct PollableInputStream(Object<ffi::GPollableInputStream, ffi::GPollableInputStreamInterface>): InputStream;
@@ -20,7 +16,7 @@ glib_wrapper! {
     }
 }
 
-pub trait PollableInputStreamExt {
+pub trait PollableInputStreamExt: 'static {
     fn can_poll(&self) -> bool;
 
     fn is_readable(&self) -> bool;

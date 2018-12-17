@@ -16,6 +16,7 @@ use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_ffi;
@@ -111,20 +112,20 @@ pub fn content_type_equals(type1: &str, type2: &str) -> bool {
     }
 }
 
-pub fn content_type_from_mime_type(mime_type: &str) -> Option<String> {
+pub fn content_type_from_mime_type(mime_type: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_from_mime_type(mime_type.to_glib_none().0))
     }
 }
 
-pub fn content_type_get_description(type_: &str) -> Option<String> {
+pub fn content_type_get_description(type_: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_description(type_.to_glib_none().0))
     }
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
-pub fn content_type_get_generic_icon_name(type_: &str) -> Option<String> {
+pub fn content_type_get_generic_icon_name(type_: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_generic_icon_name(type_.to_glib_none().0))
     }
@@ -136,7 +137,7 @@ pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
     }
 }
 
-pub fn content_type_get_mime_type(type_: &str) -> Option<String> {
+pub fn content_type_get_mime_type(type_: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_mime_type(type_.to_glib_none().0))
     }
@@ -149,7 +150,7 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
     }
 }
 
-pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: &[u8]) -> (String, bool) {
+pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: &[u8]) -> (GString, bool) {
     let filename = filename.into();
     let filename = filename.to_glib_none();
     let data_size = data.len() as usize;
@@ -160,7 +161,7 @@ pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: &[u8]
     }
 }
 
-pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<String> {
+pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_content_type_guess_for_tree(root.to_glib_none().0))
     }
@@ -185,28 +186,28 @@ pub fn content_type_is_unknown(type_: &str) -> bool {
     }
 }
 
-pub fn content_types_get_registered() -> Vec<String> {
+pub fn content_types_get_registered() -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::g_content_types_get_registered())
     }
 }
 
 #[cfg(any(feature = "v2_36", feature = "dox"))]
-pub fn dbus_address_escape_value(string: &str) -> Option<String> {
+pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_dbus_address_escape_value(string.to_glib_none().0))
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result<String, Error> {
+//pub fn dbus_address_get_for_bus_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result<GString, Error> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_for_bus_sync() }
 //}
 
-pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(IOStream, String), Error>) + Send + 'static>(address: &str, cancellable: P, callback: Q) {
+pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: P, callback: Q) {
     let cancellable = cancellable.into();
     let cancellable = cancellable.to_glib_none();
     let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-    unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, String), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+    unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
     {
         let mut error = ptr::null_mut();
         let mut out_guid = ptr::null_mut();
@@ -222,7 +223,7 @@ pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(R
 }
 
 #[cfg(feature = "futures")]
-pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, String), Error = Error>> {
+pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
     use GioFuture;
     use fragile::Fragile;
 
@@ -242,7 +243,7 @@ pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Futur
     })
 }
 
-pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(address: &str, cancellable: P) -> Result<(IOStream, String), Error> {
+pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(address: &str, cancellable: P) -> Result<(IOStream, GString), Error> {
     let cancellable = cancellable.into();
     let cancellable = cancellable.to_glib_none();
     unsafe {
@@ -253,7 +254,7 @@ pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(addres
     }
 }
 
-pub fn dbus_generate_guid() -> Option<String> {
+pub fn dbus_generate_guid() -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_dbus_generate_guid())
     }
@@ -376,7 +377,7 @@ pub fn null_settings_backend_new() -> Option<SettingsBackend> {
     }
 }
 
-pub fn resources_enumerate_children(path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<String>, Error> {
+pub fn resources_enumerate_children(path: &str, lookup_flags: ResourceLookupFlags) -> Result<Vec<GString>, Error> {
     unsafe {
         let mut error = ptr::null_mut();
         let ret = ffi::g_resources_enumerate_children(path.to_glib_none().0, lookup_flags.to_glib(), &mut error);
@@ -493,7 +494,7 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
 //}
 
 //#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_get_fs_type(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<String> {
+//pub fn unix_mount_get_fs_type(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_unix_mount_get_fs_type() }
 //}
 
@@ -513,7 +514,7 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
 //}
 
 //#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_name(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<String> {
+//pub fn unix_mount_guess_name(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_name() }
 //}
 

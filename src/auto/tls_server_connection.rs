@@ -8,19 +8,17 @@ use TlsAuthenticationMode;
 use TlsCertificate;
 use TlsConnection;
 use ffi;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -44,7 +42,7 @@ impl TlsServerConnection {
     }
 }
 
-pub trait TlsServerConnectionExt {
+pub trait TlsServerConnectionExt: 'static {
     fn get_property_authentication_mode(&self) -> TlsAuthenticationMode;
 
     fn set_property_authentication_mode(&self, authentication_mode: TlsAuthenticationMode);
@@ -52,25 +50,25 @@ pub trait TlsServerConnectionExt {
     fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<TlsServerConnection> + IsA<glib::object::Object>> TlsServerConnectionExt for O {
+impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
     fn get_property_authentication_mode(&self) -> TlsAuthenticationMode {
         unsafe {
             let mut value = Value::from_type(<TlsAuthenticationMode as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "authentication-mode".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"authentication-mode\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_authentication_mode(&self, authentication_mode: TlsAuthenticationMode) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "authentication-mode".to_glib_none().0, Value::from(&authentication_mode).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"authentication-mode\0".as_ptr() as *const _, Value::from(&authentication_mode).to_glib_none().0);
         }
     }
 
     fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::authentication-mode",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::authentication-mode\0".as_ptr() as *const _,
                 transmute(notify_authentication_mode_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

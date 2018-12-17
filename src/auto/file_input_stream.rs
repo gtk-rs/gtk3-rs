@@ -18,7 +18,6 @@ use gobject_ffi;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -29,16 +28,16 @@ glib_wrapper! {
     }
 }
 
-pub trait FileInputStreamExt: Sized {
+pub trait FileInputStreamExt: 'static {
     fn query_info<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, cancellable: P) -> Result<FileInfo, Error>;
 
     fn query_info_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>>;
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
-impl<O: IsA<FileInputStream> + IsA<glib::object::Object> + Clone + 'static> FileInputStreamExt for O {
+impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
     fn query_info<'a, P: Into<Option<&'a Cancellable>>>(&self, attributes: &str, cancellable: P) -> Result<FileInfo, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -68,7 +67,7 @@ impl<O: IsA<FileInputStream> + IsA<glib::object::Object> + Clone + 'static> File
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> {
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

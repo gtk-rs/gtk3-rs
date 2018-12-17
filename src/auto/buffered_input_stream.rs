@@ -14,7 +14,7 @@ use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
@@ -46,13 +46,13 @@ impl BufferedInputStream {
     }
 }
 
-pub trait BufferedInputStreamExt: Sized {
+pub trait BufferedInputStreamExt: 'static {
     fn fill<'a, P: Into<Option<&'a Cancellable>>>(&self, count: isize, cancellable: P) -> Result<isize, Error>;
 
     fn fill_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: isize, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>>;
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_available(&self) -> usize;
 
@@ -67,7 +67,7 @@ pub trait BufferedInputStreamExt: Sized {
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object> + Clone + 'static> BufferedInputStreamExt for O {
+impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     fn fill<'a, P: Into<Option<&'a Cancellable>>>(&self, count: isize, cancellable: P) -> Result<isize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -97,7 +97,7 @@ impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object> + Clone + 'static> 
     }
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> {
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -159,7 +159,7 @@ impl<O: IsA<BufferedInputStream> + IsA<glib::object::Object> + Clone + 'static> 
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::buffer-size",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::buffer-size\0".as_ptr() as *const _,
                 transmute(notify_buffer_size_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

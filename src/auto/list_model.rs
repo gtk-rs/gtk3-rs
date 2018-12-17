@@ -11,19 +11,17 @@ use glib::object::IsA;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use libc;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ListModel(Object<ffi::GListModel, ffi::GListModelInterface>);
@@ -33,7 +31,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ListModelExt {
+pub trait ListModelExt: 'static {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
@@ -53,7 +51,7 @@ pub trait ListModelExt {
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<ListModel> + IsA<glib::object::Object>> ListModelExt for O {
+impl<O: IsA<ListModel>> ListModelExt for O {
     //#[cfg(any(feature = "v2_44", feature = "dox"))]
     //fn get_item(&self, position: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi::g_list_model_get_item() }
@@ -91,7 +89,7 @@ impl<O: IsA<ListModel> + IsA<glib::object::Object>> ListModelExt for O {
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, u32, u32, u32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "items-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"items-changed\0".as_ptr() as *const _,
                 transmute(items_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

@@ -5,20 +5,19 @@
 use Error;
 use TlsDatabase;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -40,19 +39,19 @@ impl TlsFileDatabase {
     }
 }
 
-pub trait TlsFileDatabaseExt {
-    fn get_property_anchors(&self) -> Option<String>;
+pub trait TlsFileDatabaseExt: 'static {
+    fn get_property_anchors(&self) -> Option<GString>;
 
     fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P);
 
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<TlsFileDatabase> + IsA<glib::object::Object>> TlsFileDatabaseExt for O {
-    fn get_property_anchors(&self) -> Option<String> {
+impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
+    fn get_property_anchors(&self) -> Option<GString> {
         unsafe {
-            let mut value = Value::from_type(<String as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "anchors".to_glib_none().0, value.to_glib_none_mut().0);
+            let mut value = Value::from_type(<GString as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"anchors\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -60,14 +59,14 @@ impl<O: IsA<TlsFileDatabase> + IsA<glib::object::Object>> TlsFileDatabaseExt for
     fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P) {
         let anchors = anchors.into();
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "anchors".to_glib_none().0, Value::from(anchors).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"anchors\0".as_ptr() as *const _, Value::from(anchors).to_glib_none().0);
         }
     }
 
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::anchors",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::anchors\0".as_ptr() as *const _,
                 transmute(notify_anchors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

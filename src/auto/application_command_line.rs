@@ -8,19 +8,18 @@ use File;
 use InputStream;
 use ffi;
 use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ApplicationCommandLine(Object<ffi::GApplicationCommandLine, ffi::GApplicationCommandLineClass>);
@@ -30,7 +29,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ApplicationCommandLineExt {
+pub trait ApplicationCommandLineExt: 'static {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File>;
 
@@ -52,7 +51,7 @@ pub trait ApplicationCommandLineExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_stdin(&self) -> Option<InputStream>;
 
-    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<String>;
+    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<GString>;
 
     //fn print(&self, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
@@ -63,7 +62,7 @@ pub trait ApplicationCommandLineExt {
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationCommandLineExt for O {
+impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File> {
         unsafe {
@@ -121,7 +120,7 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
         }
     }
 
-    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<String> {
+    fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_application_command_line_getenv(self.to_glib_none().0, name.as_ref().to_glib_none().0))
         }
@@ -144,7 +143,7 @@ impl<O: IsA<ApplicationCommandLine> + IsA<glib::object::Object>> ApplicationComm
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::is-remote",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-remote\0".as_ptr() as *const _,
                 transmute(notify_is_remote_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

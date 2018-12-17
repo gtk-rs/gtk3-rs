@@ -6,14 +6,11 @@ use FileType;
 use Icon;
 use ffi;
 use glib;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FileInfo(Object<ffi::GFileInfo, ffi::GFileInfoClass>);
@@ -37,18 +34,18 @@ impl Default for FileInfo {
     }
 }
 
-pub trait FileInfoExt {
+pub trait FileInfoExt: 'static {
     fn clear_status(&self);
 
     fn copy_into(&self, dest_info: &FileInfo);
 
     fn dup(&self) -> Option<FileInfo>;
 
-    fn get_attribute_as_string(&self, attribute: &str) -> Option<String>;
+    fn get_attribute_as_string(&self, attribute: &str) -> Option<GString>;
 
     fn get_attribute_boolean(&self, attribute: &str) -> bool;
 
-    fn get_attribute_byte_string(&self, attribute: &str) -> Option<String>;
+    fn get_attribute_byte_string(&self, attribute: &str) -> Option<GString>;
 
     //fn get_attribute_data(&self, attribute: &str, value_pp: /*Unimplemented*/&mut Fundamental: Pointer) -> Option<(/*Ignored*/FileAttributeType, /*Ignored*/FileAttributeStatus)>;
 
@@ -60,9 +57,9 @@ pub trait FileInfoExt {
 
     //fn get_attribute_status(&self, attribute: &str) -> /*Ignored*/FileAttributeStatus;
 
-    fn get_attribute_string(&self, attribute: &str) -> Option<String>;
+    fn get_attribute_string(&self, attribute: &str) -> Option<GString>;
 
-    fn get_attribute_stringv(&self, attribute: &str) -> Vec<String>;
+    fn get_attribute_stringv(&self, attribute: &str) -> Vec<GString>;
 
     //fn get_attribute_type(&self, attribute: &str) -> /*Ignored*/FileAttributeType;
 
@@ -70,16 +67,16 @@ pub trait FileInfoExt {
 
     fn get_attribute_uint64(&self, attribute: &str) -> u64;
 
-    fn get_content_type(&self) -> Option<String>;
+    fn get_content_type(&self) -> Option<GString>;
 
     //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //fn get_deletion_date(&self) -> /*Ignored*/Option<glib::DateTime>;
 
-    fn get_display_name(&self) -> Option<String>;
+    fn get_display_name(&self) -> Option<GString>;
 
-    fn get_edit_name(&self) -> Option<String>;
+    fn get_edit_name(&self) -> Option<GString>;
 
-    fn get_etag(&self) -> Option<String>;
+    fn get_etag(&self) -> Option<GString>;
 
     fn get_file_type(&self) -> FileType;
 
@@ -102,13 +99,13 @@ pub trait FileInfoExt {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon>;
 
-    fn get_symlink_target(&self) -> Option<String>;
+    fn get_symlink_target(&self) -> Option<GString>;
 
     fn has_attribute(&self, attribute: &str) -> bool;
 
     fn has_namespace(&self, name_space: &str) -> bool;
 
-    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<String>;
+    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<GString>;
 
     fn remove_attribute(&self, attribute: &str);
 
@@ -185,7 +182,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn get_attribute_as_string(&self, attribute: &str) -> Option<String> {
+    fn get_attribute_as_string(&self, attribute: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_file_info_get_attribute_as_string(self.to_glib_none().0, attribute.to_glib_none().0))
         }
@@ -197,7 +194,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn get_attribute_byte_string(&self, attribute: &str) -> Option<String> {
+    fn get_attribute_byte_string(&self, attribute: &str) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_attribute_byte_string(self.to_glib_none().0, attribute.to_glib_none().0))
         }
@@ -229,13 +226,13 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
     //    unsafe { TODO: call ffi::g_file_info_get_attribute_status() }
     //}
 
-    fn get_attribute_string(&self, attribute: &str) -> Option<String> {
+    fn get_attribute_string(&self, attribute: &str) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_attribute_string(self.to_glib_none().0, attribute.to_glib_none().0))
         }
     }
 
-    fn get_attribute_stringv(&self, attribute: &str) -> Vec<String> {
+    fn get_attribute_stringv(&self, attribute: &str) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_file_info_get_attribute_stringv(self.to_glib_none().0, attribute.to_glib_none().0))
         }
@@ -257,7 +254,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn get_content_type(&self) -> Option<String> {
+    fn get_content_type(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_content_type(self.to_glib_none().0))
         }
@@ -268,19 +265,19 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
     //    unsafe { TODO: call ffi::g_file_info_get_deletion_date() }
     //}
 
-    fn get_display_name(&self) -> Option<String> {
+    fn get_display_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_display_name(self.to_glib_none().0))
         }
     }
 
-    fn get_edit_name(&self) -> Option<String> {
+    fn get_edit_name(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_edit_name(self.to_glib_none().0))
         }
     }
 
-    fn get_etag(&self) -> Option<String> {
+    fn get_etag(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_etag(self.to_glib_none().0))
         }
@@ -345,7 +342,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn get_symlink_target(&self) -> Option<String> {
+    fn get_symlink_target(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_symlink_target(self.to_glib_none().0))
         }
@@ -363,7 +360,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<String> {
+    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<GString> {
         let name_space = name_space.into();
         let name_space = name_space.to_glib_none();
         unsafe {

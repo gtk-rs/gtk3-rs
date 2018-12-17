@@ -19,13 +19,12 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
 use std::ptr;
 
@@ -37,7 +36,7 @@ glib_wrapper! {
     }
 }
 
-pub trait TlsConnectionExt: Sized {
+pub trait TlsConnectionExt: 'static {
     fn emit_accept_certificate(&self, peer_cert: &TlsCertificate, errors: TlsCertificateFlags) -> bool;
 
     fn get_certificate(&self) -> Option<TlsCertificate>;
@@ -62,7 +61,7 @@ pub trait TlsConnectionExt: Sized {
     fn handshake_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_certificate(&self, certificate: &TlsCertificate);
 
@@ -99,7 +98,7 @@ pub trait TlsConnectionExt: Sized {
     fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsConnectionExt for O {
+impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn emit_accept_certificate(&self, peer_cert: &TlsCertificate, errors: TlsCertificateFlags) -> bool {
         unsafe {
             from_glib(ffi::g_tls_connection_emit_accept_certificate(self.to_glib_none().0, peer_cert.to_glib_none().0, errors.to_glib()))
@@ -183,7 +182,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     }
 
     #[cfg(feature = "futures")]
-    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -246,7 +245,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn get_property_base_io_stream(&self) -> Option<IOStream> {
         unsafe {
             let mut value = Value::from_type(<IOStream as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "base-io-stream".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"base-io-stream\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -254,7 +253,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_accept_certificate<F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "accept-certificate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"accept-certificate\0".as_ptr() as *const _,
                 transmute(accept_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -262,7 +261,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::certificate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::certificate\0".as_ptr() as *const _,
                 transmute(notify_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -270,7 +269,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::database",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::database\0".as_ptr() as *const _,
                 transmute(notify_database_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -278,7 +277,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::interaction",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::interaction\0".as_ptr() as *const _,
                 transmute(notify_interaction_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -286,7 +285,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::peer-certificate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::peer-certificate\0".as_ptr() as *const _,
                 transmute(notify_peer_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -294,7 +293,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::peer-certificate-errors",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::peer-certificate-errors\0".as_ptr() as *const _,
                 transmute(notify_peer_certificate_errors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -302,7 +301,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::rehandshake-mode",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::rehandshake-mode\0".as_ptr() as *const _,
                 transmute(notify_rehandshake_mode_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -310,7 +309,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::require-close-notify",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::require-close-notify\0".as_ptr() as *const _,
                 transmute(notify_require_close_notify_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -318,7 +317,7 @@ impl<O: IsA<TlsConnection> + IsA<glib::object::Object> + Clone + 'static> TlsCon
     fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::use-system-certdb",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::use-system-certdb\0".as_ptr() as *const _,
                 transmute(notify_use_system_certdb_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
