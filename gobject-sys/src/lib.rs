@@ -233,8 +233,9 @@ impl ::std::fmt::Debug for GCClosure {
 
 #[repr(C)]
 pub struct GClosure {
+    pub ref_count: /*volatile*/c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field ref_count has incomplete type
+    // field meta_marshal_nouse has incomplete type
 }
 
 impl ::std::fmt::Debug for GClosure {
@@ -1127,8 +1128,9 @@ pub struct GParamSpecString {
     pub cset_first: *mut c_char,
     pub cset_nth: *mut c_char,
     pub substitutor: c_char,
+    pub null_fold_if_empty: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field null_fold_if_empty has incomplete type
+    // field ensure_non_null has incomplete type
 }
 
 impl ::std::fmt::Debug for GParamSpecString {
@@ -1139,6 +1141,7 @@ impl ::std::fmt::Debug for GParamSpecString {
          .field("cset_first", &self.cset_first)
          .field("cset_nth", &self.cset_nth)
          .field("substitutor", &self.substitutor)
+         .field("null_fold_if_empty", &self.null_fold_if_empty)
          .finish()
     }
 }

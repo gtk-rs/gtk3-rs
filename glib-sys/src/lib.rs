@@ -1129,13 +1129,15 @@ impl ::std::fmt::Debug for GData {
 
 #[repr(C)]
 pub struct GDate {
+    pub julian_days: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field julian_days has incomplete type
+    // field julian has incomplete type
 }
 
 impl ::std::fmt::Debug for GDate {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GDate @ {:?}", self as *const _))
+         .field("julian_days", &self.julian_days)
          .finish()
     }
 }
@@ -1178,13 +1180,15 @@ impl ::std::fmt::Debug for GDir {
 
 #[repr(C)]
 pub struct GDoubleIEEE754_mpn {
+    pub mantissa_low: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field mantissa_low has incomplete type
+    // field mantissa_high has incomplete type
 }
 
 impl ::std::fmt::Debug for GDoubleIEEE754_mpn {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GDoubleIEEE754_mpn @ {:?}", self as *const _))
+         .field("mantissa_low", &self.mantissa_low)
          .finish()
     }
 }
@@ -1209,13 +1213,15 @@ impl ::std::fmt::Debug for GError {
 
 #[repr(C)]
 pub struct GFloatIEEE754_mpn {
+    pub mantissa: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field mantissa has incomplete type
+    // field biased_exponent has incomplete type
 }
 
 impl ::std::fmt::Debug for GFloatIEEE754_mpn {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GFloatIEEE754_mpn @ {:?}", self as *const _))
+         .field("mantissa", &self.mantissa)
          .finish()
     }
 }
@@ -1325,8 +1331,9 @@ pub struct GIOChannel {
     pub encoded_read_buf: *mut GString,
     pub write_buf: *mut GString,
     pub partial_write_buf: [c_char; 6],
+    pub use_buffer: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field use_buffer has incomplete type
+    // field do_encode has incomplete type
 }
 
 impl ::std::fmt::Debug for GIOChannel {
@@ -1765,8 +1772,9 @@ pub struct GScannerConfig {
     pub cset_identifier_first: *mut c_char,
     pub cset_identifier_nth: *mut c_char,
     pub cpair_comment_single: *mut c_char,
+    pub case_sensitive: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field case_sensitive has incomplete type
+    // field skip_comment_multi has incomplete type
 }
 
 impl ::std::fmt::Debug for GScannerConfig {
@@ -1776,6 +1784,7 @@ impl ::std::fmt::Debug for GScannerConfig {
          .field("cset_identifier_first", &self.cset_identifier_first)
          .field("cset_identifier_nth", &self.cset_identifier_nth)
          .field("cpair_comment_single", &self.cpair_comment_single)
+         .field("case_sensitive", &self.case_sensitive)
          .finish()
     }
 }

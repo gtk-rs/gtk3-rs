@@ -1301,14 +1301,25 @@ pub type GtkTreeViewSearchPositionFunc = Option<unsafe extern "C" fn(*mut GtkTre
 
 // Records
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAboutDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub activate_link: Option<unsafe extern "C" fn(*mut GtkAboutDialog, *const c_char) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkAboutDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAboutDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("activate_link", &self.activate_link)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -1348,14 +1359,19 @@ impl ::std::fmt::Debug for GtkAccelGroupClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAccelGroupEntry {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field key has incomplete type
+    pub key: GtkAccelKey,
+    pub closure: *mut gobject::GClosure,
+    pub accel_path_quark: glib::GQuark,
 }
 
 impl ::std::fmt::Debug for GtkAccelGroupEntry {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAccelGroupEntry @ {:?}", self as *const _))
+         .field("key", &self.key)
+         .field("closure", &self.closure)
+         .field("accel_path_quark", &self.accel_path_quark)
          .finish()
     }
 }
@@ -1371,11 +1387,11 @@ impl ::std::fmt::Debug for GtkAccelGroupPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAccelKey {
     pub accel_key: c_uint,
     pub accel_mods: gdk::GdkModifierType,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field accel_flags has incomplete type
+    pub accel_flags: c_uint,
 }
 
 impl ::std::fmt::Debug for GtkAccelKey {
@@ -1383,6 +1399,7 @@ impl ::std::fmt::Debug for GtkAccelKey {
         f.debug_struct(&format!("GtkAccelKey @ {:?}", self as *const _))
          .field("accel_key", &self.accel_key)
          .field("accel_mods", &self.accel_mods)
+         .field("accel_flags", &self.accel_flags)
          .finish()
     }
 }
@@ -1476,14 +1493,22 @@ impl ::std::fmt::Debug for GtkAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkActionBarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkActionBarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkActionBarClass @ {:?}", self as *const _))
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -1677,14 +1702,23 @@ impl ::std::fmt::Debug for GtkAdjustmentPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAlignmentClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkAlignmentClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAlignmentClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -1700,14 +1734,18 @@ impl ::std::fmt::Debug for GtkAlignmentPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAppChooserButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkComboBoxClass,
+    pub custom_item_activated: Option<unsafe extern "C" fn(*mut GtkAppChooserButton, *const c_char)>,
+    pub padding: [gpointer; 16],
 }
 
 impl ::std::fmt::Debug for GtkAppChooserButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAppChooserButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("custom_item_activated", &self.custom_item_activated)
          .finish()
     }
 }
@@ -1723,14 +1761,16 @@ impl ::std::fmt::Debug for GtkAppChooserButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAppChooserDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub padding: [gpointer; 16],
 }
 
 impl ::std::fmt::Debug for GtkAppChooserDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAppChooserDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -1746,14 +1786,22 @@ impl ::std::fmt::Debug for GtkAppChooserDialogPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAppChooserWidgetClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub application_selected: Option<unsafe extern "C" fn(*mut GtkAppChooserWidget, *mut gio::GAppInfo)>,
+    pub application_activated: Option<unsafe extern "C" fn(*mut GtkAppChooserWidget, *mut gio::GAppInfo)>,
+    pub populate_popup: Option<unsafe extern "C" fn(*mut GtkAppChooserWidget, *mut GtkMenu, *mut gio::GAppInfo)>,
+    pub padding: [gpointer; 16],
 }
 
 impl ::std::fmt::Debug for GtkAppChooserWidgetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAppChooserWidgetClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("application_selected", &self.application_selected)
+         .field("application_activated", &self.application_activated)
+         .field("populate_popup", &self.populate_popup)
          .finish()
     }
 }
@@ -1798,14 +1846,16 @@ impl ::std::fmt::Debug for GtkApplicationPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkApplicationWindowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub padding: [gpointer; 14],
 }
 
 impl ::std::fmt::Debug for GtkApplicationWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkApplicationWindowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -1877,14 +1927,23 @@ impl ::std::fmt::Debug for GtkArrowPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAspectFrameClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkFrameClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkAspectFrameClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAspectFrameClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -1900,14 +1959,33 @@ impl ::std::fmt::Debug for GtkAspectFramePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkAssistantClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub prepare: Option<unsafe extern "C" fn(*mut GtkAssistant, *mut GtkWidget)>,
+    pub apply: Option<unsafe extern "C" fn(*mut GtkAssistant)>,
+    pub close: Option<unsafe extern "C" fn(*mut GtkAssistant)>,
+    pub cancel: Option<unsafe extern "C" fn(*mut GtkAssistant)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkAssistantClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkAssistantClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("prepare", &self.prepare)
+         .field("apply", &self.apply)
+         .field("close", &self.close)
+         .field("cancel", &self.cancel)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
          .finish()
     }
 }
@@ -1923,14 +2001,23 @@ impl ::std::fmt::Debug for GtkAssistantPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkBinClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkBinClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkBinClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -1966,8 +2053,9 @@ pub struct GtkBindingEntry {
     pub keyval: c_uint,
     pub modifiers: gdk::GdkModifierType,
     pub binding_set: *mut GtkBindingSet,
+    pub destroyed: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field destroyed has incomplete type
+    // field in_emission has incomplete type
 }
 
 impl ::std::fmt::Debug for GtkBindingEntry {
@@ -1976,11 +2064,13 @@ impl ::std::fmt::Debug for GtkBindingEntry {
          .field("keyval", &self.keyval)
          .field("modifiers", &self.modifiers)
          .field("binding_set", &self.binding_set)
+         .field("destroyed", &self.destroyed)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkBindingSet {
     pub set_name: *mut c_char,
     pub priority: c_int,
@@ -1989,8 +2079,7 @@ pub struct GtkBindingSet {
     pub class_branch_pspecs: *mut glib::GSList,
     pub entries: *mut GtkBindingEntry,
     pub current: *mut GtkBindingEntry,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parsed has incomplete type
+    pub parsed: c_uint,
 }
 
 impl ::std::fmt::Debug for GtkBindingSet {
@@ -2003,6 +2092,7 @@ impl ::std::fmt::Debug for GtkBindingSet {
          .field("class_branch_pspecs", &self.class_branch_pspecs)
          .field("entries", &self.entries)
          .field("current", &self.current)
+         .field("parsed", &self.parsed)
          .finish()
     }
 }
@@ -2072,14 +2162,23 @@ impl ::std::fmt::Debug for GtkBorder {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2195,14 +2294,23 @@ impl ::std::fmt::Debug for GtkButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkButtonBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkButtonBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkButtonBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2218,14 +2326,35 @@ impl ::std::fmt::Debug for GtkButtonBoxPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub pressed: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub released: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub clicked: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub enter: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub leave: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub activate: Option<unsafe extern "C" fn(*mut GtkButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("pressed", &self.pressed)
+         .field("released", &self.released)
+         .field("clicked", &self.clicked)
+         .field("enter", &self.enter)
+         .field("leave", &self.leave)
+         .field("activate", &self.activate)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2908,14 +3037,25 @@ impl ::std::fmt::Debug for GtkCellViewPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkCheckButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToggleButtonClass,
+    pub draw_indicator: Option<unsafe extern "C" fn(*mut GtkCheckButton, *mut cairo::cairo_t)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkCheckButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkCheckButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("draw_indicator", &self.draw_indicator)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2945,14 +3085,27 @@ impl ::std::fmt::Debug for GtkCheckMenuItemAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkCheckMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuItemClass,
+    pub toggled: Option<unsafe extern "C" fn(*mut GtkCheckMenuItem)>,
+    pub draw_indicator: Option<unsafe extern "C" fn(*mut GtkCheckMenuItem, *mut cairo::cairo_t)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkCheckMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkCheckMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("toggled", &self.toggled)
+         .field("draw_indicator", &self.draw_indicator)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2968,14 +3121,25 @@ impl ::std::fmt::Debug for GtkCheckMenuItemPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkColorButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub color_set: Option<unsafe extern "C" fn(*mut GtkColorButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkColorButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkColorButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("color_set", &self.color_set)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -2991,14 +3155,23 @@ impl ::std::fmt::Debug for GtkColorButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkColorChooserDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkColorChooserDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkColorChooserDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3038,14 +3211,31 @@ impl ::std::fmt::Debug for GtkColorChooserInterface {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkColorChooserWidgetClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkColorChooserWidgetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkColorChooserWidgetClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -3061,27 +3251,47 @@ impl ::std::fmt::Debug for GtkColorChooserWidgetPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkColorSelectionClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub color_changed: Option<unsafe extern "C" fn(*mut GtkColorSelection)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkColorSelectionClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkColorSelectionClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("color_changed", &self.color_changed)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkColorSelectionDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkColorSelectionDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkColorSelectionDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3131,14 +3341,25 @@ impl ::std::fmt::Debug for GtkComboBoxAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkComboBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub changed: Option<unsafe extern "C" fn(*mut GtkComboBox)>,
+    pub format_entry_text: Option<unsafe extern "C" fn(*mut GtkComboBox, *const c_char) -> *mut c_char>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkComboBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkComboBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("changed", &self.changed)
+         .field("format_entry_text", &self.format_entry_text)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
          .finish()
     }
 }
@@ -3154,14 +3375,23 @@ impl ::std::fmt::Debug for GtkComboBoxPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkComboBoxTextClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkComboBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkComboBoxTextClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkComboBoxTextClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3229,6 +3459,7 @@ impl ::std::fmt::Debug for GtkContainerCellAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkContainerClass {
     pub parent_class: GtkWidgetClass,
     pub add: Option<unsafe extern "C" fn(*mut GtkContainer, *mut GtkWidget)>,
@@ -3241,8 +3472,15 @@ pub struct GtkContainerClass {
     pub set_child_property: Option<unsafe extern "C" fn(*mut GtkContainer, *mut GtkWidget, c_uint, *mut gobject::GValue, *mut gobject::GParamSpec)>,
     pub get_child_property: Option<unsafe extern "C" fn(*mut GtkContainer, *mut GtkWidget, c_uint, *mut gobject::GValue, *mut gobject::GParamSpec)>,
     pub get_path_for_child: Option<unsafe extern "C" fn(*mut GtkContainer, *mut GtkWidget) -> *mut GtkWidgetPath>,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field _handle_border_width has incomplete type
+    pub _handle_border_width: c_uint,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkContainerClass {
@@ -3259,6 +3497,14 @@ impl ::std::fmt::Debug for GtkContainerClass {
          .field("set_child_property", &self.set_child_property)
          .field("get_child_property", &self.get_child_property)
          .field("get_path_for_child", &self.get_path_for_child)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -3316,14 +3562,27 @@ impl ::std::fmt::Debug for GtkCssSection {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub response: Option<unsafe extern "C" fn(*mut GtkDialog, GtkResponseType)>,
+    pub close: Option<unsafe extern "C" fn(*mut GtkDialog)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("response", &self.response)
+         .field("close", &self.close)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3573,14 +3832,23 @@ impl ::std::fmt::Debug for GtkEntryPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkEventBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkEventBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkEventBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3630,14 +3898,25 @@ impl ::std::fmt::Debug for GtkExpanderAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkExpanderClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub activate: Option<unsafe extern "C" fn(*mut GtkExpander)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkExpanderClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkExpanderClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("activate", &self.activate)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3653,14 +3932,21 @@ impl ::std::fmt::Debug for GtkExpanderPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFileChooserButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub file_set: Option<unsafe extern "C" fn(*mut GtkFileChooserButton)>,
+    pub __gtk_reserved1: *mut c_void,
+    pub __gtk_reserved2: *mut c_void,
+    pub __gtk_reserved3: *mut c_void,
+    pub __gtk_reserved4: *mut c_void,
 }
 
 impl ::std::fmt::Debug for GtkFileChooserButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFileChooserButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("file_set", &self.file_set)
          .finish()
     }
 }
@@ -3676,14 +3962,23 @@ impl ::std::fmt::Debug for GtkFileChooserButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFileChooserDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFileChooserDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFileChooserDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3713,14 +4008,23 @@ impl ::std::fmt::Debug for GtkFileChooserNativeClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFileChooserWidgetClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFileChooserWidgetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFileChooserWidgetClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3776,14 +4080,23 @@ impl ::std::fmt::Debug for GtkFixedChild {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFixedClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFixedClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFixedClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3837,40 +4150,85 @@ impl ::std::fmt::Debug for GtkFlowBoxChildAccessibleClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFlowBoxChildClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub activate: Option<unsafe extern "C" fn(*mut GtkFlowBoxChild)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFlowBoxChildClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFlowBoxChildClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("activate", &self.activate)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFlowBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub child_activated: Option<unsafe extern "C" fn(*mut GtkFlowBox, *mut GtkFlowBoxChild)>,
+    pub selected_children_changed: Option<unsafe extern "C" fn(*mut GtkFlowBox)>,
+    pub activate_cursor_child: Option<unsafe extern "C" fn(*mut GtkFlowBox)>,
+    pub toggle_cursor_child: Option<unsafe extern "C" fn(*mut GtkFlowBox)>,
+    pub move_cursor: Option<unsafe extern "C" fn(*mut GtkFlowBox, GtkMovementStep, c_int) -> gboolean>,
+    pub select_all: Option<unsafe extern "C" fn(*mut GtkFlowBox)>,
+    pub unselect_all: Option<unsafe extern "C" fn(*mut GtkFlowBox)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFlowBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFlowBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("child_activated", &self.child_activated)
+         .field("selected_children_changed", &self.selected_children_changed)
+         .field("activate_cursor_child", &self.activate_cursor_child)
+         .field("toggle_cursor_child", &self.toggle_cursor_child)
+         .field("move_cursor", &self.move_cursor)
+         .field("select_all", &self.select_all)
+         .field("unselect_all", &self.unselect_all)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFontButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub font_set: Option<unsafe extern "C" fn(*mut GtkFontButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFontButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFontButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("font_set", &self.font_set)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3886,14 +4244,23 @@ impl ::std::fmt::Debug for GtkFontButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFontChooserDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFontChooserDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFontChooserDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -3939,14 +4306,31 @@ impl ::std::fmt::Debug for GtkFontChooserIface {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFontChooserWidgetClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFontChooserWidgetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFontChooserWidgetClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -3962,27 +4346,45 @@ impl ::std::fmt::Debug for GtkFontChooserWidgetPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFontSelectionClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFontSelectionClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFontSelectionClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFontSelectionDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFontSelectionDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFontSelectionDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4032,14 +4434,25 @@ impl ::std::fmt::Debug for GtkFrameAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkFrameClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub compute_child_allocation: Option<unsafe extern "C" fn(*mut GtkFrame, *mut GtkAllocation)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkFrameClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkFrameClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("compute_child_allocation", &self.compute_child_allocation)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4175,14 +4588,31 @@ impl ::std::fmt::Debug for GtkGradient {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkGridClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkGridClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkGridClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -4198,40 +4628,43 @@ impl ::std::fmt::Debug for GtkGridPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
 }
 
 impl ::std::fmt::Debug for GtkHBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkHBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHButtonBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonBoxClass,
 }
 
 impl ::std::fmt::Debug for GtkHButtonBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkHButtonBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHPanedClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkPanedClass,
 }
 
 impl ::std::fmt::Debug for GtkHPanedClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkHPanedClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -4315,14 +4748,27 @@ impl ::std::fmt::Debug for GtkHSeparatorClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHandleBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub child_attached: Option<unsafe extern "C" fn(*mut GtkHandleBox, *mut GtkWidget)>,
+    pub child_detached: Option<unsafe extern "C" fn(*mut GtkHandleBox, *mut GtkWidget)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkHandleBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkHandleBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("child_attached", &self.child_attached)
+         .field("child_detached", &self.child_detached)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4338,14 +4784,23 @@ impl ::std::fmt::Debug for GtkHandleBoxPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHeaderBarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkHeaderBarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkHeaderBarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4616,14 +5071,39 @@ impl ::std::fmt::Debug for GtkIconViewAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkIconViewClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub item_activated: Option<unsafe extern "C" fn(*mut GtkIconView, *mut GtkTreePath)>,
+    pub selection_changed: Option<unsafe extern "C" fn(*mut GtkIconView)>,
+    pub select_all: Option<unsafe extern "C" fn(*mut GtkIconView)>,
+    pub unselect_all: Option<unsafe extern "C" fn(*mut GtkIconView)>,
+    pub select_cursor_item: Option<unsafe extern "C" fn(*mut GtkIconView)>,
+    pub toggle_cursor_item: Option<unsafe extern "C" fn(*mut GtkIconView)>,
+    pub move_cursor: Option<unsafe extern "C" fn(*mut GtkIconView, GtkMovementStep, c_int) -> gboolean>,
+    pub activate_cursor_item: Option<unsafe extern "C" fn(*mut GtkIconView) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkIconViewClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkIconViewClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("item_activated", &self.item_activated)
+         .field("selection_changed", &self.selection_changed)
+         .field("select_all", &self.select_all)
+         .field("unselect_all", &self.unselect_all)
+         .field("select_cursor_item", &self.select_cursor_item)
+         .field("toggle_cursor_item", &self.toggle_cursor_item)
+         .field("move_cursor", &self.move_cursor)
+         .field("activate_cursor_item", &self.activate_cursor_item)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4709,14 +5189,23 @@ impl ::std::fmt::Debug for GtkImageClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkImageMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuItemClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkImageMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkImageMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4742,14 +5231,27 @@ impl ::std::fmt::Debug for GtkImagePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkInfoBarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub response: Option<unsafe extern "C" fn(*mut GtkInfoBar, GtkResponseType)>,
+    pub close: Option<unsafe extern "C" fn(*mut GtkInfoBar)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkInfoBarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkInfoBarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("response", &self.response)
+         .field("close", &self.close)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4879,14 +5381,23 @@ impl ::std::fmt::Debug for GtkLabelSelectionInfo {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkLayoutClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkLayoutClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkLayoutClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -4976,14 +5487,24 @@ impl ::std::fmt::Debug for GtkLinkButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkLinkButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub activate_link: Option<unsafe extern "C" fn(*mut GtkLinkButton) -> gboolean>,
+    pub _gtk_padding1: Option<unsafe extern "C" fn()>,
+    pub _gtk_padding2: Option<unsafe extern "C" fn()>,
+    pub _gtk_padding3: Option<unsafe extern "C" fn()>,
+    pub _gtk_padding4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkLinkButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkLinkButtonClass @ {:?}", self as *const _))
+         .field("activate_link", &self.activate_link)
+         .field("_gtk_padding1", &self._gtk_padding1)
+         .field("_gtk_padding2", &self._gtk_padding2)
+         .field("_gtk_padding3", &self._gtk_padding3)
+         .field("_gtk_padding4", &self._gtk_padding4)
          .finish()
     }
 }
@@ -5023,14 +5544,37 @@ impl ::std::fmt::Debug for GtkListBoxAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkListBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub row_selected: Option<unsafe extern "C" fn(*mut GtkListBox, *mut GtkListBoxRow)>,
+    pub row_activated: Option<unsafe extern "C" fn(*mut GtkListBox, *mut GtkListBoxRow)>,
+    pub activate_cursor_row: Option<unsafe extern "C" fn(*mut GtkListBox)>,
+    pub toggle_cursor_row: Option<unsafe extern "C" fn(*mut GtkListBox)>,
+    pub move_cursor: Option<unsafe extern "C" fn(*mut GtkListBox, GtkMovementStep, c_int)>,
+    pub selected_rows_changed: Option<unsafe extern "C" fn(*mut GtkListBox)>,
+    pub select_all: Option<unsafe extern "C" fn(*mut GtkListBox)>,
+    pub unselect_all: Option<unsafe extern "C" fn(*mut GtkListBox)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkListBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkListBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("row_selected", &self.row_selected)
+         .field("row_activated", &self.row_activated)
+         .field("activate_cursor_row", &self.activate_cursor_row)
+         .field("toggle_cursor_row", &self.toggle_cursor_row)
+         .field("move_cursor", &self.move_cursor)
+         .field("selected_rows_changed", &self.selected_rows_changed)
+         .field("select_all", &self.select_all)
+         .field("unselect_all", &self.unselect_all)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
          .finish()
     }
 }
@@ -5050,14 +5594,21 @@ impl ::std::fmt::Debug for GtkListBoxRowAccessibleClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkListBoxRowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub activate: Option<unsafe extern "C" fn(*mut GtkListBoxRow)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkListBoxRowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkListBoxRowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("activate", &self.activate)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
          .finish()
     }
 }
@@ -5119,14 +5670,31 @@ impl ::std::fmt::Debug for GtkLockButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkLockButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub reserved0: Option<unsafe extern "C" fn()>,
+    pub reserved1: Option<unsafe extern "C" fn()>,
+    pub reserved2: Option<unsafe extern "C" fn()>,
+    pub reserved3: Option<unsafe extern "C" fn()>,
+    pub reserved4: Option<unsafe extern "C" fn()>,
+    pub reserved5: Option<unsafe extern "C" fn()>,
+    pub reserved6: Option<unsafe extern "C" fn()>,
+    pub reserved7: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkLockButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkLockButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("reserved0", &self.reserved0)
+         .field("reserved1", &self.reserved1)
+         .field("reserved2", &self.reserved2)
+         .field("reserved3", &self.reserved3)
+         .field("reserved4", &self.reserved4)
+         .field("reserved5", &self.reserved5)
+         .field("reserved6", &self.reserved6)
+         .field("reserved7", &self.reserved7)
          .finish()
     }
 }
@@ -5166,14 +5734,23 @@ impl ::std::fmt::Debug for GtkMenuAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuBarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuShellClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuBarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuBarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5213,14 +5790,23 @@ impl ::std::fmt::Debug for GtkMenuButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToggleButtonClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5236,14 +5822,23 @@ impl ::std::fmt::Debug for GtkMenuButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuShellClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5273,14 +5868,41 @@ impl ::std::fmt::Debug for GtkMenuItemAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub hide_on_activate: c_uint,
+    pub activate: Option<unsafe extern "C" fn(*mut GtkMenuItem)>,
+    pub activate_item: Option<unsafe extern "C" fn(*mut GtkMenuItem)>,
+    pub toggle_size_request: Option<unsafe extern "C" fn(*mut GtkMenuItem, c_int)>,
+    pub toggle_size_allocate: Option<unsafe extern "C" fn(*mut GtkMenuItem, c_int)>,
+    pub set_label: Option<unsafe extern "C" fn(*mut GtkMenuItem, *const c_char)>,
+    pub get_label: Option<unsafe extern "C" fn(*mut GtkMenuItem) -> *const c_char>,
+    pub select: Option<unsafe extern "C" fn(*mut GtkMenuItem)>,
+    pub deselect: Option<unsafe extern "C" fn(*mut GtkMenuItem)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("hide_on_activate", &self.hide_on_activate)
+         .field("activate", &self.activate)
+         .field("activate_item", &self.activate_item)
+         .field("toggle_size_request", &self.toggle_size_request)
+         .field("toggle_size_allocate", &self.toggle_size_allocate)
+         .field("set_label", &self.set_label)
+         .field("get_label", &self.get_label)
+         .field("select", &self.select)
+         .field("deselect", &self.deselect)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5330,14 +5952,43 @@ impl ::std::fmt::Debug for GtkMenuShellAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuShellClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub submenu_placement: c_uint,
+    pub deactivate: Option<unsafe extern "C" fn(*mut GtkMenuShell)>,
+    pub selection_done: Option<unsafe extern "C" fn(*mut GtkMenuShell)>,
+    pub move_current: Option<unsafe extern "C" fn(*mut GtkMenuShell, GtkMenuDirectionType)>,
+    pub activate_current: Option<unsafe extern "C" fn(*mut GtkMenuShell, gboolean)>,
+    pub cancel: Option<unsafe extern "C" fn(*mut GtkMenuShell)>,
+    pub select_item: Option<unsafe extern "C" fn(*mut GtkMenuShell, *mut GtkWidget)>,
+    pub insert: Option<unsafe extern "C" fn(*mut GtkMenuShell, *mut GtkWidget, c_int)>,
+    pub get_popup_delay: Option<unsafe extern "C" fn(*mut GtkMenuShell) -> c_int>,
+    pub move_selected: Option<unsafe extern "C" fn(*mut GtkMenuShell, c_int) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuShellClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuShellClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("submenu_placement", &self.submenu_placement)
+         .field("deactivate", &self.deactivate)
+         .field("selection_done", &self.selection_done)
+         .field("move_current", &self.move_current)
+         .field("activate_current", &self.activate_current)
+         .field("cancel", &self.cancel)
+         .field("select_item", &self.select_item)
+         .field("insert", &self.insert)
+         .field("get_popup_delay", &self.get_popup_delay)
+         .field("move_selected", &self.move_selected)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5353,14 +6004,25 @@ impl ::std::fmt::Debug for GtkMenuShellPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMenuToolButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToolButtonClass,
+    pub show_menu: Option<unsafe extern "C" fn(*mut GtkMenuToolButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMenuToolButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMenuToolButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("show_menu", &self.show_menu)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5376,14 +6038,23 @@ impl ::std::fmt::Debug for GtkMenuToolButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkMessageDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkMessageDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkMessageDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5515,14 +6186,53 @@ impl ::std::fmt::Debug for GtkNotebookAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkNotebookClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub switch_page: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, c_uint)>,
+    pub select_page: Option<unsafe extern "C" fn(*mut GtkNotebook, gboolean) -> gboolean>,
+    pub focus_tab: Option<unsafe extern "C" fn(*mut GtkNotebook, GtkNotebookTab) -> gboolean>,
+    pub change_current_page: Option<unsafe extern "C" fn(*mut GtkNotebook, c_int) -> gboolean>,
+    pub move_focus_out: Option<unsafe extern "C" fn(*mut GtkNotebook, GtkDirectionType)>,
+    pub reorder_tab: Option<unsafe extern "C" fn(*mut GtkNotebook, GtkDirectionType, gboolean) -> gboolean>,
+    pub insert_page: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, *mut GtkWidget, *mut GtkWidget, c_int) -> c_int>,
+    pub create_window: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, c_int, c_int) -> *mut GtkNotebook>,
+    pub page_reordered: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, c_uint)>,
+    pub page_removed: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, c_uint)>,
+    pub page_added: Option<unsafe extern "C" fn(*mut GtkNotebook, *mut GtkWidget, c_uint)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkNotebookClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkNotebookClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("switch_page", &self.switch_page)
+         .field("select_page", &self.select_page)
+         .field("focus_tab", &self.focus_tab)
+         .field("change_current_page", &self.change_current_page)
+         .field("move_focus_out", &self.move_focus_out)
+         .field("reorder_tab", &self.reorder_tab)
+         .field("insert_page", &self.insert_page)
+         .field("create_window", &self.create_window)
+         .field("page_reordered", &self.page_reordered)
+         .field("page_removed", &self.page_removed)
+         .field("page_added", &self.page_added)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -5588,14 +6298,23 @@ impl ::std::fmt::Debug for GtkNumerableIconPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkOffscreenWindowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkOffscreenWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkOffscreenWindowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5615,14 +6334,33 @@ impl ::std::fmt::Debug for GtkOrientableIface {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkOverlayClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub get_child_position: Option<unsafe extern "C" fn(*mut GtkOverlay, *mut GtkWidget, *mut GtkAllocation) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkOverlayClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkOverlayClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("get_child_position", &self.get_child_position)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -5710,14 +6448,35 @@ impl ::std::fmt::Debug for GtkPanedAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPanedClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub cycle_child_focus: Option<unsafe extern "C" fn(*mut GtkPaned, gboolean) -> gboolean>,
+    pub toggle_handle_focus: Option<unsafe extern "C" fn(*mut GtkPaned) -> gboolean>,
+    pub move_handle: Option<unsafe extern "C" fn(*mut GtkPaned, GtkScrollType) -> gboolean>,
+    pub cycle_handle_focus: Option<unsafe extern "C" fn(*mut GtkPaned, gboolean) -> gboolean>,
+    pub accept_position: Option<unsafe extern "C" fn(*mut GtkPaned) -> gboolean>,
+    pub cancel_position: Option<unsafe extern "C" fn(*mut GtkPaned) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkPanedClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkPanedClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("cycle_child_focus", &self.cycle_child_focus)
+         .field("toggle_handle_focus", &self.toggle_handle_focus)
+         .field("move_handle", &self.move_handle)
+         .field("cycle_handle_focus", &self.cycle_handle_focus)
+         .field("accept_position", &self.accept_position)
+         .field("cancel_position", &self.cancel_position)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5753,14 +6512,25 @@ impl ::std::fmt::Debug for GtkPlacesSidebarClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPlugClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub embedded: Option<unsafe extern "C" fn(*mut GtkPlug)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkPlugClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkPlugClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("embedded", &self.embedded)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -5790,27 +6560,33 @@ impl ::std::fmt::Debug for GtkPopoverAccessibleClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPopoverClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub closed: Option<unsafe extern "C" fn(*mut GtkPopover)>,
+    pub reserved: [gpointer; 10],
 }
 
 impl ::std::fmt::Debug for GtkPopoverClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkPopoverClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("closed", &self.closed)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkPopoverMenuClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkPopoverClass,
+    pub reserved: [gpointer; 10],
 }
 
 impl ::std::fmt::Debug for GtkPopoverMenuClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkPopoverMenuClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -6066,14 +6842,25 @@ impl ::std::fmt::Debug for GtkRadioButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRadioButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkCheckButtonClass,
+    pub group_changed: Option<unsafe extern "C" fn(*mut GtkRadioButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRadioButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRadioButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("group_changed", &self.group_changed)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6113,14 +6900,25 @@ impl ::std::fmt::Debug for GtkRadioMenuItemAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRadioMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkCheckMenuItemClass,
+    pub group_changed: Option<unsafe extern "C" fn(*mut GtkRadioMenuItem)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRadioMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRadioMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("group_changed", &self.group_changed)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6136,14 +6934,23 @@ impl ::std::fmt::Debug for GtkRadioMenuItemPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRadioToolButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToggleToolButtonClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRadioToolButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRadioToolButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6311,14 +7118,23 @@ impl ::std::fmt::Debug for GtkRecentActionPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRecentChooserDialogClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkDialogClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRecentChooserDialogClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRecentChooserDialogClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6375,14 +7191,23 @@ impl ::std::fmt::Debug for GtkRecentChooserIface {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRecentChooserMenuClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuClass,
+    pub gtk_recent1: Option<unsafe extern "C" fn()>,
+    pub gtk_recent2: Option<unsafe extern "C" fn()>,
+    pub gtk_recent3: Option<unsafe extern "C" fn()>,
+    pub gtk_recent4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRecentChooserMenuClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRecentChooserMenuClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("gtk_recent1", &self.gtk_recent1)
+         .field("gtk_recent2", &self.gtk_recent2)
+         .field("gtk_recent3", &self.gtk_recent3)
+         .field("gtk_recent4", &self.gtk_recent4)
          .finish()
     }
 }
@@ -6398,14 +7223,23 @@ impl ::std::fmt::Debug for GtkRecentChooserMenuPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRecentChooserWidgetClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkRecentChooserWidgetClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRecentChooserWidgetClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6574,14 +7408,15 @@ impl ::std::fmt::Debug for GtkRequisition {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRevealerClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
 }
 
 impl ::std::fmt::Debug for GtkRevealerClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkRevealerClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -6635,14 +7470,25 @@ impl ::std::fmt::Debug for GtkScaleButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkScaleButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub value_changed: Option<unsafe extern "C" fn(*mut GtkScaleButton, c_double)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkScaleButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkScaleButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("value_changed", &self.value_changed)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6758,14 +7604,29 @@ impl ::std::fmt::Debug for GtkScrolledWindowAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkScrolledWindowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub scrollbar_spacing: c_int,
+    pub scroll_child: Option<unsafe extern "C" fn(*mut GtkScrolledWindow, GtkScrollType, gboolean) -> gboolean>,
+    pub move_focus_out: Option<unsafe extern "C" fn(*mut GtkScrolledWindow, GtkDirectionType)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkScrolledWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkScrolledWindowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("scrollbar_spacing", &self.scrollbar_spacing)
+         .field("scroll_child", &self.scroll_child)
+         .field("move_focus_out", &self.move_focus_out)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6781,14 +7642,23 @@ impl ::std::fmt::Debug for GtkScrolledWindowPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkSearchBarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkSearchBarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkSearchBarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6848,14 +7718,23 @@ impl ::std::fmt::Debug for GtkSeparatorClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkSeparatorMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuItemClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkSeparatorMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkSeparatorMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6871,14 +7750,23 @@ impl ::std::fmt::Debug for GtkSeparatorPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkSeparatorToolItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToolItemClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkSeparatorToolItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkSeparatorToolItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -6982,14 +7870,19 @@ impl ::std::fmt::Debug for GtkShortcutsShortcutClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkShortcutsWindowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkWindowClass,
+    pub close: Option<unsafe extern "C" fn(*mut GtkShortcutsWindow)>,
+    pub search: Option<unsafe extern "C" fn(*mut GtkShortcutsWindow)>,
 }
 
 impl ::std::fmt::Debug for GtkShortcutsWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkShortcutsWindowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("close", &self.close)
+         .field("search", &self.search)
          .finish()
     }
 }
@@ -7027,14 +7920,27 @@ impl ::std::fmt::Debug for GtkSizeGroupPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkSocketClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub plug_added: Option<unsafe extern "C" fn(*mut GtkSocket)>,
+    pub plug_removed: Option<unsafe extern "C" fn(*mut GtkSocket) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkSocketClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkSocketClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("plug_added", &self.plug_added)
+         .field("plug_removed", &self.plug_removed)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7186,27 +8092,37 @@ impl ::std::fmt::Debug for GtkStackAccessibleClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkStackClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
 }
 
 impl ::std::fmt::Debug for GtkStackClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkStackClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkStackSidebarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkStackSidebarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkStackSidebarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7222,14 +8138,23 @@ impl ::std::fmt::Debug for GtkStackSidebarPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkStackSwitcherClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkStackSwitcherClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkStackSwitcherClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7305,14 +8230,29 @@ impl ::std::fmt::Debug for GtkStatusbarAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkStatusbarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
+    pub reserved: gpointer,
+    pub text_pushed: Option<unsafe extern "C" fn(*mut GtkStatusbar, c_uint, *const c_char)>,
+    pub text_popped: Option<unsafe extern "C" fn(*mut GtkStatusbar, c_uint, *const c_char)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkStatusbarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkStatusbarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("reserved", &self.reserved)
+         .field("text_pushed", &self.text_pushed)
+         .field("text_popped", &self.text_popped)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7602,8 +8542,9 @@ pub struct GtkTableChild {
     pub bottom_attach: u16,
     pub xpadding: u16,
     pub ypadding: u16,
+    pub xexpand: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field xexpand has incomplete type
+    // field yexpand has incomplete type
 }
 
 impl ::std::fmt::Debug for GtkTableChild {
@@ -7616,19 +8557,29 @@ impl ::std::fmt::Debug for GtkTableChild {
          .field("bottom_attach", &self.bottom_attach)
          .field("xpadding", &self.xpadding)
          .field("ypadding", &self.ypadding)
+         .field("xexpand", &self.xexpand)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkTableClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkTableClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkTableClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7648,8 +8599,9 @@ pub struct GtkTableRowCol {
     pub requisition: u16,
     pub allocation: u16,
     pub spacing: u16,
+    pub need_expand: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field need_expand has incomplete type
+    // field need_shrink has incomplete type
 }
 
 impl ::std::fmt::Debug for GtkTableRowCol {
@@ -7658,6 +8610,7 @@ impl ::std::fmt::Debug for GtkTableRowCol {
          .field("requisition", &self.requisition)
          .field("allocation", &self.allocation)
          .field("spacing", &self.spacing)
+         .field("need_expand", &self.need_expand)
          .finish()
     }
 }
@@ -7709,14 +8662,23 @@ impl ::std::fmt::Debug for GtkTargetPair {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkTearoffMenuItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkMenuItemClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkTearoffMenuItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkTearoffMenuItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -7736,8 +8698,9 @@ pub struct GtkTextAppearance {
     pub bg_color: gdk::GdkColor,
     pub fg_color: gdk::GdkColor,
     pub rise: c_int,
+    pub underline: c_uint,
     _truncated_record_marker: c_void,
-    // /*Ignored*/field underline has incomplete type
+    // field strikethrough has incomplete type
 }
 
 impl ::std::fmt::Debug for GtkTextAppearance {
@@ -7746,6 +8709,7 @@ impl ::std::fmt::Debug for GtkTextAppearance {
          .field("bg_color", &self.bg_color)
          .field("fg_color", &self.fg_color)
          .field("rise", &self.rise)
+         .field("underline", &self.underline)
          .finish()
     }
 }
@@ -8023,14 +8987,51 @@ impl ::std::fmt::Debug for GtkTextViewAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkTextViewClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub populate_popup: Option<unsafe extern "C" fn(*mut GtkTextView, *mut GtkWidget)>,
+    pub move_cursor: Option<unsafe extern "C" fn(*mut GtkTextView, GtkMovementStep, c_int, gboolean)>,
+    pub set_anchor: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub insert_at_cursor: Option<unsafe extern "C" fn(*mut GtkTextView, *const c_char)>,
+    pub delete_from_cursor: Option<unsafe extern "C" fn(*mut GtkTextView, GtkDeleteType, c_int)>,
+    pub backspace: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub cut_clipboard: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub copy_clipboard: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub paste_clipboard: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub toggle_overwrite: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub create_buffer: Option<unsafe extern "C" fn(*mut GtkTextView) -> *mut GtkTextBuffer>,
+    pub draw_layer: Option<unsafe extern "C" fn(*mut GtkTextView, GtkTextViewLayer, *mut cairo::cairo_t)>,
+    pub extend_selection: Option<unsafe extern "C" fn(*mut GtkTextView, GtkTextExtendSelection, *const GtkTextIter, *mut GtkTextIter, *mut GtkTextIter) -> gboolean>,
+    pub insert_emoji: Option<unsafe extern "C" fn(*mut GtkTextView)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkTextViewClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkTextViewClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("populate_popup", &self.populate_popup)
+         .field("move_cursor", &self.move_cursor)
+         .field("set_anchor", &self.set_anchor)
+         .field("insert_at_cursor", &self.insert_at_cursor)
+         .field("delete_from_cursor", &self.delete_from_cursor)
+         .field("backspace", &self.backspace)
+         .field("cut_clipboard", &self.cut_clipboard)
+         .field("copy_clipboard", &self.copy_clipboard)
+         .field("paste_clipboard", &self.paste_clipboard)
+         .field("toggle_overwrite", &self.toggle_overwrite)
+         .field("create_buffer", &self.create_buffer)
+         .field("draw_layer", &self.draw_layer)
+         .field("extend_selection", &self.extend_selection)
+         .field("insert_emoji", &self.insert_emoji)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8199,14 +9200,25 @@ impl ::std::fmt::Debug for GtkToggleButtonAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToggleButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonClass,
+    pub toggled: Option<unsafe extern "C" fn(*mut GtkToggleButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToggleButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToggleButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("toggled", &self.toggled)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8222,14 +9234,25 @@ impl ::std::fmt::Debug for GtkToggleButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToggleToolButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToolButtonClass,
+    pub toggled: Option<unsafe extern "C" fn(*mut GtkToggleToolButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToggleToolButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToggleToolButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("toggled", &self.toggled)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8245,14 +9268,27 @@ impl ::std::fmt::Debug for GtkToggleToolButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToolButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkToolItemClass,
+    pub button_type: GType,
+    pub clicked: Option<unsafe extern "C" fn(*mut GtkToolButton)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToolButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToolButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("button_type", &self.button_type)
+         .field("clicked", &self.clicked)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8268,27 +9304,49 @@ impl ::std::fmt::Debug for GtkToolButtonPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToolItemClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub create_menu_proxy: Option<unsafe extern "C" fn(*mut GtkToolItem) -> gboolean>,
+    pub toolbar_reconfigured: Option<unsafe extern "C" fn(*mut GtkToolItem)>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToolItemClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToolItemClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("create_menu_proxy", &self.create_menu_proxy)
+         .field("toolbar_reconfigured", &self.toolbar_reconfigured)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToolItemGroupClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToolItemGroupClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToolItemGroupClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8314,14 +9372,23 @@ impl ::std::fmt::Debug for GtkToolItemPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToolPaletteClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToolPaletteClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToolPaletteClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8368,14 +9435,29 @@ impl ::std::fmt::Debug for GtkToolShellIface {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkToolbarClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub orientation_changed: Option<unsafe extern "C" fn(*mut GtkToolbar, GtkOrientation)>,
+    pub style_changed: Option<unsafe extern "C" fn(*mut GtkToolbar, GtkToolbarStyle)>,
+    pub popup_context_menu: Option<unsafe extern "C" fn(*mut GtkToolbar, c_int, c_int, c_int) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkToolbarClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkToolbarClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("orientation_changed", &self.orientation_changed)
+         .field("style_changed", &self.style_changed)
+         .field("popup_context_menu", &self.popup_context_menu)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8727,14 +9809,61 @@ impl ::std::fmt::Debug for GtkTreeViewAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkTreeViewClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkContainerClass,
+    pub row_activated: Option<unsafe extern "C" fn(*mut GtkTreeView, *mut GtkTreePath, *mut GtkTreeViewColumn)>,
+    pub test_expand_row: Option<unsafe extern "C" fn(*mut GtkTreeView, *mut GtkTreeIter, *mut GtkTreePath) -> gboolean>,
+    pub test_collapse_row: Option<unsafe extern "C" fn(*mut GtkTreeView, *mut GtkTreeIter, *mut GtkTreePath) -> gboolean>,
+    pub row_expanded: Option<unsafe extern "C" fn(*mut GtkTreeView, *mut GtkTreeIter, *mut GtkTreePath)>,
+    pub row_collapsed: Option<unsafe extern "C" fn(*mut GtkTreeView, *mut GtkTreeIter, *mut GtkTreePath)>,
+    pub columns_changed: Option<unsafe extern "C" fn(*mut GtkTreeView)>,
+    pub cursor_changed: Option<unsafe extern "C" fn(*mut GtkTreeView)>,
+    pub move_cursor: Option<unsafe extern "C" fn(*mut GtkTreeView, GtkMovementStep, c_int) -> gboolean>,
+    pub select_all: Option<unsafe extern "C" fn(*mut GtkTreeView) -> gboolean>,
+    pub unselect_all: Option<unsafe extern "C" fn(*mut GtkTreeView) -> gboolean>,
+    pub select_cursor_row: Option<unsafe extern "C" fn(*mut GtkTreeView, gboolean) -> gboolean>,
+    pub toggle_cursor_row: Option<unsafe extern "C" fn(*mut GtkTreeView) -> gboolean>,
+    pub expand_collapse_cursor_row: Option<unsafe extern "C" fn(*mut GtkTreeView, gboolean, gboolean, gboolean) -> gboolean>,
+    pub select_cursor_parent: Option<unsafe extern "C" fn(*mut GtkTreeView) -> gboolean>,
+    pub start_interactive_search: Option<unsafe extern "C" fn(*mut GtkTreeView) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved5: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved6: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved7: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved8: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkTreeViewClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkTreeViewClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("row_activated", &self.row_activated)
+         .field("test_expand_row", &self.test_expand_row)
+         .field("test_collapse_row", &self.test_collapse_row)
+         .field("row_expanded", &self.row_expanded)
+         .field("row_collapsed", &self.row_collapsed)
+         .field("columns_changed", &self.columns_changed)
+         .field("cursor_changed", &self.cursor_changed)
+         .field("move_cursor", &self.move_cursor)
+         .field("select_all", &self.select_all)
+         .field("unselect_all", &self.unselect_all)
+         .field("select_cursor_row", &self.select_cursor_row)
+         .field("toggle_cursor_row", &self.toggle_cursor_row)
+         .field("expand_collapse_cursor_row", &self.expand_collapse_cursor_row)
+         .field("select_cursor_parent", &self.select_cursor_parent)
+         .field("start_interactive_search", &self.start_interactive_search)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
+         .field("_gtk_reserved5", &self._gtk_reserved5)
+         .field("_gtk_reserved6", &self._gtk_reserved6)
+         .field("_gtk_reserved7", &self._gtk_reserved7)
+         .field("_gtk_reserved8", &self._gtk_reserved8)
          .finish()
     }
 }
@@ -8832,40 +9961,43 @@ impl ::std::fmt::Debug for GtkUIManagerPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkVBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBoxClass,
 }
 
 impl ::std::fmt::Debug for GtkVBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkVBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkVButtonBoxClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkButtonBoxClass,
 }
 
 impl ::std::fmt::Debug for GtkVButtonBoxClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkVButtonBoxClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkVPanedClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkPanedClass,
 }
 
 impl ::std::fmt::Debug for GtkVPanedClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkVPanedClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
          .finish()
     }
 }
@@ -8913,14 +10045,23 @@ impl ::std::fmt::Debug for GtkVSeparatorClass {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkViewportClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkViewportClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkViewportClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -8936,14 +10077,23 @@ impl ::std::fmt::Debug for GtkViewportPrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkVolumeButtonClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkScaleButtonClass,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved4: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkVolumeButtonClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkVolumeButtonClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
+         .field("_gtk_reserved4", &self._gtk_reserved4)
          .finish()
     }
 }
@@ -9214,14 +10364,31 @@ impl ::std::fmt::Debug for GtkWindowAccessiblePrivate {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkWindowClass {
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field parent_class has incomplete type
+    pub parent_class: GtkBinClass,
+    pub set_focus: Option<unsafe extern "C" fn(*mut GtkWindow, *mut GtkWidget)>,
+    pub activate_focus: Option<unsafe extern "C" fn(*mut GtkWindow)>,
+    pub activate_default: Option<unsafe extern "C" fn(*mut GtkWindow)>,
+    pub keys_changed: Option<unsafe extern "C" fn(*mut GtkWindow)>,
+    pub enable_debugging: Option<unsafe extern "C" fn(*mut GtkWindow, gboolean) -> gboolean>,
+    pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved2: Option<unsafe extern "C" fn()>,
+    pub _gtk_reserved3: Option<unsafe extern "C" fn()>,
 }
 
 impl ::std::fmt::Debug for GtkWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GtkWindowClass @ {:?}", self as *const _))
+         .field("parent_class", &self.parent_class)
+         .field("set_focus", &self.set_focus)
+         .field("activate_focus", &self.activate_focus)
+         .field("activate_default", &self.activate_default)
+         .field("keys_changed", &self.keys_changed)
+         .field("enable_debugging", &self.enable_debugging)
+         .field("_gtk_reserved1", &self._gtk_reserved1)
+         .field("_gtk_reserved2", &self._gtk_reserved2)
+         .field("_gtk_reserved3", &self._gtk_reserved3)
          .finish()
     }
 }
@@ -11816,6 +12983,7 @@ impl ::std::fmt::Debug for GtkRangeAccessible {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkRcStyle {
     pub parent_instance: gobject::GObject,
     pub name: *mut c_char,
@@ -11831,8 +12999,7 @@ pub struct GtkRcStyle {
     pub rc_properties: *mut glib::GArray,
     pub rc_style_lists: *mut glib::GSList,
     pub icon_factories: *mut glib::GSList,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field engine_specified has incomplete type
+    pub engine_specified: c_uint,
 }
 
 impl ::std::fmt::Debug for GtkRcStyle {
