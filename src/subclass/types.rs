@@ -313,7 +313,11 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// This is called during object instantiation before further subclasses
     /// are initialized, and should return a new instance of the subclass
     /// private struct.
-    fn new() -> Self;
+    ///
+    /// Optional, either implement this or `new_with_class()`.
+    fn new() -> Self {
+        unimplemented!();
+    }
 
     /// Constructor.
     ///
@@ -324,7 +328,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// Different to `new()` above it also gets the class of this type passed
     /// to itself for providing additional context.
     ///
-    /// Optional, calls `new()` by default.
+    /// Optional, either implement this or `new()`.
     fn new_with_class(_klass: &Self::Class) -> Self {
         Self::new()
     }
