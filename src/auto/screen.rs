@@ -9,18 +9,16 @@ use Window;
 use cairo;
 use ffi;
 use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Screen(Object<ffi::GdkScreen>);
@@ -71,7 +69,7 @@ impl Screen {
     }
 }
 
-pub trait ScreenExt {
+pub trait ScreenExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn get_active_window(&self) -> Option<Window>;
 
@@ -96,7 +94,7 @@ pub trait ScreenExt {
     fn get_monitor_height_mm(&self, monitor_num: i32) -> i32;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<String>;
+    fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<GString>;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     #[cfg(any(feature = "v3_10", feature = "dox"))]
@@ -142,7 +140,7 @@ pub trait ScreenExt {
     fn list_visuals(&self) -> Vec<Visual>;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    fn make_display_name(&self) -> String;
+    fn make_display_name(&self) -> GString;
 
     fn set_font_options<'a, P: Into<Option<&'a cairo::FontOptions>>>(&self, options: P);
 
@@ -161,7 +159,7 @@ pub trait ScreenExt {
     fn connect_property_resolution_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
+impl<O: IsA<Screen>> ScreenExt for O {
     fn get_active_window(&self) -> Option<Window> {
         unsafe {
             from_glib_full(ffi::gdk_screen_get_active_window(self.to_glib_none().0))
@@ -212,7 +210,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
         }
     }
 
-    fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<String> {
+    fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::gdk_screen_get_monitor_plug_name(self.to_glib_none().0, monitor_num))
         }
@@ -323,7 +321,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
         }
     }
 
-    fn make_display_name(&self) -> String {
+    fn make_display_name(&self) -> GString {
         unsafe {
             from_glib_full(ffi::gdk_screen_make_display_name(self.to_glib_none().0))
         }
@@ -346,7 +344,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     //fn get_property_font_options(&self) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "font-options".to_glib_none().0, value.to_glib_none_mut().0);
+    //        gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"font-options\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get().unwrap()
     //    }
     //}
@@ -354,7 +352,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "composited-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"composited-changed\0".as_ptr() as *const _,
                 transmute(composited_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -362,7 +360,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     fn connect_monitors_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "monitors-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"monitors-changed\0".as_ptr() as *const _,
                 transmute(monitors_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -370,7 +368,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     fn connect_size_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "size-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"size-changed\0".as_ptr() as *const _,
                 transmute(size_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -378,7 +376,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     fn connect_property_font_options_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::font-options",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::font-options\0".as_ptr() as *const _,
                 transmute(notify_font_options_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -386,7 +384,7 @@ impl<O: IsA<Screen> + IsA<glib::object::Object>> ScreenExt for O {
     fn connect_property_resolution_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::resolution",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::resolution\0".as_ptr() as *const _,
                 transmute(notify_resolution_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

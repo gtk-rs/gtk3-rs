@@ -8,11 +8,7 @@ use DevicePadFeature;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DevicePad(Object<ffi::GdkDevicePad, ffi::GdkDevicePadInterface>): Device;
@@ -22,7 +18,7 @@ glib_wrapper! {
     }
 }
 
-pub trait DevicePadExt {
+pub trait DevicePadExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32;
 

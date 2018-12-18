@@ -7,16 +7,12 @@ use Screen;
 use ffi;
 use gio;
 use gio_ffi;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
 use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>): [
@@ -45,7 +41,7 @@ impl Default for AppLaunchContext {
     }
 }
 
-pub trait AppLaunchContextExt {
+pub trait AppLaunchContextExt: 'static {
     fn set_desktop(&self, desktop: i32);
 
     #[deprecated]
@@ -62,7 +58,7 @@ pub trait AppLaunchContextExt {
     fn get_property_display(&self) -> Option<Display>;
 }
 
-impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt for O {
+impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     fn set_desktop(&self, desktop: i32) {
         unsafe {
             ffi::gdk_app_launch_context_set_desktop(self.to_glib_none().0, desktop);
@@ -106,7 +102,7 @@ impl<O: IsA<AppLaunchContext> + IsA<glib::object::Object>> AppLaunchContextExt f
     fn get_property_display(&self) -> Option<Display> {
         unsafe {
             let mut value = Value::from_type(<Display as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "display".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }

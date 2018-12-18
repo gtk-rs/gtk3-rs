@@ -10,26 +10,23 @@ use DragCancelReason;
 use DragProtocol;
 use Window;
 use ffi;
-use glib;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::object::Downcast;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use libc;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DragContext(Object<ffi::GdkDragContext>);
@@ -39,7 +36,7 @@ glib_wrapper! {
     }
 }
 
-pub trait DragContextExt {
+pub trait DragContextExt: 'static {
     fn get_actions(&self) -> DragAction;
 
     fn get_dest_window(&self) -> Window;
@@ -80,7 +77,7 @@ pub trait DragContextExt {
     fn connect_drop_performed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
+impl<O: IsA<DragContext>> DragContextExt for O {
     fn get_actions(&self) -> DragAction {
         unsafe {
             from_glib(ffi::gdk_drag_context_get_actions(self.to_glib_none().0))
@@ -160,7 +157,7 @@ impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
     fn connect_action_changed<F: Fn(&Self, DragAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, DragAction) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "action-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"action-changed\0".as_ptr() as *const _,
                 transmute(action_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -169,7 +166,7 @@ impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
     fn connect_cancel<F: Fn(&Self, DragCancelReason) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, DragCancelReason) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "cancel",
+            connect_raw(self.to_glib_none().0 as *mut _, b"cancel\0".as_ptr() as *const _,
                 transmute(cancel_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -178,7 +175,7 @@ impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
     fn connect_dnd_finished<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "dnd-finished",
+            connect_raw(self.to_glib_none().0 as *mut _, b"dnd-finished\0".as_ptr() as *const _,
                 transmute(dnd_finished_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -187,7 +184,7 @@ impl<O: IsA<DragContext> + IsA<glib::object::Object>> DragContextExt for O {
     fn connect_drop_performed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "drop-performed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"drop-performed\0".as_ptr() as *const _,
                 transmute(drop_performed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

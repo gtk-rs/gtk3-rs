@@ -5,16 +5,12 @@
 use AxisFlags;
 use DeviceToolType;
 use ffi;
-use glib;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
 use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
@@ -24,7 +20,7 @@ glib_wrapper! {
     }
 }
 
-pub trait DeviceToolExt {
+pub trait DeviceToolExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_hardware_id(&self) -> u64;
 
@@ -43,7 +39,7 @@ pub trait DeviceToolExt {
     fn get_property_tool_type(&self) -> DeviceToolType;
 }
 
-impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
+impl<O: IsA<DeviceTool>> DeviceToolExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_hardware_id(&self) -> u64 {
         unsafe {
@@ -68,7 +64,7 @@ impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
     fn get_property_axes(&self) -> AxisFlags {
         unsafe {
             let mut value = Value::from_type(<AxisFlags as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "axes".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"axes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -76,7 +72,7 @@ impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
     fn get_property_hardware_id(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "hardware-id".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"hardware-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -84,7 +80,7 @@ impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
     fn get_property_serial(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "serial".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"serial\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -92,7 +88,7 @@ impl<O: IsA<DeviceTool> + IsA<glib::object::Object>> DeviceToolExt for O {
     fn get_property_tool_type(&self) -> DeviceToolType {
         unsafe {
             let mut value = Value::from_type(<DeviceToolType as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "tool-type".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"tool-type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
