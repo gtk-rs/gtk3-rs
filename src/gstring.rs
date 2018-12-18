@@ -252,7 +252,7 @@ impl FromGlibPtrFull<*mut u8> for GString {
 impl FromGlibPtrFull<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut i8) -> Self {
-        GString::new(ptr)
+        GString::new(ptr as *mut _)
     }
 }
 
@@ -267,7 +267,7 @@ impl FromGlibPtrNone<*const c_char> for GString {
 impl FromGlibPtrNone<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut u8) -> Self {
-        let cstr = CStr::from_ptr(ptr as *mut i8);
+        let cstr = CStr::from_ptr(ptr as *mut _);
         cstr.into()
     }
 }
@@ -275,7 +275,7 @@ impl FromGlibPtrNone<*mut u8> for GString {
 impl FromGlibPtrNone<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut i8) -> Self {
-        let cstr = CStr::from_ptr(ptr);
+        let cstr = CStr::from_ptr(ptr as *mut _);
         cstr.into()
     }
 }
