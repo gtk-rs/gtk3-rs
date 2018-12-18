@@ -273,9 +273,9 @@ mod row_data {
         static PROPERTIES: [subclass::Property; 2] = [
             subclass::Property(
                 "name",
-                || {
+                |name| {
                     glib::ParamSpec::string(
-                        "name",
+                        name,
                         "Name",
                         "Name",
                         None, // Default value
@@ -285,9 +285,9 @@ mod row_data {
             ),
             subclass::Property(
                 "count",
-                || {
+                |name| {
                     glib::ParamSpec::uint(
-                        "count",
+                        name,
                         "Count",
                         "Count",
                         0, 100, 0, // Allowed range and default value
