@@ -5,7 +5,6 @@
 use CoverageLevel;
 use ffi;
 use glib::translate::*;
-use glib_ffi;
 use std::mem;
 use std::ptr;
 

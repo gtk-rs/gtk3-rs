@@ -8,11 +8,7 @@ use Language;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct FontsetSimple(Object<ffi::PangoFontsetSimple, ffi::PangoFontsetSimpleClass>): Fontset;
@@ -30,7 +26,7 @@ impl FontsetSimple {
     }
 }
 
-pub trait FontsetSimpleExt {
+pub trait FontsetSimpleExt: 'static {
     fn append(&self, font: &Font);
 
     fn size(&self) -> i32;

@@ -13,13 +13,11 @@ use Rectangle;
 use TabArray;
 use WrapMode;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Layout(Object<ffi::PangoLayout, ffi::PangoLayoutClass>);
@@ -37,7 +35,7 @@ impl Layout {
     }
 }
 
-pub trait LayoutExt {
+pub trait LayoutExt: 'static {
     fn context_changed(&self);
 
     fn copy(&self) -> Option<Layout>;
@@ -99,7 +97,7 @@ pub trait LayoutExt {
 
     fn get_tabs(&self) -> Option<TabArray>;
 
-    fn get_text(&self) -> Option<String>;
+    fn get_text(&self) -> Option<GString>;
 
     fn get_unknown_glyphs_count(&self) -> i32;
 
@@ -345,7 +343,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn get_text(&self) -> Option<String> {
+    fn get_text(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::pango_layout_get_text(self.to_glib_none().0))
         }

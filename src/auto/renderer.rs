@@ -14,11 +14,7 @@ use RenderPart;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Renderer(Object<ffi::PangoRenderer, ffi::PangoRendererClass>);
@@ -28,7 +24,7 @@ glib_wrapper! {
     }
 }
 
-pub trait RendererExt {
+pub trait RendererExt: 'static {
     fn activate(&self);
 
     fn deactivate(&self);

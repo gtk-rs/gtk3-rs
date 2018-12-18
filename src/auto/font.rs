@@ -13,11 +13,7 @@ use Rectangle;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Font(Object<ffi::PangoFont, ffi::PangoFontClass>);
@@ -27,7 +23,7 @@ glib_wrapper! {
     }
 }
 
-pub trait FontExt {
+pub trait FontExt: 'static {
     fn describe(&self) -> Option<FontDescription>;
 
     fn describe_with_absolute_size(&self) -> Option<FontDescription>;

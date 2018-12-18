@@ -4,10 +4,8 @@
 
 use ffi;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+#[cfg(any(feature = "v1_38", feature = "dox"))]
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
