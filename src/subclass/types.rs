@@ -9,7 +9,6 @@ use gobject_ffi;
 
 use std::marker;
 use std::mem;
-use std::ops;
 use std::ptr;
 
 use translate::*;
@@ -26,11 +25,21 @@ use object::ObjectExt;
 #[derive(Debug, PartialEq, Eq)]
 pub struct InitializingType<T: ObjectSubclass>(Type, marker::PhantomData<T>);
 
-impl<T: ObjectSubclass> ops::Deref for InitializingType<T> {
-    type Target = Type;
-
-    fn deref(&self) -> &Type {
-        &self.0
+impl<T: ObjectSubclass> InitializingType<T> {
+    /// Adds an interface implementation for `I` to the type.
+    pub fn add_interface<I: IsImplementable<T>>(&mut self) {
+        unsafe {
+            let iface_info = gobject_ffi::GInterfaceInfo {
+                interface_init: Some(I::interface_init),
+                interface_finalize: None,
+                interface_data: ptr::null_mut(),
+            };
+            gobject_ffi::g_type_add_interface_static(
+                self.0.to_glib(),
+                I::static_type().to_glib(),
+                &iface_info,
+            );
+        }
     }
 }
 
@@ -106,6 +115,12 @@ pub unsafe trait IsSubclassable<T: ObjectSubclass>: IsClassFor {
     ///
     /// This is automatically called during type initialization.
     fn override_vfuncs(&mut self);
+}
+
+/// Trait for implementable interfaces.
+pub unsafe trait IsImplementable<T: ObjectSubclass>: StaticType {
+    /// Initializes the interface's virtual methods.
+    unsafe extern "C" fn interface_init(iface: ffi::gpointer, _iface_data: ffi::gpointer);
 }
 
 /// Type-specific data that is filled in during type creation.
@@ -296,7 +311,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// for implementing `GObject` interfaces.
     ///
     /// Optional
-    fn type_init(_type_: &InitializingType<Self>) {}
+    fn type_init(_type_: &mut InitializingType<Self>) {}
 
     /// Class initialization.
     ///
@@ -454,7 +469,7 @@ where
             gobject_ffi::g_type_add_instance_private(type_.to_glib(), mem::size_of::<Option<T>>());
         (*data.as_mut()).private_offset = private_offset as isize;
 
-        T::type_init(&InitializingType::<T>(type_, marker::PhantomData));
+        T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
 
         type_
     }
