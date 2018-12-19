@@ -14,10 +14,10 @@ matrix:
       rust: beta
       env: GTK=3.22.30
     - os: linux
-      rust: 1.28.0
+      rust: 1.31
       env: GTK=3.4
     - os: linux
-      rust: 1.28.0
+      rust: 1.31
       env: GTK=3.22.30
     - os: osx
       rust: nightly
@@ -55,6 +55,6 @@ script:
   - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
-  - git clone -q --depth 50 -b pending https://github.com/rust-gnome/examples _examples
+  - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - ./build_travis.sh
