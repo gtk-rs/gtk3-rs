@@ -28,4 +28,4 @@ if [ -n "$BUNDLE" ]; then
 	export PKG_CONFIG_PATH="$HOME/local/lib/pkgconfig"
 fi
 
-cargo build --features "$FEATURES" --jobs 1 "$@"
+PKG_CONFIG_ALLOW_CROSS=1 cargo check $OTHER_TARGET --features "$FEATURES" --jobs 1 "$@"
