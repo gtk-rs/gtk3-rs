@@ -308,9 +308,8 @@ pub const G_TLS_AUTHENTICATION_NONE: GTlsAuthenticationMode = 0;
 pub const G_TLS_AUTHENTICATION_REQUESTED: GTlsAuthenticationMode = 1;
 pub const G_TLS_AUTHENTICATION_REQUIRED: GTlsAuthenticationMode = 2;
 
-pub type TlsCertificateRequestFlags = c_int;
-pub const G_TLS_CERTIFICATE_REQUEST_NONE: TlsCertificateRequestFlags = 0;
-pub type GTlsCertificateRequestFlags = TlsCertificateRequestFlags;
+pub type GTlsCertificateRequestFlags = c_int;
+pub const G_TLS_CERTIFICATE_REQUEST_NONE: GTlsCertificateRequestFlags = 0;
 
 pub type GTlsDatabaseLookupFlags = c_int;
 pub const G_TLS_DATABASE_LOOKUP_NONE: GTlsDatabaseLookupFlags = 0;

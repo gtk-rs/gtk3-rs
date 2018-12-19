@@ -252,9 +252,8 @@ pub const PANGO_STYLE_NORMAL: PangoStyle = 0;
 pub const PANGO_STYLE_OBLIQUE: PangoStyle = 1;
 pub const PANGO_STYLE_ITALIC: PangoStyle = 2;
 
-pub type TabAlign = c_int;
-pub const PANGO_TAB_LEFT: TabAlign = 0;
-pub type PangoTabAlign = TabAlign;
+pub type PangoTabAlign = c_int;
+pub const PANGO_TAB_LEFT: PangoTabAlign = 0;
 
 pub type PangoUnderline = c_int;
 pub const PANGO_UNDERLINE_NONE: PangoUnderline = 0;
