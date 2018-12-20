@@ -880,6 +880,18 @@ impl Context {
             ffi::cairo_rel_move_to(self.0, dx, dy)
         }
     }
+
+    pub fn path_extents(&self) -> (f64, f64, f64, f64) {
+        let mut x1: f64 = 0.0;
+        let mut y1: f64 = 0.0;
+        let mut x2: f64 = 0.0;
+        let mut y2: f64 = 0.0;
+
+        unsafe {
+            ffi::cairo_path_extents(self.0, &mut x1, &mut y1, &mut x2, &mut y2);
+        }
+        (x1, y1, x2, y2)
+    }
 }
 
 #[cfg(test)]
