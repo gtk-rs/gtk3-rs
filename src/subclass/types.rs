@@ -43,6 +43,14 @@ impl<T: ObjectSubclass> InitializingType<T> {
     }
 }
 
+impl<T: ObjectSubclass> ToGlib for InitializingType<T> {
+    type GlibType = ffi::GType;
+
+    fn to_glib(&self) -> ffi::GType {
+        self.0.to_glib()
+    }
+}
+
 /// Trait implemented by structs that implement a `GObject` C instance struct.
 ///
 /// The struct must be `#[repr(C)]` and have the parent type's instance struct
