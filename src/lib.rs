@@ -143,6 +143,8 @@ pub mod prelude;
 
 mod constants;
 pub use constants::*;
+mod utils;
+pub use utils::*;
 
 mod font;
 mod context;
@@ -179,4 +181,3 @@ mod win32_surface;
 
 #[cfg(any(windows, feature = "dox"))]
 pub use win32_surface::Win32Surface;
-
