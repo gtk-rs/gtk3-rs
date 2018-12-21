@@ -19,9 +19,8 @@ use libc::{c_int, c_char, c_uchar, c_float, c_uint, c_double,
 use glib::{gboolean, gconstpointer, gpointer, GType};
 
 // Enums
-pub type Colorspace = c_int;
-pub const GDK_COLORSPACE_RGB: Colorspace = 0;
-pub type GdkColorspace = Colorspace;
+pub type GdkColorspace = c_int;
+pub const GDK_COLORSPACE_RGB: GdkColorspace = 0;
 
 pub type GdkInterpType = c_int;
 pub const GDK_INTERP_NEAREST: GdkInterpType = 0;

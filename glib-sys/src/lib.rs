@@ -327,9 +327,8 @@ pub const G_TEST_RUN_SKIPPED: GTestResult = 1;
 pub const G_TEST_RUN_FAILURE: GTestResult = 2;
 pub const G_TEST_RUN_INCOMPLETE: GTestResult = 3;
 
-pub type ThreadError = c_int;
-pub const G_THREAD_ERROR_AGAIN: ThreadError = 0;
-pub type GThreadError = ThreadError;
+pub type GThreadError = c_int;
+pub const G_THREAD_ERROR_AGAIN: GThreadError = 0;
 
 pub type GTimeType = c_int;
 pub const G_TIME_TYPE_STANDARD: GTimeType = 0;
