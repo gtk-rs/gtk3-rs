@@ -268,7 +268,7 @@ pub type cairo_read_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar,
 pub type cairo_write_func_t = Option<unsafe extern fn (*mut c_void, *mut c_uchar, c_uint) -> cairo_status_t>;
 
 extern "C" {
-    //CAIRO CONTEXT
+    // CAIRO CONTEXT
     pub fn cairo_create (target: *mut cairo_surface_t) -> *mut cairo_t;
     pub fn cairo_reference (cr: *mut cairo_t) -> *mut cairo_t;
     pub fn cairo_destroy (cr: *mut cairo_t);
@@ -328,11 +328,14 @@ extern "C" {
     pub fn cairo_show_page (cr: *mut cairo_t);
     pub fn cairo_get_reference_count (cr: *mut cairo_t) -> c_uint;
 
-    //CAIRO UTILS: Error handling
-    pub fn cairo_status_to_string (status : cairo_status_t) -> *const c_char;
+    // CAIRO UTILS
+    pub fn cairo_status_to_string(status: cairo_status_t) -> *const c_char;
+    pub fn cairo_debug_reset_static_data();
+    pub fn cairo_version() -> c_int;
+    pub fn cairo_version_string() -> *const c_char;
 
 
-    //CAIRO PATHS
+    // CAIRO PATHS
     pub fn cairo_copy_path(cr: *mut cairo_t) -> *mut cairo_path_t;
     pub fn cairo_copy_path_flat(cr: *mut cairo_t) -> *mut cairo_path_t;
     pub fn cairo_path_destroy(path: *mut cairo_path_t);
@@ -355,7 +358,7 @@ extern "C" {
     pub fn cairo_rel_move_to(cr: *mut cairo_t, dx: c_double, dy: c_double);
     pub fn cairo_path_extents(cr: *mut cairo_t, x1: *mut c_double, y1: *mut c_double, x2: *mut c_double, y2: *mut c_double);
 
-    //CAIRO TRANSFORMATIONS
+    // CAIRO TRANSFORMATIONS
     pub fn cairo_translate(cr: *mut cairo_t, tx: c_double, ty: c_double);
     pub fn cairo_scale(cr: *mut cairo_t, sx: c_double, sy: c_double);
     pub fn cairo_rotate(cr: *mut cairo_t, angle: c_double);
@@ -368,7 +371,7 @@ extern "C" {
     pub fn cairo_device_to_user(cr: *mut cairo_t, x: *mut c_double, y: *mut c_double);
     pub fn cairo_device_to_user_distance(cr: *mut cairo_t, dx: *mut c_double, dy: *mut c_double);
 
-    //CAIRO PATTERNS
+    // CAIRO PATTERNS
     pub fn cairo_pattern_add_color_stop_rgb(pattern: *mut cairo_pattern_t, offset: c_double, red: c_double, green: c_double, blue: c_double);
     pub fn cairo_pattern_add_color_stop_rgba(pattern: *mut cairo_pattern_t, offset: c_double, red: c_double, green: c_double, blue: c_double, alpha: c_double);
     pub fn cairo_pattern_get_color_stop_count(pattern: *mut cairo_pattern_t, count: *mut c_int) -> cairo_status_t;
@@ -409,7 +412,7 @@ extern "C" {
     //pub fn cairo_pattern_set_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
     //pub fn cairo_pattern_get_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
-    //CAIRO REGIONS
+    // CAIRO REGIONS
     pub fn cairo_region_create() -> *mut cairo_region_t;
     pub fn cairo_region_create_rectangle(rectangle: *mut cairo_rectangle_int_t) -> *mut cairo_region_t;
     pub fn cairo_region_create_rectangles(rects: *mut cairo_rectangle_int_t, count: c_int) -> *mut cairo_region_t;
@@ -434,7 +437,7 @@ extern "C" {
     pub fn cairo_region_xor(dst: *mut cairo_region_t, other: *mut cairo_region_t) -> cairo_status_t;
     pub fn cairo_region_xor_rectangle(dst: *mut cairo_region_t, rectangle: *mut cairo_rectangle_int_t) -> cairo_status_t;
 
-    //text
+    // text
     pub fn cairo_select_font_face(cr: *mut cairo_t, family: *const c_char, slant: cairo_font_slant_t, weight: cairo_font_weight_t);
     pub fn cairo_set_font_size(cr: *mut cairo_t, size: c_double);
     pub fn cairo_set_font_matrix(cr: *mut cairo_t, matrix: *const Matrix);
@@ -460,7 +463,7 @@ extern "C" {
     pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut TextCluster;
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
 
-    //CAIRO RASTER
+    // CAIRO RASTER
     //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: Content, width: c_int, height: c_int) -> *mut cairo_pattern_t;
     //pub fn cairo_raster_source_pattern_set_callback_data(pattern: *mut cairo_pattern_t, data: *mut void);
     //pub fn cairo_raster_source_pattern_get_callback_data(pattern: *mut cairo_pattern_t) -> *mut void;
@@ -494,7 +497,7 @@ extern "C" {
     //pub fn cairo_font_face_set_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
     //pub fn cairo_font_face_get_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
-    //CAIRO SCALED FONT
+    // CAIRO SCALED FONT
     pub fn cairo_scaled_font_create(font_face: *mut cairo_font_face_t, font_matrix: *const Matrix, ctm: *const Matrix, options: *const cairo_font_options_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_reference(scaled_font: *mut cairo_scaled_font_t) -> *mut cairo_scaled_font_t;
     pub fn cairo_scaled_font_destroy(scaled_font: *mut cairo_scaled_font_t);
@@ -513,7 +516,7 @@ extern "C" {
     //pub fn cairo_scaled_font_set_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
     //pub fn cairo_scaled_font_get_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t) -> *mut void;
 
-    //CAIRO FONT OPTIONS
+    // CAIRO FONT OPTIONS
     pub fn cairo_font_options_create() -> *mut cairo_font_options_t;
     pub fn cairo_font_options_copy(original: *const cairo_font_options_t) -> *mut cairo_font_options_t;
     pub fn cairo_font_options_destroy(options: *mut cairo_font_options_t);
@@ -583,6 +586,7 @@ extern "C" {
                                                 height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "pdf", feature = "dox"))]
     pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: cairo_pdf_version_t);
+
     // CAIRO SVG
     #[cfg(any(feature = "svg", feature = "dox"))]
     pub fn cairo_svg_surface_create (filename: *const c_char,
