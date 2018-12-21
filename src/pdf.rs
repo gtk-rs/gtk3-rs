@@ -281,11 +281,13 @@ mod test {
 
     #[test]
     fn writer() {
-        let file = ::std::fs::File::create("test1.pdf").unwrap();
+        let filename = "test_x.pdf";
+        let file = ::std::fs::File::create(filename).unwrap();
         let surface = Writer::new(100., 100., file);
 
         draw(&surface);
         surface.finish();
+        ::std::fs::remove_file(filename).unwrap();
     }
 
     #[test]
