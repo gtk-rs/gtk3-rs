@@ -6,14 +6,14 @@ use ffi;
 use std::ffi::CStr;
 use std::fmt;
 
-pub fn debug_reset_static_data() {
-    unsafe { ffi::cairo_debug_reset_static_data() }
+pub unsafe fn debug_reset_static_data() {
+    ffi::cairo_debug_reset_static_data()
 }
 
-pub fn get_version_string() -> String {
+pub fn get_version_string() -> &'static str {
     unsafe {
         let ptr = ffi::cairo_version_string();
-        String::from_utf8_lossy(CStr::from_ptr(ptr).to_bytes()).into_owned()
+        CStr::from_ptr(ptr).to_str().expect("invalid version string")
     }
 }
 
