@@ -51,14 +51,14 @@ impl Surface {
     }
 
     pub fn get_mime_data(&self, mime_type: &str) -> Option<Vec<u8>> {
-        let mut data_ptr: *mut u8 = ptr::null_mut();
+        let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
         unsafe {
             let mime_type = CString::new(mime_type).unwrap();
             ffi::cairo_surface_get_mime_data(
                 self.to_raw_none(),
                 mime_type.as_ptr(),
-                &mut data_ptr,
+                &data_ptr,
                 &mut length,
             );
             if !data_ptr.is_null() && length != 0 {
@@ -74,13 +74,13 @@ impl Surface {
     }
 
     pub unsafe fn get_mime_data_raw(&self, mime_type: &str) -> Option<&[u8]> {
-        let mut data_ptr: *mut u8 = ptr::null_mut();
+        let data_ptr: *mut u8 = ptr::null_mut();
         let mut length: c_ulong = 0;
         let mime_type = CString::new(mime_type).unwrap();
         ffi::cairo_surface_get_mime_data(
             self.to_raw_none(),
             mime_type.as_ptr(),
-            &mut data_ptr,
+            &data_ptr,
             &mut length,
         );
         if !data_ptr.is_null() && length != 0 {

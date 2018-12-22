@@ -1,14 +1,8 @@
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-#[cfg(feature = "use_glib")]
-use glib_ffi;
-#[cfg(feature = "use_glib")]
-use gobject_ffi;
-use std::ptr;
-#[cfg(feature = "use_glib")]
-use std::mem;
 use ffi;
 use std::ffi::CString;
+use std::ptr;
 
 use ::enums::{
     FontType,
