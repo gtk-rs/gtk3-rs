@@ -256,6 +256,7 @@ mod test {
     use super::*;
     use surface::Surface;
     use context::*;
+    use tempfile::tempfile;
 
     fn draw<T: AsRef<Surface>>(surface: &T) {
         let cr = Context::new(surface);
@@ -282,13 +283,11 @@ mod test {
 
     #[test]
     fn writer() {
-        let filename = "test1.ps";
-        let file = ::std::fs::File::create(filename).unwrap();
+        let mut file = tempfile().expect("tempfile failed");
         let surface = Writer::new(100., 100., file);
 
         draw(&surface);
         surface.finish();
-        ::std::fs::remove_file(filename).unwrap();
     }
 
     #[test]
