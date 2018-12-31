@@ -800,7 +800,7 @@ impl Object {
         use std::ffi::CString;
 
         if !type_.is_a(&Object::static_type()) {
-            return Err(BoolError("Can't instantiate non-GObject objects"));
+            return Err(glib_bool_error!("Can't instantiate non-GObject objects"));
         }
 
         let params = properties.iter()
@@ -819,7 +819,7 @@ impl Object {
         unsafe {
             let ptr = gobject_ffi::g_object_newv(type_.to_glib(), params_c.len() as u32, mut_override(params_c.as_ptr()));
             if ptr.is_null() {
-                Err(BoolError("Can't instantiate object"))
+                Err(glib_bool_error!("Can't instantiate object"))
             } else if gobject_ffi::g_object_is_floating(ptr) != glib_ffi::GFALSE {
                 Ok(from_glib_none(ptr))
             } else {
@@ -880,12 +880,12 @@ impl<T: IsA<Object>> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(BoolError("property not found"));
+                return Err(glib_bool_error!("property not found"));
             }
         };
 
         if !pspec.get_flags().contains(::ParamFlags::WRITABLE) || pspec.get_flags().contains(::ParamFlags::CONSTRUCT_ONLY) {
-            return Err(BoolError("property is not writable"));
+            return Err(glib_bool_error!("property is not writable"));
         }
 
         unsafe {
@@ -897,14 +897,16 @@ impl<T: IsA<Object>> ObjectExt for T {
                     mut_override(property_value.to_glib_none().0),
                     pspec.get_value_type().to_glib()));
             if !valid_type {
-                return Err(BoolError("property can't be set from the given type"));
+                return Err(glib_bool_error!("property can't be set from the given type"));
             }
 
             let changed: bool = from_glib(gobject_ffi::g_param_value_validate(
                     pspec.to_glib_none().0, mut_override(property_value.to_glib_none().0)));
             let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
             if changed && !change_allowed {
-                return Err(BoolError("property can't be set from given value, it is invalid or out of range"));
+                return Err(glib_bool_error!(
+                    "property can't be set from given value, it is invalid or out of range"
+                ));
             }
 
             gobject_ffi::g_object_set_property(self.to_glib_none().0,
@@ -921,12 +923,12 @@ impl<T: IsA<Object>> ObjectExt for T {
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
             None => {
-                return Err(BoolError("property not found"));
+                return Err(glib_bool_error!("property not found"));
             }
         };
 
         if !pspec.get_flags().contains(::ParamFlags::READABLE) {
-            return Err(BoolError("property is not readable"));
+            return Err(glib_bool_error!("property is not readable"));
         }
 
         unsafe {
@@ -935,7 +937,7 @@ impl<T: IsA<Object>> ObjectExt for T {
 
             // This can't really happen unless something goes wrong inside GObject
             if value.type_() == ::Type::Invalid {
-                Err(BoolError("Failed to get property value"))
+                Err(glib_bool_error!("Failed to get property value"))
             } else {
                 Ok(value)
             }
@@ -1034,13 +1036,13 @@ impl<T: IsA<Object>> ObjectExt for T {
                                                                          &mut signal_detail, true.to_glib()));
 
             if !found {
-                return Err(BoolError("Signal not found"));
+                return Err(glib_bool_error!("Signal not found"));
             }
 
             let mut details = mem::zeroed();
             gobject_ffi::g_signal_query(signal_id, &mut details);
             if details.signal_id != signal_id {
-                return Err(BoolError("Signal not found"));
+                return Err(glib_bool_error!("Signal not found"));
             }
 
             // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
@@ -1075,7 +1077,7 @@ impl<T: IsA<Object>> ObjectExt for T {
                                                                       closure.to_glib_none().0, after.to_glib());
 
             if handler == 0 {
-                Err(BoolError("Failed to connect to signal"))
+                Err(glib_bool_error!("Failed to connect to signal"))
             } else {
                 Ok(from_glib(handler))
             }
@@ -1095,23 +1097,23 @@ impl<T: IsA<Object>> ObjectExt for T {
                                                                          &mut signal_detail, true.to_glib()));
 
             if !found {
-                return Err(BoolError("Signal not found"));
+                return Err(glib_bool_error!("Signal not found"));
             }
 
             let mut details = mem::zeroed();
             gobject_ffi::g_signal_query(signal_id, &mut details);
             if details.signal_id != signal_id {
-                return Err(BoolError("Signal not found"));
+                return Err(glib_bool_error!("Signal not found"));
             }
 
             if details.n_params != args.len() as u32 {
-                return Err(BoolError("Incompatible number of arguments"));
+                return Err(glib_bool_error!("Incompatible number of arguments"));
             }
 
             for i in 0..(details.n_params as usize) {
                 let arg_type = *(details.param_types.add(i)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
                 if arg_type != args[i].to_value_type().to_glib() {
-                    return Err(BoolError("Incompatible argument types"));
+                    return Err(glib_bool_error!("Incompatible argument types"));
                 }
             }
 
@@ -1191,13 +1193,13 @@ impl ObjectClass {
         let ptype = self.get_property_type(property_name);
 
         match (ptype, type_) {
-            (None, _) => Err(BoolError("Invalid property name")),
+            (None, _) => Err(glib_bool_error!("Invalid property name")),
             (Some(_), None) => Ok(()),
             (Some(ptype), Some(type_)) => {
                 if ptype == type_ {
                     Ok(())
                 } else {
-                    Err(BoolError("Invalid property type"))
+                    Err(glib_bool_error!("Invalid property type"))
                 }
             },
         }

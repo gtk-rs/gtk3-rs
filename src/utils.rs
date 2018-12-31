@@ -56,10 +56,14 @@ pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(variable_name: K, value: V, over
     use ffi::g_setenv;
 
     unsafe {
-        BoolError::from_glib(g_setenv(variable_name.as_ref().to_glib_none().0,
-                                value.as_ref().to_glib_none().0,
-                                overwrite.to_glib()),
-                             "Failed to set environment variable")
+        glib_result_from_gboolean!(
+            g_setenv(
+                variable_name.as_ref().to_glib_none().0,
+                value.as_ref().to_glib_none().0,
+                overwrite.to_glib(),
+            ),
+            "Failed to set environment variable"
+        )
     }
 }
 
