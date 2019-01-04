@@ -291,7 +291,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @implements $crate::object::Object);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @implements );
     };
 
     // Object, class struct, no parents
@@ -303,7 +303,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @implements $crate::object::Object);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @implements );
     };
 
     // Object, no class struct, parents
@@ -341,7 +341,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @implements $crate::object::Object);
+        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @implements );
     };
 
     // Interface, prerequisites

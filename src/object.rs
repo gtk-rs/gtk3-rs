@@ -672,7 +672,19 @@ macro_rules! glib_object_wrapper {
         }
     };
 
-    (@munch_impls $name:ident, ) => { };
+    (@munch_impls $name:ident, ) => {
+        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$crate::object::Object> for $name {
+            fn as_ref(&self) -> &$crate::object::Object {
+                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
+    };
 
     (@munch_impls $name:ident, $super_name:path) => {
         unsafe impl $crate::object::IsA<$super_name> for $name { }
@@ -691,6 +703,21 @@ macro_rules! glib_object_wrapper {
     (@munch_impls $name:ident, $super_name:path, $($implements:tt)*) => {
         glib_object_wrapper!(@munch_impls $name, $super_name);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
+    };
+
+    // If there is no parent class, i.e. only glib::Object
+    (@munch_first_impl $name:ident, $rust_class_name:ident, ) => {
+        glib_object_wrapper!(@munch_impls $name, );
+
+        impl ::std::ops::Deref for $rust_class_name {
+            type Target = <$crate::object::Object as $crate::object::ObjectType>::RustClassType;
+
+            fn deref(&self) -> &Self::Target {
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 
     // If there is only one parent class
