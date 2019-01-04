@@ -6,6 +6,7 @@
 
 use std::ffi::CStr;
 use Quark;
+use std::borrow::Cow;
 use std::error;
 use std::fmt;
 use std::str;
@@ -132,13 +133,78 @@ pub trait ErrorDomain: Copy {
 }
 
 /// Generic error used for functions that fail without any further information
+#[macro_export]
+macro_rules! glib_bool_error(
+// Plain strings
+    ($msg:expr) =>  {
+        $crate::BoolError::new($msg, file!(), module_path!(), line!())
+    };
+
+// Format strings
+    ($($msg:tt)*) =>  { {
+        $crate::BoolError::new(format!($($msg)*), file!(), module_path!(), line!())
+    }};
+);
+
+#[macro_export]
+macro_rules! glib_result_from_gboolean(
+// Plain strings
+    ($ffi_bool:expr, $msg:expr) =>  {
+        $crate::BoolError::from_glib($ffi_bool, $msg, file!(), module_path!(), line!())
+    };
+
+// Format strings
+    ($ffi_bool:expr, $($msg:tt)*) =>  { {
+        $crate::BoolError::from_glib(
+            $ffi_bool,
+            format!($($msg)*),
+            file!(),
+            module_path!(),
+            line!(),
+        )
+    }};
+);
+
 #[derive(Debug)]
-pub struct BoolError(pub &'static str);
+pub struct BoolError {
+    pub message: Cow<'static, str>,
+    #[doc(hidden)]
+    pub filename: &'static str,
+    #[doc(hidden)]
+    pub function: &'static str,
+    #[doc(hidden)]
+    pub line: u32,
+}
 
 impl BoolError {
-    pub fn from_glib(b: glib_ffi::gboolean, s: &'static str) -> Result<(), Self> {
+    pub fn new<Msg: Into<Cow<'static, str>>>(
+        message: Msg,
+        filename: &'static str,
+        function: &'static str,
+        line: u32,
+    ) -> Self {
+        BoolError {
+            message: message.into(),
+            filename,
+            function,
+            line,
+        }
+    }
+
+    pub fn from_glib<Msg: Into<Cow<'static, str>>>(
+        b: glib_ffi::gboolean,
+        message: Msg,
+        filename: &'static str,
+        function: &'static str,
+        line: u32,
+    ) -> Result<(), Self> {
         match b {
-            glib_ffi::GFALSE => Err(BoolError(s)),
+            glib_ffi::GFALSE => Err(BoolError::new(
+                message,
+                filename,
+                function,
+                line,
+            )),
             _ => Ok(()),
         }
     }
@@ -146,12 +212,56 @@ impl BoolError {
 
 impl fmt::Display for BoolError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.0)
+        write!(
+            f,
+            "Error {:?} in {:?} at {}:{}",
+            self.message, self.function, self.filename, self.line
+        )
     }
 }
 
 impl error::Error for BoolError {
     fn description(&self) -> &str {
-        self.0
+        self.message.as_ref()
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_bool_error() {
+        use std::error::Error;
+
+        let from_static_msg = glib_bool_error!("Static message");
+        assert_eq!(from_static_msg.description(), "Static message");
+
+        let from_dynamic_msg = glib_bool_error!("{} message", "Dynamic");
+        assert_eq!(from_dynamic_msg.description(), "Dynamic message");
+
+        let false_static_res = glib_result_from_gboolean!(glib_ffi::GFALSE, "Static message");
+        assert!(false_static_res.is_err());
+        let static_err = false_static_res.err().unwrap();
+        assert_eq!(static_err.description(), "Static message");
+
+        let true_static_res = glib_result_from_gboolean!(glib_ffi::GTRUE, "Static message");
+        assert!(true_static_res.is_ok());
+
+        let false_dynamic_res = glib_result_from_gboolean!(
+            glib_ffi::GFALSE,
+            "{} message",
+            "Dynamic"
+        );
+        assert!(false_dynamic_res.is_err());
+        let dynamic_err = false_dynamic_res.err().unwrap();
+        assert_eq!(dynamic_err.description(), "Dynamic message");
+
+        let true_dynamic_res = glib_result_from_gboolean!(
+            glib_ffi::GTRUE,
+            "{} message",
+            "Dynamic"
+        );
+        assert!(true_dynamic_res.is_ok());
+   }
 }

@@ -155,6 +155,8 @@ pub mod boxed;
 #[macro_use]
 pub mod shared;
 #[macro_use]
+pub mod error;
+#[macro_use]
 pub mod object;
 
 pub use auto::*;
@@ -174,7 +176,6 @@ pub mod char;
 pub use char::*;
 mod checksum;
 pub mod closure;
-pub mod error;
 mod enums;
 mod file_error;
 mod key_file;
