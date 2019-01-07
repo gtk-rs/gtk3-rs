@@ -26,6 +26,7 @@ use get_thread_id;
 
 /// Implemented by types representing `glib::Object` and subclasses of it.
 pub unsafe trait ObjectType: UnsafeFrom<ObjectRef> + Into<ObjectRef>
+        + AsRef<Object>
         + StaticType
         + fmt::Debug + Clone + PartialEq + Eq + PartialOrd + Ord + hash::Hash
         + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
@@ -61,7 +62,7 @@ pub trait UnsafeFrom<T> {
 /// `T` always implements `IsA<T>`.
 pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> + 'static { }
 
-unsafe impl<T: ObjectType + AsRef<T>> IsA<T> for T {}
+unsafe impl<T: ObjectType> IsA<Object> for T {}
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
@@ -390,13 +391,6 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
-        impl AsRef<$name> for $name {
-            fn as_ref(&self) -> &$name {
-                self
-            }
-        }
-
-        #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
             type Storage = <$crate::object::ObjectRef as
                 $crate::translate::ToGlibPtr<'a, *mut $crate::object::GObject>>::Storage;
@@ -673,8 +667,6 @@ macro_rules! glib_object_wrapper {
     };
 
     (@munch_impls $name:ident, ) => {
-        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
-
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
             fn as_ref(&self) -> &$crate::object::Object {
@@ -770,6 +762,13 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+
+        #[doc(hidden)]
+        impl AsRef<$name> for $name {
+            fn as_ref(&self) -> &$name {
+                self
+            }
+        }
     };
 
     (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
@@ -778,12 +777,32 @@ macro_rules! glib_object_wrapper {
             @get_type $get_type_expr);
         glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($implements)*);
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
+
+        #[doc(hidden)]
+        impl AsRef<$name> for $name {
+            fn as_ref(&self) -> &$name {
+                self
+            }
+        }
+
+        #[doc(hidden)]
+        unsafe impl $crate::object::IsA<$name> for $name { }
     };
 
     (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
         glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
             @get_type $get_type_expr);
         glib_object_wrapper!(@munch_impls $name, $($implements)*);
+
+        #[doc(hidden)]
+        impl AsRef<$name> for $name {
+            fn as_ref(&self) -> &$name {
+                self
+            }
+        }
+
+        #[doc(hidden)]
+        unsafe impl $crate::object::IsA<$name> for $name { }
     };
 }
 
