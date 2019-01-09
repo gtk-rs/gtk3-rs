@@ -666,17 +666,7 @@ macro_rules! glib_object_wrapper {
         }
     };
 
-    (@munch_impls $name:ident, ) => {
-        #[doc(hidden)]
-        impl AsRef<$crate::object::Object> for $name {
-            fn as_ref(&self) -> &$crate::object::Object {
-                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
-            }
-        }
-    };
+    (@munch_impls $name:ident, ) => { };
 
     (@munch_impls $name:ident, $super_name:path) => {
         unsafe impl $crate::object::IsA<$super_name> for $name { }
@@ -772,10 +762,11 @@ macro_rules! glib_object_wrapper {
     };
 
     (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
-        @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+        @get_type $get_type_expr:expr, @extends [$($extends:tt)*], @implements [$($implements:tt)*]) => {
         glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
-        glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($implements)*);
+        glib_object_wrapper!(@munch_first_impl $name, $rust_class_name, $($extends)*);
+        glib_object_wrapper!(@munch_impls $name, $($implements)*);
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
 
         #[doc(hidden)]
@@ -787,12 +778,22 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         unsafe impl $crate::object::IsA<$name> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$crate::object::Object> for $name {
+            fn as_ref(&self) -> &$crate::object::Object {
+                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 
-    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @implements $($implements:tt)*) => {
+    (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
         glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
             @get_type $get_type_expr);
-        glib_object_wrapper!(@munch_impls $name, $($implements)*);
+        glib_object_wrapper!(@munch_impls $name, $($requires)*);
 
         #[doc(hidden)]
         impl AsRef<$name> for $name {
@@ -803,6 +804,16 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         unsafe impl $crate::object::IsA<$name> for $name { }
+
+        #[doc(hidden)]
+        impl AsRef<$crate::object::Object> for $name {
+            fn as_ref(&self) -> &$crate::object::Object {
+                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
+                unsafe {
+                    ::std::mem::transmute(self)
+                }
+            }
+        }
     };
 }
 
