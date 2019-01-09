@@ -26,7 +26,6 @@ use get_thread_id;
 
 /// Implemented by types representing `glib::Object` and subclasses of it.
 pub unsafe trait ObjectType: UnsafeFrom<ObjectRef> + Into<ObjectRef>
-        + AsRef<Object>
         + StaticType
         + fmt::Debug + Clone + PartialEq + Eq + PartialOrd + Ord + hash::Hash
         + for<'a> ToGlibPtr<'a, *mut <Self as ObjectType>::GlibType>
@@ -58,11 +57,7 @@ pub trait UnsafeFrom<T> {
 ///
 /// The trait can only be implemented if the appropriate `ToGlibPtr`
 /// implementations exist.
-///
-/// `T` always implements `IsA<T>`.
 pub unsafe trait IsA<T: ObjectType>: ObjectType + AsRef<T> + 'static { }
-
-unsafe impl<T: ObjectType> IsA<Object> for T {}
 
 /// Trait for mapping a class struct type to its corresponding instance type.
 pub unsafe trait IsClassFor: Sized + 'static {
@@ -389,6 +384,16 @@ macro_rules! glib_object_wrapper {
                 &self.0
             }
         }
+
+        #[doc(hidden)]
+        impl AsRef<$name> for $name {
+            fn as_ref(&self) -> &$name {
+                self
+            }
+        }
+
+        #[doc(hidden)]
+        unsafe impl $crate::object::IsA<$name> for $name { }
 
         #[doc(hidden)]
         impl<'a> $crate::translate::ToGlibPtr<'a, *const $ffi_name> for $name {
@@ -752,13 +757,6 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@generic_impl [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr);
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
-
-        #[doc(hidden)]
-        impl AsRef<$name> for $name {
-            fn as_ref(&self) -> &$name {
-                self
-            }
-        }
     };
 
     (@object [$($attr:meta)*] $name:ident, $ffi_name:path, $ffi_class_name:path, $rust_class_name:ident,
@@ -770,16 +768,6 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@class_impl $name, $ffi_class_name, $rust_class_name);
 
         #[doc(hidden)]
-        impl AsRef<$name> for $name {
-            fn as_ref(&self) -> &$name {
-                self
-            }
-        }
-
-        #[doc(hidden)]
-        unsafe impl $crate::object::IsA<$name> for $name { }
-
-        #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
             fn as_ref(&self) -> &$crate::object::Object {
                 debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
@@ -788,6 +776,9 @@ macro_rules! glib_object_wrapper {
                 }
             }
         }
+
+        #[doc(hidden)]
+        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 
     (@interface [$($attr:meta)*] $name:ident, $ffi_name:path, @get_type $get_type_expr:expr, @requires [$($requires:tt)*]) => {
@@ -796,16 +787,6 @@ macro_rules! glib_object_wrapper {
         glib_object_wrapper!(@munch_impls $name, $($requires)*);
 
         #[doc(hidden)]
-        impl AsRef<$name> for $name {
-            fn as_ref(&self) -> &$name {
-                self
-            }
-        }
-
-        #[doc(hidden)]
-        unsafe impl $crate::object::IsA<$name> for $name { }
-
-        #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
             fn as_ref(&self) -> &$crate::object::Object {
                 debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
@@ -814,6 +795,9 @@ macro_rules! glib_object_wrapper {
                 }
             }
         }
+
+        #[doc(hidden)]
+        unsafe impl $crate::object::IsA<$crate::object::Object> for $name { }
     };
 }
 
