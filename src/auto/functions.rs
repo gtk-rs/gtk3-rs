@@ -28,12 +28,12 @@ use std::mem;
 use std::ptr;
 
 
-//pub fn bus_get<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: P, callback: Q) {
+//pub fn bus_get<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Q, callback: R) {
 //    unsafe { TODO: call ffi::g_bus_get() }
 //}
 
 //#[cfg(feature = "futures")]
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
+//pub fn bus_get_future<P: IsA<Cancellable> + Clone + 'static>(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -52,7 +52,7 @@ use std::ptr;
     //})
 //}
 
-//pub fn bus_get_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result</*Ignored*/DBusConnection, Error> {
+//pub fn bus_get_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(bus_type: /*Ignored*/BusType, cancellable: Q) -> Result</*Ignored*/DBusConnection, Error> {
 //    unsafe { TODO: call ffi::g_bus_get_sync() }
 //}
 
@@ -60,11 +60,11 @@ use std::ptr;
 //    unsafe { TODO: call ffi::g_bus_own_name() }
 //}
 
-//pub fn bus_own_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameLostCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: P, name_lost_handler: Q, user_data_free_func: R) -> u32 {
+//pub fn bus_own_name_on_connection<'a, 'b, 'c, P: IsA</*Ignored*/DBusConnection>, Q: Into<Option<&'a /*Unimplemented*/BusNameAcquiredCallback>>, R: Into<Option<&'b /*Unimplemented*/BusNameLostCallback>>, S: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: &P, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: Q, name_lost_handler: R, user_data_free_func: S) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_on_connection() }
 //}
 
-//pub fn bus_own_name_on_connection_with_closures<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_closure: P, name_lost_closure: Q) -> u32 {
+//pub fn bus_own_name_on_connection_with_closures<'a, 'b, P: IsA</*Ignored*/DBusConnection>, Q: Into<Option<&'a /*Ignored*/glib::Closure>>, R: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: &P, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_closure: Q, name_lost_closure: R) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_on_connection_with_closures() }
 //}
 
@@ -88,11 +88,11 @@ pub fn bus_unwatch_name(watcher_id: u32) {
 //    unsafe { TODO: call ffi::g_bus_watch_name() }
 //}
 
-//pub fn bus_watch_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data_free_func: R) -> u32 {
+//pub fn bus_watch_name_on_connection<'a, 'b, 'c, P: IsA</*Ignored*/DBusConnection>, Q: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, R: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, S: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: &P, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: Q, name_vanished_handler: R, user_data_free_func: S) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_on_connection() }
 //}
 
-//pub fn bus_watch_name_on_connection_with_closures<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: P, name_vanished_closure: Q) -> u32 {
+//pub fn bus_watch_name_on_connection_with_closures<'a, 'b, P: IsA</*Ignored*/DBusConnection>, Q: Into<Option<&'a /*Ignored*/glib::Closure>>, R: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: &P, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: Q, name_vanished_closure: R) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_on_connection_with_closures() }
 //}
 
@@ -152,18 +152,17 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
 
 pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: &[u8]) -> (GString, bool) {
     let filename = filename.into();
-    let filename = filename.to_glib_none();
     let data_size = data.len() as usize;
     unsafe {
         let mut result_uncertain = mem::uninitialized();
-        let ret = from_glib_full(ffi::g_content_type_guess(filename.0, data.to_glib_none().0, data_size, &mut result_uncertain));
+        let ret = from_glib_full(ffi::g_content_type_guess(filename.to_glib_none().0, data.to_glib_none().0, data_size, &mut result_uncertain));
         (ret, from_glib(result_uncertain))
     }
 }
 
 pub fn content_type_guess_for_tree<P: IsA<File>>(root: &P) -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_content_type_guess_for_tree(root.to_glib_none().0))
+        FromGlibPtrContainer::from_glib_full(ffi::g_content_type_guess_for_tree(root.as_ref().to_glib_none().0))
     }
 }
 
@@ -199,31 +198,30 @@ pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<'a, P: Into<Option<&'a Cancellable>>>(bus_type: /*Ignored*/BusType, cancellable: P) -> Result<GString, Error> {
+//pub fn dbus_address_get_for_bus_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(bus_type: /*Ignored*/BusType, cancellable: Q) -> Result<GString, Error> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_for_bus_sync() }
 //}
 
-pub fn dbus_address_get_stream<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: P, callback: Q) {
+pub fn dbus_address_get_stream<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: Q, callback: R) {
     let cancellable = cancellable.into();
-    let cancellable = cancellable.to_glib_none();
-    let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-    unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+    let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+    unsafe extern "C" fn dbus_address_get_stream_trampoline<R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
     {
         let mut error = ptr::null_mut();
         let mut out_guid = ptr::null_mut();
         let ret = ffi::g_dbus_address_get_stream_finish(res, &mut out_guid, &mut error);
         let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(out_guid))) } else { Err(from_glib_full(error)) };
-        let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+        let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
         callback(result);
     }
-    let callback = dbus_address_get_stream_trampoline::<Q>;
+    let callback = dbus_address_get_stream_trampoline::<R>;
     unsafe {
-        ffi::g_dbus_address_get_stream(address.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+        ffi::g_dbus_address_get_stream(address.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
     }
 }
 
 #[cfg(feature = "futures")]
-pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
+pub fn dbus_address_get_stream_future<P: IsA<Cancellable> + Clone + 'static>(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
     use GioFuture;
     use fragile::Fragile;
 
@@ -243,13 +241,12 @@ pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Futur
     })
 }
 
-pub fn dbus_address_get_stream_sync<'a, P: Into<Option<&'a Cancellable>>>(address: &str, cancellable: P) -> Result<(IOStream, GString), Error> {
+pub fn dbus_address_get_stream_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(address: &str, cancellable: Q) -> Result<(IOStream, GString), Error> {
     let cancellable = cancellable.into();
-    let cancellable = cancellable.to_glib_none();
     unsafe {
         let mut out_guid = ptr::null_mut();
         let mut error = ptr::null_mut();
-        let ret = ffi::g_dbus_address_get_stream_sync(address.to_glib_none().0, &mut out_guid, cancellable.0, &mut error);
+        let ret = ffi::g_dbus_address_get_stream_sync(address.to_glib_none().0, &mut out_guid, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
         if error.is_null() { Ok((from_glib_full(ret), from_glib_full(out_guid))) } else { Err(from_glib_full(error)) }
     }
 }
@@ -346,15 +343,14 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, Q: Into<Option<&'b Cancellable>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, notify: P, io_priority: i32, cancellable: Q) {
+//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, notify: P, io_priority: i32, cancellable: R) {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
 pub fn keyfile_settings_backend_new<'a, P: Into<Option<&'a str>>>(filename: &str, root_path: &str, root_group: P) -> Option<SettingsBackend> {
     let root_group = root_group.into();
-    let root_group = root_group.to_glib_none();
     unsafe {
-        from_glib_full(ffi::g_keyfile_settings_backend_new(filename.to_glib_none().0, root_path.to_glib_none().0, root_group.0))
+        from_glib_full(ffi::g_keyfile_settings_backend_new(filename.to_glib_none().0, root_path.to_glib_none().0, root_group.to_glib_none().0))
     }
 }
 

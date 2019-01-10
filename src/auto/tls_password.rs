@@ -5,7 +5,7 @@
 use TlsPasswordFlags;
 use ffi;
 use glib::GString;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -16,7 +16,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct TlsPassword(Object<ffi::GTlsPassword, ffi::GTlsPasswordClass>);
+    pub struct TlsPassword(Object<ffi::GTlsPassword, ffi::GTlsPasswordClass, TlsPasswordClass>);
 
     match fn {
         get_type => || ffi::g_tls_password_get_type(),
@@ -30,6 +30,8 @@ impl TlsPassword {
         }
     }
 }
+
+pub const NONE_TLS_PASSWORD: Option<&TlsPassword> = None;
 
 pub trait TlsPasswordExt: 'static {
     fn get_description(&self) -> Option<GString>;
@@ -56,31 +58,31 @@ pub trait TlsPasswordExt: 'static {
 impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
     fn get_description(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_tls_password_get_description(self.to_glib_none().0))
+            from_glib_none(ffi::g_tls_password_get_description(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_flags(&self) -> TlsPasswordFlags {
         unsafe {
-            from_glib(ffi::g_tls_password_get_flags(self.to_glib_none().0))
+            from_glib(ffi::g_tls_password_get_flags(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_warning(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_tls_password_get_warning(self.to_glib_none().0))
+            from_glib_none(ffi::g_tls_password_get_warning(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_description(&self, description: &str) {
         unsafe {
-            ffi::g_tls_password_set_description(self.to_glib_none().0, description.to_glib_none().0);
+            ffi::g_tls_password_set_description(self.as_ref().to_glib_none().0, description.to_glib_none().0);
         }
     }
 
     fn set_flags(&self, flags: TlsPasswordFlags) {
         unsafe {
-            ffi::g_tls_password_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::g_tls_password_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
         }
     }
 
@@ -90,14 +92,14 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
 
     fn set_warning(&self, warning: &str) {
         unsafe {
-            ffi::g_tls_password_set_warning(self.to_glib_none().0, warning.to_glib_none().0);
+            ffi::g_tls_password_set_warning(self.as_ref().to_glib_none().0, warning.to_glib_none().0);
         }
     }
 
     fn connect_property_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::description\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::description\0".as_ptr() as *const _,
                 transmute(notify_description_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -105,7 +107,7 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::flags\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::flags\0".as_ptr() as *const _,
                 transmute(notify_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -113,7 +115,7 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
     fn connect_property_warning_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::warning\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::warning\0".as_ptr() as *const _,
                 transmute(notify_warning_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -122,19 +124,19 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
 unsafe extern "C" fn notify_description_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
+    f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
+    f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_warning_trampoline<P>(this: *mut ffi::GTlsPassword, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsPassword> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsPassword::from_glib_borrow(this).downcast_unchecked())
+    f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for TlsPassword {

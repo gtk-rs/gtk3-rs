@@ -9,12 +9,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ActionMap(Object<ffi::GActionMap, ffi::GActionMapInterface>);
+    pub struct ActionMap(Interface<ffi::GActionMap>);
 
     match fn {
         get_type => || ffi::g_action_map_get_type(),
     }
 }
+
+pub const NONE_ACTION_MAP: Option<&ActionMap> = None;
 
 pub trait ActionMapExt: 'static {
     fn add_action<P: IsA<Action>>(&self, action: &P);
@@ -29,7 +31,7 @@ pub trait ActionMapExt: 'static {
 impl<O: IsA<ActionMap>> ActionMapExt for O {
     fn add_action<P: IsA<Action>>(&self, action: &P) {
         unsafe {
-            ffi::g_action_map_add_action(self.to_glib_none().0, action.to_glib_none().0);
+            ffi::g_action_map_add_action(self.as_ref().to_glib_none().0, action.as_ref().to_glib_none().0);
         }
     }
 
@@ -39,13 +41,13 @@ impl<O: IsA<ActionMap>> ActionMapExt for O {
 
     fn lookup_action(&self, action_name: &str) -> Option<Action> {
         unsafe {
-            from_glib_none(ffi::g_action_map_lookup_action(self.to_glib_none().0, action_name.to_glib_none().0))
+            from_glib_none(ffi::g_action_map_lookup_action(self.as_ref().to_glib_none().0, action_name.to_glib_none().0))
         }
     }
 
     fn remove_action(&self, action_name: &str) {
         unsafe {
-            ffi::g_action_map_remove_action(self.to_glib_none().0, action_name.to_glib_none().0);
+            ffi::g_action_map_remove_action(self.as_ref().to_glib_none().0, action_name.to_glib_none().0);
         }
     }
 }

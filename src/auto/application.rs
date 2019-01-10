@@ -17,7 +17,7 @@ use glib;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -31,7 +31,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Application(Object<ffi::GApplication, ffi::GApplicationClass>): ActionGroup, ActionMap;
+    pub struct Application(Object<ffi::GApplication, ffi::GApplicationClass, ApplicationClass>) @implements ActionGroup, ActionMap;
 
     match fn {
         get_type => || ffi::g_application_get_type(),
@@ -41,9 +41,8 @@ glib_wrapper! {
 impl Application {
     pub fn new<'a, P: Into<Option<&'a str>>>(application_id: P, flags: ApplicationFlags) -> Application {
         let application_id = application_id.into();
-        let application_id = application_id.to_glib_none();
         unsafe {
-            from_glib_full(ffi::g_application_new(application_id.0, flags.to_glib()))
+            from_glib_full(ffi::g_application_new(application_id.to_glib_none().0, flags.to_glib()))
         }
     }
 
@@ -59,6 +58,8 @@ impl Application {
         }
     }
 }
+
+pub const NONE_APPLICATION: Option<&Application> = None;
 
 pub trait ApplicationExt: 'static {
     fn activate(&self);
@@ -106,12 +107,12 @@ pub trait ApplicationExt: 'static {
 
     fn quit(&self);
 
-    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
+    fn register<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
     fn release(&self);
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification);
+    fn send_notification<'a, P: Into<Option<&'a str>>, Q: IsA<Notification>>(&self, id: P, notification: &Q);
 
     #[deprecated]
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q);
@@ -181,16 +182,15 @@ pub trait ApplicationExt: 'static {
 impl<O: IsA<Application>> ApplicationExt for O {
     fn activate(&self) {
         unsafe {
-            ffi::g_application_activate(self.to_glib_none().0);
+            ffi::g_application_activate(self.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: glib::OptionFlags, arg: glib::OptionArg, description: &str, arg_description: P) {
         let arg_description = arg_description.into();
-        let arg_description = arg_description.to_glib_none();
         unsafe {
-            ffi::g_application_add_main_option(self.to_glib_none().0, long_name.to_glib_none().0, short_name.to_glib(), flags.to_glib(), arg.to_glib(), description.to_glib_none().0, arg_description.0);
+            ffi::g_application_add_main_option(self.as_ref().to_glib_none().0, long_name.to_glib_none().0, short_name.to_glib(), flags.to_glib(), arg.to_glib(), description.to_glib_none().0, arg_description.to_glib_none().0);
         }
     }
 
@@ -207,13 +207,13 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn bind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
-            ffi::g_application_bind_busy_property(self.to_glib_none().0, object.to_glib_none().0, property.to_glib_none().0);
+            ffi::g_application_bind_busy_property(self.as_ref().to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0);
         }
     }
 
     fn get_application_id(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_application_get_application_id(self.to_glib_none().0))
+            from_glib_none(ffi::g_application_get_application_id(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -225,187 +225,179 @@ impl<O: IsA<Application>> ApplicationExt for O {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_dbus_object_path(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_application_get_dbus_object_path(self.to_glib_none().0))
+            from_glib_none(ffi::g_application_get_dbus_object_path(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_flags(&self) -> ApplicationFlags {
         unsafe {
-            from_glib(ffi::g_application_get_flags(self.to_glib_none().0))
+            from_glib(ffi::g_application_get_flags(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_inactivity_timeout(&self) -> u32 {
         unsafe {
-            ffi::g_application_get_inactivity_timeout(self.to_glib_none().0)
+            ffi::g_application_get_inactivity_timeout(self.as_ref().to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn get_is_busy(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_application_get_is_busy(self.to_glib_none().0))
+            from_glib(ffi::g_application_get_is_busy(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_registered(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_application_get_is_registered(self.to_glib_none().0))
+            from_glib(ffi::g_application_get_is_registered(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_remote(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_application_get_is_remote(self.to_glib_none().0))
+            from_glib(ffi::g_application_get_is_remote(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn get_resource_base_path(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_application_get_resource_base_path(self.to_glib_none().0))
+            from_glib_none(ffi::g_application_get_resource_base_path(self.as_ref().to_glib_none().0))
         }
     }
 
     fn hold(&self) {
         unsafe {
-            ffi::g_application_hold(self.to_glib_none().0);
+            ffi::g_application_hold(self.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn mark_busy(&self) {
         unsafe {
-            ffi::g_application_mark_busy(self.to_glib_none().0);
+            ffi::g_application_mark_busy(self.as_ref().to_glib_none().0);
         }
     }
 
     fn open(&self, files: &[File], hint: &str) {
         let n_files = files.len() as i32;
         unsafe {
-            ffi::g_application_open(self.to_glib_none().0, files.to_glib_none().0, n_files, hint.to_glib_none().0);
+            ffi::g_application_open(self.as_ref().to_glib_none().0, files.to_glib_none().0, n_files, hint.to_glib_none().0);
         }
     }
 
     fn quit(&self) {
         unsafe {
-            ffi::g_application_quit(self.to_glib_none().0);
+            ffi::g_application_quit(self.as_ref().to_glib_none().0);
         }
     }
 
-    fn register<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
+    fn register<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_application_register(self.to_glib_none().0, cancellable.0, &mut error);
+            let _ = ffi::g_application_register(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn release(&self) {
         unsafe {
-            ffi::g_application_release(self.to_glib_none().0);
+            ffi::g_application_release(self.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification) {
+    fn send_notification<'a, P: Into<Option<&'a str>>, Q: IsA<Notification>>(&self, id: P, notification: &Q) {
         let id = id.into();
-        let id = id.to_glib_none();
         unsafe {
-            ffi::g_application_send_notification(self.to_glib_none().0, id.0, notification.to_glib_none().0);
+            ffi::g_application_send_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0, notification.as_ref().to_glib_none().0);
         }
     }
 
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q) {
         let action_group = action_group.into();
-        let action_group = action_group.to_glib_none();
         unsafe {
-            ffi::g_application_set_action_group(self.to_glib_none().0, action_group.0);
+            ffi::g_application_set_action_group(self.as_ref().to_glib_none().0, action_group.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
     fn set_application_id<'a, P: Into<Option<&'a str>>>(&self, application_id: P) {
         let application_id = application_id.into();
-        let application_id = application_id.to_glib_none();
         unsafe {
-            ffi::g_application_set_application_id(self.to_glib_none().0, application_id.0);
+            ffi::g_application_set_application_id(self.as_ref().to_glib_none().0, application_id.to_glib_none().0);
         }
     }
 
     fn set_default(&self) {
         unsafe {
-            ffi::g_application_set_default(self.to_glib_none().0);
+            ffi::g_application_set_default(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_flags(&self, flags: ApplicationFlags) {
         unsafe {
-            ffi::g_application_set_flags(self.to_glib_none().0, flags.to_glib());
+            ffi::g_application_set_flags(self.as_ref().to_glib_none().0, flags.to_glib());
         }
     }
 
     fn set_inactivity_timeout(&self, inactivity_timeout: u32) {
         unsafe {
-            ffi::g_application_set_inactivity_timeout(self.to_glib_none().0, inactivity_timeout);
+            ffi::g_application_set_inactivity_timeout(self.as_ref().to_glib_none().0, inactivity_timeout);
         }
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn set_option_context_description<'a, P: Into<Option<&'a str>>>(&self, description: P) {
         let description = description.into();
-        let description = description.to_glib_none();
         unsafe {
-            ffi::g_application_set_option_context_description(self.to_glib_none().0, description.0);
+            ffi::g_application_set_option_context_description(self.as_ref().to_glib_none().0, description.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn set_option_context_parameter_string<'a, P: Into<Option<&'a str>>>(&self, parameter_string: P) {
         let parameter_string = parameter_string.into();
-        let parameter_string = parameter_string.to_glib_none();
         unsafe {
-            ffi::g_application_set_option_context_parameter_string(self.to_glib_none().0, parameter_string.0);
+            ffi::g_application_set_option_context_parameter_string(self.as_ref().to_glib_none().0, parameter_string.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn set_option_context_summary<'a, P: Into<Option<&'a str>>>(&self, summary: P) {
         let summary = summary.into();
-        let summary = summary.to_glib_none();
         unsafe {
-            ffi::g_application_set_option_context_summary(self.to_glib_none().0, summary.0);
+            ffi::g_application_set_option_context_summary(self.as_ref().to_glib_none().0, summary.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn set_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_path: P) {
         let resource_path = resource_path.into();
-        let resource_path = resource_path.to_glib_none();
         unsafe {
-            ffi::g_application_set_resource_base_path(self.to_glib_none().0, resource_path.0);
+            ffi::g_application_set_resource_base_path(self.as_ref().to_glib_none().0, resource_path.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str) {
         unsafe {
-            ffi::g_application_unbind_busy_property(self.to_glib_none().0, object.to_glib_none().0, property.to_glib_none().0);
+            ffi::g_application_unbind_busy_property(self.as_ref().to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn unmark_busy(&self) {
         unsafe {
-            ffi::g_application_unmark_busy(self.to_glib_none().0);
+            ffi::g_application_unmark_busy(self.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn withdraw_notification(&self, id: &str) {
         unsafe {
-            ffi::g_application_withdraw_notification(self.to_glib_none().0, id.to_glib_none().0);
+            ffi::g_application_withdraw_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0);
         }
     }
 
@@ -427,7 +419,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"activate\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"activate\0".as_ptr() as *const _,
                 transmute(activate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -435,7 +427,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_command_line<F: Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"command-line\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"command-line\0".as_ptr() as *const _,
                 transmute(command_line_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -448,7 +440,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"shutdown\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"shutdown\0".as_ptr() as *const _,
                 transmute(shutdown_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -456,7 +448,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_startup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"startup\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"startup\0".as_ptr() as *const _,
                 transmute(startup_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -464,7 +456,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_action_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::action-group\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::action-group\0".as_ptr() as *const _,
                 transmute(notify_action_group_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -472,7 +464,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_application_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::application-id\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::application-id\0".as_ptr() as *const _,
                 transmute(notify_application_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -480,7 +472,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::flags\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::flags\0".as_ptr() as *const _,
                 transmute(notify_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -488,7 +480,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_inactivity_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::inactivity-timeout\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::inactivity-timeout\0".as_ptr() as *const _,
                 transmute(notify_inactivity_timeout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -497,7 +489,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-busy\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-busy\0".as_ptr() as *const _,
                 transmute(notify_is_busy_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -505,7 +497,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_is_registered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-registered\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-registered\0".as_ptr() as *const _,
                 transmute(notify_is_registered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -513,7 +505,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-remote\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-remote\0".as_ptr() as *const _,
                 transmute(notify_is_remote_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -521,7 +513,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
     fn connect_property_resource_base_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::resource-base-path\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::resource-base-path\0".as_ptr() as *const _,
                 transmute(notify_resource_base_path_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -530,74 +522,74 @@ impl<O: IsA<Application>> ApplicationExt for O {
 unsafe extern "C" fn activate_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn command_line_trampoline<P>(this: *mut ffi::GApplication, command_line: *mut ffi::GApplicationCommandLine, f: glib_ffi::gpointer) -> libc::c_int
 where P: IsA<Application> {
     let f: &&(Fn(&P, &ApplicationCommandLine) -> i32 + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(command_line))
+    f(&Application::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(command_line))
 }
 
 unsafe extern "C" fn shutdown_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn startup_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_action_group_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_application_id_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_inactivity_timeout_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 unsafe extern "C" fn notify_is_busy_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_registered_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_remote_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_resource_base_path_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Application::from_glib_borrow(this).downcast_unchecked())
+    f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Application {

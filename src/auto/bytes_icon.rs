@@ -12,7 +12,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct BytesIcon(Object<ffi::GBytesIcon>): Icon, LoadableIcon;
+    pub struct BytesIcon(Object<ffi::GBytesIcon, BytesIconClass>) @implements Icon, LoadableIcon;
 
     match fn {
         get_type => || ffi::g_bytes_icon_get_type(),
@@ -28,6 +28,8 @@ impl BytesIcon {
     }
 }
 
+pub const NONE_BYTES_ICON: Option<&BytesIcon> = None;
+
 pub trait BytesIconExt: 'static {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn get_bytes(&self) -> Option<glib::Bytes>;
@@ -37,7 +39,7 @@ impl<O: IsA<BytesIcon>> BytesIconExt for O {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn get_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            from_glib_none(ffi::g_bytes_icon_get_bytes(self.to_glib_none().0))
+            from_glib_none(ffi::g_bytes_icon_get_bytes(self.as_ref().to_glib_none().0))
         }
     }
 }

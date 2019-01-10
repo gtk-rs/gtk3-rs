@@ -14,7 +14,7 @@ use gobject_ffi;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct UnixSocketAddress(Object<ffi::GUnixSocketAddress, ffi::GUnixSocketAddressClass>): SocketAddress, SocketConnectable;
+    pub struct UnixSocketAddress(Object<ffi::GUnixSocketAddress, ffi::GUnixSocketAddressClass, UnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || ffi::g_unix_socket_address_get_type(),
@@ -40,6 +40,8 @@ impl UnixSocketAddress {
 unsafe impl Send for UnixSocketAddress {}
 unsafe impl Sync for UnixSocketAddress {}
 
+pub const NONE_UNIX_SOCKET_ADDRESS: Option<&UnixSocketAddress> = None;
+
 pub trait UnixSocketAddressExt: 'static {
     fn get_address_type(&self) -> UnixSocketAddressType;
 
@@ -55,19 +57,19 @@ pub trait UnixSocketAddressExt: 'static {
 impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
     fn get_address_type(&self) -> UnixSocketAddressType {
         unsafe {
-            from_glib(ffi::g_unix_socket_address_get_address_type(self.to_glib_none().0))
+            from_glib(ffi::g_unix_socket_address_get_address_type(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_abstract(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_unix_socket_address_get_is_abstract(self.to_glib_none().0))
+            from_glib(ffi::g_unix_socket_address_get_is_abstract(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_path_len(&self) -> usize {
         unsafe {
-            ffi::g_unix_socket_address_get_path_len(self.to_glib_none().0)
+            ffi::g_unix_socket_address_get_path_len(self.as_ref().to_glib_none().0)
         }
     }
 

@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -14,7 +14,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct AppInfoMonitor(Object<ffi::GAppInfoMonitor>);
+    pub struct AppInfoMonitor(Object<ffi::GAppInfoMonitor, AppInfoMonitorClass>);
 
     match fn {
         get_type => || ffi::g_app_info_monitor_get_type(),
@@ -30,6 +30,8 @@ impl AppInfoMonitor {
     }
 }
 
+pub const NONE_APP_INFO_MONITOR: Option<&AppInfoMonitor> = None;
+
 pub trait AppInfoMonitorExt: 'static {
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -38,7 +40,7 @@ impl<O: IsA<AppInfoMonitor>> AppInfoMonitorExt for O {
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -47,7 +49,7 @@ impl<O: IsA<AppInfoMonitor>> AppInfoMonitorExt for O {
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GAppInfoMonitor, f: glib_ffi::gpointer)
 where P: IsA<AppInfoMonitor> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&AppInfoMonitor::from_glib_borrow(this).downcast_unchecked())
+    f(&AppInfoMonitor::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for AppInfoMonitor {

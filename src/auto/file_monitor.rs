@@ -7,7 +7,7 @@ use FileMonitorEvent;
 use ffi;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -19,12 +19,14 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FileMonitor(Object<ffi::GFileMonitor, ffi::GFileMonitorClass>);
+    pub struct FileMonitor(Object<ffi::GFileMonitor, ffi::GFileMonitorClass, FileMonitorClass>);
 
     match fn {
         get_type => || ffi::g_file_monitor_get_type(),
     }
 }
+
+pub const NONE_FILE_MONITOR: Option<&FileMonitor> = None;
 
 pub trait FileMonitorExt: 'static {
     fn cancel(&self) -> bool;
@@ -49,25 +51,25 @@ pub trait FileMonitorExt: 'static {
 impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn cancel(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_file_monitor_cancel(self.to_glib_none().0))
+            from_glib(ffi::g_file_monitor_cancel(self.as_ref().to_glib_none().0))
         }
     }
 
     fn emit_event<P: IsA<File>, Q: IsA<File>>(&self, child: &P, other_file: &Q, event_type: FileMonitorEvent) {
         unsafe {
-            ffi::g_file_monitor_emit_event(self.to_glib_none().0, child.to_glib_none().0, other_file.to_glib_none().0, event_type.to_glib());
+            ffi::g_file_monitor_emit_event(self.as_ref().to_glib_none().0, child.as_ref().to_glib_none().0, other_file.as_ref().to_glib_none().0, event_type.to_glib());
         }
     }
 
     fn is_cancelled(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_file_monitor_is_cancelled(self.to_glib_none().0))
+            from_glib(ffi::g_file_monitor_is_cancelled(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_rate_limit(&self, limit_msecs: i32) {
         unsafe {
-            ffi::g_file_monitor_set_rate_limit(self.to_glib_none().0, limit_msecs);
+            ffi::g_file_monitor_set_rate_limit(self.as_ref().to_glib_none().0, limit_msecs);
         }
     }
 
@@ -90,7 +92,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn connect_changed<F: Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -98,7 +100,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn connect_property_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::cancelled\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::cancelled\0".as_ptr() as *const _,
                 transmute(notify_cancelled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -106,7 +108,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn connect_property_rate_limit_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::rate-limit\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::rate-limit\0".as_ptr() as *const _,
                 transmute(notify_rate_limit_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -115,19 +117,19 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GFileMonitor, file: *mut ffi::GFile, other_file: *mut ffi::GFile, event_type: ffi::GFileMonitorEvent, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
     let f: &&(Fn(&P, &File, &Option<File>, FileMonitorEvent) + 'static) = transmute(f);
-    f(&FileMonitor::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(file), &from_glib_borrow(other_file), from_glib(event_type))
+    f(&FileMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(file), &from_glib_borrow(other_file), from_glib(event_type))
 }
 
 unsafe extern "C" fn notify_cancelled_trampoline<P>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&FileMonitor::from_glib_borrow(this).downcast_unchecked())
+    f(&FileMonitor::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_rate_limit_trampoline<P>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&FileMonitor::from_glib_borrow(this).downcast_unchecked())
+    f(&FileMonitor::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for FileMonitor {

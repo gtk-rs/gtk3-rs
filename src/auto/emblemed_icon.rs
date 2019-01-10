@@ -13,7 +13,7 @@ use gobject_ffi;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct EmblemedIcon(Object<ffi::GEmblemedIcon, ffi::GEmblemedIconClass>): Icon;
+    pub struct EmblemedIcon(Object<ffi::GEmblemedIcon, ffi::GEmblemedIconClass, EmblemedIconClass>) @implements Icon;
 
     match fn {
         get_type => || ffi::g_emblemed_icon_get_type(),
@@ -21,17 +21,18 @@ glib_wrapper! {
 }
 
 impl EmblemedIcon {
-    pub fn new<'a, P: IsA<Icon>, Q: Into<Option<&'a Emblem>>>(icon: &P, emblem: Q) -> EmblemedIcon {
+    pub fn new<'a, P: IsA<Icon>, Q: IsA<Emblem> + 'a, R: Into<Option<&'a Q>>>(icon: &P, emblem: R) -> EmblemedIcon {
         let emblem = emblem.into();
-        let emblem = emblem.to_glib_none();
         unsafe {
-            from_glib_full(ffi::g_emblemed_icon_new(icon.to_glib_none().0, emblem.0))
+            from_glib_full(ffi::g_emblemed_icon_new(icon.as_ref().to_glib_none().0, emblem.map(|p| p.as_ref()).to_glib_none().0))
         }
     }
 }
 
+pub const NONE_EMBLEMED_ICON: Option<&EmblemedIcon> = None;
+
 pub trait EmblemedIconExt: 'static {
-    fn add_emblem(&self, emblem: &Emblem);
+    fn add_emblem<P: IsA<Emblem>>(&self, emblem: &P);
 
     fn clear_emblems(&self);
 
@@ -43,27 +44,27 @@ pub trait EmblemedIconExt: 'static {
 }
 
 impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
-    fn add_emblem(&self, emblem: &Emblem) {
+    fn add_emblem<P: IsA<Emblem>>(&self, emblem: &P) {
         unsafe {
-            ffi::g_emblemed_icon_add_emblem(self.to_glib_none().0, emblem.to_glib_none().0);
+            ffi::g_emblemed_icon_add_emblem(self.as_ref().to_glib_none().0, emblem.as_ref().to_glib_none().0);
         }
     }
 
     fn clear_emblems(&self) {
         unsafe {
-            ffi::g_emblemed_icon_clear_emblems(self.to_glib_none().0);
+            ffi::g_emblemed_icon_clear_emblems(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_emblems(&self) -> Vec<Emblem> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::g_emblemed_icon_get_emblems(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(ffi::g_emblemed_icon_get_emblems(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_none(ffi::g_emblemed_icon_get_icon(self.to_glib_none().0))
+            from_glib_none(ffi::g_emblemed_icon_get_icon(self.as_ref().to_glib_none().0))
         }
     }
 

@@ -12,60 +12,60 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Seekable(Object<ffi::GSeekable, ffi::GSeekableIface>);
+    pub struct Seekable(Interface<ffi::GSeekable>);
 
     match fn {
         get_type => || ffi::g_seekable_get_type(),
     }
 }
 
+pub const NONE_SEEKABLE: Option<&Seekable> = None;
+
 pub trait SeekableExt: 'static {
     fn can_seek(&self) -> bool;
 
     fn can_truncate(&self) -> bool;
 
-    fn seek<'a, P: Into<Option<&'a Cancellable>>>(&self, offset: i64, type_: glib::SeekType, cancellable: P) -> Result<(), Error>;
+    fn seek<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, type_: glib::SeekType, cancellable: Q) -> Result<(), Error>;
 
     fn tell(&self) -> i64;
 
-    fn truncate<'a, P: Into<Option<&'a Cancellable>>>(&self, offset: i64, cancellable: P) -> Result<(), Error>;
+    fn truncate<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, cancellable: Q) -> Result<(), Error>;
 }
 
 impl<O: IsA<Seekable>> SeekableExt for O {
     fn can_seek(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_seekable_can_seek(self.to_glib_none().0))
+            from_glib(ffi::g_seekable_can_seek(self.as_ref().to_glib_none().0))
         }
     }
 
     fn can_truncate(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_seekable_can_truncate(self.to_glib_none().0))
+            from_glib(ffi::g_seekable_can_truncate(self.as_ref().to_glib_none().0))
         }
     }
 
-    fn seek<'a, P: Into<Option<&'a Cancellable>>>(&self, offset: i64, type_: glib::SeekType, cancellable: P) -> Result<(), Error> {
+    fn seek<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, type_: glib::SeekType, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_seekable_seek(self.to_glib_none().0, offset, type_.to_glib(), cancellable.0, &mut error);
+            let _ = ffi::g_seekable_seek(self.as_ref().to_glib_none().0, offset, type_.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn tell(&self) -> i64 {
         unsafe {
-            ffi::g_seekable_tell(self.to_glib_none().0)
+            ffi::g_seekable_tell(self.as_ref().to_glib_none().0)
         }
     }
 
-    fn truncate<'a, P: Into<Option<&'a Cancellable>>>(&self, offset: i64, cancellable: P) -> Result<(), Error> {
+    fn truncate<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_seekable_truncate(self.to_glib_none().0, offset, cancellable.0, &mut error);
+            let _ = ffi::g_seekable_truncate(self.as_ref().to_glib_none().0, offset, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }

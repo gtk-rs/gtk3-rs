@@ -4,6 +4,7 @@
 
 use Error;
 use ffi;
+use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -15,7 +16,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Cancellable(Object<ffi::GCancellable, ffi::GCancellableClass>);
+    pub struct Cancellable(Object<ffi::GCancellable, ffi::GCancellableClass, CancellableClass>);
 
     match fn {
         get_type => || ffi::g_cancellable_get_type(),
@@ -96,7 +97,7 @@ impl Cancellable {
     pub fn connect_cancelled<F: Fn(&Cancellable) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Cancellable) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0, b"cancelled\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
                 transmute(cancelled_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -110,6 +111,8 @@ impl Default for Cancellable {
 
 unsafe impl Send for Cancellable {}
 unsafe impl Sync for Cancellable {}
+
+pub const NONE_CANCELLABLE: Option<&Cancellable> = None;
 
 unsafe extern "C" fn cancelled_trampoline(this: *mut ffi::GCancellable, f: glib_ffi::gpointer) {
     let f: &&(Fn(&Cancellable) + Send + Sync + 'static) = transmute(f);

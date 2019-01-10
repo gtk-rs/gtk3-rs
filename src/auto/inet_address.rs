@@ -4,7 +4,7 @@
 
 use SocketFamily;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -15,7 +15,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct InetAddress(Object<ffi::GInetAddress, ffi::GInetAddressClass>);
+    pub struct InetAddress(Object<ffi::GInetAddress, ffi::GInetAddressClass, InetAddressClass>);
 
     match fn {
         get_type => || ffi::g_inet_address_get_type(),
@@ -44,6 +44,8 @@ impl InetAddress {
 
 unsafe impl Send for InetAddress {}
 unsafe impl Sync for InetAddress {}
+
+pub const NONE_INET_ADDRESS: Option<&InetAddress> = None;
 
 pub trait InetAddressExt: 'static {
     fn get_family(&self) -> SocketFamily;
@@ -96,73 +98,73 @@ pub trait InetAddressExt: 'static {
 impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn get_family(&self) -> SocketFamily {
         unsafe {
-            from_glib(ffi::g_inet_address_get_family(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_family(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_any(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_any(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_any(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_link_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_link_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_link_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_loopback(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_loopback(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_loopback(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_mc_global(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_mc_global(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_mc_global(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_mc_link_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_mc_link_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_mc_link_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_mc_node_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_mc_node_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_mc_node_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_mc_org_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_mc_org_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_mc_org_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_mc_site_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_mc_site_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_mc_site_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_multicast(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_multicast(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_multicast(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_site_local(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_get_is_site_local(self.to_glib_none().0))
+            from_glib(ffi::g_inet_address_get_is_site_local(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_native_size(&self) -> usize {
         unsafe {
-            ffi::g_inet_address_get_native_size(self.to_glib_none().0)
+            ffi::g_inet_address_get_native_size(self.as_ref().to_glib_none().0)
         }
     }
 
@@ -177,7 +179,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_any_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-any\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-any\0".as_ptr() as *const _,
                 transmute(notify_is_any_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -185,7 +187,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_link_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-link-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-link-local\0".as_ptr() as *const _,
                 transmute(notify_is_link_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -193,7 +195,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_loopback_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-loopback\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-loopback\0".as_ptr() as *const _,
                 transmute(notify_is_loopback_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -201,7 +203,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_mc_global_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-mc-global\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-global\0".as_ptr() as *const _,
                 transmute(notify_is_mc_global_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -209,7 +211,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_mc_link_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-mc-link-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-link-local\0".as_ptr() as *const _,
                 transmute(notify_is_mc_link_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -217,7 +219,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_mc_node_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-mc-node-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-node-local\0".as_ptr() as *const _,
                 transmute(notify_is_mc_node_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -225,7 +227,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_mc_org_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-mc-org-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-org-local\0".as_ptr() as *const _,
                 transmute(notify_is_mc_org_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -233,7 +235,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_mc_site_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-mc-site-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-site-local\0".as_ptr() as *const _,
                 transmute(notify_is_mc_site_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -241,7 +243,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_multicast_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-multicast\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-multicast\0".as_ptr() as *const _,
                 transmute(notify_is_multicast_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -249,7 +251,7 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn connect_property_is_site_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::is-site-local\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::is-site-local\0".as_ptr() as *const _,
                 transmute(notify_is_site_local_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -258,61 +260,61 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 unsafe extern "C" fn notify_is_any_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_link_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_loopback_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_global_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_link_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_node_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_org_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_site_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_multicast_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_site_local_trampoline<P>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
     let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
-    f(&InetAddress::from_glib_borrow(this).downcast_unchecked())
+    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for InetAddress {

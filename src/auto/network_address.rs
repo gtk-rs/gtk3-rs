@@ -12,7 +12,7 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct NetworkAddress(Object<ffi::GNetworkAddress, ffi::GNetworkAddressClass>): SocketConnectable;
+    pub struct NetworkAddress(Object<ffi::GNetworkAddress, ffi::GNetworkAddressClass, NetworkAddressClass>) @implements SocketConnectable;
 
     match fn {
         get_type => || ffi::g_network_address_get_type(),
@@ -53,6 +53,8 @@ impl NetworkAddress {
 unsafe impl Send for NetworkAddress {}
 unsafe impl Sync for NetworkAddress {}
 
+pub const NONE_NETWORK_ADDRESS: Option<&NetworkAddress> = None;
+
 pub trait NetworkAddressExt: 'static {
     fn get_hostname(&self) -> Option<GString>;
 
@@ -64,19 +66,19 @@ pub trait NetworkAddressExt: 'static {
 impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
     fn get_hostname(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_network_address_get_hostname(self.to_glib_none().0))
+            from_glib_none(ffi::g_network_address_get_hostname(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_port(&self) -> u16 {
         unsafe {
-            ffi::g_network_address_get_port(self.to_glib_none().0)
+            ffi::g_network_address_get_port(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_scheme(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_network_address_get_scheme(self.to_glib_none().0))
+            from_glib_none(ffi::g_network_address_get_scheme(self.as_ref().to_glib_none().0))
         }
     }
 }

@@ -8,7 +8,7 @@ use ffi;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -21,7 +21,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct CharsetConverter(Object<ffi::GCharsetConverter, ffi::GCharsetConverterClass>): Converter;
+    pub struct CharsetConverter(Object<ffi::GCharsetConverter, ffi::GCharsetConverterClass, CharsetConverterClass>) @implements Converter;
 
     match fn {
         get_type => || ffi::g_charset_converter_get_type(),
@@ -37,6 +37,8 @@ impl CharsetConverter {
         }
     }
 }
+
+pub const NONE_CHARSET_CONVERTER: Option<&CharsetConverter> = None;
 
 pub trait CharsetConverterExt: 'static {
     fn get_num_fallbacks(&self) -> u32;
@@ -55,19 +57,19 @@ pub trait CharsetConverterExt: 'static {
 impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
     fn get_num_fallbacks(&self) -> u32 {
         unsafe {
-            ffi::g_charset_converter_get_num_fallbacks(self.to_glib_none().0)
+            ffi::g_charset_converter_get_num_fallbacks(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_use_fallback(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_charset_converter_get_use_fallback(self.to_glib_none().0))
+            from_glib(ffi::g_charset_converter_get_use_fallback(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_use_fallback(&self, use_fallback: bool) {
         unsafe {
-            ffi::g_charset_converter_set_use_fallback(self.to_glib_none().0, use_fallback.to_glib());
+            ffi::g_charset_converter_set_use_fallback(self.as_ref().to_glib_none().0, use_fallback.to_glib());
         }
     }
 
@@ -90,7 +92,7 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
     fn connect_property_use_fallback_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::use-fallback\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::use-fallback\0".as_ptr() as *const _,
                 transmute(notify_use_fallback_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -99,7 +101,7 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
 unsafe extern "C" fn notify_use_fallback_trampoline<P>(this: *mut ffi::GCharsetConverter, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<CharsetConverter> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&CharsetConverter::from_glib_borrow(this).downcast_unchecked())
+    f(&CharsetConverter::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for CharsetConverter {
