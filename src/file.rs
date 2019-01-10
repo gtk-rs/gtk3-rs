@@ -21,10 +21,10 @@ pub trait FileExtManual: Sized {
     fn replace_contents_async<'a, 'b, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>>;
+    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone;
 }
 
-impl<O: IsA<File> + IsA<glib::Object> + Clone + 'static> FileExtManual for O {
+impl<O: IsA<File>> FileExtManual for O {
     fn replace_contents_async<'a, 'b, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R) {
         let etag = etag.into();
         let etag = etag.to_glib_none();
@@ -50,12 +50,12 @@ impl<O: IsA<File> + IsA<glib::Object> + Clone + 'static> FileExtManual for O {
         }
         let callback = replace_contents_async_trampoline::<B, R>;
         unsafe {
-            ffi::g_file_replace_contents_async(self.to_glib_none().0, mut_override(contents_ptr), count, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_file_replace_contents_async(self.as_ref().to_glib_none().0, mut_override(contents_ptr), count, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> {
+    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
 

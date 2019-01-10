@@ -5,7 +5,6 @@
 use Cancellable;
 use Error;
 use ffi;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -27,25 +26,25 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_all<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+    fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) where Self: Clone;
 
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>>;
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone;
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>>;
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone;
 
     fn into_write(self) -> OutputStreamWrite<Self> {
         OutputStreamWrite(self)
     }
 }
 
-impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExtManual for O {
+impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -72,7 +71,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
         }
         let callback = write_async_trampoline::<B, Q>;
         unsafe {
-            ffi::g_output_stream_write_async(self.to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_write_async(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -83,7 +82,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
         unsafe {
             let mut bytes_written = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = ffi::g_output_stream_write_all(self.to_glib_none().0, buffer.to_glib_none().0, count, &mut bytes_written, cancellable.0, &mut error);
+            let _ = ffi::g_output_stream_write_all(self.as_ref().to_glib_none().0, buffer.to_glib_none().0, count, &mut bytes_written, cancellable.0, &mut error);
 
             if error.is_null() {
                 Ok((bytes_written, None))
@@ -125,7 +124,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
         }
         let callback = write_all_async_trampoline::<B, Q>;
         unsafe {
-            ffi::g_output_stream_write_all_async(self.to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_write_all_async(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -133,7 +132,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> {
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -161,7 +160,7 @@ impl<O: IsA<OutputStream> + IsA<glib::Object> + Clone + 'static> OutputStreamExt
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> {
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -201,12 +200,12 @@ impl <T: OutputStreamExt> OutputStreamWrite<T> {
 
 impl <T: OutputStreamExt> io::Write for OutputStreamWrite<T> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-        let result = self.0.write(buf, None).map(|size| size as usize);
+        let result = self.0.write(buf, ::NONE_CANCELLABLE).map(|size| size as usize);
         to_std_io_result(result)
     }
 
     fn flush(&mut self) -> io::Result<()> {
-        let gio_result = self.0.flush(None);
+        let gio_result = self.0.flush(::NONE_CANCELLABLE);
         to_std_io_result(gio_result)
     }
 }
@@ -227,7 +226,7 @@ mod tests {
 
             let strm = MemoryOutputStream::new_resizable();
             strm.splice_async(&input, OutputStreamSpliceFlags::CLOSE_SOURCE,
-                              PRIORITY_DEFAULT_IDLE, None, move |ret| {
+                              PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -242,7 +241,7 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let buf = vec![1,2,3];
-            strm.write_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.write_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -260,7 +259,7 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let buf = vec![1,2,3];
-            strm.write_all_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.write_all_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -278,7 +277,7 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            strm.write_bytes_async(&b, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.write_bytes_async(&b, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -295,7 +294,7 @@ mod tests {
         let ret = write.write(&b);
 
         let stream = write.into_output_stream();
-        stream.close(None).unwrap();
+        stream.close(::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret.unwrap(), 3);
         assert_eq!(stream.steal_as_bytes().unwrap(), [1, 2, 3].as_ref());
     }

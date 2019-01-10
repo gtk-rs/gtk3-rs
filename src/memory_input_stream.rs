@@ -12,12 +12,12 @@ mod tests {
     #[test]
     fn new() {
         let strm = MemoryInputStream::new();
-        let ret = strm.skip(1, None);
+        let ret = strm.skip(1, ::NONE_CANCELLABLE);
         assert!(!ret.is_err());
         assert_eq!(ret.unwrap(), 0);
 
         let mut buf = vec![0;10];
-        let ret = strm.read(&mut buf, None).unwrap();
+        let ret = strm.read(&mut buf, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 0);
     }
 
@@ -27,13 +27,13 @@ mod tests {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         let strm = MemoryInputStream::new_from_bytes(&b);
         let mut buf = vec![0;10];
-        let ret = strm.read(&mut buf, None).unwrap();
+        let ret = strm.read(&mut buf, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 3);
         assert_eq!(buf[0], 1);
         assert_eq!(buf[1], 2);
         assert_eq!(buf[2], 3);
 
-        let ret = strm.skip(10, None).unwrap();
+        let ret = strm.skip(10, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 0);
     }
 
@@ -44,13 +44,13 @@ mod tests {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         strm.add_bytes(&b);
         let mut buf = vec![0;10];
-        let ret = strm.read(&mut buf, None).unwrap();
+        let ret = strm.read(&mut buf, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 3);
         assert_eq!(buf[0], 1);
         assert_eq!(buf[1], 2);
         assert_eq!(buf[2], 3);
 
-        let ret = strm.skip(10, None).unwrap();
+        let ret = strm.skip(10, ::NONE_CANCELLABLE).unwrap();
         assert_eq!(ret, 0);
     }
 

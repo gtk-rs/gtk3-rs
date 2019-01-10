@@ -7,7 +7,7 @@ use Cancellable;
 use ffi;
 use glib_ffi;
 use glib;
-use glib::object::{IsA, Downcast};
+use glib::object::{IsA, Cast};
 use glib::translate::*;
 use std::cell::RefCell;
 use std::mem::transmute;
@@ -23,19 +23,19 @@ pub trait PollableOutputStreamExtManual {
     where F: FnMut(&Self) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>>;
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>>;
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone;
 }
 
-impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManual for O {
+impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
-            let source = ffi::g_pollable_output_stream_create_source(self.to_glib_none().0, cancellable.0);
+            let source = ffi::g_pollable_output_stream_create_source(self.as_ref().to_glib_none().0, cancellable.0);
 
             let trampoline = trampoline::<Self> as glib_ffi::gpointer;
             glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<Self>));
@@ -51,7 +51,7 @@ impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManu
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> {
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -66,7 +66,7 @@ impl<O: IsA<PollableOutputStream> + Clone + 'static> PollableOutputStreamExtManu
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> {
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -89,7 +89,7 @@ unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(stream: *mut ffi::
     let func: &Fragile<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
-    (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).downcast_unchecked()).to_glib()
+    (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast()).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {

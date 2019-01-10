@@ -3,7 +3,7 @@ use SubprocessLauncher;
 #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
 use ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-use glib;
+use glib::translate::*;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;
 #[cfg(any(all(feature = "v2_40", unix), all(feature = "dox", unix)))]
@@ -28,11 +28,11 @@ pub trait SubprocessLauncherExtManual {
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherExtManual for O {
+impl<O: IsA<SubprocessLauncher>> SubprocessLauncherExtManual for O {
     #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
     fn take_fd<F: IntoRawFd, G: IntoRawFd>(&self, source_fd: F, target_fd: G) {
         unsafe {
-            ffi::g_subprocess_launcher_take_fd(self.to_glib_none().0,
+            ffi::g_subprocess_launcher_take_fd(self.as_ref().to_glib_none().0,
                                                source_fd.into_raw_fd(),
                                                target_fd.into_raw_fd());
         }
@@ -41,7 +41,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
     fn take_stderr_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stderr_fd(self.to_glib_none().0,
+            ffi::g_subprocess_launcher_take_stderr_fd(self.as_ref().to_glib_none().0,
                                                       fd.into_raw_fd());
         }
     }
@@ -49,7 +49,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
     fn take_stdin_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stdin_fd(self.to_glib_none().0,
+            ffi::g_subprocess_launcher_take_stdin_fd(self.as_ref().to_glib_none().0,
                                                      fd.into_raw_fd());
         }
     }
@@ -57,7 +57,7 @@ impl<O: IsA<SubprocessLauncher> + IsA<glib::object::Object>> SubprocessLauncherE
     #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
     fn take_stdout_fd<F: IntoRawFd>(&self, fd: F) {
         unsafe {
-            ffi::g_subprocess_launcher_take_stdout_fd(self.to_glib_none().0,
+            ffi::g_subprocess_launcher_take_stdout_fd(self.as_ref().to_glib_none().0,
                                                       fd.into_raw_fd());
         }
     }

@@ -6,7 +6,6 @@
 use Cancellable;
 use Error;
 use ffi;
-use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::Priority;
@@ -35,19 +34,19 @@ pub trait InputStreamExtManual: Sized {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>>;
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone;
 
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>>;
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone;
 
     fn into_read(self) -> InputStreamRead<Self> {
         InputStreamRead(self)
     }
 }
 
-impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtManual for O {
+impl<O: IsA<InputStream>> InputStreamExtManual for O {
     fn read<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -56,7 +55,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_input_stream_read(self.to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = ffi::g_input_stream_read(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -74,7 +73,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
         unsafe {
             let mut bytes_read = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = ffi::g_input_stream_read_all(self.to_glib_none().0, buffer_ptr, count, &mut bytes_read, cancellable.0, &mut error);
+            let _ = ffi::g_input_stream_read_all(self.as_ref().to_glib_none().0, buffer_ptr, count, &mut bytes_read, cancellable.0, &mut error);
 
             if error.is_null() {
                 Ok((bytes_read, None))
@@ -118,7 +117,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
         }
         let callback = read_all_async_trampoline::<B, Q>;
         unsafe {
-            ffi::g_input_stream_read_all_async(self.to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_input_stream_read_all_async(self.as_ref().to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -150,7 +149,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
         }
         let callback = read_async_trampoline::<B, Q>;
         unsafe {
-            ffi::g_input_stream_read_async(self.to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_input_stream_read_async(self.as_ref().to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -158,7 +157,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> {
+    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -185,7 +184,7 @@ impl<O: IsA<InputStream> + IsA<glib::Object> + Clone + 'static> InputStreamExtMa
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> {
+    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -315,7 +314,7 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            strm.read_bytes_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.read_bytes_async(10, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -331,7 +330,7 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            strm.skip_async(10, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.skip_async(10, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
