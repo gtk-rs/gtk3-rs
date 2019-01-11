@@ -11,14 +11,13 @@ use ffi;
 use gio;
 use gio_ffi;
 use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
 use gobject_ffi;
 use std::fmt;
-use std::mem;
 use std::ptr;
 
 glib_wrapper! {
@@ -121,7 +120,7 @@ impl Pixbuf {
     }
 }
 
-pub trait PixbufExt {
+pub trait PixbufExt: 'static {
     fn add_alpha(&self, substitute_color: bool, r: u8, g: u8, b: u8) -> Option<Pixbuf>;
 
     fn apply_embedded_orientation(&self) -> Option<Pixbuf>;
@@ -155,7 +154,7 @@ pub trait PixbufExt {
 
     fn get_n_channels(&self) -> i32;
 
-    fn get_option(&self, key: &str) -> Option<String>;
+    fn get_option(&self, key: &str) -> Option<GString>;
 
     //#[cfg(any(feature = "v2_32", feature = "dox"))]
     //fn get_options(&self) -> /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 };
@@ -189,7 +188,7 @@ pub trait PixbufExt {
     //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Q, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     //#[cfg(feature = "futures")]
-    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>>;
+    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType);
 
@@ -202,7 +201,7 @@ pub trait PixbufExt {
     //fn get_property_pixels(&self) -> /*Unimplemented*/Fundamental: Pointer;
 }
 
-impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
+impl<O: IsA<Pixbuf>> PixbufExt for O {
     fn add_alpha(&self, substitute_color: bool, r: u8, g: u8, b: u8) -> Option<Pixbuf> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_add_alpha(const_override(self.to_glib_none().0), substitute_color.to_glib(), r, g, b))
@@ -300,7 +299,7 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
         }
     }
 
-    fn get_option(&self, key: &str) -> Option<String> {
+    fn get_option(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_get_option(self.to_glib_none().0, key.to_glib_none().0))
         }
@@ -380,7 +379,7 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> {
+    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         //use gio::GioFuture;
         //use fragile::Fragile;
 
@@ -427,7 +426,7 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     fn get_property_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
             let mut value = Value::from_type(<glib::Bytes as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "pixel-bytes".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"pixel-bytes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -435,7 +434,7 @@ impl<O: IsA<Pixbuf> + IsA<glib::object::Object>> PixbufExt for O {
     //fn get_property_pixels(&self) -> /*Unimplemented*/Fundamental: Pointer {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0, "pixels".to_glib_none().0, value.to_glib_none_mut().0);
+    //        gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"pixels\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get().unwrap()
     //    }
     //}

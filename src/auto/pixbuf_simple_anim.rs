@@ -5,19 +5,15 @@
 use Pixbuf;
 use PixbufAnimation;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct PixbufSimpleAnim(Object<ffi::GdkPixbufSimpleAnim, ffi::GdkPixbufSimpleAnimClass>): PixbufAnimation;
@@ -35,7 +31,7 @@ impl PixbufSimpleAnim {
     }
 }
 
-pub trait PixbufSimpleAnimExt {
+pub trait PixbufSimpleAnimExt: 'static {
     fn add_frame(&self, pixbuf: &Pixbuf);
 
     fn get_loop(&self) -> bool;
@@ -45,7 +41,7 @@ pub trait PixbufSimpleAnimExt {
     fn connect_property_loop_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<PixbufSimpleAnim> + IsA<glib::object::Object>> PixbufSimpleAnimExt for O {
+impl<O: IsA<PixbufSimpleAnim>> PixbufSimpleAnimExt for O {
     fn add_frame(&self, pixbuf: &Pixbuf) {
         unsafe {
             ffi::gdk_pixbuf_simple_anim_add_frame(self.to_glib_none().0, pixbuf.to_glib_none().0);
@@ -67,7 +63,7 @@ impl<O: IsA<PixbufSimpleAnim> + IsA<glib::object::Object>> PixbufSimpleAnimExt f
     fn connect_property_loop_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::loop",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::loop\0".as_ptr() as *const _,
                 transmute(notify_loop_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

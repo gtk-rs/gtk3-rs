@@ -3,11 +3,8 @@
 // DO NOT EDIT
 
 use ffi;
+use glib::GString;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -21,31 +18,31 @@ glib_wrapper! {
 }
 
 impl PixbufFormat {
-    pub fn get_description(&self) -> Option<String> {
+    pub fn get_description(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_description(mut_override(self.to_glib_none().0)))
         }
     }
 
-    pub fn get_extensions(&self) -> Vec<String> {
+    pub fn get_extensions(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_pixbuf_format_get_extensions(mut_override(self.to_glib_none().0)))
         }
     }
 
-    pub fn get_license(&self) -> Option<String> {
+    pub fn get_license(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_license(mut_override(self.to_glib_none().0)))
         }
     }
 
-    pub fn get_mime_types(&self) -> Vec<String> {
+    pub fn get_mime_types(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::gdk_pixbuf_format_get_mime_types(mut_override(self.to_glib_none().0)))
         }
     }
 
-    pub fn get_name(&self) -> Option<String> {
+    pub fn get_name(&self) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::gdk_pixbuf_format_get_name(mut_override(self.to_glib_none().0)))
         }
