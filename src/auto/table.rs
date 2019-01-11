@@ -4,20 +4,17 @@
 
 use Object;
 use ffi;
-use glib;
+use glib::GString;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Table(Object<ffi::AtkTable, ffi::AtkTableIface>);
@@ -27,7 +24,7 @@ glib_wrapper! {
     }
 }
 
-pub trait TableExt {
+pub trait TableExt: 'static {
     fn add_column_selection(&self, column: i32) -> bool;
 
     fn add_row_selection(&self, row: i32) -> bool;
@@ -36,7 +33,7 @@ pub trait TableExt {
 
     fn get_column_at_index(&self, index_: i32) -> i32;
 
-    fn get_column_description(&self, column: i32) -> Option<String>;
+    fn get_column_description(&self, column: i32) -> Option<GString>;
 
     fn get_column_extent_at(&self, row: i32, column: i32) -> i32;
 
@@ -50,7 +47,7 @@ pub trait TableExt {
 
     fn get_row_at_index(&self, index_: i32) -> i32;
 
-    fn get_row_description(&self, row: i32) -> Option<String>;
+    fn get_row_description(&self, row: i32) -> Option<GString>;
 
     fn get_row_extent_at(&self, row: i32, column: i32) -> i32;
 
@@ -97,7 +94,7 @@ pub trait TableExt {
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
+impl<O: IsA<Table>> TableExt for O {
     fn add_column_selection(&self, column: i32) -> bool {
         unsafe {
             from_glib(ffi::atk_table_add_column_selection(self.to_glib_none().0, column))
@@ -122,7 +119,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
         }
     }
 
-    fn get_column_description(&self, column: i32) -> Option<String> {
+    fn get_column_description(&self, column: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_table_get_column_description(self.to_glib_none().0, column))
         }
@@ -164,7 +161,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
         }
     }
 
-    fn get_row_description(&self, row: i32) -> Option<String> {
+    fn get_row_description(&self, row: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_table_get_row_description(self.to_glib_none().0, row))
         }
@@ -263,7 +260,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "column-deleted",
+            connect_raw(self.to_glib_none().0 as *mut _, b"column-deleted\0".as_ptr() as *const _,
                 transmute(column_deleted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -271,7 +268,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "column-inserted",
+            connect_raw(self.to_glib_none().0 as *mut _, b"column-inserted\0".as_ptr() as *const _,
                 transmute(column_inserted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -279,7 +276,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "column-reordered",
+            connect_raw(self.to_glib_none().0 as *mut _, b"column-reordered\0".as_ptr() as *const _,
                 transmute(column_reordered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -287,7 +284,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "model-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"model-changed\0".as_ptr() as *const _,
                 transmute(model_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -295,7 +292,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "row-deleted",
+            connect_raw(self.to_glib_none().0 as *mut _, b"row-deleted\0".as_ptr() as *const _,
                 transmute(row_deleted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -303,7 +300,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "row-inserted",
+            connect_raw(self.to_glib_none().0 as *mut _, b"row-inserted\0".as_ptr() as *const _,
                 transmute(row_inserted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -311,7 +308,7 @@ impl<O: IsA<Table> + IsA<glib::object::Object>> TableExt for O {
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "row-reordered",
+            connect_raw(self.to_glib_none().0 as *mut _, b"row-reordered\0".as_ptr() as *const _,
                 transmute(row_reordered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

@@ -10,15 +10,13 @@ use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Relation(Object<ffi::AtkRelation, ffi::AtkRelationClass>);
@@ -38,7 +36,7 @@ impl Relation {
     }
 }
 
-pub trait RelationExt {
+pub trait RelationExt: 'static {
     fn add_target<P: IsA<Object>>(&self, target: &P);
 
     fn get_relation_type(&self) -> RelationType;
@@ -56,7 +54,7 @@ pub trait RelationExt {
     fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Relation> + IsA<glib::object::Object>> RelationExt for O {
+impl<O: IsA<Relation>> RelationExt for O {
     fn add_target<P: IsA<Object>>(&self, target: &P) {
         unsafe {
             ffi::atk_relation_add_target(self.to_glib_none().0, target.to_glib_none().0);
@@ -81,20 +79,20 @@ impl<O: IsA<Relation> + IsA<glib::object::Object>> RelationExt for O {
 
     fn set_property_relation_type(&self, relation_type: RelationType) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "relation-type".to_glib_none().0, Value::from(&relation_type).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"relation-type\0".as_ptr() as *const _, Value::from(&relation_type).to_glib_none().0);
         }
     }
 
     fn set_property_target(&self, target: Option<&glib::ValueArray>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0, "target".to_glib_none().0, Value::from(target).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"target\0".as_ptr() as *const _, Value::from(target).to_glib_none().0);
         }
     }
 
     fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::relation-type",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::relation-type\0".as_ptr() as *const _,
                 transmute(notify_relation_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -102,7 +100,7 @@ impl<O: IsA<Relation> + IsA<glib::object::Object>> RelationExt for O {
     fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::target",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::target\0".as_ptr() as *const _,
                 transmute(notify_target_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

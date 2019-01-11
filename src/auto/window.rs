@@ -4,19 +4,15 @@
 
 use Object;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Window(Object<ffi::AtkWindow, ffi::AtkWindowIface>): Object;
@@ -26,7 +22,7 @@ glib_wrapper! {
     }
 }
 
-pub trait AtkWindowExt {
+pub trait AtkWindowExt: 'static {
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -46,11 +42,11 @@ pub trait AtkWindowExt {
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
+impl<O: IsA<Window>> AtkWindowExt for O {
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "activate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"activate\0".as_ptr() as *const _,
                 transmute(activate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -58,7 +54,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_create<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "create",
+            connect_raw(self.to_glib_none().0 as *mut _, b"create\0".as_ptr() as *const _,
                 transmute(create_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -66,7 +62,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_deactivate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "deactivate",
+            connect_raw(self.to_glib_none().0 as *mut _, b"deactivate\0".as_ptr() as *const _,
                 transmute(deactivate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -74,7 +70,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_destroy<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "destroy",
+            connect_raw(self.to_glib_none().0 as *mut _, b"destroy\0".as_ptr() as *const _,
                 transmute(destroy_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -82,7 +78,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_maximize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "maximize",
+            connect_raw(self.to_glib_none().0 as *mut _, b"maximize\0".as_ptr() as *const _,
                 transmute(maximize_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -90,7 +86,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_minimize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "minimize",
+            connect_raw(self.to_glib_none().0 as *mut _, b"minimize\0".as_ptr() as *const _,
                 transmute(minimize_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -98,7 +94,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_move<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "move",
+            connect_raw(self.to_glib_none().0 as *mut _, b"move\0".as_ptr() as *const _,
                 transmute(move_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -106,7 +102,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_resize<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "resize",
+            connect_raw(self.to_glib_none().0 as *mut _, b"resize\0".as_ptr() as *const _,
                 transmute(resize_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -114,7 +110,7 @@ impl<O: IsA<Window> + IsA<glib::object::Object>> AtkWindowExt for O {
     fn connect_restore<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "restore",
+            connect_raw(self.to_glib_none().0 as *mut _, b"restore\0".as_ptr() as *const _,
                 transmute(restore_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

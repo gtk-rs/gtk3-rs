@@ -8,11 +8,7 @@ use ffi;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Socket(Object<ffi::AtkSocket, ffi::AtkSocketClass>): Object, Component;
@@ -37,7 +33,7 @@ impl Default for Socket {
     }
 }
 
-pub trait AtkSocketExt {
+pub trait AtkSocketExt: 'static {
     fn embed(&self, plug_id: &str);
 
     fn is_occupied(&self) -> bool;

@@ -7,11 +7,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass>);
@@ -21,7 +17,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ObjectFactoryExt {
+pub trait ObjectFactoryExt: 'static {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
 
     fn get_accessible_type(&self) -> glib::types::Type;

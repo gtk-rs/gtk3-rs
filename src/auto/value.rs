@@ -7,23 +7,27 @@ use Range;
 use ffi;
 use glib;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
+use glib::GString;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::object::Downcast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib_ffi;
-use gobject_ffi;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use libc;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem::transmute;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -34,7 +38,7 @@ glib_wrapper! {
     }
 }
 
-pub trait ValueExt {
+pub trait ValueExt: 'static {
     fn get_current_value(&self) -> glib::Value;
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
@@ -53,7 +57,7 @@ pub trait ValueExt {
     fn get_sub_ranges(&self) -> Vec<Range>;
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
-    fn get_value_and_text(&self) -> (f64, String);
+    fn get_value_and_text(&self) -> (f64, GString);
 
     fn set_current_value(&self, value: &glib::Value) -> bool;
 
@@ -64,7 +68,7 @@ pub trait ValueExt {
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Value> + IsA<glib::object::Object>> ValueExt for O {
+impl<O: IsA<Value>> ValueExt for O {
     fn get_current_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
@@ -119,7 +123,7 @@ impl<O: IsA<Value> + IsA<glib::object::Object>> ValueExt for O {
     }
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
-    fn get_value_and_text(&self) -> (f64, String) {
+    fn get_value_and_text(&self) -> (f64, GString) {
         unsafe {
             let mut value = mem::uninitialized();
             let mut text = ptr::null_mut();
@@ -145,7 +149,7 @@ impl<O: IsA<Value> + IsA<glib::object::Object>> ValueExt for O {
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, f64, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "value-changed",
+            connect_raw(self.to_glib_none().0 as *mut _, b"value-changed\0".as_ptr() as *const _,
                 transmute(value_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -155,7 +159,7 @@ impl<O: IsA<Value> + IsA<glib::object::Object>> ValueExt for O {
 unsafe extern "C" fn value_changed_trampoline<P>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Value> {
     let f: &&(Fn(&P, f64, &str) + 'static) = transmute(f);
-    f(&Value::from_glib_borrow(this).downcast_unchecked(), value, &String::from_glib_none(text))
+    f(&Value::from_glib_borrow(this).downcast_unchecked(), value, &GString::from_glib_borrow(text))
 }
 
 impl fmt::Display for Value {

@@ -8,11 +8,7 @@ use RelationType;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct RelationSet(Object<ffi::AtkRelationSet, ffi::AtkRelationSetClass>);
@@ -37,7 +33,7 @@ impl Default for RelationSet {
     }
 }
 
-pub trait RelationSetExt {
+pub trait RelationSetExt: 'static {
     fn add(&self, relation: &Relation);
 
     fn add_relation_by_type<P: IsA<Object>>(&self, relationship: RelationType, target: &P);

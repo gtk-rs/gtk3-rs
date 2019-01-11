@@ -6,11 +6,9 @@ use Object;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
+#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct TableCell(Object<ffi::AtkTableCell, ffi::AtkTableCellIface>): Object;
@@ -20,7 +18,7 @@ glib_wrapper! {
     }
 }
 
-pub trait TableCellExt {
+pub trait TableCellExt: 'static {
     //#[cfg(any(feature = "v2_12", feature = "dox"))]
     //fn get_column_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
 

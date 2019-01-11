@@ -4,13 +4,11 @@
 
 use CoordType;
 use ffi;
+use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
 use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Image(Object<ffi::AtkImage, ffi::AtkImageIface>);
@@ -20,10 +18,10 @@ glib_wrapper! {
     }
 }
 
-pub trait AtkImageExt {
-    fn get_image_description(&self) -> Option<String>;
+pub trait AtkImageExt: 'static {
+    fn get_image_description(&self) -> Option<GString>;
 
-    fn get_image_locale(&self) -> Option<String>;
+    fn get_image_locale(&self) -> Option<GString>;
 
     fn get_image_position(&self, coord_type: CoordType) -> (i32, i32);
 
@@ -33,13 +31,13 @@ pub trait AtkImageExt {
 }
 
 impl<O: IsA<Image>> AtkImageExt for O {
-    fn get_image_description(&self) -> Option<String> {
+    fn get_image_description(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_description(self.to_glib_none().0))
         }
     }
 
-    fn get_image_locale(&self) -> Option<String> {
+    fn get_image_locale(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_image_get_image_locale(self.to_glib_none().0))
         }

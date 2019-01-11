@@ -7,11 +7,7 @@ use ffi;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
@@ -21,7 +17,7 @@ glib_wrapper! {
     }
 }
 
-pub trait RegistryExt {
+pub trait RegistryExt: 'static {
     fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
 
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type;

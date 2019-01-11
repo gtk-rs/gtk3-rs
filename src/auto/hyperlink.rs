@@ -5,21 +5,19 @@
 use Action;
 use Object;
 use ffi;
-use glib;
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass>): Action;
@@ -29,7 +27,7 @@ glib_wrapper! {
     }
 }
 
-pub trait HyperlinkExt {
+pub trait HyperlinkExt: 'static {
     fn get_end_index(&self) -> i32;
 
     fn get_n_anchors(&self) -> i32;
@@ -38,7 +36,7 @@ pub trait HyperlinkExt {
 
     fn get_start_index(&self) -> i32;
 
-    fn get_uri(&self, i: i32) -> Option<String>;
+    fn get_uri(&self, i: i32) -> Option<GString>;
 
     fn is_inline(&self) -> bool;
 
@@ -55,7 +53,7 @@ pub trait HyperlinkExt {
     fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
+impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn get_end_index(&self) -> i32 {
         unsafe {
             ffi::atk_hyperlink_get_end_index(self.to_glib_none().0)
@@ -80,7 +78,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
         }
     }
 
-    fn get_uri(&self, i: i32) -> Option<String> {
+    fn get_uri(&self, i: i32) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::atk_hyperlink_get_uri(self.to_glib_none().0, i))
         }
@@ -101,7 +99,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn get_property_number_of_anchors(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0, "number-of-anchors".to_glib_none().0, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"number-of-anchors\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -109,7 +107,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "link-activated",
+            connect_raw(self.to_glib_none().0 as *mut _, b"link-activated\0".as_ptr() as *const _,
                 transmute(link_activated_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -117,7 +115,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn connect_property_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::end-index",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::end-index\0".as_ptr() as *const _,
                 transmute(notify_end_index_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -125,7 +123,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn connect_property_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::number-of-anchors",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::number-of-anchors\0".as_ptr() as *const _,
                 transmute(notify_number_of_anchors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -133,7 +131,7 @@ impl<O: IsA<Hyperlink> + IsA<glib::object::Object>> HyperlinkExt for O {
     fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "notify::start-index",
+            connect_raw(self.to_glib_none().0 as *mut _, b"notify::start-index\0".as_ptr() as *const _,
                 transmute(notify_start_index_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }

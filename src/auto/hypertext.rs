@@ -4,20 +4,16 @@
 
 use Hyperlink;
 use ffi;
-use glib;
 use glib::object::Downcast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
-use glib::signal::connect;
+use glib::signal::connect_raw;
 use glib::translate::*;
 use glib_ffi;
-use gobject_ffi;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
-use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Hypertext(Object<ffi::AtkHypertext, ffi::AtkHypertextIface>);
@@ -27,7 +23,7 @@ glib_wrapper! {
     }
 }
 
-pub trait HypertextExt {
+pub trait HypertextExt: 'static {
     fn get_link(&self, link_index: i32) -> Option<Hyperlink>;
 
     fn get_link_index(&self, char_index: i32) -> i32;
@@ -37,7 +33,7 @@ pub trait HypertextExt {
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Hypertext> + IsA<glib::object::Object>> HypertextExt for O {
+impl<O: IsA<Hypertext>> HypertextExt for O {
     fn get_link(&self, link_index: i32) -> Option<Hyperlink> {
         unsafe {
             from_glib_none(ffi::atk_hypertext_get_link(self.to_glib_none().0, link_index))
@@ -59,7 +55,7 @@ impl<O: IsA<Hypertext> + IsA<glib::object::Object>> HypertextExt for O {
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, i32) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "link-selected",
+            connect_raw(self.to_glib_none().0 as *mut _, b"link-selected\0".as_ptr() as *const _,
                 transmute(link_selected_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
