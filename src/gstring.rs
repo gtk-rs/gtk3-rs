@@ -21,7 +21,7 @@ use value::{FromValueOptional, Value, SetValueOptional, SetValue};
 
 #[derive(Debug)]
 pub enum GString {
-    ForeignOwned(CString),
+    ForeignOwned(Option<CString>),
     Borrowed(*const c_char, usize),
     Owned(*mut c_char, usize)
 }
@@ -48,7 +48,7 @@ impl GString {
                 CStr::from_bytes_with_nul_unchecked(bytes)
             }
             GString::ForeignOwned(cstring) => {
-                cstring.as_c_str()
+                cstring.as_ref().expect("ForeignOwned shouldn't be empty").as_c_str()
             }
         };
         cstr.to_str().unwrap()
@@ -179,7 +179,12 @@ impl Deref for GString {
 
 impl From<GString> for String {
     #[inline]
-    fn from(s: GString) -> Self {
+    fn from(mut s: GString) -> Self {
+        if let GString::ForeignOwned(ref mut cstring) = s {
+            if let Ok(s) = cstring.take().expect("ForeignOwned shouldn't be empty").into_string() {
+                return s;
+            }
+        }
         String::from(s.as_str())
     }
 }
@@ -195,7 +200,7 @@ impl From<GString> for Box<str> {
 impl From<String> for GString {
     #[inline]
     fn from(s: String) -> Self {
-        s.as_bytes().to_vec().into()
+        s.into_bytes().into()
     }
 }
 
@@ -224,7 +229,7 @@ impl From<Vec<u8>> for GString {
 impl From<CString> for GString {
     #[inline]
     fn from(s: CString) -> Self {
-        GString::ForeignOwned(s)
+        GString::ForeignOwned(Some(s))
     }
 }
 
