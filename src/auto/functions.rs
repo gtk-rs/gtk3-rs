@@ -142,6 +142,13 @@ pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> Option<std::pa
     }
 }
 
+#[cfg(any(feature = "v2_58", feature = "dox"))]
+pub fn canonicalize_filename<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(filename: P, relative_to: Q) -> Option<std::path::PathBuf> {
+    unsafe {
+        from_glib_full(ffi::g_canonicalize_filename(filename.as_ref().to_glib_none().0, relative_to.as_ref().to_glib_none().0))
+    }
+}
+
 pub fn chdir<P: AsRef<std::path::Path>>(path: P) -> i32 {
     unsafe {
         ffi::g_chdir(path.as_ref().to_glib_none().0)
@@ -465,6 +472,13 @@ pub fn get_host_name() -> Option<GString> {
 pub fn get_language_names() -> Vec<GString> {
     unsafe {
         FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names())
+    }
+}
+
+#[cfg(any(feature = "v2_58", feature = "dox"))]
+pub fn get_language_names_with_category(category_name: &str) -> Vec<GString> {
+    unsafe {
+        FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names_with_category(category_name.to_glib_none().0))
     }
 }
 
@@ -1030,6 +1044,11 @@ pub fn spaced_primes_closest(num: u32) -> u32 {
 
 //pub fn spawn_async<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<Pid, Error> {
 //    unsafe { TODO: call ffi::g_spawn_async() }
+//}
+
+//#[cfg(any(feature = "v2_58", feature = "dox"))]
+//pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<Pid, Error> {
+//    unsafe { TODO: call ffi::g_spawn_async_with_fds() }
 //}
 
 //pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<(Pid, i32, i32, i32), Error> {

@@ -32,6 +32,13 @@ impl TimeZone {
         }
     }
 
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn new_offset(seconds: i32) -> TimeZone {
+        unsafe {
+            from_glib_full(ffi::g_time_zone_new_offset(seconds))
+        }
+    }
+
     pub fn new_utc() -> TimeZone {
         unsafe {
             from_glib_full(ffi::g_time_zone_new_utc())
@@ -47,6 +54,13 @@ impl TimeZone {
     pub fn get_abbreviation(&self, interval: i32) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_time_zone_get_abbreviation(self.to_glib_none().0, interval))
+        }
+    }
+
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn get_identifier(&self) -> Option<GString> {
+        unsafe {
+            from_glib_none(ffi::g_time_zone_get_identifier(self.to_glib_none().0))
         }
     }
 

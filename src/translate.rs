@@ -656,6 +656,45 @@ macro_rules! impl_to_glib_container_from_slice_string {
                 }
             }
         }
+        impl<'a> ToGlibContainerFromSlice<'a, *const $ffi_name> for $name {
+            type Storage = (Vec<Stash<'a, $ffi_name, $name>>, Option<Vec<$ffi_name>>);
+
+            fn to_glib_none_from_slice(t: &'a [$name]) -> (*const $ffi_name, Self::Storage) {
+                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
+                v_ptr.push(ptr::null_mut() as $ffi_name);
+
+                (v_ptr.as_ptr() as *const $ffi_name, (v, Some(v_ptr)))
+            }
+
+            fn to_glib_container_from_slice(t: &'a [$name]) -> (*const $ffi_name, Self::Storage) {
+                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+
+                let v_ptr = unsafe {
+                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
+
+                    for (i, s) in v.iter().enumerate() {
+                        ptr::write(v_ptr.add(i), s.0);
+                    }
+
+                    v_ptr as *const $ffi_name
+                };
+
+                (v_ptr, (v, None))
+            }
+
+            fn to_glib_full_from_slice(t: &[$name]) -> *const $ffi_name {
+                unsafe {
+                    let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
+
+                    for (i, s) in t.iter().enumerate() {
+                        ptr::write(v_ptr.add(i), s.to_glib_full());
+                    }
+
+                    v_ptr as *const $ffi_name
+                }
+            }
+        }
     }
 }
 

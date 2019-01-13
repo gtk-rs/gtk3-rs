@@ -39,7 +39,7 @@ impl Closure {
 
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {
         unsafe extern "C" fn marshal<F>(_closure: *mut gobject_ffi::GClosure, return_value: *mut gobject_ffi::GValue,
-            n_param_values: c_uint, param_values: *mut gobject_ffi::GValue, _invocation_hint: *mut c_void,
+            n_param_values: c_uint, param_values: *const gobject_ffi::GValue, _invocation_hint: *mut c_void,
             marshal_data: *mut c_void)
             where F: Fn(&[Value]) -> Option<Value>
         {

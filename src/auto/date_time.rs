@@ -208,6 +208,13 @@ impl DateTime {
         }
     }
 
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn get_timezone(&self) -> Option<TimeZone> {
+        unsafe {
+            from_glib_none(ffi::g_date_time_get_timezone(self.to_glib_none().0))
+        }
+    }
+
     pub fn get_timezone_abbreviation(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_date_time_get_timezone_abbreviation(self.to_glib_none().0))
