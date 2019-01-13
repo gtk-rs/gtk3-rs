@@ -20,7 +20,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "atk";
     let shared_libs = ["atk-1.0"];
-    let version = if cfg!(feature = "v2_14") {
+    let version = if cfg!(feature = "v2_30") {
+        "2.30"
+    } else if cfg!(feature = "v2_14") {
         "2.14"
     } else if cfg!(feature = "v2_12") {
         "2.12"

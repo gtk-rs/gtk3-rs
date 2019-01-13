@@ -309,6 +309,7 @@ pub const PANGO_FONT_MASK_WEIGHT: PangoFontMask = 8;
 pub const PANGO_FONT_MASK_STRETCH: PangoFontMask = 16;
 pub const PANGO_FONT_MASK_SIZE: PangoFontMask = 32;
 pub const PANGO_FONT_MASK_GRAVITY: PangoFontMask = 64;
+pub const PANGO_FONT_MASK_VARIATIONS: PangoFontMask = 128;
 
 // Callbacks
 pub type PangoAttrDataCopyFunc = Option<unsafe extern "C" fn(gconstpointer) -> gpointer>;
@@ -1201,22 +1202,6 @@ impl ::std::fmt::Debug for PangoRendererPrivate {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
-pub struct PangoScriptForLang {
-    pub lang: [c_char; 7],
-    pub scripts: [PangoScript; 3],
-}
-
-impl ::std::fmt::Debug for PangoScriptForLang {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoScriptForLang @ {:?}", self as *const _))
-         .field("lang", &self.lang)
-         .field("scripts", &self.scripts)
-         .finish()
-    }
-}
-
-#[repr(C)]
 pub struct PangoScriptIter(c_void);
 
 impl ::std::fmt::Debug for PangoScriptIter {
@@ -1599,6 +1584,8 @@ extern "C" {
     pub fn pango_font_description_get_stretch(desc: *const PangoFontDescription) -> PangoStretch;
     pub fn pango_font_description_get_style(desc: *const PangoFontDescription) -> PangoStyle;
     pub fn pango_font_description_get_variant(desc: *const PangoFontDescription) -> PangoVariant;
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn pango_font_description_get_variations(desc: *const PangoFontDescription) -> *const c_char;
     pub fn pango_font_description_get_weight(desc: *const PangoFontDescription) -> PangoWeight;
     pub fn pango_font_description_hash(desc: *const PangoFontDescription) -> c_uint;
     pub fn pango_font_description_merge(desc: *mut PangoFontDescription, desc_to_merge: *const PangoFontDescription, replace_existing: gboolean);
@@ -1611,6 +1598,10 @@ extern "C" {
     pub fn pango_font_description_set_stretch(desc: *mut PangoFontDescription, stretch: PangoStretch);
     pub fn pango_font_description_set_style(desc: *mut PangoFontDescription, style: PangoStyle);
     pub fn pango_font_description_set_variant(desc: *mut PangoFontDescription, variant: PangoVariant);
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn pango_font_description_set_variations(desc: *mut PangoFontDescription, settings: *const c_char);
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn pango_font_description_set_variations_static(desc: *mut PangoFontDescription, settings: *const c_char);
     pub fn pango_font_description_set_weight(desc: *mut PangoFontDescription, weight: PangoWeight);
     pub fn pango_font_description_to_filename(desc: *const PangoFontDescription) -> *mut c_char;
     pub fn pango_font_description_to_string(desc: *const PangoFontDescription) -> *mut c_char;
@@ -1684,7 +1675,7 @@ extern "C" {
     //=========================================================================
     pub fn pango_language_get_type() -> GType;
     pub fn pango_language_get_sample_string(language: *mut PangoLanguage) -> *const c_char;
-    pub fn pango_language_get_scripts(language: *mut PangoLanguage, num_scripts: *mut c_int) -> *mut PangoScript;
+    pub fn pango_language_get_scripts(language: *mut PangoLanguage, num_scripts: *mut c_int) -> *const PangoScript;
     pub fn pango_language_includes_script(language: *mut PangoLanguage, script: PangoScript) -> gboolean;
     pub fn pango_language_matches(language: *mut PangoLanguage, range_list: *const c_char) -> gboolean;
     pub fn pango_language_to_string(language: *mut PangoLanguage) -> *const c_char;
@@ -1906,7 +1897,7 @@ extern "C" {
     pub fn pango_layout_get_lines(layout: *mut PangoLayout) -> *mut glib::GSList;
     pub fn pango_layout_get_lines_readonly(layout: *mut PangoLayout) -> *mut glib::GSList;
     pub fn pango_layout_get_log_attrs(layout: *mut PangoLayout, attrs: *mut *mut PangoLogAttr, n_attrs: *mut c_int);
-    pub fn pango_layout_get_log_attrs_readonly(layout: *mut PangoLayout, n_attrs: *mut c_int) -> *mut PangoLogAttr;
+    pub fn pango_layout_get_log_attrs_readonly(layout: *mut PangoLayout, n_attrs: *mut c_int) -> *const PangoLogAttr;
     pub fn pango_layout_get_pixel_extents(layout: *mut PangoLayout, ink_rect: *mut PangoRectangle, logical_rect: *mut PangoRectangle);
     pub fn pango_layout_get_pixel_size(layout: *mut PangoLayout, width: *mut c_int, height: *mut c_int);
     #[cfg(any(feature = "v1_32_4", feature = "dox"))]

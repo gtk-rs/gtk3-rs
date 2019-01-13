@@ -20,7 +20,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "gobject-2.0";
     let shared_libs = ["gobject-2.0"];
-    let version = if cfg!(feature = "v2_54") {
+    let version = if cfg!(feature = "v2_58") {
+        "2.58"
+    } else if cfg!(feature = "v2_54") {
         "2.54"
     } else if cfg!(feature = "v2_46") {
         "2.46"

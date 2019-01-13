@@ -196,7 +196,7 @@ pub type GBoxedFreeFunc = Option<unsafe extern "C" fn(gpointer)>;
 pub type GCallback = Option<unsafe extern "C" fn()>;
 pub type GClassFinalizeFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
 pub type GClassInitFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
-pub type GClosureMarshal = Option<unsafe extern "C" fn(*mut GClosure, *mut GValue, c_uint, *mut GValue, gpointer, gpointer)>;
+pub type GClosureMarshal = Option<unsafe extern "C" fn(*mut GClosure, *mut GValue, c_uint, *const GValue, gpointer, gpointer)>;
 pub type GClosureNotify = Option<unsafe extern "C" fn(gpointer, *mut GClosure)>;
 pub type GInstanceInitFunc = Option<unsafe extern "C" fn(*mut GTypeInstance, gpointer)>;
 pub type GInterfaceFinalizeFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
@@ -205,7 +205,7 @@ pub type GObjectFinalizeFunc = Option<unsafe extern "C" fn(*mut GObject)>;
 pub type GObjectGetPropertyFunc = Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>;
 pub type GObjectSetPropertyFunc = Option<unsafe extern "C" fn(*mut GObject, c_uint, *const GValue, *mut GParamSpec)>;
 pub type GSignalAccumulator = Option<unsafe extern "C" fn(*mut GSignalInvocationHint, *mut GValue, *const GValue, gpointer) -> gboolean>;
-pub type GSignalEmissionHook = Option<unsafe extern "C" fn(*mut GSignalInvocationHint, c_uint, *mut GValue, gpointer) -> gboolean>;
+pub type GSignalEmissionHook = Option<unsafe extern "C" fn(*mut GSignalInvocationHint, c_uint, *const GValue, gpointer) -> gboolean>;
 pub type GToggleNotify = Option<unsafe extern "C" fn(gpointer, *mut GObject, gboolean)>;
 pub type GTypeClassCacheFunc = Option<unsafe extern "C" fn(gpointer, *mut GTypeClass) -> gboolean>;
 pub type GTypeInterfaceCheckFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
@@ -545,7 +545,7 @@ pub struct GSignalQuery {
     pub signal_flags: GSignalFlags,
     pub return_type: GType,
     pub n_params: c_uint,
-    pub param_types: *mut GType,
+    pub param_types: *const GType,
 }
 
 impl ::std::fmt::Debug for GSignalQuery {
@@ -1383,7 +1383,7 @@ extern "C" {
     pub fn g_closure_add_invalidate_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
     pub fn g_closure_add_marshal_guards(closure: *mut GClosure, pre_marshal_data: gpointer, pre_marshal_notify: GClosureNotify, post_marshal_data: gpointer, post_marshal_notify: GClosureNotify);
     pub fn g_closure_invalidate(closure: *mut GClosure);
-    pub fn g_closure_invoke(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *mut GValue, invocation_hint: gpointer);
+    pub fn g_closure_invoke(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer);
     pub fn g_closure_ref(closure: *mut GClosure) -> *mut GClosure;
     pub fn g_closure_remove_finalize_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
     pub fn g_closure_remove_invalidate_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
@@ -1671,7 +1671,7 @@ extern "C" {
     pub fn g_boxed_copy(boxed_type: GType, src_boxed: gconstpointer) -> gpointer;
     pub fn g_boxed_free(boxed_type: GType, boxed: gpointer);
     pub fn g_boxed_type_register_static(name: *const c_char, boxed_copy: GBoxedCopyFunc, boxed_free: GBoxedFreeFunc) -> GType;
-    pub fn g_clear_object(object_ptr: *mut *mut /*volatile*/GObject);
+    pub fn g_clear_object(object_ptr: *mut *mut GObject);
     pub fn g_enum_complete_type_info(g_enum_type: GType, info: *mut GTypeInfo, const_values: *const GEnumValue);
     pub fn g_enum_get_value(enum_class: *mut GEnumClass, value: c_int) -> *mut GEnumValue;
     pub fn g_enum_get_value_by_name(enum_class: *mut GEnumClass, name: *const c_char) -> *mut GEnumValue;
@@ -1720,7 +1720,7 @@ extern "C" {
     pub fn g_signal_accumulator_first_wins(ihint: *mut GSignalInvocationHint, return_accu: *mut GValue, handler_return: *const GValue, dummy: gpointer) -> gboolean;
     pub fn g_signal_accumulator_true_handled(ihint: *mut GSignalInvocationHint, return_accu: *mut GValue, handler_return: *const GValue, dummy: gpointer) -> gboolean;
     pub fn g_signal_add_emission_hook(signal_id: c_uint, detail: glib::GQuark, hook_func: GSignalEmissionHook, hook_data: gpointer, data_destroy: glib::GDestroyNotify) -> c_ulong;
-    pub fn g_signal_chain_from_overridden(instance_and_params: *mut GValue, return_value: *mut GValue);
+    pub fn g_signal_chain_from_overridden(instance_and_params: *const GValue, return_value: *mut GValue);
     pub fn g_signal_chain_from_overridden_handler(instance: gpointer, ...);
     pub fn g_signal_connect_closure(instance: *mut GObject, detailed_signal: *const c_char, closure: *mut GClosure, after: gboolean) -> c_ulong;
     pub fn g_signal_connect_closure_by_id(instance: *mut GObject, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, after: gboolean) -> c_ulong;
@@ -1729,7 +1729,7 @@ extern "C" {
     pub fn g_signal_emit(instance: *mut GObject, signal_id: c_uint, detail: glib::GQuark, ...);
     pub fn g_signal_emit_by_name(instance: *mut GObject, detailed_signal: *const c_char, ...);
     //pub fn g_signal_emit_valist(instance: gpointer, signal_id: c_uint, detail: glib::GQuark, var_args: /*Unimplemented*/va_list);
-    pub fn g_signal_emitv(instance_and_params: *mut GValue, signal_id: c_uint, detail: glib::GQuark, return_value: *mut GValue);
+    pub fn g_signal_emitv(instance_and_params: *const GValue, signal_id: c_uint, detail: glib::GQuark, return_value: *mut GValue);
     pub fn g_signal_get_invocation_hint(instance: *mut GObject) -> *mut GSignalInvocationHint;
     pub fn g_signal_handler_block(instance: *mut GObject, handler_id: c_ulong);
     pub fn g_signal_handler_disconnect(instance: *mut GObject, handler_id: c_ulong);

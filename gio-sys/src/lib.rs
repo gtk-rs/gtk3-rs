@@ -348,6 +348,7 @@ pub const G_ZLIB_COMPRESSOR_FORMAT_RAW: GZlibCompressorFormat = 2;
 
 // Constants
 pub const G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: *const c_char = b"gio-desktop-app-info-lookup\0" as *const u8 as *const c_char;
+pub const G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE: *const c_char = b"unix-device\0" as *const u8 as *const c_char;
 pub const G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE: *const c_char = b"access::can-delete\0" as *const u8 as *const c_char;
 pub const G_FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE: *const c_char = b"access::can-execute\0" as *const u8 as *const c_char;
 pub const G_FILE_ATTRIBUTE_ACCESS_CAN_READ: *const c_char = b"access::can-read\0" as *const u8 as *const c_char;
@@ -476,6 +477,7 @@ pub const G_ASK_PASSWORD_NEED_USERNAME: GAskPasswordFlags = 2;
 pub const G_ASK_PASSWORD_NEED_DOMAIN: GAskPasswordFlags = 4;
 pub const G_ASK_PASSWORD_SAVING_SUPPORTED: GAskPasswordFlags = 8;
 pub const G_ASK_PASSWORD_ANONYMOUS_SUPPORTED: GAskPasswordFlags = 16;
+pub const G_ASK_PASSWORD_TCRYPT: GAskPasswordFlags = 32;
 
 pub type GBusNameOwnerFlags = c_uint;
 pub const G_BUS_NAME_OWNER_FLAGS_NONE: GBusNameOwnerFlags = 0;
@@ -841,7 +843,7 @@ pub struct GAppInfoIface {
     pub get_commandline: Option<unsafe extern "C" fn(*mut GAppInfo) -> *const c_char>,
     pub get_display_name: Option<unsafe extern "C" fn(*mut GAppInfo) -> *const c_char>,
     pub set_as_last_used_for_type: Option<unsafe extern "C" fn(*mut GAppInfo, *const c_char, *mut *mut glib::GError) -> gboolean>,
-    pub get_supported_types: Option<unsafe extern "C" fn(*mut GAppInfo) -> *mut *mut c_char>,
+    pub get_supported_types: Option<unsafe extern "C" fn(*mut GAppInfo) -> *mut *const c_char>,
 }
 
 impl ::std::fmt::Debug for GAppInfoIface {
@@ -3193,10 +3195,10 @@ impl ::std::fmt::Debug for GMountIface {
 pub struct GMountOperationClass {
     pub parent_class: gobject::GObjectClass,
     pub ask_password: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, *const c_char, *const c_char, GAskPasswordFlags)>,
-    pub ask_question: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, *mut c_char)>,
+    pub ask_question: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, *mut *const c_char)>,
     pub reply: Option<unsafe extern "C" fn(*mut GMountOperation, GMountOperationResult)>,
     pub aborted: Option<unsafe extern "C" fn(*mut GMountOperation)>,
-    pub show_processes: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, *mut glib::GArray, *mut c_char)>,
+    pub show_processes: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, *mut glib::GArray, *mut *const c_char)>,
     pub show_unmount_progress: Option<unsafe extern "C" fn(*mut GMountOperation, *const c_char, i64, i64)>,
     pub _g_reserved1: Option<unsafe extern "C" fn()>,
     pub _g_reserved2: Option<unsafe extern "C" fn()>,
@@ -6814,7 +6816,7 @@ extern "C" {
     pub fn g_dbus_error_new_for_dbus_error(dbus_error_name: *const c_char, dbus_error_message: *const c_char) -> *mut glib::GError;
     pub fn g_dbus_error_quark() -> glib::GQuark;
     pub fn g_dbus_error_register_error(error_domain: glib::GQuark, error_code: c_int, dbus_error_name: *const c_char) -> gboolean;
-    pub fn g_dbus_error_register_error_domain(error_domain_quark_name: *const c_char, quark_volatile: *mut /*volatile*/size_t, entries: *mut GDBusErrorEntry, num_entries: c_uint);
+    pub fn g_dbus_error_register_error_domain(error_domain_quark_name: *const c_char, quark_volatile: *mut /*volatile*/size_t, entries: *const GDBusErrorEntry, num_entries: c_uint);
     pub fn g_dbus_error_set_dbus_error(error: *mut *mut glib::GError, dbus_error_name: *const c_char, dbus_error_message: *const c_char, format: *const c_char, ...);
     //pub fn g_dbus_error_set_dbus_error_valist(error: *mut *mut glib::GError, dbus_error_name: *const c_char, dbus_error_message: *const c_char, format: *const c_char, var_args: /*Unimplemented*/va_list);
     pub fn g_dbus_error_strip_remote_error(error: *mut glib::GError) -> gboolean;
@@ -7440,7 +7442,7 @@ extern "C" {
     #[cfg(any(feature = "v2_42", feature = "dox"))]
     pub fn g_application_add_main_option(application: *mut GApplication, long_name: *const c_char, short_name: c_char, flags: glib::GOptionFlags, arg: glib::GOptionArg, description: *const c_char, arg_description: *const c_char);
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn g_application_add_main_option_entries(application: *mut GApplication, entries: *mut glib::GOptionEntry);
+    pub fn g_application_add_main_option_entries(application: *mut GApplication, entries: *const glib::GOptionEntry);
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_application_add_option_group(application: *mut GApplication, group: *mut glib::GOptionGroup);
     #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -7496,7 +7498,7 @@ extern "C" {
     pub fn g_application_command_line_create_file_for_arg(cmdline: *mut GApplicationCommandLine, arg: *const c_char) -> *mut GFile;
     pub fn g_application_command_line_get_arguments(cmdline: *mut GApplicationCommandLine, argc: *mut c_int) -> *mut *mut c_char;
     pub fn g_application_command_line_get_cwd(cmdline: *mut GApplicationCommandLine) -> *const c_char;
-    pub fn g_application_command_line_get_environ(cmdline: *mut GApplicationCommandLine) -> *mut *mut c_char;
+    pub fn g_application_command_line_get_environ(cmdline: *mut GApplicationCommandLine) -> *const *const c_char;
     pub fn g_application_command_line_get_exit_status(cmdline: *mut GApplicationCommandLine) -> c_int;
     pub fn g_application_command_line_get_is_remote(cmdline: *mut GApplicationCommandLine) -> gboolean;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -7936,8 +7938,10 @@ extern "C" {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_desktop_app_info_launch_action(info: *mut GDesktopAppInfo, action_name: *const c_char, launch_context: *mut GAppLaunchContext);
     pub fn g_desktop_app_info_launch_uris_as_manager(appinfo: *mut GDesktopAppInfo, uris: *mut glib::GList, launch_context: *mut GAppLaunchContext, spawn_flags: glib::GSpawnFlags, user_setup: glib::GSpawnChildSetupFunc, user_setup_data: gpointer, pid_callback: GDesktopAppLaunchCallback, pid_callback_data: gpointer, error: *mut *mut glib::GError) -> gboolean;
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_desktop_app_info_launch_uris_as_manager_with_fds(appinfo: *mut GDesktopAppInfo, uris: *mut glib::GList, launch_context: *mut GAppLaunchContext, spawn_flags: glib::GSpawnFlags, user_setup: glib::GSpawnChildSetupFunc, user_setup_data: gpointer, pid_callback: GDesktopAppLaunchCallback, pid_callback_data: gpointer, stdin_fd: c_int, stdout_fd: c_int, stderr_fd: c_int, error: *mut *mut glib::GError) -> gboolean;
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    pub fn g_desktop_app_info_list_actions(info: *mut GDesktopAppInfo) -> *mut *mut c_char;
+    pub fn g_desktop_app_info_list_actions(info: *mut GDesktopAppInfo) -> *const *const c_char;
 
     //=========================================================================
     // GEmblem
@@ -8145,7 +8149,7 @@ extern "C" {
     //=========================================================================
     pub fn g_inet_address_get_type() -> GType;
     pub fn g_inet_address_new_any(family: GSocketFamily) -> *mut GInetAddress;
-    pub fn g_inet_address_new_from_bytes(bytes: *mut u8, family: GSocketFamily) -> *mut GInetAddress;
+    pub fn g_inet_address_new_from_bytes(bytes: *const u8, family: GSocketFamily) -> *mut GInetAddress;
     pub fn g_inet_address_new_from_string(string: *const c_char) -> *mut GInetAddress;
     pub fn g_inet_address_new_loopback(family: GSocketFamily) -> *mut GInetAddress;
     pub fn g_inet_address_equal(address: *mut GInetAddress, other_address: *mut GInetAddress) -> gboolean;
@@ -8353,15 +8357,27 @@ extern "C" {
     pub fn g_mount_operation_get_anonymous(op: *mut GMountOperation) -> gboolean;
     pub fn g_mount_operation_get_choice(op: *mut GMountOperation) -> c_int;
     pub fn g_mount_operation_get_domain(op: *mut GMountOperation) -> *const c_char;
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_get_is_tcrypt_hidden_volume(op: *mut GMountOperation) -> gboolean;
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_get_is_tcrypt_system_volume(op: *mut GMountOperation) -> gboolean;
     pub fn g_mount_operation_get_password(op: *mut GMountOperation) -> *const c_char;
     pub fn g_mount_operation_get_password_save(op: *mut GMountOperation) -> GPasswordSave;
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_get_pim(op: *mut GMountOperation) -> c_uint;
     pub fn g_mount_operation_get_username(op: *mut GMountOperation) -> *const c_char;
     pub fn g_mount_operation_reply(op: *mut GMountOperation, result: GMountOperationResult);
     pub fn g_mount_operation_set_anonymous(op: *mut GMountOperation, anonymous: gboolean);
     pub fn g_mount_operation_set_choice(op: *mut GMountOperation, choice: c_int);
     pub fn g_mount_operation_set_domain(op: *mut GMountOperation, domain: *const c_char);
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_set_is_tcrypt_hidden_volume(op: *mut GMountOperation, hidden_volume: gboolean);
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_set_is_tcrypt_system_volume(op: *mut GMountOperation, system_volume: gboolean);
     pub fn g_mount_operation_set_password(op: *mut GMountOperation, password: *const c_char);
     pub fn g_mount_operation_set_password_save(op: *mut GMountOperation, save: GPasswordSave);
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_mount_operation_set_pim(op: *mut GMountOperation, pim: c_uint);
     pub fn g_mount_operation_set_username(op: *mut GMountOperation, username: *const c_char);
 
     //=========================================================================
@@ -8578,7 +8594,7 @@ extern "C" {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     pub fn g_settings_set_int64(settings: *mut GSettings, key: *const c_char, value: i64) -> gboolean;
     pub fn g_settings_set_string(settings: *mut GSettings, key: *const c_char, value: *const c_char) -> gboolean;
-    pub fn g_settings_set_strv(settings: *mut GSettings, key: *const c_char, value: *mut *mut c_char) -> gboolean;
+    pub fn g_settings_set_strv(settings: *mut GSettings, key: *const c_char, value: *const *const c_char) -> gboolean;
     pub fn g_settings_set_uint(settings: *mut GSettings, key: *const c_char, value: c_uint) -> gboolean;
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     pub fn g_settings_set_uint64(settings: *mut GSettings, key: *const c_char, value: u64) -> gboolean;
@@ -8588,11 +8604,11 @@ extern "C" {
     // GSettingsBackend
     //=========================================================================
     pub fn g_settings_backend_get_type() -> GType;
-    pub fn g_settings_backend_flatten_tree(tree: *mut glib::GTree, path: *mut *mut c_char, keys: *mut *mut *mut c_char, values: *mut *mut *mut glib::GVariant);
+    pub fn g_settings_backend_flatten_tree(tree: *mut glib::GTree, path: *mut *mut c_char, keys: *mut *mut *const c_char, values: *mut *mut *mut glib::GVariant);
     pub fn g_settings_backend_get_default() -> *mut GSettingsBackend;
     pub fn g_settings_backend_changed(backend: *mut GSettingsBackend, key: *const c_char, origin_tag: gpointer);
     pub fn g_settings_backend_changed_tree(backend: *mut GSettingsBackend, tree: *mut glib::GTree, origin_tag: gpointer);
-    pub fn g_settings_backend_keys_changed(backend: *mut GSettingsBackend, path: *const c_char, items: *mut *mut c_char, origin_tag: gpointer);
+    pub fn g_settings_backend_keys_changed(backend: *mut GSettingsBackend, path: *const c_char, items: *const *const c_char, origin_tag: gpointer);
     pub fn g_settings_backend_path_changed(backend: *mut GSettingsBackend, path: *const c_char, origin_tag: gpointer);
     pub fn g_settings_backend_path_writable_changed(backend: *mut GSettingsBackend, path: *const c_char);
     pub fn g_settings_backend_writable_changed(backend: *mut GSettingsBackend, key: *const c_char);
@@ -8613,7 +8629,7 @@ extern "C" {
     //=========================================================================
     pub fn g_simple_action_group_get_type() -> GType;
     pub fn g_simple_action_group_new() -> *mut GSimpleActionGroup;
-    pub fn g_simple_action_group_add_entries(simple: *mut GSimpleActionGroup, entries: *mut GActionEntry, n_entries: c_int, user_data: gpointer);
+    pub fn g_simple_action_group_add_entries(simple: *mut GSimpleActionGroup, entries: *const GActionEntry, n_entries: c_int, user_data: gpointer);
     pub fn g_simple_action_group_insert(simple: *mut GSimpleActionGroup, action: *mut GAction);
     pub fn g_simple_action_group_lookup(simple: *mut GSimpleActionGroup, action_name: *const c_char) -> *mut GAction;
     pub fn g_simple_action_group_remove(simple: *mut GSimpleActionGroup, action_name: *const c_char);
@@ -8720,12 +8736,12 @@ extern "C" {
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     pub fn g_socket_receive_messages(socket: *mut GSocket, messages: *mut GInputMessage, num_messages: c_uint, flags: c_int, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> c_int;
     pub fn g_socket_receive_with_blocking(socket: *mut GSocket, buffer: *mut u8, size: size_t, blocking: gboolean, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
-    pub fn g_socket_send(socket: *mut GSocket, buffer: *mut u8, size: size_t, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
+    pub fn g_socket_send(socket: *mut GSocket, buffer: *const u8, size: size_t, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
     pub fn g_socket_send_message(socket: *mut GSocket, address: *mut GSocketAddress, vectors: *mut GOutputVector, num_vectors: c_int, messages: *mut *mut GSocketControlMessage, num_messages: c_int, flags: c_int, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_socket_send_messages(socket: *mut GSocket, messages: *mut GOutputMessage, num_messages: c_uint, flags: c_int, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> c_int;
-    pub fn g_socket_send_to(socket: *mut GSocket, address: *mut GSocketAddress, buffer: *mut u8, size: size_t, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
-    pub fn g_socket_send_with_blocking(socket: *mut GSocket, buffer: *mut u8, size: size_t, blocking: gboolean, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
+    pub fn g_socket_send_to(socket: *mut GSocket, address: *mut GSocketAddress, buffer: *const u8, size: size_t, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
+    pub fn g_socket_send_with_blocking(socket: *mut GSocket, buffer: *const u8, size: size_t, blocking: gboolean, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> ssize_t;
     pub fn g_socket_set_blocking(socket: *mut GSocket, blocking: gboolean);
     pub fn g_socket_set_broadcast(socket: *mut GSocket, broadcast: gboolean);
     pub fn g_socket_set_keepalive(socket: *mut GSocket, keepalive: gboolean);
@@ -8853,7 +8869,7 @@ extern "C" {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_subprocess_new(flags: GSubprocessFlags, error: *mut *mut glib::GError, argv0: *const c_char, ...) -> *mut GSubprocess;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn g_subprocess_newv(argv: *mut *mut c_char, flags: GSubprocessFlags, error: *mut *mut glib::GError) -> *mut GSubprocess;
+    pub fn g_subprocess_newv(argv: *const *const c_char, flags: GSubprocessFlags, error: *mut *mut glib::GError) -> *mut GSubprocess;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_subprocess_communicate(subprocess: *mut GSubprocess, stdin_buf: *mut glib::GBytes, cancellable: *mut GCancellable, stdout_buf: *mut *mut glib::GBytes, stderr_buf: *mut *mut glib::GBytes, error: *mut *mut glib::GError) -> gboolean;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -8930,7 +8946,7 @@ extern "C" {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_subprocess_launcher_spawn(self_: *mut GSubprocessLauncher, error: *mut *mut glib::GError, argv0: *const c_char, ...) -> *mut GSubprocess;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub fn g_subprocess_launcher_spawnv(self_: *mut GSubprocessLauncher, argv: *mut *mut c_char, error: *mut *mut glib::GError) -> *mut GSubprocess;
+    pub fn g_subprocess_launcher_spawnv(self_: *mut GSubprocessLauncher, argv: *const *const c_char, error: *mut *mut glib::GError) -> *mut GSubprocess;
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_subprocess_launcher_take_fd(self_: *mut GSubprocessLauncher, source_fd: c_int, target_fd: c_int);
     #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -9142,7 +9158,7 @@ extern "C" {
     pub fn g_tls_password_get_warning(password: *mut GTlsPassword) -> *const c_char;
     pub fn g_tls_password_set_description(password: *mut GTlsPassword, description: *const c_char);
     pub fn g_tls_password_set_flags(password: *mut GTlsPassword, flags: GTlsPasswordFlags);
-    pub fn g_tls_password_set_value(password: *mut GTlsPassword, value: *mut u8, length: ssize_t);
+    pub fn g_tls_password_set_value(password: *mut GTlsPassword, value: *const u8, length: ssize_t);
     pub fn g_tls_password_set_value_full(password: *mut GTlsPassword, value: *mut u8, length: ssize_t, destroy: glib::GDestroyNotify);
     pub fn g_tls_password_set_warning(password: *mut GTlsPassword, warning: *const c_char);
 
@@ -9173,11 +9189,11 @@ extern "C" {
     //=========================================================================
     pub fn g_unix_fd_list_get_type() -> GType;
     pub fn g_unix_fd_list_new() -> *mut GUnixFDList;
-    pub fn g_unix_fd_list_new_from_array(fds: *mut c_int, n_fds: c_int) -> *mut GUnixFDList;
+    pub fn g_unix_fd_list_new_from_array(fds: *const c_int, n_fds: c_int) -> *mut GUnixFDList;
     pub fn g_unix_fd_list_append(list: *mut GUnixFDList, fd: c_int, error: *mut *mut glib::GError) -> c_int;
     pub fn g_unix_fd_list_get(list: *mut GUnixFDList, index_: c_int, error: *mut *mut glib::GError) -> c_int;
     pub fn g_unix_fd_list_get_length(list: *mut GUnixFDList) -> c_int;
-    pub fn g_unix_fd_list_peek_fds(list: *mut GUnixFDList, length: *mut c_int) -> *mut c_int;
+    pub fn g_unix_fd_list_peek_fds(list: *mut GUnixFDList, length: *mut c_int) -> *const c_int;
     pub fn g_unix_fd_list_steal_fds(list: *mut GUnixFDList, length: *mut c_int) -> *mut c_int;
 
     //=========================================================================
@@ -9222,8 +9238,8 @@ extern "C" {
     //=========================================================================
     pub fn g_unix_socket_address_get_type() -> GType;
     pub fn g_unix_socket_address_new(path: *const c_char) -> *mut GSocketAddress;
-    pub fn g_unix_socket_address_new_abstract(path: *mut c_char, path_len: c_int) -> *mut GSocketAddress;
-    pub fn g_unix_socket_address_new_with_type(path: *mut c_char, path_len: c_int, type_: GUnixSocketAddressType) -> *mut GSocketAddress;
+    pub fn g_unix_socket_address_new_abstract(path: *const c_char, path_len: c_int) -> *mut GSocketAddress;
+    pub fn g_unix_socket_address_new_with_type(path: *const c_char, path_len: c_int, type_: GUnixSocketAddressType) -> *mut GSocketAddress;
     pub fn g_unix_socket_address_abstract_names_supported() -> gboolean;
     pub fn g_unix_socket_address_get_address_type(address: *mut GUnixSocketAddress) -> GUnixSocketAddressType;
     pub fn g_unix_socket_address_get_is_abstract(address: *mut GUnixSocketAddress) -> gboolean;
@@ -9316,7 +9332,7 @@ extern "C" {
     //=========================================================================
     pub fn g_action_map_get_type() -> GType;
     pub fn g_action_map_add_action(action_map: *mut GActionMap, action: *mut GAction);
-    pub fn g_action_map_add_action_entries(action_map: *mut GActionMap, entries: *mut GActionEntry, n_entries: c_int, user_data: gpointer);
+    pub fn g_action_map_add_action_entries(action_map: *mut GActionMap, entries: *const GActionEntry, n_entries: c_int, user_data: gpointer);
     pub fn g_action_map_lookup_action(action_map: *mut GActionMap, action_name: *const c_char) -> *mut GAction;
     pub fn g_action_map_remove_action(action_map: *mut GActionMap, action_name: *const c_char);
 
@@ -9351,7 +9367,7 @@ extern "C" {
     pub fn g_app_info_get_id(appinfo: *mut GAppInfo) -> *const c_char;
     pub fn g_app_info_get_name(appinfo: *mut GAppInfo) -> *const c_char;
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    pub fn g_app_info_get_supported_types(appinfo: *mut GAppInfo) -> *mut *mut c_char;
+    pub fn g_app_info_get_supported_types(appinfo: *mut GAppInfo) -> *mut *const c_char;
     pub fn g_app_info_launch(appinfo: *mut GAppInfo, files: *mut glib::GList, context: *mut GAppLaunchContext, error: *mut *mut glib::GError) -> gboolean;
     pub fn g_app_info_launch_uris(appinfo: *mut GAppInfo, uris: *mut glib::GList, context: *mut GAppLaunchContext, error: *mut *mut glib::GError) -> gboolean;
     pub fn g_app_info_remove_supports_type(appinfo: *mut GAppInfo, content_type: *const c_char, error: *mut *mut glib::GError) -> gboolean;
@@ -9658,8 +9674,8 @@ extern "C" {
     pub fn g_file_read_finish(file: *mut GFile, res: *mut GAsyncResult, error: *mut *mut glib::GError) -> *mut GFileInputStream;
     pub fn g_file_replace(file: *mut GFile, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> *mut GFileOutputStream;
     pub fn g_file_replace_async(file: *mut GFile, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, io_priority: c_int, cancellable: *mut GCancellable, callback: GAsyncReadyCallback, user_data: gpointer);
-    pub fn g_file_replace_contents(file: *mut GFile, contents: *mut u8, length: size_t, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, new_etag: *mut *mut c_char, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> gboolean;
-    pub fn g_file_replace_contents_async(file: *mut GFile, contents: *mut u8, length: size_t, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, cancellable: *mut GCancellable, callback: GAsyncReadyCallback, user_data: gpointer);
+    pub fn g_file_replace_contents(file: *mut GFile, contents: *const u8, length: size_t, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, new_etag: *mut *mut c_char, cancellable: *mut GCancellable, error: *mut *mut glib::GError) -> gboolean;
+    pub fn g_file_replace_contents_async(file: *mut GFile, contents: *const u8, length: size_t, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, cancellable: *mut GCancellable, callback: GAsyncReadyCallback, user_data: gpointer);
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_file_replace_contents_bytes_async(file: *mut GFile, contents: *mut glib::GBytes, etag: *const c_char, make_backup: gboolean, flags: GFileCreateFlags, cancellable: *mut GCancellable, callback: GAsyncReadyCallback, user_data: gpointer);
     pub fn g_file_replace_contents_finish(file: *mut GFile, res: *mut GAsyncResult, new_etag: *mut *mut c_char, error: *mut *mut glib::GError) -> gboolean;
@@ -9954,7 +9970,7 @@ extern "C" {
     pub fn g_content_type_get_mime_type(type_: *const c_char) -> *mut c_char;
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_content_type_get_symbolic_icon(type_: *const c_char) -> *mut GIcon;
-    pub fn g_content_type_guess(filename: *const c_char, data: *mut u8, data_size: size_t, result_uncertain: *mut gboolean) -> *mut c_char;
+    pub fn g_content_type_guess(filename: *const c_char, data: *const u8, data_size: size_t, result_uncertain: *mut gboolean) -> *mut c_char;
     pub fn g_content_type_guess_for_tree(root: *mut GFile) -> *mut *mut c_char;
     pub fn g_content_type_is_a(type_: *const c_char, supertype: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_52", feature = "dox"))]
@@ -10023,6 +10039,8 @@ extern "C" {
     pub fn g_unix_mount_get_device_path(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_get_fs_type(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_get_mount_path(mount_entry: *mut GUnixMountEntry) -> *const c_char;
+    #[cfg(any(feature = "v2_58", feature = "dox"))]
+    pub fn g_unix_mount_get_options(mount_entry: *mut GUnixMountEntry) -> *const c_char;
     pub fn g_unix_mount_guess_can_eject(mount_entry: *mut GUnixMountEntry) -> gboolean;
     pub fn g_unix_mount_guess_icon(mount_entry: *mut GUnixMountEntry) -> *mut GIcon;
     pub fn g_unix_mount_guess_name(mount_entry: *mut GUnixMountEntry) -> *mut c_char;
