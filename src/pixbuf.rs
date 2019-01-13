@@ -27,22 +27,28 @@ use {
 };
 
 impl Pixbuf {
-    pub fn new_from_vec(mut vec: Vec<u8>, colorspace: Colorspace, has_alpha: bool,
+    pub fn new_from_mut_slice<T: AsMut<[u8]>>(data: T, colorspace: Colorspace, has_alpha: bool,
             bits_per_sample: i32, width: i32, height: i32, row_stride: i32) -> Pixbuf {
-        unsafe extern "C" fn destroy_vec(_: *mut c_uchar, data: *mut c_void) {
-            let _vec: Box<Vec<u8>> = mem::transmute(data); // the vector will be destroyed now
+        unsafe extern "C" fn destroy<T: AsMut<[u8]>>(_: *mut c_uchar, data: *mut c_void) {
+            let _data: Box<T> = Box::from_raw(data as *mut T); // the data will be destroyed now
         }
 
         assert!(bits_per_sample == 8);
         let n_channels = if has_alpha { 4 } else { 3 };
         let last_row_len = width * ((n_channels * bits_per_sample + 7) / 8);
-        assert!(vec.len() == ((height - 1) * row_stride + last_row_len) as usize);
-        let ptr = vec.as_mut_ptr();
-        let vec: Box<Vec<u8>> = Box::new(vec);
+
+        let mut data: Box<T> = Box::new(data);
+
+        let ptr = {
+            let data: &mut [u8] = (*data).as_mut();
+            assert!(data.len() == ((height - 1) * row_stride + last_row_len) as usize);
+            data.as_mut_ptr()
+        };
+
         unsafe {
             from_glib_full(
                 ffi::gdk_pixbuf_new_from_data(ptr, colorspace.to_glib(), has_alpha.to_glib(), bits_per_sample,
-                    width, height, row_stride, Some(destroy_vec), mem::transmute(vec)))
+                    width, height, row_stride, Some(destroy::<T>), Box::into_raw(data) as *mut _))
         }
     }
 
