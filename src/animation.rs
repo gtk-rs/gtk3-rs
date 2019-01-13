@@ -2,15 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use std::path::Path;
 use std::ptr;
 use glib::{Error, TimeVal};
 use glib::object::IsA;
 use glib::translate::*;
 use ffi;
-use glib_ffi;
-use gobject_ffi;
 use super::Pixbuf;
 
 glib_wrapper! {

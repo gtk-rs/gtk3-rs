@@ -50,6 +50,10 @@ status = "generate"
     #manual is_windows_utf8
     ignore = true
     [[object.function]]
+    name = "new"
+        [object.function.return]
+        nullable = true
+    [[object.function]]
     name = "new_from_file_at_size"
     #manual is_windows_utf8
     ignore = true
