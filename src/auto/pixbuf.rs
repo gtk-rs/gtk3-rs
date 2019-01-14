@@ -9,7 +9,6 @@ use PixbufFormat;
 use PixbufRotation;
 use ffi;
 use gio;
-use gio_ffi;
 use glib;
 use glib::GString;
 use glib::StaticType;
@@ -21,10 +20,7 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Pixbuf(Object<ffi::GdkPixbuf>): [
-        gio::Icon => gio_ffi::GIcon,
-        gio::LoadableIcon => gio_ffi::GLoadableIcon,
-    ];
+    pub struct Pixbuf(Object<ffi::GdkPixbuf, PixbufClass>) @implements gio::Icon, gio::LoadableIcon;
 
     match fn {
         get_type => || ffi::gdk_pixbuf_get_type(),
@@ -75,22 +71,20 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream<'a, P: IsA<gio::InputStream>, Q: Into<Option<&'a gio::Cancellable>>>(stream: &P, cancellable: Q) -> Result<Pixbuf, Error> {
+    pub fn new_from_stream<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>>(stream: &P, cancellable: R) -> Result<Pixbuf, Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::gdk_pixbuf_new_from_stream(stream.to_glib_none().0, cancellable.0, &mut error);
+            let ret = ffi::gdk_pixbuf_new_from_stream(stream.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
-    pub fn new_from_stream_at_scale<'a, P: IsA<gio::InputStream>, Q: Into<Option<&'a gio::Cancellable>>>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool, cancellable: Q) -> Result<Pixbuf, Error> {
+    pub fn new_from_stream_at_scale<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool, cancellable: R) -> Result<Pixbuf, Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::gdk_pixbuf_new_from_stream_at_scale(stream.to_glib_none().0, width, height, preserve_aspect_ratio.to_glib(), cancellable.0, &mut error);
+            let ret = ffi::gdk_pixbuf_new_from_stream_at_scale(stream.as_ref().to_glib_none().0, width, height, preserve_aspect_ratio.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -120,23 +114,25 @@ impl Pixbuf {
     }
 }
 
+pub const NONE_PIXBUF: Option<&Pixbuf> = None;
+
 pub trait PixbufExt: 'static {
     fn add_alpha(&self, substitute_color: bool, r: u8, g: u8, b: u8) -> Option<Pixbuf>;
 
     fn apply_embedded_orientation(&self) -> Option<Pixbuf>;
 
-    fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32);
+    fn composite<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32);
 
-    fn composite_color(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32, check_x: i32, check_y: i32, check_size: i32, color1: u32, color2: u32);
+    fn composite_color<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32, check_x: i32, check_y: i32, check_size: i32, color1: u32, color2: u32);
 
     fn composite_color_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType, overall_alpha: i32, check_size: i32, color1: u32, color2: u32) -> Option<Pixbuf>;
 
     fn copy(&self) -> Option<Pixbuf>;
 
-    fn copy_area(&self, src_x: i32, src_y: i32, width: i32, height: i32, dest_pixbuf: &Pixbuf, dest_x: i32, dest_y: i32);
+    fn copy_area<P: IsA<Pixbuf>>(&self, src_x: i32, src_y: i32, width: i32, height: i32, dest_pixbuf: &P, dest_x: i32, dest_y: i32);
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn copy_options(&self, dest_pixbuf: &Pixbuf) -> bool;
+    fn copy_options<P: IsA<Pixbuf>>(&self, dest_pixbuf: &P) -> bool;
 
     fn fill(&self, pixel: u32);
 
@@ -173,7 +169,7 @@ pub trait PixbufExt: 'static {
 
     fn rotate_simple(&self, angle: PixbufRotation) -> Option<Pixbuf>;
 
-    fn saturate_and_pixelate(&self, dest: &Pixbuf, saturation: f32, pixelate: bool);
+    fn saturate_and_pixelate<P: IsA<Pixbuf>>(&self, dest: &P, saturation: f32, pixelate: bool);
 
     //fn save<'a, P: Into<Option<&'a Error>>>(&self, filename: &str, type_: &str, error: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
@@ -183,14 +179,14 @@ pub trait PixbufExt: 'static {
 
     //fn save_to_callbackv<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error>;
 
-    //fn save_to_stream<'a, 'b, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: Into<Option<&'b Error>>>(&self, stream: &P, type_: &str, cancellable: Q, error: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
+    //fn save_to_stream<'a, 'b, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b Error>>>(&self, stream: &P, type_: &str, cancellable: R, error: S, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
-    //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Q, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
+    //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: R, callback: S, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
 
     //#[cfg(feature = "futures")]
-    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static, Q: IsA<gio::Cancellable> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType);
+    fn scale<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType);
 
     fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType) -> Option<Pixbuf>;
 
@@ -204,104 +200,104 @@ pub trait PixbufExt: 'static {
 impl<O: IsA<Pixbuf>> PixbufExt for O {
     fn add_alpha(&self, substitute_color: bool, r: u8, g: u8, b: u8) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_add_alpha(const_override(self.to_glib_none().0), substitute_color.to_glib(), r, g, b))
+            from_glib_full(ffi::gdk_pixbuf_add_alpha(const_override(self.as_ref().to_glib_none().0), substitute_color.to_glib(), r, g, b))
         }
     }
 
     fn apply_embedded_orientation(&self) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_apply_embedded_orientation(self.to_glib_none().0))
+            from_glib_full(ffi::gdk_pixbuf_apply_embedded_orientation(self.as_ref().to_glib_none().0))
         }
     }
 
-    fn composite(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32) {
+    fn composite<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32) {
         unsafe {
-            ffi::gdk_pixbuf_composite(const_override(self.to_glib_none().0), dest.to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib(), overall_alpha);
+            ffi::gdk_pixbuf_composite(const_override(self.as_ref().to_glib_none().0), dest.as_ref().to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib(), overall_alpha);
         }
     }
 
-    fn composite_color(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32, check_x: i32, check_y: i32, check_size: i32, color1: u32, color2: u32) {
+    fn composite_color<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType, overall_alpha: i32, check_x: i32, check_y: i32, check_size: i32, color1: u32, color2: u32) {
         unsafe {
-            ffi::gdk_pixbuf_composite_color(const_override(self.to_glib_none().0), dest.to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib(), overall_alpha, check_x, check_y, check_size, color1, color2);
+            ffi::gdk_pixbuf_composite_color(const_override(self.as_ref().to_glib_none().0), dest.as_ref().to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib(), overall_alpha, check_x, check_y, check_size, color1, color2);
         }
     }
 
     fn composite_color_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType, overall_alpha: i32, check_size: i32, color1: u32, color2: u32) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_composite_color_simple(const_override(self.to_glib_none().0), dest_width, dest_height, interp_type.to_glib(), overall_alpha, check_size, color1, color2))
+            from_glib_full(ffi::gdk_pixbuf_composite_color_simple(const_override(self.as_ref().to_glib_none().0), dest_width, dest_height, interp_type.to_glib(), overall_alpha, check_size, color1, color2))
         }
     }
 
     fn copy(&self) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_copy(const_override(self.to_glib_none().0)))
+            from_glib_full(ffi::gdk_pixbuf_copy(const_override(self.as_ref().to_glib_none().0)))
         }
     }
 
-    fn copy_area(&self, src_x: i32, src_y: i32, width: i32, height: i32, dest_pixbuf: &Pixbuf, dest_x: i32, dest_y: i32) {
+    fn copy_area<P: IsA<Pixbuf>>(&self, src_x: i32, src_y: i32, width: i32, height: i32, dest_pixbuf: &P, dest_x: i32, dest_y: i32) {
         unsafe {
-            ffi::gdk_pixbuf_copy_area(const_override(self.to_glib_none().0), src_x, src_y, width, height, dest_pixbuf.to_glib_none().0, dest_x, dest_y);
+            ffi::gdk_pixbuf_copy_area(const_override(self.as_ref().to_glib_none().0), src_x, src_y, width, height, dest_pixbuf.as_ref().to_glib_none().0, dest_x, dest_y);
         }
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    fn copy_options(&self, dest_pixbuf: &Pixbuf) -> bool {
+    fn copy_options<P: IsA<Pixbuf>>(&self, dest_pixbuf: &P) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_copy_options(self.to_glib_none().0, dest_pixbuf.to_glib_none().0))
+            from_glib(ffi::gdk_pixbuf_copy_options(self.as_ref().to_glib_none().0, dest_pixbuf.as_ref().to_glib_none().0))
         }
     }
 
     fn fill(&self, pixel: u32) {
         unsafe {
-            ffi::gdk_pixbuf_fill(self.to_glib_none().0, pixel);
+            ffi::gdk_pixbuf_fill(self.as_ref().to_glib_none().0, pixel);
         }
     }
 
     fn flip(&self, horizontal: bool) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_flip(const_override(self.to_glib_none().0), horizontal.to_glib()))
+            from_glib_full(ffi::gdk_pixbuf_flip(const_override(self.as_ref().to_glib_none().0), horizontal.to_glib()))
         }
     }
 
     fn get_bits_per_sample(&self) -> i32 {
         unsafe {
-            ffi::gdk_pixbuf_get_bits_per_sample(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_bits_per_sample(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_byte_length(&self) -> usize {
         unsafe {
-            ffi::gdk_pixbuf_get_byte_length(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_byte_length(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_colorspace(&self) -> Colorspace {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_get_colorspace(const_override(self.to_glib_none().0)))
+            from_glib(ffi::gdk_pixbuf_get_colorspace(const_override(self.as_ref().to_glib_none().0)))
         }
     }
 
     fn get_has_alpha(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_get_has_alpha(const_override(self.to_glib_none().0)))
+            from_glib(ffi::gdk_pixbuf_get_has_alpha(const_override(self.as_ref().to_glib_none().0)))
         }
     }
 
     fn get_height(&self) -> i32 {
         unsafe {
-            ffi::gdk_pixbuf_get_height(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_height(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_n_channels(&self) -> i32 {
         unsafe {
-            ffi::gdk_pixbuf_get_n_channels(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_n_channels(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_option(&self, key: &str) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::gdk_pixbuf_get_option(self.to_glib_none().0, key.to_glib_none().0))
+            from_glib_none(ffi::gdk_pixbuf_get_option(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
@@ -312,45 +308,45 @@ impl<O: IsA<Pixbuf>> PixbufExt for O {
 
     fn get_rowstride(&self) -> i32 {
         unsafe {
-            ffi::gdk_pixbuf_get_rowstride(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_rowstride(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_width(&self) -> i32 {
         unsafe {
-            ffi::gdk_pixbuf_get_width(const_override(self.to_glib_none().0))
+            ffi::gdk_pixbuf_get_width(const_override(self.as_ref().to_glib_none().0))
         }
     }
 
     fn new_subpixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_new_subpixbuf(self.to_glib_none().0, src_x, src_y, width, height))
+            from_glib_full(ffi::gdk_pixbuf_new_subpixbuf(self.as_ref().to_glib_none().0, src_x, src_y, width, height))
         }
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     fn read_pixel_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_read_pixel_bytes(const_override(self.to_glib_none().0)))
+            from_glib_full(ffi::gdk_pixbuf_read_pixel_bytes(const_override(self.as_ref().to_glib_none().0)))
         }
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn remove_option(&self, key: &str) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_remove_option(self.to_glib_none().0, key.to_glib_none().0))
+            from_glib(ffi::gdk_pixbuf_remove_option(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn rotate_simple(&self, angle: PixbufRotation) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_rotate_simple(const_override(self.to_glib_none().0), angle.to_glib()))
+            from_glib_full(ffi::gdk_pixbuf_rotate_simple(const_override(self.as_ref().to_glib_none().0), angle.to_glib()))
         }
     }
 
-    fn saturate_and_pixelate(&self, dest: &Pixbuf, saturation: f32, pixelate: bool) {
+    fn saturate_and_pixelate<P: IsA<Pixbuf>>(&self, dest: &P, saturation: f32, pixelate: bool) {
         unsafe {
-            ffi::gdk_pixbuf_saturate_and_pixelate(const_override(self.to_glib_none().0), dest.to_glib_none().0, saturation, pixelate.to_glib());
+            ffi::gdk_pixbuf_saturate_and_pixelate(const_override(self.as_ref().to_glib_none().0), dest.as_ref().to_glib_none().0, saturation, pixelate.to_glib());
         }
     }
 
@@ -370,16 +366,16 @@ impl<O: IsA<Pixbuf>> PixbufExt for O {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_callbackv() }
     //}
 
-    //fn save_to_stream<'a, 'b, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: Into<Option<&'b Error>>>(&self, stream: &P, type_: &str, cancellable: Q, error: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //fn save_to_stream<'a, 'b, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b Error>>>(&self, stream: &P, type_: &str, cancellable: R, error: S, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_stream() }
     //}
 
-    //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: Into<Option<&'a gio::Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Q, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //fn save_to_stream_async<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: R, callback: S, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_stream_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    //fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static, Q: IsA<gio::Cancellable> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         //use gio::GioFuture;
         //use fragile::Fragile;
 
@@ -405,21 +401,21 @@ impl<O: IsA<Pixbuf>> PixbufExt for O {
         //})
     //}
 
-    fn scale(&self, dest: &Pixbuf, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType) {
+    fn scale<P: IsA<Pixbuf>>(&self, dest: &P, dest_x: i32, dest_y: i32, dest_width: i32, dest_height: i32, offset_x: f64, offset_y: f64, scale_x: f64, scale_y: f64, interp_type: InterpType) {
         unsafe {
-            ffi::gdk_pixbuf_scale(const_override(self.to_glib_none().0), dest.to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib());
+            ffi::gdk_pixbuf_scale(const_override(self.as_ref().to_glib_none().0), dest.as_ref().to_glib_none().0, dest_x, dest_y, dest_width, dest_height, offset_x, offset_y, scale_x, scale_y, interp_type.to_glib());
         }
     }
 
     fn scale_simple(&self, dest_width: i32, dest_height: i32, interp_type: InterpType) -> Option<Pixbuf> {
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_scale_simple(const_override(self.to_glib_none().0), dest_width, dest_height, interp_type.to_glib()))
+            from_glib_full(ffi::gdk_pixbuf_scale_simple(const_override(self.as_ref().to_glib_none().0), dest_width, dest_height, interp_type.to_glib()))
         }
     }
 
     fn set_option(&self, key: &str, value: &str) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_set_option(self.to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
+            from_glib(ffi::gdk_pixbuf_set_option(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
         }
     }
 
