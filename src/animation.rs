@@ -11,7 +11,7 @@ use ffi;
 use super::Pixbuf;
 
 glib_wrapper! {
-    pub struct PixbufAnimationIter(Object<ffi::GdkPixbufAnimationIter>);
+    pub struct PixbufAnimationIter(Object<ffi::GdkPixbufAnimationIter, PixbufAnimationIterClass>);
 
     match fn {
         get_type => || ffi::gdk_pixbuf_animation_iter_get_type(),
@@ -43,7 +43,7 @@ impl PixbufAnimationIter {
 }
 
 glib_wrapper! {
-    pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation>);
+    pub struct PixbufAnimation(Object<ffi::GdkPixbufAnimation, PixbufAnimationClass>);
 
     match fn {
         get_type => || ffi::gdk_pixbuf_animation_get_type(),
@@ -94,31 +94,31 @@ pub trait PixbufAnimationExt {
 
 impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
     fn get_width(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_animation_get_width(self.to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_width(self.as_ref().to_glib_none().0) }
     }
 
     fn get_height(&self) -> i32 {
-        unsafe { ffi::gdk_pixbuf_animation_get_height(self.to_glib_none().0) }
+        unsafe { ffi::gdk_pixbuf_animation_get_height(self.as_ref().to_glib_none().0) }
     }
 
     fn get_iter(&self, start_time: TimeVal) -> PixbufAnimationIter {
         unsafe {
             from_glib_full(
-                ffi::gdk_pixbuf_animation_get_iter(self.to_glib_none().0,
+                ffi::gdk_pixbuf_animation_get_iter(self.as_ref().to_glib_none().0,
                                                    &start_time as *const _))
         }
     }
 
     fn is_static_image(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_pixbuf_animation_is_static_image(self.to_glib_none().0))
+            from_glib(ffi::gdk_pixbuf_animation_is_static_image(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_static_image(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_none(ffi::gdk_pixbuf_animation_get_static_image(
-                self.to_glib_none().0))
+                self.as_ref().to_glib_none().0))
         }
     }
 }
