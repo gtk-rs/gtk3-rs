@@ -6,7 +6,7 @@ use glib::object::IsA;
 use ffi;
 use DeviceManager;
 
-pub trait DeviceManagerExtManual {
+pub trait DeviceManagerExtManual: 'static {
     fn disable_multidevice();
 }
 
