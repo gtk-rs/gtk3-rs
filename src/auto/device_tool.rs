@@ -13,12 +13,14 @@ use gobject_ffi;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct DeviceTool(Object<ffi::GdkDeviceTool>);
+    pub struct DeviceTool(Object<ffi::GdkDeviceTool, DeviceToolClass>);
 
     match fn {
         get_type => || ffi::gdk_device_tool_get_type(),
     }
 }
+
+pub const NONE_DEVICE_TOOL: Option<&DeviceTool> = None;
 
 pub trait DeviceToolExt: 'static {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -43,21 +45,21 @@ impl<O: IsA<DeviceTool>> DeviceToolExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_hardware_id(&self) -> u64 {
         unsafe {
-            ffi::gdk_device_tool_get_hardware_id(self.to_glib_none().0)
+            ffi::gdk_device_tool_get_hardware_id(self.as_ref().to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_serial(&self) -> u64 {
         unsafe {
-            ffi::gdk_device_tool_get_serial(self.to_glib_none().0)
+            ffi::gdk_device_tool_get_serial(self.as_ref().to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_tool_type(&self) -> DeviceToolType {
         unsafe {
-            from_glib(ffi::gdk_device_tool_get_tool_type(self.to_glib_none().0))
+            from_glib(ffi::gdk_device_tool_get_tool_type(self.as_ref().to_glib_none().0))
         }
     }
 

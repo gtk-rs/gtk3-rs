@@ -10,7 +10,7 @@ use cairo;
 use ffi;
 use glib;
 use glib::GString;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -21,7 +21,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct Screen(Object<ffi::GdkScreen>);
+    pub struct Screen(Object<ffi::GdkScreen, ScreenClass>);
 
     match fn {
         get_type => || ffi::gdk_screen_get_type(),
@@ -69,6 +69,8 @@ impl Screen {
     }
 }
 
+pub const NONE_SCREEN: Option<&Screen> = None;
+
 pub trait ScreenExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn get_active_window(&self) -> Option<Window>;
@@ -85,7 +87,7 @@ pub trait ScreenExt: 'static {
     fn get_monitor_at_point(&self, x: i32, y: i32) -> i32;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    fn get_monitor_at_window(&self, window: &Window) -> i32;
+    fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> i32;
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn get_monitor_geometry(&self, monitor_num: i32) -> Rectangle;
@@ -162,182 +164,181 @@ pub trait ScreenExt: 'static {
 impl<O: IsA<Screen>> ScreenExt for O {
     fn get_active_window(&self) -> Option<Window> {
         unsafe {
-            from_glib_full(ffi::gdk_screen_get_active_window(self.to_glib_none().0))
+            from_glib_full(ffi::gdk_screen_get_active_window(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_display(&self) -> Display {
         unsafe {
-            from_glib_none(ffi::gdk_screen_get_display(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_screen_get_display(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_height(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_height(self.to_glib_none().0)
+            ffi::gdk_screen_get_height(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_height_mm(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_height_mm(self.to_glib_none().0)
+            ffi::gdk_screen_get_height_mm(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_monitor_at_point(&self, x: i32, y: i32) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_at_point(self.to_glib_none().0, x, y)
+            ffi::gdk_screen_get_monitor_at_point(self.as_ref().to_glib_none().0, x, y)
         }
     }
 
-    fn get_monitor_at_window(&self, window: &Window) -> i32 {
+    fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_at_window(self.to_glib_none().0, window.to_glib_none().0)
+            ffi::gdk_screen_get_monitor_at_window(self.as_ref().to_glib_none().0, window.as_ref().to_glib_none().0)
         }
     }
 
     fn get_monitor_geometry(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
-            ffi::gdk_screen_get_monitor_geometry(self.to_glib_none().0, monitor_num, dest.to_glib_none_mut().0);
+            ffi::gdk_screen_get_monitor_geometry(self.as_ref().to_glib_none().0, monitor_num, dest.to_glib_none_mut().0);
             dest
         }
     }
 
     fn get_monitor_height_mm(&self, monitor_num: i32) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_height_mm(self.to_glib_none().0, monitor_num)
+            ffi::gdk_screen_get_monitor_height_mm(self.as_ref().to_glib_none().0, monitor_num)
         }
     }
 
     fn get_monitor_plug_name(&self, monitor_num: i32) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::gdk_screen_get_monitor_plug_name(self.to_glib_none().0, monitor_num))
+            from_glib_full(ffi::gdk_screen_get_monitor_plug_name(self.as_ref().to_glib_none().0, monitor_num))
         }
     }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_monitor_scale_factor(&self, monitor_num: i32) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_scale_factor(self.to_glib_none().0, monitor_num)
+            ffi::gdk_screen_get_monitor_scale_factor(self.as_ref().to_glib_none().0, monitor_num)
         }
     }
 
     fn get_monitor_width_mm(&self, monitor_num: i32) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_monitor_width_mm(self.to_glib_none().0, monitor_num)
+            ffi::gdk_screen_get_monitor_width_mm(self.as_ref().to_glib_none().0, monitor_num)
         }
     }
 
     fn get_monitor_workarea(&self, monitor_num: i32) -> Rectangle {
         unsafe {
             let mut dest = Rectangle::uninitialized();
-            ffi::gdk_screen_get_monitor_workarea(self.to_glib_none().0, monitor_num, dest.to_glib_none_mut().0);
+            ffi::gdk_screen_get_monitor_workarea(self.as_ref().to_glib_none().0, monitor_num, dest.to_glib_none_mut().0);
             dest
         }
     }
 
     fn get_n_monitors(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_n_monitors(self.to_glib_none().0)
+            ffi::gdk_screen_get_n_monitors(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_number(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_number(self.to_glib_none().0)
+            ffi::gdk_screen_get_number(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_primary_monitor(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_primary_monitor(self.to_glib_none().0)
+            ffi::gdk_screen_get_primary_monitor(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_resolution(&self) -> f64 {
         unsafe {
-            ffi::gdk_screen_get_resolution(self.to_glib_none().0)
+            ffi::gdk_screen_get_resolution(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_rgba_visual(&self) -> Option<Visual> {
         unsafe {
-            from_glib_none(ffi::gdk_screen_get_rgba_visual(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_screen_get_rgba_visual(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_root_window(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(ffi::gdk_screen_get_root_window(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_screen_get_root_window(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_setting(&self, name: &str, value: &mut glib::Value) -> bool {
         unsafe {
-            from_glib(ffi::gdk_screen_get_setting(self.to_glib_none().0, name.to_glib_none().0, value.to_glib_none_mut().0))
+            from_glib(ffi::gdk_screen_get_setting(self.as_ref().to_glib_none().0, name.to_glib_none().0, value.to_glib_none_mut().0))
         }
     }
 
     fn get_system_visual(&self) -> Option<Visual> {
         unsafe {
-            from_glib_none(ffi::gdk_screen_get_system_visual(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_screen_get_system_visual(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_toplevel_windows(&self) -> Vec<Window> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_get_toplevel_windows(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_get_toplevel_windows(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_width(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_width(self.to_glib_none().0)
+            ffi::gdk_screen_get_width(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_width_mm(&self) -> i32 {
         unsafe {
-            ffi::gdk_screen_get_width_mm(self.to_glib_none().0)
+            ffi::gdk_screen_get_width_mm(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_window_stack(&self) -> Vec<Window> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::gdk_screen_get_window_stack(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(ffi::gdk_screen_get_window_stack(self.as_ref().to_glib_none().0))
         }
     }
 
     fn is_composited(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_screen_is_composited(self.to_glib_none().0))
+            from_glib(ffi::gdk_screen_is_composited(self.as_ref().to_glib_none().0))
         }
     }
 
     fn list_visuals(&self) -> Vec<Visual> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_list_visuals(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_screen_list_visuals(self.as_ref().to_glib_none().0))
         }
     }
 
     fn make_display_name(&self) -> GString {
         unsafe {
-            from_glib_full(ffi::gdk_screen_make_display_name(self.to_glib_none().0))
+            from_glib_full(ffi::gdk_screen_make_display_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_font_options<'a, P: Into<Option<&'a cairo::FontOptions>>>(&self, options: P) {
         let options = options.into();
-        let options = options.to_glib_none();
         unsafe {
-            ffi::gdk_screen_set_font_options(self.to_glib_none().0, options.0);
+            ffi::gdk_screen_set_font_options(self.as_ref().to_glib_none().0, options.to_glib_none().0);
         }
     }
 
     fn set_resolution(&self, dpi: f64) {
         unsafe {
-            ffi::gdk_screen_set_resolution(self.to_glib_none().0, dpi);
+            ffi::gdk_screen_set_resolution(self.as_ref().to_glib_none().0, dpi);
         }
     }
 
@@ -352,7 +353,7 @@ impl<O: IsA<Screen>> ScreenExt for O {
     fn connect_composited_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"composited-changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"composited-changed\0".as_ptr() as *const _,
                 transmute(composited_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -360,7 +361,7 @@ impl<O: IsA<Screen>> ScreenExt for O {
     fn connect_monitors_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"monitors-changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"monitors-changed\0".as_ptr() as *const _,
                 transmute(monitors_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -368,7 +369,7 @@ impl<O: IsA<Screen>> ScreenExt for O {
     fn connect_size_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"size-changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"size-changed\0".as_ptr() as *const _,
                 transmute(size_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -376,7 +377,7 @@ impl<O: IsA<Screen>> ScreenExt for O {
     fn connect_property_font_options_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::font-options\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::font-options\0".as_ptr() as *const _,
                 transmute(notify_font_options_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -384,7 +385,7 @@ impl<O: IsA<Screen>> ScreenExt for O {
     fn connect_property_resolution_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::resolution\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::resolution\0".as_ptr() as *const _,
                 transmute(notify_resolution_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -393,31 +394,31 @@ impl<O: IsA<Screen>> ScreenExt for O {
 unsafe extern "C" fn composited_changed_trampoline<P>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer)
 where P: IsA<Screen> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Screen::from_glib_borrow(this).downcast_unchecked())
+    f(&Screen::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn monitors_changed_trampoline<P>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer)
 where P: IsA<Screen> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Screen::from_glib_borrow(this).downcast_unchecked())
+    f(&Screen::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn size_changed_trampoline<P>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer)
 where P: IsA<Screen> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Screen::from_glib_borrow(this).downcast_unchecked())
+    f(&Screen::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_font_options_trampoline<P>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Screen> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Screen::from_glib_borrow(this).downcast_unchecked())
+    f(&Screen::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_resolution_trampoline<P>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Screen> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Screen::from_glib_borrow(this).downcast_unchecked())
+    f(&Screen::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Screen {

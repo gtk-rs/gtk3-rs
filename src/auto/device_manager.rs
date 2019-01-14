@@ -6,7 +6,7 @@ use Device;
 use DeviceType;
 use Display;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -17,12 +17,14 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct DeviceManager(Object<ffi::GdkDeviceManager>);
+    pub struct DeviceManager(Object<ffi::GdkDeviceManager, DeviceManagerClass>);
 
     match fn {
         get_type => || ffi::gdk_device_manager_get_type(),
     }
 }
+
+pub const NONE_DEVICE_MANAGER: Option<&DeviceManager> = None;
 
 pub trait DeviceManagerExt: 'static {
     #[cfg_attr(feature = "v3_20", deprecated)]
@@ -43,26 +45,26 @@ pub trait DeviceManagerExt: 'static {
 impl<O: IsA<DeviceManager>> DeviceManagerExt for O {
     fn get_client_pointer(&self) -> Option<Device> {
         unsafe {
-            from_glib_none(ffi::gdk_device_manager_get_client_pointer(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_device_manager_get_client_pointer(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_display(&self) -> Option<Display> {
         unsafe {
-            from_glib_none(ffi::gdk_device_manager_get_display(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_device_manager_get_display(self.as_ref().to_glib_none().0))
         }
     }
 
     fn list_devices(&self, type_: DeviceType) -> Vec<Device> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(self.to_glib_none().0, type_.to_glib()))
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(self.as_ref().to_glib_none().0, type_.to_glib()))
         }
     }
 
     fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"device-added\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"device-added\0".as_ptr() as *const _,
                 transmute(device_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -70,7 +72,7 @@ impl<O: IsA<DeviceManager>> DeviceManagerExt for O {
     fn connect_device_changed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"device-changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"device-changed\0".as_ptr() as *const _,
                 transmute(device_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -78,7 +80,7 @@ impl<O: IsA<DeviceManager>> DeviceManagerExt for O {
     fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"device-removed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"device-removed\0".as_ptr() as *const _,
                 transmute(device_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -87,19 +89,19 @@ impl<O: IsA<DeviceManager>> DeviceManagerExt for O {
 unsafe extern "C" fn device_added_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
+    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_changed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
+    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_removed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
 where P: IsA<DeviceManager> {
     let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(device))
+    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
 }
 
 impl fmt::Display for DeviceManager {
