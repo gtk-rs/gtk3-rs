@@ -10,12 +10,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Fontset(Object<ffi::PangoFontset, ffi::PangoFontsetClass>);
+    pub struct Fontset(Object<ffi::PangoFontset, ffi::PangoFontsetClass, FontsetClass>);
 
     match fn {
         get_type => || ffi::pango_fontset_get_type(),
     }
 }
+
+pub const NONE_FONTSET: Option<&Fontset> = None;
 
 pub trait FontsetExt: 'static {
     //fn foreach<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, func: /*Unknown conversion*//*Unimplemented*/FontsetForeachFunc, data: P);
@@ -32,13 +34,13 @@ impl<O: IsA<Fontset>> FontsetExt for O {
 
     fn get_font(&self, wc: u32) -> Option<Font> {
         unsafe {
-            from_glib_full(ffi::pango_fontset_get_font(self.to_glib_none().0, wc))
+            from_glib_full(ffi::pango_fontset_get_font(self.as_ref().to_glib_none().0, wc))
         }
     }
 
     fn get_metrics(&self) -> Option<FontMetrics> {
         unsafe {
-            from_glib_full(ffi::pango_fontset_get_metrics(self.to_glib_none().0))
+            from_glib_full(ffi::pango_fontset_get_metrics(self.as_ref().to_glib_none().0))
         }
     }
 }

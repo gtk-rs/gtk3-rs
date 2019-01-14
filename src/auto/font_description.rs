@@ -34,9 +34,8 @@ impl FontDescription {
 
     pub fn better_match<'a, P: Into<Option<&'a FontDescription>>>(&self, old_match: P, new_match: &FontDescription) -> bool {
         let old_match = old_match.into();
-        let old_match = old_match.to_glib_none();
         unsafe {
-            from_glib(ffi::pango_font_description_better_match(self.to_glib_none().0, old_match.0, new_match.to_glib_none().0))
+            from_glib(ffi::pango_font_description_better_match(self.to_glib_none().0, old_match.to_glib_none().0, new_match.to_glib_none().0))
         }
     }
 
@@ -108,9 +107,8 @@ impl FontDescription {
 
     pub fn merge<'a, P: Into<Option<&'a FontDescription>>>(&mut self, desc_to_merge: P, replace_existing: bool) {
         let desc_to_merge = desc_to_merge.into();
-        let desc_to_merge = desc_to_merge.to_glib_none();
         unsafe {
-            ffi::pango_font_description_merge(self.to_glib_none_mut().0, desc_to_merge.0, replace_existing.to_glib());
+            ffi::pango_font_description_merge(self.to_glib_none_mut().0, desc_to_merge.to_glib_none().0, replace_existing.to_glib());
         }
     }
 

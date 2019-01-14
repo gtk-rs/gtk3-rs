@@ -3,45 +3,45 @@
 // DO NOT EDIT
 
 mod context;
-pub use self::context::Context;
+pub use self::context::{Context, ContextClass, NONE_CONTEXT};
 pub use self::context::ContextExt;
 
 mod engine_lang;
-pub use self::engine_lang::EngineLang;
+pub use self::engine_lang::{EngineLang, EngineLangClass, NONE_ENGINE_LANG};
 
 mod engine_shape;
-pub use self::engine_shape::EngineShape;
+pub use self::engine_shape::{EngineShape, EngineShapeClass, NONE_ENGINE_SHAPE};
 
 mod font;
-pub use self::font::Font;
+pub use self::font::{Font, FontClass, NONE_FONT};
 pub use self::font::FontExt;
 
 mod font_face;
-pub use self::font_face::FontFace;
+pub use self::font_face::{FontFace, FontFaceClass, NONE_FONT_FACE};
 pub use self::font_face::FontFaceExt;
 
 mod font_family;
-pub use self::font_family::FontFamily;
+pub use self::font_family::{FontFamily, FontFamilyClass, NONE_FONT_FAMILY};
 pub use self::font_family::FontFamilyExt;
 
 mod font_map;
-pub use self::font_map::FontMap;
+pub use self::font_map::{FontMap, FontMapClass, NONE_FONT_MAP};
 pub use self::font_map::FontMapExt;
 
 mod fontset;
-pub use self::fontset::Fontset;
+pub use self::fontset::{Fontset, FontsetClass, NONE_FONTSET};
 pub use self::fontset::FontsetExt;
 
 mod fontset_simple;
-pub use self::fontset_simple::FontsetSimple;
+pub use self::fontset_simple::{FontsetSimple, FontsetSimpleClass, NONE_FONTSET_SIMPLE};
 pub use self::fontset_simple::FontsetSimpleExt;
 
 mod layout;
-pub use self::layout::Layout;
+pub use self::layout::{Layout, LayoutClass, NONE_LAYOUT};
 pub use self::layout::LayoutExt;
 
 mod renderer;
-pub use self::renderer::Renderer;
+pub use self::renderer::{Renderer, RendererClass, NONE_RENDERER};
 pub use self::renderer::RendererExt;
 
 mod attr_iterator;
