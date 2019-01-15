@@ -50,11 +50,9 @@ pub fn assertion_message_cmpstr(domain: &str, file: &str, line: i32, func: &str,
 
 pub fn assertion_message_expr<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(domain: P, file: &str, line: i32, func: &str, expr: Q) {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     let expr = expr.into();
-    let expr = expr.to_glib_none();
     unsafe {
-        ffi::g_assertion_message_expr(domain.0, file.to_glib_none().0, line, func.to_glib_none().0, expr.0);
+        ffi::g_assertion_message_expr(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, expr.to_glib_none().0);
     }
 }
 
@@ -302,17 +300,15 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 
 pub fn dcgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, category: i32) -> Option<GString> {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     unsafe {
-        from_glib_none(ffi::g_dcgettext(domain.0, msgid.to_glib_none().0, category))
+        from_glib_none(ffi::g_dcgettext(domain.to_glib_none().0, msgid.to_glib_none().0, category))
     }
 }
 
 pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<GString> {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     unsafe {
-        from_glib_none(ffi::g_dgettext(domain.0, msgid.to_glib_none().0))
+        from_glib_none(ffi::g_dgettext(domain.to_glib_none().0, msgid.to_glib_none().0))
     }
 }
 
@@ -326,9 +322,8 @@ pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<
 
 pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<GString> {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     unsafe {
-        from_glib_none(ffi::g_dngettext(domain.0, msgid.to_glib_none().0, msgid_plural.to_glib_none().0, n))
+        from_glib_none(ffi::g_dngettext(domain.to_glib_none().0, msgid.to_glib_none().0, msgid_plural.to_glib_none().0, n))
     }
 }
 
@@ -342,17 +337,15 @@ pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plu
 
 pub fn dpgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     unsafe {
-        from_glib_none(ffi::g_dpgettext(domain.0, msgctxtid.to_glib_none().0, msgidoffset))
+        from_glib_none(ffi::g_dpgettext(domain.to_glib_none().0, msgctxtid.to_glib_none().0, msgidoffset))
     }
 }
 
 pub fn dpgettext2<'a, P: Into<Option<&'a str>>>(domain: P, context: &str, msgid: &str) -> Option<GString> {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     unsafe {
-        from_glib_none(ffi::g_dpgettext2(domain.0, context.to_glib_none().0, msgid.to_glib_none().0))
+        from_glib_none(ffi::g_dpgettext2(domain.to_glib_none().0, context.to_glib_none().0, msgid.to_glib_none().0))
     }
 }
 
@@ -955,11 +948,9 @@ pub fn reload_user_special_dirs_cache() {
 
 pub fn return_if_fail_warning<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(log_domain: P, pretty_function: &str, expression: Q) {
     let log_domain = log_domain.into();
-    let log_domain = log_domain.to_glib_none();
     let expression = expression.into();
-    let expression = expression.to_glib_none();
     unsafe {
-        ffi::g_return_if_fail_warning(log_domain.0, pretty_function.to_glib_none().0, expression.0);
+        ffi::g_return_if_fail_warning(log_domain.to_glib_none().0, pretty_function.to_glib_none().0, expression.to_glib_none().0);
     }
 }
 
@@ -1180,9 +1171,8 @@ pub fn test_failed() -> bool {
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_incomplete<'a, P: Into<Option<&'a str>>>(msg: P) {
     let msg = msg.into();
-    let msg = msg.to_glib_none();
     unsafe {
-        ffi::g_test_incomplete(msg.0);
+        ffi::g_test_incomplete(msg.to_glib_none().0);
     }
 }
 
@@ -1262,9 +1252,8 @@ pub fn test_set_nonfatal_assertions() {
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_skip<'a, P: Into<Option<&'a str>>>(msg: P) {
     let msg = msg.into();
-    let msg = msg.to_glib_none();
     unsafe {
-        ffi::g_test_skip(msg.0);
+        ffi::g_test_skip(msg.to_glib_none().0);
     }
 }
 
@@ -1386,9 +1375,8 @@ pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
 
 pub fn uri_escape_string<'a, P: Into<Option<&'a str>>>(unescaped: &str, reserved_chars_allowed: P, allow_utf8: bool) -> Option<GString> {
     let reserved_chars_allowed = reserved_chars_allowed.into();
-    let reserved_chars_allowed = reserved_chars_allowed.to_glib_none();
     unsafe {
-        from_glib_full(ffi::g_uri_escape_string(unescaped.to_glib_none().0, reserved_chars_allowed.0, allow_utf8.to_glib()))
+        from_glib_full(ffi::g_uri_escape_string(unescaped.to_glib_none().0, reserved_chars_allowed.to_glib_none().0, allow_utf8.to_glib()))
     }
 }
 
@@ -1406,21 +1394,17 @@ pub fn uri_parse_scheme(uri: &str) -> Option<GString> {
 
 pub fn uri_unescape_segment<'a, 'b, 'c, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>, R: Into<Option<&'c str>>>(escaped_string: P, escaped_string_end: Q, illegal_characters: R) -> Option<GString> {
     let escaped_string = escaped_string.into();
-    let escaped_string = escaped_string.to_glib_none();
     let escaped_string_end = escaped_string_end.into();
-    let escaped_string_end = escaped_string_end.to_glib_none();
     let illegal_characters = illegal_characters.into();
-    let illegal_characters = illegal_characters.to_glib_none();
     unsafe {
-        from_glib_full(ffi::g_uri_unescape_segment(escaped_string.0, escaped_string_end.0, illegal_characters.0))
+        from_glib_full(ffi::g_uri_unescape_segment(escaped_string.to_glib_none().0, escaped_string_end.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
 }
 
 pub fn uri_unescape_string<'a, P: Into<Option<&'a str>>>(escaped_string: &str, illegal_characters: P) -> Option<GString> {
     let illegal_characters = illegal_characters.into();
-    let illegal_characters = illegal_characters.to_glib_none();
     unsafe {
-        from_glib_full(ffi::g_uri_unescape_string(escaped_string.to_glib_none().0, illegal_characters.0))
+        from_glib_full(ffi::g_uri_unescape_string(escaped_string.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
 }
 
@@ -1472,10 +1456,8 @@ pub fn variant_get_gtype() -> types::Type {
 
 pub fn warn_message<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(domain: P, file: &str, line: i32, func: &str, warnexpr: Q) {
     let domain = domain.into();
-    let domain = domain.to_glib_none();
     let warnexpr = warnexpr.into();
-    let warnexpr = warnexpr.to_glib_none();
     unsafe {
-        ffi::g_warn_message(domain.0, file.to_glib_none().0, line, func.to_glib_none().0, warnexpr.0);
+        ffi::g_warn_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, warnexpr.to_glib_none().0);
     }
 }

@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 mod binding;
-pub use self::binding::{Binding, BindingClass};
+pub use self::binding::{Binding, BindingClass, NONE_BINDING};
 
 mod flags;
 pub use self::flags::BindingFlags;

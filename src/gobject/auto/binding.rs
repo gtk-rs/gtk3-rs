@@ -59,6 +59,8 @@ impl Binding {
 unsafe impl Send for Binding {}
 unsafe impl Sync for Binding {}
 
+pub const NONE_BINDING: Option<&Binding> = None;
+
 impl fmt::Display for Binding {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Binding")
