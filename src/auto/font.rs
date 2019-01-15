@@ -6,32 +6,27 @@ use cairo;
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use pango;
-use pango_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
-    pub struct Font(Object<ffi::PangoCairoFont>): [
-        pango::Font => pango_ffi::PangoFont,
-    ];
+    pub struct Font(Interface<ffi::PangoCairoFont>) @requires pango::Font;
 
     match fn {
         get_type => || ffi::pango_cairo_font_get_type(),
     }
 }
 
-pub trait FontExt {
+pub const NONE_FONT: Option<&Font> = None;
+
+pub trait FontExt: 'static {
     fn get_scaled_font(&self) -> Option<cairo::ScaledFont>;
 }
 
 impl<O: IsA<Font>> FontExt for O {
     fn get_scaled_font(&self) -> Option<cairo::ScaledFont> {
         unsafe {
-            from_glib_full(ffi::pango_cairo_font_get_scaled_font(self.to_glib_none().0))
+            from_glib_full(ffi::pango_cairo_font_get_scaled_font(self.as_ref().to_glib_none().0))
         }
     }
 }

@@ -16,7 +16,7 @@ pub trait FontMapExtManual {
 impl<O: IsA<FontMap>> FontMapExtManual for O {
     fn get_font_type(&self) -> cairo::FontType {
         unsafe {
-            ffi::pango_cairo_font_map_get_font_type(self.to_glib_none().0).into()
+            ffi::pango_cairo_font_map_get_font_type(self.as_ref().to_glib_none().0).into()
         }
     }
 }
