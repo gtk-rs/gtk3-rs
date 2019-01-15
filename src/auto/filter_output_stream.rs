@@ -4,7 +4,7 @@
 
 use OutputStream;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -15,12 +15,14 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FilterOutputStream(Object<ffi::GFilterOutputStream, ffi::GFilterOutputStreamClass>): OutputStream;
+    pub struct FilterOutputStream(Object<ffi::GFilterOutputStream, ffi::GFilterOutputStreamClass, FilterOutputStreamClass>) @extends OutputStream;
 
     match fn {
         get_type => || ffi::g_filter_output_stream_get_type(),
     }
 }
+
+pub const NONE_FILTER_OUTPUT_STREAM: Option<&FilterOutputStream> = None;
 
 pub trait FilterOutputStreamExt: 'static {
     fn get_base_stream(&self) -> Option<OutputStream>;
@@ -35,26 +37,26 @@ pub trait FilterOutputStreamExt: 'static {
 impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
     fn get_base_stream(&self) -> Option<OutputStream> {
         unsafe {
-            from_glib_none(ffi::g_filter_output_stream_get_base_stream(self.to_glib_none().0))
+            from_glib_none(ffi::g_filter_output_stream_get_base_stream(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_close_base_stream(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_filter_output_stream_get_close_base_stream(self.to_glib_none().0))
+            from_glib(ffi::g_filter_output_stream_get_close_base_stream(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_close_base_stream(&self, close_base: bool) {
         unsafe {
-            ffi::g_filter_output_stream_set_close_base_stream(self.to_glib_none().0, close_base.to_glib());
+            ffi::g_filter_output_stream_set_close_base_stream(self.as_ref().to_glib_none().0, close_base.to_glib());
         }
     }
 
     fn connect_property_close_base_stream_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::close-base-stream\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::close-base-stream\0".as_ptr() as *const _,
                 transmute(notify_close_base_stream_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -63,7 +65,7 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
 unsafe extern "C" fn notify_close_base_stream_trampoline<P>(this: *mut ffi::GFilterOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FilterOutputStream> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&FilterOutputStream::from_glib_borrow(this).downcast_unchecked())
+    f(&FilterOutputStream::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for FilterOutputStream {

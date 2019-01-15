@@ -8,13 +8,13 @@ use SocketAddress;
 use SocketConnectable;
 use ffi;
 use glib::GString;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass>): InetSocketAddress, SocketAddress, SocketConnectable;
+    pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass, ProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || ffi::g_proxy_address_get_type(),
@@ -22,19 +22,19 @@ glib_wrapper! {
 }
 
 impl ProxyAddress {
-    pub fn new<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(inetaddr: &InetAddress, port: u16, protocol: &str, dest_hostname: &str, dest_port: u16, username: P, password: Q) -> ProxyAddress {
+    pub fn new<'a, 'b, P: IsA<InetAddress>, Q: Into<Option<&'a str>>, R: Into<Option<&'b str>>>(inetaddr: &P, port: u16, protocol: &str, dest_hostname: &str, dest_port: u16, username: Q, password: R) -> ProxyAddress {
         let username = username.into();
-        let username = username.to_glib_none();
         let password = password.into();
-        let password = password.to_glib_none();
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_proxy_address_new(inetaddr.to_glib_none().0, port, protocol.to_glib_none().0, dest_hostname.to_glib_none().0, dest_port, username.0, password.0)).downcast_unchecked()
+            SocketAddress::from_glib_full(ffi::g_proxy_address_new(inetaddr.as_ref().to_glib_none().0, port, protocol.to_glib_none().0, dest_hostname.to_glib_none().0, dest_port, username.to_glib_none().0, password.to_glib_none().0)).unsafe_cast()
         }
     }
 }
 
 unsafe impl Send for ProxyAddress {}
 unsafe impl Sync for ProxyAddress {}
+
+pub const NONE_PROXY_ADDRESS: Option<&ProxyAddress> = None;
 
 pub trait ProxyAddressExt: 'static {
     fn get_destination_hostname(&self) -> GString;
@@ -57,45 +57,45 @@ pub trait ProxyAddressExt: 'static {
 impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
     fn get_destination_hostname(&self) -> GString {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_destination_hostname(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_destination_hostname(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_destination_port(&self) -> u16 {
         unsafe {
-            ffi::g_proxy_address_get_destination_port(self.to_glib_none().0)
+            ffi::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_destination_protocol(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_destination_protocol(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_destination_protocol(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_password(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_password(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_password(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_protocol(&self) -> GString {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_protocol(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_protocol(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_uri(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_uri(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_uri(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_username(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_username(self.to_glib_none().0))
+            from_glib_none(ffi::g_proxy_address_get_username(self.as_ref().to_glib_none().0))
         }
     }
 }

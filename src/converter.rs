@@ -38,7 +38,7 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
             let mut bytes_read = mem::uninitialized();
             let mut bytes_written = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let ret = ffi::g_converter_convert(self.to_glib_none().0,
+            let ret = ffi::g_converter_convert(self.as_ref().to_glib_none().0,
                                                mut_override(inbuf),
                                                inbuf_size,
                                                outbuf,

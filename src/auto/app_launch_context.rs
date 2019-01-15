@@ -9,7 +9,7 @@ use ffi;
 use glib;
 use glib::GString;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::signal::SignalHandlerId;
@@ -28,7 +28,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct AppLaunchContext(Object<ffi::GAppLaunchContext, ffi::GAppLaunchContextClass>);
+    pub struct AppLaunchContext(Object<ffi::GAppLaunchContext, ffi::GAppLaunchContextClass, AppLaunchContextClass>);
 
     match fn {
         get_type => || ffi::g_app_launch_context_get_type(),
@@ -48,6 +48,8 @@ impl Default for AppLaunchContext {
         Self::new()
     }
 }
+
+pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
 
 pub trait AppLaunchContextExt: 'static {
     fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString>;
@@ -72,37 +74,37 @@ pub trait AppLaunchContextExt: 'static {
 impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     fn get_display<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_app_launch_context_get_display(self.to_glib_none().0, info.to_glib_none().0, files.to_glib_none().0))
+            from_glib_full(ffi::g_app_launch_context_get_display(self.as_ref().to_glib_none().0, info.as_ref().to_glib_none().0, files.to_glib_none().0))
         }
     }
 
     fn get_environment(&self) -> Vec<std::ffi::OsString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_app_launch_context_get_environment(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(ffi::g_app_launch_context_get_environment(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_startup_notify_id<P: IsA<AppInfo>>(&self, info: &P, files: &[File]) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_app_launch_context_get_startup_notify_id(self.to_glib_none().0, info.to_glib_none().0, files.to_glib_none().0))
+            from_glib_full(ffi::g_app_launch_context_get_startup_notify_id(self.as_ref().to_glib_none().0, info.as_ref().to_glib_none().0, files.to_glib_none().0))
         }
     }
 
     fn launch_failed(&self, startup_notify_id: &str) {
         unsafe {
-            ffi::g_app_launch_context_launch_failed(self.to_glib_none().0, startup_notify_id.to_glib_none().0);
+            ffi::g_app_launch_context_launch_failed(self.as_ref().to_glib_none().0, startup_notify_id.to_glib_none().0);
         }
     }
 
     fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(&self, variable: P, value: Q) {
         unsafe {
-            ffi::g_app_launch_context_setenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0, value.as_ref().to_glib_none().0);
+            ffi::g_app_launch_context_setenv(self.as_ref().to_glib_none().0, variable.as_ref().to_glib_none().0, value.as_ref().to_glib_none().0);
         }
     }
 
     fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P) {
         unsafe {
-            ffi::g_app_launch_context_unsetenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0);
+            ffi::g_app_launch_context_unsetenv(self.as_ref().to_glib_none().0, variable.as_ref().to_glib_none().0);
         }
     }
 
@@ -110,7 +112,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"launch-failed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"launch-failed\0".as_ptr() as *const _,
                 transmute(launch_failed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -119,7 +121,7 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &AppInfo, &glib::Variant) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"launched\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"launched\0".as_ptr() as *const _,
                 transmute(launched_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -129,14 +131,14 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
 unsafe extern "C" fn launch_failed_trampoline<P>(this: *mut ffi::GAppLaunchContext, startup_notify_id: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
     let f: &&(Fn(&P, &str) + 'static) = transmute(f);
-    f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &GString::from_glib_borrow(startup_notify_id))
+    f(&AppLaunchContext::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(startup_notify_id))
 }
 
 #[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn launched_trampoline<P>(this: *mut ffi::GAppLaunchContext, info: *mut ffi::GAppInfo, platform_data: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
     let f: &&(Fn(&P, &AppInfo, &glib::Variant) + 'static) = transmute(f);
-    f(&AppLaunchContext::from_glib_borrow(this).downcast_unchecked(), &from_glib_borrow(info), &from_glib_borrow(platform_data))
+    f(&AppLaunchContext::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(info), &from_glib_borrow(platform_data))
 }
 
 impl fmt::Display for AppLaunchContext {

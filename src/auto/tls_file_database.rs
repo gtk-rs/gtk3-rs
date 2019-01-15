@@ -8,7 +8,7 @@ use ffi;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -22,7 +22,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct TlsFileDatabase(Object<ffi::GTlsFileDatabase, ffi::GTlsFileDatabaseInterface>): TlsDatabase;
+    pub struct TlsFileDatabase(Interface<ffi::GTlsFileDatabase>) @requires TlsDatabase;
 
     match fn {
         get_type => || ffi::g_tls_file_database_get_type(),
@@ -38,6 +38,8 @@ impl TlsFileDatabase {
         }
     }
 }
+
+pub const NONE_TLS_FILE_DATABASE: Option<&TlsFileDatabase> = None;
 
 pub trait TlsFileDatabaseExt: 'static {
     fn get_property_anchors(&self) -> Option<GString>;
@@ -66,7 +68,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::anchors\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::anchors\0".as_ptr() as *const _,
                 transmute(notify_anchors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -75,7 +77,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
 unsafe extern "C" fn notify_anchors_trampoline<P>(this: *mut ffi::GTlsFileDatabase, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsFileDatabase> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsFileDatabase::from_glib_borrow(this).downcast_unchecked())
+    f(&TlsFileDatabase::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for TlsFileDatabase {

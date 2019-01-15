@@ -11,7 +11,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass>): ListModel;
+    pub struct ListStore(Object<ffi::GListStore, ffi::GListStoreClass, ListStoreClass>) @implements ListModel;
 
     match fn {
         get_type => || ffi::g_list_store_get_type(),
@@ -26,6 +26,8 @@ impl ListStore {
         }
     }
 }
+
+pub const NONE_LIST_STORE: Option<&ListStore> = None;
 
 pub trait ListStoreExt: 'static {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -54,14 +56,14 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn append<P: IsA<glib::Object>>(&self, item: &P) {
         unsafe {
-            ffi::g_list_store_append(self.to_glib_none().0, item.to_glib_none().0);
+            ffi::g_list_store_append(self.as_ref().to_glib_none().0, item.as_ref().to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert<P: IsA<glib::Object>>(&self, position: u32, item: &P) {
         unsafe {
-            ffi::g_list_store_insert(self.to_glib_none().0, position, item.to_glib_none().0);
+            ffi::g_list_store_insert(self.as_ref().to_glib_none().0, position, item.as_ref().to_glib_none().0);
         }
     }
 
@@ -73,14 +75,14 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn remove(&self, position: u32) {
         unsafe {
-            ffi::g_list_store_remove(self.to_glib_none().0, position);
+            ffi::g_list_store_remove(self.as_ref().to_glib_none().0, position);
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn remove_all(&self) {
         unsafe {
-            ffi::g_list_store_remove_all(self.to_glib_none().0);
+            ffi::g_list_store_remove_all(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -93,7 +95,7 @@ impl<O: IsA<ListStore>> ListStoreExt for O {
     fn splice(&self, position: u32, n_removals: u32, additions: &[glib::Object]) {
         let n_additions = additions.len() as u32;
         unsafe {
-            ffi::g_list_store_splice(self.to_glib_none().0, position, n_removals, additions.to_glib_none().0, n_additions);
+            ffi::g_list_store_splice(self.as_ref().to_glib_none().0, position, n_removals, additions.to_glib_none().0, n_additions);
         }
     }
 }

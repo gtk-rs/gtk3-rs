@@ -7,8 +7,6 @@ use Error;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-use glib;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::translate::*;
@@ -31,11 +29,11 @@ pub trait SubprocessExtManual: Sized {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>>;
+    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> where Self: Clone;
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> SubprocessExtManual for O {
+impl<O: IsA<Subprocess>> SubprocessExtManual for O {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
         let stdin_buf = stdin_buf.into();
@@ -56,13 +54,13 @@ impl<O: IsA<Subprocess> + IsA<glib::object::Object> + Clone + 'static> Subproces
         }
         let callback = communicate_utf8_async_trampoline::<R>;
         unsafe {
-            ffi::g_subprocess_communicate_utf8_async(self.to_glib_none().0, stdin_buf, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_communicate_utf8_async(self.as_ref().to_glib_none().0, stdin_buf, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> {
+    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
 

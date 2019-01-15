@@ -10,8 +10,7 @@ use std::ptr;
 use std::slice;
 
 use libc;
-use glib;
-use glib::object::{Downcast, IsA};
+use glib::object::{Cast, IsA};
 use glib::translate::*;
 
 use ffi;
@@ -44,7 +43,7 @@ impl<'a> UnixSocketAddressPath<'a> {
 impl UnixSocketAddress {
     pub fn new(path: &path::Path) -> UnixSocketAddress {
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0)).downcast_unchecked()
+            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0)).unsafe_cast()
         }
     }
 
@@ -60,7 +59,7 @@ impl UnixSocketAddress {
             };
         unsafe {
             SocketAddress::from_glib_full(ffi::g_unix_socket_address_new_with_type(path, len as i32, type_.to_glib()))
-                .downcast_unchecked()
+                .unsafe_cast()
         }
     }
 }
@@ -69,12 +68,12 @@ pub trait UnixSocketAddressExtManual {
     fn get_path(&self) -> Option<UnixSocketAddressPath>;
 }
 
-impl<O: IsA<UnixSocketAddress> + IsA<glib::object::Object>> UnixSocketAddressExtManual for O {
+impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExtManual for O {
     fn get_path(&self) -> Option<UnixSocketAddressPath> {
         use self::UnixSocketAddressPath::*;
 
         let path = unsafe {
-            let path = ffi::g_unix_socket_address_get_path(self.to_glib_none().0);
+            let path = ffi::g_unix_socket_address_get_path(self.as_ref().to_glib_none().0);
             if path.is_null() {
                 &[]
             } else {

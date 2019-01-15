@@ -11,7 +11,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct FileIcon(Object<ffi::GFileIcon, ffi::GFileIconClass>): Icon, LoadableIcon;
+    pub struct FileIcon(Object<ffi::GFileIcon, ffi::GFileIconClass, FileIconClass>) @implements Icon, LoadableIcon;
 
     match fn {
         get_type => || ffi::g_file_icon_get_type(),
@@ -21,10 +21,12 @@ glib_wrapper! {
 impl FileIcon {
     pub fn new<P: IsA<File>>(file: &P) -> FileIcon {
         unsafe {
-            from_glib_full(ffi::g_file_icon_new(file.to_glib_none().0))
+            from_glib_full(ffi::g_file_icon_new(file.as_ref().to_glib_none().0))
         }
     }
 }
+
+pub const NONE_FILE_ICON: Option<&FileIcon> = None;
 
 pub trait FileIconExt: 'static {
     fn get_file(&self) -> Option<File>;
@@ -33,7 +35,7 @@ pub trait FileIconExt: 'static {
 impl<O: IsA<FileIcon>> FileIconExt for O {
     fn get_file(&self) -> Option<File> {
         unsafe {
-            from_glib_none(ffi::g_file_icon_get_file(self.to_glib_none().0))
+            from_glib_none(ffi::g_file_icon_get_file(self.as_ref().to_glib_none().0))
         }
     }
 }

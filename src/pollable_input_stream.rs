@@ -8,7 +8,7 @@ use Error;
 use ffi;
 use glib_ffi;
 use glib;
-use glib::object::{IsA, Downcast};
+use glib::object::{IsA, Cast};
 use glib::translate::*;
 use std::ptr;
 use std::cell::RefCell;
@@ -25,21 +25,21 @@ pub trait PollableInputStreamExtManual: Sized {
     where F: FnMut(&Self) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>>;
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>>;
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone;
 
     fn read_nonblocking<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &mut [u8], cancellable: P) -> Result<isize, Error>;
 }
 
-impl<O: IsA<PollableInputStream> + Clone + 'static> PollableInputStreamExtManual for O {
+impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
     fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
-            let source = ffi::g_pollable_input_stream_create_source(self.to_glib_none().0, cancellable.0);
+            let source = ffi::g_pollable_input_stream_create_source(self.as_ref().to_glib_none().0, cancellable.0);
 
             let trampoline = trampoline::<Self> as glib_ffi::gpointer;
             glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<Self>));
@@ -60,13 +60,13 @@ impl<O: IsA<PollableInputStream> + Clone + 'static> PollableInputStreamExtManual
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_pollable_input_stream_read_nonblocking(self.to_glib_none().0, buffer.to_glib_none().0, count, cancellable.0, &mut error);
+            let ret = ffi::g_pollable_input_stream_read_nonblocking(self.as_ref().to_glib_none().0, buffer.to_glib_none().0, count, cancellable.0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> {
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -81,7 +81,7 @@ impl<O: IsA<PollableInputStream> + Clone + 'static> PollableInputStreamExtManual
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> {
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -104,7 +104,7 @@ unsafe extern "C" fn trampoline<O: IsA<PollableInputStream>>(stream: *mut ffi::G
     let func: &Fragile<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
-    (&mut *func)(&PollableInputStream::from_glib_borrow(stream).downcast_unchecked()).to_glib()
+    (&mut *func)(&PollableInputStream::from_glib_borrow(stream).unsafe_cast()).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {

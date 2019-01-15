@@ -10,7 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Vfs(Object<ffi::GVfs, ffi::GVfsClass>);
+    pub struct Vfs(Object<ffi::GVfs, ffi::GVfsClass, VfsClass>);
 
     match fn {
         get_type => || ffi::g_vfs_get_type(),
@@ -30,6 +30,8 @@ impl Vfs {
         }
     }
 }
+
+pub const NONE_VFS: Option<&Vfs> = None;
 
 pub trait VfsExt: 'static {
     fn get_file_for_path(&self, path: &str) -> Option<File>;
@@ -52,31 +54,31 @@ pub trait VfsExt: 'static {
 impl<O: IsA<Vfs>> VfsExt for O {
     fn get_file_for_path(&self, path: &str) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_vfs_get_file_for_path(self.to_glib_none().0, path.to_glib_none().0))
+            from_glib_full(ffi::g_vfs_get_file_for_path(self.as_ref().to_glib_none().0, path.to_glib_none().0))
         }
     }
 
     fn get_file_for_uri(&self, uri: &str) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_vfs_get_file_for_uri(self.to_glib_none().0, uri.to_glib_none().0))
+            from_glib_full(ffi::g_vfs_get_file_for_uri(self.as_ref().to_glib_none().0, uri.to_glib_none().0))
         }
     }
 
     fn get_supported_uri_schemes(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::g_vfs_get_supported_uri_schemes(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(ffi::g_vfs_get_supported_uri_schemes(self.as_ref().to_glib_none().0))
         }
     }
 
     fn is_active(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_vfs_is_active(self.to_glib_none().0))
+            from_glib(ffi::g_vfs_is_active(self.as_ref().to_glib_none().0))
         }
     }
 
     fn parse_name(&self, parse_name: &str) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_vfs_parse_name(self.to_glib_none().0, parse_name.to_glib_none().0))
+            from_glib_full(ffi::g_vfs_parse_name(self.as_ref().to_glib_none().0, parse_name.to_glib_none().0))
         }
     }
 
@@ -88,7 +90,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool {
         unsafe {
-            from_glib(ffi::g_vfs_unregister_uri_scheme(self.to_glib_none().0, scheme.to_glib_none().0))
+            from_glib(ffi::g_vfs_unregister_uri_scheme(self.as_ref().to_glib_none().0, scheme.to_glib_none().0))
         }
     }
 }

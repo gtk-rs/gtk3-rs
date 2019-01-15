@@ -10,7 +10,7 @@ use TlsConnection;
 use ffi;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -23,7 +23,7 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct TlsServerConnection(Object<ffi::GTlsServerConnection, ffi::GTlsServerConnectionInterface>): TlsConnection, IOStream;
+    pub struct TlsServerConnection(Interface<ffi::GTlsServerConnection>) @requires TlsConnection, IOStream;
 
     match fn {
         get_type => || ffi::g_tls_server_connection_get_type(),
@@ -31,16 +31,17 @@ glib_wrapper! {
 }
 
 impl TlsServerConnection {
-    pub fn new<'a, P: IsA<IOStream>, Q: Into<Option<&'a TlsCertificate>>>(base_io_stream: &P, certificate: Q) -> Result<TlsServerConnection, Error> {
+    pub fn new<'a, P: IsA<IOStream>, Q: IsA<TlsCertificate> + 'a, R: Into<Option<&'a Q>>>(base_io_stream: &P, certificate: R) -> Result<TlsServerConnection, Error> {
         let certificate = certificate.into();
-        let certificate = certificate.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_server_connection_new(base_io_stream.to_glib_none().0, certificate.0, &mut error);
+            let ret = ffi::g_tls_server_connection_new(base_io_stream.as_ref().to_glib_none().0, certificate.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 }
+
+pub const NONE_TLS_SERVER_CONNECTION: Option<&TlsServerConnection> = None;
 
 pub trait TlsServerConnectionExt: 'static {
     fn get_property_authentication_mode(&self) -> TlsAuthenticationMode;
@@ -68,7 +69,7 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
     fn connect_property_authentication_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::authentication-mode\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::authentication-mode\0".as_ptr() as *const _,
                 transmute(notify_authentication_mode_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -77,7 +78,7 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
 unsafe extern "C" fn notify_authentication_mode_trampoline<P>(this: *mut ffi::GTlsServerConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsServerConnection> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&TlsServerConnection::from_glib_borrow(this).downcast_unchecked())
+    f(&TlsServerConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for TlsServerConnection {

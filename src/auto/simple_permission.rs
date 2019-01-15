@@ -4,12 +4,12 @@
 
 use Permission;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SimplePermission(Object<ffi::GSimplePermission>): Permission;
+    pub struct SimplePermission(Object<ffi::GSimplePermission, SimplePermissionClass>) @extends Permission;
 
     match fn {
         get_type => || ffi::g_simple_permission_get_type(),
@@ -19,10 +19,12 @@ glib_wrapper! {
 impl SimplePermission {
     pub fn new(allowed: bool) -> SimplePermission {
         unsafe {
-            Permission::from_glib_full(ffi::g_simple_permission_new(allowed.to_glib())).downcast_unchecked()
+            Permission::from_glib_full(ffi::g_simple_permission_new(allowed.to_glib())).unsafe_cast()
         }
     }
 }
+
+pub const NONE_SIMPLE_PERMISSION: Option<&SimplePermission> = None;
 
 impl fmt::Display for SimplePermission {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

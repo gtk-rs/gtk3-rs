@@ -8,7 +8,7 @@ use ZlibCompressorFormat;
 use ffi;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -20,7 +20,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct ZlibCompressor(Object<ffi::GZlibCompressor, ffi::GZlibCompressorClass>): Converter;
+    pub struct ZlibCompressor(Object<ffi::GZlibCompressor, ffi::GZlibCompressorClass, ZlibCompressorClass>) @implements Converter;
 
     match fn {
         get_type => || ffi::g_zlib_compressor_get_type(),
@@ -35,10 +35,12 @@ impl ZlibCompressor {
     }
 }
 
+pub const NONE_ZLIB_COMPRESSOR: Option<&ZlibCompressor> = None;
+
 pub trait ZlibCompressorExt: 'static {
     fn get_file_info(&self) -> Option<FileInfo>;
 
-    fn set_file_info<'a, P: Into<Option<&'a FileInfo>>>(&self, file_info: P);
+    fn set_file_info<'a, P: IsA<FileInfo> + 'a, Q: Into<Option<&'a P>>>(&self, file_info: Q);
 
     fn get_property_format(&self) -> ZlibCompressorFormat;
 
@@ -50,15 +52,14 @@ pub trait ZlibCompressorExt: 'static {
 impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
     fn get_file_info(&self) -> Option<FileInfo> {
         unsafe {
-            from_glib_none(ffi::g_zlib_compressor_get_file_info(self.to_glib_none().0))
+            from_glib_none(ffi::g_zlib_compressor_get_file_info(self.as_ref().to_glib_none().0))
         }
     }
 
-    fn set_file_info<'a, P: Into<Option<&'a FileInfo>>>(&self, file_info: P) {
+    fn set_file_info<'a, P: IsA<FileInfo> + 'a, Q: Into<Option<&'a P>>>(&self, file_info: Q) {
         let file_info = file_info.into();
-        let file_info = file_info.to_glib_none();
         unsafe {
-            ffi::g_zlib_compressor_set_file_info(self.to_glib_none().0, file_info.0);
+            ffi::g_zlib_compressor_set_file_info(self.as_ref().to_glib_none().0, file_info.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
@@ -81,7 +82,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
     fn connect_property_file_info_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::file-info\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::file-info\0".as_ptr() as *const _,
                 transmute(notify_file_info_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -90,7 +91,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
 unsafe extern "C" fn notify_file_info_trampoline<P>(this: *mut ffi::GZlibCompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibCompressor> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&ZlibCompressor::from_glib_borrow(this).downcast_unchecked())
+    f(&ZlibCompressor::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for ZlibCompressor {

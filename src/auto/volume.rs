@@ -15,7 +15,7 @@ use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
 use glib::GString;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -28,12 +28,14 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Volume(Object<ffi::GVolume, ffi::GVolumeIface>);
+    pub struct Volume(Interface<ffi::GVolume>);
 
     match fn {
         get_type => || ffi::g_volume_get_type(),
     }
 }
+
+pub const NONE_VOLUME: Option<&Volume> = None;
 
 pub trait VolumeExt: 'static {
     fn can_eject(&self) -> bool;
@@ -41,16 +43,16 @@ pub trait VolumeExt: 'static {
     fn can_mount(&self) -> bool;
 
     #[deprecated]
-    fn eject<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q);
+    fn eject<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: Q, callback: R);
 
     #[deprecated]
     #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    fn eject_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn eject_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn enumerate_identifiers(&self) -> Vec<GString>;
 
@@ -73,10 +75,10 @@ pub trait VolumeExt: 'static {
 
     fn get_uuid(&self) -> Option<GString>;
 
-    fn mount<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R);
+    fn mount<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn mount_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn should_automount(&self) -> bool;
 
@@ -88,36 +90,35 @@ pub trait VolumeExt: 'static {
 impl<O: IsA<Volume>> VolumeExt for O {
     fn can_eject(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_volume_can_eject(self.to_glib_none().0))
+            from_glib(ffi::g_volume_can_eject(self.as_ref().to_glib_none().0))
         }
     }
 
     fn can_mount(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_volume_can_mount(self.to_glib_none().0))
+            from_glib(ffi::g_volume_can_mount(self.as_ref().to_glib_none().0))
         }
     }
 
-    fn eject<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: P, callback: Q) {
+    fn eject<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn eject_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn eject_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let _ = ffi::g_volume_eject_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = eject_trampoline::<Q>;
+        let callback = eject_trampoline::<R>;
         unsafe {
-            ffi::g_volume_eject(self.to_glib_none().0, flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_volume_eject(self.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -139,28 +140,26 @@ impl<O: IsA<Volume>> VolumeExt for O {
         })
     }
 
-    fn eject_with_operation<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: P, cancellable: Q, callback: R) {
+    fn eject_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T) {
         let mount_operation = mount_operation.into();
-        let mount_operation = mount_operation.to_glib_none();
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn eject_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<T>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn eject_with_operation_trampoline<T: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let _ = ffi::g_volume_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<T>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = eject_with_operation_trampoline::<R>;
+        let callback = eject_with_operation_trampoline::<T>;
         unsafe {
-            ffi::g_volume_eject_with_operation(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_volume_eject_with_operation(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountUnmountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -187,87 +186,85 @@ impl<O: IsA<Volume>> VolumeExt for O {
 
     fn enumerate_identifiers(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_volume_enumerate_identifiers(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(ffi::g_volume_enumerate_identifiers(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_activation_root(&self) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_activation_root(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_activation_root(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_drive(&self) -> Option<Drive> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_drive(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_drive(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_icon(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_identifier(&self, kind: &str) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_identifier(self.to_glib_none().0, kind.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_identifier(self.as_ref().to_glib_none().0, kind.to_glib_none().0))
         }
     }
 
     fn get_mount(&self) -> Option<Mount> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_mount(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_mount(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_name(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_sort_key(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_volume_get_sort_key(self.to_glib_none().0))
+            from_glib_none(ffi::g_volume_get_sort_key(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_symbolic_icon(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_symbolic_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_uuid(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_volume_get_uuid(self.to_glib_none().0))
+            from_glib_full(ffi::g_volume_get_uuid(self.as_ref().to_glib_none().0))
         }
     }
 
-    fn mount<'a, 'b, P: Into<Option<&'a MountOperation>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: P, cancellable: Q, callback: R) {
+    fn mount<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Q, cancellable: S, callback: T) {
         let mount_operation = mount_operation.into();
-        let mount_operation = mount_operation.to_glib_none();
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn mount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<T>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn mount_trampoline<T: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let _ = ffi::g_volume_mount_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<T>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = mount_trampoline::<R>;
+        let callback = mount_trampoline::<T>;
         unsafe {
-            ffi::g_volume_mount(self.to_glib_none().0, flags.to_glib(), mount_operation.0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_volume_mount(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn mount_future<'a, P: Into<Option<&'a MountOperation>>>(&self, flags: MountMountFlags, mount_operation: P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn mount_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -294,14 +291,14 @@ impl<O: IsA<Volume>> VolumeExt for O {
 
     fn should_automount(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_volume_should_automount(self.to_glib_none().0))
+            from_glib(ffi::g_volume_should_automount(self.as_ref().to_glib_none().0))
         }
     }
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
                 transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -309,7 +306,7 @@ impl<O: IsA<Volume>> VolumeExt for O {
     fn connect_removed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"removed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"removed\0".as_ptr() as *const _,
                 transmute(removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -318,13 +315,13 @@ impl<O: IsA<Volume>> VolumeExt for O {
 unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<Volume> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Volume::from_glib_borrow(this).downcast_unchecked())
+    f(&Volume::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn removed_trampoline<P>(this: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<Volume> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Volume::from_glib_borrow(this).downcast_unchecked())
+    f(&Volume::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Volume {

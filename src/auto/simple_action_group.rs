@@ -11,7 +11,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SimpleActionGroup(Object<ffi::GSimpleActionGroup, ffi::GSimpleActionGroupClass>): ActionGroup, ActionMap;
+    pub struct SimpleActionGroup(Object<ffi::GSimpleActionGroup, ffi::GSimpleActionGroupClass, SimpleActionGroupClass>) @implements ActionGroup, ActionMap;
 
     match fn {
         get_type => || ffi::g_simple_action_group_get_type(),
@@ -31,6 +31,8 @@ impl Default for SimpleActionGroup {
         Self::new()
     }
 }
+
+pub const NONE_SIMPLE_ACTION_GROUP: Option<&SimpleActionGroup> = None;
 
 pub trait SimpleActionGroupExt: 'static {
     //#[cfg_attr(feature = "v2_38", deprecated)]
@@ -53,19 +55,19 @@ impl<O: IsA<SimpleActionGroup>> SimpleActionGroupExt for O {
 
     fn insert<P: IsA<Action>>(&self, action: &P) {
         unsafe {
-            ffi::g_simple_action_group_insert(self.to_glib_none().0, action.to_glib_none().0);
+            ffi::g_simple_action_group_insert(self.as_ref().to_glib_none().0, action.as_ref().to_glib_none().0);
         }
     }
 
     fn lookup(&self, action_name: &str) -> Option<Action> {
         unsafe {
-            from_glib_none(ffi::g_simple_action_group_lookup(self.to_glib_none().0, action_name.to_glib_none().0))
+            from_glib_none(ffi::g_simple_action_group_lookup(self.as_ref().to_glib_none().0, action_name.to_glib_none().0))
         }
     }
 
     fn remove(&self, action_name: &str) {
         unsafe {
-            ffi::g_simple_action_group_remove(self.to_glib_none().0, action_name.to_glib_none().0);
+            ffi::g_simple_action_group_remove(self.as_ref().to_glib_none().0, action_name.to_glib_none().0);
         }
     }
 }

@@ -1,10 +1,9 @@
 use Application;
 use File;
 use ffi;
-use glib;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::{SignalHandlerId, connect};
+use glib::signal::{SignalHandlerId, connect_raw};
 use glib::translate::*;
 use glib_ffi;
 use libc;
@@ -16,18 +15,18 @@ pub trait ApplicationExtManual {
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
-impl<O: IsA<Application> + IsA<glib::object::Object>> ApplicationExtManual for O {
+impl<O: IsA<Application>> ApplicationExtManual for O {
     fn run(&self, argv: &[String]) -> i32 {
         let argc = argv.len() as i32;
         unsafe {
-            ffi::g_application_run(self.to_glib_none().0, argc, argv.to_glib_none().0)
+            ffi::g_application_run(self.as_ref().to_glib_none().0, argc, argv.to_glib_none().0)
         }
     }
 
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, &[File], &str) + 'static>> = Box_::new(Box_::new(f));
-            connect(self.to_glib_none().0, "open",
+            connect_raw(self.as_ptr() as *mut _, b"open\0".as_ptr() as *const _,
                 transmute(open_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -38,5 +37,5 @@ unsafe extern "C" fn open_trampoline<P>(this: *mut ffi::GApplication, files: *co
 where P: IsA<Application> {
     let f: &&(Fn(&P, &[File], &str) + 'static) = transmute(f);
     let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);
-    f(&Application::from_glib_none(this).downcast_unchecked(), &files, &String::from_glib_none(hint))
+    f(&Application::from_glib_none(this).unsafe_cast(), &files, &String::from_glib_none(hint))
 }

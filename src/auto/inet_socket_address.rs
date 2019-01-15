@@ -6,13 +6,13 @@ use InetAddress;
 use SocketAddress;
 use SocketConnectable;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass>): SocketAddress, SocketConnectable;
+    pub struct InetSocketAddress(Object<ffi::GInetSocketAddress, ffi::GInetSocketAddressClass, InetSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
         get_type => || ffi::g_inet_socket_address_get_type(),
@@ -20,22 +20,24 @@ glib_wrapper! {
 }
 
 impl InetSocketAddress {
-    pub fn new(address: &InetAddress, port: u16) -> InetSocketAddress {
+    pub fn new<P: IsA<InetAddress>>(address: &P, port: u16) -> InetSocketAddress {
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_inet_socket_address_new(address.to_glib_none().0, port)).downcast_unchecked()
+            SocketAddress::from_glib_full(ffi::g_inet_socket_address_new(address.as_ref().to_glib_none().0, port)).unsafe_cast()
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn new_from_string(address: &str, port: u32) -> InetSocketAddress {
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_inet_socket_address_new_from_string(address.to_glib_none().0, port)).downcast_unchecked()
+            SocketAddress::from_glib_full(ffi::g_inet_socket_address_new_from_string(address.to_glib_none().0, port)).unsafe_cast()
         }
     }
 }
 
 unsafe impl Send for InetSocketAddress {}
 unsafe impl Sync for InetSocketAddress {}
+
+pub const NONE_INET_SOCKET_ADDRESS: Option<&InetSocketAddress> = None;
 
 pub trait InetSocketAddressExt: 'static {
     fn get_address(&self) -> Option<InetAddress>;
@@ -50,25 +52,25 @@ pub trait InetSocketAddressExt: 'static {
 impl<O: IsA<InetSocketAddress>> InetSocketAddressExt for O {
     fn get_address(&self) -> Option<InetAddress> {
         unsafe {
-            from_glib_none(ffi::g_inet_socket_address_get_address(self.to_glib_none().0))
+            from_glib_none(ffi::g_inet_socket_address_get_address(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_flowinfo(&self) -> u32 {
         unsafe {
-            ffi::g_inet_socket_address_get_flowinfo(self.to_glib_none().0)
+            ffi::g_inet_socket_address_get_flowinfo(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_port(&self) -> u16 {
         unsafe {
-            ffi::g_inet_socket_address_get_port(self.to_glib_none().0)
+            ffi::g_inet_socket_address_get_port(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_scope_id(&self) -> u32 {
         unsafe {
-            ffi::g_inet_socket_address_get_scope_id(self.to_glib_none().0)
+            ffi::g_inet_socket_address_get_scope_id(self.as_ref().to_glib_none().0)
         }
     }
 }

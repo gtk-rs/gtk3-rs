@@ -20,29 +20,31 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct OutputStream(Object<ffi::GOutputStream, ffi::GOutputStreamClass>);
+    pub struct OutputStream(Object<ffi::GOutputStream, ffi::GOutputStreamClass, OutputStreamClass>);
 
     match fn {
         get_type => || ffi::g_output_stream_get_type(),
     }
 }
 
+pub const NONE_OUTPUT_STREAM: Option<&OutputStream> = None;
+
 pub trait OutputStreamExt: 'static {
     fn clear_pending(&self);
 
-    fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
+    fn close<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
-    fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
-
-    #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
-
-    fn flush<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error>;
-
-    fn flush_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q);
+    fn close_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn close_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+
+    fn flush<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
+
+    fn flush_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
+
+    #[cfg(feature = "futures")]
+    fn flush_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn has_pending(&self) -> bool;
 
@@ -51,67 +53,65 @@ pub trait OutputStreamExt: 'static {
     fn is_closing(&self) -> bool;
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
-    //fn printf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize>;
+    //fn printf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize>;
 
     fn set_pending(&self) -> Result<(), Error>;
 
-    fn splice<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>>(&self, source: &P, flags: OutputStreamSpliceFlags, cancellable: Q) -> Result<isize, Error>;
+    fn splice<'a, P: IsA<InputStream>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, source: &P, flags: OutputStreamSpliceFlags, cancellable: R) -> Result<isize, Error>;
 
-    fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
+    fn splice_async<'a, P: IsA<InputStream>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
-    //fn vprintf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
+    //fn vprintf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
 
-    fn write<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<isize, Error>;
+    fn write<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, buffer: &[u8], cancellable: Q) -> Result<isize, Error>;
 
-    fn write_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, bytes: &glib::Bytes, cancellable: P) -> Result<isize, Error>;
+    fn write_bytes<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, bytes: &glib::Bytes, cancellable: Q) -> Result<isize, Error>;
 
-    fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: P, callback: Q);
+    fn write_bytes_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn write_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<OutputStream>> OutputStreamExt for O {
     fn clear_pending(&self) {
         unsafe {
-            ffi::g_output_stream_clear_pending(self.to_glib_none().0);
+            ffi::g_output_stream_clear_pending(self.as_ref().to_glib_none().0);
         }
     }
 
-    fn close<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
+    fn close<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_output_stream_close(self.to_glib_none().0, cancellable.0, &mut error);
+            let _ = ffi::g_output_stream_close(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn close_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q) {
+    fn close_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn close_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn close_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let _ = ffi::g_output_stream_close_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = close_async_trampoline::<Q>;
+        let callback = close_async_trampoline::<R>;
         unsafe {
-            ffi::g_output_stream_close_async(self.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_close_async(self.as_ref().to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn close_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -133,36 +133,34 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         })
     }
 
-    fn flush<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P) -> Result<(), Error> {
+    fn flush<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_output_stream_flush(self.to_glib_none().0, cancellable.0, &mut error);
+            let _ = ffi::g_output_stream_flush(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn flush_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: P, callback: Q) {
+    fn flush_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn flush_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn flush_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let _ = ffi::g_output_stream_flush_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = flush_async_trampoline::<Q>;
+        let callback = flush_async_trampoline::<R>;
         unsafe {
-            ffi::g_output_stream_flush_async(self.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_flush_async(self.as_ref().to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn flush_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -186,65 +184,63 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
 
     fn has_pending(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_output_stream_has_pending(self.to_glib_none().0))
+            from_glib(ffi::g_output_stream_has_pending(self.as_ref().to_glib_none().0))
         }
     }
 
     fn is_closed(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_output_stream_is_closed(self.to_glib_none().0))
+            from_glib(ffi::g_output_stream_is_closed(self.as_ref().to_glib_none().0))
         }
     }
 
     fn is_closing(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_output_stream_is_closing(self.to_glib_none().0))
+            from_glib(ffi::g_output_stream_is_closing(self.as_ref().to_glib_none().0))
         }
     }
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
-    //fn printf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize> {
+    //fn printf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize> {
     //    unsafe { TODO: call ffi::g_output_stream_printf() }
     //}
 
     fn set_pending(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_output_stream_set_pending(self.to_glib_none().0, &mut error);
+            let _ = ffi::g_output_stream_set_pending(self.as_ref().to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn splice<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>>(&self, source: &P, flags: OutputStreamSpliceFlags, cancellable: Q) -> Result<isize, Error> {
+    fn splice<'a, P: IsA<InputStream>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, source: &P, flags: OutputStreamSpliceFlags, cancellable: R) -> Result<isize, Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_output_stream_splice(self.to_glib_none().0, source.to_glib_none().0, flags.to_glib(), cancellable.0, &mut error);
+            let ret = ffi::g_output_stream_splice(self.as_ref().to_glib_none().0, source.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn splice_async<'a, P: IsA<InputStream>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: Q, callback: R) {
+    fn splice_async<'a, P: IsA<InputStream>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: R, callback: S) {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn splice_async_trampoline<R: FnOnce(Result<isize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<S>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn splice_async_trampoline<S: FnOnce(Result<isize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_splice_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<S>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = splice_async_trampoline::<R>;
+        let callback = splice_async_trampoline::<S>;
         unsafe {
-            ffi::g_output_stream_splice_async(self.to_glib_none().0, source.to_glib_none().0, flags.to_glib(), io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_splice_async(self.as_ref().to_glib_none().0, source.as_ref().to_glib_none().0, flags.to_glib(), io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -270,51 +266,48 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
-    //fn vprintf<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize> {
+    //fn vprintf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize> {
     //    unsafe { TODO: call ffi::g_output_stream_vprintf() }
     //}
 
-    fn write<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &[u8], cancellable: P) -> Result<isize, Error> {
+    fn write<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, buffer: &[u8], cancellable: Q) -> Result<isize, Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_output_stream_write(self.to_glib_none().0, buffer.to_glib_none().0, count, cancellable.0, &mut error);
+            let ret = ffi::g_output_stream_write(self.as_ref().to_glib_none().0, buffer.to_glib_none().0, count, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn write_bytes<'a, P: Into<Option<&'a Cancellable>>>(&self, bytes: &glib::Bytes, cancellable: P) -> Result<isize, Error> {
+    fn write_bytes<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, bytes: &glib::Bytes, cancellable: Q) -> Result<isize, Error> {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_output_stream_write_bytes(self.to_glib_none().0, bytes.to_glib_none().0, cancellable.0, &mut error);
+            let ret = ffi::g_output_stream_write_bytes(self.as_ref().to_glib_none().0, bytes.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn write_bytes_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: P, callback: Q) {
+    fn write_bytes_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let cancellable = cancellable.to_glib_none();
-        let user_data: Box<Box<Q>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn write_bytes_async_trampoline<Q: FnOnce(Result<isize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
+        unsafe extern "C" fn write_bytes_async_trampoline<R: FnOnce(Result<isize, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_write_bytes_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<Q>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = write_bytes_async_trampoline::<Q>;
+        let callback = write_bytes_async_trampoline::<R>;
         unsafe {
-            ffi::g_output_stream_write_bytes_async(self.to_glib_none().0, bytes.to_glib_none().0, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_output_stream_write_bytes_async(self.as_ref().to_glib_none().0, bytes.to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn write_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

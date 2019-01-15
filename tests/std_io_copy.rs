@@ -16,7 +16,7 @@ fn std_io_copy_with_gio() {
     let result = io::copy(&mut read, &mut write);
 
     let out_stream = write.into_output_stream();
-    out_stream.close(None).unwrap();
+    out_stream.close(gio::NONE_CANCELLABLE).unwrap();
     assert_eq!(result.unwrap(), 3);
     assert_eq!(out_stream.steal_as_bytes().unwrap(), bytes);
 }

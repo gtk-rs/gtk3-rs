@@ -21,7 +21,7 @@ pub trait ListStoreExtManual {
     fn sort<F: FnMut(&Object, &Object) -> Ordering>(&self, compare_func: F);
 }
 
-impl<O: IsA<ListStore> + IsA<glib::object::Object>> ListStoreExtManual for O {
+impl<O: IsA<ListStore>> ListStoreExtManual for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(&self, item: &P, compare_func: F) -> u32 {
         unsafe {
@@ -30,8 +30,8 @@ impl<O: IsA<ListStore> + IsA<glib::object::Object>> ListStoreExtManual for O {
             let func_ptr = &func_obj as *const &mut (FnMut(&Object, &Object) -> Ordering) as glib_ffi::gpointer;
 
             ffi::g_list_store_insert_sorted(
-                self.to_glib_none().0,
-                item.to_glib_none().0,
+                self.as_ref().to_glib_none().0,
+                item.as_ref().to_glib_none().0,
                 Some(compare_func_trampoline),
                 func_ptr)
         }
@@ -45,7 +45,7 @@ impl<O: IsA<ListStore> + IsA<glib::object::Object>> ListStoreExtManual for O {
             let func_ptr = &func_obj as *const &mut (FnMut(&Object, &Object) -> Ordering) as glib_ffi::gpointer;
 
             ffi::g_list_store_sort(
-                self.to_glib_none().0,
+                self.as_ref().to_glib_none().0,
                 Some(compare_func_trampoline),
                 func_ptr)
         }

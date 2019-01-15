@@ -10,7 +10,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Emblem(Object<ffi::GEmblem, ffi::GEmblemClass>): Icon;
+    pub struct Emblem(Object<ffi::GEmblem, ffi::GEmblemClass, EmblemClass>) @implements Icon;
 
     match fn {
         get_type => || ffi::g_emblem_get_type(),
@@ -20,16 +20,18 @@ glib_wrapper! {
 impl Emblem {
     pub fn new<P: IsA<Icon>>(icon: &P) -> Emblem {
         unsafe {
-            from_glib_full(ffi::g_emblem_new(icon.to_glib_none().0))
+            from_glib_full(ffi::g_emblem_new(icon.as_ref().to_glib_none().0))
         }
     }
 
     pub fn new_with_origin<P: IsA<Icon>>(icon: &P, origin: EmblemOrigin) -> Emblem {
         unsafe {
-            from_glib_full(ffi::g_emblem_new_with_origin(icon.to_glib_none().0, origin.to_glib()))
+            from_glib_full(ffi::g_emblem_new_with_origin(icon.as_ref().to_glib_none().0, origin.to_glib()))
         }
     }
 }
+
+pub const NONE_EMBLEM: Option<&Emblem> = None;
 
 pub trait EmblemExt: 'static {
     fn get_icon(&self) -> Option<Icon>;
@@ -40,13 +42,13 @@ pub trait EmblemExt: 'static {
 impl<O: IsA<Emblem>> EmblemExt for O {
     fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_none(ffi::g_emblem_get_icon(self.to_glib_none().0))
+            from_glib_none(ffi::g_emblem_get_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_origin(&self) -> EmblemOrigin {
         unsafe {
-            from_glib(ffi::g_emblem_get_origin(self.to_glib_none().0))
+            from_glib(ffi::g_emblem_get_origin(self.as_ref().to_glib_none().0))
         }
     }
 }

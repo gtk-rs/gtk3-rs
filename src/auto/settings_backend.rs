@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SettingsBackend(Object<ffi::GSettingsBackend, ffi::GSettingsBackendClass>);
+    pub struct SettingsBackend(Object<ffi::GSettingsBackend, ffi::GSettingsBackendClass, SettingsBackendClass>);
 
     match fn {
         get_type => || ffi::g_settings_backend_get_type(),
@@ -26,6 +26,8 @@ impl SettingsBackend {
         }
     }
 }
+
+pub const NONE_SETTINGS_BACKEND: Option<&SettingsBackend> = None;
 
 pub trait SettingsBackendExt: 'static {
     //fn changed<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, origin_tag: P);
@@ -60,13 +62,13 @@ impl<O: IsA<SettingsBackend>> SettingsBackendExt for O {
 
     fn path_writable_changed(&self, path: &str) {
         unsafe {
-            ffi::g_settings_backend_path_writable_changed(self.to_glib_none().0, path.to_glib_none().0);
+            ffi::g_settings_backend_path_writable_changed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
         }
     }
 
     fn writable_changed(&self, key: &str) {
         unsafe {
-            ffi::g_settings_backend_writable_changed(self.to_glib_none().0, key.to_glib_none().0);
+            ffi::g_settings_backend_writable_changed(self.as_ref().to_glib_none().0, key.to_glib_none().0);
         }
     }
 }

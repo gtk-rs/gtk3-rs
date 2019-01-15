@@ -7,7 +7,7 @@ use Error;
 use ffi;
 use glib_ffi;
 use glib;
-use glib::object::{IsA, Downcast};
+use glib::object::{IsA, Cast};
 use glib::translate::*;
 use std::ptr;
 use std::cell::RefCell;
@@ -85,13 +85,13 @@ pub trait SocketExtManual: Sized {
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>>;
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>>;
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
 }
 
-impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
+impl<O: IsA<Socket>> SocketExtManual for O {
     fn receive<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
@@ -100,7 +100,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_receive(self.to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = ffi::g_socket_receive(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -119,7 +119,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
             let mut error = ptr::null_mut();
             let mut addr_ptr = ptr::null_mut();
 
-            let ret = ffi::g_socket_receive_from(self.to_glib_none().0, &mut addr_ptr, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = ffi::g_socket_receive_from(self.as_ref().to_glib_none().0, &mut addr_ptr, buffer_ptr, count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok((ret as usize, from_glib_full(addr_ptr)))
             } else {
@@ -136,7 +136,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_receive_with_blocking(self.to_glib_none().0, buffer_ptr, count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = ffi::g_socket_receive_with_blocking(self.as_ref().to_glib_none().0, buffer_ptr, count, blocking.to_glib(), cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -154,7 +154,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_send(self.to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = ffi::g_socket_send(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -174,7 +174,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         unsafe {
             let mut error = ptr::null_mut();
 
-            let ret = ffi::g_socket_send_to(self.to_glib_none().0, address.to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = ffi::g_socket_send_to(self.as_ref().to_glib_none().0, address.map(|p| p.as_ref()).to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -192,7 +192,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_send_with_blocking(self.to_glib_none().0, mut_override(buffer_ptr), count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = ffi::g_socket_send_with_blocking(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, blocking.to_glib(), cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -204,14 +204,14 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T {
         unsafe {
-            FromRawFd::from_raw_fd(ffi::g_socket_get_fd(self.to_glib_none().0))
+            FromRawFd::from_raw_fd(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T {
         unsafe {
-            FromRawSocket::from_raw_socket(ffi::g_socket_get_fd(self.to_glib_none().0) as _)
+            FromRawSocket::from_raw_socket(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0) as _)
         }
     }
 
@@ -220,7 +220,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
-            let source = ffi::g_socket_create_source(self.to_glib_none().0, condition.to_glib(), cancellable.0);
+            let source = ffi::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
             let trampoline = trampoline::<O> as glib_ffi::gpointer;
             glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<O>));
             glib_ffi::g_source_set_priority(source, priority.to_glib());
@@ -235,7 +235,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> {
+    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -250,7 +250,7 @@ impl<O: IsA<Socket> + Clone + 'static> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> {
+    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
         let cancellable = cancellable.into();
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
@@ -273,7 +273,7 @@ unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut ffi::GSocket, condi
     let func: &Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
-    (&mut *func)(&Socket::from_glib_borrow(socket).downcast_unchecked(), from_glib(condition)).to_glib()
+    (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {

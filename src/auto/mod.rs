@@ -3,428 +3,428 @@
 // DO NOT EDIT
 
 mod action;
-pub use self::action::Action;
+pub use self::action::{Action, NONE_ACTION};
 pub use self::action::ActionExt;
 
 mod action_group;
-pub use self::action_group::ActionGroup;
+pub use self::action_group::{ActionGroup, NONE_ACTION_GROUP};
 pub use self::action_group::ActionGroupExt;
 
 mod action_map;
-pub use self::action_map::ActionMap;
+pub use self::action_map::{ActionMap, NONE_ACTION_MAP};
 pub use self::action_map::ActionMapExt;
 
 mod app_info;
-pub use self::app_info::AppInfo;
+pub use self::app_info::{AppInfo, NONE_APP_INFO};
 pub use self::app_info::AppInfoExt;
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod app_info_monitor;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::app_info_monitor::AppInfoMonitor;
+pub use self::app_info_monitor::{AppInfoMonitor, AppInfoMonitorClass, NONE_APP_INFO_MONITOR};
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::app_info_monitor::AppInfoMonitorExt;
 
 mod app_launch_context;
-pub use self::app_launch_context::AppLaunchContext;
+pub use self::app_launch_context::{AppLaunchContext, AppLaunchContextClass, NONE_APP_LAUNCH_CONTEXT};
 pub use self::app_launch_context::AppLaunchContextExt;
 
 mod application;
-pub use self::application::Application;
+pub use self::application::{Application, ApplicationClass, NONE_APPLICATION};
 pub use self::application::ApplicationExt;
 
 mod application_command_line;
-pub use self::application_command_line::ApplicationCommandLine;
+pub use self::application_command_line::{ApplicationCommandLine, ApplicationCommandLineClass, NONE_APPLICATION_COMMAND_LINE};
 pub use self::application_command_line::ApplicationCommandLineExt;
 
 mod buffered_input_stream;
-pub use self::buffered_input_stream::BufferedInputStream;
+pub use self::buffered_input_stream::{BufferedInputStream, BufferedInputStreamClass, NONE_BUFFERED_INPUT_STREAM};
 pub use self::buffered_input_stream::BufferedInputStreamExt;
 
 mod buffered_output_stream;
-pub use self::buffered_output_stream::BufferedOutputStream;
+pub use self::buffered_output_stream::{BufferedOutputStream, BufferedOutputStreamClass, NONE_BUFFERED_OUTPUT_STREAM};
 pub use self::buffered_output_stream::BufferedOutputStreamExt;
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 mod bytes_icon;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::bytes_icon::BytesIcon;
+pub use self::bytes_icon::{BytesIcon, BytesIconClass, NONE_BYTES_ICON};
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 pub use self::bytes_icon::BytesIconExt;
 
 mod cancellable;
-pub use self::cancellable::Cancellable;
+pub use self::cancellable::{Cancellable, CancellableClass, NONE_CANCELLABLE};
 
 mod charset_converter;
-pub use self::charset_converter::CharsetConverter;
+pub use self::charset_converter::{CharsetConverter, CharsetConverterClass, NONE_CHARSET_CONVERTER};
 pub use self::charset_converter::CharsetConverterExt;
 
 mod converter;
-pub use self::converter::Converter;
+pub use self::converter::{Converter, NONE_CONVERTER};
 pub use self::converter::ConverterExt;
 
 mod converter_input_stream;
-pub use self::converter_input_stream::ConverterInputStream;
+pub use self::converter_input_stream::{ConverterInputStream, ConverterInputStreamClass, NONE_CONVERTER_INPUT_STREAM};
 pub use self::converter_input_stream::ConverterInputStreamExt;
 
 mod converter_output_stream;
-pub use self::converter_output_stream::ConverterOutputStream;
+pub use self::converter_output_stream::{ConverterOutputStream, ConverterOutputStreamClass, NONE_CONVERTER_OUTPUT_STREAM};
 pub use self::converter_output_stream::ConverterOutputStreamExt;
 
 mod credentials;
-pub use self::credentials::Credentials;
+pub use self::credentials::{Credentials, CredentialsClass, NONE_CREDENTIALS};
 pub use self::credentials::CredentialsExt;
 
 mod data_input_stream;
-pub use self::data_input_stream::DataInputStream;
+pub use self::data_input_stream::{DataInputStream, DataInputStreamClass, NONE_DATA_INPUT_STREAM};
 pub use self::data_input_stream::DataInputStreamExt;
 
 mod data_output_stream;
-pub use self::data_output_stream::DataOutputStream;
+pub use self::data_output_stream::{DataOutputStream, DataOutputStreamClass, NONE_DATA_OUTPUT_STREAM};
 pub use self::data_output_stream::DataOutputStreamExt;
 
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
 #[cfg(any(not(windows), feature = "dox"))]
-pub use self::desktop_app_info::DesktopAppInfo;
+pub use self::desktop_app_info::{DesktopAppInfo, DesktopAppInfoClass, NONE_DESKTOP_APP_INFO};
 #[cfg(any(not(windows), feature = "dox"))]
 pub use self::desktop_app_info::DesktopAppInfoExt;
 
 mod drive;
-pub use self::drive::Drive;
+pub use self::drive::{Drive, NONE_DRIVE};
 pub use self::drive::DriveExt;
 
 mod emblem;
-pub use self::emblem::Emblem;
+pub use self::emblem::{Emblem, EmblemClass, NONE_EMBLEM};
 pub use self::emblem::EmblemExt;
 
 mod emblemed_icon;
-pub use self::emblemed_icon::EmblemedIcon;
+pub use self::emblemed_icon::{EmblemedIcon, EmblemedIconClass, NONE_EMBLEMED_ICON};
 pub use self::emblemed_icon::EmblemedIconExt;
 
 mod file;
-pub use self::file::File;
+pub use self::file::{File, NONE_FILE};
 pub use self::file::FileExt;
 
 mod file_io_stream;
-pub use self::file_io_stream::FileIOStream;
+pub use self::file_io_stream::{FileIOStream, FileIOStreamClass, NONE_FILE_IO_STREAM};
 pub use self::file_io_stream::FileIOStreamExt;
 
 mod file_icon;
-pub use self::file_icon::FileIcon;
+pub use self::file_icon::{FileIcon, FileIconClass, NONE_FILE_ICON};
 pub use self::file_icon::FileIconExt;
 
 mod file_info;
-pub use self::file_info::FileInfo;
+pub use self::file_info::{FileInfo, FileInfoClass, NONE_FILE_INFO};
 pub use self::file_info::FileInfoExt;
 
 mod file_input_stream;
-pub use self::file_input_stream::FileInputStream;
+pub use self::file_input_stream::{FileInputStream, FileInputStreamClass, NONE_FILE_INPUT_STREAM};
 pub use self::file_input_stream::FileInputStreamExt;
 
 mod file_monitor;
-pub use self::file_monitor::FileMonitor;
+pub use self::file_monitor::{FileMonitor, FileMonitorClass, NONE_FILE_MONITOR};
 pub use self::file_monitor::FileMonitorExt;
 
 mod file_output_stream;
-pub use self::file_output_stream::FileOutputStream;
+pub use self::file_output_stream::{FileOutputStream, FileOutputStreamClass, NONE_FILE_OUTPUT_STREAM};
 pub use self::file_output_stream::FileOutputStreamExt;
 
 mod filename_completer;
-pub use self::filename_completer::FilenameCompleter;
+pub use self::filename_completer::{FilenameCompleter, FilenameCompleterClass, NONE_FILENAME_COMPLETER};
 pub use self::filename_completer::FilenameCompleterExt;
 
 mod filter_input_stream;
-pub use self::filter_input_stream::FilterInputStream;
+pub use self::filter_input_stream::{FilterInputStream, FilterInputStreamClass, NONE_FILTER_INPUT_STREAM};
 pub use self::filter_input_stream::FilterInputStreamExt;
 
 mod filter_output_stream;
-pub use self::filter_output_stream::FilterOutputStream;
+pub use self::filter_output_stream::{FilterOutputStream, FilterOutputStreamClass, NONE_FILTER_OUTPUT_STREAM};
 pub use self::filter_output_stream::FilterOutputStreamExt;
 
 mod io_stream;
-pub use self::io_stream::IOStream;
+pub use self::io_stream::{IOStream, IOStreamClass, NONE_IO_STREAM};
 pub use self::io_stream::IOStreamExt;
 
 mod icon;
-pub use self::icon::Icon;
+pub use self::icon::{Icon, NONE_ICON};
 pub use self::icon::IconExt;
 
 mod inet_address;
-pub use self::inet_address::InetAddress;
+pub use self::inet_address::{InetAddress, InetAddressClass, NONE_INET_ADDRESS};
 pub use self::inet_address::InetAddressExt;
 
 mod inet_address_mask;
-pub use self::inet_address_mask::InetAddressMask;
+pub use self::inet_address_mask::{InetAddressMask, InetAddressMaskClass, NONE_INET_ADDRESS_MASK};
 pub use self::inet_address_mask::InetAddressMaskExt;
 
 mod inet_socket_address;
-pub use self::inet_socket_address::InetSocketAddress;
+pub use self::inet_socket_address::{InetSocketAddress, InetSocketAddressClass, NONE_INET_SOCKET_ADDRESS};
 pub use self::inet_socket_address::InetSocketAddressExt;
 
 mod input_stream;
-pub use self::input_stream::InputStream;
+pub use self::input_stream::{InputStream, InputStreamClass, NONE_INPUT_STREAM};
 pub use self::input_stream::InputStreamExt;
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_model;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::list_model::ListModel;
+pub use self::list_model::{ListModel, NONE_LIST_MODEL};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::list_model::ListModelExt;
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::list_store::ListStore;
+pub use self::list_store::{ListStore, ListStoreClass, NONE_LIST_STORE};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::list_store::ListStoreExt;
 
 mod loadable_icon;
-pub use self::loadable_icon::LoadableIcon;
+pub use self::loadable_icon::{LoadableIcon, NONE_LOADABLE_ICON};
 pub use self::loadable_icon::LoadableIconExt;
 
 mod memory_input_stream;
-pub use self::memory_input_stream::MemoryInputStream;
+pub use self::memory_input_stream::{MemoryInputStream, MemoryInputStreamClass, NONE_MEMORY_INPUT_STREAM};
 pub use self::memory_input_stream::MemoryInputStreamExt;
 
 mod memory_output_stream;
-pub use self::memory_output_stream::MemoryOutputStream;
+pub use self::memory_output_stream::{MemoryOutputStream, MemoryOutputStreamClass, NONE_MEMORY_OUTPUT_STREAM};
 pub use self::memory_output_stream::MemoryOutputStreamExt;
 
 mod menu;
-pub use self::menu::Menu;
+pub use self::menu::{Menu, MenuClass, NONE_MENU};
 pub use self::menu::MenuExt;
 
 mod menu_attribute_iter;
-pub use self::menu_attribute_iter::MenuAttributeIter;
+pub use self::menu_attribute_iter::{MenuAttributeIter, MenuAttributeIterClass, NONE_MENU_ATTRIBUTE_ITER};
 pub use self::menu_attribute_iter::MenuAttributeIterExt;
 
 mod menu_item;
-pub use self::menu_item::MenuItem;
+pub use self::menu_item::{MenuItem, MenuItemClass, NONE_MENU_ITEM};
 pub use self::menu_item::MenuItemExt;
 
 mod menu_link_iter;
-pub use self::menu_link_iter::MenuLinkIter;
+pub use self::menu_link_iter::{MenuLinkIter, MenuLinkIterClass, NONE_MENU_LINK_ITER};
 pub use self::menu_link_iter::MenuLinkIterExt;
 
 mod menu_model;
-pub use self::menu_model::MenuModel;
+pub use self::menu_model::{MenuModel, MenuModelClass, NONE_MENU_MODEL};
 pub use self::menu_model::MenuModelExt;
 
 mod mount;
-pub use self::mount::Mount;
+pub use self::mount::{Mount, NONE_MOUNT};
 pub use self::mount::MountExt;
 
 mod mount_operation;
-pub use self::mount_operation::MountOperation;
+pub use self::mount_operation::{MountOperation, MountOperationClass, NONE_MOUNT_OPERATION};
 pub use self::mount_operation::MountOperationExt;
 
 mod network_address;
-pub use self::network_address::NetworkAddress;
+pub use self::network_address::{NetworkAddress, NetworkAddressClass, NONE_NETWORK_ADDRESS};
 pub use self::network_address::NetworkAddressExt;
 
 mod network_monitor;
-pub use self::network_monitor::NetworkMonitor;
+pub use self::network_monitor::{NetworkMonitor, NONE_NETWORK_MONITOR};
 pub use self::network_monitor::NetworkMonitorExt;
 
 mod network_service;
-pub use self::network_service::NetworkService;
+pub use self::network_service::{NetworkService, NetworkServiceClass, NONE_NETWORK_SERVICE};
 pub use self::network_service::NetworkServiceExt;
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod notification;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::notification::Notification;
+pub use self::notification::{Notification, NotificationClass, NONE_NOTIFICATION};
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::notification::NotificationExt;
 
 mod output_stream;
-pub use self::output_stream::OutputStream;
+pub use self::output_stream::{OutputStream, OutputStreamClass, NONE_OUTPUT_STREAM};
 pub use self::output_stream::OutputStreamExt;
 
 mod permission;
-pub use self::permission::Permission;
+pub use self::permission::{Permission, PermissionClass, NONE_PERMISSION};
 pub use self::permission::PermissionExt;
 
 mod pollable_input_stream;
-pub use self::pollable_input_stream::PollableInputStream;
+pub use self::pollable_input_stream::{PollableInputStream, NONE_POLLABLE_INPUT_STREAM};
 pub use self::pollable_input_stream::PollableInputStreamExt;
 
 mod pollable_output_stream;
-pub use self::pollable_output_stream::PollableOutputStream;
+pub use self::pollable_output_stream::{PollableOutputStream, NONE_POLLABLE_OUTPUT_STREAM};
 pub use self::pollable_output_stream::PollableOutputStreamExt;
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 mod property_action;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::property_action::PropertyAction;
+pub use self::property_action::{PropertyAction, PropertyActionClass, NONE_PROPERTY_ACTION};
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 pub use self::property_action::PropertyActionExt;
 
 mod proxy;
-pub use self::proxy::Proxy;
+pub use self::proxy::{Proxy, NONE_PROXY};
 pub use self::proxy::ProxyExt;
 
 mod proxy_address;
-pub use self::proxy_address::ProxyAddress;
+pub use self::proxy_address::{ProxyAddress, ProxyAddressClass, NONE_PROXY_ADDRESS};
 pub use self::proxy_address::ProxyAddressExt;
 
 mod proxy_resolver;
-pub use self::proxy_resolver::ProxyResolver;
+pub use self::proxy_resolver::{ProxyResolver, NONE_PROXY_RESOLVER};
 pub use self::proxy_resolver::ProxyResolverExt;
 
 mod remote_action_group;
-pub use self::remote_action_group::RemoteActionGroup;
+pub use self::remote_action_group::{RemoteActionGroup, NONE_REMOTE_ACTION_GROUP};
 pub use self::remote_action_group::RemoteActionGroupExt;
 
 mod resolver;
-pub use self::resolver::Resolver;
+pub use self::resolver::{Resolver, ResolverClass, NONE_RESOLVER};
 pub use self::resolver::ResolverExt;
 
 mod seekable;
-pub use self::seekable::Seekable;
+pub use self::seekable::{Seekable, NONE_SEEKABLE};
 pub use self::seekable::SeekableExt;
 
 mod settings;
-pub use self::settings::Settings;
+pub use self::settings::{Settings, SettingsClass, NONE_SETTINGS};
 pub use self::settings::SettingsExt;
 
 mod settings_backend;
-pub use self::settings_backend::SettingsBackend;
+pub use self::settings_backend::{SettingsBackend, SettingsBackendClass, NONE_SETTINGS_BACKEND};
 pub use self::settings_backend::SettingsBackendExt;
 
 mod simple_action;
-pub use self::simple_action::SimpleAction;
+pub use self::simple_action::{SimpleAction, SimpleActionClass, NONE_SIMPLE_ACTION};
 pub use self::simple_action::SimpleActionExt;
 
 mod simple_action_group;
-pub use self::simple_action_group::SimpleActionGroup;
+pub use self::simple_action_group::{SimpleActionGroup, SimpleActionGroupClass, NONE_SIMPLE_ACTION_GROUP};
 pub use self::simple_action_group::SimpleActionGroupExt;
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod simple_io_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::simple_io_stream::SimpleIOStream;
+pub use self::simple_io_stream::{SimpleIOStream, SimpleIOStreamClass, NONE_SIMPLE_IO_STREAM};
 
 mod simple_permission;
-pub use self::simple_permission::SimplePermission;
+pub use self::simple_permission::{SimplePermission, SimplePermissionClass, NONE_SIMPLE_PERMISSION};
 
 mod socket;
-pub use self::socket::Socket;
+pub use self::socket::{Socket, SocketClass, NONE_SOCKET};
 pub use self::socket::SocketExt;
 
 mod socket_address;
-pub use self::socket_address::SocketAddress;
+pub use self::socket_address::{SocketAddress, SocketAddressClass, NONE_SOCKET_ADDRESS};
 pub use self::socket_address::SocketAddressExt;
 
 mod socket_address_enumerator;
-pub use self::socket_address_enumerator::SocketAddressEnumerator;
+pub use self::socket_address_enumerator::{SocketAddressEnumerator, SocketAddressEnumeratorClass, NONE_SOCKET_ADDRESS_ENUMERATOR};
 pub use self::socket_address_enumerator::SocketAddressEnumeratorExt;
 
 mod socket_client;
-pub use self::socket_client::SocketClient;
+pub use self::socket_client::{SocketClient, SocketClientClass, NONE_SOCKET_CLIENT};
 pub use self::socket_client::SocketClientExt;
 
 mod socket_connectable;
-pub use self::socket_connectable::SocketConnectable;
+pub use self::socket_connectable::{SocketConnectable, NONE_SOCKET_CONNECTABLE};
 pub use self::socket_connectable::SocketConnectableExt;
 
 mod socket_connection;
-pub use self::socket_connection::SocketConnection;
+pub use self::socket_connection::{SocketConnection, SocketConnectionClass, NONE_SOCKET_CONNECTION};
 pub use self::socket_connection::SocketConnectionExt;
 
 mod socket_listener;
-pub use self::socket_listener::SocketListener;
+pub use self::socket_listener::{SocketListener, SocketListenerClass, NONE_SOCKET_LISTENER};
 pub use self::socket_listener::SocketListenerExt;
 
 mod socket_service;
-pub use self::socket_service::SocketService;
+pub use self::socket_service::{SocketService, SocketServiceClass, NONE_SOCKET_SERVICE};
 pub use self::socket_service::SocketServiceExt;
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess::Subprocess;
+pub use self::subprocess::{Subprocess, SubprocessClass, NONE_SUBPROCESS};
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::subprocess::SubprocessExt;
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess_launcher;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess_launcher::SubprocessLauncher;
+pub use self::subprocess_launcher::{SubprocessLauncher, SubprocessLauncherClass, NONE_SUBPROCESS_LAUNCHER};
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::subprocess_launcher::SubprocessLauncherExt;
 
 mod tcp_connection;
-pub use self::tcp_connection::TcpConnection;
+pub use self::tcp_connection::{TcpConnection, TcpConnectionClass, NONE_TCP_CONNECTION};
 pub use self::tcp_connection::TcpConnectionExt;
 
 mod themed_icon;
-pub use self::themed_icon::ThemedIcon;
+pub use self::themed_icon::{ThemedIcon, ThemedIconClass, NONE_THEMED_ICON};
 pub use self::themed_icon::ThemedIconExt;
 
 mod threaded_socket_service;
-pub use self::threaded_socket_service::ThreadedSocketService;
+pub use self::threaded_socket_service::{ThreadedSocketService, ThreadedSocketServiceClass, NONE_THREADED_SOCKET_SERVICE};
 pub use self::threaded_socket_service::ThreadedSocketServiceExt;
 
 mod tls_certificate;
-pub use self::tls_certificate::TlsCertificate;
+pub use self::tls_certificate::{TlsCertificate, TlsCertificateClass, NONE_TLS_CERTIFICATE};
 pub use self::tls_certificate::TlsCertificateExt;
 
 mod tls_client_connection;
-pub use self::tls_client_connection::TlsClientConnection;
+pub use self::tls_client_connection::{TlsClientConnection, NONE_TLS_CLIENT_CONNECTION};
 pub use self::tls_client_connection::TlsClientConnectionExt;
 
 mod tls_connection;
-pub use self::tls_connection::TlsConnection;
+pub use self::tls_connection::{TlsConnection, TlsConnectionClass, NONE_TLS_CONNECTION};
 pub use self::tls_connection::TlsConnectionExt;
 
 mod tls_database;
-pub use self::tls_database::TlsDatabase;
+pub use self::tls_database::{TlsDatabase, TlsDatabaseClass, NONE_TLS_DATABASE};
 pub use self::tls_database::TlsDatabaseExt;
 
 mod tls_file_database;
-pub use self::tls_file_database::TlsFileDatabase;
+pub use self::tls_file_database::{TlsFileDatabase, NONE_TLS_FILE_DATABASE};
 pub use self::tls_file_database::TlsFileDatabaseExt;
 
 mod tls_interaction;
-pub use self::tls_interaction::TlsInteraction;
+pub use self::tls_interaction::{TlsInteraction, TlsInteractionClass, NONE_TLS_INTERACTION};
 pub use self::tls_interaction::TlsInteractionExt;
 
 mod tls_password;
-pub use self::tls_password::TlsPassword;
+pub use self::tls_password::{TlsPassword, TlsPasswordClass, NONE_TLS_PASSWORD};
 pub use self::tls_password::TlsPasswordExt;
 
 mod tls_server_connection;
-pub use self::tls_server_connection::TlsServerConnection;
+pub use self::tls_server_connection::{TlsServerConnection, NONE_TLS_SERVER_CONNECTION};
 pub use self::tls_server_connection::TlsServerConnectionExt;
 
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
 #[cfg(any(unix, feature = "dox"))]
-pub use self::unix_socket_address::UnixSocketAddress;
+pub use self::unix_socket_address::{UnixSocketAddress, UnixSocketAddressClass, NONE_UNIX_SOCKET_ADDRESS};
 #[cfg(any(unix, feature = "dox"))]
 pub use self::unix_socket_address::UnixSocketAddressExt;
 
 mod vfs;
-pub use self::vfs::Vfs;
+pub use self::vfs::{Vfs, VfsClass, NONE_VFS};
 pub use self::vfs::VfsExt;
 
 mod volume;
-pub use self::volume::Volume;
+pub use self::volume::{Volume, NONE_VOLUME};
 pub use self::volume::VolumeExt;
 
 mod volume_monitor;
-pub use self::volume_monitor::VolumeMonitor;
+pub use self::volume_monitor::{VolumeMonitor, VolumeMonitorClass, NONE_VOLUME_MONITOR};
 pub use self::volume_monitor::VolumeMonitorExt;
 
 mod zlib_compressor;
-pub use self::zlib_compressor::ZlibCompressor;
+pub use self::zlib_compressor::{ZlibCompressor, ZlibCompressorClass, NONE_ZLIB_COMPRESSOR};
 pub use self::zlib_compressor::ZlibCompressorExt;
 
 mod zlib_decompressor;
-pub use self::zlib_decompressor::ZlibDecompressor;
+pub use self::zlib_decompressor::{ZlibDecompressor, ZlibDecompressorClass, NONE_ZLIB_DECOMPRESSOR};
 pub use self::zlib_decompressor::ZlibDecompressorExt;
 
 mod resource;

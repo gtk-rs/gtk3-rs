@@ -8,7 +8,7 @@ use Seekable;
 use ffi;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 use glib;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -19,7 +19,7 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass>): OutputStream, PollableOutputStream, Seekable;
+    pub struct MemoryOutputStream(Object<ffi::GMemoryOutputStream, ffi::GMemoryOutputStreamClass, MemoryOutputStreamClass>) @extends OutputStream, @implements PollableOutputStream, Seekable;
 
     match fn {
         get_type => || ffi::g_memory_output_stream_get_type(),
@@ -30,10 +30,12 @@ impl MemoryOutputStream {
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn new_resizable() -> MemoryOutputStream {
         unsafe {
-            OutputStream::from_glib_full(ffi::g_memory_output_stream_new_resizable()).downcast_unchecked()
+            OutputStream::from_glib_full(ffi::g_memory_output_stream_new_resizable()).unsafe_cast()
         }
     }
 }
+
+pub const NONE_MEMORY_OUTPUT_STREAM: Option<&MemoryOutputStream> = None;
 
 pub trait MemoryOutputStreamExt: 'static {
     fn get_data_size(&self) -> usize;
@@ -47,21 +49,21 @@ pub trait MemoryOutputStreamExt: 'static {
 impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
     fn get_data_size(&self) -> usize {
         unsafe {
-            ffi::g_memory_output_stream_get_data_size(self.to_glib_none().0)
+            ffi::g_memory_output_stream_get_data_size(self.as_ref().to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn steal_as_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            from_glib_full(ffi::g_memory_output_stream_steal_as_bytes(self.to_glib_none().0))
+            from_glib_full(ffi::g_memory_output_stream_steal_as_bytes(self.as_ref().to_glib_none().0))
         }
     }
 
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::data-size\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::data-size\0".as_ptr() as *const _,
                 transmute(notify_data_size_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -70,7 +72,7 @@ impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
 unsafe extern "C" fn notify_data_size_trampoline<P>(this: *mut ffi::GMemoryOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MemoryOutputStream> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&MemoryOutputStream::from_glib_borrow(this).downcast_unchecked())
+    f(&MemoryOutputStream::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for MemoryOutputStream {

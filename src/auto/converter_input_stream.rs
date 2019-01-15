@@ -7,13 +7,13 @@ use FilterInputStream;
 use InputStream;
 use PollableInputStream;
 use ffi;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ConverterInputStream(Object<ffi::GConverterInputStream, ffi::GConverterInputStreamClass>): FilterInputStream, InputStream, PollableInputStream;
+    pub struct ConverterInputStream(Object<ffi::GConverterInputStream, ffi::GConverterInputStreamClass, ConverterInputStreamClass>) @extends FilterInputStream, InputStream, @implements PollableInputStream;
 
     match fn {
         get_type => || ffi::g_converter_input_stream_get_type(),
@@ -23,10 +23,12 @@ glib_wrapper! {
 impl ConverterInputStream {
     pub fn new<P: IsA<InputStream>, Q: IsA<Converter>>(base_stream: &P, converter: &Q) -> ConverterInputStream {
         unsafe {
-            InputStream::from_glib_full(ffi::g_converter_input_stream_new(base_stream.to_glib_none().0, converter.to_glib_none().0)).downcast_unchecked()
+            InputStream::from_glib_full(ffi::g_converter_input_stream_new(base_stream.as_ref().to_glib_none().0, converter.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }
+
+pub const NONE_CONVERTER_INPUT_STREAM: Option<&ConverterInputStream> = None;
 
 pub trait ConverterInputStreamExt: 'static {
     fn get_converter(&self) -> Option<Converter>;
@@ -35,7 +37,7 @@ pub trait ConverterInputStreamExt: 'static {
 impl<O: IsA<ConverterInputStream>> ConverterInputStreamExt for O {
     fn get_converter(&self) -> Option<Converter> {
         unsafe {
-            from_glib_none(ffi::g_converter_input_stream_get_converter(self.to_glib_none().0))
+            from_glib_none(ffi::g_converter_input_stream_get_converter(self.as_ref().to_glib_none().0))
         }
     }
 }
