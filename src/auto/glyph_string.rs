@@ -6,6 +6,7 @@ use Analysis;
 use Font;
 use Rectangle;
 use ffi;
+use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 
@@ -27,20 +28,20 @@ impl GlyphString {
         }
     }
 
-    pub fn extents(&mut self, font: &Font) -> (Rectangle, Rectangle) {
+    pub fn extents<P: IsA<Font>>(&mut self, font: &P) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            ffi::pango_glyph_string_extents(self.to_glib_none_mut().0, font.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            ffi::pango_glyph_string_extents(self.to_glib_none_mut().0, font.as_ref().to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
             (ink_rect, logical_rect)
         }
     }
 
-    pub fn extents_range(&mut self, start: i32, end: i32, font: &Font) -> (Rectangle, Rectangle) {
+    pub fn extents_range<P: IsA<Font>>(&mut self, start: i32, end: i32, font: &P) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            ffi::pango_glyph_string_extents_range(self.to_glib_none_mut().0, start, end, font.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            ffi::pango_glyph_string_extents_range(self.to_glib_none_mut().0, start, end, font.as_ref().to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
             (ink_rect, logical_rect)
         }
     }

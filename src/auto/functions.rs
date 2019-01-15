@@ -18,6 +18,7 @@ use Weight;
 use ffi;
 use glib;
 use glib::GString;
+use glib::object::IsA;
 use glib::translate::*;
 use std::mem;
 use std::ptr;
@@ -99,17 +100,17 @@ pub fn is_zero_width(ch: char) -> bool {
     }
 }
 
-pub fn itemize<'a, P: Into<Option<&'a AttrIterator>>>(context: &Context, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: P) -> Vec<Item> {
+pub fn itemize<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterator>>>(context: &P, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Q) -> Vec<Item> {
     let cached_iter = cached_iter.into();
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize(context.to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize(context.as_ref().to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
-pub fn itemize_with_base_dir<'a, P: Into<Option<&'a AttrIterator>>>(context: &Context, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: P) -> Vec<Item> {
+pub fn itemize_with_base_dir<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterator>>>(context: &P, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Q) -> Vec<Item> {
     let cached_iter = cached_iter.into();
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize_with_base_dir(context.to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize_with_base_dir(context.as_ref().to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
@@ -141,11 +142,10 @@ pub fn lookup_aliases(fontname: &str) -> Vec<GString> {
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn parse_enum<'a, P: Into<Option<&'a str>>>(type_: glib::types::Type, str: P, warn: bool) -> Option<(i32, GString)> {
     let str = str.into();
-    let str = str.to_glib_none();
     unsafe {
         let mut value = mem::uninitialized();
         let mut possible_values = ptr::null_mut();
-        let ret = from_glib(ffi::pango_parse_enum(type_.to_glib(), str.0, &mut value, warn.to_glib(), &mut possible_values));
+        let ret = from_glib(ffi::pango_parse_enum(type_.to_glib(), str.to_glib_none().0, &mut value, warn.to_glib(), &mut possible_values));
         if ret { Some((value, from_glib_full(possible_values))) } else { None }
     }
 }
