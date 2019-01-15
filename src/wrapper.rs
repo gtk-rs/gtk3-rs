@@ -119,18 +119,17 @@
 ///
 /// ### Object
 ///
-/// Objects -- classes and interfaces.  Note that the class name, if
-/// available, must be specified after the $foreign type; see below
-/// for [non-derivable classes][#non-derivable-classes].
+/// Objects -- classes.  Note that the class name, if available, must be specified after the
+/// $foreign type; see below for [non-derivable classes][#non-derivable-classes].
 ///
 /// The basic syntax is this:
 ///
 /// ```ignore
 /// glib_wrapper! {
 ///     /// Your documentation goes here
-///     pub struct InstanceName(Object<ffi::InstanceStruct, ffi::ClassStruct>):
-///         ParentClass, GrandparentClass, ...,
-///         Interface1, Interface2, ...;
+///     pub struct InstanceName(Object<ffi::InstanceStruct, ffi::ClassStruct, ClassName>)
+///         @extends ParentClass, GrandparentClass, ...,
+///         @implements Interface1, Interface2, ...;
 ///
 ///     match fn {
 ///         get_type => || ffi::instance_get_type(),
@@ -143,16 +142,16 @@
 ///
 /// #### All parent classes must be specified
 ///
-/// In the example above, "`ParentClass, GrandparentClass, ...,`" is where you must specify all the
-/// parent classes of the one you are wrapping.  It is not necessary to specify the uppermost
-/// `GObject` or `GInitiallyUnowned` parent classes.
+/// In the example above, "`@extends ParentClass, GrandparentClass, ...,`" is where you must
+/// specify all the parent classes of the one you are wrapping. The uppermost parent class,
+/// `glib::Object`, must not be specified.
 ///
 /// For example, `ffi::GtkWindowGroup` derives directly from
 /// `GObject`, so it can be simply wrapped as follows:
 ///
 /// ```ignore
 /// glib_wrapper! {
-///     pub struct WindowGroup(Object<ffi::GtkWindowGroup, ffi::GtkWindowGroupClass>);
+///     pub struct WindowGroup(Object<ffi::GtkWindowGroup, ffi::GtkWindowGroupClass, WindowGroupClass>);
 ///
 ///     match fn {
 ///         get_type => || ffi::gtk_window_group_get_type(),
@@ -164,7 +163,7 @@
 ///
 /// ```ignore
 /// glib_wrapper! {
-///     pub struct Button(Object<ffi::GtkButton>): Bin, Container, Widget;
+///     pub struct Button(Object<ffi::GtkButton, ButtonClass>) @extends Bin, Container, Widget;
 ///         // see note on interfaces in the example below
 ///
 ///     match fn {
@@ -176,45 +175,17 @@
 /// #### Objects which implement interfaces
 ///
 /// The example above is incomplete, since `ffi::GtkButton` actually implements two interfaces,
-/// `Buildable` and `Actionable`.  In this case, they must be specified after all the parent classes:
+/// `Buildable` and `Actionable`.  In this case, they must be specified after all the parent classes
+/// behind the `@implements` keyword:
 ///
 /// ```ignore
 /// glib_wrapper! {
-///     pub struct Button(Object<ffi::GtkButton>):
-///         Bin, Container, Widget, // parent classes
-///         Buildable, Actionable;  // interfaces
+///     pub struct Button(Object<ffi::GtkButton, ButtonClass>)
+///         @extends Bin, Container, Widget, // parent classes
+///         @implements Buildable, Actionable;  // interfaces
 ///
 ///     match fn {
 ///         get_type => || ffi::gtk_button_get_type(),
-///     }
-/// }
-/// ```
-///
-/// #### Wrapping objects with parents/interfaces from different crates
-///
-/// Implementing types whose parents or interfaces come from different
-/// crates requires specifying the wrapped names of the
-/// parents/interfaces and their FFI counterparts as well.  Note that
-/// these must be specified inside square brackets "`[]`", as
-/// comma-delimited pairs like
-/// "`crate_name::WrappedName => ffi_crate_name::Name`".
-///
-/// Here, note that the parent class for `ffi::GtkApplication` is
-/// `gio::Application`, which is the Rust wrapper for
-/// `gio_ffi::GApplication`.  Similarly, the `ActionGroup` and
-/// `ActionMap` interfaces, and their corresponding ffi structs, come
-/// from different crates.
-///
-/// ```ignore
-/// glib_wrapper! {
-///     pub struct Application(Object<ffi::GtkApplication, ffi::GtkApplicationClass>): [
-///         gio::Application => gio_ffi::GApplication,
-///         gio::ActionGroup => gio_ffi::GActionGroup,
-///         gio::ActionMap   => gio_ffi::GActionMap,
-///     ];
-///
-///     match fn {
-///         get_type => || ffi::gtk_application_get_type(),
 ///     }
 /// }
 /// ```
@@ -225,11 +196,35 @@
 /// cannot be subclassed, by *not* exposing a public Class struct.
 /// This way it is not possible to override any methods, as there are
 /// no `klass.method_name` fields to overwrite.  In this case, don't
-/// specify a class name at all in the `Object<>` part:
+/// specify a FFI class name at all in the `Object<>` part:
 ///
 /// ```ignore
 /// glib_wrapper! {
-///     pub struct Clipboard(Object<ffi::GtkClipboard>);
+///     pub struct Clipboard(Object<ffi::GtkClipboard, ClipboardClass>);
+///     ...
+/// }
+/// ```
+///
+/// #### Interfaces
+///
+/// Interfaces are passed in the same way to the macro but instead of specifying
+/// `Object`, `Interface` has to be specified:
+///
+/// ```ignore
+/// glib_wrapper! {
+///     pub struct TreeModel(Interface<ffi::GtkTreeModel, ffi::GtkTreeModelIface, TreeModelIface>);
+///     ...
+/// }
+/// ```
+///
+/// #### Interfaces with prerequisites
+///
+/// Interfaces can declare prerequisites, i.e. the classes from which types that implement the
+/// interface have to inherit or interfaces that have to be implemented:
+///
+/// ```ignore
+/// glib_wrapper! {
+///     pub struct TreeSortable(Interface<ffi::GtkTreeSortable, ffi::GtkTreeSortable, TreeSortableIface>) @requires TreeModel;
 ///     ...
 /// }
 /// ```
@@ -299,133 +294,131 @@ macro_rules! glib_wrapper {
             @unref $unref_arg $unref_expr, @get_type $get_type_expr);
     };
 
-    // Object, no class struct, no rust class struct, no parents
+    // Object, no class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>);
+        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void, @get_type $get_type_expr, []);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
-    // Object, class struct, no rust class struct, no parents
+    // Object, class struct, no parents or interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>);
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void, @get_type $get_type_expr, []);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
-    // Object, class struct, rust class struct, no parents
+    // Object, no class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>);
+        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, []);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+            @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
-    // Object, no class struct, no rust class struct, parents in other crates
+    // Object, class struct, parents, no interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>): [$($implements:tt)+];
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @extends $($extends:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
-            @get_type $get_type_expr, @implements $($implements)+);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
-    // Object, class struct, no rust class struct, parents in other crates
+    // Object, no class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): [$($implements:tt)+];
+        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void, @get_type $get_type_expr,
-            @implements $($implements)+);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+            @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
-    // Object, class struct, rust class struct, parents in other crates
+    // Object, class struct, no parents, interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>): [$($implements:tt)+];
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr,
-            @implements $($implements)+);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
-    // Object, no class struct, no rust class struct, parents
+    // Object, no class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path>): $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:path, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $crate::wrapper::Void,
-            @get_type $get_type_expr, [$($implements),+]);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+            @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
-    // Object, class struct, no rust class struct, parents
+    // Object, class struct, parents and interfaces
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path>): $($implements:path),+;
+        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:ident>) @extends $($extends:path),+, @implements $($implements:path),+;
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $crate::wrapper::Void,
-            @get_type $get_type_expr, [$($implements),+]);
+        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+            @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
-    // Object, class struct, rust class struct, parents
+    // Interface, no prerequisites
     (
         $(#[$attr:meta])*
-        pub struct $name:ident(Object<$ffi_name:path, $ffi_class_name:path, $rust_class_name:path>): $($implements:path),+;
+        pub struct $name:ident(Interface<$ffi_name:path>);
 
         match fn {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!([$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
-            @get_type $get_type_expr, [$($implements),+]);
+        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires []);
     };
-}
 
-/// Represents a pair of structures (instance, class) as exposed by descendants of GObject.
-pub trait Wrapper {
-    /// type of the FFI Instance structure.
-    type GlibType: 'static;
-    /// type of the FFI Class structure.
-    type GlibClassType: 'static;
-    /// type of the Rust Class structure.
-    type RustClassType: 'static;
-}
+    // Interface, prerequisites
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Interface<$ffi_name:path>) @requires $($requires:path),+;
 
-pub trait UnsafeFrom<T> {
-    unsafe fn from(t: T) -> Self;
+        match fn {
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
+    };
 }
 
 // So we can refer to the empty type by a path

@@ -8,7 +8,7 @@ use libc::{c_char, c_void, c_ulong};
 
 use gobject_ffi::{self, GCallback};
 use ffi::gboolean;
-use object::{IsA, Object};
+use object::ObjectType;
 use translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
 
 /// The id of a signal that is returned by `connect`.
@@ -61,28 +61,28 @@ pub unsafe fn connect_raw(receiver: *mut gobject_ffi::GObject, signal_name: *con
     from_glib(handle)
 }
 
-pub fn signal_handler_block<T: IsA<Object>>(instance: &T, handler_id: &SignalHandlerId) {
+pub fn signal_handler_block<T: ObjectType>(instance: &T, handler_id: &SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_block(instance.to_glib_none().0, handler_id.to_glib());
+        gobject_ffi::g_signal_handler_block(instance.as_object_ref().to_glib_none().0, handler_id.to_glib());
     }
 }
 
-pub fn signal_handler_unblock<T: IsA<Object>>(instance: &T, handler_id: &SignalHandlerId) {
+pub fn signal_handler_unblock<T: ObjectType>(instance: &T, handler_id: &SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_unblock(instance.to_glib_none().0, handler_id.to_glib());
+        gobject_ffi::g_signal_handler_unblock(instance.as_object_ref().to_glib_none().0, handler_id.to_glib());
     }
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
-pub fn signal_handler_disconnect<T: IsA<Object>>(instance: &T, handler_id: SignalHandlerId) {
+pub fn signal_handler_disconnect<T: ObjectType>(instance: &T, handler_id: SignalHandlerId) {
     unsafe {
-        gobject_ffi::g_signal_handler_disconnect(instance.to_glib_none().0, handler_id.to_glib());
+        gobject_ffi::g_signal_handler_disconnect(instance.as_object_ref().to_glib_none().0, handler_id.to_glib());
     }
 }
 
-pub fn signal_stop_emission_by_name<T: IsA<Object>>(instance: &T, signal_name: &str) {
+pub fn signal_stop_emission_by_name<T: ObjectType>(instance: &T, signal_name: &str) {
     unsafe {
-        gobject_ffi::g_signal_stop_emission_by_name(instance.to_glib_none().0, signal_name.to_glib_none().0);
+        gobject_ffi::g_signal_stop_emission_by_name(instance.as_object_ref().to_glib_none().0, signal_name.to_glib_none().0);
     }
 }
 
