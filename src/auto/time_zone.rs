@@ -21,9 +21,8 @@ glib_wrapper! {
 impl TimeZone {
     pub fn new<'a, P: Into<Option<&'a str>>>(identifier: P) -> TimeZone {
         let identifier = identifier.into();
-        let identifier = identifier.to_glib_none();
         unsafe {
-            from_glib_full(ffi::g_time_zone_new(identifier.0))
+            from_glib_full(ffi::g_time_zone_new(identifier.to_glib_none().0))
         }
     }
 

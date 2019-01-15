@@ -40,9 +40,8 @@ impl Source {
 
     pub fn attach<'a, P: Into<Option<&'a MainContext>>>(&self, context: P) -> u32 {
         let context = context.into();
-        let context = context.to_glib_none();
         unsafe {
-            ffi::g_source_attach(self.to_glib_none().0, context.0)
+            ffi::g_source_attach(self.to_glib_none().0, context.to_glib_none().0)
         }
     }
 

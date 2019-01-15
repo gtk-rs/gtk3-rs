@@ -33,9 +33,8 @@ impl DateTime {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     pub fn new_from_iso8601<'a, P: Into<Option<&'a TimeZone>>>(text: &str, default_tz: P) -> DateTime {
         let default_tz = default_tz.into();
-        let default_tz = default_tz.to_glib_none();
         unsafe {
-            from_glib_full(ffi::g_date_time_new_from_iso8601(text.to_glib_none().0, default_tz.0))
+            from_glib_full(ffi::g_date_time_new_from_iso8601(text.to_glib_none().0, default_tz.to_glib_none().0))
         }
     }
 
