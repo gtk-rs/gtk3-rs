@@ -8,7 +8,7 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass>);
+    pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass, MiscClass>);
 
     match fn {
         get_type => || ffi::atk_misc_get_type(),
@@ -24,6 +24,8 @@ impl Misc {
     }
 }
 
+pub const NONE_MISC: Option<&Misc> = None;
+
 pub trait AtkMiscExt: 'static {
     fn threads_enter(&self);
 
@@ -33,13 +35,13 @@ pub trait AtkMiscExt: 'static {
 impl<O: IsA<Misc>> AtkMiscExt for O {
     fn threads_enter(&self) {
         unsafe {
-            ffi::atk_misc_threads_enter(self.to_glib_none().0);
+            ffi::atk_misc_threads_enter(self.as_ref().to_glib_none().0);
         }
     }
 
     fn threads_leave(&self) {
         unsafe {
-            ffi::atk_misc_threads_leave(self.to_glib_none().0);
+            ffi::atk_misc_threads_leave(self.as_ref().to_glib_none().0);
         }
     }
 }

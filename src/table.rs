@@ -2,11 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib::translate::*;
 use glib::object::IsA;
 use ffi;
 use Table;
 
-pub trait TableExtManual {
+pub trait TableExtManual: 'static {
     fn get_selected_columns(&self) -> Vec<i32>;
     fn get_selected_rows(&self) -> Vec<i32>;
 }
@@ -15,7 +16,7 @@ impl<O: IsA<Table>> TableExtManual for O {
     fn get_selected_columns(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
-            let nb = ffi::atk_table_get_selected_columns(self.to_glib_none().0, &mut selected);
+            let nb = ffi::atk_table_get_selected_columns(self.as_ref().to_glib_none().0, &mut selected);
             if nb <= 0 {
                 Vec::new()
             } else {
@@ -27,7 +28,7 @@ impl<O: IsA<Table>> TableExtManual for O {
     fn get_selected_rows(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
-            let nb = ffi::atk_table_get_selected_rows(self.to_glib_none().0, &mut selected);
+            let nb = ffi::atk_table_get_selected_rows(self.as_ref().to_glib_none().0, &mut selected);
             if nb <= 0 {
                 Vec::new()
             } else {

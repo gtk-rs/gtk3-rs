@@ -8,7 +8,7 @@ use ffi;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
@@ -20,12 +20,14 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass>): Action;
+    pub struct Hyperlink(Object<ffi::AtkHyperlink, ffi::AtkHyperlinkClass, HyperlinkClass>) @implements Action;
 
     match fn {
         get_type => || ffi::atk_hyperlink_get_type(),
     }
 }
+
+pub const NONE_HYPERLINK: Option<&Hyperlink> = None;
 
 pub trait HyperlinkExt: 'static {
     fn get_end_index(&self) -> i32;
@@ -56,43 +58,43 @@ pub trait HyperlinkExt: 'static {
 impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn get_end_index(&self) -> i32 {
         unsafe {
-            ffi::atk_hyperlink_get_end_index(self.to_glib_none().0)
+            ffi::atk_hyperlink_get_end_index(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_n_anchors(&self) -> i32 {
         unsafe {
-            ffi::atk_hyperlink_get_n_anchors(self.to_glib_none().0)
+            ffi::atk_hyperlink_get_n_anchors(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_object(&self, i: i32) -> Option<Object> {
         unsafe {
-            from_glib_none(ffi::atk_hyperlink_get_object(self.to_glib_none().0, i))
+            from_glib_none(ffi::atk_hyperlink_get_object(self.as_ref().to_glib_none().0, i))
         }
     }
 
     fn get_start_index(&self) -> i32 {
         unsafe {
-            ffi::atk_hyperlink_get_start_index(self.to_glib_none().0)
+            ffi::atk_hyperlink_get_start_index(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_uri(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::atk_hyperlink_get_uri(self.to_glib_none().0, i))
+            from_glib_full(ffi::atk_hyperlink_get_uri(self.as_ref().to_glib_none().0, i))
         }
     }
 
     fn is_inline(&self) -> bool {
         unsafe {
-            from_glib(ffi::atk_hyperlink_is_inline(self.to_glib_none().0))
+            from_glib(ffi::atk_hyperlink_is_inline(self.as_ref().to_glib_none().0))
         }
     }
 
     fn is_valid(&self) -> bool {
         unsafe {
-            from_glib(ffi::atk_hyperlink_is_valid(self.to_glib_none().0))
+            from_glib(ffi::atk_hyperlink_is_valid(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -107,7 +109,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn connect_link_activated<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"link-activated\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"link-activated\0".as_ptr() as *const _,
                 transmute(link_activated_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -115,7 +117,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn connect_property_end_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::end-index\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::end-index\0".as_ptr() as *const _,
                 transmute(notify_end_index_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -123,7 +125,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn connect_property_number_of_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::number-of-anchors\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::number-of-anchors\0".as_ptr() as *const _,
                 transmute(notify_number_of_anchors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -131,7 +133,7 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
     fn connect_property_start_index_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"notify::start-index\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"notify::start-index\0".as_ptr() as *const _,
                 transmute(notify_start_index_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -140,25 +142,25 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
 unsafe extern "C" fn link_activated_trampoline<P>(this: *mut ffi::AtkHyperlink, f: glib_ffi::gpointer)
 where P: IsA<Hyperlink> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())
+    f(&Hyperlink::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_end_index_trampoline<P>(this: *mut ffi::AtkHyperlink, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Hyperlink> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())
+    f(&Hyperlink::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_number_of_anchors_trampoline<P>(this: *mut ffi::AtkHyperlink, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Hyperlink> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())
+    f(&Hyperlink::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_start_index_trampoline<P>(this: *mut ffi::AtkHyperlink, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Hyperlink> {
     let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Hyperlink::from_glib_borrow(this).downcast_unchecked())
+    f(&Hyperlink::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Hyperlink {

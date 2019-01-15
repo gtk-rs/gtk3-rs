@@ -10,12 +10,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass>);
+    pub struct Registry(Object<ffi::AtkRegistry, ffi::AtkRegistryClass, RegistryClass>);
 
     match fn {
         get_type => || ffi::atk_registry_get_type(),
     }
 }
+
+pub const NONE_REGISTRY: Option<&Registry> = None;
 
 pub trait RegistryExt: 'static {
     fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory>;
@@ -28,19 +30,19 @@ pub trait RegistryExt: 'static {
 impl<O: IsA<Registry>> RegistryExt for O {
     fn get_factory(&self, type_: glib::types::Type) -> Option<ObjectFactory> {
         unsafe {
-            from_glib_none(ffi::atk_registry_get_factory(self.to_glib_none().0, type_.to_glib()))
+            from_glib_none(ffi::atk_registry_get_factory(self.as_ref().to_glib_none().0, type_.to_glib()))
         }
     }
 
     fn get_factory_type(&self, type_: glib::types::Type) -> glib::types::Type {
         unsafe {
-            from_glib(ffi::atk_registry_get_factory_type(self.to_glib_none().0, type_.to_glib()))
+            from_glib(ffi::atk_registry_get_factory_type(self.as_ref().to_glib_none().0, type_.to_glib()))
         }
     }
 
     fn set_factory_type(&self, type_: glib::types::Type, factory_type: glib::types::Type) {
         unsafe {
-            ffi::atk_registry_set_factory_type(self.to_glib_none().0, type_.to_glib(), factory_type.to_glib());
+            ffi::atk_registry_set_factory_type(self.as_ref().to_glib_none().0, type_.to_glib(), factory_type.to_glib());
         }
     }
 }
