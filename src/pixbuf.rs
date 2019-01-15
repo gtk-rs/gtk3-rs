@@ -125,7 +125,7 @@ impl Pixbuf {
         }
         let callback = new_from_stream_async_trampoline::<R>;
         unsafe {
-            ffi::gdk_pixbuf_new_from_stream_async(stream.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::gdk_pixbuf_new_from_stream_async(stream.as_ref().to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -169,7 +169,7 @@ impl Pixbuf {
         }
         let callback = new_from_stream_at_scale_async_trampoline::<R>;
         unsafe {
-            ffi::gdk_pixbuf_new_from_stream_at_scale_async(stream.to_glib_none().0, width, height, preserve_aspect_ratio.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::gdk_pixbuf_new_from_stream_at_scale_async(stream.as_ref().to_glib_none().0, width, height, preserve_aspect_ratio.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -304,7 +304,7 @@ impl Pixbuf {
             let mut error = ptr::null_mut();
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            let _ = ffi::gdk_pixbuf_save_to_streamv(self.to_glib_none().0, stream.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, &mut error);
+            let _ = ffi::gdk_pixbuf_save_to_streamv(self.to_glib_none().0, stream.as_ref().to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -330,7 +330,7 @@ impl Pixbuf {
         unsafe {
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
             let option_values: Vec<&str> = options.iter().map(|o| o.1).collect();
-            ffi::gdk_pixbuf_save_to_streamv_async(self.to_glib_none().0, stream.to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::gdk_pixbuf_save_to_streamv_async(self.to_glib_none().0, stream.as_ref().to_glib_none().0, type_.to_glib_none().0, option_keys.to_glib_none().0, option_values.to_glib_none().0, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
 
     }

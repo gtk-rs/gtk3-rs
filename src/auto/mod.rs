@@ -3,15 +3,15 @@
 // DO NOT EDIT
 
 mod pixbuf;
-pub use self::pixbuf::Pixbuf;
+pub use self::pixbuf::{Pixbuf, PixbufClass, NONE_PIXBUF};
 pub use self::pixbuf::PixbufExt;
 
 mod pixbuf_loader;
-pub use self::pixbuf_loader::PixbufLoader;
+pub use self::pixbuf_loader::{PixbufLoader, PixbufLoaderClass, NONE_PIXBUF_LOADER};
 pub use self::pixbuf_loader::PixbufLoaderExt;
 
 mod pixbuf_simple_anim;
-pub use self::pixbuf_simple_anim::PixbufSimpleAnim;
+pub use self::pixbuf_simple_anim::{PixbufSimpleAnim, PixbufSimpleAnimClass, NONE_PIXBUF_SIMPLE_ANIM};
 pub use self::pixbuf_simple_anim::PixbufSimpleAnimExt;
 
 mod pixbuf_format;
