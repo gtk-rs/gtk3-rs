@@ -5,18 +5,11 @@
 use ffi;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
 use pango;
-use pango_ffi;
 use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
-    pub struct FontMap(Object<ffi::PangoCairoFontMap>): [
-        pango::FontMap => pango_ffi::PangoFontMap,
-    ];
+    pub struct FontMap(Interface<ffi::PangoCairoFontMap>) @requires pango::FontMap;
 
     match fn {
         get_type => || ffi::pango_cairo_font_map_get_type(),
@@ -31,7 +24,9 @@ impl FontMap {
     }
 }
 
-pub trait FontMapExt {
+pub const NONE_FONT_MAP: Option<&FontMap> = None;
+
+pub trait FontMapExt: 'static {
     #[deprecated]
     fn create_context(&self) -> Option<pango::Context>;
 
@@ -45,25 +40,25 @@ pub trait FontMapExt {
 impl<O: IsA<FontMap>> FontMapExt for O {
     fn create_context(&self) -> Option<pango::Context> {
         unsafe {
-            from_glib_none(ffi::pango_cairo_font_map_create_context(self.to_glib_none().0))
+            from_glib_none(ffi::pango_cairo_font_map_create_context(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_resolution(&self) -> f64 {
         unsafe {
-            ffi::pango_cairo_font_map_get_resolution(self.to_glib_none().0)
+            ffi::pango_cairo_font_map_get_resolution(self.as_ref().to_glib_none().0)
         }
     }
 
     fn set_default(&self) {
         unsafe {
-            ffi::pango_cairo_font_map_set_default(self.to_glib_none().0);
+            ffi::pango_cairo_font_map_set_default(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_resolution(&self, dpi: f64) {
         unsafe {
-            ffi::pango_cairo_font_map_set_resolution(self.to_glib_none().0, dpi);
+            ffi::pango_cairo_font_map_set_resolution(self.as_ref().to_glib_none().0, dpi);
         }
     }
 }
