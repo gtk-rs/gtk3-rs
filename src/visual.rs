@@ -8,7 +8,7 @@ use glib::object::IsA;
 use ffi;
 use Visual;
 
-pub trait VisualExtManual {
+pub trait VisualExtManual: 'static {
     fn query_depths() -> Vec<i32>;
 }
 

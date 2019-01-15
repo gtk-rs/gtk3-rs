@@ -122,7 +122,7 @@ impl Window {
     }
 }
 
-pub trait WindowExtManual {
+pub trait WindowExtManual: 'static {
     unsafe fn set_user_data<T>(&self, user_data: &mut T);
 
     #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
@@ -147,17 +147,17 @@ pub trait WindowExtManual {
 
 impl<O: IsA<Window>> WindowExtManual for O {
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
-        ffi::gdk_window_set_user_data(self.to_glib_none().0, user_data as *mut T as *mut _)
+        ffi::gdk_window_set_user_data(self.as_ref().to_glib_none().0, user_data as *mut T as *mut _)
     }
 
     unsafe fn get_user_data<T>(&self) -> &mut T {
         let mut pointer = ::std::ptr::null_mut();
-        ffi::gdk_window_get_user_data(self.to_glib_none().0, &mut pointer);
+        ffi::gdk_window_get_user_data(self.as_ref().to_glib_none().0, &mut pointer);
         &mut *(pointer as *mut T)
     }
 
     fn set_geometry_hints(&self, geometry: &ffi::GdkGeometry, geom_mask: WindowHints) {
-        unsafe { ffi::gdk_window_set_geometry_hints(self.to_glib_none().0, geometry, geom_mask.to_glib()) }
+        unsafe { ffi::gdk_window_set_geometry_hints(self.as_ref().to_glib_none().0, geometry, geom_mask.to_glib()) }
     }
 
     fn get_default_root_window() -> Window {
@@ -167,31 +167,31 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     fn offscreen_window_set_embedder(&self, embedder: &Window) {
         unsafe {
-            ffi::gdk_offscreen_window_set_embedder(self.to_glib_none().0, embedder.to_glib_none().0)
+            ffi::gdk_offscreen_window_set_embedder(self.as_ref().to_glib_none().0, embedder.to_glib_none().0)
         }
     }
 
     fn offscreen_window_get_embedder(&self) -> Option<Window> {
-        unsafe { from_glib_none(ffi::gdk_offscreen_window_get_embedder(self.to_glib_none().0)) }
+        unsafe { from_glib_none(ffi::gdk_offscreen_window_get_embedder(self.as_ref().to_glib_none().0)) }
     }
 
     fn offscreen_window_get_surface(&self) -> Option<Surface> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_none(ffi::gdk_offscreen_window_get_surface(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_offscreen_window_get_surface(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::gdk_pixbuf_get_from_window(self.to_glib_none().0, src_x, src_y, width, height))
+            from_glib_full(ffi::gdk_pixbuf_get_from_window(self.as_ref().to_glib_none().0, src_x, src_y, width, height))
         }
     }
 
     fn get_background_pattern(&self) -> Option<cairo::Pattern> {
         unsafe {
-            let ret = ffi::gdk_window_get_background_pattern(self.to_glib_none().0);
+            let ret = ffi::gdk_window_get_background_pattern(self.as_ref().to_glib_none().0);
             if ret.is_null() {
                 None
             } else {
@@ -208,7 +208,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
             } else {
                 ::std::ptr::null_mut()
             };
-            ffi::gdk_window_set_background_pattern(self.to_glib_none().0, ptr);
+            ffi::gdk_window_set_background_pattern(self.as_ref().to_glib_none().0, ptr);
         }
     }
 }

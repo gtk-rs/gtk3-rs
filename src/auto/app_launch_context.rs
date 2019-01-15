@@ -6,7 +6,6 @@ use Display;
 use Screen;
 use ffi;
 use gio;
-use gio_ffi;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
@@ -15,9 +14,7 @@ use gobject_ffi;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext>): [
-        gio::AppLaunchContext => gio_ffi::GAppLaunchContext,
-    ];
+    pub struct AppLaunchContext(Object<ffi::GdkAppLaunchContext, AppLaunchContextClass>) @extends gio::AppLaunchContext;
 
     match fn {
         get_type => || ffi::gdk_app_launch_context_get_type(),
@@ -41,17 +38,19 @@ impl Default for AppLaunchContext {
     }
 }
 
+pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
+
 pub trait AppLaunchContextExt: 'static {
     fn set_desktop(&self, desktop: i32);
 
     #[deprecated]
-    fn set_display(&self, display: &Display);
+    fn set_display<P: IsA<Display>>(&self, display: &P);
 
     fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q);
 
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P);
 
-    fn set_screen(&self, screen: &Screen);
+    fn set_screen<P: IsA<Screen>>(&self, screen: &P);
 
     fn set_timestamp(&self, timestamp: u32);
 
@@ -61,41 +60,39 @@ pub trait AppLaunchContextExt: 'static {
 impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     fn set_desktop(&self, desktop: i32) {
         unsafe {
-            ffi::gdk_app_launch_context_set_desktop(self.to_glib_none().0, desktop);
+            ffi::gdk_app_launch_context_set_desktop(self.as_ref().to_glib_none().0, desktop);
         }
     }
 
-    fn set_display(&self, display: &Display) {
+    fn set_display<P: IsA<Display>>(&self, display: &P) {
         unsafe {
-            ffi::gdk_app_launch_context_set_display(self.to_glib_none().0, display.to_glib_none().0);
+            ffi::gdk_app_launch_context_set_display(self.as_ref().to_glib_none().0, display.as_ref().to_glib_none().0);
         }
     }
 
     fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
         let icon = icon.into();
-        let icon = icon.to_glib_none();
         unsafe {
-            ffi::gdk_app_launch_context_set_icon(self.to_glib_none().0, icon.0);
+            ffi::gdk_app_launch_context_set_icon(self.as_ref().to_glib_none().0, icon.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P) {
         let icon_name = icon_name.into();
-        let icon_name = icon_name.to_glib_none();
         unsafe {
-            ffi::gdk_app_launch_context_set_icon_name(self.to_glib_none().0, icon_name.0);
+            ffi::gdk_app_launch_context_set_icon_name(self.as_ref().to_glib_none().0, icon_name.to_glib_none().0);
         }
     }
 
-    fn set_screen(&self, screen: &Screen) {
+    fn set_screen<P: IsA<Screen>>(&self, screen: &P) {
         unsafe {
-            ffi::gdk_app_launch_context_set_screen(self.to_glib_none().0, screen.to_glib_none().0);
+            ffi::gdk_app_launch_context_set_screen(self.as_ref().to_glib_none().0, screen.as_ref().to_glib_none().0);
         }
     }
 
     fn set_timestamp(&self, timestamp: u32) {
         unsafe {
-            ffi::gdk_app_launch_context_set_timestamp(self.to_glib_none().0, timestamp);
+            ffi::gdk_app_launch_context_set_timestamp(self.as_ref().to_glib_none().0, timestamp);
         }
     }
 

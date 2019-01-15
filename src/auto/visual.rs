@@ -12,7 +12,7 @@ use std::fmt;
 use std::mem;
 
 glib_wrapper! {
-    pub struct Visual(Object<ffi::GdkVisual>);
+    pub struct Visual(Object<ffi::GdkVisual, VisualClass>);
 
     match fn {
         get_type => || ffi::gdk_visual_get_type(),
@@ -77,6 +77,8 @@ impl Visual {
     }
 }
 
+pub const NONE_VISUAL: Option<&Visual> = None;
+
 pub trait VisualExt: 'static {
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn get_bits_per_rgb(&self) -> i32;
@@ -103,7 +105,7 @@ pub trait VisualExt: 'static {
 impl<O: IsA<Visual>> VisualExt for O {
     fn get_bits_per_rgb(&self) -> i32 {
         unsafe {
-            ffi::gdk_visual_get_bits_per_rgb(self.to_glib_none().0)
+            ffi::gdk_visual_get_bits_per_rgb(self.as_ref().to_glib_none().0)
         }
     }
 
@@ -112,26 +114,26 @@ impl<O: IsA<Visual>> VisualExt for O {
             let mut mask = mem::uninitialized();
             let mut shift = mem::uninitialized();
             let mut precision = mem::uninitialized();
-            ffi::gdk_visual_get_blue_pixel_details(self.to_glib_none().0, &mut mask, &mut shift, &mut precision);
+            ffi::gdk_visual_get_blue_pixel_details(self.as_ref().to_glib_none().0, &mut mask, &mut shift, &mut precision);
             (mask, shift, precision)
         }
     }
 
     fn get_byte_order(&self) -> ByteOrder {
         unsafe {
-            from_glib(ffi::gdk_visual_get_byte_order(self.to_glib_none().0))
+            from_glib(ffi::gdk_visual_get_byte_order(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_colormap_size(&self) -> i32 {
         unsafe {
-            ffi::gdk_visual_get_colormap_size(self.to_glib_none().0)
+            ffi::gdk_visual_get_colormap_size(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_depth(&self) -> i32 {
         unsafe {
-            ffi::gdk_visual_get_depth(self.to_glib_none().0)
+            ffi::gdk_visual_get_depth(self.as_ref().to_glib_none().0)
         }
     }
 
@@ -140,7 +142,7 @@ impl<O: IsA<Visual>> VisualExt for O {
             let mut mask = mem::uninitialized();
             let mut shift = mem::uninitialized();
             let mut precision = mem::uninitialized();
-            ffi::gdk_visual_get_green_pixel_details(self.to_glib_none().0, &mut mask, &mut shift, &mut precision);
+            ffi::gdk_visual_get_green_pixel_details(self.as_ref().to_glib_none().0, &mut mask, &mut shift, &mut precision);
             (mask, shift, precision)
         }
     }
@@ -150,20 +152,20 @@ impl<O: IsA<Visual>> VisualExt for O {
             let mut mask = mem::uninitialized();
             let mut shift = mem::uninitialized();
             let mut precision = mem::uninitialized();
-            ffi::gdk_visual_get_red_pixel_details(self.to_glib_none().0, &mut mask, &mut shift, &mut precision);
+            ffi::gdk_visual_get_red_pixel_details(self.as_ref().to_glib_none().0, &mut mask, &mut shift, &mut precision);
             (mask, shift, precision)
         }
     }
 
     fn get_screen(&self) -> Screen {
         unsafe {
-            from_glib_none(ffi::gdk_visual_get_screen(self.to_glib_none().0))
+            from_glib_none(ffi::gdk_visual_get_screen(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_visual_type(&self) -> VisualType {
         unsafe {
-            from_glib(ffi::gdk_visual_get_visual_type(self.to_glib_none().0))
+            from_glib(ffi::gdk_visual_get_visual_type(self.as_ref().to_glib_none().0))
         }
     }
 }
