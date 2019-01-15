@@ -9,12 +9,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct HyperlinkImpl(Object<ffi::AtkHyperlinkImpl, ffi::AtkHyperlinkImplIface>);
+    pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl>);
 
     match fn {
         get_type => || ffi::atk_hyperlink_impl_get_type(),
     }
 }
+
+pub const NONE_HYPERLINK_IMPL: Option<&HyperlinkImpl> = None;
 
 pub trait HyperlinkImplExt: 'static {
     fn get_hyperlink(&self) -> Option<Hyperlink>;
@@ -23,7 +25,7 @@ pub trait HyperlinkImplExt: 'static {
 impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {
     fn get_hyperlink(&self) -> Option<Hyperlink> {
         unsafe {
-            from_glib_full(ffi::atk_hyperlink_impl_get_hyperlink(self.to_glib_none().0))
+            from_glib_full(ffi::atk_hyperlink_impl_get_hyperlink(self.as_ref().to_glib_none().0))
         }
     }
 }

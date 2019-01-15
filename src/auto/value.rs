@@ -9,7 +9,7 @@ use glib;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::GString;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
-use glib::object::Downcast;
+use glib::object::Cast;
 use glib::object::IsA;
 #[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::signal::SignalHandlerId;
@@ -31,12 +31,14 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Value(Object<ffi::AtkValue, ffi::AtkValueIface>);
+    pub struct Value(Interface<ffi::AtkValue>);
 
     match fn {
         get_type => || ffi::atk_value_get_type(),
     }
 }
+
+pub const NONE_VALUE: Option<&Value> = None;
 
 pub trait ValueExt: 'static {
     fn get_current_value(&self) -> glib::Value;
@@ -72,7 +74,7 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_current_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_current_value(self.to_glib_none().0, value.to_glib_none_mut().0);
+            ffi::atk_value_get_current_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -80,14 +82,14 @@ impl<O: IsA<Value>> ValueExt for O {
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_increment(&self) -> f64 {
         unsafe {
-            ffi::atk_value_get_increment(self.to_glib_none().0)
+            ffi::atk_value_get_increment(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_maximum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_maximum_value(self.to_glib_none().0, value.to_glib_none_mut().0);
+            ffi::atk_value_get_maximum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -95,7 +97,7 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_minimum_increment(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_minimum_increment(self.to_glib_none().0, value.to_glib_none_mut().0);
+            ffi::atk_value_get_minimum_increment(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -103,7 +105,7 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_minimum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_minimum_value(self.to_glib_none().0, value.to_glib_none_mut().0);
+            ffi::atk_value_get_minimum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -111,14 +113,14 @@ impl<O: IsA<Value>> ValueExt for O {
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_range(&self) -> Option<Range> {
         unsafe {
-            from_glib_full(ffi::atk_value_get_range(self.to_glib_none().0))
+            from_glib_full(ffi::atk_value_get_range(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_sub_ranges(&self) -> Vec<Range> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -127,21 +129,21 @@ impl<O: IsA<Value>> ValueExt for O {
         unsafe {
             let mut value = mem::uninitialized();
             let mut text = ptr::null_mut();
-            ffi::atk_value_get_value_and_text(self.to_glib_none().0, &mut value, &mut text);
+            ffi::atk_value_get_value_and_text(self.as_ref().to_glib_none().0, &mut value, &mut text);
             (value, from_glib_full(text))
         }
     }
 
     fn set_current_value(&self, value: &glib::Value) -> bool {
         unsafe {
-            from_glib(ffi::atk_value_set_current_value(self.to_glib_none().0, value.to_glib_none().0))
+            from_glib(ffi::atk_value_set_current_value(self.as_ref().to_glib_none().0, value.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn set_value(&self, new_value: f64) {
         unsafe {
-            ffi::atk_value_set_value(self.to_glib_none().0, new_value);
+            ffi::atk_value_set_value(self.as_ref().to_glib_none().0, new_value);
         }
     }
 
@@ -149,7 +151,7 @@ impl<O: IsA<Value>> ValueExt for O {
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<Box_<Fn(&Self, f64, &str) + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.to_glib_none().0 as *mut _, b"value-changed\0".as_ptr() as *const _,
+            connect_raw(self.as_ptr() as *mut _, b"value-changed\0".as_ptr() as *const _,
                 transmute(value_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
         }
     }
@@ -159,7 +161,7 @@ impl<O: IsA<Value>> ValueExt for O {
 unsafe extern "C" fn value_changed_trampoline<P>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Value> {
     let f: &&(Fn(&P, f64, &str) + 'static) = transmute(f);
-    f(&Value::from_glib_borrow(this).downcast_unchecked(), value, &GString::from_glib_borrow(text))
+    f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))
 }
 
 impl fmt::Display for Value {

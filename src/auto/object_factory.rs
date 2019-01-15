@@ -10,12 +10,14 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass>);
+    pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass, ObjectFactoryClass>);
 
     match fn {
         get_type => || ffi::atk_object_factory_get_type(),
     }
 }
+
+pub const NONE_OBJECT_FACTORY: Option<&ObjectFactory> = None;
 
 pub trait ObjectFactoryExt: 'static {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object>;
@@ -28,19 +30,19 @@ pub trait ObjectFactoryExt: 'static {
 impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object> {
         unsafe {
-            from_glib_full(ffi::atk_object_factory_create_accessible(self.to_glib_none().0, obj.to_glib_none().0))
+            from_glib_full(ffi::atk_object_factory_create_accessible(self.as_ref().to_glib_none().0, obj.as_ref().to_glib_none().0))
         }
     }
 
     fn get_accessible_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(ffi::atk_object_factory_get_accessible_type(self.to_glib_none().0))
+            from_glib(ffi::atk_object_factory_get_accessible_type(self.as_ref().to_glib_none().0))
         }
     }
 
     fn invalidate(&self) {
         unsafe {
-            ffi::atk_object_factory_invalidate(self.to_glib_none().0);
+            ffi::atk_object_factory_invalidate(self.as_ref().to_glib_none().0);
         }
     }
 }
