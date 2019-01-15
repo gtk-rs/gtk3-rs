@@ -162,7 +162,7 @@ fn build_ui(application: &gtk::Application) {
         box_
     }));
 
-    let scrolled_window = gtk::ScrolledWindow::new(None, None);
+    let scrolled_window = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
     scrolled_window.add(&listbox);
 
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
@@ -364,7 +364,7 @@ mod row_data {
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
     glib_wrapper! {
-        pub struct RowData(Object<subclass::simple::InstanceStruct<imp::RowData>, subclass::simple::ClassStruct<imp::RowData>>);
+        pub struct RowData(Object<subclass::simple::InstanceStruct<imp::RowData>, subclass::simple::ClassStruct<imp::RowData>, RowDataClass>);
 
         match fn {
             get_type => || imp::RowData::get_type().to_glib(),

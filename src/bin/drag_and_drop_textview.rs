@@ -26,7 +26,7 @@ fn build_ui(application: &gtk::Application) {
     let text_view = gtk::TextView::new();
     text_view.set_wrap_mode(gtk::WrapMode::Word);
     text_view.set_cursor_visible(false);
-    let scrolled_text_view = gtk::ScrolledWindow::new(None, None);
+    let scrolled_text_view = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
     scrolled_text_view.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scrolled_text_view.add(&text_view);
 

@@ -51,7 +51,7 @@ fn main() {
 
     let memory_stream = MemoryInputStream::new_from_bytes(
                             &Bytes::from_static(include_bytes!("../../resources/menu.png")));
-    let logo = Pixbuf::new_from_stream(&memory_stream, None);
+    let logo = Pixbuf::new_from_stream(&memory_stream, gio::NONE_CANCELLABLE);
     let logo = match logo {
         Ok(l) => l,
         Err(e) => {
