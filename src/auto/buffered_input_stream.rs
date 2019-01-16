@@ -54,7 +54,7 @@ pub trait BufferedInputStreamExt: 'static {
     fn fill_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: isize, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn fill_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_available(&self) -> usize;
 
@@ -97,7 +97,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn fill_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

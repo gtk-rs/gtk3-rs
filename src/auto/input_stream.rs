@@ -35,7 +35,7 @@ pub trait InputStreamExt: 'static {
     fn close_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn close_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn has_pending(&self) -> bool;
 
@@ -49,7 +49,7 @@ pub trait InputStreamExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn read_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_pending(&self) -> Result<(), Error>;
 
@@ -58,7 +58,7 @@ pub trait InputStreamExt: 'static {
     fn skip_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: usize, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn skip_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<InputStream>> InputStreamExt for O {
@@ -95,7 +95,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -159,7 +159,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn read_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -217,7 +217,7 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn skip_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

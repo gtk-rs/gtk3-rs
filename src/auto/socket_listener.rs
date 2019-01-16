@@ -59,7 +59,7 @@ pub trait SocketListenerExt: 'static {
     fn accept_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(SocketConnection, glib::Object), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn accept_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn accept_socket<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(Socket, Option<glib::Object>), Error>;
 
@@ -115,7 +115,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn accept_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn accept_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (SocketConnection, glib::Object)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

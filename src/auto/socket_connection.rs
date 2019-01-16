@@ -52,7 +52,7 @@ pub trait SocketConnectionExt: 'static {
     fn connect_async<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_local_address(&self) -> Result<SocketAddress, Error>;
 
@@ -91,7 +91,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

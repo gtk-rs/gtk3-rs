@@ -33,7 +33,7 @@ use std::ptr;
 //}
 
 //#[cfg(feature = "futures")]
-//pub fn bus_get_future<P: IsA<Cancellable> + Clone + 'static>(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -221,7 +221,7 @@ pub fn dbus_address_get_stream<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a 
 }
 
 #[cfg(feature = "futures")]
-pub fn dbus_address_get_stream_future<P: IsA<Cancellable> + Clone + 'static>(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
+pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
     use GioFuture;
     use fragile::Fragile;
 

@@ -52,12 +52,12 @@ pub trait DriveExt: 'static {
 
     #[deprecated]
     #[cfg(feature = "futures")]
-    fn eject_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn eject_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn enumerate_identifiers(&self) -> Vec<GString>;
 
@@ -90,17 +90,17 @@ pub trait DriveExt: 'static {
     fn poll_for_media<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn poll_for_media_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn poll_for_media_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn start<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn start_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn start_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: DriveStartFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn stop<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn stop_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn stop_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -160,7 +160,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -201,7 +201,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -324,7 +324,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn poll_for_media_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn poll_for_media_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -364,7 +364,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn start_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn start_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: DriveStartFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -408,7 +408,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn stop_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn stop_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

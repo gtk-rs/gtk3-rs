@@ -77,14 +77,14 @@ pub trait DataInputStreamExt: 'static {
 
     #[cfg_attr(feature = "v2_56", deprecated)]
     #[cfg(feature = "futures")]
-    fn read_until_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn read_upto<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, stop_chars: &str, cancellable: Q) -> Result<(GString, usize), Error>;
 
     fn read_upto_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
@@ -214,7 +214,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_until_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -269,7 +269,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, (GString, usize)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

@@ -58,14 +58,14 @@ pub trait ResolverExt: 'static {
     fn lookup_by_address_async<'a, P: IsA<InetAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<GString, Error>) + Send + 'static>(&self, address: &P, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, GString), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, GString), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn lookup_by_name<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, hostname: &str, cancellable: Q) -> Result<Vec<InetAddress>, Error>;
 
     fn lookup_by_name_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(&self, hostname: &str, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn lookup_by_name_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q) -> Result<Vec<glib::Variant>, Error>;
@@ -75,14 +75,14 @@ pub trait ResolverExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn lookup_records_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn lookup_service<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, service: &str, protocol: &str, domain: &str, cancellable: Q) -> Result<Vec<SrvTarget>, Error>;
 
     fn lookup_service_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(&self, service: &str, protocol: &str, domain: &str, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn lookup_service_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_default(&self);
 
@@ -117,7 +117,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, GString), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, GString), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -167,7 +167,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_by_name_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -220,7 +220,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn lookup_records_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -271,7 +271,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_service_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<futures_core::Future<Item = (Self, Vec<SrvTarget>), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

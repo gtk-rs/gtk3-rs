@@ -111,7 +111,7 @@ impl AppInfo {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async_future<'a, P: IsA<AppLaunchContext> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(uri: &str, context: Q) -> Box_<futures_core::Future<Item = (), Error = Error>> {
+    pub fn launch_default_for_uri_async_future<'a, P: IsA<AppLaunchContext> + Clone + 'static, Q: Into<Option<&'a P>>>(uri: &str, context: Q) -> Box_<futures_core::Future<Item = (), Error = Error>> {
         use GioFuture;
         use fragile::Fragile;
 
