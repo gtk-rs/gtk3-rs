@@ -6,16 +6,16 @@ set -e
 if [ "$GTK" = latest -o "$GTK" = "3.22.30" ]; then
 	BUNDLE="gtk-3.22.30-1"
 	if [ "$TRAVIS_RUST_VERSION" = "nightly" ]; then
-		FEATURES=gtk_3_22_30,futures-stable,gio_2_40
+		FEATURES=gtk_3_22_30,futures-stable,gio_2_40,subclassing
 	else
-		FEATURES=gtk_3_22_30,futures-stable,gio_2_40
+		FEATURES=gtk_3_22_30,futures-stable,gio_2_40,subclassing
 	fi
 elif [ "$GTK" = "3.18" ]; then
 	BUNDLE="gtk-3.18.1-2"
 	if [ "$TRAVIS_RUST_VERSION" = "nightly" ]; then
-		FEATURES=gtk_3_18,futures-stable,gio_2_40
+		FEATURES=gtk_3_18,futures-stable,gio_2_40,subclassing
 	else
-		FEATURES=gtk_3_18,futures-stable,gio_2_40
+		FEATURES=gtk_3_18,futures-stable,gio_2_40,subclassing
 	fi
 fi
 
