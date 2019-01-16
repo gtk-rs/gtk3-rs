@@ -700,9 +700,13 @@ macro_rules! glib_object_wrapper {
             type Target = <$crate::object::Object as $crate::object::ObjectType>::RustClassType;
 
             fn deref(&self) -> &Self::Target {
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::IsClassFor::upcast_ref(self)
+            }
+        }
+
+        impl ::std::ops::DerefMut for $rust_class_name {
+            fn deref_mut(&mut self) -> &mut Self::Target {
+                $crate::object::IsClassFor::upcast_ref_mut(self)
             }
         }
     };
@@ -715,9 +719,13 @@ macro_rules! glib_object_wrapper {
             type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
 
             fn deref(&self) -> &Self::Target {
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::IsClassFor::upcast_ref(self)
+            }
+        }
+
+        impl ::std::ops::DerefMut for $rust_class_name {
+            fn deref_mut(&mut self) -> &mut Self::Target {
+                $crate::object::IsClassFor::upcast_ref_mut(self)
             }
         }
     };
@@ -730,9 +738,13 @@ macro_rules! glib_object_wrapper {
             type Target = <$super_name as $crate::object::ObjectType>::RustClassType;
 
             fn deref(&self) -> &Self::Target {
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::IsClassFor::upcast_ref(self)
+            }
+        }
+
+        impl ::std::ops::DerefMut for $rust_class_name {
+            fn deref_mut(&mut self) -> &mut Self::Target {
+                $crate::object::IsClassFor::upcast_ref_mut(self)
             }
         }
 
