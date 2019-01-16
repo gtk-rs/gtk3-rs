@@ -2,7 +2,7 @@
 use SubprocessLauncher;
 #[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
 use ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
+#[cfg(any(all(feature = "v2_40", unix), feature = "dox"))]
 use glib::translate::*;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::object::IsA;

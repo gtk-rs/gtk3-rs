@@ -35,7 +35,7 @@ pub trait LoadableIconExt: 'static {
     fn load_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn load_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
@@ -68,7 +68,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn load_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

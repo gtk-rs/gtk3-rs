@@ -101,14 +101,14 @@ pub trait FileExt: 'static {
     fn append_to_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn append_to_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn copy<'a, 'b, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: S, progress_callback_data: T) -> Result<(), Error>;
 
     //fn copy_async<'a, 'b, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>, U: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: R, progress_callback: S, progress_callback_data: T, callback: U);
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<'b, P: IsA<File> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: S, progress_callback_data: T) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    //fn copy_async_future<'b, P: IsA<File> + Clone + 'static, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: S, progress_callback_data: T) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn copy_attributes<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R) -> Result<(), Error>;
 
@@ -117,14 +117,14 @@ pub trait FileExt: 'static {
     fn create_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn create_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn create_readwrite<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, flags: FileCreateFlags, cancellable: Q) -> Result<FileIOStream, Error>;
 
     fn create_readwrite_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn create_readwrite_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn delete<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
@@ -133,7 +133,7 @@ pub trait FileExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn delete_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn dup(&self) -> Option<File>;
 
@@ -142,12 +142,12 @@ pub trait FileExt: 'static {
 
     #[deprecated]
     #[cfg(feature = "futures")]
-    fn eject_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn eject_mountable_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn eject_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn enumerate_children<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Q) -> Result</*Ignored*/FileEnumerator, Error>;
 
@@ -189,19 +189,19 @@ pub trait FileExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn load_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn load_contents<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(Vec<u8>, GString), Error>;
 
     fn load_contents_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn load_contents_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_contents_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn load_partial_contents_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Q, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    //fn load_partial_contents_async_future(&self, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn make_directory<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
@@ -210,7 +210,7 @@ pub trait FileExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn make_directory_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn make_directory_with_parents<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
@@ -224,7 +224,7 @@ pub trait FileExt: 'static {
 
     //#[cfg(feature = "futures")]
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async_future<'b, P: IsA<Cancellable> + Clone + 'static, R: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: R, progress_data: S) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>> where Self: Sized + Clone;
+    //fn measure_disk_usage_async_future<'b, R: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: R, progress_data: S) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn monitor<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, flags: FileMonitorFlags, cancellable: Q) -> Result<FileMonitor, Error>;
 
@@ -235,12 +235,12 @@ pub trait FileExt: 'static {
     fn mount_enclosing_volume<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn mount_enclosing_volume_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn mount_enclosing_volume_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn mount_mountable<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn mount_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn mount_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn move_<'a, 'b, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: S, progress_callback_data: T) -> Result<(), Error>;
 
@@ -249,7 +249,7 @@ pub trait FileExt: 'static {
     fn open_readwrite_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn open_readwrite_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn peek_path(&self) -> Option<std::path::PathBuf>;
@@ -257,7 +257,7 @@ pub trait FileExt: 'static {
     fn poll_mountable<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn poll_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn poll_mountable_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn query_default_handler<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<AppInfo, Error>;
 
@@ -270,14 +270,14 @@ pub trait FileExt: 'static {
     fn query_filesystem_info_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn query_filesystem_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn query_info<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Q) -> Result<FileInfo, Error>;
 
     fn query_info_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 
     //fn query_settable_attributes<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result</*Ignored*/FileAttributeInfoList, Error>;
 
@@ -288,14 +288,14 @@ pub trait FileExt: 'static {
     fn read_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInputStream, Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn read_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn replace<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: R) -> Result<FileOutputStream, Error>;
 
     fn replace_async<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn replace_async_future<'a, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + Clone + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn replace_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn replace_contents<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, contents: &[u8], etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: R) -> Result<GString, Error>;
 
@@ -307,7 +307,7 @@ pub trait FileExt: 'static {
     fn replace_readwrite_async<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn replace_readwrite_async_future<'a, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + Clone + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn replace_readwrite_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File>;
 
@@ -328,7 +328,7 @@ pub trait FileExt: 'static {
     fn set_attributes_async<'a, P: IsA<FileInfo>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_attributes_from_info<'a, P: IsA<FileInfo>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, info: &P, flags: FileQueryInfoFlags, cancellable: R) -> Result<(), Error>;
 
@@ -337,17 +337,17 @@ pub trait FileExt: 'static {
     fn set_display_name_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, display_name: &str, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn set_display_name_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn start_mountable<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, start_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn start_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn start_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: DriveStartFlags, start_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn stop_mountable<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn stop_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn stop_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn supports_thread_contexts(&self) -> bool;
 
@@ -358,19 +358,19 @@ pub trait FileExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn trash_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[deprecated]
     fn unmount_mountable<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: Q, callback: R);
 
     #[deprecated]
     #[cfg(feature = "futures")]
-    fn unmount_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn unmount_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn unmount_mountable_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
-    fn unmount_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn unmount_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<File>> FileExt for O {
@@ -401,7 +401,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn append_to_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -433,7 +433,7 @@ impl<O: IsA<File>> FileExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<'b, P: IsA<File> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: S, progress_callback_data: T) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    //fn copy_async_future<'b, P: IsA<File> + Clone + 'static, S: Into<Option<&'b /*Unimplemented*/FileProgressCallback>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: S, progress_callback_data: T) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -495,7 +495,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -545,7 +545,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_readwrite_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -597,7 +597,7 @@ impl<O: IsA<File>> FileExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn delete_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -643,7 +643,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -684,7 +684,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -841,7 +841,7 @@ impl<O: IsA<File>> FileExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn load_bytes_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -895,7 +895,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn load_contents_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_contents_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -921,7 +921,7 @@ impl<O: IsA<File>> FileExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    //fn load_partial_contents_async_future(&self, read_more_callback: /*Unknown conversion*//*Unimplemented*/FileReadMoreCallback) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -972,7 +972,7 @@ impl<O: IsA<File>> FileExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn make_directory_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1024,7 +1024,7 @@ impl<O: IsA<File>> FileExt for O {
 
     //#[cfg(feature = "futures")]
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async_future<'b, P: IsA<Cancellable> + Clone + 'static, R: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: R, progress_data: S) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>> where Self: Sized + Clone {
+    //fn measure_disk_usage_async_future<'b, R: Into<Option<&'b /*Unimplemented*/FileMeasureProgressCallback>>, S: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: R, progress_data: S) -> Box_<futures_core::Future<Item = (Self, (u64, u64, u64)), Error = (Self, Error)>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -1099,7 +1099,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn mount_enclosing_volume_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn mount_enclosing_volume_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1143,7 +1143,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn mount_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn mount_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1199,7 +1199,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn open_readwrite_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1246,7 +1246,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn poll_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn poll_mountable_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1317,7 +1317,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_filesystem_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1368,7 +1368,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1428,7 +1428,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1479,7 +1479,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_async_future<'a, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + Clone + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn replace_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1552,7 +1552,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_readwrite_async_future<'a, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + Clone + 'static>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn replace_readwrite_async_future<'a, P: Into<Option<&'a str>>>(&self, etag: P, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1662,7 +1662,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1723,7 +1723,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn set_display_name_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1766,7 +1766,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn start_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn start_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: DriveStartFlags, start_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1810,7 +1810,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn stop_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn stop_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1870,7 +1870,7 @@ impl<O: IsA<File>> FileExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn trash_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1910,7 +1910,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn unmount_mountable_future<P: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn unmount_mountable_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1951,7 +1951,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn unmount_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn unmount_mountable_with_operation_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountUnmountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

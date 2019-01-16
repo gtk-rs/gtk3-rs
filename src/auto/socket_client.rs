@@ -64,28 +64,28 @@ pub trait SocketClientExt: 'static {
     fn connect_async<'a, P: IsA<SocketConnectable>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, connectable: &P, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_host<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, host_and_port: &str, default_port: u16, cancellable: Q) -> Result<SocketConnection, Error>;
 
     fn connect_to_host_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, host_and_port: &str, default_port: u16, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_service<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, domain: &str, service: &str, cancellable: Q) -> Result<SocketConnection, Error>;
 
     fn connect_to_service_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, domain: &str, service: &str, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn connect_to_uri<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, uri: &str, default_port: u16, cancellable: Q) -> Result<SocketConnection, Error>;
 
     fn connect_to_uri_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, uri: &str, default_port: u16, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn get_enable_proxy(&self) -> bool;
 
@@ -185,7 +185,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -235,7 +235,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -286,7 +286,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -338,7 +338,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

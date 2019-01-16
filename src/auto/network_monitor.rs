@@ -46,7 +46,7 @@ pub trait NetworkMonitorExt: 'static {
     fn can_reach_async<'a, P: IsA<SocketConnectable>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, connectable: &P, cancellable: R, callback: S);
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn get_connectivity(&self) -> NetworkConnectivity;
@@ -95,7 +95,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static, Q: IsA<Cancellable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

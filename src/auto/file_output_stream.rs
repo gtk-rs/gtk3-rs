@@ -39,7 +39,7 @@ pub trait FileOutputStreamExt: 'static {
     fn query_info_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
@@ -76,7 +76,7 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future<P: IsA<Cancellable> + Clone + 'static>(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

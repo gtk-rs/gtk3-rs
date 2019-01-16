@@ -33,7 +33,7 @@ pub trait SocketAddressEnumeratorExt: 'static {
     fn next_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    fn next_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
@@ -64,7 +64,7 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn next_async_future<P: IsA<Cancellable> + Clone + 'static>(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
