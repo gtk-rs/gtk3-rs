@@ -20,7 +20,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(600, 400);
 
     let text_view = gtk::TextView::new();
-    let scroll = gtk::ScrolledWindow::new(None, None);
+    let scroll = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scroll.add(&text_view);
 
