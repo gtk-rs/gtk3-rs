@@ -679,10 +679,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl AsRef<$super_name> for $name {
             fn as_ref(&self) -> &$super_name {
-                debug_assert!($crate::object::ObjectExt::is::<$super_name>(self));
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::Cast::upcast_ref(self)
             }
         }
     };
@@ -782,10 +779,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
             fn as_ref(&self) -> &$crate::object::Object {
-                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::Cast::upcast_ref(self)
             }
         }
 
@@ -801,10 +795,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl AsRef<$crate::object::Object> for $name {
             fn as_ref(&self) -> &$crate::object::Object {
-                debug_assert!($crate::object::ObjectExt::is::<$crate::object::Object>(self));
-                unsafe {
-                    ::std::mem::transmute(self)
-                }
+                $crate::object::Cast::upcast_ref(self)
             }
         }
 
