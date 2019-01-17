@@ -1736,8 +1736,8 @@ impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<
 
 #[cfg(test)]
 mod tests {
-    extern crate tempdir;
-    use self::tempdir::TempDir;
+    extern crate tempfile;
+    use self::tempfile::tempdir;
     use std::fs;
 
     use std::collections::HashMap;
@@ -1783,7 +1783,7 @@ mod tests {
     #[test]
     #[cfg(not(target_os = "macos"))]
     fn test_paths() {
-        let tmp_dir = TempDir::new("glib-test").unwrap();
+        let tmp_dir = tempdir().unwrap();
 
         // Test if passing paths to GLib and getting them back
         // gives us useful results
@@ -1808,7 +1808,7 @@ mod tests {
     #[test]
     #[cfg(target_os = "macos")]
     fn test_paths() {
-        let t_dir = TempDir::new("glib-test").unwrap();
+        let t_dir = tempdir().unwrap();
         let tmp_dir = t_dir.path().canonicalize().unwrap();
 
         // Test if passing paths to GLib and getting them back
