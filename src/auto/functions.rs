@@ -225,17 +225,17 @@ pub fn pango_context_get() -> Option<pango::Context> {
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub fn pango_context_get_for_display<P: IsA<Display>>(display: &P) -> Option<pango::Context> {
+pub fn pango_context_get_for_display(display: &Display) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {
-        from_glib_full(ffi::gdk_pango_context_get_for_display(display.as_ref().to_glib_none().0))
+        from_glib_full(ffi::gdk_pango_context_get_for_display(display.to_glib_none().0))
     }
 }
 
-pub fn pango_context_get_for_screen<P: IsA<Screen>>(screen: &P) -> Option<pango::Context> {
+pub fn pango_context_get_for_screen(screen: &Screen) -> Option<pango::Context> {
     skip_assert_initialized!();
     unsafe {
-        from_glib_full(ffi::gdk_pango_context_get_for_screen(screen.as_ref().to_glib_none().0))
+        from_glib_full(ffi::gdk_pango_context_get_for_screen(screen.to_glib_none().0))
     }
 }
 
@@ -255,12 +255,12 @@ pub fn pixbuf_get_from_surface(surface: &cairo::Surface, src_x: i32, src_y: i32,
 }
 
 #[deprecated]
-pub fn pointer_grab<'a, 'b, P: IsA<Window>, Q: IsA<Window> + 'a, R: Into<Option<&'a Q>>, S: IsA<Cursor> + 'b, T: Into<Option<&'b S>>>(window: &P, owner_events: bool, event_mask: EventMask, confine_to: R, cursor: T, time_: u32) -> GrabStatus {
+pub fn pointer_grab<'a, 'b, P: IsA<Window>, Q: IsA<Window> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b Cursor>>>(window: &P, owner_events: bool, event_mask: EventMask, confine_to: R, cursor: S, time_: u32) -> GrabStatus {
     skip_assert_initialized!();
     let confine_to = confine_to.into();
     let cursor = cursor.into();
     unsafe {
-        from_glib(ffi::gdk_pointer_grab(window.as_ref().to_glib_none().0, owner_events.to_glib(), event_mask.to_glib(), confine_to.map(|p| p.as_ref()).to_glib_none().0, cursor.map(|p| p.as_ref()).to_glib_none().0, time_))
+        from_glib(ffi::gdk_pointer_grab(window.as_ref().to_glib_none().0, owner_events.to_glib(), event_mask.to_glib(), confine_to.map(|p| p.as_ref()).to_glib_none().0, cursor.to_glib_none().0, time_))
     }
 }
 
@@ -337,10 +337,10 @@ pub fn selection_owner_get(selection: &Atom) -> Option<Window> {
     }
 }
 
-pub fn selection_owner_get_for_display<P: IsA<Display>>(display: &P, selection: &Atom) -> Option<Window> {
+pub fn selection_owner_get_for_display(display: &Display, selection: &Atom) -> Option<Window> {
     skip_assert_initialized!();
     unsafe {
-        from_glib_none(ffi::gdk_selection_owner_get_for_display(display.as_ref().to_glib_none().0, selection.to_glib_none().0))
+        from_glib_none(ffi::gdk_selection_owner_get_for_display(display.to_glib_none().0, selection.to_glib_none().0))
     }
 }
 
@@ -352,11 +352,11 @@ pub fn selection_owner_set<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(owne
     }
 }
 
-pub fn selection_owner_set_for_display<'a, P: IsA<Display>, Q: IsA<Window> + 'a, R: Into<Option<&'a Q>>>(display: &P, owner: R, selection: &Atom, time_: u32, send_event: bool) -> bool {
+pub fn selection_owner_set_for_display<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(display: &Display, owner: Q, selection: &Atom, time_: u32, send_event: bool) -> bool {
     skip_assert_initialized!();
     let owner = owner.into();
     unsafe {
-        from_glib(ffi::gdk_selection_owner_set_for_display(display.as_ref().to_glib_none().0, owner.map(|p| p.as_ref()).to_glib_none().0, selection.to_glib_none().0, time_, send_event.to_glib()))
+        from_glib(ffi::gdk_selection_owner_set_for_display(display.to_glib_none().0, owner.map(|p| p.as_ref()).to_glib_none().0, selection.to_glib_none().0, time_, send_event.to_glib()))
     }
 }
 
@@ -367,10 +367,10 @@ pub fn selection_send_notify<P: IsA<Window>>(requestor: &P, selection: &Atom, ta
     }
 }
 
-pub fn selection_send_notify_for_display<P: IsA<Display>, Q: IsA<Window>>(display: &P, requestor: &Q, selection: &Atom, target: &Atom, property: &Atom, time_: u32) {
+pub fn selection_send_notify_for_display<P: IsA<Window>>(display: &Display, requestor: &P, selection: &Atom, target: &Atom, property: &Atom, time_: u32) {
     skip_assert_initialized!();
     unsafe {
-        ffi::gdk_selection_send_notify_for_display(display.as_ref().to_glib_none().0, requestor.as_ref().to_glib_none().0, selection.to_glib_none().0, target.to_glib_none().0, property.to_glib_none().0, time_);
+        ffi::gdk_selection_send_notify_for_display(display.to_glib_none().0, requestor.as_ref().to_glib_none().0, selection.to_glib_none().0, target.to_glib_none().0, property.to_glib_none().0, time_);
     }
 }
 
@@ -431,12 +431,12 @@ pub fn test_simulate_key<P: IsA<Window>>(window: &P, x: i32, y: i32, keyval: u32
     }
 }
 
-pub fn text_property_to_utf8_list_for_display<P: IsA<Display>>(display: &P, encoding: &Atom, format: i32, text: &[u8]) -> (i32, Vec<GString>) {
+pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom, format: i32, text: &[u8]) -> (i32, Vec<GString>) {
     skip_assert_initialized!();
     let length = text.len() as i32;
     unsafe {
         let mut list = ptr::null_mut();
-        let ret = ffi::gdk_text_property_to_utf8_list_for_display(display.as_ref().to_glib_none().0, encoding.to_glib_none().0, format, text.to_glib_none().0, length, &mut list);
+        let ret = ffi::gdk_text_property_to_utf8_list_for_display(display.to_glib_none().0, encoding.to_glib_none().0, format, text.to_glib_none().0, length, &mut list);
         (ret, FromGlibPtrContainer::from_glib_full(list))
     }
 }

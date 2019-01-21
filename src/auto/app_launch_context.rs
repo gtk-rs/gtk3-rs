@@ -9,6 +9,7 @@ use gio;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
+use glib::object::ObjectType;
 use glib::translate::*;
 use gobject_ffi;
 use std::fmt;
@@ -29,79 +30,59 @@ impl AppLaunchContext {
             from_glib_full(ffi::gdk_app_launch_context_new())
         }
     }
+
+    pub fn set_desktop(&self, desktop: i32) {
+        unsafe {
+            ffi::gdk_app_launch_context_set_desktop(self.to_glib_none().0, desktop);
+        }
+    }
+
+    #[deprecated]
+    pub fn set_display(&self, display: &Display) {
+        unsafe {
+            ffi::gdk_app_launch_context_set_display(self.to_glib_none().0, display.to_glib_none().0);
+        }
+    }
+
+    pub fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
+        let icon = icon.into();
+        unsafe {
+            ffi::gdk_app_launch_context_set_icon(self.to_glib_none().0, icon.map(|p| p.as_ref()).to_glib_none().0);
+        }
+    }
+
+    pub fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P) {
+        let icon_name = icon_name.into();
+        unsafe {
+            ffi::gdk_app_launch_context_set_icon_name(self.to_glib_none().0, icon_name.to_glib_none().0);
+        }
+    }
+
+    pub fn set_screen(&self, screen: &Screen) {
+        unsafe {
+            ffi::gdk_app_launch_context_set_screen(self.to_glib_none().0, screen.to_glib_none().0);
+        }
+    }
+
+    pub fn set_timestamp(&self, timestamp: u32) {
+        unsafe {
+            ffi::gdk_app_launch_context_set_timestamp(self.to_glib_none().0, timestamp);
+        }
+    }
+
+    pub fn get_property_display(&self) -> Option<Display> {
+        unsafe {
+            let mut value = Value::from_type(<Display as StaticType>::static_type());
+            gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            value.get()
+        }
+    }
 }
 
 #[deprecated]
 impl Default for AppLaunchContext {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-pub const NONE_APP_LAUNCH_CONTEXT: Option<&AppLaunchContext> = None;
-
-pub trait AppLaunchContextExt: 'static {
-    fn set_desktop(&self, desktop: i32);
-
-    #[deprecated]
-    fn set_display<P: IsA<Display>>(&self, display: &P);
-
-    fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q);
-
-    fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P);
-
-    fn set_screen<P: IsA<Screen>>(&self, screen: &P);
-
-    fn set_timestamp(&self, timestamp: u32);
-
-    fn get_property_display(&self) -> Option<Display>;
-}
-
-impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
-    fn set_desktop(&self, desktop: i32) {
-        unsafe {
-            ffi::gdk_app_launch_context_set_desktop(self.as_ref().to_glib_none().0, desktop);
-        }
-    }
-
-    fn set_display<P: IsA<Display>>(&self, display: &P) {
-        unsafe {
-            ffi::gdk_app_launch_context_set_display(self.as_ref().to_glib_none().0, display.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
-        let icon = icon.into();
-        unsafe {
-            ffi::gdk_app_launch_context_set_icon(self.as_ref().to_glib_none().0, icon.map(|p| p.as_ref()).to_glib_none().0);
-        }
-    }
-
-    fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P) {
-        let icon_name = icon_name.into();
-        unsafe {
-            ffi::gdk_app_launch_context_set_icon_name(self.as_ref().to_glib_none().0, icon_name.to_glib_none().0);
-        }
-    }
-
-    fn set_screen<P: IsA<Screen>>(&self, screen: &P) {
-        unsafe {
-            ffi::gdk_app_launch_context_set_screen(self.as_ref().to_glib_none().0, screen.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn set_timestamp(&self, timestamp: u32) {
-        unsafe {
-            ffi::gdk_app_launch_context_set_timestamp(self.as_ref().to_glib_none().0, timestamp);
-        }
-    }
-
-    fn get_property_display(&self) -> Option<Display> {
-        unsafe {
-            let mut value = Value::from_type(<Display as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-            value.get()
-        }
     }
 }
 

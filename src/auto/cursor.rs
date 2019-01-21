@@ -8,7 +8,6 @@ use Display;
 use cairo;
 use ffi;
 use gdk_pixbuf;
-use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 #[cfg(any(feature = "v3_10", feature = "dox"))]
@@ -31,74 +30,59 @@ impl Cursor {
         }
     }
 
-    pub fn new_for_display<P: IsA<Display>>(display: &P, cursor_type: CursorType) -> Cursor {
+    pub fn new_for_display(display: &Display, cursor_type: CursorType) -> Cursor {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::gdk_cursor_new_for_display(display.as_ref().to_glib_none().0, cursor_type.to_glib()))
+            from_glib_full(ffi::gdk_cursor_new_for_display(display.to_glib_none().0, cursor_type.to_glib()))
         }
     }
 
-    pub fn new_from_name<P: IsA<Display>>(display: &P, name: &str) -> Cursor {
+    pub fn new_from_name(display: &Display, name: &str) -> Cursor {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::gdk_cursor_new_from_name(display.as_ref().to_glib_none().0, name.to_glib_none().0))
+            from_glib_full(ffi::gdk_cursor_new_from_name(display.to_glib_none().0, name.to_glib_none().0))
         }
     }
 
-    pub fn new_from_pixbuf<P: IsA<Display>, Q: IsA<gdk_pixbuf::Pixbuf>>(display: &P, pixbuf: &Q, x: i32, y: i32) -> Cursor {
+    pub fn new_from_pixbuf(display: &Display, pixbuf: &gdk_pixbuf::Pixbuf, x: i32, y: i32) -> Cursor {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::gdk_cursor_new_from_pixbuf(display.as_ref().to_glib_none().0, pixbuf.as_ref().to_glib_none().0, x, y))
+            from_glib_full(ffi::gdk_cursor_new_from_pixbuf(display.to_glib_none().0, pixbuf.to_glib_none().0, x, y))
         }
     }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    pub fn new_from_surface<P: IsA<Display>>(display: &P, surface: &cairo::Surface, x: f64, y: f64) -> Cursor {
+    pub fn new_from_surface(display: &Display, surface: &cairo::Surface, x: f64, y: f64) -> Cursor {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(ffi::gdk_cursor_new_from_surface(display.as_ref().to_glib_none().0, mut_override(surface.to_glib_none().0), x, y))
-        }
-    }
-}
-
-pub const NONE_CURSOR: Option<&Cursor> = None;
-
-pub trait CursorExt: 'static {
-    fn get_cursor_type(&self) -> CursorType;
-
-    fn get_display(&self) -> Display;
-
-    fn get_image(&self) -> Option<gdk_pixbuf::Pixbuf>;
-
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
-    fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64);
-}
-
-impl<O: IsA<Cursor>> CursorExt for O {
-    fn get_cursor_type(&self) -> CursorType {
-        unsafe {
-            from_glib(ffi::gdk_cursor_get_cursor_type(self.as_ref().to_glib_none().0))
+            from_glib_full(ffi::gdk_cursor_new_from_surface(display.to_glib_none().0, mut_override(surface.to_glib_none().0), x, y))
         }
     }
 
-    fn get_display(&self) -> Display {
+    pub fn get_cursor_type(&self) -> CursorType {
         unsafe {
-            from_glib_none(ffi::gdk_cursor_get_display(self.as_ref().to_glib_none().0))
+            from_glib(ffi::gdk_cursor_get_cursor_type(self.to_glib_none().0))
         }
     }
 
-    fn get_image(&self) -> Option<gdk_pixbuf::Pixbuf> {
+    pub fn get_display(&self) -> Display {
         unsafe {
-            from_glib_full(ffi::gdk_cursor_get_image(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::gdk_cursor_get_display(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_image(&self) -> Option<gdk_pixbuf::Pixbuf> {
+        unsafe {
+            from_glib_full(ffi::gdk_cursor_get_image(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64) {
+    pub fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64) {
         unsafe {
             let mut x_hot = mem::uninitialized();
             let mut y_hot = mem::uninitialized();
-            let ret = from_glib_full(ffi::gdk_cursor_get_surface(self.as_ref().to_glib_none().0, &mut x_hot, &mut y_hot));
+            let ret = from_glib_full(ffi::gdk_cursor_get_surface(self.to_glib_none().0, &mut x_hot, &mut y_hot));
             (ret, x_hot, y_hot)
         }
     }

@@ -327,6 +327,10 @@ status = "generate"
     [[object.function]]
     name = "get_font_options"
     ignore = true
+    [[object.function]]
+    name = "get_setting"
+    # bool return value signals success
+    ignore = true
 
 [[object]]
 name = "Gdk.Seat"
