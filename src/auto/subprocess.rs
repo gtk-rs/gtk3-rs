@@ -208,6 +208,7 @@ impl Subprocess {
         }
     }
 
+    #[cfg(any(not(windows), feature = "dox"))]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn send_signal(&self, signal_num: i32) {
         unsafe {
