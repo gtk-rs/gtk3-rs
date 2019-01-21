@@ -532,6 +532,15 @@ macro_rules! glib_object_wrapper {
         }
 
         #[doc(hidden)]
+        impl $crate::translate::FromGlibPtrBorrow<*const $ffi_name> for $name {
+            #[inline]
+            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> Self {
+                $crate::translate::from_glib_borrow(ptr as *mut $ffi_name)
+            }
+        }
+
+        #[doc(hidden)]
         impl $crate::translate::FromGlibContainerAsVec<*mut $ffi_name, *mut *mut $ffi_name> for $name {
             unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut $ffi_name, num: usize) -> Vec<Self> {
                 if num == 0 || ptr.is_null() {
