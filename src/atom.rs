@@ -214,3 +214,17 @@ impl<'a> From<&'a str> for Atom {
         Atom::intern(r)
     }
 }
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*const ffi::GdkAtom> for Atom {
+    unsafe fn from_glib_borrow(ptr: *const ffi::GdkAtom) -> Self {
+        Atom(*ptr)
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*mut ffi::GdkAtom> for Atom {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::GdkAtom) -> Self {
+        Atom(*ptr)
+    }
+}
