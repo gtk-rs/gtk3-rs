@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 mod fc_font_map;
-pub use self::fc_font_map::{FcFontMap, FcFontMapClass, NONE_FC_FONT_MAP};
+pub use self::fc_font_map::{FcFontMap, FcFontMapClass};
 
 mod font;
 pub use self::font::{Font, NONE_FONT};
