@@ -6,8 +6,7 @@ use Device;
 use DeviceType;
 use Display;
 use ffi;
-use glib::object::Cast;
-use glib::object::IsA;
+use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -24,84 +23,65 @@ glib_wrapper! {
     }
 }
 
-pub const NONE_DEVICE_MANAGER: Option<&DeviceManager> = None;
-
-pub trait DeviceManagerExt: 'static {
+impl DeviceManager {
     #[cfg_attr(feature = "v3_20", deprecated)]
-    fn get_client_pointer(&self) -> Option<Device>;
+    pub fn get_client_pointer(&self) -> Option<Device> {
+        unsafe {
+            from_glib_none(ffi::gdk_device_manager_get_client_pointer(self.to_glib_none().0))
+        }
+    }
 
-    fn get_display(&self) -> Option<Display>;
+    pub fn get_display(&self) -> Option<Display> {
+        unsafe {
+            from_glib_none(ffi::gdk_device_manager_get_display(self.to_glib_none().0))
+        }
+    }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
-    fn list_devices(&self, type_: DeviceType) -> Vec<Device>;
-
-    fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_device_changed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<DeviceManager>> DeviceManagerExt for O {
-    fn get_client_pointer(&self) -> Option<Device> {
+    pub fn list_devices(&self, type_: DeviceType) -> Vec<Device> {
         unsafe {
-            from_glib_none(ffi::gdk_device_manager_get_client_pointer(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(self.to_glib_none().0, type_.to_glib()))
         }
     }
 
-    fn get_display(&self) -> Option<Display> {
+    pub fn connect_device_added<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            from_glib_none(ffi::gdk_device_manager_get_display(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn list_devices(&self, type_: DeviceType) -> Vec<Device> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_device_manager_list_devices(self.as_ref().to_glib_none().0, type_.to_glib()))
-        }
-    }
-
-    fn connect_device_added<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&DeviceManager, &Device) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"device-added\0".as_ptr() as *const _,
-                transmute(device_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(device_added_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_device_changed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_device_changed<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&DeviceManager, &Device) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"device-changed\0".as_ptr() as *const _,
-                transmute(device_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(device_changed_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_device_removed<F: Fn(&Self, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_device_removed<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Device) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&DeviceManager, &Device) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"device-removed\0".as_ptr() as *const _,
-                transmute(device_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(device_removed_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 }
 
-unsafe extern "C" fn device_added_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
-where P: IsA<DeviceManager> {
-    let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
+unsafe extern "C" fn device_added_trampoline(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&DeviceManager, &Device) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
-unsafe extern "C" fn device_changed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
-where P: IsA<DeviceManager> {
-    let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
+unsafe extern "C" fn device_changed_trampoline(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&DeviceManager, &Device) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
-unsafe extern "C" fn device_removed_trampoline<P>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer)
-where P: IsA<DeviceManager> {
-    let f: &&(Fn(&P, &Device) + 'static) = transmute(f);
-    f(&DeviceManager::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(device))
+unsafe extern "C" fn device_removed_trampoline(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&DeviceManager, &Device) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 impl fmt::Display for DeviceManager {

@@ -109,7 +109,7 @@ pub trait WindowExt: 'static {
 
     fn begin_move_drag(&self, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
-    fn begin_move_drag_for_device<P: IsA<Device>>(&self, device: &P, button: i32, root_x: i32, root_y: i32, timestamp: u32);
+    fn begin_move_drag_for_device(&self, device: &Device, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn begin_paint_rect(&self, rectangle: &Rectangle);
@@ -119,7 +119,7 @@ pub trait WindowExt: 'static {
 
     fn begin_resize_drag(&self, edge: WindowEdge, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
-    fn begin_resize_drag_for_device<P: IsA<Device>>(&self, edge: WindowEdge, device: &P, button: i32, root_x: i32, root_y: i32, timestamp: u32);
+    fn begin_resize_drag_for_device(&self, edge: WindowEdge, device: &Device, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
     #[cfg_attr(feature = "v3_8", deprecated)]
     fn configure_finished(&self);
@@ -183,14 +183,14 @@ pub trait WindowExt: 'static {
 
     fn get_decorations(&self) -> Option<WMDecoration>;
 
-    fn get_device_cursor<P: IsA<Device>>(&self, device: &P) -> Option<Cursor>;
+    fn get_device_cursor(&self, device: &Device) -> Option<Cursor>;
 
-    fn get_device_events<P: IsA<Device>>(&self, device: &P) -> EventMask;
+    fn get_device_events(&self, device: &Device) -> EventMask;
 
-    fn get_device_position<P: IsA<Device>>(&self, device: &P) -> (Option<Window>, i32, i32, ModifierType);
+    fn get_device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType);
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    fn get_device_position_double<P: IsA<Device>>(&self, device: &P) -> (Option<Window>, f64, f64, ModifierType);
+    fn get_device_position_double(&self, device: &Device) -> (Option<Window>, f64, f64, ModifierType);
 
     fn get_display(&self) -> Display;
 
@@ -341,13 +341,13 @@ pub trait WindowExt: 'static {
     #[cfg_attr(feature = "v3_16", deprecated)]
     fn set_composited(&self, composited: bool);
 
-    fn set_cursor<'a, P: IsA<Cursor> + 'a, Q: Into<Option<&'a P>>>(&self, cursor: Q);
+    fn set_cursor<'a, P: Into<Option<&'a Cursor>>>(&self, cursor: P);
 
     fn set_decorations(&self, decorations: WMDecoration);
 
-    fn set_device_cursor<P: IsA<Device>, Q: IsA<Cursor>>(&self, device: &P, cursor: &Q);
+    fn set_device_cursor(&self, device: &Device, cursor: &Cursor);
 
-    fn set_device_events<P: IsA<Device>>(&self, device: &P, event_mask: EventMask);
+    fn set_device_events(&self, device: &Device, event_mask: EventMask);
 
     #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn set_event_compression(&self, event_compression: bool);
@@ -478,9 +478,9 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn begin_move_drag_for_device<P: IsA<Device>>(&self, device: &P, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
+    fn begin_move_drag_for_device(&self, device: &Device, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         unsafe {
-            ffi::gdk_window_begin_move_drag_for_device(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0, button, root_x, root_y, timestamp);
+            ffi::gdk_window_begin_move_drag_for_device(self.as_ref().to_glib_none().0, device.to_glib_none().0, button, root_x, root_y, timestamp);
         }
     }
 
@@ -502,9 +502,9 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn begin_resize_drag_for_device<P: IsA<Device>>(&self, edge: WindowEdge, device: &P, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
+    fn begin_resize_drag_for_device(&self, edge: WindowEdge, device: &Device, button: i32, root_x: i32, root_y: i32, timestamp: u32) {
         unsafe {
-            ffi::gdk_window_begin_resize_drag_for_device(self.as_ref().to_glib_none().0, edge.to_glib(), device.as_ref().to_glib_none().0, button, root_x, root_y, timestamp);
+            ffi::gdk_window_begin_resize_drag_for_device(self.as_ref().to_glib_none().0, edge.to_glib(), device.to_glib_none().0, button, root_x, root_y, timestamp);
         }
     }
 
@@ -677,35 +677,35 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn get_device_cursor<P: IsA<Device>>(&self, device: &P) -> Option<Cursor> {
+    fn get_device_cursor(&self, device: &Device) -> Option<Cursor> {
         unsafe {
-            from_glib_none(ffi::gdk_window_get_device_cursor(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0))
+            from_glib_none(ffi::gdk_window_get_device_cursor(self.as_ref().to_glib_none().0, device.to_glib_none().0))
         }
     }
 
-    fn get_device_events<P: IsA<Device>>(&self, device: &P) -> EventMask {
+    fn get_device_events(&self, device: &Device) -> EventMask {
         unsafe {
-            from_glib(ffi::gdk_window_get_device_events(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0))
+            from_glib(ffi::gdk_window_get_device_events(self.as_ref().to_glib_none().0, device.to_glib_none().0))
         }
     }
 
-    fn get_device_position<P: IsA<Device>>(&self, device: &P) -> (Option<Window>, i32, i32, ModifierType) {
+    fn get_device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType) {
         unsafe {
             let mut x = mem::uninitialized();
             let mut y = mem::uninitialized();
             let mut mask = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_window_get_device_position(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0, &mut x, &mut y, &mut mask));
+            let ret = from_glib_none(ffi::gdk_window_get_device_position(self.as_ref().to_glib_none().0, device.to_glib_none().0, &mut x, &mut y, &mut mask));
             (ret, x, y, from_glib(mask))
         }
     }
 
     #[cfg(any(feature = "v3_10", feature = "dox"))]
-    fn get_device_position_double<P: IsA<Device>>(&self, device: &P) -> (Option<Window>, f64, f64, ModifierType) {
+    fn get_device_position_double(&self, device: &Device) -> (Option<Window>, f64, f64, ModifierType) {
         unsafe {
             let mut x = mem::uninitialized();
             let mut y = mem::uninitialized();
             let mut mask = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_window_get_device_position_double(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0, &mut x, &mut y, &mut mask));
+            let ret = from_glib_none(ffi::gdk_window_get_device_position_double(self.as_ref().to_glib_none().0, device.to_glib_none().0, &mut x, &mut y, &mut mask));
             (ret, x, y, from_glib(mask))
         }
     }
@@ -1149,10 +1149,10 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_cursor<'a, P: IsA<Cursor> + 'a, Q: Into<Option<&'a P>>>(&self, cursor: Q) {
+    fn set_cursor<'a, P: Into<Option<&'a Cursor>>>(&self, cursor: P) {
         let cursor = cursor.into();
         unsafe {
-            ffi::gdk_window_set_cursor(self.as_ref().to_glib_none().0, cursor.map(|p| p.as_ref()).to_glib_none().0);
+            ffi::gdk_window_set_cursor(self.as_ref().to_glib_none().0, cursor.to_glib_none().0);
         }
     }
 
@@ -1162,15 +1162,15 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_device_cursor<P: IsA<Device>, Q: IsA<Cursor>>(&self, device: &P, cursor: &Q) {
+    fn set_device_cursor(&self, device: &Device, cursor: &Cursor) {
         unsafe {
-            ffi::gdk_window_set_device_cursor(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0, cursor.as_ref().to_glib_none().0);
+            ffi::gdk_window_set_device_cursor(self.as_ref().to_glib_none().0, device.to_glib_none().0, cursor.to_glib_none().0);
         }
     }
 
-    fn set_device_events<P: IsA<Device>>(&self, device: &P, event_mask: EventMask) {
+    fn set_device_events(&self, device: &Device, event_mask: EventMask) {
         unsafe {
-            ffi::gdk_window_set_device_events(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0, event_mask.to_glib());
+            ffi::gdk_window_set_device_events(self.as_ref().to_glib_none().0, device.to_glib_none().0, event_mask.to_glib());
         }
     }
 

@@ -7,7 +7,7 @@ use DeviceToolType;
 use ffi;
 use glib::StaticType;
 use glib::Value;
-use glib::object::IsA;
+use glib::object::ObjectType;
 use glib::translate::*;
 use gobject_ffi;
 use std::fmt;
@@ -20,77 +20,56 @@ glib_wrapper! {
     }
 }
 
-pub const NONE_DEVICE_TOOL: Option<&DeviceTool> = None;
-
-pub trait DeviceToolExt: 'static {
+impl DeviceTool {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_hardware_id(&self) -> u64;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_serial(&self) -> u64;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_tool_type(&self) -> DeviceToolType;
-
-    fn get_property_axes(&self) -> AxisFlags;
-
-    fn get_property_hardware_id(&self) -> u64;
-
-    fn get_property_serial(&self) -> u64;
-
-    fn get_property_tool_type(&self) -> DeviceToolType;
-}
-
-impl<O: IsA<DeviceTool>> DeviceToolExt for O {
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_hardware_id(&self) -> u64 {
+    pub fn get_hardware_id(&self) -> u64 {
         unsafe {
-            ffi::gdk_device_tool_get_hardware_id(self.as_ref().to_glib_none().0)
+            ffi::gdk_device_tool_get_hardware_id(self.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_serial(&self) -> u64 {
+    pub fn get_serial(&self) -> u64 {
         unsafe {
-            ffi::gdk_device_tool_get_serial(self.as_ref().to_glib_none().0)
+            ffi::gdk_device_tool_get_serial(self.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_tool_type(&self) -> DeviceToolType {
+    pub fn get_tool_type(&self) -> DeviceToolType {
         unsafe {
-            from_glib(ffi::gdk_device_tool_get_tool_type(self.as_ref().to_glib_none().0))
+            from_glib(ffi::gdk_device_tool_get_tool_type(self.to_glib_none().0))
         }
     }
 
-    fn get_property_axes(&self) -> AxisFlags {
+    pub fn get_property_axes(&self) -> AxisFlags {
         unsafe {
             let mut value = Value::from_type(<AxisFlags as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"axes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"axes\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn get_property_hardware_id(&self) -> u64 {
+    pub fn get_property_hardware_id(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"hardware-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"hardware-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn get_property_serial(&self) -> u64 {
+    pub fn get_property_serial(&self) -> u64 {
         unsafe {
             let mut value = Value::from_type(<u64 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"serial\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"serial\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn get_property_tool_type(&self) -> DeviceToolType {
+    pub fn get_property_tool_type(&self) -> DeviceToolType {
         unsafe {
             let mut value = Value::from_type(<DeviceToolType as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"tool-type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"tool-type\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }

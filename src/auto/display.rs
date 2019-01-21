@@ -16,8 +16,8 @@ use Seat;
 use Window;
 use ffi;
 use glib::GString;
-use glib::object::Cast;
 use glib::object::IsA;
+use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -37,6 +37,306 @@ glib_wrapper! {
 }
 
 impl Display {
+    pub fn beep(&self) {
+        unsafe {
+            ffi::gdk_display_beep(self.to_glib_none().0);
+        }
+    }
+
+    pub fn close(&self) {
+        unsafe {
+            ffi::gdk_display_close(self.to_glib_none().0);
+        }
+    }
+
+    pub fn device_is_grabbed(&self, device: &Device) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_device_is_grabbed(self.to_glib_none().0, device.to_glib_none().0))
+        }
+    }
+
+    pub fn flush(&self) {
+        unsafe {
+            ffi::gdk_display_flush(self.to_glib_none().0);
+        }
+    }
+
+    pub fn get_app_launch_context(&self) -> Option<AppLaunchContext> {
+        unsafe {
+            from_glib_full(ffi::gdk_display_get_app_launch_context(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_default_cursor_size(&self) -> u32 {
+        unsafe {
+            ffi::gdk_display_get_default_cursor_size(self.to_glib_none().0)
+        }
+    }
+
+    pub fn get_default_group(&self) -> Window {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_default_group(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_default_screen(&self) -> Screen {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_default_screen(self.to_glib_none().0))
+        }
+    }
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    pub fn get_default_seat(&self) -> Option<Seat> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_default_seat(self.to_glib_none().0))
+        }
+    }
+
+    #[cfg_attr(feature = "v3_20", deprecated)]
+    pub fn get_device_manager(&self) -> Option<DeviceManager> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_device_manager(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_event(&self) -> Option<Event> {
+        unsafe {
+            from_glib_full(ffi::gdk_display_get_event(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_maximal_cursor_size(&self) -> (u32, u32) {
+        unsafe {
+            let mut width = mem::uninitialized();
+            let mut height = mem::uninitialized();
+            ffi::gdk_display_get_maximal_cursor_size(self.to_glib_none().0, &mut width, &mut height);
+            (width, height)
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn get_monitor(&self, monitor_num: i32) -> Option<Monitor> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_monitor(self.to_glib_none().0, monitor_num))
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn get_monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_monitor_at_point(self.to_glib_none().0, x, y))
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> Option<Monitor> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_monitor_at_window(self.to_glib_none().0, window.as_ref().to_glib_none().0))
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn get_n_monitors(&self) -> i32 {
+        unsafe {
+            ffi::gdk_display_get_n_monitors(self.to_glib_none().0)
+        }
+    }
+
+    #[cfg_attr(feature = "v3_10", deprecated)]
+    pub fn get_n_screens(&self) -> i32 {
+        unsafe {
+            ffi::gdk_display_get_n_screens(self.to_glib_none().0)
+        }
+    }
+
+    pub fn get_name(&self) -> GString {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_name(self.to_glib_none().0))
+        }
+    }
+
+    #[deprecated]
+    pub fn get_pointer(&self) -> (Screen, i32, i32, ModifierType) {
+        unsafe {
+            let mut screen = ptr::null_mut();
+            let mut x = mem::uninitialized();
+            let mut y = mem::uninitialized();
+            let mut mask = mem::uninitialized();
+            ffi::gdk_display_get_pointer(self.to_glib_none().0, &mut screen, &mut x, &mut y, &mut mask);
+            (from_glib_none(screen), x, y, from_glib(mask))
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn get_primary_monitor(&self) -> Option<Monitor> {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_primary_monitor(self.to_glib_none().0))
+        }
+    }
+
+    #[cfg_attr(feature = "v3_20", deprecated)]
+    pub fn get_screen(&self, screen_num: i32) -> Screen {
+        unsafe {
+            from_glib_none(ffi::gdk_display_get_screen(self.to_glib_none().0, screen_num))
+        }
+    }
+
+    #[deprecated]
+    pub fn get_window_at_pointer(&self) -> (Option<Window>, i32, i32) {
+        unsafe {
+            let mut win_x = mem::uninitialized();
+            let mut win_y = mem::uninitialized();
+            let ret = from_glib_none(ffi::gdk_display_get_window_at_pointer(self.to_glib_none().0, &mut win_x, &mut win_y));
+            (ret, win_x, win_y)
+        }
+    }
+
+    pub fn has_pending(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_has_pending(self.to_glib_none().0))
+        }
+    }
+
+    pub fn is_closed(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_is_closed(self.to_glib_none().0))
+        }
+    }
+
+    #[deprecated]
+    pub fn keyboard_ungrab(&self, time_: u32) {
+        unsafe {
+            ffi::gdk_display_keyboard_ungrab(self.to_glib_none().0, time_);
+        }
+    }
+
+    #[deprecated]
+    pub fn list_devices(&self) -> Vec<Device> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(ffi::gdk_display_list_devices(self.to_glib_none().0))
+        }
+    }
+
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    pub fn list_seats(&self) -> Vec<Seat> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_container(ffi::gdk_display_list_seats(self.to_glib_none().0))
+        }
+    }
+
+    pub fn notify_startup_complete(&self, startup_id: &str) {
+        unsafe {
+            ffi::gdk_display_notify_startup_complete(self.to_glib_none().0, startup_id.to_glib_none().0);
+        }
+    }
+
+    pub fn peek_event(&self) -> Option<Event> {
+        unsafe {
+            from_glib_full(ffi::gdk_display_peek_event(self.to_glib_none().0))
+        }
+    }
+
+    #[deprecated]
+    pub fn pointer_is_grabbed(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_pointer_is_grabbed(self.to_glib_none().0))
+        }
+    }
+
+    #[deprecated]
+    pub fn pointer_ungrab(&self, time_: u32) {
+        unsafe {
+            ffi::gdk_display_pointer_ungrab(self.to_glib_none().0, time_);
+        }
+    }
+
+    pub fn put_event(&self, event: &Event) {
+        unsafe {
+            ffi::gdk_display_put_event(self.to_glib_none().0, event.to_glib_none().0);
+        }
+    }
+
+    pub fn request_selection_notification(&self, selection: &Atom) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_request_selection_notification(self.to_glib_none().0, selection.to_glib_none().0))
+        }
+    }
+
+    pub fn set_double_click_distance(&self, distance: u32) {
+        unsafe {
+            ffi::gdk_display_set_double_click_distance(self.to_glib_none().0, distance);
+        }
+    }
+
+    pub fn set_double_click_time(&self, msec: u32) {
+        unsafe {
+            ffi::gdk_display_set_double_click_time(self.to_glib_none().0, msec);
+        }
+    }
+
+    pub fn store_clipboard<P: IsA<Window>>(&self, clipboard_window: &P, time_: u32, targets: &[&Atom]) {
+        let n_targets = targets.len() as i32;
+        unsafe {
+            ffi::gdk_display_store_clipboard(self.to_glib_none().0, clipboard_window.as_ref().to_glib_none().0, time_, targets.to_glib_none().0, n_targets);
+        }
+    }
+
+    pub fn supports_clipboard_persistence(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_clipboard_persistence(self.to_glib_none().0))
+        }
+    }
+
+    #[cfg_attr(feature = "v3_16", deprecated)]
+    pub fn supports_composite(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_composite(self.to_glib_none().0))
+        }
+    }
+
+    pub fn supports_cursor_alpha(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_cursor_alpha(self.to_glib_none().0))
+        }
+    }
+
+    pub fn supports_cursor_color(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_cursor_color(self.to_glib_none().0))
+        }
+    }
+
+    pub fn supports_input_shapes(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_input_shapes(self.to_glib_none().0))
+        }
+    }
+
+    pub fn supports_selection_notification(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_selection_notification(self.to_glib_none().0))
+        }
+    }
+
+    pub fn supports_shapes(&self) -> bool {
+        unsafe {
+            from_glib(ffi::gdk_display_supports_shapes(self.to_glib_none().0))
+        }
+    }
+
+    pub fn sync(&self) {
+        unsafe {
+            ffi::gdk_display_sync(self.to_glib_none().0);
+        }
+    }
+
+    #[deprecated]
+    pub fn warp_pointer(&self, screen: &Screen, x: i32, y: i32) {
+        unsafe {
+            ffi::gdk_display_warp_pointer(self.to_glib_none().0, screen.to_glib_none().0, x, y);
+        }
+    }
+
     pub fn get_default() -> Option<Display> {
         assert_initialized_main_thread!();
         unsafe {
@@ -58,517 +358,92 @@ impl Display {
             from_glib_none(ffi::gdk_display_open_default_libgtk_only())
         }
     }
-}
 
-pub const NONE_DISPLAY: Option<&Display> = None;
-
-pub trait DisplayExt: 'static {
-    fn beep(&self);
-
-    fn close(&self);
-
-    fn device_is_grabbed<P: IsA<Device>>(&self, device: &P) -> bool;
-
-    fn flush(&self);
-
-    fn get_app_launch_context(&self) -> Option<AppLaunchContext>;
-
-    fn get_default_cursor_size(&self) -> u32;
-
-    fn get_default_group(&self) -> Window;
-
-    fn get_default_screen(&self) -> Screen;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn get_default_seat(&self) -> Option<Seat>;
-
-    #[cfg_attr(feature = "v3_20", deprecated)]
-    fn get_device_manager(&self) -> Option<DeviceManager>;
-
-    fn get_event(&self) -> Option<Event>;
-
-    fn get_maximal_cursor_size(&self) -> (u32, u32);
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor(&self, monitor_num: i32) -> Option<Monitor>;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor>;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> Option<Monitor>;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_n_monitors(&self) -> i32;
-
-    #[cfg_attr(feature = "v3_10", deprecated)]
-    fn get_n_screens(&self) -> i32;
-
-    fn get_name(&self) -> GString;
-
-    #[deprecated]
-    fn get_pointer(&self) -> (Screen, i32, i32, ModifierType);
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_primary_monitor(&self) -> Option<Monitor>;
-
-    #[cfg_attr(feature = "v3_20", deprecated)]
-    fn get_screen(&self, screen_num: i32) -> Screen;
-
-    #[deprecated]
-    fn get_window_at_pointer(&self) -> (Option<Window>, i32, i32);
-
-    fn has_pending(&self) -> bool;
-
-    fn is_closed(&self) -> bool;
-
-    #[deprecated]
-    fn keyboard_ungrab(&self, time_: u32);
-
-    #[deprecated]
-    fn list_devices(&self) -> Vec<Device>;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn list_seats(&self) -> Vec<Seat>;
-
-    fn notify_startup_complete(&self, startup_id: &str);
-
-    fn peek_event(&self) -> Option<Event>;
-
-    #[deprecated]
-    fn pointer_is_grabbed(&self) -> bool;
-
-    #[deprecated]
-    fn pointer_ungrab(&self, time_: u32);
-
-    fn put_event(&self, event: &Event);
-
-    fn request_selection_notification(&self, selection: &Atom) -> bool;
-
-    fn set_double_click_distance(&self, distance: u32);
-
-    fn set_double_click_time(&self, msec: u32);
-
-    fn store_clipboard<P: IsA<Window>>(&self, clipboard_window: &P, time_: u32, targets: &[&Atom]);
-
-    fn supports_clipboard_persistence(&self) -> bool;
-
-    #[cfg_attr(feature = "v3_16", deprecated)]
-    fn supports_composite(&self) -> bool;
-
-    fn supports_cursor_alpha(&self) -> bool;
-
-    fn supports_cursor_color(&self) -> bool;
-
-    fn supports_input_shapes(&self) -> bool;
-
-    fn supports_selection_notification(&self) -> bool;
-
-    fn supports_shapes(&self) -> bool;
-
-    fn sync(&self);
-
-    #[deprecated]
-    fn warp_pointer<P: IsA<Screen>>(&self, screen: &P, x: i32, y: i32);
-
-    fn connect_closed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn connect_monitor_added<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn connect_monitor_removed<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    fn connect_opened<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_seat_added<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<Display>> DisplayExt for O {
-    fn beep(&self) {
+    pub fn connect_closed<F: Fn(&Display, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            ffi::gdk_display_beep(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn close(&self) {
-        unsafe {
-            ffi::gdk_display_close(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn device_is_grabbed<P: IsA<Device>>(&self, device: &P) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_device_is_grabbed(self.as_ref().to_glib_none().0, device.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn flush(&self) {
-        unsafe {
-            ffi::gdk_display_flush(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn get_app_launch_context(&self) -> Option<AppLaunchContext> {
-        unsafe {
-            from_glib_full(ffi::gdk_display_get_app_launch_context(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_default_cursor_size(&self) -> u32 {
-        unsafe {
-            ffi::gdk_display_get_default_cursor_size(self.as_ref().to_glib_none().0)
-        }
-    }
-
-    fn get_default_group(&self) -> Window {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_default_group(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_default_screen(&self) -> Screen {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_default_screen(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn get_default_seat(&self) -> Option<Seat> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_default_seat(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_device_manager(&self) -> Option<DeviceManager> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_device_manager(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_event(&self) -> Option<Event> {
-        unsafe {
-            from_glib_full(ffi::gdk_display_get_event(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_maximal_cursor_size(&self) -> (u32, u32) {
-        unsafe {
-            let mut width = mem::uninitialized();
-            let mut height = mem::uninitialized();
-            ffi::gdk_display_get_maximal_cursor_size(self.as_ref().to_glib_none().0, &mut width, &mut height);
-            (width, height)
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor(&self, monitor_num: i32) -> Option<Monitor> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_monitor(self.as_ref().to_glib_none().0, monitor_num))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor_at_point(&self, x: i32, y: i32) -> Option<Monitor> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_monitor_at_point(self.as_ref().to_glib_none().0, x, y))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_monitor_at_window<P: IsA<Window>>(&self, window: &P) -> Option<Monitor> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_monitor_at_window(self.as_ref().to_glib_none().0, window.as_ref().to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_n_monitors(&self) -> i32 {
-        unsafe {
-            ffi::gdk_display_get_n_monitors(self.as_ref().to_glib_none().0)
-        }
-    }
-
-    fn get_n_screens(&self) -> i32 {
-        unsafe {
-            ffi::gdk_display_get_n_screens(self.as_ref().to_glib_none().0)
-        }
-    }
-
-    fn get_name(&self) -> GString {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_name(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_pointer(&self) -> (Screen, i32, i32, ModifierType) {
-        unsafe {
-            let mut screen = ptr::null_mut();
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
-            let mut mask = mem::uninitialized();
-            ffi::gdk_display_get_pointer(self.as_ref().to_glib_none().0, &mut screen, &mut x, &mut y, &mut mask);
-            (from_glib_none(screen), x, y, from_glib(mask))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn get_primary_monitor(&self) -> Option<Monitor> {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_primary_monitor(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_screen(&self, screen_num: i32) -> Screen {
-        unsafe {
-            from_glib_none(ffi::gdk_display_get_screen(self.as_ref().to_glib_none().0, screen_num))
-        }
-    }
-
-    fn get_window_at_pointer(&self) -> (Option<Window>, i32, i32) {
-        unsafe {
-            let mut win_x = mem::uninitialized();
-            let mut win_y = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_display_get_window_at_pointer(self.as_ref().to_glib_none().0, &mut win_x, &mut win_y));
-            (ret, win_x, win_y)
-        }
-    }
-
-    fn has_pending(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_has_pending(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn is_closed(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_is_closed(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn keyboard_ungrab(&self, time_: u32) {
-        unsafe {
-            ffi::gdk_display_keyboard_ungrab(self.as_ref().to_glib_none().0, time_);
-        }
-    }
-
-    fn list_devices(&self) -> Vec<Device> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::gdk_display_list_devices(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn list_seats(&self) -> Vec<Seat> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_display_list_seats(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn notify_startup_complete(&self, startup_id: &str) {
-        unsafe {
-            ffi::gdk_display_notify_startup_complete(self.as_ref().to_glib_none().0, startup_id.to_glib_none().0);
-        }
-    }
-
-    fn peek_event(&self) -> Option<Event> {
-        unsafe {
-            from_glib_full(ffi::gdk_display_peek_event(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn pointer_is_grabbed(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_pointer_is_grabbed(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn pointer_ungrab(&self, time_: u32) {
-        unsafe {
-            ffi::gdk_display_pointer_ungrab(self.as_ref().to_glib_none().0, time_);
-        }
-    }
-
-    fn put_event(&self, event: &Event) {
-        unsafe {
-            ffi::gdk_display_put_event(self.as_ref().to_glib_none().0, event.to_glib_none().0);
-        }
-    }
-
-    fn request_selection_notification(&self, selection: &Atom) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_request_selection_notification(self.as_ref().to_glib_none().0, selection.to_glib_none().0))
-        }
-    }
-
-    fn set_double_click_distance(&self, distance: u32) {
-        unsafe {
-            ffi::gdk_display_set_double_click_distance(self.as_ref().to_glib_none().0, distance);
-        }
-    }
-
-    fn set_double_click_time(&self, msec: u32) {
-        unsafe {
-            ffi::gdk_display_set_double_click_time(self.as_ref().to_glib_none().0, msec);
-        }
-    }
-
-    fn store_clipboard<P: IsA<Window>>(&self, clipboard_window: &P, time_: u32, targets: &[&Atom]) {
-        let n_targets = targets.len() as i32;
-        unsafe {
-            ffi::gdk_display_store_clipboard(self.as_ref().to_glib_none().0, clipboard_window.as_ref().to_glib_none().0, time_, targets.to_glib_none().0, n_targets);
-        }
-    }
-
-    fn supports_clipboard_persistence(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_clipboard_persistence(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_composite(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_composite(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_cursor_alpha(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_cursor_alpha(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_cursor_color(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_cursor_color(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_input_shapes(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_input_shapes(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_selection_notification(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_selection_notification(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn supports_shapes(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_supports_shapes(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn sync(&self) {
-        unsafe {
-            ffi::gdk_display_sync(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn warp_pointer<P: IsA<Screen>>(&self, screen: &P, x: i32, y: i32) {
-        unsafe {
-            ffi::gdk_display_warp_pointer(self.as_ref().to_glib_none().0, screen.as_ref().to_glib_none().0, x, y);
-        }
-    }
-
-    fn connect_closed<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Self, bool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display, bool) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"closed\0".as_ptr() as *const _,
-                transmute(closed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(closed_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn connect_monitor_added<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_monitor_added<F: Fn(&Display, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Monitor) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display, &Monitor) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"monitor-added\0".as_ptr() as *const _,
-                transmute(monitor_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(monitor_added_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn connect_monitor_removed<F: Fn(&Self, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_monitor_removed<F: Fn(&Display, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Monitor) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display, &Monitor) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"monitor-removed\0".as_ptr() as *const _,
-                transmute(monitor_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(monitor_removed_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
-    fn connect_opened<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_opened<F: Fn(&Display) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"opened\0".as_ptr() as *const _,
-                transmute(opened_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(opened_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_seat_added<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_seat_added<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Seat) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display, &Seat) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"seat-added\0".as_ptr() as *const _,
-                transmute(seat_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(seat_added_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    fn connect_seat_removed<F: Fn(&Self, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_seat_removed<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Seat) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<Box_<Fn(&Display, &Seat) + 'static>> = Box_::new(Box_::new(f));
             connect_raw(self.as_ptr() as *mut _, b"seat-removed\0".as_ptr() as *const _,
-                transmute(seat_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                transmute(seat_removed_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 }
 
-unsafe extern "C" fn closed_trampoline<P>(this: *mut ffi::GdkDisplay, is_error: glib_ffi::gboolean, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P, bool) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast(), from_glib(is_error))
+unsafe extern "C" fn closed_trampoline(this: *mut ffi::GdkDisplay, is_error: glib_ffi::gboolean, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display, bool) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), from_glib(is_error))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn monitor_added_trampoline<P>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P, &Monitor) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(monitor))
+unsafe extern "C" fn monitor_added_trampoline(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display, &Monitor) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(monitor))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn monitor_removed_trampoline<P>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P, &Monitor) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(monitor))
+unsafe extern "C" fn monitor_removed_trampoline(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display, &Monitor) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(monitor))
 }
 
-unsafe extern "C" fn opened_trampoline<P>(this: *mut ffi::GdkDisplay, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast())
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn seat_added_trampoline<P>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P, &Seat) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(seat))
+unsafe extern "C" fn opened_trampoline(this: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display) + 'static) = transmute(f);
+    f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn seat_removed_trampoline<P>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer)
-where P: IsA<Display> {
-    let f: &&(Fn(&P, &Seat) + 'static) = transmute(f);
-    f(&Display::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(seat))
+unsafe extern "C" fn seat_added_trampoline(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display, &Seat) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(seat))
+}
+
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+unsafe extern "C" fn seat_removed_trampoline(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer) {
+    let f: &&(Fn(&Display, &Seat) + 'static) = transmute(f);
+    f(&from_glib_borrow(this), &from_glib_borrow(seat))
 }
 
 impl fmt::Display for Display {
