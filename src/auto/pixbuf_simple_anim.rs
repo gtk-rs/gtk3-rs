@@ -34,7 +34,7 @@ impl PixbufSimpleAnim {
 pub const NONE_PIXBUF_SIMPLE_ANIM: Option<&PixbufSimpleAnim> = None;
 
 pub trait PixbufSimpleAnimExt: 'static {
-    fn add_frame<P: IsA<Pixbuf>>(&self, pixbuf: &P);
+    fn add_frame(&self, pixbuf: &Pixbuf);
 
     fn get_loop(&self) -> bool;
 
@@ -44,9 +44,9 @@ pub trait PixbufSimpleAnimExt: 'static {
 }
 
 impl<O: IsA<PixbufSimpleAnim>> PixbufSimpleAnimExt for O {
-    fn add_frame<P: IsA<Pixbuf>>(&self, pixbuf: &P) {
+    fn add_frame(&self, pixbuf: &Pixbuf) {
         unsafe {
-            ffi::gdk_pixbuf_simple_anim_add_frame(self.as_ref().to_glib_none().0, pixbuf.as_ref().to_glib_none().0);
+            ffi::gdk_pixbuf_simple_anim_add_frame(self.as_ref().to_glib_none().0, pixbuf.to_glib_none().0);
         }
     }
 

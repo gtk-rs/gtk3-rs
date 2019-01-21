@@ -22,7 +22,6 @@ use futures_core::Future;
 use {
     Colorspace,
     Pixbuf,
-    PixbufExt,
     PixbufFormat,
 };
 
