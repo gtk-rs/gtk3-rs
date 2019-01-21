@@ -4,7 +4,8 @@
 
 use Error;
 use ffi;
-use glib::object::ObjectType;
+use glib::object::Cast;
+use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -30,75 +31,9 @@ impl Cancellable {
         }
     }
 
-    pub fn cancel(&self) {
-        unsafe {
-            ffi::g_cancellable_cancel(self.to_glib_none().0);
-        }
-    }
-
-    //pub fn connect<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, callback: /*Unknown conversion*//*Unimplemented*/Callback, data: P, data_destroy_func: Q) -> libc::c_ulong {
-    //    unsafe { TODO: call ffi::g_cancellable_connect() }
-    //}
-
-    pub fn disconnect(&self, handler_id: libc::c_ulong) {
-        unsafe {
-            ffi::g_cancellable_disconnect(self.to_glib_none().0, handler_id);
-        }
-    }
-
-    pub fn get_fd(&self) -> i32 {
-        unsafe {
-            ffi::g_cancellable_get_fd(self.to_glib_none().0)
-        }
-    }
-
-    pub fn is_cancelled(&self) -> bool {
-        unsafe {
-            from_glib(ffi::g_cancellable_is_cancelled(self.to_glib_none().0))
-        }
-    }
-
-    //pub fn make_pollfd(&self, pollfd: /*Ignored*/&mut glib::PollFD) -> bool {
-    //    unsafe { TODO: call ffi::g_cancellable_make_pollfd() }
-    //}
-
-    pub fn pop_current(&self) {
-        unsafe {
-            ffi::g_cancellable_pop_current(self.to_glib_none().0);
-        }
-    }
-
-    pub fn push_current(&self) {
-        unsafe {
-            ffi::g_cancellable_push_current(self.to_glib_none().0);
-        }
-    }
-
-    pub fn release_fd(&self) {
-        unsafe {
-            ffi::g_cancellable_release_fd(self.to_glib_none().0);
-        }
-    }
-
-    pub fn set_error_if_cancelled(&self) -> Result<(), Error> {
-        unsafe {
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_cancellable_set_error_if_cancelled(self.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
-        }
-    }
-
     pub fn get_current() -> Option<Cancellable> {
         unsafe {
             from_glib_none(ffi::g_cancellable_get_current())
-        }
-    }
-
-    pub fn connect_cancelled<F: Fn(&Cancellable) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<Box_<Fn(&Cancellable) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
-            connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
-                transmute(cancelled_trampoline as usize), Box_::into_raw(f) as *mut _)
         }
     }
 }
@@ -114,9 +49,102 @@ unsafe impl Sync for Cancellable {}
 
 pub const NONE_CANCELLABLE: Option<&Cancellable> = None;
 
-unsafe extern "C" fn cancelled_trampoline(this: *mut ffi::GCancellable, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Cancellable) + Send + Sync + 'static) = transmute(f);
-    f(&from_glib_borrow(this))
+pub trait CancellableExt: 'static {
+    fn cancel(&self);
+
+    //fn connect<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, callback: /*Unknown conversion*//*Unimplemented*/Callback, data: P, data_destroy_func: Q) -> libc::c_ulong;
+
+    fn disconnect(&self, handler_id: libc::c_ulong);
+
+    fn get_fd(&self) -> i32;
+
+    fn is_cancelled(&self) -> bool;
+
+    //fn make_pollfd(&self, pollfd: /*Ignored*/&mut glib::PollFD) -> bool;
+
+    fn pop_current(&self);
+
+    fn push_current(&self);
+
+    fn release_fd(&self);
+
+    fn set_error_if_cancelled(&self) -> Result<(), Error>;
+
+    fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
+}
+
+impl<O: IsA<Cancellable>> CancellableExt for O {
+    fn cancel(&self) {
+        unsafe {
+            ffi::g_cancellable_cancel(self.as_ref().to_glib_none().0);
+        }
+    }
+
+    //fn connect<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, callback: /*Unknown conversion*//*Unimplemented*/Callback, data: P, data_destroy_func: Q) -> libc::c_ulong {
+    //    unsafe { TODO: call ffi::g_cancellable_connect() }
+    //}
+
+    fn disconnect(&self, handler_id: libc::c_ulong) {
+        unsafe {
+            ffi::g_cancellable_disconnect(self.as_ref().to_glib_none().0, handler_id);
+        }
+    }
+
+    fn get_fd(&self) -> i32 {
+        unsafe {
+            ffi::g_cancellable_get_fd(self.as_ref().to_glib_none().0)
+        }
+    }
+
+    fn is_cancelled(&self) -> bool {
+        unsafe {
+            from_glib(ffi::g_cancellable_is_cancelled(self.as_ref().to_glib_none().0))
+        }
+    }
+
+    //fn make_pollfd(&self, pollfd: /*Ignored*/&mut glib::PollFD) -> bool {
+    //    unsafe { TODO: call ffi::g_cancellable_make_pollfd() }
+    //}
+
+    fn pop_current(&self) {
+        unsafe {
+            ffi::g_cancellable_pop_current(self.as_ref().to_glib_none().0);
+        }
+    }
+
+    fn push_current(&self) {
+        unsafe {
+            ffi::g_cancellable_push_current(self.as_ref().to_glib_none().0);
+        }
+    }
+
+    fn release_fd(&self) {
+        unsafe {
+            ffi::g_cancellable_release_fd(self.as_ref().to_glib_none().0);
+        }
+    }
+
+    fn set_error_if_cancelled(&self) -> Result<(), Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = ffi::g_cancellable_set_error_if_cancelled(self.as_ref().to_glib_none().0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
+
+    fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe {
+            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
+            connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
+                transmute(cancelled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+        }
+    }
+}
+
+unsafe extern "C" fn cancelled_trampoline<P>(this: *mut ffi::GCancellable, f: glib_ffi::gpointer)
+where P: IsA<Cancellable> {
+    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
+    f(&Cancellable::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Cancellable {

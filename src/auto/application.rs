@@ -112,7 +112,7 @@ pub trait ApplicationExt: 'static {
     fn release(&self);
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_notification<'a, P: Into<Option<&'a str>>, Q: IsA<Notification>>(&self, id: P, notification: &Q);
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification);
 
     #[deprecated]
     fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q);
@@ -309,10 +309,10 @@ impl<O: IsA<Application>> ApplicationExt for O {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_notification<'a, P: Into<Option<&'a str>>, Q: IsA<Notification>>(&self, id: P, notification: &Q) {
+    fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification) {
         let id = id.into();
         unsafe {
-            ffi::g_application_send_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0, notification.as_ref().to_glib_none().0);
+            ffi::g_application_send_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0, notification.to_glib_none().0);
         }
     }
 

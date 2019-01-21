@@ -48,124 +48,88 @@ impl MenuItem {
             from_glib_full(ffi::g_menu_item_new_submenu(label.to_glib_none().0, submenu.as_ref().to_glib_none().0))
         }
     }
-}
 
-pub const NONE_MENU_ITEM: Option<&MenuItem> = None;
-
-pub trait MenuItemExt: 'static {
     //#[cfg(any(feature = "v2_34", feature = "dox"))]
-    //fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, attribute: &str, expected_type: P) -> Option<glib::Variant>;
-
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_link(&self, link: &str) -> Option<MenuModel>;
-
-    //fn set_action_and_target<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, action: P, format_string: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
-    fn set_action_and_target_value<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b glib::Variant>>>(&self, action: P, target_value: Q);
-
-    //fn set_attribute<'a, P: Into<Option<&'a str>>>(&self, attribute: &str, format_string: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs);
-
-    fn set_attribute_value<'a, P: Into<Option<&'a glib::Variant>>>(&self, attribute: &str, value: P);
-
-    fn set_detailed_action(&self, detailed_action: &str);
-
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn set_icon<P: IsA<Icon>>(&self, icon: &P);
-
-    fn set_label<'a, P: Into<Option<&'a str>>>(&self, label: P);
-
-    fn set_link<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, link: &str, model: Q);
-
-    fn set_section<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, section: Q);
-
-    fn set_submenu<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, submenu: Q);
-}
-
-impl<O: IsA<MenuItem>> MenuItemExt for O {
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
-    //fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::g_menu_item_get_attribute() }
     //}
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, attribute: &str, expected_type: P) -> Option<glib::Variant> {
+    pub fn get_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, attribute: &str, expected_type: P) -> Option<glib::Variant> {
         let expected_type = expected_type.into();
         unsafe {
-            from_glib_full(ffi::g_menu_item_get_attribute_value(self.as_ref().to_glib_none().0, attribute.to_glib_none().0, expected_type.to_glib_none().0))
+            from_glib_full(ffi::g_menu_item_get_attribute_value(self.to_glib_none().0, attribute.to_glib_none().0, expected_type.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_34", feature = "dox"))]
-    fn get_link(&self, link: &str) -> Option<MenuModel> {
+    pub fn get_link(&self, link: &str) -> Option<MenuModel> {
         unsafe {
-            from_glib_full(ffi::g_menu_item_get_link(self.as_ref().to_glib_none().0, link.to_glib_none().0))
+            from_glib_full(ffi::g_menu_item_get_link(self.to_glib_none().0, link.to_glib_none().0))
         }
     }
 
-    //fn set_action_and_target<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, action: P, format_string: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //pub fn set_action_and_target<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, action: P, format_string: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi::g_menu_item_set_action_and_target() }
     //}
 
-    fn set_action_and_target_value<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b glib::Variant>>>(&self, action: P, target_value: Q) {
+    pub fn set_action_and_target_value<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b glib::Variant>>>(&self, action: P, target_value: Q) {
         let action = action.into();
         let target_value = target_value.into();
         unsafe {
-            ffi::g_menu_item_set_action_and_target_value(self.as_ref().to_glib_none().0, action.to_glib_none().0, target_value.to_glib_none().0);
+            ffi::g_menu_item_set_action_and_target_value(self.to_glib_none().0, action.to_glib_none().0, target_value.to_glib_none().0);
         }
     }
 
-    //fn set_attribute<'a, P: Into<Option<&'a str>>>(&self, attribute: &str, format_string: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //pub fn set_attribute<'a, P: Into<Option<&'a str>>>(&self, attribute: &str, format_string: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi::g_menu_item_set_attribute() }
     //}
 
-    fn set_attribute_value<'a, P: Into<Option<&'a glib::Variant>>>(&self, attribute: &str, value: P) {
+    pub fn set_attribute_value<'a, P: Into<Option<&'a glib::Variant>>>(&self, attribute: &str, value: P) {
         let value = value.into();
         unsafe {
-            ffi::g_menu_item_set_attribute_value(self.as_ref().to_glib_none().0, attribute.to_glib_none().0, value.to_glib_none().0);
+            ffi::g_menu_item_set_attribute_value(self.to_glib_none().0, attribute.to_glib_none().0, value.to_glib_none().0);
         }
     }
 
-    fn set_detailed_action(&self, detailed_action: &str) {
+    pub fn set_detailed_action(&self, detailed_action: &str) {
         unsafe {
-            ffi::g_menu_item_set_detailed_action(self.as_ref().to_glib_none().0, detailed_action.to_glib_none().0);
+            ffi::g_menu_item_set_detailed_action(self.to_glib_none().0, detailed_action.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn set_icon<P: IsA<Icon>>(&self, icon: &P) {
+    pub fn set_icon<P: IsA<Icon>>(&self, icon: &P) {
         unsafe {
-            ffi::g_menu_item_set_icon(self.as_ref().to_glib_none().0, icon.as_ref().to_glib_none().0);
+            ffi::g_menu_item_set_icon(self.to_glib_none().0, icon.as_ref().to_glib_none().0);
         }
     }
 
-    fn set_label<'a, P: Into<Option<&'a str>>>(&self, label: P) {
+    pub fn set_label<'a, P: Into<Option<&'a str>>>(&self, label: P) {
         let label = label.into();
         unsafe {
-            ffi::g_menu_item_set_label(self.as_ref().to_glib_none().0, label.to_glib_none().0);
+            ffi::g_menu_item_set_label(self.to_glib_none().0, label.to_glib_none().0);
         }
     }
 
-    fn set_link<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, link: &str, model: Q) {
+    pub fn set_link<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, link: &str, model: Q) {
         let model = model.into();
         unsafe {
-            ffi::g_menu_item_set_link(self.as_ref().to_glib_none().0, link.to_glib_none().0, model.map(|p| p.as_ref()).to_glib_none().0);
+            ffi::g_menu_item_set_link(self.to_glib_none().0, link.to_glib_none().0, model.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
-    fn set_section<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, section: Q) {
+    pub fn set_section<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, section: Q) {
         let section = section.into();
         unsafe {
-            ffi::g_menu_item_set_section(self.as_ref().to_glib_none().0, section.map(|p| p.as_ref()).to_glib_none().0);
+            ffi::g_menu_item_set_section(self.to_glib_none().0, section.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
-    fn set_submenu<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, submenu: Q) {
+    pub fn set_submenu<'a, P: IsA<MenuModel> + 'a, Q: Into<Option<&'a P>>>(&self, submenu: Q) {
         let submenu = submenu.into();
         unsafe {
-            ffi::g_menu_item_set_submenu(self.as_ref().to_glib_none().0, submenu.map(|p| p.as_ref()).to_glib_none().0);
+            ffi::g_menu_item_set_submenu(self.to_glib_none().0, submenu.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 }
