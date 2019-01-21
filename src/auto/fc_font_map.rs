@@ -18,8 +18,6 @@ glib_wrapper! {
 
 impl FcFontMap {}
 
-pub const NONE_FC_FONT_MAP: Option<&FcFontMap> = None;
-
 impl fmt::Display for FcFontMap {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "FcFontMap")
