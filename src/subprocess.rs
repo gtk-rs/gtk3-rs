@@ -7,8 +7,6 @@ use Error;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use ffi;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-use glib::object::IsA;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::translate::*;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib_ffi;
@@ -23,19 +21,10 @@ use std::boxed::Box as Box_;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 use libc::c_char;
 
-pub trait SubprocessExtManual: Sized {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R);
-
-    #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> where Self: Clone;
-}
-
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-impl<O: IsA<Subprocess>> SubprocessExtManual for O {
+impl Subprocess {
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
+    pub fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(String, String), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
         let stdin_buf = stdin_buf.into();
         let stdin_buf = stdin_buf.to_glib_full();
         let cancellable = cancellable.into();
@@ -54,13 +43,13 @@ impl<O: IsA<Subprocess>> SubprocessExtManual for O {
         }
         let callback = communicate_utf8_async_trampoline::<R>;
         unsafe {
-            ffi::g_subprocess_communicate_utf8_async(self.as_ref().to_glib_none().0, stdin_buf, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_communicate_utf8_async(self.to_glib_none().0, stdin_buf, cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> where Self: Clone {
+    pub fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (String, String)), Error = (Self, Error)>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
 

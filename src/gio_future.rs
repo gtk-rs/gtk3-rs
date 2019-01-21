@@ -8,6 +8,7 @@ use futures_core::{Async, Future};
 
 use glib;
 use Cancellable;
+use CancellableExt;
 
 pub struct GioFuture<F, O, T, E> {
     obj: O,
