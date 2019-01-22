@@ -156,6 +156,11 @@ impl FromGlibPtrNone<ffi::GdkAtom> for Atom {
     unsafe fn from_glib_none(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
 }
 
+impl FromGlibPtrBorrow<ffi::GdkAtom> for Atom {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: ffi::GdkAtom) -> Atom { Atom(ptr) }
+}
+
 impl FromGlibPtrFull<ffi::GdkAtom> for Atom {
     #[inline]
     unsafe fn from_glib_full(_: ffi::GdkAtom) -> Atom { unimplemented!() }
@@ -212,19 +217,5 @@ impl<'a> From<&'a str> for Atom {
     fn from(r: &'a str) -> Atom {
         skip_assert_initialized!();
         Atom::intern(r)
-    }
-}
-
-#[doc(hidden)]
-impl FromGlibPtrBorrow<*const ffi::GdkAtom> for Atom {
-    unsafe fn from_glib_borrow(ptr: *const ffi::GdkAtom) -> Self {
-        Atom(*ptr)
-    }
-}
-
-#[doc(hidden)]
-impl FromGlibPtrBorrow<*mut ffi::GdkAtom> for Atom {
-    unsafe fn from_glib_borrow(ptr: *mut ffi::GdkAtom) -> Self {
-        Atom(*ptr)
     }
 }
