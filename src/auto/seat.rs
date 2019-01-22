@@ -3,14 +3,22 @@
 // DO NOT EDIT
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+use Cursor;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use Device;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use DeviceTool;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use Display;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
+use Event;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
+use GrabStatus;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use SeatCapabilities;
+use Window;
 use ffi;
+use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::object::ObjectType;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -70,10 +78,24 @@ impl Seat {
         }
     }
 
-    //#[cfg(any(feature = "v3_20", feature = "dox"))]
-    //pub fn grab<'a, 'b, 'c, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: Into<Option<&'c /*Unimplemented*/SeatGrabPrepareFunc>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Q, event: R, prepare_func: S, prepare_func_data: T) -> GrabStatus {
-    //    unsafe { TODO: call ffi::gdk_seat_grab() }
-    //}
+    #[cfg(any(feature = "v3_20", feature = "dox"))]
+    pub fn grab<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: FnMut(&Seat, &Window), T: Into<Option<S>>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Q, event: R, prepare_func: T) -> GrabStatus {
+        let cursor = cursor.into();
+        let event = event.into();
+        let prepare_func = prepare_func.into();
+        let prepare_func_data: Option<S> = prepare_func.into();
+        unsafe extern "C" fn prepare_func_func<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: FnMut(&Seat, &Window)>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
+            let seat = from_glib_borrow(seat);
+            let window = from_glib_borrow(window);
+            let callback: *mut S = user_data as *const _ as usize as *mut S;
+            (*callback)(&seat, &window);
+        }
+        let prepare_func = Some(prepare_func_func::<'a, 'b, P, Q, R, S> as _);
+        let super_callback0: &Option<S> = &prepare_func_data;
+        unsafe {
+            from_glib(ffi::gdk_seat_grab(self.to_glib_none().0, window.as_ref().to_glib_none().0, capabilities.to_glib(), owner_events.to_glib(), cursor.to_glib_none().0, event.to_glib_none().0, prepare_func, super_callback0 as *const _ as usize as *mut _))
+        }
+    }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn ungrab(&self) {
