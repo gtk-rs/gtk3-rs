@@ -24,8 +24,6 @@ impl SimplePermission {
     }
 }
 
-pub const NONE_SIMPLE_PERMISSION: Option<&SimplePermission> = None;
-
 impl fmt::Display for SimplePermission {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "SimplePermission")

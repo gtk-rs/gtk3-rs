@@ -248,7 +248,6 @@ status = "generate"
 [[object]]
 name = "Gio.Cancellable"
 status = "generate"
-trait = false
 concurrency = "send+sync"
     [[object.function]]
     name = "reset"
@@ -637,6 +636,9 @@ status = "generate"
     [[object.function]]
     name = "communicate_utf8_async"
     ignore = true
+    [[object.function]]
+    name = "send_signal"
+    cfg_condition = "not(windows)"
 
 [[object]]
 name = "Gio.SubprocessLauncher"

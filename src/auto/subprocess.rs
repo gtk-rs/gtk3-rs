@@ -57,97 +57,22 @@ impl Subprocess {
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
-}
-
-pub const NONE_SUBPROCESS: Option<&Subprocess> = None;
-
-pub trait SubprocessExt: 'static {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error>;
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: R, callback: S);
-
-    #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<GString>, Option<GString>), Error>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn force_exit(&self);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_exit_status(&self) -> i32;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_identifier(&self) -> Option<GString>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_if_exited(&self) -> bool;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_if_signaled(&self) -> bool;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_status(&self) -> i32;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stderr_pipe(&self) -> Option<InputStream>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stdin_pipe(&self) -> Option<OutputStream>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stdout_pipe(&self) -> Option<InputStream>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_successful(&self) -> bool;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_term_sig(&self) -> i32;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_signal(&self, signal_num: i32);
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
-
-    #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R);
-
-    #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
-}
-
-impl<O: IsA<Subprocess>> SubprocessExt for O {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
+    pub fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = ffi::g_subprocess_communicate(self.as_ref().to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut stdout_buf, &mut stderr_buf, &mut error);
+            let _ = ffi::g_subprocess_communicate(self.to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut stdout_buf, &mut stderr_buf, &mut error);
             if error.is_null() { Ok((from_glib_full(stdout_buf), from_glib_full(stderr_buf))) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: R, callback: S) {
+    pub fn communicate_async<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: R, callback: S) {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
         let user_data: Box<Box<S>> = Box::new(Box::new(callback));
@@ -163,13 +88,13 @@ impl<O: IsA<Subprocess>> SubprocessExt for O {
         }
         let callback = communicate_async_trampoline::<S>;
         unsafe {
-            ffi::g_subprocess_communicate_async(self.as_ref().to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_communicate_async(self.to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
+    pub fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -194,114 +119,115 @@ impl<O: IsA<Subprocess>> SubprocessExt for O {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<GString>, Option<GString>), Error> {
+    pub fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<GString>, Option<GString>), Error> {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let _ = ffi::g_subprocess_communicate_utf8(self.as_ref().to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut stdout_buf, &mut stderr_buf, &mut error);
+            let _ = ffi::g_subprocess_communicate_utf8(self.to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut stdout_buf, &mut stderr_buf, &mut error);
             if error.is_null() { Ok((from_glib_full(stdout_buf), from_glib_full(stderr_buf))) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn force_exit(&self) {
+    pub fn force_exit(&self) {
         unsafe {
-            ffi::g_subprocess_force_exit(self.as_ref().to_glib_none().0);
+            ffi::g_subprocess_force_exit(self.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_exit_status(&self) -> i32 {
+    pub fn get_exit_status(&self) -> i32 {
         unsafe {
-            ffi::g_subprocess_get_exit_status(self.as_ref().to_glib_none().0)
+            ffi::g_subprocess_get_exit_status(self.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_identifier(&self) -> Option<GString> {
+    pub fn get_identifier(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_subprocess_get_identifier(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_if_exited(&self) -> bool {
+    pub fn get_if_exited(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_subprocess_get_if_exited(self.as_ref().to_glib_none().0))
+            from_glib(ffi::g_subprocess_get_if_exited(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_if_signaled(&self) -> bool {
+    pub fn get_if_signaled(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_subprocess_get_if_signaled(self.as_ref().to_glib_none().0))
+            from_glib(ffi::g_subprocess_get_if_signaled(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_status(&self) -> i32 {
+    pub fn get_status(&self) -> i32 {
         unsafe {
-            ffi::g_subprocess_get_status(self.as_ref().to_glib_none().0)
+            ffi::g_subprocess_get_status(self.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stderr_pipe(&self) -> Option<InputStream> {
+    pub fn get_stderr_pipe(&self) -> Option<InputStream> {
         unsafe {
-            from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stdin_pipe(&self) -> Option<OutputStream> {
+    pub fn get_stdin_pipe(&self) -> Option<OutputStream> {
         unsafe {
-            from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_stdout_pipe(&self) -> Option<InputStream> {
+    pub fn get_stdout_pipe(&self) -> Option<InputStream> {
         unsafe {
-            from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_successful(&self) -> bool {
+    pub fn get_successful(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_subprocess_get_successful(self.as_ref().to_glib_none().0))
+            from_glib(ffi::g_subprocess_get_successful(self.to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn get_term_sig(&self) -> i32 {
+    pub fn get_term_sig(&self) -> i32 {
         unsafe {
-            ffi::g_subprocess_get_term_sig(self.as_ref().to_glib_none().0)
+            ffi::g_subprocess_get_term_sig(self.to_glib_none().0)
+        }
+    }
+
+    #[cfg(any(not(windows), feature = "dox"))]
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    pub fn send_signal(&self, signal_num: i32) {
+        unsafe {
+            ffi::g_subprocess_send_signal(self.to_glib_none().0, signal_num);
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn send_signal(&self, signal_num: i32) {
-        unsafe {
-            ffi::g_subprocess_send_signal(self.as_ref().to_glib_none().0, signal_num);
-        }
-    }
-
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
+    pub fn wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_subprocess_wait(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = ffi::g_subprocess_wait(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
+    pub fn wait_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn wait_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
@@ -314,13 +240,13 @@ impl<O: IsA<Subprocess>> SubprocessExt for O {
         }
         let callback = wait_async_trampoline::<R>;
         unsafe {
-            ffi::g_subprocess_wait_async(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_wait_async(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    pub fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
@@ -342,17 +268,17 @@ impl<O: IsA<Subprocess>> SubprocessExt for O {
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
+    pub fn wait_check<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_subprocess_wait_check(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = ffi::g_subprocess_wait_check(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
+    pub fn wait_check_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<Box<R>> = Box::new(Box::new(callback));
         unsafe extern "C" fn wait_check_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
@@ -365,13 +291,13 @@ impl<O: IsA<Subprocess>> SubprocessExt for O {
         }
         let callback = wait_check_async_trampoline::<R>;
         unsafe {
-            ffi::g_subprocess_wait_check_async(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            ffi::g_subprocess_wait_check_async(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_40", feature = "dox"))]
-    fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    pub fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 

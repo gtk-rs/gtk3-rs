@@ -7,7 +7,6 @@ use LoadableIcon;
 use ffi;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib;
-use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
@@ -26,20 +25,11 @@ impl BytesIcon {
             from_glib_full(ffi::g_bytes_icon_new(bytes.to_glib_none().0))
         }
     }
-}
 
-pub const NONE_BYTES_ICON: Option<&BytesIcon> = None;
-
-pub trait BytesIconExt: 'static {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn get_bytes(&self) -> Option<glib::Bytes>;
-}
-
-impl<O: IsA<BytesIcon>> BytesIconExt for O {
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
-    fn get_bytes(&self) -> Option<glib::Bytes> {
+    pub fn get_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
-            from_glib_none(ffi::g_bytes_icon_get_bytes(self.as_ref().to_glib_none().0))
+            from_glib_none(ffi::g_bytes_icon_get_bytes(self.to_glib_none().0))
         }
     }
 }

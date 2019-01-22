@@ -19,7 +19,5 @@ pub use pollable_input_stream::PollableInputStreamExtManual;
 pub use pollable_output_stream::PollableOutputStreamExtManual;
 pub use socket::*;
 pub use socket_listener::SocketListenerExtManual;
-pub use subprocess::SubprocessExtManual;
-pub use subprocess_launcher::SubprocessLauncherExtManual;
 #[cfg(any(unix, feature = "dox"))]
 pub use unix_socket_address::{UnixSocketAddressPath, UnixSocketAddressExtManual};

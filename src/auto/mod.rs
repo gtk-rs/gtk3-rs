@@ -21,9 +21,7 @@ pub use self::app_info::AppInfoExt;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod app_info_monitor;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::app_info_monitor::{AppInfoMonitor, AppInfoMonitorClass, NONE_APP_INFO_MONITOR};
-#[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::app_info_monitor::AppInfoMonitorExt;
+pub use self::app_info_monitor::{AppInfoMonitor, AppInfoMonitorClass};
 
 mod app_launch_context;
 pub use self::app_launch_context::{AppLaunchContext, AppLaunchContextClass, NONE_APP_LAUNCH_CONTEXT};
@@ -48,12 +46,11 @@ pub use self::buffered_output_stream::BufferedOutputStreamExt;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 mod bytes_icon;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::bytes_icon::{BytesIcon, BytesIconClass, NONE_BYTES_ICON};
-#[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::bytes_icon::BytesIconExt;
+pub use self::bytes_icon::{BytesIcon, BytesIconClass};
 
 mod cancellable;
 pub use self::cancellable::{Cancellable, CancellableClass, NONE_CANCELLABLE};
+pub use self::cancellable::CancellableExt;
 
 mod charset_converter;
 pub use self::charset_converter::{CharsetConverter, CharsetConverterClass, NONE_CHARSET_CONVERTER};
@@ -193,16 +190,14 @@ pub use self::memory_output_stream::{MemoryOutputStream, MemoryOutputStreamClass
 pub use self::memory_output_stream::MemoryOutputStreamExt;
 
 mod menu;
-pub use self::menu::{Menu, MenuClass, NONE_MENU};
-pub use self::menu::MenuExt;
+pub use self::menu::{Menu, MenuClass};
 
 mod menu_attribute_iter;
 pub use self::menu_attribute_iter::{MenuAttributeIter, MenuAttributeIterClass, NONE_MENU_ATTRIBUTE_ITER};
 pub use self::menu_attribute_iter::MenuAttributeIterExt;
 
 mod menu_item;
-pub use self::menu_item::{MenuItem, MenuItemClass, NONE_MENU_ITEM};
-pub use self::menu_item::MenuItemExt;
+pub use self::menu_item::{MenuItem, MenuItemClass};
 
 mod menu_link_iter;
 pub use self::menu_link_iter::{MenuLinkIter, MenuLinkIterClass, NONE_MENU_LINK_ITER};
@@ -235,9 +230,7 @@ pub use self::network_service::NetworkServiceExt;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod notification;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::notification::{Notification, NotificationClass, NONE_NOTIFICATION};
-#[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::notification::NotificationExt;
+pub use self::notification::{Notification, NotificationClass};
 
 mod output_stream;
 pub use self::output_stream::{OutputStream, OutputStreamClass, NONE_OUTPUT_STREAM};
@@ -258,9 +251,7 @@ pub use self::pollable_output_stream::PollableOutputStreamExt;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 mod property_action;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::property_action::{PropertyAction, PropertyActionClass, NONE_PROPERTY_ACTION};
-#[cfg(any(feature = "v2_38", feature = "dox"))]
-pub use self::property_action::PropertyActionExt;
+pub use self::property_action::{PropertyAction, PropertyActionClass};
 
 mod proxy;
 pub use self::proxy::{Proxy, NONE_PROXY};
@@ -295,8 +286,7 @@ pub use self::settings_backend::{SettingsBackend, SettingsBackendClass, NONE_SET
 pub use self::settings_backend::SettingsBackendExt;
 
 mod simple_action;
-pub use self::simple_action::{SimpleAction, SimpleActionClass, NONE_SIMPLE_ACTION};
-pub use self::simple_action::SimpleActionExt;
+pub use self::simple_action::{SimpleAction, SimpleActionClass};
 
 mod simple_action_group;
 pub use self::simple_action_group::{SimpleActionGroup, SimpleActionGroupClass, NONE_SIMPLE_ACTION_GROUP};
@@ -305,10 +295,10 @@ pub use self::simple_action_group::SimpleActionGroupExt;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod simple_io_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-pub use self::simple_io_stream::{SimpleIOStream, SimpleIOStreamClass, NONE_SIMPLE_IO_STREAM};
+pub use self::simple_io_stream::{SimpleIOStream, SimpleIOStreamClass};
 
 mod simple_permission;
-pub use self::simple_permission::{SimplePermission, SimplePermissionClass, NONE_SIMPLE_PERMISSION};
+pub use self::simple_permission::{SimplePermission, SimplePermissionClass};
 
 mod socket;
 pub use self::socket::{Socket, SocketClass, NONE_SOCKET};
@@ -345,16 +335,12 @@ pub use self::socket_service::SocketServiceExt;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess::{Subprocess, SubprocessClass, NONE_SUBPROCESS};
-#[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess::SubprocessExt;
+pub use self::subprocess::{Subprocess, SubprocessClass};
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess_launcher;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess_launcher::{SubprocessLauncher, SubprocessLauncherClass, NONE_SUBPROCESS_LAUNCHER};
-#[cfg(any(feature = "v2_40", feature = "dox"))]
-pub use self::subprocess_launcher::SubprocessLauncherExt;
+pub use self::subprocess_launcher::{SubprocessLauncher, SubprocessLauncherClass};
 
 mod tcp_connection;
 pub use self::tcp_connection::{TcpConnection, TcpConnectionClass, NONE_TCP_CONNECTION};
@@ -620,15 +606,12 @@ pub mod traits {
     pub use super::ActionGroupExt;
     pub use super::ActionMapExt;
     pub use super::AppInfoExt;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub use super::AppInfoMonitorExt;
     pub use super::AppLaunchContextExt;
     pub use super::ApplicationExt;
     pub use super::ApplicationCommandLineExt;
     pub use super::BufferedInputStreamExt;
     pub use super::BufferedOutputStreamExt;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
-    pub use super::BytesIconExt;
+    pub use super::CancellableExt;
     pub use super::CharsetConverterExt;
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
@@ -664,9 +647,7 @@ pub mod traits {
     pub use super::LoadableIconExt;
     pub use super::MemoryInputStreamExt;
     pub use super::MemoryOutputStreamExt;
-    pub use super::MenuExt;
     pub use super::MenuAttributeIterExt;
-    pub use super::MenuItemExt;
     pub use super::MenuLinkIterExt;
     pub use super::MenuModelExt;
     pub use super::MountExt;
@@ -674,14 +655,10 @@ pub mod traits {
     pub use super::NetworkAddressExt;
     pub use super::NetworkMonitorExt;
     pub use super::NetworkServiceExt;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub use super::NotificationExt;
     pub use super::OutputStreamExt;
     pub use super::PermissionExt;
     pub use super::PollableInputStreamExt;
     pub use super::PollableOutputStreamExt;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
-    pub use super::PropertyActionExt;
     pub use super::ProxyExt;
     pub use super::ProxyAddressExt;
     pub use super::ProxyResolverExt;
@@ -690,7 +667,6 @@ pub mod traits {
     pub use super::SeekableExt;
     pub use super::SettingsExt;
     pub use super::SettingsBackendExt;
-    pub use super::SimpleActionExt;
     pub use super::SimpleActionGroupExt;
     pub use super::SocketExt;
     pub use super::SocketAddressExt;
@@ -700,10 +676,6 @@ pub mod traits {
     pub use super::SocketConnectionExt;
     pub use super::SocketListenerExt;
     pub use super::SocketServiceExt;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub use super::SubprocessExt;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    pub use super::SubprocessLauncherExt;
     pub use super::TcpConnectionExt;
     pub use super::ThemedIconExt;
     pub use super::ThreadedSocketServiceExt;
