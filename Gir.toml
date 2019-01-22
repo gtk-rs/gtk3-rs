@@ -286,6 +286,38 @@ status = "generate"
     [[object.function]]
     name = "intern_string"
     ignore = true
+    [[object.function]]
+    # Pid conversion issue
+    name = "child_watch_add"
+    ignore = true
+    [[object.function]]
+    # Pid conversion issue
+    name = "child_watch_add_full"
+    ignore = true
+    [[object.function]]
+    name = "idle_add"
+    ignore = true
+    [[object.function]]
+    name = "idle_add_full"
+    ignore = true
+    [[object.function]]
+    name = "timeout_add"
+    ignore = true
+    [[object.function]]
+    name = "timeout_add_full"
+    ignore = true
+    [[object.function]]
+    name = "timeout_add_seconds"
+    ignore = true
+    [[object.function]]
+    name = "timeout_add_seconds_full"
+    ignore = true
+    [[object.function]]
+    name = "unix_signal_add"
+    ignore = true
+    [[object.function]]
+    name = "unix_signal_add_full"
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform
@@ -423,6 +455,12 @@ concurrency = "send+sync"
        name = "ref_thread_default"
            [object.function.return]
            nullable = false
+       [[object.function]]
+       name = "invoke"
+       ignore = true
+       [[object.function]]
+       name = "invoke_full"
+       ignore = true
 
 [[object]]
 name = "GLib.MainLoop"

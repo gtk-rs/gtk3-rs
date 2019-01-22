@@ -135,11 +135,11 @@ impl Source {
         }
     }
 
-    //pub fn remove_by_funcs_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(funcs: /*Ignored*/&mut SourceFuncs, user_data: P) -> bool {
+    //pub fn remove_by_funcs_user_data(funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
     //    unsafe { TODO: call ffi::g_source_remove_by_funcs_user_data() }
     //}
 
-    //pub fn remove_by_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(user_data: P) -> bool {
+    //pub fn remove_by_user_data(user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
     //    unsafe { TODO: call ffi::g_source_remove_by_user_data() }
     //}
 }
