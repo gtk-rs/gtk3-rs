@@ -100,7 +100,7 @@ impl Window {
 pub const NONE_WINDOW: Option<&Window> = None;
 
 pub trait WindowExt: 'static {
-    //fn add_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P);
+    //fn add_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     fn beep(&self);
 
@@ -172,7 +172,7 @@ pub trait WindowExt: 'static {
     fn get_children(&self) -> Vec<Window>;
 
     //#[cfg(any(feature = "v3_10", feature = "dox"))]
-    //fn get_children_with_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, user_data: P) -> Vec<Window>;
+    //fn get_children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window>;
 
     fn get_clip_region(&self) -> Option<cairo::Region>;
 
@@ -274,7 +274,7 @@ pub trait WindowExt: 'static {
 
     fn input_shape_combine_region(&self, shape_region: &cairo::Region, offset_x: i32, offset_y: i32);
 
-    //fn invalidate_maybe_recurse<'a, P: Into<Option<&'a /*Unimplemented*/WindowChildFunc>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, region: &cairo::Region, child_func: P, user_data: Q);
+    fn invalidate_maybe_recurse<P: FnMut(&Window) -> bool, Q: Into<Option<P>>>(&self, region: &cairo::Region, child_func: Q);
 
     fn invalidate_rect<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P, invalidate_children: bool);
 
@@ -316,7 +316,7 @@ pub trait WindowExt: 'static {
 
     fn register_dnd(&self);
 
-    //fn remove_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P);
+    //fn remove_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     fn reparent<P: IsA<Window>>(&self, new_parent: &P, x: i32, y: i32);
 
@@ -370,7 +370,7 @@ pub trait WindowExt: 'static {
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, name: P);
 
     //#[cfg(any(feature = "v3_10", feature = "dox"))]
-    //fn set_invalidate_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/WindowInvalidateHandlerFunc);
+    //fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P);
 
     fn set_keep_above(&self, setting: bool);
 
@@ -414,7 +414,7 @@ pub trait WindowExt: 'static {
 
     fn set_urgency_hint(&self, urgent: bool);
 
-    //fn set_user_data<'a, P: IsA</*Ignored*/glib::Object> + 'a, Q: Into<Option<&'a P>>>(&self, user_data: Q);
+    //fn set_user_data(&self, user_data: /*Ignored*/Option<&glib::Object>);
 
     fn shape_combine_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, shape_region: P, offset_x: i32, offset_y: i32);
 
@@ -455,7 +455,7 @@ pub trait WindowExt: 'static {
 }
 
 impl<O: IsA<Window>> WindowExt for O {
-    //fn add_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P) {
+    //fn add_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::gdk_window_add_filter() }
     //}
 
@@ -647,7 +647,7 @@ impl<O: IsA<Window>> WindowExt for O {
     }
 
     //#[cfg(any(feature = "v3_10", feature = "dox"))]
-    //fn get_children_with_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, user_data: P) -> Vec<Window> {
+    //fn get_children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
     //    unsafe { TODO: call ffi::gdk_window_get_children_with_user_data() }
     //}
 
@@ -966,9 +966,21 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //fn invalidate_maybe_recurse<'a, P: Into<Option<&'a /*Unimplemented*/WindowChildFunc>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, region: &cairo::Region, child_func: P, user_data: Q) {
-    //    unsafe { TODO: call ffi::gdk_window_invalidate_maybe_recurse() }
-    //}
+    fn invalidate_maybe_recurse<P: FnMut(&Window) -> bool, Q: Into<Option<P>>>(&self, region: &cairo::Region, child_func: Q) {
+        let child_func = child_func.into();
+        let child_func_data: Option<P> = child_func.into();
+        unsafe extern "C" fn child_func_func<P: FnMut(&Window) -> bool>(window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
+            let window = from_glib_borrow(window);
+            let callback: *mut P = user_data as *const _ as usize as *mut P;
+            let res = (*callback)(&window);
+            res.to_glib()
+        }
+        let child_func = Some(child_func_func::<P> as _);
+        let super_callback0: &Option<P> = &child_func_data;
+        unsafe {
+            ffi::gdk_window_invalidate_maybe_recurse(self.as_ref().to_glib_none().0, region.to_glib_none().0, child_func, super_callback0 as *const _ as usize as *mut _);
+        }
+    }
 
     fn invalidate_rect<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P, invalidate_children: bool) {
         let rect = rect.into();
@@ -1086,7 +1098,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //fn remove_filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/FilterFunc, data: P) {
+    //fn remove_filter(&self, function: /*Unimplemented*/Fn(/*Unimplemented*/XEvent, &Event) -> /*Ignored*/FilterReturn, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::gdk_window_remove_filter() }
     //}
 
@@ -1233,7 +1245,7 @@ impl<O: IsA<Window>> WindowExt for O {
     }
 
     //#[cfg(any(feature = "v3_10", feature = "dox"))]
-    //fn set_invalidate_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/WindowInvalidateHandlerFunc) {
+    //fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P) {
     //    unsafe { TODO: call ffi::gdk_window_set_invalidate_handler() }
     //}
 
@@ -1355,7 +1367,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //fn set_user_data<'a, P: IsA</*Ignored*/glib::Object> + 'a, Q: Into<Option<&'a P>>>(&self, user_data: Q) {
+    //fn set_user_data(&self, user_data: /*Ignored*/Option<&glib::Object>) {
     //    unsafe { TODO: call ffi::gdk_window_set_user_data() }
     //}
 

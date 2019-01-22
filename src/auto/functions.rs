@@ -441,27 +441,27 @@ pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom
     }
 }
 
-//pub fn threads_add_idle<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P) -> u32 {
+//pub fn threads_add_idle(function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_idle() }
 //}
 
-//pub fn threads_add_idle_full<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(priority: i32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P, notify: Q) -> u32 {
+//pub fn threads_add_idle_full(priority: i32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_idle_full() }
 //}
 
-//pub fn threads_add_timeout<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(interval: u32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P) -> u32 {
+//pub fn threads_add_timeout(interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_timeout() }
 //}
 
-//pub fn threads_add_timeout_full<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(priority: i32, interval: u32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P, notify: Q) -> u32 {
+//pub fn threads_add_timeout_full(priority: i32, interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_timeout_full() }
 //}
 
-//pub fn threads_add_timeout_seconds<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(interval: u32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P) -> u32 {
+//pub fn threads_add_timeout_seconds(interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_timeout_seconds() }
 //}
 
-//pub fn threads_add_timeout_seconds_full<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(priority: i32, interval: u32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P, notify: Q) -> u32 {
+//pub fn threads_add_timeout_seconds_full(priority: i32, interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_timeout_seconds_full() }
 //}
 
@@ -490,7 +490,7 @@ pub fn threads_leave() {
 }
 
 //#[cfg_attr(feature = "v3_6", deprecated)]
-//pub fn threads_set_lock_functions(enter_fn: /*Unknown conversion*//*Unimplemented*/Callback, leave_fn: /*Unknown conversion*//*Unimplemented*/Callback) {
+//pub fn threads_set_lock_functions<P: Fn() + Send + Sync + 'static, Q: Fn() + Send + Sync + 'static>(enter_fn: P, leave_fn: Q) {
 //    unsafe { TODO: call ffi::gdk_threads_set_lock_functions() }
 //}
 
