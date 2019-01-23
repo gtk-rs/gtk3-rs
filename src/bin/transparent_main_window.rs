@@ -7,7 +7,6 @@ extern crate gdk;
 extern crate gio;
 extern crate gtk;
 
-use gdk::prelude::*;
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{ApplicationWindow, Fixed, Button};
