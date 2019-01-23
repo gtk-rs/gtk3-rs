@@ -68,8 +68,6 @@ impl Clone for PDFSurface {
     }
 }
 
-unsafe impl Send for PDFSurface {}
-
 #[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PDFSurface {
     type Storage = &'a Surface;

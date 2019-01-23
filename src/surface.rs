@@ -95,7 +95,7 @@ impl Surface {
     }
 
 
-    pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(
+    pub fn set_mime_data<T: AsRef<[u8]> + 'static>(
         &self,
         mime_type: &str,
         slice: T) -> Result<(), Status> {
@@ -131,7 +131,7 @@ impl Surface {
         }
     }
 
-    pub fn set_device_offset(&mut self, x_offset: f64, y_offset: f64) {
+    pub fn set_device_offset(&self, x_offset: f64, y_offset: f64) {
         unsafe { ffi::cairo_surface_set_device_offset(self.to_raw_none(), x_offset, y_offset) }
     }
 
@@ -142,7 +142,7 @@ impl Surface {
         (x_offset, y_offset)
     }
 
-    pub fn set_device_scale(&mut self, x_scale: f64, y_scale: f64) {
+    pub fn set_device_scale(&self, x_scale: f64, y_scale: f64) {
         unsafe { ffi::cairo_surface_set_device_scale(self.to_raw_none(), x_scale, y_scale) }
     }
 
@@ -153,7 +153,7 @@ impl Surface {
         (x_scale, y_scale)
     }
 
-    pub fn set_fallback_resolution(&mut self, x_pixels_per_inch: f64, y_pixels_per_inch: f64) {
+    pub fn set_fallback_resolution(&self, x_pixels_per_inch: f64, y_pixels_per_inch: f64) {
         unsafe { ffi::cairo_surface_set_fallback_resolution(self.to_raw_none(), x_pixels_per_inch, y_pixels_per_inch) }
     }
 
