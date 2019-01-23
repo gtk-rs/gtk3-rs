@@ -130,6 +130,17 @@ impl Surface {
             ffi::cairo_surface_supports_mime_type(self.0, mime_type.as_ptr()).as_bool()
         }
     }
+
+    pub fn set_device_offset(&mut self, x_offset: f64, y_offset: f64) {
+        unsafe { ffi::cairo_surface_set_device_offset(self.to_raw_none(), x_offset, y_offset) }
+    }
+
+    pub fn get_device_offset(&self) -> (f64, f64) {
+        let mut x_offset = 0.0f64;
+        let mut y_offset = 0.0f64;
+        unsafe { ffi::cairo_surface_get_device_offset(self.to_raw_none(), &mut x_offset, &mut y_offset); }
+        (x_offset, y_offset)
+    }
 }
 
 #[cfg(feature = "use_glib")]
