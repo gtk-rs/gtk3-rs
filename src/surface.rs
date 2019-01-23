@@ -141,6 +141,28 @@ impl Surface {
         unsafe { ffi::cairo_surface_get_device_offset(self.to_raw_none(), &mut x_offset, &mut y_offset); }
         (x_offset, y_offset)
     }
+
+    pub fn set_device_scale(&mut self, x_scale: f64, y_scale: f64) {
+        unsafe { ffi::cairo_surface_set_device_scale(self.to_raw_none(), x_scale, y_scale) }
+    }
+
+    pub fn get_device_scale(&self) -> (f64, f64) {
+        let mut x_scale = 0.0f64;
+        let mut y_scale = 0.0f64;
+        unsafe { ffi::cairo_surface_get_device_scale(self.to_raw_none(), &mut x_scale, &mut y_scale); }
+        (x_scale, y_scale)
+    }
+
+    pub fn set_fallback_resolution(&mut self, x_pixels_per_inch: f64, y_pixels_per_inch: f64) {
+        unsafe { ffi::cairo_surface_set_fallback_resolution(self.to_raw_none(), x_pixels_per_inch, y_pixels_per_inch) }
+    }
+
+    pub fn get_fallback_resolution(&self) -> (f64, f64) {
+        let mut x_pixels_per_inch = 0.0f64;
+        let mut y_pixels_per_inch = 0.0f64;
+        unsafe { ffi::cairo_surface_get_fallback_resolution(self.to_raw_none(), &mut x_pixels_per_inch, &mut y_pixels_per_inch); }
+        (x_pixels_per_inch, y_pixels_per_inch)
+    }
 }
 
 #[cfg(feature = "use_glib")]
