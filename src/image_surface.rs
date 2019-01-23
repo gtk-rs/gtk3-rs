@@ -45,9 +45,9 @@ impl ImageSurface {
         }
     }
 
-    pub fn create_for_data<D: AsMut<[u8]> + Send + 'static>(data: D, format: Format, width: i32, height: i32,
+    pub fn create_for_data<D: AsMut<[u8]> + 'static>(data: D, format: Format, width: i32, height: i32,
                               stride: i32) -> Result<ImageSurface, Status> {
-        let mut data: Box<AsMut<[u8]> + Send + 'static> = Box::new(data);
+        let mut data: Box<AsMut<[u8]> + 'static> = Box::new(data);
 
         let (ptr, len) = {
             let mut data = (*data).as_mut();
@@ -168,8 +168,6 @@ impl Clone for ImageSurface {
         ImageSurface(self.0.clone())
     }
 }
-
-unsafe impl Send for ImageSurface {}
 
 #[derive(Debug)]
 pub struct ImageSurfaceData<'a> {

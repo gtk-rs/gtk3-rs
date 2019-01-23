@@ -95,7 +95,7 @@ impl Surface {
     }
 
 
-    pub fn set_mime_data<T: AsRef<[u8]> + Send + 'static>(
+    pub fn set_mime_data<T: AsRef<[u8]> + 'static>(
         &self,
         mime_type: &str,
         slice: T) -> Result<(), Status> {
