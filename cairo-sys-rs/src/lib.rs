@@ -592,6 +592,10 @@ extern "C" {
                                                 height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "pdf", feature = "dox"))]
     pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: cairo_pdf_version_t);
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_set_size (surface: *mut cairo_surface_t,
+                                      width_in_points: f64,
+                                      height_in_points: f64);
 
     // CAIRO SVG
     #[cfg(any(feature = "svg", feature = "dox"))]

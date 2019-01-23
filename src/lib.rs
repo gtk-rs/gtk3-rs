@@ -15,6 +15,8 @@ extern crate glib_sys as glib_ffi;
 #[cfg(feature = "use_glib")]
 extern crate gobject_sys as gobject_ffi;
 
+#[cfg(test)]
+extern crate tempfile;
 
 // Helper macro for our GValue related trait impls
 #[cfg(feature = "use_glib")]
