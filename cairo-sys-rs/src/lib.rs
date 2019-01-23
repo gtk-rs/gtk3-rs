@@ -561,6 +561,10 @@ extern "C" {
     pub fn cairo_surface_supports_mime_type (surface: *mut cairo_surface_t, mime_type: *const c_char) -> cairo_bool_t;
     pub fn cairo_surface_set_device_offset(surface: *mut cairo_surface_t, x_offset: c_double, y_offset: c_double);
     pub fn cairo_surface_get_device_offset(surface: *mut cairo_surface_t, x_offset: *mut c_double, y_offset: *mut c_double);
+    pub fn cairo_surface_get_device_scale(surface: *mut cairo_surface_t, x_scale: *mut c_double, y_scale: *mut c_double);
+    pub fn cairo_surface_set_device_scale(surface: *mut cairo_surface_t, x_scale: c_double, y_scale: c_double);
+    pub fn cairo_surface_get_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: *mut c_double, y_pixels_per_inch: *mut c_double);
+    pub fn cairo_surface_set_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: c_double, x_pixels_per_inch: c_double);
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: cairo_format_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
