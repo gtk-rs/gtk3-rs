@@ -195,6 +195,10 @@ pub mod value;
 pub mod variant;
 mod variant_type;
 mod main_context;
+#[cfg(any(feature="v2_36", feature = "dox"))]
+mod main_context_channel;
+#[cfg(any(feature="v2_36", feature = "dox"))]
+pub use main_context_channel::{Sender, SyncSender, Receiver};
 mod date;
 pub use date::Date;
 mod value_array;
