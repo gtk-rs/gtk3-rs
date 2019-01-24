@@ -54,6 +54,7 @@ unsafe impl Sync for Pid {}
 /// `Continue(true)` keeps the closure assigned, to be rerun when appropriate.
 ///
 /// `Continue(false)` disconnects and drops it.
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct Continue(pub bool);
 
 impl ToGlib for Continue {
