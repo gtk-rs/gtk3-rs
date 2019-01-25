@@ -121,10 +121,10 @@ impl Image {
 // The GUI thread holds an image per image part at all times and these images are painted on a
 // DrawingArea in its 'draw' signal handler whenever needed.
 //
-// Additionally the GUI thread checks periodically every 100ms if any worker has sent a freshly
-// rendered image. If there is a new image, the old image stored by the GUI thread is replaced with
-// the new one and the old image is sent back to the worker thread. Then the appropriate part of
-// the DrawingArea is invalidated prompting a redraw.
+// Additionally the GUI thread has a channel for receiving the images from the worker threads. If
+// there is a new image, the old image stored by the GUI thread is replaced with the new one and
+// the old image is sent back to the worker thread. Then the appropriate part of the DrawingArea is
+// invalidated prompting a redraw.
 //
 // The two images per thread are allocated and initialized once and sent back and forth repeatedly.
 
@@ -139,7 +139,8 @@ fn build_ui(application: &gtk::Application) {
     let initial_image = draw_initial();
 
     // This is the channel for sending results from the worker thread to the main thread
-    let (ready_tx, ready_rx) = mpsc::channel();
+    // For every received image, queue the corresponding part of the DrawingArea for redrawing
+    let (ready_tx, ready_rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
 
     let mut images = Vec::new();
     let mut origins = Vec::new();
@@ -204,7 +205,7 @@ fn build_ui(application: &gtk::Application) {
     // Whenever the drawing area has to be redrawn, render the latest images in the correct
     // locations
     area.connect_draw(clone!(workspace => move |_, cr| {
-        let (ref images, ref origins, _) = &*workspace;
+        let (ref images, ref origins, _) = *workspace;
 
         for (image, origin) in images.iter().zip(origins.iter()) {
             image.borrow_mut().with_surface(|surface| {
@@ -215,20 +216,17 @@ fn build_ui(application: &gtk::Application) {
         Inhibit(false)
     }));
 
-    // Check every 100ms if there are new images from any worker threads and if so queue the
-    // corresponding part of the DrawingArea for redrawing
-    gtk::timeout_add(100, move || {
-        while let Ok((thread_num, image)) = ready_rx.try_recv() {
-            let (ref images, ref origins, ref workers) = &*workspace;
+    ready_rx.attach(None, move |(thread_num, image)| {
+        let (ref images, ref origins, ref workers) = *workspace;
 
-            // Swap the newly received image with the old stored one and send the old one back to
-            // the worker thread
-            let tx = &workers[thread_num];
-            let image = images[thread_num].replace(image);
-            let _ = tx.send(image);
+        // Swap the newly received image with the old stored one and send the old one back to
+        // the worker thread
+        let tx = &workers[thread_num];
+        let image = images[thread_num].replace(image);
+        let _ = tx.send(image);
 
-            area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, WIDTH, HEIGHT);
-        }
+        area.queue_draw_area(origins[thread_num].0, origins[thread_num].1, WIDTH, HEIGHT);
+
         Continue(true)
     });
 
