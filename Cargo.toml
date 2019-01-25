@@ -60,6 +60,7 @@ name = "cairo_png"
 
 [[bin]]
 name = "cairo_threads"
+required-features = ["glib/v2_36"]
 
 [[bin]]
 name = "cairotest"
