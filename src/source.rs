@@ -54,6 +54,7 @@ unsafe impl Sync for Pid {}
 /// `Continue(true)` keeps the closure assigned, to be rerun when appropriate.
 ///
 /// `Continue(false)` disconnects and drops it.
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct Continue(pub bool);
 
 impl ToGlib for Continue {
@@ -261,7 +262,7 @@ pub fn source_remove(source_id: SourceId) {
 
 /// The priority of sources
 ///
-#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Priority(i32);
 
 impl ToGlib for Priority {
@@ -277,6 +278,12 @@ impl FromGlib<i32> for Priority {
     #[inline]
     fn from_glib(val: i32) -> Priority {
         Priority(val)
+    }
+}
+
+impl Default for Priority {
+    fn default() -> Priority {
+        PRIORITY_DEFAULT
     }
 }
 
