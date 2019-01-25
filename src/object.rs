@@ -872,10 +872,13 @@ pub trait ObjectExt: ObjectType {
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
+    unsafe fn connect_unsafe<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
+        where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value>;
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
     fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId;
+    unsafe fn connect_notify_unsafe<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec)>(&self, name: P, f: F) -> SignalHandlerId;
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N);
     fn notify_by_pspec(&self, pspec: &::ParamSpec);
 
@@ -999,11 +1002,17 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId {
+       unsafe {
+            self.connect_notify_unsafe(name, f)
+       }
+    }
+
+    unsafe fn connect_notify_unsafe<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec)>(&self, name: P, f: F) -> SignalHandlerId {
         use std::mem::transmute;
 
         unsafe extern "C" fn notify_trampoline<P>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
         where P: ObjectType {
-            let f: &&(Fn(&P, &::ParamSpec) + Send + Sync + 'static) = transmute(f);
+            let f: &&(Fn(&P, &::ParamSpec) + 'static) = transmute(f);
             f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
 
@@ -1014,11 +1023,9 @@ impl<T: ObjectType> ObjectExt for T {
             "notify".into()
         };
 
-        unsafe {
-            let f: Box<Box<Fn(&Self, &::ParamSpec) + Send + Sync + 'static>> = Box::new(Box::new(f));
-            ::signal::connect(self.as_object_ref().to_glib_none().0, &signal_name,
-                transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
-        }
+        let f: Box<Box<Fn(&Self, &::ParamSpec)>> = Box::new(Box::new(f));
+        ::signal::connect(self.as_object_ref().to_glib_none().0, &signal_name,
+            transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
     }
 
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N) {
@@ -1053,64 +1060,69 @@ impl<T: ObjectType> ObjectExt for T {
 
     fn connect<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static {
+        unsafe {
+            self.connect_unsafe(signal_name, after, callback)
+        }
+    }
+
+    unsafe fn connect_unsafe<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
+        where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> {
         let signal_name: &str = signal_name.into();
 
-        unsafe {
-            let type_ = self.get_type();
+        let type_ = self.get_type();
 
-            let mut signal_id = 0;
-            let mut signal_detail = 0;
+        let mut signal_id = 0;
+        let mut signal_detail = 0;
 
-            let found: bool = from_glib(gobject_ffi::g_signal_parse_name(signal_name.to_glib_none().0,
-                                                                         type_.to_glib(), &mut signal_id,
-                                                                         &mut signal_detail, true.to_glib()));
+        let found: bool = from_glib(gobject_ffi::g_signal_parse_name(signal_name.to_glib_none().0,
+                                                                     type_.to_glib(), &mut signal_id,
+                                                                     &mut signal_detail, true.to_glib()));
 
-            if !found {
-                return Err(glib_bool_error!("Signal not found"));
-            }
+        if !found {
+            return Err(glib_bool_error!("Signal not found"));
+        }
 
-            let mut details = mem::zeroed();
-            gobject_ffi::g_signal_query(signal_id, &mut details);
-            if details.signal_id != signal_id {
-                return Err(glib_bool_error!("Signal not found"));
-            }
+        let mut details = mem::zeroed();
+        gobject_ffi::g_signal_query(signal_id, &mut details);
+        if details.signal_id != signal_id {
+            return Err(glib_bool_error!("Signal not found"));
+        }
 
-            // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
-            let return_type: Type = from_glib(details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT));
-            let closure = Closure::new(move |values| {
-                let ret = callback(values);
+        // This is actually G_SIGNAL_TYPE_STATIC_SCOPE
+        let return_type: Type = from_glib(details.return_type & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT));
+        let closure = Closure::new_unsafe(move |values| {
+            let ret = callback(values);
 
-                if return_type == Type::Unit {
-                    if let Some(ret) = ret {
-                        panic!("Signal required no return value but got value of type {}", ret.type_().name());
+            if return_type == Type::Unit {
+                if let Some(ret) = ret {
+                    panic!("Signal required no return value but got value of type {}", ret.type_().name());
+                }
+                None
+            } else {
+                match ret {
+                    Some(ret) => {
+                        let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
+                                mut_override(ret.to_glib_none().0),
+                                return_type.to_glib()));
+                        if !valid_type {
+                            panic!("Signal required return value of type {} but got {}",
+                                   return_type.name(), ret.type_().name());
+                        }
+                        Some(ret)
                     }
-                    None
-                } else {
-                    match ret {
-                        Some(ret) => {
-                            let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
-                                    mut_override(ret.to_glib_none().0),
-                                    return_type.to_glib()));
-                            if !valid_type {
-                                panic!("Signal required return value of type {} but got {}",
-                                       return_type.name(), ret.type_().name());
-                            }
-                            Some(ret)
-                        },
-                        None => {
-                            panic!("Signal required return value of type {} but got None", return_type.name());
-                        },
+                    None => {
+                        panic!("Signal required return value of type {} but got None", return_type.name());
                     }
                 }
-            });
-            let handler = gobject_ffi::g_signal_connect_closure_by_id(self.as_object_ref().to_glib_none().0, signal_id, signal_detail,
-                                                                      closure.to_glib_none().0, after.to_glib());
-
-            if handler == 0 {
-                Err(glib_bool_error!("Failed to connect to signal"))
-            } else {
-                Ok(from_glib(handler))
             }
+        });
+        let handler = gobject_ffi::g_signal_connect_closure_by_id(self.as_object_ref().to_glib_none().0, signal_id, signal_detail,
+                                                                  closure.to_glib_none().0, after.to_glib());
+
+        if handler == 0 {
+            Err(glib_bool_error!("Failed to connect to signal"))
+        } else {
+            Ok(from_glib(handler))
         }
     }
 
