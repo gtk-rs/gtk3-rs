@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::mem;
+use std::ptr;
 use std::sync::atomic::{AtomicUsize, Ordering};
 
 use futures;
@@ -157,7 +158,7 @@ impl TaskSource {
         );
         {
             let source = &mut *(source as *mut TaskSource);
-            source.future = Some((future, Box::new(LocalMap::new())));
+            ptr::write(&mut source.future, Some((future, Box::new(LocalMap::new()))));
             source.thread = thread;
             source.state = AtomicUsize::new(INIT);
         }
