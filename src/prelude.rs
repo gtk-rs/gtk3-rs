@@ -8,8 +8,6 @@ pub use auto::traits::*;
 
 pub use application::*;
 pub use converter::*;
-#[cfg(any(not(windows), feature = "dox"))]
-pub use desktop_app_info::*;
 pub use file::FileExtManual;
 pub use input_stream::InputStreamExtManual;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
