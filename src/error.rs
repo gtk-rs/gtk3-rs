@@ -165,7 +165,7 @@ macro_rules! glib_result_from_gboolean(
     }};
 );
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct BoolError {
     pub message: Cow<'static, str>,
     #[doc(hidden)]
