@@ -1,6 +1,7 @@
 extern crate cairo;
 extern crate gio;
 extern crate gtk;
+extern crate glib;
 
 use std::thread;
 use std::env::args;
