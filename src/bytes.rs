@@ -53,18 +53,18 @@ impl Bytes {
 
     /// Takes ownership of `data` and creates a new `Bytes` without copying.
     pub fn from_owned<T: AsRef<[u8]> + Send + 'static>(data: T) -> Bytes {
-        let data: Box<Box<AsRef<[u8]>>> = Box::new(Box::new(data));
+        let data: Box<T> = Box::new(data);
         let (size, data_ptr) = {
-            let data = (**data).as_ref();
+            let data = (*data).as_ref();
             (data.len(), data.as_ptr())
         };
 
-        unsafe extern "C" fn drop_box(b: glib_ffi::gpointer) {
-            let _: Box<Box<AsRef<[u8]>>> = Box::from_raw(b as *mut _);
+        unsafe extern "C" fn drop_box<T: AsRef<[u8]> + Send + 'static>(b: glib_ffi::gpointer) {
+            let _: Box<T> = Box::from_raw(b as *mut _);
         }
 
         unsafe {
-            from_glib_full(glib_ffi::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box), Box::into_raw(data) as *mut _))
+            from_glib_full(glib_ffi::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box::<T>), Box::into_raw(data) as *mut _))
         }
     }
 }
