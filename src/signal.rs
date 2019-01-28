@@ -7,9 +7,10 @@
 use libc::{c_char, c_void, c_ulong};
 
 use gobject_ffi::{self, GCallback};
-use ffi::gboolean;
+use ffi::{gboolean, gpointer};
 use object::ObjectType;
 use translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
+use std::mem;
 
 /// The id of a signal that is returned by `connect`.
 #[derive(Debug, Eq, PartialEq)]
@@ -48,15 +49,12 @@ impl ToGlib for Inhibit {
     }
 }
 
-pub unsafe fn connect(receiver: *mut gobject_ffi::GObject, signal_name: &str, trampoline: GCallback,
-                      closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
-    connect_raw(receiver, signal_name.to_glib_none().0, trampoline, closure)
-}
-
-pub unsafe fn connect_raw(receiver: *mut gobject_ffi::GObject, signal_name: *const c_char, trampoline: GCallback,
-                      closure: *mut Box<Fn() + 'static>) -> SignalHandlerId {
+pub unsafe fn connect_raw<F>(receiver: *mut gobject_ffi::GObject, signal_name: *const c_char, trampoline: GCallback,
+                      closure: *mut F) -> SignalHandlerId {
+    assert_eq!(mem::size_of::<*mut F>(), mem::size_of::<gpointer>());
+    assert!(trampoline.is_some());
     let handle = gobject_ffi::g_signal_connect_data(receiver, signal_name,
-        trampoline, closure as *mut _, Some(destroy_closure), 0);
+        trampoline, closure as *mut _, Some(destroy_closure::<F>), 0);
     assert!(handle > 0);
     from_glib(handle)
 }
@@ -86,7 +84,7 @@ pub fn signal_stop_emission_by_name<T: ObjectType>(instance: &T, signal_name: &s
     }
 }
 
-unsafe extern "C" fn destroy_closure(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
+unsafe extern "C" fn destroy_closure<F>(ptr: *mut c_void, _: *mut gobject_ffi::GClosure) {
     // destroy
-    Box::<Box<Fn()>>::from_raw(ptr as *mut _);
+    Box::<F>::from_raw(ptr as *mut _);
 }

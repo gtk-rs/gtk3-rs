@@ -1010,22 +1010,22 @@ impl<T: ObjectType> ObjectExt for T {
     unsafe fn connect_notify_unsafe<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec)>(&self, name: P, f: F) -> SignalHandlerId {
         use std::mem::transmute;
 
-        unsafe extern "C" fn notify_trampoline<P>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
+        unsafe extern "C" fn notify_trampoline<P, F: Fn(&P, &::ParamSpec)>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
         where P: ObjectType {
-            let f: &&(Fn(&P, &::ParamSpec) + 'static) = transmute(f);
+            let f: &F = transmute(f);
             f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
 
         let name = name.into();
         let signal_name = if let Some(name) = name {
-            format!("notify::{}", name)
+            format!("notify::{}\0", name)
         } else {
-            "notify".into()
+            "notify\0".into()
         };
 
-        let f: Box<Box<Fn(&Self, &::ParamSpec)>> = Box::new(Box::new(f));
-        ::signal::connect(self.as_object_ref().to_glib_none().0, &signal_name,
-            transmute(notify_trampoline::<Self> as usize), Box::into_raw(f) as *mut _)
+        let f: Box<F> = Box::new(f);
+        ::signal::connect_raw(self.as_object_ref().to_glib_none().0, signal_name.as_ptr() as *const _,
+            Some(mem::transmute(notify_trampoline::<Self, F> as usize)), Box::into_raw(f))
     }
 
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N) {
