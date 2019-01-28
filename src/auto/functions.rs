@@ -201,7 +201,7 @@ pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
 }
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
-//pub fn read_line<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(stream: P, str: /*Ignored*/glib::String) -> i32 {
+//pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/glib::String) -> i32 {
 //    unsafe { TODO: call ffi::pango_read_line() }
 //}
 
