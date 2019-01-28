@@ -37,7 +37,7 @@ impl Cursor {
         }
     }
 
-    pub fn new_from_name(display: &Display, name: &str) -> Cursor {
+    pub fn new_from_name(display: &Display, name: &str) -> Option<Cursor> {
         skip_assert_initialized!();
         unsafe {
             from_glib_full(ffi::gdk_cursor_new_from_name(display.to_glib_none().0, name.to_glib_none().0))
