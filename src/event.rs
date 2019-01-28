@@ -54,7 +54,7 @@ impl Event {
     }
 
     /// Set the event handler.
-    /// 
+    ///
     /// The callback `handler` is called for each event. If `None`, event
     /// handling is disabled.
     pub fn set_handler<F: Fn(&mut Event) +'static>(handler: Option<F>) {
@@ -62,13 +62,13 @@ impl Event {
         if let Some(handler) = handler {
             // allocate and convert to target type
             // double box to reduce a fat pointer to a simple pointer
-            let boxed: Box<Box<Fn(&mut Event) + 'static>> = Box::new(Box::new(handler));
+            let boxed: Box<F> = Box::new(handler);
             let ptr: *mut c_void = Box::into_raw(boxed) as *mut _;
             unsafe {
                 ffi::gdk_event_handler_set(
-                    Some(event_handler_trampoline),
+                    Some(event_handler_trampoline::<F>),
                     ptr,
-                    Some(event_handler_destroy))
+                    Some(event_handler_destroy::<F>))
             }
         } else {
             unsafe { ffi::gdk_event_handler_set(None, ptr::null_mut(), None) }
@@ -466,19 +466,17 @@ macro_rules! event_subtype {
     }
 }
 
-unsafe extern "C" fn event_handler_trampoline(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
+unsafe extern "C" fn event_handler_trampoline<F: Fn(&mut Event) +'static>(event: *mut ffi::GdkEvent, ptr: glib_ffi::gpointer) {
     if ptr != ptr::null_mut() {
-        let raw: *mut Box<dyn Fn(&mut Event) +'static> = ptr as _;
-        let f: &(dyn Fn(&mut Event) +'static) = &**raw;
+        let f: &F = &*(ptr as *mut _);
         let mut event = from_glib_none(event);
         f(&mut event)
     }
 }
 
-unsafe extern "C" fn event_handler_destroy(ptr: glib_ffi::gpointer) {
+unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) +'static>(ptr: glib_ffi::gpointer) {
     if ptr != ptr::null_mut() {
         // convert back to Box and free
-        let raw: *mut Box<dyn Fn(&mut Event) +'static> = ptr as _;
-        let _boxed: Box<Box<dyn Fn(&mut Event) +'static>> = Box::from_raw(raw);
+        let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
     }
 }
