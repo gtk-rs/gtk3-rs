@@ -48,17 +48,17 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     fn write_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let buffer: Box<B> = Box::new(buffer);
+        let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
+        // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
-            let slice = (*buffer).as_ref();
+            let buffer = &(*user_data).as_ref().unwrap().1;
+            let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
         };
-        let user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::new(Some((Box::new(callback), buffer)));
-        unsafe extern "C" fn write_async_trampoline<B: AsRef<[u8]> + Send + 'static, Q:FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
+        unsafe extern "C" fn write_async_trampoline<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            let mut user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::from_raw(user_data as *mut _);
+            let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
-            let buffer = *buffer;
 
             let mut error = ptr::null_mut();
             let ret = ffi::g_output_stream_write_finish(_source_object as *mut _, res, &mut error);
@@ -98,17 +98,17 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let buffer: Box<B> = Box::new(buffer);
+        let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
+        // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
-            let slice = (*buffer).as_ref();
+            let buffer = &(*user_data).as_ref().unwrap().1;
+            let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
         };
-        let user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::new(Some((Box::new(callback), buffer)));
         unsafe extern "C" fn write_all_async_trampoline<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            let mut user_data: Box<Option<(Box<Q>, Box<B>)>> = Box::from_raw(user_data as *mut _);
+            let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
-            let buffer = *buffer;
 
             let mut error = ptr::null_mut();
             let mut bytes_written = mem::uninitialized();
