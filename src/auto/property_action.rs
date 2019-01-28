@@ -56,61 +56,61 @@ impl PropertyAction {
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn connect_property_enabled_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&PropertyAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::enabled\0".as_ptr() as *const _,
-                transmute(notify_enabled_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_enabled_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn connect_property_parameter_type_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&PropertyAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::parameter-type\0".as_ptr() as *const _,
-                transmute(notify_parameter_type_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_parameter_type_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn connect_property_state_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&PropertyAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::state\0".as_ptr() as *const _,
-                transmute(notify_state_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_state_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn connect_property_state_type_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&PropertyAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::state-type\0".as_ptr() as *const _,
-                transmute(notify_state_type_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_state_type_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-unsafe extern "C" fn notify_enabled_trampoline(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&PropertyAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-unsafe extern "C" fn notify_parameter_type_trampoline(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&PropertyAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_parameter_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-unsafe extern "C" fn notify_state_trampoline(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&PropertyAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_state_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v2_38", feature = "dox"))]
-unsafe extern "C" fn notify_state_type_trampoline(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&PropertyAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 

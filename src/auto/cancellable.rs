@@ -52,7 +52,7 @@ pub const NONE_CANCELLABLE: Option<&Cancellable> = None;
 pub trait CancellableExt: 'static {
     fn cancel(&self);
 
-    //fn connect<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, callback: /*Unknown conversion*//*Unimplemented*/Callback, data: P, data_destroy_func: Q) -> libc::c_ulong;
+    //fn connect<P: Fn() + Send + Sync + 'static>(&self, callback: P, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> libc::c_ulong;
 
     fn disconnect(&self, handler_id: libc::c_ulong);
 
@@ -80,7 +80,7 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
         }
     }
 
-    //fn connect<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>>(&self, callback: /*Unknown conversion*//*Unimplemented*/Callback, data: P, data_destroy_func: Q) -> libc::c_ulong {
+    //fn connect<P: Fn() + Send + Sync + 'static>(&self, callback: P, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> libc::c_ulong {
     //    unsafe { TODO: call ffi::g_cancellable_connect() }
     //}
 
@@ -134,16 +134,16 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
 
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
-                transmute(cancelled_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(cancelled_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn cancelled_trampoline<P>(this: *mut ffi::GCancellable, f: glib_ffi::gpointer)
+unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GCancellable, f: glib_ffi::gpointer)
 where P: IsA<Cancellable> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Cancellable::from_glib_borrow(this).unsafe_cast())
 }
 

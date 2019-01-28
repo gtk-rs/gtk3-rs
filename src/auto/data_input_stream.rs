@@ -59,7 +59,7 @@ pub trait DataInputStreamExt: 'static {
 
     fn read_int64<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<i64, Error>;
 
-    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<GString>, usize), Error>;
+    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), Error>;
 
     fn read_line_utf8<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(Option<GString>, usize), Error>;
 
@@ -144,7 +144,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    //fn read_line_finish_utf8<P: IsA</*Ignored*/AsyncResult>>(&self, result: &P) -> Result<(Option<GString>, usize), Error> {
+    //fn read_line_finish_utf8(&self, result: /*Ignored*/&AsyncResult) -> Result<(Option<GString>, usize), Error> {
     //    unsafe { TODO: call ffi::g_data_input_stream_read_line_finish_utf8() }
     //}
 
@@ -197,14 +197,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn read_until_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn read_until_async_trampoline<R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn read_until_async_trampoline<R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let mut length = mem::uninitialized();
             let ret = ffi::g_data_input_stream_read_until_finish(_source_object as *mut _, res, &mut length, &mut error);
             let result = if error.is_null() { Ok((from_glib_full(ret), length)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = read_until_async_trampoline::<R>;
@@ -252,14 +251,13 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     fn read_upto_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let stop_chars_len = stop_chars.len() as isize;
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn read_upto_async_trampoline<R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn read_upto_async_trampoline<R: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let mut length = mem::uninitialized();
             let ret = ffi::g_data_input_stream_read_upto_finish(_source_object as *mut _, res, &mut length, &mut error);
             let result = if error.is_null() { Ok((from_glib_full(ret), length)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = read_upto_async_trampoline::<R>;
@@ -307,30 +305,30 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::byte-order\0".as_ptr() as *const _,
-                transmute(notify_byte_order_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_byte_order_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_newline_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::newline-type\0".as_ptr() as *const _,
-                transmute(notify_newline_type_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_newline_type_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn notify_byte_order_trampoline<P>(this: *mut ffi::GDataInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GDataInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DataInputStream> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&DataInputStream::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_newline_type_trampoline<P>(this: *mut ffi::GDataInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_newline_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GDataInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<DataInputStream> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&DataInputStream::from_glib_borrow(this).unsafe_cast())
 }
 

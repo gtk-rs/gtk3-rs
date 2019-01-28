@@ -21,7 +21,7 @@ pub const NONE_ACTION_MAP: Option<&ActionMap> = None;
 pub trait ActionMapExt: 'static {
     fn add_action<P: IsA<Action>>(&self, action: &P);
 
-    //fn add_action_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P);
+    //fn add_action_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     fn lookup_action(&self, action_name: &str) -> Option<Action>;
 
@@ -35,7 +35,7 @@ impl<O: IsA<ActionMap>> ActionMapExt for O {
         }
     }
 
-    //fn add_action_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P) {
+    //fn add_action_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::g_action_map_add_action_entries() }
     //}
 

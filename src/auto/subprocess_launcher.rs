@@ -40,7 +40,7 @@ impl SubprocessLauncher {
 
     //#[cfg(any(unix, feature = "dox"))]
     //#[cfg(any(feature = "v2_40", feature = "dox"))]
-    //pub fn set_child_setup(&self, child_setup: /*Unknown conversion*//*Unimplemented*/SpawnChildSetupFunc, destroy_notify: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+    //pub fn set_child_setup(&self, child_setup: /*Ignored*/glib::Fn() + 'static, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::g_subprocess_launcher_set_child_setup() }
     //}
 

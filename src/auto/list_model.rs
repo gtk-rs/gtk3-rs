@@ -90,17 +90,17 @@ impl<O: IsA<ListModel>> ListModelExt for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, u32, u32, u32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"items-changed\0".as_ptr() as *const _,
-                transmute(items_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(items_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-unsafe extern "C" fn items_changed_trampoline<P>(this: *mut ffi::GListModel, position: libc::c_uint, removed: libc::c_uint, added: libc::c_uint, f: glib_ffi::gpointer)
+unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, u32, u32, u32) + 'static>(this: *mut ffi::GListModel, position: libc::c_uint, removed: libc::c_uint, added: libc::c_uint, f: glib_ffi::gpointer)
 where P: IsA<ListModel> {
-    let f: &&(Fn(&P, u32, u32, u32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ListModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
 }
 

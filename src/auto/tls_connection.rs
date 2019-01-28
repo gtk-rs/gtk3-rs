@@ -166,13 +166,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn handshake_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn handshake_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn handshake_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_tls_connection_handshake_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = handshake_async_trampoline::<R>;
@@ -251,128 +250,128 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
     fn connect_accept_certificate<F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"accept-certificate\0".as_ptr() as *const _,
-                transmute(accept_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(accept_certificate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::certificate\0".as_ptr() as *const _,
-                transmute(notify_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_certificate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::database\0".as_ptr() as *const _,
-                transmute(notify_database_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_database_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::interaction\0".as_ptr() as *const _,
-                transmute(notify_interaction_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_interaction_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::peer-certificate\0".as_ptr() as *const _,
-                transmute(notify_peer_certificate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_peer_certificate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::peer-certificate-errors\0".as_ptr() as *const _,
-                transmute(notify_peer_certificate_errors_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_peer_certificate_errors_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::rehandshake-mode\0".as_ptr() as *const _,
-                transmute(notify_rehandshake_mode_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_rehandshake_mode_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::require-close-notify\0".as_ptr() as *const _,
-                transmute(notify_require_close_notify_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_require_close_notify_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::use-system-certdb\0".as_ptr() as *const _,
-                transmute(notify_use_system_certdb_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_use_system_certdb_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn accept_certificate_trampoline<P>(this: *mut ffi::GTlsConnection, peer_cert: *mut ffi::GTlsCertificate, errors: ffi::GTlsCertificateFlags, f: glib_ffi::gpointer) -> glib_ffi::gboolean
+unsafe extern "C" fn accept_certificate_trampoline<P, F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(this: *mut ffi::GTlsConnection, peer_cert: *mut ffi::GTlsCertificate, errors: ffi::GTlsCertificateFlags, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(peer_cert), from_glib(errors)).to_glib()
 }
 
-unsafe extern "C" fn notify_certificate_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_database_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_interaction_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_peer_certificate_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_rehandshake_mode_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_require_close_notify_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_use_system_certdb_trampoline<P>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_use_system_certdb_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 

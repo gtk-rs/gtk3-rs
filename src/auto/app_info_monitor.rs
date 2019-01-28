@@ -30,15 +30,15 @@ impl AppInfoMonitor {
 
     pub fn connect_changed<F: Fn(&AppInfoMonitor) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&AppInfoMonitor) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
-                transmute(changed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(changed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn changed_trampoline(this: *mut ffi::GAppInfoMonitor, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&AppInfoMonitor) + 'static) = transmute(f);
+unsafe extern "C" fn changed_trampoline<F: Fn(&AppInfoMonitor) + 'static>(this: *mut ffi::GAppInfoMonitor, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 

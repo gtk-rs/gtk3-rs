@@ -97,16 +97,16 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
     fn connect_items_changed<F: Fn(&Self, i32, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"items-changed\0".as_ptr() as *const _,
-                transmute(items_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(items_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn items_changed_trampoline<P>(this: *mut ffi::GMenuModel, position: libc::c_int, removed: libc::c_int, added: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, i32, i32, i32) + 'static>(this: *mut ffi::GMenuModel, position: libc::c_int, removed: libc::c_int, added: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<MenuModel> {
-    let f: &&(Fn(&P, i32, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&MenuModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
 }
 

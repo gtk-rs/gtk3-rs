@@ -94,13 +94,12 @@ impl AppInfo {
     pub fn launch_default_for_uri_async<'a, 'b, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, context: Q, cancellable: S, callback: T) {
         let context = context.into();
         let cancellable = cancellable.into();
-        let user_data: Box<Box<T>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn launch_default_for_uri_async_trampoline<T: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<T> = Box::new(callback);
+        unsafe extern "C" fn launch_default_for_uri_async_trampoline<T: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<T>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<T> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = launch_default_for_uri_async_trampoline::<T>;

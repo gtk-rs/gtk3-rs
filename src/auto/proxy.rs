@@ -59,13 +59,12 @@ impl<O: IsA<Proxy>> ProxyExt for O {
 
     fn connect_async<'a, P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable> + 'a, S: Into<Option<&'a R>>, T: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: S, callback: T) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<T>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn connect_async_trampoline<T: FnOnce(Result<IOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<T> = Box::new(callback);
+        unsafe extern "C" fn connect_async_trampoline<T: FnOnce(Result<IOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_connect_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<T>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<T> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_async_trampoline::<T>;

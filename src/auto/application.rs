@@ -418,17 +418,17 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"activate\0".as_ptr() as *const _,
-                transmute(activate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(activate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_command_line<F: Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"command-line\0".as_ptr() as *const _,
-                transmute(command_line_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(command_line_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
@@ -439,156 +439,156 @@ impl<O: IsA<Application>> ApplicationExt for O {
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"shutdown\0".as_ptr() as *const _,
-                transmute(shutdown_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(shutdown_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_startup<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"startup\0".as_ptr() as *const _,
-                transmute(startup_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(startup_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_action_group_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::action-group\0".as_ptr() as *const _,
-                transmute(notify_action_group_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_action_group_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_application_id_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::application-id\0".as_ptr() as *const _,
-                transmute(notify_application_id_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_application_id_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::flags\0".as_ptr() as *const _,
-                transmute(notify_flags_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_flags_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_inactivity_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::inactivity-timeout\0".as_ptr() as *const _,
-                transmute(notify_inactivity_timeout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_inactivity_timeout_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn connect_property_is_busy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-busy\0".as_ptr() as *const _,
-                transmute(notify_is_busy_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_is_busy_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_is_registered_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-registered\0".as_ptr() as *const _,
-                transmute(notify_is_registered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_is_registered_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_is_remote_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-remote\0".as_ptr() as *const _,
-                transmute(notify_is_remote_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_is_remote_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_resource_base_path_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::resource-base-path\0".as_ptr() as *const _,
-                transmute(notify_resource_base_path_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_resource_base_path_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn activate_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
+unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn command_line_trampoline<P>(this: *mut ffi::GApplication, command_line: *mut ffi::GApplicationCommandLine, f: glib_ffi::gpointer) -> libc::c_int
+unsafe extern "C" fn command_line_trampoline<P, F: Fn(&P, &ApplicationCommandLine) -> i32 + 'static>(this: *mut ffi::GApplication, command_line: *mut ffi::GApplicationCommandLine, f: glib_ffi::gpointer) -> libc::c_int
 where P: IsA<Application> {
-    let f: &&(Fn(&P, &ApplicationCommandLine) -> i32 + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(command_line))
 }
 
-unsafe extern "C" fn shutdown_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
+unsafe extern "C" fn shutdown_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn startup_trampoline<P>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
+unsafe extern "C" fn startup_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_action_group_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_action_group_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_application_id_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_application_id_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_flags_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_flags_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_inactivity_timeout_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_inactivity_timeout_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-unsafe extern "C" fn notify_is_busy_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_is_busy_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_is_registered_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_is_registered_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_is_remote_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_is_remote_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_resource_base_path_trampoline<P>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_resource_base_path_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplication, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Application::from_glib_borrow(this).unsafe_cast())
 }
 

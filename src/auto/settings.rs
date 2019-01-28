@@ -99,7 +99,7 @@ pub trait SettingsExt: 'static {
 
     fn bind<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags);
 
-    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify);
+    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::Variant) -> bool, set_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::VariantType) -> glib::Variant, user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     fn bind_writable<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, inverted: bool);
 
@@ -129,7 +129,7 @@ pub trait SettingsExt: 'static {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn get_int64(&self, key: &str) -> i64;
 
-    //fn get_mapped<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, mapping: /*Unknown conversion*//*Unimplemented*/SettingsGetMapping, user_data: P) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/Fn(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg_attr(feature = "v2_40", deprecated)]
     fn get_range(&self, key: &str) -> Option<glib::Variant>;
@@ -226,7 +226,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindGetMapping, set_mapping: /*Unknown conversion*//*Unimplemented*/SettingsBindSetMapping, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::Variant) -> bool, set_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::VariantType) -> glib::Variant, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::g_settings_bind_with_mapping() }
     //}
 
@@ -308,7 +308,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    //fn get_mapped<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, key: &str, mapping: /*Unknown conversion*//*Unimplemented*/SettingsGetMapping, user_data: P) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/Fn(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi::g_settings_get_mapped() }
     //}
 
@@ -518,72 +518,72 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
     fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
-                transmute(changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_writable_change_event<F: Fn(&Self, u32) -> Inhibit + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, u32) -> Inhibit + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"writable-change-event\0".as_ptr() as *const _,
-                transmute(writable_change_event_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(writable_change_event_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"writable-changed\0".as_ptr() as *const _,
-                transmute(writable_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(writable_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::delay-apply\0".as_ptr() as *const _,
-                transmute(notify_delay_apply_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_delay_apply_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::has-unapplied\0".as_ptr() as *const _,
-                transmute(notify_has_unapplied_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_has_unapplied_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn changed_trampoline<P>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &&(Fn(&P, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
-unsafe extern "C" fn writable_change_event_trampoline<P>(this: *mut ffi::GSettings, key: libc::c_uint, f: glib_ffi::gpointer) -> glib_ffi::gboolean
+unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut ffi::GSettings, key: libc::c_uint, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<Settings> {
-    let f: &&(Fn(&P, u32) -> Inhibit + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), key).to_glib()
 }
 
-unsafe extern "C" fn writable_changed_trampoline<P>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &&(Fn(&P, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
-unsafe extern "C" fn notify_delay_apply_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_has_unapplied_trampoline<P>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 

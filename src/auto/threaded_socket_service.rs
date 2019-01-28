@@ -55,16 +55,16 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
 
     fn connect_run<F: Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"run\0".as_ptr() as *const _,
-                transmute(run_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(run_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn run_trampoline<P>(this: *mut ffi::GThreadedSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
+unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut ffi::GThreadedSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<ThreadedSocketService> {
-    let f: &&(Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ThreadedSocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
 }
 

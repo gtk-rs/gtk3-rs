@@ -59,54 +59,54 @@ impl SimpleAction {
 
     pub fn connect_activate<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&SimpleAction, &Option<glib::Variant>) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"activate\0".as_ptr() as *const _,
-                transmute(activate_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(activate_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_change_state<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&SimpleAction, &Option<glib::Variant>) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"change-state\0".as_ptr() as *const _,
-                transmute(change_state_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(change_state_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_property_enabled_notify<F: Fn(&SimpleAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&SimpleAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::enabled\0".as_ptr() as *const _,
-                transmute(notify_enabled_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_enabled_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_property_state_type_notify<F: Fn(&SimpleAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&SimpleAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::state-type\0".as_ptr() as *const _,
-                transmute(notify_state_type_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_state_type_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn activate_trampoline(this: *mut ffi::GSimpleAction, parameter: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&SimpleAction, &Option<glib::Variant>) + 'static) = transmute(f);
+unsafe extern "C" fn activate_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut ffi::GSimpleAction, parameter: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(parameter))
 }
 
-unsafe extern "C" fn change_state_trampoline(this: *mut ffi::GSimpleAction, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&SimpleAction, &Option<glib::Variant>) + 'static) = transmute(f);
+unsafe extern "C" fn change_state_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut ffi::GSimpleAction, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(value))
 }
 
-unsafe extern "C" fn notify_enabled_trampoline(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&SimpleAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn notify_state_type_trampoline(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&SimpleAction) + 'static) = transmute(f);
+unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 

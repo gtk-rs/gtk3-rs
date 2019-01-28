@@ -36,7 +36,7 @@ pub const NONE_SIMPLE_ACTION_GROUP: Option<&SimpleActionGroup> = None;
 
 pub trait SimpleActionGroupExt: 'static {
     //#[cfg_attr(feature = "v2_38", deprecated)]
-    //fn add_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P);
+    //fn add_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     #[cfg_attr(feature = "v2_38", deprecated)]
     fn insert<P: IsA<Action>>(&self, action: &P);
@@ -49,7 +49,7 @@ pub trait SimpleActionGroupExt: 'static {
 }
 
 impl<O: IsA<SimpleActionGroup>> SimpleActionGroupExt for O {
-    //fn add_entries<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, entries: /*Ignored*/&[&ActionEntry], user_data: P) {
+    //fn add_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::g_simple_action_group_add_entries() }
     //}
 

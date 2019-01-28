@@ -144,58 +144,58 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
 
     fn connect_action_added<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-added\0".as_ptr() as *const _,
-                transmute(action_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(action_added_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str, bool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-enabled-changed\0".as_ptr() as *const _,
-                transmute(action_enabled_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(action_enabled_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_action_removed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-removed\0".as_ptr() as *const _,
-                transmute(action_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(action_removed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str, &glib::Variant) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-state-changed\0".as_ptr() as *const _,
-                transmute(action_state_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(action_state_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn action_added_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn action_added_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    let f: &&(Fn(&P, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
 }
 
-unsafe extern "C" fn action_enabled_changed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, enabled: glib_ffi::gboolean, f: glib_ffi::gpointer)
+unsafe extern "C" fn action_enabled_changed_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, enabled: glib_ffi::gboolean, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    let f: &&(Fn(&P, &str, bool) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), from_glib(enabled))
 }
 
-unsafe extern "C" fn action_removed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn action_removed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    let f: &&(Fn(&P, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
 }
 
-unsafe extern "C" fn action_state_changed_trampoline<P>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
+unsafe extern "C" fn action_state_changed_trampoline<P, F: Fn(&P, &str, &glib::Variant) + 'static>(this: *mut ffi::GActionGroup, action_name: *mut libc::c_char, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<ActionGroup> {
-    let f: &&(Fn(&P, &str, &glib::Variant) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), &from_glib_borrow(value))
 }
 
