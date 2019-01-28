@@ -150,17 +150,17 @@ impl<O: IsA<Value>> ValueExt for O {
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, f64, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"value-changed\0".as_ptr() as *const _,
-                transmute(value_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(value_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg(any(feature = "v2_12", feature = "dox"))]
-unsafe extern "C" fn value_changed_trampoline<P>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Value> {
-    let f: &&(Fn(&P, f64, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))
 }
 

@@ -261,100 +261,100 @@ impl<O: IsA<Table>> TableExt for O {
 
     fn connect_column_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"column-deleted\0".as_ptr() as *const _,
-                transmute(column_deleted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(column_deleted_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_column_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"column-inserted\0".as_ptr() as *const _,
-                transmute(column_inserted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(column_inserted_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_column_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"column-reordered\0".as_ptr() as *const _,
-                transmute(column_reordered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(column_reordered_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_model_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"model-changed\0".as_ptr() as *const _,
-                transmute(model_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(model_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_row_deleted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"row-deleted\0".as_ptr() as *const _,
-                transmute(row_deleted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(row_deleted_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_row_inserted<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"row-inserted\0".as_ptr() as *const _,
-                transmute(row_inserted_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(row_inserted_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_row_reordered<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"row-reordered\0".as_ptr() as *const _,
-                transmute(row_reordered_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(row_reordered_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn column_deleted_trampoline<P>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn column_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
-unsafe extern "C" fn column_inserted_trampoline<P>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn column_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
-unsafe extern "C" fn column_reordered_trampoline<P>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
+unsafe extern "C" fn column_reordered_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn model_changed_trampoline<P>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
+unsafe extern "C" fn model_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn row_deleted_trampoline<P>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn row_deleted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
-unsafe extern "C" fn row_inserted_trampoline<P>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn row_inserted_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkTable, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
-unsafe extern "C" fn row_reordered_trampoline<P>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
+unsafe extern "C" fn row_reordered_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkTable, f: glib_ffi::gpointer)
 where P: IsA<Table> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Table::from_glib_borrow(this).unsafe_cast())
 }
 

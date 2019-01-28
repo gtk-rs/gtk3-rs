@@ -30,7 +30,7 @@ pub const NONE_COMPONENT: Option<&Component> = None;
 
 pub trait ComponentExt: 'static {
     //#[cfg_attr(feature = "v2_9_4", deprecated)]
-    //fn add_focus_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/FocusHandler) -> u32;
+    //fn add_focus_handler<P: Fn(&Object, bool) + 'static>(&self, handler: P) -> u32;
 
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
@@ -63,7 +63,7 @@ pub trait ComponentExt: 'static {
 }
 
 impl<O: IsA<Component>> ComponentExt for O {
-    //fn add_focus_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/FocusHandler) -> u32 {
+    //fn add_focus_handler<P: Fn(&Object, bool) + 'static>(&self, handler: P) -> u32 {
     //    unsafe { TODO: call ffi::atk_component_add_focus_handler() }
     //}
 
@@ -158,16 +158,16 @@ impl<O: IsA<Component>> ComponentExt for O {
 
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Rectangle) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"bounds-changed\0".as_ptr() as *const _,
-                transmute(bounds_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(bounds_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn bounds_changed_trampoline<P>(this: *mut ffi::AtkComponent, arg1: *mut ffi::AtkRectangle, f: glib_ffi::gpointer)
+unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut ffi::AtkComponent, arg1: *mut ffi::AtkRectangle, f: glib_ffi::gpointer)
 where P: IsA<Component> {
-    let f: &&(Fn(&P, &Rectangle) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Component::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
 }
 
