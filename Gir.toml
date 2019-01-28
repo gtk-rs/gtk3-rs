@@ -112,7 +112,6 @@ generate = [
     "Gio.TlsPasswordFlags",
     "Gio.TlsRehandshakeMode",
     "Gio.TlsServerConnection",
-    "Gio.Vfs",
     "Gio.Volume",
     "Gio.ZlibCompressor",
     "Gio.ZlibCompressorFormat",
@@ -711,6 +710,11 @@ cfg_condition = "unix"
 name = "Gio.UnixSocketAddressType"
 status = "generate"
 cfg_condition = "unix"
+
+[[object]]
+name = "Gio.Vfs"
+status = "generate"
+concurrency = "send+sync"
 
 [[object]]
 name = "Gio.VolumeMonitor"
