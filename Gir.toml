@@ -356,6 +356,7 @@ status = "generate"
 [[object]]
 name = "Gdk.Window"
 status = "generate"
+manual_traits = ["WindowExtManual"]
     [[object.function]]
     name = "new"
     ignore = true
