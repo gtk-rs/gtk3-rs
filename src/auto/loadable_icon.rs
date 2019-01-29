@@ -51,14 +51,13 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
 
     fn load_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn load_async_trampoline<R: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn load_async_trampoline<R: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let mut type_ = ptr::null_mut();
             let ret = ffi::g_loadable_icon_load_finish(_source_object as *mut _, res, &mut type_, &mut error);
             let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(type_))) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = load_async_trampoline::<R>;

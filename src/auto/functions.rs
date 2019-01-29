@@ -56,19 +56,19 @@ use std::ptr;
 //    unsafe { TODO: call ffi::g_bus_get_sync() }
 //}
 
-//pub fn bus_own_name<'a, 'b, 'c, 'd, P: Into<Option<&'a /*Unimplemented*/BusAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameAcquiredCallback>>, R: Into<Option<&'c /*Unimplemented*/BusNameLostCallback>>, S: Into<Option<&'d /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_handler: P, name_acquired_handler: Q, name_lost_handler: R, user_data_free_func: S) -> u32 {
+//pub fn bus_own_name(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_lost_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name() }
 //}
 
-//pub fn bus_own_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAcquiredCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameLostCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: P, name_lost_handler: Q, user_data_free_func: R) -> u32 {
+//pub fn bus_own_name_on_connection(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), name_lost_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_on_connection() }
 //}
 
-//pub fn bus_own_name_on_connection_with_closures<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_closure: P, name_lost_closure: Q) -> u32 {
+//pub fn bus_own_name_on_connection_with_closures(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameOwnerFlags, name_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_lost_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_on_connection_with_closures() }
 //}
 
-//pub fn bus_own_name_with_closures<'a, 'b, 'c, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>, R: Into<Option<&'c /*Ignored*/glib::Closure>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_closure: P, name_acquired_closure: Q, name_lost_closure: R) -> u32 {
+//pub fn bus_own_name_with_closures(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameOwnerFlags, bus_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_acquired_closure: /*Ignored*/Option<&glib::Closure>, name_lost_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_own_name_with_closures() }
 //}
 
@@ -84,19 +84,19 @@ pub fn bus_unwatch_name(watcher_id: u32) {
     }
 }
 
-//pub fn bus_watch_name<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data_free_func: R) -> u32 {
+//pub fn bus_watch_name(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str, &str), name_vanished_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name() }
 //}
 
-//pub fn bus_watch_name_on_connection<'a, 'b, 'c, P: Into<Option<&'a /*Unimplemented*/BusNameAppearedCallback>>, Q: Into<Option<&'b /*Unimplemented*/BusNameVanishedCallback>>, R: Into<Option<&'c /*Ignored*/glib::DestroyNotify>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: P, name_vanished_handler: Q, user_data_free_func: R) -> u32 {
+//pub fn bus_watch_name_on_connection(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str, &str), name_vanished_handler: /*Unimplemented*/Fn(/*Ignored*/DBusConnection, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_on_connection() }
 //}
 
-//pub fn bus_watch_name_on_connection_with_closures<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>>(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: P, name_vanished_closure: Q) -> u32 {
+//pub fn bus_watch_name_on_connection_with_closures(connection: /*Ignored*/&DBusConnection, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: /*Ignored*/Option<&glib::Closure>, name_vanished_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_on_connection_with_closures() }
 //}
 
-//pub fn bus_watch_name_with_closures<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::Closure>>, Q: Into<Option<&'b /*Ignored*/glib::Closure>>>(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: P, name_vanished_closure: Q) -> u32 {
+//pub fn bus_watch_name_with_closures(bus_type: /*Ignored*/BusType, name: &str, flags: /*Ignored*/BusNameWatcherFlags, name_appeared_closure: /*Ignored*/Option<&glib::Closure>, name_vanished_closure: /*Ignored*/Option<&glib::Closure>) -> u32 {
 //    unsafe { TODO: call ffi::g_bus_watch_name_with_closures() }
 //}
 
@@ -204,14 +204,13 @@ pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
 
 pub fn dbus_address_get_stream<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: Q, callback: R) {
     let cancellable = cancellable.into();
-    let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-    unsafe extern "C" fn dbus_address_get_stream_trampoline<R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-    {
+    let user_data: Box<R> = Box::new(callback);
+    unsafe extern "C" fn dbus_address_get_stream_trampoline<R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
         let mut error = ptr::null_mut();
         let mut out_guid = ptr::null_mut();
         let ret = ffi::g_dbus_address_get_stream_finish(res, &mut out_guid, &mut error);
         let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(out_guid))) } else { Err(from_glib_full(error)) };
-        let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+        let callback: Box<R> = Box::from_raw(user_data as *mut _);
         callback(result);
     }
     let callback = dbus_address_get_stream_trampoline::<R>;
@@ -343,7 +342,7 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<'a, 'b, P: Into<Option<&'a /*Ignored*/glib::DestroyNotify>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(job_func: /*Unknown conversion*//*Unimplemented*/IOSchedulerJobFunc, notify: P, io_priority: i32, cancellable: R) {
+//pub fn io_scheduler_push_job<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, &Cancellable) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Q) {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
@@ -420,17 +419,17 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_error_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn simple_async_report_error_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi::g_simple_async_report_error_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, error: &Error) {
+//pub fn simple_async_report_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, error: &Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_gerror_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_take_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: /*Unimplemented*/AsyncReadyCallback>(object: Q, callback: R, error: &mut Error) {
+//pub fn simple_async_report_take_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, error: &mut Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_take_gerror_in_idle() }
 //}
 

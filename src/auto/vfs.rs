@@ -7,6 +7,7 @@ use ffi;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use std::boxed::Box as Box_;
 use std::fmt;
 
 glib_wrapper! {
@@ -31,6 +32,9 @@ impl Vfs {
     }
 }
 
+unsafe impl Send for Vfs {}
+unsafe impl Sync for Vfs {}
+
 pub const NONE_VFS: Option<&Vfs> = None;
 
 pub trait VfsExt: 'static {
@@ -44,8 +48,8 @@ pub trait VfsExt: 'static {
 
     fn parse_name(&self, parse_name: &str) -> Option<File>;
 
-    //#[cfg(any(feature = "v2_50", feature = "dox"))]
-    //fn register_uri_scheme<'a, 'b, 'c, 'd, P: Into<Option<&'a /*Unimplemented*/VfsFileLookupFunc>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>, R: Into<Option<&'b /*Ignored*/glib::DestroyNotify>>, S: Into<Option<&'c /*Unimplemented*/VfsFileLookupFunc>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>, U: Into<Option<&'d /*Ignored*/glib::DestroyNotify>>>(&self, scheme: &str, uri_func: P, uri_data: Q, uri_destroy: R, parse_name_func: S, parse_name_data: T, parse_name_destroy: U) -> bool;
+    #[cfg(any(feature = "v2_50", feature = "dox"))]
+    fn register_uri_scheme<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, Q: Into<Option<P>>, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static, S: Into<Option<R>>>(&self, scheme: &str, uri_func: Q, parse_name_func: S) -> bool;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool;
@@ -82,10 +86,50 @@ impl<O: IsA<Vfs>> VfsExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_50", feature = "dox"))]
-    //fn register_uri_scheme<'a, 'b, 'c, 'd, P: Into<Option<&'a /*Unimplemented*/VfsFileLookupFunc>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>, R: Into<Option<&'b /*Ignored*/glib::DestroyNotify>>, S: Into<Option<&'c /*Unimplemented*/VfsFileLookupFunc>>, T: Into<Option</*Unimplemented*/Fundamental: Pointer>>, U: Into<Option<&'d /*Ignored*/glib::DestroyNotify>>>(&self, scheme: &str, uri_func: P, uri_data: Q, uri_destroy: R, parse_name_func: S, parse_name_data: T, parse_name_destroy: U) -> bool {
-    //    unsafe { TODO: call ffi::g_vfs_register_uri_scheme() }
-    //}
+    #[cfg(any(feature = "v2_50", feature = "dox"))]
+    fn register_uri_scheme<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, Q: Into<Option<P>>, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static, S: Into<Option<R>>>(&self, scheme: &str, uri_func: Q, parse_name_func: S) -> bool {
+        let uri_func = uri_func.into();
+        let parse_name_func = parse_name_func.into();
+        let uri_func_data: Box_<Option<P>> = Box::new(uri_func.into());
+        unsafe extern "C" fn uri_func_func<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static>(vfs: *mut ffi::GVfs, identifier: *const libc::c_char, user_data: glib_ffi::gpointer) -> *mut ffi::GFile {
+            let vfs = from_glib_borrow(vfs);
+            let identifier: GString = from_glib_borrow(identifier);
+            let callback: &Option<P> = &*(user_data as *mut _);
+            let res = if let Some(ref callback) = *callback {
+                callback(&vfs, identifier.as_str())
+            } else {
+                panic!("cannot get closure...")
+            };
+            res.to_glib_full()
+        }
+        let uri_func = if uri_func_data.is_some() { Some(uri_func_func::<P, R> as _) } else { None };
+        let parse_name_func_data: Box_<Option<R>> = Box::new(parse_name_func.into());
+        unsafe extern "C" fn parse_name_func_func<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static>(vfs: *mut ffi::GVfs, identifier: *const libc::c_char, user_data: glib_ffi::gpointer) -> *mut ffi::GFile {
+            let vfs = from_glib_borrow(vfs);
+            let identifier: GString = from_glib_borrow(identifier);
+            let callback: &Option<P> = &*(user_data as *mut _);
+            let res = if let Some(ref callback) = *callback {
+                callback(&vfs, identifier.as_str())
+            } else {
+                panic!("cannot get closure...")
+            };
+            res.to_glib_full()
+        }
+        let parse_name_func = if parse_name_func_data.is_some() { Some(parse_name_func_func::<P, R> as _) } else { None };
+        unsafe extern "C" fn uri_destroy_func<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static>(data: glib_ffi::gpointer) {
+            let _callback: Box_<Option<P>> = Box_::from_raw(data as *mut _);
+        }
+        let destroy_call4 = Some(uri_destroy_func::<P, R> as _);
+        unsafe extern "C" fn parse_name_destroy_func<P: Fn(&Vfs, &str) -> File + Send + Sync + 'static, R: Fn(&Vfs, &str) -> File + Send + Sync + 'static>(data: glib_ffi::gpointer) {
+            let _callback: Box_<Option<P>> = Box_::from_raw(data as *mut _);
+        }
+        let destroy_call7 = Some(parse_name_destroy_func::<P, R> as _);
+        let super_callback0: Box_<Option<P>> = uri_func_data;
+        let super_callback1: Box_<Option<R>> = parse_name_func_data;
+        unsafe {
+            from_glib(ffi::g_vfs_register_uri_scheme(self.as_ref().to_glib_none().0, scheme.to_glib_none().0, uri_func, Box::into_raw(super_callback0) as *mut _, destroy_call4, parse_name_func, Box::into_raw(super_callback1) as *mut _, destroy_call7))
+        }
+    }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn unregister_uri_scheme(&self, scheme: &str) -> bool {

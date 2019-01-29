@@ -39,7 +39,7 @@ pub trait SocketAddressExt: 'static {
 
     fn get_native_size(&self) -> isize;
 
-    //fn to_native<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, dest: P, destlen: usize) -> Result<(), Error>;
+    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), Error>;
 
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -57,22 +57,22 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
         }
     }
 
-    //fn to_native<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, dest: P, destlen: usize) -> Result<(), Error> {
+    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_socket_address_to_native() }
     //}
 
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + Send + Sync + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::family\0".as_ptr() as *const _,
-                transmute(notify_family_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_family_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn notify_family_trampoline<P>(this: *mut ffi::GSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GSocketAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketAddress> {
-    let f: &&(Fn(&P) + Send + Sync + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&SocketAddress::from_glib_borrow(this).unsafe_cast())
 }
 

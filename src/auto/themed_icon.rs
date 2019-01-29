@@ -90,16 +90,16 @@ impl<O: IsA<ThemedIcon>> ThemedIconExt for O {
 
     fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::names\0".as_ptr() as *const _,
-                transmute(notify_names_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_names_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn notify_names_trampoline<P>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_names_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&ThemedIcon::from_glib_borrow(this).unsafe_cast())
 }
 

@@ -101,13 +101,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
     fn lookup_by_address_async<'a, P: IsA<InetAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<GString, Error>) + Send + 'static>(&self, address: &P, cancellable: R, callback: S) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<S>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_by_address_async_trampoline<S: FnOnce(Result<GString, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<S> = Box::new(callback);
+        unsafe extern "C" fn lookup_by_address_async_trampoline<S: FnOnce(Result<GString, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_resolver_lookup_by_address_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<S>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<S> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_by_address_async_trampoline::<S>;
@@ -151,13 +150,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
     fn lookup_by_name_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(&self, hostname: &str, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_by_name_async_trampoline<R: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn lookup_by_name_async_trampoline<R: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_resolver_lookup_by_name_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_by_name_async_trampoline::<R>;
@@ -203,13 +201,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_records_async_trampoline<R: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn lookup_records_async_trampoline<R: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_resolver_lookup_records_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_records_async_trampoline::<R>;
@@ -255,13 +252,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
     fn lookup_service_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(&self, service: &str, protocol: &str, domain: &str, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
-        let user_data: Box<Box<R>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_service_async_trampoline<R: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn lookup_service_async_trampoline<R: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_resolver_lookup_service_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<R>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_service_async_trampoline::<R>;
@@ -306,16 +302,16 @@ impl<O: IsA<Resolver>> ResolverExt for O {
 
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"reload\0".as_ptr() as *const _,
-                transmute(reload_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(reload_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn reload_trampoline<P>(this: *mut ffi::GResolver, f: glib_ffi::gpointer)
+unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GResolver, f: glib_ffi::gpointer)
 where P: IsA<Resolver> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Resolver::from_glib_borrow(this).unsafe_cast())
 }
 

@@ -85,13 +85,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     fn lookup_certificate_for_handle_async<'a, 'b, P: IsA<TlsInteraction> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, handle: &str, interaction: Q, flags: TlsDatabaseLookupFlags, cancellable: S, callback: T) {
         let interaction = interaction.into();
         let cancellable = cancellable.into();
-        let user_data: Box<Box<T>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<T: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<T> = Box::new(callback);
+        unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<T: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_lookup_certificate_for_handle_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<T>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<T> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_for_handle_async_trampoline::<T>;
@@ -141,13 +140,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     fn lookup_certificate_issuer_async<'a, 'b, P: IsA<TlsCertificate>, Q: IsA<TlsInteraction> + 'a, R: Into<Option<&'a Q>>, S: IsA<Cancellable> + 'b, T: Into<Option<&'b S>>, U: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, certificate: &P, interaction: R, flags: TlsDatabaseLookupFlags, cancellable: T, callback: U) {
         let interaction = interaction.into();
         let cancellable = cancellable.into();
-        let user_data: Box<Box<U>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<U: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<U> = Box::new(callback);
+        unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<U: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_lookup_certificate_issuer_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<U>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<U> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_issuer_async_trampoline::<U>;
@@ -235,13 +233,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         let identity = identity.into();
         let interaction = interaction.into();
         let cancellable = cancellable.into();
-        let user_data: Box<Box<W>> = Box::new(Box::new(callback));
-        unsafe extern "C" fn verify_chain_async_trampoline<W: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
-        {
+        let user_data: Box<W> = Box::new(callback);
+        unsafe extern "C" fn verify_chain_async_trampoline<W: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_database_verify_chain_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<Box<W>> = Box::from_raw(user_data as *mut _);
+            let callback: Box<W> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = verify_chain_async_trampoline::<W>;

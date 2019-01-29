@@ -110,170 +110,170 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
 
     fn connect_drive_changed<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drive-changed\0".as_ptr() as *const _,
-                transmute(drive_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drive_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_drive_connected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drive-connected\0".as_ptr() as *const _,
-                transmute(drive_connected_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drive_connected_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_drive_disconnected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drive-disconnected\0".as_ptr() as *const _,
-                transmute(drive_disconnected_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drive_disconnected_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_drive_eject_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drive-eject-button\0".as_ptr() as *const _,
-                transmute(drive_eject_button_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drive_eject_button_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_drive_stop_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Drive) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drive-stop-button\0".as_ptr() as *const _,
-                transmute(drive_stop_button_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drive_stop_button_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_mount_added<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"mount-added\0".as_ptr() as *const _,
-                transmute(mount_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(mount_added_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_mount_changed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"mount-changed\0".as_ptr() as *const _,
-                transmute(mount_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(mount_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_mount_pre_unmount<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"mount-pre-unmount\0".as_ptr() as *const _,
-                transmute(mount_pre_unmount_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(mount_pre_unmount_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_mount_removed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Mount) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"mount-removed\0".as_ptr() as *const _,
-                transmute(mount_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(mount_removed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_volume_added<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"volume-added\0".as_ptr() as *const _,
-                transmute(volume_added_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(volume_added_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_volume_changed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"volume-changed\0".as_ptr() as *const _,
-                transmute(volume_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(volume_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_volume_removed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &Volume) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"volume-removed\0".as_ptr() as *const _,
-                transmute(volume_removed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(volume_removed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn drive_changed_trampoline<P>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
+unsafe extern "C" fn drive_changed_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Drive) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
-unsafe extern "C" fn drive_connected_trampoline<P>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
+unsafe extern "C" fn drive_connected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Drive) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
-unsafe extern "C" fn drive_disconnected_trampoline<P>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
+unsafe extern "C" fn drive_disconnected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Drive) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
-unsafe extern "C" fn drive_eject_button_trampoline<P>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
+unsafe extern "C" fn drive_eject_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Drive) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
-unsafe extern "C" fn drive_stop_button_trampoline<P>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
+unsafe extern "C" fn drive_stop_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Drive) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
-unsafe extern "C" fn mount_added_trampoline<P>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn mount_added_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Mount) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
-unsafe extern "C" fn mount_changed_trampoline<P>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn mount_changed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Mount) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
-unsafe extern "C" fn mount_pre_unmount_trampoline<P>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn mount_pre_unmount_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Mount) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
-unsafe extern "C" fn mount_removed_trampoline<P>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn mount_removed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Mount) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
-unsafe extern "C" fn volume_added_trampoline<P>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
+unsafe extern "C" fn volume_added_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Volume) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 
-unsafe extern "C" fn volume_changed_trampoline<P>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
+unsafe extern "C" fn volume_changed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Volume) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 
-unsafe extern "C" fn volume_removed_trampoline<P>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
+unsafe extern "C" fn volume_removed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &&(Fn(&P, &Volume) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 
