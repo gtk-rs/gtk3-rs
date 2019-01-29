@@ -42,7 +42,7 @@ impl Pixbuf {
         }
     }
 
-    //pub fn new_from_data<'a, P: Into<Option<&'a /*Unimplemented*/PixbufDestroyNotify>>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: P, destroy_fn_data: Q) -> Pixbuf {
+    //pub fn new_from_data<P: FnOnce(&Vec<u8>) + 'static, Q: Into<Option<P>>>(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Q) -> Pixbuf {
     //    unsafe { TODO: call ffi::gdk_pixbuf_new_from_data() }
     //}
 
@@ -256,11 +256,11 @@ impl Pixbuf {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_buffer() }
     //}
 
-    //pub fn save_to_callback<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a Error>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, error: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn save_to_callback<'a, P: FnMut(&Vec<u8>, usize, &Error) -> bool, Q: Into<Option<&'a Error>>>(&self, save_func: P, type_: &str, error: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_callback() }
     //}
 
-    //pub fn save_to_callbackv<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, save_func: /*Unknown conversion*//*Unimplemented*/PixbufSaveFunc, user_data: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error> {
+    //pub fn save_to_callbackv<P: FnMut(&Vec<u8>, usize, &Error) -> bool>(&self, save_func: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save_to_callbackv() }
     //}
 
