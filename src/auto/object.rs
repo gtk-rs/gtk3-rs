@@ -38,7 +38,7 @@ pub const NONE_OBJECT: Option<&Object> = None;
 pub trait AtkObjectExt: 'static {
     fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
-    //fn connect_property_change_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/PropertyChangeHandler) -> u32;
+    //fn connect_property_change_handler(&self, handler: /*Unimplemented*/Fn(&Object, /*Ignored*/PropertyValues)) -> u32;
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
@@ -61,7 +61,7 @@ pub trait AtkObjectExt: 'static {
 
     fn get_role(&self) -> Role;
 
-    //fn initialize<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, data: P);
+    //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>);
 
     fn notify_state_change(&self, state: State, value: bool);
 
@@ -190,7 +190,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn connect_property_change_handler(&self, handler: /*Unknown conversion*//*Unimplemented*/PropertyChangeHandler) -> u32 {
+    //fn connect_property_change_handler(&self, handler: /*Unimplemented*/Fn(&Object, /*Ignored*/PropertyValues)) -> u32 {
     //    unsafe { TODO: call ffi::atk_object_connect_property_change_handler() }
     //}
 
@@ -253,7 +253,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn initialize<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, data: P) {
+    //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::atk_object_initialize() }
     //}
 
@@ -530,9 +530,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     fn connect_focus_event<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, bool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"focus-event\0".as_ptr() as *const _,
-                transmute(focus_event_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(focus_event_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
@@ -542,246 +542,246 @@ impl<O: IsA<Object>> AtkObjectExt for O {
 
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &str, bool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"state-change\0".as_ptr() as *const _,
-                transmute(state_change_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(state_change_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_visible_data_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"visible-data-changed\0".as_ptr() as *const _,
-                transmute(visible_data_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(visible_data_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_component_layer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-component-layer\0".as_ptr() as *const _,
-                transmute(notify_accessible_component_layer_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_component_layer_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_component_mdi_zorder_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-component-mdi-zorder\0".as_ptr() as *const _,
-                transmute(notify_accessible_component_mdi_zorder_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_component_mdi_zorder_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-description\0".as_ptr() as *const _,
-                transmute(notify_accessible_description_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_description_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_hypertext_nlinks_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-hypertext-nlinks\0".as_ptr() as *const _,
-                transmute(notify_accessible_hypertext_nlinks_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_hypertext_nlinks_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-name\0".as_ptr() as *const _,
-                transmute(notify_accessible_name_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_name_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_parent_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-parent\0".as_ptr() as *const _,
-                transmute(notify_accessible_parent_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_parent_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_role_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-role\0".as_ptr() as *const _,
-                transmute(notify_accessible_role_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_role_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_caption_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-caption\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_caption_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_caption_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_caption_object_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-caption-object\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_caption_object_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_caption_object_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_column_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-column-description\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_column_description_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_column_description_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_column_header_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-column-header\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_column_header_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_column_header_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_row_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-row-description\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_row_description_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_row_description_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_row_header_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-row-header\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_row_header_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_row_header_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_table_summary_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-table-summary\0".as_ptr() as *const _,
-                transmute(notify_accessible_table_summary_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_table_summary_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_accessible_value_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::accessible-value\0".as_ptr() as *const _,
-                transmute(notify_accessible_value_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_accessible_value_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn focus_event_trampoline<P>(this: *mut ffi::AtkObject, arg1: glib_ffi::gboolean, f: glib_ffi::gpointer)
+unsafe extern "C" fn focus_event_trampoline<P, F: Fn(&P, bool) + 'static>(this: *mut ffi::AtkObject, arg1: glib_ffi::gboolean, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P, bool) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast(), from_glib(arg1))
 }
 
-unsafe extern "C" fn state_change_trampoline<P>(this: *mut ffi::AtkObject, arg1: *mut libc::c_char, arg2: glib_ffi::gboolean, f: glib_ffi::gpointer)
+unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut ffi::AtkObject, arg1: *mut libc::c_char, arg2: glib_ffi::gboolean, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P, &str, bool) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(arg1), from_glib(arg2))
 }
 
-unsafe extern "C" fn visible_data_changed_trampoline<P>(this: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+unsafe extern "C" fn visible_data_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_component_layer_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_component_layer_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_component_mdi_zorder_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_component_mdi_zorder_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_description_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_name_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_name_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_parent_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_parent_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_role_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_role_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_caption_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_caption_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_caption_object_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_caption_object_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_column_description_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_column_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_column_header_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_column_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_row_description_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_row_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_row_header_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_row_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_summary_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_summary_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_value_trampoline<P>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_value_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Object> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 

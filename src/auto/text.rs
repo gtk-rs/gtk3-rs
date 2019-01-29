@@ -233,86 +233,86 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-attributes-changed\0".as_ptr() as *const _,
-                transmute(text_attributes_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_attributes_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-caret-moved\0".as_ptr() as *const _,
-                transmute(text_caret_moved_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_caret_moved_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_text_changed<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-changed\0".as_ptr() as *const _,
-                transmute(text_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-insert\0".as_ptr() as *const _,
-                transmute(text_insert_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_insert_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_text_remove<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32, &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-remove\0".as_ptr() as *const _,
-                transmute(text_remove_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_remove_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_text_selection_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"text-selection-changed\0".as_ptr() as *const _,
-                transmute(text_selection_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(text_selection_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn text_attributes_changed_trampoline<P>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_attributes_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn text_caret_moved_trampoline<P>(this: *mut ffi::AtkText, arg1: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1)
 }
 
-unsafe extern "C" fn text_changed_trampoline<P>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_changed_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P, i32, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
-unsafe extern "C" fn text_insert_trampoline<P>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P, i32, i32, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2, &GString::from_glib_borrow(arg3))
 }
 
-unsafe extern "C" fn text_remove_trampoline<P>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_remove_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P, i32, i32, &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2, &GString::from_glib_borrow(arg3))
 }
 
-unsafe extern "C" fn text_selection_changed_trampoline<P>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
+unsafe extern "C" fn text_selection_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast())
 }
 

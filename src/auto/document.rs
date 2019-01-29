@@ -105,60 +105,60 @@ impl<O: IsA<Document>> DocumentExt for O {
 
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"load-complete\0".as_ptr() as *const _,
-                transmute(load_complete_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(load_complete_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"load-stopped\0".as_ptr() as *const _,
-                transmute(load_stopped_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(load_stopped_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"page-changed\0".as_ptr() as *const _,
-                transmute(page_changed_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(page_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"reload\0".as_ptr() as *const _,
-                transmute(reload_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(reload_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn load_complete_trampoline<P>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
+unsafe extern "C" fn load_complete_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
 where P: IsA<Document> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Document::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn load_stopped_trampoline<P>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
+unsafe extern "C" fn load_stopped_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
 where P: IsA<Document> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Document::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_12", feature = "dox"))]
-unsafe extern "C" fn page_changed_trampoline<P>(this: *mut ffi::AtkDocument, page_number: libc::c_int, f: glib_ffi::gpointer)
+unsafe extern "C" fn page_changed_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut ffi::AtkDocument, page_number: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Document> {
-    let f: &&(Fn(&P, i32) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Document::from_glib_borrow(this).unsafe_cast(), page_number)
 }
 
-unsafe extern "C" fn reload_trampoline<P>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
+unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkDocument, f: glib_ffi::gpointer)
 where P: IsA<Document> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Document::from_glib_borrow(this).unsafe_cast())
 }
 
