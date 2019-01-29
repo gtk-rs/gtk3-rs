@@ -20,7 +20,7 @@ glib_wrapper! {
 pub const NONE_FONTSET: Option<&Fontset> = None;
 
 pub trait FontsetExt: 'static {
-    //fn foreach<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, func: /*Unknown conversion*//*Unimplemented*/FontsetForeachFunc, data: P);
+    fn foreach<P: FnMut(&Fontset, &Font) -> bool>(&self, func: P);
 
     fn get_font(&self, wc: u32) -> Option<Font>;
 
@@ -28,9 +28,21 @@ pub trait FontsetExt: 'static {
 }
 
 impl<O: IsA<Fontset>> FontsetExt for O {
-    //fn foreach<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, func: /*Unknown conversion*//*Unimplemented*/FontsetForeachFunc, data: P) {
-    //    unsafe { TODO: call ffi::pango_fontset_foreach() }
-    //}
+    fn foreach<P: FnMut(&Fontset, &Font) -> bool>(&self, func: P) {
+        let func_data: P = func;
+        unsafe extern "C" fn func_func<P: FnMut(&Fontset, &Font) -> bool>(fontset: *mut ffi::PangoFontset, font: *mut ffi::PangoFont, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
+            let fontset = from_glib_borrow(fontset);
+            let font = from_glib_borrow(font);
+            let callback: *mut P = user_data as *const _ as usize as *mut P;
+            let res = (*callback)(&fontset, &font);
+            res.to_glib()
+        }
+        let func = Some(func_func::<P> as _);
+        let super_callback0: &P = &func_data;
+        unsafe {
+            ffi::pango_fontset_foreach(self.as_ref().to_glib_none().0, func, super_callback0 as *const _ as usize as *mut _);
+        }
+    }
 
     fn get_font(&self, wc: u32) -> Option<Font> {
         unsafe {

@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use AttrIterator;
+use Attribute;
 use ffi;
 use glib::translate::*;
 
@@ -30,9 +31,20 @@ impl AttrList {
         }
     }
 
-    //pub fn filter<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, func: /*Unknown conversion*//*Unimplemented*/AttrFilterFunc, data: P) -> Option<AttrList> {
-    //    unsafe { TODO: call ffi::pango_attr_list_filter() }
-    //}
+    pub fn filter<P: FnMut(&Attribute) -> bool>(&self, func: P) -> Option<AttrList> {
+        let func_data: P = func;
+        unsafe extern "C" fn func_func<P: FnMut(&Attribute) -> bool>(attribute: *mut ffi::PangoAttribute, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
+            let attribute = from_glib_borrow(attribute);
+            let callback: *mut P = user_data as *const _ as usize as *mut P;
+            let res = (*callback)(&attribute);
+            res.to_glib()
+        }
+        let func = Some(func_func::<P> as _);
+        let super_callback0: &P = &func_data;
+        unsafe {
+            from_glib_full(ffi::pango_attr_list_filter(self.to_glib_none().0, func, super_callback0 as *const _ as usize as *mut _))
+        }
+    }
 
     pub fn get_iterator(&self) -> Option<AttrIterator> {
         unsafe {
