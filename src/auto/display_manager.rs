@@ -55,28 +55,28 @@ impl DisplayManager {
 
     pub fn connect_display_opened<F: Fn(&DisplayManager, &Display) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DisplayManager, &Display) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"display-opened\0".as_ptr() as *const _,
-                transmute(display_opened_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(display_opened_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_property_default_display_notify<F: Fn(&DisplayManager) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DisplayManager) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::default-display\0".as_ptr() as *const _,
-                transmute(notify_default_display_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_default_display_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn display_opened_trampoline(this: *mut ffi::GdkDisplayManager, display: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DisplayManager, &Display) + 'static) = transmute(f);
+unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut ffi::GdkDisplayManager, display: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(display))
 }
 
-unsafe extern "C" fn notify_default_display_trampoline(this: *mut ffi::GdkDisplayManager, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DisplayManager) + 'static) = transmute(f);
+unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut ffi::GdkDisplayManager, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 

@@ -115,61 +115,61 @@ impl DragContext {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_action_changed<F: Fn(&DragContext, DragAction) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DragContext, DragAction) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-changed\0".as_ptr() as *const _,
-                transmute(action_changed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(action_changed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_cancel<F: Fn(&DragContext, DragCancelReason) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DragContext, DragCancelReason) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"cancel\0".as_ptr() as *const _,
-                transmute(cancel_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(cancel_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_dnd_finished<F: Fn(&DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DragContext) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"dnd-finished\0".as_ptr() as *const _,
-                transmute(dnd_finished_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(dnd_finished_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_drop_performed<F: Fn(&DragContext, i32) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&DragContext, i32) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drop-performed\0".as_ptr() as *const _,
-                transmute(drop_performed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(drop_performed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn action_changed_trampoline(this: *mut ffi::GdkDragContext, action: ffi::GdkDragAction, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DragContext, DragAction) + 'static) = transmute(f);
+unsafe extern "C" fn action_changed_trampoline<F: Fn(&DragContext, DragAction) + 'static>(this: *mut ffi::GdkDragContext, action: ffi::GdkDragAction, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), from_glib(action))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn cancel_trampoline(this: *mut ffi::GdkDragContext, reason: ffi::GdkDragCancelReason, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DragContext, DragCancelReason) + 'static) = transmute(f);
+unsafe extern "C" fn cancel_trampoline<F: Fn(&DragContext, DragCancelReason) + 'static>(this: *mut ffi::GdkDragContext, reason: ffi::GdkDragCancelReason, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), from_glib(reason))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn dnd_finished_trampoline(this: *mut ffi::GdkDragContext, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DragContext) + 'static) = transmute(f);
+unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(this: *mut ffi::GdkDragContext, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn drop_performed_trampoline(this: *mut ffi::GdkDragContext, time: libc::c_int, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&DragContext, i32) + 'static) = transmute(f);
+unsafe extern "C" fn drop_performed_trampoline<F: Fn(&DragContext, i32) + 'static>(this: *mut ffi::GdkDragContext, time: libc::c_int, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), time)
 }
 

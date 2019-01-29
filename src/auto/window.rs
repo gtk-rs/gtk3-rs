@@ -971,8 +971,12 @@ impl<O: IsA<Window>> WindowExt for O {
         let child_func_data: Option<P> = child_func.into();
         unsafe extern "C" fn child_func_func<P: FnMut(&Window) -> bool>(window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
             let window = from_glib_borrow(window);
-            let callback: *mut P = user_data as *const _ as usize as *mut P;
-            let res = (*callback)(&window);
+            let callback: *mut Option<P> = user_data as *const _ as usize as *mut Option<P>;
+            let res = if let Some(ref mut callback) = *callback {
+                callback(&window)
+            } else {
+                panic!("cannot get closure...")
+            };
             res.to_glib()
         }
         let child_func = Some(child_func_func::<P> as _);
@@ -1441,9 +1445,9 @@ impl<O: IsA<Window>> WindowExt for O {
 
     fn connect_create_surface<F: Fn(&Self, i32, i32) -> cairo::Surface + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, i32, i32) -> cairo::Surface + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"create-surface\0".as_ptr() as *const _,
-                transmute(create_surface_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(create_surface_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
@@ -1460,9 +1464,9 @@ impl<O: IsA<Window>> WindowExt for O {
 
     fn connect_pick_embedded_child<F: Fn(&Self, f64, f64) -> Option<Window> + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, f64, f64) -> Option<Window> + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"pick-embedded-child\0".as_ptr() as *const _,
-                transmute(pick_embedded_child_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(pick_embedded_child_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
@@ -1473,28 +1477,28 @@ impl<O: IsA<Window>> WindowExt for O {
 
     fn connect_property_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::cursor\0".as_ptr() as *const _,
-                transmute(notify_cursor_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_cursor_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn create_surface_trampoline<P>(this: *mut ffi::GdkWindow, width: libc::c_int, height: libc::c_int, f: glib_ffi::gpointer) -> *mut cairo_ffi::cairo_surface_t
+unsafe extern "C" fn create_surface_trampoline<P, F: Fn(&P, i32, i32) -> cairo::Surface + 'static>(this: *mut ffi::GdkWindow, width: libc::c_int, height: libc::c_int, f: glib_ffi::gpointer) -> *mut cairo_ffi::cairo_surface_t
 where P: IsA<Window> {
-    let f: &&(Fn(&P, i32, i32) -> cairo::Surface + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Window::from_glib_borrow(this).unsafe_cast(), width, height).to_glib_full()
 }
 
-unsafe extern "C" fn pick_embedded_child_trampoline<P>(this: *mut ffi::GdkWindow, x: libc::c_double, y: libc::c_double, f: glib_ffi::gpointer) -> *mut ffi::GdkWindow
+unsafe extern "C" fn pick_embedded_child_trampoline<P, F: Fn(&P, f64, f64) -> Option<Window> + 'static>(this: *mut ffi::GdkWindow, x: libc::c_double, y: libc::c_double, f: glib_ffi::gpointer) -> *mut ffi::GdkWindow
 where P: IsA<Window> {
-    let f: &&(Fn(&P, f64, f64) -> Option<Window> + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Window::from_glib_borrow(this).unsafe_cast(), x, y)/*Not checked*/.to_glib_none().0
 }
 
-unsafe extern "C" fn notify_cursor_trampoline<P>(this: *mut ffi::GdkWindow, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_cursor_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkWindow, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 

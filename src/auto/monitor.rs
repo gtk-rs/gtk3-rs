@@ -244,148 +244,148 @@ impl<O: IsA<Monitor>> MonitorExt for O {
 
     fn connect_invalidate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"invalidate\0".as_ptr() as *const _,
-                transmute(invalidate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(invalidate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_geometry_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::geometry\0".as_ptr() as *const _,
-                transmute(notify_geometry_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_geometry_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_height_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::height-mm\0".as_ptr() as *const _,
-                transmute(notify_height_mm_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_height_mm_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn connect_property_manufacturer_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::manufacturer\0".as_ptr() as *const _,
-                transmute(notify_manufacturer_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_manufacturer_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn connect_property_model_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::model\0".as_ptr() as *const _,
-                transmute(notify_model_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_model_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_refresh_rate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::refresh-rate\0".as_ptr() as *const _,
-                transmute(notify_refresh_rate_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_refresh_rate_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_scale_factor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::scale-factor\0".as_ptr() as *const _,
-                transmute(notify_scale_factor_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_scale_factor_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn connect_property_subpixel_layout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::subpixel-layout\0".as_ptr() as *const _,
-                transmute(notify_subpixel_layout_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_subpixel_layout_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_width_mm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::width-mm\0".as_ptr() as *const _,
-                transmute(notify_width_mm_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_width_mm_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 
     fn connect_property_workarea_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::workarea\0".as_ptr() as *const _,
-                transmute(notify_workarea_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_workarea_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn invalidate_trampoline<P>(this: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
+unsafe extern "C" fn invalidate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_geometry_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_geometry_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_height_mm_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_height_mm_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Monitor::from_glib_borrow(this).unsafe_cast())
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn notify_manufacturer_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn notify_model_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_manufacturer_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Monitor::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_refresh_rate_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
-    f(&Monitor::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_scale_factor_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn notify_subpixel_layout_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_model_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_width_mm_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_refresh_rate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_workarea_trampoline<P>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_scale_factor_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Monitor> {
-    let f: &&(Fn(&P) + 'static) = transmute(f);
+    let f: &F = transmute(f);
+    f(&Monitor::from_glib_borrow(this).unsafe_cast())
+}
+
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+unsafe extern "C" fn notify_subpixel_layout_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+where P: IsA<Monitor> {
+    let f: &F = transmute(f);
+    f(&Monitor::from_glib_borrow(this).unsafe_cast())
+}
+
+unsafe extern "C" fn notify_width_mm_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+where P: IsA<Monitor> {
+    let f: &F = transmute(f);
+    f(&Monitor::from_glib_borrow(this).unsafe_cast())
+}
+
+unsafe extern "C" fn notify_workarea_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+where P: IsA<Monitor> {
+    let f: &F = transmute(f);
     f(&Monitor::from_glib_borrow(this).unsafe_cast())
 }
 

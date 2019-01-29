@@ -87,8 +87,12 @@ impl Seat {
         unsafe extern "C" fn prepare_func_func<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: FnMut(&Seat, &Window)>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
             let seat = from_glib_borrow(seat);
             let window = from_glib_borrow(window);
-            let callback: *mut S = user_data as *const _ as usize as *mut S;
-            (*callback)(&seat, &window);
+            let callback: *mut Option<S> = user_data as *const _ as usize as *mut Option<S>;
+            if let Some(ref mut callback) = *callback {
+                callback(&seat, &window)
+            } else {
+                panic!("cannot get closure...")
+            };
         }
         let prepare_func = Some(prepare_func_func::<'a, 'b, P, Q, R, S> as _);
         let super_callback0: &Option<S> = &prepare_func_data;
@@ -107,61 +111,61 @@ impl Seat {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_device_added<F: Fn(&Seat, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Seat, &Device) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"device-added\0".as_ptr() as *const _,
-                transmute(device_added_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(device_added_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_device_removed<F: Fn(&Seat, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Seat, &Device) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"device-removed\0".as_ptr() as *const _,
-                transmute(device_removed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(device_removed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_tool_added<F: Fn(&Seat, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Seat, &DeviceTool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"tool-added\0".as_ptr() as *const _,
-                transmute(tool_added_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(tool_added_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_tool_removed<F: Fn(&Seat, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Seat, &DeviceTool) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"tool-removed\0".as_ptr() as *const _,
-                transmute(tool_removed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(tool_removed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn device_added_trampoline(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Seat, &Device) + 'static) = transmute(f);
+unsafe extern "C" fn device_added_trampoline<F: Fn(&Seat, &Device) + 'static>(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn device_removed_trampoline(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Seat, &Device) + 'static) = transmute(f);
+unsafe extern "C" fn device_removed_trampoline<F: Fn(&Seat, &Device) + 'static>(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn tool_added_trampoline(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Seat, &DeviceTool) + 'static) = transmute(f);
+unsafe extern "C" fn tool_added_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(tool))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn tool_removed_trampoline(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Seat, &DeviceTool) + 'static) = transmute(f);
+unsafe extern "C" fn tool_removed_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this), &from_glib_borrow(tool))
 }
 

@@ -268,67 +268,67 @@ impl Screen {
 
     pub fn connect_composited_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Screen) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"composited-changed\0".as_ptr() as *const _,
-                transmute(composited_changed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(composited_changed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_monitors_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Screen) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"monitors-changed\0".as_ptr() as *const _,
-                transmute(monitors_changed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(monitors_changed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_size_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Screen) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"size-changed\0".as_ptr() as *const _,
-                transmute(size_changed_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(size_changed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_property_font_options_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Screen) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::font-options\0".as_ptr() as *const _,
-                transmute(notify_font_options_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_font_options_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 
     pub fn connect_property_resolution_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Screen) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::resolution\0".as_ptr() as *const _,
-                transmute(notify_resolution_trampoline as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(notify_resolution_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn composited_changed_trampoline(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Screen) + 'static) = transmute(f);
+unsafe extern "C" fn composited_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn monitors_changed_trampoline(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Screen) + 'static) = transmute(f);
+unsafe extern "C" fn monitors_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn size_changed_trampoline(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Screen) + 'static) = transmute(f);
+unsafe extern "C" fn size_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn notify_font_options_trampoline(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Screen) + 'static) = transmute(f);
+unsafe extern "C" fn notify_font_options_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn notify_resolution_trampoline(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &&(Fn(&Screen) + 'static) = transmute(f);
+unsafe extern "C" fn notify_resolution_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+    let f: &F = transmute(f);
     f(&from_glib_borrow(this))
 }
 
