@@ -30,17 +30,17 @@ impl<O: IsA<File>> FileExtManual for O {
         let etag = etag.to_glib_none();
         let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
-        let contents: Box<B> = Box::new(contents);
+        let user_data: Box<Option<(R, B)>> = Box::new(Some((callback, contents)));
+        // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, contents_ptr) = {
-            let slice = (*contents).as_ref();
+            let contents = &(*user_data).as_ref().unwrap().1;
+            let slice = contents.as_ref();
             (slice.len(), slice.as_ptr())
         };
-        let user_data: Box<Option<(Box<R>, Box<B>)>> = Box::new(Some((Box::new(callback), contents)));
         unsafe extern "C" fn replace_contents_async_trampoline<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
         {
-            let mut user_data: Box<Option<(Box<R>, Box<B>)>> = Box::from_raw(user_data as *mut _);
+            let mut user_data: Box<Option<(R, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, contents) = user_data.take().unwrap();
-            let contents = *contents;
 
             let mut error = ptr::null_mut();
             let mut new_etag = ptr::null_mut();

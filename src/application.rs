@@ -1,6 +1,7 @@
 use Application;
 use File;
 use ffi;
+use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::{SignalHandlerId, connect_raw};
@@ -25,17 +26,17 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
 
     fn connect_open<F: Fn(&Self, &[File], &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
-            let f: Box_<Box_<Fn(&Self, &[File], &str) + 'static>> = Box_::new(Box_::new(f));
+            let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"open\0".as_ptr() as *const _,
-                transmute(open_trampoline::<Self> as usize), Box_::into_raw(f) as *mut _)
+                Some(transmute(open_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn open_trampoline<P>(this: *mut ffi::GApplication, files: *const *mut ffi::GFile, n_files: libc::c_int, hint: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn open_trampoline<P, F: Fn(&P, &[File], &str) + 'static>(this: *mut ffi::GApplication, files: *const *mut ffi::GFile, n_files: libc::c_int, hint: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &&(Fn(&P, &[File], &str) + 'static) = transmute(f);
+    let f: &F = transmute(f);
     let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);
-    f(&Application::from_glib_none(this).unsafe_cast(), &files, &String::from_glib_none(hint))
+    f(&Application::from_glib_borrow(this).unsafe_cast(), &files, &GString::from_glib_borrow(hint))
 }
