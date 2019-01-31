@@ -103,12 +103,12 @@ pub trait FileExt: 'static {
     #[cfg(feature = "futures")]
     fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    //fn copy<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnMut(i64, i64), T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: T) -> Result<(), Error>;
+    //fn copy<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
-    //fn copy_async<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Fn(i64, i64) + 'static, T: Into<Option<S>>, U: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: R, progress_callback: T, callback: U);
+    //fn copy_async<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: R, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: S);
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static, S: Fn(i64, i64) + 'static, T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: T) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
 
     //fn copy_attributes<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R) -> Result<(), Error>;
 
@@ -217,14 +217,14 @@ pub trait FileExt: 'static {
     fn make_symbolic_link<'a, P: AsRef<std::path::Path>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, symlink_value: P, cancellable: R) -> Result<(), Error>;
 
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: Fn(bool, u64, u64, u64) + Send + Sync + 'static, S: Into<Option<R>>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Q, progress_callback: S) -> Result<(u64, u64, u64), Error>;
+    //fn measure_disk_usage<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Q, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error>;
 
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: Fn(bool, u64, u64, u64) + 'static, S: Into<Option<R>>, T: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Q, progress_callback: S, callback: T);
+    //fn measure_disk_usage_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Q, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: R);
 
     //#[cfg(feature = "futures")]
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async_future<R: Fn(bool, u64, u64, u64) + 'static, S: Into<Option<R>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: S) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
+    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
 
     fn monitor<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, flags: FileMonitorFlags, cancellable: Q) -> Result<FileMonitor, Error>;
 
@@ -242,7 +242,7 @@ pub trait FileExt: 'static {
     #[cfg(feature = "futures")]
     fn mount_mountable_future<'a, P: IsA<MountOperation> + Clone + 'static, Q: Into<Option<&'a P>>>(&self, flags: MountMountFlags, mount_operation: Q) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    //fn move_<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnMut(i64, i64), T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: T) -> Result<(), Error>;
+    //fn move_<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
     fn open_readwrite<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<FileIOStream, Error>;
 
@@ -423,22 +423,20 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn copy<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnMut(i64, i64), T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: T) -> Result<(), Error> {
+    //fn copy<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_file_copy() }
     //}
 
-    //fn copy_async<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: Fn(i64, i64) + 'static, T: Into<Option<S>>, U: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: R, progress_callback: T, callback: U) {
+    //fn copy_async<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: R, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: S) {
     //    unsafe { TODO: call ffi::g_file_copy_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static, S: Fn(i64, i64) + 'static, T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: T) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
         //let destination = destination.clone();
-        //let progress_callback = progress_callback.into();
-        //let progress_callback = progress_callback.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = Fragile::new(send);
@@ -448,7 +446,7 @@ impl<O: IsA<File>> FileExt for O {
         //         flags,
         //         io_priority,
         //         Some(&cancellable),
-        //         progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
+        //         progress_callback,
         //         move |res| {
         //             let obj = obj_clone.into_inner();
         //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
@@ -1001,23 +999,21 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: Fn(bool, u64, u64, u64) + Send + Sync + 'static, S: Into<Option<R>>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Q, progress_callback: S) -> Result<(u64, u64, u64), Error> {
+    //fn measure_disk_usage<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Q, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error> {
     //    unsafe { TODO: call ffi::g_file_measure_disk_usage() }
     //}
 
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: Fn(bool, u64, u64, u64) + 'static, S: Into<Option<R>>, T: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Q, progress_callback: S, callback: T) {
+    //fn measure_disk_usage_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Q, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: R) {
     //    unsafe { TODO: call ffi::g_file_measure_disk_usage_async() }
     //}
 
     //#[cfg(feature = "futures")]
     //#[cfg(any(feature = "v2_38", feature = "dox"))]
-    //fn measure_disk_usage_async_future<R: Fn(bool, u64, u64, u64) + 'static, S: Into<Option<R>>>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: S) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
+    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
         //use GioFuture;
         //use fragile::Fragile;
 
-        //let progress_callback = progress_callback.into();
-        //let progress_callback = progress_callback.map(ToOwned::to_owned);
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = Fragile::new(send);
@@ -1026,7 +1022,7 @@ impl<O: IsA<File>> FileExt for O {
         //         flags,
         //         io_priority,
         //         Some(&cancellable),
-        //         progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
+        //         progress_callback,
         //         move |res| {
         //             let obj = obj_clone.into_inner();
         //             let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
@@ -1151,7 +1147,7 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn move_<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnMut(i64, i64), T: Into<Option<S>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: T) -> Result<(), Error> {
+    //fn move_<'a, P: IsA<File>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: R, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_file_move() }
     //}
 
