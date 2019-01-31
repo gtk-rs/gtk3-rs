@@ -4,6 +4,7 @@
 
 use SocketFamily;
 use ffi;
+use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
@@ -48,6 +49,8 @@ unsafe impl Sync for InetAddress {}
 pub const NONE_INET_ADDRESS: Option<&InetAddress> = None;
 
 pub trait InetAddressExt: 'static {
+    fn equal<P: IsA<InetAddress>>(&self, other_address: &P) -> bool;
+
     fn get_family(&self) -> SocketFamily;
 
     fn get_is_any(&self) -> bool;
@@ -71,6 +74,8 @@ pub trait InetAddressExt: 'static {
     fn get_is_site_local(&self) -> bool;
 
     fn get_native_size(&self) -> usize;
+
+    fn to_string(&self) -> GString;
 
     //fn get_property_bytes(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
@@ -96,6 +101,12 @@ pub trait InetAddressExt: 'static {
 }
 
 impl<O: IsA<InetAddress>> InetAddressExt for O {
+    fn equal<P: IsA<InetAddress>>(&self, other_address: &P) -> bool {
+        unsafe {
+            from_glib(ffi::g_inet_address_equal(self.as_ref().to_glib_none().0, other_address.as_ref().to_glib_none().0))
+        }
+    }
+
     fn get_family(&self) -> SocketFamily {
         unsafe {
             from_glib(ffi::g_inet_address_get_family(self.as_ref().to_glib_none().0))
@@ -165,6 +176,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     fn get_native_size(&self) -> usize {
         unsafe {
             ffi::g_inet_address_get_native_size(self.as_ref().to_glib_none().0)
+        }
+    }
+
+    fn to_string(&self) -> GString {
+        unsafe {
+            from_glib_full(ffi::g_inet_address_to_string(self.as_ref().to_glib_none().0))
         }
     }
 

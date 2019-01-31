@@ -369,25 +369,11 @@ concurrency = "send+sync"
     name = "get_address"
         [object.function.return]
         nullable = false
-    [[object.function]]
-    name = "equal"
-    # conflicting implementations
-    ignore = true
 
 [[object]]
 name = "Gio.InetAddress"
 status = "generate"
 concurrency = "send+sync"
-    [[object.function]]
-    name = "equal"
-    # conflicting implementations
-    ignore = true
-
-    [[object.function]]
-    name = "to_string"
-    # conflicting implementations
-    ignore = true
-
     [[object.function]]
     name = "new_from_bytes"
     # broken and needs some closer integration with the corresponding std types
