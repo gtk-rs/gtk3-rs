@@ -159,7 +159,7 @@ fn build_ui(application: &gtk::Application) {
 
         box_.show_all();
 
-        box_
+        box_.upcast::<gtk::Widget>()
     }));
 
     let scrolled_window = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
