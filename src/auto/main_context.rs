@@ -43,24 +43,16 @@ impl MainContext {
         }
     }
 
-    //pub fn find_source_by_funcs_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, funcs: /*Ignored*/&mut SourceFuncs, user_data: P) -> Option<Source> {
+    //pub fn find_source_by_funcs_user_data(&self, funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Source> {
     //    unsafe { TODO: call ffi::g_main_context_find_source_by_funcs_user_data() }
     //}
 
-    //pub fn find_source_by_user_data<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, user_data: P) -> Option<Source> {
+    //pub fn find_source_by_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Source> {
     //    unsafe { TODO: call ffi::g_main_context_find_source_by_user_data() }
     //}
 
-    //pub fn get_poll_func(&self) -> /*Unknown conversion*//*Unimplemented*/PollFunc {
+    //pub fn get_poll_func(&self) -> /*Unimplemented*/Fn(/*Ignored*/PollFD, u32, i32) -> i32 {
     //    unsafe { TODO: call ffi::g_main_context_get_poll_func() }
-    //}
-
-    //pub fn invoke<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P) {
-    //    unsafe { TODO: call ffi::g_main_context_invoke() }
-    //}
-
-    //pub fn invoke_full<'a, P: Into<Option</*Unimplemented*/Fundamental: Pointer>>, Q: Into<Option<&'a /*Unimplemented*/DestroyNotify>>>(&self, priority: i32, function: /*Unknown conversion*//*Unimplemented*/SourceFunc, data: P, notify: Q) {
-    //    unsafe { TODO: call ffi::g_main_context_invoke_full() }
     //}
 
     pub fn is_owner(&self) -> bool {
@@ -107,7 +99,7 @@ impl MainContext {
     //    unsafe { TODO: call ffi::g_main_context_remove_poll() }
     //}
 
-    //pub fn set_poll_func(&self, func: /*Unknown conversion*//*Unimplemented*/PollFunc) {
+    //pub fn set_poll_func(&self, func: /*Unimplemented*/Fn(/*Ignored*/PollFD, u32, i32) -> i32) {
     //    unsafe { TODO: call ffi::g_main_context_set_poll_func() }
     //}
 
