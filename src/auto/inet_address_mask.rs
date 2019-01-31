@@ -53,6 +53,8 @@ unsafe impl Sync for InetAddressMask {}
 pub const NONE_INET_ADDRESS_MASK: Option<&InetAddressMask> = None;
 
 pub trait InetAddressMaskExt: 'static {
+    fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool;
+
     fn get_address(&self) -> InetAddress;
 
     fn get_family(&self) -> SocketFamily;
@@ -75,6 +77,12 @@ pub trait InetAddressMaskExt: 'static {
 }
 
 impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
+    fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool {
+        unsafe {
+            from_glib(ffi::g_inet_address_mask_equal(self.as_ref().to_glib_none().0, mask2.as_ref().to_glib_none().0))
+        }
+    }
+
     fn get_address(&self) -> InetAddress {
         unsafe {
             from_glib_none(ffi::g_inet_address_mask_get_address(self.as_ref().to_glib_none().0))
