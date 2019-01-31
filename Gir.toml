@@ -46,7 +46,6 @@ generate = [
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
     "Gio.ListModel",
-    "Gio.ListStore",
     "Gio.LoadableIcon",
     "Gio.Menu",
     "Gio.MenuAttributeIter",
@@ -200,6 +199,7 @@ status = "generate"
 [[object]]
 name = "Gio.Application"
 status = "generate"
+manual_traits = ["ApplicationExtManual"]
     [[object.signal]]
     name = "open"
     ignore = true
@@ -260,6 +260,7 @@ concurrency = "send+sync"
 [[object]]
 name = "Gio.Converter"
 status = "generate"
+manual_traits = ["ConverterExtManual"]
     [[object.function]]
     name = "convert"
     ignore = true
@@ -303,6 +304,7 @@ cfg_condition = "not(windows)"
 name = "Gio.File"
 status = "generate"
 concurrency = "send+sync"
+manual_traits = ["FileExtManual"]
     [[object.function]]
     name = "new_for_path"
         [object.function.return]
@@ -392,6 +394,7 @@ concurrency = "send+sync"
 [[object]]
 name = "Gio.InputStream"
 status = "generate"
+manual_traits = ["InputStreamExtManual"]
     [[object.function]]
     pattern = "read(_all)?(_async)?"
     #mutable buffer
@@ -412,6 +415,11 @@ status = "generate"
     name = "output-stream"
     #readonly
     ignore = true
+
+[[object]]
+name = "Gio.ListStore"
+status = "generate"
+manual_traits = ["ListStoreExtManual"]
 
 [[object]]
 name = "Gio.MemoryInputStream"
@@ -472,6 +480,7 @@ status = "generate"
 [[object]]
 name = "Gio.OutputStream"
 status = "generate"
+manual_traits = ["OutputStreamExtManual"]
     [[object.function]]
     name = "write_async"
     #AsRef<u8>
@@ -488,6 +497,7 @@ status = "generate"
 [[object]]
 name = "Gio.PollableInputStream"
 status = "generate"
+manual_traits = ["PollableInputStreamExtManual"]
     [[object.function]]
     name = "create_source"
     # manual source implementation
@@ -500,6 +510,7 @@ status = "generate"
 [[object]]
 name = "Gio.PollableOutputStream"
 status = "generate"
+manual_traits = ["PollableOutputStreamExtManual"]
     [[object.function]]
     name = "create_source"
     # manual source implementation
@@ -567,6 +578,7 @@ status = "generate"
 name = "Gio.Socket"
 status = "generate"
 concurrency = "send-unique"
+manual_traits = ["SocketExtManual"]
     [[object.function]]
     name = "new_from_fd"
     # has to use RawFd / SOCKET
@@ -605,6 +617,7 @@ concurrency = "send+sync"
 [[object]]
 name = "Gio.SocketListener"
 status = "generate"
+manual_traits = ["SocketListenerExtManual"]
     [[object.function]]
     name = "accept_socket_async"
     # finish function misses nullable return annotation
@@ -682,6 +695,7 @@ name = "Gio.UnixSocketAddress"
 status = "generate"
 concurrency = "send+sync"
 cfg_condition = "unix"
+manual_traits = ["UnixSocketAddressExtManual"]
     [[object.function]]
     name = "new"
     ignore = true
