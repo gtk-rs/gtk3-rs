@@ -121,6 +121,7 @@ bitflags! {
         const NEED_DOMAIN = 4;
         const SAVING_SUPPORTED = 8;
         const ANONYMOUS_SUPPORTED = 16;
+        const TCRYPT = 32;
     }
 }
 

@@ -22,19 +22,19 @@ glib_wrapper! {
 }
 
 impl DesktopAppInfo {
-    pub fn new(desktop_id: &str) -> DesktopAppInfo {
+    pub fn new(desktop_id: &str) -> Option<DesktopAppInfo> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_new(desktop_id.to_glib_none().0))
         }
     }
 
-    pub fn new_from_filename<P: AsRef<std::path::Path>>(filename: P) -> DesktopAppInfo {
+    pub fn new_from_filename<P: AsRef<std::path::Path>>(filename: P) -> Option<DesktopAppInfo> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_new_from_filename(filename.as_ref().to_glib_none().0))
         }
     }
 
-    pub fn new_from_keyfile(key_file: &glib::KeyFile) -> DesktopAppInfo {
+    pub fn new_from_keyfile(key_file: &glib::KeyFile) -> Option<DesktopAppInfo> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_new_from_keyfile(key_file.to_glib_none().0))
         }
@@ -94,6 +94,9 @@ pub trait DesktopAppInfoExt: 'static {
     fn launch_action<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, action_name: &str, launch_context: Q);
 
     //fn launch_uris_as_manager<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
+
+    //#[cfg(any(feature = "v2_58", feature = "dox"))]
+    //fn launch_uris_as_manager_with_fds<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn list_actions(&self) -> Vec<GString>;
@@ -195,6 +198,11 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
 
     //fn launch_uris_as_manager<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_desktop_app_info_launch_uris_as_manager() }
+    //}
+
+    //#[cfg(any(feature = "v2_58", feature = "dox"))]
+    //fn launch_uris_as_manager_with_fds<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error> {
+    //    unsafe { TODO: call ffi::g_desktop_app_info_launch_uris_as_manager_with_fds() }
     //}
 
     #[cfg(any(feature = "v2_38", feature = "dox"))]
