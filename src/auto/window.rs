@@ -274,7 +274,7 @@ pub trait WindowExt: 'static {
 
     fn input_shape_combine_region(&self, shape_region: &cairo::Region, offset_x: i32, offset_y: i32);
 
-    fn invalidate_maybe_recurse<P: FnMut(&Window) -> bool, Q: Into<Option<P>>>(&self, region: &cairo::Region, child_func: Q);
+    fn invalidate_maybe_recurse(&self, region: &cairo::Region, child_func: Option<&mut dyn (FnMut(&Window) -> bool)>);
 
     fn invalidate_rect<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P, invalidate_children: bool);
 
@@ -966,12 +966,11 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn invalidate_maybe_recurse<P: FnMut(&Window) -> bool, Q: Into<Option<P>>>(&self, region: &cairo::Region, child_func: Q) {
-        let child_func = child_func.into();
-        let child_func_data: Option<P> = child_func.into();
-        unsafe extern "C" fn child_func_func<P: FnMut(&Window) -> bool>(window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
+    fn invalidate_maybe_recurse(&self, region: &cairo::Region, child_func: Option<&mut dyn (FnMut(&Window) -> bool)>) {
+        let child_func_data: Option<&mut dyn (FnMut(&Window) -> bool)> = child_func;
+        unsafe extern "C" fn child_func_func(window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
             let window = from_glib_borrow(window);
-            let callback: *mut Option<P> = user_data as *const _ as usize as *mut Option<P>;
+            let callback: *mut Option<&mut dyn (FnMut(&Window) -> bool)> = user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Window) -> bool)>;
             let res = if let Some(ref mut callback) = *callback {
                 callback(&window)
             } else {
@@ -979,8 +978,8 @@ impl<O: IsA<Window>> WindowExt for O {
             };
             res.to_glib()
         }
-        let child_func = Some(child_func_func::<P> as _);
-        let super_callback0: &Option<P> = &child_func_data;
+        let child_func = Some(child_func_func as _);
+        let super_callback0: &Option<&mut dyn (FnMut(&Window) -> bool)> = &child_func_data;
         unsafe {
             ffi::gdk_window_invalidate_maybe_recurse(self.as_ref().to_glib_none().0, region.to_glib_none().0, child_func, super_callback0 as *const _ as usize as *mut _);
         }

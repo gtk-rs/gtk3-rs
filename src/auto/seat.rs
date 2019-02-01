@@ -79,23 +79,22 @@ impl Seat {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn grab<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: FnMut(&Seat, &Window), T: Into<Option<S>>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Q, event: R, prepare_func: T) -> GrabStatus {
+    pub fn grab<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Q, event: R, prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>) -> GrabStatus {
         let cursor = cursor.into();
         let event = event.into();
-        let prepare_func = prepare_func.into();
-        let prepare_func_data: Option<S> = prepare_func.into();
-        unsafe extern "C" fn prepare_func_func<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>, S: FnMut(&Seat, &Window)>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
+        let prepare_func_data: Option<&mut dyn (FnMut(&Seat, &Window))> = prepare_func;
+        unsafe extern "C" fn prepare_func_func<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
             let seat = from_glib_borrow(seat);
             let window = from_glib_borrow(window);
-            let callback: *mut Option<S> = user_data as *const _ as usize as *mut Option<S>;
+            let callback: *mut Option<&mut dyn (FnMut(&Seat, &Window))> = user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Seat, &Window))>;
             if let Some(ref mut callback) = *callback {
                 callback(&seat, &window)
             } else {
                 panic!("cannot get closure...")
             };
         }
-        let prepare_func = Some(prepare_func_func::<'a, 'b, P, Q, R, S> as _);
-        let super_callback0: &Option<S> = &prepare_func_data;
+        let prepare_func = Some(prepare_func_func::<'a, 'b, P, Q, R> as _);
+        let super_callback0: &Option<&mut dyn (FnMut(&Seat, &Window))> = &prepare_func_data;
         unsafe {
             from_glib(ffi::gdk_seat_grab(self.to_glib_none().0, window.as_ref().to_glib_none().0, capabilities.to_glib(), owner_events.to_glib(), cursor.to_glib_none().0, event.to_glib_none().0, prepare_func, super_callback0 as *const _ as usize as *mut _))
         }
