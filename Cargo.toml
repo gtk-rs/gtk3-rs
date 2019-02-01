@@ -32,6 +32,8 @@ v2_9_3 = ["atk-sys/v2_9_3", "v2_8"]
 v2_9_4 = ["atk-sys/v2_9_4", "v2_9_3"]
 v2_10 = ["atk-sys/v2_10", "v2_9_4"]
 v2_12 = ["atk-sys/v2_12", "v2_10"]
+v2_14 = ["atk-sys/v2_14", "v2_12"]
+v2_30 = ["atk-sys/v2_30", "v2_14"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"

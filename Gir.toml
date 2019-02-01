@@ -34,6 +34,7 @@ generate = [
     "Atk.RelationType",
     "Atk.RelationSet",
     "Atk.Role",
+    "Atk.ScrollType",
     "Atk.Selection",
     "Atk.State",
     "Atk.StateType",

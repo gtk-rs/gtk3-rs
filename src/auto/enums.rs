@@ -18,6 +18,7 @@ use std::fmt;
 pub enum CoordType {
     Screen,
     Window,
+    Parent,
     #[doc(hidden)]
     __Unknown(i32),
 }
@@ -27,6 +28,7 @@ impl fmt::Display for CoordType {
         write!(f, "CoordType::{}", match *self {
             CoordType::Screen => "Screen",
             CoordType::Window => "Window",
+            CoordType::Parent => "Parent",
             _ => "Unknown",
         })
     }
@@ -40,6 +42,7 @@ impl ToGlib for CoordType {
         match *self {
             CoordType::Screen => ffi::ATK_XY_SCREEN,
             CoordType::Window => ffi::ATK_XY_WINDOW,
+            CoordType::Parent => ffi::ATK_XY_PARENT,
             CoordType::__Unknown(value) => value
         }
     }
@@ -52,6 +55,7 @@ impl FromGlib<ffi::AtkCoordType> for CoordType {
         match value {
             0 => CoordType::Screen,
             1 => CoordType::Window,
+            2 => CoordType::Parent,
             value => CoordType::__Unknown(value),
         }
     }
@@ -872,6 +876,102 @@ impl<'a> FromValue<'a> for Role {
 }
 
 impl SetValue for Role {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum ScrollType {
+    TopLeft,
+    BottomRight,
+    TopEdge,
+    BottomEdge,
+    LeftEdge,
+    RightEdge,
+    Anywhere,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+impl fmt::Display for ScrollType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ScrollType::{}", match *self {
+            ScrollType::TopLeft => "TopLeft",
+            ScrollType::BottomRight => "BottomRight",
+            ScrollType::TopEdge => "TopEdge",
+            ScrollType::BottomEdge => "BottomEdge",
+            ScrollType::LeftEdge => "LeftEdge",
+            ScrollType::RightEdge => "RightEdge",
+            ScrollType::Anywhere => "Anywhere",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for ScrollType {
+    type GlibType = ffi::AtkScrollType;
+
+    fn to_glib(&self) -> ffi::AtkScrollType {
+        match *self {
+            ScrollType::TopLeft => ffi::ATK_SCROLL_TOP_LEFT,
+            ScrollType::BottomRight => ffi::ATK_SCROLL_BOTTOM_RIGHT,
+            ScrollType::TopEdge => ffi::ATK_SCROLL_TOP_EDGE,
+            ScrollType::BottomEdge => ffi::ATK_SCROLL_BOTTOM_EDGE,
+            ScrollType::LeftEdge => ffi::ATK_SCROLL_LEFT_EDGE,
+            ScrollType::RightEdge => ffi::ATK_SCROLL_RIGHT_EDGE,
+            ScrollType::Anywhere => ffi::ATK_SCROLL_ANYWHERE,
+            ScrollType::__Unknown(value) => value
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<ffi::AtkScrollType> for ScrollType {
+    fn from_glib(value: ffi::AtkScrollType) -> Self {
+        skip_assert_initialized!();
+        match value {
+            0 => ScrollType::TopLeft,
+            1 => ScrollType::BottomRight,
+            2 => ScrollType::TopEdge,
+            3 => ScrollType::BottomEdge,
+            4 => ScrollType::LeftEdge,
+            5 => ScrollType::RightEdge,
+            6 => ScrollType::Anywhere,
+            value => ScrollType::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+impl StaticType for ScrollType {
+    fn static_type() -> Type {
+        unsafe { from_glib(ffi::atk_scroll_type_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for ScrollType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+impl<'a> FromValue<'a> for ScrollType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+impl SetValue for ScrollType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }

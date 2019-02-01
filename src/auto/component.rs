@@ -6,6 +6,8 @@ use CoordType;
 use Layer;
 use Object;
 use Rectangle;
+#[cfg(any(feature = "v2_30", feature = "dox"))]
+use ScrollType;
 use ffi;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -52,6 +54,12 @@ pub trait ComponentExt: 'static {
 
     #[cfg_attr(feature = "v2_9_4", deprecated)]
     fn remove_focus_handler(&self, handler_id: u32);
+
+    #[cfg(any(feature = "v2_30", feature = "dox"))]
+    fn scroll_to(&self, type_: ScrollType) -> bool;
+
+    #[cfg(any(feature = "v2_30", feature = "dox"))]
+    fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool;
 
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool;
 
@@ -135,6 +143,20 @@ impl<O: IsA<Component>> ComponentExt for O {
     fn remove_focus_handler(&self, handler_id: u32) {
         unsafe {
             ffi::atk_component_remove_focus_handler(self.as_ref().to_glib_none().0, handler_id);
+        }
+    }
+
+    #[cfg(any(feature = "v2_30", feature = "dox"))]
+    fn scroll_to(&self, type_: ScrollType) -> bool {
+        unsafe {
+            from_glib(ffi::atk_component_scroll_to(self.as_ref().to_glib_none().0, type_.to_glib()))
+        }
+    }
+
+    #[cfg(any(feature = "v2_30", feature = "dox"))]
+    fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
+        unsafe {
+            from_glib(ffi::atk_component_scroll_to_point(self.as_ref().to_glib_none().0, coords.to_glib(), x, y))
         }
     }
 
