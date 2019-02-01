@@ -236,6 +236,16 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     /// This must be unique in the whole process.
     const NAME: &'static str;
 
+    /// If this subclass is an abstract class or not.
+    ///
+    /// By default all subclasses are non-abstract types but setting this to `true` will create an
+    /// abstract class instead.
+    ///
+    /// Abstract classes can't be instantiated and require a non-abstract subclass.
+    ///
+    /// Optional.
+    const ABSTRACT: bool = false;
+
     /// Parent Rust type to inherit from.
     type ParentType: ObjectType
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
@@ -470,7 +480,11 @@ where
             <T::ParentType as StaticType>::static_type().to_glib(),
             type_name.as_ptr(),
             &type_info,
-            0,
+            if T::ABSTRACT {
+                gobject_ffi::G_TYPE_FLAG_ABSTRACT
+            } else {
+                0
+            },
         ));
 
         let mut data = T::type_data();
