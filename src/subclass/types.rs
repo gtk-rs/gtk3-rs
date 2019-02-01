@@ -22,7 +22,7 @@ use super::object::ObjectImpl;
 /// This allows running additional type-setup functions, e.g. for implementing
 /// interfaces on the type.
 #[derive(Debug, PartialEq, Eq)]
-pub struct InitializingType<T: ObjectSubclass>(Type, marker::PhantomData<T>);
+pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<T>);
 
 impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
@@ -42,7 +42,7 @@ impl<T: ObjectSubclass> InitializingType<T> {
     }
 }
 
-impl<T: ObjectSubclass> ToGlib for InitializingType<T> {
+impl<T> ToGlib for InitializingType<T> {
     type GlibType = ffi::GType;
 
     fn to_glib(&self) -> ffi::GType {
