@@ -295,6 +295,10 @@ mod test {
 
         glib_object_subclass!();
 
+        fn type_init(type_: &mut subclass::InitializingType<Self>) {
+            type_.add_interface::<DummyInterface>();
+        }
+
         fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
             klass.install_properties(&PROPERTIES);
 
@@ -363,10 +367,41 @@ mod test {
         }
     }
 
+    #[repr(C)]
+    pub struct DummyInterface {
+        parent: gobject_ffi::GTypeInterface,
+    }
+
+    impl ObjectInterface for DummyInterface {
+        const NAME: &'static str = "DummyInterface";
+
+        glib_object_interface!();
+
+        fn type_init(type_: &mut subclass::InitializingType<Self>) {
+            type_.add_prerequisite::<Object>();
+        }
+    }
+
+    // Usually this would be implemented on a Rust wrapper type defined
+    // with glib_wrapper!() but for the test the following is sufficient
+    impl StaticType for DummyInterface {
+        fn static_type() -> Type {
+            DummyInterface::get_type()
+        }
+    }
+
+    // Usually this would be implemented on a Rust wrapper type defined
+    // with glib_wrapper!() but for the test the following is sufficient
+    unsafe impl<T: ObjectSubclass> IsImplementable<T> for DummyInterface {
+        unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
+    }
+
     #[test]
     fn test_create() {
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[]).unwrap();
+
+        assert!(obj.get_type().is_a(&DummyInterface::static_type()));
 
         assert_eq!(
             obj.get_property("constructed").unwrap().get::<bool>(),
