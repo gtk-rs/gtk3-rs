@@ -129,7 +129,7 @@ pub trait SettingsExt: 'static {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn get_int64(&self, key: &str) -> i64;
 
-    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/Fn(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
+    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg_attr(feature = "v2_40", deprecated)]
     fn get_range(&self, key: &str) -> Option<glib::Variant>;
@@ -308,7 +308,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/Fn(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi::g_settings_get_mapped() }
     //}
 
