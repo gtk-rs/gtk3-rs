@@ -93,6 +93,13 @@ impl FontDescription {
         }
     }
 
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn get_variations(&self) -> Option<GString> {
+        unsafe {
+            from_glib_none(ffi::pango_font_description_get_variations(self.to_glib_none().0))
+        }
+    }
+
     pub fn get_weight(&self) -> Weight {
         unsafe {
             from_glib(ffi::pango_font_description_get_weight(self.to_glib_none().0))
@@ -151,6 +158,20 @@ impl FontDescription {
     pub fn set_variant(&mut self, variant: Variant) {
         unsafe {
             ffi::pango_font_description_set_variant(self.to_glib_none_mut().0, variant.to_glib());
+        }
+    }
+
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn set_variations(&mut self, settings: &str) {
+        unsafe {
+            ffi::pango_font_description_set_variations(self.to_glib_none_mut().0, settings.to_glib_none().0);
+        }
+    }
+
+    #[cfg(any(feature = "v1_42", feature = "dox"))]
+    pub fn set_variations_static(&mut self, settings: &str) {
+        unsafe {
+            ffi::pango_font_description_set_variations_static(self.to_glib_none_mut().0, settings.to_glib_none().0);
         }
     }
 
