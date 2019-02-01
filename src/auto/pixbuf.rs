@@ -42,7 +42,7 @@ impl Pixbuf {
         }
     }
 
-    //pub fn new_from_data<P: FnOnce(&Vec<u8>) + 'static, Q: Into<Option<P>>>(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Q) -> Pixbuf {
+    //pub fn new_from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
     //    unsafe { TODO: call ffi::gdk_pixbuf_new_from_data() }
     //}
 
