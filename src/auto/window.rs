@@ -2,6 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+use AnchorHints;
 use Cursor;
 use Device;
 use Display;
@@ -20,6 +22,8 @@ use FullscreenMode;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use GLContext;
 use Geometry;
+#[cfg(any(feature = "v3_24", feature = "dox"))]
+use Gravity;
 use InputSource;
 use ModifierType;
 use RGBA;
@@ -306,6 +310,9 @@ pub trait WindowExt: 'static {
     fn move_region(&self, region: &cairo::Region, dx: i32, dy: i32);
 
     fn move_resize(&self, x: i32, y: i32, width: i32, height: i32);
+
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
+    fn move_to_rect(&self, rect: &Rectangle, rect_anchor: Gravity, window_anchor: Gravity, anchor_hints: AnchorHints, rect_anchor_dx: i32, rect_anchor_dy: i32);
 
     fn peek_children(&self) -> Vec<Window>;
 
@@ -1074,6 +1081,13 @@ impl<O: IsA<Window>> WindowExt for O {
     fn move_resize(&self, x: i32, y: i32, width: i32, height: i32) {
         unsafe {
             ffi::gdk_window_move_resize(self.as_ref().to_glib_none().0, x, y, width, height);
+        }
+    }
+
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
+    fn move_to_rect(&self, rect: &Rectangle, rect_anchor: Gravity, window_anchor: Gravity, anchor_hints: AnchorHints, rect_anchor_dx: i32, rect_anchor_dy: i32) {
+        unsafe {
+            ffi::gdk_window_move_to_rect(self.as_ref().to_glib_none().0, rect.to_glib_none().0, rect_anchor.to_glib(), window_anchor.to_glib(), anchor_hints.to_glib(), rect_anchor_dx, rect_anchor_dy);
         }
     }
 
