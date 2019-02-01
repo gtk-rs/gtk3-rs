@@ -1303,6 +1303,14 @@ impl ObjectClass {
     }
 }
 
+glib_wrapper! {
+    pub struct InitiallyUnowned(Object<gobject_ffi::GInitiallyUnowned, gobject_ffi::GInitiallyUnownedClass, InitiallyUnownedClass>);
+
+    match fn {
+        get_type => || gobject_ffi::g_initially_unowned_get_type(),
+    }
+}
+
 pub struct WeakRef<T: ObjectType>(Box<gobject_ffi::GWeakRef>, PhantomData<*const T>);
 
 impl<T: ObjectType> WeakRef<T> {
