@@ -21,6 +21,7 @@ bitflags! {
         const STRETCH = 16;
         const SIZE = 32;
         const GRAVITY = 64;
+        const VARIATIONS = 128;
     }
 }
 
