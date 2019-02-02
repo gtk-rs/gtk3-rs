@@ -103,9 +103,9 @@ pub trait AtkObjectExt: 'static {
 
     fn set_property_accessible_parent<P: IsA<Object> + glib::value::SetValueOptional>(&self, accessible_parent: Option<&P>);
 
-    fn get_property_accessible_role(&self) -> i32;
+    fn get_property_accessible_role(&self) -> Role;
 
-    fn set_property_accessible_role(&self, accessible_role: i32);
+    fn set_property_accessible_role(&self, accessible_role: Role);
 
     fn get_property_accessible_table_caption(&self) -> Option<GString>;
 
@@ -139,9 +139,9 @@ pub trait AtkObjectExt: 'static {
 
     fn set_property_accessible_value(&self, accessible_value: f64);
 
-    //fn connect_active_descendant_changed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+    fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    //fn connect_children_changed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+    fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg_attr(feature = "v2_9_4", deprecated)]
     fn connect_focus_event<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -391,15 +391,15 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn get_property_accessible_role(&self) -> i32 {
+    fn get_property_accessible_role(&self) -> Role {
         unsafe {
-            let mut value = Value::from_type(<i32 as StaticType>::static_type());
+            let mut value = Value::from_type(<Role as StaticType>::static_type());
             gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-role\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn set_property_accessible_role(&self, accessible_role: i32) {
+    fn set_property_accessible_role(&self, accessible_role: Role) {
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-role\0".as_ptr() as *const _, Value::from(&accessible_role).to_glib_none().0);
         }
@@ -520,13 +520,21 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn connect_active_descendant_changed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Unimplemented arg1: *.Pointer
-    //}
+    fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(self.as_ptr() as *mut _, b"active-descendant-changed\0".as_ptr() as *const _,
+                Some(transmute(active_descendant_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+        }
+    }
 
-    //fn connect_children_changed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Unimplemented arg2: *.Pointer
-    //}
+    fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(self.as_ptr() as *mut _, b"children-changed\0".as_ptr() as *const _,
+                Some(transmute(children_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+        }
+    }
 
     fn connect_focus_event<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
@@ -537,7 +545,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 
     //fn connect_property_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-    //    Unimplemented arg1: *.Pointer
+    //    Ignored arg1: Atk.PropertyValues
     //}
 
     fn connect_state_change<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId {
@@ -675,6 +683,18 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 Some(transmute(notify_accessible_value_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
+}
+
+unsafe extern "C" fn active_descendant_changed_trampoline<P, F: Fn(&P, &Object) + 'static>(this: *mut ffi::AtkObject, arg1: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+where P: IsA<Object> {
+    let f: &F = transmute(f);
+    f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
+}
+
+unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 'static>(this: *mut ffi::AtkObject, arg1: libc::c_uint, arg2: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+where P: IsA<Object> {
+    let f: &F = transmute(f);
+    f(&Object::from_glib_borrow(this).unsafe_cast(), arg1, &from_glib_borrow(arg2))
 }
 
 unsafe extern "C" fn focus_event_trampoline<P, F: Fn(&P, bool) + 'static>(this: *mut ffi::AtkObject, arg1: glib_ffi::gboolean, f: glib_ffi::gpointer)

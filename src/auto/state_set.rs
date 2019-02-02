@@ -36,7 +36,7 @@ pub const NONE_STATE_SET: Option<&StateSet> = None;
 pub trait StateSetExt: 'static {
     fn add_state(&self, type_: StateType) -> bool;
 
-    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 67 });
+    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 });
 
     fn and_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet>;
 
@@ -44,7 +44,7 @@ pub trait StateSetExt: 'static {
 
     fn contains_state(&self, type_: StateType) -> bool;
 
-    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 67 }) -> bool;
+    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) -> bool;
 
     fn is_empty(&self) -> bool;
 
@@ -62,7 +62,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         }
     }
 
-    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 67 }) {
+    //fn add_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) {
     //    unsafe { TODO: call ffi::atk_state_set_add_states() }
     //}
 
@@ -84,7 +84,7 @@ impl<O: IsA<StateSet>> StateSetExt for O {
         }
     }
 
-    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 67 }) -> bool {
+    //fn contains_states(&self, types: /*Unimplemented*/&CArray TypeId { ns_id: 1, id: 68 }) -> bool {
     //    unsafe { TODO: call ffi::atk_state_set_contains_states() }
     //}
 
