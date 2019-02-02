@@ -20,7 +20,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "gdk-3.0";
     let shared_libs = ["gdk-3"];
-    let version = if cfg!(feature = "v3_22") {
+    let version = if cfg!(feature = "v3_24") {
+        "3.24"
+    } else if cfg!(feature = "v3_22") {
         "3.22"
     } else if cfg!(feature = "v3_20") {
         "3.20"

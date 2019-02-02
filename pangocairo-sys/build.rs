@@ -19,7 +19,7 @@ fn main() {
 
 fn find() -> Result<(), Error> {
     let package_name = "pangocairo";
-    let shared_libs = ["pango-1.0", "pangocairo-1.0", "pango-1.0", "pangoft2-1.0"];
+    let shared_libs = ["pangocairo-1.0"];
     let version = {
         "1.30"
     };

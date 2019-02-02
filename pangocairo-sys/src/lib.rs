@@ -21,17 +21,6 @@ use glib::{gboolean, gconstpointer, gpointer, GType};
 // Callbacks
 pub type PangoCairoShapeRendererFunc = Option<unsafe extern "C" fn(*mut cairo::cairo_t, *mut pango::PangoAttrShape, gboolean, gpointer)>;
 
-// Classes
-#[repr(C)]
-pub struct PangoCairoFcFontMap(c_void);
-
-impl ::std::fmt::Debug for PangoCairoFcFontMap {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoCairoFcFontMap @ {:?}", self as *const _))
-         .finish()
-    }
-}
-
 // Interfaces
 #[repr(C)]
 pub struct PangoCairoFont(c_void);
@@ -53,11 +42,6 @@ impl ::std::fmt::Debug for PangoCairoFontMap {
 
 
 extern "C" {
-
-    //=========================================================================
-    // PangoCairoFcFontMap
-    //=========================================================================
-    pub fn pango_cairo_fc_font_map_get_type() -> GType;
 
     //=========================================================================
     // PangoCairoFont

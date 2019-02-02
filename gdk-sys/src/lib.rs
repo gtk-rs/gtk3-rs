@@ -4577,7 +4577,7 @@ extern "C" {
     pub fn gdk_display_request_selection_notification(display: *mut GdkDisplay, selection: GdkAtom) -> gboolean;
     pub fn gdk_display_set_double_click_distance(display: *mut GdkDisplay, distance: c_uint);
     pub fn gdk_display_set_double_click_time(display: *mut GdkDisplay, msec: c_uint);
-    pub fn gdk_display_store_clipboard(display: *mut GdkDisplay, clipboard_window: *mut GdkWindow, time_: u32, targets: *mut GdkAtom, n_targets: c_int);
+    pub fn gdk_display_store_clipboard(display: *mut GdkDisplay, clipboard_window: *mut GdkWindow, time_: u32, targets: *const GdkAtom, n_targets: c_int);
     pub fn gdk_display_supports_clipboard_persistence(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_supports_composite(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_supports_cursor_alpha(display: *mut GdkDisplay) -> gboolean;
@@ -4935,6 +4935,8 @@ extern "C" {
     pub fn gdk_window_move(window: *mut GdkWindow, x: c_int, y: c_int);
     pub fn gdk_window_move_region(window: *mut GdkWindow, region: *const cairo::cairo_region_t, dx: c_int, dy: c_int);
     pub fn gdk_window_move_resize(window: *mut GdkWindow, x: c_int, y: c_int, width: c_int, height: c_int);
+    #[cfg(any(feature = "v3_24", feature = "dox"))]
+    pub fn gdk_window_move_to_rect(window: *mut GdkWindow, rect: *const GdkRectangle, rect_anchor: GdkGravity, window_anchor: GdkGravity, anchor_hints: GdkAnchorHints, rect_anchor_dx: c_int, rect_anchor_dy: c_int);
     pub fn gdk_window_peek_children(window: *mut GdkWindow) -> *mut glib::GList;
     pub fn gdk_window_process_updates(window: *mut GdkWindow, update_children: gboolean);
     pub fn gdk_window_raise(window: *mut GdkWindow);
@@ -5089,7 +5091,7 @@ extern "C" {
     pub fn gdk_pango_context_get_for_display(display: *mut GdkDisplay) -> *mut pango::PangoContext;
     pub fn gdk_pango_context_get_for_screen(screen: *mut GdkScreen) -> *mut pango::PangoContext;
     pub fn gdk_pango_layout_get_clip_region(layout: *mut pango::PangoLayout, x_origin: c_int, y_origin: c_int, index_ranges: *const c_int, n_ranges: c_int) -> *mut cairo::cairo_region_t;
-    pub fn gdk_pango_layout_line_get_clip_region(line: *mut pango::PangoLayoutLine, x_origin: c_int, y_origin: c_int, index_ranges: *mut c_int, n_ranges: c_int) -> *mut cairo::cairo_region_t;
+    pub fn gdk_pango_layout_line_get_clip_region(line: *mut pango::PangoLayoutLine, x_origin: c_int, y_origin: c_int, index_ranges: *const c_int, n_ranges: c_int) -> *mut cairo::cairo_region_t;
     pub fn gdk_parse_args(argc: *mut c_int, argv: *mut *mut *mut c_char);
     pub fn gdk_pixbuf_get_from_surface(surface: *mut cairo::cairo_surface_t, src_x: c_int, src_y: c_int, width: c_int, height: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
     pub fn gdk_pixbuf_get_from_window(window: *mut GdkWindow, src_x: c_int, src_y: c_int, width: c_int, height: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
@@ -5120,7 +5122,7 @@ extern "C" {
     pub fn gdk_test_render_sync(window: *mut GdkWindow);
     pub fn gdk_test_simulate_button(window: *mut GdkWindow, x: c_int, y: c_int, button: c_uint, modifiers: GdkModifierType, button_pressrelease: GdkEventType) -> gboolean;
     pub fn gdk_test_simulate_key(window: *mut GdkWindow, x: c_int, y: c_int, keyval: c_uint, modifiers: GdkModifierType, key_pressrelease: GdkEventType) -> gboolean;
-    pub fn gdk_text_property_to_utf8_list_for_display(display: *mut GdkDisplay, encoding: GdkAtom, format: c_int, text: *mut u8, length: c_int, list: *mut *mut *mut c_char) -> c_int;
+    pub fn gdk_text_property_to_utf8_list_for_display(display: *mut GdkDisplay, encoding: GdkAtom, format: c_int, text: *const u8, length: c_int, list: *mut *mut *mut c_char) -> c_int;
     pub fn gdk_threads_add_idle(function: glib::GSourceFunc, data: gpointer) -> c_uint;
     pub fn gdk_threads_add_idle_full(priority: c_int, function: glib::GSourceFunc, data: gpointer, notify: glib::GDestroyNotify) -> c_uint;
     pub fn gdk_threads_add_timeout(interval: c_uint, function: glib::GSourceFunc, data: gpointer) -> c_uint;

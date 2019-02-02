@@ -245,9 +245,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
     ("GdkPixbufLoader", Layout {size: size_of::<GdkPixbufLoader>(), alignment: align_of::<GdkPixbufLoader>()}),
     ("GdkPixbufLoaderClass", Layout {size: size_of::<GdkPixbufLoaderClass>(), alignment: align_of::<GdkPixbufLoaderClass>()}),
     ("GdkPixbufRotation", Layout {size: size_of::<GdkPixbufRotation>(), alignment: align_of::<GdkPixbufRotation>()}),
-    ("GdkPixdata", Layout {size: size_of::<GdkPixdata>(), alignment: align_of::<GdkPixdata>()}),
-    ("GdkPixdataDumpType", Layout {size: size_of::<GdkPixdataDumpType>(), alignment: align_of::<GdkPixdataDumpType>()}),
-    ("GdkPixdataType", Layout {size: size_of::<GdkPixdataType>(), alignment: align_of::<GdkPixdataType>()}),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -265,28 +262,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY", "1"),
     ("(gint) GDK_PIXBUF_ERROR_UNKNOWN_TYPE", "3"),
     ("(gint) GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION", "4"),
-    ("GDK_PIXBUF_MAGIC_NUMBER", "1197763408"),
     ("(gint) GDK_PIXBUF_ROTATE_CLOCKWISE", "270"),
     ("(gint) GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE", "90"),
     ("(gint) GDK_PIXBUF_ROTATE_NONE", "0"),
     ("(gint) GDK_PIXBUF_ROTATE_UPSIDEDOWN", "180"),
-    ("(guint) GDK_PIXDATA_COLOR_TYPE_MASK", "255"),
-    ("(guint) GDK_PIXDATA_COLOR_TYPE_RGB", "1"),
-    ("(guint) GDK_PIXDATA_COLOR_TYPE_RGBA", "2"),
-    ("(guint) GDK_PIXDATA_DUMP_CONST", "1024"),
-    ("(guint) GDK_PIXDATA_DUMP_CTYPES", "256"),
-    ("(guint) GDK_PIXDATA_DUMP_GTYPES", "0"),
-    ("(guint) GDK_PIXDATA_DUMP_MACROS", "2"),
-    ("(guint) GDK_PIXDATA_DUMP_PIXDATA_STREAM", "0"),
-    ("(guint) GDK_PIXDATA_DUMP_PIXDATA_STRUCT", "1"),
-    ("(guint) GDK_PIXDATA_DUMP_RLE_DECODER", "65536"),
-    ("(guint) GDK_PIXDATA_DUMP_STATIC", "512"),
-    ("(guint) GDK_PIXDATA_ENCODING_MASK", "251658240"),
-    ("(guint) GDK_PIXDATA_ENCODING_RAW", "16777216"),
-    ("(guint) GDK_PIXDATA_ENCODING_RLE", "33554432"),
-    ("GDK_PIXDATA_HEADER_LENGTH", "24"),
-    ("(guint) GDK_PIXDATA_SAMPLE_WIDTH_8", "65536"),
-    ("(guint) GDK_PIXDATA_SAMPLE_WIDTH_MASK", "983040"),
 ];
 
 

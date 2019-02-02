@@ -48,33 +48,10 @@ pub const GDK_PIXBUF_ROTATE_UPSIDEDOWN: GdkPixbufRotation = 180;
 pub const GDK_PIXBUF_ROTATE_CLOCKWISE: GdkPixbufRotation = 270;
 
 // Constants
-pub const GDK_PIXBUF_MAGIC_NUMBER: c_int = 1197763408;
-pub const GDK_PIXDATA_HEADER_LENGTH: c_int = 24;
-
-// Flags
-pub type GdkPixdataDumpType = c_uint;
-pub const GDK_PIXDATA_DUMP_PIXDATA_STREAM: GdkPixdataDumpType = 0;
-pub const GDK_PIXDATA_DUMP_PIXDATA_STRUCT: GdkPixdataDumpType = 1;
-pub const GDK_PIXDATA_DUMP_MACROS: GdkPixdataDumpType = 2;
-pub const GDK_PIXDATA_DUMP_GTYPES: GdkPixdataDumpType = 0;
-pub const GDK_PIXDATA_DUMP_CTYPES: GdkPixdataDumpType = 256;
-pub const GDK_PIXDATA_DUMP_STATIC: GdkPixdataDumpType = 512;
-pub const GDK_PIXDATA_DUMP_CONST: GdkPixdataDumpType = 1024;
-pub const GDK_PIXDATA_DUMP_RLE_DECODER: GdkPixdataDumpType = 65536;
-
-pub type GdkPixdataType = c_uint;
-pub const GDK_PIXDATA_COLOR_TYPE_RGB: GdkPixdataType = 1;
-pub const GDK_PIXDATA_COLOR_TYPE_RGBA: GdkPixdataType = 2;
-pub const GDK_PIXDATA_COLOR_TYPE_MASK: GdkPixdataType = 255;
-pub const GDK_PIXDATA_SAMPLE_WIDTH_8: GdkPixdataType = 65536;
-pub const GDK_PIXDATA_SAMPLE_WIDTH_MASK: GdkPixdataType = 983040;
-pub const GDK_PIXDATA_ENCODING_RAW: GdkPixdataType = 16777216;
-pub const GDK_PIXDATA_ENCODING_RLE: GdkPixdataType = 33554432;
-pub const GDK_PIXDATA_ENCODING_MASK: GdkPixdataType = 251658240;
 
 // Callbacks
 pub type GdkPixbufDestroyNotify = Option<unsafe extern "C" fn(*mut u8, gpointer)>;
-pub type GdkPixbufSaveFunc = Option<unsafe extern "C" fn(*mut u8, size_t, *mut *mut glib::GError, gpointer) -> gboolean>;
+pub type GdkPixbufSaveFunc = Option<unsafe extern "C" fn(*const u8, size_t, *mut *mut glib::GError, gpointer) -> gboolean>;
 
 // Records
 #[repr(C)]
@@ -115,32 +92,6 @@ pub struct GdkPixbufSimpleAnimClass(c_void);
 impl ::std::fmt::Debug for GdkPixbufSimpleAnimClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPixbufSimpleAnimClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
-
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct GdkPixdata {
-    pub magic: u32,
-    pub length: i32,
-    pub pixdata_type: u32,
-    pub rowstride: u32,
-    pub width: u32,
-    pub height: u32,
-    pub pixel_data: *mut u8,
-}
-
-impl ::std::fmt::Debug for GdkPixdata {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkPixdata @ {:?}", self as *const _))
-         .field("magic", &self.magic)
-         .field("length", &self.length)
-         .field("pixdata_type", &self.pixdata_type)
-         .field("rowstride", &self.rowstride)
-         .field("width", &self.width)
-         .field("height", &self.height)
-         .field("pixel_data", &self.pixel_data)
          .finish()
     }
 }
@@ -258,21 +209,13 @@ extern "C" {
     pub fn gdk_pixbuf_format_set_disabled(format: *mut GdkPixbufFormat, disabled: gboolean);
 
     //=========================================================================
-    // GdkPixdata
-    //=========================================================================
-    pub fn gdk_pixdata_deserialize(pixdata: *mut GdkPixdata, stream_length: c_uint, stream: *mut u8, error: *mut *mut glib::GError) -> gboolean;
-    pub fn gdk_pixdata_from_pixbuf(pixdata: *mut GdkPixdata, pixbuf: *const GdkPixbuf, use_rle: gboolean) -> gpointer;
-    pub fn gdk_pixdata_serialize(pixdata: *const GdkPixdata, stream_length_p: *mut c_uint) -> *mut u8;
-    pub fn gdk_pixdata_to_csource(pixdata: *mut GdkPixdata, name: *const c_char, dump_type: GdkPixdataDumpType) -> *mut glib::GString;
-
-    //=========================================================================
     // GdkPixbuf
     //=========================================================================
     pub fn gdk_pixbuf_get_type() -> GType;
     pub fn gdk_pixbuf_new(colorspace: GdkColorspace, has_alpha: gboolean, bits_per_sample: c_int, width: c_int, height: c_int) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     pub fn gdk_pixbuf_new_from_bytes(data: *mut glib::GBytes, colorspace: GdkColorspace, has_alpha: gboolean, bits_per_sample: c_int, width: c_int, height: c_int, rowstride: c_int) -> *mut GdkPixbuf;
-    pub fn gdk_pixbuf_new_from_data(data: *mut u8, colorspace: GdkColorspace, has_alpha: gboolean, bits_per_sample: c_int, width: c_int, height: c_int, rowstride: c_int, destroy_fn: GdkPixbufDestroyNotify, destroy_fn_data: gpointer) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_data(data: *const u8, colorspace: GdkColorspace, has_alpha: gboolean, bits_per_sample: c_int, width: c_int, height: c_int, rowstride: c_int, destroy_fn: GdkPixbufDestroyNotify, destroy_fn_data: gpointer) -> *mut GdkPixbuf;
     #[cfg(any(windows, feature = "dox"))]
     pub fn gdk_pixbuf_new_from_file_utf8(filename: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_file(filename: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
@@ -282,16 +225,15 @@ extern "C" {
     #[cfg(any(windows, feature = "dox"))]
     pub fn gdk_pixbuf_new_from_file_at_size_utf8(filename: *const c_char, width: c_int, height: c_int, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_file_at_size(filename: *const c_char, width: c_int, height: c_int, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
-    pub fn gdk_pixbuf_new_from_inline(data_length: c_int, data: *mut u8, copy_pixels: gboolean, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_inline(data_length: c_int, data: *const u8, copy_pixels: gboolean, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_resource(resource_path: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_resource_at_scale(resource_path: *const c_char, width: c_int, height: c_int, preserve_aspect_ratio: gboolean, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_stream(stream: *mut gio::GInputStream, cancellable: *mut gio::GCancellable, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_stream_at_scale(stream: *mut gio::GInputStream, width: c_int, height: c_int, preserve_aspect_ratio: gboolean, cancellable: *mut gio::GCancellable, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_new_from_stream_finish(async_result: *mut gio::GAsyncResult, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
-    pub fn gdk_pixbuf_new_from_xpm_data(data: *mut *mut c_char) -> *mut GdkPixbuf;
+    pub fn gdk_pixbuf_new_from_xpm_data(data: *mut *const c_char) -> *mut GdkPixbuf;
     #[cfg(any(feature = "v2_36_8", feature = "dox"))]
     pub fn gdk_pixbuf_calculate_rowstride(colorspace: GdkColorspace, has_alpha: gboolean, bits_per_sample: c_int, width: c_int, height: c_int) -> c_int;
-    pub fn gdk_pixbuf_from_pixdata(pixdata: *const GdkPixdata, copy_pixels: gboolean, error: *mut *mut glib::GError) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_get_file_info(filename: *const c_char, width: *mut c_int, height: *mut c_int) -> *mut GdkPixbufFormat;
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     pub fn gdk_pixbuf_get_file_info_async(filename: *const c_char, cancellable: *mut gio::GCancellable, callback: gio::GAsyncReadyCallback, user_data: gpointer);
@@ -400,7 +342,7 @@ extern "C" {
     pub fn gdk_pixbuf_loader_get_format(loader: *mut GdkPixbufLoader) -> *mut GdkPixbufFormat;
     pub fn gdk_pixbuf_loader_get_pixbuf(loader: *mut GdkPixbufLoader) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_loader_set_size(loader: *mut GdkPixbufLoader, width: c_int, height: c_int);
-    pub fn gdk_pixbuf_loader_write(loader: *mut GdkPixbufLoader, buf: *mut u8, count: size_t, error: *mut *mut glib::GError) -> gboolean;
+    pub fn gdk_pixbuf_loader_write(loader: *mut GdkPixbufLoader, buf: *const u8, count: size_t, error: *mut *mut glib::GError) -> gboolean;
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     pub fn gdk_pixbuf_loader_write_bytes(loader: *mut GdkPixbufLoader, buffer: *mut glib::GBytes, error: *mut *mut glib::GError) -> gboolean;
 
