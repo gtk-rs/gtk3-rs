@@ -2,9 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-mod fc_font_map;
-pub use self::fc_font_map::{FcFontMap, FcFontMapClass};
-
 mod font;
 pub use self::font::{Font, NONE_FONT};
 pub use self::font::FontExt;

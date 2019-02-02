@@ -15,7 +15,7 @@ pub fn context_get_resolution<P: IsA<pango::Context>>(context: &P) -> f64 {
     }
 }
 
-//pub fn context_get_shape_renderer<P: IsA<pango::Context>, Q: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(context: &P, data: Q) -> /*Unknown conversion*//*Unimplemented*/ShapeRendererFunc {
+//pub fn context_get_shape_renderer<P: IsA<pango::Context>>(context: &P, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Fundamental: Pointer) {
 //    unsafe { TODO: call ffi::pango_cairo_context_get_shape_renderer() }
 //}
 
@@ -32,7 +32,7 @@ pub fn context_set_resolution<P: IsA<pango::Context>>(context: &P, dpi: f64) {
     }
 }
 
-//pub fn context_set_shape_renderer<'a, P: IsA<pango::Context>, Q: Into<Option<&'a /*Unimplemented*/ShapeRendererFunc>>, R: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(context: &P, func: Q, data: R, dnotify: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+//pub fn context_set_shape_renderer<P: IsA<pango::Context>>(context: &P, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Fundamental: Pointer), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call ffi::pango_cairo_context_set_shape_renderer() }
 //}
 
