@@ -12,7 +12,7 @@ use std::mem;
 use std::ptr;
 
 use translate::*;
-use {Closure, Object, ObjectClass, Type, Value};
+use {Object, ObjectClass, Type, Value};
 
 use super::prelude::*;
 use super::types;
@@ -177,19 +177,12 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     /// This can be emitted later by `glib::Object::emit` and external code
     /// can connect to the signal to get notified about emissions.
     fn add_signal(&mut self, name: &str, arg_types: &[Type], ret_type: Type) {
-        let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
         unsafe {
-            gobject_ffi::g_signal_newv(
-                name.to_glib_none().0,
+            super::types::add_signal(
                 *(self as *mut _ as *mut ffi::GType),
-                gobject_ffi::G_SIGNAL_RUN_LAST,
-                ptr::null_mut(),
-                None,
-                ptr::null_mut(),
-                None,
-                ret_type.to_glib(),
-                arg_types.len() as u32,
-                arg_types.as_ptr() as *mut _,
+                name,
+                arg_types,
+                ret_type,
             );
         }
     }
@@ -212,38 +205,13 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     ) where
         F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
     {
-        let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
-
-        let accumulator: Box<Box<Fn(&mut Value, &Value) -> bool + Send + Sync + 'static>> =
-            Box::new(Box::new(accumulator));
-
-        unsafe extern "C" fn accumulator_trampoline(
-            _ihint: *mut gobject_ffi::GSignalInvocationHint,
-            return_accu: *mut gobject_ffi::GValue,
-            handler_return: *const gobject_ffi::GValue,
-            data: ffi::gpointer,
-        ) -> ffi::gboolean {
-            let accumulator: &&(Fn(&mut Value, &Value) -> bool + Send + Sync + 'static) =
-                &*(data as *const &(Fn(&mut Value, &Value) -> bool + Send + Sync + 'static));
-            accumulator(
-                &mut *(return_accu as *mut Value),
-                &*(handler_return as *const Value),
-            )
-            .to_glib()
-        }
-
         unsafe {
-            gobject_ffi::g_signal_newv(
-                name.to_glib_none().0,
+            super::types::add_signal_with_accumulator(
                 *(self as *mut _ as *mut ffi::GType),
-                gobject_ffi::G_SIGNAL_RUN_LAST,
-                ptr::null_mut(),
-                Some(accumulator_trampoline),
-                Box::into_raw(accumulator) as ffi::gpointer,
-                None,
-                ret_type.to_glib(),
-                arg_types.len() as u32,
-                arg_types.as_ptr() as *mut _,
+                name,
+                arg_types,
+                ret_type,
+                accumulator,
             );
         }
     }
@@ -258,20 +226,13 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     where
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
     {
-        let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
-        let handler = Closure::new(handler);
         unsafe {
-            gobject_ffi::g_signal_newv(
-                name.to_glib_none().0,
+            super::types::add_action_signal(
                 *(self as *mut _ as *mut ffi::GType),
-                gobject_ffi::G_SIGNAL_RUN_LAST | gobject_ffi::G_SIGNAL_ACTION,
-                handler.to_glib_none().0,
-                None,
-                ptr::null_mut(),
-                None,
-                ret_type.to_glib(),
-                arg_types.len() as u32,
-                arg_types.as_ptr() as *mut _,
+                name,
+                arg_types,
+                ret_type,
+                handler,
             );
         }
     }
@@ -333,6 +294,10 @@ mod test {
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib_object_subclass!();
+
+        fn type_init(type_: &mut subclass::InitializingType<Self>) {
+            type_.add_interface::<DummyInterface>();
+        }
 
         fn class_init(klass: &mut subclass::simple::ClassStruct<Self>) {
             klass.install_properties(&PROPERTIES);
@@ -402,10 +367,41 @@ mod test {
         }
     }
 
+    #[repr(C)]
+    pub struct DummyInterface {
+        parent: gobject_ffi::GTypeInterface,
+    }
+
+    impl ObjectInterface for DummyInterface {
+        const NAME: &'static str = "DummyInterface";
+
+        glib_object_interface!();
+
+        fn type_init(type_: &mut subclass::InitializingType<Self>) {
+            type_.add_prerequisite::<Object>();
+        }
+    }
+
+    // Usually this would be implemented on a Rust wrapper type defined
+    // with glib_wrapper!() but for the test the following is sufficient
+    impl StaticType for DummyInterface {
+        fn static_type() -> Type {
+            DummyInterface::get_type()
+        }
+    }
+
+    // Usually this would be implemented on a Rust wrapper type defined
+    // with glib_wrapper!() but for the test the following is sufficient
+    unsafe impl<T: ObjectSubclass> IsImplementable<T> for DummyInterface {
+        unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
+    }
+
     #[test]
     fn test_create() {
         let type_ = SimpleObject::get_type();
         let obj = Object::new(type_, &[]).unwrap();
+
+        assert!(obj.get_type().is_a(&DummyInterface::static_type()));
 
         assert_eq!(
             obj.get_property("constructed").unwrap().get::<bool>(),

@@ -11,9 +11,9 @@ use std::marker;
 use std::mem;
 use std::ptr;
 
+use object::{ObjectExt, ObjectType};
 use translate::*;
-use {IsA, IsClassFor, StaticType, Type};
-use object::{ObjectType, ObjectExt};
+use {Closure, IsA, IsClassFor, StaticType, Type, Value};
 
 use super::object::ObjectImpl;
 
@@ -22,7 +22,7 @@ use super::object::ObjectImpl;
 /// This allows running additional type-setup functions, e.g. for implementing
 /// interfaces on the type.
 #[derive(Debug, PartialEq, Eq)]
-pub struct InitializingType<T: ObjectSubclass>(Type, marker::PhantomData<T>);
+pub struct InitializingType<T>(pub(crate) Type, pub(crate) marker::PhantomData<T>);
 
 impl<T: ObjectSubclass> InitializingType<T> {
     /// Adds an interface implementation for `I` to the type.
@@ -42,7 +42,7 @@ impl<T: ObjectSubclass> InitializingType<T> {
     }
 }
 
-impl<T: ObjectSubclass> ToGlib for InitializingType<T> {
+impl<T> ToGlib for InitializingType<T> {
     type GlibType = ffi::GType;
 
     fn to_glib(&self) -> ffi::GType {
@@ -235,6 +235,16 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     ///
     /// This must be unique in the whole process.
     const NAME: &'static str;
+
+    /// If this subclass is an abstract class or not.
+    ///
+    /// By default all subclasses are non-abstract types but setting this to `true` will create an
+    /// abstract class instead.
+    ///
+    /// Abstract classes can't be instantiated and require a non-abstract subclass.
+    ///
+    /// Optional.
+    const ABSTRACT: bool = false;
 
     /// Parent Rust type to inherit from.
     type ParentType: ObjectType
@@ -470,7 +480,11 @@ where
             <T::ParentType as StaticType>::static_type().to_glib(),
             type_name.as_ptr(),
             &type_info,
-            0,
+            if T::ABSTRACT {
+                gobject_ffi::G_TYPE_FLAG_ABSTRACT
+            } else {
+                0
+            },
         ));
 
         let mut data = T::type_data();
@@ -483,4 +497,89 @@ where
 
         type_
     }
+}
+
+pub(crate) unsafe fn add_signal(type_: ffi::GType, name: &str, arg_types: &[Type], ret_type: Type) {
+    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+
+    gobject_ffi::g_signal_newv(
+        name.to_glib_none().0,
+        type_,
+        gobject_ffi::G_SIGNAL_RUN_LAST,
+        ptr::null_mut(),
+        None,
+        ptr::null_mut(),
+        None,
+        ret_type.to_glib(),
+        arg_types.len() as u32,
+        arg_types.as_ptr() as *mut _,
+    );
+}
+
+pub(crate) unsafe fn add_signal_with_accumulator<F>(
+    type_: ffi::GType,
+    name: &str,
+    arg_types: &[Type],
+    ret_type: Type,
+    accumulator: F,
+) where
+    F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+{
+    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+
+    let accumulator: Box<F> = Box::new(accumulator);
+
+    unsafe extern "C" fn accumulator_trampoline<
+        F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+    >(
+        _ihint: *mut gobject_ffi::GSignalInvocationHint,
+        return_accu: *mut gobject_ffi::GValue,
+        handler_return: *const gobject_ffi::GValue,
+        data: ffi::gpointer,
+    ) -> ffi::gboolean {
+        let accumulator: &F = &*(data as *const &F);
+        accumulator(
+            &mut *(return_accu as *mut Value),
+            &*(handler_return as *const Value),
+        )
+        .to_glib()
+    }
+
+    gobject_ffi::g_signal_newv(
+        name.to_glib_none().0,
+        type_,
+        gobject_ffi::G_SIGNAL_RUN_LAST,
+        ptr::null_mut(),
+        Some(accumulator_trampoline::<F>),
+        Box::into_raw(accumulator) as ffi::gpointer,
+        None,
+        ret_type.to_glib(),
+        arg_types.len() as u32,
+        arg_types.as_ptr() as *mut _,
+    );
+}
+pub(crate) unsafe fn add_action_signal<F>(
+    type_: ffi::GType,
+    name: &str,
+    arg_types: &[Type],
+    ret_type: Type,
+    handler: F,
+) where
+    F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+{
+    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+    let handler = Closure::new(handler);
+
+    gobject_ffi::g_signal_newv(
+        name.to_glib_none().0,
+        type_,
+        gobject_ffi::G_SIGNAL_RUN_LAST | gobject_ffi::G_SIGNAL_ACTION,
+        handler.to_glib_none().0,
+        None,
+        ptr::null_mut(),
+        None,
+        ret_type.to_glib(),
+        arg_types.len() as u32,
+        arg_types.as_ptr() as *mut _,
+    );
 }

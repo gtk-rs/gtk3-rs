@@ -125,6 +125,45 @@ pub unsafe trait IsClassFor: Sized + 'static {
             Some(&mut *klass)
         }
     }
+
+    /// Gets the class struct corresponding to `type_`.
+    ///
+    /// This will return `None` if `type_` is not a subclass of `Self`.
+    fn from_type(type_: Type) -> Option<ClassRef<Self>> {
+      if !type_.is_a(&Self::Instance::static_type()) {
+          return None;
+      }
+
+      unsafe {
+        let ptr = gobject_ffi::g_type_class_ref(type_.to_glib());
+        if ptr.is_null() {
+            None
+        } else {
+            Some(ClassRef(ptr::NonNull::new_unchecked(ptr as *mut Self)))
+        }
+      }
+    }
+}
+
+#[derive(Debug)]
+pub struct ClassRef<T: IsClassFor>(ptr::NonNull<T>);
+
+impl<T: IsClassFor> ops::Deref for ClassRef<T> {
+    type Target = T;
+
+    fn deref(&self) -> &T {
+        unsafe {
+            self.0.as_ref()
+        }
+    }
+}
+
+impl<T: IsClassFor> Drop for ClassRef<T> {
+    fn drop(&mut self) {
+        unsafe {
+            gobject_ffi::g_type_class_unref(self.0.as_ptr() as *mut _);
+        }
+    }
 }
 
 /// Upcasting and downcasting support.
@@ -1261,6 +1300,14 @@ impl ObjectClass {
             let props = gobject_ffi::g_object_class_list_properties(klass as *mut _, &mut n_properties);
             FromGlibContainer::from_glib_none_num(props, n_properties as usize)
         }
+    }
+}
+
+glib_wrapper! {
+    pub struct InitiallyUnowned(Object<gobject_ffi::GInitiallyUnowned, gobject_ffi::GInitiallyUnownedClass, InitiallyUnownedClass>);
+
+    match fn {
+        get_type => || gobject_ffi::g_initially_unowned_get_type(),
     }
 }
 
