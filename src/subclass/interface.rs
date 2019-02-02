@@ -11,7 +11,7 @@ use std::ptr;
 
 use super::{InitializingType, Property};
 use translate::*;
-use {StaticType, Type, Value};
+use {IsA, Object, ObjectExt, StaticType, Type, Value};
 
 impl<T: ObjectInterface> InitializingType<T> {
     /// Adds an interface prerequisite for `I` to the type.
@@ -101,6 +101,21 @@ pub trait ObjectInterface: Sized + 'static {
 }
 
 pub trait ObjectInterfaceExt: ObjectInterface {
+    /// Get interface from an instance.
+    ///
+    /// This will panic if `obj` does not implement the interface.
+    fn from_instance<T: IsA<Object>>(obj: &T) -> &Self {
+        assert!(obj.as_ref().get_type().is_a(&Self::get_type()));
+
+        unsafe {
+            let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
+            let interface =
+                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
+            assert!(!interface.is_null());
+            &*(interface as *const Self)
+        }
+    }
+
     /// Install properties on the interface.
     ///
     /// All implementors of the interface must provide these properties.
