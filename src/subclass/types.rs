@@ -527,17 +527,17 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
 {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
 
-    let accumulator: Box<Box<Fn(&mut Value, &Value) -> bool + Send + Sync + 'static>> =
-        Box::new(Box::new(accumulator));
+    let accumulator: Box<F> = Box::new(accumulator);
 
-    unsafe extern "C" fn accumulator_trampoline(
+    unsafe extern "C" fn accumulator_trampoline<
+        F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+    >(
         _ihint: *mut gobject_ffi::GSignalInvocationHint,
         return_accu: *mut gobject_ffi::GValue,
         handler_return: *const gobject_ffi::GValue,
         data: ffi::gpointer,
     ) -> ffi::gboolean {
-        let accumulator: &&(Fn(&mut Value, &Value) -> bool + Send + Sync + 'static) =
-            &*(data as *const &(Fn(&mut Value, &Value) -> bool + Send + Sync + 'static));
+        let accumulator: &F = &*(data as *const &F);
         accumulator(
             &mut *(return_accu as *mut Value),
             &*(handler_return as *const Value),
@@ -550,7 +550,7 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
         type_,
         gobject_ffi::G_SIGNAL_RUN_LAST,
         ptr::null_mut(),
-        Some(accumulator_trampoline),
+        Some(accumulator_trampoline::<F>),
         Box::into_raw(accumulator) as ffi::gpointer,
         None,
         ret_type.to_glib(),
