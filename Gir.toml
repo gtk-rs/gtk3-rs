@@ -318,6 +318,18 @@ status = "generate"
     [[object.function]]
     name = "unix_signal_add_full"
     ignore = true
+    [[object.function]]
+    pattern = "rc_box_.+"
+    #need manual implementation
+    ignore = true
+    [[object.function]]
+    pattern = "ref_count_.+"
+    #need manual implementation
+    ignore = true
+    [[object.function]]
+    pattern = "ref_string_.+"
+    #need manual implementation
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform

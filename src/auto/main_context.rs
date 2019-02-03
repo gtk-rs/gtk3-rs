@@ -103,6 +103,7 @@ impl MainContext {
     //    unsafe { TODO: call ffi::g_main_context_set_poll_func() }
     //}
 
+    //#[cfg_attr(feature = "v2_58", deprecated)]
     //pub fn wait(&self, cond: /*Ignored*/&mut Cond, mutex: /*Ignored*/&mut Mutex) -> bool {
     //    unsafe { TODO: call ffi::g_main_context_wait() }
     //}
