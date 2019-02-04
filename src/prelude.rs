@@ -6,6 +6,7 @@ pub use {
     IsA,
     IsClassFor,
     ObjectExt,
+    ObjectType,
     StaticType,
     StaticVariantType,
     ToValue,

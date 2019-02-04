@@ -104,6 +104,7 @@ pub use object::{
     Object,
     ObjectExt,
     ObjectClass,
+    ObjectType,
     InitiallyUnowned,
     InitiallyUnownedClass,
     WeakRef,
