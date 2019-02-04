@@ -499,6 +499,12 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
 //}
 
 //#[cfg(any(unix, feature = "dox"))]
+//#[cfg(any(feature = "v2_58", feature = "dox"))]
+//pub fn unix_mount_get_options(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
+//    unsafe { TODO: call ffi::g_unix_mount_get_options() }
+//}
+
+//#[cfg(any(unix, feature = "dox"))]
 //pub fn unix_mount_guess_can_eject(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_can_eject() }
 //}

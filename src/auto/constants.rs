@@ -8,6 +8,10 @@ use std::ffi::CStr;
 lazy_static! {
     pub static ref DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: &'static str = unsafe{CStr::from_ptr(ffi::G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME).to_str().unwrap()};
 }
+#[cfg(any(feature = "v2_58", feature = "dox"))]
+lazy_static! {
+    pub static ref DRIVE_IDENTIFIER_KIND_UNIX_DEVICE: &'static str = unsafe{CStr::from_ptr(ffi::G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE).to_str().unwrap()};
+}
 lazy_static! {
     pub static ref FILE_ATTRIBUTE_ACCESS_CAN_DELETE: &'static str = unsafe{CStr::from_ptr(ffi::G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE).to_str().unwrap()};
 }
@@ -308,6 +312,7 @@ lazy_static! {
 lazy_static! {
     pub static ref VOLUME_IDENTIFIER_KIND_CLASS: &'static str = unsafe{CStr::from_ptr(ffi::G_VOLUME_IDENTIFIER_KIND_CLASS).to_str().unwrap()};
 }
+#[cfg_attr(feature = "v2_58", deprecated)]
 lazy_static! {
     pub static ref VOLUME_IDENTIFIER_KIND_HAL_UDI: &'static str = unsafe{CStr::from_ptr(ffi::G_VOLUME_IDENTIFIER_KIND_HAL_UDI).to_str().unwrap()};
 }
