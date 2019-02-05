@@ -4,7 +4,7 @@
 
 use std::cell::RefCell;
 use std::mem::transmute;
-#[cfg(all(unix, any(feature = "v2_36", feature = "dox")))]
+#[cfg(any(unix, feature = "dox"))]
 use std::os::unix::io::RawFd;
 #[cfg(all(not(unix), feature = "dox"))]
 use libc::c_int as RawFd;
@@ -12,7 +12,7 @@ use std::process;
 use std::thread;
 use ffi as glib_ffi;
 use ffi::{gboolean, gpointer};
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 use IOCondition;
 use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 use libc;
@@ -131,19 +131,19 @@ fn into_raw_child_watch<F: FnMut(Pid, i32) + Send + 'static>(func: F) -> gpointe
     Box::into_raw(func) as gpointer
 }
 
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_unix_fd(fd: i32, condition: glib_ffi::GIOCondition, func: gpointer) -> gboolean {
     let func: &RefCell<Box<FnMut(RawFd, IOCondition) -> Continue + 'static>> = transmute(func);
     (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
 }
 
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 unsafe extern "C" fn destroy_closure_unix_fd(ptr: gpointer) {
     Box::<RefCell<Box<FnMut(RawFd, IOCondition) + 'static>>>::from_raw(ptr as *mut _);
 }
 
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 fn into_raw_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static>(func: F) -> gpointer {
     let func: Box<RefCell<Box<FnMut(RawFd, IOCondition) -> Continue + Send + 'static>>> =
         Box::new(RefCell::new(Box::new(func)));
@@ -228,7 +228,7 @@ where F: FnMut() -> Continue + Send + 'static {
     }
 }
 
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
@@ -400,7 +400,7 @@ where F: FnMut() -> Continue + Send + 'static {
     }
 }
 
-#[cfg(any(all(feature = "v2_36", unix), feature = "dox"))]
+#[cfg(any(unix, feature = "dox"))]
 /// Adds a closure to be called by the main loop the returned `Source` is attached to whenever a
 /// UNIX file descriptor reaches the given IO condition.
 ///
