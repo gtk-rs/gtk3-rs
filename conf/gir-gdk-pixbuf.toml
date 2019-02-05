@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "GdkPixbuf"
 version = "2.0"
-min_cfg_version = "2.26"
+min_cfg_version = "2.30"
 single_version_file = "."
 
 external_libraries = [
