@@ -48,7 +48,6 @@ impl Binding {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn unbind(&self) {
         unsafe {
             ffi::g_binding_unbind(self.to_glib_full());

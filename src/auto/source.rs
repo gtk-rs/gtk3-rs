@@ -33,7 +33,6 @@ impl Source {
     //    unsafe { TODO: call ffi::g_source_add_poll() }
     //}
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //pub fn add_unix_fd(&self, fd: i32, events: IOCondition) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call ffi::g_source_add_unix_fd() }
     //}
@@ -62,11 +61,6 @@ impl Source {
             from_glib_none(ffi::g_source_get_context(self.to_glib_none().0))
         }
     }
-
-    //#[deprecated]
-    //pub fn get_current_time(&self, timeval: /*Ignored*/&mut TimeVal) {
-    //    unsafe { TODO: call ffi::g_source_get_current_time() }
-    //}
 
     pub fn get_id(&self) -> u32 {
         unsafe {
@@ -104,12 +98,10 @@ impl Source {
         }
     }
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //pub fn modify_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer, new_events: IOCondition) {
     //    unsafe { TODO: call ffi::g_source_modify_unix_fd() }
     //}
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //pub fn query_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer) -> IOCondition {
     //    unsafe { TODO: call ffi::g_source_query_unix_fd() }
     //}
@@ -124,7 +116,6 @@ impl Source {
     //    unsafe { TODO: call ffi::g_source_remove_poll() }
     //}
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //pub fn remove_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call ffi::g_source_remove_unix_fd() }
     //}
