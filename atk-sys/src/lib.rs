@@ -1717,17 +1717,11 @@ extern "C" {
     // AtkRange
     //=========================================================================
     pub fn atk_range_get_type() -> GType;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_new(lower_limit: c_double, upper_limit: c_double, description: *const c_char) -> *mut AtkRange;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_copy(src: *mut AtkRange) -> *mut AtkRange;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_free(range: *mut AtkRange);
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_get_description(range: *mut AtkRange) -> *const c_char;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_get_lower_limit(range: *mut AtkRange) -> c_double;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_range_get_upper_limit(range: *mut AtkRange) -> c_double;
 
     //=========================================================================
@@ -1793,7 +1787,6 @@ extern "C" {
     pub fn atk_object_get_mdi_zorder(accessible: *mut AtkObject) -> c_int;
     pub fn atk_object_get_n_accessible_children(accessible: *mut AtkObject) -> c_int;
     pub fn atk_object_get_name(accessible: *mut AtkObject) -> *const c_char;
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_object_get_object_locale(accessible: *mut AtkObject) -> *const c_char;
     pub fn atk_object_get_parent(accessible: *mut AtkObject) -> *mut AtkObject;
     pub fn atk_object_get_role(accessible: *mut AtkObject) -> AtkRole;
@@ -1927,12 +1920,10 @@ extern "C" {
     pub fn atk_document_get_type() -> GType;
     pub fn atk_document_get_attribute_value(document: *mut AtkDocument, attribute_name: *const c_char) -> *const c_char;
     pub fn atk_document_get_attributes(document: *mut AtkDocument) -> *mut AtkAttributeSet;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_document_get_current_page_number(document: *mut AtkDocument) -> c_int;
     pub fn atk_document_get_document(document: *mut AtkDocument) -> gpointer;
     pub fn atk_document_get_document_type(document: *mut AtkDocument) -> *const c_char;
     pub fn atk_document_get_locale(document: *mut AtkDocument) -> *const c_char;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_document_get_page_count(document: *mut AtkDocument) -> c_int;
     pub fn atk_document_set_attribute_value(document: *mut AtkDocument, attribute_name: *const c_char, attribute_value: *const c_char) -> gboolean;
 
@@ -2036,19 +2027,12 @@ extern "C" {
     // AtkTableCell
     //=========================================================================
     pub fn atk_table_cell_get_type() -> GType;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_column_header_cells(cell: *mut AtkTableCell) -> *mut glib::GPtrArray;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_column_span(cell: *mut AtkTableCell) -> c_int;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_position(cell: *mut AtkTableCell, row: *mut c_int, column: *mut c_int) -> gboolean;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_row_column_span(cell: *mut AtkTableCell, row: *mut c_int, column: *mut c_int, row_span: *mut c_int, column_span: *mut c_int) -> gboolean;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_row_header_cells(cell: *mut AtkTableCell) -> *mut glib::GPtrArray;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_row_span(cell: *mut AtkTableCell) -> c_int;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_table_cell_get_table(cell: *mut AtkTableCell) -> *mut AtkObject;
 
     //=========================================================================
@@ -2068,7 +2052,6 @@ extern "C" {
     pub fn atk_text_get_range_extents(text: *mut AtkText, start_offset: c_int, end_offset: c_int, coord_type: AtkCoordType, rect: *mut AtkTextRectangle);
     pub fn atk_text_get_run_attributes(text: *mut AtkText, offset: c_int, start_offset: *mut c_int, end_offset: *mut c_int) -> *mut AtkAttributeSet;
     pub fn atk_text_get_selection(text: *mut AtkText, selection_num: c_int, start_offset: *mut c_int, end_offset: *mut c_int) -> *mut c_char;
-    #[cfg(any(feature = "v2_10", feature = "dox"))]
     pub fn atk_text_get_string_at_offset(text: *mut AtkText, offset: c_int, granularity: AtkTextGranularity, start_offset: *mut c_int, end_offset: *mut c_int) -> *mut c_char;
     pub fn atk_text_get_text(text: *mut AtkText, start_offset: c_int, end_offset: c_int) -> *mut c_char;
     pub fn atk_text_get_text_after_offset(text: *mut AtkText, offset: c_int, boundary_type: AtkTextBoundary, start_offset: *mut c_int, end_offset: *mut c_int) -> *mut c_char;
@@ -2083,19 +2066,14 @@ extern "C" {
     //=========================================================================
     pub fn atk_value_get_type() -> GType;
     pub fn atk_value_get_current_value(obj: *mut AtkValue, value: *mut gobject::GValue);
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_value_get_increment(obj: *mut AtkValue) -> c_double;
     pub fn atk_value_get_maximum_value(obj: *mut AtkValue, value: *mut gobject::GValue);
     pub fn atk_value_get_minimum_increment(obj: *mut AtkValue, value: *mut gobject::GValue);
     pub fn atk_value_get_minimum_value(obj: *mut AtkValue, value: *mut gobject::GValue);
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_value_get_range(obj: *mut AtkValue) -> *mut AtkRange;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_value_get_sub_ranges(obj: *mut AtkValue) -> *mut glib::GSList;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_value_get_value_and_text(obj: *mut AtkValue, value: *mut c_double, text: *mut *mut c_char);
     pub fn atk_value_set_current_value(obj: *mut AtkValue, value: *const gobject::GValue) -> gboolean;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn atk_value_set_value(obj: *mut AtkValue, new_value: c_double);
 
     //=========================================================================
@@ -2111,17 +2089,12 @@ extern "C" {
     pub fn atk_add_key_event_listener(listener: AtkKeySnoopFunc, data: gpointer) -> c_uint;
     pub fn atk_focus_tracker_init(init: AtkEventListenerInit);
     pub fn atk_focus_tracker_notify(object: *mut AtkObject);
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_get_binary_age() -> c_uint;
     pub fn atk_get_default_registry() -> *mut AtkRegistry;
     pub fn atk_get_focus_object() -> *mut AtkObject;
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_get_interface_age() -> c_uint;
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_get_major_version() -> c_uint;
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_get_micro_version() -> c_uint;
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     pub fn atk_get_minor_version() -> c_uint;
     pub fn atk_get_root() -> *mut AtkObject;
     pub fn atk_get_toolkit_name() -> *const c_char;

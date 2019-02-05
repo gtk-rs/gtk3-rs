@@ -21,7 +21,7 @@ fn find() -> Result<(), Error> {
     let package_name = "pangocairo";
     let shared_libs = ["pangocairo-1.0"];
     let version = {
-        "1.30"
+        "1.36"
     };
 
     if let Ok(inc_dir) = env::var("GTK_INCLUDE_DIR") {
