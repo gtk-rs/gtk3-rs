@@ -8,8 +8,9 @@ addons:
     packages:
     - libgtk-3-dev
 env:
-  - GTK=3.4
+  - GTK=3.14
   - GTK=3.18
   - GTK=3.22.30
+  - GTK=3.24
 script:
   - ./build_travis.sh
