@@ -1229,6 +1229,54 @@ gvalue_impl!(RegionOverlap, ffi::gobject::cairo_gobject_region_overlap_get_type)
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum PdfMetadata {
+    Title,
+    Author,
+    Subject,
+    Keywords,
+    Creator,
+    CreateDate,
+    ModDate,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[doc(hidden)]
+impl Into<ffi::cairo_pdf_metadata_t> for PdfMetadata {
+    fn into(self) -> ffi::cairo_pdf_metadata_t {
+        match self {
+            PdfMetadata::Title => ffi::PDF_METADATA_TITLE,
+            PdfMetadata::Author => ffi::PDF_METADATA_AUTHOR,
+            PdfMetadata::Subject => ffi::PDF_METADATA_SUBJECT,
+            PdfMetadata::Keywords => ffi::PDF_METADATA_KEYWORDS,
+            PdfMetadata::Creator => ffi::PDF_METADATA_CREATOR,
+            PdfMetadata::CreateDate => ffi::PDF_METADATA_CREATE_DATE,
+            PdfMetadata::ModDate => ffi::PDF_METADATA_MOD_DATE,
+            PdfMetadata::__Unknown(value) => value,
+        }
+    }
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[doc(hidden)]
+impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
+    fn from(value: ffi::cairo_pdf_metadata_t) -> Self {
+        match value {
+            ffi::PDF_METADATA_TITLE => PdfMetadata::Title,
+            ffi::PDF_METADATA_AUTHOR => PdfMetadata::Author,
+            ffi::PDF_METADATA_SUBJECT => PdfMetadata::Subject,
+            ffi::PDF_METADATA_KEYWORDS => PdfMetadata::Keywords,
+            ffi::PDF_METADATA_CREATOR => PdfMetadata::Creator,
+            ffi::PDF_METADATA_CREATE_DATE => PdfMetadata::CreateDate,
+            ffi::PDF_METADATA_MOD_DATE => PdfMetadata::ModDate,
+            value => PdfMetadata::__Unknown(value),
+        }
+    }
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PdfVersion {
     _1_4,
     _1_5,

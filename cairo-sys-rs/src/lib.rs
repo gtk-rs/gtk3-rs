@@ -58,6 +58,10 @@ pub type cairo_svg_unit_t = c_int;
 pub type cairo_text_cluster_flags_t = c_int;
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
+pub type cairo_pdf_outline_flags_t = c_int;
+#[cfg(any(feature = "pdf", feature = "dox"))]
+pub type cairo_pdf_metadata_t = c_int;
+#[cfg(any(feature = "pdf", feature = "dox"))]
 pub type cairo_pdf_version_t = c_int;
 #[cfg(any(feature = "svg", feature = "dox"))]
 pub type cairo_svg_version_t = c_int;
@@ -258,6 +262,12 @@ pub struct cairo_bool_t{
 impl cairo_bool_t {
     pub fn as_bool(self) -> bool {
         self.value != 0
+    }
+}
+
+impl From<bool> for cairo_bool_t {
+    fn from(b: bool) -> cairo_bool_t {
+        cairo_bool_t { value: b as _ }
     }
 }
 
@@ -593,9 +603,31 @@ extern "C" {
     #[cfg(any(feature = "pdf", feature = "dox"))]
     pub fn cairo_pdf_surface_restrict_to_version (surface: *mut cairo_surface_t, version: cairo_pdf_version_t);
     #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_get_versions (versions: *mut *mut cairo_pdf_version_t,
+                                   num_versions: *mut c_int);
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_version_to_string (version: cairo_pdf_version_t) -> *const c_char;
+    #[cfg(any(feature = "pdf", feature = "dox"))]
     pub fn cairo_pdf_surface_set_size (surface: *mut cairo_surface_t,
                                       width_in_points: f64,
                                       height_in_points: f64);
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_add_outline (surface: *mut cairo_surface_t,
+                                          parent_id: c_int,
+                                          utf8: *const c_char,
+                                          link_attribs: *const c_char,
+                                          flags: cairo_pdf_outline_flags_t) -> c_int;
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_set_metadata (surface: *mut cairo_surface_t,
+                                           metadata: cairo_pdf_metadata_t,
+                                           utf8: *const c_char);
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_set_page_label (surface: *mut cairo_surface_t,
+                                             utf8: *const c_char);
+    #[cfg(any(feature = "pdf", feature = "dox"))]
+    pub fn cairo_pdf_surface_set_thumbnail_size (surface: *mut cairo_surface_t,
+                                                 width: c_int,
+                                                 height: c_int);
 
     // CAIRO SVG
     #[cfg(any(feature = "svg", feature = "dox"))]
@@ -613,6 +645,12 @@ extern "C" {
     pub fn cairo_svg_surface_get_document_unit(surface: *const cairo_surface_t) -> cairo_svg_unit_t;
     #[cfg(any(feature = "svg", feature = "dox"))]
     pub fn cairo_svg_surface_set_document_unit(surface: *mut cairo_surface_t, unit: cairo_svg_unit_t);
+    #[cfg(any(feature = "svg", feature = "dox"))]
+    pub fn cairo_svg_get_versions (versions: *mut *mut cairo_svg_version_t,
+                                   num_versions: *mut c_int);
+    #[cfg(any(feature = "svg", feature = "dox"))]
+    pub fn cairo_svg_version_to_string (version: cairo_svg_version_t) -> *const c_char;
+
     // CAIRO PS
     #[cfg(any(feature = "ps", feature = "dox"))]
     pub fn cairo_ps_surface_create (filename: *const c_char,
@@ -625,6 +663,11 @@ extern "C" {
                                                height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "ps", feature = "dox"))]
     pub fn cairo_ps_surface_restrict_to_level (surface: *mut cairo_surface_t, version: cairo_ps_level_t);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_get_levels (levels: *mut *mut cairo_ps_level_t,
+                                   num_levels: *mut c_int);
+    #[cfg(any(feature = "ps", feature = "dox"))]
+    pub fn cairo_ps_level_to_string (level: cairo_ps_level_t) -> *const c_char;
     #[cfg(any(feature = "ps", feature = "dox"))]
     pub fn cairo_ps_surface_set_eps (surface: *mut cairo_surface_t, eps: cairo_bool_t);
     #[cfg(any(feature = "ps", feature = "dox"))]
@@ -949,6 +992,17 @@ pub const FORMAT_RGB30: i32 = 5;
 pub const REGION_OVERLAP_IN: i32 = 0;
 pub const REGION_OVERLAP_OUT: i32 = 1;
 pub const REGION_OVERLAP_PART: i32 = 2;
+pub const PDF_OUTLINE_FLAG_OPEN: i32 = 0x1;
+pub const PDF_OUTLINE_FLAG_BOLD: i32 = 0x2;
+pub const PDF_OUTLINE_FLAG_ITALIC: i32 = 0x4;
+pub const PDF_OUTLINE_FLAG__ALL: i32 = PDF_OUTLINE_FLAG_OPEN|PDF_OUTLINE_FLAG_BOLD|PDF_OUTLINE_FLAG_ITALIC;
+pub const PDF_METADATA_TITLE: i32 = 0;
+pub const PDF_METADATA_AUTHOR: i32 = 1;
+pub const PDF_METADATA_SUBJECT: i32 = 2;
+pub const PDF_METADATA_KEYWORDS: i32 = 3;
+pub const PDF_METADATA_CREATOR: i32 = 4;
+pub const PDF_METADATA_CREATE_DATE: i32 = 5;
+pub const PDF_METADATA_MOD_DATE: i32 = 6;
 pub const PDF_VERSION__1_4: i32 = 0;
 pub const PDF_VERSION__1_5: i32 = 1;
 pub const SVG_VERSION__1_1: i32 = 0;

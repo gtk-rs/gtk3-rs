@@ -2,7 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ffi::CString;
+use std::mem;
+use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
@@ -15,6 +16,25 @@ use support::{self, FromRawSurface};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+
+pub fn get_levels() -> Vec<PsLevel> {
+    let lvls_slice = unsafe {
+        let mut vers_ptr: *mut ffi::cairo_ps_level_t = mem::uninitialized();
+        let mut num_vers = 0;
+        ffi::cairo_ps_get_levels(&mut vers_ptr as _, &mut num_vers as _);
+
+        std::slice::from_raw_parts(vers_ptr, num_vers as _)
+    };
+
+    lvls_slice.iter().map(|v| PsLevel::from(*v)).collect()
+}
+
+pub fn level_to_string(level: PsLevel) -> Option<String> {
+    unsafe {
+        let res = ffi::cairo_ps_level_to_string(level.into());
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+    }
+}
 
 pub struct File {
     inner: Surface,
@@ -77,11 +97,42 @@ impl File {
         }
     }
 
+    pub fn get_eps(&self) -> bool {
+        unsafe {
+            ffi::cairo_ps_surface_get_eps(self.inner.to_raw_none()).as_bool()
+        }
+    }
+
+    pub fn set_eps(&self, eps: bool) {
+        unsafe {
+            ffi::cairo_ps_surface_set_eps(self.inner.to_raw_none(), eps.into());
+        }
+    }
+
     pub fn set_size(&self, width: f64, height: f64) {
         unsafe {
             ffi::cairo_ps_surface_set_size(self.inner.to_raw_none(), width, height);
         }
     }
+
+    pub fn cairo_ps_surface_dsc_begin_setup(&self) {
+        unsafe {
+            ffi::cairo_ps_surface_dsc_begin_setup(self.inner.to_raw_none());
+        }
+    }
+
+    pub fn cairo_ps_surface_dsc_begin_page_setup(&self) {
+        unsafe {
+            ffi::cairo_ps_surface_dsc_begin_page_setup(self.inner.to_raw_none());
+        }
+    }
+
+    pub fn cairo_ps_surface_dsc_comment(&self, comment: &str) {
+        unsafe {
+            ffi::cairo_ps_surface_dsc_comment(self.inner.to_raw_none(), comment.as_ptr() as _);
+        }
+    }
+
 }
 
 impl AsRef<Surface> for File {
@@ -230,6 +281,26 @@ mod test {
         let surface = Writer::new(100., 100., buffer);
         draw(&surface);
         surface.finish()
+    }
+
+    #[test]
+    fn levels() {
+        let vers = get_levels();
+        assert!(vers.iter().any(|v| *v == PsLevel::_2));
+    }
+
+    #[test]
+    fn level_string() {
+        let ver_str = level_to_string(PsLevel::_2).unwrap();
+        assert_eq!(ver_str, "PS Level 2");
+    }
+
+    #[test]
+    fn eps() {
+        let buffer: Vec<u8> = vec![];
+        let surface = Writer::new(100., 100., buffer);
+        surface.set_eps(true);
+        assert_eq!(surface.get_eps(), true);
     }
 
     #[test]

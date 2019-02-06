@@ -2,19 +2,39 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ffi::CString;
+use std::mem;
+use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::PdfVersion;
+use ::enums::{PdfVersion, PdfMetadata};
 use surface::Surface;
 use support::{self, FromRawSurface};
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+
+pub fn get_versions() -> Vec<PdfVersion> {
+    let vers_slice = unsafe {
+        let mut vers_ptr: *mut ffi::cairo_pdf_version_t = mem::uninitialized();
+        let mut num_vers = 0;
+        ffi::cairo_pdf_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+
+        std::slice::from_raw_parts(vers_ptr, num_vers as _)
+    };
+
+    vers_slice.iter().map(|v| PdfVersion::from(*v)).collect()
+}
+
+pub fn version_to_string(version: PdfVersion) -> Option<String> {
+    unsafe {
+        let res = ffi::cairo_pdf_version_to_string(version.into());
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+    }
+}
 
 pub struct File {
     inner: Surface,
@@ -46,6 +66,36 @@ impl File {
     pub fn set_size(&self, width: f64, height: f64) {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.inner.to_raw_none(), width, height);
+        }
+    }
+
+    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
+        unsafe {
+            ffi::cairo_pdf_surface_set_metadata(self.inner.to_raw_none(), metadata.into(), value.as_ptr() as _);
+        }
+    }
+
+    pub fn set_page_label(&self, label: &str) {
+        unsafe {
+            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr() as _);
+        }
+    }
+
+    pub fn set_thumbnail_size(&self, width: i32, height: i32) {
+        unsafe {
+            ffi::cairo_pdf_surface_set_thumbnail_size(self.inner.to_raw_none(), width as _, height as _);
+        }
+    }
+
+    pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: i32) -> i32 {
+        unsafe {
+            ffi::cairo_pdf_surface_add_outline(
+                self.inner.to_raw_none(),
+                parent_id,
+                name.as_ptr() as _,
+                link_attribs.as_ptr() as _,
+                flags as _
+            ) as _
         }
     }
 }
@@ -229,6 +279,18 @@ mod test {
         let surface = Writer::new(100., 100., buffer);
         draw(&surface);
         surface.finish()
+    }
+
+    #[test]
+    fn versions() {
+        let vers = get_versions();
+        assert!(vers.iter().any(|v| *v == PdfVersion::_1_4));
+    }
+
+    #[test]
+    fn version_string() {
+        let ver_str = version_to_string(PdfVersion::_1_4).unwrap();
+        assert_eq!(ver_str, "PDF 1.4");
     }
 
     #[test]

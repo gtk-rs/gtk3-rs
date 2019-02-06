@@ -2,7 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ffi::CString;
+use std::mem;
+use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
@@ -15,6 +16,25 @@ use support::{self, FromRawSurface};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
+
+pub fn get_versions() -> Vec<SvgVersion> {
+    let vers_slice = unsafe {
+        let mut vers_ptr: *mut ffi::cairo_svg_version_t = mem::uninitialized();
+        let mut num_vers = 0;
+        ffi::cairo_svg_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+
+        std::slice::from_raw_parts(vers_ptr, num_vers as _)
+    };
+
+    vers_slice.iter().map(|v| SvgVersion::from(*v)).collect()
+}
+
+pub fn version_to_string(version: SvgVersion) -> Option<String> {
+    unsafe {
+        let res = ffi::cairo_svg_version_to_string(version.into());
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+    }
+}
 
 pub struct File {
     inner: Surface
@@ -240,6 +260,18 @@ mod test {
         // larger than the other. Here we make sure the difference is within ~10%.
         let len_diff = (len_a as isize - len_b as isize).abs() as usize;
         assert!(len_diff < len_b / 10);
+    }
+
+    #[test]
+    fn versions() {
+        let vers = get_versions();
+        assert!(vers.iter().any(|v| *v == SvgVersion::_1_1));
+    }
+
+    #[test]
+    fn version_string() {
+        let ver_str = version_to_string(SvgVersion::_1_1).unwrap();
+        assert_eq!(ver_str, "SVG 1.1");
     }
 
     #[test]
