@@ -27,9 +27,6 @@ impl FontMap {
 pub const NONE_FONT_MAP: Option<&FontMap> = None;
 
 pub trait FontMapExt: 'static {
-    #[deprecated]
-    fn create_context(&self) -> Option<pango::Context>;
-
     fn get_resolution(&self) -> f64;
 
     fn set_default(&self);
@@ -38,12 +35,6 @@ pub trait FontMapExt: 'static {
 }
 
 impl<O: IsA<FontMap>> FontMapExt for O {
-    fn create_context(&self) -> Option<pango::Context> {
-        unsafe {
-            from_glib_none(ffi::pango_cairo_font_map_create_context(self.as_ref().to_glib_none().0))
-        }
-    }
-
     fn get_resolution(&self) -> f64 {
         unsafe {
             ffi::pango_cairo_font_map_get_resolution(self.as_ref().to_glib_none().0)
