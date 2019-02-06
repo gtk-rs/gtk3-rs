@@ -20,7 +20,6 @@ lazy_static! {
 lazy_static! {
     pub static ref KEY_FILE_DESKTOP_GROUP: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_GROUP).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 lazy_static! {
     pub static ref KEY_FILE_DESKTOP_KEY_ACTIONS: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_ACTIONS).to_str().unwrap()};
 }
@@ -30,7 +29,6 @@ lazy_static! {
 lazy_static! {
     pub static ref KEY_FILE_DESKTOP_KEY_COMMENT: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_COMMENT).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 lazy_static! {
     pub static ref KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE: &'static str = unsafe{CStr::from_ptr(ffi::G_KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE).to_str().unwrap()};
 }

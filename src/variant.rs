@@ -314,14 +314,8 @@ impl StaticVariantType for str {
 }
 
 impl ToVariant for str {
-    #[cfg(any(feature = "v2_38"))]
     fn to_variant(&self) -> Variant {
         unsafe { from_glib_none(glib_ffi::g_variant_new_take_string(self.to_glib_full())) }
-    }
-
-    #[cfg(not(feature = "v2_38"))]
-    fn to_variant(&self) -> Variant {
-        unsafe { from_glib_none(glib_ffi::g_variant_new_string(self.to_glib_none().0)) }
     }
 }
 

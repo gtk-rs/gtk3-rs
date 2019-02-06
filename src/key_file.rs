@@ -16,7 +16,6 @@ use gstring::GString;
 use KeyFile;
 
 impl KeyFile {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn save_to_file<T: AsRef<std::path::Path>>(&self, filename: T) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();

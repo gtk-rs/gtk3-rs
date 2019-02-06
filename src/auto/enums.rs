@@ -14,7 +14,6 @@ pub enum ChecksumType {
     Md5,
     Sha1,
     Sha256,
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     Sha512,
     #[cfg(any(feature = "v2_52", feature = "dox"))]
     Sha384,
@@ -28,7 +27,6 @@ impl fmt::Display for ChecksumType {
             ChecksumType::Md5 => "Md5",
             ChecksumType::Sha1 => "Sha1",
             ChecksumType::Sha256 => "Sha256",
-            #[cfg(any(feature = "v2_36", feature = "dox"))]
             ChecksumType::Sha512 => "Sha512",
             #[cfg(any(feature = "v2_52", feature = "dox"))]
             ChecksumType::Sha384 => "Sha384",
@@ -46,7 +44,6 @@ impl ToGlib for ChecksumType {
             ChecksumType::Md5 => ffi::G_CHECKSUM_MD5,
             ChecksumType::Sha1 => ffi::G_CHECKSUM_SHA1,
             ChecksumType::Sha256 => ffi::G_CHECKSUM_SHA256,
-            #[cfg(any(feature = "v2_36", feature = "dox"))]
             ChecksumType::Sha512 => ffi::G_CHECKSUM_SHA512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
             ChecksumType::Sha384 => ffi::G_CHECKSUM_SHA384,
@@ -62,7 +59,6 @@ impl FromGlib<ffi::GChecksumType> for ChecksumType {
             0 => ChecksumType::Md5,
             1 => ChecksumType::Sha1,
             2 => ChecksumType::Sha256,
-            #[cfg(any(feature = "v2_36", feature = "dox"))]
             3 => ChecksumType::Sha512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
             4 => ChecksumType::Sha384,

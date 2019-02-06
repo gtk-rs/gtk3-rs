@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use Bytes;
 use ChecksumType;
 use Error;
@@ -56,11 +55,6 @@ pub fn assertion_message_expr<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&
     }
 }
 
-//#[deprecated]
-//pub fn atexit<P: FnOnce() + Send + Sync + 'static>(func: P) {
-//    unsafe { TODO: call ffi::g_atexit() }
-//}
-
 pub fn base64_decode(text: &str) -> Vec<u8> {
     unsafe {
         let mut out_len = mem::uninitialized();
@@ -91,13 +85,6 @@ pub fn base64_encode(data: &[u8]) -> Option<GString> {
 //pub fn base64_encode_step(in_: &[u8], break_lines: bool, out: Vec<u8>, state: &mut i32, save: &mut i32) -> usize {
 //    unsafe { TODO: call ffi::g_base64_encode_step() }
 //}
-
-#[deprecated]
-pub fn basename<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
-    unsafe {
-        from_glib_none(ffi::g_basename(file_name.as_ref().to_glib_none().0))
-    }
-}
 
 pub fn bit_nth_lsf(mask: libc::c_ulong, nth_bit: i32) -> i32 {
     unsafe {
@@ -174,12 +161,10 @@ pub fn clear_error() -> Result<(), Error> {
 //    unsafe { TODO: call ffi::g_clear_handle_id() }
 //}
 
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn clear_pointer(pp: /*Unimplemented*/Fundamental: Pointer) {
 //    unsafe { TODO: call ffi::g_clear_pointer() }
 //}
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_compute_checksum_for_bytes(checksum_type.to_glib(), data.to_glib_none().0))
@@ -243,7 +228,6 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call ffi::g_datalist_get_flags() }
 //}
 
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn datalist_id_dup_data(datalist: /*Ignored*/&mut Data, key_id: Quark, dup_func: /*Unimplemented*/FnMut(/*Unimplemented*/Fundamental: Pointer) -> /*Unimplemented*/Fundamental: Pointer, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
 //    unsafe { TODO: call ffi::g_datalist_id_dup_data() }
 //}
@@ -256,7 +240,6 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call ffi::g_datalist_id_remove_no_notify() }
 //}
 
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn datalist_id_replace_data(datalist: /*Ignored*/&mut Data, key_id: Quark, oldval: /*Unimplemented*/Option<Fundamental: Pointer>, newval: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Fn() + 'static> {
 //    unsafe { TODO: call ffi::g_datalist_id_replace_data() }
 //}
@@ -412,13 +395,6 @@ pub fn format_size(size: u64) -> Option<GString> {
     }
 }
 
-#[deprecated]
-pub fn format_size_for_display(size: i64) -> Option<GString> {
-    unsafe {
-        from_glib_full(ffi::g_format_size_for_display(size))
-    }
-}
-
 pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_format_size_full(size, flags.to_glib()))
@@ -494,7 +470,6 @@ pub fn get_monotonic_time() -> i64 {
     }
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 pub fn get_num_processors() -> u32 {
     unsafe {
         ffi::g_get_num_processors()
@@ -1055,7 +1030,6 @@ pub fn spaced_primes_closest(num: u32) -> u32 {
 //    unsafe { TODO: call ffi::g_spawn_async_with_pipes() }
 //}
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), Error> {
     unsafe {
         let mut error = ptr::null_mut();
@@ -1095,7 +1069,6 @@ pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_add_data_func() }
 //}
 
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn test_add_data_func_full<P: Fn() + Send + Sync + 'static>(testpath: &str, test_data: /*Unimplemented*/Option<Fundamental: Pointer>, test_func: P) {
 //    unsafe { TODO: call ffi::g_test_add_data_func_full() }
 //}
@@ -1126,7 +1099,6 @@ pub fn test_bug_base(uri_pattern: &str) {
     }
 }
 
-//#[cfg(any(feature = "v2_38", feature = "dox"))]
 //pub fn test_build_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_build_filename() }
 //}
@@ -1139,7 +1111,6 @@ pub fn test_bug_base(uri_pattern: &str) {
 //    unsafe { TODO: call ffi::g_test_create_suite() }
 //}
 
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn test_expect_message<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, pattern: &str) {
 //    unsafe { TODO: call ffi::g_test_expect_message() }
 //}
@@ -1150,19 +1121,16 @@ pub fn test_fail() {
     }
 }
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_failed() -> bool {
     unsafe {
         from_glib(ffi::g_test_failed())
     }
 }
 
-//#[cfg(any(feature = "v2_38", feature = "dox"))]
 //pub fn test_get_dir(file_type: /*Ignored*/TestFileType) -> Option<std::path::PathBuf> {
 //    unsafe { TODO: call ffi::g_test_get_dir() }
 //}
 
-//#[cfg(any(feature = "v2_38", feature = "dox"))]
 //pub fn test_get_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
 //    unsafe { TODO: call ffi::g_test_get_filename() }
 //}
@@ -1171,7 +1139,6 @@ pub fn test_failed() -> bool {
 //    unsafe { TODO: call ffi::g_test_get_root() }
 //}
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_incomplete<'a, P: Into<Option<&'a str>>>(msg: P) {
     let msg = msg.into();
     unsafe {
@@ -1245,14 +1212,12 @@ pub fn test_run() -> i32 {
 //    unsafe { TODO: call ffi::g_test_run_suite() }
 //}
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_set_nonfatal_assertions() {
     unsafe {
         ffi::g_test_set_nonfatal_assertions();
     }
 }
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_skip<'a, P: Into<Option<&'a str>>>(msg: P) {
     let msg = msg.into();
     unsafe {
@@ -1260,7 +1225,6 @@ pub fn test_skip<'a, P: Into<Option<&'a str>>>(msg: P) {
     }
 }
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub fn test_subprocess() -> bool {
     unsafe {
         from_glib(ffi::g_test_subprocess())
@@ -1307,7 +1271,6 @@ pub fn test_trap_reached_timeout() -> bool {
     }
 }
 
-//#[cfg(any(feature = "v2_38", feature = "dox"))]
 //pub fn test_trap_subprocess<'a, P: Into<Option<&'a str>>>(test_path: P, usec_timeout: u64, test_flags: /*Ignored*/TestSubprocessFlags) {
 //    unsafe { TODO: call ffi::g_test_trap_subprocess() }
 //}

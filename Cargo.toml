@@ -25,18 +25,14 @@ lazy_static = "1.2"
 libc = "0.2"
 bitflags = "1.0"
 futures-preview = { version = "0.2", optional = true }
-glib-sys = { git = "https://github.com/gtk-rs/sys" }
-gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+glib-sys = { git = "https://github.com/gtk-rs/sys", features = ["v2_40"] }
+gobject-sys = { git = "https://github.com/gtk-rs/sys", features = ["v2_42"] }
 
 [dev-dependencies]
 tempfile = "3"
 
 [features]
-v2_34 = ["glib-sys/v2_34", "gobject-sys/v2_34"]
-v2_36 = ["v2_34", "glib-sys/v2_36", "gobject-sys/v2_36"]
-v2_38 = ["v2_36", "glib-sys/v2_38", "gobject-sys/v2_38"]
-v2_40 = ["v2_38", "glib-sys/v2_40"]
-v2_44 = ["v2_40", "glib-sys/v2_44", "gobject-sys/v2_44"]
+v2_44 = ["glib-sys/v2_44", "gobject-sys/v2_44"]
 v2_46 = ["v2_44", "glib-sys/v2_46", "gobject-sys/v2_46"]
 v2_48 = ["v2_46", "glib-sys/v2_48"]
 v2_50 = ["v2_48", "glib-sys/v2_50"]
@@ -44,6 +40,6 @@ v2_52 = ["v2_50", "glib-sys/v2_52"]
 v2_54 = ["v2_52", "glib-sys/v2_54", "gobject-sys/v2_54"]
 v2_56 = ["v2_54", "glib-sys/v2_56"]
 v2_58 = ["v2_56", "glib-sys/v2_58"]
-futures = ["futures-preview", "v2_36"]
+futures = ["futures-preview"]
 subclassing = []
 dox = ["glib-sys/dox", "gobject-sys/dox"]

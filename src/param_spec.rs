@@ -4,7 +4,6 @@
 //
 // TODO: Implement custom subtyping here for things like GParamSpecInt to get
 // default/min/max values and similar
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use Value;
 use gobject_ffi as ffi;
 use gobject_ffi;
@@ -51,7 +50,6 @@ impl ParamSpec {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn get_default_value(&self) -> Option<Value> {
         unsafe {
             from_glib_none(ffi::g_param_spec_get_default_value(self.to_glib_none().0))
