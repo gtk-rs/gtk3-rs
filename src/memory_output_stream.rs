@@ -3,7 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 
-#[cfg(all(test,any(feature = "v2_36", feature = "dox")))]
+#[cfg(test)]
 mod tests {
     use *;
 

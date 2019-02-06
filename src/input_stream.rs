@@ -229,7 +229,7 @@ impl <T: InputStreamExtManual> io::Read for InputStreamRead<T> {
     }
 }
 
-#[cfg(all(test,any(feature = "v2_34", feature = "dox")))]
+#[cfg(test)]
 mod tests {
     use glib::*;
     use std::io::Read;
@@ -237,7 +237,7 @@ mod tests {
     use *;
 
     #[test]
-    #[cfg(all(test,any(feature = "v2_44", feature = "dox")))]
+    #[cfg(feature = "v2_44")]
     fn read_all_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);
@@ -308,7 +308,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async() {
         let ret = run_async(|tx, l| {
             let b = Bytes::from_owned(vec![1, 2, 3]);

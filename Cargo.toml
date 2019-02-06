@@ -22,12 +22,7 @@ travis-ci = { repository = "gtk-rs/gio" }
 name = "gio"
 
 [features]
-v2_34 = ["gio-sys/v2_34", "glib/v2_34"]
-v2_36 = ["v2_34", "gio-sys/v2_36", "glib/v2_36"]
-v2_38 = ["v2_36", "gio-sys/v2_38", "glib/v2_38"]
-v2_40 = ["v2_38", "gio-sys/v2_40", "glib/v2_40"]
-v2_42 = ["v2_40", "gio-sys/v2_42"]
-v2_44 = ["v2_42", "gio-sys/v2_44", "glib/v2_44"]
+v2_44 = ["gio-sys/v2_44", "glib/v2_44"]
 v2_46 = ["v2_44", "gio-sys/v2_46", "glib/v2_46"]
 v2_48 = ["v2_46", "gio-sys/v2_48", "glib/v2_48"]
 v2_50 = ["v2_48", "gio-sys/v2_50", "glib/v2_50"]

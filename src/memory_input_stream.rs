@@ -5,7 +5,6 @@
 
 #[cfg(test)]
 mod tests {
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     use glib::Bytes;
     use *;
 
@@ -22,7 +21,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn new_from_bytes() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         let strm = MemoryInputStream::new_from_bytes(&b);
@@ -38,7 +36,6 @@ mod tests {
     }
 
     #[test]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn add_bytes() {
         let strm = MemoryInputStream::new();
         let b = Bytes::from_owned(vec![1, 2, 3]);
@@ -55,7 +52,7 @@ mod tests {
     }
 
     #[test]
-    #[cfg(all(feature = "futures", feature = "v2_34"))]
+    #[cfg(feature = "futures")]
     fn read_async_future() {
         use futures_util::FutureExt;
 
