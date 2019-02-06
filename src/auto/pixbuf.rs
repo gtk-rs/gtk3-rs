@@ -248,7 +248,7 @@ impl Pixbuf {
         }
     }
 
-    //pub fn save<'a, P: AsRef<std::path::Path>, Q: Into<Option<&'a Error>>>(&self, filename: P, type_: &str, error: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn save<'a, P: Into<Option<&'a Error>>>(&self, filename: &str, type_: &str, error: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::gdk_pixbuf_save() }
     //}
 
@@ -339,6 +339,11 @@ impl Pixbuf {
             ffi::gdk_pixbuf_calculate_rowstride(colorspace.to_glib(), has_alpha.to_glib(), bits_per_sample, width, height)
         }
     }
+
+    //#[cfg_attr(feature = "v2_32", deprecated)]
+    //pub fn from_pixdata(pixdata: /*Ignored*/&Pixdata, copy_pixels: bool) -> Result<Pixbuf, Error> {
+    //    unsafe { TODO: call ffi::gdk_pixbuf_from_pixdata() }
+    //}
 
     pub fn get_formats() -> Vec<PixbufFormat> {
         unsafe {
