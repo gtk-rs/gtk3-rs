@@ -22,7 +22,6 @@ use ScrollDirection;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use Seat;
 use Screen;
-#[cfg(any(feature = "v3_10", feature = "dox"))]
 use Window;
 
 glib_wrapper! {
@@ -209,7 +208,6 @@ impl Event {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     /// Returns the associated `Window` if applicable.
     pub fn get_window(&self) -> Option<Window> {
         unsafe {
