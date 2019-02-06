@@ -35,14 +35,13 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-#default = ["gtk_3_22_30", "futures-stable", "gio_2_40", "subclassing"]
-gtk_3_10 = ["gtk/v3_10"]
-gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
+#default = ["gtk_3_22_30", "futures-stable", "subclassing"]
+gtk_3_16 = ["gtk/v3_16"]
 gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
 gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
 gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
 gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
-gio_2_40 = ["gio/v2_40"]
+gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24"] #for CI tools
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
 subclassing = ["glib/subclassing"]
 
@@ -60,7 +59,6 @@ name = "cairo_png"
 
 [[bin]]
 name = "cairo_threads"
-required-features = ["glib/v2_36"]
 
 [[bin]]
 name = "cairotest"
@@ -100,7 +98,6 @@ name = "menu_bar"
 
 [[bin]]
 name = "menu_bar_system"
-required-features = ["gtk/v3_12"]
 
 [[bin]]
 name = "multi_windows"
@@ -134,4 +131,3 @@ name = "treeview"
 
 [[bin]]
 name = "status_icon"
-required-features = ["gio_2_40"]
