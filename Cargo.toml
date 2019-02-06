@@ -18,11 +18,7 @@ appveyor = { repository = "GuillaumeGomez/pango", service = "github" }
 travis-ci = { repository = "gtk-rs/pango" }
 
 [features]
-v1_31 = ["pango-sys/v1_31"]
-v1_32 = ["v1_31", "pango-sys/v1_32"]
-v1_32_4 = ["v1_32", "pango-sys/v1_32_4"]
-v1_34 = ["v1_32_4", "pango-sys/v1_34"]
-v1_36_7 = ["v1_34", "pango-sys/v1_36_7"]
+v1_36_7 = ["pango-sys/v1_36_7"]
 v1_38 = ["v1_36_7", "pango-sys/v1_38"]
 v1_40 = ["v1_38"]
 v1_42 = ["v1_40", "pango-sys/v1_42"]
