@@ -522,6 +522,19 @@ pub(crate) unsafe fn add_signal(
     );
 }
 
+#[repr(C)]
+pub struct SignalInvocationHint(gobject_ffi::GSignalInvocationHint);
+
+impl SignalInvocationHint {
+    pub fn detail(&self) -> ::Quark {
+        from_glib(self.0.detail)
+    }
+
+    pub fn run_type(&self) -> SignalFlags {
+        from_glib(self.0.run_type)
+    }
+}
+
 pub(crate) unsafe fn add_signal_with_accumulator<F>(
     type_: ffi::GType,
     name: &str,
@@ -530,22 +543,23 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
     ret_type: Type,
     accumulator: F,
 ) where
-    F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+    F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
 {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
 
     let accumulator: Box<F> = Box::new(accumulator);
 
     unsafe extern "C" fn accumulator_trampoline<
-        F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+        F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     >(
-        _ihint: *mut gobject_ffi::GSignalInvocationHint,
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
         return_accu: *mut gobject_ffi::GValue,
         handler_return: *const gobject_ffi::GValue,
         data: ffi::gpointer,
     ) -> ffi::gboolean {
         let accumulator: &F = &*(data as *const &F);
         accumulator(
+            &SignalInvocationHint(*ihint),
             &mut *(return_accu as *mut Value),
             &*(handler_return as *const Value),
         )
@@ -603,7 +617,7 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
     accumulator: G,
 ) where
     F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
-    G: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+    G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
 {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
 
@@ -611,15 +625,16 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
     let accumulator: Box<G> = Box::new(accumulator);
 
     unsafe extern "C" fn accumulator_trampoline<
-        G: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+        G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     >(
-        _ihint: *mut gobject_ffi::GSignalInvocationHint,
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
         return_accu: *mut gobject_ffi::GValue,
         handler_return: *const gobject_ffi::GValue,
         data: ffi::gpointer,
     ) -> ffi::gboolean {
         let accumulator: &G = &*(data as *const &G);
         accumulator(
+            &SignalInvocationHint(*ihint),
             &mut *(return_accu as *mut Value),
             &*(handler_return as *const Value),
         )

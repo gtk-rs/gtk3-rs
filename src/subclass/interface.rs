@@ -196,7 +196,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         ret_type: Type,
         accumulator: F,
     ) where
-        F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+        F: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     {
         unsafe {
             super::types::add_signal_with_accumulator(
@@ -231,7 +231,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         accumulator: G,
     ) where
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
-        G: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+        G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     {
         unsafe {
             super::types::add_signal_with_class_handler_and_accumulator(

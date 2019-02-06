@@ -195,4 +195,4 @@ pub mod prelude {
 pub use self::boxed::register_boxed_type;
 pub use self::interface::register_interface;
 pub use self::object::Property;
-pub use self::types::{register_type, InitializingType, TypeData};
+pub use self::types::{register_type, InitializingType, SignalInvocationHint, TypeData};
