@@ -165,7 +165,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         ret_type: Type,
         class_handler: F,
     ) where
-        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
     {
         unsafe {
             super::types::add_signal_with_class_handler(
@@ -230,7 +230,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         class_handler: F,
         accumulator: G,
     ) where
-        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
         G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     {
         unsafe {

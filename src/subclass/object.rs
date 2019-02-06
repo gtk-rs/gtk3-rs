@@ -12,7 +12,7 @@ use std::mem;
 use std::ptr;
 
 use translate::*;
-use {Object, ObjectClass, SignalFlags, Type, Value};
+use {Object, ObjectClass, ObjectType, SignalFlags, Type, Value};
 
 use super::prelude::*;
 use super::types;
@@ -202,7 +202,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         ret_type: Type,
         class_handler: F,
     ) where
-        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
     {
         unsafe {
             super::types::add_signal_with_class_handler(
@@ -267,7 +267,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         class_handler: F,
         accumulator: G,
     ) where
-        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
         G: Fn(&super::SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     {
         unsafe {
@@ -279,6 +279,19 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
                 ret_type,
                 class_handler,
                 accumulator,
+            );
+        }
+    }
+
+    fn override_signal_class_handler<F>(&mut self, name: &str, class_handler: F)
+    where
+        F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
+    {
+        unsafe {
+            super::types::signal_override_class_handler(
+                name,
+                *(self as *mut _ as *mut ffi::GType),
+                class_handler,
             );
         }
     }
@@ -296,6 +309,24 @@ unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
         }
     }
 }
+
+pub trait ObjectImplExt: ObjectImpl + ObjectSubclass {
+    fn signal_chain_from_overridden(
+        &self,
+        token: &super::SignalClassHandlerToken,
+        values: &[Value],
+    ) -> Option<Value> {
+        unsafe {
+            super::types::signal_chain_from_overridden(
+                self.get_instance().as_ptr() as *mut _,
+                token,
+                values,
+            )
+        }
+    }
+}
+
+impl<T: ObjectImpl + ObjectSubclass> ObjectImplExt for T {}
 
 #[cfg(test)]
 mod test {
@@ -360,7 +391,7 @@ mod test {
                 SignalFlags::RUN_LAST | SignalFlags::ACTION,
                 &[String::static_type()],
                 String::static_type(),
-                |args| {
+                |_, args| {
                     let obj = args[0].get::<Object>().unwrap();
                     let new_name = args[1].get::<String>().unwrap();
                     let imp = Self::from_instance(&obj);
