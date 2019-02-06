@@ -25,13 +25,6 @@ glib_wrapper! {
 }
 
 impl VolumeMonitor {
-    #[deprecated]
-    pub fn adopt_orphan_mount<P: IsA<Mount>>(mount: &P) -> Option<Volume> {
-        unsafe {
-            from_glib_full(ffi::g_volume_monitor_adopt_orphan_mount(mount.as_ref().to_glib_none().0))
-        }
-    }
-
     pub fn get() -> VolumeMonitor {
         unsafe {
             from_glib_full(ffi::g_volume_monitor_get())

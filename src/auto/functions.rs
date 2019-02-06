@@ -124,7 +124,6 @@ pub fn content_type_get_description(type_: &str) -> Option<GString> {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub fn content_type_get_generic_icon_name(type_: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_generic_icon_name(type_.to_glib_none().0))
@@ -143,7 +142,6 @@ pub fn content_type_get_mime_type(type_: &str) -> Option<GString> {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
     unsafe {
         from_glib_full(ffi::g_content_type_get_symbolic_icon(type_.to_glib_none().0))
@@ -191,7 +189,6 @@ pub fn content_types_get_registered() -> Vec<GString> {
     }
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_dbus_address_escape_value(string.to_glib_none().0))
@@ -359,7 +356,6 @@ pub fn memory_settings_backend_new() -> Option<SettingsBackend> {
     }
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 pub fn networking_init() {
     unsafe {
         ffi::g_networking_init();
@@ -525,7 +521,6 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
 //}
 
 //#[cfg(any(unix, feature = "dox"))]
-//#[cfg(any(feature = "v2_34", feature = "dox"))]
 //pub fn unix_mount_guess_symbolic_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
 //    unsafe { TODO: call ffi::g_unix_mount_guess_symbolic_icon() }
 //}

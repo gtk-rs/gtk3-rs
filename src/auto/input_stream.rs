@@ -41,14 +41,11 @@ pub trait InputStreamExt: 'static {
 
     fn is_closed(&self) -> bool;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, count: usize, cancellable: Q) -> Result<glib::Bytes, Error>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(&self, count: usize, io_priority: glib::Priority, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn set_pending(&self) -> Result<(), Error>;
@@ -128,7 +125,6 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, count: usize, cancellable: Q) -> Result<glib::Bytes, Error> {
         let cancellable = cancellable.into();
         unsafe {
@@ -138,7 +134,6 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(&self, count: usize, io_priority: glib::Priority, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<R> = Box::new(callback);
@@ -156,7 +151,6 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;

@@ -173,7 +173,6 @@ lazy_static! {
 lazy_static! {
     pub static ref FILE_ATTRIBUTE_STANDARD_SORT_ORDER: &'static str = unsafe{CStr::from_ptr(ffi::G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 lazy_static! {
     pub static ref FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON: &'static str = unsafe{CStr::from_ptr(ffi::G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON).to_str().unwrap()};
 }
@@ -189,7 +188,6 @@ lazy_static! {
 lazy_static! {
     pub static ref FILE_ATTRIBUTE_THUMBNAILING_FAILED: &'static str = unsafe{CStr::from_ptr(ffi::G_FILE_ATTRIBUTE_THUMBNAILING_FAILED).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 lazy_static! {
     pub static ref FILE_ATTRIBUTE_THUMBNAIL_IS_VALID: &'static str = unsafe{CStr::from_ptr(ffi::G_FILE_ATTRIBUTE_THUMBNAIL_IS_VALID).to_str().unwrap()};
 }
@@ -262,11 +260,9 @@ lazy_static! {
 lazy_static! {
     pub static ref MENU_ATTRIBUTE_ACTION: &'static str = unsafe{CStr::from_ptr(ffi::G_MENU_ATTRIBUTE_ACTION).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 lazy_static! {
     pub static ref MENU_ATTRIBUTE_ACTION_NAMESPACE: &'static str = unsafe{CStr::from_ptr(ffi::G_MENU_ATTRIBUTE_ACTION_NAMESPACE).to_str().unwrap()};
 }
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 lazy_static! {
     pub static ref MENU_ATTRIBUTE_ICON: &'static str = unsafe{CStr::from_ptr(ffi::G_MENU_ATTRIBUTE_ICON).to_str().unwrap()};
 }

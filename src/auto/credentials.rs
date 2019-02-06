@@ -38,7 +38,6 @@ pub trait CredentialsExt: 'static {
     //fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
     #[cfg(any(unix, feature = "dox"))]
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_unix_pid(&self) -> Result<i32, Error>;
 
     #[cfg(any(unix, feature = "dox"))]
@@ -60,7 +59,6 @@ impl<O: IsA<Credentials>> CredentialsExt for O {
     //}
 
     #[cfg(any(unix, feature = "dox"))]
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_unix_pid(&self) -> Result<i32, Error> {
         unsafe {
             let mut error = ptr::null_mut();

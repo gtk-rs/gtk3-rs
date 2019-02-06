@@ -2,37 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Cancellable;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Error;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use InputStream;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use OutputStream;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use SubprocessFlags;
 use ffi;
 #[cfg(feature = "futures")]
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use futures_core;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib_ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use gobject_ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std;
 #[cfg(feature = "futures")]
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -44,12 +31,10 @@ glib_wrapper! {
 }
 
 impl Subprocess {
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //pub fn new<'a, P: Into<Option<&'a Error>>>(flags: SubprocessFlags, error: P, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
     //    unsafe { TODO: call ffi::g_subprocess_new() }
     //}
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn newv(argv: &[&std::ffi::OsStr], flags: SubprocessFlags) -> Result<Subprocess, Error> {
         unsafe {
             let mut error = ptr::null_mut();
@@ -58,7 +43,6 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
@@ -71,7 +55,6 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate_async<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: R, callback: S) {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
@@ -92,7 +75,6 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
@@ -117,7 +99,6 @@ impl Subprocess {
         })
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<GString>, Option<GString>), Error> {
         let stdin_buf = stdin_buf.into();
         let cancellable = cancellable.into();
@@ -130,77 +111,66 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn force_exit(&self) {
         unsafe {
             ffi::g_subprocess_force_exit(self.to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_exit_status(&self) -> i32 {
         unsafe {
             ffi::g_subprocess_get_exit_status(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_identifier(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_subprocess_get_identifier(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_if_exited(&self) -> bool {
         unsafe {
             from_glib(ffi::g_subprocess_get_if_exited(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_if_signaled(&self) -> bool {
         unsafe {
             from_glib(ffi::g_subprocess_get_if_signaled(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_status(&self) -> i32 {
         unsafe {
             ffi::g_subprocess_get_status(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_stderr_pipe(&self) -> Option<InputStream> {
         unsafe {
             from_glib_none(ffi::g_subprocess_get_stderr_pipe(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_stdin_pipe(&self) -> Option<OutputStream> {
         unsafe {
             from_glib_none(ffi::g_subprocess_get_stdin_pipe(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_stdout_pipe(&self) -> Option<InputStream> {
         unsafe {
             from_glib_none(ffi::g_subprocess_get_stdout_pipe(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_successful(&self) -> bool {
         unsafe {
             from_glib(ffi::g_subprocess_get_successful(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_term_sig(&self) -> i32 {
         unsafe {
             ffi::g_subprocess_get_term_sig(self.to_glib_none().0)
@@ -208,14 +178,12 @@ impl Subprocess {
     }
 
     #[cfg(any(not(windows), feature = "dox"))]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn send_signal(&self, signal_num: i32) {
         unsafe {
             ffi::g_subprocess_send_signal(self.to_glib_none().0, signal_num);
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         unsafe {
@@ -225,7 +193,6 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<R> = Box::new(callback);
@@ -243,7 +210,6 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
@@ -265,7 +231,6 @@ impl Subprocess {
         })
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait_check<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
         let cancellable = cancellable.into();
         unsafe {
@@ -275,7 +240,6 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait_check_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<R> = Box::new(callback);
@@ -293,7 +257,6 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn wait_check_async_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;

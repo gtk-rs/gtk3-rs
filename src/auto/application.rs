@@ -9,13 +9,10 @@ use ApplicationFlags;
 use Cancellable;
 use Error;
 use File;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Notification;
 use ffi;
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 use glib;
 use glib::GString;
-use glib::StaticType;
 use glib::Value;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -64,13 +61,10 @@ pub const NONE_APPLICATION: Option<&Application> = None;
 pub trait ApplicationExt: 'static {
     fn activate(&self);
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: glib::OptionFlags, arg: glib::OptionArg, description: &str, arg_description: P);
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]);
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -78,10 +72,8 @@ pub trait ApplicationExt: 'static {
 
     fn get_application_id(&self) -> Option<GString>;
 
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
     //fn get_dbus_connection(&self) -> /*Ignored*/Option<DBusConnection>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_dbus_object_path(&self) -> Option<GString>;
 
     fn get_flags(&self) -> ApplicationFlags;
@@ -95,12 +87,10 @@ pub trait ApplicationExt: 'static {
 
     fn get_is_remote(&self) -> bool;
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn get_resource_base_path(&self) -> Option<GString>;
 
     fn hold(&self);
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn mark_busy(&self);
 
     fn open(&self, files: &[File], hint: &str);
@@ -111,11 +101,7 @@ pub trait ApplicationExt: 'static {
 
     fn release(&self);
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification);
-
-    #[deprecated]
-    fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q);
 
     fn set_application_id<'a, P: Into<Option<&'a str>>>(&self, application_id: P);
 
@@ -134,27 +120,21 @@ pub trait ApplicationExt: 'static {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn set_option_context_summary<'a, P: Into<Option<&'a str>>>(&self, summary: P);
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn set_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_path: P);
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn unbind_busy_property<P: IsA<glib::Object>>(&self, object: &P, property: &str);
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn unmark_busy(&self);
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn withdraw_notification(&self, id: &str);
 
-    fn get_property_resource_base_path(&self) -> Option<GString>;
-
-    fn set_property_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_base_path: P);
+    fn set_property_action_group<P: IsA<ActionGroup> + glib::value::SetValueOptional>(&self, action_group: Option<&P>);
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_command_line<F: Fn(&Self, &ApplicationCommandLine) -> i32 + 'static>(&self, f: F) -> SignalHandlerId;
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
     fn connect_shutdown<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -186,7 +166,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn add_main_option<'a, P: Into<Option<&'a str>>>(&self, long_name: &str, short_name: glib::Char, flags: glib::OptionFlags, arg: glib::OptionArg, description: &str, arg_description: P) {
         let arg_description = arg_description.into();
         unsafe {
@@ -194,12 +173,10 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_main_option_entries(&self, entries: /*Ignored*/&[&glib::OptionEntry]) {
     //    unsafe { TODO: call ffi::g_application_add_main_option_entries() }
     //}
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn add_option_group(&self, group: /*Ignored*/&glib::OptionGroup) {
     //    unsafe { TODO: call ffi::g_application_add_option_group() }
     //}
@@ -217,12 +194,10 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
     //fn get_dbus_connection(&self) -> /*Ignored*/Option<DBusConnection> {
     //    unsafe { TODO: call ffi::g_application_get_dbus_connection() }
     //}
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_dbus_object_path(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_application_get_dbus_object_path(self.as_ref().to_glib_none().0))
@@ -260,7 +235,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn get_resource_base_path(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_application_get_resource_base_path(self.as_ref().to_glib_none().0))
@@ -273,7 +247,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn mark_busy(&self) {
         unsafe {
             ffi::g_application_mark_busy(self.as_ref().to_glib_none().0);
@@ -308,18 +281,10 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn send_notification<'a, P: Into<Option<&'a str>>>(&self, id: P, notification: &Notification) {
         let id = id.into();
         unsafe {
             ffi::g_application_send_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0, notification.to_glib_none().0);
-        }
-    }
-
-    fn set_action_group<'a, P: IsA<ActionGroup> + 'a, Q: Into<Option<&'a P>>>(&self, action_group: Q) {
-        let action_group = action_group.into();
-        unsafe {
-            ffi::g_application_set_action_group(self.as_ref().to_glib_none().0, action_group.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
@@ -372,7 +337,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     fn set_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_path: P) {
         let resource_path = resource_path.into();
         unsafe {
@@ -387,32 +351,21 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn unmark_busy(&self) {
         unsafe {
             ffi::g_application_unmark_busy(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn withdraw_notification(&self, id: &str) {
         unsafe {
             ffi::g_application_withdraw_notification(self.as_ref().to_glib_none().0, id.to_glib_none().0);
         }
     }
 
-    fn get_property_resource_base_path(&self) -> Option<GString> {
+    fn set_property_action_group<P: IsA<ActionGroup> + glib::value::SetValueOptional>(&self, action_group: Option<&P>) {
         unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"resource-base-path\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-            value.get()
-        }
-    }
-
-    fn set_property_resource_base_path<'a, P: Into<Option<&'a str>>>(&self, resource_base_path: P) {
-        let resource_base_path = resource_base_path.into();
-        unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"resource-base-path\0".as_ptr() as *const _, Value::from(resource_base_path).to_glib_none().0);
+            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"action-group\0".as_ptr() as *const _, Value::from(action_group).to_glib_none().0);
         }
     }
 
@@ -432,7 +385,6 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn connect_handle_local_options<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Ignored options: GLib.VariantDict
     //}

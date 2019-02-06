@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use AppInfo;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use AppLaunchContext;
 use ffi;
 use glib;
@@ -40,17 +39,9 @@ impl DesktopAppInfo {
         }
     }
 
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     pub fn get_implementations(interface: &str) -> Vec<DesktopAppInfo> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_desktop_app_info_get_implementations(interface.to_glib_none().0))
-        }
-    }
-
-    #[cfg_attr(feature = "v2_42", deprecated)]
-    pub fn set_desktop_env(desktop_env: &str) {
-        unsafe {
-            ffi::g_desktop_app_info_set_desktop_env(desktop_env.to_glib_none().0);
         }
     }
 }
@@ -58,10 +49,8 @@ impl DesktopAppInfo {
 pub const NONE_DESKTOP_APP_INFO: Option<&DesktopAppInfo> = None;
 
 pub trait DesktopAppInfoExt: 'static {
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn get_action_name(&self, action_name: &str) -> Option<GString>;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_boolean(&self, key: &str) -> bool;
 
     fn get_categories(&self) -> Option<GString>;
@@ -81,16 +70,12 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn get_show_in<'a, P: Into<Option<&'a str>>>(&self, desktop_env: P) -> bool;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_startup_wm_class(&self) -> Option<GString>;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_string(&self, key: &str) -> Option<GString>;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn has_key(&self, key: &str) -> bool;
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn launch_action<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, action_name: &str, launch_context: Q);
 
     //fn launch_uris_as_manager<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
@@ -98,19 +83,16 @@ pub trait DesktopAppInfoExt: 'static {
     //#[cfg(any(feature = "v2_58", feature = "dox"))]
     //fn launch_uris_as_manager_with_fds<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn list_actions(&self) -> Vec<GString>;
 }
 
 impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn get_action_name(&self, action_name: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_action_name(self.as_ref().to_glib_none().0, action_name.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_boolean(&self, key: &str) -> bool {
         unsafe {
             from_glib(ffi::g_desktop_app_info_get_boolean(self.as_ref().to_glib_none().0, key.to_glib_none().0))
@@ -167,28 +149,24 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_startup_wm_class(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::g_desktop_app_info_get_startup_wm_class(self.as_ref().to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_desktop_app_info_get_string(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn has_key(&self, key: &str) -> bool {
         unsafe {
             from_glib(ffi::g_desktop_app_info_has_key(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn launch_action<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, action_name: &str, launch_context: Q) {
         let launch_context = launch_context.into();
         unsafe {
@@ -205,7 +183,6 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     //    unsafe { TODO: call ffi::g_desktop_app_info_launch_uris_as_manager_with_fds() }
     //}
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     fn list_actions(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_desktop_app_info_list_actions(self.as_ref().to_glib_none().0))

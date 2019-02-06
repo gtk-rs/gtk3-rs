@@ -64,7 +64,6 @@ pub const NONE_TLS_CERTIFICATE: Option<&TlsCertificate> = None;
 pub trait TlsCertificateExt: 'static {
     fn get_issuer(&self) -> Option<TlsCertificate>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn is_same<P: IsA<TlsCertificate>>(&self, cert_two: &P) -> bool;
 
     fn verify<'a, 'b, P: IsA<SocketConnectable> + 'a, Q: Into<Option<&'a P>>, R: IsA<TlsCertificate> + 'b, S: Into<Option<&'b R>>>(&self, identity: Q, trusted_ca: S) -> TlsCertificateFlags;
@@ -81,7 +80,6 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn is_same<P: IsA<TlsCertificate>>(&self, cert_two: &P) -> bool {
         unsafe {
             from_glib(ffi::g_tls_certificate_is_same(self.as_ref().to_glib_none().0, cert_two.as_ref().to_glib_none().0))

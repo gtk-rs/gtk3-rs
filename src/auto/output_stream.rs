@@ -52,7 +52,6 @@ pub trait OutputStreamExt: 'static {
 
     fn is_closing(&self) -> bool;
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn printf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize>;
 
     fn set_pending(&self) -> Result<(), Error>;
@@ -64,7 +63,6 @@ pub trait OutputStreamExt: 'static {
     #[cfg(feature = "futures")]
     fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn vprintf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
 
     fn write<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, buffer: &[u8], cancellable: Q) -> Result<isize, Error>;
@@ -198,7 +196,6 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn printf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<usize> {
     //    unsafe { TODO: call ffi::g_output_stream_printf() }
     //}
@@ -262,7 +259,6 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         })
     }
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn vprintf<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize> {
     //    unsafe { TODO: call ffi::g_output_stream_vprintf() }
     //}

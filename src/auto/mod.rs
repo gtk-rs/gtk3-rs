@@ -18,9 +18,7 @@ mod app_info;
 pub use self::app_info::{AppInfo, NONE_APP_INFO};
 pub use self::app_info::AppInfoExt;
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 mod app_info_monitor;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::app_info_monitor::{AppInfoMonitor, AppInfoMonitorClass};
 
 mod app_launch_context;
@@ -43,9 +41,7 @@ mod buffered_output_stream;
 pub use self::buffered_output_stream::{BufferedOutputStream, BufferedOutputStreamClass, NONE_BUFFERED_OUTPUT_STREAM};
 pub use self::buffered_output_stream::BufferedOutputStreamExt;
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 mod bytes_icon;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub use self::bytes_icon::{BytesIcon, BytesIconClass};
 
 mod cancellable;
@@ -227,9 +223,7 @@ mod network_service;
 pub use self::network_service::{NetworkService, NetworkServiceClass, NONE_NETWORK_SERVICE};
 pub use self::network_service::NetworkServiceExt;
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 mod notification;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::notification::{Notification, NotificationClass};
 
 mod output_stream;
@@ -248,9 +242,7 @@ mod pollable_output_stream;
 pub use self::pollable_output_stream::{PollableOutputStream, NONE_POLLABLE_OUTPUT_STREAM};
 pub use self::pollable_output_stream::PollableOutputStreamExt;
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 mod property_action;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub use self::property_action::{PropertyAction, PropertyActionClass};
 
 mod proxy;
@@ -290,7 +282,6 @@ pub use self::simple_action::{SimpleAction, SimpleActionClass};
 
 mod simple_action_group;
 pub use self::simple_action_group::{SimpleActionGroup, SimpleActionGroupClass, NONE_SIMPLE_ACTION_GROUP};
-pub use self::simple_action_group::SimpleActionGroupExt;
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod simple_io_stream;
@@ -332,14 +323,10 @@ mod socket_service;
 pub use self::socket_service::{SocketService, SocketServiceClass, NONE_SOCKET_SERVICE};
 pub use self::socket_service::SocketServiceExt;
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::subprocess::{Subprocess, SubprocessClass};
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 mod subprocess_launcher;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::subprocess_launcher::{SubprocessLauncher, SubprocessLauncherClass};
 
 mod tcp_connection;
@@ -419,9 +406,7 @@ pub use self::resource::Resource;
 mod settings_schema;
 pub use self::settings_schema::SettingsSchema;
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 mod settings_schema_key;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::settings_schema_key::SettingsSchemaKey;
 
 mod settings_schema_source;
@@ -443,10 +428,8 @@ pub use self::enums::IOErrorEnum;
 pub use self::enums::MountOperationResult;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::enums::NetworkConnectivity;
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 pub use self::enums::NotificationPriority;
 pub use self::enums::PasswordSave;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub use self::enums::ResolverRecordType;
 pub use self::enums::ResourceError;
 pub use self::enums::SocketClientEvent;
@@ -456,7 +439,6 @@ pub use self::enums::SocketListenerEvent;
 pub use self::enums::SocketProtocol;
 pub use self::enums::SocketType;
 pub use self::enums::TlsAuthenticationMode;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::enums::TlsCertificateRequestFlags;
 pub use self::enums::TlsDatabaseLookupFlags;
 pub use self::enums::TlsInteractionResult;
@@ -479,7 +461,6 @@ pub use self::flags::MountUnmountFlags;
 pub use self::flags::OutputStreamSpliceFlags;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::SettingsBindFlags;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::flags::SubprocessFlags;
 pub use self::flags::TlsCertificateFlags;
 pub use self::flags::TlsDatabaseVerifyFlags;
@@ -546,13 +527,11 @@ pub use self::constants::FILE_ATTRIBUTE_STANDARD_IS_VOLATILE;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_NAME;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SIZE;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SORT_ORDER;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_TARGET_URI;
 pub use self::constants::FILE_ATTRIBUTE_STANDARD_TYPE;
 pub use self::constants::FILE_ATTRIBUTE_THUMBNAILING_FAILED;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 pub use self::constants::FILE_ATTRIBUTE_THUMBNAIL_IS_VALID;
 pub use self::constants::FILE_ATTRIBUTE_THUMBNAIL_PATH;
 pub use self::constants::FILE_ATTRIBUTE_TIME_ACCESS;
@@ -577,9 +556,7 @@ pub use self::constants::FILE_ATTRIBUTE_UNIX_NLINK;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_RDEV;
 pub use self::constants::FILE_ATTRIBUTE_UNIX_UID;
 pub use self::constants::MENU_ATTRIBUTE_ACTION;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 pub use self::constants::MENU_ATTRIBUTE_ACTION_NAMESPACE;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 pub use self::constants::MENU_ATTRIBUTE_ICON;
 pub use self::constants::MENU_ATTRIBUTE_LABEL;
 pub use self::constants::MENU_ATTRIBUTE_TARGET;
@@ -669,7 +646,6 @@ pub mod traits {
     pub use super::SeekableExt;
     pub use super::SettingsExt;
     pub use super::SettingsBackendExt;
-    pub use super::SimpleActionGroupExt;
     pub use super::SocketExt;
     pub use super::SocketAddressExt;
     pub use super::SocketAddressEnumeratorExt;

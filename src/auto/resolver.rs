@@ -5,13 +5,11 @@
 use Cancellable;
 use Error;
 use InetAddress;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use ResolverRecordType;
 use SrvTarget;
 use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use glib;
 use glib::GString;
 use glib::object::Cast;
@@ -67,14 +65,11 @@ pub trait ResolverExt: 'static {
     #[cfg(feature = "futures")]
     fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<futures_core::Future<Item = (Self, Vec<InetAddress>), Error = (Self, Error)>> where Self: Sized + Clone;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q) -> Result<Vec<glib::Variant>, Error>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q, callback: R);
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone;
 
     fn lookup_service<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, service: &str, protocol: &str, domain: &str, cancellable: Q) -> Result<Vec<SrvTarget>, Error>;
@@ -188,7 +183,6 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         })
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q) -> Result<Vec<glib::Variant>, Error> {
         let cancellable = cancellable.into();
         unsafe {
@@ -198,7 +192,6 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Q, callback: R) {
         let cancellable = cancellable.into();
         let user_data: Box<R> = Box::new(callback);
@@ -216,7 +209,6 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<futures_core::Future<Item = (Self, Vec<glib::Variant>), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;

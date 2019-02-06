@@ -6,7 +6,6 @@ use OutputStream;
 use PollableOutputStream;
 use Seekable;
 use ffi;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -27,7 +26,6 @@ glib_wrapper! {
 }
 
 impl MemoryOutputStream {
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn new_resizable() -> MemoryOutputStream {
         unsafe {
             OutputStream::from_glib_full(ffi::g_memory_output_stream_new_resizable()).unsafe_cast()
@@ -40,7 +38,6 @@ pub const NONE_MEMORY_OUTPUT_STREAM: Option<&MemoryOutputStream> = None;
 pub trait MemoryOutputStreamExt: 'static {
     fn get_data_size(&self) -> usize;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn steal_as_bytes(&self) -> Option<glib::Bytes>;
 
     fn connect_property_data_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -53,7 +50,6 @@ impl<O: IsA<MemoryOutputStream>> MemoryOutputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn steal_as_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
             from_glib_full(ffi::g_memory_output_stream_steal_as_bytes(self.as_ref().to_glib_none().0))

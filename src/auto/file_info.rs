@@ -71,7 +71,6 @@ pub trait FileInfoExt: 'static {
 
     fn get_content_type(&self) -> Option<GString>;
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //fn get_deletion_date(&self) -> /*Ignored*/Option<glib::DateTime>;
 
     fn get_display_name(&self) -> Option<GString>;
@@ -98,7 +97,6 @@ pub trait FileInfoExt: 'static {
 
     fn get_sort_order(&self) -> i32;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon>;
 
     fn get_symlink_target(&self) -> Option<GString>;
@@ -157,7 +155,6 @@ pub trait FileInfoExt: 'static {
 
     fn set_sort_order(&self, sort_order: i32);
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn set_symbolic_icon<P: IsA<Icon>>(&self, icon: &P);
 
     fn set_symlink_target(&self, symlink_target: &str);
@@ -262,7 +259,6 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_36", feature = "dox"))]
     //fn get_deletion_date(&self) -> /*Ignored*/Option<glib::DateTime> {
     //    unsafe { TODO: call ffi::g_file_info_get_deletion_date() }
     //}
@@ -337,7 +333,6 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
             from_glib_none(ffi::g_file_info_get_symbolic_icon(self.as_ref().to_glib_none().0))
@@ -505,7 +500,6 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn set_symbolic_icon<P: IsA<Icon>>(&self, icon: &P) {
         unsafe {
             ffi::g_file_info_set_symbolic_icon(self.as_ref().to_glib_none().0, icon.as_ref().to_glib_none().0);

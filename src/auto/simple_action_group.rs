@@ -2,11 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Action;
 use ActionGroup;
 use ActionMap;
 use ffi;
-use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
@@ -33,44 +31,6 @@ impl Default for SimpleActionGroup {
 }
 
 pub const NONE_SIMPLE_ACTION_GROUP: Option<&SimpleActionGroup> = None;
-
-pub trait SimpleActionGroupExt: 'static {
-    //#[cfg_attr(feature = "v2_38", deprecated)]
-    //fn add_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
-
-    #[cfg_attr(feature = "v2_38", deprecated)]
-    fn insert<P: IsA<Action>>(&self, action: &P);
-
-    #[cfg_attr(feature = "v2_38", deprecated)]
-    fn lookup(&self, action_name: &str) -> Option<Action>;
-
-    #[cfg_attr(feature = "v2_38", deprecated)]
-    fn remove(&self, action_name: &str);
-}
-
-impl<O: IsA<SimpleActionGroup>> SimpleActionGroupExt for O {
-    //fn add_entries(&self, entries: /*Ignored*/&[&ActionEntry], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_simple_action_group_add_entries() }
-    //}
-
-    fn insert<P: IsA<Action>>(&self, action: &P) {
-        unsafe {
-            ffi::g_simple_action_group_insert(self.as_ref().to_glib_none().0, action.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn lookup(&self, action_name: &str) -> Option<Action> {
-        unsafe {
-            from_glib_none(ffi::g_simple_action_group_lookup(self.as_ref().to_glib_none().0, action_name.to_glib_none().0))
-        }
-    }
-
-    fn remove(&self, action_name: &str) {
-        unsafe {
-            ffi::g_simple_action_group_remove(self.as_ref().to_glib_none().0, action_name.to_glib_none().0);
-        }
-    }
-}
 
 impl fmt::Display for SimpleActionGroup {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
