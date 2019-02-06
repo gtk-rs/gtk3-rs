@@ -18,9 +18,9 @@ exclude = [
 name = "gdk"
 
 [features]
-v3_16 = ["gdk-sys/v3_16", "gio/v2_42"]
-v3_18 = ["v3_16", "gdk-sys/v3_18", "gio/v2_44"]
-v3_20 = ["v3_18", "gdk-sys/v3_20", "gio/v2_48"]
+v3_16 = ["gdk-sys/v3_16"]
+v3_18 = ["v3_16", "gdk-sys/v3_18"]
+v3_20 = ["v3_18", "gdk-sys/v3_20"]
 v3_22 = ["v3_20", "gdk-sys/v3_22"]
 v3_24 = ["v3_22", "gdk-sys/v3_24"]
 dox = ["gdk-sys/dox", "glib/dox", "gio/dox", "gdk-pixbuf/dox", "cairo-rs/dox", "pango/dox"]
