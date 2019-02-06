@@ -2,7 +2,7 @@
 girs_dir = "gir-files"
 library = "Atk"
 version = "1.0"
-min_cfg_version = "2.2"
+min_cfg_version = "2.14"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true

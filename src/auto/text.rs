@@ -5,7 +5,6 @@
 use CoordType;
 use TextBoundary;
 use TextClipType;
-#[cfg(any(feature = "v2_10", feature = "dox"))]
 use TextGranularity;
 use TextRange;
 use TextRectangle;
@@ -58,18 +57,11 @@ pub trait TextExt: 'static {
 
     fn get_selection(&self, selection_num: i32) -> (GString, i32, i32);
 
-    #[cfg(any(feature = "v2_10", feature = "dox"))]
     fn get_string_at_offset(&self, offset: i32, granularity: TextGranularity) -> (Option<GString>, i32, i32);
 
     fn get_text(&self, start_offset: i32, end_offset: i32) -> Option<GString>;
 
-    #[cfg_attr(feature = "v2_9_3", deprecated)]
-    fn get_text_after_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32);
-
     fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32);
-
-    #[cfg_attr(feature = "v2_9_3", deprecated)]
-    fn get_text_before_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32);
 
     fn remove_selection(&self, selection_num: i32) -> bool;
 
@@ -80,9 +72,6 @@ pub trait TextExt: 'static {
     fn connect_text_attributes_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_text_caret_moved<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v2_9_4", deprecated)]
-    fn connect_text_changed<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -170,7 +159,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_10", feature = "dox"))]
     fn get_string_at_offset(&self, offset: i32, granularity: TextGranularity) -> (Option<GString>, i32, i32) {
         unsafe {
             let mut start_offset = mem::uninitialized();
@@ -186,29 +174,11 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn get_text_after_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32) {
-        unsafe {
-            let mut start_offset = mem::uninitialized();
-            let mut end_offset = mem::uninitialized();
-            let ret = from_glib_full(ffi::atk_text_get_text_after_offset(self.as_ref().to_glib_none().0, offset, boundary_type.to_glib(), &mut start_offset, &mut end_offset));
-            (ret, start_offset, end_offset)
-        }
-    }
-
     fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32) {
         unsafe {
             let mut start_offset = mem::uninitialized();
             let mut end_offset = mem::uninitialized();
             let ret = from_glib_full(ffi::atk_text_get_text_at_offset(self.as_ref().to_glib_none().0, offset, boundary_type.to_glib(), &mut start_offset, &mut end_offset));
-            (ret, start_offset, end_offset)
-        }
-    }
-
-    fn get_text_before_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32) {
-        unsafe {
-            let mut start_offset = mem::uninitialized();
-            let mut end_offset = mem::uninitialized();
-            let ret = from_glib_full(ffi::atk_text_get_text_before_offset(self.as_ref().to_glib_none().0, offset, boundary_type.to_glib(), &mut start_offset, &mut end_offset));
             (ret, start_offset, end_offset)
         }
     }
@@ -247,14 +217,6 @@ impl<O: IsA<Text>> TextExt for O {
         }
     }
 
-    fn connect_text_changed<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"text-changed\0".as_ptr() as *const _,
-                Some(transmute(text_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
-        }
-    }
-
     fn connect_text_insert<F: Fn(&Self, i32, i32, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -290,12 +252,6 @@ unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(th
 where P: IsA<Text> {
     let f: &F = transmute(f);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1)
-}
-
-unsafe extern "C" fn text_changed_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, f: glib_ffi::gpointer)
-where P: IsA<Text> {
-    let f: &F = transmute(f);
-    f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2)
 }
 
 unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
