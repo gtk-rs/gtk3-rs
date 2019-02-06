@@ -94,3 +94,33 @@ impl FromGlib<ffi::GParamFlags> for ParamFlags {
     }
 }
 
+bitflags! {
+    pub struct SignalFlags: u32 {
+        const RUN_FIRST = 1;
+        const RUN_LAST = 2;
+        const RUN_CLEANUP = 4;
+        const NO_RECURSE = 8;
+        const DETAILED = 16;
+        const ACTION = 32;
+        const NO_HOOKS = 64;
+        const MUST_COLLECT = 128;
+        const DEPRECATED = 256;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SignalFlags {
+    type GlibType = ffi::GSignalFlags;
+
+    fn to_glib(&self) -> ffi::GSignalFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<ffi::GSignalFlags> for SignalFlags {
+    fn from_glib(value: ffi::GSignalFlags) -> SignalFlags {
+        SignalFlags::from_bits_truncate(value)
+    }
+}
+

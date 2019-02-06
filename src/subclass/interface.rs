@@ -11,7 +11,7 @@ use std::ptr;
 
 use super::{InitializingType, Property};
 use translate::*;
-use {IsA, Object, ObjectExt, StaticType, Type, Value};
+use {IsA, Object, ObjectExt, SignalFlags, StaticType, Type, Value};
 
 impl<T: ObjectInterface> InitializingType<T> {
     /// Adds an interface prerequisite for `I` to the type.
@@ -139,13 +139,42 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     ///
     /// This can be emitted later by `glib::Object::emit` and external code
     /// can connect to the signal to get notified about emissions.
-    fn add_signal(&mut self, name: &str, arg_types: &[Type], ret_type: Type) {
+    fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
         unsafe {
             super::types::add_signal(
                 *(self as *mut _ as *mut ffi::GType),
                 name,
+                flags,
                 arg_types,
                 ret_type,
+            );
+        }
+    }
+
+    /// Add a new signal with class handler to the interface.
+    ///
+    /// This can be emitted later by `glib::Object::emit` and external code
+    /// can connect to the signal to get notified about emissions.
+    ///
+    /// The class handler will be called during the signal emission at the corresponding stage.
+    fn add_signal_with_class_handler<F>(
+        &mut self,
+        name: &str,
+        flags: SignalFlags,
+        arg_types: &[Type],
+        ret_type: Type,
+        class_handler: F,
+    ) where
+        F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+    {
+        unsafe {
+            super::types::add_signal_with_class_handler(
+                *(self as *mut _ as *mut ffi::GType),
+                name,
+                flags,
+                arg_types,
+                ret_type,
+                class_handler,
             );
         }
     }
@@ -162,6 +191,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     fn add_signal_with_accumulator<F>(
         &mut self,
         name: &str,
+        flags: SignalFlags,
         arg_types: &[Type],
         ret_type: Type,
         accumulator: F,
@@ -172,6 +202,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
             super::types::add_signal_with_accumulator(
                 *(self as *mut _ as *mut ffi::GType),
                 name,
+                flags,
                 arg_types,
                 ret_type,
                 accumulator,
@@ -179,23 +210,38 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         }
     }
 
-    /// Add a new action signal with accumulator to the interface.
+    /// Add a new signal with accumulator and class handler to the interface.
     ///
-    /// Different to normal signals, action signals are supposed to be emitted
-    /// by external code and will cause the provided handler to be called.
+    /// This can be emitted later by `glib::Object::emit` and external code
+    /// can connect to the signal to get notified about emissions.
     ///
-    /// It can be thought of as a dynamic function call.
-    fn add_action_signal<F>(&mut self, name: &str, arg_types: &[Type], ret_type: Type, handler: F)
-    where
+    /// The accumulator function is used for accumulating the return values of
+    /// multiple signal handlers. The new value is passed as second argument and
+    /// should be combined with the old value in the first argument. If no further
+    /// signal handlers should be called, `false` should be returned.
+    ///
+    /// The class handler will be called during the signal emission at the corresponding stage.
+    fn add_signal_with_class_handler_and_accumulator<F, G>(
+        &mut self,
+        name: &str,
+        flags: SignalFlags,
+        arg_types: &[Type],
+        ret_type: Type,
+        class_handler: F,
+        accumulator: G,
+    ) where
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+        G: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
     {
         unsafe {
-            super::types::add_action_signal(
+            super::types::add_signal_with_class_handler_and_accumulator(
                 *(self as *mut _ as *mut ffi::GType),
                 name,
+                flags,
                 arg_types,
                 ret_type,
-                handler,
+                class_handler,
+                accumulator,
             );
         }
     }

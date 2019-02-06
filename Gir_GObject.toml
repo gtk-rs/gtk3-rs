@@ -12,6 +12,7 @@ deprecate_by_min_version = true
 generate = [
     "GObject.BindingFlags",
     "GObject.ParamFlags",
+    "GObject.SignalFlags",
 ]
 
 ignore = [
