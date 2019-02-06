@@ -88,7 +88,6 @@ pub trait LayoutExt: 'static {
 
     fn get_pixel_size(&self) -> (i32, i32);
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32;
 
     fn get_single_paragraph_mode(&self) -> bool;
@@ -311,7 +310,6 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32 {
         unsafe {
             ffi::pango_layout_get_serial(self.as_ref().to_glib_none().0)
