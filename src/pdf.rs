@@ -107,12 +107,12 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
 
 
 pub struct Writer<W: io::Write> {
-    writer: support::Writer_<File, W>,
+    writer: support::Writer<File, W>,
 }
 
 impl<W: io::Write> Writer<W> {
     pub fn new(width: f64, height: f64, writer: W) -> Writer<W> {
-        let writer = support::Writer_::new(ffi::cairo_pdf_surface_create_for_stream,
+        let writer = support::Writer::new(ffi::cairo_pdf_surface_create_for_stream,
             width, height, writer);
 
         Writer { writer }

@@ -8,62 +8,51 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::{SurfaceType, SvgVersion, SvgUnit};
-use surface::{Surface, SurfaceExt};
-use support;
+use ::enums::{SvgVersion, SvgUnit};
+use surface::Surface;
+use support::{self, FromRawSurface};
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
-macro_rules! imp {
-    () => {
-        pub fn restrict(&self, version: SvgVersion) {
-            unsafe {
-                ffi::cairo_svg_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
-            }
-        }
-        pub fn set_document_unit(&mut self, unit: SvgUnit) {
-            unsafe {
-                ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit.into());
-            }
-        }
-        pub fn get_document_unit(&self) -> SvgUnit {
-            unsafe {
-                SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(self.inner.to_raw_none()))
-            }
-        }
-    }
-}
 
 pub struct File {
     inner: Surface
 }
 
+impl FromRawSurface for File {
+    unsafe fn from_raw_surface(surface: *mut ffi::cairo_surface_t) -> File {
+        File { inner: Surface::from_raw_full(surface) }
+    }
+}
+
 impl File {
-    #[doc(hidden)]
-    pub fn from(surface: Surface) -> Result<File, Surface> {
-        if surface.get_type() == SurfaceType::Svg {
-            Ok(File { inner: surface })
-        } else {
-            Err(surface)
-        }
-    }
-
-    #[doc(hidden)]
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> File {
-        Self::from(Surface::from_raw_full(ptr)).unwrap()
-    }
-
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> File {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Self::from_raw_full(ffi::cairo_svg_surface_create(path.as_ptr(), width, height))
+            Self::from_raw_surface(ffi::cairo_svg_surface_create(path.as_ptr(), width, height))
         }
     }
 
-    imp!();
+    pub fn restrict(&self, version: SvgVersion) {
+        unsafe {
+            ffi::cairo_svg_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
+        }
+    }
+
+    pub fn set_document_unit(&mut self, unit: SvgUnit) {
+        unsafe {
+            ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit.into());
+        }
+    }
+
+    pub fn get_document_unit(&self) -> SvgUnit {
+        unsafe {
+            SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(self.inner.to_raw_none()))
+        }
+    }
 }
 
 impl AsRef<Surface> for File {
@@ -78,6 +67,11 @@ impl Deref for File {
     fn deref(&self) -> &Surface {
         &self.inner
     }
+}
+
+impl AsRef<File> for File {
+    // This is included in order to be able to be generic over SVG surfaces
+    fn as_ref(&self) -> &File { self }
 }
 
 #[cfg(feature = "use_glib")]
@@ -95,7 +89,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for File {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for File {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> File {
-        Self::from(from_glib_none(ptr)).unwrap()
+        File { inner: from_glib_borrow(ptr) }
     }
 }
 
@@ -103,7 +97,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for File {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for File {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> File {
-        Self::from(from_glib_borrow(ptr)).unwrap()
+        File { inner: from_glib_borrow(ptr) }
     }
 }
 
@@ -111,159 +105,114 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for File {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> File {
-        Self::from_raw_full(ptr)
+        Self::from_raw_surface(ptr)
     }
 }
 
-pub struct Buffer {
-    inner: Surface,
-    #[allow(unused)]
-    support: support::Buffer,
+
+pub struct Writer<W: io::Write> {
+    writer: support::Writer<File, W>,
 }
 
-impl Buffer {
-    pub fn new(width: f64, height: f64) -> Buffer {
-        let support = support::Buffer::new(ffi::cairo_svg_surface_create_for_stream, width, height);
+impl<W: io::Write> Writer<W> {
+    pub fn new(width: f64, height: f64, writer: W) -> Writer<W> {
+        let writer = support::Writer::new(ffi::cairo_svg_surface_create_for_stream,
+            width, height, writer);
 
-        Buffer {
-            inner: unsafe { Surface::from_raw_full(support.as_ptr()) },
-            support: support,
-        }
+        Writer { writer }
     }
 
-    imp!();
-}
-
-impl AsRef<[u8]> for Buffer {
-    fn as_ref(&self) -> &[u8] {
-        self.support.as_ref()
+    pub fn finish(self) -> W {
+        self.writer.finish()
     }
 }
 
-impl AsRef<Surface> for Buffer {
+impl<W: io::Write> Deref for Writer<W> {
+    type Target = File;
+
+    fn deref(&self) -> &File {
+        &self.writer.surface
+    }
+}
+
+impl<W: io::Write> AsRef<File> for Writer<W> {
+    fn as_ref(&self) -> &File {
+        &self.writer.surface
+    }
+}
+
+impl<W: io::Write> AsRef<Surface> for Writer<W> {
     fn as_ref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-impl Deref for Buffer {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.inner
+        &self.writer.surface.as_ref()
     }
 }
 
 #[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Buffer {
+impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
     type Storage = &'a Surface;
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
+        let stash = self.writer.surface.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }
 
-pub struct Writer<'a> {
-    inner: Surface,
-    #[allow(unused)]
-    support: support::Writer<'a>,
+
+pub struct RefWriter<'w, W: io::Write + 'w> {
+    writer: support::RefWriter<'w, File, W>,
 }
 
-impl<'a> Writer<'a> {
-    pub fn new<'b, W: 'b + io::Write>(width: f64, height: f64, w: W) -> Writer<'b> {
-        let support = support::Writer::new(ffi::cairo_svg_surface_create_for_stream, width, height, w);
+impl<'w, W: io::Write + 'w> RefWriter<'w, W> {
+    pub fn new(width: f64, height: f64, writer: &'w mut W) -> RefWriter<'w, W> {
+        let writer = support::RefWriter::new(ffi::cairo_svg_surface_create_for_stream,
+            width, height, writer);
 
-        Writer {
-            inner: unsafe { Surface::from_raw_full(support.as_ptr()) },
-            support: support,
-        }
+        RefWriter { writer }
     }
-
-    imp!();
 }
 
-impl<'a> AsRef<Surface> for Writer<'a> {
+impl<'w, W: io::Write + 'w> Deref for RefWriter<'w, W> {
+    type Target = File;
+
+    fn deref(&self) -> &File {
+        &self.writer.surface
+    }
+}
+
+impl<'w, W: io::Write + 'w> AsRef<File> for RefWriter<'w, W> {
+    fn as_ref(&self) -> &File {
+        &self.writer.surface
+    }
+}
+
+impl<'w, W: io::Write + 'w> AsRef<Surface> for RefWriter<'w, W> {
     fn as_ref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-impl<'a> Deref for Writer<'a> {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.inner
+        &self.writer.surface.as_ref()
     }
 }
 
 #[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<'a> {
+impl<'a, 'w, W: io::Write + 'w> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for RefWriter<'w, W> {
     type Storage = &'a Surface;
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
+        let stash = self.writer.surface.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }
 
-pub struct Stream<'a> {
-    inner: Surface,
-    #[allow(unused)]
-    support: support::Stream<'a>,
-}
-
-impl<'a> Stream<'a> {
-    pub fn new<'b, F>(width: f64, height: f64, func: F) -> Stream<'b>
-        where F: 'b + FnMut(&[u8]) -> Result<(), ()>
-    {
-        let support = support::Stream::new(ffi::cairo_svg_surface_create_for_stream, width, height, func);
-
-        Stream {
-            inner: unsafe { Surface::from_raw_full(support.as_ptr()) },
-            support: support,
-        }
-    }
-
-    imp!();
-}
-
-impl<'a> AsRef<Surface> for Stream<'a> {
-    fn as_ref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-impl<'a> Deref for Stream<'a> {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Stream<'a> {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use surface::Surface;
+    use surface::SurfaceExt;
     use context::*;
     use tempfile::tempfile;
 
-    fn draw<T: AsRef<Surface>>(surface: &T) {
-        let cr = Context::new(surface);
+    fn draw<T: AsRef<File>>(surface: &T) {
+        let cr = Context::new(surface.as_ref());
 
         cr.set_line_width(25.0);
 
@@ -278,42 +227,85 @@ mod test {
         cr.stroke();
     }
 
+    fn draw_in_buffer() -> Vec<u8> {
+        let buffer: Vec<u8> = vec![];
+
+        let surface = Writer::new(100., 100., buffer);
+        draw(&surface);
+        surface.finish()
+    }
+
+    fn assert_len_close_enough(len_a: usize, len_b: usize) {
+        // It seems cairo randomizies some element IDs which might make one svg slightly
+        // larger than the other. Here we make sure the difference is within ~10%.
+        let len_diff = (len_a as isize - len_b as isize).abs() as usize;
+        assert!(len_diff < len_b / 10);
+    }
+
     #[test]
-    fn buffer() {
-        let surface = Buffer::new(100., 100.);
+    #[cfg(unix)]
+    fn file() {
+        let surface = File::new(100., 100., "/dev/null");
         draw(&surface);
         surface.finish();
     }
 
     #[test]
     fn writer() {
-        let mut file = tempfile().expect("tempfile failed");
+        let file = tempfile().expect("tempfile failed");
         let surface = Writer::new(100., 100., file);
 
         draw(&surface);
-        surface.finish();
+        let file = surface.finish();
+
+        let buffer = draw_in_buffer();
+        let file_size = file.metadata().unwrap().len();
+
+        assert_len_close_enough(file_size as usize, buffer.len());
     }
 
     #[test]
-    fn stream() {
-        let mut vec = Vec::<u8>::new();
-        let surface = Stream::new(100., 100., |data| {
-            vec.extend(data);
-            Ok(())
-        });
+    fn ref_writer() {
+        let mut file = tempfile().expect("tempfile failed");
+        let surface = RefWriter::new(100., 100., &mut file);
 
         draw(&surface);
         surface.finish();
     }
 
     #[test]
-    fn unit() {
-        let mut file = tempfile().expect("tempfile failed");
-        let mut surface = Writer::new(100., 100., file);
+    fn buffer() {
+        let buffer = draw_in_buffer();
 
-        surface.set_document_unit(SvgUnit::Px);
-        let unit = surface.get_document_unit();
-        assert_eq!(unit, SvgUnit::Px);
-        surface.finish();
+        let header = b"<?xml";
+        assert_eq!(&buffer[..header.len()], header);
+    }
+
+    #[test]
+    fn custom_writer() {
+        use std::fs;
+
+        struct CustomWriter(usize, fs::File);
+
+        impl io::Write for CustomWriter {
+            fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+                self.1.write(buf) ?;
+
+                self.0 += buf.len();
+                Ok(buf.len())
+            }
+
+            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+        }
+
+        let custom_writer = CustomWriter(0, fs::File::create("/tmp/test-2.svg").unwrap());
+
+        let surface = Writer::new(100., 100., custom_writer);
+        draw(&surface);
+        let custom_writer = surface.finish();
+
+        let buffer = draw_in_buffer();
+
+        assert_len_close_enough(custom_writer.0, buffer.len());
     }
 }
