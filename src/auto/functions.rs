@@ -3,12 +3,9 @@
 // DO NOT EDIT
 
 use Atom;
-use Cursor;
 use Display;
 use Event;
-use EventMask;
 use EventType;
-use GrabStatus;
 use ModifierType;
 use Screen;
 use Visual;
@@ -101,14 +98,6 @@ pub fn flush() {
     }
 }
 
-#[cfg_attr(feature = "v3_8", deprecated)]
-pub fn get_display() -> Option<GString> {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib_full(ffi::gdk_get_display())
-    }
-}
-
 pub fn get_display_arg_name() -> Option<GString> {
     assert_initialized_main_thread!();
     unsafe {
@@ -133,22 +122,6 @@ pub fn get_show_events() -> bool {
 //pub fn init_check(argv: /*Unimplemented*/Vec<GString>) -> bool {
 //    unsafe { TODO: call ffi::gdk_init_check() }
 //}
-
-#[deprecated]
-pub fn keyboard_grab<P: IsA<Window>>(window: &P, owner_events: bool, time_: u32) -> GrabStatus {
-    skip_assert_initialized!();
-    unsafe {
-        from_glib(ffi::gdk_keyboard_grab(window.as_ref().to_glib_none().0, owner_events.to_glib(), time_))
-    }
-}
-
-#[deprecated]
-pub fn keyboard_ungrab(time_: u32) {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_keyboard_ungrab(time_);
-    }
-}
 
 pub fn keyval_convert_case(symbol: u32) -> (u32, u32) {
     assert_initialized_main_thread!();
@@ -254,32 +227,6 @@ pub fn pixbuf_get_from_surface(surface: &cairo::Surface, src_x: i32, src_y: i32,
     }
 }
 
-#[deprecated]
-pub fn pointer_grab<'a, 'b, P: IsA<Window>, Q: IsA<Window> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b Cursor>>>(window: &P, owner_events: bool, event_mask: EventMask, confine_to: R, cursor: S, time_: u32) -> GrabStatus {
-    skip_assert_initialized!();
-    let confine_to = confine_to.into();
-    let cursor = cursor.into();
-    unsafe {
-        from_glib(ffi::gdk_pointer_grab(window.as_ref().to_glib_none().0, owner_events.to_glib(), event_mask.to_glib(), confine_to.map(|p| p.as_ref()).to_glib_none().0, cursor.to_glib_none().0, time_))
-    }
-}
-
-#[deprecated]
-pub fn pointer_is_grabbed() -> bool {
-    assert_initialized_main_thread!();
-    unsafe {
-        from_glib(ffi::gdk_pointer_is_grabbed())
-    }
-}
-
-#[deprecated]
-pub fn pointer_ungrab(time_: u32) {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_pointer_ungrab(time_);
-    }
-}
-
 #[cfg_attr(feature = "v3_16", deprecated)]
 pub fn pre_parse_libgtk_only() {
     assert_initialized_main_thread!();
@@ -374,7 +321,6 @@ pub fn selection_send_notify_for_display<P: IsA<Window>>(display: &Display, requ
     }
 }
 
-#[cfg(any(feature = "v3_10", feature = "dox"))]
 pub fn set_allowed_backends(backends: &str) {
     assert_initialized_main_thread!();
     unsafe {
@@ -463,35 +409,6 @@ pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom
 
 //pub fn threads_add_timeout_seconds_full(priority: i32, interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::gdk_threads_add_timeout_seconds_full() }
-//}
-
-#[cfg_attr(feature = "v3_6", deprecated)]
-pub fn threads_enter() {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_threads_enter();
-    }
-}
-
-#[cfg_attr(feature = "v3_6", deprecated)]
-pub fn threads_init() {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_threads_init();
-    }
-}
-
-#[cfg_attr(feature = "v3_6", deprecated)]
-pub fn threads_leave() {
-    assert_initialized_main_thread!();
-    unsafe {
-        ffi::gdk_threads_leave();
-    }
-}
-
-//#[cfg_attr(feature = "v3_6", deprecated)]
-//pub fn threads_set_lock_functions<P: Fn() + Send + Sync + 'static, Q: Fn() + Send + Sync + 'static>(enter_fn: P, leave_fn: Q) {
-//    unsafe { TODO: call ffi::gdk_threads_set_lock_functions() }
 //}
 
 pub fn unicode_to_keyval(wc: u32) -> u32 {

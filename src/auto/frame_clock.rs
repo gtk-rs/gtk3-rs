@@ -2,9 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 use FrameClockPhase;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 use FrameTimings;
 use ffi;
 use glib::object::Cast;
@@ -28,28 +26,20 @@ glib_wrapper! {
 pub const NONE_FRAME_CLOCK: Option<&FrameClock> = None;
 
 pub trait FrameClockExt: 'static {
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn begin_updating(&self);
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn end_updating(&self);
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_current_timings(&self) -> Option<FrameTimings>;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_counter(&self) -> i64;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_time(&self) -> i64;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_history_start(&self) -> i64;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_timings(&self, frame_counter: i64) -> Option<FrameTimings>;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn request_phase(&self, phase: FrameClockPhase);
 
     fn connect_after_paint<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -68,56 +58,48 @@ pub trait FrameClockExt: 'static {
 }
 
 impl<O: IsA<FrameClock>> FrameClockExt for O {
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn begin_updating(&self) {
         unsafe {
             ffi::gdk_frame_clock_begin_updating(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn end_updating(&self) {
         unsafe {
             ffi::gdk_frame_clock_end_updating(self.as_ref().to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_current_timings(&self) -> Option<FrameTimings> {
         unsafe {
             from_glib_none(ffi::gdk_frame_clock_get_current_timings(self.as_ref().to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_counter(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_clock_get_frame_counter(self.as_ref().to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_time(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_clock_get_frame_time(self.as_ref().to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_history_start(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_clock_get_history_start(self.as_ref().to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_timings(&self, frame_counter: i64) -> Option<FrameTimings> {
         unsafe {
             from_glib_none(ffi::gdk_frame_clock_get_timings(self.as_ref().to_glib_none().0, frame_counter))
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn request_phase(&self, phase: FrameClockPhase) {
         unsafe {
             ffi::gdk_frame_clock_request_phase(self.as_ref().to_glib_none().0, phase.to_glib());

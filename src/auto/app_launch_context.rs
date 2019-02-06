@@ -23,24 +23,9 @@ glib_wrapper! {
 }
 
 impl AppLaunchContext {
-    #[deprecated]
-    pub fn new() -> AppLaunchContext {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::gdk_app_launch_context_new())
-        }
-    }
-
     pub fn set_desktop(&self, desktop: i32) {
         unsafe {
             ffi::gdk_app_launch_context_set_desktop(self.to_glib_none().0, desktop);
-        }
-    }
-
-    #[deprecated]
-    pub fn set_display(&self, display: &Display) {
-        unsafe {
-            ffi::gdk_app_launch_context_set_display(self.to_glib_none().0, display.to_glib_none().0);
         }
     }
 
@@ -76,13 +61,6 @@ impl AppLaunchContext {
             gobject_ffi::g_object_get_property(self.as_ptr() as *mut gobject_ffi::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
-    }
-}
-
-#[deprecated]
-impl Default for AppLaunchContext {
-    fn default() -> Self {
-        Self::new()
     }
 }
 

@@ -3,7 +3,6 @@
 // DO NOT EDIT
 
 use ffi;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 use glib::translate::*;
 
 glib_wrapper! {
@@ -18,21 +17,18 @@ glib_wrapper! {
 }
 
 impl FrameTimings {
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn get_complete(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_frame_timings_get_complete(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn get_frame_counter(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_timings_get_frame_counter(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub fn get_frame_time(&self) -> i64 {
         unsafe {
             ffi::gdk_frame_timings_get_frame_time(self.to_glib_none().0)
