@@ -7,7 +7,6 @@ use Atom;
 use Device;
 use DeviceManager;
 use Event;
-use ModifierType;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use Monitor;
 use Screen;
@@ -26,7 +25,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Display(Object<ffi::GdkDisplay, DisplayClass>);
@@ -142,28 +140,9 @@ impl Display {
         }
     }
 
-    #[cfg_attr(feature = "v3_10", deprecated)]
-    pub fn get_n_screens(&self) -> i32 {
-        unsafe {
-            ffi::gdk_display_get_n_screens(self.to_glib_none().0)
-        }
-    }
-
     pub fn get_name(&self) -> GString {
         unsafe {
             from_glib_none(ffi::gdk_display_get_name(self.to_glib_none().0))
-        }
-    }
-
-    #[deprecated]
-    pub fn get_pointer(&self) -> (Screen, i32, i32, ModifierType) {
-        unsafe {
-            let mut screen = ptr::null_mut();
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
-            let mut mask = mem::uninitialized();
-            ffi::gdk_display_get_pointer(self.to_glib_none().0, &mut screen, &mut x, &mut y, &mut mask);
-            (from_glib_none(screen), x, y, from_glib(mask))
         }
     }
 
@@ -181,16 +160,6 @@ impl Display {
         }
     }
 
-    #[deprecated]
-    pub fn get_window_at_pointer(&self) -> (Option<Window>, i32, i32) {
-        unsafe {
-            let mut win_x = mem::uninitialized();
-            let mut win_y = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_display_get_window_at_pointer(self.to_glib_none().0, &mut win_x, &mut win_y));
-            (ret, win_x, win_y)
-        }
-    }
-
     pub fn has_pending(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_display_has_pending(self.to_glib_none().0))
@@ -200,20 +169,6 @@ impl Display {
     pub fn is_closed(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_display_is_closed(self.to_glib_none().0))
-        }
-    }
-
-    #[deprecated]
-    pub fn keyboard_ungrab(&self, time_: u32) {
-        unsafe {
-            ffi::gdk_display_keyboard_ungrab(self.to_glib_none().0, time_);
-        }
-    }
-
-    #[deprecated]
-    pub fn list_devices(&self) -> Vec<Device> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::gdk_display_list_devices(self.to_glib_none().0))
         }
     }
 
@@ -233,20 +188,6 @@ impl Display {
     pub fn peek_event(&self) -> Option<Event> {
         unsafe {
             from_glib_full(ffi::gdk_display_peek_event(self.to_glib_none().0))
-        }
-    }
-
-    #[deprecated]
-    pub fn pointer_is_grabbed(&self) -> bool {
-        unsafe {
-            from_glib(ffi::gdk_display_pointer_is_grabbed(self.to_glib_none().0))
-        }
-    }
-
-    #[deprecated]
-    pub fn pointer_ungrab(&self, time_: u32) {
-        unsafe {
-            ffi::gdk_display_pointer_ungrab(self.to_glib_none().0, time_);
         }
     }
 
@@ -327,13 +268,6 @@ impl Display {
     pub fn sync(&self) {
         unsafe {
             ffi::gdk_display_sync(self.to_glib_none().0);
-        }
-    }
-
-    #[deprecated]
-    pub fn warp_pointer(&self, screen: &Screen, x: i32, y: i32) {
-        unsafe {
-            ffi::gdk_display_warp_pointer(self.to_glib_none().0, screen.to_glib_none().0, x, y);
         }
     }
 

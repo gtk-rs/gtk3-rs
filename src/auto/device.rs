@@ -106,7 +106,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     pub fn get_last_event_window(&self) -> Option<Window> {
         unsafe {
             from_glib_none(ffi::gdk_device_get_last_event_window(self.to_glib_none().0))
@@ -147,7 +146,6 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_position_double(&self) -> (Screen, f64, f64) {
         unsafe {
             let mut screen = ptr::null_mut();

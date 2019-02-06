@@ -12,12 +12,9 @@ use DragProtocol;
 use DrawingContext;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use Error;
-#[cfg(any(feature = "v3_14", feature = "dox"))]
 use Event;
 use EventMask;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 use FrameClock;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 use FullscreenMode;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use GLContext;
@@ -63,17 +60,6 @@ glib_wrapper! {
 }
 
 impl Window {
-    #[deprecated]
-    pub fn at_pointer() -> (Window, i32, i32) {
-        assert_initialized_main_thread!();
-        unsafe {
-            let mut win_x = mem::uninitialized();
-            let mut win_y = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_window_at_pointer(&mut win_x, &mut win_y));
-            (ret, win_x, win_y)
-        }
-    }
-
     pub fn constrain_size(geometry: &mut Geometry, flags: WindowHints, width: i32, height: i32) -> (i32, i32) {
         assert_initialized_main_thread!();
         unsafe {
@@ -125,9 +111,6 @@ pub trait WindowExt: 'static {
 
     fn begin_resize_drag_for_device(&self, edge: WindowEdge, device: &Device, button: i32, root_x: i32, root_y: i32, timestamp: u32);
 
-    #[cfg_attr(feature = "v3_8", deprecated)]
-    fn configure_finished(&self);
-
     fn coords_from_parent(&self, parent_x: f64, parent_y: f64) -> (f64, f64);
 
     fn coords_to_parent(&self, x: f64, y: f64) -> (f64, f64);
@@ -135,7 +118,6 @@ pub trait WindowExt: 'static {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn create_gl_context(&self) -> Result<GLContext, Error>;
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn create_similar_image_surface(&self, format: i32, width: i32, height: i32, scale: i32) -> Option<cairo::Surface>;
 
     fn deiconify(&self);
@@ -144,18 +126,12 @@ pub trait WindowExt: 'static {
 
     fn destroy_notify(&self);
 
-    #[cfg_attr(feature = "v3_8", deprecated)]
-    fn enable_synchronized_configure(&self);
-
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn end_draw_frame<P: IsA<DrawingContext>>(&self, context: &P);
 
     fn end_paint(&self);
 
     fn ensure_native(&self) -> bool;
-
-    #[cfg_attr(feature = "v3_14", deprecated)]
-    fn flush(&self);
 
     fn focus(&self, timestamp: u32);
 
@@ -175,7 +151,6 @@ pub trait WindowExt: 'static {
 
     fn get_children(&self) -> Vec<Window>;
 
-    //#[cfg(any(feature = "v3_10", feature = "dox"))]
     //fn get_children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window>;
 
     fn get_clip_region(&self) -> Option<cairo::Region>;
@@ -193,7 +168,6 @@ pub trait WindowExt: 'static {
 
     fn get_device_position(&self, device: &Device) -> (Option<Window>, i32, i32, ModifierType);
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_device_position_double(&self, device: &Device) -> (Option<Window>, f64, f64, ModifierType);
 
     fn get_display(&self) -> Display;
@@ -204,19 +178,16 @@ pub trait WindowExt: 'static {
 
     fn get_effective_toplevel(&self) -> Window;
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn get_event_compression(&self) -> bool;
 
     fn get_events(&self) -> EventMask;
 
     fn get_focus_on_map(&self) -> bool;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_clock(&self) -> Option<FrameClock>;
 
     fn get_frame_extents(&self) -> Rectangle;
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_fullscreen_mode(&self) -> FullscreenMode;
 
     fn get_geometry(&self) -> (i32, i32, i32, i32);
@@ -234,16 +205,12 @@ pub trait WindowExt: 'static {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     fn get_pass_through(&self) -> bool;
 
-    #[deprecated]
-    fn get_pointer(&self) -> (Option<Window>, i32, i32, ModifierType);
-
     fn get_position(&self) -> (i32, i32);
 
     fn get_root_coords(&self, x: i32, y: i32) -> (i32, i32);
 
     fn get_root_origin(&self) -> (i32, i32);
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_scale_factor(&self) -> i32;
 
     fn get_screen(&self) -> Screen;
@@ -335,9 +302,6 @@ pub trait WindowExt: 'static {
 
     fn set_accept_focus(&self, accept_focus: bool);
 
-    //#[deprecated]
-    //fn set_background(&self, color: /*Ignored*/&Color);
-
     #[cfg_attr(feature = "v3_22", deprecated)]
     fn set_background_rgba(&self, rgba: &RGBA);
 
@@ -356,14 +320,12 @@ pub trait WindowExt: 'static {
 
     fn set_device_events(&self, device: &Device, event_mask: EventMask);
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn set_event_compression(&self, event_compression: bool);
 
     fn set_events(&self, event_mask: EventMask);
 
     fn set_focus_on_map(&self, focus_on_map: bool);
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn set_fullscreen_mode(&self, mode: FullscreenMode);
 
     fn set_functions(&self, functions: WMFunction);
@@ -376,7 +338,6 @@ pub trait WindowExt: 'static {
 
     fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, name: P);
 
-    //#[cfg(any(feature = "v3_10", feature = "dox"))]
     //fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P);
 
     fn set_keep_above(&self, setting: bool);
@@ -387,7 +348,6 @@ pub trait WindowExt: 'static {
 
     fn set_opacity(&self, opacity: f64);
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn set_opaque_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, region: P);
 
     fn set_override_redirect(&self, override_redirect: bool);
@@ -397,7 +357,6 @@ pub trait WindowExt: 'static {
 
     fn set_role(&self, role: &str);
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn set_shadow_width(&self, left: i32, right: i32, top: i32, bottom: i32);
 
     fn set_skip_pager_hint(&self, skips_pager: bool);
@@ -429,7 +388,6 @@ pub trait WindowExt: 'static {
 
     fn show_unraised(&self);
 
-    #[cfg(any(feature = "v3_14", feature = "dox"))]
     fn show_window_menu(&self, event: &mut Event) -> bool;
 
     fn stick(&self);
@@ -515,12 +473,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn configure_finished(&self) {
-        unsafe {
-            ffi::gdk_window_configure_finished(self.as_ref().to_glib_none().0);
-        }
-    }
-
     fn coords_from_parent(&self, parent_x: f64, parent_y: f64) -> (f64, f64) {
         unsafe {
             let mut x = mem::uninitialized();
@@ -548,7 +500,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn create_similar_image_surface(&self, format: i32, width: i32, height: i32, scale: i32) -> Option<cairo::Surface> {
         unsafe {
             from_glib_full(ffi::gdk_window_create_similar_image_surface(self.as_ref().to_glib_none().0, format, width, height, scale))
@@ -573,12 +524,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn enable_synchronized_configure(&self) {
-        unsafe {
-            ffi::gdk_window_enable_synchronized_configure(self.as_ref().to_glib_none().0);
-        }
-    }
-
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn end_draw_frame<P: IsA<DrawingContext>>(&self, context: &P) {
         unsafe {
@@ -595,12 +540,6 @@ impl<O: IsA<Window>> WindowExt for O {
     fn ensure_native(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_window_ensure_native(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn flush(&self) {
-        unsafe {
-            ffi::gdk_window_flush(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -653,7 +592,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v3_10", feature = "dox"))]
     //fn get_children_with_user_data(&self, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Vec<Window> {
     //    unsafe { TODO: call ffi::gdk_window_get_children_with_user_data() }
     //}
@@ -706,7 +644,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_device_position_double(&self, device: &Device) -> (Option<Window>, f64, f64, ModifierType) {
         unsafe {
             let mut x = mem::uninitialized();
@@ -743,7 +680,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn get_event_compression(&self) -> bool {
         unsafe {
             from_glib(ffi::gdk_window_get_event_compression(self.as_ref().to_glib_none().0))
@@ -762,7 +698,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_frame_clock(&self) -> Option<FrameClock> {
         unsafe {
             from_glib_none(ffi::gdk_window_get_frame_clock(self.as_ref().to_glib_none().0))
@@ -777,7 +712,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn get_fullscreen_mode(&self) -> FullscreenMode {
         unsafe {
             from_glib(ffi::gdk_window_get_fullscreen_mode(self.as_ref().to_glib_none().0))
@@ -835,16 +769,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn get_pointer(&self) -> (Option<Window>, i32, i32, ModifierType) {
-        unsafe {
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
-            let mut mask = mem::uninitialized();
-            let ret = from_glib_none(ffi::gdk_window_get_pointer(self.as_ref().to_glib_none().0, &mut x, &mut y, &mut mask));
-            (ret, x, y, from_glib(mask))
-        }
-    }
-
     fn get_position(&self) -> (i32, i32) {
         unsafe {
             let mut x = mem::uninitialized();
@@ -872,7 +796,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn get_scale_factor(&self) -> i32 {
         unsafe {
             ffi::gdk_window_get_scale_factor(self.as_ref().to_glib_none().0)
@@ -1150,10 +1073,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //fn set_background(&self, color: /*Ignored*/&Color) {
-    //    unsafe { TODO: call ffi::gdk_window_set_background() }
-    //}
-
     fn set_background_rgba(&self, rgba: &RGBA) {
         unsafe {
             ffi::gdk_window_set_background_rgba(self.as_ref().to_glib_none().0, rgba.to_glib_none().0);
@@ -1203,7 +1122,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn set_event_compression(&self, event_compression: bool) {
         unsafe {
             ffi::gdk_window_set_event_compression(self.as_ref().to_glib_none().0, event_compression.to_glib());
@@ -1222,7 +1140,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     fn set_fullscreen_mode(&self, mode: FullscreenMode) {
         unsafe {
             ffi::gdk_window_set_fullscreen_mode(self.as_ref().to_glib_none().0, mode.to_glib());
@@ -1261,7 +1178,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v3_10", feature = "dox"))]
     //fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P) {
     //    unsafe { TODO: call ffi::gdk_window_set_invalidate_handler() }
     //}
@@ -1290,7 +1206,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     fn set_opaque_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, region: P) {
         let region = region.into();
         unsafe {
@@ -1317,7 +1232,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_12", feature = "dox"))]
     fn set_shadow_width(&self, left: i32, right: i32, top: i32, bottom: i32) {
         unsafe {
             ffi::gdk_window_set_shadow_width(self.as_ref().to_glib_none().0, left, right, top, bottom);
@@ -1407,7 +1321,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    #[cfg(any(feature = "v3_14", feature = "dox"))]
     fn show_window_menu(&self, event: &mut Event) -> bool {
         unsafe {
             from_glib(ffi::gdk_window_show_window_menu(self.as_ref().to_glib_none().0, event.to_glib_none_mut().0))

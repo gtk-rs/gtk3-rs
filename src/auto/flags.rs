@@ -260,7 +260,6 @@ impl SetValue for EventMask {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 bitflags! {
     pub struct FrameClockPhase: u32 {
         const NONE = 0;
@@ -274,7 +273,6 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for FrameClockPhase {
     type GlibType = ffi::GdkFrameClockPhase;
@@ -284,7 +282,6 @@ impl ToGlib for FrameClockPhase {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkFrameClockPhase> for FrameClockPhase {
     fn from_glib(value: ffi::GdkFrameClockPhase) -> FrameClockPhase {
@@ -293,28 +290,24 @@ impl FromGlib<ffi::GdkFrameClockPhase> for FrameClockPhase {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl StaticType for FrameClockPhase {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_frame_clock_phase_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for FrameClockPhase {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl<'a> FromValue<'a> for FrameClockPhase {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl SetValue for FrameClockPhase {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

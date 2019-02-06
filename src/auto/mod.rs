@@ -42,11 +42,8 @@ pub use self::drawing_context::{DrawingContext, DrawingContextClass, NONE_DRAWIN
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::drawing_context::DrawingContextExt;
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_clock;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 pub use self::frame_clock::{FrameClock, FrameClockClass, NONE_FRAME_CLOCK};
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 pub use self::frame_clock::FrameClockExt;
 
 #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -79,9 +76,7 @@ pub use self::window::WindowExt;
 mod event_sequence;
 pub use self::event_sequence::EventSequence;
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 mod frame_timings;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 pub use self::frame_timings::FrameTimings;
 
 mod enums;
@@ -97,7 +92,6 @@ pub use self::enums::DeviceType;
 pub use self::enums::DragCancelReason;
 pub use self::enums::DragProtocol;
 pub use self::enums::EventType;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 pub use self::enums::FullscreenMode;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 pub use self::enums::GLError;
@@ -129,7 +123,6 @@ pub use self::flags::AnchorHints;
 pub use self::flags::AxisFlags;
 pub use self::flags::DragAction;
 pub use self::flags::EventMask;
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 pub use self::flags::FrameClockPhase;
 pub use self::flags::ModifierType;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -147,7 +140,6 @@ pub mod traits {
     pub use super::DevicePadExt;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub use super::DrawingContextExt;
-    #[cfg(any(feature = "v3_8", feature = "dox"))]
     pub use super::FrameClockExt;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub use super::MonitorExt;

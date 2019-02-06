@@ -1339,7 +1339,6 @@ impl SetValue for EventType {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 pub enum FullscreenMode {
@@ -1349,7 +1348,6 @@ pub enum FullscreenMode {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl fmt::Display for FullscreenMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "FullscreenMode::{}", match *self {
@@ -1360,7 +1358,6 @@ impl fmt::Display for FullscreenMode {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for FullscreenMode {
     type GlibType = ffi::GdkFullscreenMode;
@@ -1374,7 +1371,6 @@ impl ToGlib for FullscreenMode {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GdkFullscreenMode> for FullscreenMode {
     fn from_glib(value: ffi::GdkFullscreenMode) -> Self {
@@ -1387,28 +1383,24 @@ impl FromGlib<ffi::GdkFullscreenMode> for FullscreenMode {
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl StaticType for FullscreenMode {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::gdk_fullscreen_mode_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for FullscreenMode {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl<'a> FromValue<'a> for FullscreenMode {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v3_8", feature = "dox"))]
 impl SetValue for FullscreenMode {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

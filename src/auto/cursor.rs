@@ -4,13 +4,11 @@
 
 use CursorType;
 use Display;
-#[cfg(any(feature = "v3_10", feature = "dox"))]
 use cairo;
 use ffi;
 use gdk_pixbuf;
 use glib::translate::*;
 use std::fmt;
-#[cfg(any(feature = "v3_10", feature = "dox"))]
 use std::mem;
 
 glib_wrapper! {
@@ -51,7 +49,6 @@ impl Cursor {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn new_from_surface(display: &Display, surface: &cairo::Surface, x: f64, y: f64) -> Cursor {
         skip_assert_initialized!();
         unsafe {
@@ -77,7 +74,6 @@ impl Cursor {
         }
     }
 
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64) {
         unsafe {
             let mut x_hot = mem::uninitialized();

@@ -93,7 +93,6 @@ impl Screen {
     }
 
     #[cfg_attr(feature = "v3_22", deprecated)]
-    #[cfg(any(feature = "v3_10", feature = "dox"))]
     pub fn get_monitor_scale_factor(&self, monitor_num: i32) -> i32 {
         unsafe {
             ffi::gdk_screen_get_monitor_scale_factor(self.to_glib_none().0, monitor_num)
