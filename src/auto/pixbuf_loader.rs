@@ -7,7 +7,6 @@ use Pixbuf;
 use PixbufAnimation;
 use PixbufFormat;
 use ffi;
-#[cfg(any(feature = "v2_30", feature = "dox"))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -74,7 +73,6 @@ pub trait PixbufLoaderExt: 'static {
 
     fn write(&self, buf: &[u8]) -> Result<(), Error>;
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
     fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), Error>;
 
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -128,7 +126,6 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
     fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
