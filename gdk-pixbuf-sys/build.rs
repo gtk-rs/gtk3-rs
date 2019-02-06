@@ -26,12 +26,8 @@ fn find() -> Result<(), Error> {
         "2.36"
     } else if cfg!(feature = "v2_32") {
         "2.32"
-    } else if cfg!(feature = "v2_30") {
-        "2.30"
-    } else if cfg!(feature = "v2_28") {
-        "2.28"
     } else {
-        "2.26"
+        "2.30"
     };
 
     if let Ok(inc_dir) = env::var("GTK_INCLUDE_DIR") {

@@ -2520,7 +2520,6 @@ extern "C" {
     pub fn g_hash_table_foreach_remove(hash_table: *mut GHashTable, func: GHRFunc, user_data: gpointer) -> c_uint;
     pub fn g_hash_table_foreach_steal(hash_table: *mut GHashTable, func: GHRFunc, user_data: gpointer) -> c_uint;
     pub fn g_hash_table_get_keys(hash_table: *mut GHashTable) -> *mut GList;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_hash_table_get_keys_as_array(hash_table: *mut GHashTable, length: *mut c_uint) -> *mut gpointer;
     pub fn g_hash_table_get_values(hash_table: *mut GHashTable) -> *mut GList;
     pub fn g_hash_table_insert(hash_table: *mut GHashTable, key: gpointer, value: gpointer) -> gboolean;
@@ -2676,7 +2675,6 @@ extern "C" {
     pub fn g_key_file_remove_comment(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_key_file_remove_group(key_file: *mut GKeyFile, group_name: *const c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_key_file_remove_key(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, error: *mut *mut GError) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_key_file_save_to_file(key_file: *mut GKeyFile, filename: *const c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_key_file_set_boolean(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, value: gboolean);
     pub fn g_key_file_set_boolean_list(key_file: *mut GKeyFile, group_name: *const c_char, key: *const c_char, list: *mut gboolean, length: size_t);
@@ -2704,7 +2702,6 @@ extern "C" {
     pub fn g_list_append(list: *mut GList, data: gpointer) -> *mut GList;
     pub fn g_list_concat(list1: *mut GList, list2: *mut GList) -> *mut GList;
     pub fn g_list_copy(list: *mut GList) -> *mut GList;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_list_copy_deep(list: *mut GList, func: GCopyFunc, user_data: gpointer) -> *mut GList;
     pub fn g_list_delete_link(list: *mut GList, link_: *mut GList) -> *mut GList;
     pub fn g_list_find(list: *mut GList, data: gconstpointer) -> *mut GList;
@@ -2785,7 +2782,6 @@ extern "C" {
     pub fn g_mapped_file_new(filename: *const c_char, writable: gboolean, error: *mut *mut GError) -> *mut GMappedFile;
     pub fn g_mapped_file_new_from_fd(fd: c_int, writable: gboolean, error: *mut *mut GError) -> *mut GMappedFile;
     pub fn g_mapped_file_free(file: *mut GMappedFile);
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_mapped_file_get_bytes(file: *mut GMappedFile) -> *mut GBytes;
     pub fn g_mapped_file_get_contents(file: *mut GMappedFile) -> *mut c_char;
     pub fn g_mapped_file_get_length(file: *mut GMappedFile) -> size_t;
@@ -2806,9 +2802,7 @@ extern "C" {
     pub fn g_markup_parse_context_parse(context: *mut GMarkupParseContext, text: *const c_char, text_len: ssize_t, error: *mut *mut GError) -> gboolean;
     pub fn g_markup_parse_context_pop(context: *mut GMarkupParseContext) -> gpointer;
     pub fn g_markup_parse_context_push(context: *mut GMarkupParseContext, parser: *const GMarkupParser, user_data: gpointer);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_markup_parse_context_ref(context: *mut GMarkupParseContext) -> *mut GMarkupParseContext;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_markup_parse_context_unref(context: *mut GMarkupParseContext);
 
     //=========================================================================
@@ -2883,7 +2877,6 @@ extern "C" {
     pub fn g_option_context_get_strict_posix(context: *mut GOptionContext) -> gboolean;
     pub fn g_option_context_get_summary(context: *mut GOptionContext) -> *const c_char;
     pub fn g_option_context_parse(context: *mut GOptionContext, argc: *mut c_int, argv: *mut *mut *mut c_char, error: *mut *mut GError) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_option_context_parse_strv(context: *mut GOptionContext, arguments: *mut *mut *mut c_char, error: *mut *mut GError) -> gboolean;
     pub fn g_option_context_set_description(context: *mut GOptionContext, description: *const c_char);
     pub fn g_option_context_set_help_enabled(context: *mut GOptionContext, help_enabled: gboolean);
@@ -2942,7 +2935,6 @@ extern "C" {
     pub fn g_ptr_array_find_with_equal_func(haystack: *mut GPtrArray, needle: gconstpointer, equal_func: GEqualFunc, index_: *mut c_uint) -> gboolean;
     pub fn g_ptr_array_foreach(array: *mut GPtrArray, func: GFunc, user_data: gpointer);
     pub fn g_ptr_array_free(array: *mut GPtrArray, free_seg: gboolean) -> *mut gpointer;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_ptr_array_insert(array: *mut GPtrArray, index_: c_int, data: gpointer);
     pub fn g_ptr_array_new() -> *mut GPtrArray;
     pub fn g_ptr_array_new_full(reserved_size: c_uint, element_free_func: GDestroyNotify) -> *mut GPtrArray;
@@ -3051,11 +3043,9 @@ extern "C" {
     pub fn g_regex_new(pattern: *const c_char, compile_options: GRegexCompileFlags, match_options: GRegexMatchFlags, error: *mut *mut GError) -> *mut GRegex;
     pub fn g_regex_get_capture_count(regex: *const GRegex) -> c_int;
     pub fn g_regex_get_compile_flags(regex: *const GRegex) -> GRegexCompileFlags;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_regex_get_has_cr_or_lf(regex: *const GRegex) -> gboolean;
     pub fn g_regex_get_match_flags(regex: *const GRegex) -> GRegexMatchFlags;
     pub fn g_regex_get_max_backref(regex: *const GRegex) -> c_int;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_regex_get_max_lookbehind(regex: *const GRegex) -> c_int;
     pub fn g_regex_get_pattern(regex: *const GRegex) -> *const c_char;
     pub fn g_regex_get_string_number(regex: *const GRegex, name: *const c_char) -> c_int;
@@ -3084,7 +3074,6 @@ extern "C" {
     pub fn g_slist_append(list: *mut GSList, data: gpointer) -> *mut GSList;
     pub fn g_slist_concat(list1: *mut GSList, list2: *mut GSList) -> *mut GSList;
     pub fn g_slist_copy(list: *mut GSList) -> *mut GSList;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_slist_copy_deep(list: *mut GSList, func: GCopyFunc, user_data: gpointer) -> *mut GSList;
     pub fn g_slist_delete_link(list: *mut GSList, link_: *mut GSList) -> *mut GSList;
     pub fn g_slist_find(list: *mut GSList, data: gconstpointer) -> *mut GSList;
@@ -3190,7 +3179,6 @@ extern "C" {
     pub fn g_source_new(source_funcs: *mut GSourceFuncs, struct_size: c_uint) -> *mut GSource;
     pub fn g_source_add_child_source(source: *mut GSource, child_source: *mut GSource);
     pub fn g_source_add_poll(source: *mut GSource, fd: *mut GPollFD);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_source_add_unix_fd(source: *mut GSource, fd: c_int, events: GIOCondition) -> gpointer;
     pub fn g_source_attach(source: *mut GSource, context: *mut GMainContext) -> c_uint;
     pub fn g_source_destroy(source: *mut GSource);
@@ -3203,14 +3191,11 @@ extern "C" {
     pub fn g_source_get_ready_time(source: *mut GSource) -> i64;
     pub fn g_source_get_time(source: *mut GSource) -> i64;
     pub fn g_source_is_destroyed(source: *mut GSource) -> gboolean;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_source_modify_unix_fd(source: *mut GSource, tag: gpointer, new_events: GIOCondition);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_source_query_unix_fd(source: *mut GSource, tag: gpointer) -> GIOCondition;
     pub fn g_source_ref(source: *mut GSource) -> *mut GSource;
     pub fn g_source_remove_child_source(source: *mut GSource, child_source: *mut GSource);
     pub fn g_source_remove_poll(source: *mut GSource, fd: *mut GPollFD);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_source_remove_unix_fd(source: *mut GSource, tag: gpointer);
     pub fn g_source_set_callback(source: *mut GSource, func: GSourceFunc, data: gpointer, notify: GDestroyNotify);
     pub fn g_source_set_callback_indirect(source: *mut GSource, callback_data: gpointer, callback_funcs: *mut GSourceCallbackFuncs);
@@ -3218,7 +3203,6 @@ extern "C" {
     pub fn g_source_set_funcs(source: *mut GSource, funcs: *mut GSourceFuncs);
     pub fn g_source_set_name(source: *mut GSource, name: *const c_char);
     pub fn g_source_set_priority(source: *mut GSource, priority: c_int);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_source_set_ready_time(source: *mut GSource, ready_time: i64);
     pub fn g_source_unref(source: *mut GSource);
     pub fn g_source_remove(tag: c_uint) -> gboolean;
@@ -3244,7 +3228,6 @@ extern "C" {
     pub fn g_string_equal(v: *const GString, v2: *const GString) -> gboolean;
     pub fn g_string_erase(string: *mut GString, pos: ssize_t, len: ssize_t) -> *mut GString;
     pub fn g_string_free(string: *mut GString, free_segment: gboolean) -> *mut c_char;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_string_free_to_bytes(string: *mut GString) -> *mut GBytes;
     pub fn g_string_hash(str: *const GString) -> c_uint;
     pub fn g_string_insert(string: *mut GString, pos: ssize_t, val: *const c_char) -> *mut GString;
@@ -3404,7 +3387,6 @@ extern "C" {
     pub fn g_variant_new_dict_entry(key: *mut GVariant, value: *mut GVariant) -> *mut GVariant;
     pub fn g_variant_new_double(value: c_double) -> *mut GVariant;
     pub fn g_variant_new_fixed_array(element_type: *const GVariantType, elements: gconstpointer, n_elements: size_t, element_size: size_t) -> *mut GVariant;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_variant_new_from_bytes(type_: *const GVariantType, bytes: *mut GBytes, trusted: gboolean) -> *mut GVariant;
     pub fn g_variant_new_from_data(type_: *const GVariantType, data: gconstpointer, size: size_t, trusted: gboolean, notify: GDestroyNotify, user_data: gpointer) -> *mut GVariant;
     pub fn g_variant_new_handle(value: i32) -> *mut GVariant;
@@ -3416,12 +3398,10 @@ extern "C" {
     pub fn g_variant_new_objv(strv: *const *const c_char, length: ssize_t) -> *mut GVariant;
     pub fn g_variant_new_parsed(format: *const c_char, ...) -> *mut GVariant;
     //pub fn g_variant_new_parsed_va(format: *const c_char, app: /*Unimplemented*/*mut va_list) -> *mut GVariant;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_variant_new_printf(format_string: *const c_char, ...) -> *mut GVariant;
     pub fn g_variant_new_signature(signature: *const c_char) -> *mut GVariant;
     pub fn g_variant_new_string(string: *const c_char) -> *mut GVariant;
     pub fn g_variant_new_strv(strv: *const *const c_char, length: ssize_t) -> *mut GVariant;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_variant_new_take_string(string: *mut c_char) -> *mut GVariant;
     pub fn g_variant_new_tuple(children: *const *mut GVariant, n_children: size_t) -> *mut GVariant;
     pub fn g_variant_new_uint16(value: u16) -> *mut GVariant;
@@ -3430,7 +3410,6 @@ extern "C" {
     //pub fn g_variant_new_va(format_string: *const c_char, endptr: *mut *const c_char, app: /*Unimplemented*/*mut va_list) -> *mut GVariant;
     pub fn g_variant_new_variant(value: *mut GVariant) -> *mut GVariant;
     pub fn g_variant_byteswap(value: *mut GVariant) -> *mut GVariant;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_variant_check_format_string(value: *mut GVariant, format_string: *const c_char, copy_only: gboolean) -> gboolean;
     pub fn g_variant_classify(value: *mut GVariant) -> GVariantClass;
     pub fn g_variant_compare(one: gconstpointer, two: gconstpointer) -> c_int;
@@ -3448,7 +3427,6 @@ extern "C" {
     pub fn g_variant_get_child(value: *mut GVariant, index_: size_t, format_string: *const c_char, ...);
     pub fn g_variant_get_child_value(value: *mut GVariant, index_: size_t) -> *mut GVariant;
     pub fn g_variant_get_data(value: *mut GVariant) -> gconstpointer;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_variant_get_data_as_bytes(value: *mut GVariant) -> *mut GBytes;
     pub fn g_variant_get_double(value: *mut GVariant) -> c_double;
     pub fn g_variant_get_fixed_array(value: *mut GVariant, n_elements: *mut size_t, element_size: size_t) -> gconstpointer;
@@ -3488,7 +3466,6 @@ extern "C" {
     pub fn g_variant_is_object_path(string: *const c_char) -> gboolean;
     pub fn g_variant_is_signature(string: *const c_char) -> gboolean;
     pub fn g_variant_parse(type_: *const GVariantType, text: *const c_char, limit: *const c_char, endptr: *mut *const c_char, error: *mut *mut GError) -> *mut GVariant;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_parse_error_print_context(error: *mut GError, source_str: *const c_char) -> *mut c_char;
     pub fn g_variant_parse_error_quark() -> GQuark;
     pub fn g_variant_parser_get_error_quark() -> GQuark;
@@ -3513,29 +3490,17 @@ extern "C" {
     // GVariantDict
     //=========================================================================
     pub fn g_variant_dict_get_type() -> GType;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_new(from_asv: *mut GVariant) -> *mut GVariantDict;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_clear(dict: *mut GVariantDict);
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_contains(dict: *mut GVariantDict, key: *const c_char) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_end(dict: *mut GVariantDict) -> *mut GVariant;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_init(dict: *mut GVariantDict, from_asv: *mut GVariant);
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_insert(dict: *mut GVariantDict, key: *const c_char, format_string: *const c_char, ...);
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_insert_value(dict: *mut GVariantDict, key: *const c_char, value: *mut GVariant);
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_lookup(dict: *mut GVariantDict, key: *const c_char, format_string: *const c_char, ...) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_lookup_value(dict: *mut GVariantDict, key: *const c_char, expected_type: *const GVariantType) -> *mut GVariant;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_ref(dict: *mut GVariantDict) -> *mut GVariantDict;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_remove(dict: *mut GVariantDict, key: *const c_char) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_variant_dict_unref(dict: *mut GVariantDict);
 
     //=========================================================================
@@ -3680,11 +3645,8 @@ extern "C" {
     pub fn g_clear_error(error: *mut *mut GError);
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     pub fn g_clear_handle_id(tag_ptr: *mut c_uint, clear_func: GClearHandleFunc);
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_clear_pointer(pp: *mut gpointer, destroy: GDestroyNotify);
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_close(fd: c_int, error: *mut *mut GError) -> gboolean;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_compute_checksum_for_bytes(checksum_type: GChecksumType, data: *mut GBytes) -> *mut c_char;
     pub fn g_compute_checksum_for_data(checksum_type: GChecksumType, data: *const u8, length: size_t) -> *mut c_char;
     pub fn g_compute_checksum_for_string(checksum_type: GChecksumType, str: *const c_char, length: ssize_t) -> *mut c_char;
@@ -3700,11 +3662,9 @@ extern "C" {
     pub fn g_datalist_foreach(datalist: *mut *mut GData, func: GDataForeachFunc, user_data: gpointer);
     pub fn g_datalist_get_data(datalist: *mut *mut GData, key: *const c_char) -> gpointer;
     pub fn g_datalist_get_flags(datalist: *mut *mut GData) -> c_uint;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_datalist_id_dup_data(datalist: *mut *mut GData, key_id: GQuark, dup_func: GDuplicateFunc, user_data: gpointer) -> gpointer;
     pub fn g_datalist_id_get_data(datalist: *mut *mut GData, key_id: GQuark) -> gpointer;
     pub fn g_datalist_id_remove_no_notify(datalist: *mut *mut GData, key_id: GQuark) -> gpointer;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_datalist_id_replace_data(datalist: *mut *mut GData, key_id: GQuark, oldval: gpointer, newval: gpointer, destroy: GDestroyNotify, old_destroy: *mut GDestroyNotify) -> gboolean;
     pub fn g_datalist_id_set_data_full(datalist: *mut *mut GData, key_id: GQuark, data: gpointer, destroy_func: GDestroyNotify);
     pub fn g_datalist_init(datalist: *mut *mut GData);
@@ -3780,7 +3740,6 @@ extern "C" {
     pub fn g_get_language_names_with_category(category_name: *const c_char) -> *const *const c_char;
     pub fn g_get_locale_variants(locale: *const c_char) -> *mut *mut c_char;
     pub fn g_get_monotonic_time() -> i64;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_get_num_processors() -> c_uint;
     pub fn g_get_prgname() -> *const c_char;
     #[cfg(any(windows, feature = "dox"))]
@@ -3985,7 +3944,6 @@ extern "C" {
     #[cfg(any(windows, feature = "dox"))]
     pub fn g_spawn_async_with_pipes_utf8(working_directory: *const c_char, argv: *mut *mut c_char, envp: *mut *mut c_char, flags: GSpawnFlags, child_setup: GSpawnChildSetupFunc, user_data: gpointer, child_pid: *mut GPid, standard_input: *mut c_int, standard_output: *mut c_int, standard_error: *mut c_int, error: *mut *mut GError) -> gboolean;
     pub fn g_spawn_async_with_pipes(working_directory: *const c_char, argv: *mut *mut c_char, envp: *mut *mut c_char, flags: GSpawnFlags, child_setup: GSpawnChildSetupFunc, user_data: gpointer, child_pid: *mut GPid, standard_input: *mut c_int, standard_output: *mut c_int, standard_error: *mut c_int, error: *mut *mut GError) -> gboolean;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_spawn_check_exit_status(exit_status: c_int, error: *mut *mut GError) -> gboolean;
     pub fn g_spawn_close_pid(pid: GPid);
     #[cfg(any(windows, feature = "dox"))]
@@ -4005,13 +3963,9 @@ extern "C" {
     pub fn g_str_has_prefix(str: *const c_char, prefix: *const c_char) -> gboolean;
     pub fn g_str_has_suffix(str: *const c_char, suffix: *const c_char) -> gboolean;
     pub fn g_str_hash(v: gconstpointer) -> c_uint;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_str_is_ascii(str: *const c_char) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_str_match_string(search_term: *const c_char, potential_hit: *const c_char, accept_alternates: gboolean) -> gboolean;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_str_to_ascii(str: *const c_char, from_locale: *const c_char) -> *mut c_char;
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn g_str_tokenize_and_fold(string: *const c_char, translit_locale: *const c_char, ascii_alternates: *mut *mut *mut c_char) -> *mut *mut c_char;
     pub fn g_strcanon(string: *mut c_char, valid_chars: *const c_char, substitutor: c_char) -> *mut c_char;
     pub fn g_strcasecmp(s1: *const c_char, s2: *const c_char) -> c_int;
@@ -4054,28 +4008,21 @@ extern "C" {
     pub fn g_strv_get_type() -> GType;
     pub fn g_strv_length(str_array: *mut *mut c_char) -> c_uint;
     pub fn g_test_add_data_func(testpath: *const c_char, test_data: gconstpointer, test_func: GTestDataFunc);
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_test_add_data_func_full(testpath: *const c_char, test_data: gpointer, test_func: GTestDataFunc, data_free_func: GDestroyNotify);
     pub fn g_test_add_func(testpath: *const c_char, test_func: GTestFunc);
     pub fn g_test_add_vtable(testpath: *const c_char, data_size: size_t, test_data: gconstpointer, data_setup: GTestFixtureFunc, data_test: GTestFixtureFunc, data_teardown: GTestFixtureFunc);
     pub fn g_test_assert_expected_messages_internal(domain: *const c_char, file: *const c_char, line: c_int, func: *const c_char);
     pub fn g_test_bug(bug_uri_snippet: *const c_char);
     pub fn g_test_bug_base(uri_pattern: *const c_char);
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_build_filename(file_type: GTestFileType, first_path: *const c_char, ...) -> *mut c_char;
     pub fn g_test_create_case(test_name: *const c_char, data_size: size_t, test_data: gconstpointer, data_setup: GTestFixtureFunc, data_test: GTestFixtureFunc, data_teardown: GTestFixtureFunc) -> *mut GTestCase;
     pub fn g_test_create_suite(suite_name: *const c_char) -> *mut GTestSuite;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_test_expect_message(log_domain: *const c_char, log_level: GLogLevelFlags, pattern: *const c_char);
     pub fn g_test_fail();
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_failed() -> gboolean;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_get_dir(file_type: GTestFileType) -> *const c_char;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_get_filename(file_type: GTestFileType, first_path: *const c_char, ...) -> *const c_char;
     pub fn g_test_get_root() -> *mut GTestSuite;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_incomplete(msg: *const c_char);
     pub fn g_test_init(argc: *mut c_int, argv: *mut *mut *mut c_char, ...);
     pub fn g_test_log_set_fatal_handler(log_func: GTestLogFatalFunc, user_data: gpointer);
@@ -4091,11 +4038,8 @@ extern "C" {
     pub fn g_test_rand_int_range(begin: i32, end: i32) -> i32;
     pub fn g_test_run() -> c_int;
     pub fn g_test_run_suite(suite: *mut GTestSuite) -> c_int;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_set_nonfatal_assertions();
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_skip(msg: *const c_char);
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_subprocess() -> gboolean;
     pub fn g_test_timer_elapsed() -> c_double;
     pub fn g_test_timer_last() -> c_double;
@@ -4104,7 +4048,6 @@ extern "C" {
     pub fn g_test_trap_fork(usec_timeout: u64, test_trap_flags: GTestTrapFlags) -> gboolean;
     pub fn g_test_trap_has_passed() -> gboolean;
     pub fn g_test_trap_reached_timeout() -> gboolean;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_test_trap_subprocess(test_path: *const c_char, usec_timeout: u64, test_flags: GTestSubprocessFlags);
     pub fn g_timeout_add(interval: c_uint, function: GSourceFunc, data: gpointer) -> c_uint;
     pub fn g_timeout_add_full(priority: c_int, interval: c_uint, function: GSourceFunc, data: gpointer, notify: GDestroyNotify) -> c_uint;
@@ -4157,11 +4100,8 @@ extern "C" {
     pub fn g_unicode_script_from_iso15924(iso15924: u32) -> GUnicodeScript;
     pub fn g_unicode_script_to_iso15924(script: GUnicodeScript) -> u32;
     pub fn g_unix_error_quark() -> GQuark;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_unix_fd_add(fd: c_int, condition: GIOCondition, function: GUnixFDSourceFunc, user_data: gpointer) -> c_uint;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_unix_fd_add_full(priority: c_int, fd: c_int, condition: GIOCondition, function: GUnixFDSourceFunc, user_data: gpointer, notify: GDestroyNotify) -> c_uint;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_unix_fd_source_new(fd: c_int, condition: GIOCondition) -> *mut GSource;
     pub fn g_unix_open_pipe(fds: *mut c_int, flags: c_int, error: *mut *mut GError) -> gboolean;
     pub fn g_unix_set_fd_nonblocking(fd: c_int, nonblock: gboolean, error: *mut *mut GError) -> gboolean;

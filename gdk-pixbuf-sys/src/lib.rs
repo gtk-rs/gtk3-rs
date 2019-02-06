@@ -305,13 +305,9 @@ extern "C" {
     #[cfg(any(windows, feature = "dox"))]
     pub fn gdk_pixbuf_animation_new_from_file_utf8(filename: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbufAnimation;
     pub fn gdk_pixbuf_animation_new_from_file(filename: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbufAnimation;
-    #[cfg(any(feature = "v2_28", feature = "dox"))]
     pub fn gdk_pixbuf_animation_new_from_resource(resource_path: *const c_char, error: *mut *mut glib::GError) -> *mut GdkPixbufAnimation;
-    #[cfg(any(feature = "v2_28", feature = "dox"))]
     pub fn gdk_pixbuf_animation_new_from_stream(stream: *mut gio::GInputStream, cancellable: *mut gio::GCancellable, error: *mut *mut glib::GError) -> *mut GdkPixbufAnimation;
-    #[cfg(any(feature = "v2_28", feature = "dox"))]
     pub fn gdk_pixbuf_animation_new_from_stream_finish(async_result: *mut gio::GAsyncResult, error: *mut *mut glib::GError) -> *mut GdkPixbufAnimation;
-    #[cfg(any(feature = "v2_28", feature = "dox"))]
     pub fn gdk_pixbuf_animation_new_from_stream_async(stream: *mut gio::GInputStream, cancellable: *mut gio::GCancellable, callback: gio::GAsyncReadyCallback, user_data: gpointer);
     pub fn gdk_pixbuf_animation_get_height(animation: *mut GdkPixbufAnimation) -> c_int;
     pub fn gdk_pixbuf_animation_get_iter(animation: *mut GdkPixbufAnimation, start_time: *const glib::GTimeVal) -> *mut GdkPixbufAnimationIter;
@@ -343,7 +339,6 @@ extern "C" {
     pub fn gdk_pixbuf_loader_get_pixbuf(loader: *mut GdkPixbufLoader) -> *mut GdkPixbuf;
     pub fn gdk_pixbuf_loader_set_size(loader: *mut GdkPixbufLoader, width: c_int, height: c_int);
     pub fn gdk_pixbuf_loader_write(loader: *mut GdkPixbufLoader, buf: *const u8, count: size_t, error: *mut *mut glib::GError) -> gboolean;
-    #[cfg(any(feature = "v2_30", feature = "dox"))]
     pub fn gdk_pixbuf_loader_write_bytes(loader: *mut GdkPixbufLoader, buffer: *mut glib::GBytes, error: *mut *mut glib::GError) -> gboolean;
 
     //=========================================================================

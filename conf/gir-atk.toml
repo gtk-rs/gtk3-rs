@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "Atk"
 version = "1.0"
-min_cfg_version = "2.4"
+min_cfg_version = "2.14"
 single_version_file = "."
 
 external_libraries = [

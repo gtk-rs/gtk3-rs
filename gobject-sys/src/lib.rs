@@ -1415,7 +1415,6 @@ extern "C" {
     // GTypeClass
     //=========================================================================
     pub fn g_type_class_add_private(g_class: gpointer, private_size: size_t);
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_type_class_get_instance_private_offset(g_class: gpointer) -> c_int;
     pub fn g_type_class_get_private(klass: *mut GTypeClass, private_type: GType) -> gpointer;
     pub fn g_type_class_peek_parent(g_class: gpointer) -> gpointer;
@@ -1478,7 +1477,6 @@ extern "C" {
     pub fn g_value_get_ulong(value: *const GValue) -> c_ulong;
     pub fn g_value_get_variant(value: *const GValue) -> *mut glib::GVariant;
     pub fn g_value_init(value: *mut GValue, g_type: GType) -> *mut GValue;
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
     pub fn g_value_init_from_instance(value: *mut GValue, instance: gpointer);
     pub fn g_value_peek_pointer(value: *const GValue) -> gpointer;
     pub fn g_value_reset(value: *mut GValue) -> *mut GValue;
@@ -1553,7 +1551,6 @@ extern "C" {
     pub fn g_binding_get_source_property(binding: *mut GBinding) -> *const c_char;
     pub fn g_binding_get_target(binding: *mut GBinding) -> *mut GObject;
     pub fn g_binding_get_target_property(binding: *mut GBinding) -> *const c_char;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_binding_unbind(binding: *mut GBinding);
 
     //=========================================================================
@@ -1581,9 +1578,7 @@ extern "C" {
     pub fn g_object_bind_property_with_closures(source: *mut GObject, source_property: *const c_char, target: *mut GObject, target_property: *const c_char, flags: GBindingFlags, transform_to: *mut GClosure, transform_from: *mut GClosure) -> *mut GBinding;
     pub fn g_object_connect(object: *mut GObject, signal_spec: *const c_char, ...) -> *mut GObject;
     pub fn g_object_disconnect(object: *mut GObject, signal_spec: *const c_char, ...);
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_object_dup_data(object: *mut GObject, key: *const c_char, dup_func: glib::GDuplicateFunc, user_data: gpointer) -> gpointer;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_object_dup_qdata(object: *mut GObject, quark: glib::GQuark, dup_func: glib::GDuplicateFunc, user_data: gpointer) -> gpointer;
     pub fn g_object_force_floating(object: *mut GObject);
     pub fn g_object_freeze_notify(object: *mut GObject);
@@ -1601,9 +1596,7 @@ extern "C" {
     pub fn g_object_ref_sink(object: *mut GObject) -> *mut GObject;
     pub fn g_object_remove_toggle_ref(object: *mut GObject, notify: GToggleNotify, data: gpointer);
     pub fn g_object_remove_weak_pointer(object: *mut GObject, weak_pointer_location: *mut gpointer);
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_object_replace_data(object: *mut GObject, key: *const c_char, oldval: gpointer, newval: gpointer, destroy: glib::GDestroyNotify, old_destroy: *mut glib::GDestroyNotify) -> gboolean;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_object_replace_qdata(object: *mut GObject, quark: glib::GQuark, oldval: gpointer, newval: gpointer, destroy: glib::GDestroyNotify, old_destroy: *mut glib::GDestroyNotify) -> gboolean;
     pub fn g_object_run_dispose(object: *mut GObject);
     pub fn g_object_set(object: *mut GObject, first_property_name: *const c_char, ...);
@@ -1628,7 +1621,6 @@ extern "C" {
     //=========================================================================
     pub fn g_param_spec_internal(param_type: GType, name: *const c_char, nick: *const c_char, blurb: *const c_char, flags: GParamFlags) -> *mut GParamSpec;
     pub fn g_param_spec_get_blurb(pspec: *mut GParamSpec) -> *const c_char;
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn g_param_spec_get_default_value(pspec: *mut GParamSpec) -> *const GValue;
     pub fn g_param_spec_get_name(pspec: *mut GParamSpec) -> *const c_char;
     #[cfg(any(feature = "v2_46", feature = "dox"))]
@@ -1781,7 +1773,6 @@ extern "C" {
     pub fn g_type_default_interface_ref(g_type: GType) -> gpointer;
     pub fn g_type_default_interface_unref(g_iface: gpointer);
     pub fn g_type_depth(type_: GType) -> c_uint;
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn g_type_ensure(type_: GType);
     pub fn g_type_free_instance(instance: *mut GTypeInstance);
     pub fn g_type_from_name(name: *const c_char) -> GType;
@@ -1791,7 +1782,6 @@ extern "C" {
     pub fn g_type_get_instance_count(type_: GType) -> c_int;
     pub fn g_type_get_plugin(type_: GType) -> *mut GTypePlugin;
     pub fn g_type_get_qdata(type_: GType, quark: glib::GQuark) -> gpointer;
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn g_type_get_type_registration_serial() -> c_uint;
     pub fn g_type_init();
     pub fn g_type_init_with_debug_flags(debug_flags: GTypeDebugFlags);

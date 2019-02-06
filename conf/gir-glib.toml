@@ -2,7 +2,7 @@
 work_mode = "sys"
 library = "GLib"
 version = "2.0"
-min_cfg_version = "2.32"
+min_cfg_version = "2.42"
 single_version_file = "."
 
 ignore = [
