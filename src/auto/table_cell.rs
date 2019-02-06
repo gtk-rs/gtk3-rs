@@ -7,7 +7,6 @@ use ffi;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem;
 
 glib_wrapper! {
@@ -21,42 +20,32 @@ glib_wrapper! {
 pub const NONE_TABLE_CELL: Option<&TableCell> = None;
 
 pub trait TableCellExt: 'static {
-    //#[cfg(any(feature = "v2_12", feature = "dox"))]
     //fn get_column_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_column_span(&self) -> i32;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_position(&self) -> Option<(i32, i32)>;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_row_column_span(&self) -> Option<(i32, i32, i32, i32)>;
 
-    //#[cfg(any(feature = "v2_12", feature = "dox"))]
     //fn get_row_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_row_span(&self) -> i32;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_table(&self) -> Option<Object>;
 }
 
 impl<O: IsA<TableCell>> TableCellExt for O {
-    //#[cfg(any(feature = "v2_12", feature = "dox"))]
     //fn get_column_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 } {
     //    unsafe { TODO: call ffi::atk_table_cell_get_column_header_cells() }
     //}
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_column_span(&self) -> i32 {
         unsafe {
             ffi::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_position(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut row = mem::uninitialized();
@@ -66,7 +55,6 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_row_column_span(&self) -> Option<(i32, i32, i32, i32)> {
         unsafe {
             let mut row = mem::uninitialized();
@@ -78,19 +66,16 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_12", feature = "dox"))]
     //fn get_row_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 } {
     //    unsafe { TODO: call ffi::atk_table_cell_get_row_header_cells() }
     //}
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_row_span(&self) -> i32 {
         unsafe {
             ffi::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_table(&self) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_table_cell_get_table(self.as_ref().to_glib_none().0))

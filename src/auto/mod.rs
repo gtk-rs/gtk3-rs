@@ -42,9 +42,7 @@ mod misc;
 pub use self::misc::{Misc, MiscClass, NONE_MISC};
 pub use self::misc::AtkMiscExt;
 
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 mod no_op_object;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 pub use self::no_op_object::{NoOpObject, NoOpObjectClass, NONE_NO_OP_OBJECT};
 
 mod no_op_object_factory;
@@ -94,11 +92,8 @@ mod table;
 pub use self::table::{Table, NONE_TABLE};
 pub use self::table::TableExt;
 
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 mod table_cell;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 pub use self::table_cell::{TableCell, NONE_TABLE_CELL};
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 pub use self::table_cell::TableCellExt;
 
 mod text;
@@ -116,9 +111,7 @@ mod window;
 pub use self::window::{Window, NONE_WINDOW};
 pub use self::window::AtkWindowExt;
 
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 mod range;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 pub use self::range::Range;
 
 mod rectangle;
@@ -170,7 +163,6 @@ pub mod traits {
     pub use super::StateSetExt;
     pub use super::StreamableContentExt;
     pub use super::TableExt;
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub use super::TableCellExt;
     pub use super::TextExt;
     pub use super::ValueExt;

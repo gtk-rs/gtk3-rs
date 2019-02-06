@@ -31,9 +31,6 @@ glib_wrapper! {
 pub const NONE_COMPONENT: Option<&Component> = None;
 
 pub trait ComponentExt: 'static {
-    //#[cfg_attr(feature = "v2_9_4", deprecated)]
-    //fn add_focus_handler<P: Fn(&Object, bool) + 'static>(&self, handler: P) -> u32;
-
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool;
 
     fn get_alpha(&self) -> f64;
@@ -52,9 +49,6 @@ pub trait ComponentExt: 'static {
 
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object>;
 
-    #[cfg_attr(feature = "v2_9_4", deprecated)]
-    fn remove_focus_handler(&self, handler_id: u32);
-
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     fn scroll_to(&self, type_: ScrollType) -> bool;
 
@@ -71,10 +65,6 @@ pub trait ComponentExt: 'static {
 }
 
 impl<O: IsA<Component>> ComponentExt for O {
-    //fn add_focus_handler<P: Fn(&Object, bool) + 'static>(&self, handler: P) -> u32 {
-    //    unsafe { TODO: call ffi::atk_component_add_focus_handler() }
-    //}
-
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
             from_glib(ffi::atk_component_contains(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
@@ -137,12 +127,6 @@ impl<O: IsA<Component>> ComponentExt for O {
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object> {
         unsafe {
             from_glib_full(ffi::atk_component_ref_accessible_at_point(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
-        }
-    }
-
-    fn remove_focus_handler(&self, handler_id: u32) {
-        unsafe {
-            ffi::atk_component_remove_focus_handler(self.as_ref().to_glib_none().0, handler_id);
         }
     }
 

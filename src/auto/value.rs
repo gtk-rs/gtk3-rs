@@ -2,32 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use Range;
 use ffi;
 use glib;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::GString;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::object::Cast;
 use glib::object::IsA;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::signal::connect_raw;
 use glib::translate::*;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib_ffi;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use libc;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::mem::transmute;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -43,7 +32,6 @@ pub const NONE_VALUE: Option<&Value> = None;
 pub trait ValueExt: 'static {
     fn get_current_value(&self) -> glib::Value;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_increment(&self) -> f64;
 
     fn get_maximum_value(&self) -> glib::Value;
@@ -52,21 +40,16 @@ pub trait ValueExt: 'static {
 
     fn get_minimum_value(&self) -> glib::Value;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_range(&self) -> Option<Range>;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_sub_ranges(&self) -> Vec<Range>;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_value_and_text(&self) -> (f64, GString);
 
     fn set_current_value(&self, value: &glib::Value) -> bool;
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn set_value(&self, new_value: f64);
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -79,7 +62,6 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_increment(&self) -> f64 {
         unsafe {
             ffi::atk_value_get_increment(self.as_ref().to_glib_none().0)
@@ -110,21 +92,18 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_range(&self) -> Option<Range> {
         unsafe {
             from_glib_full(ffi::atk_value_get_range(self.as_ref().to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_sub_ranges(&self) -> Vec<Range> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(self.as_ref().to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn get_value_and_text(&self) -> (f64, GString) {
         unsafe {
             let mut value = mem::uninitialized();
@@ -140,14 +119,12 @@ impl<O: IsA<Value>> ValueExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn set_value(&self, new_value: f64) {
         unsafe {
             ffi::atk_value_set_value(self.as_ref().to_glib_none().0, new_value);
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -157,7 +134,6 @@ impl<O: IsA<Value>> ValueExt for O {
     }
 }
 
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Value> {
     let f: &F = transmute(f);

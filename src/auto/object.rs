@@ -54,7 +54,6 @@ pub trait AtkObjectExt: 'static {
 
     fn get_name(&self) -> Option<GString>;
 
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     fn get_object_locale(&self) -> Option<GString>;
 
     fn get_parent(&self) -> Option<Object>;
@@ -142,9 +141,6 @@ pub trait AtkObjectExt: 'static {
     fn connect_active_descendant_changed<F: Fn(&Self, &Object) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_children_changed<F: Fn(&Self, u32, &Object) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[cfg_attr(feature = "v2_9_4", deprecated)]
-    fn connect_focus_event<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId;
 
     //fn connect_property_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
@@ -234,7 +230,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_8", feature = "dox"))]
     fn get_object_locale(&self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_object_get_object_locale(self.as_ref().to_glib_none().0))
@@ -536,14 +531,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn connect_focus_event<F: Fn(&Self, bool) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"focus-event\0".as_ptr() as *const _,
-                Some(transmute(focus_event_trampoline::<Self, F> as usize)), Box_::into_raw(f))
-        }
-    }
-
     //fn connect_property_change<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
     //    Ignored arg1: Atk.PropertyValues
     //}
@@ -695,12 +682,6 @@ unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 's
 where P: IsA<Object> {
     let f: &F = transmute(f);
     f(&Object::from_glib_borrow(this).unsafe_cast(), arg1, &from_glib_borrow(arg2))
-}
-
-unsafe extern "C" fn focus_event_trampoline<P, F: Fn(&P, bool) + 'static>(this: *mut ffi::AtkObject, arg1: glib_ffi::gboolean, f: glib_ffi::gpointer)
-where P: IsA<Object> {
-    let f: &F = transmute(f);
-    f(&Object::from_glib_borrow(this).unsafe_cast(), from_glib(arg1))
 }
 
 unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut ffi::AtkObject, arg1: *mut libc::c_char, arg2: glib_ffi::gboolean, f: glib_ffi::gpointer)

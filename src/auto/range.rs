@@ -3,9 +3,7 @@
 // DO NOT EDIT
 
 use ffi;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::GString;
-#[cfg(any(feature = "v2_12", feature = "dox"))]
 use glib::translate::*;
 
 glib_wrapper! {
@@ -20,7 +18,6 @@ glib_wrapper! {
 }
 
 impl Range {
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn new(lower_limit: f64, upper_limit: f64, description: &str) -> Range {
         assert_initialized_main_thread!();
         unsafe {
@@ -28,21 +25,18 @@ impl Range {
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn get_description(&mut self) -> Option<GString> {
         unsafe {
             from_glib_none(ffi::atk_range_get_description(self.to_glib_none_mut().0))
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn get_lower_limit(&mut self) -> f64 {
         unsafe {
             ffi::atk_range_get_lower_limit(self.to_glib_none_mut().0)
         }
     }
 
-    #[cfg(any(feature = "v2_12", feature = "dox"))]
     pub fn get_upper_limit(&mut self) -> f64 {
         unsafe {
             ffi::atk_range_get_upper_limit(self.to_glib_none_mut().0)
