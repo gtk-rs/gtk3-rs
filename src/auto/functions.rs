@@ -114,22 +114,10 @@ pub fn itemize_with_base_dir<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterato
     }
 }
 
-#[cfg_attr(feature = "v1_32", deprecated)]
-pub fn lookup_aliases(fontname: &str) -> Vec<GString> {
-    unsafe {
-        let mut families = ptr::null_mut();
-        let mut n_families = mem::uninitialized();
-        ffi::pango_lookup_aliases(fontname.to_glib_none().0, &mut families, &mut n_families);
-        FromGlibContainer::from_glib_full_num(families, n_families as usize)
-    }
-}
-
-//#[cfg(any(feature = "v1_31", feature = "dox"))]
 //pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext) -> Result<(AttrList, GString, char), Error> {
 //    unsafe { TODO: call ffi::pango_markup_parser_finish() }
 //}
 
-//#[cfg(any(feature = "v1_31", feature = "dox"))]
 //pub fn markup_parser_new(accel_marker: char) -> /*Ignored*/Option<glib::MarkupParseContext> {
 //    unsafe { TODO: call ffi::pango_markup_parser_new() }
 //}

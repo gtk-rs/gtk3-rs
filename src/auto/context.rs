@@ -45,7 +45,6 @@ impl Default for Context {
 pub const NONE_CONTEXT: Option<&Context> = None;
 
 pub trait ContextExt: 'static {
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn changed(&self);
 
     fn get_base_dir(&self) -> Direction;
@@ -66,7 +65,6 @@ pub trait ContextExt: 'static {
 
     fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b Language>>>(&self, desc: P, language: Q) -> Option<FontMetrics>;
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32;
 
     fn list_families(&self) -> Vec<FontFamily>;
@@ -91,7 +89,6 @@ pub trait ContextExt: 'static {
 }
 
 impl<O: IsA<Context>> ContextExt for O {
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn changed(&self) {
         unsafe {
             ffi::pango_context_changed(self.as_ref().to_glib_none().0);
@@ -154,7 +151,6 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32 {
         unsafe {
             ffi::pango_context_get_serial(self.as_ref().to_glib_none().0)

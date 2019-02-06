@@ -27,12 +27,10 @@ glib_wrapper! {
 pub const NONE_FONT_MAP: Option<&FontMap> = None;
 
 pub trait FontMapExt: 'static {
-    #[cfg(any(feature = "v1_34", feature = "dox"))]
     fn changed(&self);
 
     fn create_context(&self) -> Option<Context>;
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32;
 
     #[cfg_attr(feature = "v1_38", deprecated)]
@@ -46,7 +44,6 @@ pub trait FontMapExt: 'static {
 }
 
 impl<O: IsA<FontMap>> FontMapExt for O {
-    #[cfg(any(feature = "v1_34", feature = "dox"))]
     fn changed(&self) {
         unsafe {
             ffi::pango_font_map_changed(self.as_ref().to_glib_none().0);
@@ -59,7 +56,6 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    #[cfg(any(feature = "v1_32_4", feature = "dox"))]
     fn get_serial(&self) -> u32 {
         unsafe {
             ffi::pango_font_map_get_serial(self.as_ref().to_glib_none().0)
