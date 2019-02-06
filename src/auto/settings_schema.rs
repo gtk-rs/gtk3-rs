@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use SettingsSchemaKey;
 use ffi;
 use glib::GString;
@@ -26,7 +25,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn get_key(&self, name: &str) -> Option<SettingsSchemaKey> {
         unsafe {
             from_glib_full(ffi::g_settings_schema_get_key(self.to_glib_none().0, name.to_glib_none().0))
@@ -39,7 +37,6 @@ impl SettingsSchema {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn has_key(&self, name: &str) -> bool {
         unsafe {
             from_glib(ffi::g_settings_schema_has_key(self.to_glib_none().0, name.to_glib_none().0))

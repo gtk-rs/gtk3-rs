@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use Icon;
 use MenuModel;
 use ffi;
@@ -28,7 +27,6 @@ impl MenuItem {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn new_from_model<P: IsA<MenuModel>>(model: &P, item_index: i32) -> MenuItem {
         unsafe {
             from_glib_full(ffi::g_menu_item_new_from_model(model.as_ref().to_glib_none().0, item_index))
@@ -49,12 +47,10 @@ impl MenuItem {
         }
     }
 
-    //#[cfg(any(feature = "v2_34", feature = "dox"))]
     //pub fn get_attribute(&self, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call ffi::g_menu_item_get_attribute() }
     //}
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn get_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, attribute: &str, expected_type: P) -> Option<glib::Variant> {
         let expected_type = expected_type.into();
         unsafe {
@@ -62,7 +58,6 @@ impl MenuItem {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn get_link(&self, link: &str) -> Option<MenuModel> {
         unsafe {
             from_glib_full(ffi::g_menu_item_get_link(self.to_glib_none().0, link.to_glib_none().0))
@@ -98,7 +93,6 @@ impl MenuItem {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn set_icon<P: IsA<Icon>>(&self, icon: &P) {
         unsafe {
             ffi::g_menu_item_set_icon(self.to_glib_none().0, icon.as_ref().to_glib_none().0);

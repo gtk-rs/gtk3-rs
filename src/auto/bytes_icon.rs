@@ -5,7 +5,6 @@
 use Icon;
 use LoadableIcon;
 use ffi;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use glib;
 use glib::translate::*;
 use std::fmt;
@@ -19,14 +18,12 @@ glib_wrapper! {
 }
 
 impl BytesIcon {
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn new(bytes: &glib::Bytes) -> BytesIcon {
         unsafe {
             from_glib_full(ffi::g_bytes_icon_new(bytes.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn get_bytes(&self) -> Option<glib::Bytes> {
         unsafe {
             from_glib_none(ffi::g_bytes_icon_get_bytes(self.to_glib_none().0))

@@ -210,7 +210,7 @@ impl <T: OutputStreamExt> io::Write for OutputStreamWrite<T> {
     }
 }
 
-#[cfg(all(test,any(feature = "v2_36", feature = "dox")))]
+#[cfg(test)]
 mod tests {
     use glib::*;
     use std::io::Write;

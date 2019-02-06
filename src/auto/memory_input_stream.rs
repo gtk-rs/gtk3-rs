@@ -6,7 +6,6 @@ use InputStream;
 use PollableInputStream;
 use Seekable;
 use ffi;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use glib;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -28,7 +27,6 @@ impl MemoryInputStream {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     pub fn new_from_bytes(bytes: &glib::Bytes) -> MemoryInputStream {
         unsafe {
             InputStream::from_glib_full(ffi::g_memory_input_stream_new_from_bytes(bytes.to_glib_none().0)).unsafe_cast()
@@ -45,12 +43,10 @@ impl Default for MemoryInputStream {
 pub const NONE_MEMORY_INPUT_STREAM: Option<&MemoryInputStream> = None;
 
 pub trait MemoryInputStreamExt: 'static {
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn add_bytes(&self, bytes: &glib::Bytes);
 }
 
 impl<O: IsA<MemoryInputStream>> MemoryInputStreamExt for O {
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn add_bytes(&self, bytes: &glib::Bytes) {
         unsafe {
             ffi::g_memory_input_stream_add_bytes(self.as_ref().to_glib_none().0, bytes.to_glib_none().0);

@@ -120,7 +120,6 @@ impl Menu {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn remove_all(&self) {
         unsafe {
             ffi::g_menu_remove_all(self.to_glib_none().0);

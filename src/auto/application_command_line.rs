@@ -2,9 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use File;
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 use InputStream;
 use ffi;
 use glib;
@@ -32,7 +30,6 @@ glib_wrapper! {
 pub const NONE_APPLICATION_COMMAND_LINE: Option<&ApplicationCommandLine> = None;
 
 pub trait ApplicationCommandLineExt: 'static {
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File>;
 
     fn get_arguments(&self) -> Vec<std::ffi::OsString>;
@@ -45,12 +42,10 @@ pub trait ApplicationCommandLineExt: 'static {
 
     fn get_is_remote(&self) -> bool;
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn get_options_dict(&self) -> /*Ignored*/Option<glib::VariantDict>;
 
     fn get_platform_data(&self) -> Option<glib::Variant>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_stdin(&self) -> Option<InputStream>;
 
     fn getenv<P: AsRef<std::ffi::OsStr>>(&self, name: P) -> Option<GString>;
@@ -65,7 +60,6 @@ pub trait ApplicationCommandLineExt: 'static {
 }
 
 impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn create_file_for_arg<P: AsRef<std::ffi::OsStr>>(&self, arg: P) -> Option<File> {
         unsafe {
             from_glib_full(ffi::g_application_command_line_create_file_for_arg(self.as_ref().to_glib_none().0, arg.as_ref().to_glib_none().0))
@@ -104,7 +98,6 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    //#[cfg(any(feature = "v2_40", feature = "dox"))]
     //fn get_options_dict(&self) -> /*Ignored*/Option<glib::VariantDict> {
     //    unsafe { TODO: call ffi::g_application_command_line_get_options_dict() }
     //}
@@ -115,7 +108,6 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_stdin(&self) -> Option<InputStream> {
         unsafe {
             from_glib_full(ffi::g_application_command_line_get_stdin(self.as_ref().to_glib_none().0))

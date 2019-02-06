@@ -1127,7 +1127,6 @@ impl SetValue for NetworkConnectivity {
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 pub enum NotificationPriority {
@@ -1139,7 +1138,6 @@ pub enum NotificationPriority {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 impl fmt::Display for NotificationPriority {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "NotificationPriority::{}", match *self {
@@ -1152,7 +1150,6 @@ impl fmt::Display for NotificationPriority {
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for NotificationPriority {
     type GlibType = ffi::GNotificationPriority;
@@ -1168,7 +1165,6 @@ impl ToGlib for NotificationPriority {
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
     fn from_glib(value: ffi::GNotificationPriority) -> Self {
@@ -1182,28 +1178,24 @@ impl FromGlib<ffi::GNotificationPriority> for NotificationPriority {
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 impl StaticType for NotificationPriority {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_notification_priority_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for NotificationPriority {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 impl<'a> FromValue<'a> for NotificationPriority {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
 impl SetValue for NotificationPriority {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -1281,7 +1273,6 @@ impl SetValue for PasswordSave {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 pub enum ResolverRecordType {
@@ -1294,7 +1285,6 @@ pub enum ResolverRecordType {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 impl fmt::Display for ResolverRecordType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "ResolverRecordType::{}", match *self {
@@ -1308,7 +1298,6 @@ impl fmt::Display for ResolverRecordType {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for ResolverRecordType {
     type GlibType = ffi::GResolverRecordType;
@@ -1325,7 +1314,6 @@ impl ToGlib for ResolverRecordType {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GResolverRecordType> for ResolverRecordType {
     fn from_glib(value: ffi::GResolverRecordType) -> Self {
@@ -1340,28 +1328,24 @@ impl FromGlib<ffi::GResolverRecordType> for ResolverRecordType {
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 impl StaticType for ResolverRecordType {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_resolver_record_type_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for ResolverRecordType {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 impl<'a> FromValue<'a> for ResolverRecordType {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 impl SetValue for ResolverRecordType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
@@ -1931,7 +1915,6 @@ impl SetValue for TlsAuthenticationMode {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 pub enum TlsCertificateRequestFlags {
@@ -1940,7 +1923,6 @@ pub enum TlsCertificateRequestFlags {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl fmt::Display for TlsCertificateRequestFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "TlsCertificateRequestFlags::{}", match *self {
@@ -1950,7 +1932,6 @@ impl fmt::Display for TlsCertificateRequestFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for TlsCertificateRequestFlags {
     type GlibType = ffi::GTlsCertificateRequestFlags;
@@ -1963,7 +1944,6 @@ impl ToGlib for TlsCertificateRequestFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GTlsCertificateRequestFlags> for TlsCertificateRequestFlags {
     fn from_glib(value: ffi::GTlsCertificateRequestFlags) -> Self {
@@ -1974,28 +1954,24 @@ impl FromGlib<ffi::GTlsCertificateRequestFlags> for TlsCertificateRequestFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl StaticType for TlsCertificateRequestFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_tls_certificate_request_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for TlsCertificateRequestFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl<'a> FromValue<'a> for TlsCertificateRequestFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl SetValue for TlsCertificateRequestFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

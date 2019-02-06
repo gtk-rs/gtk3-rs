@@ -97,7 +97,6 @@ pub trait MountOperationExt: 'static {
 
     //fn connect_show_processes<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -276,7 +275,6 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     //    Empty ctype choices: *.CArray TypeId { ns_id: 0, id: 28 }
     //}
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -379,7 +377,6 @@ where P: IsA<MountOperation> {
     f(&MountOperation::from_glib_borrow(this).unsafe_cast(), from_glib(result))
 }
 
-#[cfg(any(feature = "v2_34", feature = "dox"))]
 unsafe extern "C" fn show_unmount_progress_trampoline<P, F: Fn(&P, &str, i64, i64) + 'static>(this: *mut ffi::GMountOperation, message: *mut libc::c_char, time_left: i64, bytes_left: i64, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
     let f: &F = transmute(f);

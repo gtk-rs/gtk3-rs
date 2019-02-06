@@ -65,20 +65,6 @@ impl Settings {
         }
     }
 
-    #[cfg_attr(feature = "v2_40", deprecated)]
-    pub fn list_relocatable_schemas() -> Vec<GString> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::g_settings_list_relocatable_schemas())
-        }
-    }
-
-    #[cfg_attr(feature = "v2_40", deprecated)]
-    pub fn list_schemas() -> Vec<GString> {
-        unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::g_settings_list_schemas())
-        }
-    }
-
     pub fn sync() {
         unsafe {
             ffi::g_settings_sync();
@@ -113,7 +99,6 @@ pub trait SettingsExt: 'static {
 
     fn get_child(&self, name: &str) -> Option<Settings>;
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn get_default_value(&self, key: &str) -> Option<glib::Variant>;
 
     fn get_double(&self, key: &str) -> f64;
@@ -131,9 +116,6 @@ pub trait SettingsExt: 'static {
 
     //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>;
 
-    #[cfg_attr(feature = "v2_40", deprecated)]
-    fn get_range(&self, key: &str) -> Option<glib::Variant>;
-
     fn get_string(&self, key: &str) -> Option<GString>;
 
     fn get_strv(&self, key: &str) -> Vec<GString>;
@@ -143,7 +125,6 @@ pub trait SettingsExt: 'static {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn get_uint64(&self, key: &str) -> u64;
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn get_user_value(&self, key: &str) -> Option<glib::Variant>;
 
     fn get_value(&self, key: &str) -> Option<glib::Variant>;
@@ -153,9 +134,6 @@ pub trait SettingsExt: 'static {
     fn list_children(&self) -> Vec<GString>;
 
     fn list_keys(&self) -> Vec<GString>;
-
-    #[cfg_attr(feature = "v2_40", deprecated)]
-    fn range_check(&self, key: &str, value: &glib::Variant) -> bool;
 
     fn reset(&self, key: &str);
 
@@ -192,9 +170,6 @@ pub trait SettingsExt: 'static {
     fn get_property_delay_apply(&self) -> bool;
 
     fn get_property_path(&self) -> Option<GString>;
-
-    #[deprecated]
-    fn get_property_schema(&self) -> Option<GString>;
 
     fn get_property_schema_id(&self) -> Option<GString>;
 
@@ -264,7 +239,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn get_default_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_settings_get_default_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
@@ -312,12 +286,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
     //    unsafe { TODO: call ffi::g_settings_get_mapped() }
     //}
 
-    fn get_range(&self, key: &str) -> Option<glib::Variant> {
-        unsafe {
-            from_glib_full(ffi::g_settings_get_range(self.as_ref().to_glib_none().0, key.to_glib_none().0))
-        }
-    }
-
     fn get_string(&self, key: &str) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_settings_get_string(self.as_ref().to_glib_none().0, key.to_glib_none().0))
@@ -343,7 +311,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     fn get_user_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_settings_get_user_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
@@ -371,12 +338,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn list_keys(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_keys(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn range_check(&self, key: &str, value: &glib::Variant) -> bool {
-        unsafe {
-            from_glib(ffi::g_settings_range_check(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
         }
     }
 
@@ -484,14 +445,6 @@ impl<O: IsA<Settings>> SettingsExt for O {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
             gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"path\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-            value.get()
-        }
-    }
-
-    fn get_property_schema(&self) -> Option<GString> {
-        unsafe {
-            let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"schema\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }

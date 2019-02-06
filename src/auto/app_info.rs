@@ -169,7 +169,6 @@ pub trait AppInfoExt: 'static {
 
     fn get_name(&self) -> Option<GString>;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_supported_types(&self) -> Vec<GString>;
 
     fn launch<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, files: &[File], context: Q) -> Result<(), Error>;
@@ -272,7 +271,6 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_supported_types(&self) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_none(ffi::g_app_info_get_supported_types(self.as_ref().to_glib_none().0))

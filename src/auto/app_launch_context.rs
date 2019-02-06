@@ -5,26 +5,18 @@
 use AppInfo;
 use File;
 use ffi;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib;
 use glib::GString;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::object::Cast;
 use glib::object::IsA;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::signal::SignalHandlerId;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib::signal::connect_raw;
 use glib::translate::*;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use glib_ffi;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use libc;
 use std;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::mem::transmute;
 
 glib_wrapper! {
@@ -64,10 +56,8 @@ pub trait AppLaunchContextExt: 'static {
 
     fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P);
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
@@ -108,7 +98,6 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_launch_failed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -117,7 +106,6 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_launched<F: Fn(&Self, &AppInfo, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -127,14 +115,12 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
     }
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn launch_failed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GAppLaunchContext, startup_notify_id: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
     let f: &F = transmute(f);
     f(&AppLaunchContext::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(startup_notify_id))
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn launched_trampoline<P, F: Fn(&P, &AppInfo, &glib::Variant) + 'static>(this: *mut ffi::GAppLaunchContext, info: *mut ffi::GAppInfo, platform_data: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
     let f: &F = transmute(f);

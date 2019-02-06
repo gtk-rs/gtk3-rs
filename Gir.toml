@@ -2,10 +2,11 @@
 girs_dir = "gir-files"
 library = "Gio"
 version = "2.0"
-min_cfg_version = "2.32"
+min_cfg_version = "2.42"
 target_path = "."
 work_mode = "normal"
 single_version_file = true
+deprecate_by_min_version = true
 
 generate = [
     # "Gio.Task",

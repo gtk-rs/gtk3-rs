@@ -14,7 +14,6 @@ use ListStore;
 use std::cmp::Ordering;
 
 pub trait ListStoreExtManual {
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(&self, item: &P, compare_func: F) -> u32;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
@@ -22,7 +21,6 @@ pub trait ListStoreExtManual {
 }
 
 impl<O: IsA<ListStore>> ListStoreExtManual for O {
-    #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(&self, item: &P, compare_func: F) -> u32 {
         unsafe {
             let mut func = compare_func;

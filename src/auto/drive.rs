@@ -47,13 +47,6 @@ pub trait DriveExt: 'static {
 
     fn can_stop(&self) -> bool;
 
-    #[deprecated]
-    fn eject<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: Q, callback: R);
-
-    #[deprecated]
-    #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
-
     fn eject_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T);
 
     #[cfg(feature = "futures")]
@@ -71,7 +64,6 @@ pub trait DriveExt: 'static {
 
     fn get_start_stop_type(&self) -> DriveStartStopType;
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon>;
 
     fn get_volumes(&self) -> Vec<Volume>;
@@ -140,45 +132,6 @@ impl<O: IsA<Drive>> DriveExt for O {
         unsafe {
             from_glib(ffi::g_drive_can_stop(self.as_ref().to_glib_none().0))
         }
-    }
-
-    fn eject<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn eject_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
-            let mut error = ptr::null_mut();
-            let _ = ffi::g_drive_eject_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = eject_trampoline::<R>;
-        unsafe {
-            ffi::g_drive_eject(self.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
-        }
-    }
-
-    #[cfg(feature = "futures")]
-    fn eject_future(&self, flags: MountUnmountFlags) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
-        use GioFuture;
-        use fragile::Fragile;
-
-        GioFuture::new(self, move |obj, send| {
-            let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
-            obj.eject(
-                 flags,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
-            );
-
-            cancellable
-        })
     }
 
     fn eject_with_operation<'a, 'b, P: IsA<MountOperation> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Q, cancellable: S, callback: T) {
@@ -260,7 +213,6 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_34", feature = "dox"))]
     fn get_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
             from_glib_full(ffi::g_drive_get_symbolic_icon(self.as_ref().to_glib_none().0))

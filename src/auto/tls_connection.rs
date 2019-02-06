@@ -55,9 +55,6 @@ pub trait TlsConnectionExt: 'static {
 
     fn get_require_close_notify(&self) -> bool;
 
-    #[deprecated]
-    fn get_use_system_certdb(&self) -> bool;
-
     fn handshake<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
 
     fn handshake_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
@@ -74,9 +71,6 @@ pub trait TlsConnectionExt: 'static {
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode);
 
     fn set_require_close_notify(&self, require_close_notify: bool);
-
-    #[deprecated]
-    fn set_use_system_certdb(&self, use_system_certdb: bool);
 
     fn get_property_base_io_stream(&self) -> Option<IOStream>;
 
@@ -95,9 +89,6 @@ pub trait TlsConnectionExt: 'static {
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-
-    #[deprecated]
-    fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
 
 impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
@@ -146,12 +137,6 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn get_require_close_notify(&self) -> bool {
         unsafe {
             from_glib(ffi::g_tls_connection_get_require_close_notify(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_use_system_certdb(&self) -> bool {
-        unsafe {
-            from_glib(ffi::g_tls_connection_get_use_system_certdb(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -234,12 +219,6 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn set_use_system_certdb(&self, use_system_certdb: bool) {
-        unsafe {
-            ffi::g_tls_connection_set_use_system_certdb(self.as_ref().to_glib_none().0, use_system_certdb.to_glib());
-        }
-    }
-
     fn get_property_base_io_stream(&self) -> Option<IOStream> {
         unsafe {
             let mut value = Value::from_type(<IOStream as StaticType>::static_type());
@@ -311,14 +290,6 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 Some(transmute(notify_require_close_notify_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-
-    fn connect_property_use_system_certdb_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::use-system-certdb\0".as_ptr() as *const _,
-                Some(transmute(notify_use_system_certdb_trampoline::<Self, F> as usize)), Box_::into_raw(f))
-        }
-    }
 }
 
 unsafe extern "C" fn accept_certificate_trampoline<P, F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(this: *mut ffi::GTlsConnection, peer_cert: *mut ffi::GTlsCertificate, errors: ffi::GTlsCertificateFlags, f: glib_ffi::gpointer) -> glib_ffi::gboolean
@@ -364,12 +335,6 @@ where P: IsA<TlsConnection> {
 }
 
 unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_use_system_certdb_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
     let f: &F = transmute(f);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())

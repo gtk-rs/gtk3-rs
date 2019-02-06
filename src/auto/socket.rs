@@ -25,7 +25,6 @@ use glib_ffi;
 use gobject_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use std::mem;
 use std::mem::transmute;
 use std::ptr;
@@ -95,7 +94,6 @@ pub trait SocketExt: 'static {
 
     fn get_multicast_ttl(&self) -> u32;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_option(&self, level: i32, optname: i32) -> Result<i32, Error>;
 
     fn get_protocol(&self) -> SocketProtocol;
@@ -136,7 +134,6 @@ pub trait SocketExt: 'static {
 
     fn set_multicast_ttl(&self, ttl: u32);
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), Error>;
 
     fn set_timeout(&self, timeout: u32);
@@ -307,7 +304,6 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_option(&self, level: i32, optname: i32) -> Result<i32, Error> {
         unsafe {
             let mut value = mem::uninitialized();
@@ -445,7 +441,6 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();

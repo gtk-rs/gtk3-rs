@@ -5,7 +5,6 @@
 use Cancellable;
 use Error;
 use IOStream;
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 use ProxyResolver;
 use SocketAddress;
 use SocketClientEvent;
@@ -95,7 +94,6 @@ pub trait SocketClientExt: 'static {
 
     fn get_protocol(&self) -> SocketProtocol;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_proxy_resolver(&self) -> Option<ProxyResolver>;
 
     fn get_socket_type(&self) -> SocketType;
@@ -114,7 +112,6 @@ pub trait SocketClientExt: 'static {
 
     fn set_protocol(&self, protocol: SocketProtocol);
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn set_proxy_resolver<'a, P: IsA<ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q);
 
     fn set_socket_type(&self, type_: SocketType);
@@ -139,7 +136,6 @@ pub trait SocketClientExt: 'static {
 
     fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -382,7 +378,6 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn get_proxy_resolver(&self) -> Option<ProxyResolver> {
         unsafe {
             from_glib_none(ffi::g_socket_client_get_proxy_resolver(self.as_ref().to_glib_none().0))
@@ -438,7 +433,6 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn set_proxy_resolver<'a, P: IsA<ProxyResolver> + 'a, Q: Into<Option<&'a P>>>(&self, proxy_resolver: Q) {
         let proxy_resolver = proxy_resolver.into();
         unsafe {
@@ -524,7 +518,6 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "v2_36", feature = "dox"))]
     fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
@@ -596,7 +589,6 @@ where P: IsA<SocketClient> {
     f(&SocketClient::from_glib_borrow(this).unsafe_cast())
 }
 
-#[cfg(any(feature = "v2_36", feature = "dox"))]
 unsafe extern "C" fn notify_proxy_resolver_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSocketClient, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<SocketClient> {
     let f: &F = transmute(f);

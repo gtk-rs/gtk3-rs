@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use Error;
 use ffi;
 use glib;
@@ -16,7 +15,6 @@ use glib_ffi;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
-#[cfg(any(feature = "v2_38", feature = "dox"))]
 use std::ptr;
 
 glib_wrapper! {
@@ -28,14 +26,12 @@ glib_wrapper! {
 }
 
 impl Action {
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn name_is_valid(action_name: &str) -> bool {
         unsafe {
             from_glib(ffi::g_action_name_is_valid(action_name.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn parse_detailed_name(detailed_name: &str) -> Result<(GString, glib::Variant), Error> {
         unsafe {
             let mut action_name = ptr::null_mut();
@@ -46,7 +42,6 @@ impl Action {
         }
     }
 
-    #[cfg(any(feature = "v2_38", feature = "dox"))]
     pub fn print_detailed_name<'a, P: Into<Option<&'a glib::Variant>>>(action_name: &str, target_value: P) -> Option<GString> {
         let target_value = target_value.into();
         unsafe {

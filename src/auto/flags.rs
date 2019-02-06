@@ -691,7 +691,6 @@ impl SetValue for SettingsBindFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 bitflags! {
     pub struct SubprocessFlags: u32 {
         const NONE = 0;
@@ -706,7 +705,6 @@ bitflags! {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for SubprocessFlags {
     type GlibType = ffi::GSubprocessFlags;
@@ -716,7 +714,6 @@ impl ToGlib for SubprocessFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::GSubprocessFlags> for SubprocessFlags {
     fn from_glib(value: ffi::GSubprocessFlags) -> SubprocessFlags {
@@ -724,28 +721,24 @@ impl FromGlib<ffi::GSubprocessFlags> for SubprocessFlags {
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl StaticType for SubprocessFlags {
     fn static_type() -> Type {
         unsafe { from_glib(ffi::g_subprocess_flags_get_type()) }
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for SubprocessFlags {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl<'a> FromValue<'a> for SubprocessFlags {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl SetValue for SubprocessFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())

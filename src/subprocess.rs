@@ -1,31 +1,19 @@
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Subprocess;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Cancellable;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use Error;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::translate::*;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib_ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use gobject_ffi;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use std::ptr;
 #[cfg(feature = "futures")]
 use futures_core;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use libc::c_char;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 use glib::GString;
 
-#[cfg(any(feature = "v2_40", feature = "dox"))]
 impl Subprocess {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
         let stdin_buf = stdin_buf.into();
         let stdin_buf = stdin_buf.to_glib_full();
@@ -55,7 +43,6 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
     pub fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (GString, GString)), Error = (Self, Error)>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
