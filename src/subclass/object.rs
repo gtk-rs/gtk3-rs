@@ -8,6 +8,8 @@
 use ffi;
 use gobject_ffi;
 
+use std::borrow::Borrow;
+use std::fmt;
 use std::mem;
 use std::ptr;
 
@@ -133,7 +135,14 @@ unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObje
 }
 
 /// Definition of a property.
+#[derive(Clone)]
 pub struct Property<'a>(pub &'a str, pub fn(&str) -> ::ParamSpec);
+
+impl<'a> fmt::Debug for Property<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("Property").field(&self.0).finish()
+    }
+}
 
 /// Extension trait for `glib::Object`'s class struct.
 ///
@@ -143,7 +152,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     ///
     /// The index in the properties array is going to be the index passed to the
     /// property setters and getters.
-    fn install_properties(&mut self, properties: &[Property]) {
+    fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
         if properties.is_empty() {
             return;
         }
@@ -151,6 +160,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         let mut pspecs = Vec::with_capacity(properties.len());
 
         for property in properties {
+            let property = property.borrow();
             let pspec = (property.1)(property.0);
             pspecs.push(pspec);
         }
