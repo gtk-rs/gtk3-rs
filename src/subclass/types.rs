@@ -7,6 +7,7 @@
 use ffi;
 use gobject_ffi;
 
+use std::fmt;
 use std::marker;
 use std::mem;
 use std::ptr;
@@ -535,6 +536,15 @@ impl SignalInvocationHint {
     }
 }
 
+impl fmt::Debug for SignalInvocationHint {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_struct("SignalInvocationHint")
+            .field("detail", &self.detail())
+            .field("run_type", &self.run_type())
+            .finish()
+    }
+}
+
 pub(crate) unsafe fn add_signal_with_accumulator<F>(
     type_: ffi::GType,
     name: &str,
@@ -581,6 +591,14 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
 }
 
 pub struct SignalClassHandlerToken(*mut gobject_ffi::GTypeInstance);
+
+impl fmt::Debug for SignalClassHandlerToken {
+    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+        f.debug_tuple("SignalClassHandlerToken")
+            .field(&unsafe { ::Object::from_glib_borrow(self.0 as *mut gobject_ffi::GObject) })
+            .finish()
+    }
+}
 
 pub(crate) unsafe fn add_signal_with_class_handler<F>(
     type_: ffi::GType,
