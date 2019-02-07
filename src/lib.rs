@@ -5,6 +5,9 @@
 extern crate cairo_sys as ffi;
 extern crate libc;
 
+#[macro_use]
+extern crate bitflags;
+
 #[cfg(feature = "use_glib")]
 #[macro_use]
 extern crate glib;

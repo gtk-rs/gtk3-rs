@@ -9,7 +9,7 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::{PdfVersion, PdfMetadata};
+use ::enums::{PdfOutline, PdfMetadata, PdfVersion};
 use surface::Surface;
 use support::{self, FromRawSurface};
 
@@ -29,10 +29,10 @@ pub fn get_versions() -> Vec<PdfVersion> {
     vers_slice.iter().map(|v| PdfVersion::from(*v)).collect()
 }
 
-pub fn version_to_string(version: PdfVersion) -> Option<String> {
+pub fn version_to_string(version: PdfVersion) -> Option<&'static str> {
     unsafe {
         let res = ffi::cairo_pdf_version_to_string(version.into());
-        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
     }
 }
 
@@ -71,14 +71,16 @@ impl File {
     }
 
     pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
+        let value = CString::new(value).unwrap();
         unsafe {
-            ffi::cairo_pdf_surface_set_metadata(self.inner.to_raw_none(), metadata.into(), value.as_ptr() as _);
+            ffi::cairo_pdf_surface_set_metadata(self.inner.to_raw_none(), metadata.into(), value.as_ptr());
         }
     }
 
     pub fn set_page_label(&self, label: &str) {
+        let label = CString::new(label).unwrap();
         unsafe {
-            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr() as _);
+            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
         }
     }
 
@@ -88,14 +90,17 @@ impl File {
         }
     }
 
-    pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: i32) -> i32 {
+    pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: PdfOutline) -> i32 {
+        let name = CString::new(name).unwrap();
+        let link_attribs = CString::new(link_attribs).unwrap();
+
         unsafe {
             ffi::cairo_pdf_surface_add_outline(
                 self.inner.to_raw_none(),
                 parent_id,
-                name.as_ptr() as _,
-                link_attribs.as_ptr() as _,
-                flags as _
+                name.as_ptr(),
+                link_attribs.as_ptr(),
+                flags.bits() as _
             ) as _
         }
     }

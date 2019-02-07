@@ -1227,6 +1227,14 @@ impl From<ffi::cairo_region_overlap_t> for RegionOverlap {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(RegionOverlap, ffi::gobject::cairo_gobject_region_overlap_get_type);
 
+bitflags! {
+    pub struct PdfOutline: i32 {
+        const OPEN = ffi::PDF_OUTLINE_FLAG_OPEN;
+        const BOLD = ffi::PDF_OUTLINE_FLAG_BOLD;
+        const ITALIC = ffi::PDF_OUTLINE_FLAG_ITALIC;
+    }
+}
+
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PdfMetadata {

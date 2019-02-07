@@ -53,6 +53,7 @@ git = "https://github.com/gtk-rs/sys"
 
 [dependencies]
 libc = "0.2"
+bitflags = "1.0"
 
 [dev-dependencies]
 tempfile = "3.0"

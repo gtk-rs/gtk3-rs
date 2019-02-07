@@ -267,7 +267,8 @@ impl cairo_bool_t {
 
 impl From<bool> for cairo_bool_t {
     fn from(b: bool) -> cairo_bool_t {
-        cairo_bool_t { value: b as _ }
+        let value = if b { 1 } else { 0 };
+        cairo_bool_t { value }
     }
 }
 
@@ -995,7 +996,6 @@ pub const REGION_OVERLAP_PART: i32 = 2;
 pub const PDF_OUTLINE_FLAG_OPEN: i32 = 0x1;
 pub const PDF_OUTLINE_FLAG_BOLD: i32 = 0x2;
 pub const PDF_OUTLINE_FLAG_ITALIC: i32 = 0x4;
-pub const PDF_OUTLINE_FLAG__ALL: i32 = PDF_OUTLINE_FLAG_OPEN|PDF_OUTLINE_FLAG_BOLD|PDF_OUTLINE_FLAG_ITALIC;
 pub const PDF_METADATA_TITLE: i32 = 0;
 pub const PDF_METADATA_AUTHOR: i32 = 1;
 pub const PDF_METADATA_SUBJECT: i32 = 2;

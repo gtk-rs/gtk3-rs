@@ -29,10 +29,10 @@ pub fn get_levels() -> Vec<PsLevel> {
     lvls_slice.iter().map(|v| PsLevel::from(*v)).collect()
 }
 
-pub fn level_to_string(level: PsLevel) -> Option<String> {
+pub fn level_to_string(level: PsLevel) -> Option<&'static str> {
     unsafe {
         let res = ffi::cairo_ps_level_to_string(level.into());
-        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
     }
 }
 
@@ -129,8 +129,9 @@ impl File {
     }
 
     pub fn cairo_ps_surface_dsc_comment(&self, comment: &str) {
+        let comment = CString::new(comment).unwrap();
         unsafe {
-            ffi::cairo_ps_surface_dsc_comment(self.inner.to_raw_none(), comment.as_ptr() as _);
+            ffi::cairo_ps_surface_dsc_comment(self.inner.to_raw_none(), comment.as_ptr());
         }
     }
 

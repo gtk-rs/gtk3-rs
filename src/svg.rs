@@ -29,10 +29,10 @@ pub fn get_versions() -> Vec<SvgVersion> {
     vers_slice.iter().map(|v| SvgVersion::from(*v)).collect()
 }
 
-pub fn version_to_string(version: SvgVersion) -> Option<String> {
+pub fn version_to_string(version: SvgVersion) -> Option<&'static str> {
     unsafe {
         let res = ffi::cairo_svg_version_to_string(version.into());
-        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok()).map(String::from)
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
     }
 }
 
