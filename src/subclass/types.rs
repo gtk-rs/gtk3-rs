@@ -13,7 +13,7 @@ use std::ptr;
 
 use object::{ObjectExt, ObjectType};
 use translate::*;
-use {Closure, IsA, IsClassFor, StaticType, Type, Value};
+use {Closure, IsA, IsClassFor, SignalFlags, StaticType, Type, Value};
 
 use super::object::ObjectImpl;
 
@@ -499,13 +499,19 @@ where
     }
 }
 
-pub(crate) unsafe fn add_signal(type_: ffi::GType, name: &str, arg_types: &[Type], ret_type: Type) {
+pub(crate) unsafe fn add_signal(
+    type_: ffi::GType,
+    name: &str,
+    flags: SignalFlags,
+    arg_types: &[Type],
+    ret_type: Type,
+) {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
 
     gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
-        gobject_ffi::G_SIGNAL_RUN_LAST,
+        flags.to_glib(),
         ptr::null_mut(),
         None,
         ptr::null_mut(),
@@ -516,29 +522,44 @@ pub(crate) unsafe fn add_signal(type_: ffi::GType, name: &str, arg_types: &[Type
     );
 }
 
+#[repr(C)]
+pub struct SignalInvocationHint(gobject_ffi::GSignalInvocationHint);
+
+impl SignalInvocationHint {
+    pub fn detail(&self) -> ::Quark {
+        from_glib(self.0.detail)
+    }
+
+    pub fn run_type(&self) -> SignalFlags {
+        from_glib(self.0.run_type)
+    }
+}
+
 pub(crate) unsafe fn add_signal_with_accumulator<F>(
     type_: ffi::GType,
     name: &str,
+    flags: SignalFlags,
     arg_types: &[Type],
     ret_type: Type,
     accumulator: F,
 ) where
-    F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+    F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
 {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
 
     let accumulator: Box<F> = Box::new(accumulator);
 
     unsafe extern "C" fn accumulator_trampoline<
-        F: Fn(&mut Value, &Value) -> bool + Send + Sync + 'static,
+        F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
     >(
-        _ihint: *mut gobject_ffi::GSignalInvocationHint,
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
         return_accu: *mut gobject_ffi::GValue,
         handler_return: *const gobject_ffi::GValue,
         data: ffi::gpointer,
     ) -> ffi::gboolean {
         let accumulator: &F = &*(data as *const &F);
         accumulator(
+            &SignalInvocationHint(*ihint),
             &mut *(return_accu as *mut Value),
             &*(handler_return as *const Value),
         )
@@ -548,7 +569,7 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
     gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
-        gobject_ffi::G_SIGNAL_RUN_LAST,
+        flags.to_glib(),
         ptr::null_mut(),
         Some(accumulator_trampoline::<F>),
         Box::into_raw(accumulator) as ffi::gpointer,
@@ -558,23 +579,30 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
         arg_types.as_ptr() as *mut _,
     );
 }
-pub(crate) unsafe fn add_action_signal<F>(
+
+pub struct SignalClassHandlerToken(*mut gobject_ffi::GTypeInstance);
+
+pub(crate) unsafe fn add_signal_with_class_handler<F>(
     type_: ffi::GType,
     name: &str,
+    flags: SignalFlags,
     arg_types: &[Type],
     ret_type: Type,
-    handler: F,
+    class_handler: F,
 ) where
-    F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
+    F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
 {
     let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
-    let handler = Closure::new(handler);
+    let class_handler = Closure::new(move |values| {
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
+        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
+    });
 
     gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
         type_,
-        gobject_ffi::G_SIGNAL_RUN_LAST | gobject_ffi::G_SIGNAL_ACTION,
-        handler.to_glib_none().0,
+        flags.to_glib(),
+        class_handler.to_glib_none().0,
         None,
         ptr::null_mut(),
         None,
@@ -582,4 +610,101 @@ pub(crate) unsafe fn add_action_signal<F>(
         arg_types.len() as u32,
         arg_types.as_ptr() as *mut _,
     );
+}
+
+pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
+    type_: ffi::GType,
+    name: &str,
+    flags: SignalFlags,
+    arg_types: &[Type],
+    ret_type: Type,
+    class_handler: F,
+    accumulator: G,
+) where
+    F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
+    G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
+{
+    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+
+    let class_handler = Closure::new(move |values| {
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
+        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
+    });
+    let accumulator: Box<G> = Box::new(accumulator);
+
+    unsafe extern "C" fn accumulator_trampoline<
+        G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
+    >(
+        ihint: *mut gobject_ffi::GSignalInvocationHint,
+        return_accu: *mut gobject_ffi::GValue,
+        handler_return: *const gobject_ffi::GValue,
+        data: ffi::gpointer,
+    ) -> ffi::gboolean {
+        let accumulator: &G = &*(data as *const &G);
+        accumulator(
+            &SignalInvocationHint(*ihint),
+            &mut *(return_accu as *mut Value),
+            &*(handler_return as *const Value),
+        )
+        .to_glib()
+    }
+
+    gobject_ffi::g_signal_newv(
+        name.to_glib_none().0,
+        type_,
+        flags.to_glib(),
+        class_handler.to_glib_none().0,
+        Some(accumulator_trampoline::<G>),
+        Box::into_raw(accumulator) as ffi::gpointer,
+        None,
+        ret_type.to_glib(),
+        arg_types.len() as u32,
+        arg_types.as_ptr() as *mut _,
+    );
+}
+
+pub(crate) unsafe fn signal_override_class_handler<F>(
+    name: &str,
+    type_: ffi::GType,
+    class_handler: F,
+) where
+    F: Fn(&super::SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
+{
+    let class_handler = Closure::new(move |values| {
+        let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
+        class_handler(&SignalClassHandlerToken(instance as *mut _), values)
+    });
+
+    let mut signal_id = 0;
+    let found: bool = from_glib(gobject_ffi::g_signal_parse_name(
+        name.to_glib_none().0,
+        type_,
+        &mut signal_id,
+        ptr::null_mut(),
+        false.to_glib(),
+    ));
+
+    if !found {
+        panic!("Signal '{}' not found", name);
+    }
+
+    gobject_ffi::g_signal_override_class_closure(signal_id, type_, class_handler.to_glib_none().0);
+}
+
+pub(crate) unsafe fn signal_chain_from_overridden(
+    instance: *mut gobject_ffi::GTypeInstance,
+    token: &SignalClassHandlerToken,
+    values: &[Value],
+) -> Option<Value> {
+    assert_eq!(instance, token.0);
+    let mut result = Value::uninitialized();
+    gobject_ffi::g_signal_chain_from_overridden(
+        values.as_ptr() as *mut Value as *mut gobject_ffi::GValue,
+        result.to_glib_none_mut().0,
+    );
+    if result.type_() != Type::Unit && result.type_() != Type::Invalid {
+        Some(result)
+    } else {
+        None
+    }
 }

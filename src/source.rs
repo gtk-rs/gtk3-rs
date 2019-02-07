@@ -4,7 +4,7 @@
 
 use std::cell::RefCell;
 use std::mem::transmute;
-#[cfg(any(unix, feature = "dox"))]
+#[cfg(unix)]
 use std::os::unix::io::RawFd;
 #[cfg(all(not(unix), feature = "dox"))]
 use libc::c_int as RawFd;
