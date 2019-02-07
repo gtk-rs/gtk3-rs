@@ -8,6 +8,7 @@
 use ffi;
 use gobject_ffi;
 
+use std::borrow::Borrow;
 use std::mem;
 use std::ptr;
 
@@ -143,7 +144,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     ///
     /// The index in the properties array is going to be the index passed to the
     /// property setters and getters.
-    fn install_properties(&mut self, properties: &[Property]) {
+    fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
         if properties.is_empty() {
             return;
         }
@@ -151,6 +152,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         let mut pspecs = Vec::with_capacity(properties.len());
 
         for property in properties {
+            let property = property.borrow();
             let pspec = (property.1)(property.0);
             pspecs.push(pspec);
         }

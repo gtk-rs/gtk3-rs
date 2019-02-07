@@ -5,6 +5,7 @@
 use ffi;
 use gobject_ffi;
 
+use std::borrow::Borrow;
 use std::marker;
 use std::mem;
 use std::ptr;
@@ -119,12 +120,13 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     /// Install properties on the interface.
     ///
     /// All implementors of the interface must provide these properties.
-    fn install_properties(&mut self, properties: &[Property]) {
+    fn install_properties<'a, T: Borrow<Property<'a>>>(&mut self, properties: &[T]) {
         if properties.is_empty() {
             return;
         }
 
         for property in properties {
+            let property = property.borrow();
             let pspec = (property.1)(property.0);
             unsafe {
                 gobject_ffi::g_object_interface_install_property(
