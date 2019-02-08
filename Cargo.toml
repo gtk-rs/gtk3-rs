@@ -128,6 +128,3 @@ name = "transparent_main_window"
 
 [[bin]]
 name = "treeview"
-
-[[bin]]
-name = "status_icon"
