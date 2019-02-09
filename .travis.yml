@@ -1,43 +1,43 @@
+dist: xenial
 language: rust
 matrix:
   include:
     - os: linux
       rust: nightly
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     - os: linux
       rust: nightly
-      env: GTK=3.22.30
+      env: GTK=3.24 FEATURES=v3_16
     - os: linux
       rust: beta
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     - os: linux
       rust: beta
-      env: GTK=3.22.30
+      env: GTK=3.24 FEATURES=v3_16
     - os: linux
       rust: 1.31.0
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     - os: linux
       rust: 1.31.0
-      env: GTK=3.22.30
+      env: GTK=3.24 FEATURES=v3_16
     - os: osx
       rust: nightly
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.22.30
+    #   env: GTK=3.24 FEATURES=v3_16
     - os: osx
       rust: beta
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: beta
-    #   env: GTK=3.22.30
+    #   env: GTK=3.24 FEATURES=v3_16
     - os: osx
       rust: stable
-      env: GTK=3.4
+      env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: stable
-    #   env: GTK=3.22.30
-sudo: true
+    #   env: GTK=3.24 FEATURES=v3_16
 addons:
   apt:
     packages:
@@ -54,15 +54,11 @@ script:
     make regen_check;
     fi
   - ./check_init_asserts
-  - cargo update
-  - cargo test --features embed-lgpl-docs --jobs 1
-  # catch any sneaked in lgpl docs
-  - cargo build --features purge-lgpl-docs --jobs 1
-  - git diff -R --exit-code
   - cargo doc --features "dox"
+  - cargo test --features "$FEATURES"
+  - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
-  - cargo update
   - ./build_travis.sh
