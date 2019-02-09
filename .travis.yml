@@ -1,42 +1,43 @@
+dist: xenial
 language: rust
 matrix:
   include:
     - os: linux
       rust: nightly
-      env: GTK=3.4
+      env: GTK=3.14
     - os: linux
       rust: nightly
-      env: GTK=3.18
+      env: GTK=3.24 FEATURES=v2_32
     - os: linux
       rust: beta
-      env: GTK=3.4
+      env: GTK=3.14
     - os: linux
       rust: beta
-      env: GTK=3.18
+      env: GTK=3.24 FEATURES=v2_32
     - os: linux
       rust: 1.31.0
-      env: GTK=3.4
+      env: GTK=3.14
     - os: linux
       rust: 1.31.0
-      env: GTK=3.18
+      env: GTK=3.24 FEATURES=v2_32
     - os: osx
       rust: nightly
-      env: GTK=3.4
+      env: GTK=3.14
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.18
+    #   env: GTK=3.24 FEATURES=v2_32
     - os: osx
       rust: beta
-      env: GTK=3.4
+      env: GTK=3.14
     # - os: osx
     #   rust: beta
-    #   env: GTK=3.18
+    #   env: GTK=3.24 FEATURES=v2_32
     - os: osx
       rust: stable
-      env: GTK=3.4
+      env: GTK=3.14
     # - os: osx
     #   rust: stable
-    #   env: GTK=3.18
+    #   env: GTK=3.24 FEATURES=v2_32
 sudo: true
 addons:
   apt:
@@ -53,11 +54,12 @@ script:
   - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.4" ]; then
     make regen_check;
     fi
-  - cargo test --features embed-lgpl-docs
+  - cargo doc --features "dox,embed-lgpl-docs"
+  - cargo test --features "$FEATURES,embed-lgpl-docs"
   # catch any sneaked in lgpl docs
-  - cargo build --features purge-lgpl-docs
-  - cargo doc --features "dox"
+  - cargo build --features "$FEATURES,purge-lgpl-docs" --jobs 1
   - git diff -R --exit-code
+  - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
