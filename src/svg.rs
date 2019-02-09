@@ -151,6 +151,9 @@ impl<W: io::Write> Writer<W> {
         Writer { writer }
     }
 
+    pub fn writer(&self) -> &W { self.writer.writer() }
+    pub fn writer_mut(&mut self) -> &mut W { self.writer.writer_mut() }
+
     pub fn finish(self) -> W {
         self.writer.finish()
     }
@@ -173,6 +176,12 @@ impl<W: io::Write> AsRef<File> for Writer<W> {
 impl<W: io::Write> AsRef<Surface> for Writer<W> {
     fn as_ref(&self) -> &Surface {
         &self.writer.surface.as_ref()
+    }
+}
+
+impl<W: io::Write + AsRef<[u8]>> AsRef<[u8]> for Writer<W> {
+    fn as_ref(&self) -> &[u8] {
+        &self.writer.writer().as_ref()
     }
 }
 

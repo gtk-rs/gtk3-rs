@@ -51,6 +51,9 @@ impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> Writer<S, W> {
         }
     }
 
+    pub fn writer(&self) -> &W { self.writer.as_ref() }
+    pub fn writer_mut(&mut self) -> &mut W { self.writer.as_mut() }
+
     pub fn finish(self) -> W {
         let surface = self.surface;
         surface.as_ref().finish();
