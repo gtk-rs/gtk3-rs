@@ -40,7 +40,7 @@ impl MainContext {
     pub fn invoke_with_priority<F>(&self, priority: Priority, func: F)
     where F: FnOnce() + Send + 'static {
         unsafe {
-            let func = Box::into_raw(Box::new(Some(Box::new(func))));
+            let func = Box::into_raw(Box::new(Some(func)));
             glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
                 func as gpointer, Some(destroy_closure::<F>))
         }
@@ -64,14 +64,14 @@ impl MainContext {
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<F: FnOnce() + Send + 'static>(func: gpointer) -> gboolean {
-    let func: &mut Option<Box<F>> = transmute(func);
+    let func: &mut Option<F> = transmute(func);
     let func = func.take().expect("MainContext::invoke() closure called multiple times");
     func();
     glib_ffi::G_SOURCE_REMOVE
 }
 
 unsafe extern "C" fn destroy_closure<F: FnOnce() + Send + 'static>(ptr: gpointer) {
-    Box::<Option<Box<F>>>::from_raw(ptr as *mut _);
+    Box::<Option<F>>::from_raw(ptr as *mut _);
 }
 
 
