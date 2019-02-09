@@ -70,6 +70,9 @@ name = "child-properties"
 name = "clock"
 
 [[bin]]
+name = "css"
+
+[[bin]]
 name = "drag_and_drop"
 
 [[bin]]
@@ -125,6 +128,9 @@ name = "text_viewer"
 
 [[bin]]
 name = "transparent_main_window"
+
+[[bin]]
+name = "tree_model_sort"
 
 [[bin]]
 name = "treeview"
