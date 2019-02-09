@@ -7,12 +7,25 @@ extern crate gtk;
 use gio::prelude::*;
 use gtk::prelude::*;
 
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::env::args;
 use std::rc::Rc;
-use std::sync::mpsc::{self, TryRecvError};
 use std::thread;
 use std::time::Duration;
+
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
+        }
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
+}
 
 pub fn main() {
     glib::set_program_name("Progress Tracker".into());
@@ -23,7 +36,17 @@ pub fn main() {
     ).expect("initialization failed");
 
     application.connect_startup(|app| {
-        Application::new(app);
+        let application = Application::new(app);
+
+        let application_container = RefCell::new(Some(application));
+        app.connect_shutdown(move |_| {
+            let application = application_container
+                .borrow_mut()
+                .take()
+                .expect("Shutdown called multiple times");
+            // Here we could do whatever we need to do for shutdown now
+            drop(application);
+        });
     });
 
     application.connect_activate(|_| {});
@@ -46,52 +69,55 @@ impl Application {
     }
 
     fn connect_progress(&self) {
-        let widgets = self.widgets.clone();
+        let widgets = Rc::downgrade(&self.widgets);
         let active = Rc::new(Cell::new(false));
         self.widgets.main_view.button.connect_clicked(move |_| {
-            let active = active.clone();
+            let widgets = upgrade_weak!(widgets);
             if active.get() {
                 return;
             }
 
             active.set(true);
 
-            let (tx, rx) = mpsc::channel();
+            let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
             thread::spawn(move || {
                 for v in 1..=10 {
-                    let _ = tx.send(v);
+                    let _ = tx.send(Some(v));
                     thread::sleep(Duration::from_millis(500));
                 }
+                let _ = tx.send(None);
             });
 
+            let active = active.clone();
             let widgets = widgets.clone();
-            gtk::timeout_add(16, move || match rx.try_recv() {
-                Ok(value) => {
-                    widgets
-                        .main_view
-                        .progress
-                        .set_fraction(f64::from(value) / 10.0);
-
-                    if value == 10 {
+            rx.attach(None, move |value| {
+                match value {
+                    Some(value) => {
                         widgets
-                            .view_stack
-                            .set_visible_child(&widgets.complete_view.container);
+                            .main_view
+                            .progress
+                            .set_fraction(f64::from(value) / 10.0);
 
-                        let widgets = widgets.clone();
-                        gtk::timeout_add(1500, move || {
-                            widgets.main_view.progress.set_fraction(0.0);
-                            widgets.view_stack.set_visible_child(&widgets.main_view.container);
-                            gtk::Continue(false)
-                        });
+                        if value == 10 {
+                            widgets
+                                .view_stack
+                                .set_visible_child(&widgets.complete_view.container);
+
+                            let widgets = widgets.clone();
+                            gtk::timeout_add(1500, move || {
+                                widgets.main_view.progress.set_fraction(0.0);
+                                widgets.view_stack.set_visible_child(&widgets.main_view.container);
+                                gtk::Continue(false)
+                            });
+                        }
+
+                        glib::Continue(true)
                     }
-
-                    gtk::Continue(true)
+                    None => {
+                        active.set(false);
+                        glib::Continue(false)
+                    }
                 }
-                Err(TryRecvError::Empty) => gtk::Continue(true),
-                Err(TryRecvError::Disconnected) => {
-                    active.set(false);
-                    gtk::Continue(false)
-                },
             });
         });
     }
