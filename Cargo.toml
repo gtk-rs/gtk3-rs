@@ -120,7 +120,6 @@ name = "pango_attributes"
 [[bin]]
 name = "progress_tracker"
 path = "src/bin/progress_tracker.rs"
-required-features = ["gtk/v3_10"]
 
 [[bin]]
 name = "simple_treeview"

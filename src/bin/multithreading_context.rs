@@ -5,9 +5,7 @@ extern crate gtk;
 use gio::prelude::*;
 use gtk::prelude::*;
 
-use std::cell::RefCell;
 use std::env::args;
-use std::sync::mpsc::{channel, Receiver};
 use std::thread;
 use std::time::Duration;
 
@@ -24,13 +22,7 @@ fn build_ui(application: &gtk::Application) {
     scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scroll.add(&text_view);
 
-    let (tx, rx) = channel();
-    // put TextBuffer and receiver in thread local storage
-    GLOBAL.with(move |global| {
-        *global.borrow_mut() = Some((text_view.get_buffer()
-                                              .expect("Couldn't get buffer from text_view"),
-                                     rx))
-    });
+    let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
 
     thread::spawn(move|| {
         for i in 1..100 {
@@ -39,30 +31,22 @@ fn build_ui(application: &gtk::Application) {
             // send result to channel
             tx.send(format!("#{} Text from another thread.", i))
               .expect("Couldn't send data to channel");
-            // receive will be run on the main thread
-            glib::idle_add(receive);
+            // receiver will be run on the main thread
         }
+    });
+
+    // Attach receiver to the main context and set the text buffer text from here
+    let text_buffer = text_view.get_buffer()
+        .expect("Couldn't get buffer from text_view");
+    rx.attach(None, move |text| {
+        text_buffer.set_text(&text);
+
+        glib::Continue(true)
     });
 
     window.add(&scroll);
     window.show_all();
 }
-
-fn receive() -> glib::Continue {
-    GLOBAL.with(|global| {
-        if let Some((ref buf, ref rx)) = *global.borrow() {
-            if let Ok(text) = rx.try_recv() {
-                buf.set_text(&text);
-            }
-        }
-    });
-    glib::Continue(false)
-}
-
-// declare a new thread local storage key
-thread_local!(
-    static GLOBAL: RefCell<Option<(gtk::TextBuffer, Receiver<String>)>> = RefCell::new(None)
-);
 
 fn main() {
     let application = gtk::Application::new("com.github.gtk-rs.examples.multithreading_context",
