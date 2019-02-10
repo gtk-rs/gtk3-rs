@@ -1,14 +1,15 @@
-// Copyright 2015-2016, The Gtk-rs Project Developers.
+// Copyright 2018-2019, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ffi::CString;
+use std::mem;
+use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::PdfVersion;
+use ::enums::{PdfOutline, PdfMetadata, PdfVersion};
 use surface::Surface;
 use support::{self, FromRawSurface};
 
@@ -16,6 +17,26 @@ use support::{self, FromRawSurface};
 use glib::translate::*;
 
 
+pub fn get_versions() -> Vec<PdfVersion> {
+    let vers_slice = unsafe {
+        let mut vers_ptr: *mut ffi::cairo_pdf_version_t = mem::uninitialized();
+        let mut num_vers = 0;
+        ffi::cairo_pdf_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+
+        std::slice::from_raw_parts(vers_ptr, num_vers as _)
+    };
+
+    vers_slice.iter().map(|v| PdfVersion::from(*v)).collect()
+}
+
+pub fn version_to_string(version: PdfVersion) -> Option<&'static str> {
+    unsafe {
+        let res = ffi::cairo_pdf_version_to_string(version.into());
+        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+    }
+}
+
+/// A PDF surface that writes to a file
 pub struct File {
     inner: Surface,
 }
@@ -46,6 +67,41 @@ impl File {
     pub fn set_size(&self, width: f64, height: f64) {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.inner.to_raw_none(), width, height);
+        }
+    }
+
+    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
+        let value = CString::new(value).unwrap();
+        unsafe {
+            ffi::cairo_pdf_surface_set_metadata(self.inner.to_raw_none(), metadata.into(), value.as_ptr());
+        }
+    }
+
+    pub fn set_page_label(&self, label: &str) {
+        let label = CString::new(label).unwrap();
+        unsafe {
+            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
+        }
+    }
+
+    pub fn set_thumbnail_size(&self, width: i32, height: i32) {
+        unsafe {
+            ffi::cairo_pdf_surface_set_thumbnail_size(self.inner.to_raw_none(), width as _, height as _);
+        }
+    }
+
+    pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: PdfOutline) -> i32 {
+        let name = CString::new(name).unwrap();
+        let link_attribs = CString::new(link_attribs).unwrap();
+
+        unsafe {
+            ffi::cairo_pdf_surface_add_outline(
+                self.inner.to_raw_none(),
+                parent_id,
+                name.as_ptr(),
+                link_attribs.as_ptr(),
+                flags.bits() as _
+            ) as _
         }
     }
 }
@@ -105,18 +161,28 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
 }
 
 
-
+/// A PDF surface that writes to a generic `io::Write` type (owning variant)
+///
+/// The `Writer` takes ownership of the write object.
+/// Once you're done using the surface, you can obtain the write object
+/// back using the `finish()` method.
+///
+/// If you would like the surface to reference the write object
+/// instead, use `RefWriter`.
 pub struct Writer<W: io::Write> {
-    writer: support::Writer_<File, W>,
+    writer: support::Writer<File, W>,
 }
 
 impl<W: io::Write> Writer<W> {
     pub fn new(width: f64, height: f64, writer: W) -> Writer<W> {
-        let writer = support::Writer_::new(ffi::cairo_pdf_surface_create_for_stream,
+        let writer = support::Writer::new(ffi::cairo_pdf_surface_create_for_stream,
             width, height, writer);
 
         Writer { writer }
     }
+
+    pub fn writer(&self) -> &W { self.writer.writer() }
+    pub fn writer_mut(&mut self) -> &mut W { self.writer.writer_mut() }
 
     pub fn finish(self) -> W {
         self.writer.finish()
@@ -143,6 +209,12 @@ impl<W: io::Write> AsRef<Surface> for Writer<W> {
     }
 }
 
+impl<W: io::Write + AsRef<[u8]>> AsRef<[u8]> for Writer<W> {
+    fn as_ref(&self) -> &[u8] {
+        &self.writer.writer().as_ref()
+    }
+}
+
 #[cfg(feature = "use_glib")]
 impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
     type Storage = &'a Surface;
@@ -155,6 +227,13 @@ impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
 }
 
 
+/// A PDF surface that writes to a generic `io::Write` type (referencing variant)
+///
+/// The `RefWriter` references the write object,
+/// which is why a lifetime parameter is required.
+///
+/// If you would like the surface to own the write object
+/// instead, use `Writer`.
 pub struct RefWriter<'w, W: io::Write + 'w> {
     writer: support::RefWriter<'w, File, W>,
 }
@@ -229,6 +308,18 @@ mod test {
         let surface = Writer::new(100., 100., buffer);
         draw(&surface);
         surface.finish()
+    }
+
+    #[test]
+    fn versions() {
+        let vers = get_versions();
+        assert!(vers.iter().any(|v| *v == PdfVersion::_1_4));
+    }
+
+    #[test]
+    fn version_string() {
+        let ver_str = version_to_string(PdfVersion::_1_4).unwrap();
+        assert_eq!(ver_str, "PDF 1.4");
     }
 
     #[test]
