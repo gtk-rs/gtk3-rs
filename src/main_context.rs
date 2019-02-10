@@ -32,18 +32,52 @@ impl MainContext {
         }
     }
 
+    /// Invokes `func` on the main context.
     pub fn invoke<F>(&self, func: F)
     where F: FnOnce() + Send + 'static {
         self.invoke_with_priority(::PRIORITY_DEFAULT_IDLE, func);
     }
 
+    /// Invokes `func` on the main context with the given priority.
     pub fn invoke_with_priority<F>(&self, priority: Priority, func: F)
     where F: FnOnce() + Send + 'static {
         unsafe {
-            let func = Box::into_raw(Box::new(Some(func)));
-            glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
-                func as gpointer, Some(destroy_closure::<F>))
+            self.invoke_unsafe(priority, func);
         }
+    }
+
+    /// Invokes `func` on the main context.
+    ///
+    /// Different to `invoke()`, this does not require `func` to be
+    /// `Send` but can only be called from the thread that owns the main context.
+    ///
+    /// This function panics if called from a different thread than the one that
+    /// owns the main context.
+    pub fn invoke_local<F>(&self, func: F)
+    where F: FnOnce() + 'static {
+        self.invoke_local_with_priority(::PRIORITY_DEFAULT_IDLE, func);
+    }
+
+    /// Invokes `func` on the main context with the given priority.
+    ///
+    /// Different to `invoke_with_priority()`, this does not require `func` to be
+    /// `Send` but can only be called from the thread that owns the main context.
+    ///
+    /// This function panics if called from a different thread than the one that
+    /// owns the main context.
+    pub fn invoke_local_with_priority<F>(&self, priority: Priority, func: F)
+    where F: FnOnce() + 'static {
+        unsafe {
+            assert!(self.is_owner());
+            self.invoke_unsafe(priority, func);
+        }
+    }
+
+    unsafe fn invoke_unsafe<F>(&self, priority: Priority, func: F)
+    where F: FnOnce() + 'static {
+        let func = Box::into_raw(Box::new(Some(func)));
+        glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
+            func as gpointer, Some(destroy_closure::<F>))
     }
 
     /// Calls closure with context configured as the thread default one.
@@ -63,14 +97,14 @@ impl MainContext {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline<F: FnOnce() + Send + 'static>(func: gpointer) -> gboolean {
+unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboolean {
     let func: &mut Option<F> = transmute(func);
     let func = func.take().expect("MainContext::invoke() closure called multiple times");
     func();
     glib_ffi::G_SOURCE_REMOVE
 }
 
-unsafe extern "C" fn destroy_closure<F: FnOnce() + Send + 'static>(ptr: gpointer) {
+unsafe extern "C" fn destroy_closure<F: FnOnce() + 'static>(ptr: gpointer) {
     Box::<Option<F>>::from_raw(ptr as *mut _);
 }
 
