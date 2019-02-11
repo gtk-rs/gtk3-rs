@@ -551,3 +551,18 @@ where F: FnMut(RawFd, IOCondition) -> Continue + Send + 'static {
         from_glib_full(source)
     }
 }
+
+impl Source {
+    pub fn attach<'a, P: Into<Option<&'a MainContext>>>(&self, context: P) -> SourceId {
+        let context = context.into();
+        unsafe {
+            from_glib(ffi::g_source_attach(self.to_glib_none().0, context.to_glib_none().0))
+        }
+    }
+
+    pub fn remove(tag: SourceId) -> Result<(), ::BoolError> {
+        unsafe {
+            glib_result_from_gboolean!(ffi::g_source_remove(tag.to_glib()), "Failed to remove source")
+        }
+    }
+}

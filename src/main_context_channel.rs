@@ -13,6 +13,7 @@ use Continue;
 use MainContext;
 use Priority;
 use Source;
+use SourceId;
 
 use get_thread_id;
 
@@ -295,7 +296,7 @@ impl<T> Receiver<T> {
         mut self,
         context: P,
         func: F,
-    ) -> u32 {
+    ) -> SourceId {
         let context = context.into();
         unsafe {
             let source = self.0.take().expect("No Source anymore");
