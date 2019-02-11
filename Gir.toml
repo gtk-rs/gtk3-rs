@@ -494,6 +494,21 @@ concurrency = "send+sync"
         # while GSource itself is
         ignore = true
 
+        [[object.function]]
+        pattern = "attach"
+        # return type
+        ignore = true
+
+        [[object.function]]
+        pattern = "get_id"
+        # unsafe as it would allow multiple times to remove
+        ignore = true
+
+        [[object.function]]
+        pattern = "remove"
+        # parameter type
+        ignore = true
+
 [[object]]
 name = "GLib.TimeZone"
 status = "generate"

@@ -37,13 +37,6 @@ impl Source {
     //    unsafe { TODO: call ffi::g_source_add_unix_fd() }
     //}
 
-    pub fn attach<'a, P: Into<Option<&'a MainContext>>>(&self, context: P) -> u32 {
-        let context = context.into();
-        unsafe {
-            ffi::g_source_attach(self.to_glib_none().0, context.to_glib_none().0)
-        }
-    }
-
     pub fn destroy(&self) {
         unsafe {
             ffi::g_source_destroy(self.to_glib_none().0);
@@ -59,12 +52,6 @@ impl Source {
     pub fn get_context(&self) -> Option<MainContext> {
         unsafe {
             from_glib_none(ffi::g_source_get_context(self.to_glib_none().0))
-        }
-    }
-
-    pub fn get_id(&self) -> u32 {
-        unsafe {
-            ffi::g_source_get_id(self.to_glib_none().0)
         }
     }
 
@@ -119,12 +106,6 @@ impl Source {
     //pub fn remove_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call ffi::g_source_remove_unix_fd() }
     //}
-
-    pub fn remove(tag: u32) -> bool {
-        unsafe {
-            from_glib(ffi::g_source_remove(tag))
-        }
-    }
 
     //pub fn remove_by_funcs_user_data(funcs: /*Ignored*/&mut SourceFuncs, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
     //    unsafe { TODO: call ffi::g_source_remove_by_funcs_user_data() }
