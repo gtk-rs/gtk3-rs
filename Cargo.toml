@@ -23,6 +23,13 @@ v1_38 = ["v1_36_7", "pango-sys/v1_38"]
 v1_40 = ["v1_38"]
 v1_42 = ["v1_40", "pango-sys/v1_42"]
 dox = ["pango-sys/dox", "glib/dox"]
+purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
+embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
+
+[build-dependencies.gtk-rs-lgpl-docs]
+version = "0.1.3"
+optional = true
+git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
