@@ -15,8 +15,6 @@ name = "cairo_sys"
 
 [features]
 dox = ["x11/dox"]
-v1_12 = []
-v1_14 = ["v1_12"]
 xlib = ["x11"]
 png = []
 pdf = []

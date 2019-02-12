@@ -22,13 +22,7 @@ fn main() {
 }
 
 fn find(package_name: &str, shared_libs: &[&str]) -> Result<(), Error> {
-    let version = if cfg!(feature = "1.14") {
-        "1.14"
-    } else if cfg!(feature = "1.12") {
-        "1.12"
-    } else {
-        "1.10"
-    };
+    let version = "1.12";
 
     if let Ok(inc_dir) = env::var("GTK_INCLUDE_DIR") {
         println!("cargo:include={}", inc_dir);

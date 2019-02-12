@@ -36,7 +36,6 @@ pub fn version_to_string(version: SvgVersion) -> Option<&'static str> {
     }
 }
 
-/// An SVG surface that writes to a file
 pub struct File {
     inner: Surface
 }
@@ -131,14 +130,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
 }
 
 
-/// An SVG surface that writes to a generic `io::Write` type (owning variant)
-///
-/// The `Writer` takes ownership of the write object.
-/// Once you're done using the surface, you can obtain the write object
-/// back using the `finish()` method.
-///
-/// If you would like the surface to reference the write object
-/// instead, use `RefWriter`.
 pub struct Writer<W: io::Write> {
     writer: support::Writer<File, W>,
 }
@@ -197,13 +188,6 @@ impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
 }
 
 
-/// An SVG surface that writes to a generic `io::Write` type (referencing variant)
-///
-/// The `RefWriter` references the write object,
-/// which is why a lifetime parameter is required.
-///
-/// If you would like the surface to own the write object
-/// instead, use `Writer`.
 pub struct RefWriter<'w, W: io::Write + 'w> {
     writer: support::RefWriter<'w, File, W>,
 }
@@ -355,7 +339,8 @@ mod test {
             fn flush(&mut self) -> io::Result<()> { Ok(()) }
         }
 
-        let custom_writer = CustomWriter(0, fs::File::create("/tmp/test-2.svg").unwrap());
+        let file = tempfile().expect("tempfile failed");
+        let custom_writer = CustomWriter(0, file);
 
         let surface = Writer::new(100., 100., custom_writer);
         draw(&surface);

@@ -2,8 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-#![cfg_attr(not(feature = "v1_12"), allow(unused_imports))]
-
 use libc::{c_double, c_int, c_uint};
 use std::ptr;
 use ::enums::{
@@ -12,7 +10,6 @@ use ::enums::{
     PatternType,
     Status,
 };
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 use ::enums::MeshCorner;
 use ffi;
 use ffi::{
@@ -34,7 +31,6 @@ pub enum Pattern {
     SurfacePattern(SurfacePattern),
     LinearGradient(LinearGradient),
     RadialGradient(RadialGradient),
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     Mesh(Mesh),
 }
 
@@ -47,7 +43,6 @@ impl PatternTrait for Pattern {
             Pattern::SurfacePattern(ref surface) => surface.as_ptr(),
             Pattern::LinearGradient(ref linear) => linear.as_ptr(),
             Pattern::RadialGradient(ref radial) => radial.as_ptr(),
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             Pattern::Mesh(ref mesh) => mesh.as_ptr(),
         }
     }
@@ -65,9 +60,7 @@ impl PatternTrait for Pattern {
             PatternType::Surface         => Pattern::SurfacePattern(SurfacePattern::from_raw_full(pointer)),
             PatternType::LinearGradient  => Pattern::LinearGradient(LinearGradient::from_raw_full(pointer)),
             PatternType::RadialGradient  => Pattern::RadialGradient(RadialGradient::from_raw_full(pointer)),
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             PatternType::Mesh         => Pattern::Mesh(Mesh::from_raw_full(pointer)),
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             PatternType::RasterSource => panic!("Not implemented"),
             PatternType::__Unknown(x) => panic!("Unknown value {}", x),
         }
@@ -352,10 +345,8 @@ impl SurfacePattern {
     }
 }
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 pattern_type!(Mesh);
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 impl Mesh {
     pub fn new() -> Mesh {
         unsafe {
