@@ -127,7 +127,7 @@ impl Clone for FontFace {
     }
 }
 
-unsafe fn to_optional_string(str: *const c_char) -> Option<String> {
+pub(crate) unsafe fn to_optional_string(str: *const c_char) -> Option<String> {
     if str.is_null() {
         None
     } else {

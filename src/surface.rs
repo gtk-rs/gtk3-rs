@@ -142,10 +142,12 @@ impl Surface {
         (x_offset, y_offset)
     }
 
+    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn set_device_scale(&self, x_scale: f64, y_scale: f64) {
         unsafe { ffi::cairo_surface_set_device_scale(self.to_raw_none(), x_scale, y_scale) }
     }
 
+    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn get_device_scale(&self) -> (f64, f64) {
         let mut x_scale = 0.0f64;
         let mut y_scale = 0.0f64;

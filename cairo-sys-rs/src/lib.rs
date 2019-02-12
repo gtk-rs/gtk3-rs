@@ -54,12 +54,13 @@ pub type cairo_region_overlap_t = c_int;
 pub type cairo_status_t = c_int;
 pub type cairo_subpixel_order_t = c_int;
 pub type cairo_surface_type_t = c_int;
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 pub type cairo_svg_unit_t = c_int;
 pub type cairo_text_cluster_flags_t = c_int;
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 pub type cairo_pdf_outline_flags_t = c_int;
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 pub type cairo_pdf_metadata_t = c_int;
 #[cfg(any(feature = "pdf", feature = "dox"))]
 pub type cairo_pdf_version_t = c_int;
@@ -338,6 +339,10 @@ extern "C" {
     pub fn cairo_copy_page (cr: *mut cairo_t);
     pub fn cairo_show_page (cr: *mut cairo_t);
     pub fn cairo_get_reference_count (cr: *mut cairo_t) -> c_uint;
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn cairo_tag_begin (cr: *mut cairo_t, tag_name: *const c_char, attributes: *const c_char);
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn cairo_tag_end (cr: *mut cairo_t, tag_name: *const c_char);
 
     // CAIRO UTILS
     pub fn cairo_status_to_string(status: cairo_status_t) -> *const c_char;
@@ -543,6 +548,10 @@ extern "C" {
     pub fn cairo_font_options_get_hint_style(options: *const cairo_font_options_t) -> cairo_hint_style_t;
     pub fn cairo_font_options_set_hint_metrics(options: *mut cairo_font_options_t, hint_metrics: cairo_hint_metrics_t);
     pub fn cairo_font_options_get_hint_metrics(options: *const cairo_font_options_t) -> cairo_hint_metrics_t;
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn cairo_font_options_get_variations(options: *mut cairo_font_options_t) -> *const c_char;
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn cairo_font_options_set_variations(options: *mut cairo_font_options_t, variations: *const c_char);
 
     // CAIRO MATRIX
     pub fn cairo_matrix_multiply(matrix: *mut Matrix, left: *const Matrix, right: *const Matrix);
@@ -572,7 +581,9 @@ extern "C" {
     pub fn cairo_surface_supports_mime_type (surface: *mut cairo_surface_t, mime_type: *const c_char) -> cairo_bool_t;
     pub fn cairo_surface_set_device_offset(surface: *mut cairo_surface_t, x_offset: c_double, y_offset: c_double);
     pub fn cairo_surface_get_device_offset(surface: *mut cairo_surface_t, x_offset: *mut c_double, y_offset: *mut c_double);
+    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn cairo_surface_get_device_scale(surface: *mut cairo_surface_t, x_scale: *mut c_double, y_scale: *mut c_double);
+    #[cfg(any(feature = "v1_14", feature = "dox"))]
     pub fn cairo_surface_set_device_scale(surface: *mut cairo_surface_t, x_scale: c_double, y_scale: c_double);
     pub fn cairo_surface_get_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: *mut c_double, y_pixels_per_inch: *mut c_double);
     pub fn cairo_surface_set_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: c_double, x_pixels_per_inch: c_double);
@@ -612,20 +623,20 @@ extern "C" {
     pub fn cairo_pdf_surface_set_size (surface: *mut cairo_surface_t,
                                       width_in_points: f64,
                                       height_in_points: f64);
-    #[cfg(any(feature = "pdf", feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_pdf_surface_add_outline (surface: *mut cairo_surface_t,
                                           parent_id: c_int,
                                           utf8: *const c_char,
                                           link_attribs: *const c_char,
                                           flags: cairo_pdf_outline_flags_t) -> c_int;
-    #[cfg(any(feature = "pdf", feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_pdf_surface_set_metadata (surface: *mut cairo_surface_t,
                                            metadata: cairo_pdf_metadata_t,
                                            utf8: *const c_char);
-    #[cfg(any(feature = "pdf", feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_pdf_surface_set_page_label (surface: *mut cairo_surface_t,
                                              utf8: *const c_char);
-    #[cfg(any(feature = "pdf", feature = "dox"))]
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_pdf_surface_set_thumbnail_size (surface: *mut cairo_surface_t,
                                                  width: c_int,
                                                  height: c_int);
@@ -642,9 +653,9 @@ extern "C" {
                                                 height_in_points: c_double) -> *mut cairo_surface_t;
     #[cfg(any(feature = "svg", feature = "dox"))]
     pub fn cairo_svg_surface_restrict_to_version (surface: *mut cairo_surface_t, version: cairo_svg_version_t);
-    #[cfg(any(feature = "svg", feature = "dox"))]
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_svg_surface_get_document_unit(surface: *const cairo_surface_t) -> cairo_svg_unit_t;
-    #[cfg(any(feature = "svg", feature = "dox"))]
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn cairo_svg_surface_set_document_unit(surface: *mut cairo_surface_t, unit: cairo_svg_unit_t);
     #[cfg(any(feature = "svg", feature = "dox"))]
     pub fn cairo_svg_get_versions (versions: *mut *mut cairo_svg_version_t,
@@ -778,6 +789,10 @@ extern "C" {
     // CAIRO WINDOWS SURFACE
     #[cfg(any(windows, feature = "dox"))]
     pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
+    #[cfg(any(all(windows, feature = "v1_14"), feature = "dox"))]
+    pub fn cairo_win32_surface_create_with_format(hdc: winapi::HDC,
+                                                  format: cairo_format_t)
+                                                  -> *mut cairo_surface_t;
     #[cfg(any(windows, feature = "dox"))]
     pub fn cairo_win32_surface_create_with_dib(format: cairo_format_t,
                                                width: c_int,

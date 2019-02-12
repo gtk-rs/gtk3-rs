@@ -9,7 +9,9 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::{PdfOutline, PdfMetadata, PdfVersion};
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+use ::enums::{PdfOutline, PdfMetadata};
+use ::enums::PdfVersion;
 use surface::Surface;
 use support::{self, FromRawSurface};
 
@@ -69,6 +71,7 @@ impl File {
         }
     }
 
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
         let value = CString::new(value).unwrap();
         unsafe {
@@ -76,6 +79,7 @@ impl File {
         }
     }
 
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn set_page_label(&self, label: &str) {
         let label = CString::new(label).unwrap();
         unsafe {
@@ -83,12 +87,14 @@ impl File {
         }
     }
 
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn set_thumbnail_size(&self, width: i32, height: i32) {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(self.inner.to_raw_none(), width as _, height as _);
         }
     }
 
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: PdfOutline) -> i32 {
         let name = CString::new(name).unwrap();
         let link_attribs = CString::new(link_attribs).unwrap();

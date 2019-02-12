@@ -4,6 +4,11 @@ use std::hash;
 use std::cmp::PartialEq;
 use ffi;
 
+#[cfg(any(feature = "v1_16", feature = "dox"))]
+use font::font_face::to_optional_string;
+#[cfg(any(feature = "v1_16", feature = "dox"))]
+use std::ffi::CString;
+
 use ::enums::{
     Antialias,
     HintStyle,
@@ -121,6 +126,29 @@ impl FontOptions {
     pub fn get_hint_metrics(&self) -> HintMetrics {
         unsafe {
             HintMetrics::from(ffi::cairo_font_options_get_hint_metrics(self.to_raw_none()))
+        }
+    }
+
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn get_variations(&self) -> Option<String> {
+        unsafe {
+            to_optional_string(ffi::cairo_font_options_get_variations(self.to_raw_none()))
+        }
+    }
+
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn set_variations<'a, T: Into<Option<&'a str>>>(&self, variations: T) {
+        unsafe {
+            let variations = variations.into();
+            match variations {
+                Some(ref v) => {
+                    let v = CString::new(*v).unwrap();
+                    ffi::cairo_font_options_set_variations(self.to_raw_none(), v.as_ptr())
+                }
+                None => {
+                    ffi::cairo_font_options_set_variations(self.to_raw_none(), 0 as *const _)
+                }
+            }
         }
     }
 }
