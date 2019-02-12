@@ -355,7 +355,8 @@ mod test {
             fn flush(&mut self) -> io::Result<()> { Ok(()) }
         }
 
-        let custom_writer = CustomWriter(0, fs::File::create("/tmp/test-2.svg").unwrap());
+        let file = tempfile().expect("tempfile failed");
+        let custom_writer = CustomWriter(0, file);
 
         let surface = Writer::new(100., 100., custom_writer);
         draw(&surface);
