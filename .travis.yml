@@ -7,37 +7,37 @@ matrix:
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=v1_12
+      env: GTK=3.24 FEATURES=
     - os: linux
       rust: beta
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: beta
-      env: GTK=3.24 FEATURES=v1_12
+      env: GTK=3.24 FEATURES=
     - os: linux
       rust: 1.31.0
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: 1.31.0
-      env: GTK=3.24 FEATURES=v1_12
+      env: GTK=3.24 FEATURES=
     - os: osx
       rust: nightly
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.24 FEATURES=v1_12
+    #   env: GTK=3.24 FEATURES=
     - os: osx
       rust: beta
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: beta
-    #   env: GTK=3.24 FEATURES=v1_12
+    #   env: GTK=3.24 FEATURES=
     - os: osx
       rust: stable
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: stable
-    #   env: GTK=3.24 FEATURES=v1_12
+    #   env: GTK=3.24 FEATURES=
 sudo: true
 addons:
   apt:

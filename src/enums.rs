@@ -664,9 +664,7 @@ pub enum PatternType {
     Surface,
     LinearGradient,
     RadialGradient,
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     Mesh,
-    #[cfg(any(feature = "v1_12", feature = "dox"))]
     RasterSource,
     #[doc(hidden)]
     __Unknown(i32),
@@ -680,9 +678,7 @@ impl Into<ffi::cairo_pattern_type_t> for PatternType {
             PatternType::Surface => ffi::PATTERN_TYPE_SURFACE,
             PatternType::LinearGradient => ffi::PATTERN_TYPE_LINEAR_GRADIENT,
             PatternType::RadialGradient => ffi::PATTERN_TYPE_RADIAL_GRADIENT,
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             PatternType::Mesh => ffi::PATTERN_TYPE_MESH,
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             PatternType::RasterSource => ffi::PATTERN_TYPE_RASTER_SOURCE,
             PatternType::__Unknown(value) => value,
         }
@@ -697,9 +693,7 @@ impl From<ffi::cairo_pattern_type_t> for PatternType {
             ffi::PATTERN_TYPE_SURFACE => PatternType::Surface,
             ffi::PATTERN_TYPE_LINEAR_GRADIENT => PatternType::LinearGradient,
             ffi::PATTERN_TYPE_RADIAL_GRADIENT => PatternType::RadialGradient,
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             ffi::PATTERN_TYPE_MESH => PatternType::Mesh,
-            #[cfg(any(feature = "v1_12", feature = "dox"))]
             ffi::PATTERN_TYPE_RASTER_SOURCE => PatternType::RasterSource,
             value => PatternType::__Unknown(value),
         }
@@ -1382,7 +1376,6 @@ impl From<ffi::cairo_ps_level_t> for PsLevel {
     }
 }
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 #[derive(Clone, PartialEq, PartialOrd, Copy)]
 pub enum MeshCorner {
     MeshCorner0,
@@ -1393,7 +1386,6 @@ pub enum MeshCorner {
     __Unknown(u32),
 }
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 #[doc(hidden)]
 impl Into<ffi::cairo_mesh_corner_t> for MeshCorner {
     fn into(self) -> ffi::cairo_mesh_corner_t {
@@ -1407,7 +1399,6 @@ impl Into<ffi::cairo_mesh_corner_t> for MeshCorner {
     }
 }
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 #[doc(hidden)]
 impl From<ffi::cairo_mesh_corner_t> for MeshCorner {
     fn from(value: ffi::cairo_mesh_corner_t) -> Self {

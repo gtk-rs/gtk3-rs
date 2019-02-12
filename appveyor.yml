@@ -21,8 +21,7 @@ install:
 build_script:
   - cargo doc --features "dox"
   - cargo test --features "png,pdf,svg,pdf"
-  - cargo test --features "png,pdf,svg,pdf,v1_12"
-  - cargo test --no-default-features --features "png,pdf,svg,pdf,v1_12"
+  - cargo test --no-default-features --features "png,pdf,svg,pdf"
   - mkdir .cargo
   - echo paths = [".", "./cairo-sys-rs"] > .cargo\config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples

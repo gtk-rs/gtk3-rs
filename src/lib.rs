@@ -97,7 +97,6 @@ pub use patterns::{
     SurfacePattern,
 };
 
-#[cfg(any(feature = "v1_12", feature = "dox"))]
 pub use patterns::{
     Mesh,
 };
