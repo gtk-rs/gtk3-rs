@@ -17,6 +17,6 @@ install:
 
 build_script:
   - cargo build
-  - cargo build --features gtk_3_20
+  - cargo build --features gtk_3_24
 
 test: false
