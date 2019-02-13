@@ -102,12 +102,6 @@ pub struct cairo_pattern_t(u8);
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
-pub struct cairo_device_t(c_void);
-#[cfg(any(feature = "xcb", feature = "dox"))]
-debug_impl!(cairo_device_t);
-
-#[cfg(any(feature = "xcb", feature = "dox"))]
-#[repr(C)]
 pub struct xcb_connection_t(c_void);
 #[cfg(any(feature = "xcb", feature = "dox"))]
 debug_impl!(xcb_connection_t);

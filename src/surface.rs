@@ -18,6 +18,7 @@ use ::enums::{
     SurfaceType,
 };
 
+use ::image_surface::ImageSurface;
 use ::rectangle::Rectangle;
 use ::rectangle_int::RectangleInt;
 
@@ -193,7 +194,7 @@ impl Surface {
         }
     }
 
-    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<Surface> {
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<ImageSurface> {
         unsafe {
             let p = match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
@@ -202,12 +203,12 @@ impl Surface {
             if p.is_null() {
                 None
             } else {
-                Some(Self::from_raw_full(p))
+                Some(ImageSurface::from_raw_full(p).unwrap())
             }
         }
     }
 
-    pub fn unmap_image(&self, image: &Surface) {
+    pub fn unmap_image(&self, image: ImageSurface) {
         unsafe {
             ffi::cairo_surface_unmap_image(self.to_raw_none(), image.to_raw_none())
         }
