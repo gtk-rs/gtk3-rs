@@ -43,7 +43,7 @@ impl ops::Deref for RectangleList {
         use std::slice;
 
         unsafe {
-            let ptr = (*self.ptr).rectangles;
+            let ptr = (*self.ptr).rectangles as *mut Rectangle;
             let len = (*self.ptr).num_rectangles;
 
             if ptr.is_null() || len == 0 {

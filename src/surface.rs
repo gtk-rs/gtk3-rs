@@ -13,9 +13,13 @@ use glib::translate::*;
 use ffi;
 use ::enums::{
     Content,
+    Format,
     Status,
     SurfaceType,
 };
+
+use ::rectangle::Rectangle;
+use ::rectangle_int::RectangleInt;
 
 #[derive(Debug)]
 pub struct Surface(*mut ffi::cairo_surface_t, bool);
@@ -164,6 +168,49 @@ impl Surface {
         let mut y_pixels_per_inch = 0.0f64;
         unsafe { ffi::cairo_surface_get_fallback_resolution(self.to_raw_none(), &mut x_pixels_per_inch, &mut y_pixels_per_inch); }
         (x_pixels_per_inch, y_pixels_per_inch)
+    }
+
+    pub fn get_extents(&self) -> Option<Rectangle> {
+        unsafe {
+            let rectangle: Rectangle = ::std::mem::zeroed();
+            if ffi::cairo_recording_surface_get_extents(self.to_raw_none(),
+                                                        rectangle.to_raw_none()).as_bool() {
+                Some(rectangle)
+            } else {
+                None
+            }
+        }
+    }
+
+    pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Option<Surface> {
+        unsafe {
+            let p = ffi::cairo_surface_create_similar_image(self.to_raw_none(), format.into(), width, height);
+            if p.is_null() {
+                None
+            } else {
+                Some(Self::from_raw_full(p))
+            }
+        }
+    }
+
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<Surface> {
+        unsafe {
+            let p = match extents {
+                Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
+                None => ffi::cairo_surface_map_to_image(self.to_raw_none(), 0 as *const _),
+            };
+            if p.is_null() {
+                None
+            } else {
+                Some(Self::from_raw_full(p))
+            }
+        }
+    }
+
+    pub fn unmap_image(&self, image: &Surface) {
+        unsafe {
+            ffi::cairo_surface_unmap_image(self.to_raw_none(), image.to_raw_none())
+        }
     }
 }
 

@@ -63,8 +63,6 @@ macro_rules! gvalue_impl {
     }
 }
 
-pub use ffi::cairo_rectangle_t as Rectangle;
-
 pub use context::{
     Context,
     RectangleList,
@@ -75,6 +73,8 @@ pub use paths::{
     PathSegments,
     PathSegment
 };
+
+pub use device::Device;
 
 pub use enums::*;
 
@@ -120,7 +120,8 @@ pub use matrices::{
     MatrixTrait,
 };
 
-pub use rectangle::RectangleInt;
+pub use rectangle::Rectangle;
+pub use rectangle_int::RectangleInt;
 
 pub use region::Region;
 
@@ -152,6 +153,7 @@ pub use utils::*;
 
 mod font;
 mod context;
+mod device;
 mod enums;
 mod error;
 mod image_surface;
@@ -160,6 +162,7 @@ mod image_surface_png;
 mod paths;
 mod patterns;
 mod rectangle;
+mod rectangle_int;
 mod region;
 mod surface;
 mod matrices;

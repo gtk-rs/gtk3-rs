@@ -30,6 +30,7 @@ v1_14 = ["cairo-sys-rs/v1_14"]
 v1_16 = ["v1_14", "cairo-sys-rs/v1_16"]
 default = ["use_glib"]
 xcb = ["cairo-sys-rs/xcb"]
+xlib = ["cairo-sys-rs/xlib"]
 dox = ["cairo-sys-rs/dox", "glib/dox"]
 
 [build-dependencies.gtk-rs-lgpl-docs]

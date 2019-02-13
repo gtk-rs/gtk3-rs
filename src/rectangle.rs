@@ -4,18 +4,18 @@ use glib::translate::*;
 #[cfg(feature = "use_glib")]
 use std::mem;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 #[repr(C)]
-pub struct RectangleInt {
-    pub x: i32,
-    pub y: i32,
-    pub width: i32,
-    pub height: i32,
+pub struct Rectangle {
+    pub x: f64,
+    pub y: f64,
+    pub width: f64,
+    pub height: f64,
 }
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl Uninitialized for RectangleInt {
+impl Uninitialized for Rectangle {
     #[inline]
     unsafe fn uninitialized() -> Self {
         mem::uninitialized()
@@ -24,58 +24,58 @@ impl Uninitialized for RectangleInt {
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const ffi::cairo_rectangle_int_t> for RectangleInt {
+impl<'a> ToGlibPtr<'a, *const ffi::cairo_rectangle_t> for Rectangle {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::cairo_rectangle_int_t, Self> {
-        let ptr: *const RectangleInt = &*self;
-        Stash(ptr as *const ffi::cairo_rectangle_int_t, self)
+    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::cairo_rectangle_t, Self> {
+        let ptr: *const Rectangle = &*self;
+        Stash(ptr as *const ffi::cairo_rectangle_t, self)
     }
 }
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_rectangle_int_t> for RectangleInt {
+impl<'a> ToGlibPtrMut<'a, *mut ffi::cairo_rectangle_t> for Rectangle {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_rectangle_int_t, Self> {
-        let ptr: *mut RectangleInt = &mut *self;
-        StashMut(ptr as *mut ffi::cairo_rectangle_int_t, self)
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::cairo_rectangle_t, Self> {
+        let ptr: *mut Rectangle = &mut *self;
+        StashMut(ptr as *mut ffi::cairo_rectangle_t, self)
     }
 }
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl FromGlibPtrNone<*const ffi::cairo_rectangle_int_t> for RectangleInt {
-    unsafe fn from_glib_none(ptr: *const ffi::cairo_rectangle_int_t) -> Self {
-        *(ptr as *const RectangleInt)
+impl FromGlibPtrNone<*const ffi::cairo_rectangle_t> for Rectangle {
+    unsafe fn from_glib_none(ptr: *const ffi::cairo_rectangle_t) -> Self {
+        *(ptr as *const Rectangle)
     }
 }
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl FromGlibPtrBorrow<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_int_t) -> Self {
-        *(ptr as *mut RectangleInt)
+impl FromGlibPtrBorrow<*mut ffi::cairo_rectangle_t> for Rectangle {
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_rectangle_t) -> Self {
+        *(ptr as *mut Rectangle)
     }
 }
 
 #[cfg(feature = "use_glib")]
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_rectangle_int_t) -> Self {
-        *(ptr as *mut RectangleInt)
+impl FromGlibPtrNone<*mut ffi::cairo_rectangle_t> for Rectangle {
+    unsafe fn from_glib_none(ptr: *mut ffi::cairo_rectangle_t) -> Self {
+        *(ptr as *mut Rectangle)
     }
 }
 
 #[cfg(feature = "use_glib")]
-gvalue_impl!(RectangleInt, ffi::cairo_rectangle_int_t, ffi::gobject::cairo_gobject_rectangle_int_get_type);
+gvalue_impl!(Rectangle, ffi::cairo_rectangle_t, ffi::gobject::cairo_gobject_rectangle_get_type);
 
-impl RectangleInt {
-    pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_int_t {
-        let ptr = &*self as *const RectangleInt as usize;
-        ptr as *mut ffi::cairo_rectangle_int_t
+impl Rectangle {
+    pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_t {
+        let ptr = &*self as *const Rectangle as usize;
+        ptr as *mut ffi::cairo_rectangle_t
     }
 }
