@@ -9,7 +9,9 @@ use std::path::Path;
 use std::io;
 
 use ffi;
-use ::enums::{SvgVersion, SvgUnit};
+use ::enums::SvgVersion;
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+use ::enums::SvgUnit;
 use surface::Surface;
 use support::{self, FromRawSurface};
 
@@ -62,12 +64,14 @@ impl File {
         }
     }
 
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn set_document_unit(&mut self, unit: SvgUnit) {
         unsafe {
             ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit.into());
         }
     }
 
+    #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(self.inner.to_raw_none()))

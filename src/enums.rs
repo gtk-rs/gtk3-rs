@@ -1070,6 +1070,7 @@ impl From<ffi::cairo_surface_type_t> for SurfaceType {
 gvalue_impl!(SurfaceType, ffi::gobject::cairo_gobject_surface_type_get_type);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 pub enum SvgUnit {
     User,
     Em,
@@ -1086,6 +1087,7 @@ pub enum SvgUnit {
 }
 
 #[doc(hidden)]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 impl Into<ffi::cairo_svg_unit_t> for SvgUnit {
     fn into(self) -> ffi::cairo_svg_unit_t {
         match self {
@@ -1105,6 +1107,7 @@ impl Into<ffi::cairo_svg_unit_t> for SvgUnit {
 }
 
 #[doc(hidden)]
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 impl From<ffi::cairo_svg_unit_t> for SvgUnit {
     fn from(value: ffi::cairo_svg_unit_t) -> Self {
         match value {
@@ -1243,7 +1246,7 @@ pub enum PdfMetadata {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 #[doc(hidden)]
 impl Into<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     fn into(self) -> ffi::cairo_pdf_metadata_t {
@@ -1260,7 +1263,7 @@ impl Into<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     }
 }
 
-#[cfg(any(feature = "pdf", feature = "dox"))]
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 #[doc(hidden)]
 impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     fn from(value: ffi::cairo_pdf_metadata_t) -> Self {

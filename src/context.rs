@@ -892,6 +892,23 @@ impl Context {
         }
         (x1, y1, x2, y2)
     }
+
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn tag_begin(&self, tag_name: &str, attributes: &str) {
+        unsafe {
+            let tag_name = CString::new(tag_name).unwrap();
+            let attributes = CString::new(attributes).unwrap();
+            ffi::cairo_tag_begin(self.0, tag_name.as_ptr(), attributes.as_ptr())
+        }
+    }
+
+    #[cfg(any(feature = "v1_16", feature = "dox"))]
+    pub fn tag_end(&self, tag_name: &str) {
+        unsafe {
+            let tag_name = CString::new(tag_name).unwrap();
+            ffi::cairo_tag_end(self.0, tag_name.as_ptr())
+        }
+    }
 }
 
 #[cfg(test)]
