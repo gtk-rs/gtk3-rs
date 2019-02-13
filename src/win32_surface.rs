@@ -40,7 +40,7 @@ impl Win32Surface {
 
     #[cfg(any(all(windows, feature = "v1_14"), feature = "dox"))]
     pub fn create_with_format(hdc: winapi::HDC, format: Format) -> Result<Win32Surface, Status> {
-        unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create_with_format(hdc, format.into)) }
+        unsafe { Self::from_raw_full(ffi::cairo_win32_surface_create_with_format(hdc, format.into()) }
     }
 
     pub fn create_with_dib(format: Format, width: i32, height: i32) -> Result<Win32Surface, Status> {
