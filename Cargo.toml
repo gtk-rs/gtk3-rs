@@ -36,12 +36,9 @@ git = "https://github.com/gtk-rs/gtk"
 
 [features]
 #default = ["gtk_3_22_30", "futures-stable", "subclassing"]
-gtk_3_16 = ["gtk/v3_16"]
-gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
-gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
-gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
-gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
-gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24"] #for CI tools
+gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
+gtk_3_22_30 = ["gtk_3_18", "gtk/v3_22_30", "gdk-pixbuf/v2_36", "gdk/v3_22", "gio/v2_56", "glib/v2_56", "pango/v1_42"] #for CI tools
+gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24", "atk/v2_30", "gdk-pixbuf/v2_36_8", "gdk/v3_24", "gio/v2_58", "glib/v2_58"] #for CI tools
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
 subclassing = ["glib/subclassing"]
 
