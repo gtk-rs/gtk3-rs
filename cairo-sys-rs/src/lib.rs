@@ -592,6 +592,8 @@ extern "C" {
     pub fn cairo_surface_get_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: *mut c_double, y_pixels_per_inch: *mut c_double);
     pub fn cairo_surface_set_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: c_double, x_pixels_per_inch: c_double);
     pub fn cairo_recording_surface_get_extents(surface: *mut cairo_surface_t, extents: *mut cairo_rectangle_t) -> cairo_bool_t;
+    pub fn cairo_recording_surface_create(content: cairo_content_t, extents: *const cairo_rectangle_t) -> *mut cairo_surface_t;
+    pub fn cairo_recording_surface_ink_extents(surface: *mut cairo_surface_t, x0: *mut c_double, y0: *mut c_double, width: *mut c_double, height: *mut c_double);
     pub fn cairo_surface_create_similar_image(other: *mut cairo_surface_t, format: cairo_format_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
     pub fn cairo_surface_map_to_image(surface: *mut cairo_surface_t, extents: *const cairo_rectangle_int_t) -> *mut cairo_surface_t;
     pub fn cairo_surface_unmap_image(surface: *mut cairo_surface_t, image: *mut cairo_surface_t);

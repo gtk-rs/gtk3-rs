@@ -369,77 +369,7 @@ impl Clone for XCBVisualType {
     }
 }
 
-#[derive(Debug)]
-pub struct Device(pub *mut ffi::cairo_device_t);
-
-impl Device {
-    pub fn to_raw_none(&self) -> *mut ffi::cairo_device_t {
-        self.0
-    }
-
-    pub unsafe fn from_raw_none(ptr: *mut ffi::cairo_device_t) -> Device {
-        assert!(!ptr.is_null());
-        Device(ptr)
-    }
-
-    pub unsafe fn from_raw_borrow(ptr: *mut ffi::cairo_device_t) -> Device {
-        assert!(!ptr.is_null());
-        Device(ptr)
-    }
-
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_device_t) -> Device {
-        assert!(!ptr.is_null());
-        Device(ptr)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_device_t> for &'a Device {
-    type Storage = &'a Device;
-
-    #[inline]
-    fn to_glib_none(&self) -> Stash<'a, *mut ffi::cairo_device_t, &'a Device> {
-        Stash(self.to_raw_none(), *self)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_device_t> for Device {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_device_t) -> Device {
-        Self::from_raw_none(ptr)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_device_t> for Device {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_device_t) -> Device {
-        Self::from_raw_borrow(ptr)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_device_t> for Device {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_device_t) -> Device {
-        Self::from_raw_full(ptr)
-    }
-}
-
-impl AsRef<Device> for Device {
-    fn as_ref(&self) -> &Device {
-        self
-    }
-}
-
-impl Clone for Device {
-    fn clone(&self) -> Device {
-        unsafe { Self::from_raw_none(self.to_raw_none()) }
-    }
-}
-
-impl Device {
+impl ::device::Device {
     pub fn get_connection(&self) -> XCBConnection {
         unsafe {
             XCBConnection::from_raw_full(ffi::cairo_xcb_device_get_connection(self.to_raw_none()))

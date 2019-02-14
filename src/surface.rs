@@ -19,7 +19,6 @@ use ::enums::{
 };
 
 use ::image_surface::ImageSurface;
-use ::rectangle::Rectangle;
 use ::rectangle_int::RectangleInt;
 
 #[derive(Debug)]
@@ -169,18 +168,6 @@ impl Surface {
         let mut y_pixels_per_inch = 0.0f64;
         unsafe { ffi::cairo_surface_get_fallback_resolution(self.to_raw_none(), &mut x_pixels_per_inch, &mut y_pixels_per_inch); }
         (x_pixels_per_inch, y_pixels_per_inch)
-    }
-
-    pub fn get_extents(&self) -> Option<Rectangle> {
-        unsafe {
-            let rectangle: Rectangle = ::std::mem::zeroed();
-            if ffi::cairo_recording_surface_get_extents(self.to_raw_none(),
-                                                        rectangle.to_raw_none()).as_bool() {
-                Some(rectangle)
-            } else {
-                None
-            }
-        }
     }
 
     pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Option<Surface> {

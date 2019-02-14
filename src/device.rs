@@ -13,9 +13,9 @@ use ::enums::{
     DeviceType,
     ScriptMode,
     Status,
-    SurfaceType,
 };
-use ::surface::{Surface, SurfaceExt};
+use ::surface::Surface;
+use ::recording_surface::RecordingSurface;
 
 #[derive(Debug)]
 pub struct Device(*mut ffi::cairo_device_t, bool);
@@ -54,9 +54,8 @@ impl Device {
         }
     }
 
-    pub fn from_recording_surface(&self, surface: &Surface) -> Status {
+    pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Status {
         unsafe {
-            assert_eq!(surface.get_type(), SurfaceType::Recording);
             Status::from(ffi::cairo_script_from_recording_surface(self.to_raw_none(),
                                                                   surface.to_raw_none()))
         }

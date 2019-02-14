@@ -120,6 +120,7 @@ pub use matrices::{
     MatrixTrait,
 };
 
+pub use recording_surface::RecordingSurface;
 pub use rectangle::Rectangle;
 pub use rectangle_int::RectangleInt;
 
@@ -136,7 +137,6 @@ pub use image_surface::{
 pub use xcb::{
     XCBConnection,
     XCBSurface,
-    Device,
     XCBDrawable,
     XCBPixmap,
     XCBRenderPictFormInfo,
@@ -161,6 +161,7 @@ mod image_surface;
 mod image_surface_png;
 mod paths;
 mod patterns;
+mod recording_surface;
 mod rectangle;
 mod rectangle_int;
 mod region;
