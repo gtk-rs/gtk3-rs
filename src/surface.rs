@@ -7,6 +7,7 @@ use std::ptr;
 use std::slice;
 use libc::{c_ulong, c_void};
 use std::ffi::CString;
+use std::ops::Deref;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -181,7 +182,7 @@ impl Surface {
         }
     }
 
-    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<ImageSurface> {
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<MappedImageSurface> {
         unsafe {
             let p = match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
@@ -190,14 +191,11 @@ impl Surface {
             if p.is_null() {
                 None
             } else {
-                Some(ImageSurface::from_raw_full(p).unwrap())
+                Some(MappedImageSurface {
+                    original_surface: self.clone(),
+                    image_surface: ImageSurface::from_raw_full(p).unwrap(),
+                })
             }
-        }
-    }
-
-    pub fn unmap_image(&self, image: ImageSurface) {
-        unsafe {
-            ffi::cairo_surface_unmap_image(self.to_raw_none(), image.to_raw_none())
         }
     }
 }
@@ -288,6 +286,28 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
 
     fn status(&self) -> Status {
         unsafe { Status::from(ffi::cairo_surface_status(self.as_ref().0)) }
+    }
+}
+
+pub struct MappedImageSurface {
+    original_surface: Surface,
+    image_surface: ImageSurface,
+}
+
+impl Deref for MappedImageSurface {
+    type Target = ImageSurface;
+
+    fn deref(&self) -> &ImageSurface {
+        &self.image_surface
+    }
+}
+
+impl Drop for MappedImageSurface {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::cairo_surface_unmap_image(self.original_surface.to_raw_none(),
+                                           self.image_surface.to_raw_none())
+        }
     }
 }
 

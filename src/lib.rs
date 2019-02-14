@@ -126,7 +126,10 @@ pub use rectangle_int::RectangleInt;
 
 pub use region::Region;
 
-pub use surface::Surface;
+pub use surface::{
+    MappedImageSurface,
+    Surface,
+};
 
 pub use image_surface::{
     ImageSurface,

@@ -27,7 +27,7 @@ impl RecordingSurface {
             let extends = extends.into();
             let extends = match extends {
                 Some(c) => c.to_raw_none(),
-                None => 0 as *const _,
+                None => ::std::ptr::null(),
             };
             let p = ffi::cairo_recording_surface_create(content.into(), extends);
             if p.is_null() {
