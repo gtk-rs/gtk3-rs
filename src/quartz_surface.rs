@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::ops::Deref;
+use std::fmt;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -111,5 +112,11 @@ impl Deref for QuartzSurface {
 impl Clone for QuartzSurface {
     fn clone(&self) -> QuartzSurface {
         QuartzSurface(self.0.clone())
+    }
+}
+
+impl fmt::Display for QuartzSurface {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "QuartzSurface")
     }
 }

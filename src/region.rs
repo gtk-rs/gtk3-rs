@@ -10,6 +10,7 @@ use ::enums::{
 };
 use RectangleInt;
 use ffi;
+use std::fmt;
 
 use ffi::cairo_region_t;
 
@@ -252,5 +253,11 @@ impl Region {
         unsafe {
             Status::from(ffi::cairo_region_xor_rectangle(self.0, rectangle.to_raw_none()))
         }
+    }
+}
+
+impl fmt::Display for Region {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Region")
     }
 }

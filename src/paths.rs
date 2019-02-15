@@ -9,6 +9,7 @@ use ::enums::{
 };
 use ffi::cairo_path_t;
 use ffi;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Path(*mut cairo_path_t);
@@ -36,12 +37,16 @@ impl Path {
             let ptr: *mut cairo_path_t = self.as_ptr();
             let length = (*ptr).num_data as usize;
             let data_ptr = (*ptr).data;
-            let data_vec = if length != 0 && !data_ptr.is_null() { slice::from_raw_parts(data_ptr, length) } else { &[] };
+            let data_vec = if length != 0 && !data_ptr.is_null() {
+                slice::from_raw_parts(data_ptr, length)
+            } else {
+                &[]
+            };
 
             PathSegments {
                 data: data_vec,
                 i: 0,
-                num_data: length
+                num_data: length,
             }
         }
     }
@@ -55,12 +60,29 @@ impl Drop for Path {
     }
 }
 
+impl fmt::Display for Path {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Path")
+    }
+}
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum PathSegment {
-    MoveTo((f64,f64)),
-    LineTo((f64,f64)),
-    CurveTo((f64, f64),(f64, f64),(f64, f64)),
-    ClosePath
+    MoveTo((f64, f64)),
+    LineTo((f64, f64)),
+    CurveTo((f64, f64), (f64, f64), (f64, f64)),
+    ClosePath,
+}
+
+impl fmt::Display for PathSegment {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PathSegment::{}", match *self {
+            PathSegment::MoveTo(_) => "MoveTo",
+            PathSegment::LineTo(_) => "LineTo",
+            PathSegment::CurveTo(_, _, _) => "CurveTo",
+            PathSegment::ClosePath => "ClosePath"
+        })
+    }
 }
 
 pub struct PathSegments<'a> {
@@ -93,6 +115,12 @@ impl<'a> Iterator for PathSegments<'a> {
 
             Some(res)
         }
+    }
+}
+
+impl<'a> fmt::Display for PathSegments<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PathSegments")
     }
 }
 

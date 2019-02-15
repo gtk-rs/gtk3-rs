@@ -7,6 +7,7 @@ use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
+use std::fmt;
 
 use ffi;
 use ::enums::SvgVersion;
@@ -38,8 +39,9 @@ pub fn version_to_string(version: SvgVersion) -> Option<&'static str> {
     }
 }
 
+#[derive(Debug)]
 pub struct File {
-    inner: Surface
+    inner: Surface,
 }
 
 impl FromRawSurface for File {
@@ -133,7 +135,14 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
     }
 }
 
+impl fmt::Display for File {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "svg::File")
+    }
+}
 
+
+#[derive(Debug)]
 pub struct Writer<W: io::Write> {
     writer: support::Writer<File, W>,
 }
@@ -191,7 +200,14 @@ impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
     }
 }
 
+impl<W: io::Write> fmt::Display for Writer<W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "svg::Writer")
+    }
+}
 
+
+#[derive(Debug)]
 pub struct RefWriter<'w, W: io::Write + 'w> {
     writer: support::RefWriter<'w, File, W>,
 }
@@ -233,6 +249,12 @@ impl<'a, 'w, W: io::Write + 'w> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Ref
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
         let stash = self.writer.surface.to_glib_none();
         Stash(stash.0, stash.1)
+    }
+}
+
+impl<'w, W: io::Write + 'w> fmt::Display for RefWriter<'w, W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "svg::RefWriter")
     }
 }
 

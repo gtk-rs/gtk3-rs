@@ -5,6 +5,7 @@
 pub use ffi::winapi;
 
 use std::ops::Deref;
+use std::fmt;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -131,5 +132,11 @@ impl Deref for Win32Surface {
 impl Clone for Win32Surface {
     fn clone(&self) -> Win32Surface {
         Win32Surface(self.0.clone())
+    }
+}
+
+impl fmt::Display for Win32Surface {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Win32Surface")
     }
 }

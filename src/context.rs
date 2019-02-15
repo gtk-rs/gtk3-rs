@@ -6,7 +6,9 @@
 use glib::translate::*;
 use libc::c_int;
 use std::ffi::CString;
+use std::fmt;
 use std::ops;
+use std::slice;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
 use ::matrices::{Matrix, MatrixTrait};
@@ -40,8 +42,6 @@ impl ops::Deref for RectangleList {
     type Target = [Rectangle];
 
     fn deref(&self) -> &[Rectangle] {
-        use std::slice;
-
         unsafe {
             let ptr = (*self.ptr).rectangles as *mut Rectangle;
             let len = (*self.ptr).num_rectangles;
@@ -60,6 +60,22 @@ impl Drop for RectangleList {
         unsafe {
             ffi::cairo_rectangle_list_destroy(self.ptr);
         }
+    }
+}
+
+impl fmt::Debug for RectangleList {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        unsafe {
+            f.debug_tuple("RectangleList")
+             .field(&*self)
+             .finish()
+        }
+    }
+}
+
+impl fmt::Display for RectangleList {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RectangleList")
     }
 }
 
@@ -908,6 +924,12 @@ impl Context {
             let tag_name = CString::new(tag_name).unwrap();
             ffi::cairo_tag_end(self.0, tag_name.as_ptr())
         }
+    }
+}
+
+impl fmt::Display for Context {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Context")
     }
 }
 

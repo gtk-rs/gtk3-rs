@@ -6,6 +6,7 @@ use std::mem;
 use std::marker::PhantomData;
 use std::io;
 use std::slice;
+use std::fmt;
 
 use ffi::{self, cairo_status_t};
 use libc::{c_void, c_uchar, c_uint, c_double};
@@ -19,6 +20,7 @@ pub trait FromRawSurface {
     unsafe fn from_raw_surface(surface: *mut ffi::cairo_surface_t) -> Self;
 }
 
+#[derive(Debug)]
 pub struct Writer<S: FromRawSurface + AsRef<Surface>, W: io::Write> {
     pub surface: S,
     writer: Box<W>,
@@ -63,6 +65,13 @@ impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> Writer<S, W> {
     }
 }
 
+impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> fmt::Display for Writer<S, W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "support::Writer")
+    }
+}
+
+#[derive(Debug)]
 pub struct RefWriter<'w, S: FromRawSurface, W: io::Write + 'w> {
     pub surface: S,
     _reference: PhantomData<&'w mut W>,
@@ -92,5 +101,11 @@ impl<'w, S: FromRawSurface, W: io::Write + 'w> RefWriter<'w, S, W> {
             surface,
             _reference: PhantomData,
         }
+    }
+}
+
+impl<'w, S: FromRawSurface + AsRef<Surface>, W: io::Write> fmt::Display for RefWriter<'w, S, W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "support::RefWriter")
     }
 }

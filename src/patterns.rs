@@ -4,6 +4,7 @@
 
 use libc::{c_double, c_int, c_uint};
 use std::ptr;
+use std::fmt;
 use ::enums::{
     Extend,
     Filter,
@@ -23,8 +24,8 @@ use ::{
     Surface,
 };
 
-//Quite some changes from the C api but all suggested by the cairo devs.
-//See http://cairographics.org/manual/bindings-patterns.html for more info
+// Quite some changes from the C api but all suggested by the cairo devs.
+// See http://cairographics.org/manual/bindings-patterns.html for more info
 #[derive(Debug, Clone)]
 pub enum Pattern {
     SolidPattern(SolidPattern),
@@ -64,6 +65,18 @@ impl PatternTrait for Pattern {
             PatternType::RasterSource => panic!("Not implemented"),
             PatternType::__Unknown(x) => panic!("Unknown value {}", x),
         }
+    }
+}
+
+impl fmt::Display for Pattern {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Pattern::{}", match *self {
+            Pattern::SolidPattern(_) => "SolidPattern",
+            Pattern::SurfacePattern(_) => "SurfacePattern",
+            Pattern::LinearGradient(_) => "LinearGradient",
+            Pattern::RadialGradient(_) => "RadialGradient",
+            Pattern::Mesh(_) => "Mesh",
+        })
     }
 }
 
@@ -172,6 +185,12 @@ macro_rules! pattern_type(
                 unsafe {
                     ffi::cairo_pattern_destroy(self.pointer)
                 }
+            }
+        }
+
+        impl fmt::Display for $pattern_type {
+            fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+                write!(f, stringify!($pattern_type))
             }
         }
     );

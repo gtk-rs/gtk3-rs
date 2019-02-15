@@ -16,6 +16,7 @@ use ::enums::{
 use BorrowError;
 use surface::{Surface, SurfaceExt, SurfacePriv};
 use Status;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct ImageSurface(Surface);
@@ -169,6 +170,12 @@ impl Clone for ImageSurface {
     }
 }
 
+impl fmt::Display for ImageSurface {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ImageSurface")
+    }
+}
+
 #[derive(Debug)]
 pub struct ImageSurfaceData<'a> {
     surface: &'a mut ImageSurface,
@@ -211,6 +218,12 @@ impl<'a> DerefMut for ImageSurfaceData<'a> {
     fn deref_mut(&mut self) -> &mut [u8] {
         self.dirty = true;
         self.slice
+    }
+}
+
+impl<'a> fmt::Display for ImageSurfaceData<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ImageSurfaceData")
     }
 }
 

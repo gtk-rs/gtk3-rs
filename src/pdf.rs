@@ -7,6 +7,7 @@ use std::ffi::{CStr, CString};
 use std::ops::Deref;
 use std::path::Path;
 use std::io;
+use std::fmt;
 
 use ffi;
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -38,6 +39,7 @@ pub fn version_to_string(version: PdfVersion) -> Option<&'static str> {
     }
 }
 
+#[derive(Debug)]
 pub struct File {
     inner: Surface,
 }
@@ -165,7 +167,14 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
     }
 }
 
+impl fmt::Display for File {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "pdf::File")
+    }
+}
 
+
+#[derive(Debug)]
 pub struct Writer<W: io::Write> {
     writer: support::Writer<File, W>,
 }
@@ -223,7 +232,14 @@ impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
     }
 }
 
+impl<W: io::Write> fmt::Display for Writer<W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "pdf::Writer")
+    }
+}
 
+
+#[derive(Debug)]
 pub struct RefWriter<'w, W: io::Write + 'w> {
     writer: support::RefWriter<'w, File, W>,
 }
@@ -268,6 +284,12 @@ impl<'a, 'w, W: io::Write + 'w> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Ref
     }
 }
 
+impl<'w, W: io::Write + 'w> fmt::Display for RefWriter<'w, W> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "pdf::RefWriter")
+    }
+}
+
 
 #[cfg(test)]
 mod test {
@@ -282,13 +304,13 @@ mod test {
         cr.set_line_width(25.0);
 
         cr.set_source_rgba(1.0, 0.0, 0.0, 0.5);
-        cr.line_to(0.,0.);
-        cr.line_to(100.,100.);
+        cr.line_to(0., 0.);
+        cr.line_to(100., 100.);
         cr.stroke();
 
         cr.set_source_rgba(0.0, 0.0, 1.0, 0.5);
-        cr.line_to(0.,100.);
-        cr.line_to(100.,0.);
+        cr.line_to(0., 100.);
+        cr.line_to(100., 0.);
         cr.stroke();
     }
 
