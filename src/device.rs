@@ -177,26 +177,58 @@ impl Device {
         }
     }
 
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
     pub fn debug_cap_xrender_version(&self, major_version: i32, minor_version: i32) {
         unsafe {
-            ffi::cairo_xlib_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                             major_version,
-                                                             minor_version)
+            match self.get_type() {
+                DeviceType::Xlib => {
+                    ffi::cairo_xlib_device_debug_cap_xrender_version(self.to_raw_none(),
+                                                                     major_version,
+                                                                     minor_version)
+                }
+                DeviceType::Xcb => {
+                    ffi::cairo_xcb_device_debug_cap_xrender_version(self.to_raw_none(),
+                                                                    major_version,
+                                                                    minor_version)
+                }
+                _ => {
+                    panic!("invalid device type")
+                }
+            }
         }
     }
 
-    #[cfg(any(feature = "xlib", feature = "dox"))]
+    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
     pub fn debug_get_precision(&self) -> i32 {
         unsafe {
-            ffi::cairo_xlib_device_debug_get_precision(self.to_raw_none())
+            match self.get_type() {
+                DeviceType::Xlib => {
+                    ffi::cairo_xlib_device_debug_get_precision(self.to_raw_none())
+                }
+                DeviceType::Xcb => {
+                    ffi::cairo_xcb_device_debug_get_precision(self.to_raw_none())
+                }
+                _ => {
+                    panic!("invalid device type")
+                }
+            }
         }
     }
 
-    #[cfg(any(feature = "xlib", feature = "dox"))]
-    pub fn cairo_xlib_device_debug_set_precision(&self, precision: i32) {
+    #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
+    pub fn debug_set_precision(&self, precision: i32) {
         unsafe {
-            ffi::cairo_xlib_device_debug_set_precision(self.to_raw_none(), precision)
+            match self.get_type() {
+                DeviceType::Xlib => {
+                    ffi::cairo_xlib_device_debug_set_precision(self.to_raw_none(), precision)
+                }
+                DeviceType::Xcb => {
+                    ffi::cairo_xcb_device_debug_set_precision(self.to_raw_none(), precision)
+                }
+                _ => {
+                    panic!("invalid device type")
+                }
+            }
         }
     }
 }

@@ -376,31 +376,11 @@ impl ::device::Device {
         }
     }
 
-    pub fn debug_cap_xrender_version(&self, major_version: i32, minor_version: i32) {
-        unsafe {
-            ffi::cairo_xcb_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                            major_version,
-                                                            minor_version)
-        }
-    }
-
     pub fn debug_cap_xshm_version(&self, major_version: i32, minor_version: i32) {
         unsafe {
             ffi::cairo_xcb_device_debug_cap_xshm_version(self.to_raw_none(),
                                                          major_version,
                                                          minor_version)
-        }
-    }
-
-    pub fn debug_get_precision(&self) -> i32 {
-        unsafe {
-            ffi::cairo_xcb_device_debug_get_precision(self.to_raw_none())
-        }
-    }
-
-    pub fn debug_set_precision(&self, precision: i32) {
-        unsafe {
-            ffi::cairo_xcb_device_debug_set_precision(self.to_raw_none(), precision)
         }
     }
 }

@@ -8,6 +8,7 @@ use std::slice;
 use libc::{c_ulong, c_void};
 use std::ffi::CString;
 use std::ops::Deref;
+use std::fmt;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -289,6 +290,7 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
     }
 }
 
+#[derive(Debug)]
 pub struct MappedImageSurface {
     original_surface: Surface,
     image_surface: ImageSurface,
@@ -308,6 +310,12 @@ impl Drop for MappedImageSurface {
             ffi::cairo_surface_unmap_image(self.original_surface.to_raw_none(),
                                            self.image_surface.to_raw_none())
         }
+    }
+}
+
+impl fmt::Display for MappedImageSurface {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MappedImageSurface")
     }
 }
 
