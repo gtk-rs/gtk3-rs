@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::fmt::{Error, Debug};
+use std::fmt::{self, Error, Debug};
 use std::ffi::CStr;
 use std::i32;
 use std::u32;
@@ -1445,6 +1445,16 @@ impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
     }
 }
 
+impl fmt::Display for FtSynthesize {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FtSynthesize::{}", match *self {
+            FtSynthesize::Bold => "Bold",
+            FtSynthesize::Oblique => "Oblique",
+            FtSynthesize::__Unknown(_) => "Unknown",
+        })
+    }
+}
+
 #[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
 pub enum ScriptMode {
     Ascii,
@@ -1472,6 +1482,16 @@ impl From<ffi::cairo_script_mode_t> for ScriptMode {
             ffi::CAIRO_SCRIPT_MODE_BINARY => ScriptMode::Binary,
             value => ScriptMode::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for ScriptMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ScriptMode::{}", match *self {
+            ScriptMode::Ascii => "Ascii",
+            ScriptMode::Binary => "Binary",
+            ScriptMode::__Unknown(_) => "Unknown",
+        })
     }
 }
 
@@ -1523,6 +1543,23 @@ impl From<ffi::cairo_device_type_t> for DeviceType {
             ffi::CAIRO_DEVICE_TYPE_INVALID => DeviceType::Invalid,
             value => DeviceType::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for DeviceType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DeviceType::{}", match *self {
+            DeviceType::Ascii => "Ascii",
+            DeviceType::Binary => "Binary",
+            DeviceType::Script => "Script",
+            DeviceType::Xcb => "Xcb",
+            DeviceType::Xlib => "Xlib",
+            DeviceType::Xml => "Xml",
+            DeviceType::Cogl => "Cogl",
+            DeviceType::Win32 => "Win32",
+            DeviceType::Invalid => "Invalid",
+            DeviceType::__Unknown(_) => "Unknown",
+        })
     }
 }
 

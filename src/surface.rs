@@ -308,7 +308,8 @@ impl Drop for MappedImageSurface {
     fn drop(&mut self) {
         unsafe {
             ffi::cairo_surface_unmap_image(self.original_surface.to_raw_none(),
-                                           self.image_surface.to_raw_none())
+                                           self.image_surface.to_raw_none());
+            ffi::cairo_surface_reference(self.image_surface.to_raw_none());
         }
     }
 }

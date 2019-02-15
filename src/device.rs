@@ -16,6 +16,7 @@ use ::enums::{
 };
 use ::surface::Surface;
 use ::recording_surface::RecordingSurface;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Device(*mut ffi::cairo_device_t, bool);
@@ -182,14 +183,28 @@ impl Device {
         unsafe {
             match self.get_type() {
                 DeviceType::Xlib => {
-                    ffi::cairo_xlib_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                                     major_version,
-                                                                     minor_version)
+                    #[cfg(feature = "xlib")]
+                    {
+                        ffi::cairo_xlib_device_debug_cap_xrender_version(self.to_raw_none(),
+                                                                         major_version,
+                                                                         minor_version)
+                    }
+                    #[cfg(not(feature = "xlib"))]
+                    {
+                        panic!("you need to enable \"xlib\" feature")
+                    }
                 }
                 DeviceType::Xcb => {
-                    ffi::cairo_xcb_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                                    major_version,
-                                                                    minor_version)
+                    #[cfg(feature = "xcb")]
+                    {
+                        ffi::cairo_xcb_device_debug_cap_xrender_version(self.to_raw_none(),
+                                                                        major_version,
+                                                                        minor_version)
+                    }
+                    #[cfg(not(feature = "xcb"))]
+                    {
+                        panic!("you need to enable \"xcb\" feature")
+                    }
                 }
                 _ => {
                     panic!("invalid device type")
@@ -203,10 +218,24 @@ impl Device {
         unsafe {
             match self.get_type() {
                 DeviceType::Xlib => {
-                    ffi::cairo_xlib_device_debug_get_precision(self.to_raw_none())
+                    #[cfg(feature = "xlib")]
+                    {
+                        ffi::cairo_xlib_device_debug_get_precision(self.to_raw_none())
+                    }
+                    #[cfg(not(feature = "xlib"))]
+                    {
+                        panic!("you need to enable \"xlib\" feature")
+                    }
                 }
                 DeviceType::Xcb => {
-                    ffi::cairo_xcb_device_debug_get_precision(self.to_raw_none())
+                    #[cfg(feature = "xcb")]
+                    {
+                        ffi::cairo_xcb_device_debug_get_precision(self.to_raw_none())
+                    }
+                    #[cfg(not(feature = "xcb"))]
+                    {
+                        panic!("you need to enable \"xcb\" feature")
+                    }
                 }
                 _ => {
                     panic!("invalid device type")
@@ -220,10 +249,24 @@ impl Device {
         unsafe {
             match self.get_type() {
                 DeviceType::Xlib => {
-                    ffi::cairo_xlib_device_debug_set_precision(self.to_raw_none(), precision)
+                    #[cfg(feature = "xlib")]
+                    {
+                        ffi::cairo_xlib_device_debug_set_precision(self.to_raw_none(), precision)
+                    }
+                    #[cfg(not(feature = "xlib"))]
+                    {
+                        panic!("you need to enable \"xlib\" feature")
+                    }
                 }
                 DeviceType::Xcb => {
-                    ffi::cairo_xcb_device_debug_set_precision(self.to_raw_none(), precision)
+                    #[cfg(feature = "xcb")]
+                    {
+                        ffi::cairo_xcb_device_debug_set_precision(self.to_raw_none(), precision)
+                    }
+                    #[cfg(not(feature = "xcb"))]
+                    {
+                        panic!("you need to enable \"xcb\" feature")
+                    }
                 }
                 _ => {
                     panic!("invalid device type")
@@ -294,5 +337,11 @@ impl Drop for Device {
         if !self.1 {
             unsafe { ffi::cairo_device_destroy(self.0); }
         }
+    }
+}
+
+impl fmt::Display for Device {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Device")
     }
 }

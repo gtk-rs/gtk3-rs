@@ -3,6 +3,7 @@ use ffi;
 use glib::translate::*;
 #[cfg(feature = "use_glib")]
 use std::mem;
+use std::fmt;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
@@ -77,5 +78,11 @@ impl RectangleInt {
     pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_int_t {
         let ptr = &*self as *const RectangleInt as usize;
         ptr as *mut ffi::cairo_rectangle_int_t
+    }
+}
+
+impl fmt::Display for RectangleInt {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RectangleInt")
     }
 }
