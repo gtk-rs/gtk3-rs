@@ -183,20 +183,17 @@ impl Surface {
         }
     }
 
-    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Option<MappedImageSurface> {
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Result<MappedImageSurface, Status> {
         unsafe {
-            let p = match extents {
+            ImageSurface::from_raw_full(match extents {
                 Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
                 None => ffi::cairo_surface_map_to_image(self.to_raw_none(), 0 as *const _),
-            };
-            if p.is_null() {
-                None
-            } else {
-                Some(MappedImageSurface {
+            }).map(|s| {
+                MappedImageSurface {
                     original_surface: self.clone(),
-                    image_surface: ImageSurface::from_raw_full(p).unwrap(),
-                })
-            }
+                    image_surface: s,
+                }
+            })
         }
     }
 }

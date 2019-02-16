@@ -206,8 +206,8 @@ impl Device {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                _ => {
-                    panic!("invalid device type")
+                d => {
+                    panic!("invalid device type: {}", d)
                 }
             }
         }
@@ -237,8 +237,8 @@ impl Device {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                _ => {
-                    panic!("invalid device type")
+                d => {
+                    panic!("invalid device type: {}", d)
                 }
             }
         }
@@ -268,8 +268,8 @@ impl Device {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                _ => {
-                    panic!("invalid device type")
+                d => {
+                    panic!("invalid device type: {}", d)
                 }
             }
         }

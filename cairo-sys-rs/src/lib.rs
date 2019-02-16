@@ -97,8 +97,7 @@ pub struct cairo_device_t(c_void);
 debug_impl!(cairo_device_t);
 
 #[repr(C)]
-#[derive(Copy,Clone,Debug)]
-pub struct cairo_pattern_t(u8);
+pub struct cairo_pattern_t(c_void);
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
