@@ -449,4 +449,20 @@ mod tests {
         drop(receiver);
         assert_eq!(sender.send(1), Err(mpsc::SendError(1)));
     }
+
+    #[test]
+    fn test_remove_receiver() {
+        let c = MainContext::new();
+
+        c.acquire();
+
+        let (sender, receiver) = MainContext::channel::<i32>(Priority::default());
+
+        let source_id = receiver.attach(&c, move |_| Continue(true));
+
+        let source = c.find_source_by_id(&source_id).unwrap();
+        source.destroy();
+
+        assert_eq!(sender.send(1), Err(mpsc::SendError(1)));
+    }
 }
