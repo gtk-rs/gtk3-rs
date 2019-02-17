@@ -135,3 +135,6 @@ name = "tree_model_sort"
 
 [[bin]]
 name = "treeview"
+
+[[bin]]
+name = "list_store"
