@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::fmt::{Error, Debug};
+use std::fmt::{self, Error, Debug};
 use std::ffi::CStr;
 use std::i32;
 use std::u32;
@@ -1414,6 +1414,157 @@ impl From<ffi::cairo_mesh_corner_t> for MeshCorner {
         }
     }
 }
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum FtSynthesize {
+    Bold,
+    Oblique,
+    #[doc(hidden)]
+    __Unknown(u32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::cairo_ft_synthesize_t> for FtSynthesize {
+    fn into(self) -> ffi::cairo_ft_synthesize_t {
+        match self {
+            FtSynthesize::Bold => ffi::CAIRO_FT_SYNTHESIZE_BOLD,
+            FtSynthesize::Oblique => ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE,
+            FtSynthesize::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::cairo_ft_synthesize_t> for FtSynthesize {
+    fn from(value: ffi::cairo_ft_synthesize_t) -> Self {
+        match value {
+            ffi::CAIRO_FT_SYNTHESIZE_BOLD => FtSynthesize::Bold,
+            ffi::CAIRO_FT_SYNTHESIZE_OBLIQUE => FtSynthesize::Oblique,
+            value => FtSynthesize::__Unknown(value),
+        }
+    }
+}
+
+impl fmt::Display for FtSynthesize {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FtSynthesize::{}", match *self {
+            FtSynthesize::Bold => "Bold",
+            FtSynthesize::Oblique => "Oblique",
+            FtSynthesize::__Unknown(_) => "Unknown",
+        })
+    }
+}
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum ScriptMode {
+    Ascii,
+    Binary,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::cairo_script_mode_t> for ScriptMode {
+    fn into(self) -> ffi::cairo_script_mode_t {
+        match self {
+            ScriptMode::Ascii => ffi::CAIRO_SCRIPT_MODE_ASCII,
+            ScriptMode::Binary => ffi::CAIRO_SCRIPT_MODE_BINARY,
+            ScriptMode::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::cairo_script_mode_t> for ScriptMode {
+    fn from(value: ffi::cairo_script_mode_t) -> Self {
+        match value {
+            ffi::CAIRO_SCRIPT_MODE_ASCII => ScriptMode::Ascii,
+            ffi::CAIRO_SCRIPT_MODE_BINARY => ScriptMode::Binary,
+            value => ScriptMode::__Unknown(value),
+        }
+    }
+}
+
+impl fmt::Display for ScriptMode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "ScriptMode::{}", match *self {
+            ScriptMode::Ascii => "Ascii",
+            ScriptMode::Binary => "Binary",
+            ScriptMode::__Unknown(_) => "Unknown",
+        })
+    }
+}
+
+#[derive(Clone, PartialEq, PartialOrd, Debug, Copy)]
+pub enum DeviceType {
+    Ascii,
+    Binary,
+    Script,
+    Xcb,
+    Xlib,
+    Xml,
+    Cogl,
+    Win32,
+    Invalid,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+#[doc(hidden)]
+impl Into<ffi::cairo_device_type_t> for DeviceType {
+    fn into(self) -> ffi::cairo_device_type_t {
+        match self {
+            DeviceType::Ascii => ffi::CAIRO_DEVICE_TYPE_DRM,
+            DeviceType::Binary => ffi::CAIRO_DEVICE_TYPE_GL,
+            DeviceType::Script => ffi::CAIRO_DEVICE_TYPE_SCRIPT,
+            DeviceType::Xcb => ffi::CAIRO_DEVICE_TYPE_XCB,
+            DeviceType::Xlib => ffi::CAIRO_DEVICE_TYPE_XLIB,
+            DeviceType::Xml => ffi::CAIRO_DEVICE_TYPE_XML,
+            DeviceType::Cogl => ffi::CAIRO_DEVICE_TYPE_COGL,
+            DeviceType::Win32 => ffi::CAIRO_DEVICE_TYPE_WIN32,
+            DeviceType::Invalid => ffi::CAIRO_DEVICE_TYPE_INVALID,
+            DeviceType::__Unknown(value) => value,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl From<ffi::cairo_device_type_t> for DeviceType {
+    fn from(value: ffi::cairo_device_type_t) -> Self {
+        match value {
+            ffi::CAIRO_DEVICE_TYPE_DRM => DeviceType::Ascii,
+            ffi::CAIRO_DEVICE_TYPE_GL => DeviceType::Binary,
+            ffi::CAIRO_DEVICE_TYPE_SCRIPT => DeviceType::Script,
+            ffi::CAIRO_DEVICE_TYPE_XCB => DeviceType::Xcb,
+            ffi::CAIRO_DEVICE_TYPE_XLIB => DeviceType::Xlib,
+            ffi::CAIRO_DEVICE_TYPE_XML => DeviceType::Xml,
+            ffi::CAIRO_DEVICE_TYPE_COGL => DeviceType::Cogl,
+            ffi::CAIRO_DEVICE_TYPE_WIN32 => DeviceType::Win32,
+            ffi::CAIRO_DEVICE_TYPE_INVALID => DeviceType::Invalid,
+            value => DeviceType::__Unknown(value),
+        }
+    }
+}
+
+impl fmt::Display for DeviceType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "DeviceType::{}", match *self {
+            DeviceType::Ascii => "Ascii",
+            DeviceType::Binary => "Binary",
+            DeviceType::Script => "Script",
+            DeviceType::Xcb => "Xcb",
+            DeviceType::Xlib => "Xlib",
+            DeviceType::Xml => "Xml",
+            DeviceType::Cogl => "Cogl",
+            DeviceType::Win32 => "Win32",
+            DeviceType::Invalid => "Invalid",
+            DeviceType::__Unknown(_) => "Unknown",
+        })
+    }
+}
+
+#[cfg(feature = "use_glib")]
+gvalue_impl!(DeviceType, ffi::gobject::cairo_gobject_device_type_get_type);
 
 #[cfg(test)]
 mod tests {

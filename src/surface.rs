@@ -7,15 +7,21 @@ use std::ptr;
 use std::slice;
 use libc::{c_ulong, c_void};
 use std::ffi::CString;
+use std::ops::Deref;
+use std::fmt;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
 use ::enums::{
     Content,
+    Format,
     Status,
     SurfaceType,
 };
+
+use ::image_surface::ImageSurface;
+use ::rectangle_int::RectangleInt;
 
 #[derive(Debug)]
 pub struct Surface(*mut ffi::cairo_surface_t, bool);
@@ -165,6 +171,31 @@ impl Surface {
         unsafe { ffi::cairo_surface_get_fallback_resolution(self.to_raw_none(), &mut x_pixels_per_inch, &mut y_pixels_per_inch); }
         (x_pixels_per_inch, y_pixels_per_inch)
     }
+
+    pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Option<Surface> {
+        unsafe {
+            let p = ffi::cairo_surface_create_similar_image(self.to_raw_none(), format.into(), width, height);
+            if p.is_null() {
+                None
+            } else {
+                Some(Self::from_raw_full(p))
+            }
+        }
+    }
+
+    pub fn map_to_image(&self, extents: Option<RectangleInt>) -> Result<MappedImageSurface, Status> {
+        unsafe {
+            ImageSurface::from_raw_full(match extents {
+                Some(ref e) => ffi::cairo_surface_map_to_image(self.to_raw_none(), e.to_raw_none()),
+                None => ffi::cairo_surface_map_to_image(self.to_raw_none(), 0 as *const _),
+            }).map(|s| {
+                MappedImageSurface {
+                    original_surface: self.clone(),
+                    image_surface: s,
+                }
+            })
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]
@@ -253,6 +284,36 @@ impl<O: AsRef<Surface>> SurfaceExt for O {
 
     fn status(&self) -> Status {
         unsafe { Status::from(ffi::cairo_surface_status(self.as_ref().0)) }
+    }
+}
+
+#[derive(Debug)]
+pub struct MappedImageSurface {
+    original_surface: Surface,
+    image_surface: ImageSurface,
+}
+
+impl Deref for MappedImageSurface {
+    type Target = ImageSurface;
+
+    fn deref(&self) -> &ImageSurface {
+        &self.image_surface
+    }
+}
+
+impl Drop for MappedImageSurface {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::cairo_surface_unmap_image(self.original_surface.to_raw_none(),
+                                           self.image_surface.to_raw_none());
+            ffi::cairo_surface_reference(self.image_surface.to_raw_none());
+        }
+    }
+}
+
+impl fmt::Display for MappedImageSurface {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MappedImageSurface")
     }
 }
 

@@ -36,6 +36,7 @@ use x11::xlib;
 
 pub type cairo_antialias_t = c_int;
 pub type cairo_content_t = c_int;
+pub type cairo_device_type_t = c_int;
 pub type cairo_extend_t = c_int;
 pub type cairo_fill_rule_t = c_int;
 pub type cairo_filter_t = c_int;
@@ -43,6 +44,7 @@ pub type cairo_font_slant_t = c_int;
 pub type cairo_font_type_t = c_int;
 pub type cairo_font_weight_t = c_int;
 pub type cairo_format_t = c_int;
+pub type cairo_ft_synthesize_t = c_uint;
 pub type cairo_hint_metrics_t = c_int;
 pub type cairo_hint_style_t = c_int;
 pub type cairo_line_cap_t = c_int;
@@ -51,6 +53,7 @@ pub type cairo_operator_t = c_int;
 pub type cairo_pattern_type_t = c_int;
 pub type cairo_path_data_type_t = c_int;
 pub type cairo_region_overlap_t = c_int;
+pub type cairo_script_mode_t = c_int;
 pub type cairo_status_t = c_int;
 pub type cairo_subpixel_order_t = c_int;
 pub type cairo_surface_type_t = c_int;
@@ -90,14 +93,11 @@ pub struct cairo_surface_t(c_void);
 debug_impl!(cairo_surface_t);
 
 #[repr(C)]
-#[derive(Copy,Clone,Debug)]
-pub struct cairo_pattern_t(u8);
-
-#[cfg(any(feature = "xcb", feature = "dox"))]
-#[repr(C)]
 pub struct cairo_device_t(c_void);
-#[cfg(any(feature = "xcb", feature = "dox"))]
 debug_impl!(cairo_device_t);
+
+#[repr(C)]
+pub struct cairo_pattern_t(c_void);
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 #[repr(C)]
@@ -478,6 +478,9 @@ extern "C" {
     pub fn cairo_glyph_free(glyphs: *mut Glyph);
     pub fn cairo_text_cluster_allocate(num_clusters: c_int) -> *mut TextCluster;
     pub fn cairo_text_cluster_free(clusters: *mut TextCluster);
+    pub fn cairo_ft_font_face_get_synthesize(font_face: *mut cairo_font_face_t) -> cairo_ft_synthesize_t;
+    pub fn cairo_ft_font_face_set_synthesize(font_face: *mut cairo_font_face_t, synth_flags: cairo_ft_synthesize_t);
+    pub fn cairo_ft_font_face_unset_synthesize(font_face: *mut cairo_font_face_t, synth_flags: cairo_ft_synthesize_t);
 
     // CAIRO RASTER
     //pub fn cairo_pattern_create_raster_source(user_data: *mut void, content: Content, width: c_int, height: c_int) -> *mut cairo_pattern_t;
@@ -587,6 +590,12 @@ extern "C" {
     pub fn cairo_surface_set_device_scale(surface: *mut cairo_surface_t, x_scale: c_double, y_scale: c_double);
     pub fn cairo_surface_get_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: *mut c_double, y_pixels_per_inch: *mut c_double);
     pub fn cairo_surface_set_fallback_resolution(surface: *mut cairo_surface_t, x_pixels_per_inch: c_double, x_pixels_per_inch: c_double);
+    pub fn cairo_recording_surface_get_extents(surface: *mut cairo_surface_t, extents: *mut cairo_rectangle_t) -> cairo_bool_t;
+    pub fn cairo_recording_surface_create(content: cairo_content_t, extents: *const cairo_rectangle_t) -> *mut cairo_surface_t;
+    pub fn cairo_recording_surface_ink_extents(surface: *mut cairo_surface_t, x0: *mut c_double, y0: *mut c_double, width: *mut c_double, height: *mut c_double);
+    pub fn cairo_surface_create_similar_image(other: *mut cairo_surface_t, format: cairo_format_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
+    pub fn cairo_surface_map_to_image(surface: *mut cairo_surface_t, extents: *const cairo_rectangle_int_t) -> *mut cairo_surface_t;
+    pub fn cairo_surface_unmap_image(surface: *mut cairo_surface_t, image: *mut cairo_surface_t);
 
     // CAIRO IMAGE SURFACE
     pub fn cairo_image_surface_create(format: cairo_format_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
@@ -785,6 +794,12 @@ extern "C" {
     #[cfg(any(feature = "xlib", feature = "dox"))]
     pub fn cairo_xlib_surface_get_height(surface: *mut cairo_surface_t)
                                          -> c_int;
+    #[cfg(any(feature = "xlib", feature = "dox"))]
+    pub fn cairo_xlib_device_debug_cap_xrender_version(device: *mut cairo_device_t, major_version: c_int, minor_version: c_int);
+    #[cfg(any(feature = "xlib", feature = "dox"))]
+    pub fn cairo_xlib_device_debug_get_precision(device: *mut cairo_device_t) -> c_int;
+    #[cfg(any(feature = "xlib", feature = "dox"))]
+    pub fn cairo_xlib_device_debug_set_precision(device: *mut cairo_device_t, precision: c_int);
 
     // CAIRO WINDOWS SURFACE
     #[cfg(any(windows, feature = "dox"))]
@@ -823,6 +838,35 @@ extern "C" {
                                                       -> *mut cairo_surface_t;
     #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
     pub fn cairo_quartz_surface_get_cg_context(surface: *mut cairo_surface_t) -> CGContextRef;
+
+    // CAIRO SCRIPT
+    pub fn cairo_script_create(filename: *const c_char) -> *mut cairo_device_t;
+    pub fn cairo_script_create_for_stream(write_func: cairo_write_func_t, closure: *mut c_void) -> cairo_status_t;
+    pub fn cairo_script_from_recording_surface(script: *mut cairo_device_t, surface: *mut cairo_surface_t) -> cairo_status_t;
+    pub fn cairo_script_get_mode(script: *mut cairo_device_t) -> cairo_script_mode_t;
+    pub fn cairo_script_set_mode(script: *mut cairo_device_t, mode: cairo_script_mode_t);
+    pub fn cairo_script_surface_create(script: *mut cairo_device_t, content: cairo_content_t,
+                                       width: c_double, height: c_double) -> *mut cairo_surface_t;
+    pub fn cairo_script_surface_create_for_target(script: *mut cairo_device_t, target: *mut cairo_surface_t) -> *mut cairo_surface_t;
+    pub fn cairo_script_write_comment(script: *mut cairo_device_t, comment: *const c_char, len: c_int);
+    pub fn cairo_device_destroy(device: *mut cairo_device_t);
+    pub fn cairo_device_status(device: *mut cairo_device_t) -> cairo_status_t;
+    pub fn cairo_device_finish(device: *mut cairo_device_t);
+    pub fn cairo_device_flush(device: *mut cairo_device_t);
+    pub fn cairo_device_get_type(device: *mut cairo_device_t) -> cairo_device_type_t;
+    pub fn cairo_device_reference(device: *mut cairo_device_t) -> *mut cairo_device_t;
+    pub fn cairo_device_get_reference_count(device: *mut cairo_device_t) -> c_uint;
+    // pub fn cairo_device_set_user_data() -> cairo_status_t;
+    // pub fn cairo_device_get_user_data() -> *mut c_void;
+    pub fn cairo_device_acquire(device: *mut cairo_device_t) -> cairo_status_t;
+    pub fn cairo_device_release(device: *mut cairo_device_t);
+    pub fn cairo_device_observer_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_fill_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_glyphs_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_mask_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_paint_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_stroke_elapsed(device: *mut cairo_device_t) -> c_double;
+    pub fn cairo_device_observer_print(device: *mut cairo_device_t, write_func: cairo_write_func_t, closure: *mut c_void) -> cairo_status_t;
 }
 
 #[cfg(feature = "use_glib")]
@@ -1028,3 +1072,17 @@ pub const MESH_CORNER_MESH_CORNER0: u32 = 0;
 pub const MESH_CORNER_MESH_CORNER1: u32 = 1;
 pub const MESH_CORNER_MESH_CORNER2: u32 = 2;
 pub const MESH_CORNER_MESH_CORNER3: u32 = 3;
+pub const CAIRO_FT_SYNTHESIZE_BOLD   : u32 = 1;
+pub const CAIRO_FT_SYNTHESIZE_OBLIQUE: u32 = 2;
+pub const CAIRO_SCRIPT_MODE_ASCII : i32 = 0;
+pub const CAIRO_SCRIPT_MODE_BINARY: i32 = 1;
+
+pub const CAIRO_DEVICE_TYPE_DRM    : i32 = 0;
+pub const CAIRO_DEVICE_TYPE_GL     : i32 = 1;
+pub const CAIRO_DEVICE_TYPE_SCRIPT : i32 = 2;
+pub const CAIRO_DEVICE_TYPE_XCB    : i32 = 3;
+pub const CAIRO_DEVICE_TYPE_XLIB   : i32 = 4;
+pub const CAIRO_DEVICE_TYPE_XML    : i32 = 5;
+pub const CAIRO_DEVICE_TYPE_COGL   : i32 = 6;
+pub const CAIRO_DEVICE_TYPE_WIN32  : i32 = 7;
+pub const CAIRO_DEVICE_TYPE_INVALID: i32 = -1;
