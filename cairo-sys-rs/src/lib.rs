@@ -249,6 +249,12 @@ impl Default for Matrix {
     }
 }
 
+impl ::std::fmt::Display for Matrix {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        write!(f, "Matrix")
+    }
+}
+
 #[repr(C)]
 #[derive(Clone, Copy, Default, Debug)]
 pub struct cairo_user_data_key_t {

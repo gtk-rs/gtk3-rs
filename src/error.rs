@@ -22,7 +22,7 @@ impl From<Status> for BorrowError {
 impl fmt::Display for BorrowError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            BorrowError::Cairo(status) => write!(f, "BorrowError::Cairo({:?})", status),
+            BorrowError::Cairo(status) => write!(f, "BorrowError::Cairo({})", status),
             BorrowError::NonExclusive  => write!(f, "BorrowError::NonExclusive" ),
         }
     }
@@ -56,7 +56,7 @@ impl From<Status> for IoError {
 impl fmt::Display for IoError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {
-            IoError::Cairo(status) => write!(f, "IoError::Cairo({:?})", status),
+            IoError::Cairo(status) => write!(f, "IoError::Cairo({})", status),
             IoError::Io(ref e) => write!(f, "IoError::Io({})", e),
         }
     }

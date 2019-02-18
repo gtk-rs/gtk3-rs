@@ -213,6 +213,57 @@ impl Debug for Status {
     }
 }
 
+impl fmt::Display for Status {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Status::{}", match *self {
+            Status::Success => "Success",
+            Status::NoMemory => "NoMemory",
+            Status::InvalidRestore => "InvalidRestore",
+            Status::InvalidPopGroup => "InvalidPopGroup",
+            Status::NoCurrentPoint => "NoCurrentPoint",
+            Status::InvalidMatrix => "InvalidMatrix",
+            Status::InvalidStatus => "InvalidStatus",
+            Status::NullPointer => "NullPointer",
+            Status::InvalidString => "InvalidString",
+            Status::InvalidPathData => "InvalidPathData",
+            Status::ReadError => "ReadError",
+            Status::WriteError => "WriteError",
+            Status::SurfaceFinished => "SurfaceFinished",
+            Status::SurfaceTypeMismatch => "SurfaceTypeMismatch",
+            Status::PatternTypeMismatch => "PatternTypeMismatch",
+            Status::InvalidContent => "InvalidContent",
+            Status::InvalidFormat => "InvalidFormat",
+            Status::InvalidVisual => "InvalidVisual",
+            Status::FileNotFound => "FileNotFound",
+            Status::InvalidDash => "InvalidDash",
+            Status::InvalidDscComment => "InvalidDscComment",
+            Status::InvalidIndex => "InvalidIndex",
+            Status::ClipNotRepresentable => "ClipNotRepresentable",
+            Status::TempFileError => "TempFileError",
+            Status::InvalidStride => "InvalidStride",
+            Status::FontTypeMismatch => "FontTypeMismatch",
+            Status::UserFontImmutable => "UserFontImmutable",
+            Status::UserFontError => "UserFontError",
+            Status::NegativeCount => "NegativeCount",
+            Status::InvalidClusters => "InvalidClusters",
+            Status::InvalidSlant => "InvalidSlant",
+            Status::InvalidWeight => "InvalidWeight",
+            Status::InvalidSize => "InvalidSize",
+            Status::UserFontNotImplemented => "UserFontNotImplemented",
+            Status::DeviceTypeMismatch => "DeviceTypeMismatch",
+            Status::DeviceError => "DeviceError",
+            Status::InvalidMeshConstruction => "InvalidMeshConstruction",
+            Status::DeviceFinished => "DeviceFinished",
+            Status::JBig2GlobalMissing => "JBig2GlobalMissing",
+            Status::PngError => "PngError",
+            Status::FreetypeError => "FreetypeError",
+            Status::Win32GdiError => "Win32GdiError",
+            Status::LastStatus => "LastStatus",
+            _ => "Unknown",
+        })
+    }
+}
+
 impl Status {
     pub fn ensure_valid(self) {
         if self != Status::Success {
@@ -273,6 +324,21 @@ impl From<ffi::cairo_antialias_t> for Antialias {
     }
 }
 
+impl fmt::Display for Antialias {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Antialias::{}", match *self {
+            Antialias::Default => "Default",
+            Antialias::None => "None",
+            Antialias::Gray => "Gray",
+            Antialias::Subpixel => "Subpixel",
+            Antialias::Fast => "Fast",
+            Antialias::Good => "Good",
+            Antialias::Best => "Best",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Antialias, ffi::gobject::cairo_gobject_antialias_get_type);
 
@@ -303,6 +369,16 @@ impl From<ffi::cairo_fill_rule_t> for FillRule {
             ffi::FILL_RULE_EVEN_ODD => FillRule::EvenOdd,
             value => FillRule::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for FillRule {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FillRule::{}", match *self {
+            FillRule::Winding => "Winding",
+            FillRule::EvenOdd => "EvenOdd",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -342,6 +418,17 @@ impl From<ffi::cairo_line_cap_t> for LineCap {
     }
 }
 
+impl fmt::Display for LineCap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "LineCap::{}", match *self {
+            LineCap::Butt => "Butt",
+            LineCap::Round => "Round",
+            LineCap::Square => "Square",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(LineCap, ffi::gobject::cairo_gobject_line_cap_get_type);
 
@@ -375,6 +462,17 @@ impl From<ffi::cairo_line_join_t> for LineJoin {
             ffi::LINE_JOIN_BEVEL => LineJoin::Bevel,
             value => LineJoin::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for LineJoin {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "LineJoin::{}", match *self {
+            LineJoin::Miter => "Miter",
+            LineJoin::Round => "Round",
+            LineJoin::Bevel => "Bevel",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -496,6 +594,43 @@ impl From<ffi::cairo_operator_t> for Operator {
     }
 }
 
+impl fmt::Display for Operator {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Operator::{}", match *self {
+            Operator::Clear => "Clear",
+            Operator::Source => "Source",
+            Operator::Over => "Over",
+            Operator::In => "In",
+            Operator::Out => "Out",
+            Operator::Atop => "Atop",
+            Operator::Dest => "Dest",
+            Operator::DestOver => "DestOver",
+            Operator::DestIn => "DestIn",
+            Operator::DestOut => "DestOut",
+            Operator::DestAtop => "DestAtop",
+            Operator::Xor => "Xor",
+            Operator::Add => "Add",
+            Operator::Saturate => "Saturate",
+            Operator::Multiply => "Multiply",
+            Operator::Screen => "Screen",
+            Operator::Overlay => "Overlay",
+            Operator::Darken => "Darken",
+            Operator::Lighten => "Lighten",
+            Operator::ColorDodge => "ColorDodge",
+            Operator::ColorBurn => "ColorBurn",
+            Operator::HardLight => "HardLight",
+            Operator::SoftLight => "SoftLight",
+            Operator::Difference => "Difference",
+            Operator::Exclusion => "Exclusion",
+            Operator::HslHue => "HslHue",
+            Operator::HslSaturation => "HslSaturation",
+            Operator::HslColor => "HslColor",
+            Operator::HslLuminosity => "HslLuminosity",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Operator, ffi::gobject::cairo_gobject_operator_get_type);
 
@@ -535,6 +670,18 @@ impl From<ffi::cairo_path_data_type_t> for PathDataType {
     }
 }
 
+impl fmt::Display for PathDataType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PathDataType::{}", match *self {
+            PathDataType::MoveTo => "MoveTo",
+            PathDataType::LineTo => "LineTo",
+            PathDataType::CurveTo => "CurveTo",
+            PathDataType::ClosePath => "ClosePath",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(PathDataType, ffi::gobject::cairo_gobject_path_data_type_get_type);
 
@@ -568,6 +715,17 @@ impl From<ffi::cairo_content_t> for Content {
             ffi::CONTENT_COLOR_ALPHA => Content::ColorAlpha,
             value => Content::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for Content {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Content::{}", match *self {
+            Content::Color => "Color",
+            Content::Alpha => "Alpha",
+            Content::ColorAlpha => "ColorAlpha",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -607,6 +765,18 @@ impl From<ffi::cairo_extend_t> for Extend {
             ffi::EXTEND_PAD => Extend::Pad,
             value => Extend::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for Extend {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Extend::{}", match *self {
+            Extend::None => "None",
+            Extend::Repeat => "Repeat",
+            Extend::Reflect => "Reflect",
+            Extend::Pad => "Pad",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -655,6 +825,20 @@ impl From<ffi::cairo_filter_t> for Filter {
     }
 }
 
+impl fmt::Display for Filter {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Filter::{}", match *self {
+            Filter::Fast => "Fast",
+            Filter::Good => "Good",
+            Filter::Best => "Best",
+            Filter::Nearest => "Nearest",
+            Filter::Bilinear => "Bilinear",
+            Filter::Gaussian => "Gaussian",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Filter, ffi::gobject::cairo_gobject_filter_get_type);
 
@@ -700,6 +884,20 @@ impl From<ffi::cairo_pattern_type_t> for PatternType {
     }
 }
 
+impl fmt::Display for PatternType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PatternType::{}", match *self {
+            PatternType::Solid => "Solid",
+            PatternType::Surface => "Surface",
+            PatternType::LinearGradient => "LinearGradient",
+            PatternType::RadialGradient => "RadialGradient",
+            PatternType::Mesh => "Mesh",
+            PatternType::RasterSource => "RasterSource",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(PatternType, ffi::gobject::cairo_gobject_pattern_type_get_type);
 
@@ -736,6 +934,17 @@ impl From<ffi::cairo_font_slant_t> for FontSlant {
     }
 }
 
+impl fmt::Display for FontSlant {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontSlant::{}", match *self {
+            FontSlant::Normal => "Normal",
+            FontSlant::Italic => "Italic",
+            FontSlant::Oblique => "Oblique",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(FontSlant, ffi::gobject::cairo_gobject_font_slant_get_type);
 
@@ -769,6 +978,16 @@ impl From<ffi::cairo_font_weight_t> for FontWeight {
     }
 }
 
+impl fmt::Display for FontWeight {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontWeight::{}", match *self {
+            FontWeight::Normal => "Normal",
+            FontWeight::Bold => "Bold",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(FontWeight, ffi::gobject::cairo_gobject_font_weight_get_type);
 
@@ -799,6 +1018,16 @@ impl From<ffi::cairo_text_cluster_flags_t> for TextClusterFlags {
             ffi::TEXT_CLUSTER_FLAGS_BACKWARD => TextClusterFlags::Backward,
             value => TextClusterFlags::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for TextClusterFlags {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "TextClusterFlags::{}", match *self {
+            TextClusterFlags::None => "None",
+            TextClusterFlags::Backward => "Backward",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -844,6 +1073,19 @@ impl From<ffi::cairo_font_type_t> for FontType {
     }
 }
 
+impl fmt::Display for FontType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FontType::{}", match *self {
+            FontType::FontTypeToy => "FontTypeToy",
+            FontType::FontTypeFt => "FontTypeFt",
+            FontType::FontTypeWin32 => "FontTypeWin32",
+            FontType::FontTypeQuartz => "FontTypeQuartz",
+            FontType::FontTypeUser => "FontTypeUser",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(FontType, ffi::gobject::cairo_gobject_font_type_get_type);
 
@@ -883,6 +1125,19 @@ impl From<ffi::cairo_subpixel_order_t> for SubpixelOrder {
             ffi::SUBPIXEL_ORDER_VBGR => SubpixelOrder::Vbgr,
             value => SubpixelOrder::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for SubpixelOrder {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SubpixelOrder::{}", match *self {
+            SubpixelOrder::Default => "Default",
+            SubpixelOrder::Rgb => "Rgb",
+            SubpixelOrder::Bgr => "Bgr",
+            SubpixelOrder::Vrgb => "Vrgb",
+            SubpixelOrder::Vbgr => "Vbgr",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -928,6 +1183,19 @@ impl From<ffi::cairo_hint_style_t> for HintStyle {
     }
 }
 
+impl fmt::Display for HintStyle {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "HintStyle::{}", match *self {
+            HintStyle::Default => "Default",
+            HintStyle::None => "None",
+            HintStyle::Slight => "Slight",
+            HintStyle::Medium => "Medium",
+            HintStyle::Full => "Full",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(HintStyle, ffi::gobject::cairo_gobject_hint_style_get_type);
 
@@ -961,6 +1229,17 @@ impl From<ffi::cairo_hint_metrics_t> for HintMetrics {
             ffi::HINT_METRICS_ON => HintMetrics::On,
             value => HintMetrics::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for HintMetrics {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "HintMetrics::{}", match *self {
+            HintMetrics::Default => "Default",
+            HintMetrics::Off => "Off",
+            HintMetrics::On => "On",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -1066,6 +1345,39 @@ impl From<ffi::cairo_surface_type_t> for SurfaceType {
     }
 }
 
+impl fmt::Display for SurfaceType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SurfaceType::{}", match *self {
+            SurfaceType::Image => "Image",
+            SurfaceType::Pdf => "Pdf",
+            SurfaceType::Ps => "Ps",
+            SurfaceType::Xlib => "Xlib",
+            SurfaceType::Xcb => "Xcb",
+            SurfaceType::Glitz => "Glitz",
+            SurfaceType::Quartz => "Quartz",
+            SurfaceType::Win32 => "Win32",
+            SurfaceType::BeOs => "BeOs",
+            SurfaceType::DirectFb => "DirectFb",
+            SurfaceType::Svg => "Svg",
+            SurfaceType::Os2 => "Os2",
+            SurfaceType::Win32Printing => "Win32Printing",
+            SurfaceType::QuartzImage => "QuartzImage",
+            SurfaceType::Script => "Script",
+            SurfaceType::Qt => "Qt",
+            SurfaceType::Recording => "Recording",
+            SurfaceType::Vg => "Vg",
+            SurfaceType::Gl => "Gl",
+            SurfaceType::Drm => "Drm",
+            SurfaceType::Tee => "Tee",
+            SurfaceType::Xml => "Xml",
+            SurfaceType::Skia => "Skia",
+            SurfaceType::Subsurface => "Subsurface",
+            SurfaceType::Cogl => "Cogl",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(feature = "use_glib")]
 gvalue_impl!(SurfaceType, ffi::gobject::cairo_gobject_surface_type_get_type);
 
@@ -1126,6 +1438,25 @@ impl From<ffi::cairo_svg_unit_t> for SvgUnit {
     }
 }
 
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+impl fmt::Display for SvgUnit {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SvgUnit::{}", match *self {
+            SvgUnit::User => "User",
+            SvgUnit::Em => "Em",
+            SvgUnit::Ex => "Ex",
+            SvgUnit::Px => "Px",
+            SvgUnit::In => "In",
+            SvgUnit::Cm => "Cm",
+            SvgUnit::Mm => "Mm",
+            SvgUnit::Pt => "Pt",
+            SvgUnit::Pc => "Pc",
+            SvgUnit::Percent => "Percent",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Format {
     Invalid,
@@ -1168,6 +1499,21 @@ impl From<ffi::cairo_format_t> for Format {
             ffi::FORMAT_RGB30 => Format::Rgb30,
             value => Format::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for Format {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Format::{}", match *self {
+            Format::Invalid => "Invalid",
+            Format::ARgb32 => "ARgb32",
+            Format::Rgb24 => "Rgb24",
+            Format::A8 => "A8",
+            Format::A1 => "A1",
+            Format::Rgb16_565 => "Rgb16_565",
+            Format::Rgb30 => "Rgb30",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -1218,6 +1564,17 @@ impl From<ffi::cairo_region_overlap_t> for RegionOverlap {
             ffi::REGION_OVERLAP_PART => RegionOverlap::Part,
             value => RegionOverlap::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for RegionOverlap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "RegionOverlap::{}", match *self {
+            RegionOverlap::In => "In",
+            RegionOverlap::Out => "Out",
+            RegionOverlap::Part => "Part",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -1280,6 +1637,22 @@ impl From<ffi::cairo_pdf_metadata_t> for PdfMetadata {
     }
 }
 
+#[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+impl fmt::Display for PdfMetadata {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PdfMetadata::{}", match *self {
+            PdfMetadata::Title => "Title",
+            PdfMetadata::Author => "Author",
+            PdfMetadata::Subject => "Subject",
+            PdfMetadata::Keywords => "Keywords",
+            PdfMetadata::Creator => "Creator",
+            PdfMetadata::CreateDate => "CreateDate",
+            PdfMetadata::ModDate => "ModDate",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(any(feature = "pdf", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PdfVersion {
@@ -1310,6 +1683,17 @@ impl From<ffi::cairo_pdf_version_t> for PdfVersion {
             ffi::PDF_VERSION__1_5 => PdfVersion::_1_5,
             value => PdfVersion::__Unknown(value),
         }
+    }
+}
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+impl fmt::Display for PdfVersion {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PdfVersion::{}", match *self {
+            PdfVersion::_1_4 => "1_4",
+            PdfVersion::_1_5 => "1_5",
+            _ => "Unknown",
+        })
     }
 }
 
@@ -1346,6 +1730,17 @@ impl From<ffi::cairo_svg_version_t> for SvgVersion {
     }
 }
 
+#[cfg(any(feature = "svg", feature = "dox"))]
+impl fmt::Display for SvgVersion {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "SvgVersion::{}", match *self {
+            SvgVersion::_1_1 => "1_1",
+            SvgVersion::_1_2 => "1_2",
+            _ => "Unknown",
+        })
+    }
+}
+
 #[cfg(any(feature = "ps", feature = "dox"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum PsLevel {
@@ -1379,7 +1774,18 @@ impl From<ffi::cairo_ps_level_t> for PsLevel {
     }
 }
 
-#[derive(Clone, PartialEq, PartialOrd, Copy)]
+#[cfg(any(feature = "ps", feature = "dox"))]
+impl fmt::Display for PsLevel {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PsLevel::{}", match *self {
+            PsLevel::_2 => "_2",
+            PsLevel::_3 => "_3",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[derive(Clone, PartialEq, PartialOrd, Copy, Debug)]
 pub enum MeshCorner {
     MeshCorner0,
     MeshCorner1,
@@ -1412,6 +1818,18 @@ impl From<ffi::cairo_mesh_corner_t> for MeshCorner {
             ffi::MESH_CORNER_MESH_CORNER3 => MeshCorner::MeshCorner3,
             value => MeshCorner::__Unknown(value),
         }
+    }
+}
+
+impl fmt::Display for MeshCorner {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "MeshCorner::{}", match *self {
+            MeshCorner::MeshCorner0 => "MeshCorner0",
+            MeshCorner::MeshCorner1 => "MeshCorner1",
+            MeshCorner::MeshCorner2 => "MeshCorner2",
+            MeshCorner::MeshCorner3 => "MeshCorner3",
+            _ => "Unknown",
+        })
     }
 }
 

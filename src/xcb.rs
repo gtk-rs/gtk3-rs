@@ -5,6 +5,7 @@
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use ffi;
+use std::fmt;
 
 use surface::Surface;
 
@@ -17,12 +18,24 @@ impl XCBDrawable {
     }
 }
 
+impl fmt::Display for XCBDrawable {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBDrawable")
+    }
+}
+
 #[derive(Debug)]
 pub struct XCBPixmap(pub u32);
 
 impl XCBPixmap {
     fn to_raw_none(&self) -> u32 {
         self.0
+    }
+}
+
+impl fmt::Display for XCBPixmap {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBPixmap")
     }
 }
 
@@ -96,6 +109,12 @@ impl Clone for XCBConnection {
     }
 }
 
+impl fmt::Display for XCBConnection {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBConnection")
+    }
+}
+
 #[derive(Debug)]
 pub struct XCBRenderPictFormInfo(pub *mut ffi::xcb_render_pictforminfo_t);
 
@@ -166,6 +185,12 @@ impl Clone for XCBRenderPictFormInfo {
     }
 }
 
+impl fmt::Display for XCBRenderPictFormInfo {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBRenderPictFormInfo")
+    }
+}
+
 #[derive(Debug)]
 pub struct XCBScreen(pub *mut ffi::xcb_screen_t);
 
@@ -233,6 +258,12 @@ impl AsRef<XCBScreen> for XCBScreen {
 impl Clone for XCBScreen {
     fn clone(&self) -> XCBScreen {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
+    }
+}
+
+impl fmt::Display for XCBScreen {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBScreen")
     }
 }
 
@@ -366,6 +397,12 @@ impl AsRef<XCBVisualType> for XCBVisualType {
 impl Clone for XCBVisualType {
     fn clone(&self) -> XCBVisualType {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
+    }
+}
+
+impl fmt::Display for XCBVisualType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "XCBVisualType")
     }
 }
 
