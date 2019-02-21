@@ -947,7 +947,7 @@ impl<T: ObjectType> ObjectExt for T {
 
     fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
-        let property_value = value.to_value();
+        let mut property_value = value.to_value();
 
         let pspec = match self.find_property(property_name) {
             Some(pspec) => pspec,
@@ -968,12 +968,28 @@ impl<T: ObjectType> ObjectExt for T {
             let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
                     mut_override(property_value.to_glib_none().0),
                     pspec.get_value_type().to_glib()));
-            if !valid_type {
+
+            // If it's not directly a valid type but an object type, we check if the
+            // actual type of the contained object is compatible and if so create
+            // a properly type Value. This can happen if the type field in the
+            // Value is set to a more generic type than the contained value
+            if !valid_type && property_value.type_().is_a(&Object::static_type()) {
+                if let Some(obj) = property_value.get::<Object>() {
+                    if obj.get_type().is_a(&pspec.get_value_type()) {
+                        property_value.0.g_type = pspec.get_value_type().to_glib();
+                    } else {
+                        return Err(glib_bool_error!("property can't be set from the given object type"));
+                    }
+                } else {
+                    // Otherwise if the value is None then the type is compatible too
+                    property_value.0.g_type = pspec.get_value_type().to_glib();
+                }
+            } else if !valid_type {
                 return Err(glib_bool_error!("property can't be set from the given type"));
             }
 
             let changed: bool = from_glib(gobject_ffi::g_param_value_validate(
-                    pspec.to_glib_none().0, mut_override(property_value.to_glib_none().0)));
+                    pspec.to_glib_none().0, property_value.to_glib_none_mut().0));
             let change_allowed = pspec.get_flags().contains(::ParamFlags::LAX_VALIDATION);
             if changed && !change_allowed {
                 return Err(glib_bool_error!(
@@ -1139,11 +1155,28 @@ impl<T: ObjectType> ObjectExt for T {
                 None
             } else {
                 match ret {
-                    Some(ret) => {
+                    Some(mut ret) => {
                         let valid_type: bool = from_glib(gobject_ffi::g_type_check_value_holds(
                                 mut_override(ret.to_glib_none().0),
                                 return_type.to_glib()));
-                        if !valid_type {
+
+                    // If it's not directly a valid type but an object type, we check if the
+                    // actual typed of the contained object is compatible and if so create
+                    // a properly typed Value. This can happen if the type field in the
+                    // Value is set to a more generic type than the contained value
+                    if !valid_type && ret.type_().is_a(&Object::static_type()) {
+                        if let Some(obj) = ret.get::<Object>() {
+                            if obj.get_type().is_a(&return_type) {
+                                ret.0.g_type = return_type.to_glib();
+                            } else {
+                                panic!("Signal required return value of type {} but got {} (actual {})",
+                                       return_type.name(), ret.type_().name(), obj.get_type().name());
+                            }
+                        } else {
+                            // Otherwise if the value is None then the type is compatible too
+                            ret.0.g_type = return_type.to_glib();
+                        }
+                    } else if !valid_type {
                             panic!("Signal required return value of type {} but got {}",
                                    return_type.name(), ret.type_().name());
                         }
