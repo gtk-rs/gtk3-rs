@@ -3,7 +3,7 @@ language: rust
 rust:
 - nightly
 - beta
-- stable
+- 1.28.0 # stable
 addons:
   apt:
     packages:

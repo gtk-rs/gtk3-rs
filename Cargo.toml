@@ -8,31 +8,17 @@ autobins = false
 chrono = "0.4"
 url = "1.4"
 futures-preview = { version = "0.2", optional = true }
-
-[dependencies.atk]
-git = "https://github.com/gtk-rs/atk"
-
-[dependencies.glib]
-git = "https://github.com/gtk-rs/glib"
-
-[dependencies.gio]
-git = "https://github.com/gtk-rs/gio"
-
-[dependencies.cairo-rs]
-git = "https://github.com/gtk-rs/cairo"
-features = ["png"]
-
-[dependencies.pango]
-git = "https://github.com/gtk-rs/pango"
-
-[dependencies.gdk-pixbuf]
-git = "https://github.com/gtk-rs/gdk-pixbuf"
-
-[dependencies.gdk]
-git = "https://github.com/gtk-rs/gdk"
-
-[dependencies.gtk]
-git = "https://github.com/gtk-rs/gtk"
+atk = "^0"
+gobject-subclass = "^0"
+glib-sys = "^0"
+gobject-sys = "^0"
+glib = "^0"
+gio = "^0"
+gdk = "^0"
+gdk-pixbuf = "^0"
+gtk = "^0"
+pango = "^0"
+cairo-rs = { version = "^0", features = ["png"] }
 
 [features]
 #default = ["gtk_3_22_30", "futures-stable", "subclassing"]
