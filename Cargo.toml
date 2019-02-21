@@ -2,11 +2,13 @@
 name = "gtk-rs-examples"
 version = "0.0.1"
 authors = ["The Gtk-rs Project Developers"]
+autobins = false
 
 [dependencies]
 chrono = "0.4"
 url = "1.4"
 futures-preview = { version = "0.2", optional = true }
+atk = "^0"
 gobject-subclass = "^0"
 glib-sys = "^0"
 gobject-sys = "^0"
@@ -19,14 +21,15 @@ pango = "^0"
 cairo-rs = { version = "^0", features = ["png"] }
 
 [features]
-#default = ["gtk_3_22_30", "futures-stable"]
-gtk_3_10 = ["gtk/v3_10"]
-gtk_3_16 = ["gtk_3_10", "gtk/v3_16"]
-gtk_3_18 = ["gtk_3_16", "gtk/v3_18"] #for CI tools
-gtk_3_20 = ["gtk_3_18", "gtk/v3_20"] #for CI tools
-gtk_3_22 = ["gtk_3_20", "gtk/v3_22"] #for CI tools
-gtk_3_22_30 = ["gtk_3_22", "gtk/v3_22_30"] #for CI tools
+#default = ["gtk_3_22_30", "futures-stable", "subclassing"]
+gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
+gtk_3_22_30 = ["gtk_3_18", "gtk/v3_22_30", "gdk-pixbuf/v2_36", "gdk/v3_22", "gio/v2_56", "glib/v2_56", "pango/v1_42"] #for CI tools
+gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24", "atk/v2_30", "gdk-pixbuf/v2_36_8", "gdk/v3_24", "gio/v2_58", "glib/v2_58"] #for CI tools
 futures-stable = ["futures-preview", "glib/futures", "gio/futures"]
+subclassing = ["glib/subclassing"]
+
+[[bin]]
+name = "accessibility"
 
 [[bin]]
 name = "basic"
@@ -50,6 +53,9 @@ name = "child-properties"
 name = "clock"
 
 [[bin]]
+name = "css"
+
+[[bin]]
 name = "drag_and_drop"
 
 [[bin]]
@@ -71,14 +77,13 @@ name = "gtktest"
 
 [[bin]]
 name = "listbox_model"
-required-features = ["gtk/v3_16", "gio/v2_44"]
+required-features = ["gtk/v3_16", "gio/v2_44", "subclassing"]
 
 [[bin]]
 name = "menu_bar"
 
 [[bin]]
 name = "menu_bar_system"
-required-features = ["gtk/v3_12"]
 
 [[bin]]
 name = "multi_windows"
@@ -90,7 +95,14 @@ name = "multithreading_context"
 name = "notebook"
 
 [[bin]]
+name = "overlay"
+
+[[bin]]
 name = "pango_attributes"
+
+[[bin]]
+name = "progress_tracker"
+path = "src/bin/progress_tracker.rs"
 
 [[bin]]
 name = "simple_treeview"
@@ -105,4 +117,10 @@ name = "text_viewer"
 name = "transparent_main_window"
 
 [[bin]]
+name = "tree_model_sort"
+
+[[bin]]
 name = "treeview"
+
+[[bin]]
+name = "list_store"

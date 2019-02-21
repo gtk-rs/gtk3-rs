@@ -20,11 +20,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     let button = gtk::Button::new_with_label("Click me!");
 
     window.add(&button);
@@ -33,14 +28,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.basic",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.basic",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -50,13 +50,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("TreeView Sample");
     window.set_position(WindowPosition::Center);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     // left pane
-
     let left_tree = TreeView::new();
     let left_store = TreeStore::new(&[String::static_type()]);
 
@@ -143,14 +137,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.treeview",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.treeview",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

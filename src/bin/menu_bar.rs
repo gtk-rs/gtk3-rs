@@ -7,7 +7,7 @@
 extern crate gio;
 extern crate gtk;
 
-use gio::{ApplicationExt, ApplicationExtManual};
+use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
@@ -36,11 +36,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("MenuBar example");
     window.set_position(WindowPosition::Center);
     window.set_size_request(400, 400);
-
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
 
@@ -131,14 +126,13 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.menu_bar",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.menu_bar",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

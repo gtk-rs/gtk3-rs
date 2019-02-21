@@ -65,23 +65,17 @@ pub fn build_ui(application: &gtk::Application) {
         file_chooser.destroy();
     });
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.text_viewer",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.text_viewer",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -26,7 +26,7 @@ fn build_ui(application: &gtk::Application) {
     let text_view = gtk::TextView::new();
     text_view.set_wrap_mode(gtk::WrapMode::Word);
     text_view.set_cursor_visible(false);
-    let scrolled_text_view = gtk::ScrolledWindow::new(None, None);
+    let scrolled_text_view = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
     scrolled_text_view.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Automatic);
     scrolled_text_view.add(&text_view);
 
@@ -63,22 +63,16 @@ fn build_ui(application: &gtk::Application) {
     // Create a new window
     window.add(&vbox);
     window.show_all();
-
-    window.connect_delete_event(move |win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
 }
 
 fn main() {
-    let application = gtk::Application::new("org.gtk-rs.examples.drag_and_drop_textview",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.drag_and_drop_textview",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }

@@ -15,13 +15,10 @@ extern crate glib;
 extern crate gio;
 extern crate gtk;
 
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
-
-extern crate gobject_subclass;
-
 use gio::prelude::*;
 use gtk::prelude::*;
+
+use gtk::ResponseType;
 
 use std::env::args;
 
@@ -67,10 +64,6 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(320, 480);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
     let window_weak = window.downgrade();
 
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 5);
@@ -89,7 +82,7 @@ fn build_ui(application: &gtk::Application) {
     let listbox = gtk::ListBox::new();
     listbox.bind_model(&model, clone!(window_weak => move |item| {
         let box_ = gtk::ListBoxRow::new();
-        let item = item.downcast_ref::<RowData>().unwrap();
+        let item = item.downcast_ref::<RowData>().expect("Row data is of wrong type");
 
         let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
 
@@ -121,8 +114,8 @@ fn build_ui(application: &gtk::Application) {
             let window = upgrade_weak!(window_weak);
 
             let dialog = gtk::Dialog::new_with_buttons(Some("Edit Item"), Some(&window), gtk::DialogFlags::MODAL,
-                &[("Close", 0)]);
-            dialog.set_default_response(0);
+                &[("Close", ResponseType::Close)]);
+            dialog.set_default_response(ResponseType::Close);
             dialog.connect_response(|dialog, _| dialog.destroy());
 
             let content_area = dialog.get_content_area();
@@ -136,12 +129,11 @@ fn build_ui(application: &gtk::Application) {
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE | glib::BindingFlags::BIDIRECTIONAL)
                 .build();
 
-            // Activating the entry (enter) will send response 0 to the dialog, which
-            // is the response code we used for the Close button. It will close the dialog
+            // Activating the entry (enter) will send response `ResponseType::Close` to the dialog
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
-                dialog.response(0);
+                dialog.response(ResponseType::Close);
             });
             content_area.add(&entry);
 
@@ -167,10 +159,10 @@ fn build_ui(application: &gtk::Application) {
 
         box_.show_all();
 
-        box_
+        box_.upcast::<gtk::Widget>()
     }));
 
-    let scrolled_window = gtk::ScrolledWindow::new(None, None);
+    let scrolled_window = gtk::ScrolledWindow::new(gtk::NONE_ADJUSTMENT, gtk::NONE_ADJUSTMENT);
     scrolled_window.add(&listbox);
 
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 5);
@@ -185,8 +177,8 @@ fn build_ui(application: &gtk::Application) {
             let window = upgrade_weak!(window_weak);
 
             let dialog = gtk::Dialog::new_with_buttons(Some("Add Item"), Some(&window), gtk::DialogFlags::MODAL,
-                &[("Ok", 0), ("Cancel", 1)]);
-            dialog.set_default_response(0);
+                &[("Ok", ResponseType::Ok), ("Cancel", ResponseType::Cancel)]);
+            dialog.set_default_response(ResponseType::Ok);
 
             let content_area = dialog.get_content_area();
 
@@ -194,7 +186,7 @@ fn build_ui(application: &gtk::Application) {
             let dialog_weak = dialog.downgrade();
             entry.connect_activate(move |_| {
                 let dialog = upgrade_weak!(dialog_weak);
-                dialog.response(0);
+                dialog.response(ResponseType::Ok);
             });
             content_area.add(&entry);
 
@@ -203,7 +195,7 @@ fn build_ui(application: &gtk::Application) {
 
             dialog.connect_response(clone!(model, entry, spin_button => move |dialog, resp| {
                 if let Some(text) = entry.get_text() {
-                    if !text.is_empty() && resp == 0 {
+                    if !text.is_empty() && resp == ResponseType::Ok {
                         model.append(&RowData::new(&text, spin_button.get_value() as u32));
                     }
                 }
@@ -243,13 +235,12 @@ fn build_ui(application: &gtk::Application) {
 
 fn main() {
     let application = gtk::Application::new("com.github.gtk-rs.examples.listbox-model",
-                                            gio::ApplicationFlags::empty())
+                                            Default::default())
         .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }
@@ -262,12 +253,9 @@ fn main() {
 mod row_data {
     use super::*;
 
-    use gobject_subclass::object::*;
-
+    use glib::subclass;
+    use glib::subclass::prelude::*;
     use glib::translate::*;
-
-    use std::ptr;
-    use std::mem;
 
     // Implementation sub-module of the GObject
     mod imp {
@@ -282,63 +270,57 @@ mod row_data {
         }
 
         // GObject property definitions for our two values
-        static PROPERTIES: [Property; 2] = [
-            Property::String(
+        static PROPERTIES: [subclass::Property; 2] = [
+            subclass::Property(
                 "name",
-                "Name",
-                "Name",
-                None, // Default value
-                PropertyMutability::ReadWrite,
+                |name| {
+                    glib::ParamSpec::string(
+                        name,
+                        "Name",
+                        "Name",
+                        None, // Default value
+                        glib::ParamFlags::READWRITE,
+                    )
+                }
             ),
-            Property::UInt(
+            subclass::Property(
                 "count",
-                "Count",
-                "Count",
-                (0, 100), 0, // Allowed range and default value
-                PropertyMutability::ReadWrite,
+                |name| {
+                    glib::ParamSpec::uint(
+                        name,
+                        "Count",
+                        "Count",
+                        0, 100, 0, // Allowed range and default value
+                        glib::ParamFlags::READWRITE,
+                    )
+                }
             ),
         ];
 
-        impl RowData {
-            // glib::Type registration of the RowData type. The very first time
-            // this registers the type with GObject and afterwards only returns
-            // the type id that was registered the first time
-            pub fn get_type() -> glib::Type {
-                use std::sync::{Once, ONCE_INIT};
+        // Basic declaration of our type for the GObject type system
+        impl ObjectSubclass for RowData {
+            const NAME: &'static str = "RowData";
+            type ParentType = glib::Object;
+            type Instance = subclass::simple::InstanceStruct<Self>;
+            type Class = subclass::simple::ClassStruct<Self>;
 
-                // unsafe code here because static mut variables are inherently
-                // unsafe. Via std::sync::Once we guarantee here that the variable
-                // is only ever set once, and from that point onwards is only ever
-                // read, which makes its usage safe.
-                static ONCE: Once = ONCE_INIT;
-                static mut TYPE: glib::Type = glib::Type::Invalid;
-
-                ONCE.call_once(|| {
-                    let t = register_type(RowDataStatic);
-                    unsafe {
-                        TYPE = t;
-                    }
-                });
-
-                unsafe { TYPE }
-            }
+            glib_object_subclass!();
 
             // Called exactly once before the first instantiation of an instance. This
             // sets up any type-specific things, in this specific case it installs the
             // properties so that GObject knows about their existence and they can be
             // used on instances of our type
-            fn class_init(klass: &mut ObjectClass) {
+            fn class_init(klass: &mut Self::Class) {
                 klass.install_properties(&PROPERTIES);
             }
 
             // Called once at the very beginning of instantiation of each instance and
             // creates the data structure that contains all our state
-            fn init(_obj: &Object) -> Box<ObjectImpl<Object>> {
-                let imp = Self {
+            fn new() -> Self {
+                Self {
                     name: RefCell::new(None),
                     count: RefCell::new(0),
-                };
-                Box::new(imp)
+                }
             }
         }
 
@@ -348,52 +330,33 @@ mod row_data {
         //
         // This maps between the GObject properties and our internal storage of the
         // corresponding values of the properties.
-        impl ObjectImpl<Object> for RowData {
-            fn set_property(&self, _obj: &glib::Object, id: u32, value: &glib::Value) {
-                let prop = &PROPERTIES[id as usize];
+        impl ObjectImpl for RowData {
+            glib_object_impl!();
+
+            fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+                let prop = &PROPERTIES[id];
 
                 match *prop {
-                    Property::String("name", ..) => {
+                    subclass::Property("name", ..) => {
                         let name = value.get();
-                        self.name.replace(name.clone());
+                        self.name.replace(name);
                     }
-                    Property::UInt("count", ..) => {
-                        let count = value.get().unwrap();
+                    subclass::Property("count", ..) => {
+                        let count = value.get().expect("Got value of wrong type");
                         self.count.replace(count);
                     }
                     _ => unimplemented!(),
                 }
             }
 
-            fn get_property(&self, _obj: &glib::Object, id: u32) -> Result<glib::Value, ()> {
-                let prop = &PROPERTIES[id as usize];
+            fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+                let prop = &PROPERTIES[id];
 
                 match *prop {
-                    Property::String("name", ..) => Ok(self.name.borrow().clone().to_value()),
-                    Property::UInt("count", ..) => Ok(self.count.borrow().clone().to_value()),
+                    subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
+                    subclass::Property("count", ..) => Ok(self.count.borrow().to_value()),
                     _ => unimplemented!(),
                 }
-            }
-        }
-
-        // Static, per-type data that is used for actually registering the type
-        // and providing the name of our type and how to initialize it to GObject
-        //
-        // It is used above in the get_type() function for passing that information
-        // to GObject
-        struct RowDataStatic;
-
-        impl ImplTypeStatic<Object> for RowDataStatic {
-            fn get_name(&self) -> &str {
-                "RowData"
-            }
-
-            fn new(&self, obj: &Object) -> Box<ObjectImpl<Object>> {
-                RowData::init(obj)
-            }
-
-            fn class_init(&self, klass: &mut ObjectClass) {
-                RowData::class_init(klass);
             }
         }
     }
@@ -401,8 +364,7 @@ mod row_data {
     // Public part of the RowData type. This behaves like a normal gtk-rs-style GObject
     // binding
     glib_wrapper! {
-        pub struct RowData(Object<imp::RowData>):
-            [Object => InstanceStruct<Object>];
+        pub struct RowData(Object<subclass::simple::InstanceStruct<imp::RowData>, subclass::simple::ClassStruct<imp::RowData>, RowDataClass>);
 
         match fn {
             get_type => || imp::RowData::get_type().to_glib(),
@@ -413,17 +375,14 @@ mod row_data {
     // initial values for our two properties and then returns the new instance
     impl RowData {
         pub fn new(name: &str, count: u32) -> RowData {
-            use glib::object::Downcast;
-
-            unsafe {
-                glib::Object::new(
-                    Self::static_type(),
-                    &[("name", &name),
-                      ("count", &count),
-                    ])
-                    .unwrap()
-                    .downcast_unchecked()
-            }
+            glib::Object::new(
+                Self::static_type(),
+                &[("name", &name),
+                  ("count", &count),
+                ])
+                .expect("Failed to create row data")
+                .downcast()
+                .expect("Created row data is of wrong type")
         }
     }
 }

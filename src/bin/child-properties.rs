@@ -8,10 +8,8 @@ extern crate gio;
 extern crate gtk;
 
 use gio::prelude::*;
-use gtk::{
-    ApplicationWindow, BoxExt, Button, ButtonExt, ContainerExt, GtkWindowExt, Inhibit, Label,
-    LabelExt, PackType, WidgetExt,
-};
+use gtk::prelude::*;
+use gtk::{ApplicationWindow, Button, Label, PackType};
 use gtk::Orientation::Vertical;
 
 use std::env::args;
@@ -54,17 +52,17 @@ fn build_ui(application: &gtk::Application) {
     vbox.add(&minus_button);
 
     minus_button.connect_clicked(clone!(counter_label => move |_| {
-        let nb = u32::from_str(counter_label.get_text()
-                                           .unwrap_or("0".to_owned())
-                                           .as_str()).unwrap_or(0);
+        let nb = counter_label.get_text()
+            .and_then(|s| u32::from_str(&s).ok())
+            .unwrap_or(0);
         if nb > 0 {
             counter_label.set_text(&format!("{}", nb - 1));
         }
     }));
     plus_button.connect_clicked(clone!(counter_label => move |_| {
-        let nb = u32::from_str(counter_label.get_text()
-                                           .unwrap_or("0".to_owned())
-                                           .as_str()).unwrap_or(0);
+        let nb = counter_label.get_text()
+            .and_then(|s| u32::from_str(&s).ok())
+            .unwrap_or(0);
         counter_label.set_text(&format!("{}", nb + 1));
     }));
 
@@ -73,23 +71,17 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(200, 200);
     window.add(&vbox);
 
-    window.connect_delete_event(|win, _| {
-        win.destroy();
-        Inhibit(false)
-    });
-
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.child_properties",
-                                            gio::ApplicationFlags::empty())
+    let application = gtk::Application::new("com.github.gtk-rs.examples.child_properties",
+                                            Default::default())
                                        .expect("Initialization failed...");
 
-    application.connect_startup(|app| {
+    application.connect_activate(|app| {
         build_ui(app);
     });
-    application.connect_activate(|_| {});
 
     application.run(&args().collect::<Vec<_>>());
 }
