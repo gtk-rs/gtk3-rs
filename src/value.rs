@@ -103,7 +103,7 @@ use gobject_ffi;
 /// See the [module documentation](index.html) for more details.
 // TODO: Should use impl !Send for Value {} once stable
 #[repr(C)]
-pub struct Value(gobject_ffi::GValue, PhantomData<*const c_void>);
+pub struct Value(pub(crate) gobject_ffi::GValue, PhantomData<*const c_void>);
 
 impl Value {
     /// Creates a new `Value` that is initialized with `type_`
