@@ -65,11 +65,9 @@ impl Drop for RectangleList {
 
 impl fmt::Debug for RectangleList {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        unsafe {
-            f.debug_tuple("RectangleList")
-             .field(&*self)
-             .finish()
-        }
+        f.debug_tuple("RectangleList")
+            .field(&*self)
+            .finish()
     }
 }
 
