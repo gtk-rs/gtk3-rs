@@ -8,7 +8,7 @@ extern crate gtk;
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
-    self, AboutDialog, ApplicationWindow, AppChooserDialog, Builder, Button, Dialog, Entry,
+    AboutDialog, ApplicationWindow, AppChooserDialog, Builder, Button, Dialog, Entry,
     FileChooserAction, FileChooserDialog, FontChooserDialog, Scale, SpinButton,
     RecentChooserDialog, ResponseType, Spinner, Switch, Window,
 };
