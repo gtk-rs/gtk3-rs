@@ -6,6 +6,7 @@ use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::ffi::{CStr, CString, OsStr};
 use std::fmt;
+use std::hash;
 use std::ops::Deref;
 use std::os::raw::c_char;
 use std::ptr;
@@ -68,6 +69,24 @@ impl Drop for GString {
 impl fmt::Display for GString {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.as_str())
+    }
+}
+
+impl hash::Hash for GString {
+    fn hash<H: hash::Hasher>(&self, state: &mut H) {
+        let bytes = match self {
+            GString::Borrowed(ptr, length) => unsafe {
+                slice::from_raw_parts(*ptr as *const u8, length + 1)
+            },
+            GString::Owned(ptr, length) => unsafe {
+                slice::from_raw_parts(*ptr as *const u8, length + 1)
+            },
+            GString::ForeignOwned(cstring) => cstring
+                .as_ref()
+                .expect("ForeignOwned shouldn't be empty")
+                .as_bytes(),
+        };
+        state.write(bytes);
     }
 }
 
@@ -449,4 +468,16 @@ mod tests {
         assert_eq!(s.as_str(), "foo");
     }
 
+    #[test]
+    fn test_hashmap() {
+        use std::collections::HashMap;
+
+        let cstr = CString::new("foo").unwrap();
+        let gstring = GString::from(cstr);
+        assert_eq!(gstring.as_str(), "foo");
+        let mut h: HashMap<GString, i32> = HashMap::new();
+        h.insert(gstring, 42);
+        let gstring: GString = "foo".into();
+        assert!(h.contains_key(&gstring));
+    }
 }
