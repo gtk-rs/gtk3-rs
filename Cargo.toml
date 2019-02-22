@@ -145,3 +145,6 @@ name = "treeview"
 
 [[bin]]
 name = "list_store"
+
+[[bin]]
+name = "entry_completion"
