@@ -142,7 +142,7 @@ pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<GStrin
         let mut hostname = ptr::null_mut();
         let mut error = ptr::null_mut();
         let ret = g_filename_from_uri(uri.to_glib_none().0, &mut hostname, &mut error);
-        if error.is_null() { Ok((from_glib_full(ret), Some(from_glib_full(hostname)))) } else { Err(from_glib_full(error)) }
+        if error.is_null() { Ok((from_glib_full(ret), from_glib_full(hostname))) } else { Err(from_glib_full(error)) }
     }
 }
 
@@ -228,5 +228,27 @@ mod tests {
     fn setenv() {
         check_setenv("Test");
         check_setenv("Тест"); // "Test" in Russian
+    }
+
+    #[test]
+    fn test_filename_from_uri() {
+        use gstring::GString;
+        use std::path::PathBuf;
+        let uri: GString = "file:///foo/bar.txt".into();
+        if let Ok((filename, hostname)) = ::filename_from_uri(&uri) {
+            assert_eq!(filename, PathBuf::from(r"/foo/bar.txt"));
+            assert_eq!(hostname, None);
+        } else {
+            unreachable!();
+        }
+
+        let uri: GString = "file://host/foo/bar.txt".into();
+        if let Ok((filename, hostname)) = ::filename_from_uri(&uri) {
+            assert_eq!(filename, PathBuf::from(r"/foo/bar.txt"));
+            assert_eq!(hostname, Some(GString::from("host")));
+        } else {
+            unreachable!();
+        }
+
     }
 }
