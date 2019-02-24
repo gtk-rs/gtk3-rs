@@ -79,22 +79,22 @@ impl PropertyAction {
 }
 
 unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_parameter_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_state_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut ffi::GPropertyAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 

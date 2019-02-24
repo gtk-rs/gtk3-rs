@@ -26,7 +26,7 @@ pub trait PollableOutputStreamExt: 'static {
 
     fn is_writable(&self) -> bool;
 
-    fn write_nonblocking<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, buffer: &[u8], cancellable: Q) -> Result<isize, Error>;
+    fn write_nonblocking<P: IsA<Cancellable>>(&self, buffer: &[u8], cancellable: Option<&P>) -> Result<isize, Error>;
 }
 
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
@@ -42,8 +42,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
         }
     }
 
-    fn write_nonblocking<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, buffer: &[u8], cancellable: Q) -> Result<isize, Error> {
-        let cancellable = cancellable.into();
+    fn write_nonblocking<P: IsA<Cancellable>>(&self, buffer: &[u8], cancellable: Option<&P>) -> Result<isize, Error> {
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();

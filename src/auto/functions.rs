@@ -28,7 +28,7 @@ use std::mem;
 use std::ptr;
 
 
-//pub fn bus_get<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Q, callback: R) {
+//pub fn bus_get<P: IsA<Cancellable>, Q: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>, callback: Q) {
 //    unsafe { TODO: call ffi::g_bus_get() }
 //}
 
@@ -41,18 +41,18 @@ use std::ptr;
     //    let cancellable = Cancellable::new();
     //    let send = Fragile::new(send);
     //    bus_get(
-    //         bus_type,
-    //         Some(&cancellable),
-    //         move |res| {
-    //             let _ = send.into_inner().send(res);
-    //         },
+    //        bus_type,
+    //        Some(&cancellable),
+    //        move |res| {
+    //            let _ = send.into_inner().send(res);
+    //        },
     //    );
 
     //    cancellable
     //})
 //}
 
-//pub fn bus_get_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(bus_type: /*Ignored*/BusType, cancellable: Q) -> Result</*Ignored*/DBusConnection, Error> {
+//pub fn bus_get_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result</*Ignored*/DBusConnection, Error> {
 //    unsafe { TODO: call ffi::g_bus_get_sync() }
 //}
 
@@ -148,8 +148,7 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
     }
 }
 
-pub fn content_type_guess<'a, P: Into<Option<&'a str>>>(filename: P, data: &[u8]) -> (GString, bool) {
-    let filename = filename.into();
+pub fn content_type_guess(filename: Option<&str>, data: &[u8]) -> (GString, bool) {
     let data_size = data.len() as usize;
     unsafe {
         let mut result_uncertain = mem::uninitialized();
@@ -195,22 +194,21 @@ pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(bus_type: /*Ignored*/BusType, cancellable: Q) -> Result<GString, Error> {
+//pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result<GString, Error> {
 //    unsafe { TODO: call ffi::g_dbus_address_get_for_bus_sync() }
 //}
 
-pub fn dbus_address_get_stream<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: Q, callback: R) {
-    let cancellable = cancellable.into();
-    let user_data: Box<R> = Box::new(callback);
-    unsafe extern "C" fn dbus_address_get_stream_trampoline<R: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+pub fn dbus_address_get_stream<P: IsA<Cancellable>, Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(address: &str, cancellable: Option<&P>, callback: Q) {
+    let user_data: Box<Q> = Box::new(callback);
+    unsafe extern "C" fn dbus_address_get_stream_trampoline<Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
         let mut error = ptr::null_mut();
         let mut out_guid = ptr::null_mut();
         let ret = ffi::g_dbus_address_get_stream_finish(res, &mut out_guid, &mut error);
         let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(out_guid))) } else { Err(from_glib_full(error)) };
-        let callback: Box<R> = Box::from_raw(user_data as *mut _);
+        let callback: Box<Q> = Box::from_raw(user_data as *mut _);
         callback(result);
     }
-    let callback = dbus_address_get_stream_trampoline::<R>;
+    let callback = dbus_address_get_stream_trampoline::<Q>;
     unsafe {
         ffi::g_dbus_address_get_stream(address.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
     }
@@ -226,19 +224,18 @@ pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Futur
         let cancellable = Cancellable::new();
         let send = Fragile::new(send);
         dbus_address_get_stream(
-             &address,
-             Some(&cancellable),
-             move |res| {
-                 let _ = send.into_inner().send(res);
-             },
+            &address,
+            Some(&cancellable),
+            move |res| {
+                let _ = send.into_inner().send(res);
+            },
         );
 
         cancellable
     })
 }
 
-pub fn dbus_address_get_stream_sync<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(address: &str, cancellable: Q) -> Result<(IOStream, GString), Error> {
-    let cancellable = cancellable.into();
+pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(address: &str, cancellable: Option<&P>) -> Result<(IOStream, GString), Error> {
     unsafe {
         let mut out_guid = ptr::null_mut();
         let mut error = ptr::null_mut();
@@ -339,12 +336,11 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, &Cancellable) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Q) {
+//pub fn io_scheduler_push_job<P: IsA<Cancellable>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, &Cancellable) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Option<&P>) {
 //    unsafe { TODO: call ffi::g_io_scheduler_push_job() }
 //}
 
-pub fn keyfile_settings_backend_new<'a, P: Into<Option<&'a str>>>(filename: &str, root_path: &str, root_group: P) -> Option<SettingsBackend> {
-    let root_group = root_group.into();
+pub fn keyfile_settings_backend_new(filename: &str, root_path: &str, root_group: Option<&str>) -> Option<SettingsBackend> {
     unsafe {
         from_glib_full(ffi::g_keyfile_settings_backend_new(filename.to_glib_none().0, root_path.to_glib_none().0, root_group.to_glib_none().0))
     }
@@ -415,17 +411,17 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_error_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi::g_simple_async_report_error_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, error: &Error) {
+//pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, error: &Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_gerror_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_take_gerror_in_idle<'a, P: IsA<glib::Object> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + 'static>(object: Q, callback: R, error: &mut Error) {
+//pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut Error) {
 //    unsafe { TODO: call ffi::g_simple_async_report_take_gerror_in_idle() }
 //}
 

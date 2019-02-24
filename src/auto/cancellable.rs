@@ -143,7 +143,7 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
 
 unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GCancellable, f: glib_ffi::gpointer)
 where P: IsA<Cancellable> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Cancellable::from_glib_borrow(this).unsafe_cast())
 }
 

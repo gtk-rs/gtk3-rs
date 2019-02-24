@@ -31,17 +31,16 @@ glib_wrapper! {
 pub const NONE_FILE_INPUT_STREAM: Option<&FileInputStream> = None;
 
 pub trait FileInputStreamExt: 'static {
-    fn query_info<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, attributes: &str, cancellable: Q) -> Result<FileInfo, Error>;
+    fn query_info<P: IsA<Cancellable>>(&self, attributes: &str, cancellable: Option<&P>) -> Result<FileInfo, Error>;
 
-    fn query_info_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Q, callback: R);
+    fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
     fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
 }
 
 impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
-    fn query_info<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, attributes: &str, cancellable: Q) -> Result<FileInfo, Error> {
-        let cancellable = cancellable.into();
+    fn query_info<P: IsA<Cancellable>>(&self, attributes: &str, cancellable: Option<&P>) -> Result<FileInfo, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_input_stream_query_info(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -49,17 +48,16 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
         }
     }
 
-    fn query_info_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn query_info_async_trampoline<R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_file_input_stream_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = query_info_async_trampoline::<R>;
+        let callback = query_info_async_trampoline::<Q>;
         unsafe {
             ffi::g_file_input_stream_query_info_async(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -76,14 +74,14 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.query_info_async(
-                 &attributes,
-                 io_priority,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                &attributes,
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

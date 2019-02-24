@@ -117,13 +117,13 @@ impl<O: IsA<AppLaunchContext>> AppLaunchContextExt for O {
 
 unsafe extern "C" fn launch_failed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GAppLaunchContext, startup_notify_id: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&AppLaunchContext::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(startup_notify_id))
 }
 
 unsafe extern "C" fn launched_trampoline<P, F: Fn(&P, &AppInfo, &glib::Variant) + 'static>(this: *mut ffi::GAppLaunchContext, info: *mut ffi::GAppInfo, platform_data: *mut glib_ffi::GVariant, f: glib_ffi::gpointer)
 where P: IsA<AppLaunchContext> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&AppLaunchContext::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(info), &from_glib_borrow(platform_data))
 }
 

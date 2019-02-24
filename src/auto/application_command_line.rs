@@ -145,7 +145,7 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
 
 unsafe extern "C" fn notify_is_remote_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GApplicationCommandLine, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ApplicationCommandLine> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ApplicationCommandLine::from_glib_borrow(this).unsafe_cast())
 }
 

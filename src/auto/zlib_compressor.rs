@@ -40,7 +40,7 @@ pub const NONE_ZLIB_COMPRESSOR: Option<&ZlibCompressor> = None;
 pub trait ZlibCompressorExt: 'static {
     fn get_file_info(&self) -> Option<FileInfo>;
 
-    fn set_file_info<'a, P: IsA<FileInfo> + 'a, Q: Into<Option<&'a P>>>(&self, file_info: Q);
+    fn set_file_info<P: IsA<FileInfo>>(&self, file_info: Option<&P>);
 
     fn get_property_format(&self) -> ZlibCompressorFormat;
 
@@ -56,8 +56,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
         }
     }
 
-    fn set_file_info<'a, P: IsA<FileInfo> + 'a, Q: Into<Option<&'a P>>>(&self, file_info: Q) {
-        let file_info = file_info.into();
+    fn set_file_info<P: IsA<FileInfo>>(&self, file_info: Option<&P>) {
         unsafe {
             ffi::g_zlib_compressor_set_file_info(self.as_ref().to_glib_none().0, file_info.map(|p| p.as_ref()).to_glib_none().0);
         }
@@ -90,7 +89,7 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
 
 unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GZlibCompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibCompressor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ZlibCompressor::from_glib_borrow(this).unsafe_cast())
 }
 

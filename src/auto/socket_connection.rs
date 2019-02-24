@@ -47,9 +47,9 @@ impl SocketConnection {
 pub const NONE_SOCKET_CONNECTION: Option<&SocketConnection> = None;
 
 pub trait SocketConnectionExt: 'static {
-    fn connect<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, address: &P, cancellable: R) -> Result<(), Error>;
+    fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(&self, address: &P, cancellable: Option<&Q>) -> Result<(), Error>;
 
-    fn connect_async<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: R, callback: S);
+    fn connect_async<P: IsA<SocketAddress>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
@@ -64,8 +64,7 @@ pub trait SocketConnectionExt: 'static {
 }
 
 impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
-    fn connect<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, address: &P, cancellable: R) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(&self, address: &P, cancellable: Option<&Q>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_connection_connect(self.as_ref().to_glib_none().0, address.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -73,17 +72,16 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }
     }
 
-    fn connect_async<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: R, callback: S) {
-        let cancellable = cancellable.into();
-        let user_data: Box<S> = Box::new(callback);
-        unsafe extern "C" fn connect_async_trampoline<S: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    fn connect_async<P: IsA<SocketAddress>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: Option<&Q>, callback: R) {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn connect_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_connection_connect_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<S> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = connect_async_trampoline::<S>;
+        let callback = connect_async_trampoline::<R>;
         unsafe {
             ffi::g_socket_connection_connect_async(self.as_ref().to_glib_none().0, address.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -100,13 +98,13 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
-                 &address,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                &address,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

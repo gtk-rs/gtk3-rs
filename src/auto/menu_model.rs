@@ -30,7 +30,7 @@ pub const NONE_MENU_MODEL: Option<&MenuModel> = None;
 pub trait MenuModelExt: 'static {
     //fn get_item_attribute(&self, item_index: i32, attribute: &str, format_string: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool;
 
-    fn get_item_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, item_index: i32, attribute: &str, expected_type: P) -> Option<glib::Variant>;
+    fn get_item_attribute_value(&self, item_index: i32, attribute: &str, expected_type: Option<&glib::VariantTy>) -> Option<glib::Variant>;
 
     fn get_item_link(&self, item_index: i32, link: &str) -> Option<MenuModel>;
 
@@ -52,8 +52,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
     //    unsafe { TODO: call ffi::g_menu_model_get_item_attribute() }
     //}
 
-    fn get_item_attribute_value<'a, P: Into<Option<&'a glib::VariantTy>>>(&self, item_index: i32, attribute: &str, expected_type: P) -> Option<glib::Variant> {
-        let expected_type = expected_type.into();
+    fn get_item_attribute_value(&self, item_index: i32, attribute: &str, expected_type: Option<&glib::VariantTy>) -> Option<glib::Variant> {
         unsafe {
             from_glib_full(ffi::g_menu_model_get_item_attribute_value(self.as_ref().to_glib_none().0, item_index, attribute.to_glib_none().0, expected_type.to_glib_none().0))
         }
@@ -106,7 +105,7 @@ impl<O: IsA<MenuModel>> MenuModelExt for O {
 
 unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, i32, i32, i32) + 'static>(this: *mut ffi::GMenuModel, position: libc::c_int, removed: libc::c_int, added: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<MenuModel> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MenuModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
 }
 

@@ -31,8 +31,7 @@ glib_wrapper! {
 }
 
 impl TlsServerConnection {
-    pub fn new<'a, P: IsA<IOStream>, Q: IsA<TlsCertificate> + 'a, R: Into<Option<&'a Q>>>(base_io_stream: &P, certificate: R) -> Result<TlsServerConnection, Error> {
-        let certificate = certificate.into();
+    pub fn new<P: IsA<IOStream>, Q: IsA<TlsCertificate>>(base_io_stream: &P, certificate: Option<&Q>) -> Result<TlsServerConnection, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_server_connection_new(base_io_stream.as_ref().to_glib_none().0, certificate.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -77,7 +76,7 @@ impl<O: IsA<TlsServerConnection>> TlsServerConnectionExt for O {
 
 unsafe extern "C" fn notify_authentication_mode_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsServerConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsServerConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsServerConnection::from_glib_borrow(this).unsafe_cast())
 }
 

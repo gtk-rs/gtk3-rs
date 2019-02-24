@@ -276,61 +276,61 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
 
 unsafe extern "C" fn notify_is_any_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_loopback_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_global_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_node_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_org_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_mc_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_multicast_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_is_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddress, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddress> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 

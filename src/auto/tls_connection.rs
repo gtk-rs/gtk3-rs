@@ -55,9 +55,9 @@ pub trait TlsConnectionExt: 'static {
 
     fn get_require_close_notify(&self) -> bool;
 
-    fn handshake<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error>;
+    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
-    fn handshake_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R);
+    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
     fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
@@ -66,7 +66,7 @@ pub trait TlsConnectionExt: 'static {
 
     fn set_database<P: IsA<TlsDatabase>>(&self, database: &P);
 
-    fn set_interaction<'a, P: IsA<TlsInteraction> + 'a, Q: Into<Option<&'a P>>>(&self, interaction: Q);
+    fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode);
 
@@ -140,8 +140,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn handshake<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_tls_connection_handshake(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -149,17 +148,16 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn handshake_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn handshake_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn handshake_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_tls_connection_handshake_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = handshake_async_trampoline::<R>;
+        let callback = handshake_async_trampoline::<Q>;
         unsafe {
             ffi::g_tls_connection_handshake_async(self.as_ref().to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -175,13 +173,13 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.handshake_async(
-                 io_priority,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                io_priority,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable
@@ -200,8 +198,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn set_interaction<'a, P: IsA<TlsInteraction> + 'a, Q: Into<Option<&'a P>>>(&self, interaction: Q) {
-        let interaction = interaction.into();
+    fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>) {
         unsafe {
             ffi::g_tls_connection_set_interaction(self.as_ref().to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0);
         }
@@ -294,49 +291,49 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
 
 unsafe extern "C" fn accept_certificate_trampoline<P, F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(this: *mut ffi::GTlsConnection, peer_cert: *mut ffi::GTlsCertificate, errors: ffi::GTlsCertificateFlags, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(peer_cert), from_glib(errors)).to_glib()
 }
 
 unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 

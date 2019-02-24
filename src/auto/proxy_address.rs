@@ -22,9 +22,7 @@ glib_wrapper! {
 }
 
 impl ProxyAddress {
-    pub fn new<'a, 'b, P: IsA<InetAddress>, Q: Into<Option<&'a str>>, R: Into<Option<&'b str>>>(inetaddr: &P, port: u16, protocol: &str, dest_hostname: &str, dest_port: u16, username: Q, password: R) -> ProxyAddress {
-        let username = username.into();
-        let password = password.into();
+    pub fn new<P: IsA<InetAddress>>(inetaddr: &P, port: u16, protocol: &str, dest_hostname: &str, dest_port: u16, username: Option<&str>, password: Option<&str>) -> ProxyAddress {
         unsafe {
             SocketAddress::from_glib_full(ffi::g_proxy_address_new(inetaddr.as_ref().to_glib_none().0, port, protocol.to_glib_none().0, dest_hostname.to_glib_none().0, dest_port, username.to_glib_none().0, password.to_glib_none().0)).unsafe_cast()
         }

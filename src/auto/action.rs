@@ -42,8 +42,7 @@ impl Action {
         }
     }
 
-    pub fn print_detailed_name<'a, P: Into<Option<&'a glib::Variant>>>(action_name: &str, target_value: P) -> Option<GString> {
-        let target_value = target_value.into();
+    pub fn print_detailed_name(action_name: &str, target_value: Option<&glib::Variant>) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_action_print_detailed_name(action_name.to_glib_none().0, target_value.to_glib_none().0))
         }
@@ -53,7 +52,7 @@ impl Action {
 pub const NONE_ACTION: Option<&Action> = None;
 
 pub trait ActionExt: 'static {
-    fn activate<'a, P: Into<Option<&'a glib::Variant>>>(&self, parameter: P);
+    fn activate(&self, parameter: Option<&glib::Variant>);
 
     fn change_state(&self, value: &glib::Variant);
 
@@ -81,8 +80,7 @@ pub trait ActionExt: 'static {
 }
 
 impl<O: IsA<Action>> ActionExt for O {
-    fn activate<'a, P: Into<Option<&'a glib::Variant>>>(&self, parameter: P) {
-        let parameter = parameter.into();
+    fn activate(&self, parameter: Option<&glib::Variant>) {
         unsafe {
             ffi::g_action_activate(self.as_ref().to_glib_none().0, parameter.to_glib_none().0);
         }
@@ -173,31 +171,31 @@ impl<O: IsA<Action>> ActionExt for O {
 
 unsafe extern "C" fn notify_enabled_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Action> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Action::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_name_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Action> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Action::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_parameter_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Action> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Action::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_state_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Action> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Action::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_state_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Action> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Action::from_glib_borrow(this).unsafe_cast())
 }
 

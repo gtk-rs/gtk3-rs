@@ -56,7 +56,7 @@ unsafe impl glib::SendUnique for Socket {
 pub const NONE_SOCKET: Option<&Socket> = None;
 
 pub trait SocketExt: 'static {
-    fn accept<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<Socket, Error>;
+    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, Error>;
 
     fn bind<P: IsA<SocketAddress>>(&self, address: &P, allow_reuse: bool) -> Result<(), Error>;
 
@@ -66,11 +66,11 @@ pub trait SocketExt: 'static {
 
     fn condition_check(&self, condition: glib::IOCondition) -> glib::IOCondition;
 
-    fn condition_timed_wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, condition: glib::IOCondition, timeout: i64, cancellable: Q) -> Result<(), Error>;
+    fn condition_timed_wait<P: IsA<Cancellable>>(&self, condition: glib::IOCondition, timeout: i64, cancellable: Option<&P>) -> Result<(), Error>;
 
-    fn condition_wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, condition: glib::IOCondition, cancellable: Q) -> Result<(), Error>;
+    fn condition_wait<P: IsA<Cancellable>>(&self, condition: glib::IOCondition, cancellable: Option<&P>) -> Result<(), Error>;
 
-    fn connect<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, address: &P, cancellable: R) -> Result<(), Error>;
+    fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(&self, address: &P, cancellable: Option<&Q>) -> Result<(), Error>;
 
     fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
 
@@ -110,15 +110,15 @@ pub trait SocketExt: 'static {
 
     fn is_connected(&self) -> bool;
 
-    fn join_multicast_group<'a, P: IsA<InetAddress>, Q: Into<Option<&'a str>>>(&self, group: &P, source_specific: bool, iface: Q) -> Result<(), Error>;
+    fn join_multicast_group<P: IsA<InetAddress>>(&self, group: &P, source_specific: bool, iface: Option<&str>) -> Result<(), Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn join_multicast_group_ssm<'a, 'b, P: IsA<InetAddress>, Q: IsA<InetAddress> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b str>>>(&self, group: &P, source_specific: R, iface: S) -> Result<(), Error>;
+    fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(&self, group: &P, source_specific: Option<&Q>, iface: Option<&str>) -> Result<(), Error>;
 
-    fn leave_multicast_group<'a, P: IsA<InetAddress>, Q: Into<Option<&'a str>>>(&self, group: &P, source_specific: bool, iface: Q) -> Result<(), Error>;
+    fn leave_multicast_group<P: IsA<InetAddress>>(&self, group: &P, source_specific: bool, iface: Option<&str>) -> Result<(), Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn leave_multicast_group_ssm<'a, 'b, P: IsA<InetAddress>, Q: IsA<InetAddress> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b str>>>(&self, group: &P, source_specific: R, iface: S) -> Result<(), Error>;
+    fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(&self, group: &P, source_specific: Option<&Q>, iface: Option<&str>) -> Result<(), Error>;
 
     fn listen(&self) -> Result<(), Error>;
 
@@ -168,8 +168,7 @@ pub trait SocketExt: 'static {
 }
 
 impl<O: IsA<Socket>> SocketExt for O {
-    fn accept<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<Socket, Error> {
-        let cancellable = cancellable.into();
+    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_socket_accept(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -207,8 +206,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn condition_timed_wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, condition: glib::IOCondition, timeout: i64, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn condition_timed_wait<P: IsA<Cancellable>>(&self, condition: glib::IOCondition, timeout: i64, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_condition_timed_wait(self.as_ref().to_glib_none().0, condition.to_glib(), timeout, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -216,8 +214,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn condition_wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, condition: glib::IOCondition, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn condition_wait<P: IsA<Cancellable>>(&self, condition: glib::IOCondition, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_condition_wait(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -225,8 +222,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn connect<'a, P: IsA<SocketAddress>, Q: IsA<Cancellable> + 'a, R: Into<Option<&'a Q>>>(&self, address: &P, cancellable: R) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(&self, address: &P, cancellable: Option<&Q>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_connect(self.as_ref().to_glib_none().0, address.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -357,8 +353,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn join_multicast_group<'a, P: IsA<InetAddress>, Q: Into<Option<&'a str>>>(&self, group: &P, source_specific: bool, iface: Q) -> Result<(), Error> {
-        let iface = iface.into();
+    fn join_multicast_group<P: IsA<InetAddress>>(&self, group: &P, source_specific: bool, iface: Option<&str>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_join_multicast_group(self.as_ref().to_glib_none().0, group.as_ref().to_glib_none().0, source_specific.to_glib(), iface.to_glib_none().0, &mut error);
@@ -367,9 +362,7 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn join_multicast_group_ssm<'a, 'b, P: IsA<InetAddress>, Q: IsA<InetAddress> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b str>>>(&self, group: &P, source_specific: R, iface: S) -> Result<(), Error> {
-        let source_specific = source_specific.into();
-        let iface = iface.into();
+    fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(&self, group: &P, source_specific: Option<&Q>, iface: Option<&str>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_join_multicast_group_ssm(self.as_ref().to_glib_none().0, group.as_ref().to_glib_none().0, source_specific.map(|p| p.as_ref()).to_glib_none().0, iface.to_glib_none().0, &mut error);
@@ -377,8 +370,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn leave_multicast_group<'a, P: IsA<InetAddress>, Q: Into<Option<&'a str>>>(&self, group: &P, source_specific: bool, iface: Q) -> Result<(), Error> {
-        let iface = iface.into();
+    fn leave_multicast_group<P: IsA<InetAddress>>(&self, group: &P, source_specific: bool, iface: Option<&str>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_leave_multicast_group(self.as_ref().to_glib_none().0, group.as_ref().to_glib_none().0, source_specific.to_glib(), iface.to_glib_none().0, &mut error);
@@ -387,9 +379,7 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn leave_multicast_group_ssm<'a, 'b, P: IsA<InetAddress>, Q: IsA<InetAddress> + 'a, R: Into<Option<&'a Q>>, S: Into<Option<&'b str>>>(&self, group: &P, source_specific: R, iface: S) -> Result<(), Error> {
-        let source_specific = source_specific.into();
-        let iface = iface.into();
+    fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(&self, group: &P, source_specific: Option<&Q>, iface: Option<&str>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_socket_leave_multicast_group_ssm(self.as_ref().to_glib_none().0, group.as_ref().to_glib_none().0, source_specific.map(|p| p.as_ref()).to_glib_none().0, iface.to_glib_none().0, &mut error);
@@ -566,61 +556,61 @@ impl<O: IsA<Socket>> SocketExt for O {
 
 unsafe extern "C" fn notify_blocking_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_broadcast_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_keepalive_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_listen_backlog_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_multicast_loopback_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_multicast_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_remote_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut ffi::GSocket, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Socket> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 

@@ -36,8 +36,7 @@ glib_wrapper! {
 }
 
 impl AppInfo {
-    pub fn create_from_commandline<'a, P: AsRef<std::ffi::OsStr>, Q: Into<Option<&'a str>>>(commandline: P, application_name: Q, flags: AppInfoCreateFlags) -> Result<AppInfo, Error> {
-        let application_name = application_name.into();
+    pub fn create_from_commandline<P: AsRef<std::ffi::OsStr>>(commandline: P, application_name: Option<&str>, flags: AppInfoCreateFlags) -> Result<AppInfo, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_app_info_create_from_commandline(commandline.as_ref().to_glib_none().0, application_name.to_glib_none().0, flags.to_glib(), &mut error);
@@ -81,8 +80,7 @@ impl AppInfo {
         }
     }
 
-    pub fn launch_default_for_uri<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(uri: &str, context: Q) -> Result<(), Error> {
-        let context = context.into();
+    pub fn launch_default_for_uri<P: IsA<AppLaunchContext>>(uri: &str, context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_default_for_uri(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -91,18 +89,16 @@ impl AppInfo {
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async<'a, 'b, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>, R: IsA<Cancellable> + 'b, S: Into<Option<&'b R>>, T: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, context: Q, cancellable: S, callback: T) {
-        let context = context.into();
-        let cancellable = cancellable.into();
-        let user_data: Box<T> = Box::new(callback);
-        unsafe extern "C" fn launch_default_for_uri_async_trampoline<T: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    pub fn launch_default_for_uri_async<P: IsA<AppLaunchContext>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, context: Option<&P>, cancellable: Option<&Q>, callback: R) {
+        let user_data: Box<R> = Box::new(callback);
+        unsafe extern "C" fn launch_default_for_uri_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<T> = Box::from_raw(user_data as *mut _);
+            let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = launch_default_for_uri_async_trampoline::<T>;
+        let callback = launch_default_for_uri_async_trampoline::<R>;
         unsafe {
             ffi::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -110,23 +106,22 @@ impl AppInfo {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async_future<'a, P: IsA<AppLaunchContext> + Clone + 'static, Q: Into<Option<&'a P>>>(uri: &str, context: Q) -> Box_<futures_core::Future<Item = (), Error = Error>> {
+    pub fn launch_default_for_uri_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(uri: &str, context: Option<&P>) -> Box_<futures_core::Future<Item = (), Error = Error>> {
         use GioFuture;
         use fragile::Fragile;
 
         let uri = String::from(uri);
-        let context = context.into();
         let context = context.map(ToOwned::to_owned);
         GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
             Self::launch_default_for_uri_async(
-                 &uri,
-                 context.as_ref().map(::std::borrow::Borrow::borrow),
-                 Some(&cancellable),
-                 move |res| {
-                     let _ = send.into_inner().send(res);
-                 },
+                &uri,
+                context.as_ref().map(::std::borrow::Borrow::borrow),
+                Some(&cancellable),
+                move |res| {
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable
@@ -171,9 +166,9 @@ pub trait AppInfoExt: 'static {
 
     fn get_supported_types(&self) -> Vec<GString>;
 
-    fn launch<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, files: &[File], context: Q) -> Result<(), Error>;
+    fn launch<P: IsA<AppLaunchContext>>(&self, files: &[File], context: Option<&P>) -> Result<(), Error>;
 
-    fn launch_uris<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], context: Q) -> Result<(), Error>;
+    fn launch_uris<P: IsA<AppLaunchContext>>(&self, uris: &[&str], context: Option<&P>) -> Result<(), Error>;
 
     fn remove_supports_type(&self, content_type: &str) -> Result<(), Error>;
 
@@ -277,8 +272,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn launch<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, files: &[File], context: Q) -> Result<(), Error> {
-        let context = context.into();
+    fn launch<P: IsA<AppLaunchContext>>(&self, files: &[File], context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch(self.as_ref().to_glib_none().0, files.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -286,8 +280,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
         }
     }
 
-    fn launch_uris<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], context: Q) -> Result<(), Error> {
-        let context = context.into();
+    fn launch_uris<P: IsA<AppLaunchContext>>(&self, uris: &[&str], context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_app_info_launch_uris(self.as_ref().to_glib_none().0, uris.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);

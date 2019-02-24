@@ -66,7 +66,7 @@ pub trait TlsCertificateExt: 'static {
 
     fn is_same<P: IsA<TlsCertificate>>(&self, cert_two: &P) -> bool;
 
-    fn verify<'a, 'b, P: IsA<SocketConnectable> + 'a, Q: Into<Option<&'a P>>, R: IsA<TlsCertificate> + 'b, S: Into<Option<&'b R>>>(&self, identity: Q, trusted_ca: S) -> TlsCertificateFlags;
+    fn verify<P: IsA<SocketConnectable>, Q: IsA<TlsCertificate>>(&self, identity: Option<&P>, trusted_ca: Option<&Q>) -> TlsCertificateFlags;
 
     //fn get_property_certificate(&self) -> /*Ignored*/Option<glib::ByteArray>;
 
@@ -86,9 +86,7 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
         }
     }
 
-    fn verify<'a, 'b, P: IsA<SocketConnectable> + 'a, Q: Into<Option<&'a P>>, R: IsA<TlsCertificate> + 'b, S: Into<Option<&'b R>>>(&self, identity: Q, trusted_ca: S) -> TlsCertificateFlags {
-        let identity = identity.into();
-        let trusted_ca = trusted_ca.into();
+    fn verify<P: IsA<SocketConnectable>, Q: IsA<TlsCertificate>>(&self, identity: Option<&P>, trusted_ca: Option<&Q>) -> TlsCertificateFlags {
         unsafe {
             from_glib(ffi::g_tls_certificate_verify(self.as_ref().to_glib_none().0, identity.map(|p| p.as_ref()).to_glib_none().0, trusted_ca.map(|p| p.as_ref()).to_glib_none().0))
         }

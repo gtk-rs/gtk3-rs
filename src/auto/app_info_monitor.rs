@@ -37,7 +37,7 @@ impl AppInfoMonitor {
 }
 
 unsafe extern "C" fn changed_trampoline<F: Fn(&AppInfoMonitor) + 'static>(this: *mut ffi::GAppInfoMonitor, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 

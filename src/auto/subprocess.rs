@@ -31,7 +31,7 @@ glib_wrapper! {
 }
 
 impl Subprocess {
-    //pub fn new<'a, P: Into<Option<&'a Error>>>(flags: SubprocessFlags, error: P, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
+    //pub fn new(flags: SubprocessFlags, error: Option<&mut Error>, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
     //    unsafe { TODO: call ffi::g_subprocess_new() }
     //}
 
@@ -43,9 +43,7 @@ impl Subprocess {
         }
     }
 
-    pub fn communicate<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
-        let stdin_buf = stdin_buf.into();
-        let cancellable = cancellable.into();
+    pub fn communicate<P: IsA<Cancellable>>(&self, stdin_buf: Option<&glib::Bytes>, cancellable: Option<&P>) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
@@ -55,53 +53,48 @@ impl Subprocess {
         }
     }
 
-    pub fn communicate_async<'a, 'b, P: Into<Option<&'a glib::Bytes>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>, S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: R, callback: S) {
-        let stdin_buf = stdin_buf.into();
-        let cancellable = cancellable.into();
-        let user_data: Box<S> = Box::new(callback);
-        unsafe extern "C" fn communicate_async_trampoline<S: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    pub fn communicate_async<P: IsA<Cancellable>, Q: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(&self, stdin_buf: Option<&glib::Bytes>, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn communicate_async_trampoline<Q: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
             let _ = ffi::g_subprocess_communicate_finish(_source_object as *mut _, res, &mut stdout_buf, &mut stderr_buf, &mut error);
             let result = if error.is_null() { Ok((from_glib_full(stdout_buf), from_glib_full(stderr_buf))) } else { Err(from_glib_full(error)) };
-            let callback: Box<S> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = communicate_async_trampoline::<S>;
+        let callback = communicate_async_trampoline::<Q>;
         unsafe {
             ffi::g_subprocess_communicate_async(self.to_glib_none().0, stdin_buf.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    pub fn communicate_async_future<'a, P: Into<Option<&'a glib::Bytes>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
+    pub fn communicate_async_future(&self, stdin_buf: Option<&glib::Bytes>) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, glib::Bytes)), Error = (Self, Error)>> where Self: Sized + Clone {
         use GioFuture;
         use fragile::Fragile;
 
-        let stdin_buf = stdin_buf.into();
         let stdin_buf = stdin_buf.map(ToOwned::to_owned);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.communicate_async(
-                 stdin_buf.as_ref().map(::std::borrow::Borrow::borrow),
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                stdin_buf.as_ref().map(::std::borrow::Borrow::borrow),
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable
         })
     }
 
-    pub fn communicate_utf8<'a, 'b, P: Into<Option<&'a str>>, Q: IsA<Cancellable> + 'b, R: Into<Option<&'b Q>>>(&self, stdin_buf: P, cancellable: R) -> Result<(Option<GString>, Option<GString>), Error> {
-        let stdin_buf = stdin_buf.into();
-        let cancellable = cancellable.into();
+    pub fn communicate_utf8<P: IsA<Cancellable>>(&self, stdin_buf: Option<&str>, cancellable: Option<&P>) -> Result<(Option<GString>, Option<GString>), Error> {
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
@@ -184,8 +177,7 @@ impl Subprocess {
         }
     }
 
-    pub fn wait<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    pub fn wait<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -193,17 +185,16 @@ impl Subprocess {
         }
     }
 
-    pub fn wait_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn wait_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    pub fn wait_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn wait_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = wait_async_trampoline::<R>;
+        let callback = wait_async_trampoline::<Q>;
         unsafe {
             ffi::g_subprocess_wait_async(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -219,20 +210,19 @@ impl Subprocess {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.wait_async(
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable
         })
     }
 
-    pub fn wait_check<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    pub fn wait_check<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait_check(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -240,17 +230,16 @@ impl Subprocess {
         }
     }
 
-    pub fn wait_check_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn wait_check_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    pub fn wait_check_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn wait_check_async_trampoline<Q: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let _ = ffi::g_subprocess_wait_check_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = wait_check_async_trampoline::<R>;
+        let callback = wait_check_async_trampoline::<Q>;
         unsafe {
             ffi::g_subprocess_wait_check_async(self.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -266,12 +255,12 @@ impl Subprocess {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.wait_check_async(
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

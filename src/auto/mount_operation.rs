@@ -361,82 +361,82 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
 unsafe extern "C" fn aborted_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn ask_password_trampoline<P, F: Fn(&P, &str, &str, &str, AskPasswordFlags) + 'static>(this: *mut ffi::GMountOperation, message: *mut libc::c_char, default_user: *mut libc::c_char, default_domain: *mut libc::c_char, flags: ffi::GAskPasswordFlags, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), &GString::from_glib_borrow(default_user), &GString::from_glib_borrow(default_domain), from_glib(flags))
 }
 
 unsafe extern "C" fn reply_trampoline<P, F: Fn(&P, MountOperationResult) + 'static>(this: *mut ffi::GMountOperation, result: ffi::GMountOperationResult, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast(), from_glib(result))
 }
 
 unsafe extern "C" fn show_unmount_progress_trampoline<P, F: Fn(&P, &str, i64, i64) + 'static>(this: *mut ffi::GMountOperation, message: *mut libc::c_char, time_left: i64, bytes_left: i64, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), time_left, bytes_left)
 }
 
 unsafe extern "C" fn notify_anonymous_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_choice_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_domain_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 unsafe extern "C" fn notify_is_tcrypt_hidden_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 unsafe extern "C" fn notify_is_tcrypt_system_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_password_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_password_save_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 unsafe extern "C" fn notify_pim_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_username_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMountOperation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<MountOperation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 

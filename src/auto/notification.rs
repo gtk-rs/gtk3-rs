@@ -31,19 +31,17 @@ impl Notification {
         }
     }
 
-    //pub fn add_button_with_target<'a, P: Into<Option<&'a str>>>(&self, label: &str, action: &str, target_format: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //pub fn add_button_with_target(&self, label: &str, action: &str, target_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi::g_notification_add_button_with_target() }
     //}
 
-    pub fn add_button_with_target_value<'a, P: Into<Option<&'a glib::Variant>>>(&self, label: &str, action: &str, target: P) {
-        let target = target.into();
+    pub fn add_button_with_target_value(&self, label: &str, action: &str, target: Option<&glib::Variant>) {
         unsafe {
             ffi::g_notification_add_button_with_target_value(self.to_glib_none().0, label.to_glib_none().0, action.to_glib_none().0, target.to_glib_none().0);
         }
     }
 
-    pub fn set_body<'a, P: Into<Option<&'a str>>>(&self, body: P) {
-        let body = body.into();
+    pub fn set_body(&self, body: Option<&str>) {
         unsafe {
             ffi::g_notification_set_body(self.to_glib_none().0, body.to_glib_none().0);
         }
@@ -55,12 +53,11 @@ impl Notification {
         }
     }
 
-    //pub fn set_default_action_and_target<'a, P: Into<Option<&'a str>>>(&self, action: &str, target_format: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //pub fn set_default_action_and_target(&self, action: &str, target_format: Option<&str>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call ffi::g_notification_set_default_action_and_target() }
     //}
 
-    pub fn set_default_action_and_target_value<'a, P: Into<Option<&'a glib::Variant>>>(&self, action: &str, target: P) {
-        let target = target.into();
+    pub fn set_default_action_and_target_value(&self, action: &str, target: Option<&glib::Variant>) {
         unsafe {
             ffi::g_notification_set_default_action_and_target_value(self.to_glib_none().0, action.to_glib_none().0, target.to_glib_none().0);
         }

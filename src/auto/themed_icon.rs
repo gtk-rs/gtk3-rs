@@ -99,7 +99,7 @@ impl<O: IsA<ThemedIcon>> ThemedIconExt for O {
 
 unsafe extern "C" fn notify_names_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GThemedIcon, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ThemedIcon> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ThemedIcon::from_glib_borrow(this).unsafe_cast())
 }
 

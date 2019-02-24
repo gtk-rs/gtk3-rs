@@ -20,14 +20,13 @@ glib_wrapper! {
 pub const NONE_REMOTE_ACTION_GROUP: Option<&RemoteActionGroup> = None;
 
 pub trait RemoteActionGroupExt: 'static {
-    fn activate_action_full<'a, P: Into<Option<&'a glib::Variant>>>(&self, action_name: &str, parameter: P, platform_data: &glib::Variant);
+    fn activate_action_full(&self, action_name: &str, parameter: Option<&glib::Variant>, platform_data: &glib::Variant);
 
     fn change_action_state_full(&self, action_name: &str, value: &glib::Variant, platform_data: &glib::Variant);
 }
 
 impl<O: IsA<RemoteActionGroup>> RemoteActionGroupExt for O {
-    fn activate_action_full<'a, P: Into<Option<&'a glib::Variant>>>(&self, action_name: &str, parameter: P, platform_data: &glib::Variant) {
-        let parameter = parameter.into();
+    fn activate_action_full(&self, action_name: &str, parameter: Option<&glib::Variant>, platform_data: &glib::Variant) {
         unsafe {
             ffi::g_remote_action_group_activate_action_full(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, parameter.to_glib_none().0, platform_data.to_glib_none().0);
         }
