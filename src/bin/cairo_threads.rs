@@ -235,7 +235,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.cairo_threads",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.cairo_threads"),
                                             Default::default())
                                        .expect("Initialization failed...");
 
@@ -288,4 +288,3 @@ fn draw_image_if_dirty(cr: &Context, image: &ImageSurface, origin: (i32, i32),
     // Release the reference to the surface again
     cr.set_source_rgba(0.0, 0.0, 0.0, 0.0);
 }
-

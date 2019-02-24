@@ -89,7 +89,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.cairotest",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.cairotest"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

@@ -20,7 +20,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_title("Drag and Drop Example with a TextView");
 
     // Give a nice text description for the user
-    let label = gtk::Label::new("Drag files and/or folders onto the TextView below.");
+    let label = gtk::Label::new(Some("Drag files and/or folders onto the TextView below."));
 
     // Create scrollable text view as our drag target
     let text_view = gtk::TextView::new();
@@ -66,7 +66,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.drag_and_drop_textview",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.drag_and_drop_textview"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

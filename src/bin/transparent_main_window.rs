@@ -34,9 +34,10 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.transparent_main_window",
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.transparent_main_window"),
+        Default::default(),
+    ).expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

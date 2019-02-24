@@ -80,7 +80,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.css",
+    let application = gtk::Application::new(Some("com.github.css"),
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 

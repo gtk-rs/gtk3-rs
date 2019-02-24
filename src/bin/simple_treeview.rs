@@ -95,7 +95,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.simple_treeview",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.simple_treeview"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

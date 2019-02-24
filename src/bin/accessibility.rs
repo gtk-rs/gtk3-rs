@@ -21,7 +21,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
 
     let button = gtk::Button::new_with_label("Click me!");
-    let label = gtk::Label::new("0");
+    let label = gtk::Label::new(Some("0"));
     let vbox = gtk::Box::new(gtk::Orientation::Vertical, 0);
 
     if let (Some(button_obj), Some(label_obj)) = (button.get_accessible(), label.get_accessible()) {
@@ -51,7 +51,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.accessibility",
+    let application = gtk::Application::new(Some("com.github.accessibility"),
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 
