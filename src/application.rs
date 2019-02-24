@@ -33,10 +33,9 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn open_trampoline<P, F: Fn(&P, &[File], &str) + 'static>(this: *mut ffi::GApplication, files: *const *mut ffi::GFile, n_files: libc::c_int, hint: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Application> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);
     f(&Application::from_glib_borrow(this).unsafe_cast(), &files, &GString::from_glib_borrow(hint))
 }
