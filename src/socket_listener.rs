@@ -18,15 +18,14 @@ use Socket;
 use futures_core::Future;
 
 pub trait SocketListenerExtManual: Sized {
-    fn accept_socket_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: P, callback: Q);
+    fn accept_socket_async<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: Option<&Cancellable>, callback: Q);
 
     #[cfg(feature = "futures")]
     fn accept_socket_async_future(&self) -> Box<Future<Item = (Self, (Socket, Option<glib::Object>)), Error = (Self, Error)>> where Self: Clone;
 }
 
 impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
-    fn accept_socket_async<'a, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
+    fn accept_socket_async<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: Option<&Cancellable>, callback: Q) {
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn accept_socket_async_trampoline<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)

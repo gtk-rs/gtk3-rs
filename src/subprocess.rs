@@ -14,10 +14,8 @@ use libc::c_char;
 use glib::GString;
 
 impl Subprocess {
-    pub fn communicate_utf8_async<'a, P: Into<Option<String>>, Q: Into<Option<&'a Cancellable>>, R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(&self, stdin_buf: P, cancellable: Q, callback: R) {
-        let stdin_buf = stdin_buf.into();
+    pub fn communicate_utf8_async<R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(&self, stdin_buf: Option<String>, cancellable: Option<&Cancellable>, callback: R) {
         let stdin_buf = stdin_buf.to_glib_full();
-        let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<(R, *mut c_char)> = Box::new((callback, stdin_buf));
         unsafe extern "C" fn communicate_utf8_async_trampoline<R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer)
@@ -43,11 +41,10 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn communicate_utf8_async_future<P: Into<Option<String>>>(&self, stdin_buf: P) -> Box_<futures_core::Future<Item = (Self, (GString, GString)), Error = (Self, Error)>> where Self: Clone {
+    pub fn communicate_utf8_async_future(&self, stdin_buf: Option<String>) -> Box_<futures_core::Future<Item = (Self, (GString, GString)), Error = (Self, Error)>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
 
-        let stdin_buf = stdin_buf.into();
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
