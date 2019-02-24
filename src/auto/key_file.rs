@@ -32,8 +32,7 @@ impl KeyFile {
         }
     }
 
-    pub fn get_comment<'a, P: Into<Option<&'a str>>>(&self, group_name: P, key: &str) -> Result<GString, Error> {
-        let group_name = group_name.into();
+    pub fn get_comment(&self, group_name: Option<&str>, key: &str) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_key_file_get_comment(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
@@ -101,15 +100,13 @@ impl KeyFile {
     }
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    pub fn get_locale_for_key<'a, P: Into<Option<&'a str>>>(&self, group_name: &str, key: &str, locale: P) -> Option<GString> {
-        let locale = locale.into();
+    pub fn get_locale_for_key(&self, group_name: &str, key: &str, locale: Option<&str>) -> Option<GString> {
         unsafe {
             from_glib_full(ffi::g_key_file_get_locale_for_key(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, locale.to_glib_none().0))
         }
     }
 
-    pub fn get_locale_string<'a, P: Into<Option<&'a str>>>(&self, group_name: &str, key: &str, locale: P) -> Result<GString, Error> {
-        let locale = locale.into();
+    pub fn get_locale_string(&self, group_name: &str, key: &str, locale: Option<&str>) -> Result<GString, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_key_file_get_locale_string(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, locale.to_glib_none().0, &mut error);
@@ -117,8 +114,7 @@ impl KeyFile {
         }
     }
 
-    pub fn get_locale_string_list<'a, P: Into<Option<&'a str>>>(&self, group_name: &str, key: &str, locale: P) -> Result<Vec<GString>, Error> {
-        let locale = locale.into();
+    pub fn get_locale_string_list(&self, group_name: &str, key: &str, locale: Option<&str>) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut length = mem::uninitialized();
             let mut error = ptr::null_mut();
@@ -198,9 +194,7 @@ impl KeyFile {
         }
     }
 
-    pub fn remove_comment<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, group_name: P, key: Q) -> Result<(), Error> {
-        let group_name = group_name.into();
-        let key = key.into();
+    pub fn remove_comment(&self, group_name: Option<&str>, key: Option<&str>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_key_file_remove_comment(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
@@ -234,9 +228,7 @@ impl KeyFile {
     //    unsafe { TODO: call ffi::g_key_file_set_boolean_list() }
     //}
 
-    pub fn set_comment<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(&self, group_name: P, key: Q, comment: &str) -> Result<(), Error> {
-        let group_name = group_name.into();
-        let key = key.into();
+    pub fn set_comment(&self, group_name: Option<&str>, key: Option<&str>, comment: &str) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_key_file_set_comment(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, comment.to_glib_none().0, &mut error);
