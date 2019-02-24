@@ -291,17 +291,15 @@ pub fn selection_owner_get_for_display(display: &Display, selection: &Atom) -> O
     }
 }
 
-pub fn selection_owner_set<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(owner: Q, selection: &Atom, time_: u32, send_event: bool) -> bool {
+pub fn selection_owner_set<P: IsA<Window>>(owner: Option<&P>, selection: &Atom, time_: u32, send_event: bool) -> bool {
     assert_initialized_main_thread!();
-    let owner = owner.into();
     unsafe {
         from_glib(ffi::gdk_selection_owner_set(owner.map(|p| p.as_ref()).to_glib_none().0, selection.to_glib_none().0, time_, send_event.to_glib()))
     }
 }
 
-pub fn selection_owner_set_for_display<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(display: &Display, owner: Q, selection: &Atom, time_: u32, send_event: bool) -> bool {
+pub fn selection_owner_set_for_display<P: IsA<Window>>(display: &Display, owner: Option<&P>, selection: &Atom, time_: u32, send_event: bool) -> bool {
     skip_assert_initialized!();
-    let owner = owner.into();
     unsafe {
         from_glib(ffi::gdk_selection_owner_set_for_display(display.to_glib_none().0, owner.map(|p| p.as_ref()).to_glib_none().0, selection.to_glib_none().0, time_, send_event.to_glib()))
     }

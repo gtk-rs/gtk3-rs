@@ -29,15 +29,13 @@ impl AppLaunchContext {
         }
     }
 
-    pub fn set_icon<'a, P: IsA<gio::Icon> + 'a, Q: Into<Option<&'a P>>>(&self, icon: Q) {
-        let icon = icon.into();
+    pub fn set_icon<P: IsA<gio::Icon>>(&self, icon: Option<&P>) {
         unsafe {
             ffi::gdk_app_launch_context_set_icon(self.to_glib_none().0, icon.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
-    pub fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, icon_name: P) {
-        let icon_name = icon_name.into();
+    pub fn set_icon_name(&self, icon_name: Option<&str>) {
         unsafe {
             ffi::gdk_app_launch_context_set_icon_name(self.to_glib_none().0, icon_name.to_glib_none().0);
         }

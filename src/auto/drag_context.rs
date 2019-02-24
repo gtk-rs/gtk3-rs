@@ -151,25 +151,25 @@ impl DragContext {
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn action_changed_trampoline<F: Fn(&DragContext, DragAction) + 'static>(this: *mut ffi::GdkDragContext, action: ffi::GdkDragAction, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), from_glib(action))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn cancel_trampoline<F: Fn(&DragContext, DragCancelReason) + 'static>(this: *mut ffi::GdkDragContext, reason: ffi::GdkDragCancelReason, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), from_glib(reason))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(this: *mut ffi::GdkDragContext, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn drop_performed_trampoline<F: Fn(&DragContext, i32) + 'static>(this: *mut ffi::GdkDragContext, time: libc::c_int, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), time)
 }
 

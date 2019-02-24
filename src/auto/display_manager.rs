@@ -71,12 +71,12 @@ impl DisplayManager {
 }
 
 unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut ffi::GdkDisplayManager, display: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(display))
 }
 
 unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut ffi::GdkDisplayManager, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 

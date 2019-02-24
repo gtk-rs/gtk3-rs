@@ -347,36 +347,36 @@ impl Display {
 }
 
 unsafe extern "C" fn closed_trampoline<F: Fn(&Display, bool) + 'static>(this: *mut ffi::GdkDisplay, is_error: glib_ffi::gboolean, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), from_glib(is_error))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn monitor_added_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(monitor))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn monitor_removed_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut ffi::GdkDisplay, monitor: *mut ffi::GdkMonitor, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(monitor))
 }
 
 unsafe extern "C" fn opened_trampoline<F: Fn(&Display) + 'static>(this: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn seat_added_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(seat))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn seat_removed_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut ffi::GdkDisplay, seat: *mut ffi::GdkSeat, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(seat))
 }
 
