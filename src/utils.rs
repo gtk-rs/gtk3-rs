@@ -117,13 +117,12 @@ pub fn get_current_dir() -> Option<PathBuf> {
     }
 }
 
-pub fn filename_to_uri<'a, P: AsRef<Path>, Q: Into<Option<&'a str>>>(filename: P, hostname: Q) -> Result<GString, Error> {
+pub fn filename_to_uri<P: AsRef<Path>>(filename: P, hostname: Option<&str>) -> Result<GString, Error> {
     #[cfg(windows)]
     use ffi::g_filename_to_uri_utf8 as g_filename_to_uri;
     #[cfg(not(windows))]
     use ffi::g_filename_to_uri;
 
-    let hostname = hostname.into();
     let hostname = hostname.to_glib_none();
     unsafe {
         let mut error = std::ptr::null_mut();

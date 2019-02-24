@@ -28,8 +28,7 @@ impl ValueArray {
         }
     }
 
-    pub fn append<'a, P: Into<Option<&'a Value>>>(&mut self, value: P) {
-        let value = value.into();
+    pub fn append(&mut self, value: Option<&Value>) {
         let value = value.to_glib_none();
         unsafe {
             ffi::g_value_array_append(self.to_glib_none_mut().0, value.0);
@@ -42,16 +41,14 @@ impl ValueArray {
         }
     }
 
-    pub fn insert<'a, P: Into<Option<&'a Value>>>(&mut self, index_: u32, value: P) {
-        let value = value.into();
+    pub fn insert(&mut self, index_: u32, value: Option<&Value>) {
         let value = value.to_glib_none();
         unsafe {
             ffi::g_value_array_insert(self.to_glib_none_mut().0, index_, value.0);
         }
     }
 
-    pub fn prepend<'a, P: Into<Option<&'a Value>>>(&mut self, value: P) {
-        let value = value.into();
+    pub fn prepend(&mut self, value: Option<&Value>) {
         let value = value.to_glib_none();
         unsafe {
             ffi::g_value_array_prepend(self.to_glib_none_mut().0, value.0);
