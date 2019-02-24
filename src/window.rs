@@ -142,7 +142,7 @@ pub trait WindowExtManual: 'static {
 
     fn get_background_pattern(&self) -> Option<cairo::Pattern>;
 
-    fn set_background_pattern<'a, P: Into<Option<&'a cairo::Pattern>>>(&self, pattern: P);
+    fn set_background_pattern(&self, pattern: Option<&cairo::Pattern>);
 }
 
 impl<O: IsA<Window>> WindowExtManual for O {
@@ -200,8 +200,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
         }
     }
 
-    fn set_background_pattern<'a, P: Into<Option<&'a cairo::Pattern>>>(&self, pattern: P) {
-        let pattern = pattern.into();
+    fn set_background_pattern(&self, pattern: Option<&cairo::Pattern>) {
         unsafe {
             let ptr = if let Some(pattern) = pattern {
                 pattern.as_ptr()

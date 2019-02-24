@@ -39,7 +39,7 @@ pub trait ContextExt {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn cairo_draw_from_gl(cr: &Context, window: &Window, source: i32, source_type: i32, buffer_scale: i32, x: i32, y: i32, width: i32, height: i32);
 
-    fn cairo_surface_create_from_pixbuf<'a, P: Into<Option<&'a Window>>>(pixbuf: &Pixbuf, scale: i32, for_window: P) -> Option<Surface>;
+    fn cairo_surface_create_from_pixbuf(pixbuf: &Pixbuf, scale: i32, for_window: Option<&Window>) -> Option<Surface>;
 
     fn get_clip_rectangle(&self) -> Option<Rectangle>;
 
@@ -68,9 +68,8 @@ impl ContextExt for Context {
         }
     }
 
-    fn cairo_surface_create_from_pixbuf<'a, P: Into<Option<&'a Window>>>(pixbuf: &Pixbuf, scale: i32, for_window: P) -> Option<Surface> {
+    fn cairo_surface_create_from_pixbuf(pixbuf: &Pixbuf, scale: i32, for_window: Option<&Window>) -> Option<Surface> {
         assert_initialized_main_thread!();
-        let for_window = for_window.into();
         let for_window = for_window.to_glib_none();
         unsafe {
             from_glib_full(ffi::gdk_cairo_surface_create_from_pixbuf(pixbuf.to_glib_none().0, scale, for_window.0))

@@ -248,9 +248,9 @@ impl Event {
         }
     }
 
-    pub fn set_screen<'a, T: Into<Option<&'a Screen>>>(&mut self, screen: T) {
+    pub fn set_screen(&mut self, screen: Option<&Screen>) {
         unsafe {
-            ffi::gdk_event_set_screen(self.to_glib_none_mut().0, screen.into().to_glib_none().0)
+            ffi::gdk_event_set_screen(self.to_glib_none_mut().0, screen.to_glib_none().0)
         }
     }
 
@@ -260,9 +260,9 @@ impl Event {
         }
     }
 
-    pub fn set_device<'a, T: Into<Option<&'a Device>>>(&mut self, device: T) {
+    pub fn set_device(&mut self, device: Option<&Device>) {
         unsafe {
-            ffi::gdk_event_set_device(self.to_glib_none_mut().0, device.into().to_glib_none().0)
+            ffi::gdk_event_set_device(self.to_glib_none_mut().0, device.to_glib_none().0)
         }
     }
 
@@ -272,9 +272,9 @@ impl Event {
         }
     }
 
-    pub fn set_source_device<'a, T: Into<Option<&'a Device>>>(&mut self, device: T) {
+    pub fn set_source_device(&mut self, device: Option<&Device>) {
         unsafe {
-            ffi::gdk_event_set_source_device(self.to_glib_none_mut().0, device.into().to_glib_none().0)
+            ffi::gdk_event_set_source_device(self.to_glib_none_mut().0, device.to_glib_none().0)
         }
     }
 
@@ -285,9 +285,9 @@ impl Event {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn set_device_tool<'a, T: Into<Option<&'a DeviceTool>>>(&mut self, device: T) {
+    pub fn set_device_tool(&mut self, device: Option<&DeviceTool>) {
         unsafe {
-            ffi::gdk_event_set_device_tool(self.to_glib_none_mut().0, device.into().to_glib_none().0)
+            ffi::gdk_event_set_device_tool(self.to_glib_none_mut().0, device.to_glib_none().0)
         }
     }
 
