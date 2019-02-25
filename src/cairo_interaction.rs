@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib::object::IsA;
 use glib::translate::*;
 use ffi;
 use gdk_pixbuf::Pixbuf;
@@ -39,7 +40,7 @@ pub trait ContextExt {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     fn cairo_draw_from_gl(cr: &Context, window: &Window, source: i32, source_type: i32, buffer_scale: i32, x: i32, y: i32, width: i32, height: i32);
 
-    fn cairo_surface_create_from_pixbuf(pixbuf: &Pixbuf, scale: i32, for_window: Option<&Window>) -> Option<Surface>;
+    fn cairo_surface_create_from_pixbuf<T: IsA<Window>>(pixbuf: &Pixbuf, scale: i32, for_window: Option<&T>) -> Option<Surface>;
 
     fn get_clip_rectangle(&self) -> Option<Rectangle>;
 
@@ -68,8 +69,9 @@ impl ContextExt for Context {
         }
     }
 
-    fn cairo_surface_create_from_pixbuf(pixbuf: &Pixbuf, scale: i32, for_window: Option<&Window>) -> Option<Surface> {
+    fn cairo_surface_create_from_pixbuf<T: IsA<Window>>(pixbuf: &Pixbuf, scale: i32, for_window: Option<&T>) -> Option<Surface> {
         assert_initialized_main_thread!();
+        let for_window = for_window.map(|f| f.as_ref());
         let for_window = for_window.to_glib_none();
         unsafe {
             from_glib_full(ffi::gdk_cairo_surface_create_from_pixbuf(pixbuf.to_glib_none().0, scale, for_window.0))
