@@ -21,14 +21,14 @@ use error::to_std_io_result;
 use futures_core::Future;
 
 pub trait InputStreamExtManual: Sized {
-    fn read<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error>;
+    fn read<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
 
-    fn read_all<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<(usize, Option<Error>), Error>;
+    fn read_all<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
 
-    fn read_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q);
+    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
@@ -47,8 +47,7 @@ pub trait InputStreamExtManual: Sized {
 }
 
 impl<O: IsA<InputStream>> InputStreamExtManual for O {
-    fn read<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn read<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -64,8 +63,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_all<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<(usize, Option<Error>), Error> {
-        let cancellable = cancellable.into();
+    fn read_all<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -86,8 +84,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
+    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
         let cancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -121,8 +118,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_async<'a, B: AsMut<[u8]> + Send + 'static, P: Into<Option<&'a Cancellable>>, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: P, callback: Q) {
-        let cancellable = cancellable.into();
+    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
         let cancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box

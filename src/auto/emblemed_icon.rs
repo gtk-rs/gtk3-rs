@@ -21,8 +21,7 @@ glib_wrapper! {
 }
 
 impl EmblemedIcon {
-    pub fn new<'a, P: IsA<Icon>, Q: IsA<Emblem> + 'a, R: Into<Option<&'a Q>>>(icon: &P, emblem: R) -> EmblemedIcon {
-        let emblem = emblem.into();
+    pub fn new<P: IsA<Icon>, Q: IsA<Emblem>>(icon: &P, emblem: Option<&Q>) -> EmblemedIcon {
         unsafe {
             from_glib_full(ffi::g_emblemed_icon_new(icon.as_ref().to_glib_none().0, emblem.map(|p| p.as_ref()).to_glib_none().0))
         }

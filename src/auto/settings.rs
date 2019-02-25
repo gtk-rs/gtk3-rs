@@ -39,9 +39,7 @@ impl Settings {
         }
     }
 
-    pub fn new_full<'a, 'b, P: IsA<SettingsBackend> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b str>>>(schema: &SettingsSchema, backend: Q, path: R) -> Settings {
-        let backend = backend.into();
-        let path = path.into();
+    pub fn new_full<P: IsA<SettingsBackend>>(schema: &SettingsSchema, backend: Option<&P>, path: Option<&str>) -> Settings {
         unsafe {
             from_glib_full(ffi::g_settings_new_full(schema.to_glib_none().0, backend.map(|p| p.as_ref()).to_glib_none().0, path.to_glib_none().0))
         }
@@ -512,31 +510,31 @@ impl<O: IsA<Settings>> SettingsExt for O {
 
 unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
 unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut ffi::GSettings, key: libc::c_uint, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<Settings> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), key).to_glib()
 }
 
 unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
 unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Settings> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 

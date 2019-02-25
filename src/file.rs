@@ -18,17 +18,15 @@ use FileCreateFlags;
 use futures_core;
 
 pub trait FileExtManual: Sized {
-    fn replace_contents_async<'a, 'b, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R);
+    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&Cancellable>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone;
+    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone;
 }
 
 impl<O: IsA<File>> FileExtManual for O {
-    fn replace_contents_async<'a, 'b, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>, Q: Into<Option<&'b Cancellable>>, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags, cancellable: Q, callback: R) {
-        let etag = etag.into();
+    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&Cancellable>, callback: R) {
         let etag = etag.to_glib_none();
-        let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(R, B)>> = Box::new(Some((callback, contents)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -55,11 +53,10 @@ impl<O: IsA<File>> FileExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static, P: Into<Option<&'a str>>>(&self, contents: B, etag: P, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone {
+    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone {
         use GioFuture;
         use fragile::Fragile;
 
-        let etag = etag.into();
         let etag = etag.map(glib::GString::from);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
@@ -82,4 +79,3 @@ impl<O: IsA<File>> FileExtManual for O {
         })
     }
 }
-

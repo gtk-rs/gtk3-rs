@@ -105,7 +105,7 @@ pub trait FileInfoExt: 'static {
 
     fn has_namespace(&self, name_space: &str) -> bool;
 
-    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<GString>;
+    fn list_attributes(&self, name_space: Option<&str>) -> Vec<GString>;
 
     fn remove_attribute(&self, attribute: &str);
 
@@ -357,8 +357,7 @@ impl<O: IsA<FileInfo>> FileInfoExt for O {
         }
     }
 
-    fn list_attributes<'a, P: Into<Option<&'a str>>>(&self, name_space: P) -> Vec<GString> {
-        let name_space = name_space.into();
+    fn list_attributes(&self, name_space: Option<&str>) -> Vec<GString> {
         unsafe {
             FromGlibPtrContainer::from_glib_full(ffi::g_file_info_list_attributes(self.as_ref().to_glib_none().0, name_space.to_glib_none().0))
         }

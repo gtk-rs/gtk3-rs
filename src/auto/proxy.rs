@@ -37,9 +37,9 @@ impl Proxy {
 pub const NONE_PROXY: Option<&Proxy> = None;
 
 pub trait ProxyExt: 'static {
-    fn connect<'a, P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable> + 'a, S: Into<Option<&'a R>>>(&self, connection: &P, proxy_address: &Q, cancellable: S) -> Result<IOStream, Error>;
+    fn connect<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>) -> Result<IOStream, Error>;
 
-    fn connect_async<'a, P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable> + 'a, S: Into<Option<&'a R>>, T: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: S, callback: T);
+    fn connect_async<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>, S: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>, callback: S);
 
     #[cfg(feature = "futures")]
     fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> where Self: Sized + Clone;
@@ -48,8 +48,7 @@ pub trait ProxyExt: 'static {
 }
 
 impl<O: IsA<Proxy>> ProxyExt for O {
-    fn connect<'a, P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable> + 'a, S: Into<Option<&'a R>>>(&self, connection: &P, proxy_address: &Q, cancellable: S) -> Result<IOStream, Error> {
-        let cancellable = cancellable.into();
+    fn connect<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>) -> Result<IOStream, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_connect(self.as_ref().to_glib_none().0, connection.as_ref().to_glib_none().0, proxy_address.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -57,17 +56,16 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         }
     }
 
-    fn connect_async<'a, P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable> + 'a, S: Into<Option<&'a R>>, T: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: S, callback: T) {
-        let cancellable = cancellable.into();
-        let user_data: Box<T> = Box::new(callback);
-        unsafe extern "C" fn connect_async_trampoline<T: FnOnce(Result<IOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    fn connect_async<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>, S: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>, callback: S) {
+        let user_data: Box<S> = Box::new(callback);
+        unsafe extern "C" fn connect_async_trampoline<S: FnOnce(Result<IOStream, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_connect_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<T> = Box::from_raw(user_data as *mut _);
+            let callback: Box<S> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = connect_async_trampoline::<T>;
+        let callback = connect_async_trampoline::<S>;
         unsafe {
             ffi::g_proxy_connect_async(self.as_ref().to_glib_none().0, connection.as_ref().to_glib_none().0, proxy_address.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -85,14 +83,14 @@ impl<O: IsA<Proxy>> ProxyExt for O {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
-                 &connection,
-                 &proxy_address,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                &connection,
+                &proxy_address,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

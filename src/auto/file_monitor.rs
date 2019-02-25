@@ -116,19 +116,19 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
 
 unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &File, &Option<File>, FileMonitorEvent) + 'static>(this: *mut ffi::GFileMonitor, file: *mut ffi::GFile, other_file: *mut ffi::GFile, event_type: ffi::GFileMonitorEvent, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(file), &from_glib_borrow(other_file), from_glib(event_type))
 }
 
 unsafe extern "C" fn notify_cancelled_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_rate_limit_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FileMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast())
 }
 

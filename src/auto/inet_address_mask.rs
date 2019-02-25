@@ -6,7 +6,6 @@ use Error;
 use InetAddress;
 use SocketFamily;
 use ffi;
-use glib;
 use glib::GString;
 use glib::Value;
 use glib::object::Cast;
@@ -65,7 +64,7 @@ pub trait InetAddressMaskExt: 'static {
 
     fn to_string(&self) -> GString;
 
-    fn set_property_address<P: IsA<InetAddress> + glib::value::SetValueOptional>(&self, address: Option<&P>);
+    fn set_property_address(&self, address: Option<&InetAddress>);
 
     fn set_property_length(&self, length: u32);
 
@@ -113,7 +112,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn set_property_address<P: IsA<InetAddress> + glib::value::SetValueOptional>(&self, address: Option<&P>) {
+    fn set_property_address(&self, address: Option<&InetAddress>) {
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"address\0".as_ptr() as *const _, Value::from(address).to_glib_none().0);
         }
@@ -152,19 +151,19 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
 
 unsafe extern "C" fn notify_address_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_length_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<InetAddressMask> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())
 }
 

@@ -64,7 +64,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
 
 unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut ffi::GThreadedSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
 where P: IsA<ThreadedSocketService> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ThreadedSocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
 }
 

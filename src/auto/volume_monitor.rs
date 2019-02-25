@@ -200,73 +200,73 @@ impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
 
 unsafe extern "C" fn drive_changed_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
 unsafe extern "C" fn drive_connected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
 unsafe extern "C" fn drive_disconnected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
 unsafe extern "C" fn drive_eject_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
 unsafe extern "C" fn drive_stop_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut ffi::GVolumeMonitor, drive: *mut ffi::GDrive, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
 }
 
 unsafe extern "C" fn mount_added_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
 unsafe extern "C" fn mount_changed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
 unsafe extern "C" fn mount_pre_unmount_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
 unsafe extern "C" fn mount_removed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut ffi::GVolumeMonitor, mount: *mut ffi::GMount, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
 }
 
 unsafe extern "C" fn volume_added_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 
 unsafe extern "C" fn volume_changed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 
 unsafe extern "C" fn volume_removed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut ffi::GVolumeMonitor, volume: *mut ffi::GVolume, f: glib_ffi::gpointer)
 where P: IsA<VolumeMonitor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
 }
 

@@ -28,8 +28,7 @@ glib_wrapper! {
 }
 
 impl TlsClientConnection {
-    pub fn new<'a, P: IsA<IOStream>, Q: IsA<SocketConnectable> + 'a, R: Into<Option<&'a Q>>>(base_io_stream: &P, server_identity: R) -> Result<TlsClientConnection, Error> {
-        let server_identity = server_identity.into();
+    pub fn new<P: IsA<IOStream>, Q: IsA<SocketConnectable>>(base_io_stream: &P, server_identity: Option<&Q>) -> Result<TlsClientConnection, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_tls_client_connection_new(base_io_stream.as_ref().to_glib_none().0, server_identity.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -153,25 +152,25 @@ impl<O: IsA<TlsClientConnection>> TlsClientConnectionExt for O {
 
 unsafe extern "C" fn notify_accepted_cas_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsClientConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_server_identity_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsClientConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_use_ssl3_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsClientConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_validation_flags_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsClientConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsClientConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsClientConnection::from_glib_borrow(this).unsafe_cast())
 }
 

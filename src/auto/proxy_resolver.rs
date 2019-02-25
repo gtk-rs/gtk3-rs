@@ -38,9 +38,9 @@ pub const NONE_PROXY_RESOLVER: Option<&ProxyResolver> = None;
 pub trait ProxyResolverExt: 'static {
     fn is_supported(&self) -> bool;
 
-    fn lookup<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, uri: &str, cancellable: Q) -> Result<Vec<GString>, Error>;
+    fn lookup<P: IsA<Cancellable>>(&self, uri: &str, cancellable: Option<&P>) -> Result<Vec<GString>, Error>;
 
-    fn lookup_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Q, callback: R);
+    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
     fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<GString>), Error = (Self, Error)>> where Self: Sized + Clone;
@@ -53,8 +53,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         }
     }
 
-    fn lookup<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, uri: &str, cancellable: Q) -> Result<Vec<GString>, Error> {
-        let cancellable = cancellable.into();
+    fn lookup<P: IsA<Cancellable>>(&self, uri: &str, cancellable: Option<&P>) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_resolver_lookup(self.as_ref().to_glib_none().0, uri.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -62,17 +61,16 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         }
     }
 
-    fn lookup_async<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>, R: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Q, callback: R) {
-        let cancellable = cancellable.into();
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn lookup_async_trampoline<R: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn lookup_async_trampoline<Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
             let mut error = ptr::null_mut();
             let ret = ffi::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = lookup_async_trampoline::<R>;
+        let callback = lookup_async_trampoline::<Q>;
         unsafe {
             ffi::g_proxy_resolver_lookup_async(self.as_ref().to_glib_none().0, uri.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
@@ -89,13 +87,13 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
             let send = Fragile::new(send);
             let obj_clone = Fragile::new(obj.clone());
             obj.lookup_async(
-                 &uri,
-                 Some(&cancellable),
-                 move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
-                     let _ = send.into_inner().send(res);
-                 },
+                &uri,
+                Some(&cancellable),
+                move |res| {
+                    let obj = obj_clone.into_inner();
+                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

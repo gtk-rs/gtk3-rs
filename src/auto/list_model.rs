@@ -100,7 +100,7 @@ impl<O: IsA<ListModel>> ListModelExt for O {
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, u32, u32, u32) + 'static>(this: *mut ffi::GListModel, position: libc::c_uint, removed: libc::c_uint, added: libc::c_uint, f: glib_ffi::gpointer)
 where P: IsA<ListModel> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ListModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
 }
 

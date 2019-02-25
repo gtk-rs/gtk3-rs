@@ -64,7 +64,7 @@ impl<O: IsA<FilterInputStream>> FilterInputStreamExt for O {
 
 unsafe extern "C" fn notify_close_base_stream_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFilterInputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<FilterInputStream> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&FilterInputStream::from_glib_borrow(this).unsafe_cast())
 }
 

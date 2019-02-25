@@ -44,7 +44,7 @@ pub const NONE_TLS_FILE_DATABASE: Option<&TlsFileDatabase> = None;
 pub trait TlsFileDatabaseExt: 'static {
     fn get_property_anchors(&self) -> Option<GString>;
 
-    fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P);
+    fn set_property_anchors(&self, anchors: Option<&str>);
 
     fn connect_property_anchors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -58,8 +58,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
         }
     }
 
-    fn set_property_anchors<'a, P: Into<Option<&'a str>>>(&self, anchors: P) {
-        let anchors = anchors.into();
+    fn set_property_anchors(&self, anchors: Option<&str>) {
         unsafe {
             gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"anchors\0".as_ptr() as *const _, Value::from(anchors).to_glib_none().0);
         }
@@ -76,7 +75,7 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
 
 unsafe extern "C" fn notify_anchors_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTlsFileDatabase, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TlsFileDatabase> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TlsFileDatabase::from_glib_borrow(this).unsafe_cast())
 }
 

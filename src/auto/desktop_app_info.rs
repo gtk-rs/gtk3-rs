@@ -68,7 +68,7 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn get_nodisplay(&self) -> bool;
 
-    fn get_show_in<'a, P: Into<Option<&'a str>>>(&self, desktop_env: P) -> bool;
+    fn get_show_in(&self, desktop_env: Option<&str>) -> bool;
 
     fn get_startup_wm_class(&self) -> Option<GString>;
 
@@ -76,12 +76,12 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn has_key(&self, key: &str) -> bool;
 
-    fn launch_action<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, action_name: &str, launch_context: Q);
+    fn launch_action<P: IsA<AppLaunchContext>>(&self, action_name: &str, launch_context: Option<&P>);
 
-    //fn launch_uris_as_manager<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
+    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
 
     //#[cfg(any(feature = "v2_58", feature = "dox"))]
-    //fn launch_uris_as_manager_with_fds<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
+    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
 
     fn list_actions(&self) -> Vec<GString>;
 }
@@ -142,8 +142,7 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    fn get_show_in<'a, P: Into<Option<&'a str>>>(&self, desktop_env: P) -> bool {
-        let desktop_env = desktop_env.into();
+    fn get_show_in(&self, desktop_env: Option<&str>) -> bool {
         unsafe {
             from_glib(ffi::g_desktop_app_info_get_show_in(self.as_ref().to_glib_none().0, desktop_env.to_glib_none().0))
         }
@@ -167,19 +166,18 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    fn launch_action<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, action_name: &str, launch_context: Q) {
-        let launch_context = launch_context.into();
+    fn launch_action<P: IsA<AppLaunchContext>>(&self, action_name: &str, launch_context: Option<&P>) {
         unsafe {
             ffi::g_desktop_app_info_launch_action(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, launch_context.map(|p| p.as_ref()).to_glib_none().0);
         }
     }
 
-    //fn launch_uris_as_manager<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error> {
+    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_desktop_app_info_launch_uris_as_manager() }
     //}
 
     //#[cfg(any(feature = "v2_58", feature = "dox"))]
-    //fn launch_uris_as_manager_with_fds<'a, P: IsA<AppLaunchContext> + 'a, Q: Into<Option<&'a P>>>(&self, uris: &[&str], launch_context: Q, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error> {
+    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error> {
     //    unsafe { TODO: call ffi::g_desktop_app_info_launch_uris_as_manager_with_fds() }
     //}
 

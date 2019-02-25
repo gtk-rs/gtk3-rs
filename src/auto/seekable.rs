@@ -26,11 +26,11 @@ pub trait SeekableExt: 'static {
 
     fn can_truncate(&self) -> bool;
 
-    fn seek<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, type_: glib::SeekType, cancellable: Q) -> Result<(), Error>;
+    fn seek<P: IsA<Cancellable>>(&self, offset: i64, type_: glib::SeekType, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn tell(&self) -> i64;
 
-    fn truncate<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, cancellable: Q) -> Result<(), Error>;
+    fn truncate<P: IsA<Cancellable>>(&self, offset: i64, cancellable: Option<&P>) -> Result<(), Error>;
 }
 
 impl<O: IsA<Seekable>> SeekableExt for O {
@@ -46,8 +46,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
         }
     }
 
-    fn seek<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, type_: glib::SeekType, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn seek<P: IsA<Cancellable>>(&self, offset: i64, type_: glib::SeekType, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_seekable_seek(self.as_ref().to_glib_none().0, offset, type_.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
@@ -61,8 +60,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
         }
     }
 
-    fn truncate<'a, P: IsA<Cancellable> + 'a, Q: Into<Option<&'a P>>>(&self, offset: i64, cancellable: Q) -> Result<(), Error> {
-        let cancellable = cancellable.into();
+    fn truncate<P: IsA<Cancellable>>(&self, offset: i64, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = ffi::g_seekable_truncate(self.as_ref().to_glib_none().0, offset, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);

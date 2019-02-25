@@ -67,13 +67,13 @@ impl AsRawSocket for Socket {
 }
 
 pub trait SocketExtManual: Sized {
-    fn receive<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error>;
-    fn receive_from<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<(usize, SocketAddress), Error>;
-    fn receive_with_blocking<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, blocking: bool, cancellable: P) -> Result<usize, Error>;
+    fn receive<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn receive_from<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, SocketAddress), Error>;
+    fn receive_with_blocking<B: AsMut<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
 
-    fn send<'a, B: AsRef<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error>;
-    fn send_to<'a, 'b, B: AsRef<[u8]>, P: IsA<SocketAddress> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b Cancellable>>>(&self, address: Q, buffer: B, cancellable: R) -> Result<usize, Error>;
-    fn send_with_blocking<'a, B: AsRef<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, blocking: bool, cancellable: P) -> Result<usize, Error>;
+    fn send<B: AsRef<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(&self, address: Option<&P>, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn send_with_blocking<B: AsRef<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
 
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T;
@@ -81,19 +81,18 @@ pub trait SocketExtManual: Sized {
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
 
-    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
+    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
+    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
-    fn receive<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn receive<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -109,8 +108,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_from<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, cancellable: P) -> Result<(usize, SocketAddress), Error> {
-        let cancellable = cancellable.into();
+    fn receive_from<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, SocketAddress), Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -128,8 +126,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_with_blocking<'a, B: AsMut<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, mut buffer: B, blocking: bool, cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn receive_with_blocking<B: AsMut<[u8]>>(&self, mut buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -145,8 +142,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send<'a, B: AsRef<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn send<B: AsRef<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
@@ -163,14 +159,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_to<'a, 'b, B: AsRef<[u8]>, P: IsA<SocketAddress> + 'a, Q: Into<Option<&'a P>>, R: Into<Option<&'b Cancellable>>>(&self, address: Q, buffer: B, cancellable: R) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(&self, address: Option<&P>, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
         };
-        let address = address.into();
         unsafe {
             let mut error = ptr::null_mut();
 
@@ -183,8 +177,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_with_blocking<'a, B: AsRef<[u8]>, P: Into<Option<&'a Cancellable>>>(&self, buffer: B, blocking: bool, cancellable: P) -> Result<usize, Error> {
-        let cancellable = cancellable.into();
+    fn send_with_blocking<B: AsRef<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
@@ -215,9 +208,8 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, condition: glib::IOCondition, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static {
-        let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
             let source = ffi::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
@@ -225,7 +217,6 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<O>));
             glib_ffi::g_source_set_priority(source, priority.to_glib());
 
-            let name = name.into();
             if let Some(name) = name {
                 glib_ffi::g_source_set_name(source, name.to_glib_none().0);
             }
@@ -235,8 +226,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
-        let cancellable = cancellable.into();
+    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -250,8 +240,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, condition: glib::IOCondition, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
-        let cancellable = cancellable.into();
+    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());

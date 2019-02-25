@@ -71,7 +71,7 @@ impl<O: IsA<ZlibDecompressor>> ZlibDecompressorExt for O {
 
 unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<ZlibDecompressor> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&ZlibDecompressor::from_glib_borrow(this).unsafe_cast())
 }
 

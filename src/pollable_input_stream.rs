@@ -21,22 +21,21 @@ use futures_core::{Future, Never};
 use futures_core::stream::Stream;
 
 pub trait PollableInputStreamExtManual: Sized {
-    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(&self, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone;
+    fn create_source_future(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone;
+    fn create_source_stream(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone;
 
-    fn read_nonblocking<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &mut [u8], cancellable: P) -> Result<isize, Error>;
+    fn read_nonblocking(&self, buffer: &mut [u8], cancellable: Option<&Cancellable>) -> Result<isize, Error>;
 }
 
 impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
-    fn create_source<'a, 'b, N: Into<Option<&'b str>>, P: Into<Option<&'a Cancellable>>, F>(&self, cancellable: P, name: N, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(&self, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static {
-        let cancellable = cancellable.into();
         let cancellable = cancellable.to_glib_none();
         unsafe {
             let source = ffi::g_pollable_input_stream_create_source(self.as_ref().to_glib_none().0, cancellable.0);
@@ -45,7 +44,6 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
             glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<Self>));
             glib_ffi::g_source_set_priority(source, priority.to_glib());
 
-            let name = name.into();
             if let Some(name) = name {
                 glib_ffi::g_source_set_name(source, name.to_glib_none().0);
             }
@@ -54,8 +52,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }
     }
 
-    fn read_nonblocking<'a, P: Into<Option<&'a Cancellable>>>(&self, buffer: &mut [u8], cancellable: P) -> Result<isize, Error> {
-        let cancellable = cancellable.into();
+    fn read_nonblocking(&self, buffer: &mut [u8], cancellable: Option<&Cancellable>) -> Result<isize, Error> {
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
@@ -66,8 +63,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone {
-        let cancellable = cancellable.into();
+    fn create_source_future(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = Self, Error = Never>> where Self: Clone {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -81,8 +77,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream<'a, P: Into<Option<&'a Cancellable>>>(&self, cancellable: P, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone {
-        let cancellable = cancellable.into();
+    fn create_source_stream(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = Self, Error = Never>> where Self: Clone {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());

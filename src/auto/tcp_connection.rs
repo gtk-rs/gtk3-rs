@@ -57,7 +57,7 @@ impl<O: IsA<TcpConnection>> TcpConnectionExt for O {
 
 unsafe extern "C" fn notify_graceful_disconnect_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GTcpConnection, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<TcpConnection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&TcpConnection::from_glib_borrow(this).unsafe_cast())
 }
 
