@@ -49,7 +49,7 @@ fn build_ui(application: &gtk::Application) {
     let overlay = gtk::Overlay::new();
 
     // The overlay label.
-    let overlay_text = gtk::Label::new("0");
+    let overlay_text = gtk::Label::new(Some("0"));
     // We need to name it in order to apply CSS on it.
     gtk::WidgetExt::set_name(&overlay_text, "overlay-label");
     // We put the overlay in the top-right corner of the window.

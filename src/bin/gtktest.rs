@@ -96,7 +96,7 @@ fn build_ui(application: &gtk::Application) {
     });
 
     let window: ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
-    window.set_application(application);
+    window.set_application(Some(application));
 
     let window_weak = window.downgrade();
 

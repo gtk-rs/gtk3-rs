@@ -54,8 +54,8 @@ fn build_system_menu(application: &gtk::Application) {
     more_menu.append(Some("About"), Some("app.about"));
     menu_bar.append_submenu(Some("?"), &more_menu);
 
-    application.set_app_menu(&menu);
-    application.set_menubar(&menu_bar);
+    application.set_app_menu(Some(&menu));
+    application.set_menubar(Some(&menu_bar));
 }
 
 // This function creates "actions" which connect on the declared actions from the menu items.
@@ -137,7 +137,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_default_size(350, 70);
 
     let v_box = gtk::Box::new(gtk::Orientation::Vertical, 10);
-    let label = gtk::Label::new("Nothing happened yet");
+    let label = gtk::Label::new(Some("Nothing happened yet"));
     let switch = gtk::Switch::new();
 
     v_box.pack_start(&label, false, false, 0);

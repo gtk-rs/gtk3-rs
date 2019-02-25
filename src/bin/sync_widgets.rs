@@ -30,7 +30,7 @@ fn build_ui(application: &gtk::Application) {
         .build();
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
-    window.set_application(application);
+    window.set_application(Some(application));
 
     window.show_all();
 }

@@ -66,7 +66,7 @@ fn build_ui(application: &gtk::Application) {
     combo.append_text("option 1");
     combo.append_text("option 2");
     combo.append_text("option 3");
-    combo.set_active(0);
+    combo.set_active(Some(0));
 
     vbox.add(&label);
     vbox.add(&entry);
