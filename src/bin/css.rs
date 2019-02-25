@@ -13,7 +13,7 @@ use gtk::prelude::*;
 use std::env::args;
 
 // Basic CSS: we change background color, we set font color to black and we set it as bold.
-const STYLE: &'static str = "
+const STYLE: &str = "
 #entry1 {
     background-image: -gtk-gradient (linear,
                                      0 0, 1 0,

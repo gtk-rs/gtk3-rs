@@ -52,7 +52,7 @@ fn build_ui(application: &gtk::Application) {
     let file_label = Label::new(Some("File"));
     let folder_item = MenuItem::new();
     let folder_box = gtk::Box::new(gtk::Orientation::Horizontal, 0);
-    let folder_image = Image::new_from_icon_name(Some("folder-music-symbolic"), IconSize::Menu.into());
+    let folder_image = Image::new_from_icon_name(Some("folder-music-symbolic"), IconSize::Menu);
     let folder_label = Label::new(Some("Folder"));
     let check_item = CheckMenuItem::new_with_label("Click me!");
 

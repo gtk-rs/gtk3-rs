@@ -13,7 +13,7 @@ use gtk::prelude::*;
 use std::env::args;
 
 // Basic CSS: we change background color, we set font color to black and we set it as bold.
-const STYLE: &'static str = "
+const STYLE: &str = "
 #overlay-label {
     background-color: rgba(192, 192, 192, 0.8);
     color: black;

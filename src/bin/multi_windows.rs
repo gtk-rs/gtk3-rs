@@ -100,7 +100,9 @@ fn build_ui(application: &gtk::Application) {
         // When the entry's text is updated, we update the title of every sub windows.
         let text = windows_title_entry.get_buffer().get_text();
         for window in windows.borrow().values() {
-            window.upgrade().map(|w| w.set_title(&text));
+            if let Some(w) = window.upgrade() {
+                w.set_title(&text)
+            }
         }
     }));
 

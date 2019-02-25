@@ -140,8 +140,8 @@ fn build_ui(application: &gtk::Application) {
 
         let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
         dialog.add_buttons(&[
-            ("Ok", ResponseType::Ok.into()),
-            ("Cancel", ResponseType::Cancel.into())
+            ("Ok", ResponseType::Ok),
+            ("Cancel", ResponseType::Cancel)
         ]);
 
         dialog.run();
@@ -157,8 +157,8 @@ fn build_ui(application: &gtk::Application) {
         let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
                                             FileChooserAction::Open);
         dialog.add_buttons(&[
-            ("Open", ResponseType::Ok.into()),
-            ("Cancel", ResponseType::Cancel.into())
+            ("Open", ResponseType::Ok),
+            ("Cancel", ResponseType::Cancel)
         ]);
 
         dialog.set_select_multiple(true);

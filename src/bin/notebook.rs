@@ -36,7 +36,7 @@ impl Notebook {
 
     fn create_tab(&mut self, title: &str, widget: Widget) -> u32 {
         let close_image = gtk::Image::new_from_icon_name(Some("window-close"),
-                                                         IconSize::Button.into());
+                                                         IconSize::Button);
         let button = gtk::Button::new();
         let label = gtk::Label::new(Some(title));
         let tab = gtk::Box::new(Orientation::Horizontal, 0);
