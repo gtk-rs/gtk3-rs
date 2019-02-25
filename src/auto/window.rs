@@ -247,7 +247,7 @@ pub trait WindowExt: 'static {
 
     fn invalidate_maybe_recurse(&self, region: &cairo::Region, child_func: Option<&mut dyn (FnMut(&Window) -> bool)>);
 
-    fn invalidate_rect<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P, invalidate_children: bool);
+    fn invalidate_rect(&self, rect: Option<&Rectangle>, invalidate_children: bool);
 
     fn invalidate_region(&self, region: &cairo::Region, invalidate_children: bool);
 
@@ -296,7 +296,7 @@ pub trait WindowExt: 'static {
 
     fn resize(&self, width: i32, height: i32);
 
-    fn restack<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(&self, sibling: Q, above: bool);
+    fn restack<P: IsA<Window>>(&self, sibling: Option<&P>, above: bool);
 
     fn scroll(&self, dx: i32, dy: i32);
 
@@ -312,7 +312,7 @@ pub trait WindowExt: 'static {
     #[cfg_attr(feature = "v3_16", deprecated)]
     fn set_composited(&self, composited: bool);
 
-    fn set_cursor<'a, P: Into<Option<&'a Cursor>>>(&self, cursor: P);
+    fn set_cursor(&self, cursor: Option<&Cursor>);
 
     fn set_decorations(&self, decorations: WMDecoration);
 
@@ -332,11 +332,11 @@ pub trait WindowExt: 'static {
 
     fn set_geometry_hints(&self, geometry: &Geometry, geom_mask: WindowHints);
 
-    fn set_group<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(&self, leader: Q);
+    fn set_group<P: IsA<Window>>(&self, leader: Option<&P>);
 
     fn set_icon_list(&self, pixbufs: &[gdk_pixbuf::Pixbuf]);
 
-    fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, name: P);
+    fn set_icon_name(&self, name: Option<&str>);
 
     //fn set_invalidate_handler<P: Fn(&Window, &cairo::Region) + 'static>(&self, handler: P);
 
@@ -348,7 +348,7 @@ pub trait WindowExt: 'static {
 
     fn set_opacity(&self, opacity: f64);
 
-    fn set_opaque_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, region: P);
+    fn set_opaque_region(&self, region: Option<&cairo::Region>);
 
     fn set_override_redirect(&self, override_redirect: bool);
 
@@ -382,7 +382,7 @@ pub trait WindowExt: 'static {
 
     //fn set_user_data(&self, user_data: /*Ignored*/Option<&glib::Object>);
 
-    fn shape_combine_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, shape_region: P, offset_x: i32, offset_y: i32);
+    fn shape_combine_region(&self, shape_region: Option<&cairo::Region>, offset_x: i32, offset_y: i32);
 
     fn show(&self);
 
@@ -915,8 +915,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn invalidate_rect<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P, invalidate_children: bool) {
-        let rect = rect.into();
+    fn invalidate_rect(&self, rect: Option<&Rectangle>, invalidate_children: bool) {
         unsafe {
             ffi::gdk_window_invalidate_rect(self.as_ref().to_glib_none().0, rect.to_glib_none().0, invalidate_children.to_glib());
         }
@@ -1054,8 +1053,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn restack<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(&self, sibling: Q, above: bool) {
-        let sibling = sibling.into();
+    fn restack<P: IsA<Window>>(&self, sibling: Option<&P>, above: bool) {
         unsafe {
             ffi::gdk_window_restack(self.as_ref().to_glib_none().0, sibling.map(|p| p.as_ref()).to_glib_none().0, above.to_glib());
         }
@@ -1097,8 +1095,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_cursor<'a, P: Into<Option<&'a Cursor>>>(&self, cursor: P) {
-        let cursor = cursor.into();
+    fn set_cursor(&self, cursor: Option<&Cursor>) {
         unsafe {
             ffi::gdk_window_set_cursor(self.as_ref().to_glib_none().0, cursor.to_glib_none().0);
         }
@@ -1158,8 +1155,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_group<'a, P: IsA<Window> + 'a, Q: Into<Option<&'a P>>>(&self, leader: Q) {
-        let leader = leader.into();
+    fn set_group<P: IsA<Window>>(&self, leader: Option<&P>) {
         unsafe {
             ffi::gdk_window_set_group(self.as_ref().to_glib_none().0, leader.map(|p| p.as_ref()).to_glib_none().0);
         }
@@ -1171,8 +1167,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_icon_name<'a, P: Into<Option<&'a str>>>(&self, name: P) {
-        let name = name.into();
+    fn set_icon_name(&self, name: Option<&str>) {
         unsafe {
             ffi::gdk_window_set_icon_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
         }
@@ -1206,8 +1201,7 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    fn set_opaque_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, region: P) {
-        let region = region.into();
+    fn set_opaque_region(&self, region: Option<&cairo::Region>) {
         unsafe {
             ffi::gdk_window_set_opaque_region(self.as_ref().to_glib_none().0, mut_override(region.to_glib_none().0));
         }
@@ -1302,8 +1296,7 @@ impl<O: IsA<Window>> WindowExt for O {
     //    unsafe { TODO: call ffi::gdk_window_set_user_data() }
     //}
 
-    fn shape_combine_region<'a, P: Into<Option<&'a cairo::Region>>>(&self, shape_region: P, offset_x: i32, offset_y: i32) {
-        let shape_region = shape_region.into();
+    fn shape_combine_region(&self, shape_region: Option<&cairo::Region>, offset_x: i32, offset_y: i32) {
         unsafe {
             ffi::gdk_window_shape_combine_region(self.as_ref().to_glib_none().0, shape_region.to_glib_none().0, offset_x, offset_y);
         }
@@ -1412,19 +1405,19 @@ impl<O: IsA<Window>> WindowExt for O {
 
 unsafe extern "C" fn create_surface_trampoline<P, F: Fn(&P, i32, i32) -> cairo::Surface + 'static>(this: *mut ffi::GdkWindow, width: libc::c_int, height: libc::c_int, f: glib_ffi::gpointer) -> *mut cairo_ffi::cairo_surface_t
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast(), width, height).to_glib_full()
 }
 
 unsafe extern "C" fn pick_embedded_child_trampoline<P, F: Fn(&P, f64, f64) -> Option<Window> + 'static>(this: *mut ffi::GdkWindow, x: libc::c_double, y: libc::c_double, f: glib_ffi::gpointer) -> *mut ffi::GdkWindow
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast(), x, y)/*Not checked*/.to_glib_none().0
 }
 
 unsafe extern "C" fn notify_cursor_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkWindow, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 

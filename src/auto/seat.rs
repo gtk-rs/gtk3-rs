@@ -79,11 +79,9 @@ impl Seat {
     }
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn grab<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Q, event: R, prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>) -> GrabStatus {
-        let cursor = cursor.into();
-        let event = event.into();
+    pub fn grab<P: IsA<Window>>(&self, window: &P, capabilities: SeatCapabilities, owner_events: bool, cursor: Option<&Cursor>, event: Option<&Event>, prepare_func: Option<&mut dyn (FnMut(&Seat, &Window))>) -> GrabStatus {
         let prepare_func_data: Option<&mut dyn (FnMut(&Seat, &Window))> = prepare_func;
-        unsafe extern "C" fn prepare_func_func<'a, 'b, P: IsA<Window>, Q: Into<Option<&'a Cursor>>, R: Into<Option<&'b Event>>>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn prepare_func_func<P: IsA<Window>>(seat: *mut ffi::GdkSeat, window: *mut ffi::GdkWindow, user_data: glib_ffi::gpointer) {
             let seat = from_glib_borrow(seat);
             let window = from_glib_borrow(window);
             let callback: *mut Option<&mut dyn (FnMut(&Seat, &Window))> = user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(&Seat, &Window))>;
@@ -93,7 +91,7 @@ impl Seat {
                 panic!("cannot get closure...")
             };
         }
-        let prepare_func = Some(prepare_func_func::<'a, 'b, P, Q, R> as _);
+        let prepare_func = Some(prepare_func_func::<P> as _);
         let super_callback0: &Option<&mut dyn (FnMut(&Seat, &Window))> = &prepare_func_data;
         unsafe {
             from_glib(ffi::gdk_seat_grab(self.to_glib_none().0, window.as_ref().to_glib_none().0, capabilities.to_glib(), owner_events.to_glib(), cursor.to_glib_none().0, event.to_glib_none().0, prepare_func, super_callback0 as *const _ as usize as *mut _))
@@ -146,25 +144,25 @@ impl Seat {
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn device_added_trampoline<F: Fn(&Seat, &Device) + 'static>(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn device_removed_trampoline<F: Fn(&Seat, &Device) + 'static>(this: *mut ffi::GdkSeat, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn tool_added_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(tool))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn tool_removed_trampoline<F: Fn(&Seat, &DeviceTool) + 'static>(this: *mut ffi::GdkSeat, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(tool))
 }
 

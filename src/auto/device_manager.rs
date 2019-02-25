@@ -70,17 +70,17 @@ impl DeviceManager {
 }
 
 unsafe extern "C" fn device_added_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_changed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 unsafe extern "C" fn device_removed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut ffi::GdkDeviceManager, device: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 

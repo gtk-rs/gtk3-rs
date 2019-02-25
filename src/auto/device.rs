@@ -206,8 +206,7 @@ impl Device {
     }
 
     #[cfg_attr(feature = "v3_20", deprecated)]
-    pub fn grab<'a, P: IsA<Window>, Q: Into<Option<&'a Cursor>>>(&self, window: &P, grab_ownership: GrabOwnership, owner_events: bool, event_mask: EventMask, cursor: Q, time_: u32) -> GrabStatus {
-        let cursor = cursor.into();
+    pub fn grab<P: IsA<Window>>(&self, window: &P, grab_ownership: GrabOwnership, owner_events: bool, event_mask: EventMask, cursor: Option<&Cursor>, time_: u32) -> GrabStatus {
         unsafe {
             from_glib(ffi::gdk_device_grab(self.to_glib_none().0, window.as_ref().to_glib_none().0, grab_ownership.to_glib(), owner_events.to_glib(), event_mask.to_glib(), cursor.to_glib_none().0, time_))
         }
@@ -412,51 +411,51 @@ impl Device {
 }
 
 unsafe extern "C" fn changed_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn tool_changed_trampoline<F: Fn(&Device, &DeviceTool) + 'static>(this: *mut ffi::GdkDevice, tool: *mut ffi::GdkDeviceTool, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(tool))
 }
 
 unsafe extern "C" fn notify_associated_device_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_input_mode_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_n_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_type_trampoline<F: Fn(&Device) + 'static>(this: *mut ffi::GdkDevice, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 

@@ -205,8 +205,7 @@ impl Screen {
         }
     }
 
-    pub fn set_font_options<'a, P: Into<Option<&'a cairo::FontOptions>>>(&self, options: P) {
-        let options = options.into();
+    pub fn set_font_options(&self, options: Option<&cairo::FontOptions>) {
         unsafe {
             ffi::gdk_screen_set_font_options(self.to_glib_none().0, options.to_glib_none().0);
         }
@@ -307,27 +306,27 @@ impl Screen {
 }
 
 unsafe extern "C" fn composited_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn monitors_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn size_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_font_options_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
 unsafe extern "C" fn notify_resolution_trampoline<F: Fn(&Screen) + 'static>(this: *mut ffi::GdkScreen, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
