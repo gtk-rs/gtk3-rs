@@ -19,7 +19,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    let label = gtk::Label::new("Some text");
+    let label = gtk::Label::new(Some("Some text"));
     let attr_list = pango::AttrList::new();
 
     let mut attr = pango::Attribute::new_background(65535, 0, 0)
@@ -51,7 +51,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.pango_attributes",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.pango_attributes"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

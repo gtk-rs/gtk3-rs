@@ -28,10 +28,10 @@ macro_rules! upgrade_weak {
 }
 
 pub fn main() {
-    glib::set_program_name("Progress Tracker".into());
+    glib::set_program_name(Some("Progress Tracker"));
 
     let application = gtk::Application::new(
-        "com.github.progress-tracker",
+        Some("com.github.progress-tracker"),
         gio::ApplicationFlags::empty(),
     ).expect("initialization failed");
 
@@ -174,7 +174,7 @@ pub struct Header {
 impl Header {
     pub fn new() -> Self {
         let container = gtk::HeaderBar::new();
-        container.set_title("Progress Tracker");
+        container.set_title(Some("Progress Tracker"));
         container.set_show_close_button(true);
 
         Header { container }
@@ -212,7 +212,7 @@ pub struct MainView {
 impl MainView {
     pub fn new() -> Self {
         let progress = gtk::ProgressBar::new();
-        progress.set_text("Progress Bar");
+        progress.set_text(Some("Progress Bar"));
         progress.set_show_text(true);
         progress.set_hexpand(true);
 

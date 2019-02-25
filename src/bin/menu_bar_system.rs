@@ -40,19 +40,19 @@ fn build_system_menu(application: &gtk::Application) {
 
     // The first argument is the label of the menu item whereas the second is the action name. It'll
     // makes more sense when you'll be reading the "add_actions" function.
-    menu.append("Quit", "app.quit");
+    menu.append(Some("Quit"), Some("app.quit"));
 
-    switch_menu.append("Switch", "app.switch");
-    menu_bar.append_submenu("_Switch", &switch_menu);
+    switch_menu.append(Some("Switch"), Some("app.switch"));
+    menu_bar.append_submenu(Some("_Switch"), &switch_menu);
 
-    settings_menu.append("Sub another", "app.sub_another");
-    submenu.append("Sub sub another", "app.sub_sub_another");
-    submenu.append("Sub sub another2", "app.sub_sub_another2");
-    settings_menu.append_submenu("Sub menu", &submenu);
-    menu_bar.append_submenu("_Another", &settings_menu);
+    settings_menu.append(Some("Sub another"), Some("app.sub_another"));
+    submenu.append(Some("Sub sub another"), Some("app.sub_sub_another"));
+    submenu.append(Some("Sub sub another2"), Some("app.sub_sub_another2"));
+    settings_menu.append_submenu(Some("Sub menu"), &submenu);
+    menu_bar.append_submenu(Some("_Another"), &settings_menu);
 
-    more_menu.append("About", "app.about");
-    menu_bar.append_submenu("?", &more_menu);
+    more_menu.append(Some("About"), Some("app.about"));
+    menu_bar.append_submenu(Some("?"), &more_menu);
 
     application.set_app_menu(&menu);
     application.set_menubar(&menu_bar);
@@ -152,7 +152,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.menu_bar_system",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.menu_bar_system"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

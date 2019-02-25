@@ -174,7 +174,8 @@ fn build_ui(application: &gtk::Application) {
         let window = upgrade_weak!(window_weak);
 
         //entry.set_text("Clicked!");
-        let dialog = AppChooserDialog::new_for_content_type(Some(&window), gtk::DialogFlags::MODAL,
+        let dialog = AppChooserDialog::new_for_content_type(Some(&window),
+                                                            gtk::DialogFlags::MODAL,
                                                             "sh");
 
         dialog.run();
@@ -219,9 +220,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.gtktest",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.gtktest"),
                                             Default::default())
-        .expect("Initialization failed...");
+                                       .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

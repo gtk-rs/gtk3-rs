@@ -69,7 +69,7 @@ pub fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.text_viewer",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.text_viewer"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

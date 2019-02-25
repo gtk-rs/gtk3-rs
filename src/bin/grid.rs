@@ -53,9 +53,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.grid",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.grid"),
                                             Default::default())
-        .expect("Initialization failed...");
+                                       .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

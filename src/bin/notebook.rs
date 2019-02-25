@@ -35,7 +35,7 @@ impl Notebook {
     }
 
     fn create_tab(&mut self, title: &str, widget: Widget) -> u32 {
-        let close_image = gtk::Image::new_from_icon_name("window-close",
+        let close_image = gtk::Image::new_from_icon_name(Some("window-close"),
                                                          IconSize::Button.into());
         let button = gtk::Button::new();
         let label = gtk::Label::new(title);
@@ -85,7 +85,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.notebook",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.notebook"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

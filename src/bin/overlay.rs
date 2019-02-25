@@ -93,7 +93,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.overlay",
+    let application = gtk::Application::new(Some("com.github.overlay"),
                                             gio::ApplicationFlags::empty())
                                        .expect("Initialization failed...");
 

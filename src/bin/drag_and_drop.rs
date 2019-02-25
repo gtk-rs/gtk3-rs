@@ -24,7 +24,7 @@ fn build_ui(application: &gtk::Application) {
     });
 
     // Configure label as drag destination to receive text
-    let label = gtk::Label::new("Drop here");
+    let label = gtk::Label::new(Some("Drop here"));
     label.drag_dest_set(gtk::DestDefaults::ALL, &targets, gdk::DragAction::COPY);
     label.connect_drag_data_received(|w, _, _, _, s, _, _| {
         w.set_text(&s.get_text().expect("Couldn't get text"));
@@ -44,7 +44,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.drag_and_drop",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.drag_and_drop"),
                                             Default::default())
                                        .expect("Initialization failed...");
 

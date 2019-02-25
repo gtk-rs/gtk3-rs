@@ -49,7 +49,7 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.multithreading_context",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.multithreading_context"),
                                             Default::default())
                                        .expect("Initialization failed...");
 
