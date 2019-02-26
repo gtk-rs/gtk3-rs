@@ -169,25 +169,25 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
 
 unsafe extern "C" fn area_prepared_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkPixbufLoader, f: glib_ffi::gpointer)
 where P: IsA<PixbufLoader> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn area_updated_trampoline<P, F: Fn(&P, i32, i32, i32, i32) + 'static>(this: *mut ffi::GdkPixbufLoader, x: libc::c_int, y: libc::c_int, width: libc::c_int, height: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<PixbufLoader> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), x, y, width, height)
 }
 
 unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkPixbufLoader, f: glib_ffi::gpointer)
 where P: IsA<PixbufLoader> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn size_prepared_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut ffi::GdkPixbufLoader, width: libc::c_int, height: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<PixbufLoader> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), width, height)
 }
 
