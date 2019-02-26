@@ -118,13 +118,13 @@ pub trait LayoutExt: 'static {
 
     fn set_alignment(&self, alignment: Alignment);
 
-    fn set_attributes<'a, P: Into<Option<&'a AttrList>>>(&self, attrs: P);
+    fn set_attributes(&self, attrs: Option<&AttrList>);
 
     fn set_auto_dir(&self, auto_dir: bool);
 
     fn set_ellipsize(&self, ellipsize: EllipsizeMode);
 
-    fn set_font_description<'a, P: Into<Option<&'a FontDescription>>>(&self, desc: P);
+    fn set_font_description(&self, desc: Option<&FontDescription>);
 
     fn set_height(&self, height: i32);
 
@@ -140,7 +140,7 @@ pub trait LayoutExt: 'static {
 
     fn set_spacing(&self, spacing: i32);
 
-    fn set_tabs<'a, P: Into<Option<&'a TabArray>>>(&self, tabs: P);
+    fn set_tabs(&self, tabs: Option<&TabArray>);
 
     fn set_text(&self, text: &str);
 
@@ -411,8 +411,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_attributes<'a, P: Into<Option<&'a AttrList>>>(&self, attrs: P) {
-        let attrs = attrs.into();
+    fn set_attributes(&self, attrs: Option<&AttrList>) {
         unsafe {
             ffi::pango_layout_set_attributes(self.as_ref().to_glib_none().0, attrs.to_glib_none().0);
         }
@@ -430,8 +429,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_font_description<'a, P: Into<Option<&'a FontDescription>>>(&self, desc: P) {
-        let desc = desc.into();
+    fn set_font_description(&self, desc: Option<&FontDescription>) {
         unsafe {
             ffi::pango_layout_set_font_description(self.as_ref().to_glib_none().0, desc.to_glib_none().0);
         }
@@ -483,8 +481,7 @@ impl<O: IsA<Layout>> LayoutExt for O {
         }
     }
 
-    fn set_tabs<'a, P: Into<Option<&'a TabArray>>>(&self, tabs: P) {
-        let tabs = tabs.into();
+    fn set_tabs(&self, tabs: Option<&TabArray>) {
         unsafe {
             ffi::pango_layout_set_tabs(self.as_ref().to_glib_none().0, mut_override(tabs.to_glib_none().0));
         }

@@ -38,7 +38,7 @@ pub trait FontExt: 'static {
 
     fn get_glyph_extents(&self, glyph: Glyph) -> (Rectangle, Rectangle);
 
-    fn get_metrics<'a, P: Into<Option<&'a Language>>>(&self, language: P) -> Option<FontMetrics>;
+    fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics>;
 }
 
 impl<O: IsA<Font>> FontExt for O {
@@ -81,8 +81,7 @@ impl<O: IsA<Font>> FontExt for O {
         }
     }
 
-    fn get_metrics<'a, P: Into<Option<&'a Language>>>(&self, language: P) -> Option<FontMetrics> {
-        let language = language.into();
+    fn get_metrics(&self, language: Option<&Language>) -> Option<FontMetrics> {
         unsafe {
             from_glib_full(ffi::pango_font_get_metrics(self.as_ref().to_glib_none().0, mut_override(language.to_glib_none().0)))
         }

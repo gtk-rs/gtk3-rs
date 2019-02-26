@@ -63,7 +63,7 @@ pub trait ContextExt: 'static {
 
     fn get_matrix(&self) -> Option<Matrix>;
 
-    fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b Language>>>(&self, desc: P, language: Q) -> Option<FontMetrics>;
+    fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics>;
 
     fn get_serial(&self) -> u32;
 
@@ -85,7 +85,7 @@ pub trait ContextExt: 'static {
 
     fn set_language(&self, language: &Language);
 
-    fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P);
+    fn set_matrix(&self, matrix: Option<&Matrix>);
 }
 
 impl<O: IsA<Context>> ContextExt for O {
@@ -143,9 +143,7 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    fn get_metrics<'a, 'b, P: Into<Option<&'a FontDescription>>, Q: Into<Option<&'b Language>>>(&self, desc: P, language: Q) -> Option<FontMetrics> {
-        let desc = desc.into();
-        let language = language.into();
+    fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics> {
         unsafe {
             from_glib_full(ffi::pango_context_get_metrics(self.as_ref().to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
         }
@@ -214,8 +212,7 @@ impl<O: IsA<Context>> ContextExt for O {
         }
     }
 
-    fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P) {
-        let matrix = matrix.into();
+    fn set_matrix(&self, matrix: Option<&Matrix>) {
         unsafe {
             ffi::pango_context_set_matrix(self.as_ref().to_glib_none().0, matrix.to_glib_none().0);
         }

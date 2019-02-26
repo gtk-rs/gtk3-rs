@@ -59,7 +59,7 @@ impl Matrix {
         }
     }
 
-    //pub fn transform_pixel_rectangle<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P) {
+    //pub fn transform_pixel_rectangle(&self, rect: /*Unimplemented*/Option<Rectangle>) {
     //    unsafe { TODO: call ffi::pango_matrix_transform_pixel_rectangle() }
     //}
 
@@ -69,7 +69,7 @@ impl Matrix {
         }
     }
 
-    //pub fn transform_rectangle<'a, P: Into<Option<&'a Rectangle>>>(&self, rect: P) {
+    //pub fn transform_rectangle(&self, rect: /*Unimplemented*/Option<Rectangle>) {
     //    unsafe { TODO: call ffi::pango_matrix_transform_rectangle() }
     //}
 
