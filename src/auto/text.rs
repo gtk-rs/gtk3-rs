@@ -244,31 +244,31 @@ impl<O: IsA<Text>> TextExt for O {
 
 unsafe extern "C" fn text_attributes_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Text::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn text_caret_moved_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1)
 }
 
 unsafe extern "C" fn text_insert_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2, &GString::from_glib_borrow(arg3))
 }
 
 unsafe extern "C" fn text_remove_trampoline<P, F: Fn(&P, i32, i32, &str) + 'static>(this: *mut ffi::AtkText, arg1: libc::c_int, arg2: libc::c_int, arg3: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Text::from_glib_borrow(this).unsafe_cast(), arg1, arg2, &GString::from_glib_borrow(arg3))
 }
 
 unsafe extern "C" fn text_selection_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkText, f: glib_ffi::gpointer)
 where P: IsA<Text> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Text::from_glib_borrow(this).unsafe_cast())
 }
 

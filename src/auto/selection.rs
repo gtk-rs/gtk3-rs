@@ -96,7 +96,7 @@ impl<O: IsA<Selection>> SelectionExt for O {
 
 unsafe extern "C" fn selection_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkSelection, f: glib_ffi::gpointer)
 where P: IsA<Selection> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Selection::from_glib_borrow(this).unsafe_cast())
 }
 
