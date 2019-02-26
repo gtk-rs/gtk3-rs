@@ -35,7 +35,7 @@ pub trait RendererExt: 'static {
 
     fn draw_glyph<P: IsA<Font>>(&self, font: &P, glyph: Glyph, x: f64, y: f64);
 
-    fn draw_glyph_item<'a, P: Into<Option<&'a str>>>(&self, text: P, glyph_item: &mut GlyphItem, x: i32, y: i32);
+    fn draw_glyph_item(&self, text: Option<&str>, glyph_item: &mut GlyphItem, x: i32, y: i32);
 
     fn draw_glyphs<P: IsA<Font>>(&self, font: &P, glyphs: &mut GlyphString, x: i32, y: i32);
 
@@ -63,9 +63,9 @@ pub trait RendererExt: 'static {
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     fn set_alpha(&self, part: RenderPart, alpha: u16);
 
-    fn set_color<'a, P: Into<Option<&'a Color>>>(&self, part: RenderPart, color: P);
+    fn set_color(&self, part: RenderPart, color: Option<&Color>);
 
-    fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P);
+    fn set_matrix(&self, matrix: Option<&Matrix>);
 }
 
 impl<O: IsA<Renderer>> RendererExt for O {
@@ -93,8 +93,7 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn draw_glyph_item<'a, P: Into<Option<&'a str>>>(&self, text: P, glyph_item: &mut GlyphItem, x: i32, y: i32) {
-        let text = text.into();
+    fn draw_glyph_item(&self, text: Option<&str>, glyph_item: &mut GlyphItem, x: i32, y: i32) {
         unsafe {
             ffi::pango_renderer_draw_glyph_item(self.as_ref().to_glib_none().0, text.to_glib_none().0, glyph_item.to_glib_none_mut().0, x, y);
         }
@@ -174,15 +173,13 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn set_color<'a, P: Into<Option<&'a Color>>>(&self, part: RenderPart, color: P) {
-        let color = color.into();
+    fn set_color(&self, part: RenderPart, color: Option<&Color>) {
         unsafe {
             ffi::pango_renderer_set_color(self.as_ref().to_glib_none().0, part.to_glib(), color.to_glib_none().0);
         }
     }
 
-    fn set_matrix<'a, P: Into<Option<&'a Matrix>>>(&self, matrix: P) {
-        let matrix = matrix.into();
+    fn set_matrix(&self, matrix: Option<&Matrix>) {
         unsafe {
             ffi::pango_renderer_set_matrix(self.as_ref().to_glib_none().0, matrix.to_glib_none().0);
         }

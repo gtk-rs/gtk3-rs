@@ -42,13 +42,11 @@ pub fn config_key_get_system(key: &str) -> Option<GString> {
     }
 }
 
-//pub fn default_break<'a, P: Into<Option<&'a Analysis>>>(text: &str, analysis: P, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
+//pub fn default_break(text: &str, analysis: Option<&mut Analysis>, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
 //    unsafe { TODO: call ffi::pango_default_break() }
 //}
 
-pub fn extents_to_pixels<'a, 'b, P: Into<Option<&'a Rectangle>>, Q: Into<Option<&'b Rectangle>>>(inclusive: P, nearest: Q) {
-    let inclusive = inclusive.into();
-    let nearest = nearest.into();
+pub fn extents_to_pixels(inclusive: Option<&Rectangle>, nearest: Option<&Rectangle>) {
     unsafe {
         ffi::pango_extents_to_pixels(mut_override(inclusive.to_glib_none().0), mut_override(nearest.to_glib_none().0));
     }
@@ -100,15 +98,13 @@ pub fn is_zero_width(ch: char) -> bool {
     }
 }
 
-pub fn itemize<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterator>>>(context: &P, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Q) -> Vec<Item> {
-    let cached_iter = cached_iter.into();
+pub fn itemize<P: IsA<Context>>(context: &P, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::pango_itemize(context.as_ref().to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
-pub fn itemize_with_base_dir<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterator>>>(context: &P, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Q) -> Vec<Item> {
-    let cached_iter = cached_iter.into();
+pub fn itemize_with_base_dir<P: IsA<Context>>(context: &P, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
         FromGlibPtrContainer::from_glib_full(ffi::pango_itemize_with_base_dir(context.as_ref().to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
@@ -128,8 +124,7 @@ pub fn itemize_with_base_dir<'a, P: IsA<Context>, Q: Into<Option<&'a AttrIterato
 //}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
-pub fn parse_enum<'a, P: Into<Option<&'a str>>>(type_: glib::types::Type, str: P, warn: bool) -> Option<(i32, GString)> {
-    let str = str.into();
+pub fn parse_enum(type_: glib::types::Type, str: Option<&str>, warn: bool) -> Option<(i32, GString)> {
     unsafe {
         let mut value = mem::uninitialized();
         let mut possible_values = ptr::null_mut();
