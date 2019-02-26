@@ -136,7 +136,7 @@ impl<O: IsA<Value>> ValueExt for O {
 
 unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
 where P: IsA<Value> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))
 }
 

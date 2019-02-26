@@ -173,7 +173,7 @@ impl<O: IsA<Component>> ComponentExt for O {
 
 unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut ffi::AtkComponent, arg1: *mut ffi::AtkRectangle, f: glib_ffi::gpointer)
 where P: IsA<Component> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Component::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
 }
 

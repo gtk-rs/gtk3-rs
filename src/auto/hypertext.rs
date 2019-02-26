@@ -65,7 +65,7 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
 
 unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut ffi::AtkHypertext, arg1: libc::c_int, f: glib_ffi::gpointer)
 where P: IsA<Hypertext> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Hypertext::from_glib_borrow(this).unsafe_cast(), arg1)
 }
 

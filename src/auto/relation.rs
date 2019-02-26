@@ -110,13 +110,13 @@ impl<O: IsA<Relation>> RelationExt for O {
 
 unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkRelation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Relation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Relation::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkRelation, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
 where P: IsA<Relation> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Relation::from_glib_borrow(this).unsafe_cast())
 }
 

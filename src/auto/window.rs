@@ -120,55 +120,55 @@ impl<O: IsA<Window>> AtkWindowExt for O {
 
 unsafe extern "C" fn activate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn create_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn deactivate_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn destroy_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn maximize_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn minimize_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn move_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn resize_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 unsafe extern "C" fn restore_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkWindow, f: glib_ffi::gpointer)
 where P: IsA<Window> {
-    let f: &F = transmute(f);
+    let f: &F = &*(f as *const F);
     f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
