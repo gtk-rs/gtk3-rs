@@ -93,6 +93,12 @@ status = "generate"
     #Quark
     ignore = true
     [[object.function]]
+    name = "assertion_message_expr"
+    ignore = true # function is useless
+    [[object.function]]
+    pattern = "test_.+"
+    ignore = true # functions are useless
+    [[object.function]]
     pattern = ".+_error_quark"
     #Quark
     ignore = true

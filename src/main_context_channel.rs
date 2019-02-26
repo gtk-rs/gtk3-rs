@@ -444,12 +444,11 @@ impl<T> Receiver<T> {
     ///
     /// This function panics if called from a thread that is not the owner of the provided
     /// `context`, or, if `None` is provided, of the thread default main context.
-    pub fn attach<'a, P: Into<Option<&'a MainContext>>, F: FnMut(T) -> Continue + 'static>(
+    pub fn attach<F: FnMut(T) -> Continue + 'static>(
         mut self,
-        context: P,
+        context: Option<&MainContext>,
         func: F,
     ) -> SourceId {
-        let context = context.into();
         unsafe {
             let channel = self.0.take().expect("Receiver without channel");
 
@@ -499,11 +498,11 @@ impl<T> Receiver<T> {
             let source = Source::from_glib_full(mut_override(&(*source).source));
             let id = if let Some(context) = context {
                 assert!(context.is_owner());
-                source.attach(context)
+                source.attach(Some(context))
             } else {
                 let context = MainContext::ref_thread_default();
                 assert!(context.is_owner());
-                source.attach(&context)
+                source.attach(Some(&context))
             };
 
             id
@@ -577,7 +576,7 @@ mod tests {
         let sum = Rc::new(RefCell::new(0));
         let sum_clone = sum.clone();
         let l_clone = l.clone();
-        receiver.attach(&c, move |item| {
+        receiver.attach(Some(&c), move |item| {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
@@ -613,7 +612,7 @@ mod tests {
         }
 
         let helper = Helper(l.clone());
-        receiver.attach(&c, move |_| {
+        receiver.attach(Some(&c), move |_| {
             let _ = helper;
 
             Continue(true)
@@ -640,7 +639,7 @@ mod tests {
 
         let (sender, receiver) = MainContext::channel::<i32>(Priority::default());
 
-        let source_id = receiver.attach(&c, move |_| Continue(true));
+        let source_id = receiver.attach(Some(&c), move |_| Continue(true));
 
         let source = c.find_source_by_id(&source_id).unwrap();
         source.destroy();
@@ -665,7 +664,7 @@ mod tests {
 
         let dropped = Arc::new(Mutex::new(false));
         let helper = Helper(dropped.clone());
-        let source_id = receiver.attach(&c, move |_| {
+        let source_id = receiver.attach(Some(&c), move |_| {
             let _helper = &helper;
             Continue(true)
         });
@@ -692,7 +691,7 @@ mod tests {
         let sum = Rc::new(RefCell::new(0));
         let sum_clone = sum.clone();
         let l_clone = l.clone();
-        receiver.attach(&c, move |item| {
+        receiver.attach(Some(&c), move |item| {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
@@ -741,7 +740,7 @@ mod tests {
         let sum = Rc::new(RefCell::new(0));
         let sum_clone = sum.clone();
         let l_clone = l.clone();
-        receiver.attach(&c, move |item| {
+        receiver.attach(Some(&c), move |item| {
             *sum_clone.borrow_mut() += item;
             if *sum_clone.borrow() == 6 {
                 l_clone.quit();
@@ -843,7 +842,7 @@ mod tests {
         let sum = Rc::new(RefCell::new(0));
         let sum_clone = sum.clone();
         let l_clone = l.clone();
-        receiver.attach(&c, move |item| {
+        receiver.attach(Some(&c), move |item| {
             // We consumed one item so there should be one item on
             // the other receiver now.
             let _ = wait_receiver.recv().unwrap();

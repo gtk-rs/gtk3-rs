@@ -18,8 +18,7 @@ glib_wrapper! {
 }
 
 impl MainLoop {
-    pub fn new<'a, P: Into<Option<&'a MainContext>>>(context: P, is_running: bool) -> MainLoop {
-        let context = context.into();
+    pub fn new(context: Option<&MainContext>, is_running: bool) -> MainLoop {
         unsafe {
             from_glib_full(ffi::g_main_loop_new(context.to_glib_none().0, is_running.to_glib()))
         }

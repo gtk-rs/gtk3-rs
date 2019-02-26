@@ -134,7 +134,7 @@ mod tests {
     #[test]
     fn test_invoke() {
         let c = MainContext::new();
-        let l = ::MainLoop::new(&c, false);
+        let l = ::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
         thread::spawn(move || {

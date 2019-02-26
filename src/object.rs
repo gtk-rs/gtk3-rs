@@ -916,8 +916,8 @@ pub trait ObjectExt: ObjectType {
     fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
-    fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId;
-    unsafe fn connect_notify_unsafe<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec)>(&self, name: P, f: F) -> SignalHandlerId;
+    fn connect_notify<F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: Option<&str>, f: F) -> SignalHandlerId;
+    unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(&self, name: Option<&str>, f: F) -> SignalHandlerId;
     fn notify<'a, N: Into<&'a str>>(&self, property_name: N);
     fn notify_by_pspec(&self, pspec: &::ParamSpec);
 
@@ -1056,13 +1056,13 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn connect_notify<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: P, f: F) -> SignalHandlerId {
+    fn connect_notify<F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: Option<&str>, f: F) -> SignalHandlerId {
        unsafe {
             self.connect_notify_unsafe(name, f)
        }
     }
 
-    unsafe fn connect_notify_unsafe<'a, P: Into<Option<&'a str>>, F: Fn(&Self, &::ParamSpec)>(&self, name: P, f: F) -> SignalHandlerId {
+    unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(&self, name: Option<&str>, f: F) -> SignalHandlerId {
         use std::mem::transmute;
 
         unsafe extern "C" fn notify_trampoline<P, F: Fn(&P, &::ParamSpec)>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
@@ -1071,7 +1071,6 @@ impl<T: ObjectType> ObjectExt for T {
             f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
 
-        let name = name.into();
         let signal_name = if let Some(name) = name {
             format!("notify::{}\0", name)
         } else {

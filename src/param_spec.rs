@@ -83,11 +83,11 @@ impl ParamSpec {
         }
     }
 
-    //pub fn set_qdata<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, quark: /*Ignored*/glib::Quark, data: P) {
+    //pub fn set_qdata(&self, quark: /*Ignored*/glib::Quark, data: Option</*Unimplemented*/Fundamental: Pointer>) {
     //    unsafe { TODO: call ffi::g_param_spec_set_qdata() }
     //}
 
-    //pub fn set_qdata_full<P: Into<Option</*Unimplemented*/Fundamental: Pointer>>>(&self, quark: /*Ignored*/glib::Quark, data: P, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
+    //pub fn set_qdata_full(&self, quark: /*Ignored*/glib::Quark, data: Option</*Unimplemented*/Fundamental: Pointer>, destroy: /*Unknown conversion*//*Unimplemented*/DestroyNotify) {
     //    unsafe { TODO: call ffi::g_param_spec_set_qdata_full() }
     //}
 
@@ -185,8 +185,7 @@ impl ParamSpec {
         }
     }
 
-    pub fn string<'a, P: Into<Option<&'a str>>>(name: &str, nick: &str, blurb: &str, default_value: P, flags: ParamFlags) -> ParamSpec {
-        let default_value = default_value.into();
+    pub fn string(name: &str, nick: &str, blurb: &str, default_value: Option<&str>, flags: ParamFlags) -> ParamSpec {
         let default_value = default_value.to_glib_none();
         unsafe {
             from_glib_full(ffi::g_param_spec_string(name.to_glib_none().0, nick.to_glib_none().0, blurb.to_glib_none().0, default_value.0, flags.to_glib()))
@@ -229,9 +228,8 @@ impl ParamSpec {
         }
     }
 
-    pub fn variant<'a, P: Into<Option<&'a ::Variant>>>(name: &str, nick: &str, blurb: &str, type_: &::VariantTy, default_value: P, flags: ParamFlags) -> ParamSpec {
+    pub fn variant(name: &str, nick: &str, blurb: &str, type_: &::VariantTy, default_value: Option<&::Variant>, flags: ParamFlags) -> ParamSpec {
         unsafe {
-            let default_value = default_value.into();
             from_glib_none(ffi::g_param_spec_variant(name.to_glib_none().0, nick.to_glib_none().0, blurb.to_glib_none().0, type_.to_glib_none().0, default_value.to_glib_none().0, flags.to_glib()))
         }
     }

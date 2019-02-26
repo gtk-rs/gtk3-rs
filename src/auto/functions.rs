@@ -47,14 +47,6 @@ pub fn assertion_message_cmpstr(domain: &str, file: &str, line: i32, func: &str,
     }
 }
 
-pub fn assertion_message_expr<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(domain: P, file: &str, line: i32, func: &str, expr: Q) {
-    let domain = domain.into();
-    let expr = expr.into();
-    unsafe {
-        ffi::g_assertion_message_expr(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, expr.to_glib_none().0);
-    }
-}
-
 pub fn base64_decode(text: &str) -> Vec<u8> {
     unsafe {
         let mut out_len = mem::uninitialized();
@@ -280,15 +272,13 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call ffi::g_dataset_id_set_data_full() }
 //}
 
-pub fn dcgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, category: i32) -> Option<GString> {
-    let domain = domain.into();
+pub fn dcgettext(domain: Option<&str>, msgid: &str, category: i32) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_dcgettext(domain.to_glib_none().0, msgid.to_glib_none().0, category))
     }
 }
 
-pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<GString> {
-    let domain = domain.into();
+pub fn dgettext(domain: Option<&str>, msgid: &str) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_dgettext(domain.to_glib_none().0, msgid.to_glib_none().0))
     }
@@ -302,8 +292,7 @@ pub fn dgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str) -> Option<
 //    unsafe { TODO: call ffi::g_direct_hash() }
 //}
 
-pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<GString> {
-    let domain = domain.into();
+pub fn dngettext(domain: Option<&str>, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_dngettext(domain.to_glib_none().0, msgid.to_glib_none().0, msgid_plural.to_glib_none().0, n))
     }
@@ -317,15 +306,13 @@ pub fn dngettext<'a, P: Into<Option<&'a str>>>(domain: P, msgid: &str, msgid_plu
 //    unsafe { TODO: call ffi::g_double_hash() }
 //}
 
-pub fn dpgettext<'a, P: Into<Option<&'a str>>>(domain: P, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
-    let domain = domain.into();
+pub fn dpgettext(domain: Option<&str>, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_dpgettext(domain.to_glib_none().0, msgctxtid.to_glib_none().0, msgidoffset))
     }
 }
 
-pub fn dpgettext2<'a, P: Into<Option<&'a str>>>(domain: P, context: &str, msgid: &str) -> Option<GString> {
-    let domain = domain.into();
+pub fn dpgettext2(domain: Option<&str>, context: &str, msgid: &str) -> Option<GString> {
     unsafe {
         from_glib_none(ffi::g_dpgettext2(domain.to_glib_none().0, context.to_glib_none().0, msgid.to_glib_none().0))
     }
@@ -596,11 +583,11 @@ pub fn listenv() -> Vec<std::ffi::OsString> {
     }
 }
 
-//pub fn log<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn log(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi::g_log() }
 //}
 
-//pub fn log_default_handler<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, message: Q, unused_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn log_default_handler(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, message: Option<&str>, unused_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call ffi::g_log_default_handler() }
 //}
 
@@ -622,12 +609,12 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //    unsafe { TODO: call ffi::g_log_set_fatal_mask() }
 //}
 
-//pub fn log_set_handler<'a, P: Into<Option<&'a str>>>(log_domain: P, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn log_set_handler(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_log_set_handler() }
 //}
 
 //#[cfg(any(feature = "v2_46", feature = "dox"))]
-//pub fn log_set_handler_full<'a, P: Into<Option<&'a str>>>(log_domain: P, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn log_set_handler_full(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call ffi::g_log_set_handler_full() }
 //}
 
@@ -651,7 +638,7 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
-//pub fn log_variant<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, fields: &Variant) {
+//pub fn log_variant(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, fields: &Variant) {
 //    unsafe { TODO: call ffi::g_log_variant() }
 //}
 
@@ -675,7 +662,7 @@ pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
 //    unsafe { TODO: call ffi::g_log_writer_standard_streams() }
 //}
 
-//pub fn logv<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
+//pub fn logv(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
 //    unsafe { TODO: call ffi::g_logv() }
 //}
 
@@ -789,7 +776,7 @@ pub fn on_error_stack_trace(prg_name: &str) {
     }
 }
 
-//pub fn parse_debug_string<'a, P: Into<Option<&'a str>>>(string: P, keys: /*Ignored*/&[&DebugKey]) -> u32 {
+//pub fn parse_debug_string(string: Option<&str>, keys: /*Ignored*/&[&DebugKey]) -> u32 {
 //    unsafe { TODO: call ffi::g_parse_debug_string() }
 //}
 
@@ -817,7 +804,7 @@ pub fn path_skip_root<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::pa
     }
 }
 
-//pub fn pattern_match<'a, P: Into<Option<&'a str>>>(pspec: /*Ignored*/&mut PatternSpec, string_length: u32, string: &str, string_reversed: P) -> bool {
+//pub fn pattern_match(pspec: /*Ignored*/&mut PatternSpec, string_length: u32, string: &str, string_reversed: Option<&str>) -> bool {
 //    unsafe { TODO: call ffi::g_pattern_match() }
 //}
 
@@ -847,7 +834,7 @@ pub fn pattern_match_simple(pattern: &str, string: &str) -> bool {
 //    unsafe { TODO: call ffi::g_poll() }
 //}
 
-//pub fn prefix_error<'a, P: Into<Option<&'a Error>>>(err: P, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn prefix_error(err: /*Unimplemented*/Option<Error>, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call ffi::g_prefix_error() }
 //}
 
@@ -919,9 +906,7 @@ pub fn reload_user_special_dirs_cache() {
     }
 }
 
-pub fn return_if_fail_warning<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(log_domain: P, pretty_function: &str, expression: Q) {
-    let log_domain = log_domain.into();
-    let expression = expression.into();
+pub fn return_if_fail_warning(log_domain: Option<&str>, pretty_function: &str, expression: Option<&str>) {
     unsafe {
         ffi::g_return_if_fail_warning(log_domain.to_glib_none().0, pretty_function.to_glib_none().0, expression.to_glib_none().0);
     }
@@ -1065,216 +1050,6 @@ pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
     }
 }
 
-//pub fn test_add_data_func<P: FnOnce() + Send + Sync + 'static>(testpath: &str, test_data: /*Unimplemented*/Option<Fundamental: Pointer>, test_func: P) {
-//    unsafe { TODO: call ffi::g_test_add_data_func() }
-//}
-
-//pub fn test_add_data_func_full<P: Fn() + Send + Sync + 'static>(testpath: &str, test_data: /*Unimplemented*/Option<Fundamental: Pointer>, test_func: P) {
-//    unsafe { TODO: call ffi::g_test_add_data_func_full() }
-//}
-
-//pub fn test_add_func<P: FnOnce() + Send + Sync + 'static>(testpath: &str, test_func: P) {
-//    unsafe { TODO: call ffi::g_test_add_func() }
-//}
-
-//pub fn test_add_vtable(testpath: &str, data_size: usize, test_data: /*Unimplemented*/Option<Fundamental: Pointer>, data_setup: /*Unimplemented*/Fn(/*Unimplemented*/Fundamental: Pointer), data_test: /*Unimplemented*/Fn(/*Unimplemented*/Fundamental: Pointer), data_teardown: /*Unimplemented*/Fn(/*Unimplemented*/Fundamental: Pointer)) {
-//    unsafe { TODO: call ffi::g_test_add_vtable() }
-//}
-
-pub fn test_assert_expected_messages_internal(domain: &str, file: &str, line: i32, func: &str) {
-    unsafe {
-        ffi::g_test_assert_expected_messages_internal(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0);
-    }
-}
-
-pub fn test_bug(bug_uri_snippet: &str) {
-    unsafe {
-        ffi::g_test_bug(bug_uri_snippet.to_glib_none().0);
-    }
-}
-
-pub fn test_bug_base(uri_pattern: &str) {
-    unsafe {
-        ffi::g_test_bug_base(uri_pattern.to_glib_none().0);
-    }
-}
-
-//pub fn test_build_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_test_build_filename() }
-//}
-
-//pub fn test_create_case(test_name: &str, data_size: usize, test_data: /*Unimplemented*/Option<Fundamental: Pointer>, data_setup: /*Unimplemented*/FnOnce(/*Unimplemented*/Fundamental: Pointer), data_test: /*Unimplemented*/FnOnce(/*Unimplemented*/Fundamental: Pointer), data_teardown: /*Unimplemented*/FnOnce(/*Unimplemented*/Fundamental: Pointer)) -> /*Ignored*/Option<TestCase> {
-//    unsafe { TODO: call ffi::g_test_create_case() }
-//}
-
-//pub fn test_create_suite(suite_name: &str) -> /*Ignored*/Option<TestSuite> {
-//    unsafe { TODO: call ffi::g_test_create_suite() }
-//}
-
-//pub fn test_expect_message<'a, P: Into<Option<&'a str>>>(log_domain: P, log_level: /*Ignored*/LogLevelFlags, pattern: &str) {
-//    unsafe { TODO: call ffi::g_test_expect_message() }
-//}
-
-pub fn test_fail() {
-    unsafe {
-        ffi::g_test_fail();
-    }
-}
-
-pub fn test_failed() -> bool {
-    unsafe {
-        from_glib(ffi::g_test_failed())
-    }
-}
-
-//pub fn test_get_dir(file_type: /*Ignored*/TestFileType) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call ffi::g_test_get_dir() }
-//}
-
-//pub fn test_get_filename(file_type: /*Ignored*/TestFileType, first_path: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_test_get_filename() }
-//}
-
-//pub fn test_get_root() -> /*Ignored*/Option<TestSuite> {
-//    unsafe { TODO: call ffi::g_test_get_root() }
-//}
-
-pub fn test_incomplete<'a, P: Into<Option<&'a str>>>(msg: P) {
-    let msg = msg.into();
-    unsafe {
-        ffi::g_test_incomplete(msg.to_glib_none().0);
-    }
-}
-
-//pub fn test_init(argc: i32, argv: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_test_init() }
-//}
-
-//pub fn test_log_set_fatal_handler(log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_test_log_set_fatal_handler() }
-//}
-
-//pub fn test_log_type_name(log_type: /*Ignored*/TestLogType) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_test_log_type_name() }
-//}
-
-//pub fn test_maximized_result(maximized_quantity: f64, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_test_maximized_result() }
-//}
-
-//pub fn test_message(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_test_message() }
-//}
-
-//pub fn test_minimized_result(minimized_quantity: f64, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_test_minimized_result() }
-//}
-
-//pub fn test_queue_destroy(destroy_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_test_queue_destroy() }
-//}
-
-//pub fn test_queue_free(gfree_pointer: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_test_queue_free() }
-//}
-
-pub fn test_rand_double() -> f64 {
-    unsafe {
-        ffi::g_test_rand_double()
-    }
-}
-
-pub fn test_rand_double_range(range_start: f64, range_end: f64) -> f64 {
-    unsafe {
-        ffi::g_test_rand_double_range(range_start, range_end)
-    }
-}
-
-pub fn test_rand_int() -> i32 {
-    unsafe {
-        ffi::g_test_rand_int()
-    }
-}
-
-pub fn test_rand_int_range(begin: i32, end: i32) -> i32 {
-    unsafe {
-        ffi::g_test_rand_int_range(begin, end)
-    }
-}
-
-pub fn test_run() -> i32 {
-    unsafe {
-        ffi::g_test_run()
-    }
-}
-
-//pub fn test_run_suite(suite: /*Ignored*/&mut TestSuite) -> i32 {
-//    unsafe { TODO: call ffi::g_test_run_suite() }
-//}
-
-pub fn test_set_nonfatal_assertions() {
-    unsafe {
-        ffi::g_test_set_nonfatal_assertions();
-    }
-}
-
-pub fn test_skip<'a, P: Into<Option<&'a str>>>(msg: P) {
-    let msg = msg.into();
-    unsafe {
-        ffi::g_test_skip(msg.to_glib_none().0);
-    }
-}
-
-pub fn test_subprocess() -> bool {
-    unsafe {
-        from_glib(ffi::g_test_subprocess())
-    }
-}
-
-pub fn test_timer_elapsed() -> f64 {
-    unsafe {
-        ffi::g_test_timer_elapsed()
-    }
-}
-
-pub fn test_timer_last() -> f64 {
-    unsafe {
-        ffi::g_test_timer_last()
-    }
-}
-
-pub fn test_timer_start() {
-    unsafe {
-        ffi::g_test_timer_start();
-    }
-}
-
-pub fn test_trap_assertions(domain: &str, file: &str, line: i32, func: &str, assertion_flags: u64, pattern: &str) {
-    unsafe {
-        ffi::g_test_trap_assertions(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, assertion_flags, pattern.to_glib_none().0);
-    }
-}
-
-//pub fn test_trap_fork(usec_timeout: u64, test_trap_flags: /*Ignored*/TestTrapFlags) -> bool {
-//    unsafe { TODO: call ffi::g_test_trap_fork() }
-//}
-
-pub fn test_trap_has_passed() -> bool {
-    unsafe {
-        from_glib(ffi::g_test_trap_has_passed())
-    }
-}
-
-pub fn test_trap_reached_timeout() -> bool {
-    unsafe {
-        from_glib(ffi::g_test_trap_reached_timeout())
-    }
-}
-
-//pub fn test_trap_subprocess<'a, P: Into<Option<&'a str>>>(test_path: P, usec_timeout: u64, test_flags: /*Ignored*/TestSubprocessFlags) {
-//    unsafe { TODO: call ffi::g_test_trap_subprocess() }
-//}
-
 //pub fn try_malloc(n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
 //    unsafe { TODO: call ffi::g_try_malloc() }
 //}
@@ -1313,8 +1088,7 @@ pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
     }
 }
 
-pub fn uri_escape_string<'a, P: Into<Option<&'a str>>>(unescaped: &str, reserved_chars_allowed: P, allow_utf8: bool) -> Option<GString> {
-    let reserved_chars_allowed = reserved_chars_allowed.into();
+pub fn uri_escape_string(unescaped: &str, reserved_chars_allowed: Option<&str>, allow_utf8: bool) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_uri_escape_string(unescaped.to_glib_none().0, reserved_chars_allowed.to_glib_none().0, allow_utf8.to_glib()))
     }
@@ -1332,17 +1106,13 @@ pub fn uri_parse_scheme(uri: &str) -> Option<GString> {
     }
 }
 
-pub fn uri_unescape_segment<'a, 'b, 'c, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>, R: Into<Option<&'c str>>>(escaped_string: P, escaped_string_end: Q, illegal_characters: R) -> Option<GString> {
-    let escaped_string = escaped_string.into();
-    let escaped_string_end = escaped_string_end.into();
-    let illegal_characters = illegal_characters.into();
+pub fn uri_unescape_segment(escaped_string: Option<&str>, escaped_string_end: Option<&str>, illegal_characters: Option<&str>) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_uri_unescape_segment(escaped_string.to_glib_none().0, escaped_string_end.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
 }
 
-pub fn uri_unescape_string<'a, P: Into<Option<&'a str>>>(escaped_string: &str, illegal_characters: P) -> Option<GString> {
-    let illegal_characters = illegal_characters.into();
+pub fn uri_unescape_string(escaped_string: &str, illegal_characters: Option<&str>) -> Option<GString> {
     unsafe {
         from_glib_full(ffi::g_uri_unescape_string(escaped_string.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
@@ -1394,9 +1164,7 @@ pub fn variant_get_gtype() -> types::Type {
 //    unsafe { TODO: call ffi::g_vsprintf() }
 //}
 
-pub fn warn_message<'a, 'b, P: Into<Option<&'a str>>, Q: Into<Option<&'b str>>>(domain: P, file: &str, line: i32, func: &str, warnexpr: Q) {
-    let domain = domain.into();
-    let warnexpr = warnexpr.into();
+pub fn warn_message(domain: Option<&str>, file: &str, line: i32, func: &str, warnexpr: Option<&str>) {
     unsafe {
         ffi::g_warn_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, warnexpr.to_glib_none().0);
     }
