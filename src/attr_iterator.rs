@@ -14,8 +14,7 @@ use glib::translate::*;
 use std::ptr;
 
 impl AttrIterator {
-    pub fn get_font<'a, P: Into<Option<&'a Language>>>(&mut self, desc: &mut FontDescription, language: P, extra_attrs: &[&Attribute]) {
-        let language = language.into();
+    pub fn get_font(&mut self, desc: &mut FontDescription, language: Option<&Language>, extra_attrs: &[&Attribute]) {
         unsafe {
             let stash_vec: Vec<_> = extra_attrs.iter().rev().map(|v| v.to_glib_none()).collect();
             let mut list: *mut glib_ffi::GSList = ptr::null_mut();

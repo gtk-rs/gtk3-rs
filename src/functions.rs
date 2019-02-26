@@ -25,8 +25,7 @@ pub fn reorder_items(logical_items: &[&Item]) -> Vec<Item> {
     }
 }
 
-pub fn shape_full<'a, P: Into<Option<&'a str>>>(item_text: &str, paragraph_text: P, analysis: &Analysis, glyphs: &mut GlyphString) {
-    let paragraph_text = paragraph_text.into();
+pub fn shape_full(item_text: &str, paragraph_text: Option<&str>, analysis: &Analysis, glyphs: &mut GlyphString) {
     let paragraph_length = match paragraph_text {
         Some(s) => s.len(),
         None => 0,
