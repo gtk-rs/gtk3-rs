@@ -146,7 +146,7 @@ impl Value {
             if ok {
                 // This transmute is safe because Value and TypedValue have the same
                 // representation: the only difference is the zero-sized phantom data
-                Some(mem::transmute(self))
+                Some(&*(self as *const Value as *const TypedValue<T>))
             }
             else {
                 None
@@ -667,9 +667,9 @@ impl SendValue {
                 gobject_ffi::g_type_check_value_holds(mut_override(self.to_glib_none().0),
                     T::static_type().to_glib()));
             if ok {
-                // This transmute is safe because Value and TypedValue have the same
+                // This transmute is safe because SendValue and TypedValue have the same
                 // representation: the only difference is the zero-sized phantom data
-                Some(mem::transmute(self))
+                Some(&*(self as *const SendValue as *const TypedValue<T>))
             }
             else {
                 None
@@ -866,6 +866,7 @@ impl SetValue for Vec<String> {
 }
 
 impl SetValueOptional for Vec<String> {
+    #[allow(clippy::redundant_closure)]
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         let ptr: *mut *mut c_char = this.map(|v| v.to_glib_full()).unwrap_or(ptr::null_mut());
         gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *const c_void)
@@ -880,7 +881,7 @@ impl<'a, T: ?Sized + SetValue> SetValue for &'a T {
 
 impl<'a, T: ?Sized + SetValueOptional> SetValueOptional for &'a T {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        SetValueOptional::set_value_optional(value, this.map(|v| *v))
+        SetValueOptional::set_value_optional(value, this.cloned())
     }
 }
 

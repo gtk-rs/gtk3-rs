@@ -98,9 +98,8 @@ impl Drop for CallbackGuard {
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<F: FnMut() -> Continue + 'static>(func: gpointer) -> gboolean {
-    let func: &RefCell<F> = transmute(func);
+    let func: &RefCell<F> = &*(func as *const RefCell<F>);
     (&mut *func.borrow_mut())().to_glib()
 }
 
@@ -113,9 +112,8 @@ fn into_raw<F: FnMut() -> Continue + 'static>(func: F) -> gpointer {
     Box::into_raw(func) as gpointer
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_child_watch<F: FnMut(Pid, i32) + 'static>(pid: glib_ffi::GPid, status: i32, func: gpointer) {
-    let func: &RefCell<F> = transmute(func);
+    let func: &RefCell<F> = &*(func as *const RefCell<F>);
     (&mut *func.borrow_mut())(Pid(pid), status)
 }
 
@@ -123,16 +121,14 @@ unsafe extern "C" fn destroy_closure_child_watch<F: FnMut(Pid, i32) + 'static>(p
     Box::<RefCell<F>>::from_raw(ptr as *mut _);
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 fn into_raw_child_watch<F: FnMut(Pid, i32) + 'static>(func: F) -> gpointer {
     let func: Box<RefCell<F>> = Box::new(RefCell::new(func));
     Box::into_raw(func) as gpointer
 }
 
 #[cfg(any(unix, feature = "dox"))]
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline_unix_fd<F: FnMut(RawFd, IOCondition) -> Continue + 'static>(fd: i32, condition: glib_ffi::GIOCondition, func: gpointer) -> gboolean {
-    let func: &RefCell<F> = transmute(func);
+    let func: &RefCell<F> = &*(func as *const RefCell<F>);
     (&mut *func.borrow_mut())(fd, from_glib(condition)).to_glib()
 }
 
@@ -384,7 +380,7 @@ where F: FnMut(RawFd, IOCondition) -> Continue + 'static {
 ///
 /// For historical reasons, the native function always returns true, so we
 /// ignore it here.
-#[cfg_attr(feature = "cargo-clippy", allow(needless_pass_by_value))]
+#[allow(clippy::needless_pass_by_value)]
 pub fn source_remove(source_id: SourceId) {
     unsafe {
         glib_ffi::g_source_remove(source_id.to_glib());

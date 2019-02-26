@@ -343,7 +343,7 @@ pub trait Cast: ObjectType {
         // same representation except for the name and the phantom data
         // type. IsA<> is an unsafe trait that must only be implemented
         // if this is a valid wrapper type
-        mem::transmute(self)
+	&*(self as *const Self as *const T)
     }
 }
 
@@ -532,7 +532,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*mut $ffi_name> for $name {
             #[inline]
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn from_glib_none(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
@@ -542,7 +542,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrNone<*const $ffi_name> for $name {
             #[inline]
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn from_glib_none(ptr: *const $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_none(ptr as *mut _), ::std::marker::PhantomData)
@@ -552,7 +552,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrFull<*mut $ffi_name> for $name {
             #[inline]
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn from_glib_full(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_full(ptr as *mut _), ::std::marker::PhantomData)
@@ -562,7 +562,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn from_glib_borrow(ptr: *mut $ffi_name) -> Self {
                 debug_assert!($crate::types::instance_of::<Self>(ptr as *const _));
                 $name($crate::translate::from_glib_borrow(ptr as *mut _),
@@ -573,7 +573,7 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*const $ffi_name> for $name {
             #[inline]
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn from_glib_borrow(ptr: *const $ffi_name) -> Self {
                 $crate::translate::from_glib_borrow(ptr as *mut $ffi_name)
             }
@@ -704,7 +704,7 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
                 $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as *mut $crate::gobject_ffi::GObject)
             }
@@ -712,7 +712,7 @@ macro_rules! glib_object_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
-            #[cfg_attr(feature = "cargo-clippy", allow(cast_ptr_alignment))]
+            #[allow(clippy::cast_ptr_alignment)]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
                 $crate::gobject_ffi::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_ffi::GObject)
             }
@@ -1063,11 +1063,9 @@ impl<T: ObjectType> ObjectExt for T {
     }
 
     unsafe fn connect_notify_unsafe<F: Fn(&Self, &::ParamSpec)>(&self, name: Option<&str>, f: F) -> SignalHandlerId {
-        use std::mem::transmute;
-
         unsafe extern "C" fn notify_trampoline<P, F: Fn(&P, &::ParamSpec)>(this: *mut gobject_ffi::GObject, param_spec: *mut gobject_ffi::GParamSpec, f: glib_ffi::gpointer)
         where P: ObjectType {
-            let f: &F = transmute(f);
+            let f: &F = &*(f as *const F);
             f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(param_spec))
         }
 
@@ -1223,9 +1221,9 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(glib_bool_error!("Incompatible number of arguments"));
             }
 
-            for i in 0..(details.n_params as usize) {
+            for (i, item) in args.iter().enumerate() {
                 let arg_type = *(details.param_types.add(i)) & (!gobject_ffi::G_TYPE_FLAG_RESERVED_ID_BIT);
-                if arg_type != args[i].to_value_type().to_glib() {
+                if arg_type != item.to_value_type().to_glib() {
                     return Err(glib_bool_error!("Incompatible argument types"));
                 }
             }
@@ -1243,7 +1241,7 @@ impl<T: ObjectType> ObjectExt for T {
                 for (i, arg) in args.iter().enumerate() {
                     s_args[i+1] = arg.to_value();
                 }
-                &s_args[0..args.len()+1]
+                &s_args[0..=args.len()]
             } else {
                 v_args = Vec::with_capacity(args.len() + 1);
                 v_args.push(self_v);
@@ -1437,7 +1435,7 @@ impl<T: ObjectType> ops::Deref for SendWeakRef<T> {
 // Deriving this gives the wrong trait bounds
 impl<T: ObjectType> Clone for SendWeakRef<T> {
     fn clone(&self) -> Self {
-        SendWeakRef(self.0.clone(), self.1.clone())
+        SendWeakRef(self.0.clone(), self.1)
     }
 }
 
@@ -1510,7 +1508,7 @@ impl<'a> BindingBuilder<'a> {
 
     pub fn flags(self, flags: ::BindingFlags) -> Self {
         Self {
-            flags: flags,
+            flags,
             ..self
         }
     }

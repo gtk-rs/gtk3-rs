@@ -28,6 +28,7 @@ const NOT_READY: usize = 1;
 const READY: usize = 2;
 const DONE: usize = 3;
 
+#[allow(clippy::type_complexity)]
 #[repr(C)]
 struct TaskSource {
     source: glib_ffi::GSource,
@@ -138,6 +139,7 @@ static SOURCE_FUNCS: glib_ffi::GSourceFuncs = glib_ffi::GSourceFuncs {
 };
 
 impl TaskSource {
+    #[allow(clippy::new_ret_no_self)]
     fn new(
         priority: Priority,
         future: Box<Future<Item = (), Error = Never> + 'static + Send>,
@@ -275,6 +277,7 @@ impl MainContext {
     ///
     /// This must only be called if no `MainLoop` or anything else is running on this specific main
     /// context.
+    #[allow(clippy::transmute_ptr_to_ptr)]
     pub fn block_on<F: Future>(&self, f: F) -> Result<F::Item, F::Error> {
         let mut res = None;
         let l = MainLoop::new(Some(&*self), false);

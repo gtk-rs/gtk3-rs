@@ -4,7 +4,6 @@
 
 use ffi;
 use translate::*;
-use std::mem::transmute;
 use std::mem;
 use ffi as glib_ffi;
 use ffi::{gpointer, gboolean};
@@ -96,9 +95,8 @@ impl MainContext {
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboolean {
-    let func: &mut Option<F> = transmute(func);
+    let func: &mut Option<F> = &mut *(func as *mut Option<F>);
     let func = func.take().expect("MainContext::invoke() closure called multiple times");
     func();
     glib_ffi::G_SOURCE_REMOVE

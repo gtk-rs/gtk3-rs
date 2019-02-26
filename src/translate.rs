@@ -185,15 +185,6 @@ pub trait ToGlib {
     fn to_glib(&self) -> Self::GlibType;
 }
 
-impl ToGlib for () {
-    type GlibType = ();
-
-    #[inline]
-    fn to_glib(&self) -> () {
-        ()
-    }
-}
-
 impl ToGlib for bool {
     type GlibType = glib_ffi::gboolean;
 
@@ -293,7 +284,7 @@ impl<'a, P: Ptr, T: ToGlibPtr<'a, P>> ToGlibPtr<'a, P> for Option<T> {
 
     #[inline]
     fn to_glib_full(&self) -> P {
-        self.as_ref().map_or(Ptr::from::<()>(ptr::null_mut()), |s| s.to_glib_full())
+        self.as_ref().map_or(Ptr::from::<()>(ptr::null_mut()), ToGlibPtr::to_glib_full)
     }
 }
 
@@ -621,7 +612,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
             type Storage = (Vec<Stash<'a, $ffi_name, $name>>, Option<Vec<$ffi_name>>);
 
             fn to_glib_none_from_slice(t: &'a [$name]) -> (*mut $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(ToGlibPtr::to_glib_none).collect();
                 let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
                 v_ptr.push(ptr::null_mut() as $ffi_name);
 
@@ -629,7 +620,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
             }
 
             fn to_glib_container_from_slice(t: &'a [$name]) -> (*mut $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(ToGlibPtr::to_glib_none).collect();
 
                 let v_ptr = unsafe {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
@@ -660,7 +651,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
             type Storage = (Vec<Stash<'a, $ffi_name, $name>>, Option<Vec<$ffi_name>>);
 
             fn to_glib_none_from_slice(t: &'a [$name]) -> (*const $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(ToGlibPtr::to_glib_none).collect();
                 let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
                 v_ptr.push(ptr::null_mut() as $ffi_name);
 
@@ -668,7 +659,7 @@ macro_rules! impl_to_glib_container_from_slice_string {
             }
 
             fn to_glib_container_from_slice(t: &'a [$name]) -> (*const $ffi_name, Self::Storage) {
-                let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+                let v: Vec<_> = t.iter().map(ToGlibPtr::to_glib_none).collect();
 
                 let v_ptr = unsafe {
                     let v_ptr = glib_ffi::g_malloc0(mem::size_of::<$ffi_name>() * (t.len() + 1)) as *mut $ffi_name;
@@ -718,7 +709,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_none_from_slice(t: &'a [T]) -> (*mut glib_ffi::GList, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().rev().map(|v| v.to_glib_none()).collect();
+            t.iter().rev().map(ToGlibPtr::to_glib_none).collect();
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -731,7 +722,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_container_from_slice(t: &'a [T]) -> (*mut glib_ffi::GList, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().rev().map(|v| v.to_glib_none()).collect();
+            t.iter().rev().map(ToGlibPtr::to_glib_none).collect();
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -745,7 +736,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     fn to_glib_full_from_slice(t: &[T]) -> *mut glib_ffi::GList {
         let mut list: *mut glib_ffi::GList = ptr::null_mut();
         unsafe {
-            for ptr in t.iter().rev().map(|v| v.to_glib_full()) {
+            for ptr in t.iter().rev().map(ToGlibPtr::to_glib_full) {
                 list = glib_ffi::g_list_prepend(list, Ptr::to(ptr));
             }
         }
@@ -789,7 +780,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_none_from_slice(t: &'a [&'a T]) -> (*mut glib_ffi::GSList, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().rev().map(|v| v.to_glib_none()).collect();
+            t.iter().rev().map(ToGlibPtr::to_glib_none).collect();
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -802,7 +793,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_container_from_slice(t: &'a [&'a T]) -> (*mut glib_ffi::GSList, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().rev().map(|v| v.to_glib_none()).collect();
+            t.iter().rev().map(ToGlibPtr::to_glib_none).collect();
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -816,7 +807,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     fn to_glib_full_from_slice(t: &[&'a T]) -> *mut glib_ffi::GSList {
         let mut list: *mut glib_ffi::GSList = ptr::null_mut();
         unsafe {
-            for ptr in t.iter().rev().map(|v| v.to_glib_full()) {
+            for ptr in t.iter().rev().map(ToGlibPtr::to_glib_full) {
                 list = glib_ffi::g_slist_prepend(list, Ptr::to(ptr));
             }
         }
@@ -874,7 +865,7 @@ impl<'a, P: Ptr, T: ToGlibContainerFromSlice<'a, P>> ToGlibPtr<'a, P> for [T] {
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
+#[allow(clippy::implicit_hasher)]
 impl<'a> ToGlibPtr<'a, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     type Storage = (HashTable);
 
@@ -943,7 +934,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_none_from_slice(t: &'a [T]) -> (*mut glib_ffi::GArray, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().map(|v| v.to_glib_none()).collect();
+            t.iter().map(ToGlibPtr::to_glib_none).collect();
         let mut arr: *mut glib_ffi::GArray = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -956,7 +947,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     #[inline]
     fn to_glib_container_from_slice(t: &'a [T]) -> (*mut glib_ffi::GArray, Self::Storage) {
         let stash_vec: Vec<_> =
-            t.iter().rev().map(|v| v.to_glib_none()).collect();
+            t.iter().rev().map(ToGlibPtr::to_glib_none).collect();
         let mut arr: *mut glib_ffi::GArray = ptr::null_mut();
         unsafe {
             for stash in &stash_vec {
@@ -970,7 +961,7 @@ where T: GlibPtrDefault + ToGlibPtr<'a, <T as GlibPtrDefault>::GlibType> {
     fn to_glib_full_from_slice(t: &[T]) -> *mut glib_ffi::GArray {
         let mut arr: *mut glib_ffi::GArray = ptr::null_mut();
         unsafe {
-            for ptr in t.iter().map(|v| v.to_glib_full()) {
+            for ptr in t.iter().map(ToGlibPtr::to_glib_full) {
                 arr = glib_ffi::g_array_append_vals(arr, Ptr::to(ptr), 1);
             }
         }
@@ -1738,7 +1729,7 @@ unsafe extern "C" fn read_string_hash_table(key: glib_ffi::gpointer, value: glib
     hash_map.insert(key, value);
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
+#[allow(clippy::implicit_hasher)]
 impl FromGlibContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none_num(ptr: *mut glib_ffi::GHashTable, _: usize) -> Self {
         FromGlibPtrContainer::from_glib_none(ptr)
@@ -1753,7 +1744,7 @@ impl FromGlibContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<Str
     }
 }
 
-#[cfg_attr(feature = "cargo-clippy", allow(implicit_hasher))]
+#[allow(clippy::implicit_hasher)]
 impl FromGlibPtrContainer<*const c_char, *mut glib_ffi::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none(ptr: *mut glib_ffi::GHashTable) -> Self {
         let mut map = HashMap::new();
