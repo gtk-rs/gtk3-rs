@@ -80,7 +80,7 @@ fn build_ui(application: &gtk::Application) {
     //
     // The gtk::ListBoxRow can contain any possible widgets.
     let listbox = gtk::ListBox::new();
-    listbox.bind_model(&model, clone!(window_weak => move |item| {
+    listbox.bind_model(Some(&model), clone!(window_weak => move |item| {
         let box_ = gtk::ListBoxRow::new();
         let item = item.downcast_ref::<RowData>().expect("Row data is of wrong type");
 

@@ -34,7 +34,7 @@ pub fn build_ui(application: &gtk::Application) {
     builder.add_from_string(glade_src).expect("Couldn't add from string");
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
-    window.set_application(application);
+    window.set_application(Some(application));
     let open_button: gtk::ToolButton = builder.get_object("open_button")
                                               .expect("Couldn't get builder");
     let text_view: gtk::TextView = builder.get_object("text_view")
@@ -48,10 +48,10 @@ pub fn build_ui(application: &gtk::Application) {
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"), Some(&window), gtk::FileChooserAction::Open);
         file_chooser.add_buttons(&[
-            ("Open", gtk::ResponseType::Ok.into()),
-            ("Cancel", gtk::ResponseType::Cancel.into()),
+            ("Open", gtk::ResponseType::Ok),
+            ("Cancel", gtk::ResponseType::Cancel),
         ]);
-        if file_chooser.run() == gtk::ResponseType::Ok.into() {
+        if file_chooser.run() == gtk::ResponseType::Ok {
             let filename = file_chooser.get_filename().expect("Couldn't get filename");
             let file = File::open(&filename).expect("Couldn't open file");
 

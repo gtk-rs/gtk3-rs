@@ -44,7 +44,7 @@ fn build_ui(application: &gtk::Application) {
     attr.set_start_index(6);
     attr_list.insert(attr);
 
-    label.set_attributes(&attr_list);
+    label.set_attributes(Some(&attr_list));
     window.add(&label);
 
     window.show_all();

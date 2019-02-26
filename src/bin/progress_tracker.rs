@@ -146,9 +146,9 @@ impl Widgets {
         let header = Header::new();
 
         let window = gtk::ApplicationWindow::new(application);
-        window.set_icon_name("package-x-generic");
+        window.set_icon_name(Some("package-x-generic"));
         window.set_property_window_position(gtk::WindowPosition::Center);
-        window.set_titlebar(&header.container);
+        window.set_titlebar(Some(&header.container));
         window.add(&view_stack);
         window.show_all();
         window.set_default_size(500, 250);

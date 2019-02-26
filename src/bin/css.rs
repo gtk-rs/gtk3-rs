@@ -13,7 +13,7 @@ use gtk::prelude::*;
 use std::env::args;
 
 // Basic CSS: we change background color, we set font color to black and we set it as bold.
-const STYLE: &'static str = "
+const STYLE: &str = "
 #entry1 {
     background-image: -gtk-gradient (linear,
                                      0 0, 1 0,
@@ -66,7 +66,7 @@ fn build_ui(application: &gtk::Application) {
     combo.append_text("option 1");
     combo.append_text("option 2");
     combo.append_text("option 3");
-    combo.set_active(0);
+    combo.set_active(Some(0));
 
     vbox.add(&label);
     vbox.add(&entry);
