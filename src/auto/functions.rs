@@ -19,8 +19,7 @@ pub fn context_get_resolution<P: IsA<pango::Context>>(context: &P) -> f64 {
 //    unsafe { TODO: call ffi::pango_cairo_context_get_shape_renderer() }
 //}
 
-pub fn context_set_font_options<'a, P: IsA<pango::Context>, Q: Into<Option<&'a cairo::FontOptions>>>(context: &P, options: Q) {
-    let options = options.into();
+pub fn context_set_font_options<P: IsA<pango::Context>>(context: &P, options: Option<&cairo::FontOptions>) {
     unsafe {
         ffi::pango_cairo_context_set_font_options(context.as_ref().to_glib_none().0, options.to_glib_none().0);
     }
