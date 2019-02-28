@@ -55,6 +55,10 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig; fi
   - if [[ "$ARM" == "1" ]]; then rustup target add armv7-unknown-linux-gnueabihf; fi
 script:
+  - if [ "$TRAVIS_RUST_VERSION" == "beta" ]; then
+    rustup component add clippy;
+    cargo clippy --release;
+    fi
   - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.14" ] && ! [ "$ARM" == "1" ]; then
     make regen_check;
     fi
