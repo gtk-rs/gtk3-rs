@@ -50,6 +50,7 @@ impl<T: SendUnique> SendUniqueCell<T> {
     /// Borrow the contained object or panic if borrowing
     /// is not possible at this time
     pub fn borrow(&self) -> Ref<T> {
+        #[allow(clippy::match_wild_err_arm)]
         match self.try_borrow() {
             Err(_) => panic!("Can't borrow"),
             Ok(r) => r,
@@ -97,6 +98,7 @@ impl<T: SendUnique> SendUniqueCell<T> {
     /// Extract the contained object or panic if it is not possible
     /// at this time
     pub fn into_inner(self) -> T {
+        #[allow(clippy::match_wild_err_arm)]
         match self.try_into_inner() {
             Err(_) => panic!("Can't convert into inner type"),
             Ok(obj) => obj,

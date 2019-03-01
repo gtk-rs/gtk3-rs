@@ -72,6 +72,7 @@ where
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
             receiver.poll(ctx)
         };
+        #[allow(clippy::match_wild_err_arm)]
         match res {
             Err(_) => panic!("Source sender was unexpectedly closed"),
             Ok(Async::Ready(v)) => {
@@ -239,6 +240,7 @@ where
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
             receiver.poll_next(ctx)
         };
+        #[allow(clippy::match_wild_err_arm)]
         match res {
             Err(_) => panic!("Source sender was unexpectedly closed"),
             Ok(Async::Ready(v)) => {

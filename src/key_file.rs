@@ -48,7 +48,7 @@ impl KeyFile {
     pub fn load_from_dirs<T: AsRef<std::path::Path>, U: AsRef<std::path::Path>>(&self, file: T, search_dirs: &[U],
                                                      flags: KeyFileFlags) -> Result<path::PathBuf, Error> {
         unsafe {
-            let search_dirs: Vec<&std::path::Path> = search_dirs.iter().map(|p| p.as_ref()).collect();
+            let search_dirs: Vec<&std::path::Path> = search_dirs.iter().map(AsRef::as_ref).collect();
             let mut error = ptr::null_mut();
             let mut full_path: *mut libc::c_char = ptr::null_mut();
             let _ = ffi::g_key_file_load_from_dirs(self.to_glib_none().0,

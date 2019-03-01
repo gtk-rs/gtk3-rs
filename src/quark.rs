@@ -19,6 +19,7 @@ impl Quark {
         }
     }
 
+    #[allow(clippy::trivially_copy_pass_by_ref)]
     pub fn to_string(&self) -> &'static str {
         unsafe {
             CStr::from_ptr(ffi::g_quark_to_string(self.to_glib())).to_str().unwrap()

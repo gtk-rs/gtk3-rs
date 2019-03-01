@@ -496,16 +496,14 @@ impl<T> Receiver<T> {
             }
 
             let source = Source::from_glib_full(mut_override(&(*source).source));
-            let id = if let Some(context) = context {
+            if let Some(context) = context {
                 assert!(context.is_owner());
                 source.attach(Some(context))
             } else {
                 let context = MainContext::ref_thread_default();
                 assert!(context.is_owner());
                 source.attach(Some(&context))
-            };
-
-            id
+            }
         }
     }
 }

@@ -507,7 +507,7 @@ pub(crate) unsafe fn add_signal(
     arg_types: &[Type],
     ret_type: Type,
 ) {
-    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
     gobject_ffi::g_signal_newv(
         name.to_glib_none().0,
@@ -555,7 +555,7 @@ pub(crate) unsafe fn add_signal_with_accumulator<F>(
 ) where
     F: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
 {
-    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
     let accumulator: Box<F> = Box::new(accumulator);
 
@@ -610,7 +610,7 @@ pub(crate) unsafe fn add_signal_with_class_handler<F>(
 ) where
     F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
 {
-    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
     let class_handler = Closure::new(move |values| {
         let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);
         class_handler(&SignalClassHandlerToken(instance as *mut _), values)
@@ -642,7 +642,7 @@ pub(crate) unsafe fn add_signal_with_class_handler_and_accumulator<F, G>(
     F: Fn(&SignalClassHandlerToken, &[Value]) -> Option<Value> + Send + Sync + 'static,
     G: Fn(&SignalInvocationHint, &mut Value, &Value) -> bool + Send + Sync + 'static,
 {
-    let arg_types = arg_types.iter().map(|t| t.to_glib()).collect::<Vec<_>>();
+    let arg_types = arg_types.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
     let class_handler = Closure::new(move |values| {
         let instance = gobject_ffi::g_value_get_object(values[0].to_glib_none().0);

@@ -302,7 +302,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut glib_ffi::GType> for Type {
     type Storage = Option<Vec<glib_ffi::GType>>;
 
     fn to_glib_none_from_slice(t: &'a [Type]) -> (*mut glib_ffi::GType, Self::Storage) {
-        let mut vec = t.iter().map(|v| v.to_glib()).collect::<Vec<_>>();
+        let mut vec = t.iter().map(ToGlib::to_glib).collect::<Vec<_>>();
 
         (vec.as_mut_ptr(), Some(vec))
     }

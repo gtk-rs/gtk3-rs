@@ -4,7 +4,6 @@
 
 //! GObject bindings
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 pub mod auto;
 
 pub use self::auto::*;

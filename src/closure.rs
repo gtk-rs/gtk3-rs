@@ -82,6 +82,7 @@ impl Closure {
         from_glib_none(closure)
     }
 
+    #[allow(clippy::redundant_closure)]
     pub fn invoke(&self, values: &[&ToValue]) -> Option<Value> {
         let mut result = unsafe { Value::uninitialized() };
 

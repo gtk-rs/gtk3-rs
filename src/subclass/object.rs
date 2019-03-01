@@ -298,7 +298,7 @@ unsafe impl ObjectClassSubclassExt for ObjectClass {}
 unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
     fn override_vfuncs(&mut self) {
         unsafe {
-            let klass = &mut *(self as *const Self as *mut gobject_ffi::GObjectClass);
+            let klass = &mut *(self as *mut Self as *mut gobject_ffi::GObjectClass);
             klass.set_property = Some(set_property::<T>);
             klass.get_property = Some(get_property::<T>);
             klass.constructed = Some(constructed::<T>);
