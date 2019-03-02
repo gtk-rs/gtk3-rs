@@ -45,6 +45,14 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Graphene.Simd4F"
+status = "ignore"
+
+[[object]]
+name = "Graphene.Simd4X4F"
+status = "ignore"
+
+[[object]]
 name = "Graphene.Sphere"
 status = "generate"
     [[object.function]]
