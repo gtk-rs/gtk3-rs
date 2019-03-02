@@ -2,14 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Point3D;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Vec3;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Vec4;
 use ffi;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use glib::translate::*;
 use gobject_ffi;
 
@@ -25,7 +21,6 @@ glib_wrapper! {
 }
 
 impl Plane {
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn alloc() -> Plane {
         assert_initialized_main_thread!();
         unsafe {
@@ -33,28 +28,24 @@ impl Plane {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn distance(&self, point: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_plane_distance(self.to_glib_none().0, point.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     fn equal(&self, b: &Plane) -> bool {
         unsafe {
             from_glib(ffi::graphene_plane_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_constant(&self) -> f32 {
         unsafe {
             ffi::graphene_plane_get_constant(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_normal(&self) -> Vec3 {
         unsafe {
             let mut normal = Vec3::uninitialized();
@@ -63,42 +54,36 @@ impl Plane {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init(&mut self, normal: Option<&Vec3>, constant: f32) -> Option<Plane> {
         unsafe {
             from_glib_none(ffi::graphene_plane_init(self.to_glib_none_mut().0, normal.to_glib_none().0, constant))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_plane(&mut self, src: &Plane) -> Option<Plane> {
         unsafe {
             from_glib_none(ffi::graphene_plane_init_from_plane(self.to_glib_none_mut().0, src.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_point(&mut self, normal: &Vec3, point: &Point3D) -> Option<Plane> {
         unsafe {
             from_glib_none(ffi::graphene_plane_init_from_point(self.to_glib_none_mut().0, normal.to_glib_none().0, point.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_points(&mut self, a: &Point3D, b: &Point3D, c: &Point3D) -> Option<Plane> {
         unsafe {
             from_glib_none(ffi::graphene_plane_init_from_points(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_vec4(&mut self, src: &Vec4) -> Option<Plane> {
         unsafe {
             from_glib_none(ffi::graphene_plane_init_from_vec4(self.to_glib_none_mut().0, src.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn negate(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
@@ -107,7 +92,6 @@ impl Plane {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn normalize(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();

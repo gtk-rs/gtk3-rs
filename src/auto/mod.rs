@@ -2,27 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod box_;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::box_::Box;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod euler;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::euler::Euler;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod frustum;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::frustum::Frustum;
 
 mod matrix;
 pub use self::matrix::Matrix;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod plane;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::plane::Plane;
 
 mod point;
@@ -37,9 +29,7 @@ pub use self::quad::Quad;
 mod quaternion;
 pub use self::quaternion::Quaternion;
 
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 mod ray;
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 pub use self::ray::Ray;
 
 mod rect;
@@ -48,14 +38,10 @@ pub use self::rect::Rect;
 mod size;
 pub use self::size::Size;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod sphere;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::sphere::Sphere;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 mod triangle;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::triangle::Triangle;
 
 mod vec2;
@@ -68,7 +54,6 @@ mod vec4;
 pub use self::vec4::Vec4;
 
 mod enums;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::enums::EulerOrder;
 
 mod constants;

@@ -37,7 +37,6 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn expand(&self, p: &Point) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -92,7 +91,6 @@ impl Rect {
         }
     }
 
-    //#[cfg(any(feature = "v1_4", feature = "dox"))]
     //pub fn get_vertices(&self, vertices: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 16 }; 4) {
     //    unsafe { TODO: call ffi::graphene_rect_get_vertices() }
     //}
@@ -133,7 +131,6 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn inset_r(&self, d_x: f32, d_y: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -164,7 +161,6 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn normalize_r(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -179,7 +175,6 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn offset_r(&self, d_x: f32, d_y: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
@@ -188,19 +183,11 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn round(&self) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
             ffi::graphene_rect_round(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
-        }
-    }
-
-    #[cfg_attr(feature = "v1_4", deprecated)]
-    pub fn round_to_pixel(&mut self) -> Option<Rect> {
-        unsafe {
-            from_glib_none(ffi::graphene_rect_round_to_pixel(self.to_glib_none_mut().0))
         }
     }
 
@@ -219,7 +206,6 @@ impl Rect {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn zero() -> Option<Rect> {
         assert_initialized_main_thread!();
         unsafe {

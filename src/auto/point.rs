@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Vec2;
 use ffi;
 use glib::translate::*;
@@ -55,7 +54,6 @@ impl Point {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn init_from_vec2(&mut self, src: &Vec2) -> Option<Point> {
         unsafe {
             from_glib_none(ffi::graphene_point_init_from_vec2(self.to_glib_none_mut().0, src.to_glib_none().0))
@@ -76,7 +74,6 @@ impl Point {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn to_vec2(&self) -> Vec2 {
         unsafe {
             let mut v = Vec2::uninitialized();

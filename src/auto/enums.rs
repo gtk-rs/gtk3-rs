@@ -6,7 +6,6 @@ use ffi;
 use glib::translate::*;
 use std::fmt;
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
 pub enum EulerOrder {
@@ -21,7 +20,6 @@ pub enum EulerOrder {
     __Unknown(i32),
 }
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 impl fmt::Display for EulerOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "EulerOrder::{}", match *self {
@@ -37,7 +35,6 @@ impl fmt::Display for EulerOrder {
     }
 }
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for EulerOrder {
     type GlibType = ffi::graphene_euler_order_t;
@@ -56,7 +53,6 @@ impl ToGlib for EulerOrder {
     }
 }
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
     fn from_glib(value: ffi::graphene_euler_order_t) -> Self {

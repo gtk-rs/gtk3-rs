@@ -2,18 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Box;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Matrix;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Plane;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Point3D;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Sphere;
 use ffi;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use glib::translate::*;
 use gobject_ffi;
 
@@ -29,7 +23,6 @@ glib_wrapper! {
 }
 
 impl Frustum {
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn alloc() -> Frustum {
         assert_initialized_main_thread!();
         unsafe {
@@ -37,54 +30,46 @@ impl Frustum {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_contains_point(self.to_glib_none().0, point.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_6", feature = "dox"))]
     fn equal(&self, b: &Frustum) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
-    //#[cfg(any(feature = "v1_2", feature = "dox"))]
     //pub fn get_planes(&self, planes: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 8 }; 6) {
     //    unsafe { TODO: call ffi::graphene_frustum_get_planes() }
     //}
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init(&mut self, p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) -> Option<Frustum> {
         unsafe {
             from_glib_none(ffi::graphene_frustum_init(self.to_glib_none_mut().0, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_frustum(&mut self, src: &Frustum) -> Option<Frustum> {
         unsafe {
             from_glib_none(ffi::graphene_frustum_init_from_frustum(self.to_glib_none_mut().0, src.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_matrix(&mut self, matrix: &Matrix) -> Option<Frustum> {
         unsafe {
             from_glib_none(ffi::graphene_frustum_init_from_matrix(self.to_glib_none_mut().0, matrix.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn intersects_box(&self, box_: &Box) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_intersects_box(self.to_glib_none().0, box_.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn intersects_sphere(&self, sphere: &Sphere) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_intersects_sphere(self.to_glib_none().0, sphere.to_glib_none().0))

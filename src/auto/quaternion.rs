@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Euler;
 use Matrix;
 use Vec3;
@@ -61,7 +60,6 @@ impl Quaternion {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_euler(&mut self, e: &Euler) -> Option<Quaternion> {
         unsafe {
             from_glib_none(ffi::graphene_quaternion_init_from_euler(self.to_glib_none_mut().0, e.to_glib_none().0))
@@ -131,7 +129,6 @@ impl Quaternion {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn to_angles(&self) -> (f32, f32, f32) {
         unsafe {
             let mut deg_x = mem::uninitialized();
@@ -150,7 +147,6 @@ impl Quaternion {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn to_radians(&self) -> (f32, f32, f32) {
         unsafe {
             let mut rad_x = mem::uninitialized();

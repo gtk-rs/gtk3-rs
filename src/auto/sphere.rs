@@ -2,12 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Box;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Point3D;
 use ffi;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use glib::translate::*;
 use gobject_ffi;
 
@@ -23,7 +20,6 @@ glib_wrapper! {
 }
 
 impl Sphere {
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn alloc() -> Sphere {
         assert_initialized_main_thread!();
         unsafe {
@@ -31,28 +27,24 @@ impl Sphere {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_contains_point(self.to_glib_none().0, point.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn distance(&self, point: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_sphere_distance(self.to_glib_none().0, point.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     fn equal(&self, b: &Sphere) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut box_ = Box::uninitialized();
@@ -61,7 +53,6 @@ impl Sphere {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
@@ -70,28 +61,24 @@ impl Sphere {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_radius(&self) -> f32 {
         unsafe {
             ffi::graphene_sphere_get_radius(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init(&mut self, center: Option<&Point3D>, radius: f32) -> Option<Sphere> {
         unsafe {
             from_glib_none(ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn is_empty(&self) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_is_empty(self.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn translate(&self, point: &Point3D) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();

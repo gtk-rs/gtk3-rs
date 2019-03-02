@@ -2,14 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Plane;
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Point3D;
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Vec3;
 use ffi;
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use glib::translate::*;
 use gobject_ffi;
 
@@ -25,7 +21,6 @@ glib_wrapper! {
 }
 
 impl Ray {
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn alloc() -> Ray {
         assert_initialized_main_thread!();
         unsafe {
@@ -33,14 +28,12 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     fn equal(&self, b: &Ray) -> bool {
         unsafe {
             from_glib(ffi::graphene_ray_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_closest_point_to_point(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
@@ -49,7 +42,6 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_direction(&self) -> Vec3 {
         unsafe {
             let mut direction = Vec3::uninitialized();
@@ -58,21 +50,18 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_distance_to_plane(&self, p: &Plane) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_plane(self.to_glib_none().0, p.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_distance_to_point(&self, p: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_ray_get_distance_to_point(self.to_glib_none().0, p.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_origin(&self) -> Point3D {
         unsafe {
             let mut origin = Point3D::uninitialized();
@@ -81,7 +70,6 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn get_position_at(&self, t: f32) -> Point3D {
         unsafe {
             let mut position = Point3D::uninitialized();
@@ -90,21 +78,18 @@ impl Ray {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn init(&mut self, origin: Option<&Point3D>, direction: Option<&Vec3>) -> Option<Ray> {
         unsafe {
             from_glib_none(ffi::graphene_ray_init(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn init_from_ray(&mut self, src: &Ray) -> Option<Ray> {
         unsafe {
             from_glib_none(ffi::graphene_ray_init_from_ray(self.to_glib_none_mut().0, src.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn init_from_vec3(&mut self, origin: Option<&Vec3>, direction: Option<&Vec3>) -> Option<Ray> {
         unsafe {
             from_glib_none(ffi::graphene_ray_init_from_vec3(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0))

@@ -53,7 +53,6 @@ impl Quad {
         }
     }
 
-    //#[cfg(any(feature = "v1_2", feature = "dox"))]
     //pub fn init_from_points(&mut self, points: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 12 }; 4) -> Option<Quad> {
     //    unsafe { TODO: call ffi::graphene_quad_init_from_points() }
     //}

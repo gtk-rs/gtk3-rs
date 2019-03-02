@@ -2,7 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Rect;
 use Vec3;
 use ffi;
@@ -36,7 +35,6 @@ impl Point3D {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn distance(&self, b: &Point3D) -> (f32, Vec3) {
         unsafe {
             let mut delta = Vec3::uninitialized();
@@ -103,7 +101,6 @@ impl Point3D {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn normalize_viewport(&self, viewport: &Rect, z_near: f32, z_far: f32) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();

@@ -2,19 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Box;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Euler;
 use Point;
 use Point3D;
 use Quad;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Quaternion;
-#[cfg(any(feature = "v1_4", feature = "dox"))]
 use Ray;
 use Rect;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Sphere;
 use Vec3;
 use Vec4;
@@ -102,7 +97,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_frustum(&mut self, left: f32, right: f32, bottom: f32, top: f32, z_near: f32, z_far: f32) -> Option<Matrix> {
         unsafe {
             from_glib_none(ffi::graphene_matrix_init_frustum(self.to_glib_none_mut().0, left, right, bottom, top, z_near, z_far))
@@ -235,7 +229,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn project_rect(&self, r: &Rect) -> Quad {
         unsafe {
             let mut res = Quad::uninitialized();
@@ -258,14 +251,12 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn rotate_euler(&mut self, e: &Euler) {
         unsafe {
             ffi::graphene_matrix_rotate_euler(self.to_glib_none_mut().0, e.to_glib_none().0);
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn rotate_quaternion(&mut self, q: &Quaternion) {
         unsafe {
             ffi::graphene_matrix_rotate_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0);
@@ -339,7 +330,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn transform_box(&self, b: &Box) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
@@ -356,7 +346,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn transform_point3d(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
@@ -365,7 +354,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_4", feature = "dox"))]
     pub fn transform_ray(&self, r: &Ray) -> Ray {
         unsafe {
             let mut res = Ray::uninitialized();
@@ -382,7 +370,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn transform_sphere(&self, s: &Sphere) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();
@@ -421,7 +408,6 @@ impl Matrix {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn unproject_point3d(&self, modelview: &Matrix, point: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();

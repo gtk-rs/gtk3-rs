@@ -2,18 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Box;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Plane;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Point3D;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Vec2;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use Vec3;
 use ffi;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
 use glib::translate::*;
 use gobject_ffi;
 
@@ -29,7 +23,6 @@ glib_wrapper! {
 }
 
 impl Triangle {
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn alloc() -> Triangle {
         assert_initialized_main_thread!();
         unsafe {
@@ -37,28 +30,24 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn contains_point(&self, p: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_triangle_contains_point(self.to_glib_none().0, p.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     fn equal(&self, b: &Triangle) -> bool {
         unsafe {
             from_glib(ffi::graphene_triangle_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_area(&self) -> f32 {
         unsafe {
             ffi::graphene_triangle_get_area(self.to_glib_none().0)
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
@@ -67,7 +56,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
@@ -76,7 +64,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_midpoint(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
@@ -85,7 +72,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_normal(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
@@ -94,7 +80,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_plane(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
@@ -103,7 +88,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_points(&self) -> (Point3D, Point3D, Point3D) {
         unsafe {
             let mut a = Point3D::uninitialized();
@@ -114,7 +98,6 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn get_vertices(&self) -> (Vec3, Vec3, Vec3) {
         unsafe {
             let mut a = Vec3::uninitialized();
@@ -125,14 +108,12 @@ impl Triangle {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_point3d(&mut self, a: Option<&Point3D>, b: Option<&Point3D>, c: Option<&Point3D>) -> Option<Triangle> {
         unsafe {
             from_glib_none(ffi::graphene_triangle_init_from_point3d(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_vec3(&mut self, a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) -> Option<Triangle> {
         unsafe {
             from_glib_none(ffi::graphene_triangle_init_from_vec3(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))

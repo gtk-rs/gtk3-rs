@@ -57,7 +57,6 @@ impl Vec3 {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     fn equal(&self, v2: &Vec3) -> bool {
         unsafe {
             from_glib(ffi::graphene_vec3_equal(self.to_glib_none().0, v2.to_glib_none().0))
@@ -168,14 +167,12 @@ impl Vec3 {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn near(&self, v2: &Vec3, epsilon: f32) -> bool {
         unsafe {
             from_glib(ffi::graphene_vec3_near(self.to_glib_none().0, v2.to_glib_none().0, epsilon))
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn negate(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
@@ -192,7 +189,6 @@ impl Vec3 {
         }
     }
 
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn scale(&self, factor: f32) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
