@@ -1,6 +1,6 @@
 GIR = gir/target/bin/gir
 GIR_SRC = gir/Cargo.toml gir/Cargo.lock gir/build.rs $(shell find gir/src -name '*.rs')
-GIR_FILES = gir-files/Gdk-3.0.gir
+GIR_FILES = gir-files/Graphene-1.0.gir
 
 # Run `gir` generating the bindings
 gir : src/auto/mod.rs
