@@ -71,6 +71,9 @@ mod enums;
 #[cfg(any(feature = "v1_2", feature = "dox"))]
 pub use self::enums::EulerOrder;
 
+mod constants;
+pub use self::constants::SIMD_S;
+
 #[doc(hidden)]
 pub mod traits {
 }

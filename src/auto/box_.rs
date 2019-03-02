@@ -167,25 +167,9 @@ impl Box {
     }
 
     #[cfg(any(feature = "v1_2", feature = "dox"))]
-    pub fn init_from_points(&mut self, points: &[&Point3D]) -> Option<Box> {
-        let n_points = points.len() as u32;
-        unsafe {
-            from_glib_none(ffi::graphene_box_init_from_points(self.to_glib_none_mut().0, n_points, points.to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
     pub fn init_from_vec3(&mut self, min: Option<&Vec3>, max: Option<&Vec3>) -> Option<Box> {
         unsafe {
             from_glib_none(ffi::graphene_box_init_from_vec3(self.to_glib_none_mut().0, min.to_glib_none().0, max.to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
-    pub fn init_from_vectors(&mut self, vectors: &[&Vec3]) -> Option<Box> {
-        let n_vectors = vectors.len() as u32;
-        unsafe {
-            from_glib_none(ffi::graphene_box_init_from_vectors(self.to_glib_none_mut().0, n_vectors, vectors.to_glib_none().0))
         }
     }
 

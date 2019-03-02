@@ -6,8 +6,6 @@
 use Box;
 #[cfg(any(feature = "v1_2", feature = "dox"))]
 use Point3D;
-#[cfg(any(feature = "v1_2", feature = "dox"))]
-use Vec3;
 use ffi;
 #[cfg(any(feature = "v1_2", feature = "dox"))]
 use glib::translate::*;
@@ -83,22 +81,6 @@ impl Sphere {
     pub fn init(&mut self, center: Option<&Point3D>, radius: f32) -> Option<Sphere> {
         unsafe {
             from_glib_none(ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius))
-        }
-    }
-
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
-    pub fn init_from_points(&mut self, points: &[&Point3D], center: Option<&Point3D>) -> Option<Sphere> {
-        let n_points = points.len() as u32;
-        unsafe {
-            from_glib_none(ffi::graphene_sphere_init_from_points(self.to_glib_none_mut().0, n_points, points.to_glib_none().0, center.to_glib_none().0))
-        }
-    }
-
-    #[cfg(any(feature = "v1_2", feature = "dox"))]
-    pub fn init_from_vectors(&mut self, vectors: &[&Vec3], center: Option<&Point3D>) -> Option<Sphere> {
-        let n_vectors = vectors.len() as u32;
-        unsafe {
-            from_glib_none(ffi::graphene_sphere_init_from_vectors(self.to_glib_none_mut().0, n_vectors, vectors.to_glib_none().0, center.to_glib_none().0))
         }
     }
 

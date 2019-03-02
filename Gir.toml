@@ -10,16 +10,10 @@ single_version_file = true
 deprecate_by_min_version = true
 
 generate = [
-    "Graphene.Box",
     "Graphene.Euler",
     "Graphene.EulerOrder",
     "Graphene.Frustum",
-    "Graphene.HAS_GCC",
-    "Graphene.HAS_SCALAR",
-    "Graphene.HAS_SSE",
     "Graphene.Matrix",
-    "Graphene.PI",
-    "Graphene.PI_2",
     "Graphene.Plane",
     "Graphene.Point",
     "Graphene.Point3D",
@@ -27,42 +21,37 @@ generate = [
     "Graphene.Quaternion",
     "Graphene.Ray",
     "Graphene.Rect",
-    "Graphene.SIMD_S",
     "Graphene.Size",
-    "Graphene.Sphere",
     "Graphene.Triangle",
-    "Graphene.VEC2_LEN",
-    "Graphene.VEC3_LEN",
-    "Graphene.VEC4_LEN",
     "Graphene.Vec2",
     "Graphene.Vec3",
     "Graphene.Vec4",
-    "Graphene.box_empty",
-    "Graphene.box_infinite",
-    "Graphene.box_minus_one",
-    "Graphene.box_one",
-    "Graphene.box_one_minus_one",
-    "Graphene.box_zero",
-    "Graphene.false",
-    "Graphene.point3d_zero",
-    "Graphene.point_zero",
-    "Graphene.rect_alloc",
-    "Graphene.rect_zero",
-    "Graphene.size_zero",
-    "Graphene.true",
-    "Graphene.vec2_one",
-    "Graphene.vec2_x_axis",
-    "Graphene.vec2_y_axis",
-    "Graphene.vec2_zero",
-    "Graphene.vec3_one",
-    "Graphene.vec3_x_axis",
-    "Graphene.vec3_y_axis",
-    "Graphene.vec3_z_axis",
-    "Graphene.vec3_zero",
-    "Graphene.vec4_one",
-    "Graphene.vec4_w_axis",
-    "Graphene.vec4_x_axis",
-    "Graphene.vec4_y_axis",
-    "Graphene.vec4_z_axis",
-    "Graphene.vec4_zero",
 ]
+
+[[object]]
+name = "Graphene.*"
+status = "generate"
+
+[[object]]
+name = "Graphene.Box"
+status = "generate"
+    [[object.function]]
+    name = "init_from_points"
+    #array with size
+    ignore = true
+    [[object.function]]
+    name = "init_from_vectors"
+    #array with size
+    ignore = true
+
+[[object]]
+name = "Graphene.Sphere"
+status = "generate"
+    [[object.function]]
+    name = "init_from_points"
+    #array with size
+    ignore = true
+    [[object.function]]
+    name = "init_from_vectors"
+    #array with size
+    ignore = true
