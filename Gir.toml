@@ -28,8 +28,6 @@ generate = [
     "Graphene.Ray",
     "Graphene.Rect",
     "Graphene.SIMD_S",
-    "Graphene.Simd4F",
-    "Graphene.Simd4X4F",
     "Graphene.Size",
     "Graphene.Sphere",
     "Graphene.Triangle",
