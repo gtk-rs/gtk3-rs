@@ -2,23 +2,23 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use Cancellable;
-use Error;
-use ffi;
-use glib_ffi;
+use fragile::Fragile;
+use gio_sys;
 use glib;
-use glib::object::{IsA, Cast};
+use glib::object::{Cast, IsA};
 use glib::translate::*;
-use std::ptr;
+use glib_sys;
 use std::cell::RefCell;
 use std::mem::transmute;
-use Socket;
-use SocketAddress;
-#[cfg(all(not(windows), feature = "dox"))]
-use std::os::raw::c_void;
 #[cfg(all(not(unix), feature = "dox"))]
 use std::os::raw::c_int;
-use fragile::Fragile;
+#[cfg(all(not(windows), feature = "dox"))]
+use std::os::raw::c_void;
+use std::ptr;
+use Cancellable;
+use Error;
+use Socket;
+use SocketAddress;
 
 #[cfg(feature = "futures")]
 use futures_core::{Future, Never};
@@ -36,14 +36,14 @@ impl Socket {
     pub unsafe fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
         let fd = fd.into_raw_fd();
         let mut error = ptr::null_mut();
-        let ret = ffi::g_socket_new_from_fd(fd, &mut error);
+        let ret = gio_sys::g_socket_new_from_fd(fd, &mut error);
         if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
     #[cfg(any(windows, feature = "dox"))]
     pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
         let socket = socket.into_raw_socket();
         let mut error = ptr::null_mut();
-        let ret = ffi::g_socket_new_from_fd(socket as i32, &mut error);
+        let ret = gio_sys::g_socket_new_from_fd(socket as i32, &mut error);
         if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
 }
@@ -52,7 +52,7 @@ impl Socket {
 impl AsRawFd for Socket {
     fn as_raw_fd(&self) -> RawFd {
         unsafe {
-            ffi::g_socket_get_fd(self.to_glib_none().0) as _
+            gio_sys::g_socket_get_fd(self.to_glib_none().0) as _
         }
     }
 }
@@ -61,7 +61,7 @@ impl AsRawFd for Socket {
 impl AsRawSocket for Socket {
     fn as_raw_socket(&self) -> RawSocket {
         unsafe {
-            ffi::g_socket_get_fd(self.to_glib_none().0) as _
+            gio_sys::g_socket_get_fd(self.to_glib_none().0) as _
         }
     }
 }
@@ -99,7 +99,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_receive(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -117,7 +117,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             let mut error = ptr::null_mut();
             let mut addr_ptr = ptr::null_mut();
 
-            let ret = ffi::g_socket_receive_from(self.as_ref().to_glib_none().0, &mut addr_ptr, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive_from(self.as_ref().to_glib_none().0, &mut addr_ptr, buffer_ptr, count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok((ret as usize, from_glib_full(addr_ptr)))
             } else {
@@ -133,7 +133,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_receive_with_blocking(self.as_ref().to_glib_none().0, buffer_ptr, count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive_with_blocking(self.as_ref().to_glib_none().0, buffer_ptr, count, blocking.to_glib(), cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -150,7 +150,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_send(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -168,7 +168,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         unsafe {
             let mut error = ptr::null_mut();
 
-            let ret = ffi::g_socket_send_to(self.as_ref().to_glib_none().0, address.map(|p| p.as_ref()).to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send_to(self.as_ref().to_glib_none().0, address.map(|p| p.as_ref()).to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -185,7 +185,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_socket_send_with_blocking(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send_with_blocking(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, blocking.to_glib(), cancellable.0, &mut error);
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -197,14 +197,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T {
         unsafe {
-            FromRawFd::from_raw_fd(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0))
+            FromRawFd::from_raw_fd(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T {
         unsafe {
-            FromRawSocket::from_raw_socket(ffi::g_socket_get_fd(self.as_ref().to_glib_none().0) as _)
+            FromRawSocket::from_raw_socket(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0) as _)
         }
     }
 
@@ -212,13 +212,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static {
         let cancellable = cancellable.to_glib_none();
         unsafe {
-            let source = ffi::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
-            let trampoline = trampoline::<O> as glib_ffi::gpointer;
-            glib_ffi::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<O>));
-            glib_ffi::g_source_set_priority(source, priority.to_glib());
+            let source = gio_sys::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
+            let trampoline = trampoline::<O> as glib_sys::gpointer;
+            glib_sys::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<O>));
+            glib_sys::g_source_set_priority(source, priority.to_glib());
 
             if let Some(name) = name {
-                glib_ffi::g_source_set_name(source, name.to_glib_none().0);
+                glib_sys::g_source_set_name(source, name.to_glib_none().0);
             }
 
             from_glib_full(source)
@@ -258,21 +258,21 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut ffi::GSocket, condition: glib_ffi::GIOCondition, func: glib_ffi::gpointer) -> glib_ffi::gboolean {
+unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut gio_sys::GSocket, condition: glib_sys::GIOCondition, func: glib_sys::gpointer) -> glib_sys::gboolean {
     let func: &Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
     (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
 }
 
-unsafe extern "C" fn destroy_closure<O>(ptr: glib_ffi::gpointer) {
+unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
     Box::<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
-fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(func: F) -> glib_ffi::gpointer {
+fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(func: F) -> glib_sys::gpointer {
     let func: Box<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
         Box::new(Fragile::new(RefCell::new(Box::new(func))));
-    Box::into_raw(func) as glib_ffi::gpointer
+    Box::into_raw(func) as glib_sys::gpointer
 }
 
 #[cfg(all(not(unix), feature = "dox"))]

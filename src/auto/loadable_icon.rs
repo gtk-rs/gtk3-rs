@@ -6,24 +6,24 @@ use Cancellable;
 use Error;
 use Icon;
 use InputStream;
-use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
+use gio_sys;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct LoadableIcon(Interface<ffi::GLoadableIcon>) @requires Icon;
+    pub struct LoadableIcon(Interface<gio_sys::GLoadableIcon>) @requires Icon;
 
     match fn {
-        get_type => || ffi::g_loadable_icon_get_type(),
+        get_type => || gio_sys::g_loadable_icon_get_type(),
     }
 }
 
@@ -43,24 +43,24 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
         unsafe {
             let mut type_ = ptr::null_mut();
             let mut error = ptr::null_mut();
-            let ret = ffi::g_loadable_icon_load(self.as_ref().to_glib_none().0, size, &mut type_, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_loadable_icon_load(self.as_ref().to_glib_none().0, size, &mut type_, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok((from_glib_full(ret), from_glib_full(type_))) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn load_async<P: IsA<Cancellable>, Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: Option<&P>, callback: Q) {
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn load_async_trampoline<Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn load_async_trampoline<Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
             let mut type_ = ptr::null_mut();
-            let ret = ffi::g_loadable_icon_load_finish(_source_object as *mut _, res, &mut type_, &mut error);
+            let ret = gio_sys::g_loadable_icon_load_finish(_source_object as *mut _, res, &mut type_, &mut error);
             let result = if error.is_null() { Ok((from_glib_full(ret), from_glib_full(type_))) } else { Err(from_glib_full(error)) };
             let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = load_async_trampoline::<Q>;
         unsafe {
-            ffi::g_loadable_icon_load_async(self.as_ref().to_glib_none().0, size, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_loadable_icon_load_async(self.as_ref().to_glib_none().0, size, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 

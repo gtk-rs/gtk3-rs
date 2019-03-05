@@ -5,7 +5,7 @@
 use SocketConnection;
 use SocketListener;
 use SocketService;
-use ffi;
+use gio_sys;
 use glib;
 use glib::StaticType;
 use glib::Value;
@@ -14,24 +14,24 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct ThreadedSocketService(Object<ffi::GThreadedSocketService, ffi::GThreadedSocketServiceClass, ThreadedSocketServiceClass>) @extends SocketService, SocketListener;
+    pub struct ThreadedSocketService(Object<gio_sys::GThreadedSocketService, gio_sys::GThreadedSocketServiceClass, ThreadedSocketServiceClass>) @extends SocketService, SocketListener;
 
     match fn {
-        get_type => || ffi::g_threaded_socket_service_get_type(),
+        get_type => || gio_sys::g_threaded_socket_service_get_type(),
     }
 }
 
 impl ThreadedSocketService {
     pub fn new(max_threads: i32) -> ThreadedSocketService {
         unsafe {
-            SocketService::from_glib_full(ffi::g_threaded_socket_service_new(max_threads)).unsafe_cast()
+            SocketService::from_glib_full(gio_sys::g_threaded_socket_service_new(max_threads)).unsafe_cast()
         }
     }
 }
@@ -48,7 +48,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
     fn get_property_max_threads(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"max-threads\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"max-threads\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -62,7 +62,7 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
     }
 }
 
-unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut ffi::GThreadedSocketService, connection: *mut ffi::GSocketConnection, source_object: *mut gobject_ffi::GObject, f: glib_ffi::gpointer) -> glib_ffi::gboolean
+unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut gio_sys::GThreadedSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
 where P: IsA<ThreadedSocketService> {
     let f: &F = &*(f as *const F);
     f(&ThreadedSocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()

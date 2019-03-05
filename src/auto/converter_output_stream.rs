@@ -6,24 +6,24 @@ use Converter;
 use FilterOutputStream;
 use OutputStream;
 use PollableOutputStream;
-use ffi;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ConverterOutputStream(Object<ffi::GConverterOutputStream, ffi::GConverterOutputStreamClass, ConverterOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements PollableOutputStream;
+    pub struct ConverterOutputStream(Object<gio_sys::GConverterOutputStream, gio_sys::GConverterOutputStreamClass, ConverterOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements PollableOutputStream;
 
     match fn {
-        get_type => || ffi::g_converter_output_stream_get_type(),
+        get_type => || gio_sys::g_converter_output_stream_get_type(),
     }
 }
 
 impl ConverterOutputStream {
     pub fn new<P: IsA<OutputStream>, Q: IsA<Converter>>(base_stream: &P, converter: &Q) -> ConverterOutputStream {
         unsafe {
-            OutputStream::from_glib_full(ffi::g_converter_output_stream_new(base_stream.as_ref().to_glib_none().0, converter.as_ref().to_glib_none().0)).unsafe_cast()
+            OutputStream::from_glib_full(gio_sys::g_converter_output_stream_new(base_stream.as_ref().to_glib_none().0, converter.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }
@@ -37,7 +37,7 @@ pub trait ConverterOutputStreamExt: 'static {
 impl<O: IsA<ConverterOutputStream>> ConverterOutputStreamExt for O {
     fn get_converter(&self) -> Option<Converter> {
         unsafe {
-            from_glib_none(ffi::g_converter_output_stream_get_converter(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_converter_output_stream_get_converter(self.as_ref().to_glib_none().0))
         }
     }
 }

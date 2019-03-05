@@ -8,30 +8,30 @@ use Error;
 use FilterOutputStream;
 use OutputStream;
 use Seekable;
-use ffi;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct DataOutputStream(Object<ffi::GDataOutputStream, ffi::GDataOutputStreamClass, DataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
+    pub struct DataOutputStream(Object<gio_sys::GDataOutputStream, gio_sys::GDataOutputStreamClass, DataOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_data_output_stream_get_type(),
+        get_type => || gio_sys::g_data_output_stream_get_type(),
     }
 }
 
 impl DataOutputStream {
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> DataOutputStream {
         unsafe {
-            from_glib_full(ffi::g_data_output_stream_new(base_stream.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_data_output_stream_new(base_stream.as_ref().to_glib_none().0))
         }
     }
 }
@@ -65,14 +65,14 @@ pub trait DataOutputStreamExt: 'static {
 impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn get_byte_order(&self) -> DataStreamByteOrder {
         unsafe {
-            from_glib(ffi::g_data_output_stream_get_byte_order(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_data_output_stream_get_byte_order(self.as_ref().to_glib_none().0))
         }
     }
 
     fn put_byte<P: IsA<Cancellable>>(&self, data: u8, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_byte(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_byte(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -80,7 +80,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_int16<P: IsA<Cancellable>>(&self, data: i16, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_int16(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_int16(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -88,7 +88,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_int32<P: IsA<Cancellable>>(&self, data: i32, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_int32(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_int32(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -96,7 +96,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_int64<P: IsA<Cancellable>>(&self, data: i64, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_int64(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_int64(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -104,7 +104,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_string<P: IsA<Cancellable>>(&self, str: &str, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_string(self.as_ref().to_glib_none().0, str.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_string(self.as_ref().to_glib_none().0, str.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -112,7 +112,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_uint16<P: IsA<Cancellable>>(&self, data: u16, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_uint16(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_uint16(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -120,7 +120,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_uint32<P: IsA<Cancellable>>(&self, data: u32, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_uint32(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_uint32(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -128,14 +128,14 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     fn put_uint64<P: IsA<Cancellable>>(&self, data: u64, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_data_output_stream_put_uint64(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_data_output_stream_put_uint64(self.as_ref().to_glib_none().0, data, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn set_byte_order(&self, order: DataStreamByteOrder) {
         unsafe {
-            ffi::g_data_output_stream_set_byte_order(self.as_ref().to_glib_none().0, order.to_glib());
+            gio_sys::g_data_output_stream_set_byte_order(self.as_ref().to_glib_none().0, order.to_glib());
         }
     }
 
@@ -148,7 +148,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     }
 }
 
-unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GDataOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GDataOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<DataOutputStream> {
     let f: &F = &*(f as *const F);
     f(&DataOutputStream::from_glib_borrow(this).unsafe_cast())

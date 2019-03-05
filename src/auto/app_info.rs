@@ -9,17 +9,17 @@ use Cancellable;
 use Error;
 use File;
 use Icon;
-use ffi;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 use futures_core;
+use gio_sys;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
-use glib_ffi;
+use glib_sys;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
-use gobject_ffi;
+use gobject_sys;
 use std;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -28,10 +28,10 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct AppInfo(Interface<ffi::GAppInfo>);
+    pub struct AppInfo(Interface<gio_sys::GAppInfo>);
 
     match fn {
-        get_type => || ffi::g_app_info_get_type(),
+        get_type => || gio_sys::g_app_info_get_type(),
     }
 }
 
@@ -39,51 +39,51 @@ impl AppInfo {
     pub fn create_from_commandline<P: AsRef<std::ffi::OsStr>>(commandline: P, application_name: Option<&str>, flags: AppInfoCreateFlags) -> Result<AppInfo, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_app_info_create_from_commandline(commandline.as_ref().to_glib_none().0, application_name.to_glib_none().0, flags.to_glib(), &mut error);
+            let ret = gio_sys::g_app_info_create_from_commandline(commandline.as_ref().to_glib_none().0, application_name.to_glib_none().0, flags.to_glib(), &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     pub fn get_all() -> Vec<AppInfo> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all())
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_app_info_get_all())
         }
     }
 
     pub fn get_all_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_all_for_type(content_type.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_app_info_get_all_for_type(content_type.to_glib_none().0))
         }
     }
 
     pub fn get_default_for_type(content_type: &str, must_support_uris: bool) -> Option<AppInfo> {
         unsafe {
-            from_glib_full(ffi::g_app_info_get_default_for_type(content_type.to_glib_none().0, must_support_uris.to_glib()))
+            from_glib_full(gio_sys::g_app_info_get_default_for_type(content_type.to_glib_none().0, must_support_uris.to_glib()))
         }
     }
 
     pub fn get_default_for_uri_scheme(uri_scheme: &str) -> Option<AppInfo> {
         unsafe {
-            from_glib_full(ffi::g_app_info_get_default_for_uri_scheme(uri_scheme.to_glib_none().0))
+            from_glib_full(gio_sys::g_app_info_get_default_for_uri_scheme(uri_scheme.to_glib_none().0))
         }
     }
 
     pub fn get_fallback_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_fallback_for_type(content_type.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_app_info_get_fallback_for_type(content_type.to_glib_none().0))
         }
     }
 
     pub fn get_recommended_for_type(content_type: &str) -> Vec<AppInfo> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_app_info_get_recommended_for_type(content_type.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_app_info_get_recommended_for_type(content_type.to_glib_none().0))
         }
     }
 
     pub fn launch_default_for_uri<P: IsA<AppLaunchContext>>(uri: &str, context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch_default_for_uri(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_launch_default_for_uri(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -91,16 +91,16 @@ impl AppInfo {
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     pub fn launch_default_for_uri_async<P: IsA<AppLaunchContext>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(uri: &str, context: Option<&P>, cancellable: Option<&Q>, callback: R) {
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn launch_default_for_uri_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn launch_default_for_uri_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch_default_for_uri_finish(res, &mut error);
+            let _ = gio_sys::g_app_info_launch_default_for_uri_finish(res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = launch_default_for_uri_async_trampoline::<R>;
         unsafe {
-            ffi::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_app_info_launch_default_for_uri_async(uri.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -130,7 +130,7 @@ impl AppInfo {
 
     pub fn reset_type_associations(content_type: &str) {
         unsafe {
-            ffi::g_app_info_reset_type_associations(content_type.to_glib_none().0);
+            gio_sys::g_app_info_reset_type_associations(content_type.to_glib_none().0);
         }
     }
 }
@@ -189,93 +189,93 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn add_supports_type(&self, content_type: &str) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_add_supports_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_add_supports_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn can_delete(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_can_delete(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_can_delete(self.as_ref().to_glib_none().0))
         }
     }
 
     fn can_remove_supports_type(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_can_remove_supports_type(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_can_remove_supports_type(self.as_ref().to_glib_none().0))
         }
     }
 
     fn delete(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_delete(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_delete(self.as_ref().to_glib_none().0))
         }
     }
 
     fn dup(&self) -> Option<AppInfo> {
         unsafe {
-            from_glib_full(ffi::g_app_info_dup(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_app_info_dup(self.as_ref().to_glib_none().0))
         }
     }
 
     fn equal<P: IsA<AppInfo>>(&self, appinfo2: &P) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_equal(self.as_ref().to_glib_none().0, appinfo2.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_equal(self.as_ref().to_glib_none().0, appinfo2.as_ref().to_glib_none().0))
         }
     }
 
     fn get_commandline(&self) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_commandline(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_commandline(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_description(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_description(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_description(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_display_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_display_name(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_display_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_executable(&self) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_executable(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_executable(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_icon(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_id(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_id(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_id(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_app_info_get_name(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_app_info_get_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_supported_types(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(ffi::g_app_info_get_supported_types(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(gio_sys::g_app_info_get_supported_types(self.as_ref().to_glib_none().0))
         }
     }
 
     fn launch<P: IsA<AppLaunchContext>>(&self, files: &[File], context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch(self.as_ref().to_glib_none().0, files.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_launch(self.as_ref().to_glib_none().0, files.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -283,7 +283,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn launch_uris<P: IsA<AppLaunchContext>>(&self, uris: &[&str], context: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_launch_uris(self.as_ref().to_glib_none().0, uris.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_launch_uris(self.as_ref().to_glib_none().0, uris.to_glib_none().0, context.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -291,7 +291,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn remove_supports_type(&self, content_type: &str) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_remove_supports_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_remove_supports_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -299,7 +299,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn set_as_default_for_extension<P: AsRef<std::path::Path>>(&self, extension: P) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_set_as_default_for_extension(self.as_ref().to_glib_none().0, extension.as_ref().to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_set_as_default_for_extension(self.as_ref().to_glib_none().0, extension.as_ref().to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -307,7 +307,7 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn set_as_default_for_type(&self, content_type: &str) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_set_as_default_for_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_set_as_default_for_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
@@ -315,26 +315,26 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
     fn set_as_last_used_for_type(&self, content_type: &str) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_app_info_set_as_last_used_for_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
+            let _ = gio_sys::g_app_info_set_as_last_used_for_type(self.as_ref().to_glib_none().0, content_type.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn should_show(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_should_show(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_should_show(self.as_ref().to_glib_none().0))
         }
     }
 
     fn supports_files(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_supports_files(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_supports_files(self.as_ref().to_glib_none().0))
         }
     }
 
     fn supports_uris(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_app_info_supports_uris(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_app_info_supports_uris(self.as_ref().to_glib_none().0))
         }
     }
 }

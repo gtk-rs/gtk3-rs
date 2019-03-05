@@ -5,7 +5,7 @@
 use Error;
 use InetAddress;
 use SocketFamily;
-use ffi;
+use gio_sys;
 use glib::GString;
 use glib::Value;
 use glib::object::Cast;
@@ -13,18 +13,18 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct InetAddressMask(Object<ffi::GInetAddressMask, ffi::GInetAddressMaskClass, InetAddressMaskClass>);
+    pub struct InetAddressMask(Object<gio_sys::GInetAddressMask, gio_sys::GInetAddressMaskClass, InetAddressMaskClass>);
 
     match fn {
-        get_type => || ffi::g_inet_address_mask_get_type(),
+        get_type => || gio_sys::g_inet_address_mask_get_type(),
     }
 }
 
@@ -32,7 +32,7 @@ impl InetAddressMask {
     pub fn new<P: IsA<InetAddress>>(addr: &P, length: u32) -> Result<InetAddressMask, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_inet_address_mask_new(addr.as_ref().to_glib_none().0, length, &mut error);
+            let ret = gio_sys::g_inet_address_mask_new(addr.as_ref().to_glib_none().0, length, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -40,7 +40,7 @@ impl InetAddressMask {
     pub fn new_from_string(mask_string: &str) -> Result<InetAddressMask, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_inet_address_mask_new_from_string(mask_string.to_glib_none().0, &mut error);
+            let ret = gio_sys::g_inet_address_mask_new_from_string(mask_string.to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -78,49 +78,49 @@ pub trait InetAddressMaskExt: 'static {
 impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
     fn equal<P: IsA<InetAddressMask>>(&self, mask2: &P) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_mask_equal(self.as_ref().to_glib_none().0, mask2.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_inet_address_mask_equal(self.as_ref().to_glib_none().0, mask2.as_ref().to_glib_none().0))
         }
     }
 
     fn get_address(&self) -> InetAddress {
         unsafe {
-            from_glib_none(ffi::g_inet_address_mask_get_address(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_inet_address_mask_get_address(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_family(&self) -> SocketFamily {
         unsafe {
-            from_glib(ffi::g_inet_address_mask_get_family(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_inet_address_mask_get_family(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_length(&self) -> u32 {
         unsafe {
-            ffi::g_inet_address_mask_get_length(self.as_ref().to_glib_none().0)
+            gio_sys::g_inet_address_mask_get_length(self.as_ref().to_glib_none().0)
         }
     }
 
     fn matches<P: IsA<InetAddress>>(&self, address: &P) -> bool {
         unsafe {
-            from_glib(ffi::g_inet_address_mask_matches(self.as_ref().to_glib_none().0, address.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_inet_address_mask_matches(self.as_ref().to_glib_none().0, address.as_ref().to_glib_none().0))
         }
     }
 
     fn to_string(&self) -> GString {
         unsafe {
-            from_glib_full(ffi::g_inet_address_mask_to_string(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_inet_address_mask_to_string(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_property_address(&self, address: Option<&InetAddress>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"address\0".as_ptr() as *const _, Value::from(address).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"address\0".as_ptr() as *const _, Value::from(address).to_glib_none().0);
         }
     }
 
     fn set_property_length(&self, length: u32) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"length\0".as_ptr() as *const _, Value::from(&length).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"length\0".as_ptr() as *const _, Value::from(&length).to_glib_none().0);
         }
     }
 
@@ -149,19 +149,19 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
     }
 }
 
-unsafe extern "C" fn notify_address_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_address_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddressMask, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<InetAddressMask> {
     let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddressMask, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<InetAddressMask> {
     let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_length_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut ffi::GInetAddressMask, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_length_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddressMask, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<InetAddressMask> {
     let f: &F = &*(f as *const F);
     f(&InetAddressMask::from_glib_borrow(this).unsafe_cast())

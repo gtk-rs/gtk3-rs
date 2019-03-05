@@ -7,25 +7,25 @@ use Error;
 use FileInfo;
 use OutputStream;
 use Seekable;
-use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
+use gio_sys;
 use glib;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct FileOutputStream(Object<ffi::GFileOutputStream, ffi::GFileOutputStreamClass, FileOutputStreamClass>) @extends OutputStream, @implements Seekable;
+    pub struct FileOutputStream(Object<gio_sys::GFileOutputStream, gio_sys::GFileOutputStreamClass, FileOutputStreamClass>) @extends OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_file_output_stream_get_type(),
+        get_type => || gio_sys::g_file_output_stream_get_type(),
     }
 }
 
@@ -45,30 +45,30 @@ pub trait FileOutputStreamExt: 'static {
 impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
     fn get_etag(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_file_output_stream_get_etag(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_file_output_stream_get_etag(self.as_ref().to_glib_none().0))
         }
     }
 
     fn query_info<P: IsA<Cancellable>>(&self, attributes: &str, cancellable: Option<&P>) -> Result<FileInfo, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_file_output_stream_query_info(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_file_output_stream_query_info(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn query_info_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_file_output_stream_query_info_finish(_source_object as *mut _, res, &mut error);
+            let ret = gio_sys::g_file_output_stream_query_info_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = query_info_async_trampoline::<Q>;
         unsafe {
-            ffi::g_file_output_stream_query_info_async(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_file_output_stream_query_info_async(self.as_ref().to_glib_none().0, attributes.to_glib_none().0, io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 

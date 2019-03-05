@@ -4,22 +4,22 @@
 
 use ActionGroup;
 use ActionMap;
-use ffi;
+use gio_sys;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SimpleActionGroup(Object<ffi::GSimpleActionGroup, ffi::GSimpleActionGroupClass, SimpleActionGroupClass>) @implements ActionGroup, ActionMap;
+    pub struct SimpleActionGroup(Object<gio_sys::GSimpleActionGroup, gio_sys::GSimpleActionGroupClass, SimpleActionGroupClass>) @implements ActionGroup, ActionMap;
 
     match fn {
-        get_type => || ffi::g_simple_action_group_get_type(),
+        get_type => || gio_sys::g_simple_action_group_get_type(),
     }
 }
 
 impl SimpleActionGroup {
     pub fn new() -> SimpleActionGroup {
         unsafe {
-            from_glib_full(ffi::g_simple_action_group_new())
+            from_glib_full(gio_sys::g_simple_action_group_new())
         }
     }
 }

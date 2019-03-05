@@ -2,9 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-
-use std::sync::mpsc::{channel, Sender};
 use glib::*;
+use std::sync::mpsc::{channel, Sender};
 
 #[allow(dead_code)]
 pub fn run_async<T: Send + 'static, Q: FnOnce(Sender<T>, MainLoop) + Send + 'static>(start: Q) -> T {

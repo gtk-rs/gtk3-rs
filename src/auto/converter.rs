@@ -2,16 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Converter(Interface<ffi::GConverter>);
+    pub struct Converter(Interface<gio_sys::GConverter>);
 
     match fn {
-        get_type => || ffi::g_converter_get_type(),
+        get_type => || gio_sys::g_converter_get_type(),
     }
 }
 
@@ -24,7 +24,7 @@ pub trait ConverterExt: 'static {
 impl<O: IsA<Converter>> ConverterExt for O {
     fn reset(&self) {
         unsafe {
-            ffi::g_converter_reset(self.as_ref().to_glib_none().0);
+            gio_sys::g_converter_reset(self.as_ref().to_glib_none().0);
         }
     }
 }

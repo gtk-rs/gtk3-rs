@@ -10,24 +10,24 @@ use TlsCertificateFlags;
 use TlsDatabaseLookupFlags;
 use TlsDatabaseVerifyFlags;
 use TlsInteraction;
-use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
+use gio_sys;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct TlsDatabase(Object<ffi::GTlsDatabase, ffi::GTlsDatabaseClass, TlsDatabaseClass>);
+    pub struct TlsDatabase(Object<gio_sys::GTlsDatabase, gio_sys::GTlsDatabaseClass, TlsDatabaseClass>);
 
     match fn {
-        get_type => || ffi::g_tls_database_get_type(),
+        get_type => || gio_sys::g_tls_database_get_type(),
     }
 }
 
@@ -68,30 +68,30 @@ pub trait TlsDatabaseExt: 'static {
 impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     fn create_certificate_handle<P: IsA<TlsCertificate>>(&self, certificate: &P) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_tls_database_create_certificate_handle(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_tls_database_create_certificate_handle(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0))
         }
     }
 
     fn lookup_certificate_for_handle<P: IsA<TlsInteraction>, Q: IsA<Cancellable>>(&self, handle: &str, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>) -> Result<Option<TlsCertificate>, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_lookup_certificate_for_handle(self.as_ref().to_glib_none().0, handle.to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_tls_database_lookup_certificate_for_handle(self.as_ref().to_glib_none().0, handle.to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn lookup_certificate_for_handle_async<P: IsA<TlsInteraction>, Q: IsA<Cancellable>, R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, handle: &str, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>, callback: R) {
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_lookup_certificate_for_handle_finish(_source_object as *mut _, res, &mut error);
+            let ret = gio_sys::g_tls_database_lookup_certificate_for_handle_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_for_handle_async_trampoline::<R>;
         unsafe {
-            ffi::g_tls_database_lookup_certificate_for_handle_async(self.as_ref().to_glib_none().0, handle.to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_tls_database_lookup_certificate_for_handle_async(self.as_ref().to_glib_none().0, handle.to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -125,23 +125,23 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     fn lookup_certificate_issuer<P: IsA<TlsCertificate>, Q: IsA<TlsInteraction>, R: IsA<Cancellable>>(&self, certificate: &P, interaction: Option<&Q>, flags: TlsDatabaseLookupFlags, cancellable: Option<&R>) -> Result<TlsCertificate, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_lookup_certificate_issuer(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_tls_database_lookup_certificate_issuer(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn lookup_certificate_issuer_async<P: IsA<TlsCertificate>, Q: IsA<TlsInteraction>, R: IsA<Cancellable>, S: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(&self, certificate: &P, interaction: Option<&Q>, flags: TlsDatabaseLookupFlags, cancellable: Option<&R>, callback: S) {
         let user_data: Box<S> = Box::new(callback);
-        unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<S: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<S: FnOnce(Result<TlsCertificate, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_lookup_certificate_issuer_finish(_source_object as *mut _, res, &mut error);
+            let ret = gio_sys::g_tls_database_lookup_certificate_issuer_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<S> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_issuer_async_trampoline::<S>;
         unsafe {
-            ffi::g_tls_database_lookup_certificate_issuer_async(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_tls_database_lookup_certificate_issuer_async(self.as_ref().to_glib_none().0, certificate.as_ref().to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -173,11 +173,11 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     }
 
     //fn lookup_certificates_issued_by<P: IsA<TlsInteraction>, Q: IsA<Cancellable>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>) -> Result<Vec<TlsCertificate>, Error> {
-    //    unsafe { TODO: call ffi::g_tls_database_lookup_certificates_issued_by() }
+    //    unsafe { TODO: call gio_sys:g_tls_database_lookup_certificates_issued_by() }
     //}
 
     //fn lookup_certificates_issued_by_async<P: IsA<TlsInteraction>, Q: IsA<Cancellable>, R: FnOnce(Result<Vec<TlsCertificate>, Error>) + Send + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>, callback: R) {
-    //    unsafe { TODO: call ffi::g_tls_database_lookup_certificates_issued_by_async() }
+    //    unsafe { TODO: call gio_sys:g_tls_database_lookup_certificates_issued_by_async() }
     //}
 
     //#[cfg(feature = "futures")]
@@ -210,23 +210,23 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     fn verify_chain<P: IsA<TlsCertificate>, Q: IsA<SocketConnectable>, R: IsA<TlsInteraction>, S: IsA<Cancellable>>(&self, chain: &P, purpose: &str, identity: Option<&Q>, interaction: Option<&R>, flags: TlsDatabaseVerifyFlags, cancellable: Option<&S>) -> Result<TlsCertificateFlags, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_verify_chain(self.as_ref().to_glib_none().0, chain.as_ref().to_glib_none().0, purpose.to_glib_none().0, identity.map(|p| p.as_ref()).to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_tls_database_verify_chain(self.as_ref().to_glib_none().0, chain.as_ref().to_glib_none().0, purpose.to_glib_none().0, identity.map(|p| p.as_ref()).to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn verify_chain_async<P: IsA<TlsCertificate>, Q: IsA<SocketConnectable>, R: IsA<TlsInteraction>, S: IsA<Cancellable>, T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(&self, chain: &P, purpose: &str, identity: Option<&Q>, interaction: Option<&R>, flags: TlsDatabaseVerifyFlags, cancellable: Option<&S>, callback: T) {
         let user_data: Box<T> = Box::new(callback);
-        unsafe extern "C" fn verify_chain_async_trampoline<T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn verify_chain_async_trampoline<T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_tls_database_verify_chain_finish(_source_object as *mut _, res, &mut error);
+            let ret = gio_sys::g_tls_database_verify_chain_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<T> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = verify_chain_async_trampoline::<T>;
         unsafe {
-            ffi::g_tls_database_verify_chain_async(self.as_ref().to_glib_none().0, chain.as_ref().to_glib_none().0, purpose.to_glib_none().0, identity.map(|p| p.as_ref()).to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_tls_database_verify_chain_async(self.as_ref().to_glib_none().0, chain.as_ref().to_glib_none().0, purpose.to_glib_none().0, identity.map(|p| p.as_ref()).to_glib_none().0, interaction.map(|p| p.as_ref()).to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 

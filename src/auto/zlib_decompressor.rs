@@ -5,7 +5,7 @@
 use Converter;
 use FileInfo;
 use ZlibCompressorFormat;
-use ffi;
+use gio_sys;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Cast;
@@ -13,24 +13,24 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct ZlibDecompressor(Object<ffi::GZlibDecompressor, ffi::GZlibDecompressorClass, ZlibDecompressorClass>) @implements Converter;
+    pub struct ZlibDecompressor(Object<gio_sys::GZlibDecompressor, gio_sys::GZlibDecompressorClass, ZlibDecompressorClass>) @implements Converter;
 
     match fn {
-        get_type => || ffi::g_zlib_decompressor_get_type(),
+        get_type => || gio_sys::g_zlib_decompressor_get_type(),
     }
 }
 
 impl ZlibDecompressor {
     pub fn new(format: ZlibCompressorFormat) -> ZlibDecompressor {
         unsafe {
-            from_glib_full(ffi::g_zlib_decompressor_new(format.to_glib()))
+            from_glib_full(gio_sys::g_zlib_decompressor_new(format.to_glib()))
         }
     }
 }
@@ -48,14 +48,14 @@ pub trait ZlibDecompressorExt: 'static {
 impl<O: IsA<ZlibDecompressor>> ZlibDecompressorExt for O {
     fn get_file_info(&self) -> Option<FileInfo> {
         unsafe {
-            from_glib_none(ffi::g_zlib_decompressor_get_file_info(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_zlib_decompressor_get_file_info(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_property_format(&self) -> ZlibCompressorFormat {
         unsafe {
             let mut value = Value::from_type(<ZlibCompressorFormat as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"format\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"format\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -69,7 +69,7 @@ impl<O: IsA<ZlibDecompressor>> ZlibDecompressorExt for O {
     }
 }
 
-unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GZlibDecompressor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_file_info_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GZlibDecompressor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<ZlibDecompressor> {
     let f: &F = &*(f as *const F);
     f(&ZlibDecompressor::from_glib_borrow(this).unsafe_cast())

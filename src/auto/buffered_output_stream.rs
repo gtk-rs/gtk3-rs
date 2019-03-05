@@ -5,35 +5,35 @@
 use FilterOutputStream;
 use OutputStream;
 use Seekable;
-use ffi;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct BufferedOutputStream(Object<ffi::GBufferedOutputStream, ffi::GBufferedOutputStreamClass, BufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
+    pub struct BufferedOutputStream(Object<gio_sys::GBufferedOutputStream, gio_sys::GBufferedOutputStreamClass, BufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
 
     match fn {
-        get_type => || ffi::g_buffered_output_stream_get_type(),
+        get_type => || gio_sys::g_buffered_output_stream_get_type(),
     }
 }
 
 impl BufferedOutputStream {
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> BufferedOutputStream {
         unsafe {
-            OutputStream::from_glib_full(ffi::g_buffered_output_stream_new(base_stream.as_ref().to_glib_none().0)).unsafe_cast()
+            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new(base_stream.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 
     pub fn new_sized<P: IsA<OutputStream>>(base_stream: &P, size: usize) -> BufferedOutputStream {
         unsafe {
-            OutputStream::from_glib_full(ffi::g_buffered_output_stream_new_sized(base_stream.as_ref().to_glib_none().0, size)).unsafe_cast()
+            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new_sized(base_stream.as_ref().to_glib_none().0, size)).unsafe_cast()
         }
     }
 }
@@ -57,25 +57,25 @@ pub trait BufferedOutputStreamExt: 'static {
 impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
     fn get_auto_grow(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_buffered_output_stream_get_auto_grow(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_buffered_output_stream_get_auto_grow(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_buffer_size(&self) -> usize {
         unsafe {
-            ffi::g_buffered_output_stream_get_buffer_size(self.as_ref().to_glib_none().0)
+            gio_sys::g_buffered_output_stream_get_buffer_size(self.as_ref().to_glib_none().0)
         }
     }
 
     fn set_auto_grow(&self, auto_grow: bool) {
         unsafe {
-            ffi::g_buffered_output_stream_set_auto_grow(self.as_ref().to_glib_none().0, auto_grow.to_glib());
+            gio_sys::g_buffered_output_stream_set_auto_grow(self.as_ref().to_glib_none().0, auto_grow.to_glib());
         }
     }
 
     fn set_buffer_size(&self, size: usize) {
         unsafe {
-            ffi::g_buffered_output_stream_set_buffer_size(self.as_ref().to_glib_none().0, size);
+            gio_sys::g_buffered_output_stream_set_buffer_size(self.as_ref().to_glib_none().0, size);
         }
     }
 
@@ -96,13 +96,13 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
     }
 }
 
-unsafe extern "C" fn notify_auto_grow_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GBufferedOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_auto_grow_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GBufferedOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<BufferedOutputStream> {
     let f: &F = &*(f as *const F);
     f(&BufferedOutputStream::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GBufferedOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GBufferedOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<BufferedOutputStream> {
     let f: &F = &*(f as *const F);
     f(&BufferedOutputStream::from_glib_borrow(this).unsafe_cast())

@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use DesktopAppInfo;
-use libc;
-use ffi;
-use glib_ffi;
+use gio_sys;
 use glib::translate::*;
 use glib::GString;
+use glib_sys;
+use libc;
+use DesktopAppInfo;
 
 impl DesktopAppInfo {
     pub fn search(search_string: &str) -> Vec<Vec<GString>> {
         unsafe {
-            let out = ffi::g_desktop_app_info_search(search_string.to_glib_none().0);
+            let out = gio_sys::g_desktop_app_info_search(search_string.to_glib_none().0);
 
             if out.is_null() {
                 return Vec::new();
@@ -31,7 +31,7 @@ impl DesktopAppInfo {
                 it += 1;
             }
 
-            glib_ffi::g_free(out as *mut libc::c_void);
+            glib_sys::g_free(out as *mut libc::c_void);
             ret
         }
     }

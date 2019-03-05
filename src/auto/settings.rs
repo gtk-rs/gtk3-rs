@@ -6,7 +6,7 @@ use Action;
 use SettingsBackend;
 use SettingsBindFlags;
 use SettingsSchema;
-use ffi;
+use gio_sys;
 use glib;
 use glib::GString;
 use glib::StaticType;
@@ -16,8 +16,8 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use libc;
 use signal::Inhibit;
 use std::boxed::Box as Box_;
@@ -25,53 +25,53 @@ use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct Settings(Object<ffi::GSettings, ffi::GSettingsClass, SettingsClass>);
+    pub struct Settings(Object<gio_sys::GSettings, gio_sys::GSettingsClass, SettingsClass>);
 
     match fn {
-        get_type => || ffi::g_settings_get_type(),
+        get_type => || gio_sys::g_settings_get_type(),
     }
 }
 
 impl Settings {
     pub fn new(schema_id: &str) -> Settings {
         unsafe {
-            from_glib_full(ffi::g_settings_new(schema_id.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_new(schema_id.to_glib_none().0))
         }
     }
 
     pub fn new_full<P: IsA<SettingsBackend>>(schema: &SettingsSchema, backend: Option<&P>, path: Option<&str>) -> Settings {
         unsafe {
-            from_glib_full(ffi::g_settings_new_full(schema.to_glib_none().0, backend.map(|p| p.as_ref()).to_glib_none().0, path.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_new_full(schema.to_glib_none().0, backend.map(|p| p.as_ref()).to_glib_none().0, path.to_glib_none().0))
         }
     }
 
     pub fn new_with_backend<P: IsA<SettingsBackend>>(schema_id: &str, backend: &P) -> Settings {
         unsafe {
-            from_glib_full(ffi::g_settings_new_with_backend(schema_id.to_glib_none().0, backend.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_new_with_backend(schema_id.to_glib_none().0, backend.as_ref().to_glib_none().0))
         }
     }
 
     pub fn new_with_backend_and_path<P: IsA<SettingsBackend>>(schema_id: &str, backend: &P, path: &str) -> Settings {
         unsafe {
-            from_glib_full(ffi::g_settings_new_with_backend_and_path(schema_id.to_glib_none().0, backend.as_ref().to_glib_none().0, path.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_new_with_backend_and_path(schema_id.to_glib_none().0, backend.as_ref().to_glib_none().0, path.to_glib_none().0))
         }
     }
 
     pub fn new_with_path(schema_id: &str, path: &str) -> Settings {
         unsafe {
-            from_glib_full(ffi::g_settings_new_with_path(schema_id.to_glib_none().0, path.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_new_with_path(schema_id.to_glib_none().0, path.to_glib_none().0))
         }
     }
 
     pub fn sync() {
         unsafe {
-            ffi::g_settings_sync();
+            gio_sys::g_settings_sync();
         }
     }
 
     pub fn unbind<P: IsA<glib::Object>>(object: &P, property: &str) {
         unsafe {
-            ffi::g_settings_unbind(object.as_ref().to_glib_none().0, property.to_glib_none().0);
+            gio_sys::g_settings_unbind(object.as_ref().to_glib_none().0, property.to_glib_none().0);
         }
     }
 }
@@ -189,244 +189,244 @@ pub trait SettingsExt: 'static {
 impl<O: IsA<Settings>> SettingsExt for O {
     fn apply(&self) {
         unsafe {
-            ffi::g_settings_apply(self.as_ref().to_glib_none().0);
+            gio_sys::g_settings_apply(self.as_ref().to_glib_none().0);
         }
     }
 
     fn bind<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags) {
         unsafe {
-            ffi::g_settings_bind(self.as_ref().to_glib_none().0, key.to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0, flags.to_glib());
+            gio_sys::g_settings_bind(self.as_ref().to_glib_none().0, key.to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0, flags.to_glib());
         }
     }
 
     //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::Variant) -> bool, set_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::VariantType) -> glib::Variant, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_settings_bind_with_mapping() }
+    //    unsafe { TODO: call gio_sys:g_settings_bind_with_mapping() }
     //}
 
     fn bind_writable<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, inverted: bool) {
         unsafe {
-            ffi::g_settings_bind_writable(self.as_ref().to_glib_none().0, key.to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0, inverted.to_glib());
+            gio_sys::g_settings_bind_writable(self.as_ref().to_glib_none().0, key.to_glib_none().0, object.as_ref().to_glib_none().0, property.to_glib_none().0, inverted.to_glib());
         }
     }
 
     fn create_action(&self, key: &str) -> Option<Action> {
         unsafe {
-            from_glib_full(ffi::g_settings_create_action(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_create_action(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn delay(&self) {
         unsafe {
-            ffi::g_settings_delay(self.as_ref().to_glib_none().0);
+            gio_sys::g_settings_delay(self.as_ref().to_glib_none().0);
         }
     }
 
     //fn get(&self, key: &str, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-    //    unsafe { TODO: call ffi::g_settings_get() }
+    //    unsafe { TODO: call gio_sys:g_settings_get() }
     //}
 
     fn get_boolean(&self, key: &str) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_get_boolean(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib(gio_sys::g_settings_get_boolean(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn get_child(&self, name: &str) -> Option<Settings> {
         unsafe {
-            from_glib_full(ffi::g_settings_get_child(self.as_ref().to_glib_none().0, name.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_get_child(self.as_ref().to_glib_none().0, name.to_glib_none().0))
         }
     }
 
     fn get_default_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(ffi::g_settings_get_default_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_get_default_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn get_double(&self, key: &str) -> f64 {
         unsafe {
-            ffi::g_settings_get_double(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_double(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     fn get_enum(&self, key: &str) -> i32 {
         unsafe {
-            ffi::g_settings_get_enum(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_enum(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     fn get_flags(&self, key: &str) -> u32 {
         unsafe {
-            ffi::g_settings_get_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     fn get_has_unapplied(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_get_has_unapplied(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_settings_get_has_unapplied(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_int(&self, key: &str) -> i32 {
         unsafe {
-            ffi::g_settings_get_int(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_int(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn get_int64(&self, key: &str) -> i64 {
         unsafe {
-            ffi::g_settings_get_int64(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_int64(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     //fn get_mapped(&self, key: &str, mapping: /*Unimplemented*/FnMut(&glib::Variant, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-    //    unsafe { TODO: call ffi::g_settings_get_mapped() }
+    //    unsafe { TODO: call gio_sys:g_settings_get_mapped() }
     //}
 
     fn get_string(&self, key: &str) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_settings_get_string(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_get_string(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn get_strv(&self, key: &str) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_settings_get_strv(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_get_strv(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn get_uint(&self, key: &str) -> u32 {
         unsafe {
-            ffi::g_settings_get_uint(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_uint(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn get_uint64(&self, key: &str) -> u64 {
         unsafe {
-            ffi::g_settings_get_uint64(self.as_ref().to_glib_none().0, key.to_glib_none().0)
+            gio_sys::g_settings_get_uint64(self.as_ref().to_glib_none().0, key.to_glib_none().0)
         }
     }
 
     fn get_user_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(ffi::g_settings_get_user_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_get_user_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn get_value(&self, key: &str) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(ffi::g_settings_get_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_get_value(self.as_ref().to_glib_none().0, key.to_glib_none().0))
         }
     }
 
     fn is_writable(&self, name: &str) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_is_writable(self.as_ref().to_glib_none().0, name.to_glib_none().0))
+            from_glib(gio_sys::g_settings_is_writable(self.as_ref().to_glib_none().0, name.to_glib_none().0))
         }
     }
 
     fn list_children(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_children(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_list_children(self.as_ref().to_glib_none().0))
         }
     }
 
     fn list_keys(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::g_settings_list_keys(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_list_keys(self.as_ref().to_glib_none().0))
         }
     }
 
     fn reset(&self, key: &str) {
         unsafe {
-            ffi::g_settings_reset(self.as_ref().to_glib_none().0, key.to_glib_none().0);
+            gio_sys::g_settings_reset(self.as_ref().to_glib_none().0, key.to_glib_none().0);
         }
     }
 
     fn revert(&self) {
         unsafe {
-            ffi::g_settings_revert(self.as_ref().to_glib_none().0);
+            gio_sys::g_settings_revert(self.as_ref().to_glib_none().0);
         }
     }
 
     //fn set(&self, key: &str, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
-    //    unsafe { TODO: call ffi::g_settings_set() }
+    //    unsafe { TODO: call gio_sys:g_settings_set() }
     //}
 
     fn set_boolean(&self, key: &str, value: bool) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_boolean(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib()))
+            from_glib(gio_sys::g_settings_set_boolean(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib()))
         }
     }
 
     fn set_double(&self, key: &str, value: f64) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_double(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_double(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     fn set_enum(&self, key: &str, value: i32) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_enum(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_enum(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     fn set_flags(&self, key: &str, value: u32) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_flags(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     fn set_int(&self, key: &str, value: i32) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_int(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_int(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn set_int64(&self, key: &str, value: i64) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_int64(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_int64(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     fn set_string(&self, key: &str, value: &str) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_string(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
+            from_glib(gio_sys::g_settings_set_string(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
         }
     }
 
     fn set_strv(&self, key: &str, value: &[&str]) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_strv(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
+            from_glib(gio_sys::g_settings_set_strv(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
         }
     }
 
     fn set_uint(&self, key: &str, value: u32) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_uint(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_uint(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     fn set_uint64(&self, key: &str, value: u64) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_uint64(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
+            from_glib(gio_sys::g_settings_set_uint64(self.as_ref().to_glib_none().0, key.to_glib_none().0, value))
         }
     }
 
     fn set_value(&self, key: &str, value: &glib::Variant) -> bool {
         unsafe {
-            from_glib(ffi::g_settings_set_value(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
+            from_glib(gio_sys::g_settings_set_value(self.as_ref().to_glib_none().0, key.to_glib_none().0, value.to_glib_none().0))
         }
     }
 
     fn get_property_backend(&self) -> Option<SettingsBackend> {
         unsafe {
             let mut value = Value::from_type(<SettingsBackend as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"backend\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"backend\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -434,7 +434,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn get_property_delay_apply(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"delay-apply\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"delay-apply\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -442,7 +442,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn get_property_path(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"path\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"path\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -450,7 +450,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn get_property_schema_id(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"schema-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"schema-id\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -458,7 +458,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
     fn get_property_settings_schema(&self) -> Option<SettingsSchema> {
         unsafe {
             let mut value = Value::from_type(<SettingsSchema as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"settings-schema\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"settings-schema\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
@@ -508,31 +508,31 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 }
 
-unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
 where P: IsA<Settings> {
     let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
-unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut ffi::GSettings, key: libc::c_uint, f: glib_ffi::gpointer) -> glib_ffi::gboolean
+unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut gio_sys::GSettings, key: libc::c_uint, f: glib_sys::gpointer) -> glib_sys::gboolean
 where P: IsA<Settings> {
     let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), key).to_glib()
 }
 
-unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut ffi::GSettings, key: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
 where P: IsA<Settings> {
     let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
 }
 
-unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Settings> {
     let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GSettings, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Settings> {
     let f: &F = &*(f as *const F);
     f(&Settings::from_glib_borrow(this).unsafe_cast())

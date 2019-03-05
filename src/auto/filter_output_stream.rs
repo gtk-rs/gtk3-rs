@@ -3,22 +3,22 @@
 // DO NOT EDIT
 
 use OutputStream;
-use ffi;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FilterOutputStream(Object<ffi::GFilterOutputStream, ffi::GFilterOutputStreamClass, FilterOutputStreamClass>) @extends OutputStream;
+    pub struct FilterOutputStream(Object<gio_sys::GFilterOutputStream, gio_sys::GFilterOutputStreamClass, FilterOutputStreamClass>) @extends OutputStream;
 
     match fn {
-        get_type => || ffi::g_filter_output_stream_get_type(),
+        get_type => || gio_sys::g_filter_output_stream_get_type(),
     }
 }
 
@@ -37,19 +37,19 @@ pub trait FilterOutputStreamExt: 'static {
 impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
     fn get_base_stream(&self) -> Option<OutputStream> {
         unsafe {
-            from_glib_none(ffi::g_filter_output_stream_get_base_stream(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_filter_output_stream_get_base_stream(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_close_base_stream(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_filter_output_stream_get_close_base_stream(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_filter_output_stream_get_close_base_stream(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_close_base_stream(&self, close_base: bool) {
         unsafe {
-            ffi::g_filter_output_stream_set_close_base_stream(self.as_ref().to_glib_none().0, close_base.to_glib());
+            gio_sys::g_filter_output_stream_set_close_base_stream(self.as_ref().to_glib_none().0, close_base.to_glib());
         }
     }
 
@@ -62,7 +62,7 @@ impl<O: IsA<FilterOutputStream>> FilterOutputStreamExt for O {
     }
 }
 
-unsafe extern "C" fn notify_close_base_stream_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFilterOutputStream, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_close_base_stream_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFilterOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<FilterOutputStream> {
     let f: &F = &*(f as *const F);
     f(&FilterOutputStream::from_glib_borrow(this).unsafe_cast())
