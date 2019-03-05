@@ -4,36 +4,36 @@
 
 use AttrType;
 use Attribute;
-use ffi;
 use glib::translate::*;
+use pango_sys;
 use std::mem;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct AttrIterator(Boxed<ffi::PangoAttrIterator>);
+    pub struct AttrIterator(Boxed<pango_sys::PangoAttrIterator>);
 
     match fn {
-        copy => |ptr| ffi::pango_attr_iterator_copy(mut_override(ptr)),
-        free => |ptr| ffi::pango_attr_iterator_destroy(ptr),
+        copy => |ptr| pango_sys::pango_attr_iterator_copy(mut_override(ptr)),
+        free => |ptr| pango_sys::pango_attr_iterator_destroy(ptr),
     }
 }
 
 impl AttrIterator {
     pub fn get(&mut self, type_: AttrType) -> Option<Attribute> {
         unsafe {
-            from_glib_none(ffi::pango_attr_iterator_get(self.to_glib_none_mut().0, type_.to_glib()))
+            from_glib_none(pango_sys::pango_attr_iterator_get(self.to_glib_none_mut().0, type_.to_glib()))
         }
     }
 
     pub fn get_attrs(&mut self) -> Vec<Attribute> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::pango_attr_iterator_get_attrs(self.to_glib_none_mut().0))
+            FromGlibPtrContainer::from_glib_full(pango_sys::pango_attr_iterator_get_attrs(self.to_glib_none_mut().0))
         }
     }
 
     pub fn next(&mut self) -> bool {
         unsafe {
-            from_glib(ffi::pango_attr_iterator_next(self.to_glib_none_mut().0))
+            from_glib(pango_sys::pango_attr_iterator_next(self.to_glib_none_mut().0))
         }
     }
 
@@ -41,7 +41,7 @@ impl AttrIterator {
         unsafe {
             let mut start = mem::uninitialized();
             let mut end = mem::uninitialized();
-            ffi::pango_attr_iterator_range(self.to_glib_none_mut().0, &mut start, &mut end);
+            pango_sys::pango_attr_iterator_range(self.to_glib_none_mut().0, &mut start, &mut end);
             (start, end)
         }
     }

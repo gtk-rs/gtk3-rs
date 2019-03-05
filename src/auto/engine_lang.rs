@@ -2,15 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::translate::*;
+use pango_sys;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct EngineLang(Object<ffi::PangoEngineLang, ffi::PangoEngineLangClass, EngineLangClass>);
+    pub struct EngineLang(Object<pango_sys::PangoEngineLang, pango_sys::PangoEngineLangClass, EngineLangClass>);
 
     match fn {
-        get_type => || ffi::pango_engine_lang_get_type(),
+        get_type => || pango_sys::pango_engine_lang_get_type(),
     }
 }
 

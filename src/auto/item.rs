@@ -2,30 +2,30 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::translate::*;
+use pango_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Item(Boxed<ffi::PangoItem>);
+    pub struct Item(Boxed<pango_sys::PangoItem>);
 
     match fn {
-        copy => |ptr| ffi::pango_item_copy(mut_override(ptr)),
-        free => |ptr| ffi::pango_item_free(ptr),
-        get_type => || ffi::pango_item_get_type(),
+        copy => |ptr| pango_sys::pango_item_copy(mut_override(ptr)),
+        free => |ptr| pango_sys::pango_item_free(ptr),
+        get_type => || pango_sys::pango_item_get_type(),
     }
 }
 
 impl Item {
     pub fn new() -> Item {
         unsafe {
-            from_glib_full(ffi::pango_item_new())
+            from_glib_full(pango_sys::pango_item_new())
         }
     }
 
     pub fn split(&mut self, split_index: i32, split_offset: i32) -> Option<Item> {
         unsafe {
-            from_glib_full(ffi::pango_item_split(self.to_glib_none_mut().0, split_index, split_offset))
+            from_glib_full(pango_sys::pango_item_split(self.to_glib_none_mut().0, split_index, split_offset))
         }
     }
 }

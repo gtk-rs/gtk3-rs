@@ -15,53 +15,53 @@ use Stretch;
 use Style;
 use Variant;
 use Weight;
-use ffi;
 use glib;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use pango_sys;
 use std::mem;
 use std::ptr;
 
 
 //pub fn break_(text: &str, analysis: &mut Analysis, attrs: /*Ignored*/&[&LogAttr]) {
-//    unsafe { TODO: call ffi::pango_break() }
+//    unsafe { TODO: call pango_sys:pango_break() }
 //}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn config_key_get(key: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::pango_config_key_get(key.to_glib_none().0))
+        from_glib_full(pango_sys::pango_config_key_get(key.to_glib_none().0))
     }
 }
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn config_key_get_system(key: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::pango_config_key_get_system(key.to_glib_none().0))
+        from_glib_full(pango_sys::pango_config_key_get_system(key.to_glib_none().0))
     }
 }
 
 //pub fn default_break(text: &str, analysis: Option<&mut Analysis>, attrs: /*Ignored*/&mut LogAttr, attrs_len: i32) {
-//    unsafe { TODO: call ffi::pango_default_break() }
+//    unsafe { TODO: call pango_sys:pango_default_break() }
 //}
 
 pub fn extents_to_pixels(inclusive: Option<&Rectangle>, nearest: Option<&Rectangle>) {
     unsafe {
-        ffi::pango_extents_to_pixels(mut_override(inclusive.to_glib_none().0), mut_override(nearest.to_glib_none().0));
+        pango_sys::pango_extents_to_pixels(mut_override(inclusive.to_glib_none().0), mut_override(nearest.to_glib_none().0));
     }
 }
 
 pub fn find_base_dir(text: &str) -> Direction {
     let length = text.len() as i32;
     unsafe {
-        from_glib(ffi::pango_find_base_dir(text.to_glib_none().0, length))
+        from_glib(pango_sys::pango_find_base_dir(text.to_glib_none().0, length))
     }
 }
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn find_map(language: &mut Language, engine_type_id: u32, render_type_id: u32) -> /*Ignored*/Option<Map> {
-//    unsafe { TODO: call ffi::pango_find_map() }
+//    unsafe { TODO: call pango_sys:pango_find_map() }
 //}
 
 pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
@@ -69,7 +69,7 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
     unsafe {
         let mut paragraph_delimiter_index = mem::uninitialized();
         let mut next_paragraph_start = mem::uninitialized();
-        ffi::pango_find_paragraph_boundary(text.to_glib_none().0, length, &mut paragraph_delimiter_index, &mut next_paragraph_start);
+        pango_sys::pango_find_paragraph_boundary(text.to_glib_none().0, length, &mut paragraph_delimiter_index, &mut next_paragraph_start);
         (paragraph_delimiter_index, next_paragraph_start)
     }
 }
@@ -77,50 +77,50 @@ pub fn find_paragraph_boundary(text: &str) -> (i32, i32) {
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn get_lib_subdirectory() -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::pango_get_lib_subdirectory())
+        from_glib_none(pango_sys::pango_get_lib_subdirectory())
     }
 }
 
 //pub fn get_log_attrs(text: &str, level: i32, language: &mut Language, log_attrs: /*Ignored*/&[&LogAttr]) {
-//    unsafe { TODO: call ffi::pango_get_log_attrs() }
+//    unsafe { TODO: call pango_sys:pango_get_log_attrs() }
 //}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn get_sysconf_subdirectory() -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::pango_get_sysconf_subdirectory())
+        from_glib_none(pango_sys::pango_get_sysconf_subdirectory())
     }
 }
 
 pub fn is_zero_width(ch: char) -> bool {
     unsafe {
-        from_glib(ffi::pango_is_zero_width(ch.to_glib()))
+        from_glib(pango_sys::pango_is_zero_width(ch.to_glib()))
     }
 }
 
 pub fn itemize<P: IsA<Context>>(context: &P, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize(context.as_ref().to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize(context.as_ref().to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
 pub fn itemize_with_base_dir<P: IsA<Context>>(context: &P, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_itemize_with_base_dir(context.as_ref().to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize_with_base_dir(context.as_ref().to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
 //pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext) -> Result<(AttrList, GString, char), Error> {
-//    unsafe { TODO: call ffi::pango_markup_parser_finish() }
+//    unsafe { TODO: call pango_sys:pango_markup_parser_finish() }
 //}
 
 //pub fn markup_parser_new(accel_marker: char) -> /*Ignored*/Option<glib::MarkupParseContext> {
-//    unsafe { TODO: call ffi::pango_markup_parser_new() }
+//    unsafe { TODO: call pango_sys:pango_markup_parser_new() }
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn module_register(module: /*Ignored*/&mut IncludedModule) {
-//    unsafe { TODO: call ffi::pango_module_register() }
+//    unsafe { TODO: call pango_sys:pango_module_register() }
 //}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
@@ -128,7 +128,7 @@ pub fn parse_enum(type_: glib::types::Type, str: Option<&str>, warn: bool) -> Op
     unsafe {
         let mut value = mem::uninitialized();
         let mut possible_values = ptr::null_mut();
-        let ret = from_glib(ffi::pango_parse_enum(type_.to_glib(), str.to_glib_none().0, &mut value, warn.to_glib(), &mut possible_values));
+        let ret = from_glib(pango_sys::pango_parse_enum(type_.to_glib(), str.to_glib_none().0, &mut value, warn.to_glib(), &mut possible_values));
         if ret { Some((value, from_glib_full(possible_values))) } else { None }
     }
 }
@@ -140,7 +140,7 @@ pub fn parse_markup(markup_text: &str, accel_marker: char) -> Result<(AttrList, 
         let mut text = ptr::null_mut();
         let mut accel_char = mem::uninitialized();
         let mut error = ptr::null_mut();
-        let _ = ffi::pango_parse_markup(markup_text.to_glib_none().0, length, accel_marker.to_glib(), &mut attr_list, &mut text, &mut accel_char, &mut error);
+        let _ = pango_sys::pango_parse_markup(markup_text.to_glib_none().0, length, accel_marker.to_glib(), &mut attr_list, &mut text, &mut accel_char, &mut error);
         if error.is_null() { Ok((from_glib_full(attr_list), from_glib_full(text), from_glib(accel_char))) } else { Err(from_glib_full(error)) }
     }
 }
@@ -148,7 +148,7 @@ pub fn parse_markup(markup_text: &str, accel_marker: char) -> Result<(AttrList, 
 pub fn parse_stretch(str: &str, warn: bool) -> Option<Stretch> {
     unsafe {
         let mut stretch = mem::uninitialized();
-        let ret = from_glib(ffi::pango_parse_stretch(str.to_glib_none().0, &mut stretch, warn.to_glib()));
+        let ret = from_glib(pango_sys::pango_parse_stretch(str.to_glib_none().0, &mut stretch, warn.to_glib()));
         if ret { Some(from_glib(stretch)) } else { None }
     }
 }
@@ -156,7 +156,7 @@ pub fn parse_stretch(str: &str, warn: bool) -> Option<Stretch> {
 pub fn parse_style(str: &str, warn: bool) -> Option<Style> {
     unsafe {
         let mut style = mem::uninitialized();
-        let ret = from_glib(ffi::pango_parse_style(str.to_glib_none().0, &mut style, warn.to_glib()));
+        let ret = from_glib(pango_sys::pango_parse_style(str.to_glib_none().0, &mut style, warn.to_glib()));
         if ret { Some(from_glib(style)) } else { None }
     }
 }
@@ -164,7 +164,7 @@ pub fn parse_style(str: &str, warn: bool) -> Option<Style> {
 pub fn parse_variant(str: &str, warn: bool) -> Option<Variant> {
     unsafe {
         let mut variant = mem::uninitialized();
-        let ret = from_glib(ffi::pango_parse_variant(str.to_glib_none().0, &mut variant, warn.to_glib()));
+        let ret = from_glib(pango_sys::pango_parse_variant(str.to_glib_none().0, &mut variant, warn.to_glib()));
         if ret { Some(from_glib(variant)) } else { None }
     }
 }
@@ -172,95 +172,95 @@ pub fn parse_variant(str: &str, warn: bool) -> Option<Variant> {
 pub fn parse_weight(str: &str, warn: bool) -> Option<Weight> {
     unsafe {
         let mut weight = mem::uninitialized();
-        let ret = from_glib(ffi::pango_parse_weight(str.to_glib_none().0, &mut weight, warn.to_glib()));
+        let ret = from_glib(pango_sys::pango_parse_weight(str.to_glib_none().0, &mut weight, warn.to_glib()));
         if ret { Some(from_glib(weight)) } else { None }
     }
 }
 
 pub fn quantize_line_geometry(thickness: &mut i32, position: &mut i32) {
     unsafe {
-        ffi::pango_quantize_line_geometry(thickness, position);
+        pango_sys::pango_quantize_line_geometry(thickness, position);
     }
 }
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn read_line(stream: /*Unimplemented*/Option<Fundamental: Pointer>, str: /*Ignored*/glib::String) -> i32 {
-//    unsafe { TODO: call ffi::pango_read_line() }
+//    unsafe { TODO: call pango_sys:pango_read_line() }
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn scan_int(pos: /*Unimplemented*/GString) -> Option<i32> {
-//    unsafe { TODO: call ffi::pango_scan_int() }
+//    unsafe { TODO: call pango_sys:pango_scan_int() }
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn scan_string(pos: /*Unimplemented*/GString, out: /*Ignored*/glib::String) -> bool {
-//    unsafe { TODO: call ffi::pango_scan_string() }
+//    unsafe { TODO: call pango_sys:pango_scan_string() }
 //}
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn scan_word(pos: /*Unimplemented*/GString, out: /*Ignored*/glib::String) -> bool {
-//    unsafe { TODO: call ffi::pango_scan_word() }
+//    unsafe { TODO: call pango_sys:pango_scan_word() }
 //}
 
 pub fn shape(text: &str, analysis: &Analysis, glyphs: &mut GlyphString) {
     let length = text.len() as i32;
     unsafe {
-        ffi::pango_shape(text.to_glib_none().0, length, analysis.to_glib_none().0, glyphs.to_glib_none_mut().0);
+        pango_sys::pango_shape(text.to_glib_none().0, length, analysis.to_glib_none().0, glyphs.to_glib_none_mut().0);
     }
 }
 
 //#[cfg_attr(feature = "v1_38", deprecated)]
 //pub fn skip_space(pos: /*Unimplemented*/GString) -> bool {
-//    unsafe { TODO: call ffi::pango_skip_space() }
+//    unsafe { TODO: call pango_sys:pango_skip_space() }
 //}
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn split_file_list(str: &str) -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::pango_split_file_list(str.to_glib_none().0))
+        FromGlibPtrContainer::from_glib_full(pango_sys::pango_split_file_list(str.to_glib_none().0))
     }
 }
 
 #[cfg_attr(feature = "v1_38", deprecated)]
 pub fn trim_string(str: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::pango_trim_string(str.to_glib_none().0))
+        from_glib_full(pango_sys::pango_trim_string(str.to_glib_none().0))
     }
 }
 
 pub fn unichar_direction(ch: char) -> Direction {
     unsafe {
-        from_glib(ffi::pango_unichar_direction(ch.to_glib()))
+        from_glib(pango_sys::pango_unichar_direction(ch.to_glib()))
     }
 }
 
 pub fn units_from_double(d: f64) -> i32 {
     unsafe {
-        ffi::pango_units_from_double(d)
+        pango_sys::pango_units_from_double(d)
     }
 }
 
 pub fn units_to_double(i: i32) -> f64 {
     unsafe {
-        ffi::pango_units_to_double(i)
+        pango_sys::pango_units_to_double(i)
     }
 }
 
 pub fn version() -> i32 {
     unsafe {
-        ffi::pango_version()
+        pango_sys::pango_version()
     }
 }
 
 pub fn version_check(required_major: i32, required_minor: i32, required_micro: i32) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::pango_version_check(required_major, required_minor, required_micro))
+        from_glib_none(pango_sys::pango_version_check(required_major, required_minor, required_micro))
     }
 }
 
 pub fn version_string() -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::pango_version_string())
+        from_glib_none(pango_sys::pango_version_string())
     }
 }

@@ -2,19 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use EngineShape;
+use glib::translate::*;
+use pango_sys;
 use EngineLang;
+use EngineShape;
 use Font;
 use Gravity;
 use Language;
 use Script;
 
-use ffi;
-
-use glib::translate::*;
-
 #[repr(C)]
-pub struct Analysis(ffi::PangoAnalysis);
+pub struct Analysis(pango_sys::PangoAnalysis);
 
 impl Analysis {
     pub fn shape_engine(&self) -> EngineShape {
@@ -56,37 +54,37 @@ impl Analysis {
 
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const ffi::PangoAnalysis> for Analysis {
+impl<'a> ToGlibPtr<'a, *const pango_sys::PangoAnalysis> for Analysis {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::PangoAnalysis, Self> {
-        let ptr: *const ffi::PangoAnalysis = &self.0;
+    fn to_glib_none(&'a self) -> Stash<'a, *const pango_sys::PangoAnalysis, Self> {
+        let ptr: *const pango_sys::PangoAnalysis = &self.0;
         Stash(ptr, self)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut ffi::PangoAnalysis> for Analysis {
+impl<'a> ToGlibPtrMut<'a, *mut pango_sys::PangoAnalysis> for Analysis {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::PangoAnalysis, Self> {
-        let ptr: *mut ffi::PangoAnalysis = &mut self.0;
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut pango_sys::PangoAnalysis, Self> {
+        let ptr: *mut pango_sys::PangoAnalysis = &mut self.0;
         StashMut(ptr, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const ffi::PangoAnalysis> for Analysis {
-    unsafe fn from_glib_none(ptr: *const ffi::PangoAnalysis) -> Self {
+impl FromGlibPtrNone<*const pango_sys::PangoAnalysis> for Analysis {
+    unsafe fn from_glib_none(ptr: *const pango_sys::PangoAnalysis) -> Self {
         Analysis(*ptr)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut ffi::PangoAnalysis> for Analysis {
-    unsafe fn from_glib_none(ptr: *mut ffi::PangoAnalysis) -> Self {
+impl FromGlibPtrNone<*mut pango_sys::PangoAnalysis> for Analysis {
+    unsafe fn from_glib_none(ptr: *mut pango_sys::PangoAnalysis) -> Self {
         Analysis(*ptr)
     }
 }

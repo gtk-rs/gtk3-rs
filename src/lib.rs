@@ -4,9 +4,9 @@
 
 #![allow(deprecated)]
 
-extern crate pango_sys as ffi;
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
+extern crate glib_sys;
+extern crate gobject_sys;
+extern crate pango_sys;
 #[macro_use]
 extern crate glib;
 #[macro_use]
@@ -21,11 +21,11 @@ pub use glib::Error;
 #[cfg_attr(feature = "cargo-clippy", allow(useless_transmute))]
 #[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
 mod auto;
-pub use auto::*;
 pub use auto::functions::*;
+pub use auto::*;
 pub use functions::*;
 
-pub use ffi::PANGO_SCALE as SCALE;
+pub use pango_sys::PANGO_SCALE as SCALE;
 
 pub mod prelude;
 

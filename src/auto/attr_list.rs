@@ -4,36 +4,36 @@
 
 use AttrIterator;
 use Attribute;
-use ffi;
 use glib::translate::*;
+use pango_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct AttrList(Shared<ffi::PangoAttrList>);
+    pub struct AttrList(Shared<pango_sys::PangoAttrList>);
 
     match fn {
-        ref => |ptr| ffi::pango_attr_list_ref(ptr),
-        unref => |ptr| ffi::pango_attr_list_unref(ptr),
-        get_type => || ffi::pango_attr_list_get_type(),
+        ref => |ptr| pango_sys::pango_attr_list_ref(ptr),
+        unref => |ptr| pango_sys::pango_attr_list_unref(ptr),
+        get_type => || pango_sys::pango_attr_list_get_type(),
     }
 }
 
 impl AttrList {
     pub fn new() -> AttrList {
         unsafe {
-            from_glib_full(ffi::pango_attr_list_new())
+            from_glib_full(pango_sys::pango_attr_list_new())
         }
     }
 
     pub fn copy(&self) -> Option<AttrList> {
         unsafe {
-            from_glib_full(ffi::pango_attr_list_copy(self.to_glib_none().0))
+            from_glib_full(pango_sys::pango_attr_list_copy(self.to_glib_none().0))
         }
     }
 
     pub fn filter<P: FnMut(&Attribute) -> bool>(&self, func: P) -> Option<AttrList> {
         let func_data: P = func;
-        unsafe extern "C" fn func_func<P: FnMut(&Attribute) -> bool>(attribute: *mut ffi::PangoAttribute, user_data: glib_ffi::gpointer) -> glib_ffi::gboolean {
+        unsafe extern "C" fn func_func<P: FnMut(&Attribute) -> bool>(attribute: *mut pango_sys::PangoAttribute, user_data: glib_sys::gpointer) -> glib_sys::gboolean {
             let attribute = from_glib_borrow(attribute);
             let callback: *mut P = user_data as *const _ as usize as *mut P;
             let res = (*callback)(&attribute);
@@ -42,19 +42,19 @@ impl AttrList {
         let func = Some(func_func::<P> as _);
         let super_callback0: &P = &func_data;
         unsafe {
-            from_glib_full(ffi::pango_attr_list_filter(self.to_glib_none().0, func, super_callback0 as *const _ as usize as *mut _))
+            from_glib_full(pango_sys::pango_attr_list_filter(self.to_glib_none().0, func, super_callback0 as *const _ as usize as *mut _))
         }
     }
 
     pub fn get_iterator(&self) -> Option<AttrIterator> {
         unsafe {
-            from_glib_full(ffi::pango_attr_list_get_iterator(self.to_glib_none().0))
+            from_glib_full(pango_sys::pango_attr_list_get_iterator(self.to_glib_none().0))
         }
     }
 
     pub fn splice(&self, other: &AttrList, pos: i32, len: i32) {
         unsafe {
-            ffi::pango_attr_list_splice(self.to_glib_none().0, other.to_glib_none().0, pos, len);
+            pango_sys::pango_attr_list_splice(self.to_glib_none().0, other.to_glib_none().0, pos, len);
         }
     }
 }

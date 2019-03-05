@@ -3,13 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use glib::translate::*;
-use ffi;
+use pango_sys;
 use FontDescription;
 
 impl FontDescription {
     pub fn set_family_static(&mut self, family: &'static str) {
         unsafe {
-            ffi::pango_font_description_set_family_static(self.to_glib_none_mut().0, family.to_glib_none().0);
+            pango_sys::pango_font_description_set_family_static(self.to_glib_none_mut().0, family.to_glib_none().0);
         }
     }
 }

@@ -2,32 +2,32 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::GString;
 use glib::translate::*;
+use pango_sys;
 use std::fmt;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Color(Boxed<ffi::PangoColor>);
+    pub struct Color(Boxed<pango_sys::PangoColor>);
 
     match fn {
-        copy => |ptr| ffi::pango_color_copy(mut_override(ptr)),
-        free => |ptr| ffi::pango_color_free(ptr),
-        get_type => || ffi::pango_color_get_type(),
+        copy => |ptr| pango_sys::pango_color_copy(mut_override(ptr)),
+        free => |ptr| pango_sys::pango_color_free(ptr),
+        get_type => || pango_sys::pango_color_get_type(),
     }
 }
 
 impl Color {
     pub fn parse(&mut self, spec: &str) -> bool {
         unsafe {
-            from_glib(ffi::pango_color_parse(self.to_glib_none_mut().0, spec.to_glib_none().0))
+            from_glib(pango_sys::pango_color_parse(self.to_glib_none_mut().0, spec.to_glib_none().0))
         }
     }
 
     fn to_string(&self) -> GString {
         unsafe {
-            from_glib_full(ffi::pango_color_to_string(self.to_glib_none().0))
+            from_glib_full(pango_sys::pango_color_to_string(self.to_glib_none().0))
         }
     }
 }

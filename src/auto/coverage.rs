@@ -3,43 +3,43 @@
 // DO NOT EDIT
 
 use CoverageLevel;
-use ffi;
 use glib::translate::*;
+use pango_sys;
 use std::mem;
 use std::ptr;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Coverage(Shared<ffi::PangoCoverage>);
+    pub struct Coverage(Shared<pango_sys::PangoCoverage>);
 
     match fn {
-        ref => |ptr| ffi::pango_coverage_ref(ptr),
-        unref => |ptr| ffi::pango_coverage_unref(ptr),
+        ref => |ptr| pango_sys::pango_coverage_ref(ptr),
+        unref => |ptr| pango_sys::pango_coverage_unref(ptr),
     }
 }
 
 impl Coverage {
     pub fn copy(&self) -> Option<Coverage> {
         unsafe {
-            from_glib_full(ffi::pango_coverage_copy(self.to_glib_none().0))
+            from_glib_full(pango_sys::pango_coverage_copy(self.to_glib_none().0))
         }
     }
 
     pub fn get(&self, index_: i32) -> CoverageLevel {
         unsafe {
-            from_glib(ffi::pango_coverage_get(self.to_glib_none().0, index_))
+            from_glib(pango_sys::pango_coverage_get(self.to_glib_none().0, index_))
         }
     }
 
     pub fn max(&self, other: &Coverage) {
         unsafe {
-            ffi::pango_coverage_max(self.to_glib_none().0, other.to_glib_none().0);
+            pango_sys::pango_coverage_max(self.to_glib_none().0, other.to_glib_none().0);
         }
     }
 
     pub fn set(&self, index_: i32, level: CoverageLevel) {
         unsafe {
-            ffi::pango_coverage_set(self.to_glib_none().0, index_, level.to_glib());
+            pango_sys::pango_coverage_set(self.to_glib_none().0, index_, level.to_glib());
         }
     }
 
@@ -47,7 +47,7 @@ impl Coverage {
         unsafe {
             let mut bytes = ptr::null_mut();
             let mut n_bytes = mem::uninitialized();
-            ffi::pango_coverage_to_bytes(self.to_glib_none().0, &mut bytes, &mut n_bytes);
+            pango_sys::pango_coverage_to_bytes(self.to_glib_none().0, &mut bytes, &mut n_bytes);
             FromGlibContainer::from_glib_full_num(bytes, n_bytes as usize)
         }
     }
@@ -55,13 +55,13 @@ impl Coverage {
     pub fn from_bytes(bytes: &[u8]) -> Option<Coverage> {
         let n_bytes = bytes.len() as i32;
         unsafe {
-            from_glib_full(ffi::pango_coverage_from_bytes(bytes.to_glib_none().0, n_bytes))
+            from_glib_full(pango_sys::pango_coverage_from_bytes(bytes.to_glib_none().0, n_bytes))
         }
     }
 
     pub fn new() -> Coverage {
         unsafe {
-            from_glib_none(ffi::pango_coverage_new())
+            from_glib_none(pango_sys::pango_coverage_new())
         }
     }
 }
