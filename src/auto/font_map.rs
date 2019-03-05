@@ -2,24 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::object::IsA;
 use glib::translate::*;
 use pango;
+use pango_cairo_sys;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct FontMap(Interface<ffi::PangoCairoFontMap>) @requires pango::FontMap;
+    pub struct FontMap(Interface<pango_cairo_sys::PangoCairoFontMap>) @requires pango::FontMap;
 
     match fn {
-        get_type => || ffi::pango_cairo_font_map_get_type(),
+        get_type => || pango_cairo_sys::pango_cairo_font_map_get_type(),
     }
 }
 
 impl FontMap {
     pub fn get_default() -> Option<pango::FontMap> {
         unsafe {
-            from_glib_none(ffi::pango_cairo_font_map_get_default())
+            from_glib_none(pango_cairo_sys::pango_cairo_font_map_get_default())
         }
     }
 }
@@ -37,19 +37,19 @@ pub trait FontMapExt: 'static {
 impl<O: IsA<FontMap>> FontMapExt for O {
     fn get_resolution(&self) -> f64 {
         unsafe {
-            ffi::pango_cairo_font_map_get_resolution(self.as_ref().to_glib_none().0)
+            pango_cairo_sys::pango_cairo_font_map_get_resolution(self.as_ref().to_glib_none().0)
         }
     }
 
     fn set_default(&self) {
         unsafe {
-            ffi::pango_cairo_font_map_set_default(self.as_ref().to_glib_none().0);
+            pango_cairo_sys::pango_cairo_font_map_set_default(self.as_ref().to_glib_none().0);
         }
     }
 
     fn set_resolution(&self, dpi: f64) {
         unsafe {
-            ffi::pango_cairo_font_map_set_resolution(self.as_ref().to_glib_none().0, dpi);
+            pango_cairo_sys::pango_cairo_font_map_set_resolution(self.as_ref().to_glib_none().0, dpi);
         }
     }
 }
