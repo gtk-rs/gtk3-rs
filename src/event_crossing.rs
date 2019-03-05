@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventCrossing(::Event);
 
 event_wrapper!(EventCrossing, GdkEventCrossing);
-event_subtype!(EventCrossing, ffi::GDK_ENTER_NOTIFY | ffi::GDK_LEAVE_NOTIFY);
+event_subtype!(EventCrossing, gdk_sys::GDK_ENTER_NOTIFY | gdk_sys::GDK_LEAVE_NOTIFY);
 
 impl EventCrossing {
     pub fn get_position(&self) -> (f64, f64) {

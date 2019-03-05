@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use std::ptr;
 use std::slice;
-use ffi;
 use Visual;
 
 impl Visual {
@@ -14,7 +14,7 @@ impl Visual {
         let mut count = 0;
 
         unsafe {
-            ffi::gdk_query_depths(&mut ptr, &mut count);
+            gdk_sys::gdk_query_depths(&mut ptr, &mut count);
             Vec::from(
                 slice::from_raw_parts(ptr as *const i32, count as usize))
         }

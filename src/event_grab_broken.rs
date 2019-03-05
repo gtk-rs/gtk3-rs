@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventGrabBroken(::Event);
 
 event_wrapper!(EventGrabBroken, GdkEventGrabBroken);
-event_subtype!(EventGrabBroken, ffi::GDK_GRAB_BROKEN);
+event_subtype!(EventGrabBroken, gdk_sys::GDK_GRAB_BROKEN);
 
 impl EventGrabBroken {
     pub fn is_keyboard(&self) -> bool {

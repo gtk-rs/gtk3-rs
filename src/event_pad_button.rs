@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventPadButton(::Event);
 
 event_wrapper!(EventPadButton, GdkEventPadButton);
-event_subtype!(EventPadButton, ffi::GDK_PAD_BUTTON_PRESS | ffi::GDK_PAD_BUTTON_RELEASE);
+event_subtype!(EventPadButton, gdk_sys::GDK_PAD_BUTTON_PRESS | gdk_sys::GDK_PAD_BUTTON_RELEASE);
 
 impl EventPadButton {
     pub fn get_time(&self) -> u32 {

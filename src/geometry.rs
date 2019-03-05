@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi;
+use gdk_sys;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use Gravity;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -24,47 +24,47 @@ pub struct Geometry {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const ffi::GdkGeometry> for Geometry {
+impl<'a> ToGlibPtr<'a, *const gdk_sys::GdkGeometry> for Geometry {
     type Storage = &'a Self;
 
     #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *const ffi::GdkGeometry, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const gdk_sys::GdkGeometry, Self> {
         let ptr: *const Geometry = &*self;
-        Stash(ptr as *const ffi::GdkGeometry, self)
+        Stash(ptr as *const gdk_sys::GdkGeometry, self)
     }
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut ffi::GdkGeometry> for Geometry {
+impl<'a> ToGlibPtrMut<'a, *mut gdk_sys::GdkGeometry> for Geometry {
     type Storage = &'a mut Self;
 
     #[inline]
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut ffi::GdkGeometry, Self> {
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut gdk_sys::GdkGeometry, Self> {
         let ptr: *mut Geometry = &mut *self;
-        StashMut(ptr as *mut ffi::GdkGeometry, self)
+        StashMut(ptr as *mut gdk_sys::GdkGeometry, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const ffi::GdkGeometry> for Geometry {
-    unsafe fn from_glib_none(ptr: *const ffi::GdkGeometry) -> Self {
+impl FromGlibPtrNone<*const gdk_sys::GdkGeometry> for Geometry {
+    unsafe fn from_glib_none(ptr: *const gdk_sys::GdkGeometry) -> Self {
         *(ptr as *const Geometry)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*mut ffi::GdkGeometry> for Geometry {
-    unsafe fn from_glib_none(ptr: *mut ffi::GdkGeometry) -> Self {
+impl FromGlibPtrNone<*mut gdk_sys::GdkGeometry> for Geometry {
+    unsafe fn from_glib_none(ptr: *mut gdk_sys::GdkGeometry) -> Self {
         *(ptr as *mut Geometry)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*mut ffi::GdkGeometry> for Geometry {
+impl FromGlibPtrFull<*mut gdk_sys::GdkGeometry> for Geometry {
     #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::GdkGeometry) -> Self {
+    unsafe fn from_glib_full(ptr: *mut gdk_sys::GdkGeometry) -> Self {
         let geom = *(ptr as *mut Geometry);
-        glib_ffi::g_free(ptr as *mut _);
+        glib_sys::g_free(ptr as *mut _);
         geom
     }
 }

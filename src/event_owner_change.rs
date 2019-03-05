@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventOwnerChange(::Event);
 
 event_wrapper!(EventOwnerChange, GdkEventOwnerChange);
-event_subtype!(EventOwnerChange, ffi::GDK_OWNER_CHANGE);
+event_subtype!(EventOwnerChange, gdk_sys::GDK_OWNER_CHANGE);
 
 impl EventOwnerChange {
     pub fn get_owner(&self) -> Option<::Window> {

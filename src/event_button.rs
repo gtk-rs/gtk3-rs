@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventButton(::Event);
 
 event_wrapper!(EventButton, GdkEventButton);
-event_subtype!(EventButton, ffi::GDK_BUTTON_PRESS | ffi::GDK_DOUBLE_BUTTON_PRESS | ffi::GDK_TRIPLE_BUTTON_PRESS | ffi::GDK_BUTTON_RELEASE);
+event_subtype!(EventButton, gdk_sys::GDK_BUTTON_PRESS | gdk_sys::GDK_DOUBLE_BUTTON_PRESS | gdk_sys::GDK_TRIPLE_BUTTON_PRESS | gdk_sys::GDK_BUTTON_RELEASE);
 
 impl EventButton {
     pub fn get_position(&self) -> (f64, f64) {
