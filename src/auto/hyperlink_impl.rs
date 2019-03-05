@@ -3,16 +3,16 @@
 // DO NOT EDIT
 
 use Hyperlink;
-use ffi;
+use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct HyperlinkImpl(Interface<ffi::AtkHyperlinkImpl>);
+    pub struct HyperlinkImpl(Interface<atk_sys::AtkHyperlinkImpl>);
 
     match fn {
-        get_type => || ffi::atk_hyperlink_impl_get_type(),
+        get_type => || atk_sys::atk_hyperlink_impl_get_type(),
     }
 }
 
@@ -25,7 +25,7 @@ pub trait HyperlinkImplExt: 'static {
 impl<O: IsA<HyperlinkImpl>> HyperlinkImplExt for O {
     fn get_hyperlink(&self) -> Option<Hyperlink> {
         unsafe {
-            from_glib_full(ffi::atk_hyperlink_impl_get_hyperlink(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_hyperlink_impl_get_hyperlink(self.as_ref().to_glib_none().0))
         }
     }
 }

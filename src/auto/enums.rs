@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use atk_sys;
 use glib::StaticType;
 use glib::Type;
 use glib::translate::*;
@@ -10,7 +10,7 @@ use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
-use gobject_ffi;
+use gobject_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -36,21 +36,21 @@ impl fmt::Display for CoordType {
 
 #[doc(hidden)]
 impl ToGlib for CoordType {
-    type GlibType = ffi::AtkCoordType;
+    type GlibType = atk_sys::AtkCoordType;
 
-    fn to_glib(&self) -> ffi::AtkCoordType {
+    fn to_glib(&self) -> atk_sys::AtkCoordType {
         match *self {
-            CoordType::Screen => ffi::ATK_XY_SCREEN,
-            CoordType::Window => ffi::ATK_XY_WINDOW,
-            CoordType::Parent => ffi::ATK_XY_PARENT,
+            CoordType::Screen => atk_sys::ATK_XY_SCREEN,
+            CoordType::Window => atk_sys::ATK_XY_WINDOW,
+            CoordType::Parent => atk_sys::ATK_XY_PARENT,
             CoordType::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkCoordType> for CoordType {
-    fn from_glib(value: ffi::AtkCoordType) -> Self {
+impl FromGlib<atk_sys::AtkCoordType> for CoordType {
+    fn from_glib(value: atk_sys::AtkCoordType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => CoordType::Screen,
@@ -63,7 +63,7 @@ impl FromGlib<ffi::AtkCoordType> for CoordType {
 
 impl StaticType for CoordType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_coord_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_coord_type_get_type()) }
     }
 }
 
@@ -75,13 +75,13 @@ impl<'a> FromValueOptional<'a> for CoordType {
 
 impl<'a> FromValue<'a> for CoordType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for CoordType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -118,26 +118,26 @@ impl fmt::Display for Layer {
 
 #[doc(hidden)]
 impl ToGlib for Layer {
-    type GlibType = ffi::AtkLayer;
+    type GlibType = atk_sys::AtkLayer;
 
-    fn to_glib(&self) -> ffi::AtkLayer {
+    fn to_glib(&self) -> atk_sys::AtkLayer {
         match *self {
-            Layer::Invalid => ffi::ATK_LAYER_INVALID,
-            Layer::Background => ffi::ATK_LAYER_BACKGROUND,
-            Layer::Canvas => ffi::ATK_LAYER_CANVAS,
-            Layer::Widget => ffi::ATK_LAYER_WIDGET,
-            Layer::Mdi => ffi::ATK_LAYER_MDI,
-            Layer::Popup => ffi::ATK_LAYER_POPUP,
-            Layer::Overlay => ffi::ATK_LAYER_OVERLAY,
-            Layer::Window => ffi::ATK_LAYER_WINDOW,
+            Layer::Invalid => atk_sys::ATK_LAYER_INVALID,
+            Layer::Background => atk_sys::ATK_LAYER_BACKGROUND,
+            Layer::Canvas => atk_sys::ATK_LAYER_CANVAS,
+            Layer::Widget => atk_sys::ATK_LAYER_WIDGET,
+            Layer::Mdi => atk_sys::ATK_LAYER_MDI,
+            Layer::Popup => atk_sys::ATK_LAYER_POPUP,
+            Layer::Overlay => atk_sys::ATK_LAYER_OVERLAY,
+            Layer::Window => atk_sys::ATK_LAYER_WINDOW,
             Layer::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkLayer> for Layer {
-    fn from_glib(value: ffi::AtkLayer) -> Self {
+impl FromGlib<atk_sys::AtkLayer> for Layer {
+    fn from_glib(value: atk_sys::AtkLayer) -> Self {
         skip_assert_initialized!();
         match value {
             0 => Layer::Invalid,
@@ -155,7 +155,7 @@ impl FromGlib<ffi::AtkLayer> for Layer {
 
 impl StaticType for Layer {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_layer_get_type()) }
+        unsafe { from_glib(atk_sys::atk_layer_get_type()) }
     }
 }
 
@@ -167,13 +167,13 @@ impl<'a> FromValueOptional<'a> for Layer {
 
 impl<'a> FromValue<'a> for Layer {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for Layer {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -238,40 +238,40 @@ impl fmt::Display for RelationType {
 
 #[doc(hidden)]
 impl ToGlib for RelationType {
-    type GlibType = ffi::AtkRelationType;
+    type GlibType = atk_sys::AtkRelationType;
 
-    fn to_glib(&self) -> ffi::AtkRelationType {
+    fn to_glib(&self) -> atk_sys::AtkRelationType {
         match *self {
-            RelationType::Null => ffi::ATK_RELATION_NULL,
-            RelationType::ControlledBy => ffi::ATK_RELATION_CONTROLLED_BY,
-            RelationType::ControllerFor => ffi::ATK_RELATION_CONTROLLER_FOR,
-            RelationType::LabelFor => ffi::ATK_RELATION_LABEL_FOR,
-            RelationType::LabelledBy => ffi::ATK_RELATION_LABELLED_BY,
-            RelationType::MemberOf => ffi::ATK_RELATION_MEMBER_OF,
-            RelationType::NodeChildOf => ffi::ATK_RELATION_NODE_CHILD_OF,
-            RelationType::FlowsTo => ffi::ATK_RELATION_FLOWS_TO,
-            RelationType::FlowsFrom => ffi::ATK_RELATION_FLOWS_FROM,
-            RelationType::SubwindowOf => ffi::ATK_RELATION_SUBWINDOW_OF,
-            RelationType::Embeds => ffi::ATK_RELATION_EMBEDS,
-            RelationType::EmbeddedBy => ffi::ATK_RELATION_EMBEDDED_BY,
-            RelationType::PopupFor => ffi::ATK_RELATION_POPUP_FOR,
-            RelationType::ParentWindowOf => ffi::ATK_RELATION_PARENT_WINDOW_OF,
-            RelationType::DescribedBy => ffi::ATK_RELATION_DESCRIBED_BY,
-            RelationType::DescriptionFor => ffi::ATK_RELATION_DESCRIPTION_FOR,
-            RelationType::NodeParentOf => ffi::ATK_RELATION_NODE_PARENT_OF,
-            RelationType::Details => ffi::ATK_RELATION_DETAILS,
-            RelationType::DetailsFor => ffi::ATK_RELATION_DETAILS_FOR,
-            RelationType::ErrorMessage => ffi::ATK_RELATION_ERROR_MESSAGE,
-            RelationType::ErrorFor => ffi::ATK_RELATION_ERROR_FOR,
-            RelationType::LastDefined => ffi::ATK_RELATION_LAST_DEFINED,
+            RelationType::Null => atk_sys::ATK_RELATION_NULL,
+            RelationType::ControlledBy => atk_sys::ATK_RELATION_CONTROLLED_BY,
+            RelationType::ControllerFor => atk_sys::ATK_RELATION_CONTROLLER_FOR,
+            RelationType::LabelFor => atk_sys::ATK_RELATION_LABEL_FOR,
+            RelationType::LabelledBy => atk_sys::ATK_RELATION_LABELLED_BY,
+            RelationType::MemberOf => atk_sys::ATK_RELATION_MEMBER_OF,
+            RelationType::NodeChildOf => atk_sys::ATK_RELATION_NODE_CHILD_OF,
+            RelationType::FlowsTo => atk_sys::ATK_RELATION_FLOWS_TO,
+            RelationType::FlowsFrom => atk_sys::ATK_RELATION_FLOWS_FROM,
+            RelationType::SubwindowOf => atk_sys::ATK_RELATION_SUBWINDOW_OF,
+            RelationType::Embeds => atk_sys::ATK_RELATION_EMBEDS,
+            RelationType::EmbeddedBy => atk_sys::ATK_RELATION_EMBEDDED_BY,
+            RelationType::PopupFor => atk_sys::ATK_RELATION_POPUP_FOR,
+            RelationType::ParentWindowOf => atk_sys::ATK_RELATION_PARENT_WINDOW_OF,
+            RelationType::DescribedBy => atk_sys::ATK_RELATION_DESCRIBED_BY,
+            RelationType::DescriptionFor => atk_sys::ATK_RELATION_DESCRIPTION_FOR,
+            RelationType::NodeParentOf => atk_sys::ATK_RELATION_NODE_PARENT_OF,
+            RelationType::Details => atk_sys::ATK_RELATION_DETAILS,
+            RelationType::DetailsFor => atk_sys::ATK_RELATION_DETAILS_FOR,
+            RelationType::ErrorMessage => atk_sys::ATK_RELATION_ERROR_MESSAGE,
+            RelationType::ErrorFor => atk_sys::ATK_RELATION_ERROR_FOR,
+            RelationType::LastDefined => atk_sys::ATK_RELATION_LAST_DEFINED,
             RelationType::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkRelationType> for RelationType {
-    fn from_glib(value: ffi::AtkRelationType) -> Self {
+impl FromGlib<atk_sys::AtkRelationType> for RelationType {
+    fn from_glib(value: atk_sys::AtkRelationType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => RelationType::Null,
@@ -303,7 +303,7 @@ impl FromGlib<ffi::AtkRelationType> for RelationType {
 
 impl StaticType for RelationType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_relation_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_relation_type_get_type()) }
     }
 }
 
@@ -315,13 +315,13 @@ impl<'a> FromValueOptional<'a> for RelationType {
 
 impl<'a> FromValue<'a> for RelationType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for RelationType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -590,142 +590,142 @@ impl fmt::Display for Role {
 
 #[doc(hidden)]
 impl ToGlib for Role {
-    type GlibType = ffi::AtkRole;
+    type GlibType = atk_sys::AtkRole;
 
-    fn to_glib(&self) -> ffi::AtkRole {
+    fn to_glib(&self) -> atk_sys::AtkRole {
         match *self {
-            Role::Invalid => ffi::ATK_ROLE_INVALID,
-            Role::AcceleratorLabel => ffi::ATK_ROLE_ACCEL_LABEL,
-            Role::Alert => ffi::ATK_ROLE_ALERT,
-            Role::Animation => ffi::ATK_ROLE_ANIMATION,
-            Role::Arrow => ffi::ATK_ROLE_ARROW,
-            Role::Calendar => ffi::ATK_ROLE_CALENDAR,
-            Role::Canvas => ffi::ATK_ROLE_CANVAS,
-            Role::CheckBox => ffi::ATK_ROLE_CHECK_BOX,
-            Role::CheckMenuItem => ffi::ATK_ROLE_CHECK_MENU_ITEM,
-            Role::ColorChooser => ffi::ATK_ROLE_COLOR_CHOOSER,
-            Role::ColumnHeader => ffi::ATK_ROLE_COLUMN_HEADER,
-            Role::ComboBox => ffi::ATK_ROLE_COMBO_BOX,
-            Role::DateEditor => ffi::ATK_ROLE_DATE_EDITOR,
-            Role::DesktopIcon => ffi::ATK_ROLE_DESKTOP_ICON,
-            Role::DesktopFrame => ffi::ATK_ROLE_DESKTOP_FRAME,
-            Role::Dial => ffi::ATK_ROLE_DIAL,
-            Role::Dialog => ffi::ATK_ROLE_DIALOG,
-            Role::DirectoryPane => ffi::ATK_ROLE_DIRECTORY_PANE,
-            Role::DrawingArea => ffi::ATK_ROLE_DRAWING_AREA,
-            Role::FileChooser => ffi::ATK_ROLE_FILE_CHOOSER,
-            Role::Filler => ffi::ATK_ROLE_FILLER,
-            Role::FontChooser => ffi::ATK_ROLE_FONT_CHOOSER,
-            Role::Frame => ffi::ATK_ROLE_FRAME,
-            Role::GlassPane => ffi::ATK_ROLE_GLASS_PANE,
-            Role::HtmlContainer => ffi::ATK_ROLE_HTML_CONTAINER,
-            Role::Icon => ffi::ATK_ROLE_ICON,
-            Role::Image => ffi::ATK_ROLE_IMAGE,
-            Role::InternalFrame => ffi::ATK_ROLE_INTERNAL_FRAME,
-            Role::Label => ffi::ATK_ROLE_LABEL,
-            Role::LayeredPane => ffi::ATK_ROLE_LAYERED_PANE,
-            Role::List => ffi::ATK_ROLE_LIST,
-            Role::ListItem => ffi::ATK_ROLE_LIST_ITEM,
-            Role::Menu => ffi::ATK_ROLE_MENU,
-            Role::MenuBar => ffi::ATK_ROLE_MENU_BAR,
-            Role::MenuItem => ffi::ATK_ROLE_MENU_ITEM,
-            Role::OptionPane => ffi::ATK_ROLE_OPTION_PANE,
-            Role::PageTab => ffi::ATK_ROLE_PAGE_TAB,
-            Role::PageTabList => ffi::ATK_ROLE_PAGE_TAB_LIST,
-            Role::Panel => ffi::ATK_ROLE_PANEL,
-            Role::PasswordText => ffi::ATK_ROLE_PASSWORD_TEXT,
-            Role::PopupMenu => ffi::ATK_ROLE_POPUP_MENU,
-            Role::ProgressBar => ffi::ATK_ROLE_PROGRESS_BAR,
-            Role::PushButton => ffi::ATK_ROLE_PUSH_BUTTON,
-            Role::RadioButton => ffi::ATK_ROLE_RADIO_BUTTON,
-            Role::RadioMenuItem => ffi::ATK_ROLE_RADIO_MENU_ITEM,
-            Role::RootPane => ffi::ATK_ROLE_ROOT_PANE,
-            Role::RowHeader => ffi::ATK_ROLE_ROW_HEADER,
-            Role::ScrollBar => ffi::ATK_ROLE_SCROLL_BAR,
-            Role::ScrollPane => ffi::ATK_ROLE_SCROLL_PANE,
-            Role::Separator => ffi::ATK_ROLE_SEPARATOR,
-            Role::Slider => ffi::ATK_ROLE_SLIDER,
-            Role::SplitPane => ffi::ATK_ROLE_SPLIT_PANE,
-            Role::SpinButton => ffi::ATK_ROLE_SPIN_BUTTON,
-            Role::Statusbar => ffi::ATK_ROLE_STATUSBAR,
-            Role::Table => ffi::ATK_ROLE_TABLE,
-            Role::TableCell => ffi::ATK_ROLE_TABLE_CELL,
-            Role::TableColumnHeader => ffi::ATK_ROLE_TABLE_COLUMN_HEADER,
-            Role::TableRowHeader => ffi::ATK_ROLE_TABLE_ROW_HEADER,
-            Role::TearOffMenuItem => ffi::ATK_ROLE_TEAR_OFF_MENU_ITEM,
-            Role::Terminal => ffi::ATK_ROLE_TERMINAL,
-            Role::Text => ffi::ATK_ROLE_TEXT,
-            Role::ToggleButton => ffi::ATK_ROLE_TOGGLE_BUTTON,
-            Role::ToolBar => ffi::ATK_ROLE_TOOL_BAR,
-            Role::ToolTip => ffi::ATK_ROLE_TOOL_TIP,
-            Role::Tree => ffi::ATK_ROLE_TREE,
-            Role::TreeTable => ffi::ATK_ROLE_TREE_TABLE,
-            Role::Unknown => ffi::ATK_ROLE_UNKNOWN,
-            Role::Viewport => ffi::ATK_ROLE_VIEWPORT,
-            Role::Window => ffi::ATK_ROLE_WINDOW,
-            Role::Header => ffi::ATK_ROLE_HEADER,
-            Role::Footer => ffi::ATK_ROLE_FOOTER,
-            Role::Paragraph => ffi::ATK_ROLE_PARAGRAPH,
-            Role::Ruler => ffi::ATK_ROLE_RULER,
-            Role::Application => ffi::ATK_ROLE_APPLICATION,
-            Role::Autocomplete => ffi::ATK_ROLE_AUTOCOMPLETE,
-            Role::EditBar => ffi::ATK_ROLE_EDITBAR,
-            Role::Embedded => ffi::ATK_ROLE_EMBEDDED,
-            Role::Entry => ffi::ATK_ROLE_ENTRY,
-            Role::Chart => ffi::ATK_ROLE_CHART,
-            Role::Caption => ffi::ATK_ROLE_CAPTION,
-            Role::DocumentFrame => ffi::ATK_ROLE_DOCUMENT_FRAME,
-            Role::Heading => ffi::ATK_ROLE_HEADING,
-            Role::Page => ffi::ATK_ROLE_PAGE,
-            Role::Section => ffi::ATK_ROLE_SECTION,
-            Role::RedundantObject => ffi::ATK_ROLE_REDUNDANT_OBJECT,
-            Role::Form => ffi::ATK_ROLE_FORM,
-            Role::Link => ffi::ATK_ROLE_LINK,
-            Role::InputMethodWindow => ffi::ATK_ROLE_INPUT_METHOD_WINDOW,
-            Role::TableRow => ffi::ATK_ROLE_TABLE_ROW,
-            Role::TreeItem => ffi::ATK_ROLE_TREE_ITEM,
-            Role::DocumentSpreadsheet => ffi::ATK_ROLE_DOCUMENT_SPREADSHEET,
-            Role::DocumentPresentation => ffi::ATK_ROLE_DOCUMENT_PRESENTATION,
-            Role::DocumentText => ffi::ATK_ROLE_DOCUMENT_TEXT,
-            Role::DocumentWeb => ffi::ATK_ROLE_DOCUMENT_WEB,
-            Role::DocumentEmail => ffi::ATK_ROLE_DOCUMENT_EMAIL,
-            Role::Comment => ffi::ATK_ROLE_COMMENT,
-            Role::ListBox => ffi::ATK_ROLE_LIST_BOX,
-            Role::Grouping => ffi::ATK_ROLE_GROUPING,
-            Role::ImageMap => ffi::ATK_ROLE_IMAGE_MAP,
-            Role::Notification => ffi::ATK_ROLE_NOTIFICATION,
-            Role::InfoBar => ffi::ATK_ROLE_INFO_BAR,
-            Role::LevelBar => ffi::ATK_ROLE_LEVEL_BAR,
-            Role::TitleBar => ffi::ATK_ROLE_TITLE_BAR,
-            Role::BlockQuote => ffi::ATK_ROLE_BLOCK_QUOTE,
-            Role::Audio => ffi::ATK_ROLE_AUDIO,
-            Role::Video => ffi::ATK_ROLE_VIDEO,
-            Role::Definition => ffi::ATK_ROLE_DEFINITION,
-            Role::Article => ffi::ATK_ROLE_ARTICLE,
-            Role::Landmark => ffi::ATK_ROLE_LANDMARK,
-            Role::Log => ffi::ATK_ROLE_LOG,
-            Role::Marquee => ffi::ATK_ROLE_MARQUEE,
-            Role::Math => ffi::ATK_ROLE_MATH,
-            Role::Rating => ffi::ATK_ROLE_RATING,
-            Role::Timer => ffi::ATK_ROLE_TIMER,
-            Role::DescriptionList => ffi::ATK_ROLE_DESCRIPTION_LIST,
-            Role::DescriptionTerm => ffi::ATK_ROLE_DESCRIPTION_TERM,
-            Role::DescriptionValue => ffi::ATK_ROLE_DESCRIPTION_VALUE,
-            Role::Static => ffi::ATK_ROLE_STATIC,
-            Role::MathFraction => ffi::ATK_ROLE_MATH_FRACTION,
-            Role::MathRoot => ffi::ATK_ROLE_MATH_ROOT,
-            Role::Subscript => ffi::ATK_ROLE_SUBSCRIPT,
-            Role::Superscript => ffi::ATK_ROLE_SUPERSCRIPT,
-            Role::Footnote => ffi::ATK_ROLE_FOOTNOTE,
-            Role::LastDefined => ffi::ATK_ROLE_LAST_DEFINED,
+            Role::Invalid => atk_sys::ATK_ROLE_INVALID,
+            Role::AcceleratorLabel => atk_sys::ATK_ROLE_ACCEL_LABEL,
+            Role::Alert => atk_sys::ATK_ROLE_ALERT,
+            Role::Animation => atk_sys::ATK_ROLE_ANIMATION,
+            Role::Arrow => atk_sys::ATK_ROLE_ARROW,
+            Role::Calendar => atk_sys::ATK_ROLE_CALENDAR,
+            Role::Canvas => atk_sys::ATK_ROLE_CANVAS,
+            Role::CheckBox => atk_sys::ATK_ROLE_CHECK_BOX,
+            Role::CheckMenuItem => atk_sys::ATK_ROLE_CHECK_MENU_ITEM,
+            Role::ColorChooser => atk_sys::ATK_ROLE_COLOR_CHOOSER,
+            Role::ColumnHeader => atk_sys::ATK_ROLE_COLUMN_HEADER,
+            Role::ComboBox => atk_sys::ATK_ROLE_COMBO_BOX,
+            Role::DateEditor => atk_sys::ATK_ROLE_DATE_EDITOR,
+            Role::DesktopIcon => atk_sys::ATK_ROLE_DESKTOP_ICON,
+            Role::DesktopFrame => atk_sys::ATK_ROLE_DESKTOP_FRAME,
+            Role::Dial => atk_sys::ATK_ROLE_DIAL,
+            Role::Dialog => atk_sys::ATK_ROLE_DIALOG,
+            Role::DirectoryPane => atk_sys::ATK_ROLE_DIRECTORY_PANE,
+            Role::DrawingArea => atk_sys::ATK_ROLE_DRAWING_AREA,
+            Role::FileChooser => atk_sys::ATK_ROLE_FILE_CHOOSER,
+            Role::Filler => atk_sys::ATK_ROLE_FILLER,
+            Role::FontChooser => atk_sys::ATK_ROLE_FONT_CHOOSER,
+            Role::Frame => atk_sys::ATK_ROLE_FRAME,
+            Role::GlassPane => atk_sys::ATK_ROLE_GLASS_PANE,
+            Role::HtmlContainer => atk_sys::ATK_ROLE_HTML_CONTAINER,
+            Role::Icon => atk_sys::ATK_ROLE_ICON,
+            Role::Image => atk_sys::ATK_ROLE_IMAGE,
+            Role::InternalFrame => atk_sys::ATK_ROLE_INTERNAL_FRAME,
+            Role::Label => atk_sys::ATK_ROLE_LABEL,
+            Role::LayeredPane => atk_sys::ATK_ROLE_LAYERED_PANE,
+            Role::List => atk_sys::ATK_ROLE_LIST,
+            Role::ListItem => atk_sys::ATK_ROLE_LIST_ITEM,
+            Role::Menu => atk_sys::ATK_ROLE_MENU,
+            Role::MenuBar => atk_sys::ATK_ROLE_MENU_BAR,
+            Role::MenuItem => atk_sys::ATK_ROLE_MENU_ITEM,
+            Role::OptionPane => atk_sys::ATK_ROLE_OPTION_PANE,
+            Role::PageTab => atk_sys::ATK_ROLE_PAGE_TAB,
+            Role::PageTabList => atk_sys::ATK_ROLE_PAGE_TAB_LIST,
+            Role::Panel => atk_sys::ATK_ROLE_PANEL,
+            Role::PasswordText => atk_sys::ATK_ROLE_PASSWORD_TEXT,
+            Role::PopupMenu => atk_sys::ATK_ROLE_POPUP_MENU,
+            Role::ProgressBar => atk_sys::ATK_ROLE_PROGRESS_BAR,
+            Role::PushButton => atk_sys::ATK_ROLE_PUSH_BUTTON,
+            Role::RadioButton => atk_sys::ATK_ROLE_RADIO_BUTTON,
+            Role::RadioMenuItem => atk_sys::ATK_ROLE_RADIO_MENU_ITEM,
+            Role::RootPane => atk_sys::ATK_ROLE_ROOT_PANE,
+            Role::RowHeader => atk_sys::ATK_ROLE_ROW_HEADER,
+            Role::ScrollBar => atk_sys::ATK_ROLE_SCROLL_BAR,
+            Role::ScrollPane => atk_sys::ATK_ROLE_SCROLL_PANE,
+            Role::Separator => atk_sys::ATK_ROLE_SEPARATOR,
+            Role::Slider => atk_sys::ATK_ROLE_SLIDER,
+            Role::SplitPane => atk_sys::ATK_ROLE_SPLIT_PANE,
+            Role::SpinButton => atk_sys::ATK_ROLE_SPIN_BUTTON,
+            Role::Statusbar => atk_sys::ATK_ROLE_STATUSBAR,
+            Role::Table => atk_sys::ATK_ROLE_TABLE,
+            Role::TableCell => atk_sys::ATK_ROLE_TABLE_CELL,
+            Role::TableColumnHeader => atk_sys::ATK_ROLE_TABLE_COLUMN_HEADER,
+            Role::TableRowHeader => atk_sys::ATK_ROLE_TABLE_ROW_HEADER,
+            Role::TearOffMenuItem => atk_sys::ATK_ROLE_TEAR_OFF_MENU_ITEM,
+            Role::Terminal => atk_sys::ATK_ROLE_TERMINAL,
+            Role::Text => atk_sys::ATK_ROLE_TEXT,
+            Role::ToggleButton => atk_sys::ATK_ROLE_TOGGLE_BUTTON,
+            Role::ToolBar => atk_sys::ATK_ROLE_TOOL_BAR,
+            Role::ToolTip => atk_sys::ATK_ROLE_TOOL_TIP,
+            Role::Tree => atk_sys::ATK_ROLE_TREE,
+            Role::TreeTable => atk_sys::ATK_ROLE_TREE_TABLE,
+            Role::Unknown => atk_sys::ATK_ROLE_UNKNOWN,
+            Role::Viewport => atk_sys::ATK_ROLE_VIEWPORT,
+            Role::Window => atk_sys::ATK_ROLE_WINDOW,
+            Role::Header => atk_sys::ATK_ROLE_HEADER,
+            Role::Footer => atk_sys::ATK_ROLE_FOOTER,
+            Role::Paragraph => atk_sys::ATK_ROLE_PARAGRAPH,
+            Role::Ruler => atk_sys::ATK_ROLE_RULER,
+            Role::Application => atk_sys::ATK_ROLE_APPLICATION,
+            Role::Autocomplete => atk_sys::ATK_ROLE_AUTOCOMPLETE,
+            Role::EditBar => atk_sys::ATK_ROLE_EDITBAR,
+            Role::Embedded => atk_sys::ATK_ROLE_EMBEDDED,
+            Role::Entry => atk_sys::ATK_ROLE_ENTRY,
+            Role::Chart => atk_sys::ATK_ROLE_CHART,
+            Role::Caption => atk_sys::ATK_ROLE_CAPTION,
+            Role::DocumentFrame => atk_sys::ATK_ROLE_DOCUMENT_FRAME,
+            Role::Heading => atk_sys::ATK_ROLE_HEADING,
+            Role::Page => atk_sys::ATK_ROLE_PAGE,
+            Role::Section => atk_sys::ATK_ROLE_SECTION,
+            Role::RedundantObject => atk_sys::ATK_ROLE_REDUNDANT_OBJECT,
+            Role::Form => atk_sys::ATK_ROLE_FORM,
+            Role::Link => atk_sys::ATK_ROLE_LINK,
+            Role::InputMethodWindow => atk_sys::ATK_ROLE_INPUT_METHOD_WINDOW,
+            Role::TableRow => atk_sys::ATK_ROLE_TABLE_ROW,
+            Role::TreeItem => atk_sys::ATK_ROLE_TREE_ITEM,
+            Role::DocumentSpreadsheet => atk_sys::ATK_ROLE_DOCUMENT_SPREADSHEET,
+            Role::DocumentPresentation => atk_sys::ATK_ROLE_DOCUMENT_PRESENTATION,
+            Role::DocumentText => atk_sys::ATK_ROLE_DOCUMENT_TEXT,
+            Role::DocumentWeb => atk_sys::ATK_ROLE_DOCUMENT_WEB,
+            Role::DocumentEmail => atk_sys::ATK_ROLE_DOCUMENT_EMAIL,
+            Role::Comment => atk_sys::ATK_ROLE_COMMENT,
+            Role::ListBox => atk_sys::ATK_ROLE_LIST_BOX,
+            Role::Grouping => atk_sys::ATK_ROLE_GROUPING,
+            Role::ImageMap => atk_sys::ATK_ROLE_IMAGE_MAP,
+            Role::Notification => atk_sys::ATK_ROLE_NOTIFICATION,
+            Role::InfoBar => atk_sys::ATK_ROLE_INFO_BAR,
+            Role::LevelBar => atk_sys::ATK_ROLE_LEVEL_BAR,
+            Role::TitleBar => atk_sys::ATK_ROLE_TITLE_BAR,
+            Role::BlockQuote => atk_sys::ATK_ROLE_BLOCK_QUOTE,
+            Role::Audio => atk_sys::ATK_ROLE_AUDIO,
+            Role::Video => atk_sys::ATK_ROLE_VIDEO,
+            Role::Definition => atk_sys::ATK_ROLE_DEFINITION,
+            Role::Article => atk_sys::ATK_ROLE_ARTICLE,
+            Role::Landmark => atk_sys::ATK_ROLE_LANDMARK,
+            Role::Log => atk_sys::ATK_ROLE_LOG,
+            Role::Marquee => atk_sys::ATK_ROLE_MARQUEE,
+            Role::Math => atk_sys::ATK_ROLE_MATH,
+            Role::Rating => atk_sys::ATK_ROLE_RATING,
+            Role::Timer => atk_sys::ATK_ROLE_TIMER,
+            Role::DescriptionList => atk_sys::ATK_ROLE_DESCRIPTION_LIST,
+            Role::DescriptionTerm => atk_sys::ATK_ROLE_DESCRIPTION_TERM,
+            Role::DescriptionValue => atk_sys::ATK_ROLE_DESCRIPTION_VALUE,
+            Role::Static => atk_sys::ATK_ROLE_STATIC,
+            Role::MathFraction => atk_sys::ATK_ROLE_MATH_FRACTION,
+            Role::MathRoot => atk_sys::ATK_ROLE_MATH_ROOT,
+            Role::Subscript => atk_sys::ATK_ROLE_SUBSCRIPT,
+            Role::Superscript => atk_sys::ATK_ROLE_SUPERSCRIPT,
+            Role::Footnote => atk_sys::ATK_ROLE_FOOTNOTE,
+            Role::LastDefined => atk_sys::ATK_ROLE_LAST_DEFINED,
             Role::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkRole> for Role {
-    fn from_glib(value: ffi::AtkRole) -> Self {
+impl FromGlib<atk_sys::AtkRole> for Role {
+    fn from_glib(value: atk_sys::AtkRole) -> Self {
         skip_assert_initialized!();
         match value {
             0 => Role::Invalid,
@@ -859,7 +859,7 @@ impl FromGlib<ffi::AtkRole> for Role {
 
 impl StaticType for Role {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_role_get_type()) }
+        unsafe { from_glib(atk_sys::atk_role_get_type()) }
     }
 }
 
@@ -871,13 +871,13 @@ impl<'a> FromValueOptional<'a> for Role {
 
 impl<'a> FromValue<'a> for Role {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for Role {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -915,17 +915,17 @@ impl fmt::Display for ScrollType {
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for ScrollType {
-    type GlibType = ffi::AtkScrollType;
+    type GlibType = atk_sys::AtkScrollType;
 
-    fn to_glib(&self) -> ffi::AtkScrollType {
+    fn to_glib(&self) -> atk_sys::AtkScrollType {
         match *self {
-            ScrollType::TopLeft => ffi::ATK_SCROLL_TOP_LEFT,
-            ScrollType::BottomRight => ffi::ATK_SCROLL_BOTTOM_RIGHT,
-            ScrollType::TopEdge => ffi::ATK_SCROLL_TOP_EDGE,
-            ScrollType::BottomEdge => ffi::ATK_SCROLL_BOTTOM_EDGE,
-            ScrollType::LeftEdge => ffi::ATK_SCROLL_LEFT_EDGE,
-            ScrollType::RightEdge => ffi::ATK_SCROLL_RIGHT_EDGE,
-            ScrollType::Anywhere => ffi::ATK_SCROLL_ANYWHERE,
+            ScrollType::TopLeft => atk_sys::ATK_SCROLL_TOP_LEFT,
+            ScrollType::BottomRight => atk_sys::ATK_SCROLL_BOTTOM_RIGHT,
+            ScrollType::TopEdge => atk_sys::ATK_SCROLL_TOP_EDGE,
+            ScrollType::BottomEdge => atk_sys::ATK_SCROLL_BOTTOM_EDGE,
+            ScrollType::LeftEdge => atk_sys::ATK_SCROLL_LEFT_EDGE,
+            ScrollType::RightEdge => atk_sys::ATK_SCROLL_RIGHT_EDGE,
+            ScrollType::Anywhere => atk_sys::ATK_SCROLL_ANYWHERE,
             ScrollType::__Unknown(value) => value
         }
     }
@@ -933,8 +933,8 @@ impl ToGlib for ScrollType {
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[doc(hidden)]
-impl FromGlib<ffi::AtkScrollType> for ScrollType {
-    fn from_glib(value: ffi::AtkScrollType) -> Self {
+impl FromGlib<atk_sys::AtkScrollType> for ScrollType {
+    fn from_glib(value: atk_sys::AtkScrollType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ScrollType::TopLeft,
@@ -952,7 +952,7 @@ impl FromGlib<ffi::AtkScrollType> for ScrollType {
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 impl StaticType for ScrollType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_scroll_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_scroll_type_get_type()) }
     }
 }
 
@@ -966,14 +966,14 @@ impl<'a> FromValueOptional<'a> for ScrollType {
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 impl<'a> FromValue<'a> for ScrollType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 impl SetValue for ScrollType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1082,62 +1082,62 @@ impl fmt::Display for StateType {
 
 #[doc(hidden)]
 impl ToGlib for StateType {
-    type GlibType = ffi::AtkStateType;
+    type GlibType = atk_sys::AtkStateType;
 
-    fn to_glib(&self) -> ffi::AtkStateType {
+    fn to_glib(&self) -> atk_sys::AtkStateType {
         match *self {
-            StateType::Invalid => ffi::ATK_STATE_INVALID,
-            StateType::Active => ffi::ATK_STATE_ACTIVE,
-            StateType::Armed => ffi::ATK_STATE_ARMED,
-            StateType::Busy => ffi::ATK_STATE_BUSY,
-            StateType::Checked => ffi::ATK_STATE_CHECKED,
-            StateType::Defunct => ffi::ATK_STATE_DEFUNCT,
-            StateType::Editable => ffi::ATK_STATE_EDITABLE,
-            StateType::Enabled => ffi::ATK_STATE_ENABLED,
-            StateType::Expandable => ffi::ATK_STATE_EXPANDABLE,
-            StateType::Expanded => ffi::ATK_STATE_EXPANDED,
-            StateType::Focusable => ffi::ATK_STATE_FOCUSABLE,
-            StateType::Focused => ffi::ATK_STATE_FOCUSED,
-            StateType::Horizontal => ffi::ATK_STATE_HORIZONTAL,
-            StateType::Iconified => ffi::ATK_STATE_ICONIFIED,
-            StateType::Modal => ffi::ATK_STATE_MODAL,
-            StateType::MultiLine => ffi::ATK_STATE_MULTI_LINE,
-            StateType::Multiselectable => ffi::ATK_STATE_MULTISELECTABLE,
-            StateType::Opaque => ffi::ATK_STATE_OPAQUE,
-            StateType::Pressed => ffi::ATK_STATE_PRESSED,
-            StateType::Resizable => ffi::ATK_STATE_RESIZABLE,
-            StateType::Selectable => ffi::ATK_STATE_SELECTABLE,
-            StateType::Selected => ffi::ATK_STATE_SELECTED,
-            StateType::Sensitive => ffi::ATK_STATE_SENSITIVE,
-            StateType::Showing => ffi::ATK_STATE_SHOWING,
-            StateType::SingleLine => ffi::ATK_STATE_SINGLE_LINE,
-            StateType::Stale => ffi::ATK_STATE_STALE,
-            StateType::Transient => ffi::ATK_STATE_TRANSIENT,
-            StateType::Vertical => ffi::ATK_STATE_VERTICAL,
-            StateType::Visible => ffi::ATK_STATE_VISIBLE,
-            StateType::ManagesDescendants => ffi::ATK_STATE_MANAGES_DESCENDANTS,
-            StateType::Indeterminate => ffi::ATK_STATE_INDETERMINATE,
-            StateType::Truncated => ffi::ATK_STATE_TRUNCATED,
-            StateType::Required => ffi::ATK_STATE_REQUIRED,
-            StateType::InvalidEntry => ffi::ATK_STATE_INVALID_ENTRY,
-            StateType::SupportsAutocompletion => ffi::ATK_STATE_SUPPORTS_AUTOCOMPLETION,
-            StateType::SelectableText => ffi::ATK_STATE_SELECTABLE_TEXT,
-            StateType::Default => ffi::ATK_STATE_DEFAULT,
-            StateType::Animated => ffi::ATK_STATE_ANIMATED,
-            StateType::Visited => ffi::ATK_STATE_VISITED,
-            StateType::Checkable => ffi::ATK_STATE_CHECKABLE,
-            StateType::HasPopup => ffi::ATK_STATE_HAS_POPUP,
-            StateType::HasTooltip => ffi::ATK_STATE_HAS_TOOLTIP,
-            StateType::ReadOnly => ffi::ATK_STATE_READ_ONLY,
-            StateType::LastDefined => ffi::ATK_STATE_LAST_DEFINED,
+            StateType::Invalid => atk_sys::ATK_STATE_INVALID,
+            StateType::Active => atk_sys::ATK_STATE_ACTIVE,
+            StateType::Armed => atk_sys::ATK_STATE_ARMED,
+            StateType::Busy => atk_sys::ATK_STATE_BUSY,
+            StateType::Checked => atk_sys::ATK_STATE_CHECKED,
+            StateType::Defunct => atk_sys::ATK_STATE_DEFUNCT,
+            StateType::Editable => atk_sys::ATK_STATE_EDITABLE,
+            StateType::Enabled => atk_sys::ATK_STATE_ENABLED,
+            StateType::Expandable => atk_sys::ATK_STATE_EXPANDABLE,
+            StateType::Expanded => atk_sys::ATK_STATE_EXPANDED,
+            StateType::Focusable => atk_sys::ATK_STATE_FOCUSABLE,
+            StateType::Focused => atk_sys::ATK_STATE_FOCUSED,
+            StateType::Horizontal => atk_sys::ATK_STATE_HORIZONTAL,
+            StateType::Iconified => atk_sys::ATK_STATE_ICONIFIED,
+            StateType::Modal => atk_sys::ATK_STATE_MODAL,
+            StateType::MultiLine => atk_sys::ATK_STATE_MULTI_LINE,
+            StateType::Multiselectable => atk_sys::ATK_STATE_MULTISELECTABLE,
+            StateType::Opaque => atk_sys::ATK_STATE_OPAQUE,
+            StateType::Pressed => atk_sys::ATK_STATE_PRESSED,
+            StateType::Resizable => atk_sys::ATK_STATE_RESIZABLE,
+            StateType::Selectable => atk_sys::ATK_STATE_SELECTABLE,
+            StateType::Selected => atk_sys::ATK_STATE_SELECTED,
+            StateType::Sensitive => atk_sys::ATK_STATE_SENSITIVE,
+            StateType::Showing => atk_sys::ATK_STATE_SHOWING,
+            StateType::SingleLine => atk_sys::ATK_STATE_SINGLE_LINE,
+            StateType::Stale => atk_sys::ATK_STATE_STALE,
+            StateType::Transient => atk_sys::ATK_STATE_TRANSIENT,
+            StateType::Vertical => atk_sys::ATK_STATE_VERTICAL,
+            StateType::Visible => atk_sys::ATK_STATE_VISIBLE,
+            StateType::ManagesDescendants => atk_sys::ATK_STATE_MANAGES_DESCENDANTS,
+            StateType::Indeterminate => atk_sys::ATK_STATE_INDETERMINATE,
+            StateType::Truncated => atk_sys::ATK_STATE_TRUNCATED,
+            StateType::Required => atk_sys::ATK_STATE_REQUIRED,
+            StateType::InvalidEntry => atk_sys::ATK_STATE_INVALID_ENTRY,
+            StateType::SupportsAutocompletion => atk_sys::ATK_STATE_SUPPORTS_AUTOCOMPLETION,
+            StateType::SelectableText => atk_sys::ATK_STATE_SELECTABLE_TEXT,
+            StateType::Default => atk_sys::ATK_STATE_DEFAULT,
+            StateType::Animated => atk_sys::ATK_STATE_ANIMATED,
+            StateType::Visited => atk_sys::ATK_STATE_VISITED,
+            StateType::Checkable => atk_sys::ATK_STATE_CHECKABLE,
+            StateType::HasPopup => atk_sys::ATK_STATE_HAS_POPUP,
+            StateType::HasTooltip => atk_sys::ATK_STATE_HAS_TOOLTIP,
+            StateType::ReadOnly => atk_sys::ATK_STATE_READ_ONLY,
+            StateType::LastDefined => atk_sys::ATK_STATE_LAST_DEFINED,
             StateType::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkStateType> for StateType {
-    fn from_glib(value: ffi::AtkStateType) -> Self {
+impl FromGlib<atk_sys::AtkStateType> for StateType {
+    fn from_glib(value: atk_sys::AtkStateType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => StateType::Invalid,
@@ -1191,7 +1191,7 @@ impl FromGlib<ffi::AtkStateType> for StateType {
 
 impl StaticType for StateType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_state_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_state_type_get_type()) }
     }
 }
 
@@ -1203,13 +1203,13 @@ impl<'a> FromValueOptional<'a> for StateType {
 
 impl<'a> FromValue<'a> for StateType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for StateType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1288,47 +1288,47 @@ impl fmt::Display for TextAttribute {
 
 #[doc(hidden)]
 impl ToGlib for TextAttribute {
-    type GlibType = ffi::AtkTextAttribute;
+    type GlibType = atk_sys::AtkTextAttribute;
 
-    fn to_glib(&self) -> ffi::AtkTextAttribute {
+    fn to_glib(&self) -> atk_sys::AtkTextAttribute {
         match *self {
-            TextAttribute::Invalid => ffi::ATK_TEXT_ATTR_INVALID,
-            TextAttribute::LeftMargin => ffi::ATK_TEXT_ATTR_LEFT_MARGIN,
-            TextAttribute::RightMargin => ffi::ATK_TEXT_ATTR_RIGHT_MARGIN,
-            TextAttribute::Indent => ffi::ATK_TEXT_ATTR_INDENT,
-            TextAttribute::Invisible => ffi::ATK_TEXT_ATTR_INVISIBLE,
-            TextAttribute::Editable => ffi::ATK_TEXT_ATTR_EDITABLE,
-            TextAttribute::PixelsAboveLines => ffi::ATK_TEXT_ATTR_PIXELS_ABOVE_LINES,
-            TextAttribute::PixelsBelowLines => ffi::ATK_TEXT_ATTR_PIXELS_BELOW_LINES,
-            TextAttribute::PixelsInsideWrap => ffi::ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP,
-            TextAttribute::BgFullHeight => ffi::ATK_TEXT_ATTR_BG_FULL_HEIGHT,
-            TextAttribute::Rise => ffi::ATK_TEXT_ATTR_RISE,
-            TextAttribute::Underline => ffi::ATK_TEXT_ATTR_UNDERLINE,
-            TextAttribute::Strikethrough => ffi::ATK_TEXT_ATTR_STRIKETHROUGH,
-            TextAttribute::Size => ffi::ATK_TEXT_ATTR_SIZE,
-            TextAttribute::Scale => ffi::ATK_TEXT_ATTR_SCALE,
-            TextAttribute::Weight => ffi::ATK_TEXT_ATTR_WEIGHT,
-            TextAttribute::Language => ffi::ATK_TEXT_ATTR_LANGUAGE,
-            TextAttribute::FamilyName => ffi::ATK_TEXT_ATTR_FAMILY_NAME,
-            TextAttribute::BgColor => ffi::ATK_TEXT_ATTR_BG_COLOR,
-            TextAttribute::FgColor => ffi::ATK_TEXT_ATTR_FG_COLOR,
-            TextAttribute::BgStipple => ffi::ATK_TEXT_ATTR_BG_STIPPLE,
-            TextAttribute::FgStipple => ffi::ATK_TEXT_ATTR_FG_STIPPLE,
-            TextAttribute::WrapMode => ffi::ATK_TEXT_ATTR_WRAP_MODE,
-            TextAttribute::Direction => ffi::ATK_TEXT_ATTR_DIRECTION,
-            TextAttribute::Justification => ffi::ATK_TEXT_ATTR_JUSTIFICATION,
-            TextAttribute::Stretch => ffi::ATK_TEXT_ATTR_STRETCH,
-            TextAttribute::Variant => ffi::ATK_TEXT_ATTR_VARIANT,
-            TextAttribute::Style => ffi::ATK_TEXT_ATTR_STYLE,
-            TextAttribute::LastDefined => ffi::ATK_TEXT_ATTR_LAST_DEFINED,
+            TextAttribute::Invalid => atk_sys::ATK_TEXT_ATTR_INVALID,
+            TextAttribute::LeftMargin => atk_sys::ATK_TEXT_ATTR_LEFT_MARGIN,
+            TextAttribute::RightMargin => atk_sys::ATK_TEXT_ATTR_RIGHT_MARGIN,
+            TextAttribute::Indent => atk_sys::ATK_TEXT_ATTR_INDENT,
+            TextAttribute::Invisible => atk_sys::ATK_TEXT_ATTR_INVISIBLE,
+            TextAttribute::Editable => atk_sys::ATK_TEXT_ATTR_EDITABLE,
+            TextAttribute::PixelsAboveLines => atk_sys::ATK_TEXT_ATTR_PIXELS_ABOVE_LINES,
+            TextAttribute::PixelsBelowLines => atk_sys::ATK_TEXT_ATTR_PIXELS_BELOW_LINES,
+            TextAttribute::PixelsInsideWrap => atk_sys::ATK_TEXT_ATTR_PIXELS_INSIDE_WRAP,
+            TextAttribute::BgFullHeight => atk_sys::ATK_TEXT_ATTR_BG_FULL_HEIGHT,
+            TextAttribute::Rise => atk_sys::ATK_TEXT_ATTR_RISE,
+            TextAttribute::Underline => atk_sys::ATK_TEXT_ATTR_UNDERLINE,
+            TextAttribute::Strikethrough => atk_sys::ATK_TEXT_ATTR_STRIKETHROUGH,
+            TextAttribute::Size => atk_sys::ATK_TEXT_ATTR_SIZE,
+            TextAttribute::Scale => atk_sys::ATK_TEXT_ATTR_SCALE,
+            TextAttribute::Weight => atk_sys::ATK_TEXT_ATTR_WEIGHT,
+            TextAttribute::Language => atk_sys::ATK_TEXT_ATTR_LANGUAGE,
+            TextAttribute::FamilyName => atk_sys::ATK_TEXT_ATTR_FAMILY_NAME,
+            TextAttribute::BgColor => atk_sys::ATK_TEXT_ATTR_BG_COLOR,
+            TextAttribute::FgColor => atk_sys::ATK_TEXT_ATTR_FG_COLOR,
+            TextAttribute::BgStipple => atk_sys::ATK_TEXT_ATTR_BG_STIPPLE,
+            TextAttribute::FgStipple => atk_sys::ATK_TEXT_ATTR_FG_STIPPLE,
+            TextAttribute::WrapMode => atk_sys::ATK_TEXT_ATTR_WRAP_MODE,
+            TextAttribute::Direction => atk_sys::ATK_TEXT_ATTR_DIRECTION,
+            TextAttribute::Justification => atk_sys::ATK_TEXT_ATTR_JUSTIFICATION,
+            TextAttribute::Stretch => atk_sys::ATK_TEXT_ATTR_STRETCH,
+            TextAttribute::Variant => atk_sys::ATK_TEXT_ATTR_VARIANT,
+            TextAttribute::Style => atk_sys::ATK_TEXT_ATTR_STYLE,
+            TextAttribute::LastDefined => atk_sys::ATK_TEXT_ATTR_LAST_DEFINED,
             TextAttribute::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
-    fn from_glib(value: ffi::AtkTextAttribute) -> Self {
+impl FromGlib<atk_sys::AtkTextAttribute> for TextAttribute {
+    fn from_glib(value: atk_sys::AtkTextAttribute) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextAttribute::Invalid,
@@ -1367,7 +1367,7 @@ impl FromGlib<ffi::AtkTextAttribute> for TextAttribute {
 
 impl StaticType for TextAttribute {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_text_attribute_get_type()) }
+        unsafe { from_glib(atk_sys::atk_text_attribute_get_type()) }
     }
 }
 
@@ -1379,13 +1379,13 @@ impl<'a> FromValueOptional<'a> for TextAttribute {
 
 impl<'a> FromValue<'a> for TextAttribute {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TextAttribute {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1420,25 +1420,25 @@ impl fmt::Display for TextBoundary {
 
 #[doc(hidden)]
 impl ToGlib for TextBoundary {
-    type GlibType = ffi::AtkTextBoundary;
+    type GlibType = atk_sys::AtkTextBoundary;
 
-    fn to_glib(&self) -> ffi::AtkTextBoundary {
+    fn to_glib(&self) -> atk_sys::AtkTextBoundary {
         match *self {
-            TextBoundary::Char => ffi::ATK_TEXT_BOUNDARY_CHAR,
-            TextBoundary::WordStart => ffi::ATK_TEXT_BOUNDARY_WORD_START,
-            TextBoundary::WordEnd => ffi::ATK_TEXT_BOUNDARY_WORD_END,
-            TextBoundary::SentenceStart => ffi::ATK_TEXT_BOUNDARY_SENTENCE_START,
-            TextBoundary::SentenceEnd => ffi::ATK_TEXT_BOUNDARY_SENTENCE_END,
-            TextBoundary::LineStart => ffi::ATK_TEXT_BOUNDARY_LINE_START,
-            TextBoundary::LineEnd => ffi::ATK_TEXT_BOUNDARY_LINE_END,
+            TextBoundary::Char => atk_sys::ATK_TEXT_BOUNDARY_CHAR,
+            TextBoundary::WordStart => atk_sys::ATK_TEXT_BOUNDARY_WORD_START,
+            TextBoundary::WordEnd => atk_sys::ATK_TEXT_BOUNDARY_WORD_END,
+            TextBoundary::SentenceStart => atk_sys::ATK_TEXT_BOUNDARY_SENTENCE_START,
+            TextBoundary::SentenceEnd => atk_sys::ATK_TEXT_BOUNDARY_SENTENCE_END,
+            TextBoundary::LineStart => atk_sys::ATK_TEXT_BOUNDARY_LINE_START,
+            TextBoundary::LineEnd => atk_sys::ATK_TEXT_BOUNDARY_LINE_END,
             TextBoundary::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
-    fn from_glib(value: ffi::AtkTextBoundary) -> Self {
+impl FromGlib<atk_sys::AtkTextBoundary> for TextBoundary {
+    fn from_glib(value: atk_sys::AtkTextBoundary) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextBoundary::Char,
@@ -1455,7 +1455,7 @@ impl FromGlib<ffi::AtkTextBoundary> for TextBoundary {
 
 impl StaticType for TextBoundary {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_text_boundary_get_type()) }
+        unsafe { from_glib(atk_sys::atk_text_boundary_get_type()) }
     }
 }
 
@@ -1467,13 +1467,13 @@ impl<'a> FromValueOptional<'a> for TextBoundary {
 
 impl<'a> FromValue<'a> for TextBoundary {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TextBoundary {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1502,22 +1502,22 @@ impl fmt::Display for TextClipType {
 
 #[doc(hidden)]
 impl ToGlib for TextClipType {
-    type GlibType = ffi::AtkTextClipType;
+    type GlibType = atk_sys::AtkTextClipType;
 
-    fn to_glib(&self) -> ffi::AtkTextClipType {
+    fn to_glib(&self) -> atk_sys::AtkTextClipType {
         match *self {
-            TextClipType::None => ffi::ATK_TEXT_CLIP_NONE,
-            TextClipType::Min => ffi::ATK_TEXT_CLIP_MIN,
-            TextClipType::Max => ffi::ATK_TEXT_CLIP_MAX,
-            TextClipType::Both => ffi::ATK_TEXT_CLIP_BOTH,
+            TextClipType::None => atk_sys::ATK_TEXT_CLIP_NONE,
+            TextClipType::Min => atk_sys::ATK_TEXT_CLIP_MIN,
+            TextClipType::Max => atk_sys::ATK_TEXT_CLIP_MAX,
+            TextClipType::Both => atk_sys::ATK_TEXT_CLIP_BOTH,
             TextClipType::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkTextClipType> for TextClipType {
-    fn from_glib(value: ffi::AtkTextClipType) -> Self {
+impl FromGlib<atk_sys::AtkTextClipType> for TextClipType {
+    fn from_glib(value: atk_sys::AtkTextClipType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextClipType::None,
@@ -1531,7 +1531,7 @@ impl FromGlib<ffi::AtkTextClipType> for TextClipType {
 
 impl StaticType for TextClipType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_text_clip_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_text_clip_type_get_type()) }
     }
 }
 
@@ -1543,13 +1543,13 @@ impl<'a> FromValueOptional<'a> for TextClipType {
 
 impl<'a> FromValue<'a> for TextClipType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TextClipType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1580,23 +1580,23 @@ impl fmt::Display for TextGranularity {
 
 #[doc(hidden)]
 impl ToGlib for TextGranularity {
-    type GlibType = ffi::AtkTextGranularity;
+    type GlibType = atk_sys::AtkTextGranularity;
 
-    fn to_glib(&self) -> ffi::AtkTextGranularity {
+    fn to_glib(&self) -> atk_sys::AtkTextGranularity {
         match *self {
-            TextGranularity::Char => ffi::ATK_TEXT_GRANULARITY_CHAR,
-            TextGranularity::Word => ffi::ATK_TEXT_GRANULARITY_WORD,
-            TextGranularity::Sentence => ffi::ATK_TEXT_GRANULARITY_SENTENCE,
-            TextGranularity::Line => ffi::ATK_TEXT_GRANULARITY_LINE,
-            TextGranularity::Paragraph => ffi::ATK_TEXT_GRANULARITY_PARAGRAPH,
+            TextGranularity::Char => atk_sys::ATK_TEXT_GRANULARITY_CHAR,
+            TextGranularity::Word => atk_sys::ATK_TEXT_GRANULARITY_WORD,
+            TextGranularity::Sentence => atk_sys::ATK_TEXT_GRANULARITY_SENTENCE,
+            TextGranularity::Line => atk_sys::ATK_TEXT_GRANULARITY_LINE,
+            TextGranularity::Paragraph => atk_sys::ATK_TEXT_GRANULARITY_PARAGRAPH,
             TextGranularity::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
-    fn from_glib(value: ffi::AtkTextGranularity) -> Self {
+impl FromGlib<atk_sys::AtkTextGranularity> for TextGranularity {
+    fn from_glib(value: atk_sys::AtkTextGranularity) -> Self {
         skip_assert_initialized!();
         match value {
             0 => TextGranularity::Char,
@@ -1611,7 +1611,7 @@ impl FromGlib<ffi::AtkTextGranularity> for TextGranularity {
 
 impl StaticType for TextGranularity {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_text_granularity_get_type()) }
+        unsafe { from_glib(atk_sys::atk_text_granularity_get_type()) }
     }
 }
 
@@ -1623,13 +1623,13 @@ impl<'a> FromValueOptional<'a> for TextGranularity {
 
 impl<'a> FromValue<'a> for TextGranularity {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for TextGranularity {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -1682,34 +1682,34 @@ impl fmt::Display for ValueType {
 
 #[doc(hidden)]
 impl ToGlib for ValueType {
-    type GlibType = ffi::AtkValueType;
+    type GlibType = atk_sys::AtkValueType;
 
-    fn to_glib(&self) -> ffi::AtkValueType {
+    fn to_glib(&self) -> atk_sys::AtkValueType {
         match *self {
-            ValueType::VeryWeak => ffi::ATK_VALUE_VERY_WEAK,
-            ValueType::Weak => ffi::ATK_VALUE_WEAK,
-            ValueType::Acceptable => ffi::ATK_VALUE_ACCEPTABLE,
-            ValueType::Strong => ffi::ATK_VALUE_STRONG,
-            ValueType::VeryStrong => ffi::ATK_VALUE_VERY_STRONG,
-            ValueType::VeryLow => ffi::ATK_VALUE_VERY_LOW,
-            ValueType::Low => ffi::ATK_VALUE_LOW,
-            ValueType::Medium => ffi::ATK_VALUE_MEDIUM,
-            ValueType::High => ffi::ATK_VALUE_HIGH,
-            ValueType::VeryHigh => ffi::ATK_VALUE_VERY_HIGH,
-            ValueType::VeryBad => ffi::ATK_VALUE_VERY_BAD,
-            ValueType::Bad => ffi::ATK_VALUE_BAD,
-            ValueType::Good => ffi::ATK_VALUE_GOOD,
-            ValueType::VeryGood => ffi::ATK_VALUE_VERY_GOOD,
-            ValueType::Best => ffi::ATK_VALUE_BEST,
-            ValueType::LastDefined => ffi::ATK_VALUE_LAST_DEFINED,
+            ValueType::VeryWeak => atk_sys::ATK_VALUE_VERY_WEAK,
+            ValueType::Weak => atk_sys::ATK_VALUE_WEAK,
+            ValueType::Acceptable => atk_sys::ATK_VALUE_ACCEPTABLE,
+            ValueType::Strong => atk_sys::ATK_VALUE_STRONG,
+            ValueType::VeryStrong => atk_sys::ATK_VALUE_VERY_STRONG,
+            ValueType::VeryLow => atk_sys::ATK_VALUE_VERY_LOW,
+            ValueType::Low => atk_sys::ATK_VALUE_LOW,
+            ValueType::Medium => atk_sys::ATK_VALUE_MEDIUM,
+            ValueType::High => atk_sys::ATK_VALUE_HIGH,
+            ValueType::VeryHigh => atk_sys::ATK_VALUE_VERY_HIGH,
+            ValueType::VeryBad => atk_sys::ATK_VALUE_VERY_BAD,
+            ValueType::Bad => atk_sys::ATK_VALUE_BAD,
+            ValueType::Good => atk_sys::ATK_VALUE_GOOD,
+            ValueType::VeryGood => atk_sys::ATK_VALUE_VERY_GOOD,
+            ValueType::Best => atk_sys::ATK_VALUE_BEST,
+            ValueType::LastDefined => atk_sys::ATK_VALUE_LAST_DEFINED,
             ValueType::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkValueType> for ValueType {
-    fn from_glib(value: ffi::AtkValueType) -> Self {
+impl FromGlib<atk_sys::AtkValueType> for ValueType {
+    fn from_glib(value: atk_sys::AtkValueType) -> Self {
         skip_assert_initialized!();
         match value {
             0 => ValueType::VeryWeak,
@@ -1735,7 +1735,7 @@ impl FromGlib<ffi::AtkValueType> for ValueType {
 
 impl StaticType for ValueType {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::atk_value_type_get_type()) }
+        unsafe { from_glib(atk_sys::atk_value_type_get_type()) }
     }
 }
 
@@ -1747,13 +1747,13 @@ impl<'a> FromValueOptional<'a> for ValueType {
 
 impl<'a> FromValue<'a> for ValueType {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_enum(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
 impl SetValue for ValueType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 

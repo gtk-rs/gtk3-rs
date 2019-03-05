@@ -3,17 +3,17 @@
 // DO NOT EDIT
 
 use Object;
-use ffi;
+use atk_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ObjectFactory(Object<ffi::AtkObjectFactory, ffi::AtkObjectFactoryClass, ObjectFactoryClass>);
+    pub struct ObjectFactory(Object<atk_sys::AtkObjectFactory, atk_sys::AtkObjectFactoryClass, ObjectFactoryClass>);
 
     match fn {
-        get_type => || ffi::atk_object_factory_get_type(),
+        get_type => || atk_sys::atk_object_factory_get_type(),
     }
 }
 
@@ -30,19 +30,19 @@ pub trait ObjectFactoryExt: 'static {
 impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object> {
         unsafe {
-            from_glib_full(ffi::atk_object_factory_create_accessible(self.as_ref().to_glib_none().0, obj.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_object_factory_create_accessible(self.as_ref().to_glib_none().0, obj.as_ref().to_glib_none().0))
         }
     }
 
     fn get_accessible_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(ffi::atk_object_factory_get_accessible_type(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_factory_get_accessible_type(self.as_ref().to_glib_none().0))
         }
     }
 
     fn invalidate(&self) {
         unsafe {
-            ffi::atk_object_factory_invalidate(self.as_ref().to_glib_none().0);
+            atk_sys::atk_object_factory_invalidate(self.as_ref().to_glib_none().0);
         }
     }
 }

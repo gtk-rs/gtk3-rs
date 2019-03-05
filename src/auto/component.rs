@@ -8,23 +8,23 @@ use Object;
 use Rectangle;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 use ScrollType;
-use ffi;
+use atk_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct Component(Interface<ffi::AtkComponent>);
+    pub struct Component(Interface<atk_sys::AtkComponent>);
 
     match fn {
-        get_type => || ffi::atk_component_get_type(),
+        get_type => || atk_sys::atk_component_get_type(),
     }
 }
 
@@ -67,13 +67,13 @@ pub trait ComponentExt: 'static {
 impl<O: IsA<Component>> ComponentExt for O {
     fn contains(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_contains(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
+            from_glib(atk_sys::atk_component_contains(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
         }
     }
 
     fn get_alpha(&self) -> f64 {
         unsafe {
-            ffi::atk_component_get_alpha(self.as_ref().to_glib_none().0)
+            atk_sys::atk_component_get_alpha(self.as_ref().to_glib_none().0)
         }
     }
 
@@ -83,20 +83,20 @@ impl<O: IsA<Component>> ComponentExt for O {
             let mut y = mem::uninitialized();
             let mut width = mem::uninitialized();
             let mut height = mem::uninitialized();
-            ffi::atk_component_get_extents(self.as_ref().to_glib_none().0, &mut x, &mut y, &mut width, &mut height, coord_type.to_glib());
+            atk_sys::atk_component_get_extents(self.as_ref().to_glib_none().0, &mut x, &mut y, &mut width, &mut height, coord_type.to_glib());
             (x, y, width, height)
         }
     }
 
     fn get_layer(&self) -> Layer {
         unsafe {
-            from_glib(ffi::atk_component_get_layer(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_component_get_layer(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_mdi_zorder(&self) -> i32 {
         unsafe {
-            ffi::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0)
+            atk_sys::atk_component_get_mdi_zorder(self.as_ref().to_glib_none().0)
         }
     }
 
@@ -104,7 +104,7 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             let mut x = mem::uninitialized();
             let mut y = mem::uninitialized();
-            ffi::atk_component_get_position(self.as_ref().to_glib_none().0, &mut x, &mut y, coord_type.to_glib());
+            atk_sys::atk_component_get_position(self.as_ref().to_glib_none().0, &mut x, &mut y, coord_type.to_glib());
             (x, y)
         }
     }
@@ -113,52 +113,52 @@ impl<O: IsA<Component>> ComponentExt for O {
         unsafe {
             let mut width = mem::uninitialized();
             let mut height = mem::uninitialized();
-            ffi::atk_component_get_size(self.as_ref().to_glib_none().0, &mut width, &mut height);
+            atk_sys::atk_component_get_size(self.as_ref().to_glib_none().0, &mut width, &mut height);
             (width, height)
         }
     }
 
     fn grab_focus(&self) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_grab_focus(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_component_grab_focus(self.as_ref().to_glib_none().0))
         }
     }
 
     fn ref_accessible_at_point(&self, x: i32, y: i32, coord_type: CoordType) -> Option<Object> {
         unsafe {
-            from_glib_full(ffi::atk_component_ref_accessible_at_point(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
+            from_glib_full(atk_sys::atk_component_ref_accessible_at_point(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
         }
     }
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     fn scroll_to(&self, type_: ScrollType) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_scroll_to(self.as_ref().to_glib_none().0, type_.to_glib()))
+            from_glib(atk_sys::atk_component_scroll_to(self.as_ref().to_glib_none().0, type_.to_glib()))
         }
     }
 
     #[cfg(any(feature = "v2_30", feature = "dox"))]
     fn scroll_to_point(&self, coords: CoordType, x: i32, y: i32) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_scroll_to_point(self.as_ref().to_glib_none().0, coords.to_glib(), x, y))
+            from_glib(atk_sys::atk_component_scroll_to_point(self.as_ref().to_glib_none().0, coords.to_glib(), x, y))
         }
     }
 
     fn set_extents(&self, x: i32, y: i32, width: i32, height: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_set_extents(self.as_ref().to_glib_none().0, x, y, width, height, coord_type.to_glib()))
+            from_glib(atk_sys::atk_component_set_extents(self.as_ref().to_glib_none().0, x, y, width, height, coord_type.to_glib()))
         }
     }
 
     fn set_position(&self, x: i32, y: i32, coord_type: CoordType) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_set_position(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
+            from_glib(atk_sys::atk_component_set_position(self.as_ref().to_glib_none().0, x, y, coord_type.to_glib()))
         }
     }
 
     fn set_size(&self, width: i32, height: i32) -> bool {
         unsafe {
-            from_glib(ffi::atk_component_set_size(self.as_ref().to_glib_none().0, width, height))
+            from_glib(atk_sys::atk_component_set_size(self.as_ref().to_glib_none().0, width, height))
         }
     }
 
@@ -171,7 +171,7 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 }
 
-unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut ffi::AtkComponent, arg1: *mut ffi::AtkRectangle, f: glib_ffi::gpointer)
+unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut atk_sys::AtkComponent, arg1: *mut atk_sys::AtkRectangle, f: glib_sys::gpointer)
 where P: IsA<Component> {
     let f: &F = &*(f as *const F);
     f(&Component::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))

@@ -4,7 +4,7 @@
 
 use Component;
 use Object;
-use ffi;
+use atk_sys;
 use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -12,10 +12,10 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Plug(Object<ffi::AtkPlug, ffi::AtkPlugClass, PlugClass>) @extends Object, @implements Component;
+    pub struct Plug(Object<atk_sys::AtkPlug, atk_sys::AtkPlugClass, PlugClass>) @extends Object, @implements Component;
 
     match fn {
-        get_type => || ffi::atk_plug_get_type(),
+        get_type => || atk_sys::atk_plug_get_type(),
     }
 }
 
@@ -23,7 +23,7 @@ impl Plug {
     pub fn new() -> Plug {
         assert_initialized_main_thread!();
         unsafe {
-            Object::from_glib_full(ffi::atk_plug_new()).unsafe_cast()
+            Object::from_glib_full(atk_sys::atk_plug_new()).unsafe_cast()
         }
     }
 }
@@ -43,7 +43,7 @@ pub trait AtkPlugExt: 'static {
 impl<O: IsA<Plug>> AtkPlugExt for O {
     fn get_id(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::atk_plug_get_id(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_plug_get_id(self.as_ref().to_glib_none().0))
         }
     }
 }
