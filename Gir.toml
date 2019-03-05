@@ -10,22 +10,7 @@ single_version_file = true
 deprecate_by_min_version = true
 
 generate = [
-    "Graphene.Euler",
     "Graphene.EulerOrder",
-    "Graphene.Frustum",
-    "Graphene.Matrix",
-    "Graphene.Plane",
-    "Graphene.Point",
-    "Graphene.Point3D",
-    "Graphene.Quad",
-    "Graphene.Quaternion",
-    "Graphene.Ray",
-    "Graphene.Rect",
-    "Graphene.Size",
-    "Graphene.Triangle",
-    "Graphene.Vec2",
-    "Graphene.Vec3",
-    "Graphene.Vec4",
 ]
 
 [[object]]
@@ -36,6 +21,10 @@ status = "generate"
 name = "Graphene.Box"
 status = "generate"
     [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
     name = "init_from_points"
     #array with size
     ignore = true
@@ -45,21 +34,147 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Graphene.Euler"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Frustum"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Matrix"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Plane"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Point3D"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Point"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Quad"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Quaternion"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Ray"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Rect"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+# missing memory management functions
 name = "Graphene.Simd4F"
 status = "ignore"
 
 [[object]]
+# missing memory management functions
 name = "Graphene.Simd4X4F"
 status = "ignore"
+
+[[object]]
+name = "Graphene.Size"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
 
 [[object]]
 name = "Graphene.Sphere"
 status = "generate"
     [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
     name = "init_from_points"
     #array with size
     ignore = true
     [[object.function]]
     name = "init_from_vectors"
     #array with size
+    ignore = true
+
+[[object]]
+name = "Graphene.Triangle"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Vec2"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Vec3"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+
+[[object]]
+name = "Graphene.Vec4"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
     ignore = true

@@ -20,13 +20,6 @@ glib_wrapper! {
 }
 
 impl Point {
-    pub fn alloc() -> Point {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_point_alloc())
-        }
-    }
-
     pub fn distance(&self, b: &Point) -> (f32, f32, f32) {
         unsafe {
             let mut d_x = mem::uninitialized();

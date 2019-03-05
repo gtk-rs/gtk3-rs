@@ -23,13 +23,6 @@ glib_wrapper! {
 }
 
 impl Quaternion {
-    pub fn alloc() -> Quaternion {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_quaternion_alloc())
-        }
-    }
-
     pub fn dot(&self, b: &Quaternion) -> f32 {
         unsafe {
             ffi::graphene_quaternion_dot(self.to_glib_none().0, b.to_glib_none().0)

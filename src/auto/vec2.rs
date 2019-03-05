@@ -18,13 +18,6 @@ glib_wrapper! {
 }
 
 impl Vec2 {
-    pub fn alloc() -> Vec2 {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_vec2_alloc())
-        }
-    }
-
     pub fn add(&self, b: &Vec2) -> Vec2 {
         unsafe {
             let mut res = Vec2::uninitialized();

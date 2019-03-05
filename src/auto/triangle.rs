@@ -23,13 +23,6 @@ glib_wrapper! {
 }
 
 impl Triangle {
-    pub fn alloc() -> Triangle {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_triangle_alloc())
-        }
-    }
-
     pub fn contains_point(&self, p: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_triangle_contains_point(self.to_glib_none().0, p.to_glib_none().0))

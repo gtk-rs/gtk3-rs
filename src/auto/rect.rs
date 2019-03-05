@@ -199,13 +199,6 @@ impl Rect {
         }
     }
 
-    pub fn alloc() -> Option<Rect> {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_rect_alloc())
-        }
-    }
-
     pub fn zero() -> Option<Rect> {
         assert_initialized_main_thread!();
         unsafe {

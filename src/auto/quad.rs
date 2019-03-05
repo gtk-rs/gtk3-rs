@@ -20,13 +20,6 @@ glib_wrapper! {
 }
 
 impl Quad {
-    pub fn alloc() -> Quad {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_quad_alloc())
-        }
-    }
-
     pub fn bounds(&self) -> Rect {
         unsafe {
             let mut r = Rect::uninitialized();

@@ -22,13 +22,6 @@ glib_wrapper! {
 }
 
 impl Euler {
-    pub fn alloc() -> Euler {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_euler_alloc())
-        }
-    }
-
     fn equal(&self, b: &Euler) -> bool {
         unsafe {
             from_glib(ffi::graphene_euler_equal(self.to_glib_none().0, b.to_glib_none().0))

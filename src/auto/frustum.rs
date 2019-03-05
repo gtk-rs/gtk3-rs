@@ -23,13 +23,6 @@ glib_wrapper! {
 }
 
 impl Frustum {
-    pub fn alloc() -> Frustum {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_frustum_alloc())
-        }
-    }
-
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_frustum_contains_point(self.to_glib_none().0, point.to_glib_none().0))

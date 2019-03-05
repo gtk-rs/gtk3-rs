@@ -20,13 +20,6 @@ glib_wrapper! {
 }
 
 impl Sphere {
-    pub fn alloc() -> Sphere {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_sphere_alloc())
-        }
-    }
-
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
             from_glib(ffi::graphene_sphere_contains_point(self.to_glib_none().0, point.to_glib_none().0))

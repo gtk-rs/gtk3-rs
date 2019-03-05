@@ -30,13 +30,6 @@ glib_wrapper! {
 }
 
 impl Matrix {
-    pub fn alloc() -> Matrix {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_matrix_alloc())
-        }
-    }
-
     pub fn determinant(&self) -> f32 {
         unsafe {
             ffi::graphene_matrix_determinant(self.to_glib_none().0)

@@ -20,13 +20,6 @@ glib_wrapper! {
 }
 
 impl Point3D {
-    pub fn alloc() -> Point3D {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_point3d_alloc())
-        }
-    }
-
     pub fn cross(&self, b: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();

@@ -21,13 +21,6 @@ glib_wrapper! {
 }
 
 impl Box {
-    pub fn alloc() -> Box {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_box_alloc())
-        }
-    }
-
     pub fn contains_box(&self, b: &Box) -> bool {
         unsafe {
             from_glib(ffi::graphene_box_contains_box(self.to_glib_none().0, b.to_glib_none().0))

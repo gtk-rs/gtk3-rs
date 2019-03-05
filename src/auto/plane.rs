@@ -21,13 +21,6 @@ glib_wrapper! {
 }
 
 impl Plane {
-    pub fn alloc() -> Plane {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_plane_alloc())
-        }
-    }
-
     pub fn distance(&self, point: &Point3D) -> f32 {
         unsafe {
             ffi::graphene_plane_distance(self.to_glib_none().0, point.to_glib_none().0)

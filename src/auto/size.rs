@@ -18,13 +18,6 @@ glib_wrapper! {
 }
 
 impl Size {
-    pub fn alloc() -> Size {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_size_alloc())
-        }
-    }
-
     fn equal(&self, b: &Size) -> bool {
         unsafe {
             from_glib(ffi::graphene_size_equal(self.to_glib_none().0, b.to_glib_none().0))

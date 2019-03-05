@@ -20,13 +20,6 @@ glib_wrapper! {
 }
 
 impl Vec4 {
-    pub fn alloc() -> Vec4 {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_vec4_alloc())
-        }
-    }
-
     pub fn add(&self, b: &Vec4) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();

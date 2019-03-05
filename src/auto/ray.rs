@@ -21,13 +21,6 @@ glib_wrapper! {
 }
 
 impl Ray {
-    pub fn alloc() -> Ray {
-        assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(ffi::graphene_ray_alloc())
-        }
-    }
-
     fn equal(&self, b: &Ray) -> bool {
         unsafe {
             from_glib(ffi::graphene_ray_equal(self.to_glib_none().0, b.to_glib_none().0))
