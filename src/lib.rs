@@ -40,3 +40,6 @@ pub use prelude::*;
 pub use auto::*;
 
 pub use glib::Error;
+
+mod box_;
+mod euler;
