@@ -4,24 +4,24 @@
 
 //! `Error` binding and helper trait.
 
-use std::ffi::CStr;
-use Quark;
+use glib_sys;
 use std::borrow::Cow;
 use std::error;
+use std::ffi::CStr;
 use std::fmt;
 use std::str;
 use translate::*;
-use ffi as glib_ffi;
+use Quark;
 
 glib_wrapper! {
     /// A generic error capable of representing various error domains (types).
     #[derive(PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Error(Boxed<glib_ffi::GError>);
+    pub struct Error(Boxed<glib_sys::GError>);
 
     match fn {
-        copy => |ptr| glib_ffi::g_error_copy(ptr),
-        free => |ptr| glib_ffi::g_error_free(ptr),
-        get_type => || glib_ffi::g_error_get_type(),
+        copy => |ptr| glib_sys::g_error_copy(ptr),
+        free => |ptr| glib_sys::g_error_free(ptr),
+        get_type => || glib_sys::g_error_get_type(),
     }
 }
 
@@ -33,7 +33,7 @@ impl Error {
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
             from_glib_full(
-                glib_ffi::g_error_new_literal(T::domain().to_glib(), error.code(), message.to_glib_none().0))
+                glib_sys::g_error_new_literal(T::domain().to_glib(), error.code(), message.to_glib_none().0))
         }
     }
 
@@ -186,14 +186,14 @@ impl BoolError {
     }
 
     pub fn from_glib<Msg: Into<Cow<'static, str>>>(
-        b: glib_ffi::gboolean,
+        b: glib_sys::gboolean,
         message: Msg,
         filename: &'static str,
         function: &'static str,
         line: u32,
     ) -> Result<(), Self> {
         match b {
-            glib_ffi::GFALSE => Err(BoolError::new(
+            glib_sys::GFALSE => Err(BoolError::new(
                 message,
                 filename,
                 function,
@@ -234,16 +234,16 @@ mod tests {
         let from_dynamic_msg = glib_bool_error!("{} message", "Dynamic");
         assert_eq!(from_dynamic_msg.description(), "Dynamic message");
 
-        let false_static_res = glib_result_from_gboolean!(glib_ffi::GFALSE, "Static message");
+        let false_static_res = glib_result_from_gboolean!(glib_sys::GFALSE, "Static message");
         assert!(false_static_res.is_err());
         let static_err = false_static_res.err().unwrap();
         assert_eq!(static_err.description(), "Static message");
 
-        let true_static_res = glib_result_from_gboolean!(glib_ffi::GTRUE, "Static message");
+        let true_static_res = glib_result_from_gboolean!(glib_sys::GTRUE, "Static message");
         assert!(true_static_res.is_ok());
 
         let false_dynamic_res = glib_result_from_gboolean!(
-            glib_ffi::GFALSE,
+            glib_sys::GFALSE,
             "{} message",
             "Dynamic"
         );
@@ -252,7 +252,7 @@ mod tests {
         assert_eq!(dynamic_err.description(), "Dynamic message");
 
         let true_dynamic_res = glib_result_from_gboolean!(
-            glib_ffi::GTRUE,
+            glib_sys::GTRUE,
             "{} message",
             "Dynamic"
         );

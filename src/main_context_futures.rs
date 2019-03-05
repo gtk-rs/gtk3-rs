@@ -2,25 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use futures;
+use futures::executor::{Executor, SpawnError};
+use futures::prelude::*;
+use futures::task::{LocalMap, UnsafeWake, Waker};
+use futures::{Async, Future, Never};
+use get_thread_id;
+use glib_sys;
 use std::mem;
 use std::ptr;
 use std::sync::atomic::{AtomicUsize, Ordering};
-
-use futures;
-use futures::prelude::*;
-use futures::executor::{Executor, SpawnError};
-use futures::task::{LocalMap, UnsafeWake, Waker};
-use futures::{Async, Future, Never};
-
+use translate::{from_glib_full, from_glib_none, mut_override, ToGlib};
 use MainContext;
 use MainLoop;
-use Source;
 use Priority;
-
-use get_thread_id;
-
-use ::translate::{from_glib_none, from_glib_full, mut_override, ToGlib};
-use ffi as glib_ffi;
+use Source;
 
 // We can't use an enum here because we want to store this in an atomic variable
 const INIT: usize = 0;
@@ -31,7 +27,7 @@ const DONE: usize = 3;
 #[allow(clippy::type_complexity)]
 #[repr(C)]
 struct TaskSource {
-    source: glib_ffi::GSource,
+    source: glib_sys::GSource,
     future: Option<(Box<Future<Item = (), Error = Never>>, Box<LocalMap>)>,
     thread: Option<usize>,
     state: AtomicUsize,
@@ -39,26 +35,26 @@ struct TaskSource {
 
 unsafe impl UnsafeWake for TaskSource {
     unsafe fn clone_raw(&self) -> Waker {
-        Waker::new(glib_ffi::g_source_ref(mut_override(&self.source)) as *const TaskSource)
+        Waker::new(glib_sys::g_source_ref(mut_override(&self.source)) as *const TaskSource)
     }
 
     unsafe fn drop_raw(&self) {
-        glib_ffi::g_source_unref(mut_override(&self.source));
+        glib_sys::g_source_unref(mut_override(&self.source));
     }
 
     unsafe fn wake(&self) {
         if self.state
             .compare_and_swap(NOT_READY, READY, Ordering::SeqCst) == NOT_READY
         {
-            glib_ffi::g_source_set_ready_time(mut_override(&self.source), 0);
+            glib_sys::g_source_set_ready_time(mut_override(&self.source), 0);
         }
     }
 }
 
 unsafe extern "C" fn prepare(
-    source: *mut glib_ffi::GSource,
+    source: *mut glib_sys::GSource,
     timeout: *mut i32,
-) -> glib_ffi::gboolean {
+) -> glib_sys::gboolean {
     let source = &mut *(source as *mut TaskSource);
 
     *timeout = -1;
@@ -79,32 +75,32 @@ unsafe extern "C" fn prepare(
     }
 
     if cur == READY || cur == DONE {
-        glib_ffi::GTRUE
+        glib_sys::GTRUE
     } else {
-        glib_ffi::GFALSE
+        glib_sys::GFALSE
     }
 }
 
-unsafe extern "C" fn check(source: *mut glib_ffi::GSource) -> glib_ffi::gboolean {
+unsafe extern "C" fn check(source: *mut glib_sys::GSource) -> glib_sys::gboolean {
     let source = &mut *(source as *mut TaskSource);
 
     let cur = source.state.load(Ordering::SeqCst);
     if cur == READY || cur == DONE {
-        glib_ffi::GTRUE
+        glib_sys::GTRUE
     } else {
-        glib_ffi::GFALSE
+        glib_sys::GFALSE
     }
 }
 
 unsafe extern "C" fn dispatch(
-    source: *mut glib_ffi::GSource,
-    callback: glib_ffi::GSourceFunc,
-    _user_data: glib_ffi::gpointer,
-) -> glib_ffi::gboolean {
+    source: *mut glib_sys::GSource,
+    callback: glib_sys::GSourceFunc,
+    _user_data: glib_sys::gpointer,
+) -> glib_sys::gboolean {
     let source = &mut *(source as *mut TaskSource);
     assert!(callback.is_none());
 
-    glib_ffi::g_source_set_ready_time(mut_override(&source.source), -1);
+    glib_sys::g_source_set_ready_time(mut_override(&source.source), -1);
     let mut cur = source
         .state
         .compare_and_swap(READY, NOT_READY, Ordering::SeqCst);
@@ -118,18 +114,18 @@ unsafe extern "C" fn dispatch(
     }
 
     if cur == DONE {
-        glib_ffi::G_SOURCE_REMOVE
+        glib_sys::G_SOURCE_REMOVE
     } else {
-        glib_ffi::G_SOURCE_CONTINUE
+        glib_sys::G_SOURCE_CONTINUE
     }
 }
 
-unsafe extern "C" fn finalize(source: *mut glib_ffi::GSource) {
+unsafe extern "C" fn finalize(source: *mut glib_sys::GSource) {
     let source = source as *mut TaskSource;
     let _ = (*source).future.take();
 }
 
-static SOURCE_FUNCS: glib_ffi::GSourceFuncs = glib_ffi::GSourceFuncs {
+static SOURCE_FUNCS: glib_sys::GSourceFuncs = glib_sys::GSourceFuncs {
     check: Some(check),
     prepare: Some(prepare),
     dispatch: Some(dispatch),
@@ -154,7 +150,7 @@ impl TaskSource {
         thread: Option<usize>,
         future: Box<Future<Item = (), Error = Never> + 'static>,
     ) -> Source {
-        let source = glib_ffi::g_source_new(
+        let source = glib_sys::g_source_new(
             mut_override(&SOURCE_FUNCS),
             mem::size_of::<TaskSource>() as u32,
         );
@@ -165,7 +161,7 @@ impl TaskSource {
             source.state = AtomicUsize::new(INIT);
         }
 
-        glib_ffi::g_source_set_priority(source, priority.to_glib());
+        glib_sys::g_source_set_priority(source, priority.to_glib());
 
         from_glib_full(source)
     }
@@ -193,7 +189,7 @@ impl TaskSource {
             let (ref mut future, ref mut local_map) = *future;
 
             let mut executor: MainContext = unsafe {
-                from_glib_none(glib_ffi::g_source_get_context(mut_override(source)))
+                from_glib_none(glib_sys::g_source_get_context(mut_override(source)))
             };
 
             assert!(executor.is_owner(), "Polling futures only allowed if the thread is owning the MainContext");

@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi as glib_ffi;
+use glib_sys;
 use std::borrow::Borrow;
 use std::cmp::{Eq, Ord, Ordering, PartialEq, PartialOrd};
 use std::fmt;
@@ -28,12 +28,12 @@ glib_wrapper! {
     /// let b = Bytes::from_static(s);
     /// assert_eq!(&s[..], b);
     /// ```
-    pub struct Bytes(Shared<glib_ffi::GBytes>);
+    pub struct Bytes(Shared<glib_sys::GBytes>);
 
     match fn {
-        ref => |ptr| glib_ffi::g_bytes_ref(ptr),
-        unref => |ptr| glib_ffi::g_bytes_unref(ptr),
-        get_type => || glib_ffi::g_bytes_get_type(),
+        ref => |ptr| glib_sys::g_bytes_ref(ptr),
+        unref => |ptr| glib_sys::g_bytes_unref(ptr),
+        get_type => || glib_sys::g_bytes_get_type(),
     }
 }
 
@@ -41,13 +41,13 @@ impl Bytes {
     /// Copies `data` into a new shared slice.
     fn new<T: AsRef<[u8]>>(data: T) -> Bytes {
         let data = data.as_ref();
-        unsafe { from_glib_full(glib_ffi::g_bytes_new(data.as_ptr() as *const _, data.len())) }
+        unsafe { from_glib_full(glib_sys::g_bytes_new(data.as_ptr() as *const _, data.len())) }
     }
 
     /// Creates a view into static `data` without copying.
     pub fn from_static(data: &'static [u8]) -> Bytes {
         unsafe {
-            from_glib_full(glib_ffi::g_bytes_new_static(data.as_ptr() as *const _, data.len()))
+            from_glib_full(glib_sys::g_bytes_new_static(data.as_ptr() as *const _, data.len()))
         }
     }
 
@@ -59,12 +59,12 @@ impl Bytes {
             (data.len(), data.as_ptr())
         };
 
-        unsafe extern "C" fn drop_box<T: AsRef<[u8]> + Send + 'static>(b: glib_ffi::gpointer) {
+        unsafe extern "C" fn drop_box<T: AsRef<[u8]> + Send + 'static>(b: glib_sys::gpointer) {
             let _: Box<T> = Box::from_raw(b as *mut _);
         }
 
         unsafe {
-            from_glib_full(glib_ffi::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box::<T>), Box::into_raw(data) as *mut _))
+            from_glib_full(glib_sys::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box::<T>), Box::into_raw(data) as *mut _))
         }
     }
 }
@@ -93,7 +93,7 @@ impl Deref for Bytes {
     fn deref(&self) -> &[u8] {
         unsafe {
             let mut len = 0;
-            let ptr = glib_ffi::g_bytes_get_data(self.to_glib_none().0, &mut len);
+            let ptr = glib_sys::g_bytes_get_data(self.to_glib_none().0, &mut len);
             debug_assert!(!ptr.is_null() || len == 0);
             slice::from_raw_parts(ptr as *const u8, len)
         }
@@ -104,7 +104,7 @@ impl PartialEq for Bytes {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
             from_glib(
-                glib_ffi::g_bytes_equal(self.to_glib_none().0 as *const _,
+                glib_sys::g_bytes_equal(self.to_glib_none().0 as *const _,
                     other.to_glib_none().0 as *const _))
         }
     }
@@ -115,7 +115,7 @@ impl Eq for Bytes { }
 impl PartialOrd for Bytes {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         unsafe {
-            let ret = glib_ffi::g_bytes_compare(self.to_glib_none().0 as *const _,
+            let ret = glib_sys::g_bytes_compare(self.to_glib_none().0 as *const _,
                 other.to_glib_none().0 as *const _);
             ret.partial_cmp(&0)
         }
@@ -125,7 +125,7 @@ impl PartialOrd for Bytes {
 impl Ord for Bytes {
     fn cmp(&self, other: &Self) -> Ordering {
         unsafe {
-            let ret = glib_ffi::g_bytes_compare(self.to_glib_none().0 as *const _,
+            let ret = glib_sys::g_bytes_compare(self.to_glib_none().0 as *const _,
                 other.to_glib_none().0 as *const _);
             ret.cmp(&0)
         }

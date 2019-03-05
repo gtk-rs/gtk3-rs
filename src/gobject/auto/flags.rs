@@ -4,8 +4,7 @@
 
 use StaticType;
 use Type;
-use gobject_ffi as ffi;
-use gobject_ffi;
+use gobject_sys;
 use translate::*;
 use value::FromValue;
 use value::FromValueOptional;
@@ -23,23 +22,23 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for BindingFlags {
-    type GlibType = ffi::GBindingFlags;
+    type GlibType = gobject_sys::GBindingFlags;
 
-    fn to_glib(&self) -> ffi::GBindingFlags {
+    fn to_glib(&self) -> gobject_sys::GBindingFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GBindingFlags> for BindingFlags {
-    fn from_glib(value: ffi::GBindingFlags) -> BindingFlags {
+impl FromGlib<gobject_sys::GBindingFlags> for BindingFlags {
+    fn from_glib(value: gobject_sys::GBindingFlags) -> BindingFlags {
         BindingFlags::from_bits_truncate(value)
     }
 }
 
 impl StaticType for BindingFlags {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::g_binding_flags_get_type()) }
+        unsafe { from_glib(gobject_sys::g_binding_flags_get_type()) }
     }
 }
 
@@ -51,13 +50,13 @@ impl<'a> FromValueOptional<'a> for BindingFlags {
 
 impl<'a> FromValue<'a> for BindingFlags {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
 impl SetValue for BindingFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -80,16 +79,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for ParamFlags {
-    type GlibType = ffi::GParamFlags;
+    type GlibType = gobject_sys::GParamFlags;
 
-    fn to_glib(&self) -> ffi::GParamFlags {
+    fn to_glib(&self) -> gobject_sys::GParamFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GParamFlags> for ParamFlags {
-    fn from_glib(value: ffi::GParamFlags) -> ParamFlags {
+impl FromGlib<gobject_sys::GParamFlags> for ParamFlags {
+    fn from_glib(value: gobject_sys::GParamFlags) -> ParamFlags {
         ParamFlags::from_bits_truncate(value)
     }
 }
@@ -110,16 +109,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for SignalFlags {
-    type GlibType = ffi::GSignalFlags;
+    type GlibType = gobject_sys::GSignalFlags;
 
-    fn to_glib(&self) -> ffi::GSignalFlags {
+    fn to_glib(&self) -> gobject_sys::GSignalFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GSignalFlags> for SignalFlags {
-    fn from_glib(value: ffi::GSignalFlags) -> SignalFlags {
+impl FromGlib<gobject_sys::GSignalFlags> for SignalFlags {
+    fn from_glib(value: gobject_sys::GSignalFlags) -> SignalFlags {
         SignalFlags::from_bits_truncate(value)
     }
 }

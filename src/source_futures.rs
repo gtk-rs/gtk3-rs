@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures::prelude::*;
 use futures::channel::{mpsc, oneshot};
+use futures::prelude::*;
 use futures::task;
 
-use MainContext;
-use Source;
 use Continue;
+use MainContext;
 use Priority;
+use Source;
 
 /// Represents a `Future` around a `glib::Source`. The future will
 /// be resolved once the source has provided a value

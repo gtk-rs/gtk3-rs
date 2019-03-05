@@ -4,8 +4,8 @@
 
 use StaticType;
 use Type;
-use ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use translate::*;
 use value::FromValue;
 use value::FromValueOptional;
@@ -24,16 +24,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for FileTest {
-    type GlibType = ffi::GFileTest;
+    type GlibType = glib_sys::GFileTest;
 
-    fn to_glib(&self) -> ffi::GFileTest {
+    fn to_glib(&self) -> glib_sys::GFileTest {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GFileTest> for FileTest {
-    fn from_glib(value: ffi::GFileTest) -> FileTest {
+impl FromGlib<glib_sys::GFileTest> for FileTest {
+    fn from_glib(value: glib_sys::GFileTest) -> FileTest {
         FileTest::from_bits_truncate(value)
     }
 }
@@ -49,16 +49,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for FormatSizeFlags {
-    type GlibType = ffi::GFormatSizeFlags;
+    type GlibType = glib_sys::GFormatSizeFlags;
 
-    fn to_glib(&self) -> ffi::GFormatSizeFlags {
+    fn to_glib(&self) -> glib_sys::GFormatSizeFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GFormatSizeFlags> for FormatSizeFlags {
-    fn from_glib(value: ffi::GFormatSizeFlags) -> FormatSizeFlags {
+impl FromGlib<glib_sys::GFormatSizeFlags> for FormatSizeFlags {
+    fn from_glib(value: glib_sys::GFormatSizeFlags) -> FormatSizeFlags {
         FormatSizeFlags::from_bits_truncate(value)
     }
 }
@@ -76,23 +76,23 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for IOCondition {
-    type GlibType = ffi::GIOCondition;
+    type GlibType = glib_sys::GIOCondition;
 
-    fn to_glib(&self) -> ffi::GIOCondition {
+    fn to_glib(&self) -> glib_sys::GIOCondition {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GIOCondition> for IOCondition {
-    fn from_glib(value: ffi::GIOCondition) -> IOCondition {
+impl FromGlib<glib_sys::GIOCondition> for IOCondition {
+    fn from_glib(value: glib_sys::GIOCondition) -> IOCondition {
         IOCondition::from_bits_truncate(value)
     }
 }
 
 impl StaticType for IOCondition {
     fn static_type() -> Type {
-        unsafe { from_glib(ffi::g_io_condition_get_type()) }
+        unsafe { from_glib(glib_sys::g_io_condition_get_type()) }
     }
 }
 
@@ -104,13 +104,13 @@ impl<'a> FromValueOptional<'a> for IOCondition {
 
 impl<'a> FromValue<'a> for IOCondition {
     unsafe fn from_value(value: &Value) -> Self {
-        from_glib(gobject_ffi::g_value_get_flags(value.to_glib_none().0))
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
     }
 }
 
 impl SetValue for IOCondition {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }
 }
 
@@ -124,16 +124,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for KeyFileFlags {
-    type GlibType = ffi::GKeyFileFlags;
+    type GlibType = glib_sys::GKeyFileFlags;
 
-    fn to_glib(&self) -> ffi::GKeyFileFlags {
+    fn to_glib(&self) -> glib_sys::GKeyFileFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GKeyFileFlags> for KeyFileFlags {
-    fn from_glib(value: ffi::GKeyFileFlags) -> KeyFileFlags {
+impl FromGlib<glib_sys::GKeyFileFlags> for KeyFileFlags {
+    fn from_glib(value: glib_sys::GKeyFileFlags) -> KeyFileFlags {
         KeyFileFlags::from_bits_truncate(value)
     }
 }
@@ -153,16 +153,16 @@ bitflags! {
 
 #[doc(hidden)]
 impl ToGlib for OptionFlags {
-    type GlibType = ffi::GOptionFlags;
+    type GlibType = glib_sys::GOptionFlags;
 
-    fn to_glib(&self) -> ffi::GOptionFlags {
+    fn to_glib(&self) -> glib_sys::GOptionFlags {
         self.bits()
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::GOptionFlags> for OptionFlags {
-    fn from_glib(value: ffi::GOptionFlags) -> OptionFlags {
+impl FromGlib<glib_sys::GOptionFlags> for OptionFlags {
+    fn from_glib(value: glib_sys::GOptionFlags) -> OptionFlags {
         OptionFlags::from_bits_truncate(value)
     }
 }

@@ -2,24 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi;
-use translate::*;
+use glib_sys::{self, gboolean, gpointer};
+use source::Priority;
 use std::mem;
-use ffi as glib_ffi;
-use ffi::{gpointer, gboolean};
-
+use translate::*;
 use MainContext;
 use Source;
 use SourceId;
-
-use source::Priority;
 
 impl MainContext {
     pub fn prepare(&self) -> (bool, i32) {
         unsafe {
             let mut priority = mem::uninitialized();
 
-            let res = from_glib(ffi::g_main_context_prepare(self.to_glib_none().0, &mut priority));
+            let res = from_glib(glib_sys::g_main_context_prepare(self.to_glib_none().0, &mut priority));
 
             (res, priority)
         }
@@ -27,7 +23,7 @@ impl MainContext {
 
     pub fn find_source_by_id(&self, source_id: &SourceId) -> Option<Source> {
         unsafe {
-            from_glib_none(ffi::g_main_context_find_source_by_id(self.to_glib_none().0, source_id.to_glib()))
+            from_glib_none(glib_sys::g_main_context_find_source_by_id(self.to_glib_none().0, source_id.to_glib()))
         }
     }
 
@@ -75,7 +71,7 @@ impl MainContext {
     unsafe fn invoke_unsafe<F>(&self, priority: Priority, func: F)
     where F: FnOnce() + 'static {
         let func = Box::into_raw(Box::new(Some(func)));
-        glib_ffi::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
+        glib_sys::g_main_context_invoke_full(self.to_glib_none().0, priority.to_glib(), Some(trampoline::<F>),
             func as gpointer, Some(destroy_closure::<F>))
     }
 
@@ -99,7 +95,7 @@ unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboole
     let func: &mut Option<F> = &mut *(func as *mut Option<F>);
     let func = func.take().expect("MainContext::invoke() closure called multiple times");
     func();
-    glib_ffi::G_SOURCE_REMOVE
+    glib_sys::G_SOURCE_REMOVE
 }
 
 unsafe extern "C" fn destroy_closure<F: FnOnce() + 'static>(ptr: gpointer) {

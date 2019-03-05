@@ -2,18 +2,18 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use types::Type;
-use types::StaticType;
-use ffi as glib_ffi;
-use translate::*;
+use glib_sys;
+use gobject_sys;
 use std::borrow::{Borrow, Cow, ToOwned};
-use std::cmp::{PartialEq, Eq};
+use std::cmp::{Eq, PartialEq};
 use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::ops::Deref;
 use std::slice;
-use value::{Value, SetValue, FromValueOptional, SetValueOptional};
-use gobject_ffi;
+use translate::*;
+use types::StaticType;
+use types::Type;
+use value::{FromValueOptional, SetValue, SetValueOptional, Value};
 
 /// Describes `Variant` types.
 ///
@@ -24,7 +24,7 @@ use gobject_ffi;
 pub struct VariantType {
     // GVariantType* essentially is a char*, that always is valid UTF-8 but
     // isn't NUL-terminated.
-    ptr: *mut glib_ffi::GVariantType,
+    ptr: *mut glib_sys::GVariantType,
     // We query the length on creation assuming it's cheap (because type strings
     // are short) and likely to happen anyway.
     len: usize,
@@ -44,7 +44,7 @@ unsafe impl Sync for VariantType { }
 
 impl Drop for VariantType {
     fn drop(&mut self) {
-        unsafe { glib_ffi::g_variant_type_free(self.ptr) }
+        unsafe { glib_sys::g_variant_type_free(self.ptr) }
     }
 }
 
@@ -58,7 +58,7 @@ impl Clone for VariantType {
     fn clone(&self) -> VariantType {
         unsafe {
             VariantType {
-                ptr: glib_ffi::g_variant_type_copy(self.ptr),
+                ptr: glib_sys::g_variant_type_copy(self.ptr),
                 len: self.len,
             }
         }
@@ -99,24 +99,24 @@ impl<'a> Into<Cow<'a, VariantTy>> for VariantType {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtrMut<'a, *mut glib_ffi::GVariantType> for VariantType {
+impl<'a> ToGlibPtrMut<'a, *mut glib_sys::GVariantType> for VariantType {
     type Storage = &'a mut Self;
 
-    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut glib_ffi::GVariantType, Self> {
+    fn to_glib_none_mut(&'a mut self) -> StashMut<'a, *mut glib_sys::GVariantType, Self> {
         StashMut(self.ptr, self)
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrNone<*const glib_ffi::GVariantType> for VariantType {
-    unsafe fn from_glib_none(ptr: *const glib_ffi::GVariantType) -> VariantType {
+impl FromGlibPtrNone<*const glib_sys::GVariantType> for VariantType {
+    unsafe fn from_glib_none(ptr: *const glib_sys::GVariantType) -> VariantType {
         VariantTy::from_ptr(ptr).to_owned()
     }
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*const glib_ffi::GVariantType> for VariantType {
-    unsafe fn from_glib_full(ptr: *const glib_ffi::GVariantType) -> VariantType {
+impl FromGlibPtrFull<*const glib_sys::GVariantType> for VariantType {
+    unsafe fn from_glib_full(ptr: *const glib_sys::GVariantType) -> VariantType {
         // Don't assume ownership of a const pointer.
         // A transfer: full annotation on a `const GVariantType*` is likely a bug.
         VariantTy::from_ptr(ptr).to_owned()
@@ -141,7 +141,7 @@ impl VariantTy {
         let limit = ptr as usize + type_string.len();
         let mut end = 0_usize;
         unsafe {
-            let ok = from_glib(glib_ffi::g_variant_type_string_scan(ptr as *const _,
+            let ok = from_glib(glib_sys::g_variant_type_string_scan(ptr as *const _,
                 limit as *const _, &mut end as *mut usize as *mut _));
             if ok && end == limit {
                 Ok(&*(type_string.as_bytes() as *const [u8] as *const VariantTy))
@@ -159,14 +159,14 @@ impl VariantTy {
     /// Creates `&VariantTy` with a wildcard lifetime from a `GVariantType`
     /// pointer.
     #[doc(hidden)]
-    pub unsafe fn from_ptr<'a>(ptr: *const glib_ffi::GVariantType) -> &'a VariantTy {
-        let len = glib_ffi::g_variant_type_get_string_length(ptr) as usize;
+    pub unsafe fn from_ptr<'a>(ptr: *const glib_sys::GVariantType) -> &'a VariantTy {
+        let len = glib_sys::g_variant_type_get_string_length(ptr) as usize;
         &*(slice::from_raw_parts(ptr as *const u8, len) as *const [u8] as *const VariantTy)
     }
 
     /// Returns a `GVariantType` pointer.
     #[doc(hidden)]
-    pub fn as_ptr(&self) -> *const glib_ffi::GVariantType {
+    pub fn as_ptr(&self) -> *const glib_sys::GVariantType {
         self.inner.as_ptr() as *const _
     }
 
@@ -179,10 +179,10 @@ impl VariantTy {
 unsafe impl Sync for VariantTy { }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *const glib_ffi::GVariantType> for VariantTy {
+impl<'a> ToGlibPtr<'a, *const glib_sys::GVariantType> for VariantTy {
     type Storage = &'a Self;
 
-    fn to_glib_none(&'a self) -> Stash<'a, *const glib_ffi::GVariantType, Self> {
+    fn to_glib_none(&'a self) -> Stash<'a, *const glib_sys::GVariantType, Self> {
         Stash(self.as_ptr(), self)
     }
 }
@@ -205,7 +205,7 @@ impl ToOwned for VariantTy {
     fn to_owned(&self) -> VariantType {
         unsafe {
             VariantType {
-                ptr: glib_ffi::g_variant_type_copy(self.as_ptr()),
+                ptr: glib_sys::g_variant_type_copy(self.as_ptr()),
                 len: self.inner.len(),
             }
         }
@@ -214,13 +214,13 @@ impl ToOwned for VariantTy {
 
 impl StaticType for VariantTy {
     fn static_type() -> Type {
-        unsafe { from_glib(glib_ffi::g_variant_type_get_gtype()) }
+        unsafe { from_glib(glib_sys::g_variant_type_get_gtype()) }
     }
 }
 
 impl SetValue for VariantTy {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_sys::gpointer)
     }
 }
 
@@ -228,16 +228,16 @@ impl SetValueOptional for VariantTy {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         use std::ptr;
         let p = match this{
-            Some(ref t) => t.to_glib_none().0 as glib_ffi::gpointer,
+            Some(ref t) => t.to_glib_none().0 as glib_sys::gpointer,
             None => ptr::null()
         };
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, p)
+        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, p)
     }
 }
 
 impl<'a> FromValueOptional<'a> for &'a VariantTy {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let cvty = gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType;
+        let cvty = gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType;
         if cvty.is_null() {
             None
         } else {
@@ -248,13 +248,13 @@ impl<'a> FromValueOptional<'a> for &'a VariantTy {
 
 impl StaticType for VariantType {
     fn static_type() -> Type {
-        unsafe { from_glib(glib_ffi::g_variant_type_get_gtype()) }
+        unsafe { from_glib(glib_sys::g_variant_type_get_gtype()) }
     }
 }
 
 impl SetValue for VariantType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_ffi::gpointer)
+        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_sys::gpointer)
     }
 }
 
@@ -262,16 +262,16 @@ impl SetValueOptional for VariantType {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         use std::ptr;
         let p = match this{
-            Some(ref t) => t.to_glib_none().0 as glib_ffi::gpointer,
+            Some(ref t) => t.to_glib_none().0 as glib_sys::gpointer,
             None => ptr::null()
         };
-        gobject_ffi::g_value_set_boxed(value.to_glib_none_mut().0, p)
+        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, p)
     }
 }
 
 impl<'a> FromValueOptional<'a> for VariantType {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Option::<VariantType>::from_glib_none(gobject_ffi::g_value_get_boxed(value.to_glib_none().0) as *mut glib_ffi::GVariantType)
+        Option::<VariantType>::from_glib_none(gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType)
     }
 }
 
@@ -336,13 +336,13 @@ impl Eq for VariantType { }
 
 #[cfg(test)]
 mod tests {
-    use ffi as glib_ffi;
+    use glib_sys;
     use translate::*;
     use super::*;
     use value::ToValue;
 
     unsafe fn equal<T, U>(ptr1: *const T, ptr2: *const U) -> bool {
-        from_glib(glib_ffi::g_variant_type_equal(ptr1 as *const _, ptr2 as *const _))
+        from_glib(glib_sys::g_variant_type_equal(ptr1 as *const _, ptr2 as *const _))
     }
 
     #[test]
