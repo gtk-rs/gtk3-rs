@@ -114,9 +114,9 @@ impl Vec3 {
         }
     }
 
-    pub fn init(&mut self, x: f32, y: f32, z: f32) -> Option<Vec3> {
+    pub fn init(&mut self, x: f32, y: f32, z: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_vec3_init(self.to_glib_none_mut().0, x, y, z))
+            ffi::graphene_vec3_init(self.to_glib_none_mut().0, x, y, z);
         }
     }
 
@@ -124,9 +124,9 @@ impl Vec3 {
     //    unsafe { TODO: call ffi::graphene_vec3_init_from_float() }
     //}
 
-    pub fn init_from_vec3(&mut self, src: &Vec3) -> Option<Vec3> {
+    pub fn init_from_vec3(&mut self, src: &Vec3) {
         unsafe {
-            from_glib_none(ffi::graphene_vec3_init_from_vec3(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_vec3_init_from_vec3(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
@@ -202,35 +202,35 @@ impl Vec3 {
     //    unsafe { TODO: call ffi::graphene_vec3_to_float() }
     //}
 
-    pub fn one() -> Option<Vec3> {
+    pub fn one() -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_vec3_one())
         }
     }
 
-    pub fn x_axis() -> Option<Vec3> {
+    pub fn x_axis() -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_vec3_x_axis())
         }
     }
 
-    pub fn y_axis() -> Option<Vec3> {
+    pub fn y_axis() -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_vec3_y_axis())
         }
     }
 
-    pub fn z_axis() -> Option<Vec3> {
+    pub fn z_axis() -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_vec3_z_axis())
         }
     }
 
-    pub fn zero() -> Option<Vec3> {
+    pub fn zero() -> Vec3 {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_vec3_zero())

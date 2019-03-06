@@ -47,33 +47,33 @@ impl Plane {
         }
     }
 
-    pub fn init(&mut self, normal: Option<&Vec3>, constant: f32) -> Option<Plane> {
+    pub fn init(&mut self, normal: Option<&Vec3>, constant: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_plane_init(self.to_glib_none_mut().0, normal.to_glib_none().0, constant))
+            ffi::graphene_plane_init(self.to_glib_none_mut().0, normal.to_glib_none().0, constant);
         }
     }
 
-    pub fn init_from_plane(&mut self, src: &Plane) -> Option<Plane> {
+    pub fn init_from_plane(&mut self, src: &Plane) {
         unsafe {
-            from_glib_none(ffi::graphene_plane_init_from_plane(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_plane_init_from_plane(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_point(&mut self, normal: &Vec3, point: &Point3D) -> Option<Plane> {
+    pub fn init_from_point(&mut self, normal: &Vec3, point: &Point3D) {
         unsafe {
-            from_glib_none(ffi::graphene_plane_init_from_point(self.to_glib_none_mut().0, normal.to_glib_none().0, point.to_glib_none().0))
+            ffi::graphene_plane_init_from_point(self.to_glib_none_mut().0, normal.to_glib_none().0, point.to_glib_none().0);
         }
     }
 
-    pub fn init_from_points(&mut self, a: &Point3D, b: &Point3D, c: &Point3D) -> Option<Plane> {
+    pub fn init_from_points(&mut self, a: &Point3D, b: &Point3D, c: &Point3D) {
         unsafe {
-            from_glib_none(ffi::graphene_plane_init_from_points(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))
+            ffi::graphene_plane_init_from_points(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec4(&mut self, src: &Vec4) -> Option<Plane> {
+    pub fn init_from_vec4(&mut self, src: &Vec4) {
         unsafe {
-            from_glib_none(ffi::graphene_plane_init_from_vec4(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_plane_init_from_vec4(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 

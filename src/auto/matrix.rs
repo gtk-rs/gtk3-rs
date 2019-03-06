@@ -68,79 +68,79 @@ impl Matrix {
         }
     }
 
-    pub fn init_from_2d(&mut self, xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) -> Option<Matrix> {
+    pub fn init_from_2d(&mut self, xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_from_2d(self.to_glib_none_mut().0, xx, yx, xy, yy, x_0, y_0))
+            ffi::graphene_matrix_init_from_2d(self.to_glib_none_mut().0, xx, yx, xy, yy, x_0, y_0);
         }
     }
 
-    //pub fn init_from_float(&mut self, v: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 16) -> Option<Matrix> {
+    //pub fn init_from_float(&mut self, v: /*Unimplemented*/FixedArray TypeId { ns_id: 0, id: 20 }; 16) {
     //    unsafe { TODO: call ffi::graphene_matrix_init_from_float() }
     //}
 
-    pub fn init_from_matrix(&mut self, src: &Matrix) -> Option<Matrix> {
+    pub fn init_from_matrix(&mut self, src: &Matrix) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_from_matrix(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_matrix_init_from_matrix(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec4(&mut self, v0: &Vec4, v1: &Vec4, v2: &Vec4, v3: &Vec4) -> Option<Matrix> {
+    pub fn init_from_vec4(&mut self, v0: &Vec4, v1: &Vec4, v2: &Vec4, v3: &Vec4) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_from_vec4(self.to_glib_none_mut().0, v0.to_glib_none().0, v1.to_glib_none().0, v2.to_glib_none().0, v3.to_glib_none().0))
+            ffi::graphene_matrix_init_from_vec4(self.to_glib_none_mut().0, v0.to_glib_none().0, v1.to_glib_none().0, v2.to_glib_none().0, v3.to_glib_none().0);
         }
     }
 
-    pub fn init_frustum(&mut self, left: f32, right: f32, bottom: f32, top: f32, z_near: f32, z_far: f32) -> Option<Matrix> {
+    pub fn init_frustum(&mut self, left: f32, right: f32, bottom: f32, top: f32, z_near: f32, z_far: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_frustum(self.to_glib_none_mut().0, left, right, bottom, top, z_near, z_far))
+            ffi::graphene_matrix_init_frustum(self.to_glib_none_mut().0, left, right, bottom, top, z_near, z_far);
         }
     }
 
-    pub fn init_identity(&mut self) -> Option<Matrix> {
+    pub fn init_identity(&mut self) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_identity(self.to_glib_none_mut().0))
+            ffi::graphene_matrix_init_identity(self.to_glib_none_mut().0);
         }
     }
 
-    pub fn init_look_at(&mut self, eye: &Vec3, center: &Vec3, up: &Vec3) -> Option<Matrix> {
+    pub fn init_look_at(&mut self, eye: &Vec3, center: &Vec3, up: &Vec3) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_look_at(self.to_glib_none_mut().0, eye.to_glib_none().0, center.to_glib_none().0, up.to_glib_none().0))
+            ffi::graphene_matrix_init_look_at(self.to_glib_none_mut().0, eye.to_glib_none().0, center.to_glib_none().0, up.to_glib_none().0);
         }
     }
 
-    pub fn init_ortho(&mut self, left: f32, right: f32, top: f32, bottom: f32, z_near: f32, z_far: f32) -> Option<Matrix> {
+    pub fn init_ortho(&mut self, left: f32, right: f32, top: f32, bottom: f32, z_near: f32, z_far: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_ortho(self.to_glib_none_mut().0, left, right, top, bottom, z_near, z_far))
+            ffi::graphene_matrix_init_ortho(self.to_glib_none_mut().0, left, right, top, bottom, z_near, z_far);
         }
     }
 
-    pub fn init_perspective(&mut self, fovy: f32, aspect: f32, z_near: f32, z_far: f32) -> Option<Matrix> {
+    pub fn init_perspective(&mut self, fovy: f32, aspect: f32, z_near: f32, z_far: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_perspective(self.to_glib_none_mut().0, fovy, aspect, z_near, z_far))
+            ffi::graphene_matrix_init_perspective(self.to_glib_none_mut().0, fovy, aspect, z_near, z_far);
         }
     }
 
-    pub fn init_rotate(&mut self, angle: f32, axis: &Vec3) -> Option<Matrix> {
+    pub fn init_rotate(&mut self, angle: f32, axis: &Vec3) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_rotate(self.to_glib_none_mut().0, angle, axis.to_glib_none().0))
+            ffi::graphene_matrix_init_rotate(self.to_glib_none_mut().0, angle, axis.to_glib_none().0);
         }
     }
 
-    pub fn init_scale(&mut self, x: f32, y: f32, z: f32) -> Option<Matrix> {
+    pub fn init_scale(&mut self, x: f32, y: f32, z: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_scale(self.to_glib_none_mut().0, x, y, z))
+            ffi::graphene_matrix_init_scale(self.to_glib_none_mut().0, x, y, z);
         }
     }
 
-    pub fn init_skew(&mut self, x_skew: f32, y_skew: f32) -> Option<Matrix> {
+    pub fn init_skew(&mut self, x_skew: f32, y_skew: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_skew(self.to_glib_none_mut().0, x_skew, y_skew))
+            ffi::graphene_matrix_init_skew(self.to_glib_none_mut().0, x_skew, y_skew);
         }
     }
 
-    pub fn init_translate(&mut self, p: &Point3D) -> Option<Matrix> {
+    pub fn init_translate(&mut self, p: &Point3D) {
         unsafe {
-            from_glib_none(ffi::graphene_matrix_init_translate(self.to_glib_none_mut().0, p.to_glib_none().0))
+            ffi::graphene_matrix_init_translate(self.to_glib_none_mut().0, p.to_glib_none().0);
         }
     }
 

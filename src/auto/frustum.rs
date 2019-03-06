@@ -39,21 +39,21 @@ impl Frustum {
     //    unsafe { TODO: call ffi::graphene_frustum_get_planes() }
     //}
 
-    pub fn init(&mut self, p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) -> Option<Frustum> {
+    pub fn init(&mut self, p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) {
         unsafe {
-            from_glib_none(ffi::graphene_frustum_init(self.to_glib_none_mut().0, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0))
+            ffi::graphene_frustum_init(self.to_glib_none_mut().0, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0);
         }
     }
 
-    pub fn init_from_frustum(&mut self, src: &Frustum) -> Option<Frustum> {
+    pub fn init_from_frustum(&mut self, src: &Frustum) {
         unsafe {
-            from_glib_none(ffi::graphene_frustum_init_from_frustum(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_frustum_init_from_frustum(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_matrix(&mut self, matrix: &Matrix) -> Option<Frustum> {
+    pub fn init_from_matrix(&mut self, matrix: &Matrix) {
         unsafe {
-            from_glib_none(ffi::graphene_frustum_init_from_matrix(self.to_glib_none_mut().0, matrix.to_glib_none().0))
+            ffi::graphene_frustum_init_from_matrix(self.to_glib_none_mut().0, matrix.to_glib_none().0);
         }
     }
 

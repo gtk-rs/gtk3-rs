@@ -48,21 +48,21 @@ impl Point3D {
         }
     }
 
-    pub fn init(&mut self, x: f32, y: f32, z: f32) -> Option<Point3D> {
+    pub fn init(&mut self, x: f32, y: f32, z: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_point3d_init(self.to_glib_none_mut().0, x, y, z))
+            ffi::graphene_point3d_init(self.to_glib_none_mut().0, x, y, z);
         }
     }
 
-    pub fn init_from_point(&mut self, src: &Point3D) -> Option<Point3D> {
+    pub fn init_from_point(&mut self, src: &Point3D) {
         unsafe {
-            from_glib_none(ffi::graphene_point3d_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_point3d_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec3(&mut self, v: &Vec3) -> Option<Point3D> {
+    pub fn init_from_vec3(&mut self, v: &Vec3) {
         unsafe {
-            from_glib_none(ffi::graphene_point3d_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0))
+            ffi::graphene_point3d_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0);
         }
     }
 
@@ -118,7 +118,7 @@ impl Point3D {
         }
     }
 
-    pub fn zero() -> Option<Point3D> {
+    pub fn zero() -> Point3D {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_point3d_zero())

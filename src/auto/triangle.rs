@@ -101,15 +101,15 @@ impl Triangle {
         }
     }
 
-    pub fn init_from_point3d(&mut self, a: Option<&Point3D>, b: Option<&Point3D>, c: Option<&Point3D>) -> Option<Triangle> {
+    pub fn init_from_point3d(&mut self, a: Option<&Point3D>, b: Option<&Point3D>, c: Option<&Point3D>) {
         unsafe {
-            from_glib_none(ffi::graphene_triangle_init_from_point3d(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))
+            ffi::graphene_triangle_init_from_point3d(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec3(&mut self, a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) -> Option<Triangle> {
+    pub fn init_from_vec3(&mut self, a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) {
         unsafe {
-            from_glib_none(ffi::graphene_triangle_init_from_vec3(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0))
+            ffi::graphene_triangle_init_from_vec3(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
         }
     }
 }

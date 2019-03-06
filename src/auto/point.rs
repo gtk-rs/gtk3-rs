@@ -35,21 +35,21 @@ impl Point {
         }
     }
 
-    pub fn init(&mut self, x: f32, y: f32) -> Option<Point> {
+    pub fn init(&mut self, x: f32, y: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_point_init(self.to_glib_none_mut().0, x, y))
+            ffi::graphene_point_init(self.to_glib_none_mut().0, x, y);
         }
     }
 
-    pub fn init_from_point(&mut self, src: &Point) -> Option<Point> {
+    pub fn init_from_point(&mut self, src: &Point) {
         unsafe {
-            from_glib_none(ffi::graphene_point_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_point_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec2(&mut self, src: &Vec2) -> Option<Point> {
+    pub fn init_from_vec2(&mut self, src: &Vec2) {
         unsafe {
-            from_glib_none(ffi::graphene_point_init_from_vec2(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_point_init_from_vec2(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
@@ -75,7 +75,7 @@ impl Point {
         }
     }
 
-    pub fn zero() -> Option<Point> {
+    pub fn zero() -> Point {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_point_zero())

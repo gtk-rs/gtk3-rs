@@ -113,15 +113,15 @@ impl Rect {
         }
     }
 
-    pub fn init(&mut self, x: f32, y: f32, width: f32, height: f32) -> Option<Rect> {
+    pub fn init(&mut self, x: f32, y: f32, width: f32, height: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_rect_init(self.to_glib_none_mut().0, x, y, width, height))
+            ffi::graphene_rect_init(self.to_glib_none_mut().0, x, y, width, height);
         }
     }
 
-    pub fn init_from_rect(&mut self, src: &Rect) -> Option<Rect> {
+    pub fn init_from_rect(&mut self, src: &Rect) {
         unsafe {
-            from_glib_none(ffi::graphene_rect_init_from_rect(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_rect_init_from_rect(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
@@ -199,7 +199,7 @@ impl Rect {
         }
     }
 
-    pub fn zero() -> Option<Rect> {
+    pub fn zero() -> Rect {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_rect_zero())

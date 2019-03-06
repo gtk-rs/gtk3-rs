@@ -43,3 +43,18 @@ pub use glib::Error;
 
 mod box_;
 mod euler;
+mod frustum;
+mod matrix;
+mod plane;
+mod point3_d;
+mod point;
+mod quad;
+mod quaternion;
+mod ray;
+mod rect;
+mod size;
+mod sphere;
+mod triangle;
+mod vec2;
+mod vec3;
+mod vec4;

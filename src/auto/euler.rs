@@ -52,39 +52,39 @@ impl Euler {
         }
     }
 
-    pub fn init(&mut self, x: f32, y: f32, z: f32) -> Option<Euler> {
+    pub fn init(&mut self, x: f32, y: f32, z: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init(self.to_glib_none_mut().0, x, y, z))
+            ffi::graphene_euler_init(self.to_glib_none_mut().0, x, y, z);
         }
     }
 
-    pub fn init_from_euler(&mut self, src: Option<&Euler>) -> Option<Euler> {
+    pub fn init_from_euler(&mut self, src: Option<&Euler>) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init_from_euler(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_euler_init_from_euler(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_matrix(&mut self, m: Option<&Matrix>, order: EulerOrder) -> Option<Euler> {
+    pub fn init_from_matrix(&mut self, m: Option<&Matrix>, order: EulerOrder) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init_from_matrix(self.to_glib_none_mut().0, m.to_glib_none().0, order.to_glib()))
+            ffi::graphene_euler_init_from_matrix(self.to_glib_none_mut().0, m.to_glib_none().0, order.to_glib());
         }
     }
 
-    pub fn init_from_quaternion(&mut self, q: Option<&Quaternion>, order: EulerOrder) -> Option<Euler> {
+    pub fn init_from_quaternion(&mut self, q: Option<&Quaternion>, order: EulerOrder) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init_from_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0, order.to_glib()))
+            ffi::graphene_euler_init_from_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0, order.to_glib());
         }
     }
 
-    pub fn init_from_vec3(&mut self, v: Option<&Vec3>, order: EulerOrder) -> Option<Euler> {
+    pub fn init_from_vec3(&mut self, v: Option<&Vec3>, order: EulerOrder) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0, order.to_glib()))
+            ffi::graphene_euler_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0, order.to_glib());
         }
     }
 
-    pub fn init_with_order(&mut self, x: f32, y: f32, z: f32, order: EulerOrder) -> Option<Euler> {
+    pub fn init_with_order(&mut self, x: f32, y: f32, z: f32, order: EulerOrder) {
         unsafe {
-            from_glib_none(ffi::graphene_euler_init_with_order(self.to_glib_none_mut().0, x, y, z, order.to_glib()))
+            ffi::graphene_euler_init_with_order(self.to_glib_none_mut().0, x, y, z, order.to_glib());
         }
     }
 

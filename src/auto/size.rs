@@ -24,15 +24,15 @@ impl Size {
         }
     }
 
-    pub fn init(&mut self, width: f32, height: f32) -> Option<Size> {
+    pub fn init(&mut self, width: f32, height: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_size_init(self.to_glib_none_mut().0, width, height))
+            ffi::graphene_size_init(self.to_glib_none_mut().0, width, height);
         }
     }
 
-    pub fn init_from_size(&mut self, src: &Size) -> Option<Size> {
+    pub fn init_from_size(&mut self, src: &Size) {
         unsafe {
-            from_glib_none(ffi::graphene_size_init_from_size(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_size_init_from_size(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
@@ -52,7 +52,7 @@ impl Size {
         }
     }
 
-    pub fn zero() -> Option<Size> {
+    pub fn zero() -> Size {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_size_zero())

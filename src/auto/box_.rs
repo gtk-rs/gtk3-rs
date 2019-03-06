@@ -125,21 +125,21 @@ impl Box {
         }
     }
 
-    pub fn init(&mut self, min: Option<&Point3D>, max: Option<&Point3D>) -> Option<Box> {
+    pub fn init(&mut self, min: Option<&Point3D>, max: Option<&Point3D>) {
         unsafe {
-            from_glib_none(ffi::graphene_box_init(self.to_glib_none_mut().0, min.to_glib_none().0, max.to_glib_none().0))
+            ffi::graphene_box_init(self.to_glib_none_mut().0, min.to_glib_none().0, max.to_glib_none().0);
         }
     }
 
-    pub fn init_from_box(&mut self, src: &Box) -> Option<Box> {
+    pub fn init_from_box(&mut self, src: &Box) {
         unsafe {
-            from_glib_none(ffi::graphene_box_init_from_box(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_box_init_from_box(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec3(&mut self, min: Option<&Vec3>, max: Option<&Vec3>) -> Option<Box> {
+    pub fn init_from_vec3(&mut self, min: Option<&Vec3>, max: Option<&Vec3>) {
         unsafe {
-            from_glib_none(ffi::graphene_box_init_from_vec3(self.to_glib_none_mut().0, min.to_glib_none().0, max.to_glib_none().0))
+            ffi::graphene_box_init_from_vec3(self.to_glib_none_mut().0, min.to_glib_none().0, max.to_glib_none().0);
         }
     }
 
@@ -159,42 +159,42 @@ impl Box {
         }
     }
 
-    pub fn empty() -> Option<Box> {
+    pub fn empty() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_empty())
         }
     }
 
-    pub fn infinite() -> Option<Box> {
+    pub fn infinite() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_infinite())
         }
     }
 
-    pub fn minus_one() -> Option<Box> {
+    pub fn minus_one() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_minus_one())
         }
     }
 
-    pub fn one() -> Option<Box> {
+    pub fn one() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_one())
         }
     }
 
-    pub fn one_minus_one() -> Option<Box> {
+    pub fn one_minus_one() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_one_minus_one())
         }
     }
 
-    pub fn zero() -> Option<Box> {
+    pub fn zero() -> Box {
         assert_initialized_main_thread!();
         unsafe {
             from_glib_none(ffi::graphene_box_zero())

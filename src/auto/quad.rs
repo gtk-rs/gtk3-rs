@@ -40,19 +40,19 @@ impl Quad {
         }
     }
 
-    pub fn init(&mut self, p1: &Point, p2: &Point, p3: &Point, p4: &Point) -> Option<Quad> {
+    pub fn init(&mut self, p1: &Point, p2: &Point, p3: &Point, p4: &Point) {
         unsafe {
-            from_glib_none(ffi::graphene_quad_init(self.to_glib_none_mut().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0))
+            ffi::graphene_quad_init(self.to_glib_none_mut().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0);
         }
     }
 
-    //pub fn init_from_points(&mut self, points: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 12 }; 4) -> Option<Quad> {
+    //pub fn init_from_points(&mut self, points: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 12 }; 4) {
     //    unsafe { TODO: call ffi::graphene_quad_init_from_points() }
     //}
 
-    pub fn init_from_rect(&mut self, r: &Rect) -> Option<Quad> {
+    pub fn init_from_rect(&mut self, r: &Rect) {
         unsafe {
-            from_glib_none(ffi::graphene_quad_init_from_rect(self.to_glib_none_mut().0, r.to_glib_none().0))
+            ffi::graphene_quad_init_from_rect(self.to_glib_none_mut().0, r.to_glib_none().0);
         }
     }
 }

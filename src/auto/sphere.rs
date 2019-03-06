@@ -60,9 +60,9 @@ impl Sphere {
         }
     }
 
-    pub fn init(&mut self, center: Option<&Point3D>, radius: f32) -> Option<Sphere> {
+    pub fn init(&mut self, center: Option<&Point3D>, radius: f32) {
         unsafe {
-            from_glib_none(ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius))
+            ffi::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius);
         }
     }
 

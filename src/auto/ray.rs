@@ -71,21 +71,21 @@ impl Ray {
         }
     }
 
-    pub fn init(&mut self, origin: Option<&Point3D>, direction: Option<&Vec3>) -> Option<Ray> {
+    pub fn init(&mut self, origin: Option<&Point3D>, direction: Option<&Vec3>) {
         unsafe {
-            from_glib_none(ffi::graphene_ray_init(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0))
+            ffi::graphene_ray_init(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0);
         }
     }
 
-    pub fn init_from_ray(&mut self, src: &Ray) -> Option<Ray> {
+    pub fn init_from_ray(&mut self, src: &Ray) {
         unsafe {
-            from_glib_none(ffi::graphene_ray_init_from_ray(self.to_glib_none_mut().0, src.to_glib_none().0))
+            ffi::graphene_ray_init_from_ray(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
-    pub fn init_from_vec3(&mut self, origin: Option<&Vec3>, direction: Option<&Vec3>) -> Option<Ray> {
+    pub fn init_from_vec3(&mut self, origin: Option<&Vec3>, direction: Option<&Vec3>) {
         unsafe {
-            from_glib_none(ffi::graphene_ray_init_from_vec3(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0))
+            ffi::graphene_ray_init_from_vec3(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0);
         }
     }
 }
