@@ -5,6 +5,21 @@ use ffi;
 use glib::translate::*;
 
 impl Box {
+    pub fn get_vertices(&self) -> [Vec3; 8] {
+        unsafe {
+            let mut out: [ffi::graphene_vec3_t; 8] = std::mem::uninitialized();
+            ffi::graphene_box_get_vertices(self.to_glib_none().0, &mut out as *mut _);
+
+            let mut res: [Vec3; 8] = std::mem::uninitialized();
+            for i in 0..8 {
+                let t = from_glib_none(&out[i] as *const _);
+                std::ptr::copy_nonoverlapping(&t as *const _, &mut res[i] as *mut _, 1);
+                std::mem::forget(t);
+            }
+            res
+        }
+    }
+
     pub fn init_from_points(&mut self, points: &[&Point3D]) {
         let vec: Vec<_> = points
             .iter()
