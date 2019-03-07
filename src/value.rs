@@ -272,6 +272,7 @@ impl Uninitialized for Value {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *const gobject_ffi::GValue> for Value {
     type Storage = &'a Value;
 
@@ -280,6 +281,7 @@ impl<'a> ToGlibPtr<'a, *const gobject_ffi::GValue> for Value {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
     type Storage = &'a mut Value;
 
@@ -288,6 +290,7 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for Value {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut gobject_ffi::GValue> for &'a [&'a ToValue] {
     type Storage = ValueArray;
 
@@ -299,6 +302,7 @@ impl<'a> ToGlibPtr<'a, *mut gobject_ffi::GValue> for &'a [&'a ToValue] {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
     type Storage = &'a [&'a Value];
 
@@ -334,6 +338,7 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gobject_ffi::GValue> for &'a Value {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibContainerFromSlice<'a, *const gobject_ffi::GValue> for &'a Value {
     type Storage = &'a [&'a Value];
 
@@ -580,6 +585,7 @@ impl<'a> From<TypedValue<String>> for TypedValue<&'a str> {
     }
 }
 
+#[doc(hidden)]
 impl<'a, T: 'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for TypedValue<T> {
     type Storage = &'a mut TypedValue<T>;
 
@@ -721,6 +727,7 @@ impl<T: Send> From<TypedValue<T>> for SendValue {
 
 from_glib!(SendValue, SendValue);
 
+#[doc(hidden)]
 impl<'a> ToGlibPtrMut<'a, *mut gobject_ffi::GValue> for SendValue {
     type Storage = &'a mut SendValue;
 

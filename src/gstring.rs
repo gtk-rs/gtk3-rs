@@ -259,6 +259,7 @@ impl<'a> From<&'a CStr> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrFull<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *const c_char) -> Self {
@@ -266,6 +267,7 @@ impl FromGlibPtrFull<*const c_char> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut u8) -> Self {
@@ -273,6 +275,7 @@ impl FromGlibPtrFull<*mut u8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrFull<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut i8) -> Self {
@@ -280,6 +283,7 @@ impl FromGlibPtrFull<*mut i8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrNone<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *const c_char) -> Self {
@@ -288,6 +292,7 @@ impl FromGlibPtrNone<*const c_char> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrNone<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut u8) -> Self {
@@ -296,6 +301,7 @@ impl FromGlibPtrNone<*mut u8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrNone<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut i8) -> Self {
@@ -304,6 +310,7 @@ impl FromGlibPtrNone<*mut i8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrBorrow<*const c_char> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *const c_char) -> Self {
@@ -311,6 +318,7 @@ impl FromGlibPtrBorrow<*const c_char> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrBorrow<*mut u8> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut u8) -> Self {
@@ -318,6 +326,7 @@ impl FromGlibPtrBorrow<*mut u8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl FromGlibPtrBorrow<*mut i8> for GString {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut i8) -> Self {
@@ -325,6 +334,7 @@ impl FromGlibPtrBorrow<*mut i8> for GString {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *const c_char> for GString {
     type Storage = &'a Self;
 
@@ -342,6 +352,7 @@ impl<'a> ToGlibPtr<'a, *const c_char> for GString {
     }
 }
 
+#[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *mut c_char> for GString {
     type Storage = &'a Self;
 

@@ -23,6 +23,7 @@ use MainContext;
 #[derive(Debug, Eq, PartialEq)]
 pub struct SourceId(u32);
 
+#[doc(hidden)]
 impl ToGlib for SourceId {
     type GlibType = u32;
 
@@ -32,6 +33,7 @@ impl ToGlib for SourceId {
     }
 }
 
+#[doc(hidden)]
 impl FromGlib<u32> for SourceId {
     #[inline]
     fn from_glib(val: u32) -> SourceId {
@@ -57,6 +59,7 @@ unsafe impl Sync for Pid {}
 #[derive(Copy, Clone, Debug, PartialEq, Eq)]
 pub struct Continue(pub bool);
 
+#[doc(hidden)]
 impl ToGlib for Continue {
     type GlibType = gboolean;
 
@@ -392,6 +395,7 @@ pub fn source_remove(source_id: SourceId) {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Priority(i32);
 
+#[doc(hidden)]
 impl ToGlib for Priority {
     type GlibType = i32;
 
@@ -401,6 +405,7 @@ impl ToGlib for Priority {
     }
 }
 
+#[doc(hidden)]
 impl FromGlib<i32> for Priority {
     #[inline]
     fn from_glib(val: i32) -> Priority {
