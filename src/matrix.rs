@@ -6,11 +6,26 @@ use ffi;
 use glib::translate::*;
 
 impl Matrix {
+    pub fn init_from_float(&mut self, v: &[f32; 16]) {
+        unsafe {
+            ffi::graphene_matrix_init_from_float(self.to_glib_none_mut().0, v as *const _);
+        }
+    }
+
     pub fn new_from_2d(xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = ffi::graphene_matrix_alloc();
             ffi::graphene_matrix_init_from_2d(alloc, xx, yx, xy, yy, x_0, y_0);
+            from_glib_full(alloc)
+        }
+    }
+
+    pub fn new_from_float(v: &[f32; 16]) -> Matrix {
+        assert_initialized_main_thread!();
+        unsafe {
+            let alloc = ffi::graphene_matrix_alloc();
+            ffi::graphene_matrix_init_from_float(alloc, v as *const _);
             from_glib_full(alloc)
         }
     }
@@ -111,6 +126,14 @@ impl Matrix {
             let alloc = ffi::graphene_matrix_alloc();
             ffi::graphene_matrix_init_translate(alloc, p.to_glib_none().0);
             from_glib_full(alloc)
+        }
+    }
+
+    pub fn to_float(&self) -> [f32; 16] {
+        unsafe {
+            let mut out = std::mem::uninitialized();
+            ffi::graphene_matrix_to_float(self.to_glib_none().0, &mut out as *mut _);
+            out
         }
     }
 }
