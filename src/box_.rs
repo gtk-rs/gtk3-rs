@@ -9,14 +9,16 @@ impl Box {
         unsafe {
             let mut out: [ffi::graphene_vec3_t; 8] = std::mem::uninitialized();
             ffi::graphene_box_get_vertices(self.to_glib_none().0, &mut out as *mut _);
-
-            let mut res: [Vec3; 8] = std::mem::uninitialized();
-            for i in 0..8 {
-                let t = from_glib_none(&out[i] as *const _);
-                std::ptr::copy_nonoverlapping(&t as *const _, &mut res[i] as *mut _, 1);
-                std::mem::forget(t);
-            }
-            res
+            [
+                from_glib_none(&out[0] as *const _),
+                from_glib_none(&out[1] as *const _),
+                from_glib_none(&out[2] as *const _),
+                from_glib_none(&out[3] as *const _),
+                from_glib_none(&out[4] as *const _),
+                from_glib_none(&out[5] as *const _),
+                from_glib_none(&out[6] as *const _),
+                from_glib_none(&out[7] as *const _),
+            ]
         }
     }
 
