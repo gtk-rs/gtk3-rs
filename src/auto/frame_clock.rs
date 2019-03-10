@@ -4,22 +4,22 @@
 
 use FrameClockPhase;
 use FrameTimings;
-use ffi;
+use gdk_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FrameClock(Object<ffi::GdkFrameClock, ffi::GdkFrameClockClass, FrameClockClass>);
+    pub struct FrameClock(Object<gdk_sys::GdkFrameClock, gdk_sys::GdkFrameClockClass, FrameClockClass>);
 
     match fn {
-        get_type => || ffi::gdk_frame_clock_get_type(),
+        get_type => || gdk_sys::gdk_frame_clock_get_type(),
     }
 }
 
@@ -60,49 +60,49 @@ pub trait FrameClockExt: 'static {
 impl<O: IsA<FrameClock>> FrameClockExt for O {
     fn begin_updating(&self) {
         unsafe {
-            ffi::gdk_frame_clock_begin_updating(self.as_ref().to_glib_none().0);
+            gdk_sys::gdk_frame_clock_begin_updating(self.as_ref().to_glib_none().0);
         }
     }
 
     fn end_updating(&self) {
         unsafe {
-            ffi::gdk_frame_clock_end_updating(self.as_ref().to_glib_none().0);
+            gdk_sys::gdk_frame_clock_end_updating(self.as_ref().to_glib_none().0);
         }
     }
 
     fn get_current_timings(&self) -> Option<FrameTimings> {
         unsafe {
-            from_glib_none(ffi::gdk_frame_clock_get_current_timings(self.as_ref().to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_frame_clock_get_current_timings(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_frame_counter(&self) -> i64 {
         unsafe {
-            ffi::gdk_frame_clock_get_frame_counter(self.as_ref().to_glib_none().0)
+            gdk_sys::gdk_frame_clock_get_frame_counter(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_frame_time(&self) -> i64 {
         unsafe {
-            ffi::gdk_frame_clock_get_frame_time(self.as_ref().to_glib_none().0)
+            gdk_sys::gdk_frame_clock_get_frame_time(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_history_start(&self) -> i64 {
         unsafe {
-            ffi::gdk_frame_clock_get_history_start(self.as_ref().to_glib_none().0)
+            gdk_sys::gdk_frame_clock_get_history_start(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_timings(&self, frame_counter: i64) -> Option<FrameTimings> {
         unsafe {
-            from_glib_none(ffi::gdk_frame_clock_get_timings(self.as_ref().to_glib_none().0, frame_counter))
+            from_glib_none(gdk_sys::gdk_frame_clock_get_timings(self.as_ref().to_glib_none().0, frame_counter))
         }
     }
 
     fn request_phase(&self, phase: FrameClockPhase) {
         unsafe {
-            ffi::gdk_frame_clock_request_phase(self.as_ref().to_glib_none().0, phase.to_glib());
+            gdk_sys::gdk_frame_clock_request_phase(self.as_ref().to_glib_none().0, phase.to_glib());
         }
     }
 
@@ -163,43 +163,43 @@ impl<O: IsA<FrameClock>> FrameClockExt for O {
     }
 }
 
-unsafe extern "C" fn after_paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn after_paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn before_paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn before_paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn flush_events_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn flush_events_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn layout_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn layout_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn paint_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn resume_events_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn resume_events_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn update_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GdkFrameClock, f: glib_ffi::gpointer)
+unsafe extern "C" fn update_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer)
 where P: IsA<FrameClock> {
     let f: &F = &*(f as *const F);
     f(&FrameClock::from_glib_borrow(this).unsafe_cast())

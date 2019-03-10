@@ -2,8 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 use FrameClock;
 
 impl FrameClock {
@@ -11,7 +11,7 @@ impl FrameClock {
         unsafe {
             let mut refresh_interval = 0;
             let mut presentation_time = 0;
-            ffi::gdk_frame_clock_get_refresh_info(self.to_glib_none().0, base_time,
+            gdk_sys::gdk_frame_clock_get_refresh_info(self.to_glib_none().0, base_time,
                                                   &mut refresh_interval, &mut presentation_time);
             (refresh_interval, presentation_time)
         }

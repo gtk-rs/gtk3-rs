@@ -3,53 +3,53 @@
 // DO NOT EDIT
 
 use Display;
-use ffi;
+use gdk_sys;
 use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct DisplayManager(Object<ffi::GdkDisplayManager, DisplayManagerClass>);
+    pub struct DisplayManager(Object<gdk_sys::GdkDisplayManager, DisplayManagerClass>);
 
     match fn {
-        get_type => || ffi::gdk_display_manager_get_type(),
+        get_type => || gdk_sys::gdk_display_manager_get_type(),
     }
 }
 
 impl DisplayManager {
     pub fn get_default_display(&self) -> Option<Display> {
         unsafe {
-            from_glib_none(ffi::gdk_display_manager_get_default_display(self.to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_display_manager_get_default_display(self.to_glib_none().0))
         }
     }
 
     pub fn list_displays(&self) -> Vec<Display> {
         unsafe {
-            FromGlibPtrContainer::from_glib_container(ffi::gdk_display_manager_list_displays(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_container(gdk_sys::gdk_display_manager_list_displays(self.to_glib_none().0))
         }
     }
 
     pub fn open_display(&self, name: &str) -> Option<Display> {
         unsafe {
-            from_glib_none(ffi::gdk_display_manager_open_display(self.to_glib_none().0, name.to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_display_manager_open_display(self.to_glib_none().0, name.to_glib_none().0))
         }
     }
 
     pub fn set_default_display(&self, display: &Display) {
         unsafe {
-            ffi::gdk_display_manager_set_default_display(self.to_glib_none().0, display.to_glib_none().0);
+            gdk_sys::gdk_display_manager_set_default_display(self.to_glib_none().0, display.to_glib_none().0);
         }
     }
 
     pub fn get() -> DisplayManager {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_none(ffi::gdk_display_manager_get())
+            from_glib_none(gdk_sys::gdk_display_manager_get())
         }
     }
 
@@ -70,12 +70,12 @@ impl DisplayManager {
     }
 }
 
-unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut ffi::GdkDisplayManager, display: *mut ffi::GdkDisplay, f: glib_ffi::gpointer) {
+unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut gdk_sys::GdkDisplayManager, display: *mut gdk_sys::GdkDisplay, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(display))
 }
 
-unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut ffi::GdkDisplayManager, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut gdk_sys::GdkDisplayManager, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }

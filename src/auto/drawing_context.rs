@@ -6,16 +6,16 @@
 use Window;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use cairo;
-use ffi;
+use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct DrawingContext(Object<ffi::GdkDrawingContext, ffi::GdkDrawingContextClass, DrawingContextClass>);
+    pub struct DrawingContext(Object<gdk_sys::GdkDrawingContext, gdk_sys::GdkDrawingContextClass, DrawingContextClass>);
 
     match fn {
-        get_type => || ffi::gdk_drawing_context_get_type(),
+        get_type => || gdk_sys::gdk_drawing_context_get_type(),
     }
 }
 
@@ -39,28 +39,28 @@ impl<O: IsA<DrawingContext>> DrawingContextExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_cairo_context(&self) -> Option<cairo::Context> {
         unsafe {
-            from_glib_none(ffi::gdk_drawing_context_get_cairo_context(self.as_ref().to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_drawing_context_get_cairo_context(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_clip(&self) -> Option<cairo::Region> {
         unsafe {
-            from_glib_full(ffi::gdk_drawing_context_get_clip(self.as_ref().to_glib_none().0))
+            from_glib_full(gdk_sys::gdk_drawing_context_get_clip(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_window(&self) -> Option<Window> {
         unsafe {
-            from_glib_none(ffi::gdk_drawing_context_get_window(self.as_ref().to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_drawing_context_get_window(self.as_ref().to_glib_none().0))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn is_valid(&self) -> bool {
         unsafe {
-            from_glib(ffi::gdk_drawing_context_is_valid(self.as_ref().to_glib_none().0))
+            from_glib(gdk_sys::gdk_drawing_context_is_valid(self.as_ref().to_glib_none().0))
         }
     }
 }

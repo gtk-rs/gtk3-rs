@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventConfigure(::Event);
 
 event_wrapper!(EventConfigure, GdkEventConfigure);
-event_subtype!(EventConfigure, ffi::GDK_CONFIGURE);
+event_subtype!(EventConfigure, gdk_sys::GDK_CONFIGURE);
 
 impl EventConfigure {
     pub fn get_position(&self) -> (i32, i32) {

@@ -2,14 +2,14 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventProximity(::Event);
 
 event_wrapper!(EventProximity, GdkEventProximity);
-event_subtype!(EventProximity, ffi::GDK_PROXIMITY_IN | ffi::GDK_PROXIMITY_OUT);
+event_subtype!(EventProximity, gdk_sys::GDK_PROXIMITY_IN | gdk_sys::GDK_PROXIMITY_OUT);
 
 impl EventProximity {
     pub fn get_time(&self) -> u32 {

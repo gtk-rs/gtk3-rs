@@ -4,6 +4,6 @@
 
 //! Traits intended for blanket imports.
 
-pub use cairo_interaction::ContextExt;
 pub use auto::traits::*;
+pub use cairo_interaction::ContextExt;
 pub use window::WindowExtManual;

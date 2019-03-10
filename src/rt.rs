@@ -4,11 +4,10 @@
 
 //! General — Library initialization and miscellaneous functions
 
+use gdk_sys;
 use std::cell::Cell;
 use std::ptr;
-use std::sync::atomic::{AtomicBool, ATOMIC_BOOL_INIT, Ordering};
-
-use ffi;
+use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
 
 thread_local! {
     static IS_MAIN_THREAD: Cell<bool> = Cell::new(false)
@@ -74,7 +73,7 @@ pub unsafe fn set_initialized() {
 pub fn init() {
     assert_not_initialized!();
     unsafe {
-        ffi::gdk_init(ptr::null_mut(), ptr::null_mut());
+        gdk_sys::gdk_init(ptr::null_mut(), ptr::null_mut());
         set_initialized();
     }
 }

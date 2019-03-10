@@ -3,15 +3,15 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use cairo;
+use gdk_sys;
 use glib::translate::*;
-use ffi;
 use Rectangle;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct EventExpose(::Event);
 
 event_wrapper!(EventExpose, GdkEventExpose);
-event_subtype!(EventExpose, ffi::GDK_EXPOSE | ffi::GDK_DAMAGE);
+event_subtype!(EventExpose, gdk_sys::GDK_EXPOSE | gdk_sys::GDK_DAMAGE);
 
 impl EventExpose {
     pub fn get_region(&self) -> Option<cairo::Region> {
