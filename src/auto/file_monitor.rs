@@ -4,7 +4,7 @@
 
 use File;
 use FileMonitorEvent;
-use ffi;
+use gio_sys;
 use glib::StaticType;
 use glib::Value;
 use glib::object::Cast;
@@ -12,17 +12,17 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct FileMonitor(Object<ffi::GFileMonitor, ffi::GFileMonitorClass, FileMonitorClass>);
+    pub struct FileMonitor(Object<gio_sys::GFileMonitor, gio_sys::GFileMonitorClass, FileMonitorClass>);
 
     match fn {
-        get_type => || ffi::g_file_monitor_get_type(),
+        get_type => || gio_sys::g_file_monitor_get_type(),
     }
 }
 
@@ -51,32 +51,32 @@ pub trait FileMonitorExt: 'static {
 impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn cancel(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_file_monitor_cancel(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_file_monitor_cancel(self.as_ref().to_glib_none().0))
         }
     }
 
     fn emit_event<P: IsA<File>, Q: IsA<File>>(&self, child: &P, other_file: &Q, event_type: FileMonitorEvent) {
         unsafe {
-            ffi::g_file_monitor_emit_event(self.as_ref().to_glib_none().0, child.as_ref().to_glib_none().0, other_file.as_ref().to_glib_none().0, event_type.to_glib());
+            gio_sys::g_file_monitor_emit_event(self.as_ref().to_glib_none().0, child.as_ref().to_glib_none().0, other_file.as_ref().to_glib_none().0, event_type.to_glib());
         }
     }
 
     fn is_cancelled(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_file_monitor_is_cancelled(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_file_monitor_is_cancelled(self.as_ref().to_glib_none().0))
         }
     }
 
     fn set_rate_limit(&self, limit_msecs: i32) {
         unsafe {
-            ffi::g_file_monitor_set_rate_limit(self.as_ref().to_glib_none().0, limit_msecs);
+            gio_sys::g_file_monitor_set_rate_limit(self.as_ref().to_glib_none().0, limit_msecs);
         }
     }
 
     fn get_property_cancelled(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"cancelled\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"cancelled\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -84,7 +84,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     fn get_property_rate_limit(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"rate-limit\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"rate-limit\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -114,19 +114,19 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     }
 }
 
-unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &File, &Option<File>, FileMonitorEvent) + 'static>(this: *mut ffi::GFileMonitor, file: *mut ffi::GFile, other_file: *mut ffi::GFile, event_type: ffi::GFileMonitorEvent, f: glib_ffi::gpointer)
+unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &File, &Option<File>, FileMonitorEvent) + 'static>(this: *mut gio_sys::GFileMonitor, file: *mut gio_sys::GFile, other_file: *mut gio_sys::GFile, event_type: gio_sys::GFileMonitorEvent, f: glib_sys::gpointer)
 where P: IsA<FileMonitor> {
     let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(file), &from_glib_borrow(other_file), from_glib(event_type))
 }
 
-unsafe extern "C" fn notify_cancelled_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_cancelled_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFileMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<FileMonitor> {
     let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_rate_limit_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GFileMonitor, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_rate_limit_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFileMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<FileMonitor> {
     let f: &F = &*(f as *const F);
     f(&FileMonitor::from_glib_borrow(this).unsafe_cast())

@@ -1,10 +1,10 @@
 #![cfg(feature = "v2_36")]
 
-extern crate glib;
 extern crate gio;
+extern crate glib;
 
-use std::io;
 use gio::prelude::*;
+use std::io;
 
 #[test]
 #[cfg(feature = "v2_36")]

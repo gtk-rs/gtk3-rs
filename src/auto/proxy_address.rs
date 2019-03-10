@@ -6,7 +6,7 @@ use InetAddress;
 use InetSocketAddress;
 use SocketAddress;
 use SocketConnectable;
-use ffi;
+use gio_sys;
 use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -14,17 +14,17 @@ use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct ProxyAddress(Object<ffi::GProxyAddress, ffi::GProxyAddressClass, ProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
+    pub struct ProxyAddress(Object<gio_sys::GProxyAddress, gio_sys::GProxyAddressClass, ProxyAddressClass>) @extends InetSocketAddress, SocketAddress, @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_proxy_address_get_type(),
+        get_type => || gio_sys::g_proxy_address_get_type(),
     }
 }
 
 impl ProxyAddress {
     pub fn new<P: IsA<InetAddress>>(inetaddr: &P, port: u16, protocol: &str, dest_hostname: &str, dest_port: u16, username: Option<&str>, password: Option<&str>) -> ProxyAddress {
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_proxy_address_new(inetaddr.as_ref().to_glib_none().0, port, protocol.to_glib_none().0, dest_hostname.to_glib_none().0, dest_port, username.to_glib_none().0, password.to_glib_none().0)).unsafe_cast()
+            SocketAddress::from_glib_full(gio_sys::g_proxy_address_new(inetaddr.as_ref().to_glib_none().0, port, protocol.to_glib_none().0, dest_hostname.to_glib_none().0, dest_port, username.to_glib_none().0, password.to_glib_none().0)).unsafe_cast()
         }
     }
 }
@@ -53,43 +53,43 @@ pub trait ProxyAddressExt: 'static {
 impl<O: IsA<ProxyAddress>> ProxyAddressExt for O {
     fn get_destination_hostname(&self) -> GString {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_destination_hostname(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_destination_hostname(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_destination_port(&self) -> u16 {
         unsafe {
-            ffi::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0)
+            gio_sys::g_proxy_address_get_destination_port(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_destination_protocol(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_destination_protocol(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_destination_protocol(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_password(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_password(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_password(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_protocol(&self) -> GString {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_protocol(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_protocol(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_uri(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_uri(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_uri(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_username(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_proxy_address_get_username(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_proxy_address_get_username(self.as_ref().to_glib_none().0))
         }
     }
 }

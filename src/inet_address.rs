@@ -1,5 +1,5 @@
 use SocketFamily;
-use ffi;
+use gio_sys;
 use glib::translate::*;
 use InetAddress;
 
@@ -31,7 +31,7 @@ impl InetAddress {
             V6(_) => SocketFamily::Ipv6,
         };
         unsafe {
-            from_glib_full(ffi::g_inet_address_new_from_bytes(
+            from_glib_full(gio_sys::g_inet_address_new_from_bytes(
                 bytes.to_glib_none().0,
                 family.to_glib(),
             ))

@@ -3,54 +3,54 @@
 // DO NOT EDIT
 
 use Action;
-use ffi;
+use gio_sys;
 use glib;
 use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct SimpleAction(Object<ffi::GSimpleAction, SimpleActionClass>) @implements Action;
+    pub struct SimpleAction(Object<gio_sys::GSimpleAction, SimpleActionClass>) @implements Action;
 
     match fn {
-        get_type => || ffi::g_simple_action_get_type(),
+        get_type => || gio_sys::g_simple_action_get_type(),
     }
 }
 
 impl SimpleAction {
     pub fn new(name: &str, parameter_type: Option<&glib::VariantTy>) -> SimpleAction {
         unsafe {
-            from_glib_full(ffi::g_simple_action_new(name.to_glib_none().0, parameter_type.to_glib_none().0))
+            from_glib_full(gio_sys::g_simple_action_new(name.to_glib_none().0, parameter_type.to_glib_none().0))
         }
     }
 
     pub fn new_stateful(name: &str, parameter_type: Option<&glib::VariantTy>, state: &glib::Variant) -> SimpleAction {
         unsafe {
-            from_glib_full(ffi::g_simple_action_new_stateful(name.to_glib_none().0, parameter_type.to_glib_none().0, state.to_glib_none().0))
+            from_glib_full(gio_sys::g_simple_action_new_stateful(name.to_glib_none().0, parameter_type.to_glib_none().0, state.to_glib_none().0))
         }
     }
 
     pub fn set_enabled(&self, enabled: bool) {
         unsafe {
-            ffi::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
+            gio_sys::g_simple_action_set_enabled(self.to_glib_none().0, enabled.to_glib());
         }
     }
 
     pub fn set_state(&self, value: &glib::Variant) {
         unsafe {
-            ffi::g_simple_action_set_state(self.to_glib_none().0, value.to_glib_none().0);
+            gio_sys::g_simple_action_set_state(self.to_glib_none().0, value.to_glib_none().0);
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn set_state_hint(&self, state_hint: Option<&glib::Variant>) {
         unsafe {
-            ffi::g_simple_action_set_state_hint(self.to_glib_none().0, state_hint.to_glib_none().0);
+            gio_sys::g_simple_action_set_state_hint(self.to_glib_none().0, state_hint.to_glib_none().0);
         }
     }
 
@@ -87,22 +87,22 @@ impl SimpleAction {
     }
 }
 
-unsafe extern "C" fn activate_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut ffi::GSimpleAction, parameter: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
+unsafe extern "C" fn activate_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, parameter: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(parameter))
 }
 
-unsafe extern "C" fn change_state_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut ffi::GSimpleAction, value: *mut glib_ffi::GVariant, f: glib_ffi::gpointer) {
+unsafe extern "C" fn change_state_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, value: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this), &from_glib_borrow(value))
 }
 
-unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut gio_sys::GSimpleAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }
 
-unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut ffi::GSimpleAction, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer) {
+unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut gio_sys::GSimpleAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
     f(&from_glib_borrow(this))
 }

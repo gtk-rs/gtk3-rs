@@ -2,27 +2,27 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SettingsBackend(Object<ffi::GSettingsBackend, ffi::GSettingsBackendClass, SettingsBackendClass>);
+    pub struct SettingsBackend(Object<gio_sys::GSettingsBackend, gio_sys::GSettingsBackendClass, SettingsBackendClass>);
 
     match fn {
-        get_type => || ffi::g_settings_backend_get_type(),
+        get_type => || gio_sys::g_settings_backend_get_type(),
     }
 }
 
 impl SettingsBackend {
     //pub fn flatten_tree(tree: /*Ignored*/&glib::Tree) -> (GString, Vec<GString>, Vec<glib::Variant>) {
-    //    unsafe { TODO: call ffi::g_settings_backend_flatten_tree() }
+    //    unsafe { TODO: call gio_sys:g_settings_backend_flatten_tree() }
     //}
 
     pub fn get_default() -> Option<SettingsBackend> {
         unsafe {
-            from_glib_full(ffi::g_settings_backend_get_default())
+            from_glib_full(gio_sys::g_settings_backend_get_default())
         }
     }
 }
@@ -45,30 +45,30 @@ pub trait SettingsBackendExt: 'static {
 
 impl<O: IsA<SettingsBackend>> SettingsBackendExt for O {
     //fn changed(&self, key: &str, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_settings_backend_changed() }
+    //    unsafe { TODO: call gio_sys:g_settings_backend_changed() }
     //}
 
     //fn changed_tree(&self, tree: /*Ignored*/&glib::Tree, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_settings_backend_changed_tree() }
+    //    unsafe { TODO: call gio_sys:g_settings_backend_changed_tree() }
     //}
 
     //fn keys_changed(&self, path: &str, items: &[&str], origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_settings_backend_keys_changed() }
+    //    unsafe { TODO: call gio_sys:g_settings_backend_keys_changed() }
     //}
 
     //fn path_changed(&self, path: &str, origin_tag: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::g_settings_backend_path_changed() }
+    //    unsafe { TODO: call gio_sys:g_settings_backend_path_changed() }
     //}
 
     fn path_writable_changed(&self, path: &str) {
         unsafe {
-            ffi::g_settings_backend_path_writable_changed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
+            gio_sys::g_settings_backend_path_writable_changed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
         }
     }
 
     fn writable_changed(&self, key: &str) {
         unsafe {
-            ffi::g_settings_backend_writable_changed(self.as_ref().to_glib_none().0, key.to_glib_none().0);
+            gio_sys::g_settings_backend_writable_changed(self.as_ref().to_glib_none().0, key.to_glib_none().0);
         }
     }
 }

@@ -2,18 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use gio_sys;
+use glib::object::{Cast, IsA};
+use glib::translate::*;
+use libc;
 use std::ffi::OsStr;
 #[cfg(unix)]
 use std::os::unix::ffi::OsStrExt;
 use std::path;
 use std::ptr;
 use std::slice;
-
-use libc;
-use glib::object::{Cast, IsA};
-use glib::translate::*;
-
-use ffi;
 use SocketAddress;
 use UnixSocketAddress;
 use UnixSocketAddressExt;
@@ -43,7 +41,7 @@ impl<'a> UnixSocketAddressPath<'a> {
 impl UnixSocketAddress {
     pub fn new(path: &path::Path) -> UnixSocketAddress {
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new(path.to_glib_none().0)).unsafe_cast()
+            SocketAddress::from_glib_full(gio_sys::g_unix_socket_address_new(path.to_glib_none().0)).unsafe_cast()
         }
     }
 
@@ -58,7 +56,7 @@ impl UnixSocketAddress {
                 Anonymous => (ptr::null_mut(), 0),
             };
         unsafe {
-            SocketAddress::from_glib_full(ffi::g_unix_socket_address_new_with_type(path, len as i32, type_.to_glib()))
+            SocketAddress::from_glib_full(gio_sys::g_unix_socket_address_new_with_type(path, len as i32, type_.to_glib()))
                 .unsafe_cast()
         }
     }
@@ -73,7 +71,7 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExtManual for O {
         use self::UnixSocketAddressPath::*;
 
         let path = unsafe {
-            let path = ffi::g_unix_socket_address_get_path(self.as_ref().to_glib_none().0);
+            let path = gio_sys::g_unix_socket_address_get_path(self.as_ref().to_glib_none().0);
             if path.is_null() {
                 &[]
             } else {

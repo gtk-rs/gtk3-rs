@@ -5,34 +5,34 @@
 use SocketAddress;
 use SocketConnectable;
 use UnixSocketAddressType;
-use ffi;
+use gio_sys;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
 use glib::translate::*;
-use gobject_ffi;
+use gobject_sys;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct UnixSocketAddress(Object<ffi::GUnixSocketAddress, ffi::GUnixSocketAddressClass, UnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
+    pub struct UnixSocketAddress(Object<gio_sys::GUnixSocketAddress, gio_sys::GUnixSocketAddressClass, UnixSocketAddressClass>) @extends SocketAddress, @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_unix_socket_address_get_type(),
+        get_type => || gio_sys::g_unix_socket_address_get_type(),
     }
 }
 
 impl UnixSocketAddress {
     //pub fn new_abstract(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }) -> UnixSocketAddress {
-    //    unsafe { TODO: call ffi::g_unix_socket_address_new_abstract() }
+    //    unsafe { TODO: call gio_sys:g_unix_socket_address_new_abstract() }
     //}
 
     //pub fn new_with_type(path: /*Unimplemented*/&CArray TypeId { ns_id: 0, id: 10 }, type_: UnixSocketAddressType) -> UnixSocketAddress {
-    //    unsafe { TODO: call ffi::g_unix_socket_address_new_with_type() }
+    //    unsafe { TODO: call gio_sys:g_unix_socket_address_new_with_type() }
     //}
 
     pub fn abstract_names_supported() -> bool {
         unsafe {
-            from_glib(ffi::g_unix_socket_address_abstract_names_supported())
+            from_glib(gio_sys::g_unix_socket_address_abstract_names_supported())
         }
     }
 }
@@ -57,26 +57,26 @@ pub trait UnixSocketAddressExt: 'static {
 impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
     fn get_address_type(&self) -> UnixSocketAddressType {
         unsafe {
-            from_glib(ffi::g_unix_socket_address_get_address_type(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_unix_socket_address_get_address_type(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_is_abstract(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_unix_socket_address_get_is_abstract(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_unix_socket_address_get_is_abstract(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_path_len(&self) -> usize {
         unsafe {
-            ffi::g_unix_socket_address_get_path_len(self.as_ref().to_glib_none().0)
+            gio_sys::g_unix_socket_address_get_path_len(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_property_abstract(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"abstract\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"abstract\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -84,7 +84,7 @@ impl<O: IsA<UnixSocketAddress>> UnixSocketAddressExt for O {
     //fn get_property_path_as_array(&self) -> /*Ignored*/Option<glib::ByteArray> {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-    //        gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"path-as-array\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+    //        gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"path-as-array\0".as_ptr() as *const _, value.to_glib_none_mut().0);
     //        value.get()
     //    }
     //}

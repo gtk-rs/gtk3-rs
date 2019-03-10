@@ -7,17 +7,17 @@ use IOStream;
 use InputStream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use OutputStream;
-use ffi;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct SimpleIOStream(Object<ffi::GSimpleIOStream, SimpleIOStreamClass>) @extends IOStream;
+    pub struct SimpleIOStream(Object<gio_sys::GSimpleIOStream, SimpleIOStreamClass>) @extends IOStream;
 
     match fn {
-        get_type => || ffi::g_simple_io_stream_get_type(),
+        get_type => || gio_sys::g_simple_io_stream_get_type(),
     }
 }
 
@@ -25,7 +25,7 @@ impl SimpleIOStream {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn new<P: IsA<InputStream>, Q: IsA<OutputStream>>(input_stream: &P, output_stream: &Q) -> SimpleIOStream {
         unsafe {
-            IOStream::from_glib_full(ffi::g_simple_io_stream_new(input_stream.as_ref().to_glib_none().0, output_stream.as_ref().to_glib_none().0)).unsafe_cast()
+            IOStream::from_glib_full(gio_sys::g_simple_io_stream_new(input_stream.as_ref().to_glib_none().0, output_stream.as_ref().to_glib_none().0)).unsafe_cast()
         }
     }
 }

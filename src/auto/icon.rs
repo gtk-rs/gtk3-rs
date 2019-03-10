@@ -3,40 +3,40 @@
 // DO NOT EDIT
 
 use Error;
-use ffi;
+use gio_sys;
 use glib;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Icon(Interface<ffi::GIcon>);
+    pub struct Icon(Interface<gio_sys::GIcon>);
 
     match fn {
-        get_type => || ffi::g_icon_get_type(),
+        get_type => || gio_sys::g_icon_get_type(),
     }
 }
 
 impl Icon {
     pub fn deserialize(value: &glib::Variant) -> Option<Icon> {
         unsafe {
-            from_glib_full(ffi::g_icon_deserialize(value.to_glib_none().0))
+            from_glib_full(gio_sys::g_icon_deserialize(value.to_glib_none().0))
         }
     }
 
     pub fn hash(&self) -> u32 {
         unsafe {
-            ffi::g_icon_hash(ToGlibPtr::<*mut ffi::GIcon>::to_glib_none(self).0 as glib_ffi::gconstpointer)
+            gio_sys::g_icon_hash(ToGlibPtr::<*mut gio_sys::GIcon>::to_glib_none(self).0 as glib_sys::gconstpointer)
         }
     }
 
     pub fn new_for_string(str: &str) -> Result<Icon, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_icon_new_for_string(str.to_glib_none().0, &mut error);
+            let ret = gio_sys::g_icon_new_for_string(str.to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -55,19 +55,19 @@ pub trait IconExt: 'static {
 impl<O: IsA<Icon>> IconExt for O {
     fn equal<P: IsA<Icon>>(&self, icon2: Option<&P>) -> bool {
         unsafe {
-            from_glib(ffi::g_icon_equal(self.as_ref().to_glib_none().0, icon2.map(|p| p.as_ref()).to_glib_none().0))
+            from_glib(gio_sys::g_icon_equal(self.as_ref().to_glib_none().0, icon2.map(|p| p.as_ref()).to_glib_none().0))
         }
     }
 
     fn serialize(&self) -> Option<glib::Variant> {
         unsafe {
-            from_glib_full(ffi::g_icon_serialize(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_icon_serialize(self.as_ref().to_glib_none().0))
         }
     }
 
     fn to_string(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_icon_to_string(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_icon_to_string(self.as_ref().to_glib_none().0))
         }
     }
 }

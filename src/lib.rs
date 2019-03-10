@@ -14,11 +14,11 @@ extern crate lazy_static;
 #[macro_use]
 extern crate glib;
 
-extern crate gio_sys as ffi;
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
-extern crate libc;
 extern crate fragile;
+extern crate gio_sys;
+extern crate glib_sys;
+extern crate gobject_sys;
+extern crate libc;
 
 #[cfg(feature = "futures")]
 extern crate futures_core;

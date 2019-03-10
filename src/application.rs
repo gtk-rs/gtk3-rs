@@ -1,15 +1,15 @@
-use Application;
-use File;
-use ffi;
-use glib::GString;
+use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::{SignalHandlerId, connect_raw};
+use glib::signal::{connect_raw, SignalHandlerId};
 use glib::translate::*;
-use glib_ffi;
+use glib::GString;
+use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::mem::transmute;
+use Application;
+use File;
 
 pub trait ApplicationExtManual {
     fn run(&self, argv: &[String]) -> i32;
@@ -20,7 +20,7 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
     fn run(&self, argv: &[String]) -> i32 {
         let argc = argv.len() as i32;
         unsafe {
-            ffi::g_application_run(self.as_ref().to_glib_none().0, argc, argv.to_glib_none().0)
+            gio_sys::g_application_run(self.as_ref().to_glib_none().0, argc, argv.to_glib_none().0)
         }
     }
 
@@ -33,7 +33,7 @@ impl<O: IsA<Application>> ApplicationExtManual for O {
     }
 }
 
-unsafe extern "C" fn open_trampoline<P, F: Fn(&P, &[File], &str) + 'static>(this: *mut ffi::GApplication, files: *const *mut ffi::GFile, n_files: libc::c_int, hint: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn open_trampoline<P, F: Fn(&P, &[File], &str) + 'static>(this: *mut gio_sys::GApplication, files: *const *mut gio_sys::GFile, n_files: libc::c_int, hint: *mut libc::c_char, f: glib_sys::gpointer)
 where P: IsA<Application> {
     let f: &F = &*(f as *const F);
     let files: Vec<File> = FromGlibContainer::from_glib_none_num(files, n_files as usize);

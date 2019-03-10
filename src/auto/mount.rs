@@ -11,27 +11,27 @@ use MountMountFlags;
 use MountOperation;
 use MountUnmountFlags;
 use Volume;
-use ffi;
 #[cfg(feature = "futures")]
 use futures_core;
+use gio_sys;
 use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Mount(Interface<ffi::GMount>);
+    pub struct Mount(Interface<gio_sys::GMount>);
 
     match fn {
-        get_type => || ffi::g_mount_get_type(),
+        get_type => || gio_sys::g_mount_get_type(),
     }
 }
 
@@ -98,28 +98,28 @@ pub trait MountExt: 'static {
 impl<O: IsA<Mount>> MountExt for O {
     fn can_eject(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_mount_can_eject(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_mount_can_eject(self.as_ref().to_glib_none().0))
         }
     }
 
     fn can_unmount(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_mount_can_unmount(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_mount_can_unmount(self.as_ref().to_glib_none().0))
         }
     }
 
     fn eject_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R) {
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn eject_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn eject_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_mount_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
+            let _ = gio_sys::g_mount_eject_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = eject_with_operation_trampoline::<R>;
         unsafe {
-            ffi::g_mount_eject_with_operation(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_mount_eject_with_operation(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -150,70 +150,70 @@ impl<O: IsA<Mount>> MountExt for O {
 
     fn get_default_location(&self) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_default_location(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_default_location(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_drive(&self) -> Option<Drive> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_drive(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_drive(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_icon(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_name(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_root(&self) -> Option<File> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_root(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_root(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_sort_key(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_mount_get_sort_key(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_mount_get_sort_key(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_symbolic_icon(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_symbolic_icon(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_uuid(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_uuid(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_uuid(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_volume(&self) -> Option<Volume> {
         unsafe {
-            from_glib_full(ffi::g_mount_get_volume(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_mount_get_volume(self.as_ref().to_glib_none().0))
         }
     }
 
     fn guess_content_type<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, force_rescan: bool, cancellable: Option<&P>, callback: Q) {
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn guess_content_type_trampoline<Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn guess_content_type_trampoline<Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_mount_guess_content_type_finish(_source_object as *mut _, res, &mut error);
+            let ret = gio_sys::g_mount_guess_content_type_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
             let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = guess_content_type_trampoline::<Q>;
         unsafe {
-            ffi::g_mount_guess_content_type(self.as_ref().to_glib_none().0, force_rescan.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_mount_guess_content_type(self.as_ref().to_glib_none().0, force_rescan.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -243,29 +243,29 @@ impl<O: IsA<Mount>> MountExt for O {
     fn guess_content_type_sync<P: IsA<Cancellable>>(&self, force_rescan: bool, cancellable: Option<&P>) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_mount_guess_content_type_sync(self.as_ref().to_glib_none().0, force_rescan.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let ret = gio_sys::g_mount_guess_content_type_sync(self.as_ref().to_glib_none().0, force_rescan.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn is_shadowed(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_mount_is_shadowed(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_mount_is_shadowed(self.as_ref().to_glib_none().0))
         }
     }
 
     fn remount<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R) {
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn remount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn remount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_mount_remount_finish(_source_object as *mut _, res, &mut error);
+            let _ = gio_sys::g_mount_remount_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = remount_trampoline::<R>;
         unsafe {
-            ffi::g_mount_remount(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_mount_remount(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -296,22 +296,22 @@ impl<O: IsA<Mount>> MountExt for O {
 
     fn shadow(&self) {
         unsafe {
-            ffi::g_mount_shadow(self.as_ref().to_glib_none().0);
+            gio_sys::g_mount_shadow(self.as_ref().to_glib_none().0);
         }
     }
 
     fn unmount_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R) {
         let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn unmount_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_ffi::GObject, res: *mut ffi::GAsyncResult, user_data: glib_ffi::gpointer) {
+        unsafe extern "C" fn unmount_with_operation_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_mount_unmount_with_operation_finish(_source_object as *mut _, res, &mut error);
+            let _ = gio_sys::g_mount_unmount_with_operation_finish(_source_object as *mut _, res, &mut error);
             let result = if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) };
             let callback: Box<R> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = unmount_with_operation_trampoline::<R>;
         unsafe {
-            ffi::g_mount_unmount_with_operation(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_mount_unmount_with_operation(self.as_ref().to_glib_none().0, flags.to_glib(), mount_operation.map(|p| p.as_ref()).to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
@@ -342,7 +342,7 @@ impl<O: IsA<Mount>> MountExt for O {
 
     fn unshadow(&self) {
         unsafe {
-            ffi::g_mount_unshadow(self.as_ref().to_glib_none().0);
+            gio_sys::g_mount_unshadow(self.as_ref().to_glib_none().0);
         }
     }
 
@@ -371,19 +371,19 @@ impl<O: IsA<Mount>> MountExt for O {
     }
 }
 
-unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMount, f: glib_sys::gpointer)
 where P: IsA<Mount> {
     let f: &F = &*(f as *const F);
     f(&Mount::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn pre_unmount_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn pre_unmount_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMount, f: glib_sys::gpointer)
 where P: IsA<Mount> {
     let f: &F = &*(f as *const F);
     f(&Mount::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn unmounted_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::GMount, f: glib_ffi::gpointer)
+unsafe extern "C" fn unmounted_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMount, f: glib_sys::gpointer)
 where P: IsA<Mount> {
     let f: &F = &*(f as *const F);
     f(&Mount::from_glib_borrow(this).unsafe_cast())

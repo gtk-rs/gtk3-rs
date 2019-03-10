@@ -3,17 +3,17 @@
 // DO NOT EDIT
 
 use ActionGroup;
-use ffi;
+use gio_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct RemoteActionGroup(Interface<ffi::GRemoteActionGroup>) @requires ActionGroup;
+    pub struct RemoteActionGroup(Interface<gio_sys::GRemoteActionGroup>) @requires ActionGroup;
 
     match fn {
-        get_type => || ffi::g_remote_action_group_get_type(),
+        get_type => || gio_sys::g_remote_action_group_get_type(),
     }
 }
 
@@ -28,13 +28,13 @@ pub trait RemoteActionGroupExt: 'static {
 impl<O: IsA<RemoteActionGroup>> RemoteActionGroupExt for O {
     fn activate_action_full(&self, action_name: &str, parameter: Option<&glib::Variant>, platform_data: &glib::Variant) {
         unsafe {
-            ffi::g_remote_action_group_activate_action_full(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, parameter.to_glib_none().0, platform_data.to_glib_none().0);
+            gio_sys::g_remote_action_group_activate_action_full(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, parameter.to_glib_none().0, platform_data.to_glib_none().0);
         }
     }
 
     fn change_action_state_full(&self, action_name: &str, value: &glib::Variant, platform_data: &glib::Variant) {
         unsafe {
-            ffi::g_remote_action_group_change_action_state_full(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, value.to_glib_none().0, platform_data.to_glib_none().0);
+            gio_sys::g_remote_action_group_change_action_state_full(self.as_ref().to_glib_none().0, action_name.to_glib_none().0, value.to_glib_none().0, platform_data.to_glib_none().0);
         }
     }
 }

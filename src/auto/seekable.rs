@@ -4,7 +4,7 @@
 
 use Cancellable;
 use Error;
-use ffi;
+use gio_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
@@ -12,10 +12,10 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Seekable(Interface<ffi::GSeekable>);
+    pub struct Seekable(Interface<gio_sys::GSeekable>);
 
     match fn {
-        get_type => || ffi::g_seekable_get_type(),
+        get_type => || gio_sys::g_seekable_get_type(),
     }
 }
 
@@ -36,34 +36,34 @@ pub trait SeekableExt: 'static {
 impl<O: IsA<Seekable>> SeekableExt for O {
     fn can_seek(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_seekable_can_seek(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_seekable_can_seek(self.as_ref().to_glib_none().0))
         }
     }
 
     fn can_truncate(&self) -> bool {
         unsafe {
-            from_glib(ffi::g_seekable_can_truncate(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_seekable_can_truncate(self.as_ref().to_glib_none().0))
         }
     }
 
     fn seek<P: IsA<Cancellable>>(&self, offset: i64, type_: glib::SeekType, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_seekable_seek(self.as_ref().to_glib_none().0, offset, type_.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_seekable_seek(self.as_ref().to_glib_none().0, offset, type_.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
     fn tell(&self) -> i64 {
         unsafe {
-            ffi::g_seekable_tell(self.as_ref().to_glib_none().0)
+            gio_sys::g_seekable_tell(self.as_ref().to_glib_none().0)
         }
     }
 
     fn truncate<P: IsA<Cancellable>>(&self, offset: i64, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = ffi::g_seekable_truncate(self.as_ref().to_glib_none().0, offset, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_seekable_truncate(self.as_ref().to_glib_none().0, offset, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }

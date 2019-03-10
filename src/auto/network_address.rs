@@ -4,7 +4,7 @@
 
 use Error;
 use SocketConnectable;
-use ffi;
+use gio_sys;
 use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
@@ -12,31 +12,31 @@ use std::fmt;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct NetworkAddress(Object<ffi::GNetworkAddress, ffi::GNetworkAddressClass, NetworkAddressClass>) @implements SocketConnectable;
+    pub struct NetworkAddress(Object<gio_sys::GNetworkAddress, gio_sys::GNetworkAddressClass, NetworkAddressClass>) @implements SocketConnectable;
 
     match fn {
-        get_type => || ffi::g_network_address_get_type(),
+        get_type => || gio_sys::g_network_address_get_type(),
     }
 }
 
 impl NetworkAddress {
     pub fn new(hostname: &str, port: u16) -> NetworkAddress {
         unsafe {
-            from_glib_full(ffi::g_network_address_new(hostname.to_glib_none().0, port))
+            from_glib_full(gio_sys::g_network_address_new(hostname.to_glib_none().0, port))
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn new_loopback(port: u16) -> NetworkAddress {
         unsafe {
-            from_glib_full(ffi::g_network_address_new_loopback(port))
+            from_glib_full(gio_sys::g_network_address_new_loopback(port))
         }
     }
 
     pub fn parse(host_and_port: &str, default_port: u16) -> Result<NetworkAddress, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_network_address_parse(host_and_port.to_glib_none().0, default_port, &mut error);
+            let ret = gio_sys::g_network_address_parse(host_and_port.to_glib_none().0, default_port, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -44,7 +44,7 @@ impl NetworkAddress {
     pub fn parse_uri(uri: &str, default_port: u16) -> Result<NetworkAddress, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = ffi::g_network_address_parse_uri(uri.to_glib_none().0, default_port, &mut error);
+            let ret = gio_sys::g_network_address_parse_uri(uri.to_glib_none().0, default_port, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
     }
@@ -66,19 +66,19 @@ pub trait NetworkAddressExt: 'static {
 impl<O: IsA<NetworkAddress>> NetworkAddressExt for O {
     fn get_hostname(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_network_address_get_hostname(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_network_address_get_hostname(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_port(&self) -> u16 {
         unsafe {
-            ffi::g_network_address_get_port(self.as_ref().to_glib_none().0)
+            gio_sys::g_network_address_get_port(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_scheme(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::g_network_address_get_scheme(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_network_address_get_scheme(self.as_ref().to_glib_none().0))
         }
     }
 }
