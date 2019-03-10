@@ -2,16 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Misc(Object<ffi::AtkMisc, ffi::AtkMiscClass, MiscClass>);
+    pub struct Misc(Object<atk_sys::AtkMisc, atk_sys::AtkMiscClass, MiscClass>);
 
     match fn {
-        get_type => || ffi::atk_misc_get_type(),
+        get_type => || atk_sys::atk_misc_get_type(),
     }
 }
 
@@ -19,7 +19,7 @@ impl Misc {
     pub fn get_instance() -> Option<Misc> {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_none(ffi::atk_misc_get_instance())
+            from_glib_none(atk_sys::atk_misc_get_instance())
         }
     }
 }
@@ -35,13 +35,13 @@ pub trait AtkMiscExt: 'static {
 impl<O: IsA<Misc>> AtkMiscExt for O {
     fn threads_enter(&self) {
         unsafe {
-            ffi::atk_misc_threads_enter(self.as_ref().to_glib_none().0);
+            atk_sys::atk_misc_threads_enter(self.as_ref().to_glib_none().0);
         }
     }
 
     fn threads_leave(&self) {
         unsafe {
-            ffi::atk_misc_threads_leave(self.as_ref().to_glib_none().0);
+            atk_sys::atk_misc_threads_leave(self.as_ref().to_glib_none().0);
         }
     }
 }

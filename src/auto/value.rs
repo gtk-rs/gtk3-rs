@@ -3,7 +3,7 @@
 // DO NOT EDIT
 
 use Range;
-use ffi;
+use atk_sys;
 use glib;
 use glib::GString;
 use glib::object::Cast;
@@ -11,7 +11,7 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
+use glib_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
@@ -20,10 +20,10 @@ use std::mem::transmute;
 use std::ptr;
 
 glib_wrapper! {
-    pub struct Value(Interface<ffi::AtkValue>);
+    pub struct Value(Interface<atk_sys::AtkValue>);
 
     match fn {
-        get_type => || ffi::atk_value_get_type(),
+        get_type => || atk_sys::atk_value_get_type(),
     }
 }
 
@@ -57,21 +57,21 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_current_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_current_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
+            atk_sys::atk_value_get_current_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
 
     fn get_increment(&self) -> f64 {
         unsafe {
-            ffi::atk_value_get_increment(self.as_ref().to_glib_none().0)
+            atk_sys::atk_value_get_increment(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_maximum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_maximum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
+            atk_sys::atk_value_get_maximum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -79,7 +79,7 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_minimum_increment(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_minimum_increment(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
+            atk_sys::atk_value_get_minimum_increment(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
@@ -87,20 +87,20 @@ impl<O: IsA<Value>> ValueExt for O {
     fn get_minimum_value(&self) -> glib::Value {
         unsafe {
             let mut value = glib::Value::uninitialized();
-            ffi::atk_value_get_minimum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
+            atk_sys::atk_value_get_minimum_value(self.as_ref().to_glib_none().0, value.to_glib_none_mut().0);
             value
         }
     }
 
     fn get_range(&self) -> Option<Range> {
         unsafe {
-            from_glib_full(ffi::atk_value_get_range(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_value_get_range(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_sub_ranges(&self) -> Vec<Range> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(ffi::atk_value_get_sub_ranges(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(atk_sys::atk_value_get_sub_ranges(self.as_ref().to_glib_none().0))
         }
     }
 
@@ -108,20 +108,20 @@ impl<O: IsA<Value>> ValueExt for O {
         unsafe {
             let mut value = mem::uninitialized();
             let mut text = ptr::null_mut();
-            ffi::atk_value_get_value_and_text(self.as_ref().to_glib_none().0, &mut value, &mut text);
+            atk_sys::atk_value_get_value_and_text(self.as_ref().to_glib_none().0, &mut value, &mut text);
             (value, from_glib_full(text))
         }
     }
 
     fn set_current_value(&self, value: &glib::Value) -> bool {
         unsafe {
-            from_glib(ffi::atk_value_set_current_value(self.as_ref().to_glib_none().0, value.to_glib_none().0))
+            from_glib(atk_sys::atk_value_set_current_value(self.as_ref().to_glib_none().0, value.to_glib_none().0))
         }
     }
 
     fn set_value(&self, new_value: f64) {
         unsafe {
-            ffi::atk_value_set_value(self.as_ref().to_glib_none().0, new_value);
+            atk_sys::atk_value_set_value(self.as_ref().to_glib_none().0, new_value);
         }
     }
 
@@ -134,7 +134,7 @@ impl<O: IsA<Value>> ValueExt for O {
     }
 }
 
-unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut ffi::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_ffi::gpointer)
+unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut atk_sys::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_sys::gpointer)
 where P: IsA<Value> {
     let f: &F = &*(f as *const F);
     f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))

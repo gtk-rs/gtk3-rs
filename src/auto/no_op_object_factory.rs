@@ -3,16 +3,16 @@
 // DO NOT EDIT
 
 use ObjectFactory;
-use ffi;
+use atk_sys;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct NoOpObjectFactory(Object<ffi::AtkNoOpObjectFactory, ffi::AtkNoOpObjectFactoryClass, NoOpObjectFactoryClass>) @extends ObjectFactory;
+    pub struct NoOpObjectFactory(Object<atk_sys::AtkNoOpObjectFactory, atk_sys::AtkNoOpObjectFactoryClass, NoOpObjectFactoryClass>) @extends ObjectFactory;
 
     match fn {
-        get_type => || ffi::atk_no_op_object_factory_get_type(),
+        get_type => || atk_sys::atk_no_op_object_factory_get_type(),
     }
 }
 
@@ -20,7 +20,7 @@ impl NoOpObjectFactory {
     pub fn new() -> NoOpObjectFactory {
         assert_initialized_main_thread!();
         unsafe {
-            ObjectFactory::from_glib_full(ffi::atk_no_op_object_factory_new()).unsafe_cast()
+            ObjectFactory::from_glib_full(atk_sys::atk_no_op_object_factory_new()).unsafe_cast()
         }
     }
 }

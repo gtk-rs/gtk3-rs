@@ -2,16 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct EditableText(Interface<ffi::AtkEditableText>);
+    pub struct EditableText(Interface<atk_sys::AtkEditableText>);
 
     match fn {
-        get_type => || ffi::atk_editable_text_get_type(),
+        get_type => || atk_sys::atk_editable_text_get_type(),
     }
 }
 
@@ -34,35 +34,35 @@ pub trait EditableTextExt: 'static {
 impl<O: IsA<EditableText>> EditableTextExt for O {
     fn copy_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {
-            ffi::atk_editable_text_copy_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
+            atk_sys::atk_editable_text_copy_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
         }
     }
 
     fn cut_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {
-            ffi::atk_editable_text_cut_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
+            atk_sys::atk_editable_text_cut_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
         }
     }
 
     fn delete_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {
-            ffi::atk_editable_text_delete_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
+            atk_sys::atk_editable_text_delete_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
         }
     }
 
     fn paste_text(&self, position: i32) {
         unsafe {
-            ffi::atk_editable_text_paste_text(self.as_ref().to_glib_none().0, position);
+            atk_sys::atk_editable_text_paste_text(self.as_ref().to_glib_none().0, position);
         }
     }
 
     //fn set_run_attributes(&self, attrib_set: /*Ignored*/&mut AttributeSet, start_offset: i32, end_offset: i32) -> bool {
-    //    unsafe { TODO: call ffi::atk_editable_text_set_run_attributes() }
+    //    unsafe { TODO: call atk_sys:atk_editable_text_set_run_attributes() }
     //}
 
     fn set_text_contents(&self, string: &str) {
         unsafe {
-            ffi::atk_editable_text_set_text_contents(self.as_ref().to_glib_none().0, string.to_glib_none().0);
+            atk_sys::atk_editable_text_set_text_contents(self.as_ref().to_glib_none().0, string.to_glib_none().0);
         }
     }
 }

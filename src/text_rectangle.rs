@@ -2,8 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use atk_sys;
 use glib::translate::*;
-use ffi;
 use std::fmt;
 
 #[derive(Debug)]
@@ -26,7 +26,7 @@ impl TextRectangle {
 
     #[doc(hidden)]
     #[inline]
-    pub fn to_glib_none_mut(&mut self) -> (*mut ffi::AtkTextRectangle, i32) {
+    pub fn to_glib_none_mut(&mut self) -> (*mut atk_sys::AtkTextRectangle, i32) {
         (self as *mut TextRectangle as usize as *mut _, 0)
     }
 }
@@ -43,8 +43,8 @@ impl fmt::Display for TextRectangle {
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
-    fn from_glib(value: ffi::AtkTextRectangle) -> Self {
+impl FromGlib<atk_sys::AtkTextRectangle> for TextRectangle {
+    fn from_glib(value: atk_sys::AtkTextRectangle) -> Self {
         skip_assert_initialized!();
         TextRectangle {
             x: value.x,
@@ -57,10 +57,10 @@ impl FromGlib<ffi::AtkTextRectangle> for TextRectangle {
 
 #[doc(hidden)]
 impl ToGlib for TextRectangle {
-    type GlibType = ffi::AtkTextRectangle;
+    type GlibType = atk_sys::AtkTextRectangle;
 
-    fn to_glib(&self) -> ffi::AtkTextRectangle {
-        ffi::AtkTextRectangle {
+    fn to_glib(&self) -> atk_sys::AtkTextRectangle {
+        atk_sys::AtkTextRectangle {
             x: self.x,
             y: self.y,
             width: self.width,

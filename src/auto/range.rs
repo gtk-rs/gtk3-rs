@@ -2,18 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use atk_sys;
 use glib::GString;
 use glib::translate::*;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct Range(Boxed<ffi::AtkRange>);
+    pub struct Range(Boxed<atk_sys::AtkRange>);
 
     match fn {
-        copy => |ptr| ffi::atk_range_copy(mut_override(ptr)),
-        free => |ptr| ffi::atk_range_free(ptr),
-        get_type => || ffi::atk_range_get_type(),
+        copy => |ptr| atk_sys::atk_range_copy(mut_override(ptr)),
+        free => |ptr| atk_sys::atk_range_free(ptr),
+        get_type => || atk_sys::atk_range_get_type(),
     }
 }
 
@@ -21,25 +21,25 @@ impl Range {
     pub fn new(lower_limit: f64, upper_limit: f64, description: &str) -> Range {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_full(ffi::atk_range_new(lower_limit, upper_limit, description.to_glib_none().0))
+            from_glib_full(atk_sys::atk_range_new(lower_limit, upper_limit, description.to_glib_none().0))
         }
     }
 
     pub fn get_description(&mut self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::atk_range_get_description(self.to_glib_none_mut().0))
+            from_glib_none(atk_sys::atk_range_get_description(self.to_glib_none_mut().0))
         }
     }
 
     pub fn get_lower_limit(&mut self) -> f64 {
         unsafe {
-            ffi::atk_range_get_lower_limit(self.to_glib_none_mut().0)
+            atk_sys::atk_range_get_lower_limit(self.to_glib_none_mut().0)
         }
     }
 
     pub fn get_upper_limit(&mut self) -> f64 {
         unsafe {
-            ffi::atk_range_get_upper_limit(self.to_glib_none_mut().0)
+            atk_sys::atk_range_get_upper_limit(self.to_glib_none_mut().0)
         }
     }
 }

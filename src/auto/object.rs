@@ -8,7 +8,7 @@ use RelationType;
 use Role;
 use State;
 use StateSet;
-use ffi;
+use atk_sys;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
@@ -17,18 +17,18 @@ use glib::object::IsA;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
-use glib_ffi;
-use gobject_ffi;
+use glib_sys;
+use gobject_sys;
 use libc;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 
 glib_wrapper! {
-    pub struct Object(Object<ffi::AtkObject, ffi::AtkObjectClass, ObjectClass>);
+    pub struct Object(Object<atk_sys::AtkObject, atk_sys::AtkObjectClass, ObjectClass>);
 
     match fn {
-        get_type => || ffi::atk_object_get_type(),
+        get_type => || atk_sys::atk_object_get_type(),
     }
 }
 
@@ -181,146 +181,146 @@ pub trait AtkObjectExt: 'static {
 impl<O: IsA<Object>> AtkObjectExt for O {
     fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
         unsafe {
-            from_glib(ffi::atk_object_add_relationship(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_add_relationship(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0))
         }
     }
 
     //fn connect_property_change_handler(&self, handler: /*Unimplemented*/Fn(&Object, /*Ignored*/PropertyValues)) -> u32 {
-    //    unsafe { TODO: call ffi::atk_object_connect_property_change_handler() }
+    //    unsafe { TODO: call atk_sys:atk_object_connect_property_change_handler() }
     //}
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
-    //    unsafe { TODO: call ffi::atk_object_get_attributes() }
+    //    unsafe { TODO: call atk_sys:atk_object_get_attributes() }
     //}
 
     fn get_description(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::atk_object_get_description(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_object_get_description(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_index_in_parent(&self) -> i32 {
         unsafe {
-            ffi::atk_object_get_index_in_parent(self.as_ref().to_glib_none().0)
+            atk_sys::atk_object_get_index_in_parent(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_layer(&self) -> Layer {
         unsafe {
-            from_glib(ffi::atk_object_get_layer(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_get_layer(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_mdi_zorder(&self) -> i32 {
         unsafe {
-            ffi::atk_object_get_mdi_zorder(self.as_ref().to_glib_none().0)
+            atk_sys::atk_object_get_mdi_zorder(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_n_accessible_children(&self) -> i32 {
         unsafe {
-            ffi::atk_object_get_n_accessible_children(self.as_ref().to_glib_none().0)
+            atk_sys::atk_object_get_n_accessible_children(self.as_ref().to_glib_none().0)
         }
     }
 
     fn get_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::atk_object_get_name(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_object_get_name(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_object_locale(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(ffi::atk_object_get_object_locale(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_object_get_object_locale(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_parent(&self) -> Option<Object> {
         unsafe {
-            from_glib_none(ffi::atk_object_get_parent(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_object_get_parent(self.as_ref().to_glib_none().0))
         }
     }
 
     fn get_role(&self) -> Role {
         unsafe {
-            from_glib(ffi::atk_object_get_role(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_get_role(self.as_ref().to_glib_none().0))
         }
     }
 
     //fn initialize(&self, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call ffi::atk_object_initialize() }
+    //    unsafe { TODO: call atk_sys:atk_object_initialize() }
     //}
 
     fn notify_state_change(&self, state: State, value: bool) {
         unsafe {
-            ffi::atk_object_notify_state_change(self.as_ref().to_glib_none().0, state, value.to_glib());
+            atk_sys::atk_object_notify_state_change(self.as_ref().to_glib_none().0, state, value.to_glib());
         }
     }
 
     fn peek_parent(&self) -> Option<Object> {
         unsafe {
-            from_glib_none(ffi::atk_object_peek_parent(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_object_peek_parent(self.as_ref().to_glib_none().0))
         }
     }
 
     fn ref_accessible_child(&self, i: i32) -> Option<Object> {
         unsafe {
-            from_glib_full(ffi::atk_object_ref_accessible_child(self.as_ref().to_glib_none().0, i))
+            from_glib_full(atk_sys::atk_object_ref_accessible_child(self.as_ref().to_glib_none().0, i))
         }
     }
 
     fn ref_relation_set(&self) -> Option<RelationSet> {
         unsafe {
-            from_glib_full(ffi::atk_object_ref_relation_set(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_object_ref_relation_set(self.as_ref().to_glib_none().0))
         }
     }
 
     fn ref_state_set(&self) -> Option<StateSet> {
         unsafe {
-            from_glib_full(ffi::atk_object_ref_state_set(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_object_ref_state_set(self.as_ref().to_glib_none().0))
         }
     }
 
     fn remove_property_change_handler(&self, handler_id: u32) {
         unsafe {
-            ffi::atk_object_remove_property_change_handler(self.as_ref().to_glib_none().0, handler_id);
+            atk_sys::atk_object_remove_property_change_handler(self.as_ref().to_glib_none().0, handler_id);
         }
     }
 
     fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
         unsafe {
-            from_glib(ffi::atk_object_remove_relationship(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_remove_relationship(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0))
         }
     }
 
     fn set_description(&self, description: &str) {
         unsafe {
-            ffi::atk_object_set_description(self.as_ref().to_glib_none().0, description.to_glib_none().0);
+            atk_sys::atk_object_set_description(self.as_ref().to_glib_none().0, description.to_glib_none().0);
         }
     }
 
     fn set_name(&self, name: &str) {
         unsafe {
-            ffi::atk_object_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
+            atk_sys::atk_object_set_name(self.as_ref().to_glib_none().0, name.to_glib_none().0);
         }
     }
 
     fn set_parent<P: IsA<Object>>(&self, parent: &P) {
         unsafe {
-            ffi::atk_object_set_parent(self.as_ref().to_glib_none().0, parent.as_ref().to_glib_none().0);
+            atk_sys::atk_object_set_parent(self.as_ref().to_glib_none().0, parent.as_ref().to_glib_none().0);
         }
     }
 
     fn set_role(&self, role: Role) {
         unsafe {
-            ffi::atk_object_set_role(self.as_ref().to_glib_none().0, role.to_glib());
+            atk_sys::atk_object_set_role(self.as_ref().to_glib_none().0, role.to_glib());
         }
     }
 
     fn get_property_accessible_component_layer(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-component-layer\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-component-layer\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -328,7 +328,7 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     fn get_property_accessible_component_mdi_zorder(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-component-mdi-zorder\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-component-mdi-zorder\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -336,21 +336,21 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     fn get_property_accessible_description(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_description(&self, accessible_description: Option<&str>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-description\0".as_ptr() as *const _, Value::from(accessible_description).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-description\0".as_ptr() as *const _, Value::from(accessible_description).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_hypertext_nlinks(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-hypertext-nlinks\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-hypertext-nlinks\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
@@ -358,154 +358,154 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     fn get_property_accessible_name(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-name\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-name\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_name(&self, accessible_name: Option<&str>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-name\0".as_ptr() as *const _, Value::from(accessible_name).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-name\0".as_ptr() as *const _, Value::from(accessible_name).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_parent(&self) -> Option<Object> {
         unsafe {
             let mut value = Value::from_type(<Object as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-parent\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-parent\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_parent(&self, accessible_parent: Option<&Object>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-parent\0".as_ptr() as *const _, Value::from(accessible_parent).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-parent\0".as_ptr() as *const _, Value::from(accessible_parent).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_role(&self) -> Role {
         unsafe {
             let mut value = Value::from_type(<Role as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-role\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-role\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_accessible_role(&self, accessible_role: Role) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-role\0".as_ptr() as *const _, Value::from(&accessible_role).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-role\0".as_ptr() as *const _, Value::from(&accessible_role).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_caption(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-caption\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-caption\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_caption(&self, accessible_table_caption: Option<&str>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-caption\0".as_ptr() as *const _, Value::from(accessible_table_caption).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-caption\0".as_ptr() as *const _, Value::from(accessible_table_caption).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_caption_object(&self) -> Option<Object> {
         unsafe {
             let mut value = Value::from_type(<Object as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-caption-object\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-caption-object\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_caption_object(&self, accessible_table_caption_object: Option<&Object>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-caption-object\0".as_ptr() as *const _, Value::from(accessible_table_caption_object).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-caption-object\0".as_ptr() as *const _, Value::from(accessible_table_caption_object).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_column_description(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-column-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-column-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_column_description(&self, accessible_table_column_description: Option<&str>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-column-description\0".as_ptr() as *const _, Value::from(accessible_table_column_description).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-column-description\0".as_ptr() as *const _, Value::from(accessible_table_column_description).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_column_header(&self) -> Option<Object> {
         unsafe {
             let mut value = Value::from_type(<Object as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-column-header\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-column-header\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_column_header(&self, accessible_table_column_header: Option<&Object>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-column-header\0".as_ptr() as *const _, Value::from(accessible_table_column_header).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-column-header\0".as_ptr() as *const _, Value::from(accessible_table_column_header).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_row_description(&self) -> Option<GString> {
         unsafe {
             let mut value = Value::from_type(<GString as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-row-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-row-description\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_row_description(&self, accessible_table_row_description: Option<&str>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-row-description\0".as_ptr() as *const _, Value::from(accessible_table_row_description).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-row-description\0".as_ptr() as *const _, Value::from(accessible_table_row_description).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_row_header(&self) -> Option<Object> {
         unsafe {
             let mut value = Value::from_type(<Object as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-row-header\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-row-header\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_row_header(&self, accessible_table_row_header: Option<&Object>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-row-header\0".as_ptr() as *const _, Value::from(accessible_table_row_header).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-row-header\0".as_ptr() as *const _, Value::from(accessible_table_row_header).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_table_summary(&self) -> Option<Object> {
         unsafe {
             let mut value = Value::from_type(<Object as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-summary\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-summary\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get()
         }
     }
 
     fn set_property_accessible_table_summary(&self, accessible_table_summary: Option<&Object>) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-table-summary\0".as_ptr() as *const _, Value::from(accessible_table_summary).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-table-summary\0".as_ptr() as *const _, Value::from(accessible_table_summary).to_glib_none().0);
         }
     }
 
     fn get_property_accessible_value(&self) -> f64 {
         unsafe {
             let mut value = Value::from_type(<f64 as StaticType>::static_type());
-            gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-value\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-value\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
     fn set_property_accessible_value(&self, accessible_value: f64) {
         unsafe {
-            gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut gobject_ffi::GObject, b"accessible-value\0".as_ptr() as *const _, Value::from(&accessible_value).to_glib_none().0);
+            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"accessible-value\0".as_ptr() as *const _, Value::from(&accessible_value).to_glib_none().0);
         }
     }
 
@@ -666,115 +666,115 @@ impl<O: IsA<Object>> AtkObjectExt for O {
     }
 }
 
-unsafe extern "C" fn active_descendant_changed_trampoline<P, F: Fn(&P, &Object) + 'static>(this: *mut ffi::AtkObject, arg1: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+unsafe extern "C" fn active_descendant_changed_trampoline<P, F: Fn(&P, &Object) + 'static>(this: *mut atk_sys::AtkObject, arg1: *mut atk_sys::AtkObject, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
 }
 
-unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 'static>(this: *mut ffi::AtkObject, arg1: libc::c_uint, arg2: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+unsafe extern "C" fn children_changed_trampoline<P, F: Fn(&P, u32, &Object) + 'static>(this: *mut atk_sys::AtkObject, arg1: libc::c_uint, arg2: *mut atk_sys::AtkObject, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast(), arg1, &from_glib_borrow(arg2))
 }
 
-unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut ffi::AtkObject, arg1: *mut libc::c_char, arg2: glib_ffi::gboolean, f: glib_ffi::gpointer)
+unsafe extern "C" fn state_change_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut atk_sys::AtkObject, arg1: *mut libc::c_char, arg2: glib_sys::gboolean, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(arg1), from_glib(arg2))
 }
 
-unsafe extern "C" fn visible_data_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, f: glib_ffi::gpointer)
+unsafe extern "C" fn visible_data_changed_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_component_layer_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_component_layer_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_component_mdi_zorder_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_component_mdi_zorder_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_hypertext_nlinks_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_name_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_name_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_parent_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_parent_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_role_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_role_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_caption_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_caption_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_caption_object_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_caption_object_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_column_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_column_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_column_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_column_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_row_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_row_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_row_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_row_header_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_table_summary_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_table_summary_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())
 }
 
-unsafe extern "C" fn notify_accessible_value_trampoline<P, F: Fn(&P) + 'static>(this: *mut ffi::AtkObject, _param_spec: glib_ffi::gpointer, f: glib_ffi::gpointer)
+unsafe extern "C" fn notify_accessible_value_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkObject, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
 where P: IsA<Object> {
     let f: &F = &*(f as *const F);
     f(&Object::from_glib_borrow(this).unsafe_cast())

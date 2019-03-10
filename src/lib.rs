@@ -19,9 +19,9 @@ extern crate libc;
 #[macro_use]
 extern crate bitflags;
 
-extern crate atk_sys as ffi;
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
+extern crate atk_sys;
+extern crate glib_sys;
+extern crate gobject_sys;
 #[macro_use]
 extern crate glib;
 

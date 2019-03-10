@@ -2,16 +2,16 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
-use gobject_ffi;
+use atk_sys;
+use gobject_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct TextRange(Boxed<ffi::AtkTextRange>);
+    pub struct TextRange(Boxed<atk_sys::AtkTextRange>);
 
     match fn {
-        copy => |ptr| gobject_ffi::g_boxed_copy(ffi::atk_text_range_get_type(), ptr as *mut _) as *mut ffi::AtkTextRange,
-        free => |ptr| gobject_ffi::g_boxed_free(ffi::atk_text_range_get_type(), ptr as *mut _),
-        get_type => || ffi::atk_text_range_get_type(),
+        copy => |ptr| gobject_sys::g_boxed_copy(atk_sys::atk_text_range_get_type(), ptr as *mut _) as *mut atk_sys::AtkTextRange,
+        free => |ptr| gobject_sys::g_boxed_free(atk_sys::atk_text_range_get_type(), ptr as *mut _),
+        get_type => || atk_sys::atk_text_range_get_type(),
     }
 }

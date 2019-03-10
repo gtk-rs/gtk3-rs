@@ -2,15 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
+use atk_sys;
 use glib::translate::*;
 use std::fmt;
 
 glib_wrapper! {
-    pub struct Util(Object<ffi::AtkUtil, ffi::AtkUtilClass, UtilClass>);
+    pub struct Util(Object<atk_sys::AtkUtil, atk_sys::AtkUtilClass, UtilClass>);
 
     match fn {
-        get_type => || ffi::atk_util_get_type(),
+        get_type => || atk_sys::atk_util_get_type(),
     }
 }
 
