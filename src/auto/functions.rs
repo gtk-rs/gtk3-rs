@@ -10,7 +10,7 @@ use FormatSizeFlags;
 use GString;
 use Source;
 use UserDirectory;
-use ffi;
+use glib_sys;
 use libc;
 use std;
 use std::mem;
@@ -21,166 +21,166 @@ use types;
 
 pub fn access<P: AsRef<std::path::Path>>(filename: P, mode: i32) -> i32 {
     unsafe {
-        ffi::g_access(filename.as_ref().to_glib_none().0, mode)
+        glib_sys::g_access(filename.as_ref().to_glib_none().0, mode)
     }
 }
 
 pub fn assert_warning(log_domain: &str, file: &str, line: i32, pretty_function: &str, expression: &str) {
     unsafe {
-        ffi::g_assert_warning(log_domain.to_glib_none().0, file.to_glib_none().0, line, pretty_function.to_glib_none().0, expression.to_glib_none().0);
+        glib_sys::g_assert_warning(log_domain.to_glib_none().0, file.to_glib_none().0, line, pretty_function.to_glib_none().0, expression.to_glib_none().0);
     }
 }
 
 pub fn assertion_message(domain: &str, file: &str, line: i32, func: &str, message: &str) {
     unsafe {
-        ffi::g_assertion_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, message.to_glib_none().0);
+        glib_sys::g_assertion_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, message.to_glib_none().0);
     }
 }
 
 //pub fn assertion_message_cmpnum(domain: &str, file: &str, line: i32, func: &str, expr: &str, arg1: /*Unknown conversion*//*Unimplemented*/Unsupported, cmp: &str, arg2: /*Unknown conversion*//*Unimplemented*/Unsupported, numtype: Char) {
-//    unsafe { TODO: call ffi::g_assertion_message_cmpnum() }
+//    unsafe { TODO: call glib_sys:g_assertion_message_cmpnum() }
 //}
 
 pub fn assertion_message_cmpstr(domain: &str, file: &str, line: i32, func: &str, expr: &str, arg1: &str, cmp: &str, arg2: &str) {
     unsafe {
-        ffi::g_assertion_message_cmpstr(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, expr.to_glib_none().0, arg1.to_glib_none().0, cmp.to_glib_none().0, arg2.to_glib_none().0);
+        glib_sys::g_assertion_message_cmpstr(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, expr.to_glib_none().0, arg1.to_glib_none().0, cmp.to_glib_none().0, arg2.to_glib_none().0);
     }
 }
 
 pub fn base64_decode(text: &str) -> Vec<u8> {
     unsafe {
         let mut out_len = mem::uninitialized();
-        let ret = FromGlibContainer::from_glib_full_num(ffi::g_base64_decode(text.to_glib_none().0, &mut out_len), out_len as usize);
+        let ret = FromGlibContainer::from_glib_full_num(glib_sys::g_base64_decode(text.to_glib_none().0, &mut out_len), out_len as usize);
         ret
     }
 }
 
 //pub fn base64_decode_inplace(text: /*Unimplemented*/Vec<u8>) -> u8 {
-//    unsafe { TODO: call ffi::g_base64_decode_inplace() }
+//    unsafe { TODO: call glib_sys:g_base64_decode_inplace() }
 //}
 
 //pub fn base64_decode_step(in_: &[u8], out: Vec<u8>, state: &mut i32, save: &mut u32) -> usize {
-//    unsafe { TODO: call ffi::g_base64_decode_step() }
+//    unsafe { TODO: call glib_sys:g_base64_decode_step() }
 //}
 
 pub fn base64_encode(data: &[u8]) -> Option<GString> {
     let len = data.len() as usize;
     unsafe {
-        from_glib_full(ffi::g_base64_encode(data.to_glib_none().0, len))
+        from_glib_full(glib_sys::g_base64_encode(data.to_glib_none().0, len))
     }
 }
 
 //pub fn base64_encode_close(break_lines: bool, out: Vec<u8>, state: &mut i32, save: &mut i32) -> usize {
-//    unsafe { TODO: call ffi::g_base64_encode_close() }
+//    unsafe { TODO: call glib_sys:g_base64_encode_close() }
 //}
 
 //pub fn base64_encode_step(in_: &[u8], break_lines: bool, out: Vec<u8>, state: &mut i32, save: &mut i32) -> usize {
-//    unsafe { TODO: call ffi::g_base64_encode_step() }
+//    unsafe { TODO: call glib_sys:g_base64_encode_step() }
 //}
 
 pub fn bit_nth_lsf(mask: libc::c_ulong, nth_bit: i32) -> i32 {
     unsafe {
-        ffi::g_bit_nth_lsf(mask, nth_bit)
+        glib_sys::g_bit_nth_lsf(mask, nth_bit)
     }
 }
 
 pub fn bit_nth_msf(mask: libc::c_ulong, nth_bit: i32) -> i32 {
     unsafe {
-        ffi::g_bit_nth_msf(mask, nth_bit)
+        glib_sys::g_bit_nth_msf(mask, nth_bit)
     }
 }
 
 pub fn bit_storage(number: libc::c_ulong) -> u32 {
     unsafe {
-        ffi::g_bit_storage(number)
+        glib_sys::g_bit_storage(number)
     }
 }
 
 //pub fn build_filename<P: AsRef<std::path::Path>>(first_element: P, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call ffi::g_build_filename() }
+//    unsafe { TODO: call glib_sys:g_build_filename() }
 //}
 
 //#[cfg(any(feature = "v2_56", feature = "dox"))]
 //pub fn build_filename_valist<P: AsRef<std::path::Path>>(first_element: P, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call ffi::g_build_filename_valist() }
+//    unsafe { TODO: call glib_sys:g_build_filename_valist() }
 //}
 
 pub fn build_filenamev(args: &[&std::path::Path]) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_build_filenamev(args.to_glib_none().0))
+        from_glib_full(glib_sys::g_build_filenamev(args.to_glib_none().0))
     }
 }
 
 //pub fn build_path<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(separator: P, first_element: Q, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call ffi::g_build_path() }
+//    unsafe { TODO: call glib_sys:g_build_path() }
 //}
 
 pub fn build_pathv(separator: &str, args: &[&std::path::Path]) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_build_pathv(separator.to_glib_none().0, args.to_glib_none().0))
+        from_glib_full(glib_sys::g_build_pathv(separator.to_glib_none().0, args.to_glib_none().0))
     }
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 pub fn canonicalize_filename<P: AsRef<std::path::Path>, Q: AsRef<std::path::Path>>(filename: P, relative_to: Q) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_canonicalize_filename(filename.as_ref().to_glib_none().0, relative_to.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_canonicalize_filename(filename.as_ref().to_glib_none().0, relative_to.as_ref().to_glib_none().0))
     }
 }
 
 pub fn chdir<P: AsRef<std::path::Path>>(path: P) -> i32 {
     unsafe {
-        ffi::g_chdir(path.as_ref().to_glib_none().0)
+        glib_sys::g_chdir(path.as_ref().to_glib_none().0)
     }
 }
 
 pub fn check_version(required_major: u32, required_minor: u32, required_micro: u32) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::glib_check_version(required_major, required_minor, required_micro))
+        from_glib_none(glib_sys::glib_check_version(required_major, required_minor, required_micro))
     }
 }
 
 pub fn clear_error() -> Result<(), Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::g_clear_error(&mut error);
+        let _ = glib_sys::g_clear_error(&mut error);
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
 
 //#[cfg(any(feature = "v2_56", feature = "dox"))]
 //pub fn clear_handle_id<P: Fn(u32) + Send + Sync + 'static>(tag_ptr: u32, clear_func: P) {
-//    unsafe { TODO: call ffi::g_clear_handle_id() }
+//    unsafe { TODO: call glib_sys:g_clear_handle_id() }
 //}
 
 //pub fn clear_pointer(pp: /*Unimplemented*/Fundamental: Pointer) {
-//    unsafe { TODO: call ffi::g_clear_pointer() }
+//    unsafe { TODO: call glib_sys:g_clear_pointer() }
 //}
 
 pub fn compute_checksum_for_bytes(checksum_type: ChecksumType, data: &Bytes) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_compute_checksum_for_bytes(checksum_type.to_glib(), data.to_glib_none().0))
+        from_glib_full(glib_sys::g_compute_checksum_for_bytes(checksum_type.to_glib(), data.to_glib_none().0))
     }
 }
 
 pub fn compute_checksum_for_data(checksum_type: ChecksumType, data: &[u8]) -> Option<GString> {
     let length = data.len() as usize;
     unsafe {
-        from_glib_full(ffi::g_compute_checksum_for_data(checksum_type.to_glib(), data.to_glib_none().0, length))
+        from_glib_full(glib_sys::g_compute_checksum_for_data(checksum_type.to_glib(), data.to_glib_none().0, length))
     }
 }
 
 pub fn compute_checksum_for_string(checksum_type: ChecksumType, str: &str) -> Option<GString> {
     let length = str.len() as isize;
     unsafe {
-        from_glib_full(ffi::g_compute_checksum_for_string(checksum_type.to_glib(), str.to_glib_none().0, length))
+        from_glib_full(glib_sys::g_compute_checksum_for_string(checksum_type.to_glib(), str.to_glib_none().0, length))
     }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 pub fn compute_hmac_for_bytes(digest_type: ChecksumType, key: &Bytes, data: &Bytes) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_compute_hmac_for_bytes(digest_type.to_glib(), key.to_glib_none().0, data.to_glib_none().0))
+        from_glib_full(glib_sys::g_compute_hmac_for_bytes(digest_type.to_glib(), key.to_glib_none().0, data.to_glib_none().0))
     }
 }
 
@@ -188,7 +188,7 @@ pub fn compute_hmac_for_data(digest_type: ChecksumType, key: &[u8], data: &[u8])
     let key_len = key.len() as usize;
     let length = data.len() as usize;
     unsafe {
-        from_glib_full(ffi::g_compute_hmac_for_data(digest_type.to_glib(), key.to_glib_none().0, key_len, data.to_glib_none().0, length))
+        from_glib_full(glib_sys::g_compute_hmac_for_data(digest_type.to_glib(), key.to_glib_none().0, key_len, data.to_glib_none().0, length))
     }
 }
 
@@ -196,130 +196,130 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
     let key_len = key.len() as usize;
     let length = str.len() as isize;
     unsafe {
-        from_glib_full(ffi::g_compute_hmac_for_string(digest_type.to_glib(), key.to_glib_none().0, key_len, str.to_glib_none().0, length))
+        from_glib_full(glib_sys::g_compute_hmac_for_string(digest_type.to_glib(), key.to_glib_none().0, key_len, str.to_glib_none().0, length))
     }
 }
 
 //pub fn convert_with_iconv(str: &[u8], converter: /*Ignored*/&IConv) -> Result<(Vec<u8>, usize), Error> {
-//    unsafe { TODO: call ffi::g_convert_with_iconv() }
+//    unsafe { TODO: call glib_sys:g_convert_with_iconv() }
 //}
 
 //pub fn datalist_clear(datalist: /*Ignored*/&mut Data) {
-//    unsafe { TODO: call ffi::g_datalist_clear() }
+//    unsafe { TODO: call glib_sys:g_datalist_clear() }
 //}
 
 //pub fn datalist_foreach(datalist: /*Ignored*/&mut Data, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Fundamental: Pointer), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_datalist_foreach() }
+//    unsafe { TODO: call glib_sys:g_datalist_foreach() }
 //}
 
 //pub fn datalist_get_data(datalist: /*Ignored*/&mut Data, key: &str) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_datalist_get_data() }
+//    unsafe { TODO: call glib_sys:g_datalist_get_data() }
 //}
 
 //pub fn datalist_get_flags(datalist: /*Ignored*/&mut Data) -> u32 {
-//    unsafe { TODO: call ffi::g_datalist_get_flags() }
+//    unsafe { TODO: call glib_sys:g_datalist_get_flags() }
 //}
 
 //pub fn datalist_id_dup_data(datalist: /*Ignored*/&mut Data, key_id: Quark, dup_func: /*Unimplemented*/FnMut(/*Unimplemented*/Fundamental: Pointer) -> /*Unimplemented*/Fundamental: Pointer, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_datalist_id_dup_data() }
+//    unsafe { TODO: call glib_sys:g_datalist_id_dup_data() }
 //}
 
 //pub fn datalist_id_get_data(datalist: /*Ignored*/&mut Data, key_id: Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_datalist_id_get_data() }
+//    unsafe { TODO: call glib_sys:g_datalist_id_get_data() }
 //}
 
 //pub fn datalist_id_remove_no_notify(datalist: /*Ignored*/&mut Data, key_id: Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_datalist_id_remove_no_notify() }
+//    unsafe { TODO: call glib_sys:g_datalist_id_remove_no_notify() }
 //}
 
 //pub fn datalist_id_replace_data(datalist: /*Ignored*/&mut Data, key_id: Quark, oldval: /*Unimplemented*/Option<Fundamental: Pointer>, newval: /*Unimplemented*/Option<Fundamental: Pointer>) -> Option<Fn() + 'static> {
-//    unsafe { TODO: call ffi::g_datalist_id_replace_data() }
+//    unsafe { TODO: call glib_sys:g_datalist_id_replace_data() }
 //}
 
 //pub fn datalist_id_set_data_full(datalist: /*Ignored*/&mut Data, key_id: Quark, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_datalist_id_set_data_full() }
+//    unsafe { TODO: call glib_sys:g_datalist_id_set_data_full() }
 //}
 
 //pub fn datalist_init(datalist: /*Ignored*/&mut Data) {
-//    unsafe { TODO: call ffi::g_datalist_init() }
+//    unsafe { TODO: call glib_sys:g_datalist_init() }
 //}
 
 //pub fn datalist_set_flags(datalist: /*Ignored*/&mut Data, flags: u32) {
-//    unsafe { TODO: call ffi::g_datalist_set_flags() }
+//    unsafe { TODO: call glib_sys:g_datalist_set_flags() }
 //}
 
 //pub fn datalist_unset_flags(datalist: /*Ignored*/&mut Data, flags: u32) {
-//    unsafe { TODO: call ffi::g_datalist_unset_flags() }
+//    unsafe { TODO: call glib_sys:g_datalist_unset_flags() }
 //}
 
 //pub fn dataset_destroy(dataset_location: /*Unimplemented*/Fundamental: Pointer) {
-//    unsafe { TODO: call ffi::g_dataset_destroy() }
+//    unsafe { TODO: call glib_sys:g_dataset_destroy() }
 //}
 
 //pub fn dataset_foreach(dataset_location: /*Unimplemented*/Fundamental: Pointer, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Fundamental: Pointer), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_dataset_foreach() }
+//    unsafe { TODO: call glib_sys:g_dataset_foreach() }
 //}
 
 //pub fn dataset_id_get_data(dataset_location: /*Unimplemented*/Fundamental: Pointer, key_id: Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_dataset_id_get_data() }
+//    unsafe { TODO: call glib_sys:g_dataset_id_get_data() }
 //}
 
 //pub fn dataset_id_remove_no_notify(dataset_location: /*Unimplemented*/Fundamental: Pointer, key_id: Quark) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_dataset_id_remove_no_notify() }
+//    unsafe { TODO: call glib_sys:g_dataset_id_remove_no_notify() }
 //}
 
 //pub fn dataset_id_set_data_full(dataset_location: /*Unimplemented*/Fundamental: Pointer, key_id: Quark, data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_dataset_id_set_data_full() }
+//    unsafe { TODO: call glib_sys:g_dataset_id_set_data_full() }
 //}
 
 pub fn dcgettext(domain: Option<&str>, msgid: &str, category: i32) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_dcgettext(domain.to_glib_none().0, msgid.to_glib_none().0, category))
+        from_glib_none(glib_sys::g_dcgettext(domain.to_glib_none().0, msgid.to_glib_none().0, category))
     }
 }
 
 pub fn dgettext(domain: Option<&str>, msgid: &str) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_dgettext(domain.to_glib_none().0, msgid.to_glib_none().0))
+        from_glib_none(glib_sys::g_dgettext(domain.to_glib_none().0, msgid.to_glib_none().0))
     }
 }
 
 //pub fn direct_equal(v1: /*Unimplemented*/Option<Fundamental: Pointer>, v2: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
-//    unsafe { TODO: call ffi::g_direct_equal() }
+//    unsafe { TODO: call glib_sys:g_direct_equal() }
 //}
 
 //pub fn direct_hash(v: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call ffi::g_direct_hash() }
+//    unsafe { TODO: call glib_sys:g_direct_hash() }
 //}
 
 pub fn dngettext(domain: Option<&str>, msgid: &str, msgid_plural: &str, n: libc::c_ulong) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_dngettext(domain.to_glib_none().0, msgid.to_glib_none().0, msgid_plural.to_glib_none().0, n))
+        from_glib_none(glib_sys::g_dngettext(domain.to_glib_none().0, msgid.to_glib_none().0, msgid_plural.to_glib_none().0, n))
     }
 }
 
 //pub fn double_equal(v1: /*Unimplemented*/Fundamental: Pointer, v2: /*Unimplemented*/Fundamental: Pointer) -> bool {
-//    unsafe { TODO: call ffi::g_double_equal() }
+//    unsafe { TODO: call glib_sys:g_double_equal() }
 //}
 
 //pub fn double_hash(v: /*Unimplemented*/Fundamental: Pointer) -> u32 {
-//    unsafe { TODO: call ffi::g_double_hash() }
+//    unsafe { TODO: call glib_sys:g_double_hash() }
 //}
 
 pub fn dpgettext(domain: Option<&str>, msgctxtid: &str, msgidoffset: usize) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_dpgettext(domain.to_glib_none().0, msgctxtid.to_glib_none().0, msgidoffset))
+        from_glib_none(glib_sys::g_dpgettext(domain.to_glib_none().0, msgctxtid.to_glib_none().0, msgidoffset))
     }
 }
 
 pub fn dpgettext2(domain: Option<&str>, context: &str, msgid: &str) -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_dpgettext2(domain.to_glib_none().0, context.to_glib_none().0, msgid.to_glib_none().0))
+        from_glib_none(glib_sys::g_dpgettext2(domain.to_glib_none().0, context.to_glib_none().0, msgid.to_glib_none().0))
     }
 }
 
 //pub fn file_error_from_errno(err_no: i32) -> /*Ignored*/FileError {
-//    unsafe { TODO: call ffi::g_file_error_from_errno() }
+//    unsafe { TODO: call glib_sys:g_file_error_from_errno() }
 //}
 
 pub fn file_get_contents<P: AsRef<std::path::Path>>(filename: P) -> Result<Vec<u8>, Error> {
@@ -327,7 +327,7 @@ pub fn file_get_contents<P: AsRef<std::path::Path>>(filename: P) -> Result<Vec<u
         let mut contents = ptr::null_mut();
         let mut length = mem::uninitialized();
         let mut error = ptr::null_mut();
-        let _ = ffi::g_file_get_contents(filename.as_ref().to_glib_none().0, &mut contents, &mut length, &mut error);
+        let _ = glib_sys::g_file_get_contents(filename.as_ref().to_glib_none().0, &mut contents, &mut length, &mut error);
         if error.is_null() { Ok(FromGlibContainer::from_glib_full_num(contents, length as usize)) } else { Err(from_glib_full(error)) }
     }
 }
@@ -336,7 +336,7 @@ pub fn file_open_tmp<P: AsRef<std::path::Path>>(tmpl: P) -> Result<(i32, std::pa
     unsafe {
         let mut name_used = ptr::null_mut();
         let mut error = ptr::null_mut();
-        let ret = ffi::g_file_open_tmp(tmpl.as_ref().to_glib_none().0, &mut name_used, &mut error);
+        let ret = glib_sys::g_file_open_tmp(tmpl.as_ref().to_glib_none().0, &mut name_used, &mut error);
         if error.is_null() { Ok((ret, from_glib_full(name_used))) } else { Err(from_glib_full(error)) }
     }
 }
@@ -344,7 +344,7 @@ pub fn file_open_tmp<P: AsRef<std::path::Path>>(tmpl: P) -> Result<(i32, std::pa
 pub fn file_read_link<P: AsRef<std::path::Path>>(filename: P) -> Result<std::path::PathBuf, Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let ret = ffi::g_file_read_link(filename.as_ref().to_glib_none().0, &mut error);
+        let ret = glib_sys::g_file_read_link(filename.as_ref().to_glib_none().0, &mut error);
         if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
 }
@@ -353,587 +353,587 @@ pub fn file_set_contents<P: AsRef<std::path::Path>>(filename: P, contents: &[u8]
     let length = contents.len() as isize;
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::g_file_set_contents(filename.as_ref().to_glib_none().0, contents.to_glib_none().0, length, &mut error);
+        let _ = glib_sys::g_file_set_contents(filename.as_ref().to_glib_none().0, contents.to_glib_none().0, length, &mut error);
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
 
 pub fn file_test<P: AsRef<std::path::Path>>(filename: P, test: FileTest) -> bool {
     unsafe {
-        from_glib(ffi::g_file_test(filename.as_ref().to_glib_none().0, test.to_glib()))
+        from_glib(glib_sys::g_file_test(filename.as_ref().to_glib_none().0, test.to_glib()))
     }
 }
 
 pub fn filename_display_basename<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_filename_display_basename(filename.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_filename_display_basename(filename.as_ref().to_glib_none().0))
     }
 }
 
 pub fn filename_display_name<P: AsRef<std::path::Path>>(filename: P) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_filename_display_name(filename.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_filename_display_name(filename.as_ref().to_glib_none().0))
     }
 }
 
 pub fn format_size(size: u64) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_format_size(size))
+        from_glib_full(glib_sys::g_format_size(size))
     }
 }
 
 pub fn format_size_full(size: u64, flags: FormatSizeFlags) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_format_size_full(size, flags.to_glib()))
+        from_glib_full(glib_sys::g_format_size_full(size, flags.to_glib()))
     }
 }
 
 //pub fn fprintf(file: /*Unimplemented*/Fundamental: Pointer, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32 {
-//    unsafe { TODO: call ffi::g_fprintf() }
+//    unsafe { TODO: call glib_sys:g_fprintf() }
 //}
 
 //pub fn free(mem: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_free() }
+//    unsafe { TODO: call glib_sys:g_free() }
 //}
 
 pub fn get_application_name() -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_get_application_name())
+        from_glib_none(glib_sys::g_get_application_name())
     }
 }
 
 pub fn get_charset() -> Option<GString> {
     unsafe {
         let mut charset = ptr::null();
-        let ret = from_glib(ffi::g_get_charset(&mut charset));
+        let ret = from_glib(glib_sys::g_get_charset(&mut charset));
         if ret { Some(from_glib_none(charset)) } else { None }
     }
 }
 
 pub fn get_codeset() -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_get_codeset())
+        from_glib_full(glib_sys::g_get_codeset())
     }
 }
 
 //pub fn get_current_time(result: /*Ignored*/&mut TimeVal) {
-//    unsafe { TODO: call ffi::g_get_current_time() }
+//    unsafe { TODO: call glib_sys:g_get_current_time() }
 //}
 
 pub fn get_environ() -> Vec<std::ffi::OsString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_get_environ())
+        FromGlibPtrContainer::from_glib_full(glib_sys::g_get_environ())
     }
 }
 
 pub fn get_host_name() -> Option<GString> {
     unsafe {
-        from_glib_none(ffi::g_get_host_name())
+        from_glib_none(glib_sys::g_get_host_name())
     }
 }
 
 pub fn get_language_names() -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names())
+        FromGlibPtrContainer::from_glib_none(glib_sys::g_get_language_names())
     }
 }
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 pub fn get_language_names_with_category(category_name: &str) -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_none(ffi::g_get_language_names_with_category(category_name.to_glib_none().0))
+        FromGlibPtrContainer::from_glib_none(glib_sys::g_get_language_names_with_category(category_name.to_glib_none().0))
     }
 }
 
 pub fn get_locale_variants(locale: &str) -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_get_locale_variants(locale.to_glib_none().0))
+        FromGlibPtrContainer::from_glib_full(glib_sys::g_get_locale_variants(locale.to_glib_none().0))
     }
 }
 
 pub fn get_monotonic_time() -> i64 {
     unsafe {
-        ffi::g_get_monotonic_time()
+        glib_sys::g_get_monotonic_time()
     }
 }
 
 pub fn get_num_processors() -> u32 {
     unsafe {
-        ffi::g_get_num_processors()
+        glib_sys::g_get_num_processors()
     }
 }
 
 pub fn get_real_time() -> i64 {
     unsafe {
-        ffi::g_get_real_time()
+        glib_sys::g_get_real_time()
     }
 }
 
 pub fn get_system_config_dirs() -> Vec<std::path::PathBuf> {
     unsafe {
-        FromGlibPtrContainer::from_glib_none(ffi::g_get_system_config_dirs())
+        FromGlibPtrContainer::from_glib_none(glib_sys::g_get_system_config_dirs())
     }
 }
 
 pub fn get_system_data_dirs() -> Vec<std::path::PathBuf> {
     unsafe {
-        FromGlibPtrContainer::from_glib_none(ffi::g_get_system_data_dirs())
+        FromGlibPtrContainer::from_glib_none(glib_sys::g_get_system_data_dirs())
     }
 }
 
 pub fn get_user_cache_dir() -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_get_user_cache_dir())
+        from_glib_none(glib_sys::g_get_user_cache_dir())
     }
 }
 
 pub fn get_user_config_dir() -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_get_user_config_dir())
+        from_glib_none(glib_sys::g_get_user_config_dir())
     }
 }
 
 pub fn get_user_data_dir() -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_get_user_data_dir())
+        from_glib_none(glib_sys::g_get_user_data_dir())
     }
 }
 
 pub fn get_user_runtime_dir() -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_get_user_runtime_dir())
+        from_glib_none(glib_sys::g_get_user_runtime_dir())
     }
 }
 
 pub fn get_user_special_dir(directory: UserDirectory) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_get_user_special_dir(directory.to_glib()))
+        from_glib_none(glib_sys::g_get_user_special_dir(directory.to_glib()))
     }
 }
 
 pub fn hostname_is_ascii_encoded(hostname: &str) -> bool {
     unsafe {
-        from_glib(ffi::g_hostname_is_ascii_encoded(hostname.to_glib_none().0))
+        from_glib(glib_sys::g_hostname_is_ascii_encoded(hostname.to_glib_none().0))
     }
 }
 
 pub fn hostname_is_ip_address(hostname: &str) -> bool {
     unsafe {
-        from_glib(ffi::g_hostname_is_ip_address(hostname.to_glib_none().0))
+        from_glib(glib_sys::g_hostname_is_ip_address(hostname.to_glib_none().0))
     }
 }
 
 pub fn hostname_is_non_ascii(hostname: &str) -> bool {
     unsafe {
-        from_glib(ffi::g_hostname_is_non_ascii(hostname.to_glib_none().0))
+        from_glib(glib_sys::g_hostname_is_non_ascii(hostname.to_glib_none().0))
     }
 }
 
 pub fn hostname_to_ascii(hostname: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_hostname_to_ascii(hostname.to_glib_none().0))
+        from_glib_full(glib_sys::g_hostname_to_ascii(hostname.to_glib_none().0))
     }
 }
 
 pub fn hostname_to_unicode(hostname: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_hostname_to_unicode(hostname.to_glib_none().0))
+        from_glib_full(glib_sys::g_hostname_to_unicode(hostname.to_glib_none().0))
     }
 }
 
 //pub fn iconv(converter: /*Ignored*/&IConv, inbuf: &str, inbytes_left: usize, outbuf: &str, outbytes_left: usize) -> usize {
-//    unsafe { TODO: call ffi::g_iconv() }
+//    unsafe { TODO: call glib_sys:g_iconv() }
 //}
 
 //pub fn idle_remove_by_data(data: /*Unimplemented*/Option<Fundamental: Pointer>) -> bool {
-//    unsafe { TODO: call ffi::g_idle_remove_by_data() }
+//    unsafe { TODO: call glib_sys:g_idle_remove_by_data() }
 //}
 
 //pub fn int64_equal(v1: /*Unimplemented*/Fundamental: Pointer, v2: /*Unimplemented*/Fundamental: Pointer) -> bool {
-//    unsafe { TODO: call ffi::g_int64_equal() }
+//    unsafe { TODO: call glib_sys:g_int64_equal() }
 //}
 
 //pub fn int64_hash(v: /*Unimplemented*/Fundamental: Pointer) -> u32 {
-//    unsafe { TODO: call ffi::g_int64_hash() }
+//    unsafe { TODO: call glib_sys:g_int64_hash() }
 //}
 
 //pub fn int_equal(v1: /*Unimplemented*/Fundamental: Pointer, v2: /*Unimplemented*/Fundamental: Pointer) -> bool {
-//    unsafe { TODO: call ffi::g_int_equal() }
+//    unsafe { TODO: call glib_sys:g_int_equal() }
 //}
 
 //pub fn int_hash(v: /*Unimplemented*/Fundamental: Pointer) -> u32 {
-//    unsafe { TODO: call ffi::g_int_hash() }
+//    unsafe { TODO: call glib_sys:g_int_hash() }
 //}
 
 //pub fn io_add_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call ffi::g_io_add_watch() }
+//    unsafe { TODO: call glib_sys:g_io_add_watch() }
 //}
 
 //pub fn io_add_watch_full(channel: /*Ignored*/&IOChannel, priority: i32, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call ffi::g_io_add_watch_full() }
+//    unsafe { TODO: call glib_sys:g_io_add_watch_full() }
 //}
 
 //pub fn io_create_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition) -> Option<Source> {
-//    unsafe { TODO: call ffi::g_io_create_watch() }
+//    unsafe { TODO: call glib_sys:g_io_create_watch() }
 //}
 
 pub fn listenv() -> Vec<std::ffi::OsString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_listenv())
+        FromGlibPtrContainer::from_glib_full(glib_sys::g_listenv())
     }
 }
 
 //pub fn log(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_log() }
+//    unsafe { TODO: call glib_sys:g_log() }
 //}
 
 //pub fn log_default_handler(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, message: Option<&str>, unused_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_log_default_handler() }
+//    unsafe { TODO: call glib_sys:g_log_default_handler() }
 //}
 
 pub fn log_remove_handler(log_domain: &str, handler_id: u32) {
     unsafe {
-        ffi::g_log_remove_handler(log_domain.to_glib_none().0, handler_id);
+        glib_sys::g_log_remove_handler(log_domain.to_glib_none().0, handler_id);
     }
 }
 
 //pub fn log_set_always_fatal(fatal_mask: /*Ignored*/LogLevelFlags) -> /*Ignored*/LogLevelFlags {
-//    unsafe { TODO: call ffi::g_log_set_always_fatal() }
+//    unsafe { TODO: call glib_sys:g_log_set_always_fatal() }
 //}
 
 //pub fn log_set_default_handler(log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str) {
-//    unsafe { TODO: call ffi::g_log_set_default_handler() }
+//    unsafe { TODO: call glib_sys:g_log_set_default_handler() }
 //}
 
 //pub fn log_set_fatal_mask(log_domain: &str, fatal_mask: /*Ignored*/LogLevelFlags) -> /*Ignored*/LogLevelFlags {
-//    unsafe { TODO: call ffi::g_log_set_fatal_mask() }
+//    unsafe { TODO: call glib_sys:g_log_set_fatal_mask() }
 //}
 
 //pub fn log_set_handler(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call ffi::g_log_set_handler() }
+//    unsafe { TODO: call glib_sys:g_log_set_handler() }
 //}
 
 //#[cfg(any(feature = "v2_46", feature = "dox"))]
 //pub fn log_set_handler_full(log_domain: Option<&str>, log_levels: /*Ignored*/LogLevelFlags, log_func: /*Unimplemented*/Fn(&str, /*Ignored*/LogLevelFlags, &str), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call ffi::g_log_set_handler_full() }
+//    unsafe { TODO: call glib_sys:g_log_set_handler_full() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_set_writer_func(func: /*Unimplemented*/Fn(/*Ignored*/LogLevelFlags, /*Ignored*/Vec<LogField>, usize) -> /*Ignored*/LogWriterOutput, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_log_set_writer_func() }
+//    unsafe { TODO: call glib_sys:g_log_set_writer_func() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_structured(log_domain: &str, log_level: /*Ignored*/LogLevelFlags, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_log_structured() }
+//    unsafe { TODO: call glib_sys:g_log_structured() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_structured_array(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField]) {
-//    unsafe { TODO: call ffi::g_log_structured_array() }
+//    unsafe { TODO: call glib_sys:g_log_structured_array() }
 //}
 
 //pub fn log_structured_standard(log_domain: &str, log_level: /*Ignored*/LogLevelFlags, file: &str, line: &str, func: &str, message_format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_log_structured_standard() }
+//    unsafe { TODO: call glib_sys:g_log_structured_standard() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_variant(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, fields: &Variant) {
-//    unsafe { TODO: call ffi::g_log_variant() }
+//    unsafe { TODO: call glib_sys:g_log_variant() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_default(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
-//    unsafe { TODO: call ffi::g_log_writer_default() }
+//    unsafe { TODO: call glib_sys:g_log_writer_default() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_format_fields(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], use_color: bool) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_log_writer_format_fields() }
+//    unsafe { TODO: call glib_sys:g_log_writer_format_fields() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_journald(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
-//    unsafe { TODO: call ffi::g_log_writer_journald() }
+//    unsafe { TODO: call glib_sys:g_log_writer_journald() }
 //}
 
 //#[cfg(any(feature = "v2_50", feature = "dox"))]
 //pub fn log_writer_standard_streams(log_level: /*Ignored*/LogLevelFlags, fields: /*Ignored*/&[&LogField], user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Ignored*/LogWriterOutput {
-//    unsafe { TODO: call ffi::g_log_writer_standard_streams() }
+//    unsafe { TODO: call glib_sys:g_log_writer_standard_streams() }
 //}
 
 //pub fn logv(log_domain: Option<&str>, log_level: /*Ignored*/LogLevelFlags, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) {
-//    unsafe { TODO: call ffi::g_logv() }
+//    unsafe { TODO: call glib_sys:g_logv() }
 //}
 
 pub fn main_current_source() -> Option<Source> {
     unsafe {
-        from_glib_none(ffi::g_main_current_source())
+        from_glib_none(glib_sys::g_main_current_source())
     }
 }
 
 pub fn main_depth() -> i32 {
     unsafe {
-        ffi::g_main_depth()
+        glib_sys::g_main_depth()
     }
 }
 
 //pub fn malloc(n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_malloc() }
+//    unsafe { TODO: call glib_sys:g_malloc() }
 //}
 
 //pub fn malloc0(n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_malloc0() }
+//    unsafe { TODO: call glib_sys:g_malloc0() }
 //}
 
 //pub fn malloc0_n(n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_malloc0_n() }
+//    unsafe { TODO: call glib_sys:g_malloc0_n() }
 //}
 
 //pub fn malloc_n(n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_malloc_n() }
+//    unsafe { TODO: call glib_sys:g_malloc_n() }
 //}
 
 //pub fn markup_collect_attributes(element_name: &str, attribute_names: &str, attribute_values: &str, error: &mut Error, first_type: /*Ignored*/MarkupCollectType, first_attr: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
-//    unsafe { TODO: call ffi::g_markup_collect_attributes() }
+//    unsafe { TODO: call glib_sys:g_markup_collect_attributes() }
 //}
 
 pub fn markup_escape_text(text: &str) -> GString {
     let length = text.len() as isize;
     unsafe {
-        from_glib_full(ffi::g_markup_escape_text(text.to_glib_none().0, length))
+        from_glib_full(glib_sys::g_markup_escape_text(text.to_glib_none().0, length))
     }
 }
 
 //pub fn markup_printf_escaped(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_markup_printf_escaped() }
+//    unsafe { TODO: call glib_sys:g_markup_printf_escaped() }
 //}
 
 //pub fn markup_vprintf_escaped(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<GString> {
-//    unsafe { TODO: call ffi::g_markup_vprintf_escaped() }
+//    unsafe { TODO: call glib_sys:g_markup_vprintf_escaped() }
 //}
 
 #[cfg_attr(feature = "v2_46", deprecated)]
 pub fn mem_is_system_malloc() -> bool {
     unsafe {
-        from_glib(ffi::g_mem_is_system_malloc())
+        from_glib(glib_sys::g_mem_is_system_malloc())
     }
 }
 
 #[cfg_attr(feature = "v2_46", deprecated)]
 pub fn mem_profile() {
     unsafe {
-        ffi::g_mem_profile();
+        glib_sys::g_mem_profile();
     }
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
 //pub fn mem_set_vtable(vtable: /*Ignored*/&mut MemVTable) {
-//    unsafe { TODO: call ffi::g_mem_set_vtable() }
+//    unsafe { TODO: call glib_sys:g_mem_set_vtable() }
 //}
 
 //pub fn memdup(mem: /*Unimplemented*/Option<Fundamental: Pointer>, byte_size: u32) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_memdup() }
+//    unsafe { TODO: call glib_sys:g_memdup() }
 //}
 
 pub fn mkdir_with_parents<P: AsRef<std::path::Path>>(pathname: P, mode: i32) -> i32 {
     unsafe {
-        ffi::g_mkdir_with_parents(pathname.as_ref().to_glib_none().0, mode)
+        glib_sys::g_mkdir_with_parents(pathname.as_ref().to_glib_none().0, mode)
     }
 }
 
 pub fn mkdtemp<P: AsRef<std::path::Path>>(tmpl: P) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_mkdtemp(tmpl.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_mkdtemp(tmpl.as_ref().to_glib_none().0))
     }
 }
 
 pub fn mkdtemp_full<P: AsRef<std::path::Path>>(tmpl: P, mode: i32) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_mkdtemp_full(tmpl.as_ref().to_glib_none().0, mode))
+        from_glib_full(glib_sys::g_mkdtemp_full(tmpl.as_ref().to_glib_none().0, mode))
     }
 }
 
 pub fn mkstemp_full<P: AsRef<std::path::Path>>(tmpl: P, flags: i32, mode: i32) -> i32 {
     unsafe {
-        ffi::g_mkstemp_full(tmpl.as_ref().to_glib_none().0, flags, mode)
+        glib_sys::g_mkstemp_full(tmpl.as_ref().to_glib_none().0, flags, mode)
     }
 }
 
 //pub fn nullify_pointer(nullify_location: /*Unimplemented*/Fundamental: Pointer) {
-//    unsafe { TODO: call ffi::g_nullify_pointer() }
+//    unsafe { TODO: call glib_sys:g_nullify_pointer() }
 //}
 
 pub fn on_error_query(prg_name: &str) {
     unsafe {
-        ffi::g_on_error_query(prg_name.to_glib_none().0);
+        glib_sys::g_on_error_query(prg_name.to_glib_none().0);
     }
 }
 
 pub fn on_error_stack_trace(prg_name: &str) {
     unsafe {
-        ffi::g_on_error_stack_trace(prg_name.to_glib_none().0);
+        glib_sys::g_on_error_stack_trace(prg_name.to_glib_none().0);
     }
 }
 
 //pub fn parse_debug_string(string: Option<&str>, keys: /*Ignored*/&[&DebugKey]) -> u32 {
-//    unsafe { TODO: call ffi::g_parse_debug_string() }
+//    unsafe { TODO: call glib_sys:g_parse_debug_string() }
 //}
 
 pub fn path_get_basename<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_path_get_basename(file_name.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_path_get_basename(file_name.as_ref().to_glib_none().0))
     }
 }
 
 pub fn path_get_dirname<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_full(ffi::g_path_get_dirname(file_name.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_path_get_dirname(file_name.as_ref().to_glib_none().0))
     }
 }
 
 pub fn path_is_absolute<P: AsRef<std::path::Path>>(file_name: P) -> bool {
     unsafe {
-        from_glib(ffi::g_path_is_absolute(file_name.as_ref().to_glib_none().0))
+        from_glib(glib_sys::g_path_is_absolute(file_name.as_ref().to_glib_none().0))
     }
 }
 
 pub fn path_skip_root<P: AsRef<std::path::Path>>(file_name: P) -> Option<std::path::PathBuf> {
     unsafe {
-        from_glib_none(ffi::g_path_skip_root(file_name.as_ref().to_glib_none().0))
+        from_glib_none(glib_sys::g_path_skip_root(file_name.as_ref().to_glib_none().0))
     }
 }
 
 //pub fn pattern_match(pspec: /*Ignored*/&mut PatternSpec, string_length: u32, string: &str, string_reversed: Option<&str>) -> bool {
-//    unsafe { TODO: call ffi::g_pattern_match() }
+//    unsafe { TODO: call glib_sys:g_pattern_match() }
 //}
 
 pub fn pattern_match_simple(pattern: &str, string: &str) -> bool {
     unsafe {
-        from_glib(ffi::g_pattern_match_simple(pattern.to_glib_none().0, string.to_glib_none().0))
+        from_glib(glib_sys::g_pattern_match_simple(pattern.to_glib_none().0, string.to_glib_none().0))
     }
 }
 
 //pub fn pattern_match_string(pspec: /*Ignored*/&mut PatternSpec, string: &str) -> bool {
-//    unsafe { TODO: call ffi::g_pattern_match_string() }
+//    unsafe { TODO: call glib_sys:g_pattern_match_string() }
 //}
 
 //pub fn pointer_bit_lock(address: /*Unimplemented*/Fundamental: Pointer, lock_bit: i32) {
-//    unsafe { TODO: call ffi::g_pointer_bit_lock() }
+//    unsafe { TODO: call glib_sys:g_pointer_bit_lock() }
 //}
 
 //pub fn pointer_bit_trylock(address: /*Unimplemented*/Fundamental: Pointer, lock_bit: i32) -> bool {
-//    unsafe { TODO: call ffi::g_pointer_bit_trylock() }
+//    unsafe { TODO: call glib_sys:g_pointer_bit_trylock() }
 //}
 
 //pub fn pointer_bit_unlock(address: /*Unimplemented*/Fundamental: Pointer, lock_bit: i32) {
-//    unsafe { TODO: call ffi::g_pointer_bit_unlock() }
+//    unsafe { TODO: call glib_sys:g_pointer_bit_unlock() }
 //}
 
 //pub fn poll(fds: /*Ignored*/&mut PollFD, nfds: u32, timeout: i32) -> i32 {
-//    unsafe { TODO: call ffi::g_poll() }
+//    unsafe { TODO: call glib_sys:g_poll() }
 //}
 
 //pub fn prefix_error(err: /*Unimplemented*/Option<Error>, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_prefix_error() }
+//    unsafe { TODO: call glib_sys:g_prefix_error() }
 //}
 
 //pub fn print(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_print() }
+//    unsafe { TODO: call glib_sys:g_print() }
 //}
 
 //pub fn printerr(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_printerr() }
+//    unsafe { TODO: call glib_sys:g_printerr() }
 //}
 
 //pub fn printf(format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32 {
-//    unsafe { TODO: call ffi::g_printf() }
+//    unsafe { TODO: call glib_sys:g_printf() }
 //}
 
 //pub fn printf_string_upper_bound(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> usize {
-//    unsafe { TODO: call ffi::g_printf_string_upper_bound() }
+//    unsafe { TODO: call glib_sys:g_printf_string_upper_bound() }
 //}
 
 //pub fn propagate_prefixed_error(dest: &mut Error, src: &mut Error, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
-//    unsafe { TODO: call ffi::g_propagate_prefixed_error() }
+//    unsafe { TODO: call glib_sys:g_propagate_prefixed_error() }
 //}
 
 //pub fn qsort_with_data(pbase: /*Unimplemented*/Fundamental: Pointer, total_elems: i32, size: usize, compare_func: /*Unimplemented*/Fn(/*Unimplemented*/Fundamental: Pointer, /*Unimplemented*/Fundamental: Pointer) -> i32, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_qsort_with_data() }
+//    unsafe { TODO: call glib_sys:g_qsort_with_data() }
 //}
 
 pub fn random_double() -> f64 {
     unsafe {
-        ffi::g_random_double()
+        glib_sys::g_random_double()
     }
 }
 
 pub fn random_double_range(begin: f64, end: f64) -> f64 {
     unsafe {
-        ffi::g_random_double_range(begin, end)
+        glib_sys::g_random_double_range(begin, end)
     }
 }
 
 pub fn random_int() -> u32 {
     unsafe {
-        ffi::g_random_int()
+        glib_sys::g_random_int()
     }
 }
 
 pub fn random_int_range(begin: i32, end: i32) -> i32 {
     unsafe {
-        ffi::g_random_int_range(begin, end)
+        glib_sys::g_random_int_range(begin, end)
     }
 }
 
 pub fn random_set_seed(seed: u32) {
     unsafe {
-        ffi::g_random_set_seed(seed);
+        glib_sys::g_random_set_seed(seed);
     }
 }
 
 //pub fn realloc(mem: /*Unimplemented*/Option<Fundamental: Pointer>, n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_realloc() }
+//    unsafe { TODO: call glib_sys:g_realloc() }
 //}
 
 //pub fn realloc_n(mem: /*Unimplemented*/Option<Fundamental: Pointer>, n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_realloc_n() }
+//    unsafe { TODO: call glib_sys:g_realloc_n() }
 //}
 
 pub fn reload_user_special_dirs_cache() {
     unsafe {
-        ffi::g_reload_user_special_dirs_cache();
+        glib_sys::g_reload_user_special_dirs_cache();
     }
 }
 
 pub fn return_if_fail_warning(log_domain: Option<&str>, pretty_function: &str, expression: Option<&str>) {
     unsafe {
-        ffi::g_return_if_fail_warning(log_domain.to_glib_none().0, pretty_function.to_glib_none().0, expression.to_glib_none().0);
+        glib_sys::g_return_if_fail_warning(log_domain.to_glib_none().0, pretty_function.to_glib_none().0, expression.to_glib_none().0);
     }
 }
 
 pub fn rmdir<P: AsRef<std::path::Path>>(filename: P) -> i32 {
     unsafe {
-        ffi::g_rmdir(filename.as_ref().to_glib_none().0)
+        glib_sys::g_rmdir(filename.as_ref().to_glib_none().0)
     }
 }
 
 pub fn set_application_name(application_name: &str) {
     unsafe {
-        ffi::g_set_application_name(application_name.to_glib_none().0);
+        glib_sys::g_set_application_name(application_name.to_glib_none().0);
     }
 }
 
 //pub fn set_error(domain: Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Error {
-//    unsafe { TODO: call ffi::g_set_error() }
+//    unsafe { TODO: call glib_sys:g_set_error() }
 //}
 
 //pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box<dyn Fn(&str) + 'static>> {
-//    unsafe { TODO: call ffi::g_set_print_handler() }
+//    unsafe { TODO: call glib_sys:g_set_print_handler() }
 //}
 
 //pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box<dyn Fn(&str) + 'static>> {
-//    unsafe { TODO: call ffi::g_set_printerr_handler() }
+//    unsafe { TODO: call glib_sys:g_set_printerr_handler() }
 //}
 
 pub fn shell_parse_argv<P: AsRef<std::ffi::OsStr>>(command_line: P) -> Result<Vec<std::ffi::OsString>, Error> {
@@ -941,84 +941,84 @@ pub fn shell_parse_argv<P: AsRef<std::ffi::OsStr>>(command_line: P) -> Result<Ve
         let mut argcp = mem::uninitialized();
         let mut argvp = ptr::null_mut();
         let mut error = ptr::null_mut();
-        let _ = ffi::g_shell_parse_argv(command_line.as_ref().to_glib_none().0, &mut argcp, &mut argvp, &mut error);
+        let _ = glib_sys::g_shell_parse_argv(command_line.as_ref().to_glib_none().0, &mut argcp, &mut argvp, &mut error);
         if error.is_null() { Ok(FromGlibContainer::from_glib_full_num(argvp, argcp as usize)) } else { Err(from_glib_full(error)) }
     }
 }
 
 pub fn shell_quote<P: AsRef<std::ffi::OsStr>>(unquoted_string: P) -> Option<std::ffi::OsString> {
     unsafe {
-        from_glib_full(ffi::g_shell_quote(unquoted_string.as_ref().to_glib_none().0))
+        from_glib_full(glib_sys::g_shell_quote(unquoted_string.as_ref().to_glib_none().0))
     }
 }
 
 pub fn shell_unquote<P: AsRef<std::ffi::OsStr>>(quoted_string: P) -> Result<std::ffi::OsString, Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let ret = ffi::g_shell_unquote(quoted_string.as_ref().to_glib_none().0, &mut error);
+        let ret = glib_sys::g_shell_unquote(quoted_string.as_ref().to_glib_none().0, &mut error);
         if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
     }
 }
 
 //pub fn slice_alloc(block_size: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_slice_alloc() }
+//    unsafe { TODO: call glib_sys:g_slice_alloc() }
 //}
 
 //pub fn slice_alloc0(block_size: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_slice_alloc0() }
+//    unsafe { TODO: call glib_sys:g_slice_alloc0() }
 //}
 
 //pub fn slice_copy(block_size: usize, mem_block: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_slice_copy() }
+//    unsafe { TODO: call glib_sys:g_slice_copy() }
 //}
 
 //pub fn slice_free1(block_size: usize, mem_block: /*Unimplemented*/Option<Fundamental: Pointer>) {
-//    unsafe { TODO: call ffi::g_slice_free1() }
+//    unsafe { TODO: call glib_sys:g_slice_free1() }
 //}
 
 //pub fn slice_free_chain_with_offset(block_size: usize, mem_chain: /*Unimplemented*/Option<Fundamental: Pointer>, next_offset: usize) {
-//    unsafe { TODO: call ffi::g_slice_free_chain_with_offset() }
+//    unsafe { TODO: call glib_sys:g_slice_free_chain_with_offset() }
 //}
 
 //pub fn slice_get_config(ckey: /*Ignored*/SliceConfig) -> i64 {
-//    unsafe { TODO: call ffi::g_slice_get_config() }
+//    unsafe { TODO: call glib_sys:g_slice_get_config() }
 //}
 
 //pub fn slice_get_config_state(ckey: /*Ignored*/SliceConfig, address: i64, n_values: u32) -> i64 {
-//    unsafe { TODO: call ffi::g_slice_get_config_state() }
+//    unsafe { TODO: call glib_sys:g_slice_get_config_state() }
 //}
 
 //pub fn slice_set_config(ckey: /*Ignored*/SliceConfig, value: i64) {
-//    unsafe { TODO: call ffi::g_slice_set_config() }
+//    unsafe { TODO: call glib_sys:g_slice_set_config() }
 //}
 
 //pub fn snprintf(string: &str, n: libc::c_ulong, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32 {
-//    unsafe { TODO: call ffi::g_snprintf() }
+//    unsafe { TODO: call glib_sys:g_snprintf() }
 //}
 
 pub fn spaced_primes_closest(num: u32) -> u32 {
     unsafe {
-        ffi::g_spaced_primes_closest(num)
+        glib_sys::g_spaced_primes_closest(num)
     }
 }
 
 //pub fn spawn_async<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<Pid, Error> {
-//    unsafe { TODO: call ffi::g_spawn_async() }
+//    unsafe { TODO: call glib_sys:g_spawn_async() }
 //}
 
 //#[cfg(any(feature = "v2_58", feature = "dox"))]
 //pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<Pid, Error> {
-//    unsafe { TODO: call ffi::g_spawn_async_with_fds() }
+//    unsafe { TODO: call glib_sys:g_spawn_async_with_fds() }
 //}
 
 //pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<(Pid, i32, i32, i32), Error> {
-//    unsafe { TODO: call ffi::g_spawn_async_with_pipes() }
+//    unsafe { TODO: call glib_sys:g_spawn_async_with_pipes() }
 //}
 
 pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::g_spawn_check_exit_status(exit_status, &mut error);
+        let _ = glib_sys::g_spawn_check_exit_status(exit_status, &mut error);
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
@@ -1027,145 +1027,145 @@ pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), Error> {
 pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> Result<(), Error> {
     unsafe {
         let mut error = ptr::null_mut();
-        let _ = ffi::g_spawn_command_line_async(command_line.as_ref().to_glib_none().0, &mut error);
+        let _ = glib_sys::g_spawn_command_line_async(command_line.as_ref().to_glib_none().0, &mut error);
         if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
     }
 }
 
 //pub fn spawn_command_line_sync<P: AsRef<std::path::Path>>(command_line: P, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
-//    unsafe { TODO: call ffi::g_spawn_command_line_sync() }
+//    unsafe { TODO: call glib_sys:g_spawn_command_line_sync() }
 //}
 
 //pub fn spawn_sync<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
-//    unsafe { TODO: call ffi::g_spawn_sync() }
+//    unsafe { TODO: call glib_sys:g_spawn_sync() }
 //}
 
 //pub fn sprintf(string: &str, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> i32 {
-//    unsafe { TODO: call ffi::g_sprintf() }
+//    unsafe { TODO: call glib_sys:g_sprintf() }
 //}
 
 pub fn stpcpy(dest: &str, src: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_stpcpy(dest.to_glib_none().0, src.to_glib_none().0))
+        from_glib_full(glib_sys::g_stpcpy(dest.to_glib_none().0, src.to_glib_none().0))
     }
 }
 
 //pub fn try_malloc(n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_malloc() }
+//    unsafe { TODO: call glib_sys:g_try_malloc() }
 //}
 
 //pub fn try_malloc0(n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_malloc0() }
+//    unsafe { TODO: call glib_sys:g_try_malloc0() }
 //}
 
 //pub fn try_malloc0_n(n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_malloc0_n() }
+//    unsafe { TODO: call glib_sys:g_try_malloc0_n() }
 //}
 
 //pub fn try_malloc_n(n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_malloc_n() }
+//    unsafe { TODO: call glib_sys:g_try_malloc_n() }
 //}
 
 //pub fn try_realloc(mem: /*Unimplemented*/Option<Fundamental: Pointer>, n_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_realloc() }
+//    unsafe { TODO: call glib_sys:g_try_realloc() }
 //}
 
 //pub fn try_realloc_n(mem: /*Unimplemented*/Option<Fundamental: Pointer>, n_blocks: usize, n_block_bytes: usize) -> /*Unimplemented*/Option<Fundamental: Pointer> {
-//    unsafe { TODO: call ffi::g_try_realloc_n() }
+//    unsafe { TODO: call glib_sys:g_try_realloc_n() }
 //}
 
 //pub fn unicode_script_from_iso15924(iso15924: u32) -> /*Ignored*/UnicodeScript {
-//    unsafe { TODO: call ffi::g_unicode_script_from_iso15924() }
+//    unsafe { TODO: call glib_sys:g_unicode_script_from_iso15924() }
 //}
 
 //pub fn unicode_script_to_iso15924(script: /*Ignored*/UnicodeScript) -> u32 {
-//    unsafe { TODO: call ffi::g_unicode_script_to_iso15924() }
+//    unsafe { TODO: call glib_sys:g_unicode_script_to_iso15924() }
 //}
 
 pub fn unlink<P: AsRef<std::path::Path>>(filename: P) -> i32 {
     unsafe {
-        ffi::g_unlink(filename.as_ref().to_glib_none().0)
+        glib_sys::g_unlink(filename.as_ref().to_glib_none().0)
     }
 }
 
 pub fn uri_escape_string(unescaped: &str, reserved_chars_allowed: Option<&str>, allow_utf8: bool) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_uri_escape_string(unescaped.to_glib_none().0, reserved_chars_allowed.to_glib_none().0, allow_utf8.to_glib()))
+        from_glib_full(glib_sys::g_uri_escape_string(unescaped.to_glib_none().0, reserved_chars_allowed.to_glib_none().0, allow_utf8.to_glib()))
     }
 }
 
 pub fn uri_list_extract_uris(uri_list: &str) -> Vec<GString> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(ffi::g_uri_list_extract_uris(uri_list.to_glib_none().0))
+        FromGlibPtrContainer::from_glib_full(glib_sys::g_uri_list_extract_uris(uri_list.to_glib_none().0))
     }
 }
 
 pub fn uri_parse_scheme(uri: &str) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_uri_parse_scheme(uri.to_glib_none().0))
+        from_glib_full(glib_sys::g_uri_parse_scheme(uri.to_glib_none().0))
     }
 }
 
 pub fn uri_unescape_segment(escaped_string: Option<&str>, escaped_string_end: Option<&str>, illegal_characters: Option<&str>) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_uri_unescape_segment(escaped_string.to_glib_none().0, escaped_string_end.to_glib_none().0, illegal_characters.to_glib_none().0))
+        from_glib_full(glib_sys::g_uri_unescape_segment(escaped_string.to_glib_none().0, escaped_string_end.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
 }
 
 pub fn uri_unescape_string(escaped_string: &str, illegal_characters: Option<&str>) -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_uri_unescape_string(escaped_string.to_glib_none().0, illegal_characters.to_glib_none().0))
+        from_glib_full(glib_sys::g_uri_unescape_string(escaped_string.to_glib_none().0, illegal_characters.to_glib_none().0))
     }
 }
 
 pub fn usleep(microseconds: libc::c_ulong) {
     unsafe {
-        ffi::g_usleep(microseconds);
+        glib_sys::g_usleep(microseconds);
     }
 }
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
 pub fn uuid_string_is_valid(str: &str) -> bool {
     unsafe {
-        from_glib(ffi::g_uuid_string_is_valid(str.to_glib_none().0))
+        from_glib(glib_sys::g_uuid_string_is_valid(str.to_glib_none().0))
     }
 }
 
 #[cfg(any(feature = "v2_52", feature = "dox"))]
 pub fn uuid_string_random() -> Option<GString> {
     unsafe {
-        from_glib_full(ffi::g_uuid_string_random())
+        from_glib_full(glib_sys::g_uuid_string_random())
     }
 }
 
 pub fn variant_get_gtype() -> types::Type {
     unsafe {
-        from_glib(ffi::g_variant_get_gtype())
+        from_glib(glib_sys::g_variant_get_gtype())
     }
 }
 
 //pub fn vasprintf(string: &str, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
-//    unsafe { TODO: call ffi::g_vasprintf() }
+//    unsafe { TODO: call glib_sys:g_vasprintf() }
 //}
 
 //pub fn vfprintf(file: /*Unimplemented*/Fundamental: Pointer, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
-//    unsafe { TODO: call ffi::g_vfprintf() }
+//    unsafe { TODO: call glib_sys:g_vfprintf() }
 //}
 
 //pub fn vprintf(format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
-//    unsafe { TODO: call ffi::g_vprintf() }
+//    unsafe { TODO: call glib_sys:g_vprintf() }
 //}
 
 //pub fn vsnprintf(string: &str, n: libc::c_ulong, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
-//    unsafe { TODO: call ffi::g_vsnprintf() }
+//    unsafe { TODO: call glib_sys:g_vsnprintf() }
 //}
 
 //pub fn vsprintf(string: &str, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> i32 {
-//    unsafe { TODO: call ffi::g_vsprintf() }
+//    unsafe { TODO: call glib_sys:g_vsprintf() }
 //}
 
 pub fn warn_message(domain: Option<&str>, file: &str, line: i32, func: &str, warnexpr: Option<&str>) {
     unsafe {
-        ffi::g_warn_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, warnexpr.to_glib_none().0);
+        glib_sys::g_warn_message(domain.to_glib_none().0, file.to_glib_none().0, line, func.to_glib_none().0, warnexpr.to_glib_none().0);
     }
 }

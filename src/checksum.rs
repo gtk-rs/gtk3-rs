@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::vec::Vec;
-use ffi;
+use glib_sys;
 use libc::size_t;
+use std::vec::Vec;
 use translate::*;
 use Checksum;
 
@@ -15,7 +15,7 @@ impl Checksum {
             let mut digest_len: size_t = 512 / 8;
             let mut vec = Vec::with_capacity(digest_len as usize);
 
-            ffi::g_checksum_get_digest(
+            glib_sys::g_checksum_get_digest(
                 mut_override(self.to_glib_none().0),
                 vec.as_mut_ptr(),
                 &mut digest_len,
@@ -28,7 +28,7 @@ impl Checksum {
 
     pub fn get_string(self) -> Option<String> {
         unsafe {
-            from_glib_none(ffi::g_checksum_get_string(
+            from_glib_none(glib_sys::g_checksum_get_string(
                 mut_override(self.to_glib_none().0),
             ))
         }

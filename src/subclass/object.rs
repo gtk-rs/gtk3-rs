@@ -5,19 +5,16 @@
 //! Module that contains all types needed for creating a direct subclass of `GObject`
 //! or implementing virtual methods of it.
 
-use ffi;
-use gobject_ffi;
-
+use super::prelude::*;
+use super::types;
+use glib_sys;
+use gobject_sys;
 use std::borrow::Borrow;
 use std::fmt;
 use std::mem;
 use std::ptr;
-
 use translate::*;
 use {Object, ObjectClass, ObjectType, SignalFlags, Type, Value};
-
-use super::prelude::*;
-use super::types;
 
 #[macro_export]
 /// Macro for boilerplate of [`ObjectImpl`] implementations.
@@ -69,10 +66,10 @@ pub trait ObjectImpl: ObjectImplExt + 'static {
 }
 
 unsafe extern "C" fn get_property<T: ObjectSubclass>(
-    obj: *mut gobject_ffi::GObject,
+    obj: *mut gobject_sys::GObject,
     id: u32,
-    value: *mut gobject_ffi::GValue,
-    _pspec: *mut gobject_ffi::GParamSpec,
+    value: *mut gobject_sys::GValue,
+    _pspec: *mut gobject_sys::GParamSpec,
 ) {
     glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
@@ -88,7 +85,7 @@ unsafe extern "C" fn get_property<T: ObjectSubclass>(
             // Without this, by using the GValue API, we would have to create
             // a copy of the value when setting it on the destination just to
             // immediately free the original value afterwards.
-            gobject_ffi::g_value_unset(value);
+            gobject_sys::g_value_unset(value);
             ptr::write(value, ptr::read(v.to_glib_none().0));
             mem::forget(v);
         }
@@ -97,10 +94,10 @@ unsafe extern "C" fn get_property<T: ObjectSubclass>(
 }
 
 unsafe extern "C" fn set_property<T: ObjectSubclass>(
-    obj: *mut gobject_ffi::GObject,
+    obj: *mut gobject_sys::GObject,
     id: u32,
-    value: *mut gobject_ffi::GValue,
-    _pspec: *mut gobject_ffi::GParamSpec,
+    value: *mut gobject_sys::GValue,
+    _pspec: *mut gobject_sys::GParamSpec,
 ) {
     glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
@@ -112,7 +109,7 @@ unsafe extern "C" fn set_property<T: ObjectSubclass>(
     );
 }
 
-unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_ffi::GObject) {
+unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_sys::GObject) {
     glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
@@ -160,8 +157,8 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
                 pspecs_ptrs.push(pspec.to_glib_none().0);
             }
 
-            gobject_ffi::g_object_class_install_properties(
-                self as *mut _ as *mut gobject_ffi::GObjectClass,
+            gobject_sys::g_object_class_install_properties(
+                self as *mut _ as *mut gobject_sys::GObjectClass,
                 pspecs_ptrs.len() as u32,
                 pspecs_ptrs.as_mut_ptr(),
             );
@@ -175,7 +172,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
         unsafe {
             super::types::add_signal(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -202,7 +199,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -233,7 +230,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -268,7 +265,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
     {
         unsafe {
             super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -286,7 +283,7 @@ pub unsafe trait ObjectClassSubclassExt: Sized + 'static {
         unsafe {
             super::types::signal_override_class_handler(
                 name,
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 class_handler,
             );
         }
@@ -298,7 +295,7 @@ unsafe impl ObjectClassSubclassExt for ObjectClass {}
 unsafe impl<T: ObjectSubclass> IsSubclassable<T> for ObjectClass {
     fn override_vfuncs(&mut self) {
         unsafe {
-            let klass = &mut *(self as *mut Self as *mut gobject_ffi::GObjectClass);
+            let klass = &mut *(self as *mut Self as *mut gobject_sys::GObjectClass);
             klass.set_property = Some(set_property::<T>);
             klass.get_property = Some(get_property::<T>);
             klass.constructed = Some(constructed::<T>);
@@ -321,7 +318,7 @@ impl<T: ObjectImpl + ObjectSubclass> ObjectImplExt for T {
     fn parent_constructed(&self, obj: &Object) {
         unsafe {
             let data = self.get_type_data();
-            let parent_class = data.as_ref().get_parent_class() as *mut gobject_ffi::GObjectClass;
+            let parent_class = data.as_ref().get_parent_class() as *mut gobject_sys::GObjectClass;
 
             if let Some(ref func) = (*parent_class).constructed {
                 func(obj.to_glib_none().0);
@@ -468,7 +465,7 @@ mod test {
 
     #[repr(C)]
     pub struct DummyInterface {
-        parent: gobject_ffi::GTypeInterface,
+        parent: gobject_sys::GTypeInterface,
     }
 
     impl ObjectInterface for DummyInterface {
@@ -482,7 +479,7 @@ mod test {
     }
 
     // Usually this would be implemented on a Rust wrapper type defined
-    // with glib_wrapper!() but for the test the following is sufficient
+    // with glib_wrapper!() but for the test the following is susyscient
     impl StaticType for DummyInterface {
         fn static_type() -> Type {
             DummyInterface::get_type()
@@ -490,9 +487,9 @@ mod test {
     }
 
     // Usually this would be implemented on a Rust wrapper type defined
-    // with glib_wrapper!() but for the test the following is sufficient
+    // with glib_wrapper!() but for the test the following is susyscient
     unsafe impl<T: ObjectSubclass> IsImplementable<T> for DummyInterface {
-        unsafe extern "C" fn interface_init(_iface: ffi::gpointer, _iface_data: ffi::gpointer) {}
+        unsafe extern "C" fn interface_init(_iface: glib_sys::gpointer, _iface_data: glib_sys::gpointer) {}
     }
 
     #[test]

@@ -2,15 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ffi;
-use gobject_ffi;
-
+use super::{InitializingType, Property};
+use glib_sys;
+use gobject_sys;
 use std::borrow::Borrow;
 use std::marker;
 use std::mem;
 use std::ptr;
-
-use super::{InitializingType, Property};
 use translate::*;
 use {IsA, Object, ObjectExt, SignalFlags, StaticType, Type, Value};
 
@@ -20,7 +18,7 @@ impl<T: ObjectInterface> InitializingType<T> {
     /// All implementors of the interface must be a subclass of `I` or implement the interface `I`.
     pub fn add_prerequisite<I: StaticType>(&mut self) {
         unsafe {
-            gobject_ffi::g_type_interface_add_prerequisite(
+            gobject_sys::g_type_interface_add_prerequisite(
                 self.0.to_glib(),
                 I::static_type().to_glib(),
             )
@@ -59,7 +57,7 @@ macro_rules! glib_object_interface {
 /// Links together the type name and the interface struct for type registration and allows to hook
 /// into various steps of the type registration and initialization.
 ///
-/// This must only be implemented on `#[repr(C)]` structs and have `gobject_ffi::GTypeInterface` as
+/// This must only be implemented on `#[repr(C)]` structs and have `gobject_sys::GTypeInterface` as
 /// the first field.
 ///
 /// See [`register_interface`] for registering an implementation of this trait
@@ -109,9 +107,9 @@ pub trait ObjectInterfaceExt: ObjectInterface {
         assert!(obj.as_ref().get_type().is_a(&Self::get_type()));
 
         unsafe {
-            let klass = (*(obj.as_ptr() as *const gobject_ffi::GTypeInstance)).g_class;
+            let klass = (*(obj.as_ptr() as *const gobject_sys::GTypeInstance)).g_class;
             let interface =
-                gobject_ffi::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
+                gobject_sys::g_type_interface_peek(klass as *mut _, Self::get_type().to_glib());
             assert!(!interface.is_null());
             &*(interface as *const Self)
         }
@@ -129,7 +127,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
             let property = property.borrow();
             let pspec = (property.1)(property.0);
             unsafe {
-                gobject_ffi::g_object_interface_install_property(
+                gobject_sys::g_object_interface_install_property(
                     self as *mut Self as *mut _,
                     pspec.to_glib_none().0,
                 );
@@ -144,7 +142,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     fn add_signal(&mut self, name: &str, flags: SignalFlags, arg_types: &[Type], ret_type: Type) {
         unsafe {
             super::types::add_signal(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -171,7 +169,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     {
         unsafe {
             super::types::add_signal_with_class_handler(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -202,7 +200,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     {
         unsafe {
             super::types::add_signal_with_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -237,7 +235,7 @@ pub trait ObjectInterfaceExt: ObjectInterface {
     {
         unsafe {
             super::types::add_signal_with_class_handler_and_accumulator(
-                *(self as *mut _ as *mut ffi::GType),
+                *(self as *mut _ as *mut glib_sys::GType),
                 name,
                 flags,
                 arg_types,
@@ -252,8 +250,8 @@ pub trait ObjectInterfaceExt: ObjectInterface {
 impl<T: ObjectInterface> ObjectInterfaceExt for T {}
 
 unsafe extern "C" fn interface_init<T: ObjectInterface>(
-    klass: ffi::gpointer,
-    _klass_data: ffi::gpointer,
+    klass: glib_sys::gpointer,
+    _klass_data: glib_sys::gpointer,
 ) {
     let iface = &mut *(klass as *mut T);
     iface.interface_init();
@@ -271,7 +269,7 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
     unsafe {
         use std::ffi::CString;
 
-        let type_info = gobject_ffi::GTypeInfo {
+        let type_info = gobject_sys::GTypeInfo {
             class_size: mem::size_of::<T>() as u16,
             base_init: None,
             base_finalize: None,
@@ -286,11 +284,11 @@ pub fn register_interface<T: ObjectInterface>() -> Type {
 
         let type_name = CString::new(T::NAME).unwrap();
         assert_eq!(
-            gobject_ffi::g_type_from_name(type_name.as_ptr()),
-            gobject_ffi::G_TYPE_INVALID
+            gobject_sys::g_type_from_name(type_name.as_ptr()),
+            gobject_sys::G_TYPE_INVALID
         );
 
-        let type_ = from_glib(gobject_ffi::g_type_register_static(
+        let type_ = from_glib(gobject_sys::g_type_register_static(
             Type::BaseInterface.to_glib(),
             type_name.as_ptr(),
             &type_info,

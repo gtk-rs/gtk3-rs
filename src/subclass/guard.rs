@@ -2,10 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use glib_sys;
+use gobject_sys;
 use std::ptr;
-
-use ffi;
-use gobject_ffi;
 
 #[macro_export]
 /// Macro for creating a [`FloatingReferenceGuard`].
@@ -28,14 +27,14 @@ macro_rules! glib_floating_reference_guard {
 /// This should be created via the [`floating_reference_guard!`] macro.
 ///
 /// [`floating_reference_guard!`]: ../../macro.floating_reference_guard.html
-pub struct FloatingReferenceGuard(ptr::NonNull<gobject_ffi::GObject>);
+pub struct FloatingReferenceGuard(ptr::NonNull<gobject_sys::GObject>);
 
 impl FloatingReferenceGuard {
     #[doc(hidden)]
-    pub unsafe fn new(obj: *mut gobject_ffi::GObject) -> Option<FloatingReferenceGuard> {
+    pub unsafe fn new(obj: *mut gobject_sys::GObject) -> Option<FloatingReferenceGuard> {
         assert!(!obj.is_null());
-        if gobject_ffi::g_object_is_floating(obj) != ffi::GFALSE {
-            gobject_ffi::g_object_ref_sink(obj);
+        if gobject_sys::g_object_is_floating(obj) != glib_sys::GFALSE {
+            gobject_sys::g_object_ref_sink(obj);
             Some(FloatingReferenceGuard(ptr::NonNull::new_unchecked(obj)))
         } else {
             None
@@ -46,7 +45,7 @@ impl FloatingReferenceGuard {
 impl Drop for FloatingReferenceGuard {
     fn drop(&mut self) {
         unsafe {
-            gobject_ffi::g_object_force_floating(self.0.as_ptr());
+            gobject_sys::g_object_force_floating(self.0.as_ptr());
         }
     }
 }

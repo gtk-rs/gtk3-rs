@@ -85,11 +85,11 @@ extern crate lazy_static;
 extern crate libc;
 
 #[doc(hidden)]
-pub extern crate glib_sys as ffi;
+pub extern crate glib_sys;
 #[doc(hidden)]
-pub extern crate gobject_sys as gobject_ffi;
+pub extern crate gobject_sys;
 
-#[cfg(feature="futures")]
+#[cfg(feature = "futures")]
 pub extern crate futures;
 
 use std::ffi::CStr;

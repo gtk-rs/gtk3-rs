@@ -2,8 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::ops;
 use std::cell::RefCell;
+use std::ops;
 
 /// Like `Send` but only if we have the unique reference to the object
 ///

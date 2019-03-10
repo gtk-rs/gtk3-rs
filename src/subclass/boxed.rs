@@ -4,13 +4,11 @@
 
 //! Module for registering boxed types for Rust types.
 
-use ffi;
-use gobject_ffi;
-
+use glib_sys;
+use gobject_sys;
+use std::ops;
 use translate::*;
 use value::*;
-
-use std::ops;
 
 /// Trait for defining boxed types.
 ///
@@ -48,11 +46,11 @@ pub fn register_boxed_type<T: BoxedType>() -> ::Type {
 
         let type_name = CString::new(T::NAME).unwrap();
         assert_eq!(
-            gobject_ffi::g_type_from_name(type_name.as_ptr()),
-            gobject_ffi::G_TYPE_INVALID
+            gobject_sys::g_type_from_name(type_name.as_ptr()),
+            gobject_sys::G_TYPE_INVALID
         );
 
-        from_glib(gobject_ffi::g_boxed_type_register_static(
+        from_glib(gobject_sys::g_boxed_type_register_static(
             type_name.as_ptr(),
             Some(boxed_copy::<T>),
             Some(boxed_free::<T>),
@@ -60,14 +58,14 @@ pub fn register_boxed_type<T: BoxedType>() -> ::Type {
     }
 }
 
-unsafe extern "C" fn boxed_copy<T: BoxedType>(v: ffi::gpointer) -> ffi::gpointer {
+unsafe extern "C" fn boxed_copy<T: BoxedType>(v: glib_sys::gpointer) -> glib_sys::gpointer {
     let v = &*(v as *mut T);
     let copy = Box::new(v.clone());
 
-    Box::into_raw(copy) as ffi::gpointer
+    Box::into_raw(copy) as glib_sys::gpointer
 }
 
-unsafe extern "C" fn boxed_free<T: BoxedType>(v: ffi::gpointer) {
+unsafe extern "C" fn boxed_free<T: BoxedType>(v: glib_sys::gpointer) {
     let v = v as *mut T;
     let _ = Box::from_raw(v);
 }
@@ -112,7 +110,7 @@ macro_rules! glib_boxed_derive_traits {
         impl $crate::value::SetValue for $name {
             unsafe fn set_value(value: &mut $crate::value::Value, this: &Self) {
                 let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_ffi::g_value_take_boxed(
+                $crate::gobject_sys::g_value_take_boxed(
                     $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
@@ -123,7 +121,7 @@ macro_rules! glib_boxed_derive_traits {
             unsafe fn set_value_optional(value: &mut $crate::value::Value, this: Option<&Self>) {
                 let this = this.expect("None not allowed");
                 let ptr: *mut $name = Box::into_raw(Box::new(this.clone()));
-                $crate::gobject_ffi::g_value_take_boxed(
+                $crate::gobject_sys::g_value_take_boxed(
                     $crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0,
                     ptr as *mut _,
                 );
@@ -132,7 +130,7 @@ macro_rules! glib_boxed_derive_traits {
 
         impl<'a> $crate::value::FromValueOptional<'a> for &'a $name {
             unsafe fn from_value_optional(value: &'a $crate::value::Value) -> Option<Self> {
-                let ptr = $crate::gobject_ffi::g_value_get_boxed(
+                let ptr = $crate::gobject_sys::g_value_get_boxed(
                     $crate::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 assert!(!ptr.is_null());
@@ -142,7 +140,7 @@ macro_rules! glib_boxed_derive_traits {
 
         impl<'a> $crate::value::FromValue<'a> for &'a $name {
             unsafe fn from_value(value: &'a $crate::value::Value) -> Self {
-                let ptr = $crate::gobject_ffi::g_value_get_boxed(
+                let ptr = $crate::gobject_sys::g_value_get_boxed(
                     $crate::translate::ToGlibPtr::to_glib_none(value).0,
                 );
                 assert!(!ptr.is_null());
@@ -184,7 +182,7 @@ impl<T: BoxedType> ::StaticType for Boxed<T> {
 impl<T: BoxedType> SetValue for Boxed<T> {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         let ptr: *mut Boxed<T> = Box::into_raw(Box::new(this.clone()));
-        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *mut _);
+        gobject_sys::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *mut _);
     }
 }
 
@@ -192,13 +190,13 @@ impl<T: BoxedType> SetValueOptional for Boxed<T> {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         let this = this.expect("None not allowed");
         let ptr: *mut Boxed<T> = Box::into_raw(Box::new(this.clone()));
-        gobject_ffi::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *mut _);
+        gobject_sys::g_value_take_boxed(value.to_glib_none_mut().0, ptr as *mut _);
     }
 }
 
 impl<'a, T: BoxedType> FromValueOptional<'a> for &'a Boxed<T> {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
+        let ptr = gobject_sys::g_value_get_boxed(value.to_glib_none().0);
         assert!(!ptr.is_null());
         Some(&*(ptr as *mut Boxed<T>))
     }
@@ -206,7 +204,7 @@ impl<'a, T: BoxedType> FromValueOptional<'a> for &'a Boxed<T> {
 
 impl<'a, T: BoxedType> FromValue<'a> for &'a Boxed<T> {
     unsafe fn from_value(value: &'a Value) -> Self {
-        let ptr = gobject_ffi::g_value_get_boxed(value.to_glib_none().0);
+        let ptr = gobject_sys::g_value_get_boxed(value.to_glib_none().0);
         assert!(!ptr.is_null());
         &*(ptr as *mut Boxed<T>)
     }
