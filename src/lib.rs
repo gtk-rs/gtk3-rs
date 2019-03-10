@@ -49,6 +49,8 @@ mod subprocess;
 mod subprocess_launcher;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
+mod inet_address;
+pub use inet_address::InetAddressBytes;
 
 #[cfg(test)]
 mod test_util;
