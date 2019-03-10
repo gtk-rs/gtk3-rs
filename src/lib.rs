@@ -6,10 +6,10 @@
 #![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 #![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
 
-extern crate gdk_pixbuf_sys as ffi;
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
-extern crate gio_sys as gio_ffi;
+extern crate gdk_pixbuf_sys;
+extern crate gio_sys;
+extern crate glib_sys;
+extern crate gobject_sys;
 #[macro_use]
 extern crate glib;
 extern crate gio;
