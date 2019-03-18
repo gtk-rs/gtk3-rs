@@ -46,8 +46,7 @@ impl EventScroll {
         (dx, dy)
     }
 
-    // TODO: to be uncommented when the field will be generated
-    // pub fn get_is_stop(&self) -> bool {
-    //     from_glib(self.as_ref().is_stop)
-    // }
+    pub fn get_is_stop(&self) -> bool {
+        self.as_ref().is_stop & 1 != 0
+    }
 }
