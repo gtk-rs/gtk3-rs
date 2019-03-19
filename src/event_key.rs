@@ -38,8 +38,7 @@ impl EventKey {
         self.as_ref().group
     }
 
-    // TODO: to be uncommented when the field will be generated
-    // pub fn get_is_modifier(&self) -> bool {
-    //     from_glib(self.as_ref().is_modifier)
-    // }
+    pub fn get_is_modifier(&self) -> bool {
+        self.as_ref().is_modifier & 1 != 0
+    }
 }
