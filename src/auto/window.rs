@@ -908,7 +908,7 @@ impl<O: IsA<Window>> WindowExt for O {
             };
             res.to_glib()
         }
-        let child_func = Some(child_func_func as _);
+        let child_func = if child_func_data.is_some() { Some(child_func_func as _) } else { None };
         let super_callback0: &Option<&mut dyn (FnMut(&Window) -> bool)> = &child_func_data;
         unsafe {
             gdk_sys::gdk_window_invalidate_maybe_recurse(self.as_ref().to_glib_none().0, region.to_glib_none().0, child_func, super_callback0 as *const _ as usize as *mut _);
