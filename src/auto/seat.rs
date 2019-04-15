@@ -91,7 +91,7 @@ impl Seat {
                 panic!("cannot get closure...")
             };
         }
-        let prepare_func = Some(prepare_func_func::<P> as _);
+        let prepare_func = if prepare_func_data.is_some() { Some(prepare_func_func::<P> as _) } else { None };
         let super_callback0: &Option<&mut dyn (FnMut(&Seat, &Window))> = &prepare_func_data;
         unsafe {
             from_glib(gdk_sys::gdk_seat_grab(self.to_glib_none().0, window.as_ref().to_glib_none().0, capabilities.to_glib(), owner_events.to_glib(), cursor.to_glib_none().0, event.to_glib_none().0, prepare_func, super_callback0 as *const _ as usize as *mut _))
