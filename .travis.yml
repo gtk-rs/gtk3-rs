@@ -25,19 +25,19 @@ matrix:
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.24 FEATURES=
+    #   env: GTK=3.24 FEATURES=v3_16
     - os: osx
       rust: beta
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: beta
-    #   env: GTK=3.24 FEATURES=
+    #   env: GTK=3.24 FEATURES=v3_16
     - os: osx
       rust: stable
       env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: stable
-    #   env: GTK=3.24 FEATURES=
+    #   env: GTK=3.24 FEATURES=v3_16
 sudo: true
 addons:
   apt:
@@ -48,7 +48,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gtk+3 cairo atk; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-    export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig;
+    export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/opt/X11/lib/pkgconfig:/usr/local/opt/libffi/lib/pkgconfig;
     fi
 script:
   - rustc --version
