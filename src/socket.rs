@@ -21,9 +21,9 @@ use Socket;
 use SocketAddress;
 
 #[cfg(feature = "futures")]
-use futures_core::{Future, Never};
+use futures::future::Future;
 #[cfg(feature = "futures")]
-use futures_core::stream::Stream;
+use futures::stream::Stream;
 
 #[cfg(unix)]
 use std::os::unix::io::{RawFd, AsRawFd, IntoRawFd, FromRawFd};
@@ -85,10 +85,10 @@ pub trait SocketExtManual: Sized {
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
+    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = glib::IOCondition> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone;
+    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = glib::IOCondition> + std::marker::Unpin>;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
@@ -226,28 +226,28 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
+    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = glib::IOCondition> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
-            let mut send = Some(Fragile::new(send));
-            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
-                let _ = send.take().unwrap().into_inner().send((obj.clone(), condition));
+            let mut send = Some(send);
+            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |_, condition| {
+                let _ = send.take().unwrap().send(condition);
                 glib::Continue(false)
             })
         }))
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = (Self, glib::IOCondition), Error = Never>> where Self: Clone {
+    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = glib::IOCondition> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
-            let send = Some(Fragile::new(send));
-            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |obj, condition| {
-                if send.as_ref().unwrap().get().unbounded_send((obj.clone(), condition)).is_err() {
+            let send = Some(send);
+            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |_, condition| {
+                if send.as_ref().unwrap().unbounded_send(condition).is_err() {
                     glib::Continue(false)
                 } else {
                     glib::Continue(true)

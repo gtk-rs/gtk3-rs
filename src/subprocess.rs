@@ -1,13 +1,11 @@
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::translate::*;
 use glib::GString;
 use glib_sys;
 use gobject_sys;
 use libc::c_char;
-#[cfg(feature = "futures")]
-use std::boxed::Box as Box_;
 use std::ptr;
 use Cancellable;
 use Error;
@@ -41,20 +39,17 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn communicate_utf8_async_future(&self, stdin_buf: Option<String>) -> Box_<futures_core::Future<Item = (Self, (GString, GString)), Error = (Self, Error)>> where Self: Clone {
+    pub fn communicate_utf8_async_future(&self, stdin_buf: Option<String>) -> Box<future::Future<Output = Result<(GString, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.communicate_utf8_async(
                  stdin_buf,
                  Some(&cancellable),
                  move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                      let _ = send.into_inner().send(res);
                  },
             );
