@@ -5,6 +5,9 @@
 use futures::channel::{mpsc, oneshot};
 use futures::prelude::*;
 use futures::task;
+use futures::task::Poll;
+use std::marker::Unpin;
+use std::pin;
 
 use Continue;
 use MainContext;
@@ -35,14 +38,15 @@ where
     }
 }
 
+impl<F, T> Unpin for SourceFuture<F, T> {}
+
 impl<F, T> Future for SourceFuture<F, T>
 where
     F: FnOnce(oneshot::Sender<T>) -> Source + Send + 'static,
 {
-    type Item = T;
-    type Error = Never;
+    type Output = T;
 
-    fn poll(&mut self, ctx: &mut task::Context) -> Result<Async<T>, Never> {
+    fn poll(mut self: pin::Pin<&mut Self>, ctx: &mut task::Context) -> Poll<T> {
         let SourceFuture {
             ref mut create_source,
             ref mut source,
@@ -51,7 +55,10 @@ where
 
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
-            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(
+                main_context.is_owner(),
+                "Spawning futures only allowed if the thread is owning the MainContext"
+            );
 
             // Channel for sending back the Source result to our future here.
             //
@@ -70,17 +77,17 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
-            receiver.poll(ctx)
+            receiver.poll_unpin(ctx)
         };
         #[allow(clippy::match_wild_err_arm)]
         match res {
-            Err(_) => panic!("Source sender was unexpectedly closed"),
-            Ok(Async::Ready(v)) => {
+            Poll::Ready(Err(_)) => panic!("Source sender was unexpectedly closed"),
+            Poll::Ready(Ok(v)) => {
                 // Get rid of the reference to the source, it triggered
                 let _ = source.take();
-                Ok(Async::Ready(v))
+                Poll::Ready(v)
             }
-            Ok(Async::Pending) => Ok(Async::Pending),
+            Poll::Pending => Poll::Pending,
         }
     }
 }
@@ -97,14 +104,14 @@ impl<T, F> Drop for SourceFuture<T, F> {
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future(value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn timeout_future(value: u32) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     timeout_future_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new(value, None, priority, move || {
@@ -117,14 +124,17 @@ pub fn timeout_future_with_priority(priority: Priority, value: u32) -> Box<Futur
 /// Create a `Future` that will resolve after the given number of seconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_seconds(value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn timeout_future_seconds(value: u32) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     timeout_future_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Future` that will resolve after the given number of seconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn timeout_future_seconds_with_priority(
+    priority: Priority,
+    value: u32,
+) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new_seconds(value, None, priority, move || {
@@ -139,7 +149,7 @@ pub fn timeout_future_seconds_with_priority(priority: Priority, value: u32) -> B
 /// The `Future` will resolve to the pid of the child process and the exit code.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never> + Send> {
+pub fn child_watch_future(pid: ::Pid) -> Box<Future<Output = (::Pid, i32)> + std::marker::Unpin + Send> {
     child_watch_future_with_priority(::PRIORITY_DEFAULT, pid)
 }
 
@@ -148,7 +158,10 @@ pub fn child_watch_future(pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error =
 /// The `Future` will resolve to the pid of the child process and the exit code.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<Future<Item = (::Pid, i32), Error = Never> + Send> {
+pub fn child_watch_future_with_priority(
+    priority: Priority,
+    pid: ::Pid,
+) -> Box<Future<Output = (::Pid, i32)> + std::marker::Unpin + Send> {
     Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::child_watch_source_new(pid, None, priority, move |pid, code| {
@@ -161,7 +174,7 @@ pub fn child_watch_future_with_priority(priority: Priority, pid: ::Pid) -> Box<F
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn unix_signal_future(signum: i32) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     unix_signal_future_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -169,7 +182,7 @@ pub fn unix_signal_future(signum: i32) -> Box<Future<Item = (), Error = Never> +
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<Future<Item = (), Error = Never> + Send> {
+pub fn unix_signal_future_with_priority(priority: Priority, signum: i32) -> Box<Future<Output = ()> + std::marker::Unpin + Send> {
     Box::new(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::unix_signal_source_new(signum, None, priority, move || {
@@ -185,6 +198,8 @@ pub struct SourceStream<F, T> {
     create_source: Option<F>,
     source: Option<(Source, mpsc::UnboundedReceiver<T>)>,
 }
+
+impl<F, T> Unpin for SourceStream<F, T> {}
 
 impl<F, T: 'static> SourceStream<F, T>
 where
@@ -208,9 +223,8 @@ where
     F: FnOnce(mpsc::UnboundedSender<T>) -> Source + Send + 'static,
 {
     type Item = T;
-    type Error = Never;
 
-    fn poll_next(&mut self, ctx: &mut task::Context) -> Result<Async<Option<T>>, Never> {
+    fn poll_next(mut self: pin::Pin<&mut Self>, ctx: &mut task::Context) -> Poll<Option<T>> {
         let SourceStream {
             ref mut create_source,
             ref mut source,
@@ -219,7 +233,10 @@ where
 
         if let Some(create_source) = create_source.take() {
             let main_context = MainContext::ref_thread_default();
-            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(
+                main_context.is_owner(),
+                "Spawning futures only allowed if the thread is owning the MainContext"
+            );
 
             // Channel for sending back the Source result to our future here.
             //
@@ -238,19 +255,18 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = source.as_mut().unwrap();
-            receiver.poll_next(ctx)
+            receiver.poll_next_unpin(ctx)
         };
         #[allow(clippy::match_wild_err_arm)]
         match res {
-            Err(_) => panic!("Source sender was unexpectedly closed"),
-            Ok(Async::Ready(v)) => {
+            Poll::Ready(v) => {
                 if v.is_none() {
                     // Get rid of the reference to the source, it triggered
                     let _ = source.take();
                 }
-                Ok(Async::Ready(v))
+                Poll::Ready(v)
             }
-            Ok(Async::Pending) => Ok(Async::Pending),
+            Poll::Pending => Poll::Pending,
         }
     }
 }
@@ -267,14 +283,14 @@ impl<T, F> Drop for SourceStream<T, F> {
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream(value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn interval_stream(value: u32) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     interval_stream_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     Box::new(SourceStream::new(move |send| {
         ::timeout_source_new(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
@@ -289,14 +305,17 @@ pub fn interval_stream_with_priority(priority: Priority, value: u32) -> Box<Stre
 /// Create a `Stream` that will provide a value every given number of seconds.
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_seconds(value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn interval_stream_seconds(value: u32) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     interval_stream_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
 /// Create a `Stream` that will provide a value every given number of seconds.
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn interval_stream_seconds_with_priority(
+    priority: Priority,
+    value: u32,
+) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     Box::new(SourceStream::new(move |send| {
         ::timeout_source_new_seconds(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
@@ -312,7 +331,7 @@ pub fn interval_stream_seconds_with_priority(priority: Priority, value: u32) -> 
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     unix_signal_stream_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -320,7 +339,7 @@ pub fn unix_signal_stream(signum: i32) -> Box<Stream<Item = (), Error = Never> +
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<Stream<Item = (), Error = Never> + Send> {
+pub fn unix_signal_stream_with_priority(priority: Priority, signum: i32) -> Box<Stream<Item = ()> + std::marker::Unpin + Send> {
     Box::new(SourceStream::new(move |send| {
         ::unix_signal_source_new(signum, None, priority, move || {
             if send.unbounded_send(()).is_err() {
@@ -341,13 +360,9 @@ mod tests {
     fn test_timeout() {
         let c = MainContext::new();
 
-        let res = c.block_on(timeout_future(20)
-            .and_then(move |_ctx| {
-                Ok(())
-            })
-        );
+        let res = c.block_on(timeout_future(20));
 
-        assert_eq!(res, Ok(()));
+        assert_eq!(res, ());
     }
 
     #[test]
@@ -356,12 +371,10 @@ mod tests {
         let l = ::MainLoop::new(Some(&c), false);
 
         let l_clone = l.clone();
-        c.spawn(timeout_future(20)
-            .and_then(move |_ctx| {
-                l_clone.quit();
-                Ok(())
-            })
-        );
+        c.spawn(timeout_future(20).then(move |()| {
+            l_clone.quit();
+            future::ready(())
+        }));
 
         l.run();
     }
@@ -374,16 +387,18 @@ mod tests {
 
         {
             let count = &mut count;
-            let res = c.block_on(interval_stream(20)
-                .take(2)
-                .for_each(move |_ctx| {
-                    *count = *count + 1;
-                    Ok(())
-                })
-                .map(|_| ())
+            let res = c.block_on(
+                interval_stream(20)
+                    .take(2)
+                    .for_each(|()| {
+                        *count = *count + 1;
+
+                        future::ready(())
+                    })
+                    .map(|_| ()),
             );
 
-            assert_eq!(res, Ok(()));
+            assert_eq!(res, ());
         }
 
         assert_eq!(count, 2);
@@ -393,22 +408,16 @@ mod tests {
     fn test_timeout_and_channel() {
         let c = MainContext::default();
 
-        let res = c.block_on(timeout_future(20)
-            .and_then(move |()| {
-                let (sender, receiver) = oneshot::channel();
+        let res = c.block_on(timeout_future(20).then(|()| {
+            let (sender, receiver) = oneshot::channel();
 
-                thread::spawn(move || {
-                    sender.send(1).unwrap();
-                });
+            thread::spawn(move || {
+                sender.send(1).unwrap();
+            });
 
-                receiver.map_err(|_| unreachable!())
-                    .and_then(|i| {
+            receiver.then(|i| future::ready(i.unwrap()))
+        }));
 
-                        Ok(i)
-                    })
-            })
-        );
-
-        assert_eq!(res, Ok(1));
+        assert_eq!(res, 1);
     }
 }

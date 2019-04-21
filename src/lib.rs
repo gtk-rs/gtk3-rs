@@ -77,6 +77,7 @@
 
 #![allow(clippy::doc_markdown)]
 #![allow(clippy::unreadable_literal)]
+#![cfg_attr(feature = "futures", feature(futures_api, arbitrary_self_types))]
 
 #[macro_use]
 extern crate bitflags;
