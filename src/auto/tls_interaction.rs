@@ -9,7 +9,7 @@ use TlsConnection;
 use TlsInteractionResult;
 use TlsPassword;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
@@ -36,7 +36,7 @@ pub trait TlsInteractionExt: 'static {
     fn ask_password_async<P: IsA<TlsPassword>, Q: IsA<Cancellable>, R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, password: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
 
     fn invoke_ask_password<P: IsA<TlsPassword>, Q: IsA<Cancellable>>(&self, password: &P, cancellable: Option<&Q>) -> Result<TlsInteractionResult, Error>;
 
@@ -47,7 +47,7 @@ pub trait TlsInteractionExt: 'static {
     fn request_certificate_async<P: IsA<TlsConnection>, Q: IsA<Cancellable>, R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
@@ -75,7 +75,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -83,13 +83,10 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.ask_password_async(
                 &password,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -138,7 +135,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<futures_core::Future<Item = (Self, TlsInteractionResult), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -146,14 +143,11 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.request_certificate_async(
                 &connection,
                 flags,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

@@ -8,7 +8,7 @@ use FileInfo;
 use InputStream;
 use Seekable;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -36,7 +36,7 @@ pub trait FileInputStreamExt: 'static {
     fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
@@ -64,7 +64,7 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -72,14 +72,11 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.query_info_async(
                 &attributes,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

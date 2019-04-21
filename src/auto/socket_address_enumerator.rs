@@ -6,7 +6,7 @@ use Cancellable;
 use Error;
 use SocketAddress;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
@@ -33,7 +33,7 @@ pub trait SocketAddressEnumeratorExt: 'static {
     fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn next_async_future(&self) -> Box_<future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
@@ -61,19 +61,16 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<futures_core::Future<Item = (Self, SocketAddress), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn next_async_future(&self) -> Box_<future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.next_async(
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

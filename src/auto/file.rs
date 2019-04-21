@@ -20,7 +20,7 @@ use MountMountFlags;
 use MountOperation;
 use MountUnmountFlags;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib;
 use glib::GString;
@@ -100,14 +100,14 @@ pub trait FileExt: 'static {
     fn append_to_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
 
     //fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
     //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin>;
 
     //fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error>;
 
@@ -116,28 +116,28 @@ pub trait FileExt: 'static {
     fn create_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
 
     fn create_readwrite<P: IsA<Cancellable>>(&self, flags: FileCreateFlags, cancellable: Option<&P>) -> Result<FileIOStream, Error>;
 
     fn create_readwrite_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
 
     fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn delete_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn dup(&self) -> Option<File>;
 
     fn eject_mountable_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn eject_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn eject_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     //fn enumerate_children<P: IsA<Cancellable>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result</*Ignored*/FileEnumerator, Error>;
 
@@ -179,26 +179,26 @@ pub trait FileExt: 'static {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_bytes_async_future(&self) -> Box_<future::Future<Output = Result<(glib::Bytes, GString), Error>> + std::marker::Unpin>;
 
     fn load_contents<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(Vec<u8>, GString), Error>;
 
     fn load_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn load_contents_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_contents_async_future(&self) -> Box_<future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
 
     //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnMut(&str, i64) -> bool, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
 
     fn make_directory<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn make_directory_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn make_directory_with_parents<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
@@ -209,7 +209,7 @@ pub trait FileExt: 'static {
     //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q);
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone;
+    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin>;
 
     fn monitor<P: IsA<Cancellable>>(&self, flags: FileMonitorFlags, cancellable: Option<&P>) -> Result<FileMonitor, Error>;
 
@@ -220,12 +220,12 @@ pub trait FileExt: 'static {
     fn mount_enclosing_volume<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn mount_enclosing_volume_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn mount_enclosing_volume_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn mount_mountable<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<File, Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn mount_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn mount_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<File, Error>> + std::marker::Unpin>;
 
     //fn move_<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
@@ -234,7 +234,7 @@ pub trait FileExt: 'static {
     fn open_readwrite_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn peek_path(&self) -> Option<std::path::PathBuf>;
@@ -242,7 +242,7 @@ pub trait FileExt: 'static {
     fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn poll_mountable_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn poll_mountable_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn query_default_handler<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<AppInfo, Error>;
 
@@ -255,14 +255,14 @@ pub trait FileExt: 'static {
     fn query_filesystem_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 
     fn query_info<P: IsA<Cancellable>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<FileInfo, Error>;
 
     fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 
     //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, Error>;
 
@@ -273,14 +273,14 @@ pub trait FileExt: 'static {
     fn read_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInputStream, Error>> + std::marker::Unpin>;
 
     fn replace<P: IsA<Cancellable>>(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>) -> Result<FileOutputStream, Error>;
 
     fn replace_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static>(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn replace_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn replace_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
 
     fn replace_contents<P: IsA<Cancellable>>(&self, contents: &[u8], etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>) -> Result<GString, Error>;
 
@@ -291,7 +291,7 @@ pub trait FileExt: 'static {
     fn replace_readwrite_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static>(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn replace_readwrite_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn replace_readwrite_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
 
     fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File>;
 
@@ -312,7 +312,7 @@ pub trait FileExt: 'static {
     fn set_attributes_async<P: IsA<FileInfo>, Q: IsA<Cancellable>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 
     fn set_attributes_from_info<P: IsA<FileInfo>, Q: IsA<Cancellable>>(&self, info: &P, flags: FileQueryInfoFlags, cancellable: Option<&Q>) -> Result<(), Error>;
 
@@ -321,17 +321,17 @@ pub trait FileExt: 'static {
     fn set_display_name_async<P: IsA<Cancellable>, Q: FnOnce(Result<File, Error>) + Send + 'static>(&self, display_name: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<File, Error>> + std::marker::Unpin>;
 
     fn start_mountable<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, start_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn start_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn start_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn stop_mountable<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn stop_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn stop_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn supports_thread_contexts(&self) -> bool;
 
@@ -340,12 +340,12 @@ pub trait FileExt: 'static {
     fn trash_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn unmount_mountable_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn unmount_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn unmount_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<File>> FileExt for O {
@@ -373,21 +373,18 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.append_to_async(
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -405,7 +402,7 @@ impl<O: IsA<File>> FileExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -414,7 +411,6 @@ impl<O: IsA<File>> FileExt for O {
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = Fragile::new(send);
-        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.copy_async(
         //        &destination,
         //        flags,
@@ -422,8 +418,6 @@ impl<O: IsA<File>> FileExt for O {
         //        Some(&cancellable),
         //        progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
         //        move |res| {
-        //            let obj = obj_clone.into_inner();
-        //            let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
         //            let _ = send.into_inner().send(res);
         //        },
         //    );
@@ -460,21 +454,18 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn create_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.create_async(
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -507,21 +498,18 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn create_readwrite_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.create_readwrite_async(
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -554,20 +542,17 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn delete_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.delete_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -598,7 +583,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn eject_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -606,14 +591,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.eject_mountable_with_operation(
                 flags,
                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -749,19 +731,16 @@ impl<O: IsA<File>> FileExt for O {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_56", feature = "dox"))]
-    fn load_bytes_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (glib::Bytes, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_bytes_async_future(&self) -> Box_<future::Future<Output = Result<(glib::Bytes, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.load_bytes_async(
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -800,19 +779,16 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn load_contents_async_future(&self) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_contents_async_future(&self) -> Box_<future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.load_contents_async(
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -826,20 +802,17 @@ impl<O: IsA<File>> FileExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<futures_core::Future<Item = (Self, (Vec<u8>, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = Fragile::new(send);
-        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.load_partial_contents_async(
         //        Some(&cancellable),
         //        read_more_callback,
         //        move |res| {
-        //            let obj = obj_clone.into_inner();
-        //            let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
         //            let _ = send.into_inner().send(res);
         //        },
         //    );
@@ -872,20 +845,17 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn make_directory_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.make_directory_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -919,7 +889,7 @@ impl<O: IsA<File>> FileExt for O {
     //}
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<futures_core::Future<Item = (Self, ), Error = (Self, )>> where Self: Sized + Clone {
+    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -927,15 +897,12 @@ impl<O: IsA<File>> FileExt for O {
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = Cancellable::new();
         //    let send = Fragile::new(send);
-        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.measure_disk_usage_async(
         //        flags,
         //        io_priority,
         //        Some(&cancellable),
         //        progress_callback.as_ref().map(::std::borrow::Borrow::borrow),
         //        move |res| {
-        //            let obj = obj_clone.into_inner();
-        //            let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
         //            let _ = send.into_inner().send(res);
         //        },
         //    );
@@ -984,7 +951,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn mount_enclosing_volume_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn mount_enclosing_volume_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -992,14 +959,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.mount_enclosing_volume(
                 flags,
                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1024,7 +988,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn mount_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn mount_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<File, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1032,14 +996,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.mount_mountable(
                 flags,
                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1076,20 +1037,17 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn open_readwrite_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.open_readwrite_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1121,19 +1079,16 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn poll_mountable_future(&self) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn poll_mountable_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.poll_mountable(
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1186,7 +1141,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_filesystem_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1194,14 +1149,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.query_filesystem_info_async(
                 &attributes,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1234,7 +1186,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn query_info_async_future(&self, attributes: &str, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1242,15 +1194,12 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.query_info_async(
                 &attributes,
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1291,20 +1240,17 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInputStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.read_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1337,7 +1283,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileOutputStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn replace_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1345,7 +1291,6 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.replace_async(
                 etag.as_ref().map(::std::borrow::Borrow::borrow),
                 make_backup,
@@ -1353,8 +1298,6 @@ impl<O: IsA<File>> FileExt for O {
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1401,7 +1344,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_readwrite_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileIOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn replace_readwrite_async_future(&self, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1409,7 +1352,6 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.replace_readwrite_async(
                 etag.as_ref().map(::std::borrow::Borrow::borrow),
                 make_backup,
@@ -1417,8 +1359,6 @@ impl<O: IsA<File>> FileExt for O {
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1502,7 +1442,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, FileInfo), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1510,15 +1450,12 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.set_attributes_async(
                 &info,
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1559,7 +1496,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, File), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn set_display_name_async_future(&self, display_name: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<File, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1567,14 +1504,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.set_display_name_async(
                 &display_name,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1599,7 +1533,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn start_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn start_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, start_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1607,14 +1541,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.start_mountable(
                 flags,
                 start_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1639,7 +1570,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn stop_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn stop_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1647,14 +1578,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.stop_mountable(
                 flags,
                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1693,20 +1621,17 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn trash_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.trash_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -1731,7 +1656,7 @@ impl<O: IsA<File>> FileExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn unmount_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn unmount_mountable_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1739,14 +1664,11 @@ impl<O: IsA<File>> FileExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.unmount_mountable_with_operation(
                 flags,
                 mount_operation.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

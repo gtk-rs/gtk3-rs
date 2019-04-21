@@ -7,7 +7,7 @@ use Error;
 use IOStream;
 use ProxyAddress;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
@@ -42,7 +42,7 @@ pub trait ProxyExt: 'static {
     fn connect_async<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>, S: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>, callback: S);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin>;
 
     fn supports_hostname(&self) -> bool;
 }
@@ -72,7 +72,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<futures_core::Future<Item = (Self, IOStream), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -81,14 +81,11 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
                 &connection,
                 &proxy_address,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

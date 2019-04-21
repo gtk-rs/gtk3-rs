@@ -13,7 +13,7 @@ use Resource;
 use ResourceLookupFlags;
 use SettingsBackend;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib;
 use glib::GString;
@@ -33,7 +33,7 @@ use std::ptr;
 //}
 
 //#[cfg(feature = "futures")]
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<futures_core::Future<Item = /*Ignored*/DBusConnection, Error = Error>> {
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<future::Future<Output = Result</*Ignored*/DBusConnection, Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -215,7 +215,7 @@ pub fn dbus_address_get_stream<P: IsA<Cancellable>, Q: FnOnce(Result<(IOStream, 
 }
 
 #[cfg(feature = "futures")]
-pub fn dbus_address_get_stream_future(address: &str) -> Box_<futures_core::Future<Item = (IOStream, GString), Error = Error>> {
+pub fn dbus_address_get_stream_future(address: &str) -> Box_<future::Future<Output = Result<(IOStream, GString), Error>> + std::marker::Unpin> {
     use GioFuture;
     use fragile::Fragile;
 
@@ -336,7 +336,7 @@ pub fn io_scheduler_cancel_all_jobs() {
     }
 }
 
-//pub fn io_scheduler_push_job<P: IsA<Cancellable>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, &Cancellable) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Option<&P>) {
+//pub fn io_scheduler_push_job<P: IsA<Cancellable>>(job_func: /*Unimplemented*/Fn(/*Ignored*/IOSchedulerJob, &Option<Cancellable>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>, io_priority: i32, cancellable: Option<&P>) {
 //    unsafe { TODO: call gio_sys:g_io_scheduler_push_job() }
 //}
 
