@@ -17,7 +17,7 @@ use std::ptr;
 use std::slice;
 
 #[cfg(feature = "futures")]
-use futures_core::Future;
+use futures::future::Future;
 
 use {
     Colorspace,
@@ -128,7 +128,7 @@ impl Pixbuf {
     }
 
     #[cfg(feature = "futures")]
-    pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P) -> Box<Future<Item = Pixbuf, Error=Error>> {
+    pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P) -> Box<Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -171,7 +171,7 @@ impl Pixbuf {
     }
 
     #[cfg(feature = "futures")]
-    pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool) -> Box<Future<Item = Pixbuf, Error=Error>> {
+    pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool) ->  Box<Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -260,7 +260,7 @@ impl Pixbuf {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_32", feature = "dox"))]
-    pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(filename: T) -> Box<Future<Item = Option<(PixbufFormat, i32, i32)>, Error=Error>> {
+    pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(filename: T) -> Box<Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         GioFuture::new(&(), move |_obj, send| {
@@ -331,7 +331,7 @@ impl Pixbuf {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)]) -> Box<Future<Item = (Self, ()), Error = (Self, Error)>> {
+    pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)]) -> Box<Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use gio::GioFuture;
         use fragile::Fragile;
 
@@ -341,7 +341,6 @@ impl Pixbuf {
         GioFuture::new(self, move |obj, send| {
             let cancellable = gio::Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             let options = options.iter().map(|&(ref k, ref v)| (k.as_str(), v.as_str())).collect::<Vec<(&str, &str)>>();
 
             obj.save_to_streamv_async(
@@ -350,8 +349,6 @@ impl Pixbuf {
                  options.as_slice(),
                  Some(&cancellable),
                  move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                      let _ = send.into_inner().send(res);
                  },
             );
