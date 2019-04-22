@@ -271,7 +271,7 @@ impl Pixbuf {
     //}
 
     //#[cfg(feature = "futures")]
-    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         //use gio::GioFuture;
         //use fragile::Fragile;
 
@@ -280,15 +280,12 @@ impl Pixbuf {
         //GioFuture::new(self, move |obj, send| {
         //    let cancellable = gio::Cancellable::new();
         //    let send = Fragile::new(send);
-        //    let obj_clone = Fragile::new(obj.clone());
         //    obj.save_to_stream_async(
         //        &stream,
         //        &type_,
         //        Some(&cancellable),
         //        ,
         //        move |res| {
-        //            let obj = obj_clone.into_inner();
-        //            let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
         //            let _ = send.into_inner().send(res);
         //        },
         //    );
