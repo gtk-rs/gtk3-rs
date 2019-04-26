@@ -4,10 +4,10 @@ matrix:
   include:
     - os: linux
       rust: nightly
-      env: GTK=3.14 FEATURES=subclassing
+      env: GTK=3.14 FEATURES=subclassing,futures
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=subclassing,v2_48
+      env: GTK=3.24 FEATURES=subclassing,v2_48,futures
     - os: linux
       rust: beta
       env: GTK=3.14 FEATURES=subclassing
@@ -22,10 +22,10 @@ matrix:
       env: GTK=3.24 FEATURES=subclassing,v2_48
     - os: osx
       rust: nightly
-      env: GTK=3.14 FEATURES=subclassing
+      env: GTK=3.14 FEATURES=subclassing,futures
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.24 FEATURES=subclassing,v2_48
+    #   env: GTK=3.24 FEATURES=subclassing,v2_48,futures
     - os: osx
       rust: beta
       env: GTK=3.14 FEATURES=subclassing
@@ -40,10 +40,10 @@ matrix:
     #   env: GTK=3.24 FEATURES=subclassing,v2_48
     - os: linux
       rust: nightly
-      env: GTK=3.14 FEATURES=subclassing ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
+      env: GTK=3.14 FEATURES=subclassing,futures ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=subclassing,v2_48 ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
+      env: GTK=3.24 FEATURES=subclassing,v2_48,futures ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
 addons:
   apt:
     packages:
