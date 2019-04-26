@@ -7,8 +7,100 @@ use gio::prelude::*;
 
 use std::str;
 
-use futures::FutureExt;
-use futures::future;
+use futures::prelude::*;
+
+// Throughout our chained futures, we convert all errors to strings
+// via map_err() and print them at the very end.
+//
+// Open the file for reading, and if that succeeds read the whole file from
+// the resulting input stream.
+fn read_and_print_file(
+    file: &gio::File,
+) -> impl Future<Output = Result<(), String>> + std::marker::Unpin {
+    file.read_async_future(glib::PRIORITY_DEFAULT)
+        .map_err(|err| format!("Failed to open file: {}", err))
+        .and_then(|strm| read_and_print_chunks(strm))
+}
+
+// Read the input stream in chunks of 64 bytes, always into the same buffer
+// without re-allocating it all the time. Continue until the end of the file
+// or an error happens.
+fn read_and_print_chunks(
+    strm: gio::FileInputStream,
+) -> impl Future<Output = Result<(), String>> + std::marker::Unpin {
+    let buf = vec![0; 64];
+    let idx = 0;
+
+    // We use unfold() here, which takes some initialization data and a
+    // closure that is returning an item and the next state, or None to
+    // finish the stream
+    futures::stream::unfold(Some((buf, idx)), move |buf_and_idx| {
+        // If None was returned from the last iteration then the last iteration
+        // was closing the input stream or an error happened, and now we only
+        // have to finish the stream created by unfold().
+        //
+        // Otherwise we got the buffer to read to and the index of the next line
+        // from the previous iteration.
+        let (buf, idx) = match buf_and_idx {
+            None => {
+                return futures::future::Either::Left(futures::future::ready(None));
+            }
+            Some(buf_and_idx) => buf_and_idx,
+        };
+
+        // Read and print the next chunk
+        futures::future::Either::Right(read_and_print_next_chunk(&strm, buf, idx).map(move |res| {
+            match res {
+                // And error happened, return the error from this stream and then finish on the
+                // next iteration.
+                Err(err) => Some((Err(err), None)),
+                // The input stream was closed, return Ok(()) from this stream and then finish on
+                // the next iteration.
+                Ok(None) => Some((Ok(()), None)),
+                // A chunk was successfully read and printed, return Ok(()) from this stream and
+                // then continue with the next iteration.
+                Ok(Some(buf)) => Some((Ok(()), Some((buf, idx + 1)))),
+            }
+        }))
+    })
+    // Convert the stream into a simple future that collects all items and
+    // returns Ok(()), or short-circuits on the very first error and returns it
+    .try_for_each(|_| futures::future::ok(()))
+}
+
+// Read the next chunk into the buffer and print it out, or return an error. If
+// the input stream is finished, close the stream.
+//
+// After reading successfully we return the buffer again so it can be used in the
+// next iteration.
+fn read_and_print_next_chunk(
+    strm: &gio::FileInputStream,
+    buf: Vec<u8>,
+    idx: usize,
+) -> impl Future<Output = Result<Option<Vec<u8>>, String>> + std::marker::Unpin {
+    let strm_clone = strm.clone();
+    strm.read_async_future(buf, glib::PRIORITY_DEFAULT)
+        .map_err(|(_buf, err)| format!("Failed to read from stream: {}", err))
+        .and_then(move |(buf, len)| {
+            println!("line {}: {:?}", idx, str::from_utf8(&buf[0..len]).unwrap());
+
+            // 0 is only returned when the input stream is finished, in which case
+            // we drop the buffer and close the stream asynchronously.
+            //
+            // Otherwise we simply return the buffer again so it can be read into
+            // in the next iteration.
+            if len == 0 {
+                futures::future::Either::Left(
+                    strm_clone
+                        .close_async_future(glib::PRIORITY_DEFAULT)
+                        .map_err(|err| format!("Failed to close stream: {}", err))
+                        .map_ok(|_| None),
+                )
+            } else {
+                futures::future::Either::Right(futures::future::ok(Some(buf)))
+            }
+        })
+}
 
 fn main() {
     let c = glib::MainContext::default();
@@ -18,52 +110,17 @@ fn main() {
 
     let file = gio::File::new_for_path("Cargo.toml");
 
-    // Throughout our chained futures, we convert all errors to strings
-    // via map_err() and print them at the very end
     let l_clone = l.clone();
     c.spawn_local(
-        // Try to open the file
-        file.read_async_future(glib::PRIORITY_DEFAULT)
-            .map_err(|(_file, err)| {
-                format!("Failed to open file: {}", err)
-            })
-            .and_then(|(_file, strm)| {
-                // If opening the file succeeds, we asynchronously loop and
-                // read the file in up to 64 byte chunks and re-use the same
-                // vec for each read
-                let buf = vec![0; 64];
-                let idx = 0;
-                future::loop_fn((strm, buf, idx), |(strm, buf, idx)| {
-                    strm.read_async_future(buf, glib::PRIORITY_DEFAULT)
-                        .map_err(|(_strm, (_b, err))| {
-                            format!("Failed to read from stream: {}", err)
-                        })
-                        .and_then(move |(_obj, (buf, len))| {
-                            println!("line {}: {:?}", idx, str::from_utf8(&buf[0..len]).unwrap());
-                            // Once 0 is returned, we know that we're done with reading
-                            // and asynchronously close the stream, otherwise we loop again
-                            // with the same stream/buffer
-                            if len == 0 {
-                                let close_future = strm.close_async_future(glib::PRIORITY_DEFAULT)
-                                    .map_err(|(_stream, err)| {
-                                        format!("Failed to close stream: {}", err)
-                                    });
-                                Ok(future::Loop::Break(close_future))
-                            } else {
-                                Ok(future::Loop::Continue((strm, buf, idx + 1)))
-                            }
-                        })
-                })
-            })
-            // Once all is done, i.e. the stream was closed above or an error happened, we quit the
-            // main loop
-            .then(move |res| {
+        read_and_print_file(&file)
+            // Once all is done we quit the main loop and in case of an
+            // error first print that error.
+            .map(move |res| {
                 if let Err(err) = res {
                     eprintln!("Got error: {}", err);
                 }
 
                 l_clone.quit();
-                Ok(())
             }),
     );
 
