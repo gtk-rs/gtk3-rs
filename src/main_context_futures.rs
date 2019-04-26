@@ -204,7 +204,7 @@ impl TaskSource {
         let waker = self.as_waker();
         let source = &self.source as *const _;
         if let Some(ref mut future) = self.future {
-            let mut executor: MainContext =
+            let executor: MainContext =
                 unsafe { from_glib_none(glib_sys::g_source_get_context(mut_override(source))) };
 
             assert!(
