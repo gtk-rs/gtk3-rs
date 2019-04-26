@@ -18,7 +18,7 @@ extern crate libc;
 #[cfg(feature = "futures")]
 extern crate fragile;
 #[cfg(feature = "futures")]
-extern crate futures_core;
+extern crate futures;
 
 pub use glib::{
     Cast,
