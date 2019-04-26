@@ -5,7 +5,7 @@
 use Cancellable;
 use Error;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -35,7 +35,7 @@ pub trait InputStreamExt: 'static {
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn has_pending(&self) -> bool;
 
@@ -46,7 +46,7 @@ pub trait InputStreamExt: 'static {
     fn read_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<glib::Bytes, Error>) + Send + 'static>(&self, count: usize, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<glib::Bytes, Error>> + std::marker::Unpin>;
 
     fn set_pending(&self) -> Result<(), Error>;
 
@@ -55,7 +55,7 @@ pub trait InputStreamExt: 'static {
     fn skip_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: usize, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<InputStream>> InputStreamExt for O {
@@ -89,20 +89,17 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, ()), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.close_async(
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -147,21 +144,18 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, glib::Bytes), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn read_bytes_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<glib::Bytes, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.read_bytes_async(
                 count,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -202,21 +196,18 @@ impl<O: IsA<InputStream>> InputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn skip_async_future(&self, count: usize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.skip_async(
                 count,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

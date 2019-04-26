@@ -5,7 +5,7 @@
 use Cancellable;
 use Error;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::GString;
 use glib::object::IsA;
@@ -43,7 +43,7 @@ pub trait ProxyResolverExt: 'static {
     fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<GString>), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn lookup_async_future(&self, uri: &str) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
@@ -77,7 +77,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<futures_core::Future<Item = (Self, Vec<GString>), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn lookup_async_future(&self, uri: &str) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -85,13 +85,10 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.lookup_async(
                 &uri,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

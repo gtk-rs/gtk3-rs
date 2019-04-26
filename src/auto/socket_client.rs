@@ -15,7 +15,7 @@ use SocketProtocol;
 use SocketType;
 use TlsCertificateFlags;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::StaticType;
 use glib::Value;
@@ -63,28 +63,28 @@ pub trait SocketClientExt: 'static {
     fn connect_async<P: IsA<SocketConnectable>, Q: IsA<Cancellable>, R: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, connectable: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin>;
 
     fn connect_to_host<P: IsA<Cancellable>>(&self, host_and_port: &str, default_port: u16, cancellable: Option<&P>) -> Result<SocketConnection, Error>;
 
     fn connect_to_host_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, host_and_port: &str, default_port: u16, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin>;
 
     fn connect_to_service<P: IsA<Cancellable>>(&self, domain: &str, service: &str, cancellable: Option<&P>) -> Result<SocketConnection, Error>;
 
     fn connect_to_service_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, domain: &str, service: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin>;
 
     fn connect_to_uri<P: IsA<Cancellable>>(&self, uri: &str, default_port: u16, cancellable: Option<&P>) -> Result<SocketConnection, Error>;
 
     fn connect_to_uri_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static>(&self, uri: &str, default_port: u16, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin>;
 
     fn get_enable_proxy(&self) -> bool;
 
@@ -178,7 +178,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -186,13 +186,10 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.connect_async(
                 &connectable,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -225,7 +222,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_host_async_future(&self, host_and_port: &str, default_port: u16) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -233,14 +230,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_host_async(
                 &host_and_port,
                 default_port,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -273,7 +267,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_service_async_future(&self, domain: &str, service: &str) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -282,14 +276,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_service_async(
                 &domain,
                 &service,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -322,7 +313,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<futures_core::Future<Item = (Self, SocketConnection), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn connect_to_uri_async_future(&self, uri: &str, default_port: u16) -> Box_<future::Future<Output = Result<SocketConnection, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -330,14 +321,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.connect_to_uri_async(
                 &uri,
                 default_port,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

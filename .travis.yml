@@ -4,10 +4,10 @@ matrix:
   include:
     - os: linux
       rust: nightly
-      env: GTK=3.14 FEATURES=
+      env: GTK=3.14 FEATURES=futures
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=v2_48
+      env: GTK=3.24 FEATURES=v2_48,futures
     - os: linux
       rust: beta
       env: GTK=3.14 FEATURES=
@@ -22,10 +22,10 @@ matrix:
       env: GTK=3.24 FEATURES=v2_48
     - os: osx
       rust: nightly
-      env: GTK=3.14 FEATURES=
+      env: GTK=3.14 FEATURES=futures
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.24 FEATURES=v2_48
+    #   env: GTK=3.24 FEATURES=v2_48,futures
     - os: osx
       rust: beta
       env: GTK=3.14 FEATURES=

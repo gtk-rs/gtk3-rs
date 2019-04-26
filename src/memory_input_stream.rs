@@ -54,7 +54,7 @@ mod tests {
     #[test]
     #[cfg(feature = "futures")]
     fn read_async_future() {
-        use futures_util::FutureExt;
+        use futures::prelude::*;
 
         let c = glib::MainContext::new();
 
@@ -64,10 +64,10 @@ mod tests {
 
         let res = c.block_on(
             strm.read_async_future(buf, glib::PRIORITY_DEFAULT)
-                .map_err(|(_obj, (_buf, err))| err)
-                .and_then(move |(_obj, (mut buf, len))| {
+                .map_err(|(_buf, err)| err)
+                .map_ok(move |(mut buf, len)| {
                     buf.truncate(len);
-                    Ok(buf)
+                    buf
                 })
         ).unwrap();
 

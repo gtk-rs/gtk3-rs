@@ -21,11 +21,7 @@ extern crate gobject_sys;
 extern crate libc;
 
 #[cfg(feature = "futures")]
-extern crate futures_core;
-#[cfg(feature = "futures")]
-extern crate futures_channel;
-#[cfg(feature = "futures")]
-extern crate futures_util;
+extern crate futures;
 
 mod application;
 mod converter;

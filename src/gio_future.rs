@@ -2,9 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures_channel::oneshot;
-use futures_core::task::Context;
-use futures_core::{Async, Future};
+use futures::prelude::*;
+use futures::channel::oneshot;
+use futures::task::{Poll, Context};
+use std::pin;
+use std::marker::Unpin;
 
 use glib;
 use Cancellable;
@@ -21,7 +23,7 @@ where
     O: Clone + 'static,
     F: FnOnce(&O, oneshot::Sender<Result<T, E>>) -> Cancellable + 'static,
 {
-    pub fn new(obj: &O, schedule_operation: F) -> Box<Future<Item = T, Error = E>> {
+    pub fn new(obj: &O, schedule_operation: F) -> Box<Future<Output = Result<T, E>> + Unpin> {
         Box::new(GioFuture {
             obj: obj.clone(),
             schedule_operation: Some(schedule_operation),
@@ -35,10 +37,9 @@ where
     O: Clone + 'static,
     F: FnOnce(&O, oneshot::Sender<Result<T, E>>) -> Cancellable + 'static,
 {
-    type Item = T;
-    type Error = E;
+    type Output = Result<T, E>;
 
-    fn poll(&mut self, ctx: &mut Context) -> Result<Async<T>, E> {
+    fn poll(mut self: pin::Pin<&mut Self>, ctx: &mut Context) -> Poll<Result<T, E>> {
         let GioFuture {
             ref obj,
             ref mut schedule_operation,
@@ -67,19 +68,17 @@ where
         // At this point we must have a receiver
         let res = {
             let &mut (_, ref mut receiver) = cancellable.as_mut().unwrap();
-            receiver.poll(ctx)
+            receiver.poll_unpin(ctx)
         };
+
         match res {
-            Err(_) => panic!("Async operation sender was unexpectedly closed"),
-            Ok(Async::Ready(v)) => {
+            Poll::Pending => Poll::Pending,
+            Poll::Ready(Err(_)) => panic!("Async operation sender was unexpectedly closed"),
+            Poll::Ready(Ok(v)) => {
                 // Get rid of the reference to the cancellable
                 let _ = cancellable.take();
-                match v {
-                    Ok(v) => Ok(Async::Ready(v)),
-                    Err(e) => Err(e),
-                }
+                Poll::Ready(v)
             }
-            Ok(Async::Pending) => Ok(Async::Pending),
         }
     }
 }
@@ -91,3 +90,5 @@ impl<F, O, T, E> Drop for GioFuture<F, O, T, E> {
         }
     }
 }
+
+impl<F, O, T, E> Unpin for GioFuture<F, O, T, E> { }

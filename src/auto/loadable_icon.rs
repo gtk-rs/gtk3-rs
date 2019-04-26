@@ -7,7 +7,7 @@ use Error;
 use Icon;
 use InputStream;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::GString;
 use glib::object::IsA;
@@ -35,7 +35,7 @@ pub trait LoadableIconExt: 'static {
     fn load_async<P: IsA<Cancellable>, Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn load_async_future(&self, size: i32) -> Box_<future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
@@ -65,20 +65,17 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<futures_core::Future<Item = (Self, (InputStream, GString)), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn load_async_future(&self, size: i32) -> Box_<future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.load_async(
                 size,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

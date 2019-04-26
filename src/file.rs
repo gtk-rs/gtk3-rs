@@ -15,13 +15,13 @@ use File;
 use FileCreateFlags;
 
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 
 pub trait FileExtManual: Sized {
     fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&Cancellable>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone;
+    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<File>> FileExtManual for O {
@@ -53,7 +53,7 @@ impl<O: IsA<File>> FileExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<futures_core::Future<Item = (Self, (B, glib::GString)), Error = (Self, (B, Error))>> where Self: Clone {
+    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -61,7 +61,6 @@ impl<O: IsA<File>> FileExtManual for O {
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.replace_contents_async(
                  contents,
                  etag.as_ref().map(|s| s.as_str()),
@@ -69,8 +68,6 @@ impl<O: IsA<File>> FileExtManual for O {
                  flags,
                  Some(&cancellable),
                  move |res| {
-                     let obj = obj_clone.into_inner();
-                     let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                      let _ = send.into_inner().send(res);
                  },
             );

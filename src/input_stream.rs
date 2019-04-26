@@ -17,7 +17,7 @@ use Error;
 use InputStream;
 
 #[cfg(feature = "futures")]
-use futures_core::Future;
+use futures::future;
 
 pub trait InputStreamExtManual: Sized {
     fn read<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
@@ -33,12 +33,12 @@ pub trait InputStreamExtManual: Sized {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone;
+    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone;
+    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
 
     fn into_read(self) -> InputStreamRead<Self> {
         InputStreamRead(self)
@@ -152,7 +152,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone {
+    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -160,14 +160,11 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.read_all_async(
                 buffer,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -179,7 +176,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone {
+    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -187,14 +184,11 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.read_async(
                 buffer,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

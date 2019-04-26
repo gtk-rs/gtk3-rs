@@ -15,13 +15,13 @@ use Socket;
 use SocketListener;
 
 #[cfg(feature = "futures")]
-use futures_core::Future;
+use futures::future;
 
 pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: Option<&Cancellable>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn accept_socket_async_future(&self) -> Box<Future<Item = (Self, (Socket, Option<glib::Object>)), Error = (Self, Error)>> where Self: Clone;
+    fn accept_socket_async_future(&self) -> Box<future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
@@ -44,7 +44,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn accept_socket_async_future(&self) -> Box<Future<Item = (Self, (Socket, Option<glib::Object>)), Error = (Self, Error)>> where Self: Clone {
+    fn accept_socket_async_future(&self) -> Box<future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -52,12 +52,9 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.accept_socket_async(
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

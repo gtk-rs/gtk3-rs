@@ -8,7 +8,7 @@ use FilterInputStream;
 use InputStream;
 use Seekable;
 #[cfg(feature = "futures")]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -54,7 +54,7 @@ pub trait BufferedInputStreamExt: 'static {
     fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: isize, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone;
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
 
     fn get_available(&self) -> usize;
 
@@ -94,21 +94,18 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<futures_core::Future<Item = (Self, isize), Error = (Self, Error)>> where Self: Sized + Clone {
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.fill_async(
                 count,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

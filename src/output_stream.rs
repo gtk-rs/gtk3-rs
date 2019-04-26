@@ -18,7 +18,7 @@ use OutputStream;
 use OutputStreamExt;
 
 #[cfg(feature = "futures")]
-use futures_core::Future;
+use futures::future;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
@@ -26,18 +26,18 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_all(&self, buffer: &[u8], cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) where Self: Clone;
+    fn write_all_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
 
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone;
+    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone;
+    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
 
     fn into_write(self) -> OutputStreamWrite<Self> {
         OutputStreamWrite(self)
@@ -129,7 +129,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize)), Error = (Self, (B, Error))>> where Self: Clone {
+    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -137,14 +137,11 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.write_async(
                 buffer,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );
@@ -157,7 +154,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self, buffer: B, io_priority: Priority
-    ) -> Box<Future<Item = (Self, (B, usize, Option<Error>)), Error = (Self, (B, Error))>> where Self: Clone {
+    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -165,14 +162,11 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            let obj_clone = Fragile::new(obj.clone());
             obj.write_all_async(
                 buffer,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let obj = obj_clone.into_inner();
-                    let res = res.map(|v| (obj.clone(), v)).map_err(|v| (obj.clone(), v));
                     let _ = send.into_inner().send(res);
                 },
             );

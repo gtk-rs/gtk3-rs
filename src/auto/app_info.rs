@@ -11,7 +11,7 @@ use File;
 use Icon;
 #[cfg(feature = "futures")]
 #[cfg(any(feature = "v2_50", feature = "dox"))]
-use futures_core;
+use futures::future;
 use gio_sys;
 use glib::GString;
 use glib::object::IsA;
@@ -106,7 +106,7 @@ impl AppInfo {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_50", feature = "dox"))]
-    pub fn launch_default_for_uri_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(uri: &str, context: Option<&P>) -> Box_<futures_core::Future<Item = (), Error = Error>> {
+    pub fn launch_default_for_uri_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(uri: &str, context: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
