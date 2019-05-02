@@ -7,7 +7,7 @@ autobins = false
 [dependencies]
 chrono = "0.4"
 url = "1.4"
-futures-preview = { version = "0.3.0-alpha", optional = true}
+futures-preview = { version = "0.3.0-alpha.15", optional = true}
 
 [dependencies.atk]
 git = "https://github.com/gtk-rs/atk"
@@ -145,6 +145,3 @@ name = "treeview"
 
 [[bin]]
 name = "list_store"
-
-[patch.crates-io]
-futures-preview = { git = "https://github.com/rust-lang-nursery/futures-rs.git"}
