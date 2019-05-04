@@ -72,7 +72,7 @@ impl Language {
     }
 
     pub fn to_string(&self) -> GString {
-        unsafe { from_glib_full(pango_sys::pango_language_to_string(self.to_glib_none().0)) }
+        unsafe { from_glib_none(pango_sys::pango_language_to_string(self.to_glib_none().0)) }
     }
 
     pub fn matches(&self, range_list: &str) -> bool {
@@ -101,6 +101,6 @@ impl Language {
     }
 
     pub fn get_sample_string(&self) -> GString {
-        unsafe { from_glib_full(pango_sys::pango_language_get_sample_string(self.to_glib_none().0)) }
+        unsafe { from_glib_none(pango_sys::pango_language_get_sample_string(self.to_glib_none().0)) }
     }
 }
