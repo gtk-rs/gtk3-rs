@@ -58,6 +58,9 @@ name = "basic"
 name = "builder_basics"
 
 [[bin]]
+name = "builders"
+
+[[bin]]
 name = "cairo_png"
 
 [[bin]]
