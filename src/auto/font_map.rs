@@ -38,9 +38,9 @@ pub trait FontMapExt: 'static {
 
     fn list_families(&self) -> Vec<FontFamily>;
 
-    fn load_font<P: IsA<Context>>(&self, context: &P, desc: &FontDescription) -> Option<Font>;
+    fn load_font(&self, context: &Context, desc: &FontDescription) -> Option<Font>;
 
-    fn load_fontset<P: IsA<Context>>(&self, context: &P, desc: &FontDescription, language: &Language) -> Option<Fontset>;
+    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &Language) -> Option<Fontset>;
 }
 
 impl<O: IsA<FontMap>> FontMapExt for O {
@@ -77,15 +77,15 @@ impl<O: IsA<FontMap>> FontMapExt for O {
         }
     }
 
-    fn load_font<P: IsA<Context>>(&self, context: &P, desc: &FontDescription) -> Option<Font> {
+    fn load_font(&self, context: &Context, desc: &FontDescription) -> Option<Font> {
         unsafe {
-            from_glib_full(pango_sys::pango_font_map_load_font(self.as_ref().to_glib_none().0, context.as_ref().to_glib_none().0, desc.to_glib_none().0))
+            from_glib_full(pango_sys::pango_font_map_load_font(self.as_ref().to_glib_none().0, context.to_glib_none().0, desc.to_glib_none().0))
         }
     }
 
-    fn load_fontset<P: IsA<Context>>(&self, context: &P, desc: &FontDescription, language: &Language) -> Option<Fontset> {
+    fn load_fontset(&self, context: &Context, desc: &FontDescription, language: &Language) -> Option<Fontset> {
         unsafe {
-            from_glib_full(pango_sys::pango_font_map_load_fontset(self.as_ref().to_glib_none().0, context.as_ref().to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
+            from_glib_full(pango_sys::pango_font_map_load_fontset(self.as_ref().to_glib_none().0, context.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
         }
     }
 }

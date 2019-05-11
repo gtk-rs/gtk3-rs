@@ -17,7 +17,6 @@ use Variant;
 use Weight;
 use glib;
 use glib::GString;
-use glib::object::IsA;
 use glib::translate::*;
 use pango_sys;
 use std::mem;
@@ -98,15 +97,15 @@ pub fn is_zero_width(ch: char) -> bool {
     }
 }
 
-pub fn itemize<P: IsA<Context>>(context: &P, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
+pub fn itemize(context: &Context, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize(context.as_ref().to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize(context.to_glib_none().0, text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
-pub fn itemize_with_base_dir<P: IsA<Context>>(context: &P, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
+pub fn itemize_with_base_dir(context: &Context, base_dir: Direction, text: &str, start_index: i32, length: i32, attrs: &AttrList, cached_iter: Option<&AttrIterator>) -> Vec<Item> {
     unsafe {
-        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize_with_base_dir(context.as_ref().to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
+        FromGlibPtrContainer::from_glib_full(pango_sys::pango_itemize_with_base_dir(context.to_glib_none().0, base_dir.to_glib(), text.to_glib_none().0, start_index, length, attrs.to_glib_none().0, mut_override(cached_iter.to_glib_none().0)))
     }
 }
 
