@@ -598,14 +598,9 @@ impl ::std::fmt::Debug for AtkImageIface {
 }
 
 #[repr(C)]
-pub struct AtkImplementor(c_void);
+pub struct _AtkImplementor(c_void);
 
-impl ::std::fmt::Debug for AtkImplementor {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("AtkImplementor @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type AtkImplementor = *mut _AtkImplementor;
 
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -15,8 +15,8 @@ shell-words = "0.1.0"
 tempdir = "0.3"
 
 [features]
-dox = []
 v2_30 = []
+dox = []
 
 [lib]
 name = "atk_sys"

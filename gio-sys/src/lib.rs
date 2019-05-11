@@ -908,14 +908,9 @@ impl ::std::fmt::Debug for GAppLaunchContextClass {
 }
 
 #[repr(C)]
-pub struct GAppLaunchContextPrivate(c_void);
+pub struct _GAppLaunchContextPrivate(c_void);
 
-impl ::std::fmt::Debug for GAppLaunchContextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GAppLaunchContextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GAppLaunchContextPrivate = *mut _GAppLaunchContextPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -980,24 +975,14 @@ impl ::std::fmt::Debug for GApplicationCommandLineClass {
 }
 
 #[repr(C)]
-pub struct GApplicationCommandLinePrivate(c_void);
+pub struct _GApplicationCommandLinePrivate(c_void);
 
-impl ::std::fmt::Debug for GApplicationCommandLinePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GApplicationCommandLinePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GApplicationCommandLinePrivate = *mut _GApplicationCommandLinePrivate;
 
 #[repr(C)]
-pub struct GApplicationPrivate(c_void);
+pub struct _GApplicationPrivate(c_void);
 
-impl ::std::fmt::Debug for GApplicationPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GApplicationPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GApplicationPrivate = *mut _GApplicationPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1068,14 +1053,9 @@ impl ::std::fmt::Debug for GBufferedInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GBufferedInputStreamPrivate(c_void);
+pub struct _GBufferedInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GBufferedInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GBufferedInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GBufferedInputStreamPrivate = *mut _GBufferedInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1096,14 +1076,9 @@ impl ::std::fmt::Debug for GBufferedOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GBufferedOutputStreamPrivate(c_void);
+pub struct _GBufferedOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GBufferedOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GBufferedOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GBufferedOutputStreamPrivate = *mut _GBufferedOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1132,14 +1107,9 @@ impl ::std::fmt::Debug for GCancellableClass {
 }
 
 #[repr(C)]
-pub struct GCancellablePrivate(c_void);
+pub struct _GCancellablePrivate(c_void);
 
-impl ::std::fmt::Debug for GCancellablePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GCancellablePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GCancellablePrivate = *mut _GCancellablePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1198,14 +1168,9 @@ impl ::std::fmt::Debug for GConverterInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GConverterInputStreamPrivate(c_void);
+pub struct _GConverterInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GConverterInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GConverterInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GConverterInputStreamPrivate = *mut _GConverterInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1232,24 +1197,14 @@ impl ::std::fmt::Debug for GConverterOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GConverterOutputStreamPrivate(c_void);
+pub struct _GConverterOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GConverterOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GConverterOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GConverterOutputStreamPrivate = *mut _GConverterOutputStreamPrivate;
 
 #[repr(C)]
-pub struct GCredentialsClass(c_void);
+pub struct _GCredentialsClass(c_void);
 
-impl ::std::fmt::Debug for GCredentialsClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GCredentialsClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GCredentialsClass = *mut _GCredentialsClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1377,14 +1332,9 @@ impl ::std::fmt::Debug for GDBusInterfaceSkeletonClass {
 }
 
 #[repr(C)]
-pub struct GDBusInterfaceSkeletonPrivate(c_void);
+pub struct _GDBusInterfaceSkeletonPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusInterfaceSkeletonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusInterfaceSkeletonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusInterfaceSkeletonPrivate = *mut _GDBusInterfaceSkeletonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1491,14 +1441,9 @@ impl ::std::fmt::Debug for GDBusObjectManagerClientClass {
 }
 
 #[repr(C)]
-pub struct GDBusObjectManagerClientPrivate(c_void);
+pub struct _GDBusObjectManagerClientPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusObjectManagerClientPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusObjectManagerClientPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusObjectManagerClientPrivate = *mut _GDBusObjectManagerClientPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1546,14 +1491,9 @@ impl ::std::fmt::Debug for GDBusObjectManagerServerClass {
 }
 
 #[repr(C)]
-pub struct GDBusObjectManagerServerPrivate(c_void);
+pub struct _GDBusObjectManagerServerPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusObjectManagerServerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusObjectManagerServerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusObjectManagerServerPrivate = *mut _GDBusObjectManagerServerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1571,14 +1511,9 @@ impl ::std::fmt::Debug for GDBusObjectProxyClass {
 }
 
 #[repr(C)]
-pub struct GDBusObjectProxyPrivate(c_void);
+pub struct _GDBusObjectProxyPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusObjectProxyPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusObjectProxyPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusObjectProxyPrivate = *mut _GDBusObjectProxyPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1598,14 +1533,9 @@ impl ::std::fmt::Debug for GDBusObjectSkeletonClass {
 }
 
 #[repr(C)]
-pub struct GDBusObjectSkeletonPrivate(c_void);
+pub struct _GDBusObjectSkeletonPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusObjectSkeletonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusObjectSkeletonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusObjectSkeletonPrivate = *mut _GDBusObjectSkeletonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1647,14 +1577,9 @@ impl ::std::fmt::Debug for GDBusProxyClass {
 }
 
 #[repr(C)]
-pub struct GDBusProxyPrivate(c_void);
+pub struct _GDBusProxyPrivate(c_void);
 
-impl ::std::fmt::Debug for GDBusProxyPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDBusProxyPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDBusProxyPrivate = *mut _GDBusProxyPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1719,14 +1644,9 @@ impl ::std::fmt::Debug for GDataInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GDataInputStreamPrivate(c_void);
+pub struct _GDataInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GDataInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDataInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDataInputStreamPrivate = *mut _GDataInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1753,14 +1673,9 @@ impl ::std::fmt::Debug for GDataOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GDataOutputStreamPrivate(c_void);
+pub struct _GDataOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GDataOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDataOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDataOutputStreamPrivate = *mut _GDataOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1951,14 +1866,9 @@ impl ::std::fmt::Debug for GDtlsServerConnectionInterface {
 }
 
 #[repr(C)]
-pub struct GEmblemClass(c_void);
+pub struct _GEmblemClass(c_void);
 
-impl ::std::fmt::Debug for GEmblemClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GEmblemClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GEmblemClass = *mut _GEmblemClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1975,14 +1885,9 @@ impl ::std::fmt::Debug for GEmblemedIconClass {
 }
 
 #[repr(C)]
-pub struct GEmblemedIconPrivate(c_void);
+pub struct _GEmblemedIconPrivate(c_void);
 
-impl ::std::fmt::Debug for GEmblemedIconPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GEmblemedIconPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GEmblemedIconPrivate = *mut _GEmblemedIconPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2085,14 +1990,9 @@ impl ::std::fmt::Debug for GFileEnumeratorClass {
 }
 
 #[repr(C)]
-pub struct GFileEnumeratorPrivate(c_void);
+pub struct _GFileEnumeratorPrivate(c_void);
 
-impl ::std::fmt::Debug for GFileEnumeratorPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileEnumeratorPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileEnumeratorPrivate = *mut _GFileEnumeratorPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2137,24 +2037,14 @@ impl ::std::fmt::Debug for GFileIOStreamClass {
 }
 
 #[repr(C)]
-pub struct GFileIOStreamPrivate(c_void);
+pub struct _GFileIOStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GFileIOStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileIOStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileIOStreamPrivate = *mut _GFileIOStreamPrivate;
 
 #[repr(C)]
-pub struct GFileIconClass(c_void);
+pub struct _GFileIconClass(c_void);
 
-impl ::std::fmt::Debug for GFileIconClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileIconClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileIconClass = *mut _GFileIconClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2377,14 +2267,9 @@ impl ::std::fmt::Debug for GFileIface {
 }
 
 #[repr(C)]
-pub struct GFileInfoClass(c_void);
+pub struct _GFileInfoClass(c_void);
 
-impl ::std::fmt::Debug for GFileInfoClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileInfoClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileInfoClass = *mut _GFileInfoClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2423,14 +2308,9 @@ impl ::std::fmt::Debug for GFileInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GFileInputStreamPrivate(c_void);
+pub struct _GFileInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GFileInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileInputStreamPrivate = *mut _GFileInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2461,14 +2341,9 @@ impl ::std::fmt::Debug for GFileMonitorClass {
 }
 
 #[repr(C)]
-pub struct GFileMonitorPrivate(c_void);
+pub struct _GFileMonitorPrivate(c_void);
 
-impl ::std::fmt::Debug for GFileMonitorPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileMonitorPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileMonitorPrivate = *mut _GFileMonitorPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2513,14 +2388,9 @@ impl ::std::fmt::Debug for GFileOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GFileOutputStreamPrivate(c_void);
+pub struct _GFileOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GFileOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GFileOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GFileOutputStreamPrivate = *mut _GFileOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2585,64 +2455,34 @@ impl ::std::fmt::Debug for GFilterOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GIOExtension(c_void);
+pub struct _GIOExtension(c_void);
 
-impl ::std::fmt::Debug for GIOExtension {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOExtension @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOExtension = *mut _GIOExtension;
 
 #[repr(C)]
-pub struct GIOExtensionPoint(c_void);
+pub struct _GIOExtensionPoint(c_void);
 
-impl ::std::fmt::Debug for GIOExtensionPoint {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOExtensionPoint @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOExtensionPoint = *mut _GIOExtensionPoint;
 
 #[repr(C)]
-pub struct GIOModuleClass(c_void);
+pub struct _GIOModuleClass(c_void);
 
-impl ::std::fmt::Debug for GIOModuleClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOModuleClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOModuleClass = *mut _GIOModuleClass;
 
 #[repr(C)]
-pub struct GIOModuleScope(c_void);
+pub struct _GIOModuleScope(c_void);
 
-impl ::std::fmt::Debug for GIOModuleScope {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOModuleScope @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOModuleScope = *mut _GIOModuleScope;
 
 #[repr(C)]
-pub struct GIOSchedulerJob(c_void);
+pub struct _GIOSchedulerJob(c_void);
 
-impl ::std::fmt::Debug for GIOSchedulerJob {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOSchedulerJob @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOSchedulerJob = *mut _GIOSchedulerJob;
 
 #[repr(C)]
-pub struct GIOStreamAdapter(c_void);
+pub struct _GIOStreamAdapter(c_void);
 
-impl ::std::fmt::Debug for GIOStreamAdapter {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOStreamAdapter @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOStreamAdapter = *mut _GIOStreamAdapter;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2689,14 +2529,9 @@ impl ::std::fmt::Debug for GIOStreamClass {
 }
 
 #[repr(C)]
-pub struct GIOStreamPrivate(c_void);
+pub struct _GIOStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GIOStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GIOStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GIOStreamPrivate = *mut _GIOStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2755,24 +2590,14 @@ impl ::std::fmt::Debug for GInetAddressMaskClass {
 }
 
 #[repr(C)]
-pub struct GInetAddressMaskPrivate(c_void);
+pub struct _GInetAddressMaskPrivate(c_void);
 
-impl ::std::fmt::Debug for GInetAddressMaskPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GInetAddressMaskPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GInetAddressMaskPrivate = *mut _GInetAddressMaskPrivate;
 
 #[repr(C)]
-pub struct GInetAddressPrivate(c_void);
+pub struct _GInetAddressPrivate(c_void);
 
-impl ::std::fmt::Debug for GInetAddressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GInetAddressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GInetAddressPrivate = *mut _GInetAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2789,14 +2614,9 @@ impl ::std::fmt::Debug for GInetSocketAddressClass {
 }
 
 #[repr(C)]
-pub struct GInetSocketAddressPrivate(c_void);
+pub struct _GInetSocketAddressPrivate(c_void);
 
-impl ::std::fmt::Debug for GInetSocketAddressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GInetSocketAddressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GInetSocketAddressPrivate = *mut _GInetSocketAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2883,14 +2703,9 @@ impl ::std::fmt::Debug for GInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GInputStreamPrivate(c_void);
+pub struct _GInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GInputStreamPrivate = *mut _GInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2987,14 +2802,9 @@ impl ::std::fmt::Debug for GMemoryInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GMemoryInputStreamPrivate(c_void);
+pub struct _GMemoryInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GMemoryInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMemoryInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMemoryInputStreamPrivate = *mut _GMemoryInputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3021,14 +2831,9 @@ impl ::std::fmt::Debug for GMemoryOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GMemoryOutputStreamPrivate(c_void);
+pub struct _GMemoryOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GMemoryOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMemoryOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMemoryOutputStreamPrivate = *mut _GMemoryOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3047,14 +2852,9 @@ impl ::std::fmt::Debug for GMenuAttributeIterClass {
 }
 
 #[repr(C)]
-pub struct GMenuAttributeIterPrivate(c_void);
+pub struct _GMenuAttributeIterPrivate(c_void);
 
-impl ::std::fmt::Debug for GMenuAttributeIterPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMenuAttributeIterPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMenuAttributeIterPrivate = *mut _GMenuAttributeIterPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3073,14 +2873,9 @@ impl ::std::fmt::Debug for GMenuLinkIterClass {
 }
 
 #[repr(C)]
-pub struct GMenuLinkIterPrivate(c_void);
+pub struct _GMenuLinkIterPrivate(c_void);
 
-impl ::std::fmt::Debug for GMenuLinkIterPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMenuLinkIterPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMenuLinkIterPrivate = *mut _GMenuLinkIterPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3113,14 +2908,9 @@ impl ::std::fmt::Debug for GMenuModelClass {
 }
 
 #[repr(C)]
-pub struct GMenuModelPrivate(c_void);
+pub struct _GMenuModelPrivate(c_void);
 
-impl ::std::fmt::Debug for GMenuModelPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMenuModelPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMenuModelPrivate = *mut _GMenuModelPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3235,24 +3025,14 @@ impl ::std::fmt::Debug for GMountOperationClass {
 }
 
 #[repr(C)]
-pub struct GMountOperationPrivate(c_void);
+pub struct _GMountOperationPrivate(c_void);
 
-impl ::std::fmt::Debug for GMountOperationPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GMountOperationPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GMountOperationPrivate = *mut _GMountOperationPrivate;
 
 #[repr(C)]
-pub struct GNativeSocketAddress(c_void);
+pub struct _GNativeSocketAddress(c_void);
 
-impl ::std::fmt::Debug for GNativeSocketAddress {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GNativeSocketAddress @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GNativeSocketAddress = *mut _GNativeSocketAddress;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3285,14 +3065,9 @@ impl ::std::fmt::Debug for GNetworkAddressClass {
 }
 
 #[repr(C)]
-pub struct GNetworkAddressPrivate(c_void);
+pub struct _GNetworkAddressPrivate(c_void);
 
-impl ::std::fmt::Debug for GNetworkAddressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GNetworkAddressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GNetworkAddressPrivate = *mut _GNetworkAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3331,14 +3106,9 @@ impl ::std::fmt::Debug for GNetworkServiceClass {
 }
 
 #[repr(C)]
-pub struct GNetworkServicePrivate(c_void);
+pub struct _GNetworkServicePrivate(c_void);
 
-impl ::std::fmt::Debug for GNetworkServicePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GNetworkServicePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GNetworkServicePrivate = *mut _GNetworkServicePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3419,14 +3189,9 @@ impl ::std::fmt::Debug for GOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GOutputStreamPrivate(c_void);
+pub struct _GOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GOutputStreamPrivate = *mut _GOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3473,14 +3238,9 @@ impl ::std::fmt::Debug for GPermissionClass {
 }
 
 #[repr(C)]
-pub struct GPermissionPrivate(c_void);
+pub struct _GPermissionPrivate(c_void);
 
-impl ::std::fmt::Debug for GPermissionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GPermissionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GPermissionPrivate = *mut _GPermissionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3569,24 +3329,14 @@ impl ::std::fmt::Debug for GProxyAddressEnumeratorClass {
 }
 
 #[repr(C)]
-pub struct GProxyAddressEnumeratorPrivate(c_void);
+pub struct _GProxyAddressEnumeratorPrivate(c_void);
 
-impl ::std::fmt::Debug for GProxyAddressEnumeratorPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GProxyAddressEnumeratorPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GProxyAddressEnumeratorPrivate = *mut _GProxyAddressEnumeratorPrivate;
 
 #[repr(C)]
-pub struct GProxyAddressPrivate(c_void);
+pub struct _GProxyAddressPrivate(c_void);
 
-impl ::std::fmt::Debug for GProxyAddressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GProxyAddressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GProxyAddressPrivate = *mut _GProxyAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3697,14 +3447,9 @@ impl ::std::fmt::Debug for GResolverClass {
 }
 
 #[repr(C)]
-pub struct GResolverPrivate(c_void);
+pub struct _GResolverPrivate(c_void);
 
-impl ::std::fmt::Debug for GResolverPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GResolverPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GResolverPrivate = *mut _GResolverPrivate;
 
 #[repr(C)]
 pub struct GResource(c_void);
@@ -3776,14 +3521,9 @@ impl ::std::fmt::Debug for GSettingsBackendClass {
 }
 
 #[repr(C)]
-pub struct GSettingsBackendPrivate(c_void);
+pub struct _GSettingsBackendPrivate(c_void);
 
-impl ::std::fmt::Debug for GSettingsBackendPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSettingsBackendPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSettingsBackendPrivate = *mut _GSettingsBackendPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3810,14 +3550,9 @@ impl ::std::fmt::Debug for GSettingsClass {
 }
 
 #[repr(C)]
-pub struct GSettingsPrivate(c_void);
+pub struct _GSettingsPrivate(c_void);
 
-impl ::std::fmt::Debug for GSettingsPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSettingsPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSettingsPrivate = *mut _GSettingsPrivate;
 
 #[repr(C)]
 pub struct GSettingsSchema(c_void);
@@ -3864,24 +3599,14 @@ impl ::std::fmt::Debug for GSimpleActionGroupClass {
 }
 
 #[repr(C)]
-pub struct GSimpleActionGroupPrivate(c_void);
+pub struct _GSimpleActionGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GSimpleActionGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSimpleActionGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSimpleActionGroupPrivate = *mut _GSimpleActionGroupPrivate;
 
 #[repr(C)]
-pub struct GSimpleAsyncResultClass(c_void);
+pub struct _GSimpleAsyncResultClass(c_void);
 
-impl ::std::fmt::Debug for GSimpleAsyncResultClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSimpleAsyncResultClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSimpleAsyncResultClass = *mut _GSimpleAsyncResultClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3908,14 +3633,9 @@ impl ::std::fmt::Debug for GSimpleProxyResolverClass {
 }
 
 #[repr(C)]
-pub struct GSimpleProxyResolverPrivate(c_void);
+pub struct _GSimpleProxyResolverPrivate(c_void);
 
-impl ::std::fmt::Debug for GSimpleProxyResolverPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSimpleProxyResolverPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSimpleProxyResolverPrivate = *mut _GSimpleProxyResolverPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4016,14 +3736,9 @@ impl ::std::fmt::Debug for GSocketClientClass {
 }
 
 #[repr(C)]
-pub struct GSocketClientPrivate(c_void);
+pub struct _GSocketClientPrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketClientPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketClientPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketClientPrivate = *mut _GSocketClientPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4072,14 +3787,9 @@ impl ::std::fmt::Debug for GSocketConnectionClass {
 }
 
 #[repr(C)]
-pub struct GSocketConnectionPrivate(c_void);
+pub struct _GSocketConnectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketConnectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketConnectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketConnectionPrivate = *mut _GSocketConnectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4116,14 +3826,9 @@ impl ::std::fmt::Debug for GSocketControlMessageClass {
 }
 
 #[repr(C)]
-pub struct GSocketControlMessagePrivate(c_void);
+pub struct _GSocketControlMessagePrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketControlMessagePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketControlMessagePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketControlMessagePrivate = *mut _GSocketControlMessagePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4154,24 +3859,14 @@ impl ::std::fmt::Debug for GSocketListenerClass {
 }
 
 #[repr(C)]
-pub struct GSocketListenerPrivate(c_void);
+pub struct _GSocketListenerPrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketListenerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketListenerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketListenerPrivate = *mut _GSocketListenerPrivate;
 
 #[repr(C)]
-pub struct GSocketPrivate(c_void);
+pub struct _GSocketPrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketPrivate = *mut _GSocketPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4202,14 +3897,9 @@ impl ::std::fmt::Debug for GSocketServiceClass {
 }
 
 #[repr(C)]
-pub struct GSocketServicePrivate(c_void);
+pub struct _GSocketServicePrivate(c_void);
 
-impl ::std::fmt::Debug for GSocketServicePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSocketServicePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSocketServicePrivate = *mut _GSocketServicePrivate;
 
 #[repr(C)]
 pub struct GSrvTarget(c_void);
@@ -4239,14 +3929,9 @@ impl ::std::fmt::Debug for GStaticResource {
 }
 
 #[repr(C)]
-pub struct GTaskClass(c_void);
+pub struct _GTaskClass(c_void);
 
-impl ::std::fmt::Debug for GTaskClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTaskClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTaskClass = *mut _GTaskClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4263,14 +3948,9 @@ impl ::std::fmt::Debug for GTcpConnectionClass {
 }
 
 #[repr(C)]
-pub struct GTcpConnectionPrivate(c_void);
+pub struct _GTcpConnectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GTcpConnectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTcpConnectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTcpConnectionPrivate = *mut _GTcpConnectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4287,24 +3967,14 @@ impl ::std::fmt::Debug for GTcpWrapperConnectionClass {
 }
 
 #[repr(C)]
-pub struct GTcpWrapperConnectionPrivate(c_void);
+pub struct _GTcpWrapperConnectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GTcpWrapperConnectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTcpWrapperConnectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTcpWrapperConnectionPrivate = *mut _GTcpWrapperConnectionPrivate;
 
 #[repr(C)]
-pub struct GThemedIconClass(c_void);
+pub struct _GThemedIconClass(c_void);
 
-impl ::std::fmt::Debug for GThemedIconClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GThemedIconClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GThemedIconClass = *mut _GThemedIconClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4333,14 +4003,9 @@ impl ::std::fmt::Debug for GThreadedSocketServiceClass {
 }
 
 #[repr(C)]
-pub struct GThreadedSocketServicePrivate(c_void);
+pub struct _GThreadedSocketServicePrivate(c_void);
 
-impl ::std::fmt::Debug for GThreadedSocketServicePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GThreadedSocketServicePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GThreadedSocketServicePrivate = *mut _GThreadedSocketServicePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4392,14 +4057,9 @@ impl ::std::fmt::Debug for GTlsCertificateClass {
 }
 
 #[repr(C)]
-pub struct GTlsCertificatePrivate(c_void);
+pub struct _GTlsCertificatePrivate(c_void);
 
-impl ::std::fmt::Debug for GTlsCertificatePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTlsCertificatePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTlsCertificatePrivate = *mut _GTlsCertificatePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4441,14 +4101,9 @@ impl ::std::fmt::Debug for GTlsConnectionClass {
 }
 
 #[repr(C)]
-pub struct GTlsConnectionPrivate(c_void);
+pub struct _GTlsConnectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GTlsConnectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTlsConnectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTlsConnectionPrivate = *mut _GTlsConnectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4492,14 +4147,9 @@ impl ::std::fmt::Debug for GTlsDatabaseClass {
 }
 
 #[repr(C)]
-pub struct GTlsDatabasePrivate(c_void);
+pub struct _GTlsDatabasePrivate(c_void);
 
-impl ::std::fmt::Debug for GTlsDatabasePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTlsDatabasePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTlsDatabasePrivate = *mut _GTlsDatabasePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4543,14 +4193,9 @@ impl ::std::fmt::Debug for GTlsInteractionClass {
 }
 
 #[repr(C)]
-pub struct GTlsInteractionPrivate(c_void);
+pub struct _GTlsInteractionPrivate(c_void);
 
-impl ::std::fmt::Debug for GTlsInteractionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTlsInteractionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTlsInteractionPrivate = *mut _GTlsInteractionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4574,14 +4219,9 @@ impl ::std::fmt::Debug for GTlsPasswordClass {
 }
 
 #[repr(C)]
-pub struct GTlsPasswordPrivate(c_void);
+pub struct _GTlsPasswordPrivate(c_void);
 
-impl ::std::fmt::Debug for GTlsPasswordPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTlsPasswordPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTlsPasswordPrivate = *mut _GTlsPasswordPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4612,14 +4252,9 @@ impl ::std::fmt::Debug for GUnixConnectionClass {
 }
 
 #[repr(C)]
-pub struct GUnixConnectionPrivate(c_void);
+pub struct _GUnixConnectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixConnectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixConnectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixConnectionPrivate = *mut _GUnixConnectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4640,14 +4275,9 @@ impl ::std::fmt::Debug for GUnixCredentialsMessageClass {
 }
 
 #[repr(C)]
-pub struct GUnixCredentialsMessagePrivate(c_void);
+pub struct _GUnixCredentialsMessagePrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixCredentialsMessagePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixCredentialsMessagePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixCredentialsMessagePrivate = *mut _GUnixCredentialsMessagePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4674,14 +4304,9 @@ impl ::std::fmt::Debug for GUnixFDListClass {
 }
 
 #[repr(C)]
-pub struct GUnixFDListPrivate(c_void);
+pub struct _GUnixFDListPrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixFDListPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixFDListPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixFDListPrivate = *mut _GUnixFDListPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4702,14 +4327,9 @@ impl ::std::fmt::Debug for GUnixFDMessageClass {
 }
 
 #[repr(C)]
-pub struct GUnixFDMessagePrivate(c_void);
+pub struct _GUnixFDMessagePrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixFDMessagePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixFDMessagePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixFDMessagePrivate = *mut _GUnixFDMessagePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4736,14 +4356,9 @@ impl ::std::fmt::Debug for GUnixInputStreamClass {
 }
 
 #[repr(C)]
-pub struct GUnixInputStreamPrivate(c_void);
+pub struct _GUnixInputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixInputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixInputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixInputStreamPrivate = *mut _GUnixInputStreamPrivate;
 
 #[repr(C)]
 pub struct GUnixMountEntry(c_void);
@@ -4756,14 +4371,9 @@ impl ::std::fmt::Debug for GUnixMountEntry {
 }
 
 #[repr(C)]
-pub struct GUnixMountMonitorClass(c_void);
+pub struct _GUnixMountMonitorClass(c_void);
 
-impl ::std::fmt::Debug for GUnixMountMonitorClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixMountMonitorClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixMountMonitorClass = *mut _GUnixMountMonitorClass;
 
 #[repr(C)]
 pub struct GUnixMountPoint(c_void);
@@ -4800,14 +4410,9 @@ impl ::std::fmt::Debug for GUnixOutputStreamClass {
 }
 
 #[repr(C)]
-pub struct GUnixOutputStreamPrivate(c_void);
+pub struct _GUnixOutputStreamPrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixOutputStreamPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixOutputStreamPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixOutputStreamPrivate = *mut _GUnixOutputStreamPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4824,14 +4429,9 @@ impl ::std::fmt::Debug for GUnixSocketAddressClass {
 }
 
 #[repr(C)]
-pub struct GUnixSocketAddressPrivate(c_void);
+pub struct _GUnixSocketAddressPrivate(c_void);
 
-impl ::std::fmt::Debug for GUnixSocketAddressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GUnixSocketAddressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GUnixSocketAddressPrivate = *mut _GUnixSocketAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]

@@ -18,10 +18,10 @@ shell-words = "0.1.0"
 tempdir = "0.3"
 
 [features]
-dox = []
 v2_32 = []
 v2_36 = ["v2_32"]
 v2_36_8 = ["v2_36"]
+dox = []
 
 [lib]
 name = "gdk_pixbuf_sys"

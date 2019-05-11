@@ -260,7 +260,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
     ("GHook", Layout {size: size_of::<GHook>(), alignment: align_of::<GHook>()}),
     ("GHookFlagMask", Layout {size: size_of::<GHookFlagMask>(), alignment: align_of::<GHookFlagMask>()}),
     ("GHookList", Layout {size: size_of::<GHookList>(), alignment: align_of::<GHookList>()}),
-    ("GIConv", Layout {size: size_of::<GIConv>(), alignment: align_of::<GIConv>()}),
     ("GIOChannelError", Layout {size: size_of::<GIOChannelError>(), alignment: align_of::<GIOChannelError>()}),
     ("GIOCondition", Layout {size: size_of::<GIOCondition>(), alignment: align_of::<GIOCondition>()}),
     ("GIOError", Layout {size: size_of::<GIOError>(), alignment: align_of::<GIOError>()}),

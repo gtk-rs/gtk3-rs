@@ -27,12 +27,12 @@ shell-words = "0.1.0"
 tempdir = "0.3"
 
 [features]
-dox = []
 v3_16 = []
 v3_18 = ["v3_16"]
 v3_20 = ["v3_18"]
 v3_22 = ["v3_20"]
 v3_24 = ["v3_22"]
+dox = []
 
 [lib]
 name = "gdk_sys"

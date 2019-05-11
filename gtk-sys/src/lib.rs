@@ -1340,14 +1340,9 @@ impl ::std::fmt::Debug for GtkAboutDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkAboutDialogPrivate(c_void);
+pub struct _GtkAboutDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAboutDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAboutDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAboutDialogPrivate = *mut _GtkAboutDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1392,14 +1387,9 @@ impl ::std::fmt::Debug for GtkAccelGroupEntry {
 }
 
 #[repr(C)]
-pub struct GtkAccelGroupPrivate(c_void);
+pub struct _GtkAccelGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAccelGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAccelGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAccelGroupPrivate = *mut _GtkAccelGroupPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1454,24 +1444,14 @@ impl ::std::fmt::Debug for GtkAccelLabelClass {
 }
 
 #[repr(C)]
-pub struct GtkAccelLabelPrivate(c_void);
+pub struct _GtkAccelLabelPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAccelLabelPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAccelLabelPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAccelLabelPrivate = *mut _GtkAccelLabelPrivate;
 
 #[repr(C)]
-pub struct GtkAccelMapClass(c_void);
+pub struct _GtkAccelMapClass(c_void);
 
-impl ::std::fmt::Debug for GtkAccelMapClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAccelMapClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAccelMapClass = *mut _GtkAccelMapClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1498,14 +1478,9 @@ impl ::std::fmt::Debug for GtkAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkAccessiblePrivate(c_void);
+pub struct _GtkAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAccessiblePrivate = *mut _GtkAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1529,14 +1504,9 @@ impl ::std::fmt::Debug for GtkActionBarClass {
 }
 
 #[repr(C)]
-pub struct GtkActionBarPrivate(c_void);
+pub struct _GtkActionBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkActionBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkActionBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkActionBarPrivate = *mut _GtkActionBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1623,24 +1593,14 @@ impl ::std::fmt::Debug for GtkActionGroupClass {
 }
 
 #[repr(C)]
-pub struct GtkActionGroupPrivate(c_void);
+pub struct _GtkActionGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkActionGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkActionGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkActionGroupPrivate = *mut _GtkActionGroupPrivate;
 
 #[repr(C)]
-pub struct GtkActionPrivate(c_void);
+pub struct _GtkActionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkActionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkActionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkActionPrivate = *mut _GtkActionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1707,14 +1667,9 @@ impl ::std::fmt::Debug for GtkAdjustmentClass {
 }
 
 #[repr(C)]
-pub struct GtkAdjustmentPrivate(c_void);
+pub struct _GtkAdjustmentPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAdjustmentPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAdjustmentPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAdjustmentPrivate = *mut _GtkAdjustmentPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1739,14 +1694,9 @@ impl ::std::fmt::Debug for GtkAlignmentClass {
 }
 
 #[repr(C)]
-pub struct GtkAlignmentPrivate(c_void);
+pub struct _GtkAlignmentPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAlignmentPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAlignmentPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAlignmentPrivate = *mut _GtkAlignmentPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1766,14 +1716,9 @@ impl ::std::fmt::Debug for GtkAppChooserButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkAppChooserButtonPrivate(c_void);
+pub struct _GtkAppChooserButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAppChooserButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAppChooserButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAppChooserButtonPrivate = *mut _GtkAppChooserButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1791,14 +1736,9 @@ impl ::std::fmt::Debug for GtkAppChooserDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkAppChooserDialogPrivate(c_void);
+pub struct _GtkAppChooserDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAppChooserDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAppChooserDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAppChooserDialogPrivate = *mut _GtkAppChooserDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1822,14 +1762,9 @@ impl ::std::fmt::Debug for GtkAppChooserWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkAppChooserWidgetPrivate(c_void);
+pub struct _GtkAppChooserWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAppChooserWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAppChooserWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAppChooserWidgetPrivate = *mut _GtkAppChooserWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1851,14 +1786,9 @@ impl ::std::fmt::Debug for GtkApplicationClass {
 }
 
 #[repr(C)]
-pub struct GtkApplicationPrivate(c_void);
+pub struct _GtkApplicationPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkApplicationPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkApplicationPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkApplicationPrivate = *mut _GtkApplicationPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1876,14 +1806,9 @@ impl ::std::fmt::Debug for GtkApplicationWindowClass {
 }
 
 #[repr(C)]
-pub struct GtkApplicationWindowPrivate(c_void);
+pub struct _GtkApplicationWindowPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkApplicationWindowPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkApplicationWindowPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkApplicationWindowPrivate = *mut _GtkApplicationWindowPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1900,14 +1825,9 @@ impl ::std::fmt::Debug for GtkArrowAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkArrowAccessiblePrivate(c_void);
+pub struct _GtkArrowAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkArrowAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkArrowAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkArrowAccessiblePrivate = *mut _GtkArrowAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1932,14 +1852,9 @@ impl ::std::fmt::Debug for GtkArrowClass {
 }
 
 #[repr(C)]
-pub struct GtkArrowPrivate(c_void);
+pub struct _GtkArrowPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkArrowPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkArrowPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkArrowPrivate = *mut _GtkArrowPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1964,14 +1879,9 @@ impl ::std::fmt::Debug for GtkAspectFrameClass {
 }
 
 #[repr(C)]
-pub struct GtkAspectFramePrivate(c_void);
+pub struct _GtkAspectFramePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAspectFramePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAspectFramePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAspectFramePrivate = *mut _GtkAspectFramePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2006,14 +1916,9 @@ impl ::std::fmt::Debug for GtkAssistantClass {
 }
 
 #[repr(C)]
-pub struct GtkAssistantPrivate(c_void);
+pub struct _GtkAssistantPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkAssistantPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkAssistantPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkAssistantPrivate = *mut _GtkAssistantPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2038,14 +1943,9 @@ impl ::std::fmt::Debug for GtkBinClass {
 }
 
 #[repr(C)]
-pub struct GtkBinPrivate(c_void);
+pub struct _GtkBinPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkBinPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkBinPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkBinPrivate = *mut _GtkBinPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2147,14 +2047,9 @@ impl ::std::fmt::Debug for GtkBooleanCellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkBooleanCellAccessiblePrivate(c_void);
+pub struct _GtkBooleanCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkBooleanCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkBooleanCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkBooleanCellAccessiblePrivate = *mut _GtkBooleanCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2199,14 +2094,9 @@ impl ::std::fmt::Debug for GtkBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkBoxPrivate(c_void);
+pub struct _GtkBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkBoxPrivate = *mut _GtkBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2275,14 +2165,9 @@ impl ::std::fmt::Debug for GtkBuilderClass {
 }
 
 #[repr(C)]
-pub struct GtkBuilderPrivate(c_void);
+pub struct _GtkBuilderPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkBuilderPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkBuilderPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkBuilderPrivate = *mut _GtkBuilderPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2299,14 +2184,9 @@ impl ::std::fmt::Debug for GtkButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkButtonAccessiblePrivate(c_void);
+pub struct _GtkButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkButtonAccessiblePrivate = *mut _GtkButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2331,14 +2211,9 @@ impl ::std::fmt::Debug for GtkButtonBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkButtonBoxPrivate(c_void);
+pub struct _GtkButtonBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkButtonBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkButtonBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkButtonBoxPrivate = *mut _GtkButtonBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2375,14 +2250,9 @@ impl ::std::fmt::Debug for GtkButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkButtonPrivate(c_void);
+pub struct _GtkButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkButtonPrivate = *mut _GtkButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2421,14 +2291,9 @@ impl ::std::fmt::Debug for GtkCalendarClass {
 }
 
 #[repr(C)]
-pub struct GtkCalendarPrivate(c_void);
+pub struct _GtkCalendarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCalendarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCalendarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCalendarPrivate = *mut _GtkCalendarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2479,14 +2344,9 @@ impl ::std::fmt::Debug for GtkCellAccessibleParentIface {
 }
 
 #[repr(C)]
-pub struct GtkCellAccessiblePrivate(c_void);
+pub struct _GtkCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellAccessiblePrivate = *mut _GtkCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2510,14 +2370,9 @@ impl ::std::fmt::Debug for GtkCellAreaBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkCellAreaBoxPrivate(c_void);
+pub struct _GtkCellAreaBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellAreaBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellAreaBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellAreaBoxPrivate = *mut _GtkCellAreaBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2620,24 +2475,14 @@ impl ::std::fmt::Debug for GtkCellAreaContextClass {
 }
 
 #[repr(C)]
-pub struct GtkCellAreaContextPrivate(c_void);
+pub struct _GtkCellAreaContextPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellAreaContextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellAreaContextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellAreaContextPrivate = *mut _GtkCellAreaContextPrivate;
 
 #[repr(C)]
-pub struct GtkCellAreaPrivate(c_void);
+pub struct _GtkCellAreaPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellAreaPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellAreaPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellAreaPrivate = *mut _GtkCellAreaPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2718,14 +2563,9 @@ impl ::std::fmt::Debug for GtkCellRendererAccelClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererAccelPrivate(c_void);
+pub struct _GtkCellRendererAccelPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererAccelPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererAccelPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererAccelPrivate = *mut _GtkCellRendererAccelPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2772,14 +2612,9 @@ impl ::std::fmt::Debug for GtkCellRendererClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererClassPrivate(c_void);
+pub struct _GtkCellRendererClassPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererClassPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererClassPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererClassPrivate = *mut _GtkCellRendererClassPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2804,14 +2639,9 @@ impl ::std::fmt::Debug for GtkCellRendererComboClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererComboPrivate(c_void);
+pub struct _GtkCellRendererComboPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererComboPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererComboPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererComboPrivate = *mut _GtkCellRendererComboPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2836,24 +2666,14 @@ impl ::std::fmt::Debug for GtkCellRendererPixbufClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererPixbufPrivate(c_void);
+pub struct _GtkCellRendererPixbufPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererPixbufPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererPixbufPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererPixbufPrivate = *mut _GtkCellRendererPixbufPrivate;
 
 #[repr(C)]
-pub struct GtkCellRendererPrivate(c_void);
+pub struct _GtkCellRendererPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererPrivate = *mut _GtkCellRendererPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2878,14 +2698,9 @@ impl ::std::fmt::Debug for GtkCellRendererProgressClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererProgressPrivate(c_void);
+pub struct _GtkCellRendererProgressPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererProgressPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererProgressPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererProgressPrivate = *mut _GtkCellRendererProgressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2910,14 +2725,9 @@ impl ::std::fmt::Debug for GtkCellRendererSpinClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererSpinPrivate(c_void);
+pub struct _GtkCellRendererSpinPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererSpinPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererSpinPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererSpinPrivate = *mut _GtkCellRendererSpinPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2942,14 +2752,9 @@ impl ::std::fmt::Debug for GtkCellRendererSpinnerClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererSpinnerPrivate(c_void);
+pub struct _GtkCellRendererSpinnerPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererSpinnerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererSpinnerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererSpinnerPrivate = *mut _GtkCellRendererSpinnerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2976,14 +2781,9 @@ impl ::std::fmt::Debug for GtkCellRendererTextClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererTextPrivate(c_void);
+pub struct _GtkCellRendererTextPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererTextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererTextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererTextPrivate = *mut _GtkCellRendererTextPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3010,14 +2810,9 @@ impl ::std::fmt::Debug for GtkCellRendererToggleClass {
 }
 
 #[repr(C)]
-pub struct GtkCellRendererTogglePrivate(c_void);
+pub struct _GtkCellRendererTogglePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellRendererTogglePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellRendererTogglePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellRendererTogglePrivate = *mut _GtkCellRendererTogglePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3042,14 +2837,9 @@ impl ::std::fmt::Debug for GtkCellViewClass {
 }
 
 #[repr(C)]
-pub struct GtkCellViewPrivate(c_void);
+pub struct _GtkCellViewPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCellViewPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCellViewPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCellViewPrivate = *mut _GtkCellViewPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3090,14 +2880,9 @@ impl ::std::fmt::Debug for GtkCheckMenuItemAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkCheckMenuItemAccessiblePrivate(c_void);
+pub struct _GtkCheckMenuItemAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCheckMenuItemAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCheckMenuItemAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCheckMenuItemAccessiblePrivate = *mut _GtkCheckMenuItemAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3126,14 +2911,9 @@ impl ::std::fmt::Debug for GtkCheckMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkCheckMenuItemPrivate(c_void);
+pub struct _GtkCheckMenuItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCheckMenuItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCheckMenuItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCheckMenuItemPrivate = *mut _GtkCheckMenuItemPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3160,14 +2940,9 @@ impl ::std::fmt::Debug for GtkColorButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkColorButtonPrivate(c_void);
+pub struct _GtkColorButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkColorButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkColorButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkColorButtonPrivate = *mut _GtkColorButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3192,14 +2967,9 @@ impl ::std::fmt::Debug for GtkColorChooserDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkColorChooserDialogPrivate(c_void);
+pub struct _GtkColorChooserDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkColorChooserDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkColorChooserDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkColorChooserDialogPrivate = *mut _GtkColorChooserDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3256,14 +3026,9 @@ impl ::std::fmt::Debug for GtkColorChooserWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkColorChooserWidgetPrivate(c_void);
+pub struct _GtkColorChooserWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkColorChooserWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkColorChooserWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkColorChooserWidgetPrivate = *mut _GtkColorChooserWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3312,24 +3077,14 @@ impl ::std::fmt::Debug for GtkColorSelectionDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkColorSelectionDialogPrivate(c_void);
+pub struct _GtkColorSelectionDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkColorSelectionDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkColorSelectionDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkColorSelectionDialogPrivate = *mut _GtkColorSelectionDialogPrivate;
 
 #[repr(C)]
-pub struct GtkColorSelectionPrivate(c_void);
+pub struct _GtkColorSelectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkColorSelectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkColorSelectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkColorSelectionPrivate = *mut _GtkColorSelectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3346,14 +3101,9 @@ impl ::std::fmt::Debug for GtkComboBoxAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkComboBoxAccessiblePrivate(c_void);
+pub struct _GtkComboBoxAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkComboBoxAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkComboBoxAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkComboBoxAccessiblePrivate = *mut _GtkComboBoxAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3380,14 +3130,9 @@ impl ::std::fmt::Debug for GtkComboBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkComboBoxPrivate(c_void);
+pub struct _GtkComboBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkComboBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkComboBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkComboBoxPrivate = *mut _GtkComboBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3412,14 +3157,9 @@ impl ::std::fmt::Debug for GtkComboBoxTextClass {
 }
 
 #[repr(C)]
-pub struct GtkComboBoxTextPrivate(c_void);
+pub struct _GtkComboBoxTextPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkComboBoxTextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkComboBoxTextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkComboBoxTextPrivate = *mut _GtkComboBoxTextPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3440,14 +3180,9 @@ impl ::std::fmt::Debug for GtkContainerAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkContainerAccessiblePrivate(c_void);
+pub struct _GtkContainerAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkContainerAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkContainerAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkContainerAccessiblePrivate = *mut _GtkContainerAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3464,14 +3199,9 @@ impl ::std::fmt::Debug for GtkContainerCellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkContainerCellAccessiblePrivate(c_void);
+pub struct _GtkContainerCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkContainerCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkContainerCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkContainerCellAccessiblePrivate = *mut _GtkContainerCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3525,14 +3255,9 @@ impl ::std::fmt::Debug for GtkContainerClass {
 }
 
 #[repr(C)]
-pub struct GtkContainerPrivate(c_void);
+pub struct _GtkContainerPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkContainerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkContainerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkContainerPrivate = *mut _GtkContainerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3557,14 +3282,9 @@ impl ::std::fmt::Debug for GtkCssProviderClass {
 }
 
 #[repr(C)]
-pub struct GtkCssProviderPrivate(c_void);
+pub struct _GtkCssProviderPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkCssProviderPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkCssProviderPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkCssProviderPrivate = *mut _GtkCssProviderPrivate;
 
 #[repr(C)]
 pub struct GtkCssSection(c_void);
@@ -3603,14 +3323,9 @@ impl ::std::fmt::Debug for GtkDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkDialogPrivate(c_void);
+pub struct _GtkDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkDialogPrivate = *mut _GtkDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3683,14 +3398,9 @@ impl ::std::fmt::Debug for GtkEntryAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkEntryAccessiblePrivate(c_void);
+pub struct _GtkEntryAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkEntryAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEntryAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEntryAccessiblePrivate = *mut _GtkEntryAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3735,14 +3445,9 @@ impl ::std::fmt::Debug for GtkEntryBufferClass {
 }
 
 #[repr(C)]
-pub struct GtkEntryBufferPrivate(c_void);
+pub struct _GtkEntryBufferPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkEntryBufferPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEntryBufferPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEntryBufferPrivate = *mut _GtkEntryBufferPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3827,24 +3532,14 @@ impl ::std::fmt::Debug for GtkEntryCompletionClass {
 }
 
 #[repr(C)]
-pub struct GtkEntryCompletionPrivate(c_void);
+pub struct _GtkEntryCompletionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkEntryCompletionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEntryCompletionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEntryCompletionPrivate = *mut _GtkEntryCompletionPrivate;
 
 #[repr(C)]
-pub struct GtkEntryPrivate(c_void);
+pub struct _GtkEntryPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkEntryPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEntryPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEntryPrivate = *mut _GtkEntryPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3869,54 +3564,29 @@ impl ::std::fmt::Debug for GtkEventBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkEventBoxPrivate(c_void);
+pub struct _GtkEventBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkEventBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEventBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEventBoxPrivate = *mut _GtkEventBoxPrivate;
 
 #[repr(C)]
-pub struct GtkEventControllerClass(c_void);
+pub struct _GtkEventControllerClass(c_void);
 
-impl ::std::fmt::Debug for GtkEventControllerClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEventControllerClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEventControllerClass = *mut _GtkEventControllerClass;
 
 #[repr(C)]
-pub struct GtkEventControllerKeyClass(c_void);
+pub struct _GtkEventControllerKeyClass(c_void);
 
-impl ::std::fmt::Debug for GtkEventControllerKeyClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEventControllerKeyClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEventControllerKeyClass = *mut _GtkEventControllerKeyClass;
 
 #[repr(C)]
-pub struct GtkEventControllerMotionClass(c_void);
+pub struct _GtkEventControllerMotionClass(c_void);
 
-impl ::std::fmt::Debug for GtkEventControllerMotionClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEventControllerMotionClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEventControllerMotionClass = *mut _GtkEventControllerMotionClass;
 
 #[repr(C)]
-pub struct GtkEventControllerScrollClass(c_void);
+pub struct _GtkEventControllerScrollClass(c_void);
 
-impl ::std::fmt::Debug for GtkEventControllerScrollClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkEventControllerScrollClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkEventControllerScrollClass = *mut _GtkEventControllerScrollClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3933,14 +3603,9 @@ impl ::std::fmt::Debug for GtkExpanderAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkExpanderAccessiblePrivate(c_void);
+pub struct _GtkExpanderAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkExpanderAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkExpanderAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkExpanderAccessiblePrivate = *mut _GtkExpanderAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3967,14 +3632,9 @@ impl ::std::fmt::Debug for GtkExpanderClass {
 }
 
 #[repr(C)]
-pub struct GtkExpanderPrivate(c_void);
+pub struct _GtkExpanderPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkExpanderPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkExpanderPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkExpanderPrivate = *mut _GtkExpanderPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4001,14 +3661,9 @@ impl ::std::fmt::Debug for GtkFileChooserButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkFileChooserButtonPrivate(c_void);
+pub struct _GtkFileChooserButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFileChooserButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFileChooserButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFileChooserButtonPrivate = *mut _GtkFileChooserButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4033,14 +3688,9 @@ impl ::std::fmt::Debug for GtkFileChooserDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkFileChooserDialogPrivate(c_void);
+pub struct _GtkFileChooserDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFileChooserDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFileChooserDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFileChooserDialogPrivate = *mut _GtkFileChooserDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4079,14 +3729,9 @@ impl ::std::fmt::Debug for GtkFileChooserWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkFileChooserWidgetPrivate(c_void);
+pub struct _GtkFileChooserWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFileChooserWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFileChooserWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFileChooserWidgetPrivate = *mut _GtkFileChooserWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4151,14 +3796,9 @@ impl ::std::fmt::Debug for GtkFixedClass {
 }
 
 #[repr(C)]
-pub struct GtkFixedPrivate(c_void);
+pub struct _GtkFixedPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFixedPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFixedPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFixedPrivate = *mut _GtkFixedPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4175,14 +3815,9 @@ impl ::std::fmt::Debug for GtkFlowBoxAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkFlowBoxAccessiblePrivate(c_void);
+pub struct _GtkFlowBoxAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFlowBoxAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFlowBoxAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFlowBoxAccessiblePrivate = *mut _GtkFlowBoxAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4283,14 +3918,9 @@ impl ::std::fmt::Debug for GtkFontButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkFontButtonPrivate(c_void);
+pub struct _GtkFontButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFontButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFontButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFontButtonPrivate = *mut _GtkFontButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4315,14 +3945,9 @@ impl ::std::fmt::Debug for GtkFontChooserDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkFontChooserDialogPrivate(c_void);
+pub struct _GtkFontChooserDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFontChooserDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFontChooserDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFontChooserDialogPrivate = *mut _GtkFontChooserDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4385,14 +4010,9 @@ impl ::std::fmt::Debug for GtkFontChooserWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkFontChooserWidgetPrivate(c_void);
+pub struct _GtkFontChooserWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFontChooserWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFontChooserWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFontChooserWidgetPrivate = *mut _GtkFontChooserWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4439,24 +4059,14 @@ impl ::std::fmt::Debug for GtkFontSelectionDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkFontSelectionDialogPrivate(c_void);
+pub struct _GtkFontSelectionDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFontSelectionDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFontSelectionDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFontSelectionDialogPrivate = *mut _GtkFontSelectionDialogPrivate;
 
 #[repr(C)]
-pub struct GtkFontSelectionPrivate(c_void);
+pub struct _GtkFontSelectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFontSelectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFontSelectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFontSelectionPrivate = *mut _GtkFontSelectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4473,14 +4083,9 @@ impl ::std::fmt::Debug for GtkFrameAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkFrameAccessiblePrivate(c_void);
+pub struct _GtkFrameAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFrameAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFrameAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFrameAccessiblePrivate = *mut _GtkFrameAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4507,14 +4112,9 @@ impl ::std::fmt::Debug for GtkFrameClass {
 }
 
 #[repr(C)]
-pub struct GtkFramePrivate(c_void);
+pub struct _GtkFramePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkFramePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkFramePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkFramePrivate = *mut _GtkFramePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4537,104 +4137,54 @@ impl ::std::fmt::Debug for GtkGLAreaClass {
 }
 
 #[repr(C)]
-pub struct GtkGestureClass(c_void);
+pub struct _GtkGestureClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureClass = *mut _GtkGestureClass;
 
 #[repr(C)]
-pub struct GtkGestureDragClass(c_void);
+pub struct _GtkGestureDragClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureDragClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureDragClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureDragClass = *mut _GtkGestureDragClass;
 
 #[repr(C)]
-pub struct GtkGestureLongPressClass(c_void);
+pub struct _GtkGestureLongPressClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureLongPressClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureLongPressClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureLongPressClass = *mut _GtkGestureLongPressClass;
 
 #[repr(C)]
-pub struct GtkGestureMultiPressClass(c_void);
+pub struct _GtkGestureMultiPressClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureMultiPressClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureMultiPressClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureMultiPressClass = *mut _GtkGestureMultiPressClass;
 
 #[repr(C)]
-pub struct GtkGesturePanClass(c_void);
+pub struct _GtkGesturePanClass(c_void);
 
-impl ::std::fmt::Debug for GtkGesturePanClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGesturePanClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGesturePanClass = *mut _GtkGesturePanClass;
 
 #[repr(C)]
-pub struct GtkGestureRotateClass(c_void);
+pub struct _GtkGestureRotateClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureRotateClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureRotateClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureRotateClass = *mut _GtkGestureRotateClass;
 
 #[repr(C)]
-pub struct GtkGestureSingleClass(c_void);
+pub struct _GtkGestureSingleClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureSingleClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureSingleClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureSingleClass = *mut _GtkGestureSingleClass;
 
 #[repr(C)]
-pub struct GtkGestureStylusClass(c_void);
+pub struct _GtkGestureStylusClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureStylusClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureStylusClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureStylusClass = *mut _GtkGestureStylusClass;
 
 #[repr(C)]
-pub struct GtkGestureSwipeClass(c_void);
+pub struct _GtkGestureSwipeClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureSwipeClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureSwipeClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureSwipeClass = *mut _GtkGestureSwipeClass;
 
 #[repr(C)]
-pub struct GtkGestureZoomClass(c_void);
+pub struct _GtkGestureZoomClass(c_void);
 
-impl ::std::fmt::Debug for GtkGestureZoomClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGestureZoomClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGestureZoomClass = *mut _GtkGestureZoomClass;
 
 #[repr(C)]
 pub struct GtkGradient(c_void);
@@ -4677,14 +4227,9 @@ impl ::std::fmt::Debug for GtkGridClass {
 }
 
 #[repr(C)]
-pub struct GtkGridPrivate(c_void);
+pub struct _GtkGridPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkGridPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkGridPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkGridPrivate = *mut _GtkGridPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4755,14 +4300,9 @@ impl ::std::fmt::Debug for GtkHSVClass {
 }
 
 #[repr(C)]
-pub struct GtkHSVPrivate(c_void);
+pub struct _GtkHSVPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkHSVPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkHSVPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkHSVPrivate = *mut _GtkHSVPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4833,14 +4373,9 @@ impl ::std::fmt::Debug for GtkHandleBoxClass {
 }
 
 #[repr(C)]
-pub struct GtkHandleBoxPrivate(c_void);
+pub struct _GtkHandleBoxPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkHandleBoxPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkHandleBoxPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkHandleBoxPrivate = *mut _GtkHandleBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4865,14 +4400,9 @@ impl ::std::fmt::Debug for GtkHeaderBarClass {
 }
 
 #[repr(C)]
-pub struct GtkHeaderBarPrivate(c_void);
+pub struct _GtkHeaderBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkHeaderBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkHeaderBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkHeaderBarPrivate = *mut _GtkHeaderBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -4968,14 +4498,9 @@ impl ::std::fmt::Debug for GtkIMContextSimpleClass {
 }
 
 #[repr(C)]
-pub struct GtkIMContextSimplePrivate(c_void);
+pub struct _GtkIMContextSimplePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIMContextSimplePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIMContextSimplePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIMContextSimplePrivate = *mut _GtkIMContextSimplePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5000,14 +4525,9 @@ impl ::std::fmt::Debug for GtkIMMulticontextClass {
 }
 
 #[repr(C)]
-pub struct GtkIMMulticontextPrivate(c_void);
+pub struct _GtkIMMulticontextPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIMMulticontextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIMMulticontextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIMMulticontextPrivate = *mut _GtkIMMulticontextPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5032,24 +4552,14 @@ impl ::std::fmt::Debug for GtkIconFactoryClass {
 }
 
 #[repr(C)]
-pub struct GtkIconFactoryPrivate(c_void);
+pub struct _GtkIconFactoryPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIconFactoryPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIconFactoryPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIconFactoryPrivate = *mut _GtkIconFactoryPrivate;
 
 #[repr(C)]
-pub struct GtkIconInfoClass(c_void);
+pub struct _GtkIconInfoClass(c_void);
 
-impl ::std::fmt::Debug for GtkIconInfoClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIconInfoClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIconInfoClass = *mut _GtkIconInfoClass;
 
 #[repr(C)]
 pub struct GtkIconSet(c_void);
@@ -5096,14 +4606,9 @@ impl ::std::fmt::Debug for GtkIconThemeClass {
 }
 
 #[repr(C)]
-pub struct GtkIconThemePrivate(c_void);
+pub struct _GtkIconThemePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIconThemePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIconThemePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIconThemePrivate = *mut _GtkIconThemePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5120,14 +4625,9 @@ impl ::std::fmt::Debug for GtkIconViewAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkIconViewAccessiblePrivate(c_void);
+pub struct _GtkIconViewAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIconViewAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIconViewAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIconViewAccessiblePrivate = *mut _GtkIconViewAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5168,14 +4668,9 @@ impl ::std::fmt::Debug for GtkIconViewClass {
 }
 
 #[repr(C)]
-pub struct GtkIconViewPrivate(c_void);
+pub struct _GtkIconViewPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkIconViewPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkIconViewPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkIconViewPrivate = *mut _GtkIconViewPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5192,14 +4687,9 @@ impl ::std::fmt::Debug for GtkImageAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkImageAccessiblePrivate(c_void);
+pub struct _GtkImageAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkImageAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkImageAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkImageAccessiblePrivate = *mut _GtkImageAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5216,14 +4706,9 @@ impl ::std::fmt::Debug for GtkImageCellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkImageCellAccessiblePrivate(c_void);
+pub struct _GtkImageCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkImageCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkImageCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkImageCellAccessiblePrivate = *mut _GtkImageCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5270,24 +4755,14 @@ impl ::std::fmt::Debug for GtkImageMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkImageMenuItemPrivate(c_void);
+pub struct _GtkImageMenuItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkImageMenuItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkImageMenuItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkImageMenuItemPrivate = *mut _GtkImageMenuItemPrivate;
 
 #[repr(C)]
-pub struct GtkImagePrivate(c_void);
+pub struct _GtkImagePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkImagePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkImagePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkImagePrivate = *mut _GtkImagePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5316,14 +4791,9 @@ impl ::std::fmt::Debug for GtkInfoBarClass {
 }
 
 #[repr(C)]
-pub struct GtkInfoBarPrivate(c_void);
+pub struct _GtkInfoBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkInfoBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkInfoBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkInfoBarPrivate = *mut _GtkInfoBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5348,14 +4818,9 @@ impl ::std::fmt::Debug for GtkInvisibleClass {
 }
 
 #[repr(C)]
-pub struct GtkInvisiblePrivate(c_void);
+pub struct _GtkInvisiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkInvisiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkInvisiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkInvisiblePrivate = *mut _GtkInvisiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5372,14 +4837,9 @@ impl ::std::fmt::Debug for GtkLabelAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkLabelAccessiblePrivate(c_void);
+pub struct _GtkLabelAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLabelAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLabelAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLabelAccessiblePrivate = *mut _GtkLabelAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5420,24 +4880,14 @@ impl ::std::fmt::Debug for GtkLabelClass {
 }
 
 #[repr(C)]
-pub struct GtkLabelPrivate(c_void);
+pub struct _GtkLabelPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLabelPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLabelPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLabelPrivate = *mut _GtkLabelPrivate;
 
 #[repr(C)]
-pub struct GtkLabelSelectionInfo(c_void);
+pub struct _GtkLabelSelectionInfo(c_void);
 
-impl ::std::fmt::Debug for GtkLabelSelectionInfo {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLabelSelectionInfo @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLabelSelectionInfo = *mut _GtkLabelSelectionInfo;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5462,14 +4912,9 @@ impl ::std::fmt::Debug for GtkLayoutClass {
 }
 
 #[repr(C)]
-pub struct GtkLayoutPrivate(c_void);
+pub struct _GtkLayoutPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLayoutPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLayoutPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLayoutPrivate = *mut _GtkLayoutPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5486,14 +4931,9 @@ impl ::std::fmt::Debug for GtkLevelBarAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkLevelBarAccessiblePrivate(c_void);
+pub struct _GtkLevelBarAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLevelBarAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLevelBarAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLevelBarAccessiblePrivate = *mut _GtkLevelBarAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5512,14 +4952,9 @@ impl ::std::fmt::Debug for GtkLevelBarClass {
 }
 
 #[repr(C)]
-pub struct GtkLevelBarPrivate(c_void);
+pub struct _GtkLevelBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLevelBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLevelBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLevelBarPrivate = *mut _GtkLevelBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5536,14 +4971,9 @@ impl ::std::fmt::Debug for GtkLinkButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkLinkButtonAccessiblePrivate(c_void);
+pub struct _GtkLinkButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLinkButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLinkButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLinkButtonAccessiblePrivate = *mut _GtkLinkButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5569,14 +4999,9 @@ impl ::std::fmt::Debug for GtkLinkButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkLinkButtonPrivate(c_void);
+pub struct _GtkLinkButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLinkButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLinkButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLinkButtonPrivate = *mut _GtkLinkButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5593,14 +5018,9 @@ impl ::std::fmt::Debug for GtkListBoxAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkListBoxAccessiblePrivate(c_void);
+pub struct _GtkListBoxAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkListBoxAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkListBoxAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkListBoxAccessiblePrivate = *mut _GtkListBoxAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5695,14 +5115,9 @@ impl ::std::fmt::Debug for GtkListStoreClass {
 }
 
 #[repr(C)]
-pub struct GtkListStorePrivate(c_void);
+pub struct _GtkListStorePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkListStorePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkListStorePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkListStorePrivate = *mut _GtkListStorePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5719,14 +5134,9 @@ impl ::std::fmt::Debug for GtkLockButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkLockButtonAccessiblePrivate(c_void);
+pub struct _GtkLockButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLockButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLockButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLockButtonAccessiblePrivate = *mut _GtkLockButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5759,14 +5169,9 @@ impl ::std::fmt::Debug for GtkLockButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkLockButtonPrivate(c_void);
+pub struct _GtkLockButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkLockButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkLockButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkLockButtonPrivate = *mut _GtkLockButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5783,14 +5188,9 @@ impl ::std::fmt::Debug for GtkMenuAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuAccessiblePrivate(c_void);
+pub struct _GtkMenuAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuAccessiblePrivate = *mut _GtkMenuAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5815,14 +5215,9 @@ impl ::std::fmt::Debug for GtkMenuBarClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuBarPrivate(c_void);
+pub struct _GtkMenuBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuBarPrivate = *mut _GtkMenuBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5839,14 +5234,9 @@ impl ::std::fmt::Debug for GtkMenuButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuButtonAccessiblePrivate(c_void);
+pub struct _GtkMenuButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuButtonAccessiblePrivate = *mut _GtkMenuButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5871,14 +5261,9 @@ impl ::std::fmt::Debug for GtkMenuButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuButtonPrivate(c_void);
+pub struct _GtkMenuButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuButtonPrivate = *mut _GtkMenuButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5917,14 +5302,9 @@ impl ::std::fmt::Debug for GtkMenuItemAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuItemAccessiblePrivate(c_void);
+pub struct _GtkMenuItemAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuItemAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuItemAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuItemAccessiblePrivate = *mut _GtkMenuItemAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -5967,24 +5347,14 @@ impl ::std::fmt::Debug for GtkMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuItemPrivate(c_void);
+pub struct _GtkMenuItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuItemPrivate = *mut _GtkMenuItemPrivate;
 
 #[repr(C)]
-pub struct GtkMenuPrivate(c_void);
+pub struct _GtkMenuPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuPrivate = *mut _GtkMenuPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6001,14 +5371,9 @@ impl ::std::fmt::Debug for GtkMenuShellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuShellAccessiblePrivate(c_void);
+pub struct _GtkMenuShellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuShellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuShellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuShellAccessiblePrivate = *mut _GtkMenuShellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6053,14 +5418,9 @@ impl ::std::fmt::Debug for GtkMenuShellClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuShellPrivate(c_void);
+pub struct _GtkMenuShellPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuShellPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuShellPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuShellPrivate = *mut _GtkMenuShellPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6087,14 +5447,9 @@ impl ::std::fmt::Debug for GtkMenuToolButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkMenuToolButtonPrivate(c_void);
+pub struct _GtkMenuToolButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMenuToolButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMenuToolButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMenuToolButtonPrivate = *mut _GtkMenuToolButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6119,14 +5474,9 @@ impl ::std::fmt::Debug for GtkMessageDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkMessageDialogPrivate(c_void);
+pub struct _GtkMessageDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMessageDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMessageDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMessageDialogPrivate = *mut _GtkMessageDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6151,14 +5501,9 @@ impl ::std::fmt::Debug for GtkMiscClass {
 }
 
 #[repr(C)]
-pub struct GtkMiscPrivate(c_void);
+pub struct _GtkMiscPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMiscPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMiscPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMiscPrivate = *mut _GtkMiscPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6183,14 +5528,9 @@ impl ::std::fmt::Debug for GtkMountOperationClass {
 }
 
 #[repr(C)]
-pub struct GtkMountOperationPrivate(c_void);
+pub struct _GtkMountOperationPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkMountOperationPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkMountOperationPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkMountOperationPrivate = *mut _GtkMountOperationPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6235,14 +5575,9 @@ impl ::std::fmt::Debug for GtkNotebookAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkNotebookAccessiblePrivate(c_void);
+pub struct _GtkNotebookAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkNotebookAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkNotebookAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkNotebookAccessiblePrivate = *mut _GtkNotebookAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6311,24 +5646,14 @@ impl ::std::fmt::Debug for GtkNotebookPageAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkNotebookPageAccessiblePrivate(c_void);
+pub struct _GtkNotebookPageAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkNotebookPageAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkNotebookPageAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkNotebookPageAccessiblePrivate = *mut _GtkNotebookPageAccessiblePrivate;
 
 #[repr(C)]
-pub struct GtkNotebookPrivate(c_void);
+pub struct _GtkNotebookPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkNotebookPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkNotebookPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkNotebookPrivate = *mut _GtkNotebookPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6347,14 +5672,9 @@ impl ::std::fmt::Debug for GtkNumerableIconClass {
 }
 
 #[repr(C)]
-pub struct GtkNumerableIconPrivate(c_void);
+pub struct _GtkNumerableIconPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkNumerableIconPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkNumerableIconPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkNumerableIconPrivate = *mut _GtkNumerableIconPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6425,14 +5745,9 @@ impl ::std::fmt::Debug for GtkOverlayClass {
 }
 
 #[repr(C)]
-pub struct GtkOverlayPrivate(c_void);
+pub struct _GtkOverlayPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkOverlayPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkOverlayPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkOverlayPrivate = *mut _GtkOverlayPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6457,14 +5772,9 @@ impl ::std::fmt::Debug for GtkPadActionEntry {
 }
 
 #[repr(C)]
-pub struct GtkPadControllerClass(c_void);
+pub struct _GtkPadControllerClass(c_void);
 
-impl ::std::fmt::Debug for GtkPadControllerClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPadControllerClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPadControllerClass = *mut _GtkPadControllerClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6497,14 +5807,9 @@ impl ::std::fmt::Debug for GtkPanedAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkPanedAccessiblePrivate(c_void);
+pub struct _GtkPanedAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkPanedAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPanedAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPanedAccessiblePrivate = *mut _GtkPanedAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6541,14 +5846,9 @@ impl ::std::fmt::Debug for GtkPanedClass {
 }
 
 #[repr(C)]
-pub struct GtkPanedPrivate(c_void);
+pub struct _GtkPanedPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkPanedPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPanedPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPanedPrivate = *mut _GtkPanedPrivate;
 
 #[repr(C)]
 pub struct GtkPaperSize(c_void);
@@ -6561,14 +5861,9 @@ impl ::std::fmt::Debug for GtkPaperSize {
 }
 
 #[repr(C)]
-pub struct GtkPlacesSidebarClass(c_void);
+pub struct _GtkPlacesSidebarClass(c_void);
 
-impl ::std::fmt::Debug for GtkPlacesSidebarClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPlacesSidebarClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPlacesSidebarClass = *mut _GtkPlacesSidebarClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6595,14 +5890,9 @@ impl ::std::fmt::Debug for GtkPlugClass {
 }
 
 #[repr(C)]
-pub struct GtkPlugPrivate(c_void);
+pub struct _GtkPlugPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkPlugPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPlugPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPlugPrivate = *mut _GtkPlugPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6651,14 +5941,9 @@ impl ::std::fmt::Debug for GtkPopoverMenuClass {
 }
 
 #[repr(C)]
-pub struct GtkPopoverPrivate(c_void);
+pub struct _GtkPopoverPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkPopoverPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPopoverPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPopoverPrivate = *mut _GtkPopoverPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6753,14 +6038,9 @@ impl ::std::fmt::Debug for GtkPrintOperationPreviewIface {
 }
 
 #[repr(C)]
-pub struct GtkPrintOperationPrivate(c_void);
+pub struct _GtkPrintOperationPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkPrintOperationPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkPrintOperationPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkPrintOperationPrivate = *mut _GtkPrintOperationPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6777,14 +6057,9 @@ impl ::std::fmt::Debug for GtkProgressBarAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkProgressBarAccessiblePrivate(c_void);
+pub struct _GtkProgressBarAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkProgressBarAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkProgressBarAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkProgressBarAccessiblePrivate = *mut _GtkProgressBarAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6809,14 +6084,9 @@ impl ::std::fmt::Debug for GtkProgressBarClass {
 }
 
 #[repr(C)]
-pub struct GtkProgressBarPrivate(c_void);
+pub struct _GtkProgressBarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkProgressBarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkProgressBarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkProgressBarPrivate = *mut _GtkProgressBarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6867,14 +6137,9 @@ impl ::std::fmt::Debug for GtkRadioActionEntry {
 }
 
 #[repr(C)]
-pub struct GtkRadioActionPrivate(c_void);
+pub struct _GtkRadioActionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRadioActionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRadioActionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRadioActionPrivate = *mut _GtkRadioActionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6891,14 +6156,9 @@ impl ::std::fmt::Debug for GtkRadioButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkRadioButtonAccessiblePrivate(c_void);
+pub struct _GtkRadioButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRadioButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRadioButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRadioButtonAccessiblePrivate = *mut _GtkRadioButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6925,14 +6185,9 @@ impl ::std::fmt::Debug for GtkRadioButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkRadioButtonPrivate(c_void);
+pub struct _GtkRadioButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRadioButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRadioButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRadioButtonPrivate = *mut _GtkRadioButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6949,14 +6204,9 @@ impl ::std::fmt::Debug for GtkRadioMenuItemAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkRadioMenuItemAccessiblePrivate(c_void);
+pub struct _GtkRadioMenuItemAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRadioMenuItemAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRadioMenuItemAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRadioMenuItemAccessiblePrivate = *mut _GtkRadioMenuItemAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6983,14 +6233,9 @@ impl ::std::fmt::Debug for GtkRadioMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkRadioMenuItemPrivate(c_void);
+pub struct _GtkRadioMenuItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRadioMenuItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRadioMenuItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRadioMenuItemPrivate = *mut _GtkRadioMenuItemPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7029,14 +6274,9 @@ impl ::std::fmt::Debug for GtkRangeAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkRangeAccessiblePrivate(c_void);
+pub struct _GtkRangeAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRangeAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRangeAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRangeAccessiblePrivate = *mut _GtkRangeAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7075,24 +6315,14 @@ impl ::std::fmt::Debug for GtkRangeClass {
 }
 
 #[repr(C)]
-pub struct GtkRangePrivate(c_void);
+pub struct _GtkRangePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRangePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRangePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRangePrivate = *mut _GtkRangePrivate;
 
 #[repr(C)]
-pub struct GtkRcContext(c_void);
+pub struct _GtkRcContext(c_void);
 
-impl ::std::fmt::Debug for GtkRcContext {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRcContext @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRcContext = *mut _GtkRcContext;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7167,14 +6397,9 @@ impl ::std::fmt::Debug for GtkRecentActionClass {
 }
 
 #[repr(C)]
-pub struct GtkRecentActionPrivate(c_void);
+pub struct _GtkRecentActionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRecentActionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRecentActionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRecentActionPrivate = *mut _GtkRecentActionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7199,14 +6424,9 @@ impl ::std::fmt::Debug for GtkRecentChooserDialogClass {
 }
 
 #[repr(C)]
-pub struct GtkRecentChooserDialogPrivate(c_void);
+pub struct _GtkRecentChooserDialogPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRecentChooserDialogPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRecentChooserDialogPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRecentChooserDialogPrivate = *mut _GtkRecentChooserDialogPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7272,14 +6492,9 @@ impl ::std::fmt::Debug for GtkRecentChooserMenuClass {
 }
 
 #[repr(C)]
-pub struct GtkRecentChooserMenuPrivate(c_void);
+pub struct _GtkRecentChooserMenuPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRecentChooserMenuPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRecentChooserMenuPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRecentChooserMenuPrivate = *mut _GtkRecentChooserMenuPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7304,14 +6519,9 @@ impl ::std::fmt::Debug for GtkRecentChooserWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkRecentChooserWidgetPrivate(c_void);
+pub struct _GtkRecentChooserWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRecentChooserWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRecentChooserWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRecentChooserWidgetPrivate = *mut _GtkRecentChooserWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7399,14 +6609,9 @@ impl ::std::fmt::Debug for GtkRecentManagerClass {
 }
 
 #[repr(C)]
-pub struct GtkRecentManagerPrivate(c_void);
+pub struct _GtkRecentManagerPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRecentManagerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRecentManagerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRecentManagerPrivate = *mut _GtkRecentManagerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7423,14 +6628,9 @@ impl ::std::fmt::Debug for GtkRendererCellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkRendererCellAccessiblePrivate(c_void);
+pub struct _GtkRendererCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkRendererCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkRendererCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkRendererCellAccessiblePrivate = *mut _GtkRendererCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7495,14 +6695,9 @@ impl ::std::fmt::Debug for GtkScaleAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkScaleAccessiblePrivate(c_void);
+pub struct _GtkScaleAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScaleAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScaleAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScaleAccessiblePrivate = *mut _GtkScaleAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7519,14 +6714,9 @@ impl ::std::fmt::Debug for GtkScaleButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkScaleButtonAccessiblePrivate(c_void);
+pub struct _GtkScaleButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScaleButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScaleButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScaleButtonAccessiblePrivate = *mut _GtkScaleButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7553,14 +6743,9 @@ impl ::std::fmt::Debug for GtkScaleButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkScaleButtonPrivate(c_void);
+pub struct _GtkScaleButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScaleButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScaleButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScaleButtonPrivate = *mut _GtkScaleButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7591,14 +6776,9 @@ impl ::std::fmt::Debug for GtkScaleClass {
 }
 
 #[repr(C)]
-pub struct GtkScalePrivate(c_void);
+pub struct _GtkScalePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScalePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScalePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScalePrivate = *mut _GtkScalePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7653,14 +6833,9 @@ impl ::std::fmt::Debug for GtkScrolledWindowAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkScrolledWindowAccessiblePrivate(c_void);
+pub struct _GtkScrolledWindowAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScrolledWindowAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScrolledWindowAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScrolledWindowAccessiblePrivate = *mut _GtkScrolledWindowAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7691,14 +6866,9 @@ impl ::std::fmt::Debug for GtkScrolledWindowClass {
 }
 
 #[repr(C)]
-pub struct GtkScrolledWindowPrivate(c_void);
+pub struct _GtkScrolledWindowPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkScrolledWindowPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkScrolledWindowPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkScrolledWindowPrivate = *mut _GtkScrolledWindowPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7799,14 +6969,9 @@ impl ::std::fmt::Debug for GtkSeparatorMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkSeparatorPrivate(c_void);
+pub struct _GtkSeparatorPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSeparatorPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSeparatorPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSeparatorPrivate = *mut _GtkSeparatorPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7831,14 +6996,9 @@ impl ::std::fmt::Debug for GtkSeparatorToolItemClass {
 }
 
 #[repr(C)]
-pub struct GtkSeparatorToolItemPrivate(c_void);
+pub struct _GtkSeparatorToolItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSeparatorToolItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSeparatorToolItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSeparatorToolItemPrivate = *mut _GtkSeparatorToolItemPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7863,14 +7023,9 @@ impl ::std::fmt::Debug for GtkSettingsClass {
 }
 
 #[repr(C)]
-pub struct GtkSettingsPrivate(c_void);
+pub struct _GtkSettingsPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSettingsPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSettingsPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSettingsPrivate = *mut _GtkSettingsPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7889,44 +7044,24 @@ impl ::std::fmt::Debug for GtkSettingsValue {
 }
 
 #[repr(C)]
-pub struct GtkShortcutLabelClass(c_void);
+pub struct _GtkShortcutLabelClass(c_void);
 
-impl ::std::fmt::Debug for GtkShortcutLabelClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkShortcutLabelClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkShortcutLabelClass = *mut _GtkShortcutLabelClass;
 
 #[repr(C)]
-pub struct GtkShortcutsGroupClass(c_void);
+pub struct _GtkShortcutsGroupClass(c_void);
 
-impl ::std::fmt::Debug for GtkShortcutsGroupClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkShortcutsGroupClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkShortcutsGroupClass = *mut _GtkShortcutsGroupClass;
 
 #[repr(C)]
-pub struct GtkShortcutsSectionClass(c_void);
+pub struct _GtkShortcutsSectionClass(c_void);
 
-impl ::std::fmt::Debug for GtkShortcutsSectionClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkShortcutsSectionClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkShortcutsSectionClass = *mut _GtkShortcutsSectionClass;
 
 #[repr(C)]
-pub struct GtkShortcutsShortcutClass(c_void);
+pub struct _GtkShortcutsShortcutClass(c_void);
 
-impl ::std::fmt::Debug for GtkShortcutsShortcutClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkShortcutsShortcutClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkShortcutsShortcutClass = *mut _GtkShortcutsShortcutClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7969,14 +7104,9 @@ impl ::std::fmt::Debug for GtkSizeGroupClass {
 }
 
 #[repr(C)]
-pub struct GtkSizeGroupPrivate(c_void);
+pub struct _GtkSizeGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSizeGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSizeGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSizeGroupPrivate = *mut _GtkSizeGroupPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8005,14 +7135,9 @@ impl ::std::fmt::Debug for GtkSocketClass {
 }
 
 #[repr(C)]
-pub struct GtkSocketPrivate(c_void);
+pub struct _GtkSocketPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSocketPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSocketPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSocketPrivate = *mut _GtkSocketPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8029,14 +7154,9 @@ impl ::std::fmt::Debug for GtkSpinButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkSpinButtonAccessiblePrivate(c_void);
+pub struct _GtkSpinButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSpinButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSpinButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSpinButtonAccessiblePrivate = *mut _GtkSpinButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8071,14 +7191,9 @@ impl ::std::fmt::Debug for GtkSpinButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkSpinButtonPrivate(c_void);
+pub struct _GtkSpinButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSpinButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSpinButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSpinButtonPrivate = *mut _GtkSpinButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8095,14 +7210,9 @@ impl ::std::fmt::Debug for GtkSpinnerAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkSpinnerAccessiblePrivate(c_void);
+pub struct _GtkSpinnerAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSpinnerAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSpinnerAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSpinnerAccessiblePrivate = *mut _GtkSpinnerAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8127,14 +7237,9 @@ impl ::std::fmt::Debug for GtkSpinnerClass {
 }
 
 #[repr(C)]
-pub struct GtkSpinnerPrivate(c_void);
+pub struct _GtkSpinnerPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSpinnerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSpinnerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSpinnerPrivate = *mut _GtkSpinnerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8187,14 +7292,9 @@ impl ::std::fmt::Debug for GtkStackSidebarClass {
 }
 
 #[repr(C)]
-pub struct GtkStackSidebarPrivate(c_void);
+pub struct _GtkStackSidebarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStackSidebarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStackSidebarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStackSidebarPrivate = *mut _GtkStackSidebarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8255,14 +7355,9 @@ impl ::std::fmt::Debug for GtkStatusIconClass {
 }
 
 #[repr(C)]
-pub struct GtkStatusIconPrivate(c_void);
+pub struct _GtkStatusIconPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStatusIconPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStatusIconPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStatusIconPrivate = *mut _GtkStatusIconPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8279,14 +7374,9 @@ impl ::std::fmt::Debug for GtkStatusbarAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkStatusbarAccessiblePrivate(c_void);
+pub struct _GtkStatusbarAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStatusbarAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStatusbarAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStatusbarAccessiblePrivate = *mut _GtkStatusbarAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8317,14 +7407,9 @@ impl ::std::fmt::Debug for GtkStatusbarClass {
 }
 
 #[repr(C)]
-pub struct GtkStatusbarPrivate(c_void);
+pub struct _GtkStatusbarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStatusbarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStatusbarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStatusbarPrivate = *mut _GtkStatusbarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8461,14 +7546,9 @@ impl ::std::fmt::Debug for GtkStyleContextClass {
 }
 
 #[repr(C)]
-pub struct GtkStyleContextPrivate(c_void);
+pub struct _GtkStyleContextPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStyleContextPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStyleContextPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStyleContextPrivate = *mut _GtkStyleContextPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8492,14 +7572,9 @@ impl ::std::fmt::Debug for GtkStylePropertiesClass {
 }
 
 #[repr(C)]
-pub struct GtkStylePropertiesPrivate(c_void);
+pub struct _GtkStylePropertiesPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkStylePropertiesPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkStylePropertiesPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkStylePropertiesPrivate = *mut _GtkStylePropertiesPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8535,14 +7610,9 @@ impl ::std::fmt::Debug for GtkSwitchAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkSwitchAccessiblePrivate(c_void);
+pub struct _GtkSwitchAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSwitchAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSwitchAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSwitchAccessiblePrivate = *mut _GtkSwitchAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8573,14 +7643,9 @@ impl ::std::fmt::Debug for GtkSwitchClass {
 }
 
 #[repr(C)]
-pub struct GtkSwitchPrivate(c_void);
+pub struct _GtkSwitchPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkSwitchPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkSwitchPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkSwitchPrivate = *mut _GtkSwitchPrivate;
 
 #[repr(C)]
 pub struct GtkSymbolicColor(c_void);
@@ -8644,14 +7709,9 @@ impl ::std::fmt::Debug for GtkTableClass {
 }
 
 #[repr(C)]
-pub struct GtkTablePrivate(c_void);
+pub struct _GtkTablePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTablePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTablePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTablePrivate = *mut _GtkTablePrivate;
 
 #[repr(C)]
 pub struct GtkTableRowCol {
@@ -8743,14 +7803,9 @@ impl ::std::fmt::Debug for GtkTearoffMenuItemClass {
 }
 
 #[repr(C)]
-pub struct GtkTearoffMenuItemPrivate(c_void);
+pub struct _GtkTearoffMenuItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTearoffMenuItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTearoffMenuItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTearoffMenuItemPrivate = *mut _GtkTearoffMenuItemPrivate;
 
 #[repr(C)]
 pub struct GtkTextAppearance {
@@ -8788,14 +7843,9 @@ impl ::std::fmt::Debug for GtkTextAttributes {
 }
 
 #[repr(C)]
-pub struct GtkTextBTree(c_void);
+pub struct _GtkTextBTree(c_void);
 
-impl ::std::fmt::Debug for GtkTextBTree {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextBTree @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextBTree = *mut _GtkTextBTree;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8846,14 +7896,9 @@ impl ::std::fmt::Debug for GtkTextBufferClass {
 }
 
 #[repr(C)]
-pub struct GtkTextBufferPrivate(c_void);
+pub struct _GtkTextBufferPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextBufferPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextBufferPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextBufferPrivate = *mut _GtkTextBufferPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8870,14 +7915,9 @@ impl ::std::fmt::Debug for GtkTextCellAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkTextCellAccessiblePrivate(c_void);
+pub struct _GtkTextCellAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextCellAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextCellAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextCellAccessiblePrivate = *mut _GtkTextCellAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -8974,14 +8014,9 @@ impl ::std::fmt::Debug for GtkTextTagClass {
 }
 
 #[repr(C)]
-pub struct GtkTextTagPrivate(c_void);
+pub struct _GtkTextTagPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextTagPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextTagPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextTagPrivate = *mut _GtkTextTagPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9012,14 +8047,9 @@ impl ::std::fmt::Debug for GtkTextTagTableClass {
 }
 
 #[repr(C)]
-pub struct GtkTextTagTablePrivate(c_void);
+pub struct _GtkTextTagTablePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextTagTablePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextTagTablePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextTagTablePrivate = *mut _GtkTextTagTablePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9036,14 +8066,9 @@ impl ::std::fmt::Debug for GtkTextViewAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkTextViewAccessiblePrivate(c_void);
+pub struct _GtkTextViewAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextViewAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextViewAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextViewAccessiblePrivate = *mut _GtkTextViewAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9096,24 +8121,14 @@ impl ::std::fmt::Debug for GtkTextViewClass {
 }
 
 #[repr(C)]
-pub struct GtkTextViewPrivate(c_void);
+pub struct _GtkTextViewPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTextViewPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTextViewPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTextViewPrivate = *mut _GtkTextViewPrivate;
 
 #[repr(C)]
-pub struct GtkThemeEngine(c_void);
+pub struct _GtkThemeEngine(c_void);
 
-impl ::std::fmt::Debug for GtkThemeEngine {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkThemeEngine @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkThemeEngine = *mut _GtkThemeEngine;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9165,14 +8180,9 @@ impl ::std::fmt::Debug for GtkThemingEngineClass {
 }
 
 #[repr(C)]
-pub struct GtkThemingEnginePrivate(c_void);
+pub struct _GtkThemingEnginePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkThemingEnginePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkThemingEnginePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkThemingEnginePrivate = *mut _GtkThemingEnginePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9225,14 +8235,9 @@ impl ::std::fmt::Debug for GtkToggleActionEntry {
 }
 
 #[repr(C)]
-pub struct GtkToggleActionPrivate(c_void);
+pub struct _GtkToggleActionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToggleActionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToggleActionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToggleActionPrivate = *mut _GtkToggleActionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9249,14 +8254,9 @@ impl ::std::fmt::Debug for GtkToggleButtonAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkToggleButtonAccessiblePrivate(c_void);
+pub struct _GtkToggleButtonAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToggleButtonAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToggleButtonAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToggleButtonAccessiblePrivate = *mut _GtkToggleButtonAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9283,14 +8283,9 @@ impl ::std::fmt::Debug for GtkToggleButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkToggleButtonPrivate(c_void);
+pub struct _GtkToggleButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToggleButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToggleButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToggleButtonPrivate = *mut _GtkToggleButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9317,14 +8312,9 @@ impl ::std::fmt::Debug for GtkToggleToolButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkToggleToolButtonPrivate(c_void);
+pub struct _GtkToggleToolButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToggleToolButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToggleToolButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToggleToolButtonPrivate = *mut _GtkToggleToolButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9353,14 +8343,9 @@ impl ::std::fmt::Debug for GtkToolButtonClass {
 }
 
 #[repr(C)]
-pub struct GtkToolButtonPrivate(c_void);
+pub struct _GtkToolButtonPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToolButtonPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToolButtonPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToolButtonPrivate = *mut _GtkToolButtonPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9411,24 +8396,14 @@ impl ::std::fmt::Debug for GtkToolItemGroupClass {
 }
 
 #[repr(C)]
-pub struct GtkToolItemGroupPrivate(c_void);
+pub struct _GtkToolItemGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToolItemGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToolItemGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToolItemGroupPrivate = *mut _GtkToolItemGroupPrivate;
 
 #[repr(C)]
-pub struct GtkToolItemPrivate(c_void);
+pub struct _GtkToolItemPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToolItemPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToolItemPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToolItemPrivate = *mut _GtkToolItemPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9453,14 +8428,9 @@ impl ::std::fmt::Debug for GtkToolPaletteClass {
 }
 
 #[repr(C)]
-pub struct GtkToolPalettePrivate(c_void);
+pub struct _GtkToolPalettePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToolPalettePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToolPalettePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToolPalettePrivate = *mut _GtkToolPalettePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9522,14 +8492,9 @@ impl ::std::fmt::Debug for GtkToolbarClass {
 }
 
 #[repr(C)]
-pub struct GtkToolbarPrivate(c_void);
+pub struct _GtkToolbarPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToolbarPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToolbarPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToolbarPrivate = *mut _GtkToolbarPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9546,14 +8511,9 @@ impl ::std::fmt::Debug for GtkToplevelAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkToplevelAccessiblePrivate(c_void);
+pub struct _GtkToplevelAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkToplevelAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkToplevelAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkToplevelAccessiblePrivate = *mut _GtkToplevelAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9638,14 +8598,9 @@ impl ::std::fmt::Debug for GtkTreeModelFilterClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeModelFilterPrivate(c_void);
+pub struct _GtkTreeModelFilterPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeModelFilterPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeModelFilterPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeModelFilterPrivate = *mut _GtkTreeModelFilterPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9723,14 +8678,9 @@ impl ::std::fmt::Debug for GtkTreeModelSortClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeModelSortPrivate(c_void);
+pub struct _GtkTreeModelSortPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeModelSortPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeModelSortPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeModelSortPrivate = *mut _GtkTreeModelSortPrivate;
 
 #[repr(C)]
 pub struct GtkTreePath(c_void);
@@ -9777,14 +8727,9 @@ impl ::std::fmt::Debug for GtkTreeSelectionClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeSelectionPrivate(c_void);
+pub struct _GtkTreeSelectionPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeSelectionPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeSelectionPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeSelectionPrivate = *mut _GtkTreeSelectionPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9834,14 +8779,9 @@ impl ::std::fmt::Debug for GtkTreeStoreClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeStorePrivate(c_void);
+pub struct _GtkTreeStorePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeStorePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeStorePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeStorePrivate = *mut _GtkTreeStorePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9858,14 +8798,9 @@ impl ::std::fmt::Debug for GtkTreeViewAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeViewAccessiblePrivate(c_void);
+pub struct _GtkTreeViewAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeViewAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeViewAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeViewAccessiblePrivate = *mut _GtkTreeViewAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -9952,24 +8887,14 @@ impl ::std::fmt::Debug for GtkTreeViewColumnClass {
 }
 
 #[repr(C)]
-pub struct GtkTreeViewColumnPrivate(c_void);
+pub struct _GtkTreeViewColumnPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeViewColumnPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeViewColumnPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeViewColumnPrivate = *mut _GtkTreeViewColumnPrivate;
 
 #[repr(C)]
-pub struct GtkTreeViewPrivate(c_void);
+pub struct _GtkTreeViewPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkTreeViewPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkTreeViewPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkTreeViewPrivate = *mut _GtkTreeViewPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10010,14 +8935,9 @@ impl ::std::fmt::Debug for GtkUIManagerClass {
 }
 
 #[repr(C)]
-pub struct GtkUIManagerPrivate(c_void);
+pub struct _GtkUIManagerPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkUIManagerPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkUIManagerPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkUIManagerPrivate = *mut _GtkUIManagerPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10126,14 +9046,9 @@ impl ::std::fmt::Debug for GtkViewportClass {
 }
 
 #[repr(C)]
-pub struct GtkViewportPrivate(c_void);
+pub struct _GtkViewportPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkViewportPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkViewportPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkViewportPrivate = *mut _GtkViewportPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10174,14 +9089,9 @@ impl ::std::fmt::Debug for GtkWidgetAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkWidgetAccessiblePrivate(c_void);
+pub struct _GtkWidgetAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWidgetAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWidgetAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWidgetAccessiblePrivate = *mut _GtkWidgetAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10369,14 +9279,9 @@ impl ::std::fmt::Debug for GtkWidgetClass {
 }
 
 #[repr(C)]
-pub struct GtkWidgetClassPrivate(c_void);
+pub struct _GtkWidgetClassPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWidgetClassPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWidgetClassPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWidgetClassPrivate = *mut _GtkWidgetClassPrivate;
 
 #[repr(C)]
 pub struct GtkWidgetPath(c_void);
@@ -10389,14 +9294,9 @@ impl ::std::fmt::Debug for GtkWidgetPath {
 }
 
 #[repr(C)]
-pub struct GtkWidgetPrivate(c_void);
+pub struct _GtkWidgetPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWidgetPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWidgetPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWidgetPrivate = *mut _GtkWidgetPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10413,14 +9313,9 @@ impl ::std::fmt::Debug for GtkWindowAccessibleClass {
 }
 
 #[repr(C)]
-pub struct GtkWindowAccessiblePrivate(c_void);
+pub struct _GtkWindowAccessiblePrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWindowAccessiblePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWindowAccessiblePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWindowAccessiblePrivate = *mut _GtkWindowAccessiblePrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10453,14 +9348,9 @@ impl ::std::fmt::Debug for GtkWindowClass {
 }
 
 #[repr(C)]
-pub struct GtkWindowGeometryInfo(c_void);
+pub struct _GtkWindowGeometryInfo(c_void);
 
-impl ::std::fmt::Debug for GtkWindowGeometryInfo {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWindowGeometryInfo @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWindowGeometryInfo = *mut _GtkWindowGeometryInfo;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -10485,24 +9375,14 @@ impl ::std::fmt::Debug for GtkWindowGroupClass {
 }
 
 #[repr(C)]
-pub struct GtkWindowGroupPrivate(c_void);
+pub struct _GtkWindowGroupPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWindowGroupPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWindowGroupPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWindowGroupPrivate = *mut _GtkWindowGroupPrivate;
 
 #[repr(C)]
-pub struct GtkWindowPrivate(c_void);
+pub struct _GtkWindowPrivate(c_void);
 
-impl ::std::fmt::Debug for GtkWindowPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GtkWindowPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GtkWindowPrivate = *mut _GtkWindowPrivate;
 
 // Classes
 #[repr(C)]

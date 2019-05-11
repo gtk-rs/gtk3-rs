@@ -465,14 +465,9 @@ impl ::std::fmt::Debug for GParamSpecClass {
 }
 
 #[repr(C)]
-pub struct GParamSpecPool(c_void);
+pub struct _GParamSpecPool(c_void);
 
-impl ::std::fmt::Debug for GParamSpecPool {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GParamSpecPool @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GParamSpecPool = *mut _GParamSpecPool;
 
 #[repr(C)]
 #[derive(Copy, Clone)]

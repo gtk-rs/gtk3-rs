@@ -1055,24 +1055,14 @@ impl ::std::fmt::Debug for GArray {
 }
 
 #[repr(C)]
-pub struct GAsyncQueue(c_void);
+pub struct _GAsyncQueue(c_void);
 
-impl ::std::fmt::Debug for GAsyncQueue {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GAsyncQueue @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GAsyncQueue = *mut _GAsyncQueue;
 
 #[repr(C)]
-pub struct GBookmarkFile(c_void);
+pub struct _GBookmarkFile(c_void);
 
-impl ::std::fmt::Debug for GBookmarkFile {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GBookmarkFile @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GBookmarkFile = *mut _GBookmarkFile;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1125,14 +1115,9 @@ impl ::std::fmt::Debug for GCond {
 }
 
 #[repr(C)]
-pub struct GData(c_void);
+pub struct _GData(c_void);
 
-impl ::std::fmt::Debug for GData {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GData @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GData = *mut _GData;
 
 #[repr(C)]
 pub struct GDate {
@@ -1176,14 +1161,9 @@ impl ::std::fmt::Debug for GDebugKey {
 }
 
 #[repr(C)]
-pub struct GDir(c_void);
+pub struct _GDir(c_void);
 
-impl ::std::fmt::Debug for GDir {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GDir @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GDir = *mut _GDir;
 
 #[repr(C)]
 pub struct GDoubleIEEE754_mpn {
@@ -1262,14 +1242,9 @@ impl ::std::fmt::Debug for GHashTableIter {
 }
 
 #[repr(C)]
-pub struct GHmac(c_void);
+pub struct _GHmac(c_void);
 
-impl ::std::fmt::Debug for GHmac {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GHmac @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GHmac = *mut _GHmac;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1557,14 +1532,9 @@ impl ::std::fmt::Debug for GOnce {
 }
 
 #[repr(C)]
-pub struct GOptionContext(c_void);
+pub struct _GOptionContext(c_void);
 
-impl ::std::fmt::Debug for GOptionContext {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GOptionContext @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GOptionContext = *mut _GOptionContext;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1603,14 +1573,9 @@ impl ::std::fmt::Debug for GOptionGroup {
 }
 
 #[repr(C)]
-pub struct GPatternSpec(c_void);
+pub struct _GPatternSpec(c_void);
 
-impl ::std::fmt::Debug for GPatternSpec {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GPatternSpec @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GPatternSpec = *mut _GPatternSpec;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1676,14 +1641,9 @@ impl ::std::fmt::Debug for GRWLock {
 }
 
 #[repr(C)]
-pub struct GRand(c_void);
+pub struct _GRand(c_void);
 
-impl ::std::fmt::Debug for GRand {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GRand @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GRand = *mut _GRand;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1797,24 +1757,14 @@ impl ::std::fmt::Debug for GScannerConfig {
 }
 
 #[repr(C)]
-pub struct GSequence(c_void);
+pub struct _GSequence(c_void);
 
-impl ::std::fmt::Debug for GSequence {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSequence @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSequence = *mut _GSequence;
 
 #[repr(C)]
-pub struct GSequenceIter(c_void);
+pub struct _GSequenceIter(c_void);
 
-impl ::std::fmt::Debug for GSequenceIter {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSequenceIter @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSequenceIter = *mut _GSequenceIter;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1882,24 +1832,14 @@ impl ::std::fmt::Debug for GSourceFuncs {
 }
 
 #[repr(C)]
-pub struct GSourcePrivate(c_void);
+pub struct _GSourcePrivate(c_void);
 
-impl ::std::fmt::Debug for GSourcePrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GSourcePrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GSourcePrivate = *mut _GSourcePrivate;
 
 #[repr(C)]
-pub struct GStatBuf(c_void);
+pub struct _GStatBuf(c_void);
 
-impl ::std::fmt::Debug for GStatBuf {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GStatBuf @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GStatBuf = *mut _GStatBuf;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1920,24 +1860,14 @@ impl ::std::fmt::Debug for GString {
 }
 
 #[repr(C)]
-pub struct GStringChunk(c_void);
+pub struct _GStringChunk(c_void);
 
-impl ::std::fmt::Debug for GStringChunk {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GStringChunk @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GStringChunk = *mut _GStringChunk;
 
 #[repr(C)]
-pub struct GTestCase(c_void);
+pub struct _GTestCase(c_void);
 
-impl ::std::fmt::Debug for GTestCase {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTestCase @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTestCase = *mut _GTestCase;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2000,14 +1930,9 @@ impl ::std::fmt::Debug for GTestLogMsg {
 }
 
 #[repr(C)]
-pub struct GTestSuite(c_void);
+pub struct _GTestSuite(c_void);
 
-impl ::std::fmt::Debug for GTestSuite {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTestSuite @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTestSuite = *mut _GTestSuite;
 
 #[repr(C)]
 pub struct GThread(c_void);
@@ -2064,14 +1989,9 @@ impl ::std::fmt::Debug for GTimeZone {
 }
 
 #[repr(C)]
-pub struct GTimer(c_void);
+pub struct _GTimer(c_void);
 
-impl ::std::fmt::Debug for GTimer {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTimer @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTimer = *mut _GTimer;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2088,14 +2008,9 @@ impl ::std::fmt::Debug for GTrashStack {
 }
 
 #[repr(C)]
-pub struct GTree(c_void);
+pub struct _GTree(c_void);
 
-impl ::std::fmt::Debug for GTree {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GTree @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GTree = *mut _GTree;
 
 #[repr(C)]
 pub struct GVariant(c_void);

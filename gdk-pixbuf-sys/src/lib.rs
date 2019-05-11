@@ -87,14 +87,9 @@ impl ::std::fmt::Debug for GdkPixbufLoaderClass {
 }
 
 #[repr(C)]
-pub struct GdkPixbufSimpleAnimClass(c_void);
+pub struct _GdkPixbufSimpleAnimClass(c_void);
 
-impl ::std::fmt::Debug for GdkPixbufSimpleAnimClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkPixbufSimpleAnimClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkPixbufSimpleAnimClass = *mut _GdkPixbufSimpleAnimClass;
 
 // Classes
 #[repr(C)]
