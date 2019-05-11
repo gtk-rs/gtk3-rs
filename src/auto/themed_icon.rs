@@ -7,8 +7,7 @@ use gio_sys;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::Cast;
-use glib::object::IsA;
+use glib::object::ObjectType;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -45,62 +44,45 @@ impl ThemedIcon {
             from_glib_full(gio_sys::g_themed_icon_new_with_default_fallbacks(iconname.to_glib_none().0))
         }
     }
-}
 
-pub const NONE_THEMED_ICON: Option<&ThemedIcon> = None;
-
-pub trait ThemedIconExt: 'static {
-    fn append_name(&self, iconname: &str);
-
-    fn get_names(&self) -> Vec<GString>;
-
-    fn prepend_name(&self, iconname: &str);
-
-    fn get_property_use_default_fallbacks(&self) -> bool;
-
-    fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
-}
-
-impl<O: IsA<ThemedIcon>> ThemedIconExt for O {
-    fn append_name(&self, iconname: &str) {
+    pub fn append_name(&self, iconname: &str) {
         unsafe {
-            gio_sys::g_themed_icon_append_name(self.as_ref().to_glib_none().0, iconname.to_glib_none().0);
+            gio_sys::g_themed_icon_append_name(self.to_glib_none().0, iconname.to_glib_none().0);
         }
     }
 
-    fn get_names(&self) -> Vec<GString> {
+    pub fn get_names(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(gio_sys::g_themed_icon_get_names(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(gio_sys::g_themed_icon_get_names(self.to_glib_none().0))
         }
     }
 
-    fn prepend_name(&self, iconname: &str) {
+    pub fn prepend_name(&self, iconname: &str) {
         unsafe {
-            gio_sys::g_themed_icon_prepend_name(self.as_ref().to_glib_none().0, iconname.to_glib_none().0);
+            gio_sys::g_themed_icon_prepend_name(self.to_glib_none().0, iconname.to_glib_none().0);
         }
     }
 
-    fn get_property_use_default_fallbacks(&self) -> bool {
+    pub fn get_property_use_default_fallbacks(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"use-default-fallbacks\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"use-default-fallbacks\0".as_ptr() as *const _, value.to_glib_none_mut().0);
             value.get().unwrap()
         }
     }
 
-    fn connect_property_names_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_property_names_notify<F: Fn(&ThemedIcon) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::names\0".as_ptr() as *const _,
-                Some(transmute(notify_names_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+                Some(transmute(notify_names_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
 }
 
-unsafe extern "C" fn notify_names_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GThemedIcon, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<ThemedIcon> {
+unsafe extern "C" fn notify_names_trampoline<F: Fn(&ThemedIcon) + 'static>(this: *mut gio_sys::GThemedIcon, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
-    f(&ThemedIcon::from_glib_borrow(this).unsafe_cast())
+    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for ThemedIcon {

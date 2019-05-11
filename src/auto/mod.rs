@@ -65,8 +65,7 @@ pub use self::converter_output_stream::{ConverterOutputStream, ConverterOutputSt
 pub use self::converter_output_stream::ConverterOutputStreamExt;
 
 mod credentials;
-pub use self::credentials::{Credentials, CredentialsClass, NONE_CREDENTIALS};
-pub use self::credentials::CredentialsExt;
+pub use self::credentials::{Credentials, CredentialsClass};
 
 mod data_input_stream;
 pub use self::data_input_stream::{DataInputStream, DataInputStreamClass, NONE_DATA_INPUT_STREAM};
@@ -88,8 +87,7 @@ pub use self::drive::{Drive, NONE_DRIVE};
 pub use self::drive::DriveExt;
 
 mod emblem;
-pub use self::emblem::{Emblem, EmblemClass, NONE_EMBLEM};
-pub use self::emblem::EmblemExt;
+pub use self::emblem::{Emblem, EmblemClass};
 
 mod emblemed_icon;
 pub use self::emblemed_icon::{EmblemedIcon, EmblemedIconClass, NONE_EMBLEMED_ICON};
@@ -104,12 +102,10 @@ pub use self::file_io_stream::{FileIOStream, FileIOStreamClass, NONE_FILE_IO_STR
 pub use self::file_io_stream::FileIOStreamExt;
 
 mod file_icon;
-pub use self::file_icon::{FileIcon, FileIconClass, NONE_FILE_ICON};
-pub use self::file_icon::FileIconExt;
+pub use self::file_icon::{FileIcon, FileIconClass};
 
 mod file_info;
-pub use self::file_info::{FileInfo, FileInfoClass, NONE_FILE_INFO};
-pub use self::file_info::FileInfoExt;
+pub use self::file_info::{FileInfo, FileInfoClass};
 
 mod file_input_stream;
 pub use self::file_input_stream::{FileInputStream, FileInputStreamClass, NONE_FILE_INPUT_STREAM};
@@ -334,8 +330,7 @@ pub use self::tcp_connection::{TcpConnection, TcpConnectionClass, NONE_TCP_CONNE
 pub use self::tcp_connection::TcpConnectionExt;
 
 mod themed_icon;
-pub use self::themed_icon::{ThemedIcon, ThemedIconClass, NONE_THEMED_ICON};
-pub use self::themed_icon::ThemedIconExt;
+pub use self::themed_icon::{ThemedIcon, ThemedIconClass};
 
 mod threaded_socket_service;
 pub use self::threaded_socket_service::{ThreadedSocketService, ThreadedSocketServiceClass, NONE_THREADED_SOCKET_SERVICE};
@@ -609,18 +604,14 @@ pub mod traits {
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
     pub use super::ConverterOutputStreamExt;
-    pub use super::CredentialsExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(not(windows), feature = "dox"))]
     pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
-    pub use super::EmblemExt;
     pub use super::EmblemedIconExt;
     pub use super::FileExt;
     pub use super::FileIOStreamExt;
-    pub use super::FileIconExt;
-    pub use super::FileInfoExt;
     pub use super::FileInputStreamExt;
     pub use super::FileMonitorExt;
     pub use super::FileOutputStreamExt;
@@ -669,7 +660,6 @@ pub mod traits {
     pub use super::SocketListenerExt;
     pub use super::SocketServiceExt;
     pub use super::TcpConnectionExt;
-    pub use super::ThemedIconExt;
     pub use super::ThreadedSocketServiceExt;
     pub use super::TlsCertificateExt;
     pub use super::TlsClientConnectionExt;

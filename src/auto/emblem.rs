@@ -29,26 +29,16 @@ impl Emblem {
             from_glib_full(gio_sys::g_emblem_new_with_origin(icon.as_ref().to_glib_none().0, origin.to_glib()))
         }
     }
-}
 
-pub const NONE_EMBLEM: Option<&Emblem> = None;
-
-pub trait EmblemExt: 'static {
-    fn get_icon(&self) -> Option<Icon>;
-
-    fn get_origin(&self) -> EmblemOrigin;
-}
-
-impl<O: IsA<Emblem>> EmblemExt for O {
-    fn get_icon(&self) -> Option<Icon> {
+    pub fn get_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_none(gio_sys::g_emblem_get_icon(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_emblem_get_icon(self.to_glib_none().0))
         }
     }
 
-    fn get_origin(&self) -> EmblemOrigin {
+    pub fn get_origin(&self) -> EmblemOrigin {
         unsafe {
-            from_glib(gio_sys::g_emblem_get_origin(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_emblem_get_origin(self.to_glib_none().0))
         }
     }
 }

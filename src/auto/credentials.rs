@@ -5,7 +5,6 @@
 use Error;
 use gio_sys;
 use glib::GString;
-use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::ptr;
@@ -24,83 +23,60 @@ impl Credentials {
             from_glib_full(gio_sys::g_credentials_new())
         }
     }
-}
 
-impl Default for Credentials {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-pub const NONE_CREDENTIALS: Option<&Credentials> = None;
-
-pub trait CredentialsExt: 'static {
-    //fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer>;
-
-    #[cfg(any(unix, feature = "dox"))]
-    fn get_unix_pid(&self) -> Result<i32, Error>;
-
-    #[cfg(any(unix, feature = "dox"))]
-    fn get_unix_user(&self) -> Result<(), Error>;
-
-    fn is_same_user<P: IsA<Credentials>>(&self, other_credentials: &P) -> Result<(), Error>;
-
-    //fn set_native(&self, native_type: CredentialsType, native: /*Unimplemented*/Fundamental: Pointer);
-
-    #[cfg(any(unix, feature = "dox"))]
-    fn set_unix_user(&self, uid: u32) -> Result<(), Error>;
-
-    fn to_string(&self) -> GString;
-}
-
-impl<O: IsA<Credentials>> CredentialsExt for O {
-    //fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+    //pub fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer> {
     //    unsafe { TODO: call gio_sys:g_credentials_get_native() }
     //}
 
     #[cfg(any(unix, feature = "dox"))]
-    fn get_unix_pid(&self) -> Result<i32, Error> {
+    pub fn get_unix_pid(&self) -> Result<i32, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_credentials_get_unix_pid(self.as_ref().to_glib_none().0, &mut error);
+            let ret = gio_sys::g_credentials_get_unix_pid(self.to_glib_none().0, &mut error);
             if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
         }
     }
 
     #[cfg(any(unix, feature = "dox"))]
-    fn get_unix_user(&self) -> Result<(), Error> {
+    pub fn get_unix_user(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_credentials_get_unix_user(self.as_ref().to_glib_none().0, &mut error);
+            let _ = gio_sys::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn is_same_user<P: IsA<Credentials>>(&self, other_credentials: &P) -> Result<(), Error> {
+    pub fn is_same_user(&self, other_credentials: &Credentials) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_credentials_is_same_user(self.as_ref().to_glib_none().0, other_credentials.as_ref().to_glib_none().0, &mut error);
+            let _ = gio_sys::g_credentials_is_same_user(self.to_glib_none().0, other_credentials.to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    //fn set_native(&self, native_type: CredentialsType, native: /*Unimplemented*/Fundamental: Pointer) {
+    //pub fn set_native(&self, native_type: CredentialsType, native: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call gio_sys:g_credentials_set_native() }
     //}
 
     #[cfg(any(unix, feature = "dox"))]
-    fn set_unix_user(&self, uid: u32) -> Result<(), Error> {
+    pub fn set_unix_user(&self, uid: u32) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_credentials_set_unix_user(self.as_ref().to_glib_none().0, uid, &mut error);
+            let _ = gio_sys::g_credentials_set_unix_user(self.to_glib_none().0, uid, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }
 
-    fn to_string(&self) -> GString {
+    pub fn to_string(&self) -> GString {
         unsafe {
-            from_glib_full(gio_sys::g_credentials_to_string(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_credentials_to_string(self.to_glib_none().0))
         }
+    }
+}
+
+impl Default for Credentials {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
