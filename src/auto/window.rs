@@ -127,7 +127,7 @@ pub trait WindowExt: 'static {
     fn destroy_notify(&self);
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn end_draw_frame<P: IsA<DrawingContext>>(&self, context: &P);
+    fn end_draw_frame(&self, context: &DrawingContext);
 
     fn end_paint(&self);
 
@@ -525,9 +525,9 @@ impl<O: IsA<Window>> WindowExt for O {
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    fn end_draw_frame<P: IsA<DrawingContext>>(&self, context: &P) {
+    fn end_draw_frame(&self, context: &DrawingContext) {
         unsafe {
-            gdk_sys::gdk_window_end_draw_frame(self.as_ref().to_glib_none().0, context.as_ref().to_glib_none().0);
+            gdk_sys::gdk_window_end_draw_frame(self.as_ref().to_glib_none().0, context.to_glib_none().0);
         }
     }
 
