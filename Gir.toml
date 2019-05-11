@@ -200,6 +200,7 @@ status = "generate"
 [[object]]
 name = "Gio.Application"
 status = "generate"
+subclassing = true
 manual_traits = ["ApplicationExtManual"]
     [[object.signal]]
     name = "open"

@@ -73,3 +73,7 @@ mod auto;
 mod gio_future;
 #[cfg(feature = "futures")]
 pub use gio_future::*;
+
+#[macro_use]
+#[cfg(feature = "subclassing")]
+pub mod subclass;
