@@ -1,8 +1,10 @@
-#![feature(async_await, await_macro)]
+#![feature(async_await)]
 
-extern crate glib;
 extern crate gio;
+extern crate glib;
 use gio::prelude::*;
+
+use futures::prelude::*;
 
 use std::str;
 
@@ -10,8 +12,10 @@ use std::str;
 // via map_err() return them directly.
 async fn read_file(file: gio::File) -> Result<(), String> {
     // Try to open the file.
-    let strm = await!(file.read_async_future(glib::PRIORITY_DEFAULT))
-        .map_err(|err| format!("Failed to open file: {}", err))?;
+    let strm = file
+        .read_async_future(glib::PRIORITY_DEFAULT)
+        .map_err(|err| format!("Failed to open file: {}", err))
+        .await?;
 
     // If opening the file succeeds, we asynchronously loop and
     // read the file in up to 64 byte chunks and re-use the same
@@ -20,8 +24,10 @@ async fn read_file(file: gio::File) -> Result<(), String> {
     let mut idx = 0;
 
     loop {
-        let (b, len) = await!(strm.read_async_future(buf, glib::PRIORITY_DEFAULT))
-            .map_err(|(_buf, err)| format!("Failed to read from stream: {}", err))?;
+        let (b, len) = strm
+            .read_async_future(buf, glib::PRIORITY_DEFAULT)
+            .map_err(|(_buf, err)| format!("Failed to read from stream: {}", err))
+            .await?;
 
         // Once 0 is returned, we know that we're done with reading, otherwise
         // loop again and read another chunk.
@@ -37,8 +43,10 @@ async fn read_file(file: gio::File) -> Result<(), String> {
     }
 
     // Asynchronously close the stream in the end.
-    let _ = await!(strm.close_async_future(glib::PRIORITY_DEFAULT))
-        .map_err(|err| format!("Failed to close stream: {}", err))?;
+    let _ = strm
+        .close_async_future(glib::PRIORITY_DEFAULT)
+        .map_err(|err| format!("Failed to close stream: {}", err))
+        .await?;
 
     Ok(())
 }
@@ -53,7 +61,7 @@ fn main() {
 
     let l_clone = l.clone();
     let future = async move {
-        match await!(read_file(file)) {
+        match read_file(file).await {
             Ok(()) => (),
             Err(err) => eprintln!("Got error: {}", err),
         }
