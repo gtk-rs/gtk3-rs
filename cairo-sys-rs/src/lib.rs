@@ -431,8 +431,8 @@ extern "C" {
     pub fn cairo_pattern_get_matrix(pattern: *mut cairo_pattern_t, matrix: *mut Matrix);
     pub fn cairo_pattern_get_type(pattern: *mut cairo_pattern_t) -> cairo_pattern_type_t;
     pub fn cairo_pattern_get_reference_count(pattern: *mut cairo_pattern_t) -> c_uint;
-    //pub fn cairo_pattern_set_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
-    //pub fn cairo_pattern_get_user_data(pattern: *mut cairo_pattern_t, key: *mut cairo_user_data_key_t) -> *mut void;
+    pub fn cairo_pattern_set_user_data(pattern: *mut cairo_pattern_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
+    pub fn cairo_pattern_get_user_data(pattern: *mut cairo_pattern_t, key: *const cairo_user_data_key_t) -> *mut c_void;
 
     // CAIRO REGIONS
     pub fn cairo_region_create() -> *mut cairo_region_t;
@@ -519,8 +519,8 @@ extern "C" {
     pub fn cairo_font_face_status(font_face: *mut cairo_font_face_t) -> cairo_status_t;
     pub fn cairo_font_face_get_type(font_face: *mut cairo_font_face_t) -> cairo_font_type_t;
     pub fn cairo_font_face_get_reference_count(font_face: *mut cairo_font_face_t) -> c_uint;
-    //pub fn cairo_font_face_set_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
-    //pub fn cairo_font_face_get_user_data(font_face: *mut cairo_font_face_t, key: *mut cairo_user_data_key_t) -> *mut void;
+    pub fn cairo_font_face_set_user_data(font_face: *mut cairo_font_face_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
+    pub fn cairo_font_face_get_user_data(font_face: *mut cairo_font_face_t, key: *const cairo_user_data_key_t) -> *mut c_void;
 
     // CAIRO SCALED FONT
     pub fn cairo_scaled_font_create(font_face: *mut cairo_font_face_t, font_matrix: *const Matrix, ctm: *const Matrix, options: *const cairo_font_options_t) -> *mut cairo_scaled_font_t;
@@ -538,8 +538,8 @@ extern "C" {
     pub fn cairo_scaled_font_get_scale_matrix(scaled_font: *mut cairo_scaled_font_t, scale_matrix: *mut Matrix);
     pub fn cairo_scaled_font_get_type(scaled_font: *mut cairo_scaled_font_t) -> cairo_font_type_t;
     pub fn cairo_scaled_font_get_reference_count(font_face: *mut cairo_scaled_font_t) -> c_uint;
-    //pub fn cairo_scaled_font_set_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t, user_data: *mut void, destroy: cairo_destroy_func_t) -> cairo_status_t;
-    //pub fn cairo_scaled_font_get_user_data(scaled_font: *mut cairo_scaled_font_t, key: *mut cairo_user_data_key_t) -> *mut void;
+    pub fn cairo_scaled_font_set_user_data(scaled_font: *mut cairo_scaled_font_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
+    pub fn cairo_scaled_font_get_user_data(scaled_font: *mut cairo_scaled_font_t, key: *const cairo_user_data_key_t) -> *mut c_void;
 
     // CAIRO FONT OPTIONS
     pub fn cairo_font_options_create() -> *mut cairo_font_options_t;
@@ -580,8 +580,8 @@ extern "C" {
     pub fn cairo_surface_status(surface: *mut cairo_surface_t) -> cairo_status_t;
     pub fn cairo_surface_get_type(surface: *mut cairo_surface_t) -> cairo_surface_type_t;
     pub fn cairo_surface_reference(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
-    pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t) -> *mut c_void;
-    pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *mut cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
+    pub fn cairo_surface_get_user_data(surface: *mut cairo_surface_t, key: *const cairo_user_data_key_t) -> *mut c_void;
+    pub fn cairo_surface_set_user_data(surface: *mut cairo_surface_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
     pub fn cairo_surface_get_reference_count(surface: *mut cairo_surface_t) -> c_uint;
     pub fn cairo_surface_mark_dirty(surface: *mut cairo_surface_t);
     pub fn cairo_surface_create_similar(surface: *mut cairo_surface_t, content: cairo_content_t, width: c_int, height: c_int) -> *mut cairo_surface_t;
@@ -862,8 +862,8 @@ extern "C" {
     pub fn cairo_device_get_type(device: *mut cairo_device_t) -> cairo_device_type_t;
     pub fn cairo_device_reference(device: *mut cairo_device_t) -> *mut cairo_device_t;
     pub fn cairo_device_get_reference_count(device: *mut cairo_device_t) -> c_uint;
-    // pub fn cairo_device_set_user_data() -> cairo_status_t;
-    // pub fn cairo_device_get_user_data() -> *mut c_void;
+    pub fn cairo_device_set_user_data(device: *mut cairo_device_t, key: *const cairo_user_data_key_t, user_data: *mut c_void, destroy: cairo_destroy_func_t) -> cairo_status_t;
+    pub fn cairo_device_get_user_data(device: *mut cairo_device_t, key: *const cairo_user_data_key_t) -> *mut c_void;
     pub fn cairo_device_acquire(device: *mut cairo_device_t) -> cairo_status_t;
     pub fn cairo_device_release(device: *mut cairo_device_t);
     pub fn cairo_device_observer_elapsed(device: *mut cairo_device_t) -> c_double;

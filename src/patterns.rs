@@ -35,6 +35,14 @@ pub enum Pattern {
     Mesh(Mesh),
 }
 
+impl Pattern {
+    user_data_methods! {
+        Pattern::as_ptr,
+        ffi::cairo_pattern_get_user_data,
+        ffi::cairo_pattern_set_user_data,
+    }
+}
+
 impl PatternTrait for Pattern {
     type PatternType = Pattern;
 
@@ -167,6 +175,14 @@ macro_rules! pattern_type(
 
             fn as_ptr(&self) -> *mut cairo_pattern_t {
                 self.pointer
+            }
+        }
+
+        impl $pattern_type {
+            user_data_methods! {
+                $pattern_type::as_ptr,
+                ffi::cairo_pattern_get_user_data,
+                ffi::cairo_pattern_set_user_data,
             }
         }
 

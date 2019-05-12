@@ -63,6 +63,8 @@ macro_rules! gvalue_impl {
     }
 }
 
+pub use user_data::UserDataKey;
+
 pub use context::{
     Context,
     RectangleList,
@@ -150,6 +152,7 @@ pub use xcb::{
 
 pub mod prelude;
 
+#[macro_use] mod user_data;
 mod constants;
 pub use constants::*;
 mod utils;

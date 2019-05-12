@@ -274,6 +274,12 @@ impl Device {
             }
         }
     }
+
+    user_data_methods! {
+        Device::to_raw_none,
+        ffi::cairo_device_get_user_data,
+        ffi::cairo_device_set_user_data,
+    }
 }
 
 #[cfg(feature = "use_glib")]

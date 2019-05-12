@@ -126,6 +126,12 @@ impl FontFace {
             ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into())
         }
     }
+
+    user_data_methods! {
+        FontFace::to_raw_none,
+        ffi::cairo_font_face_get_user_data,
+        ffi::cairo_font_face_set_user_data,
+    }
 }
 
 #[cfg(not(feature = "use_glib"))]
