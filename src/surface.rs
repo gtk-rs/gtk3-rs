@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use std::ptr;
 use std::slice;
 use libc::{c_ulong, c_void};
@@ -112,6 +111,11 @@ impl Surface {
         };
 
         let user_data = Box::into_raw(b);
+
+        unsafe extern "C" fn unbox<T>(data: *mut c_void) {
+            let data: Box<T> = Box::from_raw(data as *mut T);
+            drop(data);
+        }
 
         let status = unsafe {
             let mime_type = CString::new(mime_type).unwrap();
@@ -327,30 +331,6 @@ impl fmt::Display for MappedImageSurface {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "MappedImageSurface")
     }
-}
-
-pub(crate) trait SurfacePriv {
-    unsafe fn set_user_data<K, T>(&self, key: &K, data: Box<T>) -> Result<(), Status>;
-}
-
-impl<O: AsRef<Surface>> SurfacePriv for O {
-    unsafe fn set_user_data<K, T>(&self, key: &K, data: Box<T>) -> Result<(), Status> {
-        let ptr: *mut T = Box::into_raw(data);
-
-        assert_eq!(mem::size_of::<*mut c_void>(), mem::size_of_val(&ptr));
-
-        let status = ffi::cairo_surface_set_user_data(self.as_ref().0, key as *const _ as *mut _,
-            ptr as *mut c_void, Some(unbox::<T>));
-        match Status::from(status) {
-            Status::Success => Ok(()),
-            x => Err(x),
-        }
-    }
-}
-
-unsafe extern "C" fn unbox<T>(data: *mut c_void) {
-    let data: Box<T> = Box::from_raw(data as *mut T);
-    drop(data);
 }
 
 #[cfg(test)]

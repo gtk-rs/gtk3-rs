@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::ops::{Deref, DerefMut};
+use std::rc::Rc;
 use std::slice;
 
 #[cfg(feature = "use_glib")]
@@ -14,7 +15,7 @@ use ::enums::{
 };
 
 use BorrowError;
-use surface::{Surface, SurfaceExt, SurfacePriv};
+use surface::{Surface, SurfaceExt};
 use Status;
 use std::fmt;
 
@@ -48,23 +49,26 @@ impl ImageSurface {
 
     pub fn create_for_data<D: AsMut<[u8]> + 'static>(data: D, format: Format, width: i32, height: i32,
                               stride: i32) -> Result<ImageSurface, Status> {
-        let mut data: Box<AsMut<[u8]> + 'static> = Box::new(data);
+        let mut data: Box<dyn AsMut<[u8]>> = Box::new(data);
 
         let (ptr, len) = {
-            let mut data = (*data).as_mut();
+            let mut data: &mut [u8] = (*data).as_mut();
 
             (data.as_mut_ptr(), data.len())
         };
 
         assert!(len >= (height * stride) as usize);
-        unsafe {
-            let r = ImageSurface::from_raw_full(
-                ffi::cairo_image_surface_create_for_data(ptr, format.into(), width, height, stride));
-            match r {
-                Ok(surface) => surface.set_user_data(&IMAGE_SURFACE_DATA, Box::new(data)).map (|_| surface),
-                Err(status) => Err(status)
-            }
+        let result = unsafe {
+            ImageSurface::from_raw_full(
+                ffi::cairo_image_surface_create_for_data(ptr, format.into(), width, height, stride)
+            )
+        };
+        if let Ok(surface) = &result {
+            static IMAGE_SURFACE_DATA: crate::UserDataKey<Box<dyn AsMut<[u8]>>> =
+                crate::UserDataKey::new();
+            surface.set_user_data(&IMAGE_SURFACE_DATA, Rc::new(data))
         }
+        result
     }
 
     pub fn get_data(&mut self) -> Result<ImageSurfaceData, BorrowError> {
@@ -102,8 +106,6 @@ impl ImageSurface {
         unsafe { ffi::cairo_image_surface_get_width(self.to_raw_none()) }
     }
 }
-
-static IMAGE_SURFACE_DATA: () = ();
 
 #[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
