@@ -2,6 +2,20 @@ use std::marker::PhantomData;
 
 use ffi::cairo_user_data_key_t;
 
+/// A key for indexing user data in various cairo types.
+///
+/// Some types like [`Surface`] have `get_user_data`, `set_user_data`, and `remove_user_data`
+/// methods that take `&'static UserDataKey`, where the address of that reference is significant.
+///
+/// To reliably have a stable address, the expected usage is to define a `static` item:
+///
+/// ```
+/// use cairo::UserDataKey;
+/// static FOO: UserDataKey<String> = UserDataKey::new();
+///
+/// # fn foo(surface: &cairo::Surface) {
+/// surface.get_user_data(&FOO)
+/// # ; }
 pub struct UserDataKey<T> {
     pub(crate) ffi: cairo_user_data_key_t,
     marker: PhantomData<*const T>,
@@ -35,6 +49,7 @@ impl<T> UserDataKey<T> {
 
 macro_rules! user_data_methods {
     ($as_ptr: expr, $ffi_get_user_data: path, $ffi_set_user_data: path,) => {
+        /// Attach user data to `self` for the given `key`.
         pub fn set_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>,
                                          value: std::rc::Rc<T>)
         {
@@ -56,6 +71,7 @@ macro_rules! user_data_methods {
             Status::from(result).ensure_valid()
         }
 
+        /// Return the user data previously attached to `self` with the given `key`, if any.
         pub fn get_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>)
                                          -> Option<std::rc::Rc<T>>
         {
@@ -93,6 +109,8 @@ macro_rules! user_data_methods {
             }
         }
 
+        /// Unattach from `self` the user data associated with `key`, if any.
+        /// If there is no other `Rc` strong reference, the data is destroyed.
         pub fn remove_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>) {
             let result = unsafe {
                 $ffi_set_user_data($as_ptr(self), &key.ffi, std::ptr::null_mut(), None)
