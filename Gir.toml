@@ -2,7 +2,7 @@
 girs_dir = "gir-files"
 library = "Graphene"
 version = "1.0"
-min_cfg_version = "1.6"
+min_cfg_version = "1.10"
 target_path = "."
 work_mode = "normal"
 generate_safety_asserts = true
