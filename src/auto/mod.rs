@@ -374,6 +374,20 @@ pub use self::tls_server_connection::{TlsServerConnection, NONE_TLS_SERVER_CONNE
 pub use self::tls_server_connection::TlsServerConnectionExt;
 
 #[cfg(any(unix, feature = "dox"))]
+mod unix_input_stream;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_input_stream::{UnixInputStream, UnixInputStreamClass, NONE_UNIX_INPUT_STREAM};
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_input_stream::UnixInputStreamExt;
+
+#[cfg(any(unix, feature = "dox"))]
+mod unix_output_stream;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_output_stream::{UnixOutputStream, UnixOutputStreamClass, NONE_UNIX_OUTPUT_STREAM};
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_output_stream::UnixOutputStreamExt;
+
+#[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
 #[cfg(any(unix, feature = "dox"))]
 pub use self::unix_socket_address::{UnixSocketAddress, UnixSocketAddressClass, NONE_UNIX_SOCKET_ADDRESS};
@@ -665,6 +679,10 @@ pub mod traits {
     pub use super::TlsInteractionExt;
     pub use super::TlsPasswordExt;
     pub use super::TlsServerConnectionExt;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use super::UnixInputStreamExt;
+    #[cfg(any(unix, feature = "dox"))]
+    pub use super::UnixOutputStreamExt;
     #[cfg(any(unix, feature = "dox"))]
     pub use super::UnixSocketAddressExt;
     pub use super::VfsExt;
