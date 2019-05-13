@@ -44,6 +44,10 @@ mod socket_listener;
 mod subprocess;
 mod subprocess_launcher;
 #[cfg(any(unix, feature = "dox"))]
+mod unix_input_stream;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_output_stream;
+#[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
 mod inet_address;
 pub use inet_address::InetAddressBytes;
