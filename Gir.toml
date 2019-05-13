@@ -692,6 +692,64 @@ status = "generate"
     ignore = true
 
 [[object]]
+name = "Gio.UnixInputStream"
+status = "generate"
+cfg_condition = "unix"
+manual_traits = ["UnixInputStreamExtManual"]
+    [[object.function]]
+    name = "new"
+    # has to use RawFd
+    ignore = true
+
+    [[object.function]]
+    name = "set_close_fd"
+    # Can cause file descriptor leaks
+    ignore = true
+
+    [[object.function]]
+    name = "get_fd"
+    # has to use RawFd
+    ignore = true
+
+    [[object.property]]
+    name = "fd"
+    # has to use RawFd
+    ignore = true
+
+    [[object.property]]
+    name = "close-fd"
+    ignore = true
+
+[[object]]
+name = "Gio.UnixOutputStream"
+status = "generate"
+cfg_condition = "unix"
+manual_traits = ["UnixOutputStreamExtManual"]
+    [[object.function]]
+    name = "new"
+    # has to use RawFd
+    ignore = true
+
+    [[object.function]]
+    name = "set_close_fd"
+    # Can cause file descriptor leaks
+    ignore = true
+
+    [[object.function]]
+    name = "get_fd"
+    # has to use RawFd
+    ignore = true
+
+    [[object.property]]
+    name = "fd"
+    # has to use RawFd
+    ignore = true
+
+    [[object.property]]
+    name = "close-fd"
+    ignore = true
+
+[[object]]
 name = "Gio.UnixSocketAddress"
 status = "generate"
 concurrency = "send+sync"
