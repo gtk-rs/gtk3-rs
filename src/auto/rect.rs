@@ -191,6 +191,15 @@ impl Rect {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn scale(&self, s_h: f32, s_v: f32) -> Rect {
+        unsafe {
+            let mut res = Rect::uninitialized();
+            ffi::graphene_rect_scale(self.to_glib_none().0, s_h, s_v, res.to_glib_none_mut().0);
+            res
+        }
+    }
+
     pub fn union(&self, b: &Rect) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();

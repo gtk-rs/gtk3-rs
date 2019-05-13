@@ -19,7 +19,7 @@ use gobject_ffi;
 use std::mem;
 
 glib_wrapper! {
-    #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    #[derive(Debug, PartialOrd, Ord, Hash)]
     pub struct Matrix(Boxed<ffi::graphene_matrix_t>);
 
     match fn {
@@ -33,6 +33,20 @@ impl Matrix {
     pub fn determinant(&self) -> f32 {
         unsafe {
             ffi::graphene_matrix_determinant(self.to_glib_none().0)
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    fn equal(&self, b: &Matrix) -> bool {
+        unsafe {
+            from_glib(ffi::graphene_matrix_equal(self.to_glib_none().0, b.to_glib_none().0))
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn equal_fast(&self, b: &Matrix) -> bool {
+        unsafe {
+            from_glib(ffi::graphene_matrix_equal_fast(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
@@ -56,15 +70,36 @@ impl Matrix {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_x_translation(&self) -> f32 {
+        unsafe {
+            ffi::graphene_matrix_get_x_translation(self.to_glib_none().0)
+        }
+    }
+
     pub fn get_y_scale(&self) -> f32 {
         unsafe {
             ffi::graphene_matrix_get_y_scale(self.to_glib_none().0)
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_y_translation(&self) -> f32 {
+        unsafe {
+            ffi::graphene_matrix_get_y_translation(self.to_glib_none().0)
+        }
+    }
+
     pub fn get_z_scale(&self) -> f32 {
         unsafe {
             ffi::graphene_matrix_get_z_scale(self.to_glib_none().0)
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn get_z_translation(&self) -> f32 {
+        unsafe {
+            ffi::graphene_matrix_get_z_translation(self.to_glib_none().0)
         }
     }
 
@@ -189,6 +224,13 @@ impl Matrix {
             let mut res = Matrix::uninitialized();
             ffi::graphene_matrix_multiply(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
             res
+        }
+    }
+
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
+    pub fn near(&self, b: &Matrix, epsilon: f32) -> bool {
+        unsafe {
+            from_glib(ffi::graphene_matrix_near(self.to_glib_none().0, b.to_glib_none().0, epsilon))
         }
     }
 
@@ -425,3 +467,12 @@ impl Matrix {
         }
     }
 }
+
+impl PartialEq for Matrix {
+    #[inline]
+    fn eq(&self, other: &Self) -> bool {
+        self.equal(other)
+    }
+}
+
+impl Eq for Matrix {}
