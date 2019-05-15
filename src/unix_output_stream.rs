@@ -7,7 +7,11 @@ use glib::translate::*;
 use OutputStream;
 use UnixOutputStream;
 
+#[cfg(unix)]
 use std::os::unix::io::{RawFd, AsRawFd, IntoRawFd, FromRawFd};
+
+#[cfg(all(not(unix), feature = "dox"))]
+use ::socket::{RawFd, AsRawFd, IntoRawFd, FromRawFd};
 
 impl UnixOutputStream {
 
