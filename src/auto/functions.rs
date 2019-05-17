@@ -9,29 +9,29 @@ use pango;
 use pango_cairo_sys;
 
 
-pub fn context_get_resolution<P: IsA<pango::Context>>(context: &P) -> f64 {
+pub fn context_get_resolution(context: &pango::Context) -> f64 {
     unsafe {
-        pango_cairo_sys::pango_cairo_context_get_resolution(context.as_ref().to_glib_none().0)
+        pango_cairo_sys::pango_cairo_context_get_resolution(context.to_glib_none().0)
     }
 }
 
-//pub fn context_get_shape_renderer<P: IsA<pango::Context>>(context: &P, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Fundamental: Pointer) {
+//pub fn context_get_shape_renderer(context: &pango::Context, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_get_shape_renderer() }
 //}
 
-pub fn context_set_font_options<P: IsA<pango::Context>>(context: &P, options: Option<&cairo::FontOptions>) {
+pub fn context_set_font_options(context: &pango::Context, options: Option<&cairo::FontOptions>) {
     unsafe {
-        pango_cairo_sys::pango_cairo_context_set_font_options(context.as_ref().to_glib_none().0, options.to_glib_none().0);
+        pango_cairo_sys::pango_cairo_context_set_font_options(context.to_glib_none().0, options.to_glib_none().0);
     }
 }
 
-pub fn context_set_resolution<P: IsA<pango::Context>>(context: &P, dpi: f64) {
+pub fn context_set_resolution(context: &pango::Context, dpi: f64) {
     unsafe {
-        pango_cairo_sys::pango_cairo_context_set_resolution(context.as_ref().to_glib_none().0, dpi);
+        pango_cairo_sys::pango_cairo_context_set_resolution(context.to_glib_none().0, dpi);
     }
 }
 
-//pub fn context_set_shape_renderer<P: IsA<pango::Context>>(context: &P, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Fundamental: Pointer), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn context_set_shape_renderer(context: &pango::Context, func: /*Unimplemented*/Fn(&cairo::Context, /*Ignored*/pango::AttrShape, bool, /*Unimplemented*/Option<Fundamental: Pointer>), data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call pango_cairo_sys:pango_cairo_context_set_shape_renderer() }
 //}
 
@@ -65,9 +65,9 @@ pub fn layout_line_path(cr: &cairo::Context, line: &pango::LayoutLine) {
     }
 }
 
-pub fn layout_path<P: IsA<pango::Layout>>(cr: &cairo::Context, layout: &P) {
+pub fn layout_path(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_layout_path(mut_override(cr.to_glib_none().0), layout.as_ref().to_glib_none().0);
+        pango_cairo_sys::pango_cairo_layout_path(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }
 
@@ -89,9 +89,9 @@ pub fn show_glyph_string<P: IsA<pango::Font>>(cr: &cairo::Context, font: &P, gly
     }
 }
 
-pub fn show_layout<P: IsA<pango::Layout>>(cr: &cairo::Context, layout: &P) {
+pub fn show_layout(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_show_layout(mut_override(cr.to_glib_none().0), layout.as_ref().to_glib_none().0);
+        pango_cairo_sys::pango_cairo_show_layout(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }
 
@@ -101,14 +101,14 @@ pub fn show_layout_line(cr: &cairo::Context, line: &pango::LayoutLine) {
     }
 }
 
-pub fn update_context<P: IsA<pango::Context>>(cr: &cairo::Context, context: &P) {
+pub fn update_context(cr: &cairo::Context, context: &pango::Context) {
     unsafe {
-        pango_cairo_sys::pango_cairo_update_context(mut_override(cr.to_glib_none().0), context.as_ref().to_glib_none().0);
+        pango_cairo_sys::pango_cairo_update_context(mut_override(cr.to_glib_none().0), context.to_glib_none().0);
     }
 }
 
-pub fn update_layout<P: IsA<pango::Layout>>(cr: &cairo::Context, layout: &P) {
+pub fn update_layout(cr: &cairo::Context, layout: &pango::Layout) {
     unsafe {
-        pango_cairo_sys::pango_cairo_update_layout(mut_override(cr.to_glib_none().0), layout.as_ref().to_glib_none().0);
+        pango_cairo_sys::pango_cairo_update_layout(mut_override(cr.to_glib_none().0), layout.to_glib_none().0);
     }
 }
