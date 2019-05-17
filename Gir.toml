@@ -118,6 +118,16 @@ generate = [
     "Gio.ZlibDecompressor",
 ]
 
+builders = [
+    "Gio.BufferedInputStream",
+    "Gio.BufferedOutputStream",
+    "Gio.CharsetConverterBuilder",
+    "Gio.ConverterInputStreamBuilder",
+    "Gio.ConverterOutputStreamBuilder",
+    "Gio.DataInputStreamBuilder",
+    "Gio.DataOutputStreamBuilder",
+]
+
 ignore = [
 ]
 
@@ -201,6 +211,7 @@ status = "generate"
 name = "Gio.Application"
 status = "generate"
 manual_traits = ["ApplicationExtManual"]
+generate_builder = true
     [[object.signal]]
     name = "open"
     ignore = true
@@ -420,6 +431,7 @@ status = "generate"
 [[object]]
 name = "Gio.ListStore"
 status = "generate"
+generate_builder = true
 manual_traits = ["ListStoreExtManual"]
 
 [[object]]

@@ -7,6 +7,7 @@ use Error;
 use gio_sys;
 use glib::GString;
 use glib::StaticType;
+use glib::ToValue;
 use glib::Value;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -35,6 +36,51 @@ impl CharsetConverter {
             let ret = gio_sys::g_charset_converter_new(to_charset.to_glib_none().0, from_charset.to_glib_none().0, &mut error);
             if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
         }
+    }
+}
+
+pub struct CharsetConverterBuilder {
+    from_charset: Option<String>,
+    to_charset: Option<String>,
+    use_fallback: Option<bool>,
+}
+
+impl CharsetConverterBuilder {
+    pub fn new() -> Self {
+        Self {
+            from_charset: None,
+            to_charset: None,
+            use_fallback: None,
+        }
+    }
+
+    pub fn build(self) -> CharsetConverter {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref from_charset) = self.from_charset {
+            properties.push(("from-charset", from_charset));
+        }
+        if let Some(ref to_charset) = self.to_charset {
+            properties.push(("to-charset", to_charset));
+        }
+        if let Some(ref use_fallback) = self.use_fallback {
+            properties.push(("use-fallback", use_fallback));
+        }
+        glib::Object::new(CharsetConverter::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    pub fn from_charset(mut self, from_charset: &str) -> Self {
+        self.from_charset = Some(from_charset.to_string());
+        self
+    }
+
+    pub fn to_charset(mut self, to_charset: &str) -> Self {
+        self.to_charset = Some(to_charset.to_string());
+        self
+    }
+
+    pub fn use_fallback(mut self, use_fallback: bool) -> Self {
+        self.use_fallback = Some(use_fallback);
+        self
     }
 }
 

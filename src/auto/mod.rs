@@ -28,6 +28,7 @@ pub use self::app_launch_context::AppLaunchContextExt;
 mod application;
 pub use self::application::{Application, ApplicationClass, NONE_APPLICATION};
 pub use self::application::ApplicationExt;
+pub use self::application::ApplicationBuilder;
 
 mod application_command_line;
 pub use self::application_command_line::{ApplicationCommandLine, ApplicationCommandLineClass, NONE_APPLICATION_COMMAND_LINE};
@@ -36,10 +37,12 @@ pub use self::application_command_line::ApplicationCommandLineExt;
 mod buffered_input_stream;
 pub use self::buffered_input_stream::{BufferedInputStream, BufferedInputStreamClass, NONE_BUFFERED_INPUT_STREAM};
 pub use self::buffered_input_stream::BufferedInputStreamExt;
+pub use self::buffered_input_stream::BufferedInputStreamBuilder;
 
 mod buffered_output_stream;
 pub use self::buffered_output_stream::{BufferedOutputStream, BufferedOutputStreamClass, NONE_BUFFERED_OUTPUT_STREAM};
 pub use self::buffered_output_stream::BufferedOutputStreamExt;
+pub use self::buffered_output_stream::BufferedOutputStreamBuilder;
 
 mod bytes_icon;
 pub use self::bytes_icon::{BytesIcon, BytesIconClass};
@@ -51,6 +54,7 @@ pub use self::cancellable::CancellableExt;
 mod charset_converter;
 pub use self::charset_converter::{CharsetConverter, CharsetConverterClass, NONE_CHARSET_CONVERTER};
 pub use self::charset_converter::CharsetConverterExt;
+pub use self::charset_converter::CharsetConverterBuilder;
 
 mod converter;
 pub use self::converter::{Converter, NONE_CONVERTER};
@@ -59,10 +63,12 @@ pub use self::converter::ConverterExt;
 mod converter_input_stream;
 pub use self::converter_input_stream::{ConverterInputStream, ConverterInputStreamClass, NONE_CONVERTER_INPUT_STREAM};
 pub use self::converter_input_stream::ConverterInputStreamExt;
+pub use self::converter_input_stream::ConverterInputStreamBuilder;
 
 mod converter_output_stream;
 pub use self::converter_output_stream::{ConverterOutputStream, ConverterOutputStreamClass, NONE_CONVERTER_OUTPUT_STREAM};
 pub use self::converter_output_stream::ConverterOutputStreamExt;
+pub use self::converter_output_stream::ConverterOutputStreamBuilder;
 
 mod credentials;
 pub use self::credentials::{Credentials, CredentialsClass};
@@ -70,10 +76,12 @@ pub use self::credentials::{Credentials, CredentialsClass};
 mod data_input_stream;
 pub use self::data_input_stream::{DataInputStream, DataInputStreamClass, NONE_DATA_INPUT_STREAM};
 pub use self::data_input_stream::DataInputStreamExt;
+pub use self::data_input_stream::DataInputStreamBuilder;
 
 mod data_output_stream;
 pub use self::data_output_stream::{DataOutputStream, DataOutputStreamClass, NONE_DATA_OUTPUT_STREAM};
 pub use self::data_output_stream::DataOutputStreamExt;
+pub use self::data_output_stream::DataOutputStreamBuilder;
 
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
@@ -168,6 +176,8 @@ mod list_store;
 pub use self::list_store::{ListStore, ListStoreClass, NONE_LIST_STORE};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::list_store::ListStoreExt;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_store::ListStoreBuilder;
 
 mod loadable_icon;
 pub use self::loadable_icon::{LoadableIcon, NONE_LOADABLE_ICON};

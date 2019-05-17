@@ -9,6 +9,8 @@ use FilterOutputStream;
 use OutputStream;
 use Seekable;
 use gio_sys;
+use glib::StaticType;
+use glib::ToValue;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
@@ -33,6 +35,51 @@ impl DataOutputStream {
         unsafe {
             from_glib_full(gio_sys::g_data_output_stream_new(base_stream.as_ref().to_glib_none().0))
         }
+    }
+}
+
+pub struct DataOutputStreamBuilder {
+    byte_order: Option<DataStreamByteOrder>,
+    base_stream: Option<OutputStream>,
+    close_base_stream: Option<bool>,
+}
+
+impl DataOutputStreamBuilder {
+    pub fn new() -> Self {
+        Self {
+            byte_order: None,
+            base_stream: None,
+            close_base_stream: None,
+        }
+    }
+
+    pub fn build(self) -> DataOutputStream {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref byte_order) = self.byte_order {
+            properties.push(("byte-order", byte_order));
+        }
+        if let Some(ref base_stream) = self.base_stream {
+            properties.push(("base-stream", base_stream));
+        }
+        if let Some(ref close_base_stream) = self.close_base_stream {
+            properties.push(("close-base-stream", close_base_stream));
+        }
+        glib::Object::new(DataOutputStream::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    pub fn byte_order(mut self, byte_order: DataStreamByteOrder) -> Self {
+        self.byte_order = Some(byte_order);
+        self
+    }
+
+    pub fn base_stream(mut self, base_stream: &OutputStream) -> Self {
+        self.base_stream = Some(base_stream.clone());
+        self
+    }
+
+    pub fn close_base_stream(mut self, close_base_stream: bool) -> Self {
+        self.close_base_stream = Some(close_base_stream);
+        self
     }
 }
 

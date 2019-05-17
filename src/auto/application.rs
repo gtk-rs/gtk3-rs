@@ -13,6 +13,8 @@ use Notification;
 use gio_sys;
 use glib;
 use glib::GString;
+use glib::StaticType;
+use glib::ToValue;
 use glib::Value;
 use glib::object::Cast;
 use glib::object::IsA;
@@ -52,6 +54,71 @@ impl Application {
         unsafe {
             from_glib(gio_sys::g_application_id_is_valid(application_id.to_glib_none().0))
         }
+    }
+}
+
+pub struct ApplicationBuilder {
+    action_group: Option<ActionGroup>,
+    application_id: Option<String>,
+    flags: Option<ApplicationFlags>,
+    inactivity_timeout: Option<u32>,
+    resource_base_path: Option<String>,
+}
+
+impl ApplicationBuilder {
+    pub fn new() -> Self {
+        Self {
+            action_group: None,
+            application_id: None,
+            flags: None,
+            inactivity_timeout: None,
+            resource_base_path: None,
+        }
+    }
+
+    pub fn build(self) -> Application {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref action_group) = self.action_group {
+            properties.push(("action-group", action_group));
+        }
+        if let Some(ref application_id) = self.application_id {
+            properties.push(("application-id", application_id));
+        }
+        if let Some(ref flags) = self.flags {
+            properties.push(("flags", flags));
+        }
+        if let Some(ref inactivity_timeout) = self.inactivity_timeout {
+            properties.push(("inactivity-timeout", inactivity_timeout));
+        }
+        if let Some(ref resource_base_path) = self.resource_base_path {
+            properties.push(("resource-base-path", resource_base_path));
+        }
+        glib::Object::new(Application::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    pub fn action_group(mut self, action_group: &ActionGroup) -> Self {
+        self.action_group = Some(action_group.clone());
+        self
+    }
+
+    pub fn application_id(mut self, application_id: &str) -> Self {
+        self.application_id = Some(application_id.to_string());
+        self
+    }
+
+    pub fn flags(mut self, flags: ApplicationFlags) -> Self {
+        self.flags = Some(flags);
+        self
+    }
+
+    pub fn inactivity_timeout(mut self, inactivity_timeout: u32) -> Self {
+        self.inactivity_timeout = Some(inactivity_timeout);
+        self
+    }
+
+    pub fn resource_base_path(mut self, resource_base_path: &str) -> Self {
+        self.resource_base_path = Some(resource_base_path.to_string());
+        self
     }
 }
 
