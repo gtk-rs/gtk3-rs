@@ -260,6 +260,58 @@ impl SetValue for DriveStartFlags {
 }
 
 bitflags! {
+    pub struct FileCopyFlags: u32 {
+        const NONE = 0;
+        const OVERWRITE = 1;
+        const BACKUP = 2;
+        const NOFOLLOW_SYMLINKS = 4;
+        const ALL_METADATA = 8;
+        const NO_FALLBACK_FOR_MOVE = 16;
+        const TARGET_DEFAULT_PERMS = 32;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileCopyFlags {
+    type GlibType = gio_sys::GFileCopyFlags;
+
+    fn to_glib(&self) -> gio_sys::GFileCopyFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GFileCopyFlags> for FileCopyFlags {
+    fn from_glib(value: gio_sys::GFileCopyFlags) -> FileCopyFlags {
+        FileCopyFlags::from_bits_truncate(value)
+    }
+}
+
+impl StaticType for FileCopyFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_file_copy_flags_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for FileCopyFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for FileCopyFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for FileCopyFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+bitflags! {
     pub struct FileCreateFlags: u32 {
         const NONE = 0;
         const PRIVATE = 1;

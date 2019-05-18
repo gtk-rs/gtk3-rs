@@ -466,6 +466,7 @@ pub use self::flags::ApplicationFlags;
 pub use self::flags::AskPasswordFlags;
 pub use self::flags::ConverterFlags;
 pub use self::flags::DriveStartFlags;
+pub use self::flags::FileCopyFlags;
 pub use self::flags::FileCreateFlags;
 pub use self::flags::FileMonitorFlags;
 pub use self::flags::FileQueryInfoFlags;

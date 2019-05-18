@@ -6,6 +6,7 @@ use AppInfo;
 use Cancellable;
 use DriveStartFlags;
 use Error;
+use FileCopyFlags;
 use FileCreateFlags;
 use FileIOStream;
 use FileInfo;
@@ -102,14 +103,14 @@ pub trait FileExt: 'static {
     #[cfg(feature = "futures")]
     fn append_to_async_future(&self, flags: FileCreateFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
 
-    //fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
+    fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R);
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin>;
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
-    //fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error>;
+    fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error>;
 
     fn create<P: IsA<Cancellable>>(&self, flags: FileCreateFlags, cancellable: Option<&P>) -> Result<FileOutputStream, Error>;
 
@@ -227,7 +228,7 @@ pub trait FileExt: 'static {
     #[cfg(feature = "futures")]
     fn mount_mountable_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<File, Error>> + std::marker::Unpin>;
 
-    //fn move_<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
+    fn move_<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
     fn open_readwrite<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<FileIOStream, Error>;
 
@@ -393,16 +394,31 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
-    //    unsafe { TODO: call gio_sys:g_file_copy() }
-    //}
+    fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
+        let progress_callback_data: Option<&mut dyn (FnMut(i64, i64))> = progress_callback;
+        unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(current_num_bytes: i64, total_num_bytes: i64, user_data: glib_sys::gpointer) {
+            let callback: *mut Option<&mut dyn (FnMut(i64, i64))> = user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(i64, i64))>;
+            if let Some(ref mut callback) = *callback {
+                callback(current_num_bytes, total_num_bytes)
+            } else {
+                panic!("cannot get closure...")
+            };
+        }
+        let progress_callback = if progress_callback_data.is_some() { Some(progress_callback_func::<P, Q> as _) } else { None };
+        let super_callback0: &Option<&mut dyn (FnMut(i64, i64))> = &progress_callback_data;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_file_copy(self.as_ref().to_glib_none().0, destination.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, progress_callback, super_callback0 as *const _ as usize as *mut _, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R) {
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R) {
     //    unsafe { TODO: call gio_sys:g_file_copy_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin> {
+    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -426,9 +442,13 @@ impl<O: IsA<File>> FileExt for O {
         //})
     //}
 
-    //fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error> {
-    //    unsafe { TODO: call gio_sys:g_file_copy_attributes() }
-    //}
+    fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_file_copy_attributes(self.as_ref().to_glib_none().0, destination.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn create<P: IsA<Cancellable>>(&self, flags: FileCreateFlags, cancellable: Option<&P>) -> Result<FileOutputStream, Error> {
         unsafe {
@@ -1009,9 +1029,24 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn move_<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: /*Ignored*/FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
-    //    unsafe { TODO: call gio_sys:g_file_move() }
-    //}
+    fn move_<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error> {
+        let progress_callback_data: Option<&mut dyn (FnMut(i64, i64))> = progress_callback;
+        unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(current_num_bytes: i64, total_num_bytes: i64, user_data: glib_sys::gpointer) {
+            let callback: *mut Option<&mut dyn (FnMut(i64, i64))> = user_data as *const _ as usize as *mut Option<&mut dyn (FnMut(i64, i64))>;
+            if let Some(ref mut callback) = *callback {
+                callback(current_num_bytes, total_num_bytes)
+            } else {
+                panic!("cannot get closure...")
+            };
+        }
+        let progress_callback = if progress_callback_data.is_some() { Some(progress_callback_func::<P, Q> as _) } else { None };
+        let super_callback0: &Option<&mut dyn (FnMut(i64, i64))> = &progress_callback_data;
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_file_move(self.as_ref().to_glib_none().0, destination.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, progress_callback, super_callback0 as *const _ as usize as *mut _, &mut error);
+            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+        }
+    }
 
     fn open_readwrite<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<FileIOStream, Error> {
         unsafe {
