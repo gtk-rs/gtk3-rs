@@ -8,6 +8,7 @@ use SubprocessFlags;
 use gio_sys;
 use glib::translate::*;
 use std;
+use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 
@@ -32,10 +33,23 @@ impl SubprocessLauncher {
         }
     }
 
-    //#[cfg(any(unix, feature = "dox"))]
-    //pub fn set_child_setup(&self, child_setup: /*Ignored*/glib::Fn() + 'static, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call gio_sys:g_subprocess_launcher_set_child_setup() }
-    //}
+    #[cfg(any(unix, feature = "dox"))]
+    pub fn set_child_setup<P: Fn() + 'static>(&self, child_setup: P) {
+        let child_setup_data: Box_<P> = Box::new(child_setup);
+        unsafe extern "C" fn child_setup_func<P: Fn() + 'static>(user_data: glib_sys::gpointer) {
+            let callback: &P = &*(user_data as *mut _);
+            (*callback)();
+        }
+        let child_setup = Some(child_setup_func::<P> as _);
+        unsafe extern "C" fn destroy_notify_func<P: Fn() + 'static>(data: glib_sys::gpointer) {
+            let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+        }
+        let destroy_call3 = Some(destroy_notify_func::<P> as _);
+        let super_callback0: Box_<P> = child_setup_data;
+        unsafe {
+            gio_sys::g_subprocess_launcher_set_child_setup(self.to_glib_none().0, child_setup, Box::into_raw(super_callback0) as *mut _, destroy_call3);
+        }
+    }
 
     pub fn set_cwd<P: AsRef<std::path::Path>>(&self, cwd: P) {
         unsafe {

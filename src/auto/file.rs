@@ -310,12 +310,12 @@ pub trait FileExt: 'static {
 
     fn set_attribute_uint64<P: IsA<Cancellable>>(&self, attribute: &str, value: u64, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
 
-    fn set_attributes_async<P: IsA<FileInfo>, Q: IsA<Cancellable>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&Q>, callback: R);
+    fn set_attributes_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    fn set_attributes_async_future(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 
-    fn set_attributes_from_info<P: IsA<FileInfo>, Q: IsA<Cancellable>>(&self, info: &P, flags: FileQueryInfoFlags, cancellable: Option<&Q>) -> Result<(), Error>;
+    fn set_attributes_from_info<P: IsA<Cancellable>>(&self, info: &FileInfo, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn set_display_name<P: IsA<Cancellable>>(&self, display_name: &str, cancellable: Option<&P>) -> Result<File, Error>;
 
@@ -1460,24 +1460,24 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn set_attributes_async<P: IsA<FileInfo>, Q: IsA<Cancellable>, R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&Q>, callback: R) {
-        let user_data: Box<R> = Box::new(callback);
-        unsafe extern "C" fn set_attributes_async_trampoline<R: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
+    fn set_attributes_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn set_attributes_async_trampoline<Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
             let mut error = ptr::null_mut();
             let mut info = ptr::null_mut();
             let _ = gio_sys::g_file_set_attributes_finish(_source_object as *mut _, res, &mut info, &mut error);
             let result = if error.is_null() { Ok(from_glib_full(info)) } else { Err(from_glib_full(error)) };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
-        let callback = set_attributes_async_trampoline::<R>;
+        let callback = set_attributes_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_file_set_attributes_async(self.as_ref().to_glib_none().0, info.as_ref().to_glib_none().0, flags.to_glib(), io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_file_set_attributes_async(self.as_ref().to_glib_none().0, info.to_glib_none().0, flags.to_glib(), io_priority.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
         }
     }
 
     #[cfg(feature = "futures")]
-    fn set_attributes_async_future<P: IsA<FileInfo> + Clone + 'static>(&self, info: &P, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    fn set_attributes_async_future(&self, info: &FileInfo, flags: FileQueryInfoFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -1499,10 +1499,10 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    fn set_attributes_from_info<P: IsA<FileInfo>, Q: IsA<Cancellable>>(&self, info: &P, flags: FileQueryInfoFlags, cancellable: Option<&Q>) -> Result<(), Error> {
+    fn set_attributes_from_info<P: IsA<Cancellable>>(&self, info: &FileInfo, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_file_set_attributes_from_info(self.as_ref().to_glib_none().0, info.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
+            let _ = gio_sys::g_file_set_attributes_from_info(self.as_ref().to_glib_none().0, info.to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
             if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
         }
     }

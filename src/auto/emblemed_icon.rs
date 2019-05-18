@@ -21,9 +21,9 @@ glib_wrapper! {
 }
 
 impl EmblemedIcon {
-    pub fn new<P: IsA<Icon>, Q: IsA<Emblem>>(icon: &P, emblem: Option<&Q>) -> EmblemedIcon {
+    pub fn new<P: IsA<Icon>>(icon: &P, emblem: Option<&Emblem>) -> EmblemedIcon {
         unsafe {
-            from_glib_full(gio_sys::g_emblemed_icon_new(icon.as_ref().to_glib_none().0, emblem.map(|p| p.as_ref()).to_glib_none().0))
+            from_glib_full(gio_sys::g_emblemed_icon_new(icon.as_ref().to_glib_none().0, emblem.to_glib_none().0))
         }
     }
 }
@@ -31,7 +31,7 @@ impl EmblemedIcon {
 pub const NONE_EMBLEMED_ICON: Option<&EmblemedIcon> = None;
 
 pub trait EmblemedIconExt: 'static {
-    fn add_emblem<P: IsA<Emblem>>(&self, emblem: &P);
+    fn add_emblem(&self, emblem: &Emblem);
 
     fn clear_emblems(&self);
 
@@ -43,9 +43,9 @@ pub trait EmblemedIconExt: 'static {
 }
 
 impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
-    fn add_emblem<P: IsA<Emblem>>(&self, emblem: &P) {
+    fn add_emblem(&self, emblem: &Emblem) {
         unsafe {
-            gio_sys::g_emblemed_icon_add_emblem(self.as_ref().to_glib_none().0, emblem.as_ref().to_glib_none().0);
+            gio_sys::g_emblemed_icon_add_emblem(self.as_ref().to_glib_none().0, emblem.to_glib_none().0);
         }
     }
 

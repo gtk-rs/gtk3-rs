@@ -40,7 +40,7 @@ pub const NONE_ZLIB_COMPRESSOR: Option<&ZlibCompressor> = None;
 pub trait ZlibCompressorExt: 'static {
     fn get_file_info(&self) -> Option<FileInfo>;
 
-    fn set_file_info<P: IsA<FileInfo>>(&self, file_info: Option<&P>);
+    fn set_file_info(&self, file_info: Option<&FileInfo>);
 
     fn get_property_format(&self) -> ZlibCompressorFormat;
 
@@ -56,9 +56,9 @@ impl<O: IsA<ZlibCompressor>> ZlibCompressorExt for O {
         }
     }
 
-    fn set_file_info<P: IsA<FileInfo>>(&self, file_info: Option<&P>) {
+    fn set_file_info(&self, file_info: Option<&FileInfo>) {
         unsafe {
-            gio_sys::g_zlib_compressor_set_file_info(self.as_ref().to_glib_none().0, file_info.map(|p| p.as_ref()).to_glib_none().0);
+            gio_sys::g_zlib_compressor_set_file_info(self.as_ref().to_glib_none().0, file_info.to_glib_none().0);
         }
     }
 

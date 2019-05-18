@@ -15,6 +15,8 @@ use futures::future;
 use gio_sys;
 use glib;
 use glib::GString;
+use glib::StaticType;
+use glib::ToValue;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
@@ -41,6 +43,71 @@ impl DataInputStream {
         unsafe {
             from_glib_full(gio_sys::g_data_input_stream_new(base_stream.as_ref().to_glib_none().0))
         }
+    }
+}
+
+pub struct DataInputStreamBuilder {
+    byte_order: Option<DataStreamByteOrder>,
+    newline_type: Option<DataStreamNewlineType>,
+    buffer_size: Option<u32>,
+    base_stream: Option<InputStream>,
+    close_base_stream: Option<bool>,
+}
+
+impl DataInputStreamBuilder {
+    pub fn new() -> Self {
+        Self {
+            byte_order: None,
+            newline_type: None,
+            buffer_size: None,
+            base_stream: None,
+            close_base_stream: None,
+        }
+    }
+
+    pub fn build(self) -> DataInputStream {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref byte_order) = self.byte_order {
+            properties.push(("byte-order", byte_order));
+        }
+        if let Some(ref newline_type) = self.newline_type {
+            properties.push(("newline-type", newline_type));
+        }
+        if let Some(ref buffer_size) = self.buffer_size {
+            properties.push(("buffer-size", buffer_size));
+        }
+        if let Some(ref base_stream) = self.base_stream {
+            properties.push(("base-stream", base_stream));
+        }
+        if let Some(ref close_base_stream) = self.close_base_stream {
+            properties.push(("close-base-stream", close_base_stream));
+        }
+        glib::Object::new(DataInputStream::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    pub fn byte_order(mut self, byte_order: DataStreamByteOrder) -> Self {
+        self.byte_order = Some(byte_order);
+        self
+    }
+
+    pub fn newline_type(mut self, newline_type: DataStreamNewlineType) -> Self {
+        self.newline_type = Some(newline_type);
+        self
+    }
+
+    pub fn buffer_size(mut self, buffer_size: u32) -> Self {
+        self.buffer_size = Some(buffer_size);
+        self
+    }
+
+    pub fn base_stream(mut self, base_stream: &InputStream) -> Self {
+        self.base_stream = Some(base_stream.clone());
+        self
+    }
+
+    pub fn close_base_stream(mut self, close_base_stream: bool) -> Self {
+        self.close_base_stream = Some(close_base_stream);
+        self
     }
 }
 

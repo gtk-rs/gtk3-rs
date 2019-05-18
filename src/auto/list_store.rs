@@ -6,6 +6,9 @@ use ListModel;
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib;
+use glib::StaticType;
+use glib::ToValue;
+use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
@@ -24,6 +27,37 @@ impl ListStore {
         unsafe {
             from_glib_full(gio_sys::g_list_store_new(item_type.to_glib()))
         }
+    }
+}
+
+pub struct ListStoreBuilder {
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    item_type: Option<glib::types::Type>,
+}
+
+impl ListStoreBuilder {
+    pub fn new() -> Self {
+        Self {
+            #[cfg(any(feature = "v2_44", feature = "dox"))]
+            item_type: None,
+        }
+    }
+
+    pub fn build(self) -> ListStore {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        #[cfg(any(feature = "v2_44", feature = "dox"))]
+        {
+            if let Some(ref item_type) = self.item_type {
+                properties.push(("item-type", item_type));
+            }
+        }
+        glib::Object::new(ListStore::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    #[cfg(any(feature = "v2_44", feature = "dox"))]
+    pub fn item_type(mut self, item_type: glib::types::Type) -> Self {
+        self.item_type = Some(item_type);
+        self
     }
 }
 

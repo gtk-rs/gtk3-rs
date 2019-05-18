@@ -28,6 +28,7 @@ pub use self::app_launch_context::AppLaunchContextExt;
 mod application;
 pub use self::application::{Application, ApplicationClass, NONE_APPLICATION};
 pub use self::application::ApplicationExt;
+pub use self::application::ApplicationBuilder;
 
 mod application_command_line;
 pub use self::application_command_line::{ApplicationCommandLine, ApplicationCommandLineClass, NONE_APPLICATION_COMMAND_LINE};
@@ -36,10 +37,12 @@ pub use self::application_command_line::ApplicationCommandLineExt;
 mod buffered_input_stream;
 pub use self::buffered_input_stream::{BufferedInputStream, BufferedInputStreamClass, NONE_BUFFERED_INPUT_STREAM};
 pub use self::buffered_input_stream::BufferedInputStreamExt;
+pub use self::buffered_input_stream::BufferedInputStreamBuilder;
 
 mod buffered_output_stream;
 pub use self::buffered_output_stream::{BufferedOutputStream, BufferedOutputStreamClass, NONE_BUFFERED_OUTPUT_STREAM};
 pub use self::buffered_output_stream::BufferedOutputStreamExt;
+pub use self::buffered_output_stream::BufferedOutputStreamBuilder;
 
 mod bytes_icon;
 pub use self::bytes_icon::{BytesIcon, BytesIconClass};
@@ -51,6 +54,7 @@ pub use self::cancellable::CancellableExt;
 mod charset_converter;
 pub use self::charset_converter::{CharsetConverter, CharsetConverterClass, NONE_CHARSET_CONVERTER};
 pub use self::charset_converter::CharsetConverterExt;
+pub use self::charset_converter::CharsetConverterBuilder;
 
 mod converter;
 pub use self::converter::{Converter, NONE_CONVERTER};
@@ -59,22 +63,25 @@ pub use self::converter::ConverterExt;
 mod converter_input_stream;
 pub use self::converter_input_stream::{ConverterInputStream, ConverterInputStreamClass, NONE_CONVERTER_INPUT_STREAM};
 pub use self::converter_input_stream::ConverterInputStreamExt;
+pub use self::converter_input_stream::ConverterInputStreamBuilder;
 
 mod converter_output_stream;
 pub use self::converter_output_stream::{ConverterOutputStream, ConverterOutputStreamClass, NONE_CONVERTER_OUTPUT_STREAM};
 pub use self::converter_output_stream::ConverterOutputStreamExt;
+pub use self::converter_output_stream::ConverterOutputStreamBuilder;
 
 mod credentials;
-pub use self::credentials::{Credentials, CredentialsClass, NONE_CREDENTIALS};
-pub use self::credentials::CredentialsExt;
+pub use self::credentials::{Credentials, CredentialsClass};
 
 mod data_input_stream;
 pub use self::data_input_stream::{DataInputStream, DataInputStreamClass, NONE_DATA_INPUT_STREAM};
 pub use self::data_input_stream::DataInputStreamExt;
+pub use self::data_input_stream::DataInputStreamBuilder;
 
 mod data_output_stream;
 pub use self::data_output_stream::{DataOutputStream, DataOutputStreamClass, NONE_DATA_OUTPUT_STREAM};
 pub use self::data_output_stream::DataOutputStreamExt;
+pub use self::data_output_stream::DataOutputStreamBuilder;
 
 #[cfg(any(not(windows), feature = "dox"))]
 mod desktop_app_info;
@@ -88,8 +95,7 @@ pub use self::drive::{Drive, NONE_DRIVE};
 pub use self::drive::DriveExt;
 
 mod emblem;
-pub use self::emblem::{Emblem, EmblemClass, NONE_EMBLEM};
-pub use self::emblem::EmblemExt;
+pub use self::emblem::{Emblem, EmblemClass};
 
 mod emblemed_icon;
 pub use self::emblemed_icon::{EmblemedIcon, EmblemedIconClass, NONE_EMBLEMED_ICON};
@@ -104,12 +110,10 @@ pub use self::file_io_stream::{FileIOStream, FileIOStreamClass, NONE_FILE_IO_STR
 pub use self::file_io_stream::FileIOStreamExt;
 
 mod file_icon;
-pub use self::file_icon::{FileIcon, FileIconClass, NONE_FILE_ICON};
-pub use self::file_icon::FileIconExt;
+pub use self::file_icon::{FileIcon, FileIconClass};
 
 mod file_info;
-pub use self::file_info::{FileInfo, FileInfoClass, NONE_FILE_INFO};
-pub use self::file_info::FileInfoExt;
+pub use self::file_info::{FileInfo, FileInfoClass};
 
 mod file_input_stream;
 pub use self::file_input_stream::{FileInputStream, FileInputStreamClass, NONE_FILE_INPUT_STREAM};
@@ -172,6 +176,8 @@ mod list_store;
 pub use self::list_store::{ListStore, ListStoreClass, NONE_LIST_STORE};
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use self::list_store::ListStoreExt;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
+pub use self::list_store::ListStoreBuilder;
 
 mod loadable_icon;
 pub use self::loadable_icon::{LoadableIcon, NONE_LOADABLE_ICON};
@@ -334,8 +340,7 @@ pub use self::tcp_connection::{TcpConnection, TcpConnectionClass, NONE_TCP_CONNE
 pub use self::tcp_connection::TcpConnectionExt;
 
 mod themed_icon;
-pub use self::themed_icon::{ThemedIcon, ThemedIconClass, NONE_THEMED_ICON};
-pub use self::themed_icon::ThemedIconExt;
+pub use self::themed_icon::{ThemedIcon, ThemedIconClass};
 
 mod threaded_socket_service;
 pub use self::threaded_socket_service::{ThreadedSocketService, ThreadedSocketServiceClass, NONE_THREADED_SOCKET_SERVICE};
@@ -610,18 +615,14 @@ pub mod traits {
     pub use super::ConverterExt;
     pub use super::ConverterInputStreamExt;
     pub use super::ConverterOutputStreamExt;
-    pub use super::CredentialsExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
     #[cfg(any(not(windows), feature = "dox"))]
     pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
-    pub use super::EmblemExt;
     pub use super::EmblemedIconExt;
     pub use super::FileExt;
     pub use super::FileIOStreamExt;
-    pub use super::FileIconExt;
-    pub use super::FileInfoExt;
     pub use super::FileInputStreamExt;
     pub use super::FileMonitorExt;
     pub use super::FileOutputStreamExt;
@@ -670,7 +671,6 @@ pub mod traits {
     pub use super::SocketListenerExt;
     pub use super::SocketServiceExt;
     pub use super::TcpConnectionExt;
-    pub use super::ThemedIconExt;
     pub use super::ThreadedSocketServiceExt;
     pub use super::TlsCertificateExt;
     pub use super::TlsClientConnectionExt;

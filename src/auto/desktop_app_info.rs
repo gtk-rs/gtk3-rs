@@ -78,10 +78,10 @@ pub trait DesktopAppInfoExt: 'static {
 
     fn launch_action<P: IsA<AppLaunchContext>>(&self, action_name: &str, launch_context: Option<&P>);
 
-    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
+    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: Option<Box<dyn FnOnce() + 'static>>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error>;
 
     //#[cfg(any(feature = "v2_58", feature = "dox"))]
-    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
+    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: Option<Box<dyn FnOnce() + 'static>>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error>;
 
     fn list_actions(&self) -> Vec<GString>;
 }
@@ -172,12 +172,12 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
         }
     }
 
-    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error> {
+    //fn launch_uris_as_manager<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: Option<Box<dyn FnOnce() + 'static>>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> Result<(), Error> {
     //    unsafe { TODO: call gio_sys:g_desktop_app_info_launch_uris_as_manager() }
     //}
 
     //#[cfg(any(feature = "v2_58", feature = "dox"))]
-    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: /*Ignored*/glib::Option<Box<dyn FnOnce() + 'static>>, user_setup_data: /*Unimplemented*/Option<Fundamental: Pointer>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error> {
+    //fn launch_uris_as_manager_with_fds<P: IsA<AppLaunchContext>>(&self, uris: &[&str], launch_context: Option<&P>, spawn_flags: /*Ignored*/glib::SpawnFlags, user_setup: Option<Box<dyn FnOnce() + 'static>>, pid_callback: /*Unimplemented*/FnMut(&DesktopAppInfo, /*Ignored*/glib::Pid), pid_callback_data: /*Unimplemented*/Option<Fundamental: Pointer>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<(), Error> {
     //    unsafe { TODO: call gio_sys:g_desktop_app_info_launch_uris_as_manager_with_fds() }
     //}
 

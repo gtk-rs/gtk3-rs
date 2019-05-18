@@ -6,6 +6,8 @@ use FilterOutputStream;
 use OutputStream;
 use Seekable;
 use gio_sys;
+use glib::StaticType;
+use glib::ToValue;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::SignalHandlerId;
@@ -35,6 +37,61 @@ impl BufferedOutputStream {
         unsafe {
             OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new_sized(base_stream.as_ref().to_glib_none().0, size)).unsafe_cast()
         }
+    }
+}
+
+pub struct BufferedOutputStreamBuilder {
+    auto_grow: Option<bool>,
+    buffer_size: Option<u32>,
+    base_stream: Option<OutputStream>,
+    close_base_stream: Option<bool>,
+}
+
+impl BufferedOutputStreamBuilder {
+    pub fn new() -> Self {
+        Self {
+            auto_grow: None,
+            buffer_size: None,
+            base_stream: None,
+            close_base_stream: None,
+        }
+    }
+
+    pub fn build(self) -> BufferedOutputStream {
+        let mut properties: Vec<(&str, &dyn ToValue)> = vec![];
+        if let Some(ref auto_grow) = self.auto_grow {
+            properties.push(("auto-grow", auto_grow));
+        }
+        if let Some(ref buffer_size) = self.buffer_size {
+            properties.push(("buffer-size", buffer_size));
+        }
+        if let Some(ref base_stream) = self.base_stream {
+            properties.push(("base-stream", base_stream));
+        }
+        if let Some(ref close_base_stream) = self.close_base_stream {
+            properties.push(("close-base-stream", close_base_stream));
+        }
+        glib::Object::new(BufferedOutputStream::static_type(), &properties).expect("object new").downcast().expect("downcast")
+    }
+
+    pub fn auto_grow(mut self, auto_grow: bool) -> Self {
+        self.auto_grow = Some(auto_grow);
+        self
+    }
+
+    pub fn buffer_size(mut self, buffer_size: u32) -> Self {
+        self.buffer_size = Some(buffer_size);
+        self
+    }
+
+    pub fn base_stream(mut self, base_stream: &OutputStream) -> Self {
+        self.base_stream = Some(base_stream.clone());
+        self
+    }
+
+    pub fn close_base_stream(mut self, close_base_stream: bool) -> Self {
+        self.close_base_stream = Some(close_base_stream);
+        self
     }
 }
 

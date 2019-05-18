@@ -24,18 +24,10 @@ impl FileIcon {
             from_glib_full(gio_sys::g_file_icon_new(file.as_ref().to_glib_none().0))
         }
     }
-}
 
-pub const NONE_FILE_ICON: Option<&FileIcon> = None;
-
-pub trait FileIconExt: 'static {
-    fn get_file(&self) -> Option<File>;
-}
-
-impl<O: IsA<FileIcon>> FileIconExt for O {
-    fn get_file(&self) -> Option<File> {
+    pub fn get_file(&self) -> Option<File> {
         unsafe {
-            from_glib_none(gio_sys::g_file_icon_get_file(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_file_icon_get_file(self.to_glib_none().0))
         }
     }
 }
