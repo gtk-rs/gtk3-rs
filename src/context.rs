@@ -11,7 +11,7 @@ use std::ops;
 use std::slice;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
-use ::matrices::{Matrix, MatrixTrait};
+use ::matrices::Matrix;
 use ::{
     Antialias,
     Content,
@@ -574,20 +574,20 @@ impl Context {
 
     pub fn transform(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_transform(self.0, &matrix);
+            ffi::cairo_transform(self.0, matrix.ptr());
         }
     }
 
     pub fn set_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_set_matrix(self.0, &matrix);
+            ffi::cairo_set_matrix(self.0, matrix.ptr());
         }
     }
 
     pub fn get_matrix(&self) -> Matrix {
-        let mut matrix = <Matrix as MatrixTrait>::null();
+        let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_get_matrix(self.0, &mut matrix);
+            ffi::cairo_get_matrix(self.0, matrix.mut_ptr());
         }
         matrix
     }
@@ -644,14 +644,14 @@ impl Context {
     // FIXME probably needs a heap allocation
     pub fn set_font_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_set_font_matrix(self.0, &matrix)
+            ffi::cairo_set_font_matrix(self.0, matrix.ptr())
         }
     }
 
     pub fn get_font_matrix(&self) -> Matrix {
-        let mut matrix = <Matrix as MatrixTrait>::null();
+        let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_get_font_matrix(self.0, &mut matrix);
+            ffi::cairo_get_font_matrix(self.0, matrix.mut_ptr());
         }
         matrix
     }

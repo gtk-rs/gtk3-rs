@@ -21,7 +21,6 @@ use ffi::{
 use ::{
     Path,
     Matrix,
-    MatrixTrait,
     Surface,
 };
 
@@ -104,14 +103,14 @@ impl Pattern {
 
     pub fn set_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_pattern_set_matrix (self.pointer, &matrix)
+            ffi::cairo_pattern_set_matrix (self.pointer, matrix.ptr())
         }
     }
 
     pub fn get_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_pattern_get_matrix(self.pointer, &mut matrix);
+            ffi::cairo_pattern_get_matrix(self.pointer, matrix.mut_ptr());
         }
         matrix
     }

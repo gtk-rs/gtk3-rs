@@ -108,10 +108,7 @@ pub use font::{
     TextCluster,
 };
 
-pub use matrices::{
-    Matrix,
-    MatrixTrait,
-};
+pub use matrices::Matrix;
 
 pub use recording_surface::RecordingSurface;
 pub use rectangle::Rectangle;

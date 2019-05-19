@@ -236,19 +236,6 @@ pub struct Matrix {
     pub y0: c_double,
 }
 
-impl Default for Matrix {
-    fn default() -> Matrix {
-        Matrix {
-            xx: 1.0,
-            yx: 0.0,
-            xy: 0.0,
-            yy: 1.0,
-            x0: 0.0,
-            y0: 0.0,
-        }
-    }
-}
-
 impl ::std::fmt::Display for Matrix {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         write!(f, "Matrix")
