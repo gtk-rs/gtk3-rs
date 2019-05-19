@@ -3,9 +3,5 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 pub use matrices::MatrixTrait;
-pub use patterns::{
-    Gradient,
-    Pattern,
-    PatternTrait,
-};
+pub use patterns::Pattern;
 pub use surface::SurfaceExt;

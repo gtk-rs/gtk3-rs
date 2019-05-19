@@ -31,7 +31,7 @@ use ffi::{
     cairo_t,
     cairo_rectangle_list_t,
 };
-use ::patterns::{Pattern, PatternTrait};
+use ::patterns::Pattern;
 use surface::Surface;
 
 pub struct RectangleList {
@@ -952,7 +952,7 @@ mod tests {
     #[test]
     fn drop_non_reference_pattern() {
         let ctx = create_ctx();
-        let mut pattern = Pattern::LinearGradient(LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64));
-        ctx.set_source(&mut pattern);
+        let pattern = LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64);
+        ctx.set_source(&pattern);
     }
 }

@@ -86,20 +86,11 @@ pub use error::{
 };
 
 pub use patterns::{
-    // Enums
     Pattern,
-    // Traits
-    PatternTrait,
-    Gradient,
-
-    // Structs
     LinearGradient,
     RadialGradient,
     SolidPattern,
     SurfacePattern,
-};
-
-pub use patterns::{
     Mesh,
 };
 
