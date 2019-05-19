@@ -3,6 +3,7 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use libc::{c_double, c_int, c_uint};
+use std::convert::TryFrom;
 use std::ptr;
 use std::fmt;
 use std::ops::Deref;
@@ -134,9 +135,29 @@ impl Drop for Pattern {
     }
 }
 
+macro_rules! convert {
+    ($source: ident => $dest: ident = $( $variant: ident )|+ $( ($intermediate: ident) )*) => {
+        impl TryFrom<$source> for $dest {
+            type Error = $source;
+
+            fn try_from(pattern: $source) -> Result<Self, $source> {
+                if $( pattern.get_type() == PatternType::$variant )||+ {
+                    $(
+                        let pattern = $intermediate(pattern);
+                    )*
+                    Ok($dest(pattern))
+                }
+                else {
+                    Err(pattern)
+                }
+            }
+        }
+    };
+}
+
 macro_rules! pattern_type(
     //Signals without arguments
-    ($pattern_type:ident) => (
+    ($pattern_type:ident $( = $variant: ident)*) => (
 
         #[derive(Debug, Clone)]
         pub struct $pattern_type(Pattern);
@@ -154,10 +175,14 @@ macro_rules! pattern_type(
                 write!(f, stringify!($pattern_type))
             }
         }
+
+        $(
+            convert!(Pattern => $pattern_type = $variant);
+        )*
     );
 );
 
-pattern_type!(SolidPattern);
+pattern_type!(SolidPattern = Solid);
 
 impl SolidPattern {
     pub fn from_rgb(red: f64, green: f64, blue: f64) -> SolidPattern {
@@ -195,6 +220,7 @@ impl SolidPattern {
 }
 
 pattern_type!(Gradient);
+convert!(Pattern => Gradient = LinearGradient | RadialGradient);
 
 impl Gradient {
     pub fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
@@ -257,6 +283,9 @@ macro_rules! gradient_type {
                 write!(f, stringify!($gradient_type))
             }
         }
+
+        convert!(Pattern => $gradient_type = $gradient_type (Gradient));
+        convert!(Gradient => $gradient_type = $gradient_type);
     }
 }
 
@@ -322,7 +351,7 @@ impl RadialGradient {
 }
 
 
-pattern_type!(SurfacePattern);
+pattern_type!(SurfacePattern = Surface);
 
 impl SurfacePattern {
     pub fn create<T: AsRef<Surface>>(surface: &T) -> SurfacePattern {
@@ -343,7 +372,7 @@ impl SurfacePattern {
     }
 }
 
-pattern_type!(Mesh);
+pattern_type!(Mesh = Mesh);
 
 impl Mesh {
     pub fn new() -> Mesh {
@@ -471,4 +500,14 @@ impl Mesh {
         path.ensure_status();
         path
     }
+}
+
+#[test]
+fn try_from() {
+    let linear = LinearGradient::new(0., 0., 1., 1.);
+    let gradient = Gradient::clone(&linear);
+    let pattern = Pattern::clone(&linear);
+    assert!(Gradient::try_from(pattern.clone()).is_ok());
+    assert!(LinearGradient::try_from(gradient).is_ok());
+    assert!(LinearGradient::try_from(pattern).is_ok());
 }
