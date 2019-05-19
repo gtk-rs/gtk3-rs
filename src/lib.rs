@@ -137,8 +137,6 @@ pub use xcb::{
     XCBVisualType,
 };
 
-pub mod prelude;
-
 #[macro_use] mod user_data;
 mod constants;
 pub use constants::*;
