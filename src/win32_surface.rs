@@ -4,6 +4,7 @@
 
 pub use ffi::winapi;
 
+use std::convert::TryFrom;
 use std::ops::Deref;
 use std::fmt;
 
@@ -17,17 +18,21 @@ use Status;
 #[derive(Debug)]
 pub struct Win32Surface(Surface);
 
-impl Win32Surface {
-    pub fn from(surface: Surface) -> Result<Win32Surface, Surface> {
+impl TryFrom<Surface> for Win32Surface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<Win32Surface, Surface> {
         if surface.get_type() == SurfaceType::Win32 {
             Ok(Win32Surface(surface))
         } else {
             Err(surface)
         }
     }
+}
 
+impl Win32Surface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Win32Surface, Status> {
-        let surface = Self::from(Surface::from_raw_full(ptr)).unwrap();
+        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
         let status = surface.status();
         match status {
             Status::Success => Ok(surface),
@@ -92,7 +97,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Win32Surface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
-        Self::from(from_glib_none(ptr)).unwrap()
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -100,7 +105,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for Win32Surface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
-        Self::from(from_glib_borrow(ptr)).unwrap()
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -108,7 +113,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Win32Surface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Win32Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Win32Surface {
-        Self::from(from_glib_full(ptr)).unwrap()
+        Self::try_from(from_glib_full::<_, Surface>(ptr)).unwrap()
     }
 }
 

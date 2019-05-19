@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ops::Deref;
 use std::fmt;
 
@@ -18,6 +19,18 @@ use surface::{Surface, SurfaceExt};
 
 #[derive(Debug)]
 pub struct RecordingSurface(Surface);
+
+impl TryFrom<Surface> for RecordingSurface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<RecordingSurface, Surface> {
+        if surface.get_type() == SurfaceType::Recording {
+            Ok(RecordingSurface(surface))
+        } else {
+            Err(surface)
+        }
+    }
+}
 
 impl RecordingSurface {
     pub fn create<T: Into<Option<Rectangle>>>(
@@ -36,14 +49,6 @@ impl RecordingSurface {
             } else {
                 Some(RecordingSurface(Surface::from_raw_full(p)))
             }
-        }
-    }
-
-    pub fn from(surface: Surface) -> Result<RecordingSurface, Surface> {
-        if surface.get_type() == SurfaceType::Recording {
-            Ok(RecordingSurface(surface))
-        } else {
-            Err(surface)
         }
     }
 
