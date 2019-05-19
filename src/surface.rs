@@ -202,7 +202,6 @@ impl Surface {
     }
 
     user_data_methods! {
-        Surface::to_raw_none,
         ffi::cairo_surface_get_user_data,
         ffi::cairo_surface_set_user_data,
     }

@@ -251,7 +251,6 @@ impl ScaledFont {
     }
 
     user_data_methods! {
-        ScaledFont::to_raw_none,
         ffi::cairo_scaled_font_get_user_data,
         ffi::cairo_scaled_font_set_user_data,
     }

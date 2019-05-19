@@ -48,7 +48,7 @@ impl<T> UserDataKey<T> {
 // See <https://github.com/gtk-rs/cairo/issues/256>
 
 macro_rules! user_data_methods {
-    ($as_ptr: expr, $ffi_get_user_data: path, $ffi_set_user_data: path,) => {
+    ($ffi_get_user_data: path, $ffi_set_user_data: path,) => {
         /// Attach user data to `self` for the given `key`.
         pub fn set_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>,
                                          value: std::rc::Rc<T>)
@@ -66,7 +66,7 @@ macro_rules! user_data_methods {
             let ptr: *const T = std::rc::Rc::into_raw(value);
             let ptr = ptr as *mut T as *mut libc::c_void;
             let result = unsafe {
-                $ffi_set_user_data($as_ptr(self), &key.ffi, ptr, Some(destructor::<T>))
+                $ffi_set_user_data(self.to_raw_none(), &key.ffi, ptr, Some(destructor::<T>))
             };
             Status::from(result).ensure_valid()
         }
@@ -102,7 +102,7 @@ macro_rules! user_data_methods {
             //   Since this involves a C (or FFI) call *and* is so far out of “typical” use
             //   of the user data functionality, we consider this a misuse of an unsafe API.
             unsafe {
-                let ptr = $ffi_get_user_data($as_ptr(self), &key.ffi);
+                let ptr = $ffi_get_user_data(self.to_raw_none(), &key.ffi);
                 let ptr: *mut T = std::ptr::NonNull::new(ptr)?.cast().as_ptr();
                 let rc = std::mem::ManuallyDrop::new(std::rc::Rc::from_raw(ptr));
                 Some(std::rc::Rc::clone(&rc))
@@ -113,7 +113,7 @@ macro_rules! user_data_methods {
         /// If there is no other `Rc` strong reference, the data is destroyed.
         pub fn remove_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>) {
             let result = unsafe {
-                $ffi_set_user_data($as_ptr(self), &key.ffi, std::ptr::null_mut(), None)
+                $ffi_set_user_data(self.to_raw_none(), &key.ffi, std::ptr::null_mut(), None)
             };
             Status::from(result).ensure_valid()
         }

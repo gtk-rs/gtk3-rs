@@ -39,12 +39,11 @@ impl fmt::Display for Pattern {
 
 impl Pattern {
     user_data_methods! {
-        Pattern::as_ptr,
         ffi::cairo_pattern_get_user_data,
         ffi::cairo_pattern_set_user_data,
     }
 
-    pub fn as_ptr(&self) -> *mut cairo_pattern_t {
+    pub fn to_raw_none(&self) -> *mut cairo_pattern_t {
         self.pointer
     }
 
@@ -69,50 +68,50 @@ impl Pattern {
 
     pub fn status(&self) -> Status {
         unsafe {
-            Status::from(ffi::cairo_pattern_status(self.as_ptr()))
+            Status::from(ffi::cairo_pattern_status(self.pointer))
         }
     }
 
     pub fn get_reference_count(&self) -> isize {
         unsafe {
-            ffi::cairo_pattern_get_reference_count(self.as_ptr()) as isize
+            ffi::cairo_pattern_get_reference_count(self.pointer) as isize
         }
     }
 
     pub fn set_extend(&self, extend: Extend) {
         unsafe {
-            ffi::cairo_pattern_set_extend(self.as_ptr(), extend.into())
+            ffi::cairo_pattern_set_extend(self.pointer, extend.into())
         }
     }
 
     pub fn get_extend(&self) -> Extend {
         unsafe {
-            Extend::from(ffi::cairo_pattern_get_extend(self.as_ptr()))
+            Extend::from(ffi::cairo_pattern_get_extend(self.pointer))
         }
     }
 
     pub fn set_filter(&self, filter: Filter) {
         unsafe {
-            ffi::cairo_pattern_set_filter(self.as_ptr(), filter.into())
+            ffi::cairo_pattern_set_filter(self.pointer, filter.into())
         }
     }
 
     pub fn get_filter(&self) -> Filter {
         unsafe {
-            Filter::from(ffi::cairo_pattern_get_filter(self.as_ptr()))
+            Filter::from(ffi::cairo_pattern_get_filter(self.pointer))
         }
     }
 
     pub fn set_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_pattern_set_matrix (self.as_ptr(), &matrix)
+            ffi::cairo_pattern_set_matrix (self.pointer, &matrix)
         }
     }
 
     pub fn get_matrix(&self) -> Matrix {
         let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_pattern_get_matrix(self.as_ptr(), &mut matrix);
+            ffi::cairo_pattern_get_matrix(self.pointer, &mut matrix);
         }
         matrix
     }
@@ -203,20 +202,20 @@ macro_rules! gradient_type {
         impl $gradient_type {
             pub fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
                 unsafe {
-                    ffi::cairo_pattern_add_color_stop_rgb(self.as_ptr(), offset, red, green, blue)
+                    ffi::cairo_pattern_add_color_stop_rgb(self.pointer, offset, red, green, blue)
                 }
             }
 
             pub fn add_color_stop_rgba(&self, offset: f64, red: f64, green: f64, blue: f64, alpha: f64) {
                 unsafe {
-                    ffi::cairo_pattern_add_color_stop_rgba(self.as_ptr(), offset, red, green, blue, alpha)
+                    ffi::cairo_pattern_add_color_stop_rgba(self.pointer, offset, red, green, blue, alpha)
                 }
             }
 
             pub fn get_color_stop_count(&self) -> isize {
                 unsafe {
                     let mut count = 0;
-                    let result = ffi::cairo_pattern_get_color_stop_count(self.as_ptr(), &mut count);
+                    let result = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
 
                     Status::from(result).ensure_valid(); // Not sure if these are needed
                     count as isize
@@ -231,7 +230,7 @@ macro_rules! gradient_type {
                     let mut blue   = 0.0;
                     let mut alpha  = 0.0;
 
-                    Status::from(ffi::cairo_pattern_get_color_stop_rgba(self.as_ptr(),
+                    Status::from(ffi::cairo_pattern_get_color_stop_rgba(self.pointer,
                                                                         index as c_int,
                                                                         &mut offset,
                                                                         &mut red,

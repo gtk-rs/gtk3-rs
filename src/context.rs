@@ -248,7 +248,7 @@ impl Context {
 
     pub fn set_source(&self, source: &Pattern) {
         unsafe {
-            ffi::cairo_set_source(self.0, source.as_ptr());
+            ffi::cairo_set_source(self.0, source.to_raw_none());
         }
         self.ensure_status();
     }
@@ -482,7 +482,7 @@ impl Context {
 
     pub fn mask(&self, pattern: &Pattern) {
         unsafe {
-            ffi::cairo_mask(self.0, pattern.as_ptr())
+            ffi::cairo_mask(self.0, pattern.to_raw_none())
         }
     }
 
