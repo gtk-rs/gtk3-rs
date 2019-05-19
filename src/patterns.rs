@@ -195,50 +195,67 @@ impl SolidPattern {
     }
 }
 
+pattern_type!(Gradient);
+
+impl Gradient {
+    pub fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
+        unsafe {
+            ffi::cairo_pattern_add_color_stop_rgb(self.pointer, offset, red, green, blue)
+        }
+    }
+
+    pub fn add_color_stop_rgba(&self, offset: f64, red: f64, green: f64, blue: f64, alpha: f64) {
+        unsafe {
+            ffi::cairo_pattern_add_color_stop_rgba(self.pointer, offset, red, green, blue, alpha)
+        }
+    }
+
+    pub fn get_color_stop_count(&self) -> isize {
+        unsafe {
+            let mut count = 0;
+            let result = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
+
+            Status::from(result).ensure_valid(); // Not sure if these are needed
+            count as isize
+        }
+    }
+
+    pub fn get_color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
+        unsafe {
+            let mut offset = 0.0;
+            let mut red    = 0.0;
+            let mut green  = 0.0;
+            let mut blue   = 0.0;
+            let mut alpha  = 0.0;
+
+            Status::from(ffi::cairo_pattern_get_color_stop_rgba(self.pointer,
+                                                                index as c_int,
+                                                                &mut offset,
+                                                                &mut red,
+                                                                &mut green,
+                                                                &mut blue,
+                                                                &mut alpha)).ensure_valid();
+            (offset, red, green, blue, alpha)
+        }
+    }
+}
+
 macro_rules! gradient_type {
     ($gradient_type: ident) => {
-        pattern_type!($gradient_type);
+        #[derive(Debug, Clone)]
+        pub struct $gradient_type(Gradient);
 
-        impl $gradient_type {
-            pub fn add_color_stop_rgb(&self, offset: f64, red: f64, green: f64, blue: f64) {
-                unsafe {
-                    ffi::cairo_pattern_add_color_stop_rgb(self.pointer, offset, red, green, blue)
-                }
+        impl Deref for $gradient_type {
+            type Target = Gradient;
+
+            fn deref(&self) -> &Gradient {
+                &self.0
             }
+        }
 
-            pub fn add_color_stop_rgba(&self, offset: f64, red: f64, green: f64, blue: f64, alpha: f64) {
-                unsafe {
-                    ffi::cairo_pattern_add_color_stop_rgba(self.pointer, offset, red, green, blue, alpha)
-                }
-            }
-
-            pub fn get_color_stop_count(&self) -> isize {
-                unsafe {
-                    let mut count = 0;
-                    let result = ffi::cairo_pattern_get_color_stop_count(self.pointer, &mut count);
-
-                    Status::from(result).ensure_valid(); // Not sure if these are needed
-                    count as isize
-                }
-            }
-
-            pub fn get_color_stop_rgba(&self, index: isize) -> (f64, f64, f64, f64, f64) {
-                unsafe {
-                    let mut offset = 0.0;
-                    let mut red    = 0.0;
-                    let mut green  = 0.0;
-                    let mut blue   = 0.0;
-                    let mut alpha  = 0.0;
-
-                    Status::from(ffi::cairo_pattern_get_color_stop_rgba(self.pointer,
-                                                                        index as c_int,
-                                                                        &mut offset,
-                                                                        &mut red,
-                                                                        &mut green,
-                                                                        &mut blue,
-                                                                        &mut alpha)).ensure_valid();
-                    (offset, red, green, blue, alpha)
-                }
+        impl fmt::Display for $gradient_type {
+            fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+                write!(f, stringify!($gradient_type))
             }
         }
     }
@@ -249,9 +266,9 @@ gradient_type!(LinearGradient);
 impl LinearGradient {
     pub fn new(x0: f64, y0: f64, x1: f64, y1: f64) -> LinearGradient {
         unsafe {
-            LinearGradient(Pattern::from_raw_full(
+            LinearGradient(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_linear(x0, y0, x1, y1)
-            ))
+            )))
         }
     }
 
@@ -278,9 +295,9 @@ gradient_type!(RadialGradient);
 impl RadialGradient {
     pub fn new(x0: f64, y0: f64, r0: f64, x1: f64, y1: f64, r1: f64) -> RadialGradient {
         unsafe {
-            RadialGradient(Pattern::from_raw_full(
+            RadialGradient(Gradient(Pattern::from_raw_full(
                 ffi::cairo_pattern_create_radial(x0, y0, r0, x1, y1, r1)
-            ))
+            )))
         }
     }
 
