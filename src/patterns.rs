@@ -9,6 +9,7 @@ use std::ops::Deref;
 use ::enums::{
     Extend,
     Filter,
+    PatternType,
     Status,
 };
 use ::enums::MeshCorner;
@@ -54,6 +55,12 @@ impl Pattern {
 
     pub unsafe fn from_raw_full(pointer: *mut cairo_pattern_t) -> Pattern {
         Pattern { pointer }
+    }
+
+    pub fn get_type(&self) -> PatternType {
+        unsafe {
+            ffi::cairo_pattern_get_type(self.pointer).into()
+        }
     }
 
     pub fn ensure_status(&self) {
