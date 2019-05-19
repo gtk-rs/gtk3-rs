@@ -251,12 +251,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Surface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
 
-impl AsRef<Surface> for Surface {
-    fn as_ref(&self) -> &Surface {
-        self
-    }
-}
-
 impl Clone for Surface {
     fn clone(&self) -> Surface {
         unsafe { Self::from_raw_none(self.0) }
@@ -279,19 +273,19 @@ impl fmt::Display for Surface {
 
 impl Surface {
     pub fn flush(&self) {
-        unsafe { ffi::cairo_surface_flush(self.as_ref().0); }
+        unsafe { ffi::cairo_surface_flush(self.0); }
     }
 
     pub fn finish(&self) {
-        unsafe { ffi::cairo_surface_finish(self.as_ref().0); }
+        unsafe { ffi::cairo_surface_finish(self.0); }
     }
 
     pub fn get_type(&self) -> SurfaceType {
-        unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.as_ref().0)) }
+        unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.0)) }
     }
 
     pub fn status(&self) -> Status {
-        unsafe { Status::from(ffi::cairo_surface_status(self.as_ref().0)) }
+        unsafe { Status::from(ffi::cairo_surface_status(self.0)) }
     }
 }
 

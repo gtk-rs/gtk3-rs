@@ -113,23 +113,12 @@ impl File {
     }
 }
 
-impl AsRef<Surface> for File {
-    fn as_ref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
 impl Deref for File {
     type Target = Surface;
 
     fn deref(&self) -> &Surface {
         &self.inner
     }
-}
-
-impl AsRef<File> for File {
-    // This is included in order to be able to be generic over PDF surfaces
-    fn as_ref(&self) -> &File { self }
 }
 
 #[cfg(feature = "use_glib")]
@@ -203,24 +192,6 @@ impl<W: io::Write> Deref for Writer<W> {
     }
 }
 
-impl<W: io::Write> AsRef<File> for Writer<W> {
-    fn as_ref(&self) -> &File {
-        &self.writer.surface
-    }
-}
-
-impl<W: io::Write> AsRef<Surface> for Writer<W> {
-    fn as_ref(&self) -> &Surface {
-        &self.writer.surface.as_ref()
-    }
-}
-
-impl<W: io::Write + AsRef<[u8]>> AsRef<[u8]> for Writer<W> {
-    fn as_ref(&self) -> &[u8] {
-        &self.writer.writer().as_ref()
-    }
-}
-
 #[cfg(feature = "use_glib")]
 impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
     type Storage = &'a Surface;
@@ -261,18 +232,6 @@ impl<'w, W: io::Write + 'w> Deref for RefWriter<'w, W> {
     }
 }
 
-impl<'w, W: io::Write + 'w> AsRef<File> for RefWriter<'w, W> {
-    fn as_ref(&self) -> &File {
-        &self.writer.surface
-    }
-}
-
-impl<'w, W: io::Write + 'w> AsRef<Surface> for RefWriter<'w, W> {
-    fn as_ref(&self) -> &Surface {
-        &self.writer.surface.as_ref()
-    }
-}
-
 #[cfg(feature = "use_glib")]
 impl<'a, 'w, W: io::Write + 'w> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for RefWriter<'w, W> {
     type Storage = &'a Surface;
@@ -297,8 +256,8 @@ mod test {
     use context::*;
     use tempfile::tempfile;
 
-    fn draw<T: AsRef<File>>(surface: &T) {
-        let cr = Context::new(surface.as_ref());
+    fn draw(surface: &Surface) {
+        let cr = Context::new(surface);
 
         cr.set_line_width(25.0);
 

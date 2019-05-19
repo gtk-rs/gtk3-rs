@@ -124,12 +124,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Context, cairo_t, ffi::gobject::cairo_gobject_context_get_type);
 
-impl AsRef<Context> for Context {
-    fn as_ref(&self) -> &Context {
-        self
-    }
-}
-
 impl Clone for Context {
     fn clone(&self) -> Context {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
@@ -172,9 +166,9 @@ impl Context {
         self.status().ensure_valid();
     }
 
-    pub fn new<T: AsRef<Surface>>(target: &T) -> Context {
+    pub fn new(target: &Surface) -> Context {
         unsafe {
-            Self::from_raw_full(ffi::cairo_create(target.as_ref().to_raw_none()))
+            Self::from_raw_full(ffi::cairo_create(target.to_raw_none()))
         }
     }
 
@@ -259,8 +253,8 @@ impl Context {
         }
     }
 
-    pub fn set_source_surface<T: AsRef<Surface>>(&self, surface: &T, x: f64, y: f64) {
-        unsafe { ffi::cairo_set_source_surface(self.0, surface.as_ref().to_raw_none(), x, y); }
+    pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) {
+        unsafe { ffi::cairo_set_source_surface(self.0, surface.to_raw_none(), x, y); }
     }
 
     pub fn set_antialias(&self, antialias : Antialias) {

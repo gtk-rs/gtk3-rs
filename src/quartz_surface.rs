@@ -100,12 +100,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for QuartzSurface {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(QuartzSurface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
 
-impl AsRef<Surface> for QuartzSurface {
-    fn as_ref(&self) -> &Surface {
-        &self.0
-    }
-}
-
 impl Deref for QuartzSurface {
     type Target = Surface;
 

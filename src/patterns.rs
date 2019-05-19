@@ -354,10 +354,10 @@ impl RadialGradient {
 pattern_type!(SurfacePattern = Surface);
 
 impl SurfacePattern {
-    pub fn create<T: AsRef<Surface>>(surface: &T) -> SurfacePattern {
+    pub fn create(surface: &Surface) -> SurfacePattern {
         unsafe {
             SurfacePattern(Pattern::from_raw_full(
-                ffi::cairo_pattern_create_for_surface(surface.as_ref().to_raw_none())
+                ffi::cairo_pattern_create_for_surface(surface.to_raw_none())
             ))
         }
     }

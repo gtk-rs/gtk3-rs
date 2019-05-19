@@ -325,12 +325,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_device_t> for Device {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Device, ffi::cairo_device_t, ffi::gobject::cairo_gobject_device_get_type);
 
-impl AsRef<Device> for Device {
-    fn as_ref(&self) -> &Device {
-        self
-    }
-}
-
 impl Clone for Device {
     fn clone(&self) -> Device {
         unsafe { Self::from_raw_none(ffi::cairo_device_reference(self.0)) }

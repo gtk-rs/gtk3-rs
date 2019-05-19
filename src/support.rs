@@ -6,6 +6,7 @@ use std::mem;
 use std::marker::PhantomData;
 use std::io;
 use std::slice;
+use std::ops::Deref;
 use std::fmt;
 
 use ffi::{self, cairo_status_t};
@@ -21,12 +22,12 @@ pub trait FromRawSurface {
 }
 
 #[derive(Debug)]
-pub struct Writer<S: FromRawSurface + AsRef<Surface>, W: io::Write> {
+pub struct Writer<S: FromRawSurface + Deref<Target=Surface>, W: io::Write> {
     pub surface: S,
     writer: Box<W>,
 }
 
-impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> Writer<S, W> {
+impl<S: FromRawSurface + Deref<Target=Surface>, W: io::Write> Writer<S, W> {
     extern fn write_cb(writer: *mut c_void, data: *mut c_uchar, length: c_uint) -> cairo_status_t {
         let mut writer: Box<W> = unsafe { Box::from_raw(writer as *mut _) };
         let data = unsafe { slice::from_raw_parts(data, length as usize) };
@@ -53,19 +54,19 @@ impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> Writer<S, W> {
         }
     }
 
-    pub fn writer(&self) -> &W { self.writer.as_ref() }
-    pub fn writer_mut(&mut self) -> &mut W { self.writer.as_mut() }
+    pub fn writer(&self) -> &W { &self.writer }
+    pub fn writer_mut(&mut self) -> &mut W { &mut self.writer }
 
     pub fn finish(self) -> W {
         let surface = self.surface;
-        surface.as_ref().finish();
+        surface.finish();
         drop(surface);
 
         *self.writer
     }
 }
 
-impl<S: FromRawSurface + AsRef<Surface>, W: io::Write> fmt::Display for Writer<S, W> {
+impl<S: FromRawSurface + Deref<Target=Surface>, W: io::Write> fmt::Display for Writer<S, W> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "support::Writer")
     }
@@ -104,7 +105,7 @@ impl<'w, S: FromRawSurface, W: io::Write + 'w> RefWriter<'w, S, W> {
     }
 }
 
-impl<'w, S: FromRawSurface + AsRef<Surface>, W: io::Write> fmt::Display for RefWriter<'w, S, W> {
+impl<'w, S: FromRawSurface + Deref<Target=Surface>, W: io::Write> fmt::Display for RefWriter<'w, S, W> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "support::RefWriter")
     }

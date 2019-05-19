@@ -98,12 +98,6 @@ impl FromGlibPtrFull<*mut ffi::xcb_connection_t> for XCBConnection {
     }
 }
 
-impl AsRef<XCBConnection> for XCBConnection {
-    fn as_ref(&self) -> &XCBConnection {
-        self
-    }
-}
-
 impl Clone for XCBConnection {
     fn clone(&self) -> XCBConnection {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
@@ -174,12 +168,6 @@ impl FromGlibPtrFull<*mut ffi::xcb_render_pictforminfo_t> for XCBRenderPictFormI
     }
 }
 
-impl AsRef<XCBRenderPictFormInfo> for XCBRenderPictFormInfo {
-    fn as_ref(&self) -> &XCBRenderPictFormInfo {
-        self
-    }
-}
-
 impl Clone for XCBRenderPictFormInfo {
     fn clone(&self) -> XCBRenderPictFormInfo {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
@@ -247,12 +235,6 @@ impl FromGlibPtrFull<*mut ffi::xcb_screen_t> for XCBScreen {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_screen_t) -> XCBScreen {
         Self::from_raw_full(ptr)
-    }
-}
-
-impl AsRef<XCBScreen> for XCBScreen {
-    fn as_ref(&self) -> &XCBScreen {
-        self
     }
 }
 
@@ -403,12 +385,6 @@ impl FromGlibPtrFull<*mut ffi::xcb_visualtype_t> for XCBVisualType {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::xcb_visualtype_t) -> XCBVisualType {
         Self::from_raw_full(ptr)
-    }
-}
-
-impl AsRef<XCBVisualType> for XCBVisualType {
-    fn as_ref(&self) -> &XCBVisualType {
-        self
     }
 }
 
