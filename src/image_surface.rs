@@ -16,7 +16,7 @@ use ::enums::{
 };
 
 use BorrowError;
-use surface::{Surface, SurfaceExt};
+use surface::Surface;
 use Status;
 use std::fmt;
 

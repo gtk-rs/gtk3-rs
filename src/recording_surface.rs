@@ -15,7 +15,7 @@ use ::enums::{
 };
 use ::rectangle::Rectangle;
 
-use surface::{Surface, SurfaceExt};
+use surface::Surface;
 
 #[derive(Debug)]
 pub struct RecordingSurface(Surface);

@@ -119,7 +119,6 @@ pub use region::Region;
 pub use surface::{
     MappedImageSurface,
     Surface,
-    SurfaceExt,
 };
 
 pub use image_surface::{

@@ -11,7 +11,7 @@ use std::fmt;
 use ffi::{self, cairo_status_t};
 use libc::{c_void, c_uchar, c_uint, c_double};
 use ::enums::Status;
-use surface::{Surface, SurfaceExt};
+use surface::Surface;
 
 
 pub type Constructor = unsafe extern fn (ffi::cairo_write_func_t, *mut c_void, c_double, c_double) -> *mut ffi::cairo_surface_t;

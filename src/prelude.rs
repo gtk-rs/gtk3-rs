@@ -3,4 +3,3 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 pub use patterns::Pattern;
-pub use surface::SurfaceExt;

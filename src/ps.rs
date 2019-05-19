@@ -284,7 +284,6 @@ impl<'w, W: io::Write + 'w> fmt::Display for RefWriter<'w, W> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use surface::SurfaceExt;
     use context::*;
     use tempfile::tempfile;
 

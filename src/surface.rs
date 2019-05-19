@@ -277,27 +277,20 @@ impl fmt::Display for Surface {
     }
 }
 
-pub trait SurfaceExt {
-    fn flush(&self);
-    fn finish(&self);
-    fn get_type(&self) -> SurfaceType;
-    fn status(&self) -> Status;
-}
-
-impl<O: AsRef<Surface>> SurfaceExt for O {
-    fn flush(&self) {
+impl Surface {
+    pub fn flush(&self) {
         unsafe { ffi::cairo_surface_flush(self.as_ref().0); }
     }
 
-    fn finish(&self) {
+    pub fn finish(&self) {
         unsafe { ffi::cairo_surface_finish(self.as_ref().0); }
     }
 
-    fn get_type(&self) -> SurfaceType {
+    pub fn get_type(&self) -> SurfaceType {
         unsafe { SurfaceType::from(ffi::cairo_surface_get_type(self.as_ref().0)) }
     }
 
-    fn status(&self) -> Status {
+    pub fn status(&self) -> Status {
         unsafe { Status::from(ffi::cairo_surface_status(self.as_ref().0)) }
     }
 }

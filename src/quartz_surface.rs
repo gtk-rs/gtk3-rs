@@ -10,7 +10,7 @@ use std::fmt;
 use glib::translate::*;
 use ffi;
 use ::enums::{Format, SurfaceType};
-use surface::{Surface, SurfaceExt};
+use surface::Surface;
 use Status;
 
 use ffi::CGContextRef;
