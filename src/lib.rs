@@ -128,8 +128,12 @@ pub use image_surface::{
 
 #[cfg(any(feature = "pdf", feature = "dox"))]
 pub use pdf::PdfSurface;
+
 #[cfg(any(feature = "ps", feature = "dox"))]
 pub use ps::PsSurface;
+
+#[cfg(any(feature = "svg", feature = "dox"))]
+pub use svg::SvgSurface;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
@@ -168,14 +172,12 @@ mod matrices;
 mod xcb;
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
-mod support;
-#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
 #[macro_use]
 mod stream;
 #[cfg(any(feature = "pdf", feature = "dox"))]
 mod pdf;
 #[cfg(any(feature = "svg", feature = "dox"))]
-pub mod svg;
+mod svg;
 #[cfg(any(feature = "ps", feature = "dox"))]
 mod ps;
 
