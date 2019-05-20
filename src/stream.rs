@@ -9,6 +9,7 @@ use libc::{c_void, c_double, c_uchar, c_uint};
 use std::any::Any;
 use std::cell::UnsafeCell;
 use std::io;
+use std::panic::AssertUnwindSafe;
 use std::rc::Rc;
 
 macro_rules! for_stream_constructors {
@@ -65,6 +66,7 @@ impl Surface {
         let env_rc = Rc::new(UnsafeCell::new(CallbackEnvironment {
             stream: Some(Box::new(stream)),
             io_error: None,
+            unwind_payload: None,
         }));
         let env: *const UnsafeCell<CallbackEnvironment> = &*env_rc;
         unsafe {
@@ -92,7 +94,12 @@ impl Surface {
         // Safety: contract of `get_user_data_ptr`
         let env = unsafe { env.as_ref() };
 
-        with_mut_env(env, f)
+        with_mut_env(env, |env| {
+            if let Some(payload) = env.unwind_payload.take() {
+                std::panic::resume_unwind(payload)
+            }
+            f(env)
+        })
     }
 
     /// Remove and return the output stream, if any.
@@ -138,8 +145,11 @@ static STREAM_CALLBACK_ENVIRONMENT: UserDataKey<UnsafeCell<CallbackEnvironment>>
 struct CallbackEnvironment {
     stream: Option<Box<dyn Any>>,
     io_error: Option<io::Error>,
+    unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
+// Safety: unwinding into C is undefined behavior (https://github.com/rust-lang/rust/issues/58794)
+// so code outside of the `catch_unwind` call must never panic.
 extern "C" fn write_callback<W: io::Write + 'static>(
     env: *mut c_void,
     data: *mut c_uchar,
@@ -153,7 +163,7 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     // If this is called by cairo, the surface is still alive.
     let env: &UnsafeCell<CallbackEnvironment> = unsafe { &*env };
 
-    let result = with_mut_env(env, |env| {
+    with_mut_env(env, |env| {
         if let Some(stream) = &mut env.stream {
             // Safety: `write_callback<W>` was instanciated in `Surface::_for_stream`
             // with a W parameter consistent with the box that was unsized to `Box<dyn Any>`.
@@ -164,22 +174,23 @@ extern "C" fn write_callback<W: io::Write + 'static>(
             let data = unsafe {
                 std::slice::from_raw_parts(data, length as usize)
             };
-            match stream.write_all(data) {
-                Ok(()) => {
-                    Status::Success
+            // Because `<W as Write>::write_all` is a generic,
+            // we must conservatively assume that it can panic.
+            let result = std::panic::catch_unwind(AssertUnwindSafe(|| stream.write_all(data)));
+            match result {
+                Ok(Ok(())) => {
+                    return Status::Success
                 }
-                Err(error) => {
+                Ok(Err(error)) => {
                     env.io_error = Some(error);
-                    Status::WriteError
+                }
+                Err(payload) => {
+                    env.unwind_payload = Some(payload);
                 }
             }
-        } else {
-            // Writing after `take_output_stream` was called
-            Status::WriteError
         }
-    });
-
-    result.into()
+        Status::WriteError
+    }).into()
 }
 
 fn with_mut_env<R, F>(env: &UnsafeCell<CallbackEnvironment>, f: F) -> R
