@@ -19,23 +19,12 @@ use support::{self, FromRawSurface};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
-
-pub fn get_versions() -> Vec<SvgVersion> {
-    let vers_slice = unsafe {
-        let mut vers_ptr: *mut ffi::cairo_svg_version_t = mem::uninitialized();
-        let mut num_vers = 0;
-        ffi::cairo_svg_get_versions(&mut vers_ptr as _, &mut num_vers as _);
-
-        std::slice::from_raw_parts(vers_ptr, num_vers as _)
-    };
-
-    vers_slice.iter().map(|v| SvgVersion::from(*v)).collect()
-}
-
-pub fn version_to_string(version: SvgVersion) -> Option<&'static str> {
-    unsafe {
-        let res = ffi::cairo_svg_version_to_string(version.into());
-        res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+impl SvgVersion {
+    pub fn as_str(self) -> Option<&'static str> {
+        unsafe {
+            let res = ffi::cairo_svg_version_to_string(self.into());
+            res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+        }
     }
 }
 
@@ -58,6 +47,18 @@ impl File {
         unsafe {
             Self::from_raw_surface(ffi::cairo_svg_surface_create(path.as_ptr(), width, height))
         }
+    }
+
+    pub fn get_versions() -> impl Iterator<Item=SvgVersion> {
+        let vers_slice = unsafe {
+            let mut vers_ptr: *mut ffi::cairo_svg_version_t = mem::uninitialized();
+            let mut num_vers = 0;
+            ffi::cairo_svg_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+
+            std::slice::from_raw_parts(vers_ptr, num_vers as _)
+        };
+
+        vers_slice.iter().map(|v| SvgVersion::from(*v))
     }
 
     pub fn restrict(&self, version: SvgVersion) {
@@ -257,13 +258,12 @@ mod test {
 
     #[test]
     fn versions() {
-        let vers = get_versions();
-        assert!(vers.iter().any(|v| *v == SvgVersion::_1_1));
+        assert!(File::get_versions().any(|v| v == SvgVersion::_1_1));
     }
 
     #[test]
     fn version_string() {
-        let ver_str = version_to_string(SvgVersion::_1_1).unwrap();
+        let ver_str = SvgVersion::_1_1.as_str().unwrap();
         assert_eq!(ver_str, "SVG 1.1");
     }
 
