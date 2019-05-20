@@ -448,14 +448,9 @@ impl ::std::fmt::Debug for PangoAttrInt {
 }
 
 #[repr(C)]
-pub struct PangoAttrIterator(c_void);
+pub struct _PangoAttrIterator(c_void);
 
-impl ::std::fmt::Debug for PangoAttrIterator {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoAttrIterator @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoAttrIterator = *mut _PangoAttrIterator;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -578,24 +573,14 @@ impl ::std::fmt::Debug for PangoColor {
 }
 
 #[repr(C)]
-pub struct PangoContextClass(c_void);
+pub struct _PangoContextClass(c_void);
 
-impl ::std::fmt::Debug for PangoContextClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoContextClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoContextClass = *mut _PangoContextClass;
 
 #[repr(C)]
-pub struct PangoCoverage(c_void);
+pub struct _PangoCoverage(c_void);
 
-impl ::std::fmt::Debug for PangoCoverage {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoCoverage @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoCoverage = *mut _PangoCoverage;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -856,14 +841,9 @@ impl ::std::fmt::Debug for PangoFontsetClass {
 }
 
 #[repr(C)]
-pub struct PangoFontsetSimpleClass(c_void);
+pub struct _PangoFontsetSimpleClass(c_void);
 
-impl ::std::fmt::Debug for PangoFontsetSimpleClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoFontsetSimpleClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoFontsetSimpleClass = *mut _PangoFontsetSimpleClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1029,14 +1009,9 @@ impl ::std::fmt::Debug for PangoLanguage {
 }
 
 #[repr(C)]
-pub struct PangoLayoutClass(c_void);
+pub struct _PangoLayoutClass(c_void);
 
-impl ::std::fmt::Debug for PangoLayoutClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoLayoutClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoLayoutClass = *mut _PangoLayoutClass;
 
 #[repr(C)]
 pub struct PangoLayoutIter(c_void);
@@ -1087,24 +1062,14 @@ impl ::std::fmt::Debug for PangoLogAttr {
 }
 
 #[repr(C)]
-pub struct PangoMap(c_void);
+pub struct _PangoMap(c_void);
 
-impl ::std::fmt::Debug for PangoMap {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoMap @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoMap = *mut _PangoMap;
 
 #[repr(C)]
-pub struct PangoMapEntry(c_void);
+pub struct _PangoMapEntry(c_void);
 
-impl ::std::fmt::Debug for PangoMapEntry {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoMapEntry @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoMapEntry = *mut _PangoMapEntry;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1192,24 +1157,14 @@ impl ::std::fmt::Debug for PangoRendererClass {
 }
 
 #[repr(C)]
-pub struct PangoRendererPrivate(c_void);
+pub struct _PangoRendererPrivate(c_void);
 
-impl ::std::fmt::Debug for PangoRendererPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoRendererPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoRendererPrivate = *mut _PangoRendererPrivate;
 
 #[repr(C)]
-pub struct PangoScriptIter(c_void);
+pub struct _PangoScriptIter(c_void);
 
-impl ::std::fmt::Debug for PangoScriptIter {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("PangoScriptIter @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type PangoScriptIter = *mut _PangoScriptIter;
 
 #[repr(C)]
 pub struct PangoTabArray(c_void);

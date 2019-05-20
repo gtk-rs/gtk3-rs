@@ -15,10 +15,10 @@ shell-words = "0.1.0"
 tempdir = "0.3"
 
 [features]
-dox = []
 v1_36_7 = []
 v1_38 = ["v1_36_7"]
 v1_42 = ["v1_38"]
+dox = []
 
 [lib]
 name = "pango_sys"

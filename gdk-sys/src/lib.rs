@@ -2940,24 +2940,14 @@ impl ::std::fmt::Debug for GdkColor {
 }
 
 #[repr(C)]
-pub struct GdkDevicePadInterface(c_void);
+pub struct _GdkDevicePadInterface(c_void);
 
-impl ::std::fmt::Debug for GdkDevicePadInterface {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkDevicePadInterface @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkDevicePadInterface = *mut _GdkDevicePadInterface;
 
 #[repr(C)]
-pub struct GdkDrawingContextClass(c_void);
+pub struct _GdkDrawingContextClass(c_void);
 
-impl ::std::fmt::Debug for GdkDrawingContextClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkDrawingContextClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkDrawingContextClass = *mut _GdkDrawingContextClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3654,24 +3644,14 @@ impl ::std::fmt::Debug for GdkEventWindowState {
 }
 
 #[repr(C)]
-pub struct GdkFrameClockClass(c_void);
+pub struct _GdkFrameClockClass(c_void);
 
-impl ::std::fmt::Debug for GdkFrameClockClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkFrameClockClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkFrameClockClass = *mut _GdkFrameClockClass;
 
 #[repr(C)]
-pub struct GdkFrameClockPrivate(c_void);
+pub struct _GdkFrameClockPrivate(c_void);
 
-impl ::std::fmt::Debug for GdkFrameClockPrivate {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkFrameClockPrivate @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkFrameClockPrivate = *mut _GdkFrameClockPrivate;
 
 #[repr(C)]
 pub struct GdkFrameTimings(c_void);
@@ -3736,14 +3716,9 @@ impl ::std::fmt::Debug for GdkKeymapKey {
 }
 
 #[repr(C)]
-pub struct GdkMonitorClass(c_void);
+pub struct _GdkMonitorClass(c_void);
 
-impl ::std::fmt::Debug for GdkMonitorClass {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkMonitorClass @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkMonitorClass = *mut _GdkMonitorClass;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3895,14 +3870,9 @@ impl ::std::fmt::Debug for GdkWindowClass {
 }
 
 #[repr(C)]
-pub struct GdkWindowRedirect(c_void);
+pub struct _GdkWindowRedirect(c_void);
 
-impl ::std::fmt::Debug for GdkWindowRedirect {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-        f.debug_struct(&format!("GdkWindowRedirect @ {:?}", self as *const _))
-         .finish()
-    }
-}
+pub type GdkWindowRedirect = *mut _GdkWindowRedirect;
 
 // Classes
 #[repr(C)]

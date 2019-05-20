@@ -12,11 +12,11 @@ shell-words = "0.1.0"
 tempdir = "0.3"
 
 [features]
-dox = []
 v2_44 = []
 v2_46 = ["v2_44"]
 v2_54 = ["v2_46"]
 v2_58 = ["v2_54"]
+dox = []
 
 [lib]
 name = "gobject_sys"

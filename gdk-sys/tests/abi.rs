@@ -239,7 +239,6 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
     ("GdkAnchorHints", Layout {size: size_of::<GdkAnchorHints>(), alignment: align_of::<GdkAnchorHints>()}),
-    ("GdkAtom", Layout {size: size_of::<GdkAtom>(), alignment: align_of::<GdkAtom>()}),
     ("GdkAxisFlags", Layout {size: size_of::<GdkAxisFlags>(), alignment: align_of::<GdkAxisFlags>()}),
     ("GdkAxisUse", Layout {size: size_of::<GdkAxisUse>(), alignment: align_of::<GdkAxisUse>()}),
     ("GdkByteOrder", Layout {size: size_of::<GdkByteOrder>(), alignment: align_of::<GdkByteOrder>()}),
