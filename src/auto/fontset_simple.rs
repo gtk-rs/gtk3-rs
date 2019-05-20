@@ -24,26 +24,16 @@ impl FontsetSimple {
             from_glib_full(pango_sys::pango_fontset_simple_new(language.to_glib_none_mut().0))
         }
     }
-}
 
-pub const NONE_FONTSET_SIMPLE: Option<&FontsetSimple> = None;
-
-pub trait FontsetSimpleExt: 'static {
-    fn append<P: IsA<Font>>(&self, font: &P);
-
-    fn size(&self) -> i32;
-}
-
-impl<O: IsA<FontsetSimple>> FontsetSimpleExt for O {
-    fn append<P: IsA<Font>>(&self, font: &P) {
+    pub fn append<P: IsA<Font>>(&self, font: &P) {
         unsafe {
-            pango_sys::pango_fontset_simple_append(self.as_ref().to_glib_none().0, font.as_ref().to_glib_none().0);
+            pango_sys::pango_fontset_simple_append(self.to_glib_none().0, font.as_ref().to_glib_none().0);
         }
     }
 
-    fn size(&self) -> i32 {
+    pub fn size(&self) -> i32 {
         unsafe {
-            pango_sys::pango_fontset_simple_size(self.as_ref().to_glib_none().0)
+            pango_sys::pango_fontset_simple_size(self.to_glib_none().0)
         }
     }
 }

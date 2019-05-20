@@ -34,188 +34,140 @@ impl Context {
             from_glib_full(pango_sys::pango_context_new())
         }
     }
+
+    pub fn changed(&self) {
+        unsafe {
+            pango_sys::pango_context_changed(self.to_glib_none().0);
+        }
+    }
+
+    pub fn get_base_dir(&self) -> Direction {
+        unsafe {
+            from_glib(pango_sys::pango_context_get_base_dir(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_base_gravity(&self) -> Gravity {
+        unsafe {
+            from_glib(pango_sys::pango_context_get_base_gravity(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_font_description(&self) -> Option<FontDescription> {
+        unsafe {
+            from_glib_none(pango_sys::pango_context_get_font_description(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_font_map(&self) -> Option<FontMap> {
+        unsafe {
+            from_glib_none(pango_sys::pango_context_get_font_map(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_gravity(&self) -> Gravity {
+        unsafe {
+            from_glib(pango_sys::pango_context_get_gravity(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_gravity_hint(&self) -> GravityHint {
+        unsafe {
+            from_glib(pango_sys::pango_context_get_gravity_hint(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_language(&self) -> Option<Language> {
+        unsafe {
+            from_glib_full(pango_sys::pango_context_get_language(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_matrix(&self) -> Option<Matrix> {
+        unsafe {
+            from_glib_none(pango_sys::pango_context_get_matrix(self.to_glib_none().0))
+        }
+    }
+
+    pub fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics> {
+        unsafe {
+            from_glib_full(pango_sys::pango_context_get_metrics(self.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
+        }
+    }
+
+    pub fn get_serial(&self) -> u32 {
+        unsafe {
+            pango_sys::pango_context_get_serial(self.to_glib_none().0)
+        }
+    }
+
+    pub fn list_families(&self) -> Vec<FontFamily> {
+        unsafe {
+            let mut families = ptr::null_mut();
+            let mut n_families = mem::uninitialized();
+            pango_sys::pango_context_list_families(self.to_glib_none().0, &mut families, &mut n_families);
+            FromGlibContainer::from_glib_container_num(families, n_families as usize)
+        }
+    }
+
+    pub fn load_font(&self, desc: &FontDescription) -> Option<Font> {
+        unsafe {
+            from_glib_full(pango_sys::pango_context_load_font(self.to_glib_none().0, desc.to_glib_none().0))
+        }
+    }
+
+    pub fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset> {
+        unsafe {
+            from_glib_full(pango_sys::pango_context_load_fontset(self.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
+        }
+    }
+
+    pub fn set_base_dir(&self, direction: Direction) {
+        unsafe {
+            pango_sys::pango_context_set_base_dir(self.to_glib_none().0, direction.to_glib());
+        }
+    }
+
+    pub fn set_base_gravity(&self, gravity: Gravity) {
+        unsafe {
+            pango_sys::pango_context_set_base_gravity(self.to_glib_none().0, gravity.to_glib());
+        }
+    }
+
+    pub fn set_font_description(&self, desc: &FontDescription) {
+        unsafe {
+            pango_sys::pango_context_set_font_description(self.to_glib_none().0, desc.to_glib_none().0);
+        }
+    }
+
+    pub fn set_font_map<P: IsA<FontMap>>(&self, font_map: &P) {
+        unsafe {
+            pango_sys::pango_context_set_font_map(self.to_glib_none().0, font_map.as_ref().to_glib_none().0);
+        }
+    }
+
+    pub fn set_gravity_hint(&self, hint: GravityHint) {
+        unsafe {
+            pango_sys::pango_context_set_gravity_hint(self.to_glib_none().0, hint.to_glib());
+        }
+    }
+
+    pub fn set_language(&self, language: &Language) {
+        unsafe {
+            pango_sys::pango_context_set_language(self.to_glib_none().0, mut_override(language.to_glib_none().0));
+        }
+    }
+
+    pub fn set_matrix(&self, matrix: Option<&Matrix>) {
+        unsafe {
+            pango_sys::pango_context_set_matrix(self.to_glib_none().0, matrix.to_glib_none().0);
+        }
+    }
 }
 
 impl Default for Context {
     fn default() -> Self {
         Self::new()
-    }
-}
-
-pub const NONE_CONTEXT: Option<&Context> = None;
-
-pub trait ContextExt: 'static {
-    fn changed(&self);
-
-    fn get_base_dir(&self) -> Direction;
-
-    fn get_base_gravity(&self) -> Gravity;
-
-    fn get_font_description(&self) -> Option<FontDescription>;
-
-    fn get_font_map(&self) -> Option<FontMap>;
-
-    fn get_gravity(&self) -> Gravity;
-
-    fn get_gravity_hint(&self) -> GravityHint;
-
-    fn get_language(&self) -> Option<Language>;
-
-    fn get_matrix(&self) -> Option<Matrix>;
-
-    fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics>;
-
-    fn get_serial(&self) -> u32;
-
-    fn list_families(&self) -> Vec<FontFamily>;
-
-    fn load_font(&self, desc: &FontDescription) -> Option<Font>;
-
-    fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset>;
-
-    fn set_base_dir(&self, direction: Direction);
-
-    fn set_base_gravity(&self, gravity: Gravity);
-
-    fn set_font_description(&self, desc: &FontDescription);
-
-    fn set_font_map<P: IsA<FontMap>>(&self, font_map: &P);
-
-    fn set_gravity_hint(&self, hint: GravityHint);
-
-    fn set_language(&self, language: &Language);
-
-    fn set_matrix(&self, matrix: Option<&Matrix>);
-}
-
-impl<O: IsA<Context>> ContextExt for O {
-    fn changed(&self) {
-        unsafe {
-            pango_sys::pango_context_changed(self.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn get_base_dir(&self) -> Direction {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_base_dir(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_base_gravity(&self) -> Gravity {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_base_gravity(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_font_description(&self) -> Option<FontDescription> {
-        unsafe {
-            from_glib_none(pango_sys::pango_context_get_font_description(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_font_map(&self) -> Option<FontMap> {
-        unsafe {
-            from_glib_none(pango_sys::pango_context_get_font_map(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_gravity(&self) -> Gravity {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_gravity(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_gravity_hint(&self) -> GravityHint {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_gravity_hint(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_language(&self) -> Option<Language> {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_get_language(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_matrix(&self) -> Option<Matrix> {
-        unsafe {
-            from_glib_none(pango_sys::pango_context_get_matrix(self.as_ref().to_glib_none().0))
-        }
-    }
-
-    fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics> {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_get_metrics(self.as_ref().to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
-        }
-    }
-
-    fn get_serial(&self) -> u32 {
-        unsafe {
-            pango_sys::pango_context_get_serial(self.as_ref().to_glib_none().0)
-        }
-    }
-
-    fn list_families(&self) -> Vec<FontFamily> {
-        unsafe {
-            let mut families = ptr::null_mut();
-            let mut n_families = mem::uninitialized();
-            pango_sys::pango_context_list_families(self.as_ref().to_glib_none().0, &mut families, &mut n_families);
-            FromGlibContainer::from_glib_container_num(families, n_families as usize)
-        }
-    }
-
-    fn load_font(&self, desc: &FontDescription) -> Option<Font> {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_load_font(self.as_ref().to_glib_none().0, desc.to_glib_none().0))
-        }
-    }
-
-    fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset> {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_load_fontset(self.as_ref().to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
-        }
-    }
-
-    fn set_base_dir(&self, direction: Direction) {
-        unsafe {
-            pango_sys::pango_context_set_base_dir(self.as_ref().to_glib_none().0, direction.to_glib());
-        }
-    }
-
-    fn set_base_gravity(&self, gravity: Gravity) {
-        unsafe {
-            pango_sys::pango_context_set_base_gravity(self.as_ref().to_glib_none().0, gravity.to_glib());
-        }
-    }
-
-    fn set_font_description(&self, desc: &FontDescription) {
-        unsafe {
-            pango_sys::pango_context_set_font_description(self.as_ref().to_glib_none().0, desc.to_glib_none().0);
-        }
-    }
-
-    fn set_font_map<P: IsA<FontMap>>(&self, font_map: &P) {
-        unsafe {
-            pango_sys::pango_context_set_font_map(self.as_ref().to_glib_none().0, font_map.as_ref().to_glib_none().0);
-        }
-    }
-
-    fn set_gravity_hint(&self, hint: GravityHint) {
-        unsafe {
-            pango_sys::pango_context_set_gravity_hint(self.as_ref().to_glib_none().0, hint.to_glib());
-        }
-    }
-
-    fn set_language(&self, language: &Language) {
-        unsafe {
-            pango_sys::pango_context_set_language(self.as_ref().to_glib_none().0, mut_override(language.to_glib_none().0));
-        }
-    }
-
-    fn set_matrix(&self, matrix: Option<&Matrix>) {
-        unsafe {
-            pango_sys::pango_context_set_matrix(self.as_ref().to_glib_none().0, matrix.to_glib_none().0);
-        }
     }
 }
 

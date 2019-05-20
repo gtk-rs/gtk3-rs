@@ -3,8 +3,7 @@
 // DO NOT EDIT
 
 mod context;
-pub use self::context::{Context, ContextClass, NONE_CONTEXT};
-pub use self::context::ContextExt;
+pub use self::context::{Context, ContextClass};
 
 mod engine_lang;
 pub use self::engine_lang::{EngineLang, EngineLangClass, NONE_ENGINE_LANG};
@@ -33,12 +32,10 @@ pub use self::fontset::{Fontset, FontsetClass, NONE_FONTSET};
 pub use self::fontset::FontsetExt;
 
 mod fontset_simple;
-pub use self::fontset_simple::{FontsetSimple, FontsetSimpleClass, NONE_FONTSET_SIMPLE};
-pub use self::fontset_simple::FontsetSimpleExt;
+pub use self::fontset_simple::{FontsetSimple, FontsetSimpleClass};
 
 mod layout;
-pub use self::layout::{Layout, LayoutClass, NONE_LAYOUT};
-pub use self::layout::LayoutExt;
+pub use self::layout::{Layout, LayoutClass};
 
 mod renderer;
 pub use self::renderer::{Renderer, RendererClass, NONE_RENDERER};
@@ -125,13 +122,10 @@ pub use self::constants::RENDER_TYPE_NONE;
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::ContextExt;
     pub use super::FontExt;
     pub use super::FontFaceExt;
     pub use super::FontFamilyExt;
     pub use super::FontMapExt;
     pub use super::FontsetExt;
-    pub use super::FontsetSimpleExt;
-    pub use super::LayoutExt;
     pub use super::RendererExt;
 }

@@ -39,7 +39,7 @@ pub trait RendererExt: 'static {
 
     fn draw_glyphs<P: IsA<Font>>(&self, font: &P, glyphs: &mut GlyphString, x: i32, y: i32);
 
-    fn draw_layout<P: IsA<Layout>>(&self, layout: &P, x: i32, y: i32);
+    fn draw_layout(&self, layout: &Layout, x: i32, y: i32);
 
     fn draw_layout_line(&self, line: &LayoutLine, x: i32, y: i32);
 
@@ -105,9 +105,9 @@ impl<O: IsA<Renderer>> RendererExt for O {
         }
     }
 
-    fn draw_layout<P: IsA<Layout>>(&self, layout: &P, x: i32, y: i32) {
+    fn draw_layout(&self, layout: &Layout, x: i32, y: i32) {
         unsafe {
-            pango_sys::pango_renderer_draw_layout(self.as_ref().to_glib_none().0, layout.as_ref().to_glib_none().0, x, y);
+            pango_sys::pango_renderer_draw_layout(self.as_ref().to_glib_none().0, layout.to_glib_none().0, x, y);
         }
     }
 
