@@ -126,8 +126,10 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
-#[cfg(feature = "pdf")]
+#[cfg(any(feature = "pdf", feature = "dox"))]
 pub use pdf::PdfSurface;
+#[cfg(any(feature = "ps", feature = "dox"))]
+pub use ps::PsSurface;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
@@ -168,13 +170,14 @@ mod xcb;
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
 mod support;
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+#[macro_use]
 mod stream;
 #[cfg(any(feature = "pdf", feature = "dox"))]
 mod pdf;
 #[cfg(any(feature = "svg", feature = "dox"))]
 pub mod svg;
 #[cfg(any(feature = "ps", feature = "dox"))]
-pub mod ps;
+mod ps;
 
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 mod quartz_surface;

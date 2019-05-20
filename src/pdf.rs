@@ -46,45 +46,7 @@ impl PdfSurface {
         }
     }
 
-    /// Takes full ownership of the output stream,
-    /// which is not allowed to borrow any lifetime shorter than `'static`.
-    ///
-    /// Because the underlying `cairo_surface_t` is reference-counted,
-    /// a lifetime parameter in a Rust wrapper type would not be enough to track
-    /// how long it can keep writing to the stream.
-    pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Self {
-        Self {
-            inner: Surface::_for_stream(
-                ffi::cairo_pdf_surface_create_for_stream,
-                width,
-                height,
-                stream,
-            ),
-        }
-    }
-
-    /// Allows writing to a borrowed stream. The lifetime of the borrow is not tracked.
-    ///
-    /// # Safety
-    ///
-    /// The value that `stream` points to must live at least until the underlying `cairo_surface_t`
-    /// (which maybe be longer then the Rust `PdfSurface` wrapper, because of reference-counting),
-    /// or until the output stream is removed from the surface with [`Surface::take_output_stream`].
-    ///
-    /// Since the former is hard to track for sure, the latter is strongly recommended.
-    /// The concrete type behind the `Box<dyn Any>` value returned by `take_output_stream`
-    /// is private, so you won’t be able to downcast it.
-    /// But removing it anyway ensures that later writes do no go through a dangling pointer.
-    pub unsafe fn for_raw_stream<W: io::Write + 'static>(width: f64, height: f64, stream: *mut W) -> Self {
-        Self {
-            inner: Surface::_for_raw_stream(
-                ffi::cairo_pdf_surface_create_for_stream,
-                width,
-                height,
-                stream,
-            ),
-        }
-    }
+    for_stream_constructors!(cairo_pdf_surface_create_for_stream);
 
     pub fn get_versions() -> impl Iterator<Item=PdfVersion> {
         let vers_slice = unsafe {
