@@ -14,7 +14,6 @@ use ffi;
 use ::enums::{PdfOutline, PdfMetadata};
 use ::enums::PdfVersion;
 use surface::Surface;
-use support::{self, FromRawSurface};
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -30,23 +29,60 @@ impl PdfVersion {
 }
 
 #[derive(Debug)]
-pub struct File {
+pub struct PdfSurface {
     inner: Surface,
 }
 
-impl FromRawSurface for File {
-    unsafe fn from_raw_surface(surface: *mut ffi::cairo_surface_t) -> File {
-        File { inner: Surface::from_raw_full(surface) }
-    }
-}
-
-impl File {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> File {
+impl PdfSurface {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Self {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Self::from_raw_surface(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height))
+            let raw = ffi::cairo_pdf_surface_create(path.as_ptr(), width, height);
+            Self {
+                inner: Surface::from_raw_full(raw)
+            }
+        }
+    }
+
+    /// Takes full ownership of the output stream,
+    /// which is not allowed to borrow any lifetime shorter than `'static`.
+    ///
+    /// Because the underlying `cairo_surface_t` is reference-counted,
+    /// a lifetime parameter in a Rust wrapper type would not be enough to track
+    /// how long it can keep writing to the stream.
+    pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Self {
+        Self {
+            inner: Surface::_for_stream(
+                ffi::cairo_pdf_surface_create_for_stream,
+                width,
+                height,
+                stream,
+            ),
+        }
+    }
+
+    /// Allows writing to a borrowed stream. The lifetime of the borrow is not tracked.
+    ///
+    /// # Safety
+    ///
+    /// The value that `stream` points to must live at least until the underlying `cairo_surface_t`
+    /// (which maybe be longer then the Rust `PdfSurface` wrapper, because of reference-counting),
+    /// or until the output stream is removed from the surface with [`Surface::take_output_stream`].
+    ///
+    /// Since the former is hard to track for sure, the latter is strongly recommended.
+    /// The concrete type behind the `Box<dyn Any>` value returned by `take_output_stream`
+    /// is private, so you won’t be able to downcast it.
+    /// But removing it anyway ensures that later writes do no go through a dangling pointer.
+    pub unsafe fn for_raw_stream<W: io::Write + 'static>(width: f64, height: f64, stream: *mut W) -> Self {
+        Self {
+            inner: Surface::_for_raw_stream(
+                ffi::cairo_pdf_surface_create_for_stream,
+                width,
+                height,
+                stream,
+            ),
         }
     }
 
@@ -114,7 +150,7 @@ impl File {
     }
 }
 
-impl Deref for File {
+impl Deref for PdfSurface {
     type Target = Surface;
 
     fn deref(&self) -> &Surface {
@@ -123,7 +159,7 @@ impl Deref for File {
 }
 
 #[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for File {
+impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PdfSurface {
     type Storage = &'a Surface;
 
     #[inline]
@@ -134,122 +170,34 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for File {
 }
 
 #[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for File {
+impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> File {
-        File { inner: from_glib_none(ptr) }
+    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
+        PdfSurface { inner: from_glib_none(ptr) }
     }
 }
 
 #[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for File {
+impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> File {
-        File { inner: from_glib_borrow(ptr) }
+    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
+        PdfSurface { inner: from_glib_borrow(ptr) }
     }
 }
 
 #[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for File {
+impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> File {
-        Self::from_raw_surface(ptr)
+    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
+        Self { inner: Surface::from_raw_full(ptr) }
     }
 }
 
-impl fmt::Display for File {
+impl fmt::Display for PdfSurface {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "pdf::File")
+        write!(f, "PdfSurface")
     }
 }
-
-
-#[derive(Debug)]
-pub struct Writer<W: io::Write> {
-    writer: support::Writer<File, W>,
-}
-
-impl<W: io::Write> Writer<W> {
-    pub fn new(width: f64, height: f64, writer: W) -> Writer<W> {
-        let writer = support::Writer::new(ffi::cairo_pdf_surface_create_for_stream,
-            width, height, writer);
-
-        Writer { writer }
-    }
-
-    pub fn writer(&self) -> &W { self.writer.writer() }
-    pub fn writer_mut(&mut self) -> &mut W { self.writer.writer_mut() }
-
-    pub fn finish(self) -> W {
-        self.writer.finish()
-    }
-}
-
-impl<W: io::Write> Deref for Writer<W> {
-    type Target = File;
-
-    fn deref(&self) -> &File {
-        &self.writer.surface
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a, W: io::Write> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for Writer<W> {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.writer.surface.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-impl<W: io::Write> fmt::Display for Writer<W> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "pdf::Writer")
-    }
-}
-
-
-#[derive(Debug)]
-pub struct RefWriter<'w, W: io::Write + 'w> {
-    writer: support::RefWriter<'w, File, W>,
-}
-
-impl<'w, W: io::Write + 'w> RefWriter<'w, W> {
-    pub fn new(width: f64, height: f64, writer: &'w mut W) -> RefWriter<'w, W> {
-        let writer = support::RefWriter::new(ffi::cairo_pdf_surface_create_for_stream,
-            width, height, writer);
-
-        RefWriter { writer }
-    }
-}
-
-impl<'w, W: io::Write + 'w> Deref for RefWriter<'w, W> {
-    type Target = File;
-
-    fn deref(&self) -> &File {
-        &self.writer.surface
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a, 'w, W: io::Write + 'w> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for RefWriter<'w, W> {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.writer.surface.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-impl<'w, W: io::Write + 'w> fmt::Display for RefWriter<'w, W> {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "pdf::RefWriter")
-    }
-}
-
 
 #[cfg(test)]
 mod test {
@@ -276,14 +224,15 @@ mod test {
     fn draw_in_buffer() -> Vec<u8> {
         let buffer: Vec<u8> = vec![];
 
-        let surface = Writer::new(100., 100., buffer);
+        let surface = PdfSurface::for_stream(100., 100., buffer);
         draw(&surface);
-        surface.finish()
+        surface.finish();
+        *surface.take_output_stream().unwrap().downcast().unwrap()
     }
 
     #[test]
     fn versions() {
-        assert!(File::get_versions().any(|v| v == PdfVersion::_1_4));
+        assert!(PdfSurface::get_versions().any(|v| v == PdfVersion::_1_4));
     }
 
     #[test]
@@ -295,7 +244,7 @@ mod test {
     #[test]
     #[cfg(unix)]
     fn file() {
-        let surface = File::new(100., 100., "/dev/null");
+        let surface = PdfSurface::new(100., 100., "/dev/null");
         draw(&surface);
         surface.finish();
     }
@@ -303,10 +252,11 @@ mod test {
     #[test]
     fn writer() {
         let file = tempfile().expect("tempfile failed");
-        let surface = Writer::new(100., 100., file);
+        let surface = PdfSurface::for_stream(100., 100., file);
 
         draw(&surface);
-        let file = surface.finish();
+        surface.finish();
+        let file = surface.take_output_stream().unwrap().downcast::<std::fs::File>().unwrap();
 
         let buffer = draw_in_buffer();
         let file_size = file.metadata().unwrap().len();
@@ -316,10 +266,14 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = RefWriter::new(100., 100., &mut file);
+        let surface = unsafe {
+            PdfSurface::for_raw_stream(100., 100., &mut file)
+        };
 
         draw(&surface);
         surface.finish();
+        surface.take_output_stream();
+        drop(file);
     }
 
     #[test]
@@ -345,10 +299,11 @@ mod test {
 
         let custom_writer = CustomWriter(0);
 
-        let surface = Writer::new(20., 20., custom_writer);
+        let surface = PdfSurface::for_stream(20., 20., custom_writer);
         surface.set_size(100., 100.);
         draw(&surface);
-        let custom_writer = surface.finish();
+        surface.finish();
+        let custom_writer = surface.take_output_stream().unwrap().downcast::<CustomWriter>().unwrap();
 
         let buffer = draw_in_buffer();
 

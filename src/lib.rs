@@ -126,6 +126,9 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
+#[cfg(feature = "pdf")]
+pub use pdf::PdfSurface;
+
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
     XCBConnection,
@@ -164,8 +167,10 @@ mod xcb;
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
 mod support;
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+mod stream;
 #[cfg(any(feature = "pdf", feature = "dox"))]
-pub mod pdf;
+mod pdf;
 #[cfg(any(feature = "svg", feature = "dox"))]
 pub mod svg;
 #[cfg(any(feature = "ps", feature = "dox"))]
