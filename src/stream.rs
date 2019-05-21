@@ -165,7 +165,7 @@ impl Surface {
     /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
-    pub fn borrow_output_stream(&self) -> Option<RefMut<dyn Any>> {
+    pub fn borrow_output_stream<'surface>(&'surface self) -> Option<RefMut<'surface, dyn Any>> {
         self.with_stream_env(|env| {
             env.stream.as_ref()?;
             Some(RefMut::map(env, |env| &mut **env.stream.as_mut().unwrap()))
@@ -182,7 +182,7 @@ impl Surface {
     /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
-    pub fn borrow_io_error(&self) -> Option<RefMut<io::Error>> {
+    pub fn borrow_io_error<'surface>(&'surface self) -> Option<RefMut<'surface, io::Error>> {
         self.with_stream_env(|env| {
             env.io_error.as_ref()?;
             Some(RefMut::map(env, |env| env.io_error.as_mut().unwrap()))
