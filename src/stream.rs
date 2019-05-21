@@ -89,8 +89,7 @@ impl Surface {
         Self::_for_stream(constructor, width, height, RawStream(stream))
     }
 
-    fn with_stream_env<'surface, R, F>(&'surface self, f: F) -> Option<R>
-        where F: FnOnce(RefMut<'surface, MutableCallbackEnvironment>) -> Option<R>
+    fn stream_env<'s>(&'s self) -> Option<RefMut<'s, MutableCallbackEnvironment>>
     {
         let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)?;
 
@@ -99,7 +98,7 @@ impl Surface {
         // the contract of `get_user_data_ptr` says that the user data entry
         // lives as long as the underlying `cairo_surface_t`
         // which is at least as long as this `Surface` wrapper.
-        let env: &'surface _ = unsafe { &*env.as_ptr() };
+        let env: &'s CallbackEnvironment = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
             panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
@@ -109,7 +108,7 @@ impl Surface {
         if let Some(payload) = mutable.unwind_payload.take() {
             std::panic::resume_unwind(payload)
         }
-        f(mutable)
+        Some(mutable)
     }
 
     /// Remove and return the output stream, if any.
@@ -129,7 +128,7 @@ impl Surface {
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
     pub fn take_output_stream(&self) -> Option<Box<dyn Any>> {
-        self.with_stream_env(|mut env| env.stream.take())
+        self.stream_env()?.stream.take()
     }
 
     /// Remove and return the error that occurred while writing to the output stream, if any.
@@ -143,10 +142,7 @@ impl Surface {
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
     pub fn take_io_error(&self) -> Result<(), io::Error> {
-        match self.with_stream_env(|mut env| env.io_error.take()) {
-            Some(error) => Err(error),
-            None => Ok(()),
-        }
+        some_is_err(|| self.stream_env()?.io_error.take())
     }
 
     /// Borrow the output stream, if any.
@@ -166,10 +162,7 @@ impl Surface {
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
     pub fn borrow_output_stream<'surface>(&'surface self) -> Option<RefMut<'surface, dyn Any>> {
-        self.with_stream_env(|env| {
-            env.stream.as_ref()?;
-            Some(RefMut::map(env, |env| &mut **env.stream.as_mut().unwrap()))
-        })
+        ref_mut_filter_map(self.stream_env()?, |env| env.stream.as_mut().map(|b| &mut **b))
     }
 
     /// Borrow the error that occurred while writing to the output stream, if any.
@@ -182,11 +175,8 @@ impl Surface {
     /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
     /// was not dropped early enough, or if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
-    pub fn borrow_io_error<'surface>(&'surface self) -> Option<RefMut<'surface, io::Error>> {
-        self.with_stream_env(|env| {
-            env.io_error.as_ref()?;
-            Some(RefMut::map(env, |env| env.io_error.as_mut().unwrap()))
-        })
+    pub fn borrow_io_error<'surface>(&'surface self) -> Result<(), RefMut<'surface, io::Error>> {
+        some_is_err(|| ref_mut_filter_map(self.stream_env()?, |env| env.io_error.as_mut()))
     }
 }
 
@@ -279,3 +269,17 @@ trait AnyExt {
     }
 }
 impl AnyExt for dyn Any {}
+
+fn some_is_err<E>(f: impl FnOnce() -> Option<E>) -> Result<(), E> {
+    match f() {
+        Some(e) => Err(e),
+        None => Ok(())
+    }
+}
+
+fn ref_mut_filter_map<T, U:? Sized>(mut r: RefMut<T>, f: impl Fn(&mut T) -> Option<&mut U>)
+    -> Option<RefMut<U>>
+{
+    f(&mut r)?;
+    Some(RefMut::map(r, |value| f(value).unwrap()))
+}
