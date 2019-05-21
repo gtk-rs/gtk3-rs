@@ -7,7 +7,7 @@ use ::{Status, Surface, UserDataKey};
 
 use libc::{c_void, c_double, c_uchar, c_uint};
 use std::any::Any;
-use std::cell::{Cell, RefCell};
+use std::cell::{Cell, RefCell, RefMut};
 use std::io;
 use std::panic::AssertUnwindSafe;
 use std::rc::Rc;
@@ -89,19 +89,23 @@ impl Surface {
         Self::_for_stream(constructor, width, height, RawStream(stream))
     }
 
-    fn with_stream_env<R, F>(&self, f: F) -> Option<R>
-        where F: FnOnce(&mut MutableCallbackEnvironment) -> Option<R>
+    fn with_stream_env<'surface, R, F>(&'surface self, f: F) -> Option<R>
+        where F: FnOnce(RefMut<'surface, MutableCallbackEnvironment>) -> Option<R>
     {
         let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)?;
 
-        // Safety: contract of `get_user_data_ptr`
-        let env = unsafe { env.as_ref() };
+        // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never
+        // call `set_user_data` again or `remove_user_data` with it,
+        // the contract of `get_user_data_ptr` says that the user data entry
+        // lives as long as the underlying `cairo_surface_t`
+        // which is at least as long as this `Surface` wrapper.
+        let env: &'surface _ = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
             panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
         }
 
-        let mutable = &mut *env.mutable.borrow_mut();
+        let mut mutable = env.mutable.borrow_mut();
         if let Some(payload) = mutable.unwind_payload.take() {
             std::panic::resume_unwind(payload)
         }
@@ -114,27 +118,75 @@ impl Surface {
     /// Consider calling [`Surface::finish`] first,
     /// to ensure that all writes to the stream are done.
     ///
-    /// Use [`Box::downcast`] to recover the concrete type.
+    /// Use [`Box::downcast`] to recover the concrete stream type.
+    ///
+    /// # Panics
+    ///
+    /// This panics if the output stream’s internal `RefCell` is already borrowed,
+    /// or was already borrowed during a previous attempt to write to the stream.
+    ///
+    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
+    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// manipulates this `Surface` during a write.
     pub fn take_output_stream(&self) -> Option<Box<dyn Any>> {
-        self.with_stream_env(|env| env.stream.take())
+        self.with_stream_env(|mut env| env.stream.take())
     }
 
-    /// Remove and return the last error that occurred while writing to the output stream, if any.
+    /// Remove and return the error that occurred while writing to the output stream, if any.
+    ///
+    /// # Panics
+    ///
+    /// This panics if the output stream’s internal `RefCell` is already borrowed,
+    /// or was already borrowed during a previous attempt to write to the stream.
+    ///
+    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
+    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// manipulates this `Surface` during a write.
     pub fn take_io_error(&self) -> Result<(), io::Error> {
-        match self.with_stream_env(|env| env.io_error.take()) {
+        match self.with_stream_env(|mut env| env.io_error.take()) {
             Some(error) => Err(error),
             None => Ok(()),
         }
     }
 
-    /// Return whether the surface has an associated output stream (that hasn’t been removed yet).
-    pub fn has_output_stream(&self) -> bool {
-        self.with_stream_env(|env| Some(env.stream.is_some())).unwrap_or(false)
+    /// Borrow the output stream, if any.
+    ///
+    /// This is relevant for surfaces created for example with [`PdfSurface::for_stream`].
+    /// Consider calling [`Surface::finish`] first,
+    /// to ensure that all writes to the stream are done.
+    ///
+    /// Use [`<dyn Any>::downcast_mut`] to recover the concrete stream type.
+    ///
+    /// # Panics
+    ///
+    /// This panics if the output stream’s internal `RefCell` is already borrowed,
+    /// or was already borrowed during a previous attempt to write to the stream.
+    ///
+    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
+    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// manipulates this `Surface` during a write.
+    pub fn borrow_output_stream(&self) -> Option<RefMut<dyn Any>> {
+        self.with_stream_env(|env| {
+            env.stream.as_ref()?;
+            Some(RefMut::map(env, |env| &mut **env.stream.as_mut().unwrap()))
+        })
     }
 
-    /// Return whether an error that occurred while writing to the output stream, if any.
-    pub fn has_io_error(&self) -> bool {
-        self.with_stream_env(|env| Some(env.io_error.is_some())).unwrap_or(false)
+    /// Borrow the error that occurred while writing to the output stream, if any.
+    ///
+    /// # Panics
+    ///
+    /// This panics if the output stream’s internal `RefCell` is already borrowed,
+    /// or was already borrowed during a previous attempt to write to the stream.
+    ///
+    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
+    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// manipulates this `Surface` during a write.
+    pub fn borrow_io_error(&self) -> Option<RefMut<io::Error>> {
+        self.with_stream_env(|env| {
+            env.io_error.as_ref()?;
+            Some(RefMut::map(env, |env| env.io_error.as_mut().unwrap()))
+        })
     }
 }
 
@@ -206,8 +258,6 @@ extern "C" fn write_callback<W: io::Write + 'static>(
             }
         }
     } else {
-        // This can happen if `W` holds a reference to the surface,
-        // and caused cairo to make a write while the previous one was still ongoing.
         env.saw_already_borrowed.set(true)
     }
     Status::WriteError.into()
