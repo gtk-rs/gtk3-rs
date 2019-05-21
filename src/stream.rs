@@ -7,7 +7,7 @@ use ::{Status, Surface, UserDataKey};
 
 use libc::{c_void, c_double, c_uchar, c_uint};
 use std::any::Any;
-use std::cell::UnsafeCell;
+use std::cell::{Cell, RefCell};
 use std::io;
 use std::panic::AssertUnwindSafe;
 use std::rc::Rc;
@@ -63,12 +63,15 @@ impl Surface {
         height: f64,
         stream: W,
     ) -> Self {
-        let env_rc = Rc::new(UnsafeCell::new(CallbackEnvironment {
-            stream: Some(Box::new(stream)),
-            io_error: None,
-            unwind_payload: None,
-        }));
-        let env: *const UnsafeCell<CallbackEnvironment> = &*env_rc;
+        let env_rc = Rc::new(CallbackEnvironment {
+            mutable: RefCell::new(MutableCallbackEnvironment {
+                stream: Some(Box::new(stream)),
+                io_error: None,
+                unwind_payload: None,
+            }),
+            saw_already_borrowed: Cell::new(false),
+        });
+        let env: *const CallbackEnvironment = &*env_rc;
         unsafe {
             let ptr = constructor(Some(write_callback::<W>), env as *mut c_void, width, height);
             let surface = Surface::from_raw_full(ptr);
@@ -87,19 +90,22 @@ impl Surface {
     }
 
     fn with_stream_env<R, F>(&self, f: F) -> Option<R>
-        where F: FnOnce(&mut CallbackEnvironment) -> Option<R>
+        where F: FnOnce(&mut MutableCallbackEnvironment) -> Option<R>
     {
         let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)?;
 
         // Safety: contract of `get_user_data_ptr`
         let env = unsafe { env.as_ref() };
 
-        with_mut_env(env, |env| {
-            if let Some(payload) = env.unwind_payload.take() {
-                std::panic::resume_unwind(payload)
-            }
-            f(env)
-        })
+        if env.saw_already_borrowed.get() {
+            panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
+        }
+
+        let mutable = &mut *env.mutable.borrow_mut();
+        if let Some(payload) = mutable.unwind_payload.take() {
+            std::panic::resume_unwind(payload)
+        }
+        f(mutable)
     }
 
     /// Remove and return the output stream, if any.
@@ -139,10 +145,15 @@ pub(crate) type Constructor = unsafe extern fn(
     c_double,
 ) -> *mut ffi::cairo_surface_t;
 
-static STREAM_CALLBACK_ENVIRONMENT: UserDataKey<UnsafeCell<CallbackEnvironment>> =
+static STREAM_CALLBACK_ENVIRONMENT: UserDataKey<CallbackEnvironment> =
     UserDataKey::new();
 
 struct CallbackEnvironment {
+    mutable: RefCell<MutableCallbackEnvironment>,
+    saw_already_borrowed: Cell<bool>,
+}
+
+struct MutableCallbackEnvironment {
     stream: Option<Box<dyn Any>>,
     io_error: Option<io::Error>,
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
@@ -156,20 +167,20 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     length: c_uint,
 ) -> cairo_status_t {
     // This is consistent with the type of `env` in `Surface::_for_stream`.
-    let env: *const UnsafeCell<CallbackEnvironment> = env as _;
+    let env: *const CallbackEnvironment = env as _;
 
-    // Safety: the user data entry keeps `Rc<UnsafeCell<CallbackEnvironment>>` alive
+    // Safety: the user data entry keeps `Rc<CallbackEnvironment>` alive
     // until the surface is destroyed.
     // If this is called by cairo, the surface is still alive.
-    let env: &UnsafeCell<CallbackEnvironment> = unsafe { &*env };
+    let env: &CallbackEnvironment = unsafe { &*env };
 
-    with_mut_env(env, |env| {
-        if let CallbackEnvironment {
+    if let Ok(mut mutable) = env.mutable.try_borrow_mut() {
+        if let MutableCallbackEnvironment {
             stream: Some(stream),
             // Don’t attempt another write if a previous one errored or panicked:
-            io_error: None,
-            unwind_payload: None,
-        } = env {
+            io_error: io_error @ None,
+            unwind_payload: unwind_payload @ None,
+        } = &mut *mutable {
             // Safety: `write_callback<W>` was instanciated in `Surface::_for_stream`
             // with a W parameter consistent with the box that was unsized to `Box<dyn Any>`.
             let stream = unsafe {
@@ -184,36 +195,22 @@ extern "C" fn write_callback<W: io::Write + 'static>(
             let result = std::panic::catch_unwind(AssertUnwindSafe(|| stream.write_all(data)));
             match result {
                 Ok(Ok(())) => {
-                    return Status::Success
+                    return Status::Success.into()
                 }
                 Ok(Err(error)) => {
-                    env.io_error = Some(error);
+                    *io_error = Some(error);
                 }
                 Err(payload) => {
-                    env.unwind_payload = Some(payload);
+                    *unwind_payload = Some(payload);
                 }
             }
         }
-        Status::WriteError
-    }).into()
-}
-
-fn with_mut_env<R, F>(env: &UnsafeCell<CallbackEnvironment>, f: F) -> R
-    where F: FnOnce(&mut CallbackEnvironment) -> R
-{
-    // Safety:
-    //
-    // * The only long-lived pointers to this environment are
-    //   the `void` pointer passed to surface constructor, and the one in user data.
-    // * `STREAM_CALLBACK_ENVIRONMENT` is private,
-    //   so the user data entry is only accessible in this module.
-    // * `Surface` is !Send and !Sync, so a given surface is only used on a single thread.
-    //
-    // Therefore, there are no other ongoing reference to (part of) this `CallbackEnvironment`
-    // and it is sound to claim exclusive / mutable access with `&mut`.
-    unsafe {
-        f(&mut *env.get())
+    } else {
+        // This can happen if `W` holds a reference to the surface,
+        // and caused cairo to make a write while the previous one was still ongoing.
+        env.saw_already_borrowed.set(true)
     }
+    Status::WriteError.into()
 }
 
 struct RawStream<W>(*mut W);
