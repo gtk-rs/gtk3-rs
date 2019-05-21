@@ -164,7 +164,12 @@ extern "C" fn write_callback<W: io::Write + 'static>(
     let env: &UnsafeCell<CallbackEnvironment> = unsafe { &*env };
 
     with_mut_env(env, |env| {
-        if let Some(stream) = &mut env.stream {
+        if let CallbackEnvironment {
+            stream: Some(stream),
+            // Don’t attempt another write if a previous one errored or panicked:
+            io_error: None,
+            unwind_payload: None,
+        } = env {
             // Safety: `write_callback<W>` was instanciated in `Surface::_for_stream`
             // with a W parameter consistent with the box that was unsized to `Box<dyn Any>`.
             let stream = unsafe {

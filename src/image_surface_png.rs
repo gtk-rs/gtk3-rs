@@ -22,6 +22,12 @@ struct ReadEnv<'a, R: 'a + Read> {
 
 unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
+
+    // Don’t attempt another read if a previous one errored or panicked:
+    if read_env.io_error.is_some() || read_env.unwind_payload.is_some() {
+        return Status::ReadError.into()
+    }
+
     let buffer = slice::from_raw_parts_mut(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| read_env.reader.read_exact(buffer)));
     match result {
@@ -47,6 +53,12 @@ struct WriteEnv<'a, W: 'a + Write> {
 
 unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
     let write_env: &mut WriteEnv<W> = &mut *(closure as *mut WriteEnv<W>);
+
+    // Don’t attempt another write if a previous one errored or panicked:
+    if write_env.io_error.is_some() || write_env.unwind_payload.is_some() {
+        return Status::WriteError.into()
+    }
+
     let buffer = slice::from_raw_parts(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| write_env.writer.write_all(buffer)));
     match result {
