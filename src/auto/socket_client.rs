@@ -126,7 +126,7 @@ pub trait SocketClientExt: 'static {
 
     fn set_property_type(&self, type_: SocketType);
 
-    fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, &Option<IOStream>) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -456,7 +456,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, &Option<IOStream>) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"event\0".as_ptr() as *const _,
@@ -537,10 +537,10 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 }
 
-unsafe extern "C" fn event_trampoline<P, F: Fn(&P, SocketClientEvent, &SocketConnectable, &Option<IOStream>) + 'static>(this: *mut gio_sys::GSocketClient, event: gio_sys::GSocketClientEvent, connectable: *mut gio_sys::GSocketConnectable, connection: *mut gio_sys::GIOStream, f: glib_sys::gpointer)
+unsafe extern "C" fn event_trampoline<P, F: Fn(&P, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(this: *mut gio_sys::GSocketClient, event: gio_sys::GSocketClientEvent, connectable: *mut gio_sys::GSocketConnectable, connection: *mut gio_sys::GIOStream, f: glib_sys::gpointer)
 where P: IsA<SocketClient> {
     let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast(), from_glib(event), &from_glib_borrow(connectable), &from_glib_borrow(connection))
+    f(&SocketClient::from_glib_borrow(this).unsafe_cast(), from_glib(event), &from_glib_borrow(connectable), Option::<IOStream>::from_glib_borrow(connection).as_ref())
 }
 
 unsafe extern "C" fn notify_enable_proxy_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
