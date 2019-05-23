@@ -1,3 +1,8 @@
+//! # Entry completion example
+//!
+//! This example demonstrates how to build a list of items and use them
+//! to autocomplete a field as the user types in something.
+
 extern crate glib;
 extern crate gdk;
 extern crate gio;
@@ -31,12 +36,12 @@ fn create_list_model() -> gtk::ListStore {
     let data: [Data; 4] = [
         Data {description: "France".to_string()},
         Data {description: "Italy".to_string()},
-        Data {description: "Siberia".to_string()},
+        Data {description: "Sweden".to_string()},
         Data {description: "Switzerland".to_string()},
     ];
     let store = gtk::ListStore::new(&col_types);
     let col_indices: [u32; 1] = [0];
-    for (_, d) in data.iter().enumerate() {
+    for d in data.iter() {
         let values: [&dyn ToValue; 1] = [
             &d.description,
         ];
@@ -90,7 +95,7 @@ fn build_ui(application: &gtk::Application) {
 
 
 fn main() {
-    let application = gtk::Application::new("com.github.gtk-rs.examples.entry-completion",
+    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.entry-completion"),
                                             Default::default())
         .expect("Initialization failed...");
     application.connect_activate(|app| {
