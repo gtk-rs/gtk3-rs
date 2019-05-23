@@ -5,7 +5,7 @@
 use Action;
 use gio_sys;
 use glib;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -54,7 +54,7 @@ impl SimpleAction {
         }
     }
 
-    pub fn connect_activate<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_activate<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"activate\0".as_ptr() as *const _,
@@ -62,7 +62,7 @@ impl SimpleAction {
         }
     }
 
-    pub fn connect_change_state<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
+    pub fn connect_change_state<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"change-state\0".as_ptr() as *const _,
@@ -87,14 +87,14 @@ impl SimpleAction {
     }
 }
 
-unsafe extern "C" fn activate_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, parameter: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
+unsafe extern "C" fn activate_trampoline<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, parameter: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(parameter))
+    f(&from_glib_borrow(this), Option::<glib::Variant>::from_glib_borrow(parameter).as_ref())
 }
 
-unsafe extern "C" fn change_state_trampoline<F: Fn(&SimpleAction, &Option<glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, value: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
+unsafe extern "C" fn change_state_trampoline<F: Fn(&SimpleAction, Option<&glib::Variant>) + 'static>(this: *mut gio_sys::GSimpleAction, value: *mut glib_sys::GVariant, f: glib_sys::gpointer) {
     let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(value))
+    f(&from_glib_borrow(this), Option::<glib::Variant>::from_glib_borrow(value).as_ref())
 }
 
 unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&SimpleAction) + 'static>(this: *mut gio_sys::GSimpleAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {

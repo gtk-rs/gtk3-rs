@@ -58,7 +58,7 @@ pub trait SocketServiceExt: 'static {
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn set_property_active(&self, active: bool);
 
-    fn connect_incoming<F: Fn(&Self, &SocketConnection, &Option<glib::Object>) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_incoming<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(&self, f: F) -> SignalHandlerId;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
@@ -99,7 +99,7 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
         }
     }
 
-    fn connect_incoming<F: Fn(&Self, &SocketConnection, &Option<glib::Object>) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_incoming<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"incoming\0".as_ptr() as *const _,
@@ -117,10 +117,10 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
     }
 }
 
-unsafe extern "C" fn incoming_trampoline<P, F: Fn(&P, &SocketConnection, &Option<glib::Object>) -> bool + 'static>(this: *mut gio_sys::GSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
+unsafe extern "C" fn incoming_trampoline<P, F: Fn(&P, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(this: *mut gio_sys::GSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
 where P: IsA<SocketService> {
     let f: &F = &*(f as *const F);
-    f(&SocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
+    f(&SocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), Option::<glib::Object>::from_glib_borrow(source_object).as_ref()).to_glib()
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]

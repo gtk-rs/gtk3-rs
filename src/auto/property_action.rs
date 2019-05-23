@@ -10,7 +10,7 @@ use glib::StaticType;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use glib::Value;
 use glib::object::IsA;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;

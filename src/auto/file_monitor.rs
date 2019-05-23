@@ -41,7 +41,7 @@ pub trait FileMonitorExt: 'static {
 
     fn get_property_rate_limit(&self) -> i32;
 
-    fn connect_changed<F: Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_changed<F: Fn(&Self, &File, Option<&File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_cancelled_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -89,7 +89,7 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
         }
     }
 
-    fn connect_changed<F: Fn(&Self, &File, &Option<File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId {
+    fn connect_changed<F: Fn(&Self, &File, Option<&File>, FileMonitorEvent) + 'static>(&self, f: F) -> SignalHandlerId {
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
@@ -114,10 +114,10 @@ impl<O: IsA<FileMonitor>> FileMonitorExt for O {
     }
 }
 
-unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &File, &Option<File>, FileMonitorEvent) + 'static>(this: *mut gio_sys::GFileMonitor, file: *mut gio_sys::GFile, other_file: *mut gio_sys::GFile, event_type: gio_sys::GFileMonitorEvent, f: glib_sys::gpointer)
+unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &File, Option<&File>, FileMonitorEvent) + 'static>(this: *mut gio_sys::GFileMonitor, file: *mut gio_sys::GFile, other_file: *mut gio_sys::GFile, event_type: gio_sys::GFileMonitorEvent, f: glib_sys::gpointer)
 where P: IsA<FileMonitor> {
     let f: &F = &*(f as *const F);
-    f(&FileMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(file), &from_glib_borrow(other_file), from_glib(event_type))
+    f(&FileMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(file), Option::<File>::from_glib_borrow(other_file).as_ref(), from_glib(event_type))
 }
 
 unsafe extern "C" fn notify_cancelled_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFileMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
