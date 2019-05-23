@@ -15,7 +15,7 @@ use std::env::args;
 
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
-    set_visual(&window, &None);
+    set_visual(&window, None);
 
     window.connect_screen_changed(set_visual);
     window.connect_draw(draw);
@@ -46,7 +46,7 @@ fn main() {
     application.run(&args().collect::<Vec<_>>());
 }
 
-fn set_visual(window: &ApplicationWindow, _screen: &Option<gdk::Screen>) {
+fn set_visual(window: &ApplicationWindow, _screen: Option<&gdk::Screen>) {
     if let Some(screen) = window.get_screen() {
         if let Some(ref visual) = screen.get_rgba_visual() {
             window.set_visual(Some(visual)); // crucial for transparency
