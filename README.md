@@ -6,11 +6,10 @@ A few gtk-rs examples. To build, just do:
 > cargo build
 ```
 
-or to enable GTK 3.1x, 3.2x, all examples as well:
+or to enable GTK 3.x depending on the version needed by the example (check Cargo.toml `[features]` to see all specific GTK compile features available):
 
 ```Shell
 > cargo build --features gtk_3_18
-> cargo build --features gtk_3_22_30
 > cargo build --all-features
 ```
 
@@ -19,12 +18,14 @@ And then run the executables with:
 ``` Shell
 ./target/debug/EXAMPLE-NAME
 ```
+
 or with cargo run (repeating the compilation features used above), example:
+
 ``` Shell
 cargo run --all-features --bin EXAMPLE-NAME
 ```
 
-Please be sure to have installed all the required libraries before building examples (the list is available on [gtk](https://github.com/gtk-rs/gtk/).
+Please be sure to have installed all the required libraries before building examples (the list is available on the [gtk-rs](https://github.com/gtk-rs/gtk/) repository).
 
 ## LICENSE
 The gtk-rs examples repository is licensed under the MIT license, please refer to the LICENSE and COPYRIGHT files for more information.
