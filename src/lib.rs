@@ -29,6 +29,8 @@ mod converter;
 mod desktop_app_info;
 mod error;
 mod file;
+mod file_attribute_matcher;
+pub use file_attribute_matcher::FileAttributematcherIter;
 mod flags;
 mod input_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]

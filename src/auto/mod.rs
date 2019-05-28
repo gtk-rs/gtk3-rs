@@ -419,6 +419,9 @@ mod zlib_decompressor;
 pub use self::zlib_decompressor::{ZlibDecompressor, ZlibDecompressorClass, NONE_ZLIB_DECOMPRESSOR};
 pub use self::zlib_decompressor::ZlibDecompressorExt;
 
+mod file_attribute_matcher;
+pub use self::file_attribute_matcher::FileAttributeMatcher;
+
 mod resource;
 pub use self::resource::Resource;
 
@@ -441,6 +444,8 @@ pub use self::enums::DataStreamByteOrder;
 pub use self::enums::DataStreamNewlineType;
 pub use self::enums::DriveStartStopType;
 pub use self::enums::EmblemOrigin;
+pub use self::enums::FileAttributeStatus;
+pub use self::enums::FileAttributeType;
 pub use self::enums::FileMonitorEvent;
 pub use self::enums::FileType;
 pub use self::enums::IOErrorEnum;
@@ -473,6 +478,7 @@ pub use self::flags::ConverterFlags;
 pub use self::flags::DriveStartFlags;
 pub use self::flags::FileCopyFlags;
 pub use self::flags::FileCreateFlags;
+pub use self::flags::FileMeasureFlags;
 pub use self::flags::FileMonitorFlags;
 pub use self::flags::FileQueryInfoFlags;
 pub use self::flags::IOStreamSpliceFlags;
