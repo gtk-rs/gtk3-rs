@@ -43,7 +43,7 @@ impl FileAttributeMatcher {
         }
     }
 
-    pub fn subtract(&self, subtract: &FileAttributeMatcher) -> Option<FileAttributeMatcher> {
+    pub fn subtract(&self, subtract: Option<&FileAttributeMatcher>) -> Option<FileAttributeMatcher> {
         unsafe {
             from_glib_full(gio_sys::g_file_attribute_matcher_subtract(self.to_glib_none().0, subtract.to_glib_none().0))
         }

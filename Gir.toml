@@ -370,6 +370,11 @@ status = "generate"
     name = "enumerate_next"
     # Better API with `IntoIter`
     ignore = true
+    [[object.function]]
+    name = "subtract"
+        [[object.function.parameter]]
+        name = "subtract"
+        nullable = true
 
 [[object]]
 name = "Gio.FilterInputStream"
