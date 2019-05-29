@@ -208,7 +208,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call glib_sys:g_datalist_clear() }
 //}
 
-//pub fn datalist_foreach(datalist: /*Ignored*/&mut Data, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Fundamental: Pointer), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn datalist_foreach(datalist: /*Ignored*/&mut Data, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Option<Fundamental: Pointer>), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call glib_sys:g_datalist_foreach() }
 //}
 
@@ -220,7 +220,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call glib_sys:g_datalist_get_flags() }
 //}
 
-//pub fn datalist_id_dup_data(datalist: /*Ignored*/&mut Data, key_id: Quark, dup_func: /*Unimplemented*/FnMut(/*Unimplemented*/Fundamental: Pointer) -> /*Unimplemented*/Fundamental: Pointer, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
+//pub fn datalist_id_dup_data(datalist: /*Ignored*/&mut Data, key_id: Quark, dup_func: /*Unimplemented*/FnMut(/*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer>, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> /*Unimplemented*/Option<Fundamental: Pointer> {
 //    unsafe { TODO: call glib_sys:g_datalist_id_dup_data() }
 //}
 
@@ -256,7 +256,7 @@ pub fn compute_hmac_for_string(digest_type: ChecksumType, key: &[u8], str: &str)
 //    unsafe { TODO: call glib_sys:g_dataset_destroy() }
 //}
 
-//pub fn dataset_foreach(dataset_location: /*Unimplemented*/Fundamental: Pointer, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Fundamental: Pointer), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn dataset_foreach(dataset_location: /*Unimplemented*/Fundamental: Pointer, func: /*Unimplemented*/FnMut(Quark, /*Unimplemented*/Option<Fundamental: Pointer>), user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call glib_sys:g_dataset_foreach() }
 //}
 
@@ -565,11 +565,11 @@ pub fn hostname_to_unicode(hostname: &str) -> Option<GString> {
 //    unsafe { TODO: call glib_sys:g_int_hash() }
 //}
 
-//pub fn io_add_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn io_add_watch(channel: /*Ignored*/&IOChannel, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call glib_sys:g_io_add_watch() }
 //}
 
-//pub fn io_add_watch_full(channel: /*Ignored*/&IOChannel, priority: i32, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Fundamental: Pointer) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
+//pub fn io_add_watch_full(channel: /*Ignored*/&IOChannel, priority: i32, condition: IOCondition, func: /*Unimplemented*/Fn(/*Ignored*/IOChannel, &IOCondition, /*Unimplemented*/Option<Fundamental: Pointer>) -> bool, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
 //    unsafe { TODO: call glib_sys:g_io_add_watch_full() }
 //}
 
@@ -858,7 +858,7 @@ pub fn pattern_match_simple(pattern: &str, string: &str) -> bool {
 //    unsafe { TODO: call glib_sys:g_propagate_prefixed_error() }
 //}
 
-//pub fn qsort_with_data(pbase: /*Unimplemented*/Fundamental: Pointer, total_elems: i32, size: usize, compare_func: /*Unimplemented*/Fn(/*Unimplemented*/Fundamental: Pointer, /*Unimplemented*/Fundamental: Pointer) -> i32, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+//pub fn qsort_with_data(pbase: /*Unimplemented*/Fundamental: Pointer, total_elems: i32, size: usize, compare_func: /*Unimplemented*/Fn(/*Unimplemented*/Option<Fundamental: Pointer>, /*Unimplemented*/Option<Fundamental: Pointer>) -> i32, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
 //    unsafe { TODO: call glib_sys:g_qsort_with_data() }
 //}
 
@@ -1002,16 +1002,16 @@ pub fn spaced_primes_closest(num: u32) -> u32 {
     }
 }
 
-//pub fn spawn_async<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<Pid, Error> {
+//pub fn spawn_async<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<Pid, Error> {
 //    unsafe { TODO: call glib_sys:g_spawn_async() }
 //}
 
 //#[cfg(any(feature = "v2_58", feature = "dox"))]
-//pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&str], envp: &[&str], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<Pid, Error> {
+//pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&str], envp: &[&str], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<Pid, Error> {
 //    unsafe { TODO: call glib_sys:g_spawn_async_with_fds() }
 //}
 
-//pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<(Pid, i32, i32, i32), Error> {
+//pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<(Pid, i32, i32, i32), Error> {
 //    unsafe { TODO: call glib_sys:g_spawn_async_with_pipes() }
 //}
 
@@ -1036,7 +1036,7 @@ pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> R
 //    unsafe { TODO: call glib_sys:g_spawn_command_line_sync() }
 //}
 
-//pub fn spawn_sync<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: /*Ignored*/SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
+//pub fn spawn_sync<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
 //    unsafe { TODO: call glib_sys:g_spawn_sync() }
 //}
 

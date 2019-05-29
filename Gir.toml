@@ -19,6 +19,7 @@ generate = [
     "GLib.OptionArg",
     "GLib.OptionFlags",
     "GLib.SeekType",
+    "GLib.SpawnFlags",
     "GLib.Time",
     "GLib.TimeType",
     "GLib.TimeSpan",
