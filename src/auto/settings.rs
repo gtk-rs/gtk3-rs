@@ -83,7 +83,7 @@ pub trait SettingsExt: 'static {
 
     fn bind<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags);
 
-    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::Variant) -> bool, set_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::VariantType) -> glib::Variant, user_data: /*Unimplemented*/Option<Fundamental: Pointer>);
+    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Fn(&glib::Value, &glib::Variant) -> bool + 'static, R: Fn(&glib::Value, &glib::VariantType) -> glib::Variant + 'static>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: Q, set_mapping: R);
 
     fn bind_writable<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, inverted: bool);
 
@@ -199,7 +199,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    //fn bind_with_mapping<P: IsA<glib::Object>>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::Variant) -> bool, set_mapping: /*Unimplemented*/Fn(/*Ignored*/glib::Value, &glib::VariantType) -> glib::Variant, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) {
+    //fn bind_with_mapping<P: IsA<glib::Object>, Q: Fn(&glib::Value, &glib::Variant) -> bool + 'static, R: Fn(&glib::Value, &glib::VariantType) -> glib::Variant + 'static>(&self, key: &str, object: &P, property: &str, flags: SettingsBindFlags, get_mapping: Q, set_mapping: R) {
     //    unsafe { TODO: call gio_sys:g_settings_bind_with_mapping() }
     //}
 

@@ -11,6 +11,7 @@ use FileCreateFlags;
 use FileIOStream;
 use FileInfo;
 use FileInputStream;
+use FileMeasureFlags;
 use FileMonitor;
 use FileMonitorFlags;
 use FileOutputStream;
@@ -30,7 +31,6 @@ use glib::translate::*;
 use glib_sys;
 use gobject_sys;
 use std;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
@@ -205,12 +205,12 @@ pub trait FileExt: 'static {
 
     fn make_symbolic_link<P: AsRef<std::path::Path>, Q: IsA<Cancellable>>(&self, symlink_value: P, cancellable: Option<&Q>) -> Result<(), Error>;
 
-    //fn measure_disk_usage<P: IsA<Cancellable>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error>;
+    fn measure_disk_usage<P: IsA<Cancellable>>(&self, flags: FileMeasureFlags, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error>;
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q);
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q);
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin>;
+    //fn measure_disk_usage_async_future(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin>;
 
     fn monitor<P: IsA<Cancellable>>(&self, flags: FileMonitorFlags, cancellable: Option<&P>) -> Result<FileMonitor, Error>;
 
@@ -296,7 +296,7 @@ pub trait FileExt: 'static {
 
     fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File>;
 
-    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: /*Ignored*/FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
+    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn set_attribute_byte_string<P: IsA<Cancellable>>(&self, attribute: &str, value: &str, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
 
@@ -900,16 +900,35 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn measure_disk_usage<P: IsA<Cancellable>>(&self, flags: /*Ignored*/FileMeasureFlags, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error> {
-    //    unsafe { TODO: call gio_sys:g_file_measure_disk_usage() }
-    //}
+    fn measure_disk_usage<P: IsA<Cancellable>>(&self, flags: FileMeasureFlags, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error> {
+        let progress_callback_data: Box_<Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>> = Box::new(progress_callback);
+        unsafe extern "C" fn progress_callback_func<P: IsA<Cancellable>>(reporting: glib_sys::gboolean, current_size: u64, num_dirs: u64, num_files: u64, user_data: glib_sys::gpointer) {
+            let reporting = from_glib(reporting);
+            let callback: &Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>> = &*(user_data as *mut _);
+            if let Some(ref callback) = *callback {
+                callback(reporting, current_size, num_dirs, num_files)
+            } else {
+                panic!("cannot get closure...")
+            };
+        }
+        let progress_callback = if progress_callback_data.is_some() { Some(progress_callback_func::<P> as _) } else { None };
+        let super_callback0: Box_<Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>> = progress_callback_data;
+        unsafe {
+            let mut disk_usage = mem::uninitialized();
+            let mut num_dirs = mem::uninitialized();
+            let mut num_files = mem::uninitialized();
+            let mut error = ptr::null_mut();
+            let _ = gio_sys::g_file_measure_disk_usage(self.as_ref().to_glib_none().0, flags.to_glib(), cancellable.map(|p| p.as_ref()).to_glib_none().0, progress_callback, Box::into_raw(super_callback0) as *mut _, &mut disk_usage, &mut num_dirs, &mut num_files, &mut error);
+            if error.is_null() { Ok((disk_usage, num_dirs, num_files)) } else { Err(from_glib_full(error)) }
+        }
+    }
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q) {
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q) {
     //    unsafe { TODO: call gio_sys:g_file_measure_disk_usage_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: /*Ignored*/FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<, >> + std::marker::Unpin> {
+    //fn measure_disk_usage_async_future(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -1408,7 +1427,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: /*Ignored*/FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error> {
+    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error> {
     //    unsafe { TODO: call gio_sys:g_file_set_attribute() }
     //}
 

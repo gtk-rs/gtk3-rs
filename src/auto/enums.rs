@@ -475,6 +475,176 @@ impl SetValue for EmblemOrigin {
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[derive(Clone, Copy)]
+pub enum FileAttributeStatus {
+    Unset,
+    Set,
+    ErrorSetting,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for FileAttributeStatus {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FileAttributeStatus::{}", match *self {
+            FileAttributeStatus::Unset => "Unset",
+            FileAttributeStatus::Set => "Set",
+            FileAttributeStatus::ErrorSetting => "ErrorSetting",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileAttributeStatus {
+    type GlibType = gio_sys::GFileAttributeStatus;
+
+    fn to_glib(&self) -> gio_sys::GFileAttributeStatus {
+        match *self {
+            FileAttributeStatus::Unset => gio_sys::G_FILE_ATTRIBUTE_STATUS_UNSET,
+            FileAttributeStatus::Set => gio_sys::G_FILE_ATTRIBUTE_STATUS_SET,
+            FileAttributeStatus::ErrorSetting => gio_sys::G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING,
+            FileAttributeStatus::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GFileAttributeStatus> for FileAttributeStatus {
+    fn from_glib(value: gio_sys::GFileAttributeStatus) -> Self {
+        match value {
+            0 => FileAttributeStatus::Unset,
+            1 => FileAttributeStatus::Set,
+            2 => FileAttributeStatus::ErrorSetting,
+            value => FileAttributeStatus::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for FileAttributeStatus {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_file_attribute_status_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for FileAttributeStatus {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for FileAttributeStatus {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for FileAttributeStatus {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
+pub enum FileAttributeType {
+    Invalid,
+    String,
+    ByteString,
+    Boolean,
+    Uint32,
+    Int32,
+    Uint64,
+    Int64,
+    Object,
+    Stringv,
+    #[doc(hidden)]
+    __Unknown(i32),
+}
+
+impl fmt::Display for FileAttributeType {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "FileAttributeType::{}", match *self {
+            FileAttributeType::Invalid => "Invalid",
+            FileAttributeType::String => "String",
+            FileAttributeType::ByteString => "ByteString",
+            FileAttributeType::Boolean => "Boolean",
+            FileAttributeType::Uint32 => "Uint32",
+            FileAttributeType::Int32 => "Int32",
+            FileAttributeType::Uint64 => "Uint64",
+            FileAttributeType::Int64 => "Int64",
+            FileAttributeType::Object => "Object",
+            FileAttributeType::Stringv => "Stringv",
+            _ => "Unknown",
+        })
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for FileAttributeType {
+    type GlibType = gio_sys::GFileAttributeType;
+
+    fn to_glib(&self) -> gio_sys::GFileAttributeType {
+        match *self {
+            FileAttributeType::Invalid => gio_sys::G_FILE_ATTRIBUTE_TYPE_INVALID,
+            FileAttributeType::String => gio_sys::G_FILE_ATTRIBUTE_TYPE_STRING,
+            FileAttributeType::ByteString => gio_sys::G_FILE_ATTRIBUTE_TYPE_BYTE_STRING,
+            FileAttributeType::Boolean => gio_sys::G_FILE_ATTRIBUTE_TYPE_BOOLEAN,
+            FileAttributeType::Uint32 => gio_sys::G_FILE_ATTRIBUTE_TYPE_UINT32,
+            FileAttributeType::Int32 => gio_sys::G_FILE_ATTRIBUTE_TYPE_INT32,
+            FileAttributeType::Uint64 => gio_sys::G_FILE_ATTRIBUTE_TYPE_UINT64,
+            FileAttributeType::Int64 => gio_sys::G_FILE_ATTRIBUTE_TYPE_INT64,
+            FileAttributeType::Object => gio_sys::G_FILE_ATTRIBUTE_TYPE_OBJECT,
+            FileAttributeType::Stringv => gio_sys::G_FILE_ATTRIBUTE_TYPE_STRINGV,
+            FileAttributeType::__Unknown(value) => value
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<gio_sys::GFileAttributeType> for FileAttributeType {
+    fn from_glib(value: gio_sys::GFileAttributeType) -> Self {
+        match value {
+            0 => FileAttributeType::Invalid,
+            1 => FileAttributeType::String,
+            2 => FileAttributeType::ByteString,
+            3 => FileAttributeType::Boolean,
+            4 => FileAttributeType::Uint32,
+            5 => FileAttributeType::Int32,
+            6 => FileAttributeType::Uint64,
+            7 => FileAttributeType::Int64,
+            8 => FileAttributeType::Object,
+            9 => FileAttributeType::Stringv,
+            value => FileAttributeType::__Unknown(value),
+        }
+    }
+}
+
+impl StaticType for FileAttributeType {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_file_attribute_type_get_type()) }
+    }
+}
+
+impl<'a> FromValueOptional<'a> for FileAttributeType {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+impl<'a> FromValue<'a> for FileAttributeType {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
+    }
+}
+
+impl SetValue for FileAttributeType {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Clone, Copy)]
 pub enum FileMonitorEvent {
     Changed,
     ChangesDoneHint,

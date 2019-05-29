@@ -250,13 +250,19 @@ pub fn dbus_generate_guid() -> Option<GString> {
     }
 }
 
-//pub fn dbus_gvalue_to_gvariant(gvalue: /*Ignored*/&glib::Value, type_: &glib::VariantTy) -> Option<glib::Variant> {
-//    unsafe { TODO: call gio_sys:g_dbus_gvalue_to_gvariant() }
-//}
+pub fn dbus_gvalue_to_gvariant(gvalue: &glib::Value, type_: &glib::VariantTy) -> Option<glib::Variant> {
+    unsafe {
+        from_glib_full(gio_sys::g_dbus_gvalue_to_gvariant(gvalue.to_glib_none().0, type_.to_glib_none().0))
+    }
+}
 
-//pub fn dbus_gvariant_to_gvalue(value: &glib::Variant, out_gvalue: /*Ignored*/glib::Value) {
-//    unsafe { TODO: call gio_sys:g_dbus_gvariant_to_gvalue() }
-//}
+pub fn dbus_gvariant_to_gvalue(value: &glib::Variant) -> glib::Value {
+    unsafe {
+        let mut out_gvalue = glib::Value::uninitialized();
+        gio_sys::g_dbus_gvariant_to_gvalue(value.to_glib_none().0, out_gvalue.to_glib_none_mut().0);
+        out_gvalue
+    }
+}
 
 pub fn dbus_is_address(string: &str) -> bool {
     unsafe {
@@ -308,9 +314,11 @@ pub fn io_error_from_errno(err_no: i32) -> IOErrorEnum {
     }
 }
 
-//pub fn io_error_quark() -> /*Ignored*/glib::Quark {
-//    unsafe { TODO: call gio_sys:g_io_error_quark() }
-//}
+pub fn io_error_quark() -> glib::Quark {
+    unsafe {
+        from_glib(gio_sys::g_io_error_quark())
+    }
+}
 
 //pub fn io_modules_load_all_in_directory<P: AsRef<std::path::Path>>(dirname: P) -> /*Ignored*/Vec<IOModule> {
 //    unsafe { TODO: call gio_sys:g_io_modules_load_all_in_directory() }
@@ -411,7 +419,7 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, domain: /*Ignored*/glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call gio_sys:g_simple_async_report_error_in_idle() }
 //}
 

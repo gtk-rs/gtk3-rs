@@ -31,12 +31,15 @@ generate = [
     "Gio.Emblem",
     "Gio.EmblemedIcon",
     "Gio.EmblemOrigin",
+    "Gio.FileAttributeStatus",
+    "Gio.FileAttributeType",
     "Gio.FileCopyFlags",
     "Gio.FileCreateFlags",
     "Gio.FileIcon",
     "Gio.FileInfo",
     "Gio.FileInputStream",
     "Gio.FileIOStream",
+    "Gio.FileMeasureFlags",
     "Gio.FileMonitor",
     "Gio.FileMonitorEvent",
     "Gio.FileMonitorFlags",
@@ -134,6 +137,7 @@ ignore = [
 
 manual = [
     "GLib.Bytes",
+    "GLib.DateTime",
     "GLib.Error",
     "GLib.IOCondition",
     "GLib.KeyFile",
@@ -141,11 +145,14 @@ manual = [
     "GLib.OptionArg",
     "GLib.OptionFlags",
     "GLib.Priority",
+    "GLib.Quark",
     "GLib.SeekType",
     "GLib.Source",
+    "GLib.TimeVal",
     "GLib.Variant",
     "GLib.VariantType",
     "GObject.Object",
+    "GObject.Value",
 ]
 
 [[object]]
@@ -355,6 +362,19 @@ manual_traits = ["FileExtManual"]
     name = "replace_contents_async"
     # AsRef
     ignore = true
+
+[[object]]
+name = "Gio.FileAttributeMatcher"
+status = "generate"
+    [[object.function]]
+    name = "enumerate_next"
+    # Better API with `IntoIter`
+    ignore = true
+    [[object.function]]
+    name = "subtract"
+        [[object.function.parameter]]
+        name = "subtract"
+        nullable = true
 
 [[object]]
 name = "Gio.FilterInputStream"

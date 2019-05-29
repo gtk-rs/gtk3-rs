@@ -2,6 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use FileAttributeMatcher;
+use FileAttributeStatus;
+use FileAttributeType;
 use FileType;
 use Icon;
 use gio_sys;
@@ -63,7 +66,7 @@ impl FileInfo {
         }
     }
 
-    //pub fn get_attribute_data(&self, attribute: &str, value_pp: /*Unimplemented*/&mut Fundamental: Pointer) -> Option<(/*Ignored*/FileAttributeType, /*Ignored*/FileAttributeStatus)> {
+    //pub fn get_attribute_data(&self, attribute: &str, value_pp: /*Unimplemented*/&mut Fundamental: Pointer) -> Option<(FileAttributeType, FileAttributeStatus)> {
     //    unsafe { TODO: call gio_sys:g_file_info_get_attribute_data() }
     //}
 
@@ -85,9 +88,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn get_attribute_status(&self, attribute: &str) -> /*Ignored*/FileAttributeStatus {
-    //    unsafe { TODO: call gio_sys:g_file_info_get_attribute_status() }
-    //}
+    pub fn get_attribute_status(&self, attribute: &str) -> FileAttributeStatus {
+        unsafe {
+            from_glib(gio_sys::g_file_info_get_attribute_status(self.to_glib_none().0, attribute.to_glib_none().0))
+        }
+    }
 
     pub fn get_attribute_string(&self, attribute: &str) -> Option<GString> {
         unsafe {
@@ -101,9 +106,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn get_attribute_type(&self, attribute: &str) -> /*Ignored*/FileAttributeType {
-    //    unsafe { TODO: call gio_sys:g_file_info_get_attribute_type() }
-    //}
+    pub fn get_attribute_type(&self, attribute: &str) -> FileAttributeType {
+        unsafe {
+            from_glib(gio_sys::g_file_info_get_attribute_type(self.to_glib_none().0, attribute.to_glib_none().0))
+        }
+    }
 
     pub fn get_attribute_uint32(&self, attribute: &str) -> u32 {
         unsafe {
@@ -123,9 +130,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn get_deletion_date(&self) -> /*Ignored*/Option<glib::DateTime> {
-    //    unsafe { TODO: call gio_sys:g_file_info_get_deletion_date() }
-    //}
+    pub fn get_deletion_date(&self) -> Option<glib::DateTime> {
+        unsafe {
+            from_glib_full(gio_sys::g_file_info_get_deletion_date(self.to_glib_none().0))
+        }
+    }
 
     pub fn get_display_name(&self) -> Option<GString> {
         unsafe {
@@ -175,9 +184,13 @@ impl FileInfo {
         }
     }
 
-    //pub fn get_modification_time(&self, result: /*Ignored*/glib::TimeVal) {
-    //    unsafe { TODO: call gio_sys:g_file_info_get_modification_time() }
-    //}
+    pub fn get_modification_time(&self) -> glib::TimeVal {
+        unsafe {
+            let mut result = glib::TimeVal::uninitialized();
+            gio_sys::g_file_info_get_modification_time(self.to_glib_none().0, result.to_glib_none_mut().0);
+            result
+        }
+    }
 
     pub fn get_name(&self) -> Option<std::path::PathBuf> {
         unsafe {
@@ -233,7 +246,7 @@ impl FileInfo {
         }
     }
 
-    //pub fn set_attribute(&self, attribute: &str, type_: /*Ignored*/FileAttributeType, value_p: /*Unimplemented*/Fundamental: Pointer) {
+    //pub fn set_attribute(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Fundamental: Pointer) {
     //    unsafe { TODO: call gio_sys:g_file_info_set_attribute() }
     //}
 
@@ -261,9 +274,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn set_attribute_mask(&self, mask: /*Ignored*/&FileAttributeMatcher) {
-    //    unsafe { TODO: call gio_sys:g_file_info_set_attribute_mask() }
-    //}
+    pub fn set_attribute_mask(&self, mask: &FileAttributeMatcher) {
+        unsafe {
+            gio_sys::g_file_info_set_attribute_mask(self.to_glib_none().0, mask.to_glib_none().0);
+        }
+    }
 
     pub fn set_attribute_object<P: IsA<glib::Object>>(&self, attribute: &str, attr_value: &P) {
         unsafe {
@@ -271,9 +286,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn set_attribute_status(&self, attribute: &str, status: /*Ignored*/FileAttributeStatus) -> bool {
-    //    unsafe { TODO: call gio_sys:g_file_info_set_attribute_status() }
-    //}
+    pub fn set_attribute_status(&self, attribute: &str, status: FileAttributeStatus) -> bool {
+        unsafe {
+            from_glib(gio_sys::g_file_info_set_attribute_status(self.to_glib_none().0, attribute.to_glib_none().0, status.to_glib()))
+        }
+    }
 
     pub fn set_attribute_string(&self, attribute: &str, attr_value: &str) {
         unsafe {
@@ -341,9 +358,11 @@ impl FileInfo {
         }
     }
 
-    //pub fn set_modification_time(&self, mtime: /*Ignored*/&mut glib::TimeVal) {
-    //    unsafe { TODO: call gio_sys:g_file_info_set_modification_time() }
-    //}
+    pub fn set_modification_time(&self, mtime: &mut glib::TimeVal) {
+        unsafe {
+            gio_sys::g_file_info_set_modification_time(self.to_glib_none().0, mtime.to_glib_none_mut().0);
+        }
+    }
 
     pub fn set_name<P: AsRef<std::path::Path>>(&self, name: P) {
         unsafe {
