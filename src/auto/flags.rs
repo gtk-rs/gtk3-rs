@@ -167,3 +167,34 @@ impl FromGlib<glib_sys::GOptionFlags> for OptionFlags {
     }
 }
 
+bitflags! {
+    pub struct SpawnFlags: u32 {
+        const DEFAULT = 0;
+        const LEAVE_DESCRIPTORS_OPEN = 1;
+        const DO_NOT_REAP_CHILD = 2;
+        const SEARCH_PATH = 4;
+        const STDOUT_TO_DEV_NULL = 8;
+        const STDERR_TO_DEV_NULL = 16;
+        const CHILD_INHERITS_STDIN = 32;
+        const FILE_AND_ARGV_ZERO = 64;
+        const SEARCH_PATH_FROM_ENVP = 128;
+        const CLOEXEC_PIPES = 256;
+    }
+}
+
+#[doc(hidden)]
+impl ToGlib for SpawnFlags {
+    type GlibType = glib_sys::GSpawnFlags;
+
+    fn to_glib(&self) -> glib_sys::GSpawnFlags {
+        self.bits()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<glib_sys::GSpawnFlags> for SpawnFlags {
+    fn from_glib(value: glib_sys::GSpawnFlags) -> SpawnFlags {
+        SpawnFlags::from_bits_truncate(value)
+    }
+}
+
