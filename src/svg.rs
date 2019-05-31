@@ -158,6 +158,7 @@ mod test {
         let surface = SvgSurface::for_stream(100., 100., buffer);
         draw(&surface);
         surface.finish();
+        surface.take_io_error().unwrap();
         *surface.take_output_stream().unwrap().downcast().unwrap()
     }
 
@@ -194,6 +195,7 @@ mod test {
 
         draw(&surface);
         surface.finish();
+        surface.take_io_error().unwrap();
         let file = surface.take_output_stream().unwrap().downcast::<std::fs::File>().unwrap();
 
         let buffer = draw_in_buffer();
@@ -243,6 +245,7 @@ mod test {
         let surface = SvgSurface::for_stream(100., 100., custom_writer);
         draw(&surface);
         surface.finish();
+        surface.take_io_error().unwrap();
         let custom_writer = surface.take_output_stream().unwrap().downcast::<CustomWriter>().unwrap();
 
         let buffer = draw_in_buffer();
