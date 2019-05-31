@@ -270,4 +270,43 @@ mod test {
 
         assert_eq!(custom_writer.0, buffer.len());
     }
+
+    fn with_panicky_stream() -> PsSurface {
+        struct PanicWriter;
+
+        impl io::Write for PanicWriter {
+            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> { panic!("panic in writer"); }
+            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+        }
+
+        let surface = PsSurface::for_stream(20., 20., PanicWriter);
+        surface.finish();
+        surface
+    }
+
+    #[test]
+    #[should_panic]
+    fn borrow_stream_propagates_panic() {
+        let surface = with_panicky_stream();
+        let _ = surface.borrow_output_stream();
+    }
+
+    #[test]
+    #[should_panic]
+    fn borrow_error_propagates_panic() {
+        let surface = with_panicky_stream();
+        let _ = surface.borrow_io_error();
+    }
+
+    #[test]
+    #[should_panic]
+    fn take_stream_propagates_panic() {
+        let _ = with_panicky_stream().take_output_stream();
+    }
+
+    #[test]
+    #[should_panic]
+    fn take_error_propagates_panic() {
+        let _ = with_panicky_stream().take_io_error();
+    }
 }
