@@ -469,10 +469,9 @@ where
         };
 
         let type_name = CString::new(T::NAME).unwrap();
-        assert_eq!(
-            gobject_sys::g_type_from_name(type_name.as_ptr()),
-            gobject_sys::G_TYPE_INVALID
-        );
+        if gobject_sys::g_type_from_name(type_name.as_ptr()) != gobject_sys::G_TYPE_INVALID {
+            panic!("Type {} has already been registered", type_name.to_str().unwrap());
+        }
 
         let type_ = from_glib(gobject_sys::g_type_register_static(
             <T::ParentType as StaticType>::static_type().to_glib(),
