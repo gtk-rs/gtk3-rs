@@ -89,8 +89,7 @@ impl Surface {
         Self::_for_stream(constructor, width, height, RawStream(stream))
     }
 
-    fn stream_env<'s>(&'s self) -> Option<RefMut<'s, MutableCallbackEnvironment>>
-    {
+    fn stream_env<'s>(&'s self) -> Option<RefMut<'s, MutableCallbackEnvironment>> {
         let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)?;
 
         // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never
@@ -124,8 +123,7 @@ impl Surface {
     /// This panics if the output stream’s internal `RefCell` is already borrowed,
     /// or was already borrowed during a previous attempt to write to the stream.
     ///
-    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
-    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// This can happen if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
     pub fn take_output_stream(&self) -> Option<Box<dyn Any>> {
         self.stream_env()?.stream.take()
@@ -138,45 +136,10 @@ impl Surface {
     /// This panics if the output stream’s internal `RefCell` is already borrowed,
     /// or was already borrowed during a previous attempt to write to the stream.
     ///
-    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
-    /// was not dropped early enough, or if the stream’s `Write` implementation
+    /// This can happen if the stream’s `Write` implementation
     /// manipulates this `Surface` during a write.
     pub fn take_io_error(&self) -> Result<(), io::Error> {
         some_is_err(|| self.stream_env()?.io_error.take())
-    }
-
-    /// Borrow the output stream, if any.
-    ///
-    /// This is relevant for surfaces created for example with [`PdfSurface::for_stream`].
-    /// Consider calling [`Surface::finish`] first,
-    /// to ensure that all writes to the stream are done.
-    ///
-    /// Use [`<dyn Any>::downcast_mut`] to recover the concrete stream type.
-    ///
-    /// # Panics
-    ///
-    /// This panics if the output stream’s internal `RefCell` is already borrowed,
-    /// or was already borrowed during a previous attempt to write to the stream.
-    ///
-    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
-    /// was not dropped early enough, or if the stream’s `Write` implementation
-    /// manipulates this `Surface` during a write.
-    pub fn borrow_output_stream<'surface>(&'surface self) -> Option<RefMut<'surface, dyn Any>> {
-        ref_mut_filter_map(self.stream_env()?, |env| env.stream.as_mut().map(|b| &mut **b))
-    }
-
-    /// Borrow the error that occurred while writing to the output stream, if any.
-    ///
-    /// # Panics
-    ///
-    /// This panics if the output stream’s internal `RefCell` is already borrowed,
-    /// or was already borrowed during a previous attempt to write to the stream.
-    ///
-    /// This can happen if the return value of `borrow_output_stream` or `borrow_io_error`
-    /// was not dropped early enough, or if the stream’s `Write` implementation
-    /// manipulates this `Surface` during a write.
-    pub fn borrow_io_error<'surface>(&'surface self) -> Result<(), RefMut<'surface, io::Error>> {
-        some_is_err(|| ref_mut_filter_map(self.stream_env()?, |env| env.io_error.as_mut()))
     }
 }
 
@@ -275,11 +238,4 @@ fn some_is_err<E>(f: impl FnOnce() -> Option<E>) -> Result<(), E> {
         Some(e) => Err(e),
         None => Ok(())
     }
-}
-
-fn ref_mut_filter_map<T, U:? Sized>(mut r: RefMut<T>, f: impl Fn(&mut T) -> Option<&mut U>)
-    -> Option<RefMut<U>>
-{
-    f(&mut r)?;
-    Some(RefMut::map(r, |value| f(value).unwrap()))
 }
