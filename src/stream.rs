@@ -100,19 +100,19 @@ impl Surface {
     ///
     /// This method panics if:
     ///
-    /// * A previous write panicked, or
+    /// * This method was already called for this surface, or
+    /// * This surface was not created with an output stream in the first place, or
+    /// * A previous write to this surface panicked, or
     /// * A previous write happened while another write was ongoing, or
     /// * A write is ongoing now.
     ///
     /// The latter two cases can only occur with a pathological output stream type
     /// that accesses the same surface again from `Write::write_all`.
-    pub fn finish_output_stream(&self) -> Result<Option<Box<dyn Any>>, StreamWithError> {
+    pub fn finish_output_stream(&self) -> Result<Box<dyn Any>, StreamWithError> {
         self.finish();
 
-        let env = match self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT) {
-            Some(env) => env,
-            None => return Ok(None)
-        };
+        let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)
+            .expect("surface without an output stream");
 
         // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never
         // call `set_user_data` again or `remove_user_data` with it,
@@ -130,10 +130,11 @@ impl Surface {
             std::panic::resume_unwind(payload)
         }
 
-        match mutable.stream.take() {
-            Some((stream, None)) => Ok(Some(stream)),
-            Some((stream, Some(error))) => Err(StreamWithError { stream, error }),
-            None => Ok(None),
+        let (stream, io_error) = mutable.stream.take().expect("output stream was already taken");
+        if let Some(error) = io_error {
+            Err(StreamWithError { stream, error })
+        } else {
+            Ok(stream)
         }
     }
 }

@@ -188,7 +188,7 @@ mod test {
 
         let surface = PdfSurface::for_stream(100., 100., buffer);
         draw(&surface);
-        *surface.finish_output_stream().unwrap().unwrap().downcast().unwrap()
+        *surface.finish_output_stream().unwrap().downcast().unwrap()
     }
 
     #[test]
@@ -216,7 +216,7 @@ mod test {
         let surface = PdfSurface::for_stream(100., 100., file);
 
         draw(&surface);
-        let stream = surface.finish_output_stream().unwrap().unwrap();
+        let stream = surface.finish_output_stream().unwrap();
         let file = stream.downcast::<std::fs::File>().unwrap();
 
         let buffer = draw_in_buffer();
@@ -262,7 +262,7 @@ mod test {
         let surface = PdfSurface::for_stream(20., 20., custom_writer);
         surface.set_size(100., 100.);
         draw(&surface);
-        let stream = surface.finish_output_stream().unwrap().unwrap();
+        let stream = surface.finish_output_stream().unwrap();
         let custom_writer = stream.downcast::<CustomWriter>().unwrap();
 
         let buffer = draw_in_buffer();
