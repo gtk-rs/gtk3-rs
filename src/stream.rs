@@ -156,6 +156,12 @@ impl std::fmt::Display for StreamWithError {
     }
 }
 
+impl From<StreamWithError> for io::Error {
+    fn from(e: StreamWithError) -> Self {
+        e.error
+    }
+}
+
 pub(crate) type Constructor = unsafe extern fn(
     ffi::cairo_write_func_t,
     *mut c_void,
