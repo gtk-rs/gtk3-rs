@@ -126,6 +126,9 @@ pub use image_surface::{
     ImageSurfaceData,
 };
 
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+pub use stream::StreamWithError;
+
 #[cfg(any(feature = "pdf", feature = "dox"))]
 pub use pdf::PdfSurface;
 

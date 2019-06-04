@@ -157,9 +157,7 @@ mod test {
 
         let surface = SvgSurface::for_stream(100., 100., buffer);
         draw(&surface);
-        surface.finish();
-        surface.take_io_error().unwrap();
-        *surface.take_output_stream().unwrap().downcast().unwrap()
+        *surface.finish_output_stream().unwrap().unwrap().downcast().unwrap()
     }
 
     fn assert_len_close_enough(len_a: usize, len_b: usize) {
@@ -194,9 +192,8 @@ mod test {
         let surface = SvgSurface::for_stream(100., 100., file);
 
         draw(&surface);
-        surface.finish();
-        surface.take_io_error().unwrap();
-        let file = surface.take_output_stream().unwrap().downcast::<std::fs::File>().unwrap();
+        let stream = surface.finish_output_stream().unwrap().unwrap();
+        let file = stream.downcast::<std::fs::File>().unwrap();
 
         let buffer = draw_in_buffer();
         let file_size = file.metadata().unwrap().len();
@@ -210,8 +207,7 @@ mod test {
         let surface = unsafe { SvgSurface::for_raw_stream(100., 100., &mut file) };
 
         draw(&surface);
-        surface.finish();
-        surface.take_output_stream();
+        surface.finish_output_stream().unwrap();
     }
 
     #[test]
@@ -244,9 +240,8 @@ mod test {
 
         let surface = SvgSurface::for_stream(100., 100., custom_writer);
         draw(&surface);
-        surface.finish();
-        surface.take_io_error().unwrap();
-        let custom_writer = surface.take_output_stream().unwrap().downcast::<CustomWriter>().unwrap();
+        let stream = surface.finish_output_stream().unwrap().unwrap();
+        let custom_writer = stream.downcast::<CustomWriter>().unwrap();
 
         let buffer = draw_in_buffer();
 
@@ -268,13 +263,7 @@ mod test {
 
     #[test]
     #[should_panic]
-    fn take_stream_propagates_panic() {
-        let _ = with_panicky_stream().take_output_stream();
-    }
-
-    #[test]
-    #[should_panic]
-    fn take_error_propagates_panic() {
-        let _ = with_panicky_stream().take_io_error();
+    fn finish_stream_propagates_panic() {
+        let _ = with_panicky_stream().finish_output_stream();
     }
 }

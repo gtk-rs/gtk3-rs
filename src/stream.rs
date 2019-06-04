@@ -7,7 +7,7 @@ use ::{Status, Surface, UserDataKey};
 
 use libc::{c_void, c_double, c_uchar, c_uint};
 use std::any::Any;
-use std::cell::{Cell, RefCell, RefMut};
+use std::cell::{Cell, RefCell};
 use std::io;
 use std::panic::AssertUnwindSafe;
 use std::rc::Rc;
@@ -65,8 +65,7 @@ impl Surface {
     ) -> Self {
         let env_rc = Rc::new(CallbackEnvironment {
             mutable: RefCell::new(MutableCallbackEnvironment {
-                stream: Some(Box::new(stream)),
-                io_error: None,
+                stream: Some((Box::new(stream), None)),
                 unwind_payload: None,
             }),
             saw_already_borrowed: Cell::new(false),
@@ -89,15 +88,38 @@ impl Surface {
         Self::_for_stream(constructor, width, height, RawStream(stream))
     }
 
-    fn stream_env<'s>(&'s self) -> Option<RefMut<'s, MutableCallbackEnvironment>> {
-        let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)?;
+    /// Finish the surface, then remove and return the output stream if any.
+    ///
+    /// This calls [`Surface::finish`], to make sure pending writes are done.
+    ///
+    /// This is relevant for surfaces created for example with [`PdfSurface::for_stream`].
+    ///
+    /// Use [`Box::downcast`] to recover the concrete stream type.
+    ///
+    /// # Panics
+    ///
+    /// This method panics if:
+    ///
+    /// * A previous write panicked, or
+    /// * A previous write happened while another write was ongoing, or
+    /// * A write is ongoing now.
+    ///
+    /// The latter two cases can only occur with a pathological output stream type
+    /// that accesses the same surface again from `Write::write_all`.
+    pub fn finish_output_stream(&self) -> Result<Option<Box<dyn Any>>, StreamWithError> {
+        self.finish();
+
+        let env = match self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT) {
+            Some(env) => env,
+            None => return Ok(None)
+        };
 
         // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never
         // call `set_user_data` again or `remove_user_data` with it,
         // the contract of `get_user_data_ptr` says that the user data entry
         // lives as long as the underlying `cairo_surface_t`
-        // which is at least as long as this `Surface` wrapper.
-        let env: &'s CallbackEnvironment = unsafe { &*env.as_ptr() };
+        // which is at least as long as `self`.
+        let env = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
             panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
@@ -107,39 +129,29 @@ impl Surface {
         if let Some(payload) = mutable.unwind_payload.take() {
             std::panic::resume_unwind(payload)
         }
-        Some(mutable)
-    }
 
-    /// Remove and return the output stream, if any.
-    ///
-    /// This is relevant for surfaces created for example with [`PdfSurface::for_stream`].
-    /// Consider calling [`Surface::finish`] first,
-    /// to ensure that all writes to the stream are done.
-    ///
-    /// Use [`Box::downcast`] to recover the concrete stream type.
-    ///
-    /// # Panics
-    ///
-    /// This panics if the output stream’s internal `RefCell` is already borrowed,
-    /// or was already borrowed during a previous attempt to write to the stream.
-    ///
-    /// This can happen if the stream’s `Write` implementation
-    /// manipulates this `Surface` during a write.
-    pub fn take_output_stream(&self) -> Option<Box<dyn Any>> {
-        self.stream_env()?.stream.take()
+        match mutable.stream.take() {
+            Some((stream, None)) => Ok(Some(stream)),
+            Some((stream, Some(error))) => Err(StreamWithError { stream, error }),
+            None => Ok(None),
+        }
     }
+}
 
-    /// Remove and return the error that occurred while writing to the output stream, if any.
-    ///
-    /// # Panics
-    ///
-    /// This panics if the output stream’s internal `RefCell` is already borrowed,
-    /// or was already borrowed during a previous attempt to write to the stream.
-    ///
-    /// This can happen if the stream’s `Write` implementation
-    /// manipulates this `Surface` during a write.
-    pub fn take_io_error(&self) -> Result<(), io::Error> {
-        some_is_err(|| self.stream_env()?.io_error.take())
+pub struct StreamWithError {
+    pub stream: Box<dyn Any>,
+    pub error: io::Error,
+}
+
+impl std::fmt::Debug for StreamWithError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.error.fmt(f)
+    }
+}
+
+impl std::fmt::Display for StreamWithError {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        self.error.fmt(f)
     }
 }
 
@@ -159,8 +171,7 @@ struct CallbackEnvironment {
 }
 
 struct MutableCallbackEnvironment {
-    stream: Option<Box<dyn Any>>,
-    io_error: Option<io::Error>,
+    stream: Option<(Box<dyn Any>, Option<io::Error>)>,
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
@@ -181,9 +192,11 @@ extern "C" fn write_callback<W: io::Write + 'static>(
 
     if let Ok(mut mutable) = env.mutable.try_borrow_mut() {
         if let MutableCallbackEnvironment {
-            stream: Some(stream),
-            // Don’t attempt another write if a previous one errored or panicked:
-            io_error: io_error @ None,
+            stream: Some((
+                stream,
+                // Don’t attempt another write if a previous one errored or panicked:
+                io_error @ None,
+            )),
             unwind_payload: unwind_payload @ None,
         } = &mut *mutable {
             // Safety: `write_callback<W>` was instanciated in `Surface::_for_stream`
@@ -232,10 +245,3 @@ trait AnyExt {
     }
 }
 impl AnyExt for dyn Any {}
-
-fn some_is_err<E>(f: impl FnOnce() -> Option<E>) -> Result<(), E> {
-    match f() {
-        Some(e) => Err(e),
-        None => Ok(())
-    }
-}
