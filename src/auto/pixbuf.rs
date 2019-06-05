@@ -14,7 +14,7 @@ use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use gobject_sys;
 use std::fmt;
@@ -271,7 +271,7 @@ impl Pixbuf {
     //}
 
     //#[cfg(feature = "futures")]
-    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         //use gio::GioFuture;
         //use fragile::Fragile;
 
