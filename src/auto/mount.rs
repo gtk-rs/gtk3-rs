@@ -45,7 +45,7 @@ pub trait MountExt: 'static {
     fn eject_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn get_default_location(&self) -> Option<File>;
 
@@ -68,7 +68,7 @@ pub trait MountExt: 'static {
     fn guess_content_type<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, force_rescan: bool, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn guess_content_type_future(&self, force_rescan: bool) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
+    fn guess_content_type_future(&self, force_rescan: bool) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
 
     fn guess_content_type_sync<P: IsA<Cancellable>>(&self, force_rescan: bool, cancellable: Option<&P>) -> Result<Vec<GString>, Error>;
 
@@ -77,14 +77,14 @@ pub trait MountExt: 'static {
     fn remount<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn remount_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn remount_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn shadow(&self);
 
     fn unmount_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn unshadow(&self);
 
@@ -124,7 +124,7 @@ impl<O: IsA<Mount>> MountExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -215,7 +215,7 @@ impl<O: IsA<Mount>> MountExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn guess_content_type_future(&self, force_rescan: bool) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
+    fn guess_content_type_future(&self, force_rescan: bool) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -264,7 +264,7 @@ impl<O: IsA<Mount>> MountExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn remount_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn remount_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountMountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -307,7 +307,7 @@ impl<O: IsA<Mount>> MountExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

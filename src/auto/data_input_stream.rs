@@ -144,14 +144,14 @@ pub trait DataInputStreamExt: 'static {
 
     #[cfg_attr(feature = "v2_56", deprecated)]
     #[cfg(feature = "futures")]
-    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin>;
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin>;
 
     fn read_upto<P: IsA<Cancellable>>(&self, stop_chars: &str, cancellable: Option<&P>) -> Result<(GString, usize), Error>;
 
     fn read_upto_async<P: IsA<Cancellable>, Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static>(&self, stop_chars: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin>;
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin>;
 
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
@@ -270,7 +270,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin> {
+    fn read_until_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -319,7 +319,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin> {
+    fn read_upto_async_future(&self, stop_chars: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(GString, usize), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

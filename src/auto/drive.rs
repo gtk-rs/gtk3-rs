@@ -50,7 +50,7 @@ pub trait DriveExt: 'static {
     fn eject_with_operation<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn enumerate_identifiers(&self) -> Vec<GString>;
 
@@ -82,17 +82,17 @@ pub trait DriveExt: 'static {
     fn poll_for_media<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn poll_for_media_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn poll_for_media_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn start<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: DriveStartFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn start_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn start_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn stop<P: IsA<MountOperation>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn stop_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn stop_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -150,7 +150,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -266,7 +266,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn poll_for_media_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn poll_for_media_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -300,7 +300,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn start_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn start_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: DriveStartFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -337,7 +337,7 @@ impl<O: IsA<Drive>> DriveExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn stop_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn stop_future<P: IsA<MountOperation> + Clone + 'static>(&self, flags: MountUnmountFlags, mount_operation: Option<&P>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

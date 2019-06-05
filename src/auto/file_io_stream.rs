@@ -39,7 +39,7 @@ pub trait FileIOStreamExt: 'static {
     fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(&self, attributes: &str, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
@@ -73,7 +73,7 @@ impl<O: IsA<FileIOStream>> FileIOStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    fn query_info_async_future(&self, attributes: &str, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

@@ -42,7 +42,7 @@ pub trait ProxyExt: 'static {
     fn connect_async<P: IsA<IOStream>, Q: IsA<ProxyAddress>, R: IsA<Cancellable>, S: FnOnce(Result<IOStream, Error>) + Send + 'static>(&self, connection: &P, proxy_address: &Q, cancellable: Option<&R>, callback: S);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin>;
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<dyn future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin>;
 
     fn supports_hostname(&self) -> bool;
 }
@@ -72,7 +72,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin> {
+    fn connect_async_future<P: IsA<IOStream> + Clone + 'static, Q: IsA<ProxyAddress> + Clone + 'static>(&self, connection: &P, proxy_address: &Q) -> Box_<dyn future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

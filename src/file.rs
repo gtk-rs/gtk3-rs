@@ -18,14 +18,36 @@ use FileCreateFlags;
 use futures::future;
 
 pub trait FileExtManual: Sized {
-    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&Cancellable>, callback: R);
+    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(
+        &self,
+        contents: B,
+        etag: Option<&str>,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        cancellable: Option<&Cancellable>,
+        callback: R,
+    );
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>;
+    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+        &self,
+        contents: B,
+        etag: Option<&str>,
+        make_backup: bool,
+        flags: FileCreateFlags,
+    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<File>> FileExtManual for O {
-    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&Cancellable>, callback: R) {
+    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(
+        &self,
+        contents: B,
+        etag: Option<&str>,
+        make_backup: bool,
+        flags: FileCreateFlags,
+        cancellable: Option<&Cancellable>,
+        callback: R,
+    ) {
         let etag = etag.to_glib_none();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(R, B)>> = Box::new(Some((callback, contents)));
@@ -53,7 +75,13 @@ impl<O: IsA<File>> FileExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(&self, contents: B, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags) -> Box<future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin> {
+    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(
+        &self,
+        contents: B,
+        etag: Option<&str>,
+        make_backup: bool,
+        flags: FileCreateFlags,
+    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

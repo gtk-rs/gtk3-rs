@@ -21,7 +21,9 @@ pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static>(&self, cancellable: Option<&Cancellable>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn accept_socket_async_future(&self) -> Box<future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin>;
+    fn accept_socket_async_future(
+        &self,
+    ) -> Box<dyn future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
@@ -44,7 +46,9 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn accept_socket_async_future(&self) -> Box<future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin> {
+    fn accept_socket_async_future(
+        &self,
+    ) -> Box<dyn future::Future<Output = Result<(Socket, Option<glib::Object>), Error>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {

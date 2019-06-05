@@ -52,7 +52,7 @@ pub trait SocketConnectionExt: 'static {
     fn connect_async<P: IsA<SocketAddress>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, address: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn get_local_address(&self) -> Result<SocketAddress, Error>;
 
@@ -88,7 +88,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(&self, address: &P) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

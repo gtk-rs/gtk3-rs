@@ -19,18 +19,38 @@ use futures::future::Future;
 use futures::stream::Stream;
 
 pub trait PollableOutputStreamExtManual {
-    fn create_source<F>(&self, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(
+        &self,
+        cancellable: Option<&Cancellable>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = ()> + std::marker::Unpin>;
+    fn create_source_future(
+        &self,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = ()> + std::marker::Unpin>;
+    fn create_source_stream(
+        &self,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
 }
 
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
-    fn create_source<F>(&self, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(
+        &self,
+        cancellable: Option<&Cancellable>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
     where F: FnMut(&Self) -> glib::Continue + 'static {
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -49,7 +69,11 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = ()> + std::marker::Unpin> {
+    fn create_source_future(
+        &self,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -63,7 +87,11 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = ()> + std::marker::Unpin> {
+    fn create_source_stream(
+        &self,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -81,19 +109,22 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(stream: *mut gio_sys::GPollableOutputStream, func: glib_sys::gpointer) -> glib_sys::gboolean {
-    let func: &Fragile<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
+unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(
+    stream: *mut gio_sys::GPollableOutputStream,
+    func: glib_sys::gpointer,
+) -> glib_sys::gboolean {
+    let func: &Fragile<RefCell<Box<dyn FnMut(&O) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
     (&mut *func)(&PollableOutputStream::from_glib_borrow(stream).unsafe_cast()).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
-    Box::<Fragile<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
+    Box::<Fragile<RefCell<Box<dyn FnMut(&O) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
 fn into_raw<O, F: FnMut(&O) -> glib::Continue + 'static>(func: F) -> glib_sys::gpointer {
-    let func: Box<Fragile<RefCell<Box<FnMut(&O) -> glib::Continue + 'static>>>> =
+    let func: Box<Fragile<RefCell<Box<dyn FnMut(&O) -> glib::Continue + 'static>>>> =
         Box::new(Fragile::new(RefCell::new(Box::new(func))));
     Box::into_raw(func) as glib_sys::gpointer
 }

@@ -35,7 +35,7 @@ pub trait LoadableIconExt: 'static {
     fn load_async<P: IsA<Cancellable>, Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static>(&self, size: i32, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin>;
+    fn load_async_future(&self, size: i32) -> Box_<dyn future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
@@ -65,7 +65,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn load_async_future(&self, size: i32) -> Box_<future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin> {
+    fn load_async_future(&self, size: i32) -> Box_<dyn future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

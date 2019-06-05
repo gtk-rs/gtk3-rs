@@ -101,7 +101,7 @@ pub trait BufferedInputStreamExt: 'static {
     fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, count: isize, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
 
     fn get_available(&self) -> usize;
 
@@ -141,7 +141,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
+    fn fill_async_future(&self, count: isize, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

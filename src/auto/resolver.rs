@@ -56,28 +56,28 @@ pub trait ResolverExt: 'static {
     fn lookup_by_address_async<P: IsA<InetAddress>, Q: IsA<Cancellable>, R: FnOnce(Result<GString, Error>) + Send + 'static>(&self, address: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<future::Future<Output = Result<GString, Error>> + std::marker::Unpin>;
+    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<dyn future::Future<Output = Result<GString, Error>> + std::marker::Unpin>;
 
     fn lookup_by_name<P: IsA<Cancellable>>(&self, hostname: &str, cancellable: Option<&P>) -> Result<Vec<InetAddress>, Error>;
 
     fn lookup_by_name_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static>(&self, hostname: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin>;
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin>;
 
     fn lookup_records<P: IsA<Cancellable>>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Option<&P>) -> Result<Vec<glib::Variant>, Error>;
 
     fn lookup_records_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static>(&self, rrname: &str, record_type: ResolverRecordType, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<future::Future<Output = Result<Vec<glib::Variant>, Error>> + std::marker::Unpin>;
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<dyn future::Future<Output = Result<Vec<glib::Variant>, Error>> + std::marker::Unpin>;
 
     fn lookup_service<P: IsA<Cancellable>>(&self, service: &str, protocol: &str, domain: &str, cancellable: Option<&P>) -> Result<Vec<SrvTarget>, Error>;
 
     fn lookup_service_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static>(&self, service: &str, protocol: &str, domain: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<future::Future<Output = Result<Vec<SrvTarget>, Error>> + std::marker::Unpin>;
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<dyn future::Future<Output = Result<Vec<SrvTarget>, Error>> + std::marker::Unpin>;
 
     fn set_default(&self);
 
@@ -109,7 +109,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<future::Future<Output = Result<GString, Error>> + std::marker::Unpin> {
+    fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(&self, address: &P) -> Box_<dyn future::Future<Output = Result<GString, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -153,7 +153,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin> {
+    fn lookup_by_name_async_future(&self, hostname: &str) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -197,7 +197,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<future::Future<Output = Result<Vec<glib::Variant>, Error>> + std::marker::Unpin> {
+    fn lookup_records_async_future(&self, rrname: &str, record_type: ResolverRecordType) -> Box_<dyn future::Future<Output = Result<Vec<glib::Variant>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -242,7 +242,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<future::Future<Output = Result<Vec<SrvTarget>, Error>> + std::marker::Unpin> {
+    fn lookup_service_async_future(&self, service: &str, protocol: &str, domain: &str) -> Box_<dyn future::Future<Output = Result<Vec<SrvTarget>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

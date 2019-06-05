@@ -33,7 +33,7 @@ pub trait SocketAddressEnumeratorExt: 'static {
     fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
+    fn next_async_future(&self) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
@@ -61,7 +61,7 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
+    fn next_async_future(&self) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

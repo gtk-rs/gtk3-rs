@@ -37,14 +37,14 @@ pub trait OutputStreamExt: 'static {
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn flush<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
     fn flush_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn has_pending(&self) -> bool;
 
@@ -61,7 +61,7 @@ pub trait OutputStreamExt: 'static {
     fn splice_async<P: IsA<InputStream>, Q: IsA<Cancellable>, R: FnOnce(Result<isize, Error>) + Send + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
 
     //fn vprintf<P: IsA<Cancellable>>(&self, cancellable: Option<&P>, error: &mut Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize>;
 
@@ -72,7 +72,7 @@ pub trait OutputStreamExt: 'static {
     fn write_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(&self, bytes: &glib::Bytes, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<OutputStream>> OutputStreamExt for O {
@@ -106,7 +106,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -149,7 +149,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn flush_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -222,7 +222,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
+    fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(&self, source: &P, flags: OutputStreamSpliceFlags, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -281,7 +281,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
+    fn write_bytes_async_future(&self, bytes: &glib::Bytes, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

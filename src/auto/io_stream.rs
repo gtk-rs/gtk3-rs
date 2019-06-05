@@ -44,7 +44,7 @@ pub trait IOStreamExt: 'static {
     fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn get_input_stream(&self) -> Option<InputStream>;
 
@@ -92,7 +92,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn close_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

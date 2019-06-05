@@ -20,25 +20,49 @@ use InputStream;
 use futures::future;
 
 pub trait InputStreamExtManual: Sized {
-    fn read<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn read<B: AsMut<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
 
-    fn read_all<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error>;
+    fn read_all<B: AsMut<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
+    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    );
 
-    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
+    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    );
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
 
     fn into_read(self) -> InputStreamRead<Self> {
         InputStreamRead(self)
@@ -46,7 +70,11 @@ pub trait InputStreamExtManual: Sized {
 }
 
 impl<O: IsA<InputStream>> InputStreamExtManual for O {
-    fn read<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn read<B: AsMut<[u8]>>(
+        &self,
+        mut buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -62,7 +90,11 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_all<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error> {
+    fn read_all<B: AsMut<[u8]>>(
+        &self,
+        mut buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, Option<Error>), Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -83,7 +115,13 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
+    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    ) {
         let cancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -117,7 +155,13 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
+    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    ) {
         let cancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -151,8 +195,10 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -175,8 +221,10 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
