@@ -290,7 +290,7 @@ impl<'a> ToGlibPtrMut<'a, *mut gobject_sys::GValue> for Value {
 }
 
 #[doc(hidden)]
-impl<'a> ToGlibPtr<'a, *mut gobject_sys::GValue> for &'a [&'a ToValue] {
+impl<'a> ToGlibPtr<'a, *mut gobject_sys::GValue> for &'a [&'a dyn ToValue] {
     type Storage = ValueArray;
 
     fn to_glib_none(&'a self) -> Stash<'a, *mut gobject_sys::GValue, Self> {

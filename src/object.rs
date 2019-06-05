@@ -858,7 +858,7 @@ glib_object_wrapper!(@object
 );
 
 impl Object {
-    pub fn new(type_: Type, properties: &[(&str, &ToValue)]) -> Result<Object, BoolError> {
+    pub fn new(type_: Type, properties: &[(&str, &dyn ToValue)]) -> Result<Object, BoolError> {
         use std::ffi::CString;
 
         if !type_.is_a(&Object::static_type()) {
@@ -898,7 +898,7 @@ pub trait ObjectExt: ObjectType {
     fn get_type(&self) -> Type;
     fn get_object_class(&self) -> &ObjectClass;
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError>;
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &dyn ToValue) -> Result<(), BoolError>;
     fn get_property<'a, N: Into<&'a str>>(&self, property_name: N) -> Result<Value, BoolError>;
     fn has_property<'a, N: Into<&'a str>>(&self, property_name: N, type_: Option<Type>) -> Result<(), BoolError>;
     fn get_property_type<'a, N: Into<&'a str>>(&self, property_name: N) -> Option<Type>;
@@ -913,7 +913,7 @@ pub trait ObjectExt: ObjectType {
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
     unsafe fn connect_unsafe<'a, N, F>(&self, signal_name: N, after: bool, callback: F) -> Result<SignalHandlerId, BoolError>
         where N: Into<&'a str>, F: Fn(&[Value]) -> Option<Value>;
-    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError>;
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError>;
     fn disconnect(&self, handler_id: SignalHandlerId);
 
     fn connect_notify<F: Fn(&Self, &::ParamSpec) + Send + Sync + 'static>(&self, name: Option<&str>, f: F) -> SignalHandlerId;
@@ -945,7 +945,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &ToValue) -> Result<(), BoolError> {
+    fn set_property<'a, N: Into<&'a str>>(&self, property_name: N, value: &dyn ToValue) -> Result<(), BoolError> {
         let property_name = property_name.into();
         let mut property_value = value.to_value();
 
@@ -1195,7 +1195,7 @@ impl<T: ObjectType> ObjectExt for T {
         }
     }
 
-    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&ToValue]) -> Result<Option<Value>, BoolError> {
+    fn emit<'a, N: Into<&'a str>>(&self, signal_name: N, args: &[&dyn ToValue]) -> Result<Option<Value>, BoolError> {
         let signal_name: &str = signal_name.into();
         unsafe {
             let type_ = self.get_type();

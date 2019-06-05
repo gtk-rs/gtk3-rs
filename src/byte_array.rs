@@ -107,9 +107,9 @@ impl ByteArray {
     pub fn sort<F: FnMut(&u8, &u8) -> Ordering>(&self, compare_func: F) {
         unsafe {
             let mut func = compare_func;
-            let func_obj: &mut (FnMut(&u8, &u8) -> Ordering) = &mut func;
+            let func_obj: &mut (dyn FnMut(&u8, &u8) -> Ordering) = &mut func;
             let func_ptr =
-                &func_obj as *const &mut (FnMut(&u8, &u8) -> Ordering) as glib_sys::gpointer;
+                &func_obj as *const &mut (dyn FnMut(&u8, &u8) -> Ordering) as glib_sys::gpointer;
 
             glib_sys::g_byte_array_sort_with_data(
                 self.to_glib_none().0,
@@ -125,7 +125,7 @@ unsafe extern "C" fn compare_func_trampoline(
     b: glib_sys::gconstpointer,
     func: glib_sys::gpointer,
 ) -> i32 {
-    let func = func as *mut &mut (FnMut(&u8, &u8) -> Ordering);
+    let func = func as *mut &mut (dyn FnMut(&u8, &u8) -> Ordering);
 
     let a = &*(a as *const u8);
     let b = &*(b as *const u8);

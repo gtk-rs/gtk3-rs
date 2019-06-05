@@ -83,7 +83,7 @@ impl Closure {
     }
 
     #[allow(clippy::redundant_closure)]
-    pub fn invoke(&self, values: &[&ToValue]) -> Option<Value> {
+    pub fn invoke(&self, values: &[&dyn ToValue]) -> Option<Value> {
         let mut result = unsafe { Value::uninitialized() };
 
         let v_args: Vec<Value>;
