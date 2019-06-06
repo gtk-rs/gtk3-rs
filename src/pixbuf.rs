@@ -26,8 +26,15 @@ use {
 };
 
 impl Pixbuf {
-    pub fn new_from_mut_slice<T: AsMut<[u8]>>(data: T, colorspace: Colorspace, has_alpha: bool,
-            bits_per_sample: i32, width: i32, height: i32, row_stride: i32) -> Pixbuf {
+    pub fn new_from_mut_slice<T: AsMut<[u8]>>(
+        data: T,
+        colorspace: Colorspace,
+        has_alpha: bool,
+        bits_per_sample: i32,
+        width: i32,
+        height: i32,
+        row_stride: i32,
+    ) -> Pixbuf {
         unsafe extern "C" fn destroy<T: AsMut<[u8]>>(_: *mut c_uchar, data: *mut c_void) {
             let _data: Box<T> = Box::from_raw(data as *mut T); // the data will be destroyed now
         }
@@ -87,7 +94,12 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_file_at_scale<T: AsRef<Path>>(filename: T, width: i32, height: i32, preserve_aspect_ratio: bool) -> Result<Pixbuf, Error> {
+    pub fn new_from_file_at_scale<T: AsRef<Path>>(
+        filename: T,
+        width: i32,
+        height: i32,
+        preserve_aspect_ratio: bool,
+    ) -> Result<Pixbuf, Error> {
         #[cfg(windows)]
         use gdk_pixbuf_sys::gdk_pixbuf_new_from_file_at_scale_utf8
             as gdk_pixbuf_new_from_file_at_scale;
@@ -106,7 +118,11 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_stream_async<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(stream: &P, cancellable: Option<&Q>, callback: R) {
+    pub fn new_from_stream_async<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(
+        stream: &P,
+        cancellable: Option<&Q>,
+        callback: R,
+    ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<R> = Box::new(callback);
         unsafe extern "C" fn new_from_stream_async_trampoline<R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
@@ -128,7 +144,9 @@ impl Pixbuf {
     }
 
     #[cfg(feature = "futures")]
-    pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P) -> Box<Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
+    pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
+        stream: &P,
+    ) -> Box<dyn Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -149,7 +167,14 @@ impl Pixbuf {
         })
     }
 
-    pub fn new_from_stream_at_scale_async<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool, cancellable: Option<&Q>, callback: R) {
+    pub fn new_from_stream_at_scale_async<'a, P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(
+        stream: &P,
+        width: i32,
+        height: i32,
+        preserve_aspect_ratio: bool,
+        cancellable: Option<&Q>,
+        callback: R,
+    ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<R> = Box::new(callback);
         unsafe extern "C" fn new_from_stream_at_scale_async_trampoline<R: FnOnce(Result<Pixbuf, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
@@ -171,7 +196,12 @@ impl Pixbuf {
     }
 
     #[cfg(feature = "futures")]
-    pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(stream: &P, width: i32, height: i32, preserve_aspect_ratio: bool) ->  Box<Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
+    pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
+        stream: &P,
+        width: i32,
+        height: i32,
+        preserve_aspect_ratio: bool,
+    ) ->  Box<dyn Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -233,7 +263,11 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_32", feature = "dox"))]
-    pub fn get_file_info_async<P: IsA<gio::Cancellable>, Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static, T: AsRef<Path>>(filename: T, cancellable: Option<&P>, callback: Q) {
+    pub fn get_file_info_async<P: IsA<gio::Cancellable>, Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static, T: AsRef<Path>>(
+        filename: T,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn get_file_info_async_trampoline<Q: FnOnce(Result<Option<(PixbufFormat, i32, i32)>, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
@@ -260,7 +294,9 @@ impl Pixbuf {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_32", feature = "dox"))]
-    pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(filename: T) -> Box<Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + std::marker::Unpin> {
+    pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
+        filename: T,
+    ) -> Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + std::marker::Unpin> {
         use gio::GioFuture;
 
         GioFuture::new(&(), move |_obj, send| {
@@ -293,7 +329,13 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(&self, stream: &P, type_: &str, options: &[(&str, &str)], cancellable: Option<&Q>) -> Result<(), Error> {
+    pub fn save_to_streamv<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(
+        &self,
+        stream: &P,
+        type_: &str,
+        options: &[(&str, &str)],
+        cancellable: Option<&Q>,
+    ) -> Result<(), Error> {
         let cancellable = cancellable.map(|p| p.as_ref());
         unsafe {
             let mut error = ptr::null_mut();
@@ -305,7 +347,14 @@ impl Pixbuf {
     }
 
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)], cancellable: Option<&Q>, callback: R) {
+    pub fn save_to_streamv_async<'a, P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(
+        &self,
+        stream: &P,
+        type_: &str,
+        options: &[(&str, &str)],
+        cancellable: Option<&Q>,
+        callback: R,
+    ) {
         let cancellable = cancellable.map(|p| p.as_ref());
         let user_data: Box<R> = Box::new(callback);
         unsafe extern "C" fn save_to_streamv_async_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
@@ -331,7 +380,12 @@ impl Pixbuf {
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_36", feature = "dox"))]
-    pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, options: &[(&str, &str)]) -> Box<Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(
+        &self,
+        stream: &P,
+        type_: &str,
+        options: &[(&str, &str)],
+    ) -> Box<dyn Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use gio::GioFuture;
         use fragile::Fragile;
 
@@ -357,7 +411,12 @@ impl Pixbuf {
         })
     }
 
-    pub fn savev<T: AsRef<Path>>(&self, filename: T, type_: &str, options: &[(&str, &str)]) -> Result<(), Error> {
+    pub fn savev<T: AsRef<Path>>(
+        &self,
+        filename: T,
+        type_: &str,
+        options: &[(&str, &str)],
+    ) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let option_keys: Vec<&str> = options.iter().map(|o| o.0).collect();
