@@ -401,7 +401,6 @@ fn path_to_c(path: &Path) -> CString {
     // Paths on UNIX must not contain NUL bytes, in which case the conversion
     // to a CString would fail. The only thing we can do then is to panic, as passing
     // NULL or the empty string to GLib would cause undefined behaviour.
-    use std::os::unix::ffi::OsStrExt;
     CString::new(path.as_os_str().as_bytes())
         .expect("Invalid path with NUL bytes")
 }
@@ -440,7 +439,6 @@ fn os_str_to_c(s: &OsStr) -> CString {
     // OS string on UNIX must not contain NUL bytes, in which case the conversion
     // to a CString would fail. The only thing we can do then is to panic, as passing
     // NULL or the empty string to GLib would cause undefined behaviour.
-    use std::os::unix::ffi::OsStrExt;
     CString::new(s.as_bytes())
         .expect("Invalid OS String with NUL bytes")
 }
