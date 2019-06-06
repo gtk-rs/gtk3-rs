@@ -59,7 +59,7 @@ pub trait SocketListenerExt: 'static {
     fn accept_async<P: IsA<Cancellable>, Q: FnOnce(Result<(SocketConnection, glib::Object), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn accept_async_future(&self) -> Box_<future::Future<Output = Result<(SocketConnection, glib::Object), Error>> + std::marker::Unpin>;
+    fn accept_async_future(&self) -> Box_<dyn future::Future<Output = Result<(SocketConnection, glib::Object), Error>> + std::marker::Unpin>;
 
     fn accept_socket<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(Socket, Option<glib::Object>), Error>;
 
@@ -112,7 +112,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn accept_async_future(&self) -> Box_<future::Future<Output = Result<(SocketConnection, glib::Object), Error>> + std::marker::Unpin> {
+    fn accept_async_future(&self) -> Box_<dyn future::Future<Output = Result<(SocketConnection, glib::Object), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

@@ -36,7 +36,7 @@ pub trait TlsInteractionExt: 'static {
     fn ask_password_async<P: IsA<TlsPassword>, Q: IsA<Cancellable>, R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, password: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
+    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<dyn future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
 
     fn invoke_ask_password<P: IsA<TlsPassword>, Q: IsA<Cancellable>>(&self, password: &P, cancellable: Option<&Q>) -> Result<TlsInteractionResult, Error>;
 
@@ -47,7 +47,7 @@ pub trait TlsInteractionExt: 'static {
     fn request_certificate_async<P: IsA<TlsConnection>, Q: IsA<Cancellable>, R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<dyn future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
@@ -75,7 +75,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
+    fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(&self, password: &P) -> Box_<dyn future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -135,7 +135,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
+    fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(&self, connection: &P, flags: TlsCertificateRequestFlags) -> Box_<dyn future::Future<Output = Result<TlsInteractionResult, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

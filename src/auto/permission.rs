@@ -35,7 +35,7 @@ pub trait PermissionExt: 'static {
     fn acquire_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn acquire_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn acquire_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn get_allowed(&self) -> bool;
 
@@ -50,7 +50,7 @@ pub trait PermissionExt: 'static {
     fn release_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn release_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn release_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -84,7 +84,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn acquire_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn acquire_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -150,7 +150,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn release_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn release_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

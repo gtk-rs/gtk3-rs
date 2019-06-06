@@ -33,7 +33,7 @@ use std::ptr;
 //}
 
 //#[cfg(feature = "futures")]
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<future::Future<Output = Result</*Ignored*/DBusConnection, Error>> + std::marker::Unpin> {
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<dyn future::Future<Output = Result</*Ignored*/DBusConnection, Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -215,7 +215,7 @@ pub fn dbus_address_get_stream<P: IsA<Cancellable>, Q: FnOnce(Result<(IOStream, 
 }
 
 #[cfg(feature = "futures")]
-pub fn dbus_address_get_stream_future(address: &str) -> Box_<future::Future<Output = Result<(IOStream, GString), Error>> + std::marker::Unpin> {
+pub fn dbus_address_get_stream_future(address: &str) -> Box_<dyn future::Future<Output = Result<(IOStream, GString), Error>> + std::marker::Unpin> {
     use GioFuture;
     use fragile::Fragile;
 

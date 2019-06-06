@@ -71,7 +71,7 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn communicate_async_future(&self, stdin_buf: Option<&glib::Bytes>) -> Box_<future::Future<Output = Result<(glib::Bytes, glib::Bytes), Error>> + std::marker::Unpin> {
+    pub fn communicate_async_future(&self, stdin_buf: Option<&glib::Bytes>) -> Box_<dyn future::Future<Output = Result<(glib::Bytes, glib::Bytes), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -198,7 +198,7 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn wait_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    pub fn wait_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
@@ -240,7 +240,7 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn wait_check_async_future(&self) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    pub fn wait_check_async_future(&self) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

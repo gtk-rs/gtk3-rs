@@ -21,23 +21,43 @@ use OutputStreamExt;
 use futures::future;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
-    fn write_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
+    fn write_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    );
 
-    fn write_all(&self, buffer: &[u8], cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error>;
+    fn write_all(
+        &self,
+        buffer: &[u8],
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q);
+    fn write_all_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    );
 
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
 
     fn into_write(self) -> OutputStreamWrite<Self> {
         OutputStreamWrite(self)
@@ -45,7 +65,13 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
 }
 
 impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
-    fn write_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
+    fn write_async<B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    ) {
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -74,7 +100,11 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
     }
 
-    fn write_all(&self, buffer: &[u8], cancellable: Option<&Cancellable>) -> Result<(usize, Option<Error>), Error> {
+    fn write_all(
+        &self,
+        buffer: &[u8],
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, Option<Error>), Error> {
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
@@ -93,7 +123,13 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(&self, buffer: B, io_priority: Priority, cancellable: Option<&Cancellable>, callback: Q) {
+    fn write_all_async<'a, B: AsRef<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+        &self,
+        buffer: B,
+        io_priority: Priority,
+        cancellable: Option<&Cancellable>,
+        callback: Q,
+    ) {
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
@@ -128,8 +164,10 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
 
     #[cfg(feature = "futures")]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -153,8 +191,10 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     #[cfg(feature = "futures")]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
-        &self, buffer: B, io_priority: Priority
-    ) -> Box<future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
+        &self,
+        buffer: B,
+        io_priority: Priority,
+    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {

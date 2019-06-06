@@ -85,14 +85,28 @@ pub trait SocketExtManual: Sized {
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = glib::IOCondition> + std::marker::Unpin>;
+    fn create_source_future(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin>;
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = glib::IOCondition> + std::marker::Unpin>;
+    fn create_source_stream(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin>;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
-    fn receive<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn receive<B: AsMut<[u8]>>(
+        &self,
+        mut buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -108,7 +122,11 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_from<B: AsMut<[u8]>>(&self, mut buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, SocketAddress), Error> {
+    fn receive_from<B: AsMut<[u8]>>(
+        &self,
+        mut buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, SocketAddress), Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -126,7 +144,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_with_blocking<B: AsMut<[u8]>>(&self, mut buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn receive_with_blocking<B: AsMut<[u8]>>(
+        &self,
+        mut buffer: B,
+        blocking: bool,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
@@ -142,7 +165,11 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send<B: AsRef<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn send<B: AsRef<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
@@ -159,7 +186,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(&self, address: Option<&P>, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(
+        &self,
+        address: Option<&P>,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
@@ -177,7 +209,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_with_blocking<B: AsRef<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error> {
+    fn send_with_blocking<B: AsRef<[u8]>>(
+        &self,
+        buffer: B,
+        blocking: bool,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error> {
         let cancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
@@ -208,7 +245,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn create_source<F>(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
+    fn create_source<F>(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static {
         let cancellable = cancellable.to_glib_none();
         unsafe {
@@ -226,7 +270,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Future<Output = glib::IOCondition> + std::marker::Unpin> {
+    fn create_source_future(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -240,7 +289,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, priority: glib::Priority) -> Box<Stream<Item = glib::IOCondition> + std::marker::Unpin> {
+    fn create_source_stream(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin> {
         let cancellable: Option<Cancellable> = cancellable.cloned();
 
         let obj = Fragile::new(self.clone());
@@ -258,19 +312,25 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline<O: IsA<Socket>>(socket: *mut gio_sys::GSocket, condition: glib_sys::GIOCondition, func: glib_sys::gpointer) -> glib_sys::gboolean {
-    let func: &Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
+unsafe extern "C" fn trampoline<O: IsA<Socket>>(
+    socket: *mut gio_sys::GSocket,
+    condition: glib_sys::GIOCondition,
+    func: glib_sys::gpointer,
+) -> glib_sys::gboolean {
+    let func: &Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
     let func = func.get();
     let mut func = func.borrow_mut();
     (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
 }
 
 unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
-    Box::<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
+    Box::<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
-fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(func: F) -> glib_sys::gpointer {
-    let func: Box<Fragile<RefCell<Box<FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
+fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(
+    func: F,
+) -> glib_sys::gpointer {
+    let func: Box<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
         Box::new(Fragile::new(RefCell::new(Box::new(func))));
     Box::into_raw(func) as glib_sys::gpointer
 }

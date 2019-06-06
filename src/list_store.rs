@@ -19,11 +19,15 @@ pub trait ListStoreExtManual {
 }
 
 impl<O: IsA<ListStore>> ListStoreExtManual for O {
-    fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(&self, item: &P, compare_func: F) -> u32 {
+    fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(
+        &self,
+        item: &P,
+        compare_func: F,
+    ) -> u32 {
         unsafe {
             let mut func = compare_func;
-            let func_obj: &mut (FnMut(&Object, &Object) -> Ordering) = &mut func;
-            let func_ptr = &func_obj as *const &mut (FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
+            let func_obj: &mut (dyn FnMut(&Object, &Object) -> Ordering) = &mut func;
+            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
 
             gio_sys::g_list_store_insert_sorted(
                 self.as_ref().to_glib_none().0,
@@ -37,8 +41,8 @@ impl<O: IsA<ListStore>> ListStoreExtManual for O {
     fn sort<F: FnMut(&Object, &Object) -> Ordering>(&self, compare_func: F) {
         unsafe {
             let mut func = compare_func;
-            let func_obj: &mut (FnMut(&Object, &Object) -> Ordering) = &mut func;
-            let func_ptr = &func_obj as *const &mut (FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
+            let func_obj: &mut (dyn FnMut(&Object, &Object) -> Ordering) = &mut func;
+            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
 
             gio_sys::g_list_store_sort(
                 self.as_ref().to_glib_none().0,
@@ -48,9 +52,12 @@ impl<O: IsA<ListStore>> ListStoreExtManual for O {
     }
 }
 
-unsafe extern "C" fn compare_func_trampoline(a: glib_sys::gconstpointer, b: glib_sys::gconstpointer, func: glib_sys::gpointer) -> i32
-{
-    let func = func as *mut &mut (FnMut(&Object, &Object) -> Ordering);
+unsafe extern "C" fn compare_func_trampoline(
+    a: glib_sys::gconstpointer,
+    b: glib_sys::gconstpointer,
+    func: glib_sys::gpointer,
+) -> i32 {
+    let func = func as *mut &mut (dyn FnMut(&Object, &Object) -> Ordering);
 
     let a = from_glib_borrow(a as *mut gobject_sys::GObject);
     let b = from_glib_borrow(b as *mut gobject_sys::GObject);

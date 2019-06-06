@@ -60,7 +60,7 @@ pub trait TlsConnectionExt: 'static {
     fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(&self, io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
 
@@ -164,7 +164,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn handshake_async_future(&self, io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

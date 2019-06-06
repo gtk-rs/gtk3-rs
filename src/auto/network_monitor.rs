@@ -46,7 +46,7 @@ pub trait NetworkMonitorExt: 'static {
     fn can_reach_async<P: IsA<SocketConnectable>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, connectable: &P, cancellable: Option<&Q>, callback: R);
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn get_connectivity(&self) -> NetworkConnectivity;
@@ -92,7 +92,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(&self, connectable: &P) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

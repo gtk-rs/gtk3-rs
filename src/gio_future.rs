@@ -23,7 +23,7 @@ where
     O: Clone + 'static,
     F: FnOnce(&O, oneshot::Sender<Result<T, E>>) -> Cancellable + 'static,
 {
-    pub fn new(obj: &O, schedule_operation: F) -> Box<Future<Output = Result<T, E>> + Unpin> {
+    pub fn new(obj: &O, schedule_operation: F) -> Box<dyn Future<Output = Result<T, E>> + Unpin> {
         Box::new(GioFuture {
             obj: obj.clone(),
             schedule_operation: Some(schedule_operation),

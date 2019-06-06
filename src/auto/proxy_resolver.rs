@@ -43,7 +43,7 @@ pub trait ProxyResolverExt: 'static {
     fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q);
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
+    fn lookup_async_future(&self, uri: &str) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
@@ -77,7 +77,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
+    fn lookup_async_future(&self, uri: &str) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 

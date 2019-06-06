@@ -12,7 +12,12 @@ use Error;
 use Subprocess;
 
 impl Subprocess {
-    pub fn communicate_utf8_async<R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(&self, stdin_buf: Option<String>, cancellable: Option<&Cancellable>, callback: R) {
+    pub fn communicate_utf8_async<R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(
+        &self,
+        stdin_buf: Option<String>,
+        cancellable: Option<&Cancellable>,
+        callback: R,
+    ) {
         let stdin_buf = stdin_buf.to_glib_full();
         let cancellable = cancellable.to_glib_none();
         let user_data: Box<(R, *mut c_char)> = Box::new((callback, stdin_buf));
@@ -39,7 +44,10 @@ impl Subprocess {
     }
 
     #[cfg(feature = "futures")]
-    pub fn communicate_utf8_async_future(&self, stdin_buf: Option<String>) -> Box<future::Future<Output = Result<(GString, GString), Error>> + std::marker::Unpin> {
+    pub fn communicate_utf8_async_future(
+        &self,
+        stdin_buf: Option<String>,
+    ) -> Box<dyn future::Future<Output = Result<(GString, GString), Error>> + std::marker::Unpin> {
         use GioFuture;
         use fragile::Fragile;
 
