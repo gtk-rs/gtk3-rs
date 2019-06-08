@@ -191,6 +191,7 @@ impl Rect {
         }
     }
 
+    #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn scale(&self, s_h: f32, s_v: f32) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();

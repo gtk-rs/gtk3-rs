@@ -18,6 +18,8 @@ exclude = [
 name = "graphene"
 
 [features]
+default = ["v1_10"]
+v1_10 = ["graphene-sys/v1_10"]
 dox = ["graphene-sys/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
