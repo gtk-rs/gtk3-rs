@@ -7,7 +7,7 @@ use DeviceToolType;
 use gdk_sys;
 use glib::StaticType;
 use glib::Value;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::translate::*;
 use gobject_sys;
 use std::fmt;

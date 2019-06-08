@@ -16,7 +16,7 @@ use Window;
 use gdk_sys;
 use glib::GString;
 use glib::object::IsA;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -294,6 +294,10 @@ impl Display {
     }
 
     pub fn connect_closed<F: Fn(&Display, bool) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn closed_trampoline<F: Fn(&Display, bool) + 'static>(this: *mut gdk_sys::GdkDisplay, is_error: glib_sys::gboolean, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), from_glib(is_error))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"closed\0".as_ptr() as *const _,
@@ -303,6 +307,10 @@ impl Display {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_monitor_added<F: Fn(&Display, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn monitor_added_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut gdk_sys::GdkDisplay, monitor: *mut gdk_sys::GdkMonitor, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(monitor))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"monitor-added\0".as_ptr() as *const _,
@@ -312,6 +320,10 @@ impl Display {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_monitor_removed<F: Fn(&Display, &Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn monitor_removed_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut gdk_sys::GdkDisplay, monitor: *mut gdk_sys::GdkMonitor, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(monitor))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"monitor-removed\0".as_ptr() as *const _,
@@ -320,6 +332,10 @@ impl Display {
     }
 
     pub fn connect_opened<F: Fn(&Display) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn opened_trampoline<F: Fn(&Display) + 'static>(this: *mut gdk_sys::GdkDisplay, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"opened\0".as_ptr() as *const _,
@@ -329,6 +345,10 @@ impl Display {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_seat_added<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn seat_added_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut gdk_sys::GdkDisplay, seat: *mut gdk_sys::GdkSeat, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(seat))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"seat-added\0".as_ptr() as *const _,
@@ -338,46 +358,16 @@ impl Display {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_seat_removed<F: Fn(&Display, &Seat) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn seat_removed_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut gdk_sys::GdkDisplay, seat: *mut gdk_sys::GdkSeat, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(seat))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"seat-removed\0".as_ptr() as *const _,
                 Some(transmute(seat_removed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn closed_trampoline<F: Fn(&Display, bool) + 'static>(this: *mut gdk_sys::GdkDisplay, is_error: glib_sys::gboolean, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), from_glib(is_error))
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn monitor_added_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut gdk_sys::GdkDisplay, monitor: *mut gdk_sys::GdkMonitor, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(monitor))
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn monitor_removed_trampoline<F: Fn(&Display, &Monitor) + 'static>(this: *mut gdk_sys::GdkDisplay, monitor: *mut gdk_sys::GdkMonitor, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(monitor))
-}
-
-unsafe extern "C" fn opened_trampoline<F: Fn(&Display) + 'static>(this: *mut gdk_sys::GdkDisplay, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn seat_added_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut gdk_sys::GdkDisplay, seat: *mut gdk_sys::GdkSeat, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(seat))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn seat_removed_trampoline<F: Fn(&Display, &Seat) + 'static>(this: *mut gdk_sys::GdkDisplay, seat: *mut gdk_sys::GdkSeat, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(seat))
 }
 
 impl fmt::Display for Display {

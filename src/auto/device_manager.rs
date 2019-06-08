@@ -6,7 +6,7 @@ use Device;
 use DeviceType;
 use Display;
 use gdk_sys;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -45,6 +45,10 @@ impl DeviceManager {
     }
 
     pub fn connect_device_added<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn device_added_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(device))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"device-added\0".as_ptr() as *const _,
@@ -53,6 +57,10 @@ impl DeviceManager {
     }
 
     pub fn connect_device_changed<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn device_changed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(device))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"device-changed\0".as_ptr() as *const _,
@@ -61,27 +69,16 @@ impl DeviceManager {
     }
 
     pub fn connect_device_removed<F: Fn(&DeviceManager, &Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn device_removed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(device))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"device-removed\0".as_ptr() as *const _,
                 Some(transmute(device_removed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn device_added_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(device))
-}
-
-unsafe extern "C" fn device_changed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(device))
-}
-
-unsafe extern "C" fn device_removed_trampoline<F: Fn(&DeviceManager, &Device) + 'static>(this: *mut gdk_sys::GdkDeviceManager, device: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(device))
 }
 
 impl fmt::Display for DeviceManager {

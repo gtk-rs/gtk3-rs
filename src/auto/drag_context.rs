@@ -12,7 +12,7 @@ use Window;
 use gdk_sys;
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -114,6 +114,10 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_action_changed<F: Fn(&DragContext, DragAction) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn action_changed_trampoline<F: Fn(&DragContext, DragAction) + 'static>(this: *mut gdk_sys::GdkDragContext, action: gdk_sys::GdkDragAction, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), from_glib(action))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-changed\0".as_ptr() as *const _,
@@ -123,6 +127,10 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_cancel<F: Fn(&DragContext, DragCancelReason) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn cancel_trampoline<F: Fn(&DragContext, DragCancelReason) + 'static>(this: *mut gdk_sys::GdkDragContext, reason: gdk_sys::GdkDragCancelReason, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), from_glib(reason))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"cancel\0".as_ptr() as *const _,
@@ -132,6 +140,10 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_dnd_finished<F: Fn(&DragContext) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(this: *mut gdk_sys::GdkDragContext, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"dnd-finished\0".as_ptr() as *const _,
@@ -141,36 +153,16 @@ impl DragContext {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_drop_performed<F: Fn(&DragContext, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn drop_performed_trampoline<F: Fn(&DragContext, i32) + 'static>(this: *mut gdk_sys::GdkDragContext, time: libc::c_int, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), time)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"drop-performed\0".as_ptr() as *const _,
                 Some(transmute(drop_performed_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn action_changed_trampoline<F: Fn(&DragContext, DragAction) + 'static>(this: *mut gdk_sys::GdkDragContext, action: gdk_sys::GdkDragAction, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), from_glib(action))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn cancel_trampoline<F: Fn(&DragContext, DragCancelReason) + 'static>(this: *mut gdk_sys::GdkDragContext, reason: gdk_sys::GdkDragCancelReason, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), from_glib(reason))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn dnd_finished_trampoline<F: Fn(&DragContext) + 'static>(this: *mut gdk_sys::GdkDragContext, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn drop_performed_trampoline<F: Fn(&DragContext, i32) + 'static>(this: *mut gdk_sys::GdkDragContext, time: libc::c_int, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), time)
 }
 
 impl fmt::Display for DragContext {

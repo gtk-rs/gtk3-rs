@@ -1363,6 +1363,12 @@ impl<O: IsA<Window>> WindowExt for O {
     }
 
     fn connect_create_surface<F: Fn(&Self, i32, i32) -> cairo::Surface + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn create_surface_trampoline<P, F: Fn(&P, i32, i32) -> cairo::Surface + 'static>(this: *mut gdk_sys::GdkWindow, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer) -> *mut cairo_sys::cairo_surface_t
+            where P: IsA<Window>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Window::from_glib_borrow(this).unsafe_cast(), width, height).to_glib_full()
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"create-surface\0".as_ptr() as *const _,
@@ -1382,6 +1388,12 @@ impl<O: IsA<Window>> WindowExt for O {
     //}
 
     fn connect_pick_embedded_child<F: Fn(&Self, f64, f64) -> Option<Window> + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn pick_embedded_child_trampoline<P, F: Fn(&P, f64, f64) -> Option<Window> + 'static>(this: *mut gdk_sys::GdkWindow, x: libc::c_double, y: libc::c_double, f: glib_sys::gpointer) -> *mut gdk_sys::GdkWindow
+            where P: IsA<Window>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Window::from_glib_borrow(this).unsafe_cast(), x, y)/*Not checked*/.to_glib_none().0
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"pick-embedded-child\0".as_ptr() as *const _,
@@ -1395,30 +1407,18 @@ impl<O: IsA<Window>> WindowExt for O {
     //}
 
     fn connect_property_cursor_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_cursor_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkWindow, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Window>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Window::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::cursor\0".as_ptr() as *const _,
                 Some(transmute(notify_cursor_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn create_surface_trampoline<P, F: Fn(&P, i32, i32) -> cairo::Surface + 'static>(this: *mut gdk_sys::GdkWindow, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer) -> *mut cairo_sys::cairo_surface_t
-where P: IsA<Window> {
-    let f: &F = &*(f as *const F);
-    f(&Window::from_glib_borrow(this).unsafe_cast(), width, height).to_glib_full()
-}
-
-unsafe extern "C" fn pick_embedded_child_trampoline<P, F: Fn(&P, f64, f64) -> Option<Window> + 'static>(this: *mut gdk_sys::GdkWindow, x: libc::c_double, y: libc::c_double, f: glib_sys::gpointer) -> *mut gdk_sys::GdkWindow
-where P: IsA<Window> {
-    let f: &F = &*(f as *const F);
-    f(&Window::from_glib_borrow(this).unsafe_cast(), x, y)/*Not checked*/.to_glib_none().0
-}
-
-unsafe extern "C" fn notify_cursor_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_sys::GdkWindow, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Window> {
-    let f: &F = &*(f as *const F);
-    f(&Window::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Window {

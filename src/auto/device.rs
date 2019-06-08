@@ -27,7 +27,7 @@ use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib::object::IsA;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -334,6 +334,10 @@ impl Device {
     }
 
     pub fn connect_changed<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn changed_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
@@ -343,6 +347,10 @@ impl Device {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_tool_changed<F: Fn(&Device, &DeviceTool) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn tool_changed_trampoline<F: Fn(&Device, &DeviceTool) + 'static>(this: *mut gdk_sys::GdkDevice, tool: *mut gdk_sys::GdkDeviceTool, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(tool))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"tool-changed\0".as_ptr() as *const _,
@@ -351,6 +359,10 @@ impl Device {
     }
 
     pub fn connect_property_associated_device_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_associated_device_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::associated-device\0".as_ptr() as *const _,
@@ -360,6 +372,10 @@ impl Device {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_property_axes_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::axes\0".as_ptr() as *const _,
@@ -368,6 +384,10 @@ impl Device {
     }
 
     pub fn connect_property_input_mode_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_input_mode_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::input-mode\0".as_ptr() as *const _,
@@ -376,6 +396,10 @@ impl Device {
     }
 
     pub fn connect_property_n_axes_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_n_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::n-axes\0".as_ptr() as *const _,
@@ -385,6 +409,10 @@ impl Device {
 
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn connect_property_seat_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::seat\0".as_ptr() as *const _,
@@ -394,6 +422,10 @@ impl Device {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn connect_property_tool_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::tool\0".as_ptr() as *const _,
@@ -402,61 +434,16 @@ impl Device {
     }
 
     pub fn connect_property_type_notify<F: Fn(&Device) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_type_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::type\0".as_ptr() as *const _,
                 Some(transmute(notify_type_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn changed_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn tool_changed_trampoline<F: Fn(&Device, &DeviceTool) + 'static>(this: *mut gdk_sys::GdkDevice, tool: *mut gdk_sys::GdkDeviceTool, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(tool))
-}
-
-unsafe extern "C" fn notify_associated_device_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn notify_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn notify_input_mode_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn notify_n_axes_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_20", feature = "dox"))]
-unsafe extern "C" fn notify_seat_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-unsafe extern "C" fn notify_tool_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn notify_type_trampoline<F: Fn(&Device) + 'static>(this: *mut gdk_sys::GdkDevice, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for Device {

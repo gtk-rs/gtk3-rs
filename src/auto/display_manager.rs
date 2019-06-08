@@ -4,7 +4,7 @@
 
 use Display;
 use gdk_sys;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -54,6 +54,10 @@ impl DisplayManager {
     }
 
     pub fn connect_display_opened<F: Fn(&DisplayManager, &Display) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut gdk_sys::GdkDisplayManager, display: *mut gdk_sys::GdkDisplay, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this), &from_glib_borrow(display))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"display-opened\0".as_ptr() as *const _,
@@ -62,22 +66,16 @@ impl DisplayManager {
     }
 
     pub fn connect_property_default_display_notify<F: Fn(&DisplayManager) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut gdk_sys::GdkDisplayManager, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::default-display\0".as_ptr() as *const _,
                 Some(transmute(notify_default_display_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn display_opened_trampoline<F: Fn(&DisplayManager, &Display) + 'static>(this: *mut gdk_sys::GdkDisplayManager, display: *mut gdk_sys::GdkDisplay, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this), &from_glib_borrow(display))
-}
-
-unsafe extern "C" fn notify_default_display_trampoline<F: Fn(&DisplayManager) + 'static>(this: *mut gdk_sys::GdkDisplayManager, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for DisplayManager {
