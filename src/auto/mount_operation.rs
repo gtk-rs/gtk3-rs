@@ -243,6 +243,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_aborted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn aborted_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"aborted\0".as_ptr() as *const _,
@@ -251,6 +257,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_ask_password<F: Fn(&Self, &str, &str, &str, AskPasswordFlags) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn ask_password_trampoline<P, F: Fn(&P, &str, &str, &str, AskPasswordFlags) + 'static>(this: *mut gio_sys::GMountOperation, message: *mut libc::c_char, default_user: *mut libc::c_char, default_domain: *mut libc::c_char, flags: gio_sys::GAskPasswordFlags, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), &GString::from_glib_borrow(default_user), &GString::from_glib_borrow(default_domain), from_glib(flags))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"ask-password\0".as_ptr() as *const _,
@@ -263,6 +275,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     //}
 
     fn connect_reply<F: Fn(&Self, MountOperationResult) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn reply_trampoline<P, F: Fn(&P, MountOperationResult) + 'static>(this: *mut gio_sys::GMountOperation, result: gio_sys::GMountOperationResult, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast(), from_glib(result))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"reply\0".as_ptr() as *const _,
@@ -276,6 +294,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     //}
 
     fn connect_show_unmount_progress<F: Fn(&Self, &str, i64, i64) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn show_unmount_progress_trampoline<P, F: Fn(&P, &str, i64, i64) + 'static>(this: *mut gio_sys::GMountOperation, message: *mut libc::c_char, time_left: i64, bytes_left: i64, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), time_left, bytes_left)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"show-unmount-progress\0".as_ptr() as *const _,
@@ -284,6 +308,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_anonymous_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_anonymous_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::anonymous\0".as_ptr() as *const _,
@@ -292,6 +322,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_choice_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_choice_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::choice\0".as_ptr() as *const _,
@@ -300,6 +336,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_domain_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_domain_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::domain\0".as_ptr() as *const _,
@@ -309,6 +351,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     fn connect_property_is_tcrypt_hidden_volume_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_tcrypt_hidden_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-tcrypt-hidden-volume\0".as_ptr() as *const _,
@@ -318,6 +366,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     fn connect_property_is_tcrypt_system_volume_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_tcrypt_system_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-tcrypt-system-volume\0".as_ptr() as *const _,
@@ -326,6 +380,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_password_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_password_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::password\0".as_ptr() as *const _,
@@ -334,6 +394,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_password_save_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_password_save_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::password-save\0".as_ptr() as *const _,
@@ -343,6 +409,12 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     fn connect_property_pim_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_pim_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::pim\0".as_ptr() as *const _,
@@ -351,93 +423,18 @@ impl<O: IsA<MountOperation>> MountOperationExt for O {
     }
 
     fn connect_property_username_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_username_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<MountOperation>
+        {
+            let f: &F = &*(f as *const F);
+            f(&MountOperation::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::username\0".as_ptr() as *const _,
                 Some(transmute(notify_username_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn aborted_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn ask_password_trampoline<P, F: Fn(&P, &str, &str, &str, AskPasswordFlags) + 'static>(this: *mut gio_sys::GMountOperation, message: *mut libc::c_char, default_user: *mut libc::c_char, default_domain: *mut libc::c_char, flags: gio_sys::GAskPasswordFlags, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), &GString::from_glib_borrow(default_user), &GString::from_glib_borrow(default_domain), from_glib(flags))
-}
-
-unsafe extern "C" fn reply_trampoline<P, F: Fn(&P, MountOperationResult) + 'static>(this: *mut gio_sys::GMountOperation, result: gio_sys::GMountOperationResult, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast(), from_glib(result))
-}
-
-unsafe extern "C" fn show_unmount_progress_trampoline<P, F: Fn(&P, &str, i64, i64) + 'static>(this: *mut gio_sys::GMountOperation, message: *mut libc::c_char, time_left: i64, bytes_left: i64, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(message), time_left, bytes_left)
-}
-
-unsafe extern "C" fn notify_anonymous_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_choice_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_domain_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-unsafe extern "C" fn notify_is_tcrypt_hidden_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-unsafe extern "C" fn notify_is_tcrypt_system_volume_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_password_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_password_save_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-unsafe extern "C" fn notify_pim_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_username_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GMountOperation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<MountOperation> {
-    let f: &F = &*(f as *const F);
-    f(&MountOperation::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for MountOperation {

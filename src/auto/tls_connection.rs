@@ -222,6 +222,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_accept_certificate<F: Fn(&Self, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn accept_certificate_trampoline<P, F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(this: *mut gio_sys::GTlsConnection, peer_cert: *mut gio_sys::GTlsCertificate, errors: gio_sys::GTlsCertificateFlags, f: glib_sys::gpointer) -> glib_sys::gboolean
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(peer_cert), from_glib(errors)).to_glib()
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"accept-certificate\0".as_ptr() as *const _,
@@ -230,6 +236,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::certificate\0".as_ptr() as *const _,
@@ -238,6 +250,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::database\0".as_ptr() as *const _,
@@ -246,6 +264,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::interaction\0".as_ptr() as *const _,
@@ -254,6 +278,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::peer-certificate\0".as_ptr() as *const _,
@@ -262,6 +292,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_peer_certificate_errors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::peer-certificate-errors\0".as_ptr() as *const _,
@@ -270,6 +306,12 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_rehandshake_mode_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::rehandshake-mode\0".as_ptr() as *const _,
@@ -278,60 +320,18 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     }
 
     fn connect_property_require_close_notify_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<TlsConnection>
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::require-close-notify\0".as_ptr() as *const _,
                 Some(transmute(notify_require_close_notify_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn accept_certificate_trampoline<P, F: Fn(&P, &TlsCertificate, TlsCertificateFlags) -> bool + 'static>(this: *mut gio_sys::GTlsConnection, peer_cert: *mut gio_sys::GTlsCertificate, errors: gio_sys::GTlsCertificateFlags, f: glib_sys::gpointer) -> glib_sys::gboolean
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(peer_cert), from_glib(errors)).to_glib()
-}
-
-unsafe extern "C" fn notify_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_database_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_interaction_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_peer_certificate_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_peer_certificate_errors_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_rehandshake_mode_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_require_close_notify_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsConnection, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<TlsConnection> {
-    let f: &F = &*(f as *const F);
-    f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for TlsConnection {

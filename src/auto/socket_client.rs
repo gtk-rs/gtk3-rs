@@ -457,6 +457,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_event<F: Fn(&Self, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn event_trampoline<P, F: Fn(&P, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(this: *mut gio_sys::GSocketClient, event: gio_sys::GSocketClientEvent, connectable: *mut gio_sys::GSocketConnectable, connection: *mut gio_sys::GIOStream, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast(), from_glib(event), &from_glib_borrow(connectable), Option::<IOStream>::from_glib_borrow(connection).as_ref())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"event\0".as_ptr() as *const _,
@@ -465,6 +471,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_enable_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_enable_proxy_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::enable-proxy\0".as_ptr() as *const _,
@@ -473,6 +485,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_family_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::family\0".as_ptr() as *const _,
@@ -481,6 +499,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_local_address_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::local-address\0".as_ptr() as *const _,
@@ -489,6 +513,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_protocol_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_protocol_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::protocol\0".as_ptr() as *const _,
@@ -497,6 +527,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_proxy_resolver_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_proxy_resolver_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::proxy-resolver\0".as_ptr() as *const _,
@@ -505,6 +541,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_timeout_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::timeout\0".as_ptr() as *const _,
@@ -513,6 +555,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_tls_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_tls_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::tls\0".as_ptr() as *const _,
@@ -521,6 +569,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_tls_validation_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_tls_validation_flags_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::tls-validation-flags\0".as_ptr() as *const _,
@@ -529,72 +583,18 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
     }
 
     fn connect_property_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketClient>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketClient::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::type\0".as_ptr() as *const _,
                 Some(transmute(notify_type_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn event_trampoline<P, F: Fn(&P, SocketClientEvent, &SocketConnectable, Option<&IOStream>) + 'static>(this: *mut gio_sys::GSocketClient, event: gio_sys::GSocketClientEvent, connectable: *mut gio_sys::GSocketConnectable, connection: *mut gio_sys::GIOStream, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast(), from_glib(event), &from_glib_borrow(connectable), Option::<IOStream>::from_glib_borrow(connection).as_ref())
-}
-
-unsafe extern "C" fn notify_enable_proxy_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_family_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_protocol_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_proxy_resolver_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_tls_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_tls_validation_flags_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketClient, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketClient> {
-    let f: &F = &*(f as *const F);
-    f(&SocketClient::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for SocketClient {

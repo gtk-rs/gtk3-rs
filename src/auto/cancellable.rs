@@ -133,18 +133,18 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
     }
 
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GCancellable, f: glib_sys::gpointer)
+            where P: IsA<Cancellable>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Cancellable::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
                 Some(transmute(cancelled_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GCancellable, f: glib_sys::gpointer)
-where P: IsA<Cancellable> {
-    let f: &F = &*(f as *const F);
-    f(&Cancellable::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Cancellable {

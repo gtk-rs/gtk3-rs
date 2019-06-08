@@ -194,6 +194,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     //}
 
     fn connect_property_is_any_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_any_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-any\0".as_ptr() as *const _,
@@ -202,6 +208,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_link_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-link-local\0".as_ptr() as *const _,
@@ -210,6 +222,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_loopback_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_loopback_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-loopback\0".as_ptr() as *const _,
@@ -218,6 +236,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_mc_global_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_mc_global_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-global\0".as_ptr() as *const _,
@@ -226,6 +250,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_mc_link_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_mc_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-link-local\0".as_ptr() as *const _,
@@ -234,6 +264,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_mc_node_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_mc_node_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-node-local\0".as_ptr() as *const _,
@@ -242,6 +278,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_mc_org_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_mc_org_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-org-local\0".as_ptr() as *const _,
@@ -250,6 +292,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_mc_site_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_mc_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-mc-site-local\0".as_ptr() as *const _,
@@ -258,6 +306,12 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_multicast_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_multicast_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-multicast\0".as_ptr() as *const _,
@@ -266,72 +320,18 @@ impl<O: IsA<InetAddress>> InetAddressExt for O {
     }
 
     fn connect_property_is_site_local_notify<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_is_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<InetAddress>
+        {
+            let f: &F = &*(f as *const F);
+            f(&InetAddress::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::is-site-local\0".as_ptr() as *const _,
                 Some(transmute(notify_is_site_local_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn notify_is_any_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_loopback_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_mc_global_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_mc_link_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_mc_node_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_mc_org_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_mc_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_multicast_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_is_site_local_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GInetAddress, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<InetAddress> {
-    let f: &F = &*(f as *const F);
-    f(&InetAddress::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for InetAddress {

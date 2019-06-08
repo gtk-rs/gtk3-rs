@@ -474,6 +474,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_blocking_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_blocking_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::blocking\0".as_ptr() as *const _,
@@ -482,6 +488,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_broadcast_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_broadcast_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::broadcast\0".as_ptr() as *const _,
@@ -490,6 +502,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_keepalive_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_keepalive_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::keepalive\0".as_ptr() as *const _,
@@ -498,6 +516,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_listen_backlog_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_listen_backlog_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::listen-backlog\0".as_ptr() as *const _,
@@ -506,6 +530,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_local_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::local-address\0".as_ptr() as *const _,
@@ -514,6 +544,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_multicast_loopback_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_multicast_loopback_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::multicast-loopback\0".as_ptr() as *const _,
@@ -522,6 +558,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_multicast_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_multicast_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::multicast-ttl\0".as_ptr() as *const _,
@@ -530,6 +572,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_remote_address_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_remote_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::remote-address\0".as_ptr() as *const _,
@@ -538,6 +586,12 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_timeout_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::timeout\0".as_ptr() as *const _,
@@ -546,72 +600,18 @@ impl<O: IsA<Socket>> SocketExt for O {
     }
 
     fn connect_property_ttl_notify<F: Fn(&Self) + Send + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Socket>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Socket::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::ttl\0".as_ptr() as *const _,
                 Some(transmute(notify_ttl_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn notify_blocking_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_broadcast_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_keepalive_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_listen_backlog_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_local_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_multicast_loopback_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_multicast_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_remote_address_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_timeout_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_ttl_trampoline<P, F: Fn(&P) + Send + 'static>(this: *mut gio_sys::GSocket, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Socket> {
-    let f: &F = &*(f as *const F);
-    f(&Socket::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Socket {

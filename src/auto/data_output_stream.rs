@@ -187,18 +187,18 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
     }
 
     fn connect_property_byte_order_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GDataOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<DataOutputStream>
+        {
+            let f: &F = &*(f as *const F);
+            f(&DataOutputStream::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::byte-order\0".as_ptr() as *const _,
                 Some(transmute(notify_byte_order_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn notify_byte_order_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GDataOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<DataOutputStream> {
-    let f: &F = &*(f as *const F);
-    f(&DataOutputStream::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for DataOutputStream {

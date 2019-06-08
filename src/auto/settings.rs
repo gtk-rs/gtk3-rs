@@ -468,6 +468,12 @@ impl<O: IsA<Settings>> SettingsExt for O {
     //}
 
     fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
+            where P: IsA<Settings>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"changed\0".as_ptr() as *const _,
@@ -476,6 +482,12 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     fn connect_writable_change_event<F: Fn(&Self, u32) -> Inhibit + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut gio_sys::GSettings, key: libc::c_uint, f: glib_sys::gpointer) -> glib_sys::gboolean
+            where P: IsA<Settings>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Settings::from_glib_borrow(this).unsafe_cast(), key).to_glib()
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"writable-change-event\0".as_ptr() as *const _,
@@ -484,6 +496,12 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     fn connect_writable_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
+            where P: IsA<Settings>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"writable-changed\0".as_ptr() as *const _,
@@ -492,6 +510,12 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     fn connect_property_delay_apply_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Settings>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Settings::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::delay-apply\0".as_ptr() as *const _,
@@ -500,42 +524,18 @@ impl<O: IsA<Settings>> SettingsExt for O {
     }
 
     fn connect_property_has_unapplied_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Settings>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Settings::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::has-unapplied\0".as_ptr() as *const _,
                 Some(transmute(notify_has_unapplied_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
-where P: IsA<Settings> {
-    let f: &F = &*(f as *const F);
-    f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
-}
-
-unsafe extern "C" fn writable_change_event_trampoline<P, F: Fn(&P, u32) -> Inhibit + 'static>(this: *mut gio_sys::GSettings, key: libc::c_uint, f: glib_sys::gpointer) -> glib_sys::gboolean
-where P: IsA<Settings> {
-    let f: &F = &*(f as *const F);
-    f(&Settings::from_glib_borrow(this).unsafe_cast(), key).to_glib()
-}
-
-unsafe extern "C" fn writable_changed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GSettings, key: *mut libc::c_char, f: glib_sys::gpointer)
-where P: IsA<Settings> {
-    let f: &F = &*(f as *const F);
-    f(&Settings::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(key))
-}
-
-unsafe extern "C" fn notify_delay_apply_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Settings> {
-    let f: &F = &*(f as *const F);
-    f(&Settings::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_has_unapplied_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSettings, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Settings> {
-    let f: &F = &*(f as *const F);
-    f(&Settings::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Settings {

@@ -169,6 +169,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
     }
 
     fn connect_property_allowed_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_allowed_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Permission>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Permission::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::allowed\0".as_ptr() as *const _,
@@ -177,6 +183,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
     }
 
     fn connect_property_can_acquire_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_can_acquire_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Permission>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Permission::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::can-acquire\0".as_ptr() as *const _,
@@ -185,30 +197,18 @@ impl<O: IsA<Permission>> PermissionExt for O {
     }
 
     fn connect_property_can_release_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_can_release_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<Permission>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Permission::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::can-release\0".as_ptr() as *const _,
                 Some(transmute(notify_can_release_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn notify_allowed_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Permission> {
-    let f: &F = &*(f as *const F);
-    f(&Permission::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_can_acquire_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Permission> {
-    let f: &F = &*(f as *const F);
-    f(&Permission::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn notify_can_release_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GPermission, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<Permission> {
-    let f: &F = &*(f as *const F);
-    f(&Permission::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Permission {

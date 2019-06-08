@@ -105,10 +105,10 @@ pub trait FileExt: 'static {
 
     fn copy<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>, progress_callback: Option<&mut dyn (FnMut(i64, i64))>) -> Result<(), Error>;
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R);
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S);
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
     fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(&self, destination: &P, flags: FileCopyFlags, cancellable: Option<&Q>) -> Result<(), Error>;
 
@@ -189,10 +189,10 @@ pub trait FileExt: 'static {
     #[cfg(feature = "futures")]
     fn load_contents_async_future(&self) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnMut(&str, i64) -> bool, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
 
     fn make_directory<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
 
@@ -207,10 +207,10 @@ pub trait FileExt: 'static {
 
     fn measure_disk_usage<P: IsA<Cancellable>>(&self, flags: FileMeasureFlags, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Result<(u64, u64, u64), Error>;
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q);
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R);
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin>;
+    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin>;
 
     fn monitor<P: IsA<Cancellable>>(&self, flags: FileMonitorFlags, cancellable: Option<&P>) -> Result<FileMonitor, Error>;
 
@@ -413,12 +413,12 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>, callback: R) {
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S) {
     //    unsafe { TODO: call gio_sys:g_file_copy_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(i64, i64) + 'static>>) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -817,12 +817,12 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnMut(&str, i64) -> bool, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
     //    unsafe { TODO: call gio_sys:g_file_load_partial_contents_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn load_partial_contents_async_future<Q: FnMut(&str, i64) -> bool>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin> {
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 
@@ -923,12 +923,12 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>, callback: Q) {
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R) {
     //    unsafe { TODO: call gio_sys:g_file_measure_disk_usage_async() }
     //}
 
     //#[cfg(feature = "futures")]
-    //fn measure_disk_usage_async_future(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin> {
+    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin> {
         //use GioFuture;
         //use fragile::Fragile;
 

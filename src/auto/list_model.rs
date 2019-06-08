@@ -89,19 +89,18 @@ impl<O: IsA<ListModel>> ListModelExt for O {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn connect_items_changed<F: Fn(&Self, u32, u32, u32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, u32, u32, u32) + 'static>(this: *mut gio_sys::GListModel, position: libc::c_uint, removed: libc::c_uint, added: libc::c_uint, f: glib_sys::gpointer)
+            where P: IsA<ListModel>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ListModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"items-changed\0".as_ptr() as *const _,
                 Some(transmute(items_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-#[cfg(any(feature = "v2_44", feature = "dox"))]
-unsafe extern "C" fn items_changed_trampoline<P, F: Fn(&P, u32, u32, u32) + 'static>(this: *mut gio_sys::GListModel, position: libc::c_uint, removed: libc::c_uint, added: libc::c_uint, f: glib_sys::gpointer)
-where P: IsA<ListModel> {
-    let f: &F = &*(f as *const F);
-    f(&ListModel::from_glib_borrow(this).unsafe_cast(), position, removed, added)
 }
 
 impl fmt::Display for ListModel {
