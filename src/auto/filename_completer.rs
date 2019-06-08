@@ -68,18 +68,18 @@ impl<O: IsA<FilenameCompleter>> FilenameCompleterExt for O {
     }
 
     fn connect_got_completion_data<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn got_completion_data_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFilenameCompleter, f: glib_sys::gpointer)
+            where P: IsA<FilenameCompleter>
+        {
+            let f: &F = &*(f as *const F);
+            f(&FilenameCompleter::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"got-completion-data\0".as_ptr() as *const _,
                 Some(transmute(got_completion_data_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn got_completion_data_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GFilenameCompleter, f: glib_sys::gpointer)
-where P: IsA<FilenameCompleter> {
-    let f: &F = &*(f as *const F);
-    f(&FilenameCompleter::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for FilenameCompleter {

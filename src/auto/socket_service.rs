@@ -100,6 +100,12 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
     }
 
     fn connect_incoming<F: Fn(&Self, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn incoming_trampoline<P, F: Fn(&P, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(this: *mut gio_sys::GSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
+            where P: IsA<SocketService>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), Option::<glib::Object>::from_glib_borrow(source_object).as_ref()).to_glib()
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"incoming\0".as_ptr() as *const _,
@@ -109,25 +115,18 @@ impl<O: IsA<SocketService>> SocketServiceExt for O {
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn connect_property_active_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketService, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
+            where P: IsA<SocketService>
+        {
+            let f: &F = &*(f as *const F);
+            f(&SocketService::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::active\0".as_ptr() as *const _,
                 Some(transmute(notify_active_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn incoming_trampoline<P, F: Fn(&P, &SocketConnection, Option<&glib::Object>) -> bool + 'static>(this: *mut gio_sys::GSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
-where P: IsA<SocketService> {
-    let f: &F = &*(f as *const F);
-    f(&SocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), Option::<glib::Object>::from_glib_borrow(source_object).as_ref()).to_glib()
-}
-
-#[cfg(any(feature = "v2_46", feature = "dox"))]
-unsafe extern "C" fn notify_active_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GSocketService, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-where P: IsA<SocketService> {
-    let f: &F = &*(f as *const F);
-    f(&SocketService::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for SocketService {

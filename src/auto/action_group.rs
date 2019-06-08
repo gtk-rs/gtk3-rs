@@ -142,6 +142,12 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
     }
 
     fn connect_action_added<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn action_added_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, f: glib_sys::gpointer)
+            where P: IsA<ActionGroup>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-added\0".as_ptr() as *const _,
@@ -150,6 +156,12 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
     }
 
     fn connect_action_enabled_changed<F: Fn(&Self, &str, bool) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn action_enabled_changed_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, enabled: glib_sys::gboolean, f: glib_sys::gpointer)
+            where P: IsA<ActionGroup>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), from_glib(enabled))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-enabled-changed\0".as_ptr() as *const _,
@@ -158,6 +170,12 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
     }
 
     fn connect_action_removed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn action_removed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, f: glib_sys::gpointer)
+            where P: IsA<ActionGroup>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-removed\0".as_ptr() as *const _,
@@ -166,36 +184,18 @@ impl<O: IsA<ActionGroup>> ActionGroupExt for O {
     }
 
     fn connect_action_state_changed<F: Fn(&Self, &str, &glib::Variant) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn action_state_changed_trampoline<P, F: Fn(&P, &str, &glib::Variant) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, value: *mut glib_sys::GVariant, f: glib_sys::gpointer)
+            where P: IsA<ActionGroup>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), &from_glib_borrow(value))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"action-state-changed\0".as_ptr() as *const _,
                 Some(transmute(action_state_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn action_added_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, f: glib_sys::gpointer)
-where P: IsA<ActionGroup> {
-    let f: &F = &*(f as *const F);
-    f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
-}
-
-unsafe extern "C" fn action_enabled_changed_trampoline<P, F: Fn(&P, &str, bool) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, enabled: glib_sys::gboolean, f: glib_sys::gpointer)
-where P: IsA<ActionGroup> {
-    let f: &F = &*(f as *const F);
-    f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), from_glib(enabled))
-}
-
-unsafe extern "C" fn action_removed_trampoline<P, F: Fn(&P, &str) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, f: glib_sys::gpointer)
-where P: IsA<ActionGroup> {
-    let f: &F = &*(f as *const F);
-    f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name))
-}
-
-unsafe extern "C" fn action_state_changed_trampoline<P, F: Fn(&P, &str, &glib::Variant) + 'static>(this: *mut gio_sys::GActionGroup, action_name: *mut libc::c_char, value: *mut glib_sys::GVariant, f: glib_sys::gpointer)
-where P: IsA<ActionGroup> {
-    let f: &F = &*(f as *const F);
-    f(&ActionGroup::from_glib_borrow(this).unsafe_cast(), &GString::from_glib_borrow(action_name), &from_glib_borrow(value))
 }
 
 impl fmt::Display for ActionGroup {

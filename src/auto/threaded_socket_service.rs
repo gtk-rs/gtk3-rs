@@ -54,18 +54,18 @@ impl<O: IsA<ThreadedSocketService>> ThreadedSocketServiceExt for O {
     }
 
     fn connect_run<F: Fn(&Self, &SocketConnection, &glib::Object) -> bool + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut gio_sys::GThreadedSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
+            where P: IsA<ThreadedSocketService>
+        {
+            let f: &F = &*(f as *const F);
+            f(&ThreadedSocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"run\0".as_ptr() as *const _,
                 Some(transmute(run_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn run_trampoline<P, F: Fn(&P, &SocketConnection, &glib::Object) -> bool + 'static>(this: *mut gio_sys::GThreadedSocketService, connection: *mut gio_sys::GSocketConnection, source_object: *mut gobject_sys::GObject, f: glib_sys::gpointer) -> glib_sys::gboolean
-where P: IsA<ThreadedSocketService> {
-    let f: &F = &*(f as *const F);
-    f(&ThreadedSocketService::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(connection), &from_glib_borrow(source_object)).to_glib()
 }
 
 impl fmt::Display for ThreadedSocketService {

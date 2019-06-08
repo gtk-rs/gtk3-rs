@@ -254,6 +254,20 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         func: F,
     ) -> glib::Source
     where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static {
+        #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+        unsafe extern "C" fn trampoline<O: IsA<Socket>>(
+            socket: *mut gio_sys::GSocket,
+            condition: glib_sys::GIOCondition,
+            func: glib_sys::gpointer,
+        ) -> glib_sys::gboolean {
+            let func: &Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
+            let func = func.get();
+            let mut func = func.borrow_mut();
+            (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
+        }
+        unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
+            Box::<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
+        }
         let cancellable = cancellable.to_glib_none();
         unsafe {
             let source = gio_sys::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
@@ -309,22 +323,6 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             })
         }))
     }
-}
-
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
-unsafe extern "C" fn trampoline<O: IsA<Socket>>(
-    socket: *mut gio_sys::GSocket,
-    condition: glib_sys::GIOCondition,
-    func: glib_sys::gpointer,
-) -> glib_sys::gboolean {
-    let func: &Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
-    let func = func.get();
-    let mut func = func.borrow_mut();
-    (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
-}
-
-unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
-    Box::<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
 }
 
 fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(
