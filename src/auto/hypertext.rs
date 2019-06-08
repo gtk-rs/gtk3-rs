@@ -55,18 +55,18 @@ impl<O: IsA<Hypertext>> HypertextExt for O {
     }
 
     fn connect_link_selected<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut atk_sys::AtkHypertext, arg1: libc::c_int, f: glib_sys::gpointer)
+            where P: IsA<Hypertext>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Hypertext::from_glib_borrow(this).unsafe_cast(), arg1)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"link-selected\0".as_ptr() as *const _,
                 Some(transmute(link_selected_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn link_selected_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut atk_sys::AtkHypertext, arg1: libc::c_int, f: glib_sys::gpointer)
-where P: IsA<Hypertext> {
-    let f: &F = &*(f as *const F);
-    f(&Hypertext::from_glib_borrow(this).unsafe_cast(), arg1)
 }
 
 impl fmt::Display for Hypertext {

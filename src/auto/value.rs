@@ -126,18 +126,18 @@ impl<O: IsA<Value>> ValueExt for O {
     }
 
     fn connect_value_changed<F: Fn(&Self, f64, &str) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut atk_sys::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_sys::gpointer)
+            where P: IsA<Value>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"value-changed\0".as_ptr() as *const _,
                 Some(transmute(value_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn value_changed_trampoline<P, F: Fn(&P, f64, &str) + 'static>(this: *mut atk_sys::AtkValue, value: libc::c_double, text: *mut libc::c_char, f: glib_sys::gpointer)
-where P: IsA<Value> {
-    let f: &F = &*(f as *const F);
-    f(&Value::from_glib_borrow(this).unsafe_cast(), value, &GString::from_glib_borrow(text))
 }
 
 impl fmt::Display for Value {
