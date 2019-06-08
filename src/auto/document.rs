@@ -89,6 +89,12 @@ impl<O: IsA<Document>> DocumentExt for O {
     }
 
     fn connect_load_complete<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn load_complete_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
+            where P: IsA<Document>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Document::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"load-complete\0".as_ptr() as *const _,
@@ -97,6 +103,12 @@ impl<O: IsA<Document>> DocumentExt for O {
     }
 
     fn connect_load_stopped<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn load_stopped_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
+            where P: IsA<Document>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Document::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"load-stopped\0".as_ptr() as *const _,
@@ -105,6 +117,12 @@ impl<O: IsA<Document>> DocumentExt for O {
     }
 
     fn connect_page_changed<F: Fn(&Self, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn page_changed_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut atk_sys::AtkDocument, page_number: libc::c_int, f: glib_sys::gpointer)
+            where P: IsA<Document>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Document::from_glib_borrow(this).unsafe_cast(), page_number)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"page-changed\0".as_ptr() as *const _,
@@ -113,36 +131,18 @@ impl<O: IsA<Document>> DocumentExt for O {
     }
 
     fn connect_reload<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
+            where P: IsA<Document>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Document::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"reload\0".as_ptr() as *const _,
                 Some(transmute(reload_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn load_complete_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
-where P: IsA<Document> {
-    let f: &F = &*(f as *const F);
-    f(&Document::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn load_stopped_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
-where P: IsA<Document> {
-    let f: &F = &*(f as *const F);
-    f(&Document::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn page_changed_trampoline<P, F: Fn(&P, i32) + 'static>(this: *mut atk_sys::AtkDocument, page_number: libc::c_int, f: glib_sys::gpointer)
-where P: IsA<Document> {
-    let f: &F = &*(f as *const F);
-    f(&Document::from_glib_borrow(this).unsafe_cast(), page_number)
-}
-
-unsafe extern "C" fn reload_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkDocument, f: glib_sys::gpointer)
-where P: IsA<Document> {
-    let f: &F = &*(f as *const F);
-    f(&Document::from_glib_borrow(this).unsafe_cast())
 }
 
 impl fmt::Display for Document {

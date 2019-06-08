@@ -163,18 +163,18 @@ impl<O: IsA<Component>> ComponentExt for O {
     }
 
     fn connect_bounds_changed<F: Fn(&Self, &Rectangle) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut atk_sys::AtkComponent, arg1: *mut atk_sys::AtkRectangle, f: glib_sys::gpointer)
+            where P: IsA<Component>
+        {
+            let f: &F = &*(f as *const F);
+            f(&Component::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"bounds-changed\0".as_ptr() as *const _,
                 Some(transmute(bounds_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn bounds_changed_trampoline<P, F: Fn(&P, &Rectangle) + 'static>(this: *mut atk_sys::AtkComponent, arg1: *mut atk_sys::AtkRectangle, f: glib_sys::gpointer)
-where P: IsA<Component> {
-    let f: &F = &*(f as *const F);
-    f(&Component::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(arg1))
 }
 
 impl fmt::Display for Component {
