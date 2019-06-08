@@ -19,6 +19,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use libc;
 use pango;
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 
@@ -385,29 +386,107 @@ pub fn text_property_to_utf8_list_for_display(display: &Display, encoding: &Atom
     }
 }
 
-//pub fn threads_add_idle(function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_idle() }
-//}
+pub fn threads_add_idle<P: Fn() -> bool + Send + Sync + 'static>(function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_idle(function, Box::into_raw(super_callback0) as *mut _)
+    }
+}
 
-//pub fn threads_add_idle_full(priority: i32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_idle_full() }
-//}
+pub fn threads_add_idle_full<P: Fn() -> bool + Send + Sync + 'static>(priority: i32, function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    unsafe extern "C" fn notify_func<P: Fn() -> bool + Send + Sync + 'static>(data: glib_sys::gpointer) {
+        let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+    }
+    let destroy_call3 = Some(notify_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_idle_full(priority, function, Box::into_raw(super_callback0) as *mut _, destroy_call3)
+    }
+}
 
-//pub fn threads_add_timeout(interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_timeout() }
-//}
+pub fn threads_add_timeout<P: Fn() -> bool + Send + Sync + 'static>(interval: u32, function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_timeout(interval, function, Box::into_raw(super_callback0) as *mut _)
+    }
+}
 
-//pub fn threads_add_timeout_full(priority: i32, interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_timeout_full() }
-//}
+pub fn threads_add_timeout_full<P: Fn() -> bool + Send + Sync + 'static>(priority: i32, interval: u32, function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    unsafe extern "C" fn notify_func<P: Fn() -> bool + Send + Sync + 'static>(data: glib_sys::gpointer) {
+        let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+    }
+    let destroy_call4 = Some(notify_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_timeout_full(priority, interval, function, Box::into_raw(super_callback0) as *mut _, destroy_call4)
+    }
+}
 
-//pub fn threads_add_timeout_seconds(interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_timeout_seconds() }
-//}
+pub fn threads_add_timeout_seconds<P: Fn() -> bool + Send + Sync + 'static>(interval: u32, function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_timeout_seconds(interval, function, Box::into_raw(super_callback0) as *mut _)
+    }
+}
 
-//pub fn threads_add_timeout_seconds_full(priority: i32, interval: u32, function: /*Ignored*/glib::Fn() -> bool + 'static, data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-//    unsafe { TODO: call gdk_sys:gdk_threads_add_timeout_seconds_full() }
-//}
+pub fn threads_add_timeout_seconds_full<P: Fn() -> bool + Send + Sync + 'static>(priority: i32, interval: u32, function: P) -> u32 {
+    assert_initialized_main_thread!();
+    let function_data: Box_<P> = Box::new(function);
+    unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(user_data: glib_sys::gpointer) -> glib_sys::gboolean {
+        let callback: &P = &*(user_data as *mut _);
+        let res = (*callback)();
+        res.to_glib()
+    }
+    let function = Some(function_func::<P> as _);
+    unsafe extern "C" fn notify_func<P: Fn() -> bool + Send + Sync + 'static>(data: glib_sys::gpointer) {
+        let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+    }
+    let destroy_call4 = Some(notify_func::<P> as _);
+    let super_callback0: Box_<P> = function_data;
+    unsafe {
+        gdk_sys::gdk_threads_add_timeout_seconds_full(priority, interval, function, Box::into_raw(super_callback0) as *mut _, destroy_call4)
+    }
+}
 
 pub fn unicode_to_keyval(wc: u32) -> u32 {
     assert_initialized_main_thread!();
