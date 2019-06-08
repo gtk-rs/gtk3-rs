@@ -10,7 +10,7 @@ use cairo;
 use gdk_sys;
 use glib::GString;
 use glib::object::IsA;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -265,6 +265,10 @@ impl Screen {
     }
 
     pub fn connect_composited_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn composited_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"composited-changed\0".as_ptr() as *const _,
@@ -273,6 +277,10 @@ impl Screen {
     }
 
     pub fn connect_monitors_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn monitors_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"monitors-changed\0".as_ptr() as *const _,
@@ -281,6 +289,10 @@ impl Screen {
     }
 
     pub fn connect_size_changed<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn size_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"size-changed\0".as_ptr() as *const _,
@@ -289,6 +301,10 @@ impl Screen {
     }
 
     pub fn connect_property_font_options_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_font_options_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::font-options\0".as_ptr() as *const _,
@@ -297,37 +313,16 @@ impl Screen {
     }
 
     pub fn connect_property_resolution_notify<F: Fn(&Screen) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_resolution_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::resolution\0".as_ptr() as *const _,
                 Some(transmute(notify_resolution_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn composited_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn monitors_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn size_changed_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn notify_font_options_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn notify_resolution_trampoline<F: Fn(&Screen) + 'static>(this: *mut gdk_sys::GdkScreen, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for Screen {

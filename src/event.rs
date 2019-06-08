@@ -57,6 +57,24 @@ impl Event {
     /// handling is disabled.
     pub fn set_handler<F: Fn(&mut Event) +'static>(handler: Option<F>) {
         assert_initialized_main_thread!();
+        unsafe extern "C" fn event_handler_trampoline<F: Fn(&mut Event) +'static>(
+            event: *mut gdk_sys::GdkEvent,
+            ptr: glib_sys::gpointer,
+        ) {
+            if ptr != ptr::null_mut() {
+                let f: &F = &*(ptr as *mut _);
+                let mut event = from_glib_none(event);
+                f(&mut event)
+            }
+        }
+        unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) +'static>(
+            ptr: glib_sys::gpointer,
+        ) {
+            if ptr != ptr::null_mut() {
+                // convert back to Box and free
+                let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
+            }
+        }
         if let Some(handler) = handler {
             // allocate and convert to target type
             // double box to reduce a fat pointer to a simple pointer
@@ -460,20 +478,5 @@ macro_rules! event_subtype {
                 &mut self.0
             }
         }
-    }
-}
-
-unsafe extern "C" fn event_handler_trampoline<F: Fn(&mut Event) +'static>(event: *mut gdk_sys::GdkEvent, ptr: glib_sys::gpointer) {
-    if ptr != ptr::null_mut() {
-        let f: &F = &*(ptr as *mut _);
-        let mut event = from_glib_none(event);
-        f(&mut event)
-    }
-}
-
-unsafe extern "C" fn event_handler_destroy<F: Fn(&mut Event) +'static>(ptr: glib_sys::gpointer) {
-    if ptr != ptr::null_mut() {
-        // convert back to Box and free
-        let _boxed: Box<F> = Box::from_raw(ptr as *mut _);
     }
 }

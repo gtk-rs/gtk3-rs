@@ -5,7 +5,7 @@
 use FrameClockPhase;
 use FrameTimings;
 use gdk_sys;
-use glib::object::ObjectType;
+use glib::object::ObjectType as ObjectType_;
 use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
 use glib::translate::*;
@@ -72,6 +72,10 @@ impl FrameClock {
     }
 
     pub fn connect_after_paint<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn after_paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"after-paint\0".as_ptr() as *const _,
@@ -80,6 +84,10 @@ impl FrameClock {
     }
 
     pub fn connect_before_paint<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn before_paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"before-paint\0".as_ptr() as *const _,
@@ -88,6 +96,10 @@ impl FrameClock {
     }
 
     pub fn connect_flush_events<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn flush_events_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"flush-events\0".as_ptr() as *const _,
@@ -96,6 +108,10 @@ impl FrameClock {
     }
 
     pub fn connect_layout<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn layout_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"layout\0".as_ptr() as *const _,
@@ -104,6 +120,10 @@ impl FrameClock {
     }
 
     pub fn connect_paint<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"paint\0".as_ptr() as *const _,
@@ -112,6 +132,10 @@ impl FrameClock {
     }
 
     pub fn connect_resume_events<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn resume_events_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"resume-events\0".as_ptr() as *const _,
@@ -120,47 +144,16 @@ impl FrameClock {
     }
 
     pub fn connect_update<F: Fn(&FrameClock) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn update_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"update\0".as_ptr() as *const _,
                 Some(transmute(update_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn after_paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn before_paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn flush_events_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn layout_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn paint_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn resume_events_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
-}
-
-unsafe extern "C" fn update_trampoline<F: Fn(&FrameClock) + 'static>(this: *mut gdk_sys::GdkFrameClock, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for FrameClock {
