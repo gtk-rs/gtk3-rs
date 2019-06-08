@@ -48,17 +48,16 @@ impl PixbufSimpleAnim {
     }
 
     pub fn connect_property_loop_notify<F: Fn(&PixbufSimpleAnim) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn notify_loop_trampoline<F: Fn(&PixbufSimpleAnim) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufSimpleAnim, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"notify::loop\0".as_ptr() as *const _,
                 Some(transmute(notify_loop_trampoline::<F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn notify_loop_trampoline<F: Fn(&PixbufSimpleAnim) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufSimpleAnim, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-    let f: &F = &*(f as *const F);
-    f(&from_glib_borrow(this))
 }
 
 impl fmt::Display for PixbufSimpleAnim {

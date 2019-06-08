@@ -135,6 +135,12 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
     }
 
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn area_prepared_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, f: glib_sys::gpointer)
+            where P: IsA<PixbufLoader>
+        {
+            let f: &F = &*(f as *const F);
+            f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"area-prepared\0".as_ptr() as *const _,
@@ -143,6 +149,12 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
     }
 
     fn connect_area_updated<F: Fn(&Self, i32, i32, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn area_updated_trampoline<P, F: Fn(&P, i32, i32, i32, i32) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, x: libc::c_int, y: libc::c_int, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer)
+            where P: IsA<PixbufLoader>
+        {
+            let f: &F = &*(f as *const F);
+            f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), x, y, width, height)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"area-updated\0".as_ptr() as *const _,
@@ -151,6 +163,12 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
     }
 
     fn connect_closed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, f: glib_sys::gpointer)
+            where P: IsA<PixbufLoader>
+        {
+            let f: &F = &*(f as *const F);
+            f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"closed\0".as_ptr() as *const _,
@@ -159,36 +177,18 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
     }
 
     fn connect_size_prepared<F: Fn(&Self, i32, i32) + 'static>(&self, f: F) -> SignalHandlerId {
+        unsafe extern "C" fn size_prepared_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer)
+            where P: IsA<PixbufLoader>
+        {
+            let f: &F = &*(f as *const F);
+            f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), width, height)
+        }
         unsafe {
             let f: Box_<F> = Box_::new(f);
             connect_raw(self.as_ptr() as *mut _, b"size-prepared\0".as_ptr() as *const _,
                 Some(transmute(size_prepared_trampoline::<Self, F> as usize)), Box_::into_raw(f))
         }
     }
-}
-
-unsafe extern "C" fn area_prepared_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, f: glib_sys::gpointer)
-where P: IsA<PixbufLoader> {
-    let f: &F = &*(f as *const F);
-    f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn area_updated_trampoline<P, F: Fn(&P, i32, i32, i32, i32) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, x: libc::c_int, y: libc::c_int, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer)
-where P: IsA<PixbufLoader> {
-    let f: &F = &*(f as *const F);
-    f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), x, y, width, height)
-}
-
-unsafe extern "C" fn closed_trampoline<P, F: Fn(&P) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, f: glib_sys::gpointer)
-where P: IsA<PixbufLoader> {
-    let f: &F = &*(f as *const F);
-    f(&PixbufLoader::from_glib_borrow(this).unsafe_cast())
-}
-
-unsafe extern "C" fn size_prepared_trampoline<P, F: Fn(&P, i32, i32) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufLoader, width: libc::c_int, height: libc::c_int, f: glib_sys::gpointer)
-where P: IsA<PixbufLoader> {
-    let f: &F = &*(f as *const F);
-    f(&PixbufLoader::from_glib_borrow(this).unsafe_cast(), width, height)
 }
 
 impl fmt::Display for PixbufLoader {
