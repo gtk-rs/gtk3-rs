@@ -29,7 +29,6 @@ script:
   - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.96" ]; then
     make regen_check;
     fi
-  - ./check_init_asserts
   - cargo doc --features "dox,embed-lgpl-docs"
   - cargo test --features "$FEATURES,embed-lgpl-docs"
   # catch any sneaked in lgpl docs
