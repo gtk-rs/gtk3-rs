@@ -63,6 +63,22 @@ impl ValueArray {
     }
 
     pub fn sort_with_data<F: FnMut(&Value, &Value) -> Ordering>(&mut self, compare_func: F) {
+        unsafe extern "C" fn compare_func_trampoline(
+            a: glib_sys::gconstpointer,
+            b: glib_sys::gconstpointer,
+            func: glib_sys::gpointer,
+        ) -> i32 {
+            let func = func as *mut &mut (dyn FnMut(&Value, &Value) -> Ordering);
+
+            let a = &*(a as *const Value);
+            let b = &*(b as *const Value);
+
+            match (*func)(&a, &b) {
+                Ordering::Less => -1,
+                Ordering::Equal => 0,
+                Ordering::Greater => 1,
+            }
+        }
         unsafe {
             let mut func = compare_func;
             let func_obj: &mut (dyn FnMut(&Value, &Value) -> Ordering) = &mut func;
@@ -99,22 +115,5 @@ impl ops::DerefMut for ValueArray {
                 (*self.to_glib_none().0).n_values as usize,
             )
         }
-    }
-}
-
-unsafe extern "C" fn compare_func_trampoline(
-    a: glib_sys::gconstpointer,
-    b: glib_sys::gconstpointer,
-    func: glib_sys::gpointer,
-) -> i32 {
-    let func = func as *mut &mut (dyn FnMut(&Value, &Value) -> Ordering);
-
-    let a = &*(a as *const Value);
-    let b = &*(b as *const Value);
-
-    match (*func)(&a, &b) {
-        Ordering::Less => -1,
-        Ordering::Equal => 0,
-        Ordering::Greater => 1,
     }
 }

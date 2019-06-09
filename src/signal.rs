@@ -54,6 +54,10 @@ pub unsafe fn connect_raw<F>(
     trampoline: GCallback,
     closure: *mut F,
 ) -> SignalHandlerId {
+    unsafe extern "C" fn destroy_closure<F>(ptr: *mut c_void, _: *mut gobject_sys::GClosure) {
+        // destroy
+        Box::<F>::from_raw(ptr as *mut _);
+    }
     assert_eq!(mem::size_of::<*mut F>(), mem::size_of::<gpointer>());
     assert!(trampoline.is_some());
     let handle = gobject_sys::g_signal_connect_data(
@@ -103,9 +107,4 @@ pub fn signal_stop_emission_by_name<T: ObjectType>(instance: &T, signal_name: &s
             signal_name.to_glib_none().0,
         );
     }
-}
-
-unsafe extern "C" fn destroy_closure<F>(ptr: *mut c_void, _: *mut gobject_sys::GClosure) {
-    // destroy
-    Box::<F>::from_raw(ptr as *mut _);
 }

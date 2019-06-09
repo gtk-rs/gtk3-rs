@@ -1829,17 +1829,6 @@ where
     }
 }
 
-unsafe extern "C" fn read_string_hash_table(
-    key: glib_sys::gpointer,
-    value: glib_sys::gpointer,
-    hash_map: glib_sys::gpointer,
-) {
-    let key: String = from_glib_none(key as *const c_char);
-    let value: String = from_glib_none(value as *const c_char);
-    let hash_map: &mut HashMap<String, String> = &mut *(hash_map as *mut HashMap<String, String>);
-    hash_map.insert(key, value);
-}
-
 #[allow(clippy::implicit_hasher)]
 impl FromGlibContainer<*const c_char, *mut glib_sys::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none_num(ptr: *mut glib_sys::GHashTable, _: usize) -> Self {
@@ -1858,6 +1847,16 @@ impl FromGlibContainer<*const c_char, *mut glib_sys::GHashTable> for HashMap<Str
 #[allow(clippy::implicit_hasher)]
 impl FromGlibPtrContainer<*const c_char, *mut glib_sys::GHashTable> for HashMap<String, String> {
     unsafe fn from_glib_none(ptr: *mut glib_sys::GHashTable) -> Self {
+        unsafe extern "C" fn read_string_hash_table(
+            key: glib_sys::gpointer,
+            value: glib_sys::gpointer,
+            hash_map: glib_sys::gpointer,
+        ) {
+            let key: String = from_glib_none(key as *const c_char);
+            let value: String = from_glib_none(value as *const c_char);
+            let hash_map: &mut HashMap<String, String> = &mut *(hash_map as *mut HashMap<String, String>);
+            hash_map.insert(key, value);
+        }
         let mut map = HashMap::new();
         glib_sys::g_hash_table_foreach(
             ptr,
