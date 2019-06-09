@@ -214,30 +214,6 @@ status = "generate"
         type = "none"
 
 [[object]]
-name = "Graphene.Point3D"
-status = "generate"
-    [[object.function]]
-    # contents undefined
-    name = "alloc"
-    ignore = true
-    [[object.function]]
-    name = "init"
-        [object.function.return]
-        type = "none"
-    [[object.function]]
-    name = "init_from_point"
-        [object.function.return]
-        type = "none"
-    [[object.function]]
-    name = "init_from_vec3"
-        [object.function.return]
-        type = "none"
-    [[object.function]]
-    name = "zero"
-        [object.function.return]
-        nullable = false
-
-[[object]]
 name = "Graphene.Point"
 status = "generate"
     [[object.function]]
@@ -254,6 +230,30 @@ status = "generate"
         type = "none"
     [[object.function]]
     name = "init_from_vec2"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "zero"
+        [object.function.return]
+        nullable = false
+
+[[object]]
+name = "Graphene.Point3D"
+status = "generate"
+    [[object.function]]
+    # contents undefined
+    name = "alloc"
+    ignore = true
+    [[object.function]]
+    name = "init"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_point"
+        [object.function.return]
+        type = "none"
+    [[object.function]]
+    name = "init_from_vec3"
         [object.function.return]
         type = "none"
     [[object.function]]
