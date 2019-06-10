@@ -138,8 +138,11 @@ unsafe impl Sync for Variant { }
 
 impl fmt::Debug for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_fmt(format_args!("Variant {{ ptr: {:?}, type: \"{}\", value: {} }}",
-            self.to_glib_none().0, self.type_(), self))
+        f.debug_struct("Variant")
+            .field("ptr", &self.to_glib_none().0)
+            .field("type", &self.type_())
+            .field("value", &self.to_string())
+            .finish()
     }
 }
 
