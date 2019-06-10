@@ -321,8 +321,14 @@ unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
 /// See [`MainContext::channel()`] for how to create such a `Sender`.
 ///
 /// [`MainContext::channel()`]: struct.MainContext.html#method.channel
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Sender<T>(Option<Channel<T>>);
+
+impl<T> Clone for Sender<T> {
+    fn clone(&self) -> Sender<T> {
+        Sender(self.0.clone())
+    }
+}
 
 impl<T> Sender<T> {
     /// Sends a value to the channel.
@@ -363,8 +369,14 @@ impl<T> Drop for Sender<T> {
 /// See [`MainContext::sync_channel()`] for how to create such a `SyncSender`.
 ///
 /// [`MainContext::sync_channel()`]: struct.MainContext.html#method.sync_channel
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct SyncSender<T>(Option<Channel<T>>);
+
+impl<T> Clone for SyncSender<T> {
+    fn clone(&self) -> SyncSender<T> {
+        SyncSender(self.0.clone())
+    }
+}
 
 impl<T> SyncSender<T> {
     /// Sends a value to the channel and blocks if the channel is full.
