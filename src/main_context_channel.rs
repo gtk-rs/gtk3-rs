@@ -6,6 +6,7 @@ use get_thread_id;
 use glib_sys;
 use std::cell::RefCell;
 use std::collections::VecDeque;
+use std::fmt;
 use std::mem;
 use std::ptr;
 use std::sync::mpsc;
@@ -17,7 +18,6 @@ use Priority;
 use Source;
 use SourceId;
 
-#[derive(Debug)]
 enum ChannelSourceState {
     NotAttached,
     Attached(*mut glib_sys::GSource),
@@ -27,7 +27,6 @@ enum ChannelSourceState {
 unsafe impl Send for ChannelSourceState {}
 unsafe impl Sync for ChannelSourceState {}
 
-#[derive(Debug)]
 struct ChannelInner<T> {
     queue: VecDeque<T>,
     source: ChannelSourceState,
@@ -71,13 +70,11 @@ impl<T> ChannelInner<T> {
     }
 }
 
-#[derive(Debug)]
 struct ChannelBound {
     bound: usize,
     cond: Condvar,
 }
 
-#[derive(Debug)]
 struct Channel<T>(Arc<(Mutex<ChannelInner<T>>, Option<ChannelBound>)>);
 
 impl<T> Clone for Channel<T> {
@@ -321,8 +318,19 @@ unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
 /// See [`MainContext::channel()`] for how to create such a `Sender`.
 ///
 /// [`MainContext::channel()`]: struct.MainContext.html#method.channel
-#[derive(Clone, Debug)]
 pub struct Sender<T>(Option<Channel<T>>);
+
+impl<T> fmt::Debug for Sender<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Sender").finish()
+    }
+}
+
+impl<T> Clone for Sender<T> {
+    fn clone(&self) -> Sender<T> {
+        Sender(self.0.clone())
+    }
+}
 
 impl<T> Sender<T> {
     /// Sends a value to the channel.
@@ -363,8 +371,19 @@ impl<T> Drop for Sender<T> {
 /// See [`MainContext::sync_channel()`] for how to create such a `SyncSender`.
 ///
 /// [`MainContext::sync_channel()`]: struct.MainContext.html#method.sync_channel
-#[derive(Clone, Debug)]
 pub struct SyncSender<T>(Option<Channel<T>>);
+
+impl<T> fmt::Debug for SyncSender<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("SyncSender").finish()
+    }
+}
+
+impl<T> Clone for SyncSender<T> {
+    fn clone(&self) -> SyncSender<T> {
+        SyncSender(self.0.clone())
+    }
+}
 
 impl<T> SyncSender<T> {
     /// Sends a value to the channel and blocks if the channel is full.
@@ -411,8 +430,13 @@ impl<T> Drop for SyncSender<T> {
 ///
 /// [`MainContext::channel()`]: struct.MainContext.html#method.channel
 /// [`MainContext::sync_channel()`]: struct.MainContext.html#method.sync_channel
-#[derive(Debug)]
 pub struct Receiver<T>(Option<Channel<T>>, Priority);
+
+impl<T> fmt::Debug for Receiver<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("Receiver").finish()
+    }
+}
 
 // It's safe to send the Receiver to other threads for attaching it as
 // long as the items to be sent can also be sent between threads.
