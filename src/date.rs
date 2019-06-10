@@ -21,6 +21,8 @@ glib_wrapper! {
     match fn {
         copy => |ptr| gobject_sys::g_boxed_copy(glib_sys::g_date_get_type(), ptr as *const _) as *mut _,
         free => |ptr| glib_sys::g_date_free(ptr),
+        init => |_ptr| (),
+        clear => |ptr| glib_sys::g_date_clear(ptr, 1),
         get_type => || glib_sys::g_date_get_type(),
     }
 }
