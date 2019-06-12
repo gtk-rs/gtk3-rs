@@ -19,7 +19,11 @@ impl KeyFile {
     pub fn save_to_file<T: AsRef<std::path::Path>>(&self, filename: T) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = glib_sys::g_key_file_save_to_file(self.to_glib_none().0, filename.as_ref().to_glib_none().0, &mut error);
+            let _ = glib_sys::g_key_file_save_to_file(
+                self.to_glib_none().0,
+                filename.as_ref().to_glib_none().0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(())
             } else {
@@ -28,14 +32,21 @@ impl KeyFile {
         }
     }
 
-    pub fn load_from_data_dirs<T: AsRef<std::path::Path>>(&self, file: T, flags: KeyFileFlags) -> Result<path::PathBuf, Error> {
+    pub fn load_from_data_dirs<T: AsRef<std::path::Path>>(
+        &self,
+        file: T,
+        flags: KeyFileFlags,
+    ) -> Result<path::PathBuf, Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let mut full_path: *mut libc::c_char = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_data_dirs(self.to_glib_none().0,
-                                                        file.as_ref().to_glib_none().0,
-                                                        &mut full_path,
-                                                        flags.to_glib(), &mut error);
+            let _ = glib_sys::g_key_file_load_from_data_dirs(
+                self.to_glib_none().0,
+                file.as_ref().to_glib_none().0,
+                &mut full_path,
+                flags.to_glib(),
+                &mut error,
+            );
             if error.is_null() {
                 let path: GString = from_glib_full(full_path);
                 Ok(path::PathBuf::from(&path))
@@ -45,17 +56,25 @@ impl KeyFile {
         }
     }
 
-    pub fn load_from_dirs<T: AsRef<std::path::Path>, U: AsRef<std::path::Path>>(&self, file: T, search_dirs: &[U],
-                                                     flags: KeyFileFlags) -> Result<path::PathBuf, Error> {
+    pub fn load_from_dirs<T: AsRef<std::path::Path>, U: AsRef<std::path::Path>>(
+        &self,
+        file: T,
+        search_dirs: &[U],
+        flags: KeyFileFlags,
+    ) -> Result<path::PathBuf, Error> {
         unsafe {
-            let search_dirs: Vec<&std::path::Path> = search_dirs.iter().map(AsRef::as_ref).collect();
+            let search_dirs: Vec<&std::path::Path> =
+                search_dirs.iter().map(AsRef::as_ref).collect();
             let mut error = ptr::null_mut();
             let mut full_path: *mut libc::c_char = ptr::null_mut();
-            let _ = glib_sys::g_key_file_load_from_dirs(self.to_glib_none().0,
-                                                   file.as_ref().to_glib_none().0,
-                                                   search_dirs.to_glib_none().0,
-                                                   &mut full_path,
-                                                   flags.to_glib(), &mut error);
+            let _ = glib_sys::g_key_file_load_from_dirs(
+                self.to_glib_none().0,
+                file.as_ref().to_glib_none().0,
+                search_dirs.to_glib_none().0,
+                &mut full_path,
+                flags.to_glib(),
+                &mut error,
+            );
             if error.is_null() {
                 let path: GString = from_glib_full(full_path);
                 Ok(path::PathBuf::from(&path))
@@ -67,7 +86,11 @@ impl KeyFile {
 
     pub fn to_data(&self) -> GString {
         unsafe {
-            let ret = glib_sys::g_key_file_to_data(self.to_glib_none().0, ptr::null_mut(), ptr::null_mut());
+            let ret = glib_sys::g_key_file_to_data(
+                self.to_glib_none().0,
+                ptr::null_mut(),
+                ptr::null_mut(),
+            );
             from_glib_full(ret)
         }
     }
@@ -75,16 +98,34 @@ impl KeyFile {
     pub fn get_boolean(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_boolean(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
+            let ret = glib_sys::g_key_file_get_boolean(
+                self.to_glib_none().0,
+                group_name.to_glib_none().0,
+                key.to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     pub fn has_key(&self, group_name: &str, key: &str) -> Result<bool, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_has_key(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(from_glib(ret)) } else { Err(from_glib_full(error)) }
+            let ret = glib_sys::g_key_file_has_key(
+                self.to_glib_none().0,
+                group_name.to_glib_none().0,
+                key.to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -92,11 +133,20 @@ impl KeyFile {
         unsafe {
             let mut length = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let ret = glib_sys::g_key_file_get_boolean_list(self.to_glib_none().0, group_name.to_glib_none().0, key.to_glib_none().0, &mut length, &mut error);
+            let ret = glib_sys::g_key_file_get_boolean_list(
+                self.to_glib_none().0,
+                group_name.to_glib_none().0,
+                key.to_glib_none().0,
+                &mut length,
+                &mut error,
+            );
             if !error.is_null() {
                 return Err(from_glib_full(error));
             }
-            Ok(FromGlibContainer::from_glib_container_num(ret, length as usize))
+            Ok(FromGlibContainer::from_glib_container_num(
+                ret,
+                length as usize,
+            ))
         }
     }
 }

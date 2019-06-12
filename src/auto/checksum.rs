@@ -2,9 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ChecksumType;
 use glib_sys;
 use translate::*;
+use ChecksumType;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -19,9 +19,7 @@ glib_wrapper! {
 
 impl Checksum {
     pub fn new(checksum_type: ChecksumType) -> Checksum {
-        unsafe {
-            from_glib_full(glib_sys::g_checksum_new(checksum_type.to_glib()))
-        }
+        unsafe { from_glib_full(glib_sys::g_checksum_new(checksum_type.to_glib())) }
     }
 
     pub fn reset(&mut self) {
@@ -38,9 +36,7 @@ impl Checksum {
     }
 
     pub fn type_get_length(checksum_type: ChecksumType) -> isize {
-        unsafe {
-            glib_sys::g_checksum_type_get_length(checksum_type.to_glib())
-        }
+        unsafe { glib_sys::g_checksum_type_get_length(checksum_type.to_glib()) }
     }
 }
 

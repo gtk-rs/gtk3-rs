@@ -39,8 +39,8 @@ impl VariantType {
     }
 }
 
-unsafe impl Send for VariantType { }
-unsafe impl Sync for VariantType { }
+unsafe impl Send for VariantType {}
+unsafe impl Sync for VariantType {}
 
 impl Drop for VariantType {
     fn drop(&mut self) {
@@ -69,7 +69,8 @@ impl Deref for VariantType {
     type Target = VariantTy;
     fn deref(&self) -> &VariantTy {
         unsafe {
-            &*(slice::from_raw_parts(self.ptr as *const u8, self.len) as *const [u8] as *const VariantTy)
+            &*(slice::from_raw_parts(self.ptr as *const u8, self.len) as *const [u8]
+                as *const VariantTy)
         }
     }
 }
@@ -141,8 +142,11 @@ impl VariantTy {
         let limit = ptr as usize + type_string.len();
         let mut end = 0_usize;
         unsafe {
-            let ok = from_glib(glib_sys::g_variant_type_string_scan(ptr as *const _,
-                limit as *const _, &mut end as *mut usize as *mut _));
+            let ok = from_glib(glib_sys::g_variant_type_string_scan(
+                ptr as *const _,
+                limit as *const _,
+                &mut end as *mut usize as *mut _,
+            ));
             if ok && end == limit {
                 Ok(&*(type_string.as_bytes() as *const [u8] as *const VariantTy))
             } else {
@@ -176,7 +180,7 @@ impl VariantTy {
     }
 }
 
-unsafe impl Sync for VariantTy { }
+unsafe impl Sync for VariantTy {}
 
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *const glib_sys::GVariantType> for VariantTy {
@@ -220,16 +224,19 @@ impl StaticType for VariantTy {
 
 impl SetValue for VariantTy {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_sys::gpointer)
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as glib_sys::gpointer,
+        )
     }
 }
 
 impl SetValueOptional for VariantTy {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         use std::ptr;
-        let p = match this{
+        let p = match this {
             Some(ref t) => t.to_glib_none().0 as glib_sys::gpointer,
-            None => ptr::null()
+            None => ptr::null(),
         };
         gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, p)
     }
@@ -237,7 +244,8 @@ impl SetValueOptional for VariantTy {
 
 impl<'a> FromValueOptional<'a> for &'a VariantTy {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        let cvty = gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType;
+        let cvty =
+            gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType;
         if cvty.is_null() {
             None
         } else {
@@ -254,16 +262,19 @@ impl StaticType for VariantType {
 
 impl SetValue for VariantType {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, this.to_glib_none().0 as glib_sys::gpointer)
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as glib_sys::gpointer,
+        )
     }
 }
 
 impl SetValueOptional for VariantType {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
         use std::ptr;
-        let p = match this{
+        let p = match this {
             Some(ref t) => t.to_glib_none().0 as glib_sys::gpointer,
-            None => ptr::null()
+            None => ptr::null(),
         };
         gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0, p)
     }
@@ -271,7 +282,9 @@ impl SetValueOptional for VariantType {
 
 impl<'a> FromValueOptional<'a> for VariantType {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Option::<VariantType>::from_glib_none(gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType)
+        Option::<VariantType>::from_glib_none(
+            gobject_sys::g_value_get_boxed(value.to_glib_none().0) as *mut glib_sys::GVariantType,
+        )
     }
 }
 
@@ -297,7 +310,7 @@ macro_rules! impl_eq {
                 <VariantTy as PartialEq>::eq(self, other)
             }
         }
-    }
+    };
 }
 
 impl_eq!(VariantType, VariantTy);
@@ -320,7 +333,7 @@ macro_rules! impl_str_eq {
                 self[..].eq(other.to_str())
             }
         }
-    }
+    };
 }
 
 impl_str_eq!(VariantTy, str);
@@ -332,17 +345,20 @@ impl_str_eq!(VariantType, str);
 impl_str_eq!(VariantType, &'a str);
 impl_str_eq!(VariantType, String);
 
-impl Eq for VariantType { }
+impl Eq for VariantType {}
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     use glib_sys;
     use translate::*;
-    use super::*;
     use value::ToValue;
 
     unsafe fn equal<T, U>(ptr1: *const T, ptr2: *const U) -> bool {
-        from_glib(glib_sys::g_variant_type_equal(ptr1 as *const _, ptr2 as *const _))
+        from_glib(glib_sys::g_variant_type_equal(
+            ptr1 as *const _,
+            ptr2 as *const _,
+        ))
     }
 
     #[test]
@@ -428,7 +444,6 @@ mod tests {
         assert_eq!(ty3, ty4);
 
         assert_eq!(VariantTy::static_type(), VariantTy::static_type());
-
     }
 
 }

@@ -292,14 +292,18 @@ pub struct Shared<T, MM: SharedMemoryManager<T>> {
 impl<T, MM: SharedMemoryManager<T>> Drop for Shared<T, MM> {
     fn drop(&mut self) {
         if !self.borrowed {
-            unsafe { MM::unref(self.inner.as_ptr()); }
+            unsafe {
+                MM::unref(self.inner.as_ptr());
+            }
         }
     }
 }
 
 impl<T, MM: SharedMemoryManager<T>> Clone for Shared<T, MM> {
     fn clone(&self) -> Self {
-        unsafe { MM::ref_(self.inner.as_ptr()); }
+        unsafe {
+            MM::ref_(self.inner.as_ptr());
+        }
         Shared {
             inner: self.inner,
             borrowed: false,
@@ -338,13 +342,18 @@ impl<T, MM: SharedMemoryManager<T>> PartialEq for Shared<T, MM> {
 impl<T, MM: SharedMemoryManager<T>> Eq for Shared<T, MM> {}
 
 impl<T, MM: SharedMemoryManager<T>> Hash for Shared<T, MM> {
-    fn hash<H>(&self, state: &mut H) where H: Hasher {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: Hasher,
+    {
         self.inner.hash(state)
     }
 }
 
 impl<'a, T: 'static, MM> ToGlibPtr<'a, *mut T> for Shared<T, MM>
-where MM: SharedMemoryManager<T> + 'static {
+where
+    MM: SharedMemoryManager<T> + 'static,
+{
     type Storage = &'a Self;
 
     #[inline]
@@ -354,7 +363,9 @@ where MM: SharedMemoryManager<T> + 'static {
 
     #[inline]
     fn to_glib_full(&self) -> *mut T {
-        unsafe { MM::ref_(self.inner.as_ptr()); }
+        unsafe {
+            MM::ref_(self.inner.as_ptr());
+        }
         self.inner.as_ptr()
     }
 }

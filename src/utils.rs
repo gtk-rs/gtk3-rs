@@ -20,9 +20,7 @@ pub fn get_program_name() -> Option<String> {
 }
 
 pub fn get_prgname() -> Option<String> {
-    unsafe {
-        from_glib_none(glib_sys::g_get_prgname())
-    }
+    unsafe { from_glib_none(glib_sys::g_get_prgname()) }
 }
 
 /// Same as [`set_prgname()`].
@@ -33,27 +31,27 @@ pub fn set_program_name(name: Option<&str>) {
 }
 
 pub fn set_prgname(name: Option<&str>) {
-    unsafe {
-        glib_sys::g_set_prgname(name.to_glib_none().0)
-    }
+    unsafe { glib_sys::g_set_prgname(name.to_glib_none().0) }
 }
 
 pub fn getenv<K: AsRef<OsStr>>(variable_name: K) -> Option<OsString> {
-    #[cfg(windows)]
-    use glib_sys::g_getenv_utf8 as g_getenv;
     #[cfg(not(windows))]
     use glib_sys::g_getenv;
+    #[cfg(windows)]
+    use glib_sys::g_getenv_utf8 as g_getenv;
 
-    unsafe {
-        from_glib_none(g_getenv(variable_name.as_ref().to_glib_none().0))
-    }
+    unsafe { from_glib_none(g_getenv(variable_name.as_ref().to_glib_none().0)) }
 }
 
-pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(variable_name: K, value: V, overwrite: bool) -> Result<(), BoolError> {
-    #[cfg(windows)]
-    use glib_sys::g_setenv_utf8 as g_setenv;
+pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(
+    variable_name: K,
+    value: V,
+    overwrite: bool,
+) -> Result<(), BoolError> {
     #[cfg(not(windows))]
     use glib_sys::g_setenv;
+    #[cfg(windows)]
+    use glib_sys::g_setenv_utf8 as g_setenv;
 
     unsafe {
         glib_result_from_gboolean!(
@@ -68,125 +66,123 @@ pub fn setenv<K: AsRef<OsStr>, V: AsRef<OsStr>>(variable_name: K, value: V, over
 }
 
 pub fn unsetenv<K: AsRef<OsStr>>(variable_name: K) {
-    #[cfg(windows)]
-    use glib_sys::g_unsetenv_utf8 as g_unsetenv;
     #[cfg(not(windows))]
     use glib_sys::g_unsetenv;
+    #[cfg(windows)]
+    use glib_sys::g_unsetenv_utf8 as g_unsetenv;
 
-    unsafe {
-        g_unsetenv(variable_name.as_ref().to_glib_none().0)
-    }
+    unsafe { g_unsetenv(variable_name.as_ref().to_glib_none().0) }
 }
 
 pub fn environ_getenv<K: AsRef<OsStr>>(envp: &[OsString], variable: K) -> Option<OsString> {
     unsafe {
-        from_glib_none(glib_sys::g_environ_getenv(envp.to_glib_none().0, variable.as_ref().to_glib_none().0))
+        from_glib_none(glib_sys::g_environ_getenv(
+            envp.to_glib_none().0,
+            variable.as_ref().to_glib_none().0,
+        ))
     }
 }
 
 pub fn get_user_name() -> Option<OsString> {
-    #[cfg(all(windows,target_arch="x86"))]
-    use glib_sys::g_get_user_name_utf8 as g_get_user_name;
-    #[cfg(not(all(windows,target_arch="x86")))]
+    #[cfg(not(all(windows, target_arch = "x86")))]
     use glib_sys::g_get_user_name;
+    #[cfg(all(windows, target_arch = "x86"))]
+    use glib_sys::g_get_user_name_utf8 as g_get_user_name;
 
-    unsafe {
-        from_glib_none(g_get_user_name())
-    }
+    unsafe { from_glib_none(g_get_user_name()) }
 }
 
 pub fn get_real_name() -> Option<OsString> {
-    #[cfg(all(windows,target_arch="x86"))]
-    use glib_sys::g_get_real_name_utf8 as g_get_real_name;
-    #[cfg(not(all(windows,target_arch="x86")))]
+    #[cfg(not(all(windows, target_arch = "x86")))]
     use glib_sys::g_get_real_name;
+    #[cfg(all(windows, target_arch = "x86"))]
+    use glib_sys::g_get_real_name_utf8 as g_get_real_name;
 
-    unsafe {
-        from_glib_none(g_get_real_name())
-    }
+    unsafe { from_glib_none(g_get_real_name()) }
 }
 
 pub fn get_current_dir() -> Option<PathBuf> {
-    #[cfg(windows)]
-    use glib_sys::g_get_current_dir_utf8 as g_get_current_dir;
     #[cfg(not(windows))]
     use glib_sys::g_get_current_dir;
+    #[cfg(windows)]
+    use glib_sys::g_get_current_dir_utf8 as g_get_current_dir;
 
-    unsafe {
-        from_glib_full(g_get_current_dir())
-    }
+    unsafe { from_glib_full(g_get_current_dir()) }
 }
 
-pub fn filename_to_uri<P: AsRef<Path>>(filename: P, hostname: Option<&str>) -> Result<GString, Error> {
-    #[cfg(windows)]
-    use glib_sys::g_filename_to_uri_utf8 as g_filename_to_uri;
+pub fn filename_to_uri<P: AsRef<Path>>(
+    filename: P,
+    hostname: Option<&str>,
+) -> Result<GString, Error> {
     #[cfg(not(windows))]
     use glib_sys::g_filename_to_uri;
+    #[cfg(windows)]
+    use glib_sys::g_filename_to_uri_utf8 as g_filename_to_uri;
 
     let hostname = hostname.to_glib_none();
     unsafe {
         let mut error = std::ptr::null_mut();
         let ret = g_filename_to_uri(filename.as_ref().to_glib_none().0, hostname.0, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
 pub fn filename_from_uri(uri: &str) -> Result<(std::path::PathBuf, Option<GString>), Error> {
-    #[cfg(windows)]
-    use glib_sys::g_filename_from_uri_utf8 as g_filename_from_uri;
     #[cfg(not(windows))]
     use glib_sys::g_filename_from_uri;
+    #[cfg(windows)]
+    use glib_sys::g_filename_from_uri_utf8 as g_filename_from_uri;
 
     unsafe {
         let mut hostname = ptr::null_mut();
         let mut error = ptr::null_mut();
         let ret = g_filename_from_uri(uri.to_glib_none().0, &mut hostname, &mut error);
-        if error.is_null() { Ok((from_glib_full(ret), from_glib_full(hostname))) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok((from_glib_full(ret), from_glib_full(hostname)))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
 pub fn find_program_in_path<P: AsRef<Path>>(program: P) -> Option<PathBuf> {
-    #[cfg(all(windows,target_arch="x86"))]
-    use glib_sys::g_find_program_in_path_utf8 as g_find_program_in_path;
-    #[cfg(not(all(windows,target_arch="x86")))]
+    #[cfg(not(all(windows, target_arch = "x86")))]
     use glib_sys::g_find_program_in_path;
+    #[cfg(all(windows, target_arch = "x86"))]
+    use glib_sys::g_find_program_in_path_utf8 as g_find_program_in_path;
 
-    unsafe {
-        from_glib_full(g_find_program_in_path(program.as_ref().to_glib_none().0))
-    }
+    unsafe { from_glib_full(g_find_program_in_path(program.as_ref().to_glib_none().0)) }
 }
 
 pub fn get_home_dir() -> Option<std::path::PathBuf> {
-    #[cfg(all(windows,target_arch="x86"))]
-    use glib_sys::g_get_home_dir_utf8 as g_get_home_dir;
-    #[cfg(not(all(windows,target_arch="x86")))]
+    #[cfg(not(all(windows, target_arch = "x86")))]
     use glib_sys::g_get_home_dir;
+    #[cfg(all(windows, target_arch = "x86"))]
+    use glib_sys::g_get_home_dir_utf8 as g_get_home_dir;
 
-    unsafe {
-        from_glib_none(g_get_home_dir())
-    }
+    unsafe { from_glib_none(g_get_home_dir()) }
 }
 
 pub fn get_tmp_dir() -> Option<std::path::PathBuf> {
-    #[cfg(all(windows,target_arch="x86"))]
-    use glib_sys::g_get_tmp_dir_utf8 as g_get_tmp_dir;
-    #[cfg(not(all(windows,target_arch="x86")))]
+    #[cfg(not(all(windows, target_arch = "x86")))]
     use glib_sys::g_get_tmp_dir;
+    #[cfg(all(windows, target_arch = "x86"))]
+    use glib_sys::g_get_tmp_dir_utf8 as g_get_tmp_dir;
 
-    unsafe {
-        from_glib_none(g_get_tmp_dir())
-    }
+    unsafe { from_glib_none(g_get_tmp_dir()) }
 }
 
 pub fn mkstemp<P: AsRef<std::path::Path>>(tmpl: P) -> i32 {
-    #[cfg(windows)]
-    use glib_sys::g_mkstemp_utf8 as g_mkstemp;
     #[cfg(not(windows))]
     use glib_sys::g_mkstemp;
+    #[cfg(windows)]
+    use glib_sys::g_mkstemp_utf8 as g_mkstemp;
 
-    unsafe {
-        g_mkstemp(tmpl.as_ref().to_glib_none().0)
-    }
+    unsafe { g_mkstemp(tmpl.as_ref().to_glib_none().0) }
 }
 
 #[cfg(test)]
@@ -195,7 +191,9 @@ mod tests {
     use std::sync::Mutex;
 
     //Mutex to prevent run environment tests parallel
-    lazy_static! { static ref LOCK: Mutex<()> = Mutex::new(()); }
+    lazy_static! {
+        static ref LOCK: Mutex<()> = Mutex::new(());
+    }
 
     const VAR_NAME: &str = "function_environment_test";
 
@@ -248,6 +246,5 @@ mod tests {
         } else {
             unreachable!();
         }
-
     }
 }

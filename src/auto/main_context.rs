@@ -18,15 +18,11 @@ glib_wrapper! {
 
 impl MainContext {
     pub fn new() -> MainContext {
-        unsafe {
-            from_glib_full(glib_sys::g_main_context_new())
-        }
+        unsafe { from_glib_full(glib_sys::g_main_context_new()) }
     }
 
     pub fn acquire(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_main_context_acquire(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_main_context_acquire(self.to_glib_none().0)) }
     }
 
     //pub fn add_poll(&self, fd: /*Ignored*/&mut PollFD, priority: i32) {
@@ -56,21 +52,20 @@ impl MainContext {
     //}
 
     pub fn is_owner(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_main_context_is_owner(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_main_context_is_owner(self.to_glib_none().0)) }
     }
 
     pub fn iteration(&self, may_block: bool) -> bool {
         unsafe {
-            from_glib(glib_sys::g_main_context_iteration(self.to_glib_none().0, may_block.to_glib()))
+            from_glib(glib_sys::g_main_context_iteration(
+                self.to_glib_none().0,
+                may_block.to_glib(),
+            ))
         }
     }
 
     pub fn pending(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_main_context_pending(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_main_context_pending(self.to_glib_none().0)) }
     }
 
     pub fn pop_thread_default(&self) {
@@ -115,21 +110,15 @@ impl MainContext {
     }
 
     pub fn default() -> MainContext {
-        unsafe {
-            from_glib_none(glib_sys::g_main_context_default())
-        }
+        unsafe { from_glib_none(glib_sys::g_main_context_default()) }
     }
 
     pub fn get_thread_default() -> Option<MainContext> {
-        unsafe {
-            from_glib_none(glib_sys::g_main_context_get_thread_default())
-        }
+        unsafe { from_glib_none(glib_sys::g_main_context_get_thread_default()) }
     }
 
     pub fn ref_thread_default() -> MainContext {
-        unsafe {
-            from_glib_full(glib_sys::g_main_context_ref_thread_default())
-        }
+        unsafe { from_glib_full(glib_sys::g_main_context_ref_thread_default()) }
     }
 }
 

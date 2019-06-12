@@ -32,8 +32,11 @@ impl Error {
     /// Creates an error with supplied error enum variant and message.
     pub fn new<T: ErrorDomain>(error: T, message: &str) -> Error {
         unsafe {
-            from_glib_full(
-                glib_sys::g_error_new_literal(T::domain().to_glib(), error.code(), message.to_glib_none().0))
+            from_glib_full(glib_sys::g_error_new_literal(
+                T::domain().to_glib(),
+                error.code(),
+                message.to_glib_none().0,
+            ))
         }
     }
 
@@ -69,8 +72,7 @@ impl Error {
     pub fn kind<T: ErrorDomain>(&self) -> Option<T> {
         if self.0.domain == T::domain().to_glib() {
             T::from(self.0.code)
-        }
-        else {
+        } else {
             None
         }
     }
@@ -78,9 +80,8 @@ impl Error {
     fn message(&self) -> &str {
         unsafe {
             let bytes = CStr::from_ptr(self.0.message).to_bytes();
-            str::from_utf8(bytes).unwrap_or_else(|err| {
-                str::from_utf8(&bytes[..err.valid_up_to()]).unwrap()
-            })
+            str::from_utf8(bytes)
+                .unwrap_or_else(|err| str::from_utf8(&bytes[..err.valid_up_to()]).unwrap())
         }
     }
 }
@@ -123,7 +124,9 @@ pub trait ErrorDomain: Copy {
     ///
     /// By convention, the `Failed` variant, if present, is a catch-all,
     /// i.e. any unrecognized codes map to it.
-    fn from(code: i32) -> Option<Self> where Self: Sized;
+    fn from(code: i32) -> Option<Self>
+    where
+        Self: Sized;
 }
 
 /// Generic error used for functions that fail without any further information
@@ -193,12 +196,7 @@ impl BoolError {
         line: u32,
     ) -> Result<(), Self> {
         match b {
-            glib_sys::GFALSE => Err(BoolError::new(
-                message,
-                filename,
-                function,
-                line,
-            )),
+            glib_sys::GFALSE => Err(BoolError::new(message, filename, function, line)),
             _ => Ok(()),
         }
     }
@@ -242,20 +240,13 @@ mod tests {
         let true_static_res = glib_result_from_gboolean!(glib_sys::GTRUE, "Static message");
         assert!(true_static_res.is_ok());
 
-        let false_dynamic_res = glib_result_from_gboolean!(
-            glib_sys::GFALSE,
-            "{} message",
-            "Dynamic"
-        );
+        let false_dynamic_res =
+            glib_result_from_gboolean!(glib_sys::GFALSE, "{} message", "Dynamic");
         assert!(false_dynamic_res.is_err());
         let dynamic_err = false_dynamic_res.err().unwrap();
         assert_eq!(dynamic_err.description(), "Dynamic message");
 
-        let true_dynamic_res = glib_result_from_gboolean!(
-            glib_sys::GTRUE,
-            "{} message",
-            "Dynamic"
-        );
+        let true_dynamic_res = glib_result_from_gboolean!(glib_sys::GTRUE, "{} message", "Dynamic");
         assert!(true_dynamic_res.is_ok());
-   }
+    }
 }

@@ -2,10 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use GString;
-use MainContext;
 use glib_sys;
 use translate::*;
+use GString;
+use MainContext;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -25,7 +25,10 @@ impl Source {
 
     pub fn add_child_source(&self, child_source: &Source) {
         unsafe {
-            glib_sys::g_source_add_child_source(self.to_glib_none().0, child_source.to_glib_none().0);
+            glib_sys::g_source_add_child_source(
+                self.to_glib_none().0,
+                child_source.to_glib_none().0,
+            );
         }
     }
 
@@ -44,45 +47,31 @@ impl Source {
     }
 
     pub fn get_can_recurse(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_source_get_can_recurse(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_source_get_can_recurse(self.to_glib_none().0)) }
     }
 
     pub fn get_context(&self) -> Option<MainContext> {
-        unsafe {
-            from_glib_none(glib_sys::g_source_get_context(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(glib_sys::g_source_get_context(self.to_glib_none().0)) }
     }
 
     pub fn get_name(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(glib_sys::g_source_get_name(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(glib_sys::g_source_get_name(self.to_glib_none().0)) }
     }
 
     pub fn get_priority(&self) -> i32 {
-        unsafe {
-            glib_sys::g_source_get_priority(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_source_get_priority(self.to_glib_none().0) }
     }
 
     pub fn get_ready_time(&self) -> i64 {
-        unsafe {
-            glib_sys::g_source_get_ready_time(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_source_get_ready_time(self.to_glib_none().0) }
     }
 
     pub fn get_time(&self) -> i64 {
-        unsafe {
-            glib_sys::g_source_get_time(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_source_get_time(self.to_glib_none().0) }
     }
 
     pub fn is_destroyed(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_source_is_destroyed(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_source_is_destroyed(self.to_glib_none().0)) }
     }
 
     //pub fn modify_unix_fd(&self, tag: /*Unimplemented*/Fundamental: Pointer, new_events: IOCondition) {
@@ -95,7 +84,10 @@ impl Source {
 
     pub fn remove_child_source(&self, child_source: &Source) {
         unsafe {
-            glib_sys::g_source_remove_child_source(self.to_glib_none().0, child_source.to_glib_none().0);
+            glib_sys::g_source_remove_child_source(
+                self.to_glib_none().0,
+                child_source.to_glib_none().0,
+            );
         }
     }
 

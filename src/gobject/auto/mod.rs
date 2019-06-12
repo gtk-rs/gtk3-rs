@@ -11,5 +11,4 @@ pub use self::flags::ParamFlags;
 pub use self::flags::SignalFlags;
 
 #[doc(hidden)]
-pub mod traits {
-}
+pub mod traits {}

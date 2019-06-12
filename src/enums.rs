@@ -54,20 +54,23 @@ impl EnumClass {
     /// Returns `None` if `type_` is not representing an enum.
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
-            let is_enum: bool = from_glib(gobject_sys::g_type_is_a(type_.to_glib(), gobject_sys::G_TYPE_ENUM));
+            let is_enum: bool = from_glib(gobject_sys::g_type_is_a(
+                type_.to_glib(),
+                gobject_sys::G_TYPE_ENUM,
+            ));
             if !is_enum {
                 return None;
             }
 
-            Some(EnumClass(gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _))
+            Some(EnumClass(
+                gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _
+            ))
         }
     }
 
     /// `Type` of the enum.
     pub fn type_(&self) -> Type {
-        unsafe {
-            from_glib((*self.0).g_type_class.g_type)
-        }
+        unsafe { from_glib((*self.0).g_type_class.g_type) }
     }
 
     /// Gets `EnumValue` by integer `value`, if existing.
@@ -153,9 +156,7 @@ impl Drop for EnumClass {
 
 impl Clone for EnumClass {
     fn clone(&self) -> Self {
-        unsafe {
-            EnumClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _)
-        }
+        unsafe { EnumClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _) }
     }
 }
 
@@ -166,23 +167,17 @@ pub struct EnumValue(*const gobject_sys::GEnumValue, EnumClass);
 impl EnumValue {
     /// Get integer value corresponding to the value.
     pub fn get_value(&self) -> i32 {
-        unsafe {
-            (*self.0).value
-        }
+        unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
     pub fn get_name(&self) -> &str {
-        unsafe {
-            CStr::from_ptr((*self.0).value_name).to_str().unwrap()
-        }
+        unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
     pub fn get_nick(&self) -> &str {
-        unsafe {
-            CStr::from_ptr((*self.0).value_nick).to_str().unwrap()
-        }
+        unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
 
     /// Convert enum value to a `Value`.
@@ -198,7 +193,8 @@ impl EnumValue {
     pub fn from_value(value: &Value) -> Option<EnumValue> {
         unsafe {
             let enum_class = EnumClass::new(value.type_());
-            enum_class.and_then(|e| e.get_value(gobject_sys::g_value_get_enum(value.to_glib_none().0)))
+            enum_class
+                .and_then(|e| e.get_value(gobject_sys::g_value_get_enum(value.to_glib_none().0)))
         }
     }
 
@@ -239,20 +235,23 @@ impl FlagsClass {
     /// Returns `None` if `type_` is not representing a flags type.
     pub fn new(type_: Type) -> Option<Self> {
         unsafe {
-            let is_flags: bool = from_glib(gobject_sys::g_type_is_a(type_.to_glib(), gobject_sys::G_TYPE_FLAGS));
+            let is_flags: bool = from_glib(gobject_sys::g_type_is_a(
+                type_.to_glib(),
+                gobject_sys::G_TYPE_FLAGS,
+            ));
             if !is_flags {
                 return None;
             }
 
-            Some(FlagsClass(gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _))
+            Some(FlagsClass(
+                gobject_sys::g_type_class_ref(type_.to_glib()) as *mut _
+            ))
         }
     }
 
     /// `Type` of the flags.
     pub fn type_(&self) -> Type {
-        unsafe {
-            from_glib((*self.0).g_type_class.g_type)
-        }
+        unsafe { from_glib((*self.0).g_type_class.g_type) }
     }
 
     /// Gets `FlagsValue` by integer `value`, if existing.
@@ -524,12 +523,9 @@ impl Drop for FlagsClass {
 
 impl Clone for FlagsClass {
     fn clone(&self) -> Self {
-        unsafe {
-            FlagsClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _)
-        }
+        unsafe { FlagsClass(gobject_sys::g_type_class_ref(self.type_().to_glib()) as *mut _) }
     }
 }
-
 
 /// Representation of a single flags value of a `FlagsClass`.
 #[derive(Debug, Clone)]
@@ -538,23 +534,17 @@ pub struct FlagsValue(*const gobject_sys::GFlagsValue, FlagsClass);
 impl FlagsValue {
     /// Get integer value corresponding to the value.
     pub fn get_value(&self) -> u32 {
-        unsafe {
-            (*self.0).value
-        }
+        unsafe { (*self.0).value }
     }
 
     /// Get name corresponding to the value.
     pub fn get_name(&self) -> &str {
-        unsafe {
-            CStr::from_ptr((*self.0).value_name).to_str().unwrap()
-        }
+        unsafe { CStr::from_ptr((*self.0).value_name).to_str().unwrap() }
     }
 
     /// Get nick corresponding to the value.
     pub fn get_nick(&self) -> &str {
-        unsafe {
-            CStr::from_ptr((*self.0).value_nick).to_str().unwrap()
-        }
+        unsafe { CStr::from_ptr((*self.0).value_nick).to_str().unwrap() }
     }
 
     /// Convert flags value to a `Value`.

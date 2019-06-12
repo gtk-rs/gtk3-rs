@@ -489,7 +489,11 @@ mod test {
     // Usually this would be implemented on a Rust wrapper type defined
     // with glib_wrapper!() but for the test the following is susyscient
     unsafe impl<T: ObjectSubclass> IsImplementable<T> for DummyInterface {
-        unsafe extern "C" fn interface_init(_iface: glib_sys::gpointer, _iface_data: glib_sys::gpointer) {}
+        unsafe extern "C" fn interface_init(
+            _iface: glib_sys::gpointer,
+            _iface_data: glib_sys::gpointer,
+        ) {
+        }
     }
 
     #[test]

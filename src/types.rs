@@ -69,21 +69,15 @@ pub enum Type {
 
 impl Type {
     pub fn name(&self) -> String {
-        unsafe {
-            from_glib_none(gobject_sys::g_type_name(self.to_glib()))
-        }
+        unsafe { from_glib_none(gobject_sys::g_type_name(self.to_glib())) }
     }
 
     pub fn qname(&self) -> ::Quark {
-        unsafe {
-            from_glib(gobject_sys::g_type_qname(self.to_glib()))
-        }
+        unsafe { from_glib(gobject_sys::g_type_qname(self.to_glib())) }
     }
 
     pub fn is_a(&self, other: &Type) -> bool {
-        unsafe {
-            from_glib(gobject_sys::g_type_is_a(self.to_glib(), other.to_glib()))
-        }
+        unsafe { from_glib(gobject_sys::g_type_is_a(self.to_glib(), other.to_glib())) }
     }
 
     pub fn parent(&self) -> Option<Self> {
@@ -117,7 +111,8 @@ impl Type {
     pub fn interface_prerequisites(&self) -> Vec<Self> {
         unsafe {
             let mut n_prereqs = 0u32;
-            let prereqs = gobject_sys::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
+            let prereqs =
+                gobject_sys::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
 
             FromGlibContainerAsVec::from_glib_full_num_as_vec(prereqs, n_prereqs as usize)
         }
@@ -155,15 +150,15 @@ pub trait StaticType {
 
 impl StaticType for Type {
     fn static_type() -> Type {
-        unsafe {
-            from_glib(gobject_sys::g_gtype_get_type())
-        }
+        unsafe { from_glib(gobject_sys::g_gtype_get_type()) }
     }
 }
 
 impl<'a> FromValueOptional<'a> for Type {
     unsafe fn from_value_optional(value: &'a Value) -> Option<Self> {
-        Some(from_glib(gobject_sys::g_value_get_gtype(value.to_glib_none().0)))
+        Some(from_glib(gobject_sys::g_value_get_gtype(
+            value.to_glib_none().0,
+        )))
     }
 }
 
@@ -198,7 +193,7 @@ macro_rules! builtin {
                 Type::$val
             }
         }
-    }
+    };
 }
 
 builtin!(bool, Bool);
@@ -215,25 +210,22 @@ builtin!(String, String);
 
 impl<'a> StaticType for [&'a str] {
     fn static_type() -> Type {
-        unsafe {
-            from_glib(glib_sys::g_strv_get_type())
-        }
+        unsafe { from_glib(glib_sys::g_strv_get_type()) }
     }
 }
 
 impl StaticType for Vec<String> {
     fn static_type() -> Type {
-        unsafe {
-            from_glib(glib_sys::g_strv_get_type())
-        }
+        unsafe { from_glib(glib_sys::g_strv_get_type()) }
     }
 }
 
 #[inline]
 pub unsafe fn instance_of<C: StaticType>(ptr: glib_sys::gconstpointer) -> bool {
-    from_glib(
-        gobject_sys::g_type_check_instance_is_a(
-            ptr as *mut _, <C as StaticType>::static_type().to_glib()))
+    from_glib(gobject_sys::g_type_check_instance_is_a(
+        ptr as *mut _,
+        <C as StaticType>::static_type().to_glib(),
+    ))
 }
 
 impl FromGlib<glib_sys::GType> for Type {
@@ -320,7 +312,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut glib_sys::GType> for Type {
         }
 
         unsafe {
-            let res = glib_sys::g_malloc0(mem::size_of::<glib_sys::GType>() * (t.len() + 1)) as *mut glib_sys::GType;
+            let res = glib_sys::g_malloc0(mem::size_of::<glib_sys::GType>() * (t.len() + 1))
+                as *mut glib_sys::GType;
             for (i, v) in t.iter().enumerate() {
                 *res.add(i) = v.to_glib();
             }
@@ -328,7 +321,6 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut glib_sys::GType> for Type {
         }
     }
 }
-
 
 impl FromGlibContainerAsVec<Type, *const glib_sys::GType> for Type {
     unsafe fn from_glib_none_num_as_vec(ptr: *const glib_sys::GType, num: usize) -> Vec<Self> {

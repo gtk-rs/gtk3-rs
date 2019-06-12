@@ -21,9 +21,9 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::mem;
 use std::ops::Deref;
+use std::ptr::NonNull;
 use std::slice;
 use translate::*;
-use std::ptr::NonNull;
 
 use Bytes;
 

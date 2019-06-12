@@ -2,14 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use StaticType;
-use Type;
 use gobject_sys;
 use translate::*;
 use value::FromValue;
 use value::FromValueOptional;
 use value::SetValue;
 use value::Value;
+use StaticType;
+use Type;
 
 bitflags! {
     pub struct BindingFlags: u32 {
@@ -122,4 +122,3 @@ impl FromGlib<gobject_sys::GSignalFlags> for SignalFlags {
         SignalFlags::from_bits_truncate(value)
     }
 }
-

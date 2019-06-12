@@ -25,26 +25,20 @@ glib_wrapper! {
     }
 }
 
-unsafe impl Send for Date { }
-unsafe impl Sync for Date { }
+unsafe impl Send for Date {}
+unsafe impl Sync for Date {}
 
 impl Date {
     pub fn new() -> Date {
-        unsafe {
-            from_glib_full(glib_sys::g_date_new())
-        }
+        unsafe { from_glib_full(glib_sys::g_date_new()) }
     }
 
     pub fn new_dmy(day: DateDay, month: DateMonth, year: DateYear) -> Date {
-        unsafe {
-            from_glib_full(glib_sys::g_date_new_dmy(day, month.to_glib(), year))
-        }
+        unsafe { from_glib_full(glib_sys::g_date_new_dmy(day, month.to_glib(), year)) }
     }
 
     pub fn new_julian(julian_day: u32) -> Date {
-        unsafe {
-            from_glib_full(glib_sys::g_date_new_julian(julian_day))
-        }
+        unsafe { from_glib_full(glib_sys::g_date_new_julian(julian_day)) }
     }
 
     pub fn add_days(&mut self, n_days: u32) {
@@ -67,7 +61,11 @@ impl Date {
 
     pub fn clamp(&mut self, min_date: &Date, max_date: &Date) {
         unsafe {
-            glib_sys::g_date_clamp(self.to_glib_none_mut().0, min_date.to_glib_none().0, max_date.to_glib_none().0);
+            glib_sys::g_date_clamp(
+                self.to_glib_none_mut().0,
+                min_date.to_glib_none().0,
+                max_date.to_glib_none().0,
+            );
         }
     }
 
@@ -78,81 +76,55 @@ impl Date {
     }
 
     fn compare(&self, rhs: &Date) -> i32 {
-        unsafe {
-            glib_sys::g_date_compare(self.to_glib_none().0, rhs.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_compare(self.to_glib_none().0, rhs.to_glib_none().0) }
     }
 
     pub fn days_between(&self, date2: &Date) -> i32 {
-        unsafe {
-            glib_sys::g_date_days_between(self.to_glib_none().0, date2.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_days_between(self.to_glib_none().0, date2.to_glib_none().0) }
     }
 
     pub fn get_day(&self) -> DateDay {
-        unsafe {
-            glib_sys::g_date_get_day(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_day(self.to_glib_none().0) }
     }
 
     pub fn get_day_of_year(&self) -> u32 {
-        unsafe {
-            glib_sys::g_date_get_day_of_year(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_day_of_year(self.to_glib_none().0) }
     }
 
     pub fn get_iso8601_week_of_year(&self) -> u32 {
-        unsafe {
-            glib_sys::g_date_get_iso8601_week_of_year(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_iso8601_week_of_year(self.to_glib_none().0) }
     }
 
     pub fn get_julian(&self) -> u32 {
-        unsafe {
-            glib_sys::g_date_get_julian(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_julian(self.to_glib_none().0) }
     }
 
     pub fn get_monday_week_of_year(&self) -> u32 {
-        unsafe {
-            glib_sys::g_date_get_monday_week_of_year(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_monday_week_of_year(self.to_glib_none().0) }
     }
 
     pub fn get_month(&self) -> DateMonth {
-        unsafe {
-            from_glib(glib_sys::g_date_get_month(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_date_get_month(self.to_glib_none().0)) }
     }
 
     pub fn get_sunday_week_of_year(&self) -> u32 {
-        unsafe {
-            glib_sys::g_date_get_sunday_week_of_year(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_sunday_week_of_year(self.to_glib_none().0) }
     }
 
     pub fn get_weekday(&self) -> DateWeekday {
-        unsafe {
-            from_glib(glib_sys::g_date_get_weekday(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_date_get_weekday(self.to_glib_none().0)) }
     }
 
     pub fn get_year(&self) -> DateYear {
-        unsafe {
-            glib_sys::g_date_get_year(self.to_glib_none().0)
-        }
+        unsafe { glib_sys::g_date_get_year(self.to_glib_none().0) }
     }
 
     pub fn is_first_of_month(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_is_first_of_month(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_date_is_first_of_month(self.to_glib_none().0)) }
     }
 
     pub fn is_last_of_month(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_is_last_of_month(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_date_is_last_of_month(self.to_glib_none().0)) }
     }
 
     pub fn order(&mut self, date2: &mut Date) {
@@ -236,76 +208,59 @@ impl Date {
     //}
 
     pub fn valid(&self) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid(self.to_glib_none().0))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid(self.to_glib_none().0)) }
     }
 
     pub fn get_days_in_month(month: DateMonth, year: DateYear) -> u8 {
-        unsafe {
-            glib_sys::g_date_get_days_in_month(month.to_glib(), year)
-        }
+        unsafe { glib_sys::g_date_get_days_in_month(month.to_glib(), year) }
     }
 
     pub fn get_monday_weeks_in_year(year: DateYear) -> u8 {
-        unsafe {
-            glib_sys::g_date_get_monday_weeks_in_year(year)
-        }
+        unsafe { glib_sys::g_date_get_monday_weeks_in_year(year) }
     }
 
     pub fn get_sunday_weeks_in_year(year: DateYear) -> u8 {
-        unsafe {
-            glib_sys::g_date_get_sunday_weeks_in_year(year)
-        }
+        unsafe { glib_sys::g_date_get_sunday_weeks_in_year(year) }
     }
 
     pub fn is_leap_year(year: DateYear) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_is_leap_year(year))
-        }
+        unsafe { from_glib(glib_sys::g_date_is_leap_year(year)) }
     }
 
     pub fn strftime(s: &str, format: &str, date: &Date) -> usize {
         let slen = s.len() as usize;
         unsafe {
-            glib_sys::g_date_strftime(s.to_glib_none().0, slen, format.to_glib_none().0, date.to_glib_none().0)
+            glib_sys::g_date_strftime(
+                s.to_glib_none().0,
+                slen,
+                format.to_glib_none().0,
+                date.to_glib_none().0,
+            )
         }
     }
 
     pub fn valid_day(day: DateDay) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_day(day))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_day(day)) }
     }
 
     pub fn valid_dmy(day: DateDay, month: DateMonth, year: DateYear) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_dmy(day, month.to_glib(), year))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_dmy(day, month.to_glib(), year)) }
     }
 
     pub fn valid_julian(julian_date: u32) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_julian(julian_date))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_julian(julian_date)) }
     }
 
     pub fn valid_month(month: DateMonth) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_month(month.to_glib()))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_month(month.to_glib())) }
     }
 
     pub fn valid_weekday(weekday: DateWeekday) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_weekday(weekday.to_glib()))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_weekday(weekday.to_glib())) }
     }
 
     pub fn valid_year(year: DateYear) -> bool {
-        unsafe {
-            from_glib(glib_sys::g_date_valid_year(year))
-        }
+        unsafe { from_glib(glib_sys::g_date_valid_year(year)) }
     }
 }
 
@@ -349,7 +304,10 @@ impl fmt::Debug for Date {
 }
 
 impl hash::Hash for Date {
-    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: hash::Hasher,
+    {
         self.get_year().hash(state);
         self.get_month().hash(state);
         self.get_day().hash(state);
