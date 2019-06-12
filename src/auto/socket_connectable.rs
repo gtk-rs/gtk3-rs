@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use SocketAddressEnumerator;
 use gio_sys;
-#[cfg(any(feature = "v2_48", feature = "dox"))]
-use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+#[cfg(any(feature = "v2_48", feature = "dox"))]
+use glib::GString;
 use std::fmt;
+use SocketAddressEnumerator;
 
 glib_wrapper! {
     pub struct SocketConnectable(Interface<gio_sys::GSocketConnectable>);
@@ -32,20 +32,26 @@ pub trait SocketConnectableExt: 'static {
 impl<O: IsA<SocketConnectable>> SocketConnectableExt for O {
     fn enumerate(&self) -> Option<SocketAddressEnumerator> {
         unsafe {
-            from_glib_full(gio_sys::g_socket_connectable_enumerate(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_socket_connectable_enumerate(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn proxy_enumerate(&self) -> Option<SocketAddressEnumerator> {
         unsafe {
-            from_glib_full(gio_sys::g_socket_connectable_proxy_enumerate(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_socket_connectable_proxy_enumerate(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     #[cfg(any(feature = "v2_48", feature = "dox"))]
     fn to_string(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(gio_sys::g_socket_connectable_to_string(self.as_ref().to_glib_none().0))
+            from_glib_full(gio_sys::g_socket_connectable_to_string(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

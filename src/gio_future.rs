@@ -2,11 +2,11 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures::prelude::*;
 use futures::channel::oneshot;
-use futures::task::{Poll, Context};
-use std::pin;
+use futures::prelude::*;
+use futures::task::{Context, Poll};
 use std::marker::Unpin;
+use std::pin;
 
 use glib;
 use Cancellable;
@@ -49,7 +49,10 @@ where
 
         if let Some(schedule_operation) = schedule_operation.take() {
             let main_context = glib::MainContext::ref_thread_default();
-            assert!(main_context.is_owner(), "Spawning futures only allowed if the thread is owning the MainContext");
+            assert!(
+                main_context.is_owner(),
+                "Spawning futures only allowed if the thread is owning the MainContext"
+            );
 
             // Channel for sending back the GIO async operation
             // result to our future here.
@@ -91,4 +94,4 @@ impl<F, O, T, E> Drop for GioFuture<F, O, T, E> {
     }
 }
 
-impl<F, O, T, E> Unpin for GioFuture<F, O, T, E> { }
+impl<F, O, T, E> Unpin for GioFuture<F, O, T, E> {}

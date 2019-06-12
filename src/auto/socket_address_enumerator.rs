@@ -2,9 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Cancellable;
-use Error;
-use SocketAddress;
 #[cfg(feature = "futures")]
 use futures::future;
 use gio_sys;
@@ -16,6 +13,9 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
+use Cancellable;
+use Error;
+use SocketAddress;
 
 glib_wrapper! {
     pub struct SocketAddressEnumerator(Object<gio_sys::GSocketAddressEnumerator, gio_sys::GSocketAddressEnumeratorClass, SocketAddressEnumeratorClass>);
@@ -30,50 +30,86 @@ pub const NONE_SOCKET_ADDRESS_ENUMERATOR: Option<&SocketAddressEnumerator> = Non
 pub trait SocketAddressEnumeratorExt: 'static {
     fn next<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<SocketAddress, Error>;
 
-    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q);
+    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
+    fn next_async_future(
+        &self,
+    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     fn next<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<SocketAddress, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_address_enumerator_next(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+            let ret = gio_sys::g_socket_address_enumerator_next(
+                self.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
-    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(&self, cancellable: Option<&P>, callback: Q) {
+    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(
+        &self,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn next_async_trampoline<Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
+        unsafe extern "C" fn next_async_trampoline<
+            Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_address_enumerator_next_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
+            let ret = gio_sys::g_socket_address_enumerator_next_finish(
+                _source_object as *mut _,
+                res,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            };
             let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = next_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_socket_address_enumerator_next_async(self.as_ref().to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_socket_address_enumerator_next_async(
+                self.as_ref().to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
         }
     }
 
     #[cfg(feature = "futures")]
-    fn next_async_future(&self) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
-        use GioFuture;
+    fn next_async_future(
+        &self,
+    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
         use fragile::Fragile;
+        use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            obj.next_async(
-                Some(&cancellable),
-                move |res| {
-                    let _ = send.into_inner().send(res);
-                },
-            );
+            obj.next_async(Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
 
             cancellable
         })

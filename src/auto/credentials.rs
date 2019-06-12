@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Error;
 use gio_sys;
-use glib::GString;
 use glib::translate::*;
+use glib::GString;
 use std::fmt;
 use std::ptr;
+use Error;
 
 glib_wrapper! {
     pub struct Credentials(Object<gio_sys::GCredentials, gio_sys::GCredentialsClass, CredentialsClass>);
@@ -19,9 +19,7 @@ glib_wrapper! {
 
 impl Credentials {
     pub fn new() -> Credentials {
-        unsafe {
-            from_glib_full(gio_sys::g_credentials_new())
-        }
+        unsafe { from_glib_full(gio_sys::g_credentials_new()) }
     }
 
     //pub fn get_native(&self, native_type: CredentialsType) -> /*Unimplemented*/Option<Fundamental: Pointer> {
@@ -33,7 +31,11 @@ impl Credentials {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_credentials_get_unix_pid(self.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(ret) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(ret)
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -42,15 +44,27 @@ impl Credentials {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     pub fn is_same_user(&self, other_credentials: &Credentials) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_credentials_is_same_user(self.to_glib_none().0, other_credentials.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let _ = gio_sys::g_credentials_is_same_user(
+                self.to_glib_none().0,
+                other_credentials.to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
@@ -63,14 +77,16 @@ impl Credentials {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_credentials_set_unix_user(self.to_glib_none().0, uid, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     pub fn to_string(&self) -> GString {
-        unsafe {
-            from_glib_full(gio_sys::g_credentials_to_string(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(gio_sys::g_credentials_to_string(self.to_glib_none().0)) }
     }
 }
 

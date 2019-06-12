@@ -2,18 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use TlsPasswordFlags;
 use gio_sys;
-use glib::GString;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::GString;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use TlsPasswordFlags;
 
 glib_wrapper! {
     pub struct TlsPassword(Object<gio_sys::GTlsPassword, gio_sys::GTlsPasswordClass, TlsPasswordClass>);
@@ -26,7 +26,10 @@ glib_wrapper! {
 impl TlsPassword {
     pub fn new(flags: TlsPasswordFlags, description: &str) -> TlsPassword {
         unsafe {
-            from_glib_full(gio_sys::g_tls_password_new(flags.to_glib(), description.to_glib_none().0))
+            from_glib_full(gio_sys::g_tls_password_new(
+                flags.to_glib(),
+                description.to_glib_none().0,
+            ))
         }
     }
 }
@@ -58,25 +61,34 @@ pub trait TlsPasswordExt: 'static {
 impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
     fn get_description(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_password_get_description(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_tls_password_get_description(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_flags(&self) -> TlsPasswordFlags {
         unsafe {
-            from_glib(gio_sys::g_tls_password_get_flags(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_tls_password_get_flags(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_warning(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gio_sys::g_tls_password_get_warning(self.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_tls_password_get_warning(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn set_description(&self, description: &str) {
         unsafe {
-            gio_sys::g_tls_password_set_description(self.as_ref().to_glib_none().0, description.to_glib_none().0);
+            gio_sys::g_tls_password_set_description(
+                self.as_ref().to_glib_none().0,
+                description.to_glib_none().0,
+            );
         }
     }
 
@@ -92,49 +104,76 @@ impl<O: IsA<TlsPassword>> TlsPasswordExt for O {
 
     fn set_warning(&self, warning: &str) {
         unsafe {
-            gio_sys::g_tls_password_set_warning(self.as_ref().to_glib_none().0, warning.to_glib_none().0);
+            gio_sys::g_tls_password_set_warning(
+                self.as_ref().to_glib_none().0,
+                warning.to_glib_none().0,
+            );
         }
     }
 
     fn connect_property_description_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_description_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsPassword, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<TlsPassword>
+        unsafe extern "C" fn notify_description_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GTlsPassword,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<TlsPassword>,
         {
             let f: &F = &*(f as *const F);
             f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::description\0".as_ptr() as *const _,
-                Some(transmute(notify_description_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::description\0".as_ptr() as *const _,
+                Some(transmute(notify_description_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_property_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_flags_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsPassword, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<TlsPassword>
+        unsafe extern "C" fn notify_flags_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GTlsPassword,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<TlsPassword>,
         {
             let f: &F = &*(f as *const F);
             f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::flags\0".as_ptr() as *const _,
-                Some(transmute(notify_flags_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::flags\0".as_ptr() as *const _,
+                Some(transmute(notify_flags_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_property_warning_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_warning_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GTlsPassword, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<TlsPassword>
+        unsafe extern "C" fn notify_warning_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GTlsPassword,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<TlsPassword>,
         {
             let f: &F = &*(f as *const F);
             f(&TlsPassword::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::warning\0".as_ptr() as *const _,
-                Some(transmute(notify_warning_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::warning\0".as_ptr() as *const _,
+                Some(transmute(notify_warning_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

@@ -3,20 +3,19 @@
 // DO NOT EDIT
 
 use gio_sys;
-use glib::Quark;
-use glib::StaticType;
-use glib::Type;
 use glib::error::ErrorDomain;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
+use glib::Quark;
+use glib::StaticType;
+use glib::Type;
 use gobject_sys;
 use std::fmt;
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum ConverterResult {
     Error,
     Converted,
@@ -28,13 +27,17 @@ pub enum ConverterResult {
 
 impl fmt::Display for ConverterResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ConverterResult::{}", match *self {
-            ConverterResult::Error => "Error",
-            ConverterResult::Converted => "Converted",
-            ConverterResult::Finished => "Finished",
-            ConverterResult::Flushed => "Flushed",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "ConverterResult::{}",
+            match *self {
+                ConverterResult::Error => "Error",
+                ConverterResult::Converted => "Converted",
+                ConverterResult::Finished => "Finished",
+                ConverterResult::Flushed => "Flushed",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -48,7 +51,7 @@ impl ToGlib for ConverterResult {
             ConverterResult::Converted => gio_sys::G_CONVERTER_CONVERTED,
             ConverterResult::Finished => gio_sys::G_CONVERTER_FINISHED,
             ConverterResult::Flushed => gio_sys::G_CONVERTER_FLUSHED,
-            ConverterResult::__Unknown(value) => value
+            ConverterResult::__Unknown(value) => value,
         }
     }
 }
@@ -90,8 +93,7 @@ impl SetValue for ConverterResult {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum CredentialsType {
     Invalid,
     LinuxUcred,
@@ -105,15 +107,19 @@ pub enum CredentialsType {
 
 impl fmt::Display for CredentialsType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CredentialsType::{}", match *self {
-            CredentialsType::Invalid => "Invalid",
-            CredentialsType::LinuxUcred => "LinuxUcred",
-            CredentialsType::FreebsdCmsgcred => "FreebsdCmsgcred",
-            CredentialsType::OpenbsdSockpeercred => "OpenbsdSockpeercred",
-            CredentialsType::SolarisUcred => "SolarisUcred",
-            CredentialsType::NetbsdUnpcbid => "NetbsdUnpcbid",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "CredentialsType::{}",
+            match *self {
+                CredentialsType::Invalid => "Invalid",
+                CredentialsType::LinuxUcred => "LinuxUcred",
+                CredentialsType::FreebsdCmsgcred => "FreebsdCmsgcred",
+                CredentialsType::OpenbsdSockpeercred => "OpenbsdSockpeercred",
+                CredentialsType::SolarisUcred => "SolarisUcred",
+                CredentialsType::NetbsdUnpcbid => "NetbsdUnpcbid",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -126,10 +132,12 @@ impl ToGlib for CredentialsType {
             CredentialsType::Invalid => gio_sys::G_CREDENTIALS_TYPE_INVALID,
             CredentialsType::LinuxUcred => gio_sys::G_CREDENTIALS_TYPE_LINUX_UCRED,
             CredentialsType::FreebsdCmsgcred => gio_sys::G_CREDENTIALS_TYPE_FREEBSD_CMSGCRED,
-            CredentialsType::OpenbsdSockpeercred => gio_sys::G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED,
+            CredentialsType::OpenbsdSockpeercred => {
+                gio_sys::G_CREDENTIALS_TYPE_OPENBSD_SOCKPEERCRED
+            }
             CredentialsType::SolarisUcred => gio_sys::G_CREDENTIALS_TYPE_SOLARIS_UCRED,
             CredentialsType::NetbsdUnpcbid => gio_sys::G_CREDENTIALS_TYPE_NETBSD_UNPCBID,
-            CredentialsType::__Unknown(value) => value
+            CredentialsType::__Unknown(value) => value,
         }
     }
 }
@@ -173,8 +181,7 @@ impl SetValue for CredentialsType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DataStreamByteOrder {
     BigEndian,
     LittleEndian,
@@ -185,12 +192,16 @@ pub enum DataStreamByteOrder {
 
 impl fmt::Display for DataStreamByteOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DataStreamByteOrder::{}", match *self {
-            DataStreamByteOrder::BigEndian => "BigEndian",
-            DataStreamByteOrder::LittleEndian => "LittleEndian",
-            DataStreamByteOrder::HostEndian => "HostEndian",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "DataStreamByteOrder::{}",
+            match *self {
+                DataStreamByteOrder::BigEndian => "BigEndian",
+                DataStreamByteOrder::LittleEndian => "LittleEndian",
+                DataStreamByteOrder::HostEndian => "HostEndian",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -203,7 +214,7 @@ impl ToGlib for DataStreamByteOrder {
             DataStreamByteOrder::BigEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_BIG_ENDIAN,
             DataStreamByteOrder::LittleEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_LITTLE_ENDIAN,
             DataStreamByteOrder::HostEndian => gio_sys::G_DATA_STREAM_BYTE_ORDER_HOST_ENDIAN,
-            DataStreamByteOrder::__Unknown(value) => value
+            DataStreamByteOrder::__Unknown(value) => value,
         }
     }
 }
@@ -244,8 +255,7 @@ impl SetValue for DataStreamByteOrder {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DataStreamNewlineType {
     Lf,
     Cr,
@@ -257,13 +267,17 @@ pub enum DataStreamNewlineType {
 
 impl fmt::Display for DataStreamNewlineType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DataStreamNewlineType::{}", match *self {
-            DataStreamNewlineType::Lf => "Lf",
-            DataStreamNewlineType::Cr => "Cr",
-            DataStreamNewlineType::CrLf => "CrLf",
-            DataStreamNewlineType::Any => "Any",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "DataStreamNewlineType::{}",
+            match *self {
+                DataStreamNewlineType::Lf => "Lf",
+                DataStreamNewlineType::Cr => "Cr",
+                DataStreamNewlineType::CrLf => "CrLf",
+                DataStreamNewlineType::Any => "Any",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -277,7 +291,7 @@ impl ToGlib for DataStreamNewlineType {
             DataStreamNewlineType::Cr => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_CR,
             DataStreamNewlineType::CrLf => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_CR_LF,
             DataStreamNewlineType::Any => gio_sys::G_DATA_STREAM_NEWLINE_TYPE_ANY,
-            DataStreamNewlineType::__Unknown(value) => value
+            DataStreamNewlineType::__Unknown(value) => value,
         }
     }
 }
@@ -319,8 +333,7 @@ impl SetValue for DataStreamNewlineType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DriveStartStopType {
     Unknown,
     Shutdown,
@@ -333,14 +346,18 @@ pub enum DriveStartStopType {
 
 impl fmt::Display for DriveStartStopType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DriveStartStopType::{}", match *self {
-            DriveStartStopType::Unknown => "Unknown",
-            DriveStartStopType::Shutdown => "Shutdown",
-            DriveStartStopType::Network => "Network",
-            DriveStartStopType::Multidisk => "Multidisk",
-            DriveStartStopType::Password => "Password",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "DriveStartStopType::{}",
+            match *self {
+                DriveStartStopType::Unknown => "Unknown",
+                DriveStartStopType::Shutdown => "Shutdown",
+                DriveStartStopType::Network => "Network",
+                DriveStartStopType::Multidisk => "Multidisk",
+                DriveStartStopType::Password => "Password",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -355,7 +372,7 @@ impl ToGlib for DriveStartStopType {
             DriveStartStopType::Network => gio_sys::G_DRIVE_START_STOP_TYPE_NETWORK,
             DriveStartStopType::Multidisk => gio_sys::G_DRIVE_START_STOP_TYPE_MULTIDISK,
             DriveStartStopType::Password => gio_sys::G_DRIVE_START_STOP_TYPE_PASSWORD,
-            DriveStartStopType::__Unknown(value) => value
+            DriveStartStopType::__Unknown(value) => value,
         }
     }
 }
@@ -398,8 +415,7 @@ impl SetValue for DriveStartStopType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum EmblemOrigin {
     Unknown,
     Device,
@@ -411,13 +427,17 @@ pub enum EmblemOrigin {
 
 impl fmt::Display for EmblemOrigin {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EmblemOrigin::{}", match *self {
-            EmblemOrigin::Unknown => "Unknown",
-            EmblemOrigin::Device => "Device",
-            EmblemOrigin::Livemetadata => "Livemetadata",
-            EmblemOrigin::Tag => "Tag",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "EmblemOrigin::{}",
+            match *self {
+                EmblemOrigin::Unknown => "Unknown",
+                EmblemOrigin::Device => "Device",
+                EmblemOrigin::Livemetadata => "Livemetadata",
+                EmblemOrigin::Tag => "Tag",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -431,7 +451,7 @@ impl ToGlib for EmblemOrigin {
             EmblemOrigin::Device => gio_sys::G_EMBLEM_ORIGIN_DEVICE,
             EmblemOrigin::Livemetadata => gio_sys::G_EMBLEM_ORIGIN_LIVEMETADATA,
             EmblemOrigin::Tag => gio_sys::G_EMBLEM_ORIGIN_TAG,
-            EmblemOrigin::__Unknown(value) => value
+            EmblemOrigin::__Unknown(value) => value,
         }
     }
 }
@@ -473,8 +493,7 @@ impl SetValue for EmblemOrigin {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum FileAttributeStatus {
     Unset,
     Set,
@@ -485,12 +504,16 @@ pub enum FileAttributeStatus {
 
 impl fmt::Display for FileAttributeStatus {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileAttributeStatus::{}", match *self {
-            FileAttributeStatus::Unset => "Unset",
-            FileAttributeStatus::Set => "Set",
-            FileAttributeStatus::ErrorSetting => "ErrorSetting",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "FileAttributeStatus::{}",
+            match *self {
+                FileAttributeStatus::Unset => "Unset",
+                FileAttributeStatus::Set => "Set",
+                FileAttributeStatus::ErrorSetting => "ErrorSetting",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -503,7 +526,7 @@ impl ToGlib for FileAttributeStatus {
             FileAttributeStatus::Unset => gio_sys::G_FILE_ATTRIBUTE_STATUS_UNSET,
             FileAttributeStatus::Set => gio_sys::G_FILE_ATTRIBUTE_STATUS_SET,
             FileAttributeStatus::ErrorSetting => gio_sys::G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING,
-            FileAttributeStatus::__Unknown(value) => value
+            FileAttributeStatus::__Unknown(value) => value,
         }
     }
 }
@@ -544,8 +567,7 @@ impl SetValue for FileAttributeStatus {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum FileAttributeType {
     Invalid,
     String,
@@ -563,19 +585,23 @@ pub enum FileAttributeType {
 
 impl fmt::Display for FileAttributeType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileAttributeType::{}", match *self {
-            FileAttributeType::Invalid => "Invalid",
-            FileAttributeType::String => "String",
-            FileAttributeType::ByteString => "ByteString",
-            FileAttributeType::Boolean => "Boolean",
-            FileAttributeType::Uint32 => "Uint32",
-            FileAttributeType::Int32 => "Int32",
-            FileAttributeType::Uint64 => "Uint64",
-            FileAttributeType::Int64 => "Int64",
-            FileAttributeType::Object => "Object",
-            FileAttributeType::Stringv => "Stringv",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "FileAttributeType::{}",
+            match *self {
+                FileAttributeType::Invalid => "Invalid",
+                FileAttributeType::String => "String",
+                FileAttributeType::ByteString => "ByteString",
+                FileAttributeType::Boolean => "Boolean",
+                FileAttributeType::Uint32 => "Uint32",
+                FileAttributeType::Int32 => "Int32",
+                FileAttributeType::Uint64 => "Uint64",
+                FileAttributeType::Int64 => "Int64",
+                FileAttributeType::Object => "Object",
+                FileAttributeType::Stringv => "Stringv",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -595,7 +621,7 @@ impl ToGlib for FileAttributeType {
             FileAttributeType::Int64 => gio_sys::G_FILE_ATTRIBUTE_TYPE_INT64,
             FileAttributeType::Object => gio_sys::G_FILE_ATTRIBUTE_TYPE_OBJECT,
             FileAttributeType::Stringv => gio_sys::G_FILE_ATTRIBUTE_TYPE_STRINGV,
-            FileAttributeType::__Unknown(value) => value
+            FileAttributeType::__Unknown(value) => value,
         }
     }
 }
@@ -643,8 +669,7 @@ impl SetValue for FileAttributeType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum FileMonitorEvent {
     Changed,
     ChangesDoneHint,
@@ -663,20 +688,24 @@ pub enum FileMonitorEvent {
 
 impl fmt::Display for FileMonitorEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileMonitorEvent::{}", match *self {
-            FileMonitorEvent::Changed => "Changed",
-            FileMonitorEvent::ChangesDoneHint => "ChangesDoneHint",
-            FileMonitorEvent::Deleted => "Deleted",
-            FileMonitorEvent::Created => "Created",
-            FileMonitorEvent::AttributeChanged => "AttributeChanged",
-            FileMonitorEvent::PreUnmount => "PreUnmount",
-            FileMonitorEvent::Unmounted => "Unmounted",
-            FileMonitorEvent::Moved => "Moved",
-            FileMonitorEvent::Renamed => "Renamed",
-            FileMonitorEvent::MovedIn => "MovedIn",
-            FileMonitorEvent::MovedOut => "MovedOut",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "FileMonitorEvent::{}",
+            match *self {
+                FileMonitorEvent::Changed => "Changed",
+                FileMonitorEvent::ChangesDoneHint => "ChangesDoneHint",
+                FileMonitorEvent::Deleted => "Deleted",
+                FileMonitorEvent::Created => "Created",
+                FileMonitorEvent::AttributeChanged => "AttributeChanged",
+                FileMonitorEvent::PreUnmount => "PreUnmount",
+                FileMonitorEvent::Unmounted => "Unmounted",
+                FileMonitorEvent::Moved => "Moved",
+                FileMonitorEvent::Renamed => "Renamed",
+                FileMonitorEvent::MovedIn => "MovedIn",
+                FileMonitorEvent::MovedOut => "MovedOut",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -697,7 +726,7 @@ impl ToGlib for FileMonitorEvent {
             FileMonitorEvent::Renamed => gio_sys::G_FILE_MONITOR_EVENT_RENAMED,
             FileMonitorEvent::MovedIn => gio_sys::G_FILE_MONITOR_EVENT_MOVED_IN,
             FileMonitorEvent::MovedOut => gio_sys::G_FILE_MONITOR_EVENT_MOVED_OUT,
-            FileMonitorEvent::__Unknown(value) => value
+            FileMonitorEvent::__Unknown(value) => value,
         }
     }
 }
@@ -746,8 +775,7 @@ impl SetValue for FileMonitorEvent {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum FileType {
     Unknown,
     Regular,
@@ -762,16 +790,20 @@ pub enum FileType {
 
 impl fmt::Display for FileType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "FileType::{}", match *self {
-            FileType::Unknown => "Unknown",
-            FileType::Regular => "Regular",
-            FileType::Directory => "Directory",
-            FileType::SymbolicLink => "SymbolicLink",
-            FileType::Special => "Special",
-            FileType::Shortcut => "Shortcut",
-            FileType::Mountable => "Mountable",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "FileType::{}",
+            match *self {
+                FileType::Unknown => "Unknown",
+                FileType::Regular => "Regular",
+                FileType::Directory => "Directory",
+                FileType::SymbolicLink => "SymbolicLink",
+                FileType::Special => "Special",
+                FileType::Shortcut => "Shortcut",
+                FileType::Mountable => "Mountable",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -788,7 +820,7 @@ impl ToGlib for FileType {
             FileType::Special => gio_sys::G_FILE_TYPE_SPECIAL,
             FileType::Shortcut => gio_sys::G_FILE_TYPE_SHORTCUT,
             FileType::Mountable => gio_sys::G_FILE_TYPE_MOUNTABLE,
-            FileType::__Unknown(value) => value
+            FileType::__Unknown(value) => value,
         }
     }
 }
@@ -833,8 +865,7 @@ impl SetValue for FileType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum IOErrorEnum {
     Failed,
     NotFound,
@@ -889,56 +920,60 @@ pub enum IOErrorEnum {
 
 impl fmt::Display for IOErrorEnum {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "IOErrorEnum::{}", match *self {
-            IOErrorEnum::Failed => "Failed",
-            IOErrorEnum::NotFound => "NotFound",
-            IOErrorEnum::Exists => "Exists",
-            IOErrorEnum::IsDirectory => "IsDirectory",
-            IOErrorEnum::NotDirectory => "NotDirectory",
-            IOErrorEnum::NotEmpty => "NotEmpty",
-            IOErrorEnum::NotRegularFile => "NotRegularFile",
-            IOErrorEnum::NotSymbolicLink => "NotSymbolicLink",
-            IOErrorEnum::NotMountableFile => "NotMountableFile",
-            IOErrorEnum::FilenameTooLong => "FilenameTooLong",
-            IOErrorEnum::InvalidFilename => "InvalidFilename",
-            IOErrorEnum::TooManyLinks => "TooManyLinks",
-            IOErrorEnum::NoSpace => "NoSpace",
-            IOErrorEnum::InvalidArgument => "InvalidArgument",
-            IOErrorEnum::PermissionDenied => "PermissionDenied",
-            IOErrorEnum::NotSupported => "NotSupported",
-            IOErrorEnum::NotMounted => "NotMounted",
-            IOErrorEnum::AlreadyMounted => "AlreadyMounted",
-            IOErrorEnum::Closed => "Closed",
-            IOErrorEnum::Cancelled => "Cancelled",
-            IOErrorEnum::Pending => "Pending",
-            IOErrorEnum::ReadOnly => "ReadOnly",
-            IOErrorEnum::CantCreateBackup => "CantCreateBackup",
-            IOErrorEnum::WrongEtag => "WrongEtag",
-            IOErrorEnum::TimedOut => "TimedOut",
-            IOErrorEnum::WouldRecurse => "WouldRecurse",
-            IOErrorEnum::Busy => "Busy",
-            IOErrorEnum::WouldBlock => "WouldBlock",
-            IOErrorEnum::HostNotFound => "HostNotFound",
-            IOErrorEnum::WouldMerge => "WouldMerge",
-            IOErrorEnum::FailedHandled => "FailedHandled",
-            IOErrorEnum::TooManyOpenFiles => "TooManyOpenFiles",
-            IOErrorEnum::NotInitialized => "NotInitialized",
-            IOErrorEnum::AddressInUse => "AddressInUse",
-            IOErrorEnum::PartialInput => "PartialInput",
-            IOErrorEnum::InvalidData => "InvalidData",
-            IOErrorEnum::DbusError => "DbusError",
-            IOErrorEnum::HostUnreachable => "HostUnreachable",
-            IOErrorEnum::NetworkUnreachable => "NetworkUnreachable",
-            IOErrorEnum::ConnectionRefused => "ConnectionRefused",
-            IOErrorEnum::ProxyFailed => "ProxyFailed",
-            IOErrorEnum::ProxyAuthFailed => "ProxyAuthFailed",
-            IOErrorEnum::ProxyNeedAuth => "ProxyNeedAuth",
-            IOErrorEnum::ProxyNotAllowed => "ProxyNotAllowed",
-            IOErrorEnum::BrokenPipe => "BrokenPipe",
-            IOErrorEnum::NotConnected => "NotConnected",
-            IOErrorEnum::MessageTooLarge => "MessageTooLarge",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "IOErrorEnum::{}",
+            match *self {
+                IOErrorEnum::Failed => "Failed",
+                IOErrorEnum::NotFound => "NotFound",
+                IOErrorEnum::Exists => "Exists",
+                IOErrorEnum::IsDirectory => "IsDirectory",
+                IOErrorEnum::NotDirectory => "NotDirectory",
+                IOErrorEnum::NotEmpty => "NotEmpty",
+                IOErrorEnum::NotRegularFile => "NotRegularFile",
+                IOErrorEnum::NotSymbolicLink => "NotSymbolicLink",
+                IOErrorEnum::NotMountableFile => "NotMountableFile",
+                IOErrorEnum::FilenameTooLong => "FilenameTooLong",
+                IOErrorEnum::InvalidFilename => "InvalidFilename",
+                IOErrorEnum::TooManyLinks => "TooManyLinks",
+                IOErrorEnum::NoSpace => "NoSpace",
+                IOErrorEnum::InvalidArgument => "InvalidArgument",
+                IOErrorEnum::PermissionDenied => "PermissionDenied",
+                IOErrorEnum::NotSupported => "NotSupported",
+                IOErrorEnum::NotMounted => "NotMounted",
+                IOErrorEnum::AlreadyMounted => "AlreadyMounted",
+                IOErrorEnum::Closed => "Closed",
+                IOErrorEnum::Cancelled => "Cancelled",
+                IOErrorEnum::Pending => "Pending",
+                IOErrorEnum::ReadOnly => "ReadOnly",
+                IOErrorEnum::CantCreateBackup => "CantCreateBackup",
+                IOErrorEnum::WrongEtag => "WrongEtag",
+                IOErrorEnum::TimedOut => "TimedOut",
+                IOErrorEnum::WouldRecurse => "WouldRecurse",
+                IOErrorEnum::Busy => "Busy",
+                IOErrorEnum::WouldBlock => "WouldBlock",
+                IOErrorEnum::HostNotFound => "HostNotFound",
+                IOErrorEnum::WouldMerge => "WouldMerge",
+                IOErrorEnum::FailedHandled => "FailedHandled",
+                IOErrorEnum::TooManyOpenFiles => "TooManyOpenFiles",
+                IOErrorEnum::NotInitialized => "NotInitialized",
+                IOErrorEnum::AddressInUse => "AddressInUse",
+                IOErrorEnum::PartialInput => "PartialInput",
+                IOErrorEnum::InvalidData => "InvalidData",
+                IOErrorEnum::DbusError => "DbusError",
+                IOErrorEnum::HostUnreachable => "HostUnreachable",
+                IOErrorEnum::NetworkUnreachable => "NetworkUnreachable",
+                IOErrorEnum::ConnectionRefused => "ConnectionRefused",
+                IOErrorEnum::ProxyFailed => "ProxyFailed",
+                IOErrorEnum::ProxyAuthFailed => "ProxyAuthFailed",
+                IOErrorEnum::ProxyNeedAuth => "ProxyNeedAuth",
+                IOErrorEnum::ProxyNotAllowed => "ProxyNotAllowed",
+                IOErrorEnum::BrokenPipe => "BrokenPipe",
+                IOErrorEnum::NotConnected => "NotConnected",
+                IOErrorEnum::MessageTooLarge => "MessageTooLarge",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -995,7 +1030,7 @@ impl ToGlib for IOErrorEnum {
             IOErrorEnum::BrokenPipe => gio_sys::G_IO_ERROR_BROKEN_PIPE,
             IOErrorEnum::NotConnected => gio_sys::G_IO_ERROR_NOT_CONNECTED,
             IOErrorEnum::MessageTooLarge => gio_sys::G_IO_ERROR_MESSAGE_TOO_LARGE,
-            IOErrorEnum::__Unknown(value) => value
+            IOErrorEnum::__Unknown(value) => value,
         }
     }
 }
@@ -1143,8 +1178,7 @@ impl SetValue for IOErrorEnum {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum MountOperationResult {
     Handled,
     Aborted,
@@ -1155,12 +1189,16 @@ pub enum MountOperationResult {
 
 impl fmt::Display for MountOperationResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "MountOperationResult::{}", match *self {
-            MountOperationResult::Handled => "Handled",
-            MountOperationResult::Aborted => "Aborted",
-            MountOperationResult::Unhandled => "Unhandled",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "MountOperationResult::{}",
+            match *self {
+                MountOperationResult::Handled => "Handled",
+                MountOperationResult::Aborted => "Aborted",
+                MountOperationResult::Unhandled => "Unhandled",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1173,7 +1211,7 @@ impl ToGlib for MountOperationResult {
             MountOperationResult::Handled => gio_sys::G_MOUNT_OPERATION_HANDLED,
             MountOperationResult::Aborted => gio_sys::G_MOUNT_OPERATION_ABORTED,
             MountOperationResult::Unhandled => gio_sys::G_MOUNT_OPERATION_UNHANDLED,
-            MountOperationResult::__Unknown(value) => value
+            MountOperationResult::__Unknown(value) => value,
         }
     }
 }
@@ -1215,8 +1253,7 @@ impl SetValue for MountOperationResult {
 }
 
 #[cfg(any(feature = "v2_44", feature = "dox"))]
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum NetworkConnectivity {
     Local,
     Limited,
@@ -1229,13 +1266,17 @@ pub enum NetworkConnectivity {
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 impl fmt::Display for NetworkConnectivity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NetworkConnectivity::{}", match *self {
-            NetworkConnectivity::Local => "Local",
-            NetworkConnectivity::Limited => "Limited",
-            NetworkConnectivity::Portal => "Portal",
-            NetworkConnectivity::Full => "Full",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "NetworkConnectivity::{}",
+            match *self {
+                NetworkConnectivity::Local => "Local",
+                NetworkConnectivity::Limited => "Limited",
+                NetworkConnectivity::Portal => "Portal",
+                NetworkConnectivity::Full => "Full",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1250,7 +1291,7 @@ impl ToGlib for NetworkConnectivity {
             NetworkConnectivity::Limited => gio_sys::G_NETWORK_CONNECTIVITY_LIMITED,
             NetworkConnectivity::Portal => gio_sys::G_NETWORK_CONNECTIVITY_PORTAL,
             NetworkConnectivity::Full => gio_sys::G_NETWORK_CONNECTIVITY_FULL,
-            NetworkConnectivity::__Unknown(value) => value
+            NetworkConnectivity::__Unknown(value) => value,
         }
     }
 }
@@ -1297,8 +1338,7 @@ impl SetValue for NetworkConnectivity {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum NotificationPriority {
     Normal,
     Low,
@@ -1310,13 +1350,17 @@ pub enum NotificationPriority {
 
 impl fmt::Display for NotificationPriority {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "NotificationPriority::{}", match *self {
-            NotificationPriority::Normal => "Normal",
-            NotificationPriority::Low => "Low",
-            NotificationPriority::High => "High",
-            NotificationPriority::Urgent => "Urgent",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "NotificationPriority::{}",
+            match *self {
+                NotificationPriority::Normal => "Normal",
+                NotificationPriority::Low => "Low",
+                NotificationPriority::High => "High",
+                NotificationPriority::Urgent => "Urgent",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1330,7 +1374,7 @@ impl ToGlib for NotificationPriority {
             NotificationPriority::Low => gio_sys::G_NOTIFICATION_PRIORITY_LOW,
             NotificationPriority::High => gio_sys::G_NOTIFICATION_PRIORITY_HIGH,
             NotificationPriority::Urgent => gio_sys::G_NOTIFICATION_PRIORITY_URGENT,
-            NotificationPriority::__Unknown(value) => value
+            NotificationPriority::__Unknown(value) => value,
         }
     }
 }
@@ -1372,8 +1416,7 @@ impl SetValue for NotificationPriority {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum PasswordSave {
     Never,
     ForSession,
@@ -1384,12 +1427,16 @@ pub enum PasswordSave {
 
 impl fmt::Display for PasswordSave {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PasswordSave::{}", match *self {
-            PasswordSave::Never => "Never",
-            PasswordSave::ForSession => "ForSession",
-            PasswordSave::Permanently => "Permanently",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "PasswordSave::{}",
+            match *self {
+                PasswordSave::Never => "Never",
+                PasswordSave::ForSession => "ForSession",
+                PasswordSave::Permanently => "Permanently",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1402,7 +1449,7 @@ impl ToGlib for PasswordSave {
             PasswordSave::Never => gio_sys::G_PASSWORD_SAVE_NEVER,
             PasswordSave::ForSession => gio_sys::G_PASSWORD_SAVE_FOR_SESSION,
             PasswordSave::Permanently => gio_sys::G_PASSWORD_SAVE_PERMANENTLY,
-            PasswordSave::__Unknown(value) => value
+            PasswordSave::__Unknown(value) => value,
         }
     }
 }
@@ -1443,8 +1490,7 @@ impl SetValue for PasswordSave {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum ResolverRecordType {
     Srv,
     Mx,
@@ -1457,14 +1503,18 @@ pub enum ResolverRecordType {
 
 impl fmt::Display for ResolverRecordType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ResolverRecordType::{}", match *self {
-            ResolverRecordType::Srv => "Srv",
-            ResolverRecordType::Mx => "Mx",
-            ResolverRecordType::Txt => "Txt",
-            ResolverRecordType::Soa => "Soa",
-            ResolverRecordType::Ns => "Ns",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "ResolverRecordType::{}",
+            match *self {
+                ResolverRecordType::Srv => "Srv",
+                ResolverRecordType::Mx => "Mx",
+                ResolverRecordType::Txt => "Txt",
+                ResolverRecordType::Soa => "Soa",
+                ResolverRecordType::Ns => "Ns",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1479,7 +1529,7 @@ impl ToGlib for ResolverRecordType {
             ResolverRecordType::Txt => gio_sys::G_RESOLVER_RECORD_TXT,
             ResolverRecordType::Soa => gio_sys::G_RESOLVER_RECORD_SOA,
             ResolverRecordType::Ns => gio_sys::G_RESOLVER_RECORD_NS,
-            ResolverRecordType::__Unknown(value) => value
+            ResolverRecordType::__Unknown(value) => value,
         }
     }
 }
@@ -1522,8 +1572,7 @@ impl SetValue for ResolverRecordType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum ResourceError {
     NotFound,
     Internal,
@@ -1533,11 +1582,15 @@ pub enum ResourceError {
 
 impl fmt::Display for ResourceError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ResourceError::{}", match *self {
-            ResourceError::NotFound => "NotFound",
-            ResourceError::Internal => "Internal",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "ResourceError::{}",
+            match *self {
+                ResourceError::NotFound => "NotFound",
+                ResourceError::Internal => "Internal",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1549,7 +1602,7 @@ impl ToGlib for ResourceError {
         match *self {
             ResourceError::NotFound => gio_sys::G_RESOURCE_ERROR_NOT_FOUND,
             ResourceError::Internal => gio_sys::G_RESOURCE_ERROR_INTERNAL,
-            ResourceError::__Unknown(value) => value
+            ResourceError::__Unknown(value) => value,
         }
     }
 }
@@ -1607,8 +1660,7 @@ impl SetValue for ResourceError {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SocketClientEvent {
     Resolving,
     Resolved,
@@ -1625,18 +1677,22 @@ pub enum SocketClientEvent {
 
 impl fmt::Display for SocketClientEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketClientEvent::{}", match *self {
-            SocketClientEvent::Resolving => "Resolving",
-            SocketClientEvent::Resolved => "Resolved",
-            SocketClientEvent::Connecting => "Connecting",
-            SocketClientEvent::Connected => "Connected",
-            SocketClientEvent::ProxyNegotiating => "ProxyNegotiating",
-            SocketClientEvent::ProxyNegotiated => "ProxyNegotiated",
-            SocketClientEvent::TlsHandshaking => "TlsHandshaking",
-            SocketClientEvent::TlsHandshaked => "TlsHandshaked",
-            SocketClientEvent::Complete => "Complete",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SocketClientEvent::{}",
+            match *self {
+                SocketClientEvent::Resolving => "Resolving",
+                SocketClientEvent::Resolved => "Resolved",
+                SocketClientEvent::Connecting => "Connecting",
+                SocketClientEvent::Connected => "Connected",
+                SocketClientEvent::ProxyNegotiating => "ProxyNegotiating",
+                SocketClientEvent::ProxyNegotiated => "ProxyNegotiated",
+                SocketClientEvent::TlsHandshaking => "TlsHandshaking",
+                SocketClientEvent::TlsHandshaked => "TlsHandshaked",
+                SocketClientEvent::Complete => "Complete",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1655,7 +1711,7 @@ impl ToGlib for SocketClientEvent {
             SocketClientEvent::TlsHandshaking => gio_sys::G_SOCKET_CLIENT_TLS_HANDSHAKING,
             SocketClientEvent::TlsHandshaked => gio_sys::G_SOCKET_CLIENT_TLS_HANDSHAKED,
             SocketClientEvent::Complete => gio_sys::G_SOCKET_CLIENT_COMPLETE,
-            SocketClientEvent::__Unknown(value) => value
+            SocketClientEvent::__Unknown(value) => value,
         }
     }
 }
@@ -1702,8 +1758,7 @@ impl SetValue for SocketClientEvent {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SocketFamily {
     Invalid,
     Unix,
@@ -1715,13 +1770,17 @@ pub enum SocketFamily {
 
 impl fmt::Display for SocketFamily {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketFamily::{}", match *self {
-            SocketFamily::Invalid => "Invalid",
-            SocketFamily::Unix => "Unix",
-            SocketFamily::Ipv4 => "Ipv4",
-            SocketFamily::Ipv6 => "Ipv6",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SocketFamily::{}",
+            match *self {
+                SocketFamily::Invalid => "Invalid",
+                SocketFamily::Unix => "Unix",
+                SocketFamily::Ipv4 => "Ipv4",
+                SocketFamily::Ipv6 => "Ipv6",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1735,7 +1794,7 @@ impl ToGlib for SocketFamily {
             SocketFamily::Unix => gio_sys::G_SOCKET_FAMILY_UNIX,
             SocketFamily::Ipv4 => gio_sys::G_SOCKET_FAMILY_IPV4,
             SocketFamily::Ipv6 => gio_sys::G_SOCKET_FAMILY_IPV6,
-            SocketFamily::__Unknown(value) => value
+            SocketFamily::__Unknown(value) => value,
         }
     }
 }
@@ -1778,8 +1837,7 @@ impl SetValue for SocketFamily {
 }
 
 #[cfg(any(feature = "v2_46", feature = "dox"))]
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SocketListenerEvent {
     Binding,
     Bound,
@@ -1792,13 +1850,17 @@ pub enum SocketListenerEvent {
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 impl fmt::Display for SocketListenerEvent {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketListenerEvent::{}", match *self {
-            SocketListenerEvent::Binding => "Binding",
-            SocketListenerEvent::Bound => "Bound",
-            SocketListenerEvent::Listening => "Listening",
-            SocketListenerEvent::Listened => "Listened",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SocketListenerEvent::{}",
+            match *self {
+                SocketListenerEvent::Binding => "Binding",
+                SocketListenerEvent::Bound => "Bound",
+                SocketListenerEvent::Listening => "Listening",
+                SocketListenerEvent::Listened => "Listened",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1813,7 +1875,7 @@ impl ToGlib for SocketListenerEvent {
             SocketListenerEvent::Bound => gio_sys::G_SOCKET_LISTENER_BOUND,
             SocketListenerEvent::Listening => gio_sys::G_SOCKET_LISTENER_LISTENING,
             SocketListenerEvent::Listened => gio_sys::G_SOCKET_LISTENER_LISTENED,
-            SocketListenerEvent::__Unknown(value) => value
+            SocketListenerEvent::__Unknown(value) => value,
         }
     }
 }
@@ -1860,8 +1922,7 @@ impl SetValue for SocketListenerEvent {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SocketProtocol {
     Unknown,
     Default,
@@ -1874,14 +1935,18 @@ pub enum SocketProtocol {
 
 impl fmt::Display for SocketProtocol {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketProtocol::{}", match *self {
-            SocketProtocol::Unknown => "Unknown",
-            SocketProtocol::Default => "Default",
-            SocketProtocol::Tcp => "Tcp",
-            SocketProtocol::Udp => "Udp",
-            SocketProtocol::Sctp => "Sctp",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SocketProtocol::{}",
+            match *self {
+                SocketProtocol::Unknown => "Unknown",
+                SocketProtocol::Default => "Default",
+                SocketProtocol::Tcp => "Tcp",
+                SocketProtocol::Udp => "Udp",
+                SocketProtocol::Sctp => "Sctp",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1896,7 +1961,7 @@ impl ToGlib for SocketProtocol {
             SocketProtocol::Tcp => gio_sys::G_SOCKET_PROTOCOL_TCP,
             SocketProtocol::Udp => gio_sys::G_SOCKET_PROTOCOL_UDP,
             SocketProtocol::Sctp => gio_sys::G_SOCKET_PROTOCOL_SCTP,
-            SocketProtocol::__Unknown(value) => value
+            SocketProtocol::__Unknown(value) => value,
         }
     }
 }
@@ -1939,8 +2004,7 @@ impl SetValue for SocketProtocol {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SocketType {
     Invalid,
     Stream,
@@ -1952,13 +2016,17 @@ pub enum SocketType {
 
 impl fmt::Display for SocketType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SocketType::{}", match *self {
-            SocketType::Invalid => "Invalid",
-            SocketType::Stream => "Stream",
-            SocketType::Datagram => "Datagram",
-            SocketType::Seqpacket => "Seqpacket",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SocketType::{}",
+            match *self {
+                SocketType::Invalid => "Invalid",
+                SocketType::Stream => "Stream",
+                SocketType::Datagram => "Datagram",
+                SocketType::Seqpacket => "Seqpacket",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1972,7 +2040,7 @@ impl ToGlib for SocketType {
             SocketType::Stream => gio_sys::G_SOCKET_TYPE_STREAM,
             SocketType::Datagram => gio_sys::G_SOCKET_TYPE_DATAGRAM,
             SocketType::Seqpacket => gio_sys::G_SOCKET_TYPE_SEQPACKET,
-            SocketType::__Unknown(value) => value
+            SocketType::__Unknown(value) => value,
         }
     }
 }
@@ -2014,8 +2082,7 @@ impl SetValue for SocketType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsAuthenticationMode {
     None,
     Requested,
@@ -2026,12 +2093,16 @@ pub enum TlsAuthenticationMode {
 
 impl fmt::Display for TlsAuthenticationMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsAuthenticationMode::{}", match *self {
-            TlsAuthenticationMode::None => "None",
-            TlsAuthenticationMode::Requested => "Requested",
-            TlsAuthenticationMode::Required => "Required",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TlsAuthenticationMode::{}",
+            match *self {
+                TlsAuthenticationMode::None => "None",
+                TlsAuthenticationMode::Requested => "Requested",
+                TlsAuthenticationMode::Required => "Required",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2044,7 +2115,7 @@ impl ToGlib for TlsAuthenticationMode {
             TlsAuthenticationMode::None => gio_sys::G_TLS_AUTHENTICATION_NONE,
             TlsAuthenticationMode::Requested => gio_sys::G_TLS_AUTHENTICATION_REQUESTED,
             TlsAuthenticationMode::Required => gio_sys::G_TLS_AUTHENTICATION_REQUIRED,
-            TlsAuthenticationMode::__Unknown(value) => value
+            TlsAuthenticationMode::__Unknown(value) => value,
         }
     }
 }
@@ -2085,8 +2156,7 @@ impl SetValue for TlsAuthenticationMode {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsCertificateRequestFlags {
     None,
     #[doc(hidden)]
@@ -2095,10 +2165,14 @@ pub enum TlsCertificateRequestFlags {
 
 impl fmt::Display for TlsCertificateRequestFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsCertificateRequestFlags::{}", match *self {
-            TlsCertificateRequestFlags::None => "None",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TlsCertificateRequestFlags::{}",
+            match *self {
+                TlsCertificateRequestFlags::None => "None",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2109,7 +2183,7 @@ impl ToGlib for TlsCertificateRequestFlags {
     fn to_glib(&self) -> gio_sys::GTlsCertificateRequestFlags {
         match *self {
             TlsCertificateRequestFlags::None => gio_sys::G_TLS_CERTIFICATE_REQUEST_NONE,
-            TlsCertificateRequestFlags::__Unknown(value) => value
+            TlsCertificateRequestFlags::__Unknown(value) => value,
         }
     }
 }
@@ -2148,8 +2222,7 @@ impl SetValue for TlsCertificateRequestFlags {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsDatabaseLookupFlags {
     None,
     Keypair,
@@ -2159,11 +2232,15 @@ pub enum TlsDatabaseLookupFlags {
 
 impl fmt::Display for TlsDatabaseLookupFlags {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsDatabaseLookupFlags::{}", match *self {
-            TlsDatabaseLookupFlags::None => "None",
-            TlsDatabaseLookupFlags::Keypair => "Keypair",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TlsDatabaseLookupFlags::{}",
+            match *self {
+                TlsDatabaseLookupFlags::None => "None",
+                TlsDatabaseLookupFlags::Keypair => "Keypair",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2175,7 +2252,7 @@ impl ToGlib for TlsDatabaseLookupFlags {
         match *self {
             TlsDatabaseLookupFlags::None => gio_sys::G_TLS_DATABASE_LOOKUP_NONE,
             TlsDatabaseLookupFlags::Keypair => gio_sys::G_TLS_DATABASE_LOOKUP_KEYPAIR,
-            TlsDatabaseLookupFlags::__Unknown(value) => value
+            TlsDatabaseLookupFlags::__Unknown(value) => value,
         }
     }
 }
@@ -2215,8 +2292,7 @@ impl SetValue for TlsDatabaseLookupFlags {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsInteractionResult {
     Unhandled,
     Handled,
@@ -2227,12 +2303,16 @@ pub enum TlsInteractionResult {
 
 impl fmt::Display for TlsInteractionResult {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsInteractionResult::{}", match *self {
-            TlsInteractionResult::Unhandled => "Unhandled",
-            TlsInteractionResult::Handled => "Handled",
-            TlsInteractionResult::Failed => "Failed",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TlsInteractionResult::{}",
+            match *self {
+                TlsInteractionResult::Unhandled => "Unhandled",
+                TlsInteractionResult::Handled => "Handled",
+                TlsInteractionResult::Failed => "Failed",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2245,7 +2325,7 @@ impl ToGlib for TlsInteractionResult {
             TlsInteractionResult::Unhandled => gio_sys::G_TLS_INTERACTION_UNHANDLED,
             TlsInteractionResult::Handled => gio_sys::G_TLS_INTERACTION_HANDLED,
             TlsInteractionResult::Failed => gio_sys::G_TLS_INTERACTION_FAILED,
-            TlsInteractionResult::__Unknown(value) => value
+            TlsInteractionResult::__Unknown(value) => value,
         }
     }
 }
@@ -2286,8 +2366,7 @@ impl SetValue for TlsInteractionResult {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsRehandshakeMode {
     Never,
     Safely,
@@ -2298,12 +2377,16 @@ pub enum TlsRehandshakeMode {
 
 impl fmt::Display for TlsRehandshakeMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TlsRehandshakeMode::{}", match *self {
-            TlsRehandshakeMode::Never => "Never",
-            TlsRehandshakeMode::Safely => "Safely",
-            TlsRehandshakeMode::Unsafely => "Unsafely",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TlsRehandshakeMode::{}",
+            match *self {
+                TlsRehandshakeMode::Never => "Never",
+                TlsRehandshakeMode::Safely => "Safely",
+                TlsRehandshakeMode::Unsafely => "Unsafely",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2316,7 +2399,7 @@ impl ToGlib for TlsRehandshakeMode {
             TlsRehandshakeMode::Never => gio_sys::G_TLS_REHANDSHAKE_NEVER,
             TlsRehandshakeMode::Safely => gio_sys::G_TLS_REHANDSHAKE_SAFELY,
             TlsRehandshakeMode::Unsafely => gio_sys::G_TLS_REHANDSHAKE_UNSAFELY,
-            TlsRehandshakeMode::__Unknown(value) => value
+            TlsRehandshakeMode::__Unknown(value) => value,
         }
     }
 }
@@ -2357,8 +2440,7 @@ impl SetValue for TlsRehandshakeMode {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum UnixSocketAddressType {
     Invalid,
     Anonymous,
@@ -2371,14 +2453,18 @@ pub enum UnixSocketAddressType {
 
 impl fmt::Display for UnixSocketAddressType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "UnixSocketAddressType::{}", match *self {
-            UnixSocketAddressType::Invalid => "Invalid",
-            UnixSocketAddressType::Anonymous => "Anonymous",
-            UnixSocketAddressType::Path => "Path",
-            UnixSocketAddressType::Abstract => "Abstract",
-            UnixSocketAddressType::AbstractPadded => "AbstractPadded",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "UnixSocketAddressType::{}",
+            match *self {
+                UnixSocketAddressType::Invalid => "Invalid",
+                UnixSocketAddressType::Anonymous => "Anonymous",
+                UnixSocketAddressType::Path => "Path",
+                UnixSocketAddressType::Abstract => "Abstract",
+                UnixSocketAddressType::AbstractPadded => "AbstractPadded",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2393,7 +2479,7 @@ impl ToGlib for UnixSocketAddressType {
             UnixSocketAddressType::Path => gio_sys::G_UNIX_SOCKET_ADDRESS_PATH,
             UnixSocketAddressType::Abstract => gio_sys::G_UNIX_SOCKET_ADDRESS_ABSTRACT,
             UnixSocketAddressType::AbstractPadded => gio_sys::G_UNIX_SOCKET_ADDRESS_ABSTRACT_PADDED,
-            UnixSocketAddressType::__Unknown(value) => value
+            UnixSocketAddressType::__Unknown(value) => value,
         }
     }
 }
@@ -2436,8 +2522,7 @@ impl SetValue for UnixSocketAddressType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum ZlibCompressorFormat {
     Zlib,
     Gzip,
@@ -2448,12 +2533,16 @@ pub enum ZlibCompressorFormat {
 
 impl fmt::Display for ZlibCompressorFormat {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ZlibCompressorFormat::{}", match *self {
-            ZlibCompressorFormat::Zlib => "Zlib",
-            ZlibCompressorFormat::Gzip => "Gzip",
-            ZlibCompressorFormat::Raw => "Raw",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "ZlibCompressorFormat::{}",
+            match *self {
+                ZlibCompressorFormat::Zlib => "Zlib",
+                ZlibCompressorFormat::Gzip => "Gzip",
+                ZlibCompressorFormat::Raw => "Raw",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -2466,7 +2555,7 @@ impl ToGlib for ZlibCompressorFormat {
             ZlibCompressorFormat::Zlib => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_ZLIB,
             ZlibCompressorFormat::Gzip => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_GZIP,
             ZlibCompressorFormat::Raw => gio_sys::G_ZLIB_COMPRESSOR_FORMAT_RAW,
-            ZlibCompressorFormat::__Unknown(value) => value
+            ZlibCompressorFormat::__Unknown(value) => value,
         }
     }
 }
@@ -2506,4 +2595,3 @@ impl SetValue for ZlibCompressorFormat {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
-

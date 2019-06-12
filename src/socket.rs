@@ -26,10 +26,10 @@ use futures::future::Future;
 use futures::stream::Stream;
 
 #[cfg(unix)]
-use std::os::unix::io::{RawFd, AsRawFd, IntoRawFd, FromRawFd};
+use std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
 
 #[cfg(windows)]
-use std::os::windows::io::{RawSocket, AsRawSocket, IntoRawSocket, FromRawSocket};
+use std::os::windows::io::{AsRawSocket, FromRawSocket, IntoRawSocket, RawSocket};
 
 impl Socket {
     #[cfg(any(unix, feature = "dox"))]
@@ -37,43 +37,74 @@ impl Socket {
         let fd = fd.into_raw_fd();
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_socket_new_from_fd(fd, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
     #[cfg(any(windows, feature = "dox"))]
     pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
         let socket = socket.into_raw_socket();
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_socket_new_from_fd(socket as i32, &mut error);
-        if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+        if error.is_null() {
+            Ok(from_glib_full(ret))
+        } else {
+            Err(from_glib_full(error))
+        }
     }
 }
 
 #[cfg(any(unix, feature = "dox"))]
 impl AsRawFd for Socket {
     fn as_raw_fd(&self) -> RawFd {
-        unsafe {
-            gio_sys::g_socket_get_fd(self.to_glib_none().0) as _
-        }
+        unsafe { gio_sys::g_socket_get_fd(self.to_glib_none().0) as _ }
     }
 }
 
 #[cfg(any(windows, feature = "dox"))]
 impl AsRawSocket for Socket {
     fn as_raw_socket(&self) -> RawSocket {
-        unsafe {
-            gio_sys::g_socket_get_fd(self.to_glib_none().0) as _
-        }
+        unsafe { gio_sys::g_socket_get_fd(self.to_glib_none().0) as _ }
     }
 }
 
 pub trait SocketExtManual: Sized {
-    fn receive<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
-    fn receive_from<B: AsMut<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<(usize, SocketAddress), Error>;
-    fn receive_with_blocking<B: AsMut<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn receive<B: AsMut<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
+    fn receive_from<B: AsMut<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<(usize, SocketAddress), Error>;
+    fn receive_with_blocking<B: AsMut<[u8]>>(
+        &self,
+        buffer: B,
+        blocking: bool,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
 
-    fn send<B: AsRef<[u8]>>(&self, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
-    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(&self, address: Option<&P>, buffer: B, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
-    fn send_with_blocking<B: AsRef<[u8]>>(&self, buffer: B, blocking: bool, cancellable: Option<&Cancellable>) -> Result<usize, Error>;
+    fn send<B: AsRef<[u8]>>(
+        &self,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(
+        &self,
+        address: Option<&P>,
+        buffer: B,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
+    fn send_with_blocking<B: AsRef<[u8]>>(
+        &self,
+        buffer: B,
+        blocking: bool,
+        cancellable: Option<&Cancellable>,
+    ) -> Result<usize, Error>;
 
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T;
@@ -81,8 +112,16 @@ pub trait SocketExtManual: Sized {
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
 
-    fn create_source<F>(&self, condition: glib::IOCondition, cancellable: Option<&Cancellable>, name: Option<&str>, priority: glib::Priority, func: F) -> glib::Source
-    where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
+    fn create_source<F>(
+        &self,
+        condition: glib::IOCondition,
+        cancellable: Option<&Cancellable>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
+    where
+        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
     #[cfg(feature = "futures")]
     fn create_source_future(
@@ -113,7 +152,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_receive(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -135,7 +180,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             let mut error = ptr::null_mut();
             let mut addr_ptr = ptr::null_mut();
 
-            let ret = gio_sys::g_socket_receive_from(self.as_ref().to_glib_none().0, &mut addr_ptr, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive_from(
+                self.as_ref().to_glib_none().0,
+                &mut addr_ptr,
+                buffer_ptr,
+                count,
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok((ret as usize, from_glib_full(addr_ptr)))
             } else {
@@ -156,7 +208,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_receive_with_blocking(self.as_ref().to_glib_none().0, buffer_ptr, count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_receive_with_blocking(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                blocking.to_glib(),
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -177,7 +236,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_send(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send(
+                self.as_ref().to_glib_none().0,
+                mut_override(buffer_ptr),
+                count,
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -200,7 +265,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         unsafe {
             let mut error = ptr::null_mut();
 
-            let ret = gio_sys::g_socket_send_to(self.as_ref().to_glib_none().0, address.map(|p| p.as_ref()).to_glib_none().0, mut_override(buffer_ptr), count, cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send_to(
+                self.as_ref().to_glib_none().0,
+                address.map(|p| p.as_ref()).to_glib_none().0,
+                mut_override(buffer_ptr),
+                count,
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -222,7 +294,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         };
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_socket_send_with_blocking(self.as_ref().to_glib_none().0, mut_override(buffer_ptr), count, blocking.to_glib(), cancellable.0, &mut error);
+            let ret = gio_sys::g_socket_send_with_blocking(
+                self.as_ref().to_glib_none().0,
+                mut_override(buffer_ptr),
+                count,
+                blocking.to_glib(),
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -233,15 +312,15 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T {
-        unsafe {
-            FromRawFd::from_raw_fd(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0))
-        }
+        unsafe { FromRawFd::from_raw_fd(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T {
         unsafe {
-            FromRawSocket::from_raw_socket(gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0) as _)
+            FromRawSocket::from_raw_socket(
+                gio_sys::g_socket_get_fd(self.as_ref().to_glib_none().0) as _
+            )
         }
     }
 
@@ -253,26 +332,45 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         priority: glib::Priority,
         func: F,
     ) -> glib::Source
-    where F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static {
+    where
+        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
+    {
         #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
         unsafe extern "C" fn trampoline<O: IsA<Socket>>(
             socket: *mut gio_sys::GSocket,
             condition: glib_sys::GIOCondition,
             func: glib_sys::gpointer,
         ) -> glib_sys::gboolean {
-            let func: &Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>> = transmute(func);
+            let func: &Fragile<
+                RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>,
+            > = transmute(func);
             let func = func.get();
             let mut func = func.borrow_mut();
-            (&mut *func)(&Socket::from_glib_borrow(socket).unsafe_cast(), from_glib(condition)).to_glib()
+            (&mut *func)(
+                &Socket::from_glib_borrow(socket).unsafe_cast(),
+                from_glib(condition),
+            )
+            .to_glib()
         }
         unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
-            Box::<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>>::from_raw(ptr as *mut _);
+            Box::<
+                Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>,
+            >::from_raw(ptr as *mut _);
         }
         let cancellable = cancellable.to_glib_none();
         unsafe {
-            let source = gio_sys::g_socket_create_source(self.as_ref().to_glib_none().0, condition.to_glib(), cancellable.0);
+            let source = gio_sys::g_socket_create_source(
+                self.as_ref().to_glib_none().0,
+                condition.to_glib(),
+                cancellable.0,
+            );
             let trampoline = trampoline::<O> as glib_sys::gpointer;
-            glib_sys::g_source_set_callback(source, Some(transmute(trampoline)), into_raw(func), Some(destroy_closure::<O>));
+            glib_sys::g_source_set_callback(
+                source,
+                Some(transmute(trampoline)),
+                into_raw(func),
+                Some(destroy_closure::<O>),
+            );
             glib_sys::g_source_set_priority(source, priority.to_glib());
 
             if let Some(name) = name {
@@ -295,10 +393,16 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
             let mut send = Some(send);
-            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |_, condition| {
-                let _ = send.take().unwrap().send(condition);
-                glib::Continue(false)
-            })
+            obj.get().create_source(
+                condition,
+                cancellable.as_ref(),
+                None,
+                priority,
+                move |_, condition| {
+                    let _ = send.take().unwrap().send(condition);
+                    glib::Continue(false)
+                },
+            )
         }))
     }
 
@@ -314,13 +418,19 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
             let send = Some(send);
-            obj.get().create_source(condition, cancellable.as_ref(), None, priority, move |_, condition| {
-                if send.as_ref().unwrap().unbounded_send(condition).is_err() {
-                    glib::Continue(false)
-                } else {
-                    glib::Continue(true)
-                }
-            })
+            obj.get().create_source(
+                condition,
+                cancellable.as_ref(),
+                None,
+                priority,
+                move |_, condition| {
+                    if send.as_ref().unwrap().unbounded_send(condition).is_err() {
+                        glib::Continue(false)
+                    } else {
+                        glib::Continue(true)
+                    }
+                },
+            )
         }))
     }
 }
@@ -328,8 +438,9 @@ impl<O: IsA<Socket>> SocketExtManual for O {
 fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(
     func: F,
 ) -> glib_sys::gpointer {
-    let func: Box<Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>> =
-        Box::new(Fragile::new(RefCell::new(Box::new(func))));
+    let func: Box<
+        Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>,
+    > = Box::new(Fragile::new(RefCell::new(Box::new(func))));
     Box::into_raw(func) as glib_sys::gpointer
 }
 

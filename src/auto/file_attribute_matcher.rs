@@ -3,8 +3,8 @@
 // DO NOT EDIT
 
 use gio_sys;
-use glib::GString;
 use glib::translate::*;
+use glib::GString;
 use std::fmt;
 
 glib_wrapper! {
@@ -21,37 +21,56 @@ glib_wrapper! {
 impl FileAttributeMatcher {
     pub fn new(attributes: &str) -> FileAttributeMatcher {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_new(attributes.to_glib_none().0))
+            from_glib_full(gio_sys::g_file_attribute_matcher_new(
+                attributes.to_glib_none().0,
+            ))
         }
     }
 
     pub fn enumerate_namespace(&self, ns: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_enumerate_namespace(self.to_glib_none().0, ns.to_glib_none().0))
+            from_glib(gio_sys::g_file_attribute_matcher_enumerate_namespace(
+                self.to_glib_none().0,
+                ns.to_glib_none().0,
+            ))
         }
     }
 
     pub fn matches(&self, attribute: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_matches(self.to_glib_none().0, attribute.to_glib_none().0))
+            from_glib(gio_sys::g_file_attribute_matcher_matches(
+                self.to_glib_none().0,
+                attribute.to_glib_none().0,
+            ))
         }
     }
 
     pub fn matches_only(&self, attribute: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_file_attribute_matcher_matches_only(self.to_glib_none().0, attribute.to_glib_none().0))
+            from_glib(gio_sys::g_file_attribute_matcher_matches_only(
+                self.to_glib_none().0,
+                attribute.to_glib_none().0,
+            ))
         }
     }
 
-    pub fn subtract(&self, subtract: Option<&FileAttributeMatcher>) -> Option<FileAttributeMatcher> {
+    pub fn subtract(
+        &self,
+        subtract: Option<&FileAttributeMatcher>,
+    ) -> Option<FileAttributeMatcher> {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_subtract(self.to_glib_none().0, subtract.to_glib_none().0))
+            from_glib_full(gio_sys::g_file_attribute_matcher_subtract(
+                self.to_glib_none().0,
+                subtract.to_glib_none().0,
+            ))
         }
     }
 
     fn to_string(&self) -> GString {
         unsafe {
-            from_glib_full(gio_sys::g_file_attribute_matcher_to_string(self.to_glib_none().0))
+            from_glib_full(gio_sys::g_file_attribute_matcher_to_string(
+                self.to_glib_none().0,
+            ))
         }
     }
 }

@@ -13,8 +13,8 @@ pub trait ConverterExtManual {
         &self,
         inbuf: IN,
         outbuf: OUT,
-        flags: ConverterFlags)
-        -> Result<(ConverterResult, usize, usize), Error>;
+        flags: ConverterFlags,
+    ) -> Result<(ConverterResult, usize, usize), Error>;
 }
 
 impl<O: IsA<Converter>> ConverterExtManual for O {
@@ -22,8 +22,8 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
         &self,
         inbuf: IN,
         outbuf: OUT,
-        flags: ConverterFlags)
-        -> Result<(ConverterResult, usize, usize), Error> {
+        flags: ConverterFlags,
+    ) -> Result<(ConverterResult, usize, usize), Error> {
         let inbuf: Box<IN> = Box::new(inbuf);
         let (inbuf_size, inbuf) = {
             let slice = (*inbuf).as_ref();
@@ -38,15 +38,17 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
             let mut bytes_read = mem::uninitialized();
             let mut bytes_written = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_converter_convert(self.as_ref().to_glib_none().0,
-                                               mut_override(inbuf),
-                                               inbuf_size,
-                                               outbuf,
-                                               outbuf_size,
-                                               flags.to_glib(),
-                                               &mut bytes_read,
-                                               &mut bytes_written,
-                                               &mut error);
+            let ret = gio_sys::g_converter_convert(
+                self.as_ref().to_glib_none().0,
+                mut_override(inbuf),
+                inbuf_size,
+                outbuf,
+                outbuf_size,
+                flags.to_glib(),
+                &mut bytes_read,
+                &mut bytes_written,
+                &mut error,
+            );
             if error.is_null() {
                 Ok((from_glib(ret), bytes_read, bytes_written))
             } else {

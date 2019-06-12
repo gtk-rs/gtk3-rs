@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Icon;
-use NotificationPriority;
 use gio_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Icon;
+use NotificationPriority;
 
 glib_wrapper! {
     pub struct Notification(Object<gio_sys::GNotification, NotificationClass>);
@@ -20,14 +20,16 @@ glib_wrapper! {
 
 impl Notification {
     pub fn new(title: &str) -> Notification {
-        unsafe {
-            from_glib_full(gio_sys::g_notification_new(title.to_glib_none().0))
-        }
+        unsafe { from_glib_full(gio_sys::g_notification_new(title.to_glib_none().0)) }
     }
 
     pub fn add_button(&self, label: &str, detailed_action: &str) {
         unsafe {
-            gio_sys::g_notification_add_button(self.to_glib_none().0, label.to_glib_none().0, detailed_action.to_glib_none().0);
+            gio_sys::g_notification_add_button(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                detailed_action.to_glib_none().0,
+            );
         }
     }
 
@@ -35,9 +37,19 @@ impl Notification {
     //    unsafe { TODO: call gio_sys:g_notification_add_button_with_target() }
     //}
 
-    pub fn add_button_with_target_value(&self, label: &str, action: &str, target: Option<&glib::Variant>) {
+    pub fn add_button_with_target_value(
+        &self,
+        label: &str,
+        action: &str,
+        target: Option<&glib::Variant>,
+    ) {
         unsafe {
-            gio_sys::g_notification_add_button_with_target_value(self.to_glib_none().0, label.to_glib_none().0, action.to_glib_none().0, target.to_glib_none().0);
+            gio_sys::g_notification_add_button_with_target_value(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                action.to_glib_none().0,
+                target.to_glib_none().0,
+            );
         }
     }
 
@@ -49,7 +61,10 @@ impl Notification {
 
     pub fn set_default_action(&self, detailed_action: &str) {
         unsafe {
-            gio_sys::g_notification_set_default_action(self.to_glib_none().0, detailed_action.to_glib_none().0);
+            gio_sys::g_notification_set_default_action(
+                self.to_glib_none().0,
+                detailed_action.to_glib_none().0,
+            );
         }
     }
 
@@ -57,9 +72,17 @@ impl Notification {
     //    unsafe { TODO: call gio_sys:g_notification_set_default_action_and_target() }
     //}
 
-    pub fn set_default_action_and_target_value(&self, action: &str, target: Option<&glib::Variant>) {
+    pub fn set_default_action_and_target_value(
+        &self,
+        action: &str,
+        target: Option<&glib::Variant>,
+    ) {
         unsafe {
-            gio_sys::g_notification_set_default_action_and_target_value(self.to_glib_none().0, action.to_glib_none().0, target.to_glib_none().0);
+            gio_sys::g_notification_set_default_action_and_target_value(
+                self.to_glib_none().0,
+                action.to_glib_none().0,
+                target.to_glib_none().0,
+            );
         }
     }
 
