@@ -32,47 +32,64 @@ unsafe impl Sync for String {}
 impl String {
     pub fn new<T: AsRef<[u8]>>(data: T) -> String {
         let bytes = data.as_ref();
-        unsafe { from_glib_full(glib_sys::g_string_new_len(
-                    bytes.as_ptr() as *const _, 
-                    bytes.len() as isize)) }
+        unsafe {
+            from_glib_full(glib_sys::g_string_new_len(
+                bytes.as_ptr() as *const _,
+                bytes.len() as isize,
+            ))
+        }
     }
 
     pub fn append(&mut self, val: &str) -> &mut Self {
-        unsafe { glib_sys::g_string_append_len(
-                    self.to_glib_none_mut().0, 
-                    val.to_glib_none().0, 
-                    val.len() as isize); }
+        unsafe {
+            glib_sys::g_string_append_len(
+                self.to_glib_none_mut().0,
+                val.to_glib_none().0,
+                val.len() as isize,
+            );
+        }
         self
     }
 
     pub fn insert(&mut self, pos: isize, val: &str) -> &mut Self {
-        unsafe { glib_sys::g_string_insert_len(
-                    self.to_glib_none_mut().0, 
-                    pos, 
-                    val.to_glib_none().0,
-                    val.len() as isize); }
+        unsafe {
+            glib_sys::g_string_insert_len(
+                self.to_glib_none_mut().0,
+                pos,
+                val.to_glib_none().0,
+                val.len() as isize,
+            );
+        }
         self
     }
 
     pub fn overwrite(&mut self, pos: usize, val: &str) -> &mut Self {
-        unsafe { glib_sys::g_string_overwrite_len(
-                    self.to_glib_none_mut().0, 
-                    pos, 
-                    val.to_glib_none().0,
-                    val.len() as isize); }
+        unsafe {
+            glib_sys::g_string_overwrite_len(
+                self.to_glib_none_mut().0,
+                pos,
+                val.to_glib_none().0,
+                val.len() as isize,
+            );
+        }
         self
     }
 
     pub fn prepend(&mut self, val: &str) -> &mut Self {
-        unsafe { glib_sys::g_string_prepend_len(
-                    self.to_glib_none_mut().0, 
-                    val.to_glib_none().0,
-                    val.len() as isize); }
+        unsafe {
+            glib_sys::g_string_prepend_len(
+                self.to_glib_none_mut().0,
+                val.to_glib_none().0,
+                val.len() as isize,
+            );
+        }
         self
     }
 
     pub fn truncate(&mut self, len: usize) -> &mut Self {
-        unsafe { glib_sys::g_string_truncate(self.to_glib_none_mut().0, len); }
+        unsafe {
+            glib_sys::g_string_truncate(self.to_glib_none_mut().0, len);
+        }
         self
     }
 
@@ -110,8 +127,10 @@ impl fmt::Display for String {
 impl PartialEq for String {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
-            from_glib(glib_sys::g_string_equal(self.to_glib_none().0, 
-                                               other.to_glib_none().0))
+            from_glib(glib_sys::g_string_equal(
+                self.to_glib_none().0,
+                other.to_glib_none().0,
+            ))
         }
     }
 }
@@ -131,7 +150,10 @@ impl cmp::Ord for String {
 }
 
 impl hash::Hash for String {
-    fn hash<H>(&self, state: &mut H) where H: hash::Hasher {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: hash::Hasher,
+    {
         hash::Hash::hash_slice(self.as_ref(), state)
     }
 }
@@ -201,10 +223,8 @@ mod tests {
 
     #[test]
     fn display() {
-        let s: ::String = ::String::new("This is a string."); 
-        assert_eq!(
-            &format!("{}", s),
-            "This is a string.");
+        let s: ::String = ::String::new("This is a string.");
+        assert_eq!(&format!("{}", s), "This is a string.");
     }
 
     #[test]

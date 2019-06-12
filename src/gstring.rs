@@ -43,14 +43,15 @@ impl GString {
             GString::Borrowed(ptr, length) => unsafe {
                 let bytes = slice::from_raw_parts(*ptr as *const u8, length + 1);
                 CStr::from_bytes_with_nul_unchecked(bytes)
-            }
+            },
             GString::Owned(ptr, length) => unsafe {
                 let bytes = slice::from_raw_parts(*ptr as *const u8, length + 1);
                 CStr::from_bytes_with_nul_unchecked(bytes)
-            }
-            GString::ForeignOwned(cstring) => {
-                cstring.as_ref().expect("ForeignOwned shouldn't be empty").as_c_str()
-            }
+            },
+            GString::ForeignOwned(cstring) => cstring
+                .as_ref()
+                .expect("ForeignOwned shouldn't be empty")
+                .as_c_str(),
         };
         cstr.to_str().unwrap()
     }
@@ -200,7 +201,11 @@ impl From<GString> for String {
     #[inline]
     fn from(mut s: GString) -> Self {
         if let GString::ForeignOwned(ref mut cstring) = s {
-            if let Ok(s) = cstring.take().expect("ForeignOwned shouldn't be empty").into_string() {
+            if let Ok(s) = cstring
+                .take()
+                .expect("ForeignOwned shouldn't be empty")
+                .into_string()
+            {
                 return s;
             }
         }
@@ -382,9 +387,7 @@ impl StaticType for GString {
 
 impl StaticType for Vec<GString> {
     fn static_type() -> Type {
-        unsafe {
-            from_glib(glib_sys::g_strv_get_type())
-        }
+        unsafe { from_glib(glib_sys::g_strv_get_type()) }
     }
 }
 
@@ -417,9 +420,9 @@ impl_from_glib_container_as_vec_string!(GString, *mut c_char);
 
 #[cfg(test)]
 mod tests {
+    use glib_sys;
     use gstring::GString;
     use std::ffi::CString;
-    use glib_sys;
 
     #[test]
     fn test_gstring() {

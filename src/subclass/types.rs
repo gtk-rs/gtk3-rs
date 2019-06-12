@@ -363,8 +363,10 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
     }
 }
 
-unsafe extern "C" fn class_init<T: ObjectSubclass>(klass: glib_sys::gpointer, _klass_data: glib_sys::gpointer)
-where
+unsafe extern "C" fn class_init<T: ObjectSubclass>(
+    klass: glib_sys::gpointer,
+    _klass_data: glib_sys::gpointer,
+) where
     <<T as ObjectSubclass>::ParentType as ObjectType>::RustClassType: IsSubclassable<T>,
 {
     let mut data = T::type_data();
@@ -389,8 +391,9 @@ where
     // class initialization function.
     {
         let klass = &mut *(klass as *mut T::Class);
-        let parent_class = gobject_sys::g_type_class_peek_parent(klass as *mut _ as glib_sys::gpointer)
-            as *mut <T::ParentType as ObjectType>::GlibClassType;
+        let parent_class =
+            gobject_sys::g_type_class_peek_parent(klass as *mut _ as glib_sys::gpointer)
+                as *mut <T::ParentType as ObjectType>::GlibClassType;
         assert!(!parent_class.is_null());
 
         (*data.as_mut()).parent_class = parent_class as glib_sys::gpointer;
@@ -470,7 +473,10 @@ where
 
         let type_name = CString::new(T::NAME).unwrap();
         if gobject_sys::g_type_from_name(type_name.as_ptr()) != gobject_sys::G_TYPE_INVALID {
-            panic!("Type {} has already been registered", type_name.to_str().unwrap());
+            panic!(
+                "Type {} has already been registered",
+                type_name.to_str().unwrap()
+            );
         }
 
         let type_ = from_glib(gobject_sys::g_type_register_static(

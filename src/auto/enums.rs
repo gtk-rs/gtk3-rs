@@ -2,14 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Quark;
 use error::ErrorDomain;
 use glib_sys;
 use std::fmt;
 use translate::*;
+use Quark;
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum ChecksumType {
     Md5,
     Sha1,
@@ -23,15 +22,19 @@ pub enum ChecksumType {
 
 impl fmt::Display for ChecksumType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "ChecksumType::{}", match *self {
-            ChecksumType::Md5 => "Md5",
-            ChecksumType::Sha1 => "Sha1",
-            ChecksumType::Sha256 => "Sha256",
-            ChecksumType::Sha512 => "Sha512",
-            #[cfg(any(feature = "v2_52", feature = "dox"))]
-            ChecksumType::Sha384 => "Sha384",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "ChecksumType::{}",
+            match *self {
+                ChecksumType::Md5 => "Md5",
+                ChecksumType::Sha1 => "Sha1",
+                ChecksumType::Sha256 => "Sha256",
+                ChecksumType::Sha512 => "Sha512",
+                #[cfg(any(feature = "v2_52", feature = "dox"))]
+                ChecksumType::Sha384 => "Sha384",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -47,7 +50,7 @@ impl ToGlib for ChecksumType {
             ChecksumType::Sha512 => glib_sys::G_CHECKSUM_SHA512,
             #[cfg(any(feature = "v2_52", feature = "dox"))]
             ChecksumType::Sha384 => glib_sys::G_CHECKSUM_SHA384,
-            ChecksumType::__Unknown(value) => value
+            ChecksumType::__Unknown(value) => value,
         }
     }
 }
@@ -67,8 +70,7 @@ impl FromGlib<glib_sys::GChecksumType> for ChecksumType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DateMonth {
     BadMonth,
     January,
@@ -89,22 +91,26 @@ pub enum DateMonth {
 
 impl fmt::Display for DateMonth {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DateMonth::{}", match *self {
-            DateMonth::BadMonth => "BadMonth",
-            DateMonth::January => "January",
-            DateMonth::February => "February",
-            DateMonth::March => "March",
-            DateMonth::April => "April",
-            DateMonth::May => "May",
-            DateMonth::June => "June",
-            DateMonth::July => "July",
-            DateMonth::August => "August",
-            DateMonth::September => "September",
-            DateMonth::October => "October",
-            DateMonth::November => "November",
-            DateMonth::December => "December",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "DateMonth::{}",
+            match *self {
+                DateMonth::BadMonth => "BadMonth",
+                DateMonth::January => "January",
+                DateMonth::February => "February",
+                DateMonth::March => "March",
+                DateMonth::April => "April",
+                DateMonth::May => "May",
+                DateMonth::June => "June",
+                DateMonth::July => "July",
+                DateMonth::August => "August",
+                DateMonth::September => "September",
+                DateMonth::October => "October",
+                DateMonth::November => "November",
+                DateMonth::December => "December",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -127,7 +133,7 @@ impl ToGlib for DateMonth {
             DateMonth::October => glib_sys::G_DATE_OCTOBER,
             DateMonth::November => glib_sys::G_DATE_NOVEMBER,
             DateMonth::December => glib_sys::G_DATE_DECEMBER,
-            DateMonth::__Unknown(value) => value
+            DateMonth::__Unknown(value) => value,
         }
     }
 }
@@ -154,8 +160,7 @@ impl FromGlib<glib_sys::GDateMonth> for DateMonth {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DateWeekday {
     BadWeekday,
     Monday,
@@ -171,17 +176,21 @@ pub enum DateWeekday {
 
 impl fmt::Display for DateWeekday {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "DateWeekday::{}", match *self {
-            DateWeekday::BadWeekday => "BadWeekday",
-            DateWeekday::Monday => "Monday",
-            DateWeekday::Tuesday => "Tuesday",
-            DateWeekday::Wednesday => "Wednesday",
-            DateWeekday::Thursday => "Thursday",
-            DateWeekday::Friday => "Friday",
-            DateWeekday::Saturday => "Saturday",
-            DateWeekday::Sunday => "Sunday",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "DateWeekday::{}",
+            match *self {
+                DateWeekday::BadWeekday => "BadWeekday",
+                DateWeekday::Monday => "Monday",
+                DateWeekday::Tuesday => "Tuesday",
+                DateWeekday::Wednesday => "Wednesday",
+                DateWeekday::Thursday => "Thursday",
+                DateWeekday::Friday => "Friday",
+                DateWeekday::Saturday => "Saturday",
+                DateWeekday::Sunday => "Sunday",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -199,7 +208,7 @@ impl ToGlib for DateWeekday {
             DateWeekday::Friday => glib_sys::G_DATE_FRIDAY,
             DateWeekday::Saturday => glib_sys::G_DATE_SATURDAY,
             DateWeekday::Sunday => glib_sys::G_DATE_SUNDAY,
-            DateWeekday::__Unknown(value) => value
+            DateWeekday::__Unknown(value) => value,
         }
     }
 }
@@ -221,8 +230,7 @@ impl FromGlib<glib_sys::GDateWeekday> for DateWeekday {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum KeyFileError {
     UnknownEncoding,
     Parse,
@@ -236,15 +244,19 @@ pub enum KeyFileError {
 
 impl fmt::Display for KeyFileError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "KeyFileError::{}", match *self {
-            KeyFileError::UnknownEncoding => "UnknownEncoding",
-            KeyFileError::Parse => "Parse",
-            KeyFileError::NotFound => "NotFound",
-            KeyFileError::KeyNotFound => "KeyNotFound",
-            KeyFileError::GroupNotFound => "GroupNotFound",
-            KeyFileError::InvalidValue => "InvalidValue",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "KeyFileError::{}",
+            match *self {
+                KeyFileError::UnknownEncoding => "UnknownEncoding",
+                KeyFileError::Parse => "Parse",
+                KeyFileError::NotFound => "NotFound",
+                KeyFileError::KeyNotFound => "KeyNotFound",
+                KeyFileError::GroupNotFound => "GroupNotFound",
+                KeyFileError::InvalidValue => "InvalidValue",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -260,7 +272,7 @@ impl ToGlib for KeyFileError {
             KeyFileError::KeyNotFound => glib_sys::G_KEY_FILE_ERROR_KEY_NOT_FOUND,
             KeyFileError::GroupNotFound => glib_sys::G_KEY_FILE_ERROR_GROUP_NOT_FOUND,
             KeyFileError::InvalidValue => glib_sys::G_KEY_FILE_ERROR_INVALID_VALUE,
-            KeyFileError::__Unknown(value) => value
+            KeyFileError::__Unknown(value) => value,
         }
     }
 }
@@ -302,8 +314,7 @@ impl ErrorDomain for KeyFileError {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum OptionArg {
     None,
     String,
@@ -320,18 +331,22 @@ pub enum OptionArg {
 
 impl fmt::Display for OptionArg {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "OptionArg::{}", match *self {
-            OptionArg::None => "None",
-            OptionArg::String => "String",
-            OptionArg::Int => "Int",
-            OptionArg::Callback => "Callback",
-            OptionArg::Filename => "Filename",
-            OptionArg::StringArray => "StringArray",
-            OptionArg::FilenameArray => "FilenameArray",
-            OptionArg::Double => "Double",
-            OptionArg::Int64 => "Int64",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "OptionArg::{}",
+            match *self {
+                OptionArg::None => "None",
+                OptionArg::String => "String",
+                OptionArg::Int => "Int",
+                OptionArg::Callback => "Callback",
+                OptionArg::Filename => "Filename",
+                OptionArg::StringArray => "StringArray",
+                OptionArg::FilenameArray => "FilenameArray",
+                OptionArg::Double => "Double",
+                OptionArg::Int64 => "Int64",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -350,7 +365,7 @@ impl ToGlib for OptionArg {
             OptionArg::FilenameArray => glib_sys::G_OPTION_ARG_FILENAME_ARRAY,
             OptionArg::Double => glib_sys::G_OPTION_ARG_DOUBLE,
             OptionArg::Int64 => glib_sys::G_OPTION_ARG_INT64,
-            OptionArg::__Unknown(value) => value
+            OptionArg::__Unknown(value) => value,
         }
     }
 }
@@ -373,8 +388,7 @@ impl FromGlib<glib_sys::GOptionArg> for OptionArg {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum SeekType {
     Cur,
     Set,
@@ -385,12 +399,16 @@ pub enum SeekType {
 
 impl fmt::Display for SeekType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SeekType::{}", match *self {
-            SeekType::Cur => "Cur",
-            SeekType::Set => "Set",
-            SeekType::End => "End",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "SeekType::{}",
+            match *self {
+                SeekType::Cur => "Cur",
+                SeekType::Set => "Set",
+                SeekType::End => "End",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -403,7 +421,7 @@ impl ToGlib for SeekType {
             SeekType::Cur => glib_sys::G_SEEK_CUR,
             SeekType::Set => glib_sys::G_SEEK_SET,
             SeekType::End => glib_sys::G_SEEK_END,
-            SeekType::__Unknown(value) => value
+            SeekType::__Unknown(value) => value,
         }
     }
 }
@@ -420,8 +438,7 @@ impl FromGlib<glib_sys::GSeekType> for SeekType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TimeType {
     Standard,
     Daylight,
@@ -432,12 +449,16 @@ pub enum TimeType {
 
 impl fmt::Display for TimeType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TimeType::{}", match *self {
-            TimeType::Standard => "Standard",
-            TimeType::Daylight => "Daylight",
-            TimeType::Universal => "Universal",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TimeType::{}",
+            match *self {
+                TimeType::Standard => "Standard",
+                TimeType::Daylight => "Daylight",
+                TimeType::Universal => "Universal",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -450,7 +471,7 @@ impl ToGlib for TimeType {
             TimeType::Standard => glib_sys::G_TIME_TYPE_STANDARD,
             TimeType::Daylight => glib_sys::G_TIME_TYPE_DAYLIGHT,
             TimeType::Universal => glib_sys::G_TIME_TYPE_UNIVERSAL,
-            TimeType::__Unknown(value) => value
+            TimeType::__Unknown(value) => value,
         }
     }
 }
@@ -466,4 +487,3 @@ impl FromGlib<glib_sys::GTimeType> for TimeType {
         }
     }
 }
-

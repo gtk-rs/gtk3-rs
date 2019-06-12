@@ -49,9 +49,9 @@ pub use self::alias::TimeSpan;
 pub mod functions;
 
 mod constants;
+pub use self::constants::CSET_a_2_z;
 pub use self::constants::CSET_A_2_Z;
 pub use self::constants::CSET_DIGITS;
-pub use self::constants::CSET_a_2_z;
 pub use self::constants::KEY_FILE_DESKTOP_ACTION_GROUP_PREFIX;
 pub use self::constants::KEY_FILE_DESKTOP_GROUP;
 pub use self::constants::KEY_FILE_DESKTOP_KEY_ACTIONS;
@@ -87,5 +87,4 @@ pub use self::constants::URI_RESERVED_CHARS_GENERIC_DELIMITERS;
 pub use self::constants::URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS;
 
 #[doc(hidden)]
-pub mod traits {
-}
+pub mod traits {}

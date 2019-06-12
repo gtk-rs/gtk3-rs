@@ -2,10 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use GString;
-use TimeType;
 use glib_sys;
 use translate::*;
+use GString;
+use TimeType;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -20,28 +20,20 @@ glib_wrapper! {
 
 impl TimeZone {
     pub fn new(identifier: Option<&str>) -> TimeZone {
-        unsafe {
-            from_glib_full(glib_sys::g_time_zone_new(identifier.to_glib_none().0))
-        }
+        unsafe { from_glib_full(glib_sys::g_time_zone_new(identifier.to_glib_none().0)) }
     }
 
     pub fn new_local() -> TimeZone {
-        unsafe {
-            from_glib_full(glib_sys::g_time_zone_new_local())
-        }
+        unsafe { from_glib_full(glib_sys::g_time_zone_new_local()) }
     }
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     pub fn new_offset(seconds: i32) -> TimeZone {
-        unsafe {
-            from_glib_full(glib_sys::g_time_zone_new_offset(seconds))
-        }
+        unsafe { from_glib_full(glib_sys::g_time_zone_new_offset(seconds)) }
     }
 
     pub fn new_utc() -> TimeZone {
-        unsafe {
-            from_glib_full(glib_sys::g_time_zone_new_utc())
-        }
+        unsafe { from_glib_full(glib_sys::g_time_zone_new_utc()) }
     }
 
     pub fn find_interval(&self, type_: TimeType, time_: i64) -> i32 {
@@ -52,26 +44,28 @@ impl TimeZone {
 
     pub fn get_abbreviation(&self, interval: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(glib_sys::g_time_zone_get_abbreviation(self.to_glib_none().0, interval))
+            from_glib_none(glib_sys::g_time_zone_get_abbreviation(
+                self.to_glib_none().0,
+                interval,
+            ))
         }
     }
 
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     pub fn get_identifier(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(glib_sys::g_time_zone_get_identifier(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(glib_sys::g_time_zone_get_identifier(self.to_glib_none().0)) }
     }
 
     pub fn get_offset(&self, interval: i32) -> i32 {
-        unsafe {
-            glib_sys::g_time_zone_get_offset(self.to_glib_none().0, interval)
-        }
+        unsafe { glib_sys::g_time_zone_get_offset(self.to_glib_none().0, interval) }
     }
 
     pub fn is_dst(&self, interval: i32) -> bool {
         unsafe {
-            from_glib(glib_sys::g_time_zone_is_dst(self.to_glib_none().0, interval))
+            from_glib(glib_sys::g_time_zone_is_dst(
+                self.to_glib_none().0,
+                interval,
+            ))
         }
     }
 }

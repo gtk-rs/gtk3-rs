@@ -28,9 +28,9 @@ impl Checksum {
 
     pub fn get_string(self) -> Option<String> {
         unsafe {
-            from_glib_none(glib_sys::g_checksum_get_string(
-                mut_override(self.to_glib_none().0),
-            ))
+            from_glib_none(glib_sys::g_checksum_get_string(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 }
@@ -42,21 +42,7 @@ mod tests {
     const CS_TYPE: ChecksumType = ChecksumType::Md5;
     const CS_VALUE: &str = "fc3ff98e8c6a0d3087d515c0473f8677";
     const CS_SLICE: &[u8] = &[
-        0xfc,
-        0x3f,
-        0xf9,
-        0x8e,
-        0x8c,
-        0x6a,
-        0x0d,
-        0x30,
-        0x87,
-        0xd5,
-        0x15,
-        0xc0,
-        0x47,
-        0x3f,
-        0x86,
+        0xfc, 0x3f, 0xf9, 0x8e, 0x8c, 0x6a, 0x0d, 0x30, 0x87, 0xd5, 0x15, 0xc0, 0x47, 0x3f, 0x86,
         0x77,
     ];
 

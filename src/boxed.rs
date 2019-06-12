@@ -274,15 +274,9 @@ impl<T> fmt::Debug for AnyBox<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::AnyBox::*;
         match *self {
-            Native(ref b) => f.debug_tuple("Native")
-                                .field(&(&**b as *const T))
-                                .finish(),
-            ForeignOwned(ptr) => f.debug_tuple("ForeignOwned")
-                                    .field(&ptr)
-                                    .finish(),
-            ForeignBorrowed(ptr) => f.debug_tuple("ForeignBorrowed")
-                                        .field(&ptr)
-                                        .finish(),
+            Native(ref b) => f.debug_tuple("Native").field(&(&**b as *const T)).finish(),
+            ForeignOwned(ptr) => f.debug_tuple("ForeignOwned").field(&ptr).finish(),
+            ForeignBorrowed(ptr) => f.debug_tuple("ForeignBorrowed").field(&ptr).finish(),
         }
     }
 }
@@ -412,9 +406,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Drop for Boxed<T, MM> {
 
 impl<T: 'static, MM: BoxedMemoryManager<T>> fmt::Debug for Boxed<T, MM> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.debug_struct("Boxed")
-            .field("inner", &self.inner)
-            .finish()
+        f.debug_struct("Boxed").field("inner", &self.inner).finish()
     }
 }
 
@@ -439,7 +431,10 @@ impl<T, MM: BoxedMemoryManager<T>> PartialEq for Boxed<T, MM> {
 impl<T, MM: BoxedMemoryManager<T>> Eq for Boxed<T, MM> {}
 
 impl<T, MM: BoxedMemoryManager<T>> Hash for Boxed<T, MM> {
-    fn hash<H>(&self, state: &mut H) where H: Hasher {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: Hasher,
+    {
         self.to_glib_none().0.hash(state)
     }
 }
@@ -447,9 +442,7 @@ impl<T, MM: BoxedMemoryManager<T>> Hash for Boxed<T, MM> {
 impl<T: 'static, MM: BoxedMemoryManager<T>> Clone for Boxed<T, MM> {
     #[inline]
     fn clone(&self) -> Self {
-        unsafe {
-            from_glib_none(self.to_glib_none().0 as *mut T)
-        }
+        unsafe { from_glib_none(self.to_glib_none().0 as *mut T) }
     }
 }
 

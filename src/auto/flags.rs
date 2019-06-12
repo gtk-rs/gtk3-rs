@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use StaticType;
-use Type;
 use glib_sys;
 use gobject_sys;
 use translate::*;
@@ -11,6 +9,8 @@ use value::FromValue;
 use value::FromValueOptional;
 use value::SetValue;
 use value::Value;
+use StaticType;
+use Type;
 
 bitflags! {
     pub struct FileTest: u32 {
@@ -197,4 +197,3 @@ impl FromGlib<glib_sys::GSpawnFlags> for SpawnFlags {
         SpawnFlags::from_bits_truncate(value)
     }
 }
-

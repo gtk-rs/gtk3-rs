@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use BindingFlags;
-use GString;
-use Object;
 use gobject_sys;
 use std::fmt;
 use translate::*;
+use BindingFlags;
+use GString;
+use Object;
 
 glib_wrapper! {
     pub struct Binding(Object<gobject_sys::GBinding, BindingClass>);
@@ -19,32 +19,30 @@ glib_wrapper! {
 
 impl Binding {
     pub fn get_flags(&self) -> BindingFlags {
-        unsafe {
-            from_glib(gobject_sys::g_binding_get_flags(self.to_glib_none().0))
-        }
+        unsafe { from_glib(gobject_sys::g_binding_get_flags(self.to_glib_none().0)) }
     }
 
     pub fn get_source(&self) -> Option<Object> {
-        unsafe {
-            from_glib_none(gobject_sys::g_binding_get_source(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gobject_sys::g_binding_get_source(self.to_glib_none().0)) }
     }
 
     pub fn get_source_property(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gobject_sys::g_binding_get_source_property(self.to_glib_none().0))
+            from_glib_none(gobject_sys::g_binding_get_source_property(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_target(&self) -> Option<Object> {
-        unsafe {
-            from_glib_none(gobject_sys::g_binding_get_target(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gobject_sys::g_binding_get_target(self.to_glib_none().0)) }
     }
 
     pub fn get_target_property(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gobject_sys::g_binding_get_target_property(self.to_glib_none().0))
+            from_glib_none(gobject_sys::g_binding_get_target_property(
+                self.to_glib_none().0,
+            ))
         }
     }
 

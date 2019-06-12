@@ -23,9 +23,7 @@ glib_wrapper! {
 
 impl ValueArray {
     pub fn new(n_prealloced: u32) -> ValueArray {
-        unsafe {
-            from_glib_full(gobject_sys::g_value_array_new(n_prealloced))
-        }
+        unsafe { from_glib_full(gobject_sys::g_value_array_new(n_prealloced)) }
     }
 
     pub fn append(&mut self, value: &Value) {
@@ -37,7 +35,10 @@ impl ValueArray {
 
     pub fn get_nth(&self, index_: u32) -> Option<Value> {
         unsafe {
-            from_glib_none(gobject_sys::g_value_array_get_nth(mut_override(self.to_glib_none().0), index_))
+            from_glib_none(gobject_sys::g_value_array_get_nth(
+                mut_override(self.to_glib_none().0),
+                index_,
+            ))
         }
     }
 
@@ -65,9 +66,14 @@ impl ValueArray {
         unsafe {
             let mut func = compare_func;
             let func_obj: &mut (dyn FnMut(&Value, &Value) -> Ordering) = &mut func;
-            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Value, &Value) -> Ordering) as glib_sys::gpointer;
+            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Value, &Value) -> Ordering)
+                as glib_sys::gpointer;
 
-            gobject_sys::g_value_array_sort_with_data(self.to_glib_none_mut().0, Some(compare_func_trampoline), func_ptr);
+            gobject_sys::g_value_array_sort_with_data(
+                self.to_glib_none_mut().0,
+                Some(compare_func_trampoline),
+                func_ptr,
+            );
         }
     }
 }
@@ -77,7 +83,10 @@ impl ops::Deref for ValueArray {
 
     fn deref(&self) -> &[Value] {
         unsafe {
-            slice::from_raw_parts((*self.to_glib_none().0).values as *const Value, (*self.to_glib_none().0).n_values as usize)
+            slice::from_raw_parts(
+                (*self.to_glib_none().0).values as *const Value,
+                (*self.to_glib_none().0).n_values as usize,
+            )
         }
     }
 }
@@ -85,13 +94,19 @@ impl ops::Deref for ValueArray {
 impl ops::DerefMut for ValueArray {
     fn deref_mut(&mut self) -> &mut [Value] {
         unsafe {
-            slice::from_raw_parts_mut((*self.to_glib_none().0).values as *mut Value, (*self.to_glib_none().0).n_values as usize)
+            slice::from_raw_parts_mut(
+                (*self.to_glib_none().0).values as *mut Value,
+                (*self.to_glib_none().0).n_values as usize,
+            )
         }
     }
 }
 
-unsafe extern "C" fn compare_func_trampoline(a: glib_sys::gconstpointer, b: glib_sys::gconstpointer, func: glib_sys::gpointer) -> i32
-{
+unsafe extern "C" fn compare_func_trampoline(
+    a: glib_sys::gconstpointer,
+    b: glib_sys::gconstpointer,
+    func: glib_sys::gpointer,
+) -> i32 {
     let func = func as *mut &mut (dyn FnMut(&Value, &Value) -> Ordering);
 
     let a = &*(a as *const Value);

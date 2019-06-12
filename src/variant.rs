@@ -75,21 +75,29 @@ impl StaticType for Variant {
 #[doc(hidden)]
 impl<'a> value::FromValueOptional<'a> for Variant {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
-        from_glib_full(gobject_sys::g_value_dup_variant(ToGlibPtr::to_glib_none(value).0))
+        from_glib_full(gobject_sys::g_value_dup_variant(
+            ToGlibPtr::to_glib_none(value).0,
+        ))
     }
 }
 
 #[doc(hidden)]
 impl value::SetValue for Variant {
     unsafe fn set_value(value: &mut Value, this: &Self) {
-        gobject_sys::g_value_set_variant(ToGlibPtrMut::to_glib_none_mut(value).0, ToGlibPtr::<*mut glib_sys::GVariant>::to_glib_none(this).0)
+        gobject_sys::g_value_set_variant(
+            ToGlibPtrMut::to_glib_none_mut(value).0,
+            ToGlibPtr::<*mut glib_sys::GVariant>::to_glib_none(this).0,
+        )
     }
 }
 
 #[doc(hidden)]
 impl value::SetValueOptional for Variant {
     unsafe fn set_value_optional(value: &mut Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_variant(ToGlibPtrMut::to_glib_none_mut(value).0, ToGlibPtr::<*mut glib_sys::GVariant>::to_glib_none(&this).0)
+        gobject_sys::g_value_set_variant(
+            ToGlibPtrMut::to_glib_none_mut(value).0,
+            ToGlibPtr::<*mut glib_sys::GVariant>::to_glib_none(&this).0,
+        )
     }
 }
 
@@ -123,8 +131,10 @@ impl Variant {
                 "s" | "o" | "g" => {
                     let mut len = 0;
                     let ptr = glib_sys::g_variant_get_string(self.to_glib_none().0, &mut len);
-                    let ret = str::from_utf8_unchecked(
-                        slice::from_raw_parts(ptr as *const u8, len as usize));
+                    let ret = str::from_utf8_unchecked(slice::from_raw_parts(
+                        ptr as *const u8,
+                        len as usize,
+                    ));
                     Some(ret)
                 }
                 _ => None,
@@ -133,8 +143,8 @@ impl Variant {
     }
 }
 
-unsafe impl Send for Variant { }
-unsafe impl Sync for Variant { }
+unsafe impl Send for Variant {}
+unsafe impl Sync for Variant {}
 
 impl fmt::Debug for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -149,7 +159,10 @@ impl fmt::Debug for Variant {
 impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let serialized: GString = unsafe {
-            from_glib_full(glib_sys::g_variant_print(self.to_glib_none().0, false.to_glib()))
+            from_glib_full(glib_sys::g_variant_print(
+                self.to_glib_none().0,
+                false.to_glib(),
+            ))
         };
         f.write_str(&serialized)
     }
@@ -158,20 +171,22 @@ impl fmt::Display for Variant {
 impl PartialEq for Variant {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
-            from_glib(
-                glib_sys::g_variant_equal(self.to_glib_none().0 as *const _,
-                    other.to_glib_none().0 as *const _))
+            from_glib(glib_sys::g_variant_equal(
+                self.to_glib_none().0 as *const _,
+                other.to_glib_none().0 as *const _,
+            ))
         }
     }
 }
 
-impl Eq for Variant { }
+impl Eq for Variant {}
 
 impl PartialOrd for Variant {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         unsafe {
-            if glib_sys::g_variant_classify(self.to_glib_none().0) !=
-               glib_sys::g_variant_classify(other.to_glib_none().0) {
+            if glib_sys::g_variant_classify(self.to_glib_none().0)
+                != glib_sys::g_variant_classify(other.to_glib_none().0)
+            {
                 return None;
             }
 
@@ -179,7 +194,10 @@ impl PartialOrd for Variant {
                 return None;
             }
 
-            let res = glib_sys::g_variant_compare(self.to_glib_none().0 as *const _, other.to_glib_none().0 as *const _);
+            let res = glib_sys::g_variant_compare(
+                self.to_glib_none().0 as *const _,
+                other.to_glib_none().0 as *const _,
+            );
             if res < 0 {
                 Some(Ordering::Less)
             } else if res > 0 {
@@ -193,9 +211,7 @@ impl PartialOrd for Variant {
 
 impl Hash for Variant {
     fn hash<H: Hasher>(&self, state: &mut H) {
-        unsafe {
-            state.write_u32(glib_sys::g_variant_hash(self.to_glib_none().0 as *const _))
-        }
+        unsafe { state.write_u32(glib_sys::g_variant_hash(self.to_glib_none().0 as *const _)) }
     }
 }
 
@@ -256,7 +272,7 @@ macro_rules! impl_numeric {
                 }
             }
         }
-    }
+    };
 }
 
 impl_numeric!(u8, "y", g_variant_new_byte, g_variant_get_byte);
@@ -284,7 +300,9 @@ impl FromVariant for bool {
     fn from_variant(variant: &Variant) -> Option<Self> {
         unsafe {
             if variant.is::<Self>() {
-                Some(from_glib(glib_sys::g_variant_get_boolean(variant.to_glib_none().0)))
+                Some(from_glib(glib_sys::g_variant_get_boolean(
+                    variant.to_glib_none().0,
+                )))
             } else {
                 None
             }
@@ -330,21 +348,21 @@ impl<T: ToVariant> From<T> for Variant {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
     use super::*;
+    use std::collections::HashSet;
 
     macro_rules! unsigned {
         ($name:ident, $ty:ident) => {
             #[test]
             fn $name() {
                 let mut n = $ty::max_value();
-                while n > 0  {
+                while n > 0 {
                     let v = Variant::from(n);
                     assert_eq!(v.get(), Some(n));
                     n /= 2;
                 }
             }
-        }
+        };
     }
 
     macro_rules! signed {
@@ -352,7 +370,7 @@ mod tests {
             #[test]
             fn $name() {
                 let mut n = $ty::max_value();
-                while n > 0  {
+                while n > 0 {
                     let v = Variant::from(n);
                     assert_eq!(v.get(), Some(n));
                     let v = Variant::from(-n);
@@ -360,7 +378,7 @@ mod tests {
                     n /= 2;
                 }
             }
-        }
+        };
     }
 
     unsigned!(test_u8, u8);

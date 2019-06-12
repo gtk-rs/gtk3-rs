@@ -47,7 +47,10 @@ impl Bytes {
     /// Creates a view into static `data` without copying.
     pub fn from_static(data: &'static [u8]) -> Bytes {
         unsafe {
-            from_glib_full(glib_sys::g_bytes_new_static(data.as_ptr() as *const _, data.len()))
+            from_glib_full(glib_sys::g_bytes_new_static(
+                data.as_ptr() as *const _,
+                data.len(),
+            ))
         }
     }
 
@@ -64,13 +67,18 @@ impl Bytes {
         }
 
         unsafe {
-            from_glib_full(glib_sys::g_bytes_new_with_free_func(data_ptr as *const _, size, Some(drop_box::<T>), Box::into_raw(data) as *mut _))
+            from_glib_full(glib_sys::g_bytes_new_with_free_func(
+                data_ptr as *const _,
+                size,
+                Some(drop_box::<T>),
+                Box::into_raw(data) as *mut _,
+            ))
         }
     }
 }
 
-unsafe impl Send for Bytes { }
-unsafe impl Sync for Bytes { }
+unsafe impl Send for Bytes {}
+unsafe impl Sync for Bytes {}
 
 impl<'a, T: ?Sized + Borrow<[u8]> + 'a> From<&'a T> for Bytes {
     fn from(value: &'a T) -> Bytes {
@@ -109,20 +117,23 @@ impl Deref for Bytes {
 impl PartialEq for Bytes {
     fn eq(&self, other: &Self) -> bool {
         unsafe {
-            from_glib(
-                glib_sys::g_bytes_equal(self.to_glib_none().0 as *const _,
-                    other.to_glib_none().0 as *const _))
+            from_glib(glib_sys::g_bytes_equal(
+                self.to_glib_none().0 as *const _,
+                other.to_glib_none().0 as *const _,
+            ))
         }
     }
 }
 
-impl Eq for Bytes { }
+impl Eq for Bytes {}
 
 impl PartialOrd for Bytes {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         unsafe {
-            let ret = glib_sys::g_bytes_compare(self.to_glib_none().0 as *const _,
-                other.to_glib_none().0 as *const _);
+            let ret = glib_sys::g_bytes_compare(
+                self.to_glib_none().0 as *const _,
+                other.to_glib_none().0 as *const _,
+            );
             ret.partial_cmp(&0)
         }
     }
@@ -131,8 +142,10 @@ impl PartialOrd for Bytes {
 impl Ord for Bytes {
     fn cmp(&self, other: &Self) -> Ordering {
         unsafe {
-            let ret = glib_sys::g_bytes_compare(self.to_glib_none().0 as *const _,
-                other.to_glib_none().0 as *const _);
+            let ret = glib_sys::g_bytes_compare(
+                self.to_glib_none().0 as *const _,
+                other.to_glib_none().0 as *const _,
+            );
             ret.cmp(&0)
         }
     }
@@ -167,7 +180,7 @@ macro_rules! impl_cmp {
                 self[..].partial_cmp(&other[..])
             }
         }
-    }
+    };
 }
 
 impl_cmp!(Bytes, [u8]);
@@ -185,8 +198,8 @@ impl Hash for Bytes {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::HashSet;
     use super::*;
+    use std::collections::HashSet;
 
     #[test]
     fn eq() {

@@ -13,15 +13,15 @@ pub struct Quark(glib_sys::GQuark);
 
 impl Quark {
     pub fn from_string(s: &str) -> Quark {
-        unsafe {
-            from_glib(glib_sys::g_quark_from_static_string(s.to_glib_full()))
-        }
+        unsafe { from_glib(glib_sys::g_quark_from_static_string(s.to_glib_full())) }
     }
 
     #[allow(clippy::trivially_copy_pass_by_ref)]
     pub fn to_string(&self) -> &'static str {
         unsafe {
-            CStr::from_ptr(glib_sys::g_quark_to_string(self.to_glib())).to_str().unwrap()
+            CStr::from_ptr(glib_sys::g_quark_to_string(self.to_glib()))
+                .to_str()
+                .unwrap()
         }
     }
 
