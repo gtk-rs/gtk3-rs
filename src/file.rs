@@ -18,7 +18,10 @@ use FileCreateFlags;
 use futures::future;
 
 pub trait FileExtManual: Sized {
-    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(
+    fn replace_contents_async<
+        B: AsRef<[u8]> + Send + 'static,
+        R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+    >(
         &self,
         contents: B,
         etag: Option<&str>,
@@ -39,7 +42,10 @@ pub trait FileExtManual: Sized {
 }
 
 impl<O: IsA<File>> FileExtManual for O {
-    fn replace_contents_async<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(
+    fn replace_contents_async<
+        B: AsRef<[u8]> + Send + 'static,
+        R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+    >(
         &self,
         contents: B,
         etag: Option<&str>,
@@ -57,20 +63,45 @@ impl<O: IsA<File>> FileExtManual for O {
             let slice = contents.as_ref();
             (slice.len(), slice.as_ptr())
         };
-        unsafe extern "C" fn replace_contents_async_trampoline<B: AsRef<[u8]> + Send + 'static, R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
-        {
+        unsafe extern "C" fn replace_contents_async_trampoline<
+            B: AsRef<[u8]> + Send + 'static,
+            R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
             let mut user_data: Box<Option<(R, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, contents) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
             let mut new_etag = ptr::null_mut();
-            let _ = gio_sys::g_file_replace_contents_finish(_source_object as *mut _, res, &mut new_etag, &mut error);
-            let result = if error.is_null() { Ok((contents, from_glib_full(new_etag))) } else { Err((contents, from_glib_full(error))) };
+            let _ = gio_sys::g_file_replace_contents_finish(
+                _source_object as *mut _,
+                res,
+                &mut new_etag,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok((contents, from_glib_full(new_etag)))
+            } else {
+                Err((contents, from_glib_full(error)))
+            };
             callback(result);
         }
         let callback = replace_contents_async_trampoline::<B, R>;
         unsafe {
-            gio_sys::g_file_replace_contents_async(self.as_ref().to_glib_none().0, mut_override(contents_ptr), count, etag.0, make_backup.to_glib(), flags.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_file_replace_contents_async(
+                self.as_ref().to_glib_none().0,
+                mut_override(contents_ptr),
+                count,
+                etag.0,
+                make_backup.to_glib(),
+                flags.to_glib(),
+                cancellable.0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
         }
     }
 
@@ -81,23 +112,24 @@ impl<O: IsA<File>> FileExtManual for O {
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin> {
-        use GioFuture;
+    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
+        use GioFuture;
 
         let etag = etag.map(glib::GString::from);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
             obj.replace_contents_async(
-                 contents,
-                 etag.as_ref().map(|s| s.as_str()),
-                 make_backup,
-                 flags,
-                 Some(&cancellable),
-                 move |res| {
-                     let _ = send.into_inner().send(res);
-                 },
+                contents,
+                etag.as_ref().map(|s| s.as_str()),
+                make_backup,
+                flags,
+                Some(&cancellable),
+                move |res| {
+                    let _ = send.into_inner().send(res);
+                },
             );
 
             cancellable

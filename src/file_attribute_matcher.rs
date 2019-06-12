@@ -1,6 +1,6 @@
 use gio_sys;
-use glib::GString;
 use glib::translate::*;
+use glib::GString;
 use std::iter::{IntoIterator, Iterator};
 
 pub struct FileAttributematcherIter(::FileAttributeMatcher);
@@ -10,9 +10,9 @@ impl Iterator for FileAttributematcherIter {
 
     fn next(&mut self) -> Option<GString> {
         unsafe {
-            from_glib_none(
-                gio_sys::g_file_attribute_matcher_enumerate_next(self.0.to_glib_none().0)
-            )
+            from_glib_none(gio_sys::g_file_attribute_matcher_enumerate_next(
+                self.0.to_glib_none().0,
+            ))
         }
     }
 }

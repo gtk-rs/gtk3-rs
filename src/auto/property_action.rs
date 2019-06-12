@@ -2,24 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Action;
 use gio_sys;
 use glib;
+use glib::object::IsA;
+use glib::object::ObjectType as ObjectType_;
+use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
+use glib::translate::*;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use glib::StaticType;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use glib::Value;
-use glib::object::IsA;
-use glib::object::ObjectType as ObjectType_;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect_raw;
-use glib::translate::*;
 use glib_sys;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use Action;
 
 glib_wrapper! {
     pub struct PropertyAction(Object<gio_sys::GPropertyAction, PropertyActionClass>) @implements Action;
@@ -30,9 +30,17 @@ glib_wrapper! {
 }
 
 impl PropertyAction {
-    pub fn new<P: IsA<glib::Object>>(name: &str, object: &P, property_name: &str) -> PropertyAction {
+    pub fn new<P: IsA<glib::Object>>(
+        name: &str,
+        object: &P,
+        property_name: &str,
+    ) -> PropertyAction {
         unsafe {
-            from_glib_full(gio_sys::g_property_action_new(name.to_glib_none().0, object.as_ref().to_glib_none().0, property_name.to_glib_none().0))
+            from_glib_full(gio_sys::g_property_action_new(
+                name.to_glib_none().0,
+                object.as_ref().to_glib_none().0,
+                property_name.to_glib_none().0,
+            ))
         }
     }
 
@@ -40,56 +48,104 @@ impl PropertyAction {
     pub fn get_property_invert_boolean(&self) -> bool {
         unsafe {
             let mut value = Value::from_type(<bool as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"invert-boolean\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"invert-boolean\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get().unwrap()
         }
     }
 
-    pub fn connect_property_enabled_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut gio_sys::GPropertyAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_enabled_notify<F: Fn(&PropertyAction) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_enabled_trampoline<F: Fn(&PropertyAction) + 'static>(
+            this: *mut gio_sys::GPropertyAction,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::enabled\0".as_ptr() as *const _,
-                Some(transmute(notify_enabled_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::enabled\0".as_ptr() as *const _,
+                Some(transmute(notify_enabled_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_parameter_type_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_parameter_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut gio_sys::GPropertyAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_parameter_type_notify<F: Fn(&PropertyAction) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_parameter_type_trampoline<F: Fn(&PropertyAction) + 'static>(
+            this: *mut gio_sys::GPropertyAction,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::parameter-type\0".as_ptr() as *const _,
-                Some(transmute(notify_parameter_type_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::parameter-type\0".as_ptr() as *const _,
+                Some(transmute(notify_parameter_type_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_state_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_state_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut gio_sys::GPropertyAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_state_notify<F: Fn(&PropertyAction) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_state_trampoline<F: Fn(&PropertyAction) + 'static>(
+            this: *mut gio_sys::GPropertyAction,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::state\0".as_ptr() as *const _,
-                Some(transmute(notify_state_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::state\0".as_ptr() as *const _,
+                Some(transmute(notify_state_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_state_type_notify<F: Fn(&PropertyAction) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&PropertyAction) + 'static>(this: *mut gio_sys::GPropertyAction, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_state_type_notify<F: Fn(&PropertyAction) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_state_type_trampoline<F: Fn(&PropertyAction) + 'static>(
+            this: *mut gio_sys::GPropertyAction,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::state-type\0".as_ptr() as *const _,
-                Some(transmute(notify_state_type_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::state-type\0".as_ptr() as *const _,
+                Some(transmute(notify_state_type_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

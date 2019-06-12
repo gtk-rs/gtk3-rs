@@ -27,10 +27,8 @@ impl From<IOErrorEnum> for io::ErrorKind {
 }
 
 pub(crate) fn to_std_io_result<T>(result: Result<T, Error>) -> io::Result<T> {
-    result.map_err(|g_error| {
-        match g_error.kind::<IOErrorEnum>() {
-            Some(io_error_enum) => io::Error::new(io_error_enum.into(), g_error),
-            None => io::Error::new(io::ErrorKind::Other, g_error),
-        }
+    result.map_err(|g_error| match g_error.kind::<IOErrorEnum>() {
+        Some(io_error_enum) => io::Error::new(io_error_enum.into(), g_error),
+        None => io::Error::new(io::ErrorKind::Other, g_error),
     })
 }

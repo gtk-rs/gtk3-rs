@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use InputStream;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use InputStream;
 
 glib_wrapper! {
     pub struct PollableInputStream(Interface<gio_sys::GPollableInputStream>) @requires InputStream;
@@ -27,13 +27,17 @@ pub trait PollableInputStreamExt: 'static {
 impl<O: IsA<PollableInputStream>> PollableInputStreamExt for O {
     fn can_poll(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_pollable_input_stream_can_poll(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_pollable_input_stream_can_poll(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn is_readable(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_pollable_input_stream_is_readable(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_pollable_input_stream_is_readable(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

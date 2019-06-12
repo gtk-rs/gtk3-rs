@@ -2,19 +2,19 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Drive;
-use Mount;
-use Volume;
 use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use Drive;
+use Mount;
+use Volume;
 
 glib_wrapper! {
     pub struct VolumeMonitor(Object<gio_sys::GVolumeMonitor, gio_sys::GVolumeMonitorClass, VolumeMonitorClass>);
@@ -26,9 +26,7 @@ glib_wrapper! {
 
 impl VolumeMonitor {
     pub fn get() -> VolumeMonitor {
-        unsafe {
-            from_glib_full(gio_sys::g_volume_monitor_get())
-        }
+        unsafe { from_glib_full(gio_sys::g_volume_monitor_get()) }
     }
 }
 
@@ -73,199 +71,343 @@ pub trait VolumeMonitorExt: 'static {
 impl<O: IsA<VolumeMonitor>> VolumeMonitorExt for O {
     fn get_connected_drives(&self) -> Vec<Drive> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_connected_drives(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_connected_drives(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_mount_for_uuid(&self, uuid: &str) -> Option<Mount> {
         unsafe {
-            from_glib_full(gio_sys::g_volume_monitor_get_mount_for_uuid(self.as_ref().to_glib_none().0, uuid.to_glib_none().0))
+            from_glib_full(gio_sys::g_volume_monitor_get_mount_for_uuid(
+                self.as_ref().to_glib_none().0,
+                uuid.to_glib_none().0,
+            ))
         }
     }
 
     fn get_mounts(&self) -> Vec<Mount> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_mounts(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_mounts(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_volume_for_uuid(&self, uuid: &str) -> Option<Volume> {
         unsafe {
-            from_glib_full(gio_sys::g_volume_monitor_get_volume_for_uuid(self.as_ref().to_glib_none().0, uuid.to_glib_none().0))
+            from_glib_full(gio_sys::g_volume_monitor_get_volume_for_uuid(
+                self.as_ref().to_glib_none().0,
+                uuid.to_glib_none().0,
+            ))
         }
     }
 
     fn get_volumes(&self) -> Vec<Volume> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_volumes(self.as_ref().to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_volume_monitor_get_volumes(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn connect_drive_changed<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drive_changed_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut gio_sys::GVolumeMonitor, drive: *mut gio_sys::GDrive, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn drive_changed_trampoline<P, F: Fn(&P, &Drive) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            drive: *mut gio_sys::GDrive,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(drive),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"drive-changed\0".as_ptr() as *const _,
-                Some(transmute(drive_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"drive-changed\0".as_ptr() as *const _,
+                Some(transmute(drive_changed_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_drive_connected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drive_connected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut gio_sys::GVolumeMonitor, drive: *mut gio_sys::GDrive, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn drive_connected_trampoline<P, F: Fn(&P, &Drive) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            drive: *mut gio_sys::GDrive,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(drive),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"drive-connected\0".as_ptr() as *const _,
-                Some(transmute(drive_connected_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"drive-connected\0".as_ptr() as *const _,
+                Some(transmute(drive_connected_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_drive_disconnected<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drive_disconnected_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut gio_sys::GVolumeMonitor, drive: *mut gio_sys::GDrive, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn drive_disconnected_trampoline<P, F: Fn(&P, &Drive) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            drive: *mut gio_sys::GDrive,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(drive),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"drive-disconnected\0".as_ptr() as *const _,
-                Some(transmute(drive_disconnected_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"drive-disconnected\0".as_ptr() as *const _,
+                Some(transmute(drive_disconnected_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_drive_eject_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drive_eject_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut gio_sys::GVolumeMonitor, drive: *mut gio_sys::GDrive, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn drive_eject_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            drive: *mut gio_sys::GDrive,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(drive),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"drive-eject-button\0".as_ptr() as *const _,
-                Some(transmute(drive_eject_button_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"drive-eject-button\0".as_ptr() as *const _,
+                Some(transmute(drive_eject_button_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_drive_stop_button<F: Fn(&Self, &Drive) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn drive_stop_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(this: *mut gio_sys::GVolumeMonitor, drive: *mut gio_sys::GDrive, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn drive_stop_button_trampoline<P, F: Fn(&P, &Drive) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            drive: *mut gio_sys::GDrive,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(drive))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(drive),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"drive-stop-button\0".as_ptr() as *const _,
-                Some(transmute(drive_stop_button_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"drive-stop-button\0".as_ptr() as *const _,
+                Some(transmute(drive_stop_button_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_mount_added<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn mount_added_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut gio_sys::GVolumeMonitor, mount: *mut gio_sys::GMount, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn mount_added_trampoline<P, F: Fn(&P, &Mount) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            mount: *mut gio_sys::GMount,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(mount),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"mount-added\0".as_ptr() as *const _,
-                Some(transmute(mount_added_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"mount-added\0".as_ptr() as *const _,
+                Some(transmute(mount_added_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_mount_changed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn mount_changed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut gio_sys::GVolumeMonitor, mount: *mut gio_sys::GMount, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn mount_changed_trampoline<P, F: Fn(&P, &Mount) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            mount: *mut gio_sys::GMount,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(mount),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"mount-changed\0".as_ptr() as *const _,
-                Some(transmute(mount_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"mount-changed\0".as_ptr() as *const _,
+                Some(transmute(mount_changed_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_mount_pre_unmount<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn mount_pre_unmount_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut gio_sys::GVolumeMonitor, mount: *mut gio_sys::GMount, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn mount_pre_unmount_trampoline<P, F: Fn(&P, &Mount) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            mount: *mut gio_sys::GMount,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(mount),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"mount-pre-unmount\0".as_ptr() as *const _,
-                Some(transmute(mount_pre_unmount_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"mount-pre-unmount\0".as_ptr() as *const _,
+                Some(transmute(mount_pre_unmount_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_mount_removed<F: Fn(&Self, &Mount) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn mount_removed_trampoline<P, F: Fn(&P, &Mount) + 'static>(this: *mut gio_sys::GVolumeMonitor, mount: *mut gio_sys::GMount, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn mount_removed_trampoline<P, F: Fn(&P, &Mount) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            mount: *mut gio_sys::GMount,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(mount))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(mount),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"mount-removed\0".as_ptr() as *const _,
-                Some(transmute(mount_removed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"mount-removed\0".as_ptr() as *const _,
+                Some(transmute(mount_removed_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_volume_added<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn volume_added_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut gio_sys::GVolumeMonitor, volume: *mut gio_sys::GVolume, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn volume_added_trampoline<P, F: Fn(&P, &Volume) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            volume: *mut gio_sys::GVolume,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(volume),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"volume-added\0".as_ptr() as *const _,
-                Some(transmute(volume_added_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"volume-added\0".as_ptr() as *const _,
+                Some(transmute(volume_added_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_volume_changed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn volume_changed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut gio_sys::GVolumeMonitor, volume: *mut gio_sys::GVolume, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn volume_changed_trampoline<P, F: Fn(&P, &Volume) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            volume: *mut gio_sys::GVolume,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(volume),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"volume-changed\0".as_ptr() as *const _,
-                Some(transmute(volume_changed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"volume-changed\0".as_ptr() as *const _,
+                Some(transmute(volume_changed_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_volume_removed<F: Fn(&Self, &Volume) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn volume_removed_trampoline<P, F: Fn(&P, &Volume) + 'static>(this: *mut gio_sys::GVolumeMonitor, volume: *mut gio_sys::GVolume, f: glib_sys::gpointer)
-            where P: IsA<VolumeMonitor>
+        unsafe extern "C" fn volume_removed_trampoline<P, F: Fn(&P, &Volume) + 'static>(
+            this: *mut gio_sys::GVolumeMonitor,
+            volume: *mut gio_sys::GVolume,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<VolumeMonitor>,
         {
             let f: &F = &*(f as *const F);
-            f(&VolumeMonitor::from_glib_borrow(this).unsafe_cast(), &from_glib_borrow(volume))
+            f(
+                &VolumeMonitor::from_glib_borrow(this).unsafe_cast(),
+                &from_glib_borrow(volume),
+            )
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"volume-removed\0".as_ptr() as *const _,
-                Some(transmute(volume_removed_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"volume-removed\0".as_ptr() as *const _,
+                Some(transmute(volume_removed_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

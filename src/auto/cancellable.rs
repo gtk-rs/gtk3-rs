@@ -2,12 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Error;
 use gio_sys;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib_sys;
 use libc;
@@ -15,6 +14,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
+use Error;
 
 glib_wrapper! {
     pub struct Cancellable(Object<gio_sys::GCancellable, gio_sys::GCancellableClass, CancellableClass>);
@@ -26,15 +26,11 @@ glib_wrapper! {
 
 impl Cancellable {
     pub fn new() -> Cancellable {
-        unsafe {
-            from_glib_full(gio_sys::g_cancellable_new())
-        }
+        unsafe { from_glib_full(gio_sys::g_cancellable_new()) }
     }
 
     pub fn get_current() -> Option<Cancellable> {
-        unsafe {
-            from_glib_none(gio_sys::g_cancellable_get_current())
-        }
+        unsafe { from_glib_none(gio_sys::g_cancellable_get_current()) }
     }
 }
 
@@ -91,14 +87,14 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
     }
 
     fn get_fd(&self) -> i32 {
-        unsafe {
-            gio_sys::g_cancellable_get_fd(self.as_ref().to_glib_none().0)
-        }
+        unsafe { gio_sys::g_cancellable_get_fd(self.as_ref().to_glib_none().0) }
     }
 
     fn is_cancelled(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_cancellable_is_cancelled(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_cancellable_is_cancelled(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -127,22 +123,36 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
     fn set_error_if_cancelled(&self) -> Result<(), Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_cancellable_set_error_if_cancelled(self.as_ref().to_glib_none().0, &mut error);
-            if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
+            let _ = gio_sys::g_cancellable_set_error_if_cancelled(
+                self.as_ref().to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(this: *mut gio_sys::GCancellable, f: glib_sys::gpointer)
-            where P: IsA<Cancellable>
+        unsafe extern "C" fn cancelled_trampoline<P, F: Fn(&P) + Send + Sync + 'static>(
+            this: *mut gio_sys::GCancellable,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<Cancellable>,
         {
             let f: &F = &*(f as *const F);
             f(&Cancellable::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"cancelled\0".as_ptr() as *const _,
-                Some(transmute(cancelled_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"cancelled\0".as_ptr() as *const _,
+                Some(transmute(cancelled_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

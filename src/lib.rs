@@ -32,6 +32,7 @@ mod file;
 mod file_attribute_matcher;
 pub use file_attribute_matcher::FileAttributematcherIter;
 mod flags;
+mod inet_address;
 mod input_stream;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
@@ -51,19 +52,15 @@ mod unix_input_stream;
 mod unix_output_stream;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_socket_address;
-mod inet_address;
 pub use inet_address::InetAddressBytes;
 
 #[cfg(test)]
 mod test_util;
 
-pub use glib::{
-    Error,
-    Object,
-};
+pub use glib::{Error, Object};
 
-pub use auto::*;
 pub use auto::functions::*;
+pub use auto::*;
 
 pub mod signal {
     pub use glib::signal::Inhibit;

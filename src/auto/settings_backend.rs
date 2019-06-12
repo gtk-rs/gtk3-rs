@@ -21,9 +21,7 @@ impl SettingsBackend {
     //}
 
     pub fn get_default() -> Option<SettingsBackend> {
-        unsafe {
-            from_glib_full(gio_sys::g_settings_backend_get_default())
-        }
+        unsafe { from_glib_full(gio_sys::g_settings_backend_get_default()) }
     }
 }
 
@@ -62,13 +60,19 @@ impl<O: IsA<SettingsBackend>> SettingsBackendExt for O {
 
     fn path_writable_changed(&self, path: &str) {
         unsafe {
-            gio_sys::g_settings_backend_path_writable_changed(self.as_ref().to_glib_none().0, path.to_glib_none().0);
+            gio_sys::g_settings_backend_path_writable_changed(
+                self.as_ref().to_glib_none().0,
+                path.to_glib_none().0,
+            );
         }
     }
 
     fn writable_changed(&self, key: &str) {
         unsafe {
-            gio_sys::g_settings_backend_writable_changed(self.as_ref().to_glib_none().0, key.to_glib_none().0);
+            gio_sys::g_settings_backend_writable_changed(
+                self.as_ref().to_glib_none().0,
+                key.to_glib_none().0,
+            );
         }
     }
 }

@@ -12,7 +12,11 @@ use std::cmp::Ordering;
 use ListStore;
 
 pub trait ListStoreExtManual {
-    fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(&self, item: &P, compare_func: F) -> u32;
+    fn insert_sorted<P: IsA<glib::Object>, F: FnMut(&Object, &Object) -> Ordering>(
+        &self,
+        item: &P,
+        compare_func: F,
+    ) -> u32;
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     fn sort<F: FnMut(&Object, &Object) -> Ordering>(&self, compare_func: F);
@@ -27,13 +31,15 @@ impl<O: IsA<ListStore>> ListStoreExtManual for O {
         unsafe {
             let mut func = compare_func;
             let func_obj: &mut (dyn FnMut(&Object, &Object) -> Ordering) = &mut func;
-            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
+            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering)
+                as glib_sys::gpointer;
 
             gio_sys::g_list_store_insert_sorted(
                 self.as_ref().to_glib_none().0,
                 item.as_ref().to_glib_none().0,
                 Some(compare_func_trampoline),
-                func_ptr)
+                func_ptr,
+            )
         }
     }
 
@@ -42,12 +48,14 @@ impl<O: IsA<ListStore>> ListStoreExtManual for O {
         unsafe {
             let mut func = compare_func;
             let func_obj: &mut (dyn FnMut(&Object, &Object) -> Ordering) = &mut func;
-            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering) as glib_sys::gpointer;
+            let func_ptr = &func_obj as *const &mut (dyn FnMut(&Object, &Object) -> Ordering)
+                as glib_sys::gpointer;
 
             gio_sys::g_list_store_sort(
                 self.as_ref().to_glib_none().0,
                 Some(compare_func_trampoline),
-                func_ptr)
+                func_ptr,
+            )
         }
     }
 }

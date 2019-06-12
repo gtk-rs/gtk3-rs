@@ -2,10 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use SettingsSchemaKey;
 use gio_sys;
-use glib::GString;
 use glib::translate::*;
+use glib::GString;
+use SettingsSchemaKey;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -20,40 +20,46 @@ glib_wrapper! {
 
 impl SettingsSchema {
     pub fn get_id(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gio_sys::g_settings_schema_get_id(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gio_sys::g_settings_schema_get_id(self.to_glib_none().0)) }
     }
 
     pub fn get_key(&self, name: &str) -> Option<SettingsSchemaKey> {
         unsafe {
-            from_glib_full(gio_sys::g_settings_schema_get_key(self.to_glib_none().0, name.to_glib_none().0))
+            from_glib_full(gio_sys::g_settings_schema_get_key(
+                self.to_glib_none().0,
+                name.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_path(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gio_sys::g_settings_schema_get_path(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gio_sys::g_settings_schema_get_path(self.to_glib_none().0)) }
     }
 
     pub fn has_key(&self, name: &str) -> bool {
         unsafe {
-            from_glib(gio_sys::g_settings_schema_has_key(self.to_glib_none().0, name.to_glib_none().0))
+            from_glib(gio_sys::g_settings_schema_has_key(
+                self.to_glib_none().0,
+                name.to_glib_none().0,
+            ))
         }
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn list_children(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_children(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_children(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     #[cfg(any(feature = "v2_46", feature = "dox"))]
     pub fn list_keys(&self) -> Vec<GString> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_keys(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(gio_sys::g_settings_schema_list_keys(
+                self.to_glib_none().0,
+            ))
         }
     }
 }

@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use MenuItem;
-use MenuModel;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use MenuItem;
+use MenuModel;
 
 glib_wrapper! {
     pub struct Menu(Object<gio_sys::GMenu, MenuClass>) @extends MenuModel;
@@ -19,14 +19,16 @@ glib_wrapper! {
 
 impl Menu {
     pub fn new() -> Menu {
-        unsafe {
-            from_glib_full(gio_sys::g_menu_new())
-        }
+        unsafe { from_glib_full(gio_sys::g_menu_new()) }
     }
 
     pub fn append(&self, label: Option<&str>, detailed_action: Option<&str>) {
         unsafe {
-            gio_sys::g_menu_append(self.to_glib_none().0, label.to_glib_none().0, detailed_action.to_glib_none().0);
+            gio_sys::g_menu_append(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                detailed_action.to_glib_none().0,
+            );
         }
     }
 
@@ -38,13 +40,21 @@ impl Menu {
 
     pub fn append_section<P: IsA<MenuModel>>(&self, label: Option<&str>, section: &P) {
         unsafe {
-            gio_sys::g_menu_append_section(self.to_glib_none().0, label.to_glib_none().0, section.as_ref().to_glib_none().0);
+            gio_sys::g_menu_append_section(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                section.as_ref().to_glib_none().0,
+            );
         }
     }
 
     pub fn append_submenu<P: IsA<MenuModel>>(&self, label: Option<&str>, submenu: &P) {
         unsafe {
-            gio_sys::g_menu_append_submenu(self.to_glib_none().0, label.to_glib_none().0, submenu.as_ref().to_glib_none().0);
+            gio_sys::g_menu_append_submenu(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                submenu.as_ref().to_glib_none().0,
+            );
         }
     }
 
@@ -56,7 +66,12 @@ impl Menu {
 
     pub fn insert(&self, position: i32, label: Option<&str>, detailed_action: Option<&str>) {
         unsafe {
-            gio_sys::g_menu_insert(self.to_glib_none().0, position, label.to_glib_none().0, detailed_action.to_glib_none().0);
+            gio_sys::g_menu_insert(
+                self.to_glib_none().0,
+                position,
+                label.to_glib_none().0,
+                detailed_action.to_glib_none().0,
+            );
         }
     }
 
@@ -66,21 +81,45 @@ impl Menu {
         }
     }
 
-    pub fn insert_section<P: IsA<MenuModel>>(&self, position: i32, label: Option<&str>, section: &P) {
+    pub fn insert_section<P: IsA<MenuModel>>(
+        &self,
+        position: i32,
+        label: Option<&str>,
+        section: &P,
+    ) {
         unsafe {
-            gio_sys::g_menu_insert_section(self.to_glib_none().0, position, label.to_glib_none().0, section.as_ref().to_glib_none().0);
+            gio_sys::g_menu_insert_section(
+                self.to_glib_none().0,
+                position,
+                label.to_glib_none().0,
+                section.as_ref().to_glib_none().0,
+            );
         }
     }
 
-    pub fn insert_submenu<P: IsA<MenuModel>>(&self, position: i32, label: Option<&str>, submenu: &P) {
+    pub fn insert_submenu<P: IsA<MenuModel>>(
+        &self,
+        position: i32,
+        label: Option<&str>,
+        submenu: &P,
+    ) {
         unsafe {
-            gio_sys::g_menu_insert_submenu(self.to_glib_none().0, position, label.to_glib_none().0, submenu.as_ref().to_glib_none().0);
+            gio_sys::g_menu_insert_submenu(
+                self.to_glib_none().0,
+                position,
+                label.to_glib_none().0,
+                submenu.as_ref().to_glib_none().0,
+            );
         }
     }
 
     pub fn prepend(&self, label: Option<&str>, detailed_action: Option<&str>) {
         unsafe {
-            gio_sys::g_menu_prepend(self.to_glib_none().0, label.to_glib_none().0, detailed_action.to_glib_none().0);
+            gio_sys::g_menu_prepend(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                detailed_action.to_glib_none().0,
+            );
         }
     }
 
@@ -92,13 +131,21 @@ impl Menu {
 
     pub fn prepend_section<P: IsA<MenuModel>>(&self, label: Option<&str>, section: &P) {
         unsafe {
-            gio_sys::g_menu_prepend_section(self.to_glib_none().0, label.to_glib_none().0, section.as_ref().to_glib_none().0);
+            gio_sys::g_menu_prepend_section(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                section.as_ref().to_glib_none().0,
+            );
         }
     }
 
     pub fn prepend_submenu<P: IsA<MenuModel>>(&self, label: Option<&str>, submenu: &P) {
         unsafe {
-            gio_sys::g_menu_prepend_submenu(self.to_glib_none().0, label.to_glib_none().0, submenu.as_ref().to_glib_none().0);
+            gio_sys::g_menu_prepend_submenu(
+                self.to_glib_none().0,
+                label.to_glib_none().0,
+                submenu.as_ref().to_glib_none().0,
+            );
         }
     }
 

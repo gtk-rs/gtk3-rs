@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use EmblemOrigin;
-use Icon;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use EmblemOrigin;
+use Icon;
 
 glib_wrapper! {
     pub struct Emblem(Object<gio_sys::GEmblem, gio_sys::GEmblemClass, EmblemClass>) @implements Icon;
@@ -19,27 +19,24 @@ glib_wrapper! {
 
 impl Emblem {
     pub fn new<P: IsA<Icon>>(icon: &P) -> Emblem {
-        unsafe {
-            from_glib_full(gio_sys::g_emblem_new(icon.as_ref().to_glib_none().0))
-        }
+        unsafe { from_glib_full(gio_sys::g_emblem_new(icon.as_ref().to_glib_none().0)) }
     }
 
     pub fn new_with_origin<P: IsA<Icon>>(icon: &P, origin: EmblemOrigin) -> Emblem {
         unsafe {
-            from_glib_full(gio_sys::g_emblem_new_with_origin(icon.as_ref().to_glib_none().0, origin.to_glib()))
+            from_glib_full(gio_sys::g_emblem_new_with_origin(
+                icon.as_ref().to_glib_none().0,
+                origin.to_glib(),
+            ))
         }
     }
 
     pub fn get_icon(&self) -> Option<Icon> {
-        unsafe {
-            from_glib_none(gio_sys::g_emblem_get_icon(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gio_sys::g_emblem_get_icon(self.to_glib_none().0)) }
     }
 
     pub fn get_origin(&self) -> EmblemOrigin {
-        unsafe {
-            from_glib(gio_sys::g_emblem_get_origin(self.to_glib_none().0))
-        }
+        unsafe { from_glib(gio_sys::g_emblem_get_origin(self.to_glib_none().0)) }
     }
 }
 

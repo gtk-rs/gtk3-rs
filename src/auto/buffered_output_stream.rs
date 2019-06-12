@@ -2,21 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use FilterOutputStream;
-use OutputStream;
-use Seekable;
 use gio_sys;
-use glib::StaticType;
-use glib::ToValue;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::StaticType;
+use glib::ToValue;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use FilterOutputStream;
+use OutputStream;
+use Seekable;
 
 glib_wrapper! {
     pub struct BufferedOutputStream(Object<gio_sys::GBufferedOutputStream, gio_sys::GBufferedOutputStreamClass, BufferedOutputStreamClass>) @extends FilterOutputStream, OutputStream, @implements Seekable;
@@ -29,13 +29,20 @@ glib_wrapper! {
 impl BufferedOutputStream {
     pub fn new<P: IsA<OutputStream>>(base_stream: &P) -> BufferedOutputStream {
         unsafe {
-            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new(base_stream.as_ref().to_glib_none().0)).unsafe_cast()
+            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new(
+                base_stream.as_ref().to_glib_none().0,
+            ))
+            .unsafe_cast()
         }
     }
 
     pub fn new_sized<P: IsA<OutputStream>>(base_stream: &P, size: usize) -> BufferedOutputStream {
         unsafe {
-            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new_sized(base_stream.as_ref().to_glib_none().0, size)).unsafe_cast()
+            OutputStream::from_glib_full(gio_sys::g_buffered_output_stream_new_sized(
+                base_stream.as_ref().to_glib_none().0,
+                size,
+            ))
+            .unsafe_cast()
         }
     }
 }
@@ -71,7 +78,10 @@ impl BufferedOutputStreamBuilder {
         if let Some(ref close_base_stream) = self.close_base_stream {
             properties.push(("close-base-stream", close_base_stream));
         }
-        glib::Object::new(BufferedOutputStream::static_type(), &properties).expect("object new").downcast().expect("downcast")
+        glib::Object::new(BufferedOutputStream::static_type(), &properties)
+            .expect("object new")
+            .downcast()
+            .expect("downcast")
     }
 
     pub fn auto_grow(mut self, auto_grow: bool) -> Self {
@@ -114,19 +124,22 @@ pub trait BufferedOutputStreamExt: 'static {
 impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
     fn get_auto_grow(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_buffered_output_stream_get_auto_grow(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_buffered_output_stream_get_auto_grow(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_buffer_size(&self) -> usize {
-        unsafe {
-            gio_sys::g_buffered_output_stream_get_buffer_size(self.as_ref().to_glib_none().0)
-        }
+        unsafe { gio_sys::g_buffered_output_stream_get_buffer_size(self.as_ref().to_glib_none().0) }
     }
 
     fn set_auto_grow(&self, auto_grow: bool) {
         unsafe {
-            gio_sys::g_buffered_output_stream_set_auto_grow(self.as_ref().to_glib_none().0, auto_grow.to_glib());
+            gio_sys::g_buffered_output_stream_set_auto_grow(
+                self.as_ref().to_glib_none().0,
+                auto_grow.to_glib(),
+            );
         }
     }
 
@@ -137,30 +150,46 @@ impl<O: IsA<BufferedOutputStream>> BufferedOutputStreamExt for O {
     }
 
     fn connect_property_auto_grow_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_auto_grow_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GBufferedOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<BufferedOutputStream>
+        unsafe extern "C" fn notify_auto_grow_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GBufferedOutputStream,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<BufferedOutputStream>,
         {
             let f: &F = &*(f as *const F);
             f(&BufferedOutputStream::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::auto-grow\0".as_ptr() as *const _,
-                Some(transmute(notify_auto_grow_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::auto-grow\0".as_ptr() as *const _,
+                Some(transmute(notify_auto_grow_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_property_buffer_size_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(this: *mut gio_sys::GBufferedOutputStream, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<BufferedOutputStream>
+        unsafe extern "C" fn notify_buffer_size_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GBufferedOutputStream,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<BufferedOutputStream>,
         {
             let f: &F = &*(f as *const F);
             f(&BufferedOutputStream::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::buffer-size\0".as_ptr() as *const _,
-                Some(transmute(notify_buffer_size_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::buffer-size\0".as_ptr() as *const _,
+                Some(transmute(notify_buffer_size_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

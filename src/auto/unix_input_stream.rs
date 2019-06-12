@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use InputStream;
-use PollableInputStream;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use InputStream;
+use PollableInputStream;
 
 glib_wrapper! {
     pub struct UnixInputStream(Object<gio_sys::GUnixInputStream, gio_sys::GUnixInputStreamClass, UnixInputStreamClass>) @extends InputStream, @implements PollableInputStream;
@@ -26,7 +26,9 @@ pub trait UnixInputStreamExt: 'static {
 impl<O: IsA<UnixInputStream>> UnixInputStreamExt for O {
     fn get_close_fd(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_input_stream_get_close_fd(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_unix_input_stream_get_close_fd(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

@@ -2,15 +2,15 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Error;
-use Subprocess;
-use SubprocessFlags;
 use gio_sys;
 use glib::translate::*;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
+use Error;
+use Subprocess;
+use SubprocessFlags;
 
 glib_wrapper! {
     pub struct SubprocessLauncher(Object<gio_sys::GSubprocessLauncher, SubprocessLauncherClass>);
@@ -22,14 +22,15 @@ glib_wrapper! {
 
 impl SubprocessLauncher {
     pub fn new(flags: SubprocessFlags) -> SubprocessLauncher {
-        unsafe {
-            from_glib_full(gio_sys::g_subprocess_launcher_new(flags.to_glib()))
-        }
+        unsafe { from_glib_full(gio_sys::g_subprocess_launcher_new(flags.to_glib())) }
     }
 
     pub fn getenv<P: AsRef<std::path::Path>>(&self, variable: P) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_none(gio_sys::g_subprocess_launcher_getenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0))
+            from_glib_none(gio_sys::g_subprocess_launcher_getenv(
+                self.to_glib_none().0,
+                variable.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -47,13 +48,21 @@ impl SubprocessLauncher {
         let destroy_call3 = Some(destroy_notify_func::<P> as _);
         let super_callback0: Box_<P> = child_setup_data;
         unsafe {
-            gio_sys::g_subprocess_launcher_set_child_setup(self.to_glib_none().0, child_setup, Box::into_raw(super_callback0) as *mut _, destroy_call3);
+            gio_sys::g_subprocess_launcher_set_child_setup(
+                self.to_glib_none().0,
+                child_setup,
+                Box::into_raw(super_callback0) as *mut _,
+                destroy_call3,
+            );
         }
     }
 
     pub fn set_cwd<P: AsRef<std::path::Path>>(&self, cwd: P) {
         unsafe {
-            gio_sys::g_subprocess_launcher_set_cwd(self.to_glib_none().0, cwd.as_ref().to_glib_none().0);
+            gio_sys::g_subprocess_launcher_set_cwd(
+                self.to_glib_none().0,
+                cwd.as_ref().to_glib_none().0,
+            );
         }
     }
 
@@ -72,27 +81,46 @@ impl SubprocessLauncher {
     #[cfg(any(unix, feature = "dox"))]
     pub fn set_stderr_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {
-            gio_sys::g_subprocess_launcher_set_stderr_file_path(self.to_glib_none().0, path.as_ref().to_glib_none().0);
+            gio_sys::g_subprocess_launcher_set_stderr_file_path(
+                self.to_glib_none().0,
+                path.as_ref().to_glib_none().0,
+            );
         }
     }
 
     #[cfg(any(unix, feature = "dox"))]
     pub fn set_stdin_file_path(&self, path: &str) {
         unsafe {
-            gio_sys::g_subprocess_launcher_set_stdin_file_path(self.to_glib_none().0, path.to_glib_none().0);
+            gio_sys::g_subprocess_launcher_set_stdin_file_path(
+                self.to_glib_none().0,
+                path.to_glib_none().0,
+            );
         }
     }
 
     #[cfg(any(unix, feature = "dox"))]
     pub fn set_stdout_file_path<P: AsRef<std::path::Path>>(&self, path: P) {
         unsafe {
-            gio_sys::g_subprocess_launcher_set_stdout_file_path(self.to_glib_none().0, path.as_ref().to_glib_none().0);
+            gio_sys::g_subprocess_launcher_set_stdout_file_path(
+                self.to_glib_none().0,
+                path.as_ref().to_glib_none().0,
+            );
         }
     }
 
-    pub fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(&self, variable: P, value: Q, overwrite: bool) {
+    pub fn setenv<P: AsRef<std::ffi::OsStr>, Q: AsRef<std::ffi::OsStr>>(
+        &self,
+        variable: P,
+        value: Q,
+        overwrite: bool,
+    ) {
         unsafe {
-            gio_sys::g_subprocess_launcher_setenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0, value.as_ref().to_glib_none().0, overwrite.to_glib());
+            gio_sys::g_subprocess_launcher_setenv(
+                self.to_glib_none().0,
+                variable.as_ref().to_glib_none().0,
+                value.as_ref().to_glib_none().0,
+                overwrite.to_glib(),
+            );
         }
     }
 
@@ -103,14 +131,25 @@ impl SubprocessLauncher {
     pub fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_subprocess_launcher_spawnv(self.to_glib_none().0, argv.to_glib_none().0, &mut error);
-            if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+            let ret = gio_sys::g_subprocess_launcher_spawnv(
+                self.to_glib_none().0,
+                argv.to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
     pub fn unsetenv<P: AsRef<std::ffi::OsStr>>(&self, variable: P) {
         unsafe {
-            gio_sys::g_subprocess_launcher_unsetenv(self.to_glib_none().0, variable.as_ref().to_glib_none().0);
+            gio_sys::g_subprocess_launcher_unsetenv(
+                self.to_glib_none().0,
+                variable.as_ref().to_glib_none().0,
+            );
         }
     }
 }

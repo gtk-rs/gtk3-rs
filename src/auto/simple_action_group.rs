@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ActionGroup;
-use ActionMap;
 use gio_sys;
 use glib::translate::*;
 use std::fmt;
+use ActionGroup;
+use ActionMap;
 
 glib_wrapper! {
     pub struct SimpleActionGroup(Object<gio_sys::GSimpleActionGroup, gio_sys::GSimpleActionGroupClass, SimpleActionGroupClass>) @implements ActionGroup, ActionMap;
@@ -18,9 +18,7 @@ glib_wrapper! {
 
 impl SimpleActionGroup {
     pub fn new() -> SimpleActionGroup {
-        unsafe {
-            from_glib_full(gio_sys::g_simple_action_group_new())
-        }
+        unsafe { from_glib_full(gio_sys::g_simple_action_group_new()) }
     }
 }
 

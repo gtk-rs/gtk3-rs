@@ -2,20 +2,20 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Cancellable;
-use Error;
 #[cfg(feature = "futures")]
 use futures::future;
 use gio_sys;
-use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::GString;
 use glib_sys;
 use gobject_sys;
 #[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
+use Cancellable;
+use Error;
 
 glib_wrapper! {
     pub struct ProxyResolver(Interface<gio_sys::GProxyResolver>);
@@ -27,9 +27,7 @@ glib_wrapper! {
 
 impl ProxyResolver {
     pub fn get_default() -> Option<ProxyResolver> {
-        unsafe {
-            from_glib_none(gio_sys::g_proxy_resolver_get_default())
-        }
+        unsafe { from_glib_none(gio_sys::g_proxy_resolver_get_default()) }
     }
 }
 
@@ -38,60 +36,111 @@ pub const NONE_PROXY_RESOLVER: Option<&ProxyResolver> = None;
 pub trait ProxyResolverExt: 'static {
     fn is_supported(&self) -> bool;
 
-    fn lookup<P: IsA<Cancellable>>(&self, uri: &str, cancellable: Option<&P>) -> Result<Vec<GString>, Error>;
+    fn lookup<P: IsA<Cancellable>>(
+        &self,
+        uri: &str,
+        cancellable: Option<&P>,
+    ) -> Result<Vec<GString>, Error>;
 
-    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q);
+    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(
+        &self,
+        uri: &str,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
+    fn lookup_async_future(
+        &self,
+        uri: &str,
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     fn is_supported(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_proxy_resolver_is_supported(self.as_ref().to_glib_none().0))
+            from_glib(gio_sys::g_proxy_resolver_is_supported(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
-    fn lookup<P: IsA<Cancellable>>(&self, uri: &str, cancellable: Option<&P>) -> Result<Vec<GString>, Error> {
+    fn lookup<P: IsA<Cancellable>>(
+        &self,
+        uri: &str,
+        cancellable: Option<&P>,
+    ) -> Result<Vec<GString>, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_proxy_resolver_lookup(self.as_ref().to_glib_none().0, uri.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, &mut error);
-            if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) }
+            let ret = gio_sys::g_proxy_resolver_lookup(
+                self.as_ref().to_glib_none().0,
+                uri.to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(FromGlibPtrContainer::from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 
-    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(&self, uri: &str, cancellable: Option<&P>, callback: Q) {
+    fn lookup_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+    >(
+        &self,
+        uri: &str,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
         let user_data: Box<Q> = Box::new(callback);
-        unsafe extern "C" fn lookup_async_trampoline<Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer) {
+        unsafe extern "C" fn lookup_async_trampoline<
+            Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() { Ok(FromGlibPtrContainer::from_glib_full(ret)) } else { Err(from_glib_full(error)) };
+            let ret =
+                gio_sys::g_proxy_resolver_lookup_finish(_source_object as *mut _, res, &mut error);
+            let result = if error.is_null() {
+                Ok(FromGlibPtrContainer::from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            };
             let callback: Box<Q> = Box::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_async_trampoline::<Q>;
         unsafe {
-            gio_sys::g_proxy_resolver_lookup_async(self.as_ref().to_glib_none().0, uri.to_glib_none().0, cancellable.map(|p| p.as_ref()).to_glib_none().0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_proxy_resolver_lookup_async(
+                self.as_ref().to_glib_none().0,
+                uri.to_glib_none().0,
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
         }
     }
 
     #[cfg(feature = "futures")]
-    fn lookup_async_future(&self, uri: &str) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
-        use GioFuture;
+    fn lookup_async_future(
+        &self,
+        uri: &str,
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
         use fragile::Fragile;
+        use GioFuture;
 
         let uri = String::from(uri);
         GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            obj.lookup_async(
-                &uri,
-                Some(&cancellable),
-                move |res| {
-                    let _ = send.into_inner().send(res);
-                },
-            );
+            obj.lookup_async(&uri, Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
 
             cancellable
         })

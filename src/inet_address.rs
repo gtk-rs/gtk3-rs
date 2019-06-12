@@ -1,7 +1,7 @@
-use SocketFamily;
 use gio_sys;
 use glib::translate::*;
 use InetAddress;
+use SocketFamily;
 
 #[derive(Debug)]
 pub enum InetAddressBytes<'a> {

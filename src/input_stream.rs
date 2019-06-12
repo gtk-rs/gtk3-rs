@@ -33,7 +33,10 @@ pub trait InputStreamExtManual: Sized {
     ) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+    fn read_all_async<
+        B: AsMut<[u8]> + Send + 'static,
+        Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+    >(
         &self,
         buffer: B,
         io_priority: Priority,
@@ -41,7 +44,10 @@ pub trait InputStreamExtManual: Sized {
         callback: Q,
     );
 
-    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+    fn read_async<
+        B: AsMut<[u8]> + Send + 'static,
+        Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+    >(
         &self,
         buffer: B,
         io_priority: Priority,
@@ -55,7 +61,10 @@ pub trait InputStreamExtManual: Sized {
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin>;
+    ) -> Box<
+        dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>>
+            + std::marker::Unpin,
+    >;
 
     #[cfg(feature = "futures")]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
@@ -81,7 +90,13 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         let count = buffer.len();
         unsafe {
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_read(self.as_ref().to_glib_none().0, buffer_ptr, count, cancellable.0, &mut error);
+            let ret = gio_sys::g_input_stream_read(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                cancellable.0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(ret as usize)
             } else {
@@ -102,7 +117,14 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         unsafe {
             let mut bytes_read = mem::uninitialized();
             let mut error = ptr::null_mut();
-            let _ = gio_sys::g_input_stream_read_all(self.as_ref().to_glib_none().0, buffer_ptr, count, &mut bytes_read, cancellable.0, &mut error);
+            let _ = gio_sys::g_input_stream_read_all(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                &mut bytes_read,
+                cancellable.0,
+                &mut error,
+            );
 
             if error.is_null() {
                 Ok((bytes_read, None))
@@ -115,7 +137,10 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(
+    fn read_all_async<
+        B: AsMut<[u8]> + Send + 'static,
+        Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+    >(
         &self,
         buffer: B,
         io_priority: Priority,
@@ -130,14 +155,25 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
             let slice = (*buffer).as_mut();
             (slice.len(), slice.as_mut_ptr())
         };
-        unsafe extern "C" fn read_all_async_trampoline<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
-        {
+        unsafe extern "C" fn read_all_async_trampoline<
+            B: AsMut<[u8]> + Send + 'static,
+            Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
             let mut bytes_read = mem::uninitialized();
-            let _ = gio_sys::g_input_stream_read_all_finish(_source_object as *mut _, res, &mut bytes_read, &mut error);
+            let _ = gio_sys::g_input_stream_read_all_finish(
+                _source_object as *mut _,
+                res,
+                &mut bytes_read,
+                &mut error,
+            );
 
             let result = if error.is_null() {
                 Ok((buffer, bytes_read, None))
@@ -151,11 +187,22 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
         let callback = read_all_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_input_stream_read_all_async(self.as_ref().to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_input_stream_read_all_async(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                io_priority.to_glib(),
+                cancellable.0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
         }
     }
 
-    fn read_async<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(
+    fn read_async<
+        B: AsMut<[u8]> + Send + 'static,
+        Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+    >(
         &self,
         buffer: B,
         io_priority: Priority,
@@ -170,13 +217,20 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
             let slice = (*buffer).as_mut();
             (slice.len(), slice.as_mut_ptr())
         };
-        unsafe extern "C" fn read_async_trampoline<B: AsMut<[u8]> + Send + 'static, Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static>(_source_object: *mut gobject_sys::GObject, res: *mut gio_sys::GAsyncResult, user_data: glib_sys::gpointer)
-        {
+        unsafe extern "C" fn read_async_trampoline<
+            B: AsMut<[u8]> + Send + 'static,
+            Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
             let mut user_data: Box<Option<(Q, B)>> = Box::from_raw(user_data as *mut _);
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
-            let ret = gio_sys::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
+            let ret =
+                gio_sys::g_input_stream_read_finish(_source_object as *mut _, res, &mut error);
 
             let result = if error.is_null() {
                 Ok((buffer, ret as usize))
@@ -188,7 +242,15 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
         let callback = read_async_trampoline::<B, Q>;
         unsafe {
-            gio_sys::g_input_stream_read_async(self.as_ref().to_glib_none().0, buffer_ptr, count, io_priority.to_glib(), cancellable.0, Some(callback), Box::into_raw(user_data) as *mut _);
+            gio_sys::g_input_stream_read_async(
+                self.as_ref().to_glib_none().0,
+                buffer_ptr,
+                count,
+                io_priority.to_glib(),
+                cancellable.0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
         }
     }
 
@@ -198,7 +260,10 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>> + std::marker::Unpin> {
+    ) -> Box<
+        dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>>
+            + std::marker::Unpin,
+    > {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
@@ -206,14 +271,9 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            obj.read_all_async(
-                buffer,
-                io_priority,
-                Some(&cancellable),
-                move |res| {
-                    let _ = send.into_inner().send(res);
-                },
-            );
+            obj.read_all_async(buffer, io_priority, Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
 
             cancellable
         })
@@ -232,14 +292,9 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
-            obj.read_async(
-                buffer,
-                io_priority,
-                Some(&cancellable),
-                move |res| {
-                    let _ = send.into_inner().send(res);
-                },
-            );
+            obj.read_async(buffer, io_priority, Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
 
             cancellable
         })
@@ -249,7 +304,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
 pub struct InputStreamRead<T: InputStreamExtManual>(T);
 
-impl <T: InputStreamExtManual> InputStreamRead<T> {
+impl<T: InputStreamExtManual> InputStreamRead<T> {
     pub fn into_input_stream(self) -> T {
         self.0
     }
@@ -259,7 +314,7 @@ impl <T: InputStreamExtManual> InputStreamRead<T> {
     }
 }
 
-impl <T: InputStreamExtManual> io::Read for InputStreamRead<T> {
+impl<T: InputStreamExtManual> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
         let gio_result = self.0.read(buf, None);
         to_std_io_result(gio_result)
@@ -280,7 +335,7 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            let buf = vec![0;10];
+            let buf = vec![0; 10];
             strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
@@ -299,7 +354,7 @@ mod tests {
     fn read_all() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         let strm = MemoryInputStream::new_from_bytes(&b);
-        let mut buf = vec![0;10];
+        let mut buf = vec![0; 10];
 
         let ret = strm.read_all(&mut buf, None).unwrap();
 
@@ -314,7 +369,7 @@ mod tests {
     fn read() {
         let b = Bytes::from_owned(vec![1, 2, 3]);
         let strm = MemoryInputStream::new_from_bytes(&b);
-        let mut buf = vec![0;10];
+        let mut buf = vec![0; 10];
 
         let ret = strm.read(&mut buf, None);
 
@@ -330,7 +385,7 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            let buf = vec![0;10];
+            let buf = vec![0; 10];
             strm.read_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
