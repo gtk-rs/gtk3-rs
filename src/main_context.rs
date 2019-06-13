@@ -88,7 +88,9 @@ impl MainContext {
     {
         unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboolean {
             let func: &mut Option<F> = &mut *(func as *mut Option<F>);
-            let func = func.take().expect("MainContext::invoke() closure called multiple times");
+            let func = func
+                .take()
+                .expect("MainContext::invoke() closure called multiple times");
             func();
             glib_sys::G_SOURCE_REMOVE
         }

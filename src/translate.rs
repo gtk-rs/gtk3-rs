@@ -1854,7 +1854,8 @@ impl FromGlibPtrContainer<*const c_char, *mut glib_sys::GHashTable> for HashMap<
         ) {
             let key: String = from_glib_none(key as *const c_char);
             let value: String = from_glib_none(value as *const c_char);
-            let hash_map: &mut HashMap<String, String> = &mut *(hash_map as *mut HashMap<String, String>);
+            let hash_map: &mut HashMap<String, String> =
+                &mut *(hash_map as *mut HashMap<String, String>);
             hash_map.insert(key, value);
         }
         let mut map = HashMap::new();
