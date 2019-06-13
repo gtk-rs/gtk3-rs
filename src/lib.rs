@@ -20,18 +20,7 @@ extern crate fragile;
 #[cfg(feature = "futures")]
 extern crate futures;
 
-pub use glib::{
-    Cast,
-    Continue,
-    Error,
-    IsA,
-    Object,
-    StaticType,
-    ToValue,
-    Type,
-    TypedValue,
-    Value,
-};
+pub use glib::{Cast, Continue, Error, IsA, Object, StaticType, ToValue, Type, TypedValue, Value};
 
 mod auto;
 
@@ -41,8 +30,4 @@ pub mod prelude;
 
 pub use auto::*;
 
-pub use self::animation::{
-    PixbufAnimation,
-    PixbufAnimationIter,
-    PixbufAnimationExt,
-};
+pub use self::animation::{PixbufAnimation, PixbufAnimationExt, PixbufAnimationIter};

@@ -3,20 +3,19 @@
 // DO NOT EDIT
 
 use gdk_pixbuf_sys;
-use glib::Quark;
-use glib::StaticType;
-use glib::Type;
 use glib::error::ErrorDomain;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
+use glib::Quark;
+use glib::StaticType;
+use glib::Type;
 use gobject_sys;
 use std::fmt;
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Colorspace {
     Rgb,
     #[doc(hidden)]
@@ -25,10 +24,14 @@ pub enum Colorspace {
 
 impl fmt::Display for Colorspace {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Colorspace::{}", match *self {
-            Colorspace::Rgb => "Rgb",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Colorspace::{}",
+            match *self {
+                Colorspace::Rgb => "Rgb",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -39,7 +42,7 @@ impl ToGlib for Colorspace {
     fn to_glib(&self) -> gdk_pixbuf_sys::GdkColorspace {
         match *self {
             Colorspace::Rgb => gdk_pixbuf_sys::GDK_COLORSPACE_RGB,
-            Colorspace::__Unknown(value) => value
+            Colorspace::__Unknown(value) => value,
         }
     }
 }
@@ -78,8 +81,7 @@ impl SetValue for Colorspace {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum InterpType {
     Nearest,
     Tiles,
@@ -91,13 +93,17 @@ pub enum InterpType {
 
 impl fmt::Display for InterpType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "InterpType::{}", match *self {
-            InterpType::Nearest => "Nearest",
-            InterpType::Tiles => "Tiles",
-            InterpType::Bilinear => "Bilinear",
-            InterpType::Hyper => "Hyper",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "InterpType::{}",
+            match *self {
+                InterpType::Nearest => "Nearest",
+                InterpType::Tiles => "Tiles",
+                InterpType::Bilinear => "Bilinear",
+                InterpType::Hyper => "Hyper",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -111,7 +117,7 @@ impl ToGlib for InterpType {
             InterpType::Tiles => gdk_pixbuf_sys::GDK_INTERP_TILES,
             InterpType::Bilinear => gdk_pixbuf_sys::GDK_INTERP_BILINEAR,
             InterpType::Hyper => gdk_pixbuf_sys::GDK_INTERP_HYPER,
-            InterpType::__Unknown(value) => value
+            InterpType::__Unknown(value) => value,
         }
     }
 }
@@ -153,8 +159,7 @@ impl SetValue for InterpType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum PixbufAlphaMode {
     Bilevel,
     Full,
@@ -164,11 +169,15 @@ pub enum PixbufAlphaMode {
 
 impl fmt::Display for PixbufAlphaMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufAlphaMode::{}", match *self {
-            PixbufAlphaMode::Bilevel => "Bilevel",
-            PixbufAlphaMode::Full => "Full",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "PixbufAlphaMode::{}",
+            match *self {
+                PixbufAlphaMode::Bilevel => "Bilevel",
+                PixbufAlphaMode::Full => "Full",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -180,7 +189,7 @@ impl ToGlib for PixbufAlphaMode {
         match *self {
             PixbufAlphaMode::Bilevel => gdk_pixbuf_sys::GDK_PIXBUF_ALPHA_BILEVEL,
             PixbufAlphaMode::Full => gdk_pixbuf_sys::GDK_PIXBUF_ALPHA_FULL,
-            PixbufAlphaMode::__Unknown(value) => value
+            PixbufAlphaMode::__Unknown(value) => value,
         }
     }
 }
@@ -220,8 +229,7 @@ impl SetValue for PixbufAlphaMode {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum PixbufError {
     CorruptImage,
     InsufficientMemory,
@@ -236,16 +244,20 @@ pub enum PixbufError {
 
 impl fmt::Display for PixbufError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufError::{}", match *self {
-            PixbufError::CorruptImage => "CorruptImage",
-            PixbufError::InsufficientMemory => "InsufficientMemory",
-            PixbufError::BadOption => "BadOption",
-            PixbufError::UnknownType => "UnknownType",
-            PixbufError::UnsupportedOperation => "UnsupportedOperation",
-            PixbufError::Failed => "Failed",
-            PixbufError::IncompleteAnimation => "IncompleteAnimation",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "PixbufError::{}",
+            match *self {
+                PixbufError::CorruptImage => "CorruptImage",
+                PixbufError::InsufficientMemory => "InsufficientMemory",
+                PixbufError::BadOption => "BadOption",
+                PixbufError::UnknownType => "UnknownType",
+                PixbufError::UnsupportedOperation => "UnsupportedOperation",
+                PixbufError::Failed => "Failed",
+                PixbufError::IncompleteAnimation => "IncompleteAnimation",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -259,10 +271,14 @@ impl ToGlib for PixbufError {
             PixbufError::InsufficientMemory => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY,
             PixbufError::BadOption => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_BAD_OPTION,
             PixbufError::UnknownType => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_UNKNOWN_TYPE,
-            PixbufError::UnsupportedOperation => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION,
+            PixbufError::UnsupportedOperation => {
+                gdk_pixbuf_sys::GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION
+            }
             PixbufError::Failed => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_FAILED,
-            PixbufError::IncompleteAnimation => gdk_pixbuf_sys::GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION,
-            PixbufError::__Unknown(value) => value
+            PixbufError::IncompleteAnimation => {
+                gdk_pixbuf_sys::GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION
+            }
+            PixbufError::__Unknown(value) => value,
         }
     }
 }
@@ -330,8 +346,7 @@ impl SetValue for PixbufError {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum PixbufRotation {
     None,
     Counterclockwise,
@@ -343,13 +358,17 @@ pub enum PixbufRotation {
 
 impl fmt::Display for PixbufRotation {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PixbufRotation::{}", match *self {
-            PixbufRotation::None => "None",
-            PixbufRotation::Counterclockwise => "Counterclockwise",
-            PixbufRotation::Upsidedown => "Upsidedown",
-            PixbufRotation::Clockwise => "Clockwise",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "PixbufRotation::{}",
+            match *self {
+                PixbufRotation::None => "None",
+                PixbufRotation::Counterclockwise => "Counterclockwise",
+                PixbufRotation::Upsidedown => "Upsidedown",
+                PixbufRotation::Clockwise => "Clockwise",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -363,7 +382,7 @@ impl ToGlib for PixbufRotation {
             PixbufRotation::Counterclockwise => gdk_pixbuf_sys::GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE,
             PixbufRotation::Upsidedown => gdk_pixbuf_sys::GDK_PIXBUF_ROTATE_UPSIDEDOWN,
             PixbufRotation::Clockwise => gdk_pixbuf_sys::GDK_PIXBUF_ROTATE_CLOCKWISE,
-            PixbufRotation::__Unknown(value) => value
+            PixbufRotation::__Unknown(value) => value,
         }
     }
 }
@@ -404,4 +423,3 @@ impl SetValue for PixbufRotation {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
-
