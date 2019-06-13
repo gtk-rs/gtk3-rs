@@ -9,7 +9,13 @@ use glib::translate::*;
 pub struct EventButton(::Event);
 
 event_wrapper!(EventButton, GdkEventButton);
-event_subtype!(EventButton, gdk_sys::GDK_BUTTON_PRESS | gdk_sys::GDK_DOUBLE_BUTTON_PRESS | gdk_sys::GDK_TRIPLE_BUTTON_PRESS | gdk_sys::GDK_BUTTON_RELEASE);
+event_subtype!(
+    EventButton,
+    gdk_sys::GDK_BUTTON_PRESS
+        | gdk_sys::GDK_DOUBLE_BUTTON_PRESS
+        | gdk_sys::GDK_TRIPLE_BUTTON_PRESS
+        | gdk_sys::GDK_BUTTON_RELEASE
+);
 
 impl EventButton {
     pub fn get_position(&self) -> (f64, f64) {

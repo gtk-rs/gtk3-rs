@@ -8,18 +8,18 @@
 #![cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ptr))]
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 
-extern crate glib_sys;
-extern crate gio_sys;
-extern crate gdk_sys;
 extern crate gdk_pixbuf;
+extern crate gdk_sys;
 extern crate gio;
+extern crate gio_sys;
+extern crate glib_sys;
 #[macro_use]
 extern crate glib;
-extern crate gobject_sys;
 extern crate cairo;
 extern crate cairo_sys;
-extern crate pango;
+extern crate gobject_sys;
 extern crate libc;
+extern crate pango;
 #[macro_use]
 extern crate bitflags;
 
@@ -35,9 +35,9 @@ mod auto;
 
 pub mod prelude;
 
-pub use prelude::*;
-pub use auto::*;
 pub use self::auto::functions::*;
+pub use auto::*;
+pub use prelude::*;
 
 pub mod enums;
 
@@ -80,38 +80,35 @@ mod frame_timings;
 mod functions;
 mod geometry;
 mod keys;
-mod screen;
 mod rectangle;
 mod rgba;
+mod screen;
 mod visual;
 mod window;
 
 pub use gdk_sys::GdkColor as Color;
 pub use glib::Error;
 
-pub use self::rt::{
-    init,
-    set_initialized,
-};
+pub use self::rt::{init, set_initialized};
 
 pub use atom::Atom;
 pub use atom::NONE as ATOM_NONE;
+pub use atom::SELECTION_CLIPBOARD;
 pub use atom::SELECTION_PRIMARY;
 pub use atom::SELECTION_SECONDARY;
-pub use atom::SELECTION_CLIPBOARD;
-pub use atom::TARGET_BITMAP;
-pub use atom::TARGET_COLORMAP;
-pub use atom::TARGET_DRAWABLE;
-pub use atom::TARGET_PIXMAP;
-pub use atom::TARGET_STRING;
 pub use atom::SELECTION_TYPE_ATOM;
 pub use atom::SELECTION_TYPE_BITMAP;
 pub use atom::SELECTION_TYPE_COLORMAP;
 pub use atom::SELECTION_TYPE_DRAWABLE;
 pub use atom::SELECTION_TYPE_INTEGER;
 pub use atom::SELECTION_TYPE_PIXMAP;
-pub use atom::SELECTION_TYPE_WINDOW;
 pub use atom::SELECTION_TYPE_STRING;
+pub use atom::SELECTION_TYPE_WINDOW;
+pub use atom::TARGET_BITMAP;
+pub use atom::TARGET_COLORMAP;
+pub use atom::TARGET_DRAWABLE;
+pub use atom::TARGET_PIXMAP;
+pub use atom::TARGET_STRING;
 pub use change_data::ChangeData;
 pub use event::Event;
 pub use event_button::EventButton;
@@ -145,13 +142,10 @@ pub use event_window_state::EventWindowState;
 pub use functions::*;
 pub use geometry::Geometry;
 pub use rectangle::Rectangle;
-pub use rgba::{RGBA, RgbaParseError};
+pub use rgba::{RgbaParseError, RGBA};
 pub use window::WindowAttr;
 
 #[allow(non_camel_case_types)]
 pub type key = i32;
 
-pub use self::keys::{
-    keyval_name,
-    keyval_to_unicode
-};
+pub use self::keys::{keyval_name, keyval_to_unicode};

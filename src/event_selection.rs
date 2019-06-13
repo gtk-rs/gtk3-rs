@@ -9,7 +9,10 @@ use glib::translate::*;
 pub struct EventSelection(::Event);
 
 event_wrapper!(EventSelection, GdkEventSelection);
-event_subtype!(EventSelection, gdk_sys::GDK_SELECTION_CLEAR | gdk_sys::GDK_SELECTION_NOTIFY | gdk_sys::GDK_SELECTION_REQUEST);
+event_subtype!(
+    EventSelection,
+    gdk_sys::GDK_SELECTION_CLEAR | gdk_sys::GDK_SELECTION_NOTIFY | gdk_sys::GDK_SELECTION_REQUEST
+);
 
 impl EventSelection {
     pub fn get_selection(&self) -> ::Atom {

@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Device;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-use DevicePadFeature;
 use gdk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Device;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+use DevicePadFeature;
 
 glib_wrapper! {
     pub struct DevicePad(Interface<gdk_sys::GdkDevicePad>) @requires Device;
@@ -38,7 +38,11 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_feature_group(&self, feature: DevicePadFeature, feature_idx: i32) -> i32 {
         unsafe {
-            gdk_sys::gdk_device_pad_get_feature_group(self.as_ref().to_glib_none().0, feature.to_glib(), feature_idx)
+            gdk_sys::gdk_device_pad_get_feature_group(
+                self.as_ref().to_glib_none().0,
+                feature.to_glib(),
+                feature_idx,
+            )
         }
     }
 
@@ -52,15 +56,16 @@ impl<O: IsA<DevicePad>> DevicePadExt for O {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_n_features(&self, feature: DevicePadFeature) -> i32 {
         unsafe {
-            gdk_sys::gdk_device_pad_get_n_features(self.as_ref().to_glib_none().0, feature.to_glib())
+            gdk_sys::gdk_device_pad_get_n_features(
+                self.as_ref().to_glib_none().0,
+                feature.to_glib(),
+            )
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     fn get_n_groups(&self) -> i32 {
-        unsafe {
-            gdk_sys::gdk_device_pad_get_n_groups(self.as_ref().to_glib_none().0)
-        }
+        unsafe { gdk_sys::gdk_device_pad_get_n_groups(self.as_ref().to_glib_none().0) }
     }
 }
 

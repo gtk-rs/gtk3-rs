@@ -9,7 +9,10 @@ use glib::translate::*;
 pub struct EventPadButton(::Event);
 
 event_wrapper!(EventPadButton, GdkEventPadButton);
-event_subtype!(EventPadButton, gdk_sys::GDK_PAD_BUTTON_PRESS | gdk_sys::GDK_PAD_BUTTON_RELEASE);
+event_subtype!(
+    EventPadButton,
+    gdk_sys::GDK_PAD_BUTTON_PRESS | gdk_sys::GDK_PAD_BUTTON_RELEASE
+);
 
 impl EventPadButton {
     pub fn get_time(&self) -> u32 {

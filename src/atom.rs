@@ -33,7 +33,12 @@ pub const SELECTION_TYPE_STRING: Atom = Atom(31 as *mut _);
 impl Atom {
     pub fn intern(atom_name: &str) -> Atom {
         assert_initialized_main_thread!();
-        unsafe { Atom(gdk_sys::gdk_atom_intern(atom_name.to_glib_none().0, false.to_glib())) }
+        unsafe {
+            Atom(gdk_sys::gdk_atom_intern(
+                atom_name.to_glib_none().0,
+                false.to_glib(),
+            ))
+        }
     }
 
     pub fn name(self) -> GString {
@@ -76,7 +81,10 @@ impl<'a> ToGlibPtrMut<'a, *mut gdk_sys::GdkAtom> for Atom {
 }
 
 impl<'a> ToGlibContainerFromSlice<'a, *mut gdk_sys::GdkAtom> for &'a Atom {
-    type Storage = (Vec<Stash<'a, gdk_sys::GdkAtom, &'a Atom>>, Option<Vec<gdk_sys::GdkAtom>>);
+    type Storage = (
+        Vec<Stash<'a, gdk_sys::GdkAtom, &'a Atom>>,
+        Option<Vec<gdk_sys::GdkAtom>>,
+    );
 
     fn to_glib_none_from_slice(t: &'a [&'a Atom]) -> (*mut gdk_sys::GdkAtom, Self::Storage) {
         skip_assert_initialized!();
@@ -94,7 +102,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gdk_sys::GdkAtom> for &'a Atom {
         let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
 
         let v_ptr = unsafe {
-            let v_ptr = glib_sys::g_malloc0(mem::size_of::<gdk_sys::GdkAtom>() * (t.len() + 1)) as *mut gdk_sys::GdkAtom;
+            let v_ptr = glib_sys::g_malloc0(mem::size_of::<gdk_sys::GdkAtom>() * (t.len() + 1))
+                as *mut gdk_sys::GdkAtom;
 
             for (i, s) in v.iter().enumerate() {
                 ptr::write(v_ptr.offset(i as isize), s.0);
@@ -114,7 +123,10 @@ impl<'a> ToGlibContainerFromSlice<'a, *mut gdk_sys::GdkAtom> for &'a Atom {
 }
 
 impl<'a> ToGlibContainerFromSlice<'a, *const gdk_sys::GdkAtom> for &'a Atom {
-    type Storage = (Vec<Stash<'a, gdk_sys::GdkAtom, &'a Atom>>, Option<Vec<gdk_sys::GdkAtom>>);
+    type Storage = (
+        Vec<Stash<'a, gdk_sys::GdkAtom, &'a Atom>>,
+        Option<Vec<gdk_sys::GdkAtom>>,
+    );
 
     fn to_glib_none_from_slice(t: &'a [&'a Atom]) -> (*const gdk_sys::GdkAtom, Self::Storage) {
         skip_assert_initialized!();
@@ -132,7 +144,8 @@ impl<'a> ToGlibContainerFromSlice<'a, *const gdk_sys::GdkAtom> for &'a Atom {
         let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
 
         let v_ptr = unsafe {
-            let v_ptr = glib_sys::g_malloc0(mem::size_of::<gdk_sys::GdkAtom>() * (t.len() + 1)) as *mut gdk_sys::GdkAtom;
+            let v_ptr = glib_sys::g_malloc0(mem::size_of::<gdk_sys::GdkAtom>() * (t.len() + 1))
+                as *mut gdk_sys::GdkAtom;
 
             for (i, s) in v.iter().enumerate() {
                 ptr::write(v_ptr.offset(i as isize), s.0);
@@ -153,17 +166,23 @@ impl<'a> ToGlibContainerFromSlice<'a, *const gdk_sys::GdkAtom> for &'a Atom {
 
 impl FromGlibPtrNone<gdk_sys::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_none(ptr: gdk_sys::GdkAtom) -> Atom { Atom(ptr) }
+    unsafe fn from_glib_none(ptr: gdk_sys::GdkAtom) -> Atom {
+        Atom(ptr)
+    }
 }
 
 impl FromGlibPtrBorrow<gdk_sys::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_borrow(ptr: gdk_sys::GdkAtom) -> Atom { Atom(ptr) }
+    unsafe fn from_glib_borrow(ptr: gdk_sys::GdkAtom) -> Atom {
+        Atom(ptr)
+    }
 }
 
 impl FromGlibPtrFull<gdk_sys::GdkAtom> for Atom {
     #[inline]
-    unsafe fn from_glib_full(_: gdk_sys::GdkAtom) -> Atom { unimplemented!() }
+    unsafe fn from_glib_full(_: gdk_sys::GdkAtom) -> Atom {
+        unimplemented!()
+    }
 }
 
 impl FromGlibContainerAsVec<gdk_sys::GdkAtom, *mut gdk_sys::GdkAtom> for Atom {

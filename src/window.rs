@@ -13,12 +13,7 @@ use Cursor;
 use Visual;
 use Window;
 
-use {
-    WindowHints,
-    WindowType,
-    WindowTypeHint,
-    WindowWindowClass,
-};
+use {WindowHints, WindowType, WindowTypeHint, WindowWindowClass};
 
 pub struct WindowAttr {
     pub title: Option<String>,
@@ -57,14 +52,28 @@ impl Default for WindowAttr {
 
 impl WindowAttr {
     fn get_mask(&self) -> u32 {
-        let mut mask : gdk_sys::GdkWindowAttributesType = 0;
-        if self.title.is_some() { mask |= gdk_sys::GDK_WA_TITLE; }
-        if self.x.is_some() { mask |= gdk_sys::GDK_WA_X; }
-        if self.y.is_some() { mask |= gdk_sys::GDK_WA_Y; }
-        if self.cursor.is_some() { mask |= gdk_sys::GDK_WA_CURSOR; }
-        if self.visual.is_some() { mask |= gdk_sys::GDK_WA_VISUAL; }
-        if self.override_redirect { mask |= gdk_sys::GDK_WA_NOREDIR; }
-        if self.type_hint.is_some() { mask |= gdk_sys::GDK_WA_TYPE_HINT; }
+        let mut mask: gdk_sys::GdkWindowAttributesType = 0;
+        if self.title.is_some() {
+            mask |= gdk_sys::GDK_WA_TITLE;
+        }
+        if self.x.is_some() {
+            mask |= gdk_sys::GDK_WA_X;
+        }
+        if self.y.is_some() {
+            mask |= gdk_sys::GDK_WA_Y;
+        }
+        if self.cursor.is_some() {
+            mask |= gdk_sys::GDK_WA_CURSOR;
+        }
+        if self.visual.is_some() {
+            mask |= gdk_sys::GDK_WA_VISUAL;
+        }
+        if self.override_redirect {
+            mask |= gdk_sys::GDK_WA_NOREDIR;
+        }
+        if self.type_hint.is_some() {
+            mask |= gdk_sys::GDK_WA_TYPE_HINT;
+        }
         mask
     }
 }
@@ -111,13 +120,24 @@ impl Window {
             from_glib_full(gdk_sys::gdk_window_new(
                 parent.to_glib_none().0,
                 attributes.to_glib_none().0,
-                attributes.get_mask() as c_int))
+                attributes.get_mask() as c_int,
+            ))
         }
     }
 
-    pub fn create_similar_surface(&self, content: cairo::Content, width: i32, height: i32) -> Option<Surface> {
+    pub fn create_similar_surface(
+        &self,
+        content: cairo::Content,
+        width: i32,
+        height: i32,
+    ) -> Option<Surface> {
         unsafe {
-            from_glib_full(gdk_sys::gdk_window_create_similar_surface(self.to_glib_none().0, content.into(), width, height))
+            from_glib_full(gdk_sys::gdk_window_create_similar_surface(
+                self.to_glib_none().0,
+                content.into(),
+                width,
+                height,
+            ))
         }
     }
 }
@@ -138,7 +158,13 @@ pub trait WindowExtManual: 'static {
 
     fn offscreen_window_get_surface(&self) -> Option<Surface>;
 
-    fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf>;
+    fn get_pixbuf(
+        &self,
+        src_x: i32,
+        src_y: i32,
+        width: i32,
+        height: i32,
+    ) -> Option<gdk_pixbuf::Pixbuf>;
 
     fn get_background_pattern(&self) -> Option<cairo::Pattern>;
 
@@ -147,7 +173,10 @@ pub trait WindowExtManual: 'static {
 
 impl<O: IsA<Window>> WindowExtManual for O {
     unsafe fn set_user_data<T>(&self, user_data: &mut T) {
-        gdk_sys::gdk_window_set_user_data(self.as_ref().to_glib_none().0, user_data as *mut T as *mut _)
+        gdk_sys::gdk_window_set_user_data(
+            self.as_ref().to_glib_none().0,
+            user_data as *mut T as *mut _,
+        )
     }
 
     unsafe fn get_user_data<T>(&self) -> &mut T {
@@ -157,7 +186,13 @@ impl<O: IsA<Window>> WindowExtManual for O {
     }
 
     fn set_geometry_hints(&self, geometry: &gdk_sys::GdkGeometry, geom_mask: WindowHints) {
-        unsafe { gdk_sys::gdk_window_set_geometry_hints(self.as_ref().to_glib_none().0, geometry, geom_mask.to_glib()) }
+        unsafe {
+            gdk_sys::gdk_window_set_geometry_hints(
+                self.as_ref().to_glib_none().0,
+                geometry,
+                geom_mask.to_glib(),
+            )
+        }
     }
 
     fn get_default_root_window() -> Window {
@@ -167,25 +202,46 @@ impl<O: IsA<Window>> WindowExtManual for O {
 
     fn offscreen_window_set_embedder(&self, embedder: &Window) {
         unsafe {
-            gdk_sys::gdk_offscreen_window_set_embedder(self.as_ref().to_glib_none().0, embedder.to_glib_none().0)
+            gdk_sys::gdk_offscreen_window_set_embedder(
+                self.as_ref().to_glib_none().0,
+                embedder.to_glib_none().0,
+            )
         }
     }
 
     fn offscreen_window_get_embedder(&self) -> Option<Window> {
-        unsafe { from_glib_none(gdk_sys::gdk_offscreen_window_get_embedder(self.as_ref().to_glib_none().0)) }
+        unsafe {
+            from_glib_none(gdk_sys::gdk_offscreen_window_get_embedder(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
     }
 
     fn offscreen_window_get_surface(&self) -> Option<Surface> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_none(gdk_sys::gdk_offscreen_window_get_surface(self.as_ref().to_glib_none().0))
+            from_glib_none(gdk_sys::gdk_offscreen_window_get_surface(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
-    fn get_pixbuf(&self, src_x: i32, src_y: i32, width: i32, height: i32) -> Option<gdk_pixbuf::Pixbuf> {
+    fn get_pixbuf(
+        &self,
+        src_x: i32,
+        src_y: i32,
+        width: i32,
+        height: i32,
+    ) -> Option<gdk_pixbuf::Pixbuf> {
         skip_assert_initialized!();
         unsafe {
-            from_glib_full(gdk_sys::gdk_pixbuf_get_from_window(self.as_ref().to_glib_none().0, src_x, src_y, width, height))
+            from_glib_full(gdk_sys::gdk_pixbuf_get_from_window(
+                self.as_ref().to_glib_none().0,
+                src_x,
+                src_y,
+                width,
+                height,
+            ))
         }
     }
 

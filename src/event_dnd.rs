@@ -9,7 +9,15 @@ use glib::translate::*;
 pub struct EventDND(::Event);
 
 event_wrapper!(EventDND, GdkEventDND);
-event_subtype!(EventDND, gdk_sys::GDK_DRAG_ENTER | gdk_sys::GDK_DRAG_LEAVE | gdk_sys::GDK_DRAG_MOTION | gdk_sys::GDK_DRAG_STATUS | gdk_sys::GDK_DROP_START | gdk_sys::GDK_DROP_FINISHED);
+event_subtype!(
+    EventDND,
+    gdk_sys::GDK_DRAG_ENTER
+        | gdk_sys::GDK_DRAG_LEAVE
+        | gdk_sys::GDK_DRAG_MOTION
+        | gdk_sys::GDK_DRAG_STATUS
+        | gdk_sys::GDK_DROP_START
+        | gdk_sys::GDK_DROP_FINISHED
+);
 
 impl EventDND {
     pub fn get_context(&self) -> Option<::DragContext> {

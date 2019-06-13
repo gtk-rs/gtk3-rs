@@ -9,7 +9,10 @@ use glib::translate::*;
 pub struct EventCrossing(::Event);
 
 event_wrapper!(EventCrossing, GdkEventCrossing);
-event_subtype!(EventCrossing, gdk_sys::GDK_ENTER_NOTIFY | gdk_sys::GDK_LEAVE_NOTIFY);
+event_subtype!(
+    EventCrossing,
+    gdk_sys::GDK_ENTER_NOTIFY | gdk_sys::GDK_LEAVE_NOTIFY
+);
 
 impl EventCrossing {
     pub fn get_position(&self) -> (f64, f64) {

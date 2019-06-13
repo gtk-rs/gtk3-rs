@@ -9,7 +9,10 @@ use glib::translate::*;
 pub struct EventProximity(::Event);
 
 event_wrapper!(EventProximity, GdkEventProximity);
-event_subtype!(EventProximity, gdk_sys::GDK_PROXIMITY_IN | gdk_sys::GDK_PROXIMITY_OUT);
+event_subtype!(
+    EventProximity,
+    gdk_sys::GDK_PROXIMITY_IN | gdk_sys::GDK_PROXIMITY_OUT
+);
 
 impl EventProximity {
     pub fn get_time(&self) -> u32 {

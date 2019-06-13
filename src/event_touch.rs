@@ -9,7 +9,13 @@ use glib::translate::*;
 pub struct EventTouch(::Event);
 
 event_wrapper!(EventTouch, GdkEventTouch);
-event_subtype!(EventTouch, gdk_sys::GDK_TOUCH_BEGIN | gdk_sys::GDK_TOUCH_UPDATE | gdk_sys::GDK_TOUCH_END | gdk_sys::GDK_TOUCH_CANCEL);
+event_subtype!(
+    EventTouch,
+    gdk_sys::GDK_TOUCH_BEGIN
+        | gdk_sys::GDK_TOUCH_UPDATE
+        | gdk_sys::GDK_TOUCH_END
+        | gdk_sys::GDK_TOUCH_CANCEL
+);
 
 impl EventTouch {
     pub fn get_time(&self) -> u32 {
@@ -51,8 +57,6 @@ impl EventTouch {
     }
 
     pub fn get_event_sequence(&self) -> Option<::EventSequence> {
-        unsafe {
-            from_glib_none(self.as_ref().sequence)
-        }
+        unsafe { from_glib_none(self.as_ref().sequence) }
     }
 }
