@@ -21,13 +21,19 @@ glib_wrapper! {
 impl PixbufAnimationIter {
     pub fn advance(&self, start_time: TimeVal) -> bool {
         unsafe {
-            from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_advance(self.to_glib_none().0,
-                &start_time as *const _))
+            from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_advance(
+                self.to_glib_none().0,
+                &start_time as *const _,
+            ))
         }
     }
 
     pub fn get_pixbuf(&self) -> Pixbuf {
-        unsafe { from_glib_none(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_get_pixbuf(self.to_glib_none().0)) }
+        unsafe {
+            from_glib_none(gdk_pixbuf_sys::gdk_pixbuf_animation_iter_get_pixbuf(
+                self.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn get_delay_time(&self) -> i32 {
@@ -37,7 +43,10 @@ impl PixbufAnimationIter {
     pub fn on_currently_loading_frame(&self) -> bool {
         unsafe {
             from_glib(
-                gdk_pixbuf_sys::gdk_pixbuf_animation_iter_on_currently_loading_frame(self.to_glib_none().0))
+                gdk_pixbuf_sys::gdk_pixbuf_animation_iter_on_currently_loading_frame(
+                    self.to_glib_none().0,
+                ),
+            )
         }
     }
 }
@@ -52,15 +61,15 @@ glib_wrapper! {
 
 impl PixbufAnimation {
     pub fn new_from_file<T: AsRef<Path>>(file: T) -> Result<PixbufAnimation, Error> {
-        #[cfg(windows)]
-        use gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_file_utf8
-            as gdk_pixbuf_animation_new_from_file;
         #[cfg(not(windows))]
         use gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_file;
+        #[cfg(windows)]
+        use gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_file_utf8 as gdk_pixbuf_animation_new_from_file;
 
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_animation_new_from_file(file.as_ref().to_glib_none().0, &mut error);
+            let ptr =
+                gdk_pixbuf_animation_new_from_file(file.as_ref().to_glib_none().0, &mut error);
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
@@ -72,8 +81,10 @@ impl PixbufAnimation {
     pub fn new_from_resource(resource_path: &str) -> Result<PixbufAnimation, Error> {
         unsafe {
             let mut error = ptr::null_mut();
-            let ptr = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_resource(resource_path.to_glib_none().0,
-                                                                  &mut error);
+            let ptr = gdk_pixbuf_sys::gdk_pixbuf_animation_new_from_resource(
+                resource_path.to_glib_none().0,
+                &mut error,
+            );
             if error.is_null() {
                 Ok(from_glib_full(ptr))
             } else {
@@ -102,22 +113,26 @@ impl<T: IsA<PixbufAnimation>> PixbufAnimationExt for T {
 
     fn get_iter(&self, start_time: TimeVal) -> PixbufAnimationIter {
         unsafe {
-            from_glib_full(
-                gdk_pixbuf_sys::gdk_pixbuf_animation_get_iter(self.as_ref().to_glib_none().0,
-                                                   &start_time as *const _))
+            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_animation_get_iter(
+                self.as_ref().to_glib_none().0,
+                &start_time as *const _,
+            ))
         }
     }
 
     fn is_static_image(&self) -> bool {
         unsafe {
-            from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_is_static_image(self.as_ref().to_glib_none().0))
+            from_glib(gdk_pixbuf_sys::gdk_pixbuf_animation_is_static_image(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_static_image(&self) -> Option<Pixbuf> {
         unsafe {
             from_glib_none(gdk_pixbuf_sys::gdk_pixbuf_animation_get_static_image(
-                self.as_ref().to_glib_none().0))
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

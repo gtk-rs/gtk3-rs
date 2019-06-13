@@ -6,8 +6,8 @@ mod pixbuf;
 pub use self::pixbuf::{Pixbuf, PixbufClass};
 
 mod pixbuf_loader;
-pub use self::pixbuf_loader::{PixbufLoader, PixbufLoaderClass, NONE_PIXBUF_LOADER};
 pub use self::pixbuf_loader::PixbufLoaderExt;
+pub use self::pixbuf_loader::{PixbufLoader, PixbufLoaderClass, NONE_PIXBUF_LOADER};
 
 mod pixbuf_simple_anim;
 pub use self::pixbuf_simple_anim::{PixbufSimpleAnim, PixbufSimpleAnimClass};

@@ -2,17 +2,17 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Pixbuf;
-use PixbufAnimation;
 use gdk_pixbuf_sys;
 use glib::object::ObjectType as ObjectType_;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
 use glib_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use Pixbuf;
+use PixbufAnimation;
 
 glib_wrapper! {
     pub struct PixbufSimpleAnim(Object<gdk_pixbuf_sys::GdkPixbufSimpleAnim, gdk_pixbuf_sys::GdkPixbufSimpleAnimClass, PixbufSimpleAnimClass>) @extends PixbufAnimation;
@@ -25,19 +25,26 @@ glib_wrapper! {
 impl PixbufSimpleAnim {
     pub fn new(width: i32, height: i32, rate: f32) -> PixbufSimpleAnim {
         unsafe {
-            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_simple_anim_new(width, height, rate))
+            from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_simple_anim_new(
+                width, height, rate,
+            ))
         }
     }
 
     pub fn add_frame(&self, pixbuf: &Pixbuf) {
         unsafe {
-            gdk_pixbuf_sys::gdk_pixbuf_simple_anim_add_frame(self.to_glib_none().0, pixbuf.to_glib_none().0);
+            gdk_pixbuf_sys::gdk_pixbuf_simple_anim_add_frame(
+                self.to_glib_none().0,
+                pixbuf.to_glib_none().0,
+            );
         }
     }
 
     pub fn get_loop(&self) -> bool {
         unsafe {
-            from_glib(gdk_pixbuf_sys::gdk_pixbuf_simple_anim_get_loop(self.to_glib_none().0))
+            from_glib(gdk_pixbuf_sys::gdk_pixbuf_simple_anim_get_loop(
+                self.to_glib_none().0,
+            ))
         }
     }
 
@@ -47,15 +54,26 @@ impl PixbufSimpleAnim {
         }
     }
 
-    pub fn connect_property_loop_notify<F: Fn(&PixbufSimpleAnim) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_loop_trampoline<F: Fn(&PixbufSimpleAnim) + 'static>(this: *mut gdk_pixbuf_sys::GdkPixbufSimpleAnim, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_loop_notify<F: Fn(&PixbufSimpleAnim) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_loop_trampoline<F: Fn(&PixbufSimpleAnim) + 'static>(
+            this: *mut gdk_pixbuf_sys::GdkPixbufSimpleAnim,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::loop\0".as_ptr() as *const _,
-                Some(transmute(notify_loop_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::loop\0".as_ptr() as *const _,
+                Some(transmute(notify_loop_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }
