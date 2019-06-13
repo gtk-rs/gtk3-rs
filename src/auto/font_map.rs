@@ -18,9 +18,7 @@ glib_wrapper! {
 
 impl FontMap {
     pub fn get_default() -> Option<pango::FontMap> {
-        unsafe {
-            from_glib_none(pango_cairo_sys::pango_cairo_font_map_get_default())
-        }
+        unsafe { from_glib_none(pango_cairo_sys::pango_cairo_font_map_get_default()) }
     }
 }
 
@@ -49,7 +47,10 @@ impl<O: IsA<FontMap>> FontMapExt for O {
 
     fn set_resolution(&self, dpi: f64) {
         unsafe {
-            pango_cairo_sys::pango_cairo_font_map_set_resolution(self.as_ref().to_glib_none().0, dpi);
+            pango_cairo_sys::pango_cairo_font_map_set_resolution(
+                self.as_ref().to_glib_none().0,
+                dpi,
+            );
         }
     }
 }

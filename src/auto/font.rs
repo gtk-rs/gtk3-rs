@@ -26,7 +26,9 @@ pub trait FontExt: 'static {
 impl<O: IsA<Font>> FontExt for O {
     fn get_scaled_font(&self) -> Option<cairo::ScaledFont> {
         unsafe {
-            from_glib_full(pango_cairo_sys::pango_cairo_font_get_scaled_font(self.as_ref().to_glib_none().0))
+            from_glib_full(pango_cairo_sys::pango_cairo_font_get_scaled_font(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }
