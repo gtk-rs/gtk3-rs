@@ -3,12 +3,12 @@
 // DO NOT EDIT
 
 mod font;
-pub use self::font::{Font, NONE_FONT};
 pub use self::font::FontExt;
+pub use self::font::{Font, NONE_FONT};
 
 mod font_map;
-pub use self::font_map::{FontMap, NONE_FONT_MAP};
 pub use self::font_map::FontMapExt;
+pub use self::font_map::{FontMap, NONE_FONT_MAP};
 
 pub mod functions;
 
