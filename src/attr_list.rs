@@ -11,21 +11,30 @@ use Attribute;
 impl AttrList {
     pub fn change(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_change(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            pango_sys::pango_attr_list_change(
+                self.to_glib_none().0,
+                attr.to_glib_none().0 as *mut _,
+            );
             mem::forget(attr); //As attr transferred fully
         }
     }
 
     pub fn insert(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_insert(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            pango_sys::pango_attr_list_insert(
+                self.to_glib_none().0,
+                attr.to_glib_none().0 as *mut _,
+            );
             mem::forget(attr); //As attr transferred fully
         }
     }
 
     pub fn insert_before(&self, attr: Attribute) {
         unsafe {
-            pango_sys::pango_attr_list_insert_before(self.to_glib_none().0, attr.to_glib_none().0 as *mut _);
+            pango_sys::pango_attr_list_insert_before(
+                self.to_glib_none().0,
+                attr.to_glib_none().0 as *mut _,
+            );
             mem::forget(attr); //As attr transferred fully
         }
     }

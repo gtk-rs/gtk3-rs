@@ -2,6 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use glib::translate::*;
+use glib::GString;
+use pango_sys;
+use std::fmt;
+use std::mem;
 use Alignment;
 use AttrList;
 use Context;
@@ -12,11 +17,6 @@ use LayoutLine;
 use Rectangle;
 use TabArray;
 use WrapMode;
-use glib::GString;
-use glib::translate::*;
-use pango_sys;
-use std::fmt;
-use std::mem;
 
 glib_wrapper! {
     pub struct Layout(Object<pango_sys::PangoLayout, pango_sys::PangoLayoutClass, LayoutClass>);
@@ -28,9 +28,7 @@ glib_wrapper! {
 
 impl Layout {
     pub fn new(context: &Context) -> Layout {
-        unsafe {
-            from_glib_full(pango_sys::pango_layout_new(context.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_layout_new(context.to_glib_none().0)) }
     }
 
     pub fn context_changed(&self) {
@@ -40,128 +38,127 @@ impl Layout {
     }
 
     pub fn copy(&self) -> Option<Layout> {
-        unsafe {
-            from_glib_full(pango_sys::pango_layout_copy(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_layout_copy(self.to_glib_none().0)) }
     }
 
     pub fn get_alignment(&self) -> Alignment {
-        unsafe {
-            from_glib(pango_sys::pango_layout_get_alignment(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_get_alignment(self.to_glib_none().0)) }
     }
 
     pub fn get_attributes(&self) -> Option<AttrList> {
         unsafe {
-            from_glib_none(pango_sys::pango_layout_get_attributes(self.to_glib_none().0))
+            from_glib_none(pango_sys::pango_layout_get_attributes(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_auto_dir(&self) -> bool {
-        unsafe {
-            from_glib(pango_sys::pango_layout_get_auto_dir(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_get_auto_dir(self.to_glib_none().0)) }
     }
 
     pub fn get_baseline(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_baseline(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_baseline(self.to_glib_none().0) }
     }
 
     pub fn get_character_count(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_character_count(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_character_count(self.to_glib_none().0) }
     }
 
     pub fn get_context(&self) -> Option<Context> {
-        unsafe {
-            from_glib_none(pango_sys::pango_layout_get_context(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(pango_sys::pango_layout_get_context(self.to_glib_none().0)) }
     }
 
     pub fn get_cursor_pos(&self, index_: i32) -> (Rectangle, Rectangle) {
         unsafe {
             let mut strong_pos = Rectangle::uninitialized();
             let mut weak_pos = Rectangle::uninitialized();
-            pango_sys::pango_layout_get_cursor_pos(self.to_glib_none().0, index_, strong_pos.to_glib_none_mut().0, weak_pos.to_glib_none_mut().0);
+            pango_sys::pango_layout_get_cursor_pos(
+                self.to_glib_none().0,
+                index_,
+                strong_pos.to_glib_none_mut().0,
+                weak_pos.to_glib_none_mut().0,
+            );
             (strong_pos, weak_pos)
         }
     }
 
     pub fn get_ellipsize(&self) -> EllipsizeMode {
-        unsafe {
-            from_glib(pango_sys::pango_layout_get_ellipsize(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_get_ellipsize(self.to_glib_none().0)) }
     }
 
     pub fn get_extents(&self) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_layout_get_extents(self.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            pango_sys::pango_layout_get_extents(
+                self.to_glib_none().0,
+                ink_rect.to_glib_none_mut().0,
+                logical_rect.to_glib_none_mut().0,
+            );
             (ink_rect, logical_rect)
         }
     }
 
     pub fn get_font_description(&self) -> Option<FontDescription> {
         unsafe {
-            from_glib_none(pango_sys::pango_layout_get_font_description(self.to_glib_none().0))
+            from_glib_none(pango_sys::pango_layout_get_font_description(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_height(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_height(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_height(self.to_glib_none().0) }
     }
 
     pub fn get_indent(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_indent(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_indent(self.to_glib_none().0) }
     }
 
     pub fn get_iter(&self) -> Option<LayoutIter> {
-        unsafe {
-            from_glib_full(pango_sys::pango_layout_get_iter(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_layout_get_iter(self.to_glib_none().0)) }
     }
 
     pub fn get_justify(&self) -> bool {
-        unsafe {
-            from_glib(pango_sys::pango_layout_get_justify(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_get_justify(self.to_glib_none().0)) }
     }
 
     pub fn get_line(&self, line: i32) -> Option<LayoutLine> {
         unsafe {
-            from_glib_none(pango_sys::pango_layout_get_line(self.to_glib_none().0, line))
+            from_glib_none(pango_sys::pango_layout_get_line(
+                self.to_glib_none().0,
+                line,
+            ))
         }
     }
 
     pub fn get_line_count(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_line_count(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_line_count(self.to_glib_none().0) }
     }
 
     pub fn get_line_readonly(&self, line: i32) -> Option<LayoutLine> {
         unsafe {
-            from_glib_none(pango_sys::pango_layout_get_line_readonly(self.to_glib_none().0, line))
+            from_glib_none(pango_sys::pango_layout_get_line_readonly(
+                self.to_glib_none().0,
+                line,
+            ))
         }
     }
 
     pub fn get_lines(&self) -> Vec<LayoutLine> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(pango_sys::pango_layout_get_lines(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(pango_sys::pango_layout_get_lines(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_lines_readonly(&self) -> Vec<LayoutLine> {
         unsafe {
-            FromGlibPtrContainer::from_glib_none(pango_sys::pango_layout_get_lines_readonly(self.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_none(pango_sys::pango_layout_get_lines_readonly(
+                self.to_glib_none().0,
+            ))
         }
     }
 
@@ -177,7 +174,11 @@ impl Layout {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_layout_get_pixel_extents(self.to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            pango_sys::pango_layout_get_pixel_extents(
+                self.to_glib_none().0,
+                ink_rect.to_glib_none_mut().0,
+                logical_rect.to_glib_none_mut().0,
+            );
             (ink_rect, logical_rect)
         }
     }
@@ -192,14 +193,14 @@ impl Layout {
     }
 
     pub fn get_serial(&self) -> u32 {
-        unsafe {
-            pango_sys::pango_layout_get_serial(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_serial(self.to_glib_none().0) }
     }
 
     pub fn get_single_paragraph_mode(&self) -> bool {
         unsafe {
-            from_glib(pango_sys::pango_layout_get_single_paragraph_mode(self.to_glib_none().0))
+            from_glib(pango_sys::pango_layout_get_single_paragraph_mode(
+                self.to_glib_none().0,
+            ))
         }
     }
 
@@ -213,46 +214,40 @@ impl Layout {
     }
 
     pub fn get_spacing(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_spacing(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_spacing(self.to_glib_none().0) }
     }
 
     pub fn get_tabs(&self) -> Option<TabArray> {
-        unsafe {
-            from_glib_full(pango_sys::pango_layout_get_tabs(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_layout_get_tabs(self.to_glib_none().0)) }
     }
 
     pub fn get_text(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(pango_sys::pango_layout_get_text(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(pango_sys::pango_layout_get_text(self.to_glib_none().0)) }
     }
 
     pub fn get_unknown_glyphs_count(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_unknown_glyphs_count(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_unknown_glyphs_count(self.to_glib_none().0) }
     }
 
     pub fn get_width(&self) -> i32 {
-        unsafe {
-            pango_sys::pango_layout_get_width(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_layout_get_width(self.to_glib_none().0) }
     }
 
     pub fn get_wrap(&self) -> WrapMode {
-        unsafe {
-            from_glib(pango_sys::pango_layout_get_wrap(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_get_wrap(self.to_glib_none().0)) }
     }
 
     pub fn index_to_line_x(&self, index_: i32, trailing: bool) -> (i32, i32) {
         unsafe {
             let mut line = mem::uninitialized();
             let mut x_pos = mem::uninitialized();
-            pango_sys::pango_layout_index_to_line_x(self.to_glib_none().0, index_, trailing.to_glib(), &mut line, &mut x_pos);
+            pango_sys::pango_layout_index_to_line_x(
+                self.to_glib_none().0,
+                index_,
+                trailing.to_glib(),
+                &mut line,
+                &mut x_pos,
+            );
             (line, x_pos)
         }
     }
@@ -260,28 +255,42 @@ impl Layout {
     pub fn index_to_pos(&self, index_: i32) -> Rectangle {
         unsafe {
             let mut pos = Rectangle::uninitialized();
-            pango_sys::pango_layout_index_to_pos(self.to_glib_none().0, index_, pos.to_glib_none_mut().0);
+            pango_sys::pango_layout_index_to_pos(
+                self.to_glib_none().0,
+                index_,
+                pos.to_glib_none_mut().0,
+            );
             pos
         }
     }
 
     pub fn is_ellipsized(&self) -> bool {
-        unsafe {
-            from_glib(pango_sys::pango_layout_is_ellipsized(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_is_ellipsized(self.to_glib_none().0)) }
     }
 
     pub fn is_wrapped(&self) -> bool {
-        unsafe {
-            from_glib(pango_sys::pango_layout_is_wrapped(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_layout_is_wrapped(self.to_glib_none().0)) }
     }
 
-    pub fn move_cursor_visually(&self, strong: bool, old_index: i32, old_trailing: i32, direction: i32) -> (i32, i32) {
+    pub fn move_cursor_visually(
+        &self,
+        strong: bool,
+        old_index: i32,
+        old_trailing: i32,
+        direction: i32,
+    ) -> (i32, i32) {
         unsafe {
             let mut new_index = mem::uninitialized();
             let mut new_trailing = mem::uninitialized();
-            pango_sys::pango_layout_move_cursor_visually(self.to_glib_none().0, strong.to_glib(), old_index, old_trailing, direction, &mut new_index, &mut new_trailing);
+            pango_sys::pango_layout_move_cursor_visually(
+                self.to_glib_none().0,
+                strong.to_glib(),
+                old_index,
+                old_trailing,
+                direction,
+                &mut new_index,
+                &mut new_trailing,
+            );
             (new_index, new_trailing)
         }
     }
@@ -312,7 +321,10 @@ impl Layout {
 
     pub fn set_font_description(&self, desc: Option<&FontDescription>) {
         unsafe {
-            pango_sys::pango_layout_set_font_description(self.to_glib_none().0, desc.to_glib_none().0);
+            pango_sys::pango_layout_set_font_description(
+                self.to_glib_none().0,
+                desc.to_glib_none().0,
+            );
         }
     }
 
@@ -337,7 +349,11 @@ impl Layout {
     pub fn set_markup(&self, markup: &str) {
         let length = markup.len() as i32;
         unsafe {
-            pango_sys::pango_layout_set_markup(self.to_glib_none().0, markup.to_glib_none().0, length);
+            pango_sys::pango_layout_set_markup(
+                self.to_glib_none().0,
+                markup.to_glib_none().0,
+                length,
+            );
         }
     }
 
@@ -345,14 +361,23 @@ impl Layout {
         let length = markup.len() as i32;
         unsafe {
             let mut accel_char = mem::uninitialized();
-            pango_sys::pango_layout_set_markup_with_accel(self.to_glib_none().0, markup.to_glib_none().0, length, accel_marker.to_glib(), &mut accel_char);
+            pango_sys::pango_layout_set_markup_with_accel(
+                self.to_glib_none().0,
+                markup.to_glib_none().0,
+                length,
+                accel_marker.to_glib(),
+                &mut accel_char,
+            );
             from_glib(accel_char)
         }
     }
 
     pub fn set_single_paragraph_mode(&self, setting: bool) {
         unsafe {
-            pango_sys::pango_layout_set_single_paragraph_mode(self.to_glib_none().0, setting.to_glib());
+            pango_sys::pango_layout_set_single_paragraph_mode(
+                self.to_glib_none().0,
+                setting.to_glib(),
+            );
         }
     }
 
@@ -364,7 +389,10 @@ impl Layout {
 
     pub fn set_tabs(&self, tabs: Option<&TabArray>) {
         unsafe {
-            pango_sys::pango_layout_set_tabs(self.to_glib_none().0, mut_override(tabs.to_glib_none().0));
+            pango_sys::pango_layout_set_tabs(
+                self.to_glib_none().0,
+                mut_override(tabs.to_glib_none().0),
+            );
         }
     }
 
@@ -391,7 +419,13 @@ impl Layout {
         unsafe {
             let mut index_ = mem::uninitialized();
             let mut trailing = mem::uninitialized();
-            let ret = from_glib(pango_sys::pango_layout_xy_to_index(self.to_glib_none().0, x, y, &mut index_, &mut trailing));
+            let ret = from_glib(pango_sys::pango_layout_xy_to_index(
+                self.to_glib_none().0,
+                x,
+                y,
+                &mut index_,
+                &mut trailing,
+            ));
             (ret, index_, trailing)
         }
     }

@@ -2,9 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use AttrList;
 use glib::translate::*;
 use pango_sys;
+use AttrList;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -20,7 +20,11 @@ glib_wrapper! {
 impl GlyphItem {
     pub fn apply_attrs(&mut self, text: &str, list: &AttrList) -> Vec<GlyphItem> {
         unsafe {
-            FromGlibPtrContainer::from_glib_full(pango_sys::pango_glyph_item_apply_attrs(self.to_glib_none_mut().0, text.to_glib_none().0, list.to_glib_none().0))
+            FromGlibPtrContainer::from_glib_full(pango_sys::pango_glyph_item_apply_attrs(
+                self.to_glib_none_mut().0,
+                text.to_glib_none().0,
+                list.to_glib_none().0,
+            ))
         }
     }
 
@@ -34,7 +38,11 @@ impl GlyphItem {
 
     pub fn split(&mut self, text: &str, split_index: i32) -> Option<GlyphItem> {
         unsafe {
-            from_glib_full(pango_sys::pango_glyph_item_split(self.to_glib_none_mut().0, text.to_glib_none().0, split_index))
+            from_glib_full(pango_sys::pango_glyph_item_split(
+                self.to_glib_none_mut().0,
+                text.to_glib_none().0,
+                split_index,
+            ))
         }
     }
 }

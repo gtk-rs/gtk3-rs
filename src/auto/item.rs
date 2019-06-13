@@ -18,14 +18,16 @@ glib_wrapper! {
 
 impl Item {
     pub fn new() -> Item {
-        unsafe {
-            from_glib_full(pango_sys::pango_item_new())
-        }
+        unsafe { from_glib_full(pango_sys::pango_item_new()) }
     }
 
     pub fn split(&mut self, split_index: i32, split_offset: i32) -> Option<Item> {
         unsafe {
-            from_glib_full(pango_sys::pango_item_split(self.to_glib_none_mut().0, split_index, split_offset))
+            from_glib_full(pango_sys::pango_item_split(
+                self.to_glib_none_mut().0,
+                split_index,
+                split_offset,
+            ))
         }
     }
 }

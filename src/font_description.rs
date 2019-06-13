@@ -9,7 +9,10 @@ use FontDescription;
 impl FontDescription {
     pub fn set_family_static(&mut self, family: &'static str) {
         unsafe {
-            pango_sys::pango_font_description_set_family_static(self.to_glib_none_mut().0, family.to_glib_none().0);
+            pango_sys::pango_font_description_set_family_static(
+                self.to_glib_none_mut().0,
+                family.to_glib_none().0,
+            );
         }
     }
 }

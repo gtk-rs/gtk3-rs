@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use CoverageLevel;
 use glib::translate::*;
 use pango_sys;
 use std::mem;
 use std::ptr;
+use CoverageLevel;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -20,15 +20,11 @@ glib_wrapper! {
 
 impl Coverage {
     pub fn copy(&self) -> Option<Coverage> {
-        unsafe {
-            from_glib_full(pango_sys::pango_coverage_copy(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_coverage_copy(self.to_glib_none().0)) }
     }
 
     pub fn get(&self, index_: i32) -> CoverageLevel {
-        unsafe {
-            from_glib(pango_sys::pango_coverage_get(self.to_glib_none().0, index_))
-        }
+        unsafe { from_glib(pango_sys::pango_coverage_get(self.to_glib_none().0, index_)) }
     }
 
     pub fn max(&self, other: &Coverage) {
@@ -55,14 +51,15 @@ impl Coverage {
     pub fn from_bytes(bytes: &[u8]) -> Option<Coverage> {
         let n_bytes = bytes.len() as i32;
         unsafe {
-            from_glib_full(pango_sys::pango_coverage_from_bytes(bytes.to_glib_none().0, n_bytes))
+            from_glib_full(pango_sys::pango_coverage_from_bytes(
+                bytes.to_glib_none().0,
+                n_bytes,
+            ))
         }
     }
 
     pub fn new() -> Coverage {
-        unsafe {
-            from_glib_none(pango_sys::pango_coverage_new())
-        }
+        unsafe { from_glib_none(pango_sys::pango_coverage_new()) }
     }
 }
 

@@ -12,24 +12,24 @@ mod engine_shape;
 pub use self::engine_shape::{EngineShape, EngineShapeClass, NONE_ENGINE_SHAPE};
 
 mod font;
-pub use self::font::{Font, FontClass, NONE_FONT};
 pub use self::font::FontExt;
+pub use self::font::{Font, FontClass, NONE_FONT};
 
 mod font_face;
-pub use self::font_face::{FontFace, FontFaceClass, NONE_FONT_FACE};
 pub use self::font_face::FontFaceExt;
+pub use self::font_face::{FontFace, FontFaceClass, NONE_FONT_FACE};
 
 mod font_family;
-pub use self::font_family::{FontFamily, FontFamilyClass, NONE_FONT_FAMILY};
 pub use self::font_family::FontFamilyExt;
+pub use self::font_family::{FontFamily, FontFamilyClass, NONE_FONT_FAMILY};
 
 mod font_map;
-pub use self::font_map::{FontMap, FontMapClass, NONE_FONT_MAP};
 pub use self::font_map::FontMapExt;
+pub use self::font_map::{FontMap, FontMapClass, NONE_FONT_MAP};
 
 mod fontset;
-pub use self::fontset::{Fontset, FontsetClass, NONE_FONTSET};
 pub use self::fontset::FontsetExt;
+pub use self::fontset::{Fontset, FontsetClass, NONE_FONTSET};
 
 mod fontset_simple;
 pub use self::fontset_simple::{FontsetSimple, FontsetSimpleClass};
@@ -38,8 +38,8 @@ mod layout;
 pub use self::layout::{Layout, LayoutClass};
 
 mod renderer;
-pub use self::renderer::{Renderer, RendererClass, NONE_RENDERER};
 pub use self::renderer::RendererExt;
+pub use self::renderer::{Renderer, RendererClass, NONE_RENDERER};
 
 mod attr_iterator;
 pub use self::attr_iterator::AttrIterator;

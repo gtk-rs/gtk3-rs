@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Analysis;
-use Font;
-use Rectangle;
 use glib::object::IsA;
 use glib::translate::*;
 use pango_sys;
 use std::mem;
+use Analysis;
+use Font;
+use Rectangle;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -23,25 +23,40 @@ glib_wrapper! {
 
 impl GlyphString {
     pub fn new() -> GlyphString {
-        unsafe {
-            from_glib_full(pango_sys::pango_glyph_string_new())
-        }
+        unsafe { from_glib_full(pango_sys::pango_glyph_string_new()) }
     }
 
     pub fn extents<P: IsA<Font>>(&mut self, font: &P) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_glyph_string_extents(self.to_glib_none_mut().0, font.as_ref().to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            pango_sys::pango_glyph_string_extents(
+                self.to_glib_none_mut().0,
+                font.as_ref().to_glib_none().0,
+                ink_rect.to_glib_none_mut().0,
+                logical_rect.to_glib_none_mut().0,
+            );
             (ink_rect, logical_rect)
         }
     }
 
-    pub fn extents_range<P: IsA<Font>>(&mut self, start: i32, end: i32, font: &P) -> (Rectangle, Rectangle) {
+    pub fn extents_range<P: IsA<Font>>(
+        &mut self,
+        start: i32,
+        end: i32,
+        font: &P,
+    ) -> (Rectangle, Rectangle) {
         unsafe {
             let mut ink_rect = Rectangle::uninitialized();
             let mut logical_rect = Rectangle::uninitialized();
-            pango_sys::pango_glyph_string_extents_range(self.to_glib_none_mut().0, start, end, font.as_ref().to_glib_none().0, ink_rect.to_glib_none_mut().0, logical_rect.to_glib_none_mut().0);
+            pango_sys::pango_glyph_string_extents_range(
+                self.to_glib_none_mut().0,
+                start,
+                end,
+                font.as_ref().to_glib_none().0,
+                ink_rect.to_glib_none_mut().0,
+                logical_rect.to_glib_none_mut().0,
+            );
             (ink_rect, logical_rect)
         }
     }
@@ -51,16 +66,28 @@ impl GlyphString {
     //}
 
     pub fn get_width(&mut self) -> i32 {
-        unsafe {
-            pango_sys::pango_glyph_string_get_width(self.to_glib_none_mut().0)
-        }
+        unsafe { pango_sys::pango_glyph_string_get_width(self.to_glib_none_mut().0) }
     }
 
-    pub fn index_to_x(&mut self, text: &str, analysis: &mut Analysis, index_: i32, trailing: bool) -> i32 {
+    pub fn index_to_x(
+        &mut self,
+        text: &str,
+        analysis: &mut Analysis,
+        index_: i32,
+        trailing: bool,
+    ) -> i32 {
         let length = text.len() as i32;
         unsafe {
             let mut x_pos = mem::uninitialized();
-            pango_sys::pango_glyph_string_index_to_x(self.to_glib_none_mut().0, text.to_glib_none().0, length, analysis.to_glib_none_mut().0, index_, trailing.to_glib(), &mut x_pos);
+            pango_sys::pango_glyph_string_index_to_x(
+                self.to_glib_none_mut().0,
+                text.to_glib_none().0,
+                length,
+                analysis.to_glib_none_mut().0,
+                index_,
+                trailing.to_glib(),
+                &mut x_pos,
+            );
             x_pos
         }
     }
@@ -76,7 +103,15 @@ impl GlyphString {
         unsafe {
             let mut index_ = mem::uninitialized();
             let mut trailing = mem::uninitialized();
-            pango_sys::pango_glyph_string_x_to_index(self.to_glib_none_mut().0, text.to_glib_none().0, length, analysis.to_glib_none_mut().0, x_pos, &mut index_, &mut trailing);
+            pango_sys::pango_glyph_string_x_to_index(
+                self.to_glib_none_mut().0,
+                text.to_glib_none().0,
+                length,
+                analysis.to_glib_none_mut().0,
+                x_pos,
+                &mut index_,
+                &mut trailing,
+            );
             (index_, trailing)
         }
     }

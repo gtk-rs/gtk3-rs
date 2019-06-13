@@ -2,9 +2,9 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use AttrClass;
 use glib::translate::*;
 use pango_sys;
+use AttrClass;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -19,7 +19,10 @@ glib_wrapper! {
 impl Attribute {
     fn equal(&self, attr2: &Attribute) -> bool {
         unsafe {
-            from_glib(pango_sys::pango_attribute_equal(self.to_glib_none().0, attr2.to_glib_none().0))
+            from_glib(pango_sys::pango_attribute_equal(
+                self.to_glib_none().0,
+                attr2.to_glib_none().0,
+            ))
         }
     }
 

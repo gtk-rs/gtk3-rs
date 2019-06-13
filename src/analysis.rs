@@ -52,7 +52,6 @@ impl Analysis {
     }*/
 }
 
-
 #[doc(hidden)]
 impl<'a> ToGlibPtr<'a, *const pango_sys::PangoAnalysis> for Analysis {
     type Storage = &'a Self;

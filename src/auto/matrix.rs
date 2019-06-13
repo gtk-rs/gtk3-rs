@@ -26,9 +26,7 @@ impl Matrix {
     }
 
     pub fn get_font_scale_factor(&self) -> f64 {
-        unsafe {
-            pango_sys::pango_matrix_get_font_scale_factor(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_matrix_get_font_scale_factor(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_38", feature = "dox"))]
@@ -36,7 +34,11 @@ impl Matrix {
         unsafe {
             let mut xscale = mem::uninitialized();
             let mut yscale = mem::uninitialized();
-            pango_sys::pango_matrix_get_font_scale_factors(self.to_glib_none().0, &mut xscale, &mut yscale);
+            pango_sys::pango_matrix_get_font_scale_factors(
+                self.to_glib_none().0,
+                &mut xscale,
+                &mut yscale,
+            );
             (xscale, yscale)
         }
     }
