@@ -5,13 +5,13 @@
 extern crate glib_sys;
 extern crate shell_words;
 extern crate tempdir;
+use glib_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use glib_sys::*;
 
 static PACKAGES: &[&str] = &["glib-2.0"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,123 +229,736 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("GArray", Layout {size: size_of::<GArray>(), alignment: align_of::<GArray>()}),
-    ("GAsciiType", Layout {size: size_of::<GAsciiType>(), alignment: align_of::<GAsciiType>()}),
-    ("GBookmarkFileError", Layout {size: size_of::<GBookmarkFileError>(), alignment: align_of::<GBookmarkFileError>()}),
-    ("GByteArray", Layout {size: size_of::<GByteArray>(), alignment: align_of::<GByteArray>()}),
-    ("GChecksumType", Layout {size: size_of::<GChecksumType>(), alignment: align_of::<GChecksumType>()}),
-    ("GCond", Layout {size: size_of::<GCond>(), alignment: align_of::<GCond>()}),
-    ("GConvertError", Layout {size: size_of::<GConvertError>(), alignment: align_of::<GConvertError>()}),
-    ("GDateDMY", Layout {size: size_of::<GDateDMY>(), alignment: align_of::<GDateDMY>()}),
-    ("GDateDay", Layout {size: size_of::<GDateDay>(), alignment: align_of::<GDateDay>()}),
-    ("GDateMonth", Layout {size: size_of::<GDateMonth>(), alignment: align_of::<GDateMonth>()}),
-    ("GDateWeekday", Layout {size: size_of::<GDateWeekday>(), alignment: align_of::<GDateWeekday>()}),
-    ("GDateYear", Layout {size: size_of::<GDateYear>(), alignment: align_of::<GDateYear>()}),
-    ("GDebugKey", Layout {size: size_of::<GDebugKey>(), alignment: align_of::<GDebugKey>()}),
-    ("GError", Layout {size: size_of::<GError>(), alignment: align_of::<GError>()}),
-    ("GErrorType", Layout {size: size_of::<GErrorType>(), alignment: align_of::<GErrorType>()}),
-    ("GFileError", Layout {size: size_of::<GFileError>(), alignment: align_of::<GFileError>()}),
-    ("GFileTest", Layout {size: size_of::<GFileTest>(), alignment: align_of::<GFileTest>()}),
-    ("GFormatSizeFlags", Layout {size: size_of::<GFormatSizeFlags>(), alignment: align_of::<GFormatSizeFlags>()}),
-    ("GHashTableIter", Layout {size: size_of::<GHashTableIter>(), alignment: align_of::<GHashTableIter>()}),
-    ("GHook", Layout {size: size_of::<GHook>(), alignment: align_of::<GHook>()}),
-    ("GHookFlagMask", Layout {size: size_of::<GHookFlagMask>(), alignment: align_of::<GHookFlagMask>()}),
-    ("GHookList", Layout {size: size_of::<GHookList>(), alignment: align_of::<GHookList>()}),
-    ("GIOChannelError", Layout {size: size_of::<GIOChannelError>(), alignment: align_of::<GIOChannelError>()}),
-    ("GIOCondition", Layout {size: size_of::<GIOCondition>(), alignment: align_of::<GIOCondition>()}),
-    ("GIOError", Layout {size: size_of::<GIOError>(), alignment: align_of::<GIOError>()}),
-    ("GIOFlags", Layout {size: size_of::<GIOFlags>(), alignment: align_of::<GIOFlags>()}),
-    ("GIOFuncs", Layout {size: size_of::<GIOFuncs>(), alignment: align_of::<GIOFuncs>()}),
-    ("GIOStatus", Layout {size: size_of::<GIOStatus>(), alignment: align_of::<GIOStatus>()}),
-    ("GKeyFileError", Layout {size: size_of::<GKeyFileError>(), alignment: align_of::<GKeyFileError>()}),
-    ("GKeyFileFlags", Layout {size: size_of::<GKeyFileFlags>(), alignment: align_of::<GKeyFileFlags>()}),
-    ("GList", Layout {size: size_of::<GList>(), alignment: align_of::<GList>()}),
-    ("GLogField", Layout {size: size_of::<GLogField>(), alignment: align_of::<GLogField>()}),
-    ("GLogLevelFlags", Layout {size: size_of::<GLogLevelFlags>(), alignment: align_of::<GLogLevelFlags>()}),
-    ("GLogWriterOutput", Layout {size: size_of::<GLogWriterOutput>(), alignment: align_of::<GLogWriterOutput>()}),
-    ("GMarkupCollectType", Layout {size: size_of::<GMarkupCollectType>(), alignment: align_of::<GMarkupCollectType>()}),
-    ("GMarkupError", Layout {size: size_of::<GMarkupError>(), alignment: align_of::<GMarkupError>()}),
-    ("GMarkupParseFlags", Layout {size: size_of::<GMarkupParseFlags>(), alignment: align_of::<GMarkupParseFlags>()}),
-    ("GMarkupParser", Layout {size: size_of::<GMarkupParser>(), alignment: align_of::<GMarkupParser>()}),
-    ("GMemVTable", Layout {size: size_of::<GMemVTable>(), alignment: align_of::<GMemVTable>()}),
-    ("GMutex", Layout {size: size_of::<GMutex>(), alignment: align_of::<GMutex>()}),
-    ("GNode", Layout {size: size_of::<GNode>(), alignment: align_of::<GNode>()}),
-    ("GNormalizeMode", Layout {size: size_of::<GNormalizeMode>(), alignment: align_of::<GNormalizeMode>()}),
-    ("GNumberParserError", Layout {size: size_of::<GNumberParserError>(), alignment: align_of::<GNumberParserError>()}),
-    ("GOnce", Layout {size: size_of::<GOnce>(), alignment: align_of::<GOnce>()}),
-    ("GOnceStatus", Layout {size: size_of::<GOnceStatus>(), alignment: align_of::<GOnceStatus>()}),
-    ("GOptionArg", Layout {size: size_of::<GOptionArg>(), alignment: align_of::<GOptionArg>()}),
-    ("GOptionEntry", Layout {size: size_of::<GOptionEntry>(), alignment: align_of::<GOptionEntry>()}),
-    ("GOptionError", Layout {size: size_of::<GOptionError>(), alignment: align_of::<GOptionError>()}),
-    ("GOptionFlags", Layout {size: size_of::<GOptionFlags>(), alignment: align_of::<GOptionFlags>()}),
-    ("GPid", Layout {size: size_of::<GPid>(), alignment: align_of::<GPid>()}),
-    ("GPollFD", Layout {size: size_of::<GPollFD>(), alignment: align_of::<GPollFD>()}),
-    ("GPrivate", Layout {size: size_of::<GPrivate>(), alignment: align_of::<GPrivate>()}),
-    ("GPtrArray", Layout {size: size_of::<GPtrArray>(), alignment: align_of::<GPtrArray>()}),
-    ("GQuark", Layout {size: size_of::<GQuark>(), alignment: align_of::<GQuark>()}),
-    ("GQueue", Layout {size: size_of::<GQueue>(), alignment: align_of::<GQueue>()}),
-    ("GRWLock", Layout {size: size_of::<GRWLock>(), alignment: align_of::<GRWLock>()}),
-    ("GRecMutex", Layout {size: size_of::<GRecMutex>(), alignment: align_of::<GRecMutex>()}),
-    ("GRefString", Layout {size: size_of::<GRefString>(), alignment: align_of::<GRefString>()}),
-    ("GRegexCompileFlags", Layout {size: size_of::<GRegexCompileFlags>(), alignment: align_of::<GRegexCompileFlags>()}),
-    ("GRegexError", Layout {size: size_of::<GRegexError>(), alignment: align_of::<GRegexError>()}),
-    ("GRegexMatchFlags", Layout {size: size_of::<GRegexMatchFlags>(), alignment: align_of::<GRegexMatchFlags>()}),
-    ("GSList", Layout {size: size_of::<GSList>(), alignment: align_of::<GSList>()}),
-    ("GScanner", Layout {size: size_of::<GScanner>(), alignment: align_of::<GScanner>()}),
-    ("GSeekType", Layout {size: size_of::<GSeekType>(), alignment: align_of::<GSeekType>()}),
-    ("GShellError", Layout {size: size_of::<GShellError>(), alignment: align_of::<GShellError>()}),
-    ("GSliceConfig", Layout {size: size_of::<GSliceConfig>(), alignment: align_of::<GSliceConfig>()}),
-    ("GSource", Layout {size: size_of::<GSource>(), alignment: align_of::<GSource>()}),
-    ("GSourceCallbackFuncs", Layout {size: size_of::<GSourceCallbackFuncs>(), alignment: align_of::<GSourceCallbackFuncs>()}),
-    ("GSourceFuncs", Layout {size: size_of::<GSourceFuncs>(), alignment: align_of::<GSourceFuncs>()}),
-    ("GSpawnError", Layout {size: size_of::<GSpawnError>(), alignment: align_of::<GSpawnError>()}),
-    ("GSpawnFlags", Layout {size: size_of::<GSpawnFlags>(), alignment: align_of::<GSpawnFlags>()}),
-    ("GString", Layout {size: size_of::<GString>(), alignment: align_of::<GString>()}),
-    ("GStrv", Layout {size: size_of::<GStrv>(), alignment: align_of::<GStrv>()}),
-    ("GTestConfig", Layout {size: size_of::<GTestConfig>(), alignment: align_of::<GTestConfig>()}),
-    ("GTestFileType", Layout {size: size_of::<GTestFileType>(), alignment: align_of::<GTestFileType>()}),
-    ("GTestLogBuffer", Layout {size: size_of::<GTestLogBuffer>(), alignment: align_of::<GTestLogBuffer>()}),
-    ("GTestLogMsg", Layout {size: size_of::<GTestLogMsg>(), alignment: align_of::<GTestLogMsg>()}),
-    ("GTestLogType", Layout {size: size_of::<GTestLogType>(), alignment: align_of::<GTestLogType>()}),
-    ("GTestResult", Layout {size: size_of::<GTestResult>(), alignment: align_of::<GTestResult>()}),
-    ("GTestSubprocessFlags", Layout {size: size_of::<GTestSubprocessFlags>(), alignment: align_of::<GTestSubprocessFlags>()}),
-    ("GTestTrapFlags", Layout {size: size_of::<GTestTrapFlags>(), alignment: align_of::<GTestTrapFlags>()}),
-    ("GThreadError", Layout {size: size_of::<GThreadError>(), alignment: align_of::<GThreadError>()}),
-    ("GThreadPool", Layout {size: size_of::<GThreadPool>(), alignment: align_of::<GThreadPool>()}),
-    ("GTime", Layout {size: size_of::<GTime>(), alignment: align_of::<GTime>()}),
-    ("GTimeSpan", Layout {size: size_of::<GTimeSpan>(), alignment: align_of::<GTimeSpan>()}),
-    ("GTimeType", Layout {size: size_of::<GTimeType>(), alignment: align_of::<GTimeType>()}),
-    ("GTimeVal", Layout {size: size_of::<GTimeVal>(), alignment: align_of::<GTimeVal>()}),
-    ("GTokenType", Layout {size: size_of::<GTokenType>(), alignment: align_of::<GTokenType>()}),
-    ("GTokenValue", Layout {size: size_of::<GTokenValue>(), alignment: align_of::<GTokenValue>()}),
-    ("GTrashStack", Layout {size: size_of::<GTrashStack>(), alignment: align_of::<GTrashStack>()}),
-    ("GTraverseFlags", Layout {size: size_of::<GTraverseFlags>(), alignment: align_of::<GTraverseFlags>()}),
-    ("GTraverseType", Layout {size: size_of::<GTraverseType>(), alignment: align_of::<GTraverseType>()}),
-    ("GType", Layout {size: size_of::<GType>(), alignment: align_of::<GType>()}),
-    ("GUnicodeBreakType", Layout {size: size_of::<GUnicodeBreakType>(), alignment: align_of::<GUnicodeBreakType>()}),
-    ("GUnicodeScript", Layout {size: size_of::<GUnicodeScript>(), alignment: align_of::<GUnicodeScript>()}),
-    ("GUnicodeType", Layout {size: size_of::<GUnicodeType>(), alignment: align_of::<GUnicodeType>()}),
-    ("GUserDirectory", Layout {size: size_of::<GUserDirectory>(), alignment: align_of::<GUserDirectory>()}),
-    ("GVariantBuilder", Layout {size: size_of::<GVariantBuilder>(), alignment: align_of::<GVariantBuilder>()}),
-    ("GVariantClass", Layout {size: size_of::<GVariantClass>(), alignment: align_of::<GVariantClass>()}),
-    ("GVariantDict", Layout {size: size_of::<GVariantDict>(), alignment: align_of::<GVariantDict>()}),
-    ("GVariantIter", Layout {size: size_of::<GVariantIter>(), alignment: align_of::<GVariantIter>()}),
-    ("GVariantParseError", Layout {size: size_of::<GVariantParseError>(), alignment: align_of::<GVariantParseError>()}),
+    (
+        "GArray",
+        Layout {
+            size: size_of::<GArray>(),
+            alignment: align_of::<GArray>(),
+        },
+    ),
+    (
+        "GAsciiType",
+        Layout {
+            size: size_of::<GAsciiType>(),
+            alignment: align_of::<GAsciiType>(),
+        },
+    ),
+    (
+        "GBookmarkFileError",
+        Layout {
+            size: size_of::<GBookmarkFileError>(),
+            alignment: align_of::<GBookmarkFileError>(),
+        },
+    ),
+    (
+        "GByteArray",
+        Layout {
+            size: size_of::<GByteArray>(),
+            alignment: align_of::<GByteArray>(),
+        },
+    ),
+    (
+        "GChecksumType",
+        Layout {
+            size: size_of::<GChecksumType>(),
+            alignment: align_of::<GChecksumType>(),
+        },
+    ),
+    (
+        "GCond",
+        Layout {
+            size: size_of::<GCond>(),
+            alignment: align_of::<GCond>(),
+        },
+    ),
+    (
+        "GConvertError",
+        Layout {
+            size: size_of::<GConvertError>(),
+            alignment: align_of::<GConvertError>(),
+        },
+    ),
+    (
+        "GDateDMY",
+        Layout {
+            size: size_of::<GDateDMY>(),
+            alignment: align_of::<GDateDMY>(),
+        },
+    ),
+    (
+        "GDateDay",
+        Layout {
+            size: size_of::<GDateDay>(),
+            alignment: align_of::<GDateDay>(),
+        },
+    ),
+    (
+        "GDateMonth",
+        Layout {
+            size: size_of::<GDateMonth>(),
+            alignment: align_of::<GDateMonth>(),
+        },
+    ),
+    (
+        "GDateWeekday",
+        Layout {
+            size: size_of::<GDateWeekday>(),
+            alignment: align_of::<GDateWeekday>(),
+        },
+    ),
+    (
+        "GDateYear",
+        Layout {
+            size: size_of::<GDateYear>(),
+            alignment: align_of::<GDateYear>(),
+        },
+    ),
+    (
+        "GDebugKey",
+        Layout {
+            size: size_of::<GDebugKey>(),
+            alignment: align_of::<GDebugKey>(),
+        },
+    ),
+    (
+        "GError",
+        Layout {
+            size: size_of::<GError>(),
+            alignment: align_of::<GError>(),
+        },
+    ),
+    (
+        "GErrorType",
+        Layout {
+            size: size_of::<GErrorType>(),
+            alignment: align_of::<GErrorType>(),
+        },
+    ),
+    (
+        "GFileError",
+        Layout {
+            size: size_of::<GFileError>(),
+            alignment: align_of::<GFileError>(),
+        },
+    ),
+    (
+        "GFileTest",
+        Layout {
+            size: size_of::<GFileTest>(),
+            alignment: align_of::<GFileTest>(),
+        },
+    ),
+    (
+        "GFormatSizeFlags",
+        Layout {
+            size: size_of::<GFormatSizeFlags>(),
+            alignment: align_of::<GFormatSizeFlags>(),
+        },
+    ),
+    (
+        "GHashTableIter",
+        Layout {
+            size: size_of::<GHashTableIter>(),
+            alignment: align_of::<GHashTableIter>(),
+        },
+    ),
+    (
+        "GHook",
+        Layout {
+            size: size_of::<GHook>(),
+            alignment: align_of::<GHook>(),
+        },
+    ),
+    (
+        "GHookFlagMask",
+        Layout {
+            size: size_of::<GHookFlagMask>(),
+            alignment: align_of::<GHookFlagMask>(),
+        },
+    ),
+    (
+        "GHookList",
+        Layout {
+            size: size_of::<GHookList>(),
+            alignment: align_of::<GHookList>(),
+        },
+    ),
+    (
+        "GIOChannelError",
+        Layout {
+            size: size_of::<GIOChannelError>(),
+            alignment: align_of::<GIOChannelError>(),
+        },
+    ),
+    (
+        "GIOCondition",
+        Layout {
+            size: size_of::<GIOCondition>(),
+            alignment: align_of::<GIOCondition>(),
+        },
+    ),
+    (
+        "GIOError",
+        Layout {
+            size: size_of::<GIOError>(),
+            alignment: align_of::<GIOError>(),
+        },
+    ),
+    (
+        "GIOFlags",
+        Layout {
+            size: size_of::<GIOFlags>(),
+            alignment: align_of::<GIOFlags>(),
+        },
+    ),
+    (
+        "GIOFuncs",
+        Layout {
+            size: size_of::<GIOFuncs>(),
+            alignment: align_of::<GIOFuncs>(),
+        },
+    ),
+    (
+        "GIOStatus",
+        Layout {
+            size: size_of::<GIOStatus>(),
+            alignment: align_of::<GIOStatus>(),
+        },
+    ),
+    (
+        "GKeyFileError",
+        Layout {
+            size: size_of::<GKeyFileError>(),
+            alignment: align_of::<GKeyFileError>(),
+        },
+    ),
+    (
+        "GKeyFileFlags",
+        Layout {
+            size: size_of::<GKeyFileFlags>(),
+            alignment: align_of::<GKeyFileFlags>(),
+        },
+    ),
+    (
+        "GList",
+        Layout {
+            size: size_of::<GList>(),
+            alignment: align_of::<GList>(),
+        },
+    ),
+    (
+        "GLogField",
+        Layout {
+            size: size_of::<GLogField>(),
+            alignment: align_of::<GLogField>(),
+        },
+    ),
+    (
+        "GLogLevelFlags",
+        Layout {
+            size: size_of::<GLogLevelFlags>(),
+            alignment: align_of::<GLogLevelFlags>(),
+        },
+    ),
+    (
+        "GLogWriterOutput",
+        Layout {
+            size: size_of::<GLogWriterOutput>(),
+            alignment: align_of::<GLogWriterOutput>(),
+        },
+    ),
+    (
+        "GMarkupCollectType",
+        Layout {
+            size: size_of::<GMarkupCollectType>(),
+            alignment: align_of::<GMarkupCollectType>(),
+        },
+    ),
+    (
+        "GMarkupError",
+        Layout {
+            size: size_of::<GMarkupError>(),
+            alignment: align_of::<GMarkupError>(),
+        },
+    ),
+    (
+        "GMarkupParseFlags",
+        Layout {
+            size: size_of::<GMarkupParseFlags>(),
+            alignment: align_of::<GMarkupParseFlags>(),
+        },
+    ),
+    (
+        "GMarkupParser",
+        Layout {
+            size: size_of::<GMarkupParser>(),
+            alignment: align_of::<GMarkupParser>(),
+        },
+    ),
+    (
+        "GMemVTable",
+        Layout {
+            size: size_of::<GMemVTable>(),
+            alignment: align_of::<GMemVTable>(),
+        },
+    ),
+    (
+        "GMutex",
+        Layout {
+            size: size_of::<GMutex>(),
+            alignment: align_of::<GMutex>(),
+        },
+    ),
+    (
+        "GNode",
+        Layout {
+            size: size_of::<GNode>(),
+            alignment: align_of::<GNode>(),
+        },
+    ),
+    (
+        "GNormalizeMode",
+        Layout {
+            size: size_of::<GNormalizeMode>(),
+            alignment: align_of::<GNormalizeMode>(),
+        },
+    ),
+    (
+        "GNumberParserError",
+        Layout {
+            size: size_of::<GNumberParserError>(),
+            alignment: align_of::<GNumberParserError>(),
+        },
+    ),
+    (
+        "GOnce",
+        Layout {
+            size: size_of::<GOnce>(),
+            alignment: align_of::<GOnce>(),
+        },
+    ),
+    (
+        "GOnceStatus",
+        Layout {
+            size: size_of::<GOnceStatus>(),
+            alignment: align_of::<GOnceStatus>(),
+        },
+    ),
+    (
+        "GOptionArg",
+        Layout {
+            size: size_of::<GOptionArg>(),
+            alignment: align_of::<GOptionArg>(),
+        },
+    ),
+    (
+        "GOptionEntry",
+        Layout {
+            size: size_of::<GOptionEntry>(),
+            alignment: align_of::<GOptionEntry>(),
+        },
+    ),
+    (
+        "GOptionError",
+        Layout {
+            size: size_of::<GOptionError>(),
+            alignment: align_of::<GOptionError>(),
+        },
+    ),
+    (
+        "GOptionFlags",
+        Layout {
+            size: size_of::<GOptionFlags>(),
+            alignment: align_of::<GOptionFlags>(),
+        },
+    ),
+    (
+        "GPid",
+        Layout {
+            size: size_of::<GPid>(),
+            alignment: align_of::<GPid>(),
+        },
+    ),
+    (
+        "GPollFD",
+        Layout {
+            size: size_of::<GPollFD>(),
+            alignment: align_of::<GPollFD>(),
+        },
+    ),
+    (
+        "GPrivate",
+        Layout {
+            size: size_of::<GPrivate>(),
+            alignment: align_of::<GPrivate>(),
+        },
+    ),
+    (
+        "GPtrArray",
+        Layout {
+            size: size_of::<GPtrArray>(),
+            alignment: align_of::<GPtrArray>(),
+        },
+    ),
+    (
+        "GQuark",
+        Layout {
+            size: size_of::<GQuark>(),
+            alignment: align_of::<GQuark>(),
+        },
+    ),
+    (
+        "GQueue",
+        Layout {
+            size: size_of::<GQueue>(),
+            alignment: align_of::<GQueue>(),
+        },
+    ),
+    (
+        "GRWLock",
+        Layout {
+            size: size_of::<GRWLock>(),
+            alignment: align_of::<GRWLock>(),
+        },
+    ),
+    (
+        "GRecMutex",
+        Layout {
+            size: size_of::<GRecMutex>(),
+            alignment: align_of::<GRecMutex>(),
+        },
+    ),
+    (
+        "GRefString",
+        Layout {
+            size: size_of::<GRefString>(),
+            alignment: align_of::<GRefString>(),
+        },
+    ),
+    (
+        "GRegexCompileFlags",
+        Layout {
+            size: size_of::<GRegexCompileFlags>(),
+            alignment: align_of::<GRegexCompileFlags>(),
+        },
+    ),
+    (
+        "GRegexError",
+        Layout {
+            size: size_of::<GRegexError>(),
+            alignment: align_of::<GRegexError>(),
+        },
+    ),
+    (
+        "GRegexMatchFlags",
+        Layout {
+            size: size_of::<GRegexMatchFlags>(),
+            alignment: align_of::<GRegexMatchFlags>(),
+        },
+    ),
+    (
+        "GSList",
+        Layout {
+            size: size_of::<GSList>(),
+            alignment: align_of::<GSList>(),
+        },
+    ),
+    (
+        "GScanner",
+        Layout {
+            size: size_of::<GScanner>(),
+            alignment: align_of::<GScanner>(),
+        },
+    ),
+    (
+        "GSeekType",
+        Layout {
+            size: size_of::<GSeekType>(),
+            alignment: align_of::<GSeekType>(),
+        },
+    ),
+    (
+        "GShellError",
+        Layout {
+            size: size_of::<GShellError>(),
+            alignment: align_of::<GShellError>(),
+        },
+    ),
+    (
+        "GSliceConfig",
+        Layout {
+            size: size_of::<GSliceConfig>(),
+            alignment: align_of::<GSliceConfig>(),
+        },
+    ),
+    (
+        "GSource",
+        Layout {
+            size: size_of::<GSource>(),
+            alignment: align_of::<GSource>(),
+        },
+    ),
+    (
+        "GSourceCallbackFuncs",
+        Layout {
+            size: size_of::<GSourceCallbackFuncs>(),
+            alignment: align_of::<GSourceCallbackFuncs>(),
+        },
+    ),
+    (
+        "GSourceFuncs",
+        Layout {
+            size: size_of::<GSourceFuncs>(),
+            alignment: align_of::<GSourceFuncs>(),
+        },
+    ),
+    (
+        "GSpawnError",
+        Layout {
+            size: size_of::<GSpawnError>(),
+            alignment: align_of::<GSpawnError>(),
+        },
+    ),
+    (
+        "GSpawnFlags",
+        Layout {
+            size: size_of::<GSpawnFlags>(),
+            alignment: align_of::<GSpawnFlags>(),
+        },
+    ),
+    (
+        "GString",
+        Layout {
+            size: size_of::<GString>(),
+            alignment: align_of::<GString>(),
+        },
+    ),
+    (
+        "GStrv",
+        Layout {
+            size: size_of::<GStrv>(),
+            alignment: align_of::<GStrv>(),
+        },
+    ),
+    (
+        "GTestConfig",
+        Layout {
+            size: size_of::<GTestConfig>(),
+            alignment: align_of::<GTestConfig>(),
+        },
+    ),
+    (
+        "GTestFileType",
+        Layout {
+            size: size_of::<GTestFileType>(),
+            alignment: align_of::<GTestFileType>(),
+        },
+    ),
+    (
+        "GTestLogBuffer",
+        Layout {
+            size: size_of::<GTestLogBuffer>(),
+            alignment: align_of::<GTestLogBuffer>(),
+        },
+    ),
+    (
+        "GTestLogMsg",
+        Layout {
+            size: size_of::<GTestLogMsg>(),
+            alignment: align_of::<GTestLogMsg>(),
+        },
+    ),
+    (
+        "GTestLogType",
+        Layout {
+            size: size_of::<GTestLogType>(),
+            alignment: align_of::<GTestLogType>(),
+        },
+    ),
+    (
+        "GTestResult",
+        Layout {
+            size: size_of::<GTestResult>(),
+            alignment: align_of::<GTestResult>(),
+        },
+    ),
+    (
+        "GTestSubprocessFlags",
+        Layout {
+            size: size_of::<GTestSubprocessFlags>(),
+            alignment: align_of::<GTestSubprocessFlags>(),
+        },
+    ),
+    (
+        "GTestTrapFlags",
+        Layout {
+            size: size_of::<GTestTrapFlags>(),
+            alignment: align_of::<GTestTrapFlags>(),
+        },
+    ),
+    (
+        "GThreadError",
+        Layout {
+            size: size_of::<GThreadError>(),
+            alignment: align_of::<GThreadError>(),
+        },
+    ),
+    (
+        "GThreadPool",
+        Layout {
+            size: size_of::<GThreadPool>(),
+            alignment: align_of::<GThreadPool>(),
+        },
+    ),
+    (
+        "GTime",
+        Layout {
+            size: size_of::<GTime>(),
+            alignment: align_of::<GTime>(),
+        },
+    ),
+    (
+        "GTimeSpan",
+        Layout {
+            size: size_of::<GTimeSpan>(),
+            alignment: align_of::<GTimeSpan>(),
+        },
+    ),
+    (
+        "GTimeType",
+        Layout {
+            size: size_of::<GTimeType>(),
+            alignment: align_of::<GTimeType>(),
+        },
+    ),
+    (
+        "GTimeVal",
+        Layout {
+            size: size_of::<GTimeVal>(),
+            alignment: align_of::<GTimeVal>(),
+        },
+    ),
+    (
+        "GTokenType",
+        Layout {
+            size: size_of::<GTokenType>(),
+            alignment: align_of::<GTokenType>(),
+        },
+    ),
+    (
+        "GTokenValue",
+        Layout {
+            size: size_of::<GTokenValue>(),
+            alignment: align_of::<GTokenValue>(),
+        },
+    ),
+    (
+        "GTrashStack",
+        Layout {
+            size: size_of::<GTrashStack>(),
+            alignment: align_of::<GTrashStack>(),
+        },
+    ),
+    (
+        "GTraverseFlags",
+        Layout {
+            size: size_of::<GTraverseFlags>(),
+            alignment: align_of::<GTraverseFlags>(),
+        },
+    ),
+    (
+        "GTraverseType",
+        Layout {
+            size: size_of::<GTraverseType>(),
+            alignment: align_of::<GTraverseType>(),
+        },
+    ),
+    (
+        "GType",
+        Layout {
+            size: size_of::<GType>(),
+            alignment: align_of::<GType>(),
+        },
+    ),
+    (
+        "GUnicodeBreakType",
+        Layout {
+            size: size_of::<GUnicodeBreakType>(),
+            alignment: align_of::<GUnicodeBreakType>(),
+        },
+    ),
+    (
+        "GUnicodeScript",
+        Layout {
+            size: size_of::<GUnicodeScript>(),
+            alignment: align_of::<GUnicodeScript>(),
+        },
+    ),
+    (
+        "GUnicodeType",
+        Layout {
+            size: size_of::<GUnicodeType>(),
+            alignment: align_of::<GUnicodeType>(),
+        },
+    ),
+    (
+        "GUserDirectory",
+        Layout {
+            size: size_of::<GUserDirectory>(),
+            alignment: align_of::<GUserDirectory>(),
+        },
+    ),
+    (
+        "GVariantBuilder",
+        Layout {
+            size: size_of::<GVariantBuilder>(),
+            alignment: align_of::<GVariantBuilder>(),
+        },
+    ),
+    (
+        "GVariantClass",
+        Layout {
+            size: size_of::<GVariantClass>(),
+            alignment: align_of::<GVariantClass>(),
+        },
+    ),
+    (
+        "GVariantDict",
+        Layout {
+            size: size_of::<GVariantDict>(),
+            alignment: align_of::<GVariantDict>(),
+        },
+    ),
+    (
+        "GVariantIter",
+        Layout {
+            size: size_of::<GVariantIter>(),
+            alignment: align_of::<GVariantIter>(),
+        },
+    ),
+    (
+        "GVariantParseError",
+        Layout {
+            size: size_of::<GVariantParseError>(),
+            alignment: align_of::<GVariantParseError>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -505,7 +1124,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("G_KEY_FILE_DESKTOP_KEY_EXEC", "Exec"),
     ("G_KEY_FILE_DESKTOP_KEY_FULLNAME", "X-GNOME-FullName"),
     ("G_KEY_FILE_DESKTOP_KEY_GENERIC_NAME", "GenericName"),
-    ("G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN", "X-GNOME-Gettext-Domain"),
+    (
+        "G_KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN",
+        "X-GNOME-Gettext-Domain",
+    ),
     ("G_KEY_FILE_DESKTOP_KEY_HIDDEN", "Hidden"),
     ("G_KEY_FILE_DESKTOP_KEY_ICON", "Icon"),
     ("G_KEY_FILE_DESKTOP_KEY_KEYWORDS", "Keywords"),
@@ -622,8 +1244,14 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_REGEX_DOTALL", "4"),
     ("(guint) G_REGEX_DUPNAMES", "524288"),
     ("(gint) G_REGEX_ERROR_ASSERTION_EXPECTED", "128"),
-    ("(gint) G_REGEX_ERROR_BACKTRACKING_CONTROL_VERB_ARGUMENT_FORBIDDEN", "159"),
-    ("(gint) G_REGEX_ERROR_BACKTRACKING_CONTROL_VERB_ARGUMENT_REQUIRED", "166"),
+    (
+        "(gint) G_REGEX_ERROR_BACKTRACKING_CONTROL_VERB_ARGUMENT_FORBIDDEN",
+        "159",
+    ),
+    (
+        "(gint) G_REGEX_ERROR_BACKTRACKING_CONTROL_VERB_ARGUMENT_REQUIRED",
+        "166",
+    ),
     ("(gint) G_REGEX_ERROR_CHARACTER_VALUE_TOO_LARGE", "176"),
     ("(gint) G_REGEX_ERROR_COMPILE", "0"),
     ("(gint) G_REGEX_ERROR_DEFINE_REPETION", "155"),
@@ -632,13 +1260,19 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_REGEX_ERROR_EXTRA_SUBPATTERN_NAME", "165"),
     ("(gint) G_REGEX_ERROR_HEX_CODE_TOO_LARGE", "134"),
     ("(gint) G_REGEX_ERROR_INCONSISTENT_NEWLINE_OPTIONS", "156"),
-    ("(gint) G_REGEX_ERROR_INEXISTENT_SUBPATTERN_REFERENCE", "115"),
+    (
+        "(gint) G_REGEX_ERROR_INEXISTENT_SUBPATTERN_REFERENCE",
+        "115",
+    ),
     ("(gint) G_REGEX_ERROR_INFINITE_LOOP", "140"),
     ("(gint) G_REGEX_ERROR_INTERNAL", "4"),
     ("(gint) G_REGEX_ERROR_INVALID_CONDITION", "135"),
     ("(gint) G_REGEX_ERROR_INVALID_CONTROL_CHAR", "168"),
     ("(gint) G_REGEX_ERROR_INVALID_DATA_CHARACTER", "164"),
-    ("(gint) G_REGEX_ERROR_INVALID_ESCAPE_IN_CHARACTER_CLASS", "107"),
+    (
+        "(gint) G_REGEX_ERROR_INVALID_ESCAPE_IN_CHARACTER_CLASS",
+        "107",
+    ),
     ("(gint) G_REGEX_ERROR_INVALID_OCTAL_VALUE", "151"),
     ("(gint) G_REGEX_ERROR_INVALID_RELATIVE_REFERENCE", "158"),
     ("(gint) G_REGEX_ERROR_MALFORMED_CONDITION", "126"),
@@ -650,26 +1284,41 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_REGEX_ERROR_MISSING_DIGIT", "163"),
     ("(gint) G_REGEX_ERROR_MISSING_NAME", "169"),
     ("(gint) G_REGEX_ERROR_MISSING_SUBPATTERN_NAME", "162"),
-    ("(gint) G_REGEX_ERROR_MISSING_SUBPATTERN_NAME_TERMINATOR", "142"),
+    (
+        "(gint) G_REGEX_ERROR_MISSING_SUBPATTERN_NAME_TERMINATOR",
+        "142",
+    ),
     ("(gint) G_REGEX_ERROR_NAME_TOO_LONG", "175"),
     ("(gint) G_REGEX_ERROR_NOTHING_TO_REPEAT", "109"),
     ("(gint) G_REGEX_ERROR_NOT_SUPPORTED_IN_CLASS", "171"),
     ("(gint) G_REGEX_ERROR_NUMBER_TOO_BIG", "161"),
     ("(gint) G_REGEX_ERROR_OPTIMIZE", "1"),
-    ("(gint) G_REGEX_ERROR_POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED", "131"),
-    ("(gint) G_REGEX_ERROR_POSIX_NAMED_CLASS_OUTSIDE_CLASS", "113"),
+    (
+        "(gint) G_REGEX_ERROR_POSIX_COLLATING_ELEMENTS_NOT_SUPPORTED",
+        "131",
+    ),
+    (
+        "(gint) G_REGEX_ERROR_POSIX_NAMED_CLASS_OUTSIDE_CLASS",
+        "113",
+    ),
     ("(gint) G_REGEX_ERROR_QUANTIFIERS_OUT_OF_ORDER", "104"),
     ("(gint) G_REGEX_ERROR_QUANTIFIER_TOO_BIG", "105"),
     ("(gint) G_REGEX_ERROR_RANGE_OUT_OF_ORDER", "108"),
     ("(gint) G_REGEX_ERROR_REPLACE", "2"),
-    ("(gint) G_REGEX_ERROR_SINGLE_BYTE_MATCH_IN_LOOKBEHIND", "136"),
+    (
+        "(gint) G_REGEX_ERROR_SINGLE_BYTE_MATCH_IN_LOOKBEHIND",
+        "136",
+    ),
     ("(gint) G_REGEX_ERROR_STRAY_BACKSLASH", "101"),
     ("(gint) G_REGEX_ERROR_SUBPATTERN_NAME_TOO_LONG", "148"),
     ("(gint) G_REGEX_ERROR_TOO_MANY_BRANCHES_IN_DEFINE", "154"),
     ("(gint) G_REGEX_ERROR_TOO_MANY_CONDITIONAL_BRANCHES", "127"),
     ("(gint) G_REGEX_ERROR_TOO_MANY_FORWARD_REFERENCES", "172"),
     ("(gint) G_REGEX_ERROR_TOO_MANY_SUBPATTERNS", "149"),
-    ("(gint) G_REGEX_ERROR_UNKNOWN_BACKTRACKING_CONTROL_VERB", "160"),
+    (
+        "(gint) G_REGEX_ERROR_UNKNOWN_BACKTRACKING_CONTROL_VERB",
+        "160",
+    ),
     ("(gint) G_REGEX_ERROR_UNKNOWN_POSIX_CLASS_NAME", "130"),
     ("(gint) G_REGEX_ERROR_UNKNOWN_PROPERTY", "147"),
     ("(gint) G_REGEX_ERROR_UNMATCHED_PARENTHESIS", "114"),
@@ -1039,7 +1688,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_UNICODE_UNASSIGNED", "2"),
     ("(gint) G_UNICODE_UPPERCASE_LETTER", "9"),
     ("G_URI_RESERVED_CHARS_GENERIC_DELIMITERS", ":/?#[]@"),
-    ("G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS", "!$&'()*+,;="),
+    (
+        "G_URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS",
+        "!$&'()*+,;=",
+    ),
     ("G_USEC_PER_SEC", "1000000"),
     ("(gint) G_USER_DIRECTORY_DESKTOP", "0"),
     ("(gint) G_USER_DIRECTORY_DOCUMENTS", "1"),
@@ -1084,9 +1736,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_VARIANT_PARSE_ERROR_TYPE_ERROR", "13"),
     ("(gint) G_VARIANT_PARSE_ERROR_UNEXPECTED_TOKEN", "14"),
     ("(gint) G_VARIANT_PARSE_ERROR_UNKNOWN_KEYWORD", "15"),
-    ("(gint) G_VARIANT_PARSE_ERROR_UNTERMINATED_STRING_CONSTANT", "16"),
+    (
+        "(gint) G_VARIANT_PARSE_ERROR_UNTERMINATED_STRING_CONSTANT",
+        "16",
+    ),
     ("(gint) G_VARIANT_PARSE_ERROR_VALUE_EXPECTED", "17"),
     ("G_WIN32_MSG_HANDLE", "19981206"),
 ];
-
-

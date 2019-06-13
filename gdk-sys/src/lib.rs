@@ -3,20 +3,25 @@
 // DO NOT EDIT
 
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
-#![allow(clippy::approx_constant, clippy::type_complexity, clippy::unreadable_literal)]
+#![allow(
+    clippy::approx_constant,
+    clippy::type_complexity,
+    clippy::unreadable_literal
+)]
 
-extern crate libc;
+extern crate cairo_sys as cairo;
+extern crate gdk_pixbuf_sys as gdk_pixbuf;
+extern crate gio_sys as gio;
 extern crate glib_sys as glib;
 extern crate gobject_sys as gobject;
-extern crate gio_sys as gio;
-extern crate gdk_pixbuf_sys as gdk_pixbuf;
+extern crate libc;
 extern crate pango_sys as pango;
-extern crate cairo_sys as cairo;
 
 #[allow(unused_imports)]
-use libc::{c_int, c_char, c_uchar, c_float, c_uint, c_double,
-    c_short, c_ushort, c_long, c_ulong,
-    c_void, size_t, ssize_t, intptr_t, uintptr_t, time_t, FILE};
+use libc::{
+    c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
+    intptr_t, size_t, ssize_t, time_t, uintptr_t, FILE,
+};
 
 #[allow(unused_imports)]
 use glib::{gboolean, gconstpointer, gpointer, GType};
@@ -2877,41 +2882,44 @@ pub union GdkEvent {
 impl ::std::fmt::Debug for GdkEvent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEvent @ {:?}", self as *const _))
-         .field("type_", unsafe { &self.type_ })
-         .field("any", unsafe { &self.any })
-         .field("expose", unsafe { &self.expose })
-         .field("visibility", unsafe { &self.visibility })
-         .field("motion", unsafe { &self.motion })
-         .field("button", unsafe { &self.button })
-         .field("touch", unsafe { &self.touch })
-         .field("scroll", unsafe { &self.scroll })
-         .field("key", unsafe { &self.key })
-         .field("crossing", unsafe { &self.crossing })
-         .field("focus_change", unsafe { &self.focus_change })
-         .field("configure", unsafe { &self.configure })
-         .field("property", unsafe { &self.property })
-         .field("selection", unsafe { &self.selection })
-         .field("owner_change", unsafe { &self.owner_change })
-         .field("proximity", unsafe { &self.proximity })
-         .field("dnd", unsafe { &self.dnd })
-         .field("window_state", unsafe { &self.window_state })
-         .field("setting", unsafe { &self.setting })
-         .field("grab_broken", unsafe { &self.grab_broken })
-         .field("touchpad_swipe", unsafe { &self.touchpad_swipe })
-         .field("touchpad_pinch", unsafe { &self.touchpad_pinch })
-         .field("pad_button", unsafe { &self.pad_button })
-         .field("pad_axis", unsafe { &self.pad_axis })
-         .field("pad_group_mode", unsafe { &self.pad_group_mode })
-         .finish()
+            .field("type_", unsafe { &self.type_ })
+            .field("any", unsafe { &self.any })
+            .field("expose", unsafe { &self.expose })
+            .field("visibility", unsafe { &self.visibility })
+            .field("motion", unsafe { &self.motion })
+            .field("button", unsafe { &self.button })
+            .field("touch", unsafe { &self.touch })
+            .field("scroll", unsafe { &self.scroll })
+            .field("key", unsafe { &self.key })
+            .field("crossing", unsafe { &self.crossing })
+            .field("focus_change", unsafe { &self.focus_change })
+            .field("configure", unsafe { &self.configure })
+            .field("property", unsafe { &self.property })
+            .field("selection", unsafe { &self.selection })
+            .field("owner_change", unsafe { &self.owner_change })
+            .field("proximity", unsafe { &self.proximity })
+            .field("dnd", unsafe { &self.dnd })
+            .field("window_state", unsafe { &self.window_state })
+            .field("setting", unsafe { &self.setting })
+            .field("grab_broken", unsafe { &self.grab_broken })
+            .field("touchpad_swipe", unsafe { &self.touchpad_swipe })
+            .field("touchpad_pinch", unsafe { &self.touchpad_pinch })
+            .field("pad_button", unsafe { &self.pad_button })
+            .field("pad_axis", unsafe { &self.pad_axis })
+            .field("pad_group_mode", unsafe { &self.pad_group_mode })
+            .finish()
     }
 }
 
 // Callbacks
 pub type GdkEventFunc = Option<unsafe extern "C" fn(*mut GdkEvent, gpointer)>;
-pub type GdkFilterFunc = Option<unsafe extern "C" fn(*mut GdkXEvent, *mut GdkEvent, gpointer) -> GdkFilterReturn>;
-pub type GdkSeatGrabPrepareFunc = Option<unsafe extern "C" fn(*mut GdkSeat, *mut GdkWindow, gpointer)>;
+pub type GdkFilterFunc =
+    Option<unsafe extern "C" fn(*mut GdkXEvent, *mut GdkEvent, gpointer) -> GdkFilterReturn>;
+pub type GdkSeatGrabPrepareFunc =
+    Option<unsafe extern "C" fn(*mut GdkSeat, *mut GdkWindow, gpointer)>;
 pub type GdkWindowChildFunc = Option<unsafe extern "C" fn(*mut GdkWindow, gpointer) -> gboolean>;
-pub type GdkWindowInvalidateHandlerFunc = Option<unsafe extern "C" fn(*mut GdkWindow, *mut cairo::cairo_region_t)>;
+pub type GdkWindowInvalidateHandlerFunc =
+    Option<unsafe extern "C" fn(*mut GdkWindow, *mut cairo::cairo_region_t)>;
 
 // Records
 #[repr(C)]
@@ -2931,11 +2939,11 @@ pub struct GdkColor {
 impl ::std::fmt::Debug for GdkColor {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkColor @ {:?}", self as *const _))
-         .field("pixel", &self.pixel)
-         .field("red", &self.red)
-         .field("green", &self.green)
-         .field("blue", &self.blue)
-         .finish()
+            .field("pixel", &self.pixel)
+            .field("red", &self.red)
+            .field("green", &self.green)
+            .field("blue", &self.blue)
+            .finish()
     }
 }
 
@@ -2960,10 +2968,10 @@ pub struct GdkEventAny {
 impl ::std::fmt::Debug for GdkEventAny {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventAny @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .finish()
     }
 }
 
@@ -2987,19 +2995,19 @@ pub struct GdkEventButton {
 impl ::std::fmt::Debug for GdkEventButton {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventButton @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("axes", &self.axes)
-         .field("state", &self.state)
-         .field("button", &self.button)
-         .field("device", &self.device)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("axes", &self.axes)
+            .field("state", &self.state)
+            .field("button", &self.button)
+            .field("device", &self.device)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .finish()
     }
 }
 
@@ -3018,14 +3026,14 @@ pub struct GdkEventConfigure {
 impl ::std::fmt::Debug for GdkEventConfigure {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventConfigure @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("width", &self.width)
-         .field("height", &self.height)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("width", &self.width)
+            .field("height", &self.height)
+            .finish()
     }
 }
 
@@ -3050,20 +3058,20 @@ pub struct GdkEventCrossing {
 impl ::std::fmt::Debug for GdkEventCrossing {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventCrossing @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("subwindow", &self.subwindow)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .field("mode", &self.mode)
-         .field("detail", &self.detail)
-         .field("focus", &self.focus)
-         .field("state", &self.state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("subwindow", &self.subwindow)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .field("mode", &self.mode)
+            .field("detail", &self.detail)
+            .field("focus", &self.focus)
+            .field("state", &self.state)
+            .finish()
     }
 }
 
@@ -3082,14 +3090,14 @@ pub struct GdkEventDND {
 impl ::std::fmt::Debug for GdkEventDND {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventDND @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("context", &self.context)
-         .field("time", &self.time)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("context", &self.context)
+            .field("time", &self.time)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .finish()
     }
 }
 
@@ -3107,13 +3115,13 @@ pub struct GdkEventExpose {
 impl ::std::fmt::Debug for GdkEventExpose {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventExpose @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("area", &self.area)
-         .field("region", &self.region)
-         .field("count", &self.count)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("area", &self.area)
+            .field("region", &self.region)
+            .field("count", &self.count)
+            .finish()
     }
 }
 
@@ -3129,11 +3137,11 @@ pub struct GdkEventFocus {
 impl ::std::fmt::Debug for GdkEventFocus {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventFocus @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("in_", &self.in_)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("in_", &self.in_)
+            .finish()
     }
 }
 
@@ -3151,13 +3159,13 @@ pub struct GdkEventGrabBroken {
 impl ::std::fmt::Debug for GdkEventGrabBroken {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventGrabBroken @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("keyboard", &self.keyboard)
-         .field("implicit", &self.implicit)
-         .field("grab_window", &self.grab_window)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("keyboard", &self.keyboard)
+            .field("implicit", &self.implicit)
+            .field("grab_window", &self.grab_window)
+            .finish()
     }
 }
 
@@ -3180,18 +3188,18 @@ pub struct GdkEventKey {
 impl ::std::fmt::Debug for GdkEventKey {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventKey @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("state", &self.state)
-         .field("keyval", &self.keyval)
-         .field("length", &self.length)
-         .field("string", &self.string)
-         .field("hardware_keycode", &self.hardware_keycode)
-         .field("group", &self.group)
-         .field("is_modifier", &self.is_modifier)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("state", &self.state)
+            .field("keyval", &self.keyval)
+            .field("length", &self.length)
+            .field("string", &self.string)
+            .field("hardware_keycode", &self.hardware_keycode)
+            .field("group", &self.group)
+            .field("is_modifier", &self.is_modifier)
+            .finish()
     }
 }
 
@@ -3215,19 +3223,19 @@ pub struct GdkEventMotion {
 impl ::std::fmt::Debug for GdkEventMotion {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventMotion @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("axes", &self.axes)
-         .field("state", &self.state)
-         .field("is_hint", &self.is_hint)
-         .field("device", &self.device)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("axes", &self.axes)
+            .field("state", &self.state)
+            .field("is_hint", &self.is_hint)
+            .field("device", &self.device)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .finish()
     }
 }
 
@@ -3247,15 +3255,15 @@ pub struct GdkEventOwnerChange {
 impl ::std::fmt::Debug for GdkEventOwnerChange {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventOwnerChange @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("owner", &self.owner)
-         .field("reason", &self.reason)
-         .field("selection", &self.selection)
-         .field("time", &self.time)
-         .field("selection_time", &self.selection_time)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("owner", &self.owner)
+            .field("reason", &self.reason)
+            .field("selection", &self.selection)
+            .field("time", &self.time)
+            .field("selection_time", &self.selection_time)
+            .finish()
     }
 }
 
@@ -3275,15 +3283,15 @@ pub struct GdkEventPadAxis {
 impl ::std::fmt::Debug for GdkEventPadAxis {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventPadAxis @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("group", &self.group)
-         .field("index", &self.index)
-         .field("mode", &self.mode)
-         .field("value", &self.value)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("group", &self.group)
+            .field("index", &self.index)
+            .field("mode", &self.mode)
+            .field("value", &self.value)
+            .finish()
     }
 }
 
@@ -3302,14 +3310,14 @@ pub struct GdkEventPadButton {
 impl ::std::fmt::Debug for GdkEventPadButton {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventPadButton @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("group", &self.group)
-         .field("button", &self.button)
-         .field("mode", &self.mode)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("group", &self.group)
+            .field("button", &self.button)
+            .field("mode", &self.mode)
+            .finish()
     }
 }
 
@@ -3327,13 +3335,13 @@ pub struct GdkEventPadGroupMode {
 impl ::std::fmt::Debug for GdkEventPadGroupMode {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventPadGroupMode @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("group", &self.group)
-         .field("mode", &self.mode)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("group", &self.group)
+            .field("mode", &self.mode)
+            .finish()
     }
 }
 
@@ -3351,13 +3359,13 @@ pub struct GdkEventProperty {
 impl ::std::fmt::Debug for GdkEventProperty {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventProperty @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("atom", &self.atom)
-         .field("time", &self.time)
-         .field("state", &self.state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("atom", &self.atom)
+            .field("time", &self.time)
+            .field("state", &self.state)
+            .finish()
     }
 }
 
@@ -3374,12 +3382,12 @@ pub struct GdkEventProximity {
 impl ::std::fmt::Debug for GdkEventProximity {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventProximity @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("device", &self.device)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("device", &self.device)
+            .finish()
     }
 }
 
@@ -3405,21 +3413,21 @@ pub struct GdkEventScroll {
 impl ::std::fmt::Debug for GdkEventScroll {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventScroll @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("state", &self.state)
-         .field("direction", &self.direction)
-         .field("device", &self.device)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .field("delta_x", &self.delta_x)
-         .field("delta_y", &self.delta_y)
-         .field("is_stop", &self.is_stop)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("state", &self.state)
+            .field("direction", &self.direction)
+            .field("device", &self.device)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .field("delta_x", &self.delta_x)
+            .field("delta_y", &self.delta_y)
+            .field("is_stop", &self.is_stop)
+            .finish()
     }
 }
 
@@ -3439,15 +3447,15 @@ pub struct GdkEventSelection {
 impl ::std::fmt::Debug for GdkEventSelection {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventSelection @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("selection", &self.selection)
-         .field("target", &self.target)
-         .field("property", &self.property)
-         .field("time", &self.time)
-         .field("requestor", &self.requestor)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("selection", &self.selection)
+            .field("target", &self.target)
+            .field("property", &self.property)
+            .field("time", &self.time)
+            .field("requestor", &self.requestor)
+            .finish()
     }
 }
 
@@ -3457,7 +3465,7 @@ pub struct GdkEventSequence(c_void);
 impl ::std::fmt::Debug for GdkEventSequence {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventSequence @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3474,12 +3482,12 @@ pub struct GdkEventSetting {
 impl ::std::fmt::Debug for GdkEventSetting {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventSetting @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("action", &self.action)
-         .field("name", &self.name)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("action", &self.action)
+            .field("name", &self.name)
+            .finish()
     }
 }
 
@@ -3504,20 +3512,20 @@ pub struct GdkEventTouch {
 impl ::std::fmt::Debug for GdkEventTouch {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventTouch @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("axes", &self.axes)
-         .field("state", &self.state)
-         .field("sequence", &self.sequence)
-         .field("emulating_pointer", &self.emulating_pointer)
-         .field("device", &self.device)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("axes", &self.axes)
+            .field("state", &self.state)
+            .field("sequence", &self.sequence)
+            .field("emulating_pointer", &self.emulating_pointer)
+            .field("device", &self.device)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .finish()
     }
 }
 
@@ -3544,22 +3552,22 @@ pub struct GdkEventTouchpadPinch {
 impl ::std::fmt::Debug for GdkEventTouchpadPinch {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventTouchpadPinch @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("phase", &self.phase)
-         .field("n_fingers", &self.n_fingers)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("dx", &self.dx)
-         .field("dy", &self.dy)
-         .field("angle_delta", &self.angle_delta)
-         .field("scale", &self.scale)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .field("state", &self.state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("phase", &self.phase)
+            .field("n_fingers", &self.n_fingers)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("dx", &self.dx)
+            .field("dy", &self.dy)
+            .field("angle_delta", &self.angle_delta)
+            .field("scale", &self.scale)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .field("state", &self.state)
+            .finish()
     }
 }
 
@@ -3584,20 +3592,20 @@ pub struct GdkEventTouchpadSwipe {
 impl ::std::fmt::Debug for GdkEventTouchpadSwipe {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventTouchpadSwipe @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("phase", &self.phase)
-         .field("n_fingers", &self.n_fingers)
-         .field("time", &self.time)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("dx", &self.dx)
-         .field("dy", &self.dy)
-         .field("x_root", &self.x_root)
-         .field("y_root", &self.y_root)
-         .field("state", &self.state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("phase", &self.phase)
+            .field("n_fingers", &self.n_fingers)
+            .field("time", &self.time)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("dx", &self.dx)
+            .field("dy", &self.dy)
+            .field("x_root", &self.x_root)
+            .field("y_root", &self.y_root)
+            .field("state", &self.state)
+            .finish()
     }
 }
 
@@ -3613,11 +3621,11 @@ pub struct GdkEventVisibility {
 impl ::std::fmt::Debug for GdkEventVisibility {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventVisibility @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("state", &self.state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("state", &self.state)
+            .finish()
     }
 }
 
@@ -3634,12 +3642,12 @@ pub struct GdkEventWindowState {
 impl ::std::fmt::Debug for GdkEventWindowState {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkEventWindowState @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("window", &self.window)
-         .field("send_event", &self.send_event)
-         .field("changed_mask", &self.changed_mask)
-         .field("new_window_state", &self.new_window_state)
-         .finish()
+            .field("type_", &self.type_)
+            .field("window", &self.window)
+            .field("send_event", &self.send_event)
+            .field("changed_mask", &self.changed_mask)
+            .field("new_window_state", &self.new_window_state)
+            .finish()
     }
 }
 
@@ -3659,7 +3667,7 @@ pub struct GdkFrameTimings(c_void);
 impl ::std::fmt::Debug for GdkFrameTimings {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkFrameTimings @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3682,18 +3690,18 @@ pub struct GdkGeometry {
 impl ::std::fmt::Debug for GdkGeometry {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkGeometry @ {:?}", self as *const _))
-         .field("min_width", &self.min_width)
-         .field("min_height", &self.min_height)
-         .field("max_width", &self.max_width)
-         .field("max_height", &self.max_height)
-         .field("base_width", &self.base_width)
-         .field("base_height", &self.base_height)
-         .field("width_inc", &self.width_inc)
-         .field("height_inc", &self.height_inc)
-         .field("min_aspect", &self.min_aspect)
-         .field("max_aspect", &self.max_aspect)
-         .field("win_gravity", &self.win_gravity)
-         .finish()
+            .field("min_width", &self.min_width)
+            .field("min_height", &self.min_height)
+            .field("max_width", &self.max_width)
+            .field("max_height", &self.max_height)
+            .field("base_width", &self.base_width)
+            .field("base_height", &self.base_height)
+            .field("width_inc", &self.width_inc)
+            .field("height_inc", &self.height_inc)
+            .field("min_aspect", &self.min_aspect)
+            .field("max_aspect", &self.max_aspect)
+            .field("win_gravity", &self.win_gravity)
+            .finish()
     }
 }
 
@@ -3708,10 +3716,10 @@ pub struct GdkKeymapKey {
 impl ::std::fmt::Debug for GdkKeymapKey {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkKeymapKey @ {:?}", self as *const _))
-         .field("keycode", &self.keycode)
-         .field("group", &self.group)
-         .field("level", &self.level)
-         .finish()
+            .field("keycode", &self.keycode)
+            .field("group", &self.group)
+            .field("level", &self.level)
+            .finish()
     }
 }
 
@@ -3730,9 +3738,9 @@ pub struct GdkPoint {
 impl ::std::fmt::Debug for GdkPoint {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkPoint @ {:?}", self as *const _))
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .finish()
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .finish()
     }
 }
 
@@ -3748,11 +3756,11 @@ pub struct GdkRGBA {
 impl ::std::fmt::Debug for GdkRGBA {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkRGBA @ {:?}", self as *const _))
-         .field("red", &self.red)
-         .field("green", &self.green)
-         .field("blue", &self.blue)
-         .field("alpha", &self.alpha)
-         .finish()
+            .field("red", &self.red)
+            .field("green", &self.green)
+            .field("blue", &self.blue)
+            .field("alpha", &self.alpha)
+            .finish()
     }
 }
 
@@ -3768,11 +3776,11 @@ pub struct GdkRectangle {
 impl ::std::fmt::Debug for GdkRectangle {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkRectangle @ {:?}", self as *const _))
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("width", &self.width)
-         .field("height", &self.height)
-         .finish()
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("width", &self.width)
+            .field("height", &self.height)
+            .finish()
     }
 }
 
@@ -3786,8 +3794,8 @@ pub struct GdkTimeCoord {
 impl ::std::fmt::Debug for GdkTimeCoord {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkTimeCoord @ {:?}", self as *const _))
-         .field("time", &self.time)
-         .finish()
+            .field("time", &self.time)
+            .finish()
     }
 }
 
@@ -3813,21 +3821,21 @@ pub struct GdkWindowAttr {
 impl ::std::fmt::Debug for GdkWindowAttr {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkWindowAttr @ {:?}", self as *const _))
-         .field("title", &self.title)
-         .field("event_mask", &self.event_mask)
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("width", &self.width)
-         .field("height", &self.height)
-         .field("wclass", &self.wclass)
-         .field("visual", &self.visual)
-         .field("window_type", &self.window_type)
-         .field("cursor", &self.cursor)
-         .field("wmclass_name", &self.wmclass_name)
-         .field("wmclass_class", &self.wmclass_class)
-         .field("override_redirect", &self.override_redirect)
-         .field("type_hint", &self.type_hint)
-         .finish()
+            .field("title", &self.title)
+            .field("event_mask", &self.event_mask)
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("width", &self.width)
+            .field("height", &self.height)
+            .field("wclass", &self.wclass)
+            .field("visual", &self.visual)
+            .field("window_type", &self.window_type)
+            .field("cursor", &self.cursor)
+            .field("wmclass_name", &self.wmclass_name)
+            .field("wmclass_class", &self.wmclass_class)
+            .field("override_redirect", &self.override_redirect)
+            .field("type_hint", &self.type_hint)
+            .finish()
     }
 }
 
@@ -3835,10 +3843,16 @@ impl ::std::fmt::Debug for GdkWindowAttr {
 #[derive(Copy, Clone)]
 pub struct GdkWindowClass {
     pub parent_class: gobject::GObjectClass,
-    pub pick_embedded_child: Option<unsafe extern "C" fn(*mut GdkWindow, c_double, c_double) -> *mut GdkWindow>,
-    pub to_embedder: Option<unsafe extern "C" fn(*mut GdkWindow, c_double, c_double, *mut c_double, *mut c_double)>,
-    pub from_embedder: Option<unsafe extern "C" fn(*mut GdkWindow, c_double, c_double, *mut c_double, *mut c_double)>,
-    pub create_surface: Option<unsafe extern "C" fn(*mut GdkWindow, c_int, c_int) -> *mut cairo::cairo_surface_t>,
+    pub pick_embedded_child:
+        Option<unsafe extern "C" fn(*mut GdkWindow, c_double, c_double) -> *mut GdkWindow>,
+    pub to_embedder: Option<
+        unsafe extern "C" fn(*mut GdkWindow, c_double, c_double, *mut c_double, *mut c_double),
+    >,
+    pub from_embedder: Option<
+        unsafe extern "C" fn(*mut GdkWindow, c_double, c_double, *mut c_double, *mut c_double),
+    >,
+    pub create_surface:
+        Option<unsafe extern "C" fn(*mut GdkWindow, c_int, c_int) -> *mut cairo::cairo_surface_t>,
     pub _gdk_reserved1: Option<unsafe extern "C" fn()>,
     pub _gdk_reserved2: Option<unsafe extern "C" fn()>,
     pub _gdk_reserved3: Option<unsafe extern "C" fn()>,
@@ -3852,20 +3866,20 @@ pub struct GdkWindowClass {
 impl ::std::fmt::Debug for GdkWindowClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkWindowClass @ {:?}", self as *const _))
-         .field("parent_class", &self.parent_class)
-         .field("pick_embedded_child", &self.pick_embedded_child)
-         .field("to_embedder", &self.to_embedder)
-         .field("from_embedder", &self.from_embedder)
-         .field("create_surface", &self.create_surface)
-         .field("_gdk_reserved1", &self._gdk_reserved1)
-         .field("_gdk_reserved2", &self._gdk_reserved2)
-         .field("_gdk_reserved3", &self._gdk_reserved3)
-         .field("_gdk_reserved4", &self._gdk_reserved4)
-         .field("_gdk_reserved5", &self._gdk_reserved5)
-         .field("_gdk_reserved6", &self._gdk_reserved6)
-         .field("_gdk_reserved7", &self._gdk_reserved7)
-         .field("_gdk_reserved8", &self._gdk_reserved8)
-         .finish()
+            .field("parent_class", &self.parent_class)
+            .field("pick_embedded_child", &self.pick_embedded_child)
+            .field("to_embedder", &self.to_embedder)
+            .field("from_embedder", &self.from_embedder)
+            .field("create_surface", &self.create_surface)
+            .field("_gdk_reserved1", &self._gdk_reserved1)
+            .field("_gdk_reserved2", &self._gdk_reserved2)
+            .field("_gdk_reserved3", &self._gdk_reserved3)
+            .field("_gdk_reserved4", &self._gdk_reserved4)
+            .field("_gdk_reserved5", &self._gdk_reserved5)
+            .field("_gdk_reserved6", &self._gdk_reserved6)
+            .field("_gdk_reserved7", &self._gdk_reserved7)
+            .field("_gdk_reserved8", &self._gdk_reserved8)
+            .finish()
     }
 }
 
@@ -3881,7 +3895,7 @@ pub struct GdkAppLaunchContext(c_void);
 impl ::std::fmt::Debug for GdkAppLaunchContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkAppLaunchContext @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3891,7 +3905,7 @@ pub struct GdkCursor(c_void);
 impl ::std::fmt::Debug for GdkCursor {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkCursor @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3901,7 +3915,7 @@ pub struct GdkDevice(c_void);
 impl ::std::fmt::Debug for GdkDevice {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDevice @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3911,7 +3925,7 @@ pub struct GdkDeviceManager(c_void);
 impl ::std::fmt::Debug for GdkDeviceManager {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDeviceManager @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3921,7 +3935,7 @@ pub struct GdkDeviceTool(c_void);
 impl ::std::fmt::Debug for GdkDeviceTool {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDeviceTool @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3931,7 +3945,7 @@ pub struct GdkDisplay(c_void);
 impl ::std::fmt::Debug for GdkDisplay {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDisplay @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3941,7 +3955,7 @@ pub struct GdkDisplayManager(c_void);
 impl ::std::fmt::Debug for GdkDisplayManager {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDisplayManager @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3951,7 +3965,7 @@ pub struct GdkDragContext(c_void);
 impl ::std::fmt::Debug for GdkDragContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDragContext @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3961,7 +3975,7 @@ pub struct GdkDrawingContext(c_void);
 impl ::std::fmt::Debug for GdkDrawingContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkDrawingContext @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3971,7 +3985,7 @@ pub struct GdkFrameClock(c_void);
 impl ::std::fmt::Debug for GdkFrameClock {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkFrameClock @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3981,7 +3995,7 @@ pub struct GdkGLContext(c_void);
 impl ::std::fmt::Debug for GdkGLContext {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkGLContext @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -3991,7 +4005,7 @@ pub struct GdkKeymap(c_void);
 impl ::std::fmt::Debug for GdkKeymap {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkKeymap @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -4001,7 +4015,7 @@ pub struct GdkMonitor(c_void);
 impl ::std::fmt::Debug for GdkMonitor {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkMonitor @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -4011,7 +4025,7 @@ pub struct GdkScreen(c_void);
 impl ::std::fmt::Debug for GdkScreen {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkScreen @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -4024,8 +4038,8 @@ pub struct GdkSeat {
 impl ::std::fmt::Debug for GdkSeat {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkSeat @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .finish()
     }
 }
 
@@ -4035,7 +4049,7 @@ pub struct GdkVisual(c_void);
 impl ::std::fmt::Debug for GdkVisual {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkVisual @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -4045,7 +4059,7 @@ pub struct GdkWindow(c_void);
 impl ::std::fmt::Debug for GdkWindow {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GdkWindow @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -4058,7 +4072,6 @@ impl ::std::fmt::Debug for GdkDevicePad {
         write!(f, "GdkDevicePad @ {:?}", self as *const _)
     }
 }
-
 
 extern "C" {
 
@@ -4300,10 +4313,18 @@ extern "C" {
     pub fn gdk_event_new(type_: GdkEventType) -> *mut GdkEvent;
     pub fn gdk_event_copy(event: *const GdkEvent) -> *mut GdkEvent;
     pub fn gdk_event_free(event: *mut GdkEvent);
-    pub fn gdk_event_get_axis(event: *const GdkEvent, axis_use: GdkAxisUse, value: *mut c_double) -> gboolean;
+    pub fn gdk_event_get_axis(
+        event: *const GdkEvent,
+        axis_use: GdkAxisUse,
+        value: *mut c_double,
+    ) -> gboolean;
     pub fn gdk_event_get_button(event: *const GdkEvent, button: *mut c_uint) -> gboolean;
     pub fn gdk_event_get_click_count(event: *const GdkEvent, click_count: *mut c_uint) -> gboolean;
-    pub fn gdk_event_get_coords(event: *const GdkEvent, x_win: *mut c_double, y_win: *mut c_double) -> gboolean;
+    pub fn gdk_event_get_coords(
+        event: *const GdkEvent,
+        x_win: *mut c_double,
+        y_win: *mut c_double,
+    ) -> gboolean;
     pub fn gdk_event_get_device(event: *const GdkEvent) -> *mut GdkDevice;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_event_get_device_tool(event: *const GdkEvent) -> *mut GdkDeviceTool;
@@ -4313,12 +4334,23 @@ extern "C" {
     pub fn gdk_event_get_keyval(event: *const GdkEvent, keyval: *mut c_uint) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_event_get_pointer_emulated(event: *mut GdkEvent) -> gboolean;
-    pub fn gdk_event_get_root_coords(event: *const GdkEvent, x_root: *mut c_double, y_root: *mut c_double) -> gboolean;
+    pub fn gdk_event_get_root_coords(
+        event: *const GdkEvent,
+        x_root: *mut c_double,
+        y_root: *mut c_double,
+    ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_event_get_scancode(event: *mut GdkEvent) -> c_int;
     pub fn gdk_event_get_screen(event: *const GdkEvent) -> *mut GdkScreen;
-    pub fn gdk_event_get_scroll_deltas(event: *const GdkEvent, delta_x: *mut c_double, delta_y: *mut c_double) -> gboolean;
-    pub fn gdk_event_get_scroll_direction(event: *const GdkEvent, direction: *mut GdkScrollDirection) -> gboolean;
+    pub fn gdk_event_get_scroll_deltas(
+        event: *const GdkEvent,
+        delta_x: *mut c_double,
+        delta_y: *mut c_double,
+    ) -> gboolean;
+    pub fn gdk_event_get_scroll_direction(
+        event: *const GdkEvent,
+        direction: *mut GdkScrollDirection,
+    ) -> gboolean;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_event_get_seat(event: *const GdkEvent) -> *mut GdkSeat;
     pub fn gdk_event_get_source_device(event: *const GdkEvent) -> *mut GdkDevice;
@@ -4392,8 +4424,16 @@ extern "C" {
     pub fn gdk_rectangle_get_type() -> GType;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_rectangle_equal(rect1: *const GdkRectangle, rect2: *const GdkRectangle) -> gboolean;
-    pub fn gdk_rectangle_intersect(src1: *const GdkRectangle, src2: *const GdkRectangle, dest: *mut GdkRectangle) -> gboolean;
-    pub fn gdk_rectangle_union(src1: *const GdkRectangle, src2: *const GdkRectangle, dest: *mut GdkRectangle);
+    pub fn gdk_rectangle_intersect(
+        src1: *const GdkRectangle,
+        src2: *const GdkRectangle,
+        dest: *mut GdkRectangle,
+    ) -> gboolean;
+    pub fn gdk_rectangle_union(
+        src1: *const GdkRectangle,
+        src2: *const GdkRectangle,
+        dest: *mut GdkRectangle,
+    );
 
     //=========================================================================
     // GdkAppLaunchContext
@@ -4401,10 +4441,22 @@ extern "C" {
     pub fn gdk_app_launch_context_get_type() -> GType;
     pub fn gdk_app_launch_context_new() -> *mut GdkAppLaunchContext;
     pub fn gdk_app_launch_context_set_desktop(context: *mut GdkAppLaunchContext, desktop: c_int);
-    pub fn gdk_app_launch_context_set_display(context: *mut GdkAppLaunchContext, display: *mut GdkDisplay);
-    pub fn gdk_app_launch_context_set_icon(context: *mut GdkAppLaunchContext, icon: *mut gio::GIcon);
-    pub fn gdk_app_launch_context_set_icon_name(context: *mut GdkAppLaunchContext, icon_name: *const c_char);
-    pub fn gdk_app_launch_context_set_screen(context: *mut GdkAppLaunchContext, screen: *mut GdkScreen);
+    pub fn gdk_app_launch_context_set_display(
+        context: *mut GdkAppLaunchContext,
+        display: *mut GdkDisplay,
+    );
+    pub fn gdk_app_launch_context_set_icon(
+        context: *mut GdkAppLaunchContext,
+        icon: *mut gio::GIcon,
+    );
+    pub fn gdk_app_launch_context_set_icon_name(
+        context: *mut GdkAppLaunchContext,
+        icon_name: *const c_char,
+    );
+    pub fn gdk_app_launch_context_set_screen(
+        context: *mut GdkAppLaunchContext,
+        screen: *mut GdkScreen,
+    );
     pub fn gdk_app_launch_context_set_timestamp(context: *mut GdkAppLaunchContext, timestamp: u32);
 
     //=========================================================================
@@ -4412,14 +4464,34 @@ extern "C" {
     //=========================================================================
     pub fn gdk_cursor_get_type() -> GType;
     pub fn gdk_cursor_new(cursor_type: GdkCursorType) -> *mut GdkCursor;
-    pub fn gdk_cursor_new_for_display(display: *mut GdkDisplay, cursor_type: GdkCursorType) -> *mut GdkCursor;
-    pub fn gdk_cursor_new_from_name(display: *mut GdkDisplay, name: *const c_char) -> *mut GdkCursor;
-    pub fn gdk_cursor_new_from_pixbuf(display: *mut GdkDisplay, pixbuf: *mut gdk_pixbuf::GdkPixbuf, x: c_int, y: c_int) -> *mut GdkCursor;
-    pub fn gdk_cursor_new_from_surface(display: *mut GdkDisplay, surface: *mut cairo::cairo_surface_t, x: c_double, y: c_double) -> *mut GdkCursor;
+    pub fn gdk_cursor_new_for_display(
+        display: *mut GdkDisplay,
+        cursor_type: GdkCursorType,
+    ) -> *mut GdkCursor;
+    pub fn gdk_cursor_new_from_name(
+        display: *mut GdkDisplay,
+        name: *const c_char,
+    ) -> *mut GdkCursor;
+    pub fn gdk_cursor_new_from_pixbuf(
+        display: *mut GdkDisplay,
+        pixbuf: *mut gdk_pixbuf::GdkPixbuf,
+        x: c_int,
+        y: c_int,
+    ) -> *mut GdkCursor;
+    pub fn gdk_cursor_new_from_surface(
+        display: *mut GdkDisplay,
+        surface: *mut cairo::cairo_surface_t,
+        x: c_double,
+        y: c_double,
+    ) -> *mut GdkCursor;
     pub fn gdk_cursor_get_cursor_type(cursor: *mut GdkCursor) -> GdkCursorType;
     pub fn gdk_cursor_get_display(cursor: *mut GdkCursor) -> *mut GdkDisplay;
     pub fn gdk_cursor_get_image(cursor: *mut GdkCursor) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gdk_cursor_get_surface(cursor: *mut GdkCursor, x_hot: *mut c_double, y_hot: *mut c_double) -> *mut cairo::cairo_surface_t;
+    pub fn gdk_cursor_get_surface(
+        cursor: *mut GdkCursor,
+        x_hot: *mut c_double,
+        y_hot: *mut c_double,
+    ) -> *mut cairo::cairo_surface_t;
     pub fn gdk_cursor_ref(cursor: *mut GdkCursor) -> *mut GdkCursor;
     pub fn gdk_cursor_unref(cursor: *mut GdkCursor);
 
@@ -4428,40 +4500,103 @@ extern "C" {
     //=========================================================================
     pub fn gdk_device_get_type() -> GType;
     pub fn gdk_device_free_history(events: *mut *mut GdkTimeCoord, n_events: c_int);
-    pub fn gdk_device_grab_info_libgtk_only(display: *mut GdkDisplay, device: *mut GdkDevice, grab_window: *mut *mut GdkWindow, owner_events: *mut gboolean) -> gboolean;
+    pub fn gdk_device_grab_info_libgtk_only(
+        display: *mut GdkDisplay,
+        device: *mut GdkDevice,
+        grab_window: *mut *mut GdkWindow,
+        owner_events: *mut gboolean,
+    ) -> gboolean;
     pub fn gdk_device_get_associated_device(device: *mut GdkDevice) -> *mut GdkDevice;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_get_axes(device: *mut GdkDevice) -> GdkAxisFlags;
-    pub fn gdk_device_get_axis(device: *mut GdkDevice, axes: *mut c_double, use_: GdkAxisUse, value: *mut c_double) -> gboolean;
+    pub fn gdk_device_get_axis(
+        device: *mut GdkDevice,
+        axes: *mut c_double,
+        use_: GdkAxisUse,
+        value: *mut c_double,
+    ) -> gboolean;
     pub fn gdk_device_get_axis_use(device: *mut GdkDevice, index_: c_uint) -> GdkAxisUse;
-    pub fn gdk_device_get_axis_value(device: *mut GdkDevice, axes: *mut c_double, axis_label: GdkAtom, value: *mut c_double) -> gboolean;
+    pub fn gdk_device_get_axis_value(
+        device: *mut GdkDevice,
+        axes: *mut c_double,
+        axis_label: GdkAtom,
+        value: *mut c_double,
+    ) -> gboolean;
     pub fn gdk_device_get_device_type(device: *mut GdkDevice) -> GdkDeviceType;
     pub fn gdk_device_get_display(device: *mut GdkDevice) -> *mut GdkDisplay;
     pub fn gdk_device_get_has_cursor(device: *mut GdkDevice) -> gboolean;
-    pub fn gdk_device_get_history(device: *mut GdkDevice, window: *mut GdkWindow, start: u32, stop: u32, events: *mut *mut *mut GdkTimeCoord, n_events: *mut c_int) -> gboolean;
-    pub fn gdk_device_get_key(device: *mut GdkDevice, index_: c_uint, keyval: *mut c_uint, modifiers: *mut GdkModifierType) -> gboolean;
+    pub fn gdk_device_get_history(
+        device: *mut GdkDevice,
+        window: *mut GdkWindow,
+        start: u32,
+        stop: u32,
+        events: *mut *mut *mut GdkTimeCoord,
+        n_events: *mut c_int,
+    ) -> gboolean;
+    pub fn gdk_device_get_key(
+        device: *mut GdkDevice,
+        index_: c_uint,
+        keyval: *mut c_uint,
+        modifiers: *mut GdkModifierType,
+    ) -> gboolean;
     pub fn gdk_device_get_last_event_window(device: *mut GdkDevice) -> *mut GdkWindow;
     pub fn gdk_device_get_mode(device: *mut GdkDevice) -> GdkInputMode;
     pub fn gdk_device_get_n_axes(device: *mut GdkDevice) -> c_int;
     pub fn gdk_device_get_n_keys(device: *mut GdkDevice) -> c_int;
     pub fn gdk_device_get_name(device: *mut GdkDevice) -> *const c_char;
-    pub fn gdk_device_get_position(device: *mut GdkDevice, screen: *mut *mut GdkScreen, x: *mut c_int, y: *mut c_int);
-    pub fn gdk_device_get_position_double(device: *mut GdkDevice, screen: *mut *mut GdkScreen, x: *mut c_double, y: *mut c_double);
+    pub fn gdk_device_get_position(
+        device: *mut GdkDevice,
+        screen: *mut *mut GdkScreen,
+        x: *mut c_int,
+        y: *mut c_int,
+    );
+    pub fn gdk_device_get_position_double(
+        device: *mut GdkDevice,
+        screen: *mut *mut GdkScreen,
+        x: *mut c_double,
+        y: *mut c_double,
+    );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_device_get_product_id(device: *mut GdkDevice) -> *const c_char;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_device_get_seat(device: *mut GdkDevice) -> *mut GdkSeat;
     pub fn gdk_device_get_source(device: *mut GdkDevice) -> GdkInputSource;
-    pub fn gdk_device_get_state(device: *mut GdkDevice, window: *mut GdkWindow, axes: *mut c_double, mask: *mut GdkModifierType);
+    pub fn gdk_device_get_state(
+        device: *mut GdkDevice,
+        window: *mut GdkWindow,
+        axes: *mut c_double,
+        mask: *mut GdkModifierType,
+    );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_device_get_vendor_id(device: *mut GdkDevice) -> *const c_char;
-    pub fn gdk_device_get_window_at_position(device: *mut GdkDevice, win_x: *mut c_int, win_y: *mut c_int) -> *mut GdkWindow;
-    pub fn gdk_device_get_window_at_position_double(device: *mut GdkDevice, win_x: *mut c_double, win_y: *mut c_double) -> *mut GdkWindow;
-    pub fn gdk_device_grab(device: *mut GdkDevice, window: *mut GdkWindow, grab_ownership: GdkGrabOwnership, owner_events: gboolean, event_mask: GdkEventMask, cursor: *mut GdkCursor, time_: u32) -> GdkGrabStatus;
+    pub fn gdk_device_get_window_at_position(
+        device: *mut GdkDevice,
+        win_x: *mut c_int,
+        win_y: *mut c_int,
+    ) -> *mut GdkWindow;
+    pub fn gdk_device_get_window_at_position_double(
+        device: *mut GdkDevice,
+        win_x: *mut c_double,
+        win_y: *mut c_double,
+    ) -> *mut GdkWindow;
+    pub fn gdk_device_grab(
+        device: *mut GdkDevice,
+        window: *mut GdkWindow,
+        grab_ownership: GdkGrabOwnership,
+        owner_events: gboolean,
+        event_mask: GdkEventMask,
+        cursor: *mut GdkCursor,
+        time_: u32,
+    ) -> GdkGrabStatus;
     pub fn gdk_device_list_axes(device: *mut GdkDevice) -> *mut glib::GList;
     pub fn gdk_device_list_slave_devices(device: *mut GdkDevice) -> *mut glib::GList;
     pub fn gdk_device_set_axis_use(device: *mut GdkDevice, index_: c_uint, use_: GdkAxisUse);
-    pub fn gdk_device_set_key(device: *mut GdkDevice, index_: c_uint, keyval: c_uint, modifiers: GdkModifierType);
+    pub fn gdk_device_set_key(
+        device: *mut GdkDevice,
+        index_: c_uint,
+        keyval: c_uint,
+        modifiers: GdkModifierType,
+    );
     pub fn gdk_device_set_mode(device: *mut GdkDevice, mode: GdkInputMode) -> gboolean;
     pub fn gdk_device_ungrab(device: *mut GdkDevice, time_: u32);
     pub fn gdk_device_warp(device: *mut GdkDevice, screen: *mut GdkScreen, x: c_int, y: c_int);
@@ -4470,9 +4605,15 @@ extern "C" {
     // GdkDeviceManager
     //=========================================================================
     pub fn gdk_device_manager_get_type() -> GType;
-    pub fn gdk_device_manager_get_client_pointer(device_manager: *mut GdkDeviceManager) -> *mut GdkDevice;
-    pub fn gdk_device_manager_get_display(device_manager: *mut GdkDeviceManager) -> *mut GdkDisplay;
-    pub fn gdk_device_manager_list_devices(device_manager: *mut GdkDeviceManager, type_: GdkDeviceType) -> *mut glib::GList;
+    pub fn gdk_device_manager_get_client_pointer(
+        device_manager: *mut GdkDeviceManager,
+    ) -> *mut GdkDevice;
+    pub fn gdk_device_manager_get_display(device_manager: *mut GdkDeviceManager)
+        -> *mut GdkDisplay;
+    pub fn gdk_device_manager_list_devices(
+        device_manager: *mut GdkDeviceManager,
+        type_: GdkDeviceType,
+    ) -> *mut glib::GList;
 
     //=========================================================================
     // GdkDeviceTool
@@ -4494,9 +4635,13 @@ extern "C" {
     pub fn gdk_display_open_default_libgtk_only() -> *mut GdkDisplay;
     pub fn gdk_display_beep(display: *mut GdkDisplay);
     pub fn gdk_display_close(display: *mut GdkDisplay);
-    pub fn gdk_display_device_is_grabbed(display: *mut GdkDisplay, device: *mut GdkDevice) -> gboolean;
+    pub fn gdk_display_device_is_grabbed(
+        display: *mut GdkDisplay,
+        device: *mut GdkDevice,
+    ) -> gboolean;
     pub fn gdk_display_flush(display: *mut GdkDisplay);
-    pub fn gdk_display_get_app_launch_context(display: *mut GdkDisplay) -> *mut GdkAppLaunchContext;
+    pub fn gdk_display_get_app_launch_context(display: *mut GdkDisplay)
+        -> *mut GdkAppLaunchContext;
     pub fn gdk_display_get_default_cursor_size(display: *mut GdkDisplay) -> c_uint;
     pub fn gdk_display_get_default_group(display: *mut GdkDisplay) -> *mut GdkWindow;
     pub fn gdk_display_get_default_screen(display: *mut GdkDisplay) -> *mut GdkScreen;
@@ -4504,22 +4649,44 @@ extern "C" {
     pub fn gdk_display_get_default_seat(display: *mut GdkDisplay) -> *mut GdkSeat;
     pub fn gdk_display_get_device_manager(display: *mut GdkDisplay) -> *mut GdkDeviceManager;
     pub fn gdk_display_get_event(display: *mut GdkDisplay) -> *mut GdkEvent;
-    pub fn gdk_display_get_maximal_cursor_size(display: *mut GdkDisplay, width: *mut c_uint, height: *mut c_uint);
+    pub fn gdk_display_get_maximal_cursor_size(
+        display: *mut GdkDisplay,
+        width: *mut c_uint,
+        height: *mut c_uint,
+    );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_display_get_monitor(display: *mut GdkDisplay, monitor_num: c_int) -> *mut GdkMonitor;
+    pub fn gdk_display_get_monitor(display: *mut GdkDisplay, monitor_num: c_int)
+        -> *mut GdkMonitor;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_display_get_monitor_at_point(display: *mut GdkDisplay, x: c_int, y: c_int) -> *mut GdkMonitor;
+    pub fn gdk_display_get_monitor_at_point(
+        display: *mut GdkDisplay,
+        x: c_int,
+        y: c_int,
+    ) -> *mut GdkMonitor;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_display_get_monitor_at_window(display: *mut GdkDisplay, window: *mut GdkWindow) -> *mut GdkMonitor;
+    pub fn gdk_display_get_monitor_at_window(
+        display: *mut GdkDisplay,
+        window: *mut GdkWindow,
+    ) -> *mut GdkMonitor;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_display_get_n_monitors(display: *mut GdkDisplay) -> c_int;
     pub fn gdk_display_get_n_screens(display: *mut GdkDisplay) -> c_int;
     pub fn gdk_display_get_name(display: *mut GdkDisplay) -> *const c_char;
-    pub fn gdk_display_get_pointer(display: *mut GdkDisplay, screen: *mut *mut GdkScreen, x: *mut c_int, y: *mut c_int, mask: *mut GdkModifierType);
+    pub fn gdk_display_get_pointer(
+        display: *mut GdkDisplay,
+        screen: *mut *mut GdkScreen,
+        x: *mut c_int,
+        y: *mut c_int,
+        mask: *mut GdkModifierType,
+    );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_display_get_primary_monitor(display: *mut GdkDisplay) -> *mut GdkMonitor;
     pub fn gdk_display_get_screen(display: *mut GdkDisplay, screen_num: c_int) -> *mut GdkScreen;
-    pub fn gdk_display_get_window_at_pointer(display: *mut GdkDisplay, win_x: *mut c_int, win_y: *mut c_int) -> *mut GdkWindow;
+    pub fn gdk_display_get_window_at_pointer(
+        display: *mut GdkDisplay,
+        win_x: *mut c_int,
+        win_y: *mut c_int,
+    ) -> *mut GdkWindow;
     pub fn gdk_display_has_pending(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_is_closed(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_keyboard_ungrab(display: *mut GdkDisplay, time_: u32);
@@ -4531,10 +4698,19 @@ extern "C" {
     pub fn gdk_display_pointer_is_grabbed(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_pointer_ungrab(display: *mut GdkDisplay, time_: u32);
     pub fn gdk_display_put_event(display: *mut GdkDisplay, event: *const GdkEvent);
-    pub fn gdk_display_request_selection_notification(display: *mut GdkDisplay, selection: GdkAtom) -> gboolean;
+    pub fn gdk_display_request_selection_notification(
+        display: *mut GdkDisplay,
+        selection: GdkAtom,
+    ) -> gboolean;
     pub fn gdk_display_set_double_click_distance(display: *mut GdkDisplay, distance: c_uint);
     pub fn gdk_display_set_double_click_time(display: *mut GdkDisplay, msec: c_uint);
-    pub fn gdk_display_store_clipboard(display: *mut GdkDisplay, clipboard_window: *mut GdkWindow, time_: u32, targets: *const GdkAtom, n_targets: c_int);
+    pub fn gdk_display_store_clipboard(
+        display: *mut GdkDisplay,
+        clipboard_window: *mut GdkWindow,
+        time_: u32,
+        targets: *const GdkAtom,
+        n_targets: c_int,
+    );
     pub fn gdk_display_supports_clipboard_persistence(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_supports_composite(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_supports_cursor_alpha(display: *mut GdkDisplay) -> gboolean;
@@ -4543,17 +4719,30 @@ extern "C" {
     pub fn gdk_display_supports_selection_notification(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_supports_shapes(display: *mut GdkDisplay) -> gboolean;
     pub fn gdk_display_sync(display: *mut GdkDisplay);
-    pub fn gdk_display_warp_pointer(display: *mut GdkDisplay, screen: *mut GdkScreen, x: c_int, y: c_int);
+    pub fn gdk_display_warp_pointer(
+        display: *mut GdkDisplay,
+        screen: *mut GdkScreen,
+        x: c_int,
+        y: c_int,
+    );
 
     //=========================================================================
     // GdkDisplayManager
     //=========================================================================
     pub fn gdk_display_manager_get_type() -> GType;
     pub fn gdk_display_manager_get() -> *mut GdkDisplayManager;
-    pub fn gdk_display_manager_get_default_display(manager: *mut GdkDisplayManager) -> *mut GdkDisplay;
+    pub fn gdk_display_manager_get_default_display(
+        manager: *mut GdkDisplayManager,
+    ) -> *mut GdkDisplay;
     pub fn gdk_display_manager_list_displays(manager: *mut GdkDisplayManager) -> *mut glib::GSList;
-    pub fn gdk_display_manager_open_display(manager: *mut GdkDisplayManager, name: *const c_char) -> *mut GdkDisplay;
-    pub fn gdk_display_manager_set_default_display(manager: *mut GdkDisplayManager, display: *mut GdkDisplay);
+    pub fn gdk_display_manager_open_display(
+        manager: *mut GdkDisplayManager,
+        name: *const c_char,
+    ) -> *mut GdkDisplay;
+    pub fn gdk_display_manager_set_default_display(
+        manager: *mut GdkDisplayManager,
+        display: *mut GdkDisplay,
+    );
 
     //=========================================================================
     // GdkDragContext
@@ -4570,7 +4759,11 @@ extern "C" {
     pub fn gdk_drag_context_get_suggested_action(context: *mut GdkDragContext) -> GdkDragAction;
     pub fn gdk_drag_context_list_targets(context: *mut GdkDragContext) -> *mut glib::GList;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn gdk_drag_context_manage_dnd(context: *mut GdkDragContext, ipc_window: *mut GdkWindow, actions: GdkDragAction) -> gboolean;
+    pub fn gdk_drag_context_manage_dnd(
+        context: *mut GdkDragContext,
+        ipc_window: *mut GdkWindow,
+        actions: GdkDragAction,
+    ) -> gboolean;
     pub fn gdk_drag_context_set_device(context: *mut GdkDragContext, device: *mut GdkDevice);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_drag_context_set_hotspot(context: *mut GdkDragContext, hot_x: c_int, hot_y: c_int);
@@ -4580,9 +4773,13 @@ extern "C" {
     //=========================================================================
     pub fn gdk_drawing_context_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_drawing_context_get_cairo_context(context: *mut GdkDrawingContext) -> *mut cairo::cairo_t;
+    pub fn gdk_drawing_context_get_cairo_context(
+        context: *mut GdkDrawingContext,
+    ) -> *mut cairo::cairo_t;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_drawing_context_get_clip(context: *mut GdkDrawingContext) -> *mut cairo::cairo_region_t;
+    pub fn gdk_drawing_context_get_clip(
+        context: *mut GdkDrawingContext,
+    ) -> *mut cairo::cairo_region_t;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_drawing_context_get_window(context: *mut GdkDrawingContext) -> *mut GdkWindow;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -4594,13 +4791,26 @@ extern "C" {
     pub fn gdk_frame_clock_get_type() -> GType;
     pub fn gdk_frame_clock_begin_updating(frame_clock: *mut GdkFrameClock);
     pub fn gdk_frame_clock_end_updating(frame_clock: *mut GdkFrameClock);
-    pub fn gdk_frame_clock_get_current_timings(frame_clock: *mut GdkFrameClock) -> *mut GdkFrameTimings;
+    pub fn gdk_frame_clock_get_current_timings(
+        frame_clock: *mut GdkFrameClock,
+    ) -> *mut GdkFrameTimings;
     pub fn gdk_frame_clock_get_frame_counter(frame_clock: *mut GdkFrameClock) -> i64;
     pub fn gdk_frame_clock_get_frame_time(frame_clock: *mut GdkFrameClock) -> i64;
     pub fn gdk_frame_clock_get_history_start(frame_clock: *mut GdkFrameClock) -> i64;
-    pub fn gdk_frame_clock_get_refresh_info(frame_clock: *mut GdkFrameClock, base_time: i64, refresh_interval_return: *mut i64, presentation_time_return: *mut i64);
-    pub fn gdk_frame_clock_get_timings(frame_clock: *mut GdkFrameClock, frame_counter: i64) -> *mut GdkFrameTimings;
-    pub fn gdk_frame_clock_request_phase(frame_clock: *mut GdkFrameClock, phase: GdkFrameClockPhase);
+    pub fn gdk_frame_clock_get_refresh_info(
+        frame_clock: *mut GdkFrameClock,
+        base_time: i64,
+        refresh_interval_return: *mut i64,
+        presentation_time_return: *mut i64,
+    );
+    pub fn gdk_frame_clock_get_timings(
+        frame_clock: *mut GdkFrameClock,
+        frame_counter: i64,
+    ) -> *mut GdkFrameTimings;
+    pub fn gdk_frame_clock_request_phase(
+        frame_clock: *mut GdkFrameClock,
+        phase: GdkFrameClockPhase,
+    );
 
     //=========================================================================
     // GdkGLContext
@@ -4617,13 +4827,21 @@ extern "C" {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_get_forward_compatible(context: *mut GdkGLContext) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_gl_context_get_required_version(context: *mut GdkGLContext, major: *mut c_int, minor: *mut c_int);
+    pub fn gdk_gl_context_get_required_version(
+        context: *mut GdkGLContext,
+        major: *mut c_int,
+        minor: *mut c_int,
+    );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_get_shared_context(context: *mut GdkGLContext) -> *mut GdkGLContext;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_gl_context_get_use_es(context: *mut GdkGLContext) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_gl_context_get_version(context: *mut GdkGLContext, major: *mut c_int, minor: *mut c_int);
+    pub fn gdk_gl_context_get_version(
+        context: *mut GdkGLContext,
+        major: *mut c_int,
+        minor: *mut c_int,
+    );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_get_window(context: *mut GdkGLContext) -> *mut GdkWindow;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
@@ -4631,13 +4849,20 @@ extern "C" {
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_make_current(context: *mut GdkGLContext);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_gl_context_realize(context: *mut GdkGLContext, error: *mut *mut glib::GError) -> gboolean;
+    pub fn gdk_gl_context_realize(
+        context: *mut GdkGLContext,
+        error: *mut *mut glib::GError,
+    ) -> gboolean;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_set_debug_enabled(context: *mut GdkGLContext, enabled: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
     pub fn gdk_gl_context_set_forward_compatible(context: *mut GdkGLContext, compatible: gboolean);
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_gl_context_set_required_version(context: *mut GdkGLContext, major: c_int, minor: c_int);
+    pub fn gdk_gl_context_set_required_version(
+        context: *mut GdkGLContext,
+        major: c_int,
+        minor: c_int,
+    );
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_gl_context_set_use_es(context: *mut GdkGLContext, use_es: c_int);
 
@@ -4650,17 +4875,43 @@ extern "C" {
     pub fn gdk_keymap_add_virtual_modifiers(keymap: *mut GdkKeymap, state: *mut GdkModifierType);
     pub fn gdk_keymap_get_caps_lock_state(keymap: *mut GdkKeymap) -> gboolean;
     pub fn gdk_keymap_get_direction(keymap: *mut GdkKeymap) -> pango::PangoDirection;
-    pub fn gdk_keymap_get_entries_for_keycode(keymap: *mut GdkKeymap, hardware_keycode: c_uint, keys: *mut *mut GdkKeymapKey, keyvals: *mut *mut c_uint, n_entries: *mut c_int) -> gboolean;
-    pub fn gdk_keymap_get_entries_for_keyval(keymap: *mut GdkKeymap, keyval: c_uint, keys: *mut *mut GdkKeymapKey, n_keys: *mut c_int) -> gboolean;
-    pub fn gdk_keymap_get_modifier_mask(keymap: *mut GdkKeymap, intent: GdkModifierIntent) -> GdkModifierType;
+    pub fn gdk_keymap_get_entries_for_keycode(
+        keymap: *mut GdkKeymap,
+        hardware_keycode: c_uint,
+        keys: *mut *mut GdkKeymapKey,
+        keyvals: *mut *mut c_uint,
+        n_entries: *mut c_int,
+    ) -> gboolean;
+    pub fn gdk_keymap_get_entries_for_keyval(
+        keymap: *mut GdkKeymap,
+        keyval: c_uint,
+        keys: *mut *mut GdkKeymapKey,
+        n_keys: *mut c_int,
+    ) -> gboolean;
+    pub fn gdk_keymap_get_modifier_mask(
+        keymap: *mut GdkKeymap,
+        intent: GdkModifierIntent,
+    ) -> GdkModifierType;
     pub fn gdk_keymap_get_modifier_state(keymap: *mut GdkKeymap) -> c_uint;
     pub fn gdk_keymap_get_num_lock_state(keymap: *mut GdkKeymap) -> gboolean;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     pub fn gdk_keymap_get_scroll_lock_state(keymap: *mut GdkKeymap) -> gboolean;
     pub fn gdk_keymap_have_bidi_layouts(keymap: *mut GdkKeymap) -> gboolean;
     pub fn gdk_keymap_lookup_key(keymap: *mut GdkKeymap, key: *const GdkKeymapKey) -> c_uint;
-    pub fn gdk_keymap_map_virtual_modifiers(keymap: *mut GdkKeymap, state: *mut GdkModifierType) -> gboolean;
-    pub fn gdk_keymap_translate_keyboard_state(keymap: *mut GdkKeymap, hardware_keycode: c_uint, state: GdkModifierType, group: c_int, keyval: *mut c_uint, effective_group: *mut c_int, level: *mut c_int, consumed_modifiers: *mut GdkModifierType) -> gboolean;
+    pub fn gdk_keymap_map_virtual_modifiers(
+        keymap: *mut GdkKeymap,
+        state: *mut GdkModifierType,
+    ) -> gboolean;
+    pub fn gdk_keymap_translate_keyboard_state(
+        keymap: *mut GdkKeymap,
+        hardware_keycode: c_uint,
+        state: GdkModifierType,
+        group: c_int,
+        keyval: *mut c_uint,
+        effective_group: *mut c_int,
+        level: *mut c_int,
+        consumed_modifiers: *mut GdkModifierType,
+    ) -> gboolean;
 
     //=========================================================================
     // GdkMonitor
@@ -4698,24 +4949,45 @@ extern "C" {
     pub fn gdk_screen_width_mm() -> c_int;
     pub fn gdk_screen_get_active_window(screen: *mut GdkScreen) -> *mut GdkWindow;
     pub fn gdk_screen_get_display(screen: *mut GdkScreen) -> *mut GdkDisplay;
-    pub fn gdk_screen_get_font_options(screen: *mut GdkScreen) -> *const cairo::cairo_font_options_t;
+    pub fn gdk_screen_get_font_options(
+        screen: *mut GdkScreen,
+    ) -> *const cairo::cairo_font_options_t;
     pub fn gdk_screen_get_height(screen: *mut GdkScreen) -> c_int;
     pub fn gdk_screen_get_height_mm(screen: *mut GdkScreen) -> c_int;
     pub fn gdk_screen_get_monitor_at_point(screen: *mut GdkScreen, x: c_int, y: c_int) -> c_int;
-    pub fn gdk_screen_get_monitor_at_window(screen: *mut GdkScreen, window: *mut GdkWindow) -> c_int;
-    pub fn gdk_screen_get_monitor_geometry(screen: *mut GdkScreen, monitor_num: c_int, dest: *mut GdkRectangle);
+    pub fn gdk_screen_get_monitor_at_window(
+        screen: *mut GdkScreen,
+        window: *mut GdkWindow,
+    ) -> c_int;
+    pub fn gdk_screen_get_monitor_geometry(
+        screen: *mut GdkScreen,
+        monitor_num: c_int,
+        dest: *mut GdkRectangle,
+    );
     pub fn gdk_screen_get_monitor_height_mm(screen: *mut GdkScreen, monitor_num: c_int) -> c_int;
-    pub fn gdk_screen_get_monitor_plug_name(screen: *mut GdkScreen, monitor_num: c_int) -> *mut c_char;
-    pub fn gdk_screen_get_monitor_scale_factor(screen: *mut GdkScreen, monitor_num: c_int) -> c_int;
+    pub fn gdk_screen_get_monitor_plug_name(
+        screen: *mut GdkScreen,
+        monitor_num: c_int,
+    ) -> *mut c_char;
+    pub fn gdk_screen_get_monitor_scale_factor(screen: *mut GdkScreen, monitor_num: c_int)
+        -> c_int;
     pub fn gdk_screen_get_monitor_width_mm(screen: *mut GdkScreen, monitor_num: c_int) -> c_int;
-    pub fn gdk_screen_get_monitor_workarea(screen: *mut GdkScreen, monitor_num: c_int, dest: *mut GdkRectangle);
+    pub fn gdk_screen_get_monitor_workarea(
+        screen: *mut GdkScreen,
+        monitor_num: c_int,
+        dest: *mut GdkRectangle,
+    );
     pub fn gdk_screen_get_n_monitors(screen: *mut GdkScreen) -> c_int;
     pub fn gdk_screen_get_number(screen: *mut GdkScreen) -> c_int;
     pub fn gdk_screen_get_primary_monitor(screen: *mut GdkScreen) -> c_int;
     pub fn gdk_screen_get_resolution(screen: *mut GdkScreen) -> c_double;
     pub fn gdk_screen_get_rgba_visual(screen: *mut GdkScreen) -> *mut GdkVisual;
     pub fn gdk_screen_get_root_window(screen: *mut GdkScreen) -> *mut GdkWindow;
-    pub fn gdk_screen_get_setting(screen: *mut GdkScreen, name: *const c_char, value: *mut gobject::GValue) -> gboolean;
+    pub fn gdk_screen_get_setting(
+        screen: *mut GdkScreen,
+        name: *const c_char,
+        value: *mut gobject::GValue,
+    ) -> gboolean;
     pub fn gdk_screen_get_system_visual(screen: *mut GdkScreen) -> *mut GdkVisual;
     pub fn gdk_screen_get_toplevel_windows(screen: *mut GdkScreen) -> *mut glib::GList;
     pub fn gdk_screen_get_width(screen: *mut GdkScreen) -> c_int;
@@ -4724,7 +4996,10 @@ extern "C" {
     pub fn gdk_screen_is_composited(screen: *mut GdkScreen) -> gboolean;
     pub fn gdk_screen_list_visuals(screen: *mut GdkScreen) -> *mut glib::GList;
     pub fn gdk_screen_make_display_name(screen: *mut GdkScreen) -> *mut c_char;
-    pub fn gdk_screen_set_font_options(screen: *mut GdkScreen, options: *const cairo::cairo_font_options_t);
+    pub fn gdk_screen_set_font_options(
+        screen: *mut GdkScreen,
+        options: *const cairo::cairo_font_options_t,
+    );
     pub fn gdk_screen_set_resolution(screen: *mut GdkScreen, dpi: c_double);
 
     //=========================================================================
@@ -4739,9 +5014,21 @@ extern "C" {
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_get_pointer(seat: *mut GdkSeat) -> *mut GdkDevice;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn gdk_seat_get_slaves(seat: *mut GdkSeat, capabilities: GdkSeatCapabilities) -> *mut glib::GList;
+    pub fn gdk_seat_get_slaves(
+        seat: *mut GdkSeat,
+        capabilities: GdkSeatCapabilities,
+    ) -> *mut glib::GList;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn gdk_seat_grab(seat: *mut GdkSeat, window: *mut GdkWindow, capabilities: GdkSeatCapabilities, owner_events: gboolean, cursor: *mut GdkCursor, event: *const GdkEvent, prepare_func: GdkSeatGrabPrepareFunc, prepare_func_data: gpointer) -> GdkGrabStatus;
+    pub fn gdk_seat_grab(
+        seat: *mut GdkSeat,
+        window: *mut GdkWindow,
+        capabilities: GdkSeatCapabilities,
+        owner_events: gboolean,
+        cursor: *mut GdkCursor,
+        event: *const GdkEvent,
+        prepare_func: GdkSeatGrabPrepareFunc,
+        prepare_func_data: gpointer,
+    ) -> GdkGrabStatus;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_seat_ungrab(seat: *mut GdkSeat);
 
@@ -4752,17 +5039,35 @@ extern "C" {
     pub fn gdk_visual_get_best() -> *mut GdkVisual;
     pub fn gdk_visual_get_best_depth() -> c_int;
     pub fn gdk_visual_get_best_type() -> GdkVisualType;
-    pub fn gdk_visual_get_best_with_both(depth: c_int, visual_type: GdkVisualType) -> *mut GdkVisual;
+    pub fn gdk_visual_get_best_with_both(
+        depth: c_int,
+        visual_type: GdkVisualType,
+    ) -> *mut GdkVisual;
     pub fn gdk_visual_get_best_with_depth(depth: c_int) -> *mut GdkVisual;
     pub fn gdk_visual_get_best_with_type(visual_type: GdkVisualType) -> *mut GdkVisual;
     pub fn gdk_visual_get_system() -> *mut GdkVisual;
     pub fn gdk_visual_get_bits_per_rgb(visual: *mut GdkVisual) -> c_int;
-    pub fn gdk_visual_get_blue_pixel_details(visual: *mut GdkVisual, mask: *mut u32, shift: *mut c_int, precision: *mut c_int);
+    pub fn gdk_visual_get_blue_pixel_details(
+        visual: *mut GdkVisual,
+        mask: *mut u32,
+        shift: *mut c_int,
+        precision: *mut c_int,
+    );
     pub fn gdk_visual_get_byte_order(visual: *mut GdkVisual) -> GdkByteOrder;
     pub fn gdk_visual_get_colormap_size(visual: *mut GdkVisual) -> c_int;
     pub fn gdk_visual_get_depth(visual: *mut GdkVisual) -> c_int;
-    pub fn gdk_visual_get_green_pixel_details(visual: *mut GdkVisual, mask: *mut u32, shift: *mut c_int, precision: *mut c_int);
-    pub fn gdk_visual_get_red_pixel_details(visual: *mut GdkVisual, mask: *mut u32, shift: *mut c_int, precision: *mut c_int);
+    pub fn gdk_visual_get_green_pixel_details(
+        visual: *mut GdkVisual,
+        mask: *mut u32,
+        shift: *mut c_int,
+        precision: *mut c_int,
+    );
+    pub fn gdk_visual_get_red_pixel_details(
+        visual: *mut GdkVisual,
+        mask: *mut u32,
+        shift: *mut c_int,
+        precision: *mut c_int,
+    );
     pub fn gdk_visual_get_screen(visual: *mut GdkVisual) -> *mut GdkScreen;
     pub fn gdk_visual_get_visual_type(visual: *mut GdkVisual) -> GdkVisualType;
 
@@ -4770,28 +5075,99 @@ extern "C" {
     // GdkWindow
     //=========================================================================
     pub fn gdk_window_get_type() -> GType;
-    pub fn gdk_window_new(parent: *mut GdkWindow, attributes: *mut GdkWindowAttr, attributes_mask: c_int) -> *mut GdkWindow;
+    pub fn gdk_window_new(
+        parent: *mut GdkWindow,
+        attributes: *mut GdkWindowAttr,
+        attributes_mask: c_int,
+    ) -> *mut GdkWindow;
     pub fn gdk_window_at_pointer(win_x: *mut c_int, win_y: *mut c_int) -> *mut GdkWindow;
-    pub fn gdk_window_constrain_size(geometry: *mut GdkGeometry, flags: GdkWindowHints, width: c_int, height: c_int, new_width: *mut c_int, new_height: *mut c_int);
+    pub fn gdk_window_constrain_size(
+        geometry: *mut GdkGeometry,
+        flags: GdkWindowHints,
+        width: c_int,
+        height: c_int,
+        new_width: *mut c_int,
+        new_height: *mut c_int,
+    );
     pub fn gdk_window_process_all_updates();
     pub fn gdk_window_set_debug_updates(setting: gboolean);
     pub fn gdk_window_add_filter(window: *mut GdkWindow, function: GdkFilterFunc, data: gpointer);
     pub fn gdk_window_beep(window: *mut GdkWindow);
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_window_begin_draw_frame(window: *mut GdkWindow, region: *const cairo::cairo_region_t) -> *mut GdkDrawingContext;
-    pub fn gdk_window_begin_move_drag(window: *mut GdkWindow, button: c_int, root_x: c_int, root_y: c_int, timestamp: u32);
-    pub fn gdk_window_begin_move_drag_for_device(window: *mut GdkWindow, device: *mut GdkDevice, button: c_int, root_x: c_int, root_y: c_int, timestamp: u32);
+    pub fn gdk_window_begin_draw_frame(
+        window: *mut GdkWindow,
+        region: *const cairo::cairo_region_t,
+    ) -> *mut GdkDrawingContext;
+    pub fn gdk_window_begin_move_drag(
+        window: *mut GdkWindow,
+        button: c_int,
+        root_x: c_int,
+        root_y: c_int,
+        timestamp: u32,
+    );
+    pub fn gdk_window_begin_move_drag_for_device(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        button: c_int,
+        root_x: c_int,
+        root_y: c_int,
+        timestamp: u32,
+    );
     pub fn gdk_window_begin_paint_rect(window: *mut GdkWindow, rectangle: *const GdkRectangle);
-    pub fn gdk_window_begin_paint_region(window: *mut GdkWindow, region: *const cairo::cairo_region_t);
-    pub fn gdk_window_begin_resize_drag(window: *mut GdkWindow, edge: GdkWindowEdge, button: c_int, root_x: c_int, root_y: c_int, timestamp: u32);
-    pub fn gdk_window_begin_resize_drag_for_device(window: *mut GdkWindow, edge: GdkWindowEdge, device: *mut GdkDevice, button: c_int, root_x: c_int, root_y: c_int, timestamp: u32);
+    pub fn gdk_window_begin_paint_region(
+        window: *mut GdkWindow,
+        region: *const cairo::cairo_region_t,
+    );
+    pub fn gdk_window_begin_resize_drag(
+        window: *mut GdkWindow,
+        edge: GdkWindowEdge,
+        button: c_int,
+        root_x: c_int,
+        root_y: c_int,
+        timestamp: u32,
+    );
+    pub fn gdk_window_begin_resize_drag_for_device(
+        window: *mut GdkWindow,
+        edge: GdkWindowEdge,
+        device: *mut GdkDevice,
+        button: c_int,
+        root_x: c_int,
+        root_y: c_int,
+        timestamp: u32,
+    );
     pub fn gdk_window_configure_finished(window: *mut GdkWindow);
-    pub fn gdk_window_coords_from_parent(window: *mut GdkWindow, parent_x: c_double, parent_y: c_double, x: *mut c_double, y: *mut c_double);
-    pub fn gdk_window_coords_to_parent(window: *mut GdkWindow, x: c_double, y: c_double, parent_x: *mut c_double, parent_y: *mut c_double);
+    pub fn gdk_window_coords_from_parent(
+        window: *mut GdkWindow,
+        parent_x: c_double,
+        parent_y: c_double,
+        x: *mut c_double,
+        y: *mut c_double,
+    );
+    pub fn gdk_window_coords_to_parent(
+        window: *mut GdkWindow,
+        x: c_double,
+        y: c_double,
+        parent_x: *mut c_double,
+        parent_y: *mut c_double,
+    );
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_window_create_gl_context(window: *mut GdkWindow, error: *mut *mut glib::GError) -> *mut GdkGLContext;
-    pub fn gdk_window_create_similar_image_surface(window: *mut GdkWindow, format: c_int, width: c_int, height: c_int, scale: c_int) -> *mut cairo::cairo_surface_t;
-    pub fn gdk_window_create_similar_surface(window: *mut GdkWindow, content: cairo::cairo_content_t, width: c_int, height: c_int) -> *mut cairo::cairo_surface_t;
+    pub fn gdk_window_create_gl_context(
+        window: *mut GdkWindow,
+        error: *mut *mut glib::GError,
+    ) -> *mut GdkGLContext;
+    pub fn gdk_window_create_similar_image_surface(
+        window: *mut GdkWindow,
+        format: c_int,
+        width: c_int,
+        height: c_int,
+        scale: c_int,
+    ) -> *mut cairo::cairo_surface_t;
+    pub fn gdk_window_create_similar_surface(
+        window: *mut GdkWindow,
+        content: cairo::cairo_content_t,
+        width: c_int,
+        height: c_int,
+    ) -> *mut cairo::cairo_surface_t;
     pub fn gdk_window_deiconify(window: *mut GdkWindow);
     pub fn gdk_window_destroy(window: *mut GdkWindow);
     pub fn gdk_window_destroy_notify(window: *mut GdkWindow);
@@ -4808,19 +5184,47 @@ extern "C" {
     pub fn gdk_window_fullscreen_on_monitor(window: *mut GdkWindow, monitor: c_int);
     pub fn gdk_window_geometry_changed(window: *mut GdkWindow);
     pub fn gdk_window_get_accept_focus(window: *mut GdkWindow) -> gboolean;
-    pub fn gdk_window_get_background_pattern(window: *mut GdkWindow) -> *mut cairo::cairo_pattern_t;
+    pub fn gdk_window_get_background_pattern(window: *mut GdkWindow)
+        -> *mut cairo::cairo_pattern_t;
     pub fn gdk_window_get_children(window: *mut GdkWindow) -> *mut glib::GList;
-    pub fn gdk_window_get_children_with_user_data(window: *mut GdkWindow, user_data: gpointer) -> *mut glib::GList;
+    pub fn gdk_window_get_children_with_user_data(
+        window: *mut GdkWindow,
+        user_data: gpointer,
+    ) -> *mut glib::GList;
     pub fn gdk_window_get_clip_region(window: *mut GdkWindow) -> *mut cairo::cairo_region_t;
     pub fn gdk_window_get_composited(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_get_cursor(window: *mut GdkWindow) -> *mut GdkCursor;
-    pub fn gdk_window_get_decorations(window: *mut GdkWindow, decorations: *mut GdkWMDecoration) -> gboolean;
-    pub fn gdk_window_get_device_cursor(window: *mut GdkWindow, device: *mut GdkDevice) -> *mut GdkCursor;
-    pub fn gdk_window_get_device_events(window: *mut GdkWindow, device: *mut GdkDevice) -> GdkEventMask;
-    pub fn gdk_window_get_device_position(window: *mut GdkWindow, device: *mut GdkDevice, x: *mut c_int, y: *mut c_int, mask: *mut GdkModifierType) -> *mut GdkWindow;
-    pub fn gdk_window_get_device_position_double(window: *mut GdkWindow, device: *mut GdkDevice, x: *mut c_double, y: *mut c_double, mask: *mut GdkModifierType) -> *mut GdkWindow;
+    pub fn gdk_window_get_decorations(
+        window: *mut GdkWindow,
+        decorations: *mut GdkWMDecoration,
+    ) -> gboolean;
+    pub fn gdk_window_get_device_cursor(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+    ) -> *mut GdkCursor;
+    pub fn gdk_window_get_device_events(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+    ) -> GdkEventMask;
+    pub fn gdk_window_get_device_position(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        x: *mut c_int,
+        y: *mut c_int,
+        mask: *mut GdkModifierType,
+    ) -> *mut GdkWindow;
+    pub fn gdk_window_get_device_position_double(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        x: *mut c_double,
+        y: *mut c_double,
+        mask: *mut GdkModifierType,
+    ) -> *mut GdkWindow;
     pub fn gdk_window_get_display(window: *mut GdkWindow) -> *mut GdkDisplay;
-    pub fn gdk_window_get_drag_protocol(window: *mut GdkWindow, target: *mut *mut GdkWindow) -> GdkDragProtocol;
+    pub fn gdk_window_get_drag_protocol(
+        window: *mut GdkWindow,
+        target: *mut *mut GdkWindow,
+    ) -> GdkDragProtocol;
     pub fn gdk_window_get_effective_parent(window: *mut GdkWindow) -> *mut GdkWindow;
     pub fn gdk_window_get_effective_toplevel(window: *mut GdkWindow) -> *mut GdkWindow;
     pub fn gdk_window_get_event_compression(window: *mut GdkWindow) -> gboolean;
@@ -4829,7 +5233,13 @@ extern "C" {
     pub fn gdk_window_get_frame_clock(window: *mut GdkWindow) -> *mut GdkFrameClock;
     pub fn gdk_window_get_frame_extents(window: *mut GdkWindow, rect: *mut GdkRectangle);
     pub fn gdk_window_get_fullscreen_mode(window: *mut GdkWindow) -> GdkFullscreenMode;
-    pub fn gdk_window_get_geometry(window: *mut GdkWindow, x: *mut c_int, y: *mut c_int, width: *mut c_int, height: *mut c_int);
+    pub fn gdk_window_get_geometry(
+        window: *mut GdkWindow,
+        x: *mut c_int,
+        y: *mut c_int,
+        width: *mut c_int,
+        height: *mut c_int,
+    );
     pub fn gdk_window_get_group(window: *mut GdkWindow) -> *mut GdkWindow;
     pub fn gdk_window_get_height(window: *mut GdkWindow) -> c_int;
     pub fn gdk_window_get_modal_hint(window: *mut GdkWindow) -> gboolean;
@@ -4837,13 +5247,27 @@ extern "C" {
     pub fn gdk_window_get_parent(window: *mut GdkWindow) -> *mut GdkWindow;
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     pub fn gdk_window_get_pass_through(window: *mut GdkWindow) -> gboolean;
-    pub fn gdk_window_get_pointer(window: *mut GdkWindow, x: *mut c_int, y: *mut c_int, mask: *mut GdkModifierType) -> *mut GdkWindow;
+    pub fn gdk_window_get_pointer(
+        window: *mut GdkWindow,
+        x: *mut c_int,
+        y: *mut c_int,
+        mask: *mut GdkModifierType,
+    ) -> *mut GdkWindow;
     pub fn gdk_window_get_position(window: *mut GdkWindow, x: *mut c_int, y: *mut c_int);
-    pub fn gdk_window_get_root_coords(window: *mut GdkWindow, x: c_int, y: c_int, root_x: *mut c_int, root_y: *mut c_int);
+    pub fn gdk_window_get_root_coords(
+        window: *mut GdkWindow,
+        x: c_int,
+        y: c_int,
+        root_x: *mut c_int,
+        root_y: *mut c_int,
+    );
     pub fn gdk_window_get_root_origin(window: *mut GdkWindow, x: *mut c_int, y: *mut c_int);
     pub fn gdk_window_get_scale_factor(window: *mut GdkWindow) -> c_int;
     pub fn gdk_window_get_screen(window: *mut GdkWindow) -> *mut GdkScreen;
-    pub fn gdk_window_get_source_events(window: *mut GdkWindow, source: GdkInputSource) -> GdkEventMask;
+    pub fn gdk_window_get_source_events(
+        window: *mut GdkWindow,
+        source: GdkInputSource,
+    ) -> GdkEventMask;
     pub fn gdk_window_get_state(window: *mut GdkWindow) -> GdkWindowState;
     pub fn gdk_window_get_support_multidevice(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_get_toplevel(window: *mut GdkWindow) -> *mut GdkWindow;
@@ -4857,10 +5281,28 @@ extern "C" {
     pub fn gdk_window_has_native(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_hide(window: *mut GdkWindow);
     pub fn gdk_window_iconify(window: *mut GdkWindow);
-    pub fn gdk_window_input_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo::cairo_region_t, offset_x: c_int, offset_y: c_int);
-    pub fn gdk_window_invalidate_maybe_recurse(window: *mut GdkWindow, region: *const cairo::cairo_region_t, child_func: GdkWindowChildFunc, user_data: gpointer);
-    pub fn gdk_window_invalidate_rect(window: *mut GdkWindow, rect: *const GdkRectangle, invalidate_children: gboolean);
-    pub fn gdk_window_invalidate_region(window: *mut GdkWindow, region: *const cairo::cairo_region_t, invalidate_children: gboolean);
+    pub fn gdk_window_input_shape_combine_region(
+        window: *mut GdkWindow,
+        shape_region: *const cairo::cairo_region_t,
+        offset_x: c_int,
+        offset_y: c_int,
+    );
+    pub fn gdk_window_invalidate_maybe_recurse(
+        window: *mut GdkWindow,
+        region: *const cairo::cairo_region_t,
+        child_func: GdkWindowChildFunc,
+        user_data: gpointer,
+    );
+    pub fn gdk_window_invalidate_rect(
+        window: *mut GdkWindow,
+        rect: *const GdkRectangle,
+        invalidate_children: gboolean,
+    );
+    pub fn gdk_window_invalidate_region(
+        window: *mut GdkWindow,
+        region: *const cairo::cairo_region_t,
+        invalidate_children: gboolean,
+    );
     pub fn gdk_window_is_destroyed(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_is_input_only(window: *mut GdkWindow) -> gboolean;
     pub fn gdk_window_is_shaped(window: *mut GdkWindow) -> gboolean;
@@ -4873,40 +5315,86 @@ extern "C" {
     pub fn gdk_window_merge_child_input_shapes(window: *mut GdkWindow);
     pub fn gdk_window_merge_child_shapes(window: *mut GdkWindow);
     pub fn gdk_window_move(window: *mut GdkWindow, x: c_int, y: c_int);
-    pub fn gdk_window_move_region(window: *mut GdkWindow, region: *const cairo::cairo_region_t, dx: c_int, dy: c_int);
-    pub fn gdk_window_move_resize(window: *mut GdkWindow, x: c_int, y: c_int, width: c_int, height: c_int);
+    pub fn gdk_window_move_region(
+        window: *mut GdkWindow,
+        region: *const cairo::cairo_region_t,
+        dx: c_int,
+        dy: c_int,
+    );
+    pub fn gdk_window_move_resize(
+        window: *mut GdkWindow,
+        x: c_int,
+        y: c_int,
+        width: c_int,
+        height: c_int,
+    );
     #[cfg(any(feature = "v3_24", feature = "dox"))]
-    pub fn gdk_window_move_to_rect(window: *mut GdkWindow, rect: *const GdkRectangle, rect_anchor: GdkGravity, window_anchor: GdkGravity, anchor_hints: GdkAnchorHints, rect_anchor_dx: c_int, rect_anchor_dy: c_int);
+    pub fn gdk_window_move_to_rect(
+        window: *mut GdkWindow,
+        rect: *const GdkRectangle,
+        rect_anchor: GdkGravity,
+        window_anchor: GdkGravity,
+        anchor_hints: GdkAnchorHints,
+        rect_anchor_dx: c_int,
+        rect_anchor_dy: c_int,
+    );
     pub fn gdk_window_peek_children(window: *mut GdkWindow) -> *mut glib::GList;
     pub fn gdk_window_process_updates(window: *mut GdkWindow, update_children: gboolean);
     pub fn gdk_window_raise(window: *mut GdkWindow);
     pub fn gdk_window_register_dnd(window: *mut GdkWindow);
-    pub fn gdk_window_remove_filter(window: *mut GdkWindow, function: GdkFilterFunc, data: gpointer);
-    pub fn gdk_window_reparent(window: *mut GdkWindow, new_parent: *mut GdkWindow, x: c_int, y: c_int);
+    pub fn gdk_window_remove_filter(
+        window: *mut GdkWindow,
+        function: GdkFilterFunc,
+        data: gpointer,
+    );
+    pub fn gdk_window_reparent(
+        window: *mut GdkWindow,
+        new_parent: *mut GdkWindow,
+        x: c_int,
+        y: c_int,
+    );
     pub fn gdk_window_resize(window: *mut GdkWindow, width: c_int, height: c_int);
     pub fn gdk_window_restack(window: *mut GdkWindow, sibling: *mut GdkWindow, above: gboolean);
     pub fn gdk_window_scroll(window: *mut GdkWindow, dx: c_int, dy: c_int);
     pub fn gdk_window_set_accept_focus(window: *mut GdkWindow, accept_focus: gboolean);
     pub fn gdk_window_set_background(window: *mut GdkWindow, color: *const GdkColor);
-    pub fn gdk_window_set_background_pattern(window: *mut GdkWindow, pattern: *mut cairo::cairo_pattern_t);
+    pub fn gdk_window_set_background_pattern(
+        window: *mut GdkWindow,
+        pattern: *mut cairo::cairo_pattern_t,
+    );
     pub fn gdk_window_set_background_rgba(window: *mut GdkWindow, rgba: *const GdkRGBA);
     pub fn gdk_window_set_child_input_shapes(window: *mut GdkWindow);
     pub fn gdk_window_set_child_shapes(window: *mut GdkWindow);
     pub fn gdk_window_set_composited(window: *mut GdkWindow, composited: gboolean);
     pub fn gdk_window_set_cursor(window: *mut GdkWindow, cursor: *mut GdkCursor);
     pub fn gdk_window_set_decorations(window: *mut GdkWindow, decorations: GdkWMDecoration);
-    pub fn gdk_window_set_device_cursor(window: *mut GdkWindow, device: *mut GdkDevice, cursor: *mut GdkCursor);
-    pub fn gdk_window_set_device_events(window: *mut GdkWindow, device: *mut GdkDevice, event_mask: GdkEventMask);
+    pub fn gdk_window_set_device_cursor(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        cursor: *mut GdkCursor,
+    );
+    pub fn gdk_window_set_device_events(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        event_mask: GdkEventMask,
+    );
     pub fn gdk_window_set_event_compression(window: *mut GdkWindow, event_compression: gboolean);
     pub fn gdk_window_set_events(window: *mut GdkWindow, event_mask: GdkEventMask);
     pub fn gdk_window_set_focus_on_map(window: *mut GdkWindow, focus_on_map: gboolean);
     pub fn gdk_window_set_fullscreen_mode(window: *mut GdkWindow, mode: GdkFullscreenMode);
     pub fn gdk_window_set_functions(window: *mut GdkWindow, functions: GdkWMFunction);
-    pub fn gdk_window_set_geometry_hints(window: *mut GdkWindow, geometry: *const GdkGeometry, geom_mask: GdkWindowHints);
+    pub fn gdk_window_set_geometry_hints(
+        window: *mut GdkWindow,
+        geometry: *const GdkGeometry,
+        geom_mask: GdkWindowHints,
+    );
     pub fn gdk_window_set_group(window: *mut GdkWindow, leader: *mut GdkWindow);
     pub fn gdk_window_set_icon_list(window: *mut GdkWindow, pixbufs: *mut glib::GList);
     pub fn gdk_window_set_icon_name(window: *mut GdkWindow, name: *const c_char);
-    pub fn gdk_window_set_invalidate_handler(window: *mut GdkWindow, handler: GdkWindowInvalidateHandlerFunc);
+    pub fn gdk_window_set_invalidate_handler(
+        window: *mut GdkWindow,
+        handler: GdkWindowInvalidateHandlerFunc,
+    );
     pub fn gdk_window_set_keep_above(window: *mut GdkWindow, setting: gboolean);
     pub fn gdk_window_set_keep_below(window: *mut GdkWindow, setting: gboolean);
     pub fn gdk_window_set_modal_hint(window: *mut GdkWindow, modal: gboolean);
@@ -4916,19 +5404,40 @@ extern "C" {
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     pub fn gdk_window_set_pass_through(window: *mut GdkWindow, pass_through: gboolean);
     pub fn gdk_window_set_role(window: *mut GdkWindow, role: *const c_char);
-    pub fn gdk_window_set_shadow_width(window: *mut GdkWindow, left: c_int, right: c_int, top: c_int, bottom: c_int);
+    pub fn gdk_window_set_shadow_width(
+        window: *mut GdkWindow,
+        left: c_int,
+        right: c_int,
+        top: c_int,
+        bottom: c_int,
+    );
     pub fn gdk_window_set_skip_pager_hint(window: *mut GdkWindow, skips_pager: gboolean);
     pub fn gdk_window_set_skip_taskbar_hint(window: *mut GdkWindow, skips_taskbar: gboolean);
-    pub fn gdk_window_set_source_events(window: *mut GdkWindow, source: GdkInputSource, event_mask: GdkEventMask);
+    pub fn gdk_window_set_source_events(
+        window: *mut GdkWindow,
+        source: GdkInputSource,
+        event_mask: GdkEventMask,
+    );
     pub fn gdk_window_set_startup_id(window: *mut GdkWindow, startup_id: *const c_char);
-    pub fn gdk_window_set_static_gravities(window: *mut GdkWindow, use_static: gboolean) -> gboolean;
-    pub fn gdk_window_set_support_multidevice(window: *mut GdkWindow, support_multidevice: gboolean);
+    pub fn gdk_window_set_static_gravities(
+        window: *mut GdkWindow,
+        use_static: gboolean,
+    ) -> gboolean;
+    pub fn gdk_window_set_support_multidevice(
+        window: *mut GdkWindow,
+        support_multidevice: gboolean,
+    );
     pub fn gdk_window_set_title(window: *mut GdkWindow, title: *const c_char);
     pub fn gdk_window_set_transient_for(window: *mut GdkWindow, parent: *mut GdkWindow);
     pub fn gdk_window_set_type_hint(window: *mut GdkWindow, hint: GdkWindowTypeHint);
     pub fn gdk_window_set_urgency_hint(window: *mut GdkWindow, urgent: gboolean);
     pub fn gdk_window_set_user_data(window: *mut GdkWindow, user_data: *mut gobject::GObject);
-    pub fn gdk_window_shape_combine_region(window: *mut GdkWindow, shape_region: *const cairo::cairo_region_t, offset_x: c_int, offset_y: c_int);
+    pub fn gdk_window_shape_combine_region(
+        window: *mut GdkWindow,
+        shape_region: *const cairo::cairo_region_t,
+        offset_x: c_int,
+        offset_y: c_int,
+    );
     pub fn gdk_window_show(window: *mut GdkWindow);
     pub fn gdk_window_show_unraised(window: *mut GdkWindow);
     pub fn gdk_window_show_window_menu(window: *mut GdkWindow, event: *mut GdkEvent) -> gboolean;
@@ -4945,11 +5454,18 @@ extern "C" {
     //=========================================================================
     pub fn gdk_device_pad_get_type() -> GType;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_device_pad_get_feature_group(pad: *mut GdkDevicePad, feature: GdkDevicePadFeature, feature_idx: c_int) -> c_int;
+    pub fn gdk_device_pad_get_feature_group(
+        pad: *mut GdkDevicePad,
+        feature: GdkDevicePadFeature,
+        feature_idx: c_int,
+    ) -> c_int;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_pad_get_group_n_modes(pad: *mut GdkDevicePad, group_idx: c_int) -> c_int;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn gdk_device_pad_get_n_features(pad: *mut GdkDevicePad, feature: GdkDevicePadFeature) -> c_int;
+    pub fn gdk_device_pad_get_n_features(
+        pad: *mut GdkDevicePad,
+        feature: GdkDevicePadFeature,
+    ) -> c_int;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_device_pad_get_n_groups(pad: *mut GdkDevicePad) -> c_int;
 
@@ -4960,40 +5476,110 @@ extern "C" {
     pub fn gdk_beep();
     pub fn gdk_cairo_create(window: *mut GdkWindow) -> *mut cairo::cairo_t;
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn gdk_cairo_draw_from_gl(cr: *mut cairo::cairo_t, window: *mut GdkWindow, source: c_int, source_type: c_int, buffer_scale: c_int, x: c_int, y: c_int, width: c_int, height: c_int);
-    pub fn gdk_cairo_get_clip_rectangle(cr: *mut cairo::cairo_t, rect: *mut GdkRectangle) -> gboolean;
+    pub fn gdk_cairo_draw_from_gl(
+        cr: *mut cairo::cairo_t,
+        window: *mut GdkWindow,
+        source: c_int,
+        source_type: c_int,
+        buffer_scale: c_int,
+        x: c_int,
+        y: c_int,
+        width: c_int,
+        height: c_int,
+    );
+    pub fn gdk_cairo_get_clip_rectangle(
+        cr: *mut cairo::cairo_t,
+        rect: *mut GdkRectangle,
+    ) -> gboolean;
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_cairo_get_drawing_context(cr: *mut cairo::cairo_t) -> *mut GdkDrawingContext;
     pub fn gdk_cairo_rectangle(cr: *mut cairo::cairo_t, rectangle: *const GdkRectangle);
     pub fn gdk_cairo_region(cr: *mut cairo::cairo_t, region: *const cairo::cairo_region_t);
-    pub fn gdk_cairo_region_create_from_surface(surface: *mut cairo::cairo_surface_t) -> *mut cairo::cairo_region_t;
+    pub fn gdk_cairo_region_create_from_surface(
+        surface: *mut cairo::cairo_surface_t,
+    ) -> *mut cairo::cairo_region_t;
     pub fn gdk_cairo_set_source_color(cr: *mut cairo::cairo_t, color: *const GdkColor);
-    pub fn gdk_cairo_set_source_pixbuf(cr: *mut cairo::cairo_t, pixbuf: *const gdk_pixbuf::GdkPixbuf, pixbuf_x: c_double, pixbuf_y: c_double);
+    pub fn gdk_cairo_set_source_pixbuf(
+        cr: *mut cairo::cairo_t,
+        pixbuf: *const gdk_pixbuf::GdkPixbuf,
+        pixbuf_x: c_double,
+        pixbuf_y: c_double,
+    );
     pub fn gdk_cairo_set_source_rgba(cr: *mut cairo::cairo_t, rgba: *const GdkRGBA);
-    pub fn gdk_cairo_set_source_window(cr: *mut cairo::cairo_t, window: *mut GdkWindow, x: c_double, y: c_double);
-    pub fn gdk_cairo_surface_create_from_pixbuf(pixbuf: *const gdk_pixbuf::GdkPixbuf, scale: c_int, for_window: *mut GdkWindow) -> *mut cairo::cairo_surface_t;
+    pub fn gdk_cairo_set_source_window(
+        cr: *mut cairo::cairo_t,
+        window: *mut GdkWindow,
+        x: c_double,
+        y: c_double,
+    );
+    pub fn gdk_cairo_surface_create_from_pixbuf(
+        pixbuf: *const gdk_pixbuf::GdkPixbuf,
+        scale: c_int,
+        for_window: *mut GdkWindow,
+    ) -> *mut cairo::cairo_surface_t;
     pub fn gdk_disable_multidevice();
     pub fn gdk_drag_abort(context: *mut GdkDragContext, time_: u32);
-    pub fn gdk_drag_begin(window: *mut GdkWindow, targets: *mut glib::GList) -> *mut GdkDragContext;
-    pub fn gdk_drag_begin_for_device(window: *mut GdkWindow, device: *mut GdkDevice, targets: *mut glib::GList) -> *mut GdkDragContext;
+    pub fn gdk_drag_begin(window: *mut GdkWindow, targets: *mut glib::GList)
+        -> *mut GdkDragContext;
+    pub fn gdk_drag_begin_for_device(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        targets: *mut glib::GList,
+    ) -> *mut GdkDragContext;
     #[cfg(any(feature = "v3_20", feature = "dox"))]
-    pub fn gdk_drag_begin_from_point(window: *mut GdkWindow, device: *mut GdkDevice, targets: *mut glib::GList, x_root: c_int, y_root: c_int) -> *mut GdkDragContext;
+    pub fn gdk_drag_begin_from_point(
+        window: *mut GdkWindow,
+        device: *mut GdkDevice,
+        targets: *mut glib::GList,
+        x_root: c_int,
+        y_root: c_int,
+    ) -> *mut GdkDragContext;
     pub fn gdk_drag_drop(context: *mut GdkDragContext, time_: u32);
     #[cfg(any(feature = "v3_20", feature = "dox"))]
     pub fn gdk_drag_drop_done(context: *mut GdkDragContext, success: gboolean);
     pub fn gdk_drag_drop_succeeded(context: *mut GdkDragContext) -> gboolean;
-    pub fn gdk_drag_find_window_for_screen(context: *mut GdkDragContext, drag_window: *mut GdkWindow, screen: *mut GdkScreen, x_root: c_int, y_root: c_int, dest_window: *mut *mut GdkWindow, protocol: *mut GdkDragProtocol);
+    pub fn gdk_drag_find_window_for_screen(
+        context: *mut GdkDragContext,
+        drag_window: *mut GdkWindow,
+        screen: *mut GdkScreen,
+        x_root: c_int,
+        y_root: c_int,
+        dest_window: *mut *mut GdkWindow,
+        protocol: *mut GdkDragProtocol,
+    );
     pub fn gdk_drag_get_selection(context: *mut GdkDragContext) -> GdkAtom;
-    pub fn gdk_drag_motion(context: *mut GdkDragContext, dest_window: *mut GdkWindow, protocol: GdkDragProtocol, x_root: c_int, y_root: c_int, suggested_action: GdkDragAction, possible_actions: GdkDragAction, time_: u32) -> gboolean;
+    pub fn gdk_drag_motion(
+        context: *mut GdkDragContext,
+        dest_window: *mut GdkWindow,
+        protocol: GdkDragProtocol,
+        x_root: c_int,
+        y_root: c_int,
+        suggested_action: GdkDragAction,
+        possible_actions: GdkDragAction,
+        time_: u32,
+    ) -> gboolean;
     pub fn gdk_drag_status(context: *mut GdkDragContext, action: GdkDragAction, time_: u32);
     pub fn gdk_drop_finish(context: *mut GdkDragContext, success: gboolean, time_: u32);
     pub fn gdk_drop_reply(context: *mut GdkDragContext, accepted: gboolean, time_: u32);
     pub fn gdk_error_trap_pop() -> c_int;
     pub fn gdk_error_trap_pop_ignored();
     pub fn gdk_error_trap_push();
-    pub fn gdk_events_get_angle(event1: *mut GdkEvent, event2: *mut GdkEvent, angle: *mut c_double) -> gboolean;
-    pub fn gdk_events_get_center(event1: *mut GdkEvent, event2: *mut GdkEvent, x: *mut c_double, y: *mut c_double) -> gboolean;
-    pub fn gdk_events_get_distance(event1: *mut GdkEvent, event2: *mut GdkEvent, distance: *mut c_double) -> gboolean;
+    pub fn gdk_events_get_angle(
+        event1: *mut GdkEvent,
+        event2: *mut GdkEvent,
+        angle: *mut c_double,
+    ) -> gboolean;
+    pub fn gdk_events_get_center(
+        event1: *mut GdkEvent,
+        event2: *mut GdkEvent,
+        x: *mut c_double,
+        y: *mut c_double,
+    ) -> gboolean;
+    pub fn gdk_events_get_distance(
+        event1: *mut GdkEvent,
+        event2: *mut GdkEvent,
+        distance: *mut c_double,
+    ) -> gboolean;
     pub fn gdk_events_pending() -> gboolean;
     pub fn gdk_flush();
     pub fn gdk_get_default_root_window() -> *mut GdkWindow;
@@ -5003,7 +5589,11 @@ extern "C" {
     pub fn gdk_get_show_events() -> gboolean;
     pub fn gdk_init(argc: *mut c_int, argv: *mut *mut *mut c_char);
     pub fn gdk_init_check(argc: *mut c_int, argv: *mut *mut *mut c_char) -> gboolean;
-    pub fn gdk_keyboard_grab(window: *mut GdkWindow, owner_events: gboolean, time_: u32) -> GdkGrabStatus;
+    pub fn gdk_keyboard_grab(
+        window: *mut GdkWindow,
+        owner_events: gboolean,
+        time_: u32,
+    ) -> GdkGrabStatus;
     pub fn gdk_keyboard_ungrab(time_: u32);
     pub fn gdk_keyval_convert_case(symbol: c_uint, lower: *mut c_uint, upper: *mut c_uint);
     pub fn gdk_keyval_from_name(keyval_name: *const c_char) -> c_uint;
@@ -5023,48 +5613,188 @@ extern "C" {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn gdk_pango_context_get_for_display(display: *mut GdkDisplay) -> *mut pango::PangoContext;
     pub fn gdk_pango_context_get_for_screen(screen: *mut GdkScreen) -> *mut pango::PangoContext;
-    pub fn gdk_pango_layout_get_clip_region(layout: *mut pango::PangoLayout, x_origin: c_int, y_origin: c_int, index_ranges: *const c_int, n_ranges: c_int) -> *mut cairo::cairo_region_t;
-    pub fn gdk_pango_layout_line_get_clip_region(line: *mut pango::PangoLayoutLine, x_origin: c_int, y_origin: c_int, index_ranges: *const c_int, n_ranges: c_int) -> *mut cairo::cairo_region_t;
+    pub fn gdk_pango_layout_get_clip_region(
+        layout: *mut pango::PangoLayout,
+        x_origin: c_int,
+        y_origin: c_int,
+        index_ranges: *const c_int,
+        n_ranges: c_int,
+    ) -> *mut cairo::cairo_region_t;
+    pub fn gdk_pango_layout_line_get_clip_region(
+        line: *mut pango::PangoLayoutLine,
+        x_origin: c_int,
+        y_origin: c_int,
+        index_ranges: *const c_int,
+        n_ranges: c_int,
+    ) -> *mut cairo::cairo_region_t;
     pub fn gdk_parse_args(argc: *mut c_int, argv: *mut *mut *mut c_char);
-    pub fn gdk_pixbuf_get_from_surface(surface: *mut cairo::cairo_surface_t, src_x: c_int, src_y: c_int, width: c_int, height: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gdk_pixbuf_get_from_window(window: *mut GdkWindow, src_x: c_int, src_y: c_int, width: c_int, height: c_int) -> *mut gdk_pixbuf::GdkPixbuf;
-    pub fn gdk_pointer_grab(window: *mut GdkWindow, owner_events: gboolean, event_mask: GdkEventMask, confine_to: *mut GdkWindow, cursor: *mut GdkCursor, time_: u32) -> GdkGrabStatus;
+    pub fn gdk_pixbuf_get_from_surface(
+        surface: *mut cairo::cairo_surface_t,
+        src_x: c_int,
+        src_y: c_int,
+        width: c_int,
+        height: c_int,
+    ) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gdk_pixbuf_get_from_window(
+        window: *mut GdkWindow,
+        src_x: c_int,
+        src_y: c_int,
+        width: c_int,
+        height: c_int,
+    ) -> *mut gdk_pixbuf::GdkPixbuf;
+    pub fn gdk_pointer_grab(
+        window: *mut GdkWindow,
+        owner_events: gboolean,
+        event_mask: GdkEventMask,
+        confine_to: *mut GdkWindow,
+        cursor: *mut GdkCursor,
+        time_: u32,
+    ) -> GdkGrabStatus;
     pub fn gdk_pointer_is_grabbed() -> gboolean;
     pub fn gdk_pointer_ungrab(time_: u32);
     pub fn gdk_pre_parse_libgtk_only();
-    pub fn gdk_property_change(window: *mut GdkWindow, property: GdkAtom, type_: GdkAtom, format: c_int, mode: GdkPropMode, data: *const u8, nelements: c_int);
+    pub fn gdk_property_change(
+        window: *mut GdkWindow,
+        property: GdkAtom,
+        type_: GdkAtom,
+        format: c_int,
+        mode: GdkPropMode,
+        data: *const u8,
+        nelements: c_int,
+    );
     pub fn gdk_property_delete(window: *mut GdkWindow, property: GdkAtom);
-    pub fn gdk_property_get(window: *mut GdkWindow, property: GdkAtom, type_: GdkAtom, offset: c_ulong, length: c_ulong, pdelete: c_int, actual_property_type: *mut GdkAtom, actual_format: *mut c_int, actual_length: *mut c_int, data: *mut *mut u8) -> gboolean;
+    pub fn gdk_property_get(
+        window: *mut GdkWindow,
+        property: GdkAtom,
+        type_: GdkAtom,
+        offset: c_ulong,
+        length: c_ulong,
+        pdelete: c_int,
+        actual_property_type: *mut GdkAtom,
+        actual_format: *mut c_int,
+        actual_length: *mut c_int,
+        data: *mut *mut u8,
+    ) -> gboolean;
     pub fn gdk_query_depths(depths: *mut *mut c_int, count: *mut c_int);
     pub fn gdk_query_visual_types(visual_types: *mut *mut GdkVisualType, count: *mut c_int);
-    pub fn gdk_selection_convert(requestor: *mut GdkWindow, selection: GdkAtom, target: GdkAtom, time_: u32);
+    pub fn gdk_selection_convert(
+        requestor: *mut GdkWindow,
+        selection: GdkAtom,
+        target: GdkAtom,
+        time_: u32,
+    );
     pub fn gdk_selection_owner_get(selection: GdkAtom) -> *mut GdkWindow;
-    pub fn gdk_selection_owner_get_for_display(display: *mut GdkDisplay, selection: GdkAtom) -> *mut GdkWindow;
-    pub fn gdk_selection_owner_set(owner: *mut GdkWindow, selection: GdkAtom, time_: u32, send_event: gboolean) -> gboolean;
-    pub fn gdk_selection_owner_set_for_display(display: *mut GdkDisplay, owner: *mut GdkWindow, selection: GdkAtom, time_: u32, send_event: gboolean) -> gboolean;
-    pub fn gdk_selection_property_get(requestor: *mut GdkWindow, data: *mut *mut u8, prop_type: *mut GdkAtom, prop_format: *mut c_int) -> c_int;
-    pub fn gdk_selection_send_notify(requestor: *mut GdkWindow, selection: GdkAtom, target: GdkAtom, property: GdkAtom, time_: u32);
-    pub fn gdk_selection_send_notify_for_display(display: *mut GdkDisplay, requestor: *mut GdkWindow, selection: GdkAtom, target: GdkAtom, property: GdkAtom, time_: u32);
+    pub fn gdk_selection_owner_get_for_display(
+        display: *mut GdkDisplay,
+        selection: GdkAtom,
+    ) -> *mut GdkWindow;
+    pub fn gdk_selection_owner_set(
+        owner: *mut GdkWindow,
+        selection: GdkAtom,
+        time_: u32,
+        send_event: gboolean,
+    ) -> gboolean;
+    pub fn gdk_selection_owner_set_for_display(
+        display: *mut GdkDisplay,
+        owner: *mut GdkWindow,
+        selection: GdkAtom,
+        time_: u32,
+        send_event: gboolean,
+    ) -> gboolean;
+    pub fn gdk_selection_property_get(
+        requestor: *mut GdkWindow,
+        data: *mut *mut u8,
+        prop_type: *mut GdkAtom,
+        prop_format: *mut c_int,
+    ) -> c_int;
+    pub fn gdk_selection_send_notify(
+        requestor: *mut GdkWindow,
+        selection: GdkAtom,
+        target: GdkAtom,
+        property: GdkAtom,
+        time_: u32,
+    );
+    pub fn gdk_selection_send_notify_for_display(
+        display: *mut GdkDisplay,
+        requestor: *mut GdkWindow,
+        selection: GdkAtom,
+        target: GdkAtom,
+        property: GdkAtom,
+        time_: u32,
+    );
     pub fn gdk_set_allowed_backends(backends: *const c_char);
     pub fn gdk_set_double_click_time(msec: c_uint);
     pub fn gdk_set_program_class(program_class: *const c_char);
     pub fn gdk_set_show_events(show_events: gboolean);
     pub fn gdk_setting_get(name: *const c_char, value: *mut gobject::GValue) -> gboolean;
-    pub fn gdk_synthesize_window_state(window: *mut GdkWindow, unset_flags: GdkWindowState, set_flags: GdkWindowState);
+    pub fn gdk_synthesize_window_state(
+        window: *mut GdkWindow,
+        unset_flags: GdkWindowState,
+        set_flags: GdkWindowState,
+    );
     pub fn gdk_test_render_sync(window: *mut GdkWindow);
-    pub fn gdk_test_simulate_button(window: *mut GdkWindow, x: c_int, y: c_int, button: c_uint, modifiers: GdkModifierType, button_pressrelease: GdkEventType) -> gboolean;
-    pub fn gdk_test_simulate_key(window: *mut GdkWindow, x: c_int, y: c_int, keyval: c_uint, modifiers: GdkModifierType, key_pressrelease: GdkEventType) -> gboolean;
-    pub fn gdk_text_property_to_utf8_list_for_display(display: *mut GdkDisplay, encoding: GdkAtom, format: c_int, text: *const u8, length: c_int, list: *mut *mut *mut c_char) -> c_int;
+    pub fn gdk_test_simulate_button(
+        window: *mut GdkWindow,
+        x: c_int,
+        y: c_int,
+        button: c_uint,
+        modifiers: GdkModifierType,
+        button_pressrelease: GdkEventType,
+    ) -> gboolean;
+    pub fn gdk_test_simulate_key(
+        window: *mut GdkWindow,
+        x: c_int,
+        y: c_int,
+        keyval: c_uint,
+        modifiers: GdkModifierType,
+        key_pressrelease: GdkEventType,
+    ) -> gboolean;
+    pub fn gdk_text_property_to_utf8_list_for_display(
+        display: *mut GdkDisplay,
+        encoding: GdkAtom,
+        format: c_int,
+        text: *const u8,
+        length: c_int,
+        list: *mut *mut *mut c_char,
+    ) -> c_int;
     pub fn gdk_threads_add_idle(function: glib::GSourceFunc, data: gpointer) -> c_uint;
-    pub fn gdk_threads_add_idle_full(priority: c_int, function: glib::GSourceFunc, data: gpointer, notify: glib::GDestroyNotify) -> c_uint;
-    pub fn gdk_threads_add_timeout(interval: c_uint, function: glib::GSourceFunc, data: gpointer) -> c_uint;
-    pub fn gdk_threads_add_timeout_full(priority: c_int, interval: c_uint, function: glib::GSourceFunc, data: gpointer, notify: glib::GDestroyNotify) -> c_uint;
-    pub fn gdk_threads_add_timeout_seconds(interval: c_uint, function: glib::GSourceFunc, data: gpointer) -> c_uint;
-    pub fn gdk_threads_add_timeout_seconds_full(priority: c_int, interval: c_uint, function: glib::GSourceFunc, data: gpointer, notify: glib::GDestroyNotify) -> c_uint;
+    pub fn gdk_threads_add_idle_full(
+        priority: c_int,
+        function: glib::GSourceFunc,
+        data: gpointer,
+        notify: glib::GDestroyNotify,
+    ) -> c_uint;
+    pub fn gdk_threads_add_timeout(
+        interval: c_uint,
+        function: glib::GSourceFunc,
+        data: gpointer,
+    ) -> c_uint;
+    pub fn gdk_threads_add_timeout_full(
+        priority: c_int,
+        interval: c_uint,
+        function: glib::GSourceFunc,
+        data: gpointer,
+        notify: glib::GDestroyNotify,
+    ) -> c_uint;
+    pub fn gdk_threads_add_timeout_seconds(
+        interval: c_uint,
+        function: glib::GSourceFunc,
+        data: gpointer,
+    ) -> c_uint;
+    pub fn gdk_threads_add_timeout_seconds_full(
+        priority: c_int,
+        interval: c_uint,
+        function: glib::GSourceFunc,
+        data: gpointer,
+        notify: glib::GDestroyNotify,
+    ) -> c_uint;
     pub fn gdk_threads_enter();
     pub fn gdk_threads_init();
     pub fn gdk_threads_leave();
-    pub fn gdk_threads_set_lock_functions(enter_fn: gobject::GCallback, leave_fn: gobject::GCallback);
+    pub fn gdk_threads_set_lock_functions(
+        enter_fn: gobject::GCallback,
+        leave_fn: gobject::GCallback,
+    );
     pub fn gdk_unicode_to_keyval(wc: u32) -> c_uint;
     pub fn gdk_utf8_to_string_target(str: *const c_char) -> *mut c_char;
 

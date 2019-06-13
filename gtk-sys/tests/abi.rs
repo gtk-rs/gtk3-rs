@@ -5,13 +5,13 @@
 extern crate gtk_sys;
 extern crate shell_words;
 extern crate tempdir;
+use gtk_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use gtk_sys::*;
 
 static PACKAGES: &[&str] = &["gtk+-3.0"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,659 +229,4488 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("GtkAboutDialog", Layout {size: size_of::<GtkAboutDialog>(), alignment: align_of::<GtkAboutDialog>()}),
-    ("GtkAboutDialogClass", Layout {size: size_of::<GtkAboutDialogClass>(), alignment: align_of::<GtkAboutDialogClass>()}),
-    ("GtkAccelFlags", Layout {size: size_of::<GtkAccelFlags>(), alignment: align_of::<GtkAccelFlags>()}),
-    ("GtkAccelGroup", Layout {size: size_of::<GtkAccelGroup>(), alignment: align_of::<GtkAccelGroup>()}),
-    ("GtkAccelGroupClass", Layout {size: size_of::<GtkAccelGroupClass>(), alignment: align_of::<GtkAccelGroupClass>()}),
-    ("GtkAccelGroupEntry", Layout {size: size_of::<GtkAccelGroupEntry>(), alignment: align_of::<GtkAccelGroupEntry>()}),
-    ("GtkAccelKey", Layout {size: size_of::<GtkAccelKey>(), alignment: align_of::<GtkAccelKey>()}),
-    ("GtkAccelLabel", Layout {size: size_of::<GtkAccelLabel>(), alignment: align_of::<GtkAccelLabel>()}),
-    ("GtkAccelLabelClass", Layout {size: size_of::<GtkAccelLabelClass>(), alignment: align_of::<GtkAccelLabelClass>()}),
-    ("GtkAccessible", Layout {size: size_of::<GtkAccessible>(), alignment: align_of::<GtkAccessible>()}),
-    ("GtkAccessibleClass", Layout {size: size_of::<GtkAccessibleClass>(), alignment: align_of::<GtkAccessibleClass>()}),
-    ("GtkAction", Layout {size: size_of::<GtkAction>(), alignment: align_of::<GtkAction>()}),
-    ("GtkActionBar", Layout {size: size_of::<GtkActionBar>(), alignment: align_of::<GtkActionBar>()}),
-    ("GtkActionBarClass", Layout {size: size_of::<GtkActionBarClass>(), alignment: align_of::<GtkActionBarClass>()}),
-    ("GtkActionClass", Layout {size: size_of::<GtkActionClass>(), alignment: align_of::<GtkActionClass>()}),
-    ("GtkActionEntry", Layout {size: size_of::<GtkActionEntry>(), alignment: align_of::<GtkActionEntry>()}),
-    ("GtkActionGroup", Layout {size: size_of::<GtkActionGroup>(), alignment: align_of::<GtkActionGroup>()}),
-    ("GtkActionGroupClass", Layout {size: size_of::<GtkActionGroupClass>(), alignment: align_of::<GtkActionGroupClass>()}),
-    ("GtkActionableInterface", Layout {size: size_of::<GtkActionableInterface>(), alignment: align_of::<GtkActionableInterface>()}),
-    ("GtkActivatableIface", Layout {size: size_of::<GtkActivatableIface>(), alignment: align_of::<GtkActivatableIface>()}),
-    ("GtkAdjustment", Layout {size: size_of::<GtkAdjustment>(), alignment: align_of::<GtkAdjustment>()}),
-    ("GtkAdjustmentClass", Layout {size: size_of::<GtkAdjustmentClass>(), alignment: align_of::<GtkAdjustmentClass>()}),
-    ("GtkAlign", Layout {size: size_of::<GtkAlign>(), alignment: align_of::<GtkAlign>()}),
-    ("GtkAlignment", Layout {size: size_of::<GtkAlignment>(), alignment: align_of::<GtkAlignment>()}),
-    ("GtkAlignmentClass", Layout {size: size_of::<GtkAlignmentClass>(), alignment: align_of::<GtkAlignmentClass>()}),
-    ("GtkAllocation", Layout {size: size_of::<GtkAllocation>(), alignment: align_of::<GtkAllocation>()}),
-    ("GtkAppChooserButton", Layout {size: size_of::<GtkAppChooserButton>(), alignment: align_of::<GtkAppChooserButton>()}),
-    ("GtkAppChooserButtonClass", Layout {size: size_of::<GtkAppChooserButtonClass>(), alignment: align_of::<GtkAppChooserButtonClass>()}),
-    ("GtkAppChooserDialog", Layout {size: size_of::<GtkAppChooserDialog>(), alignment: align_of::<GtkAppChooserDialog>()}),
-    ("GtkAppChooserDialogClass", Layout {size: size_of::<GtkAppChooserDialogClass>(), alignment: align_of::<GtkAppChooserDialogClass>()}),
-    ("GtkAppChooserWidget", Layout {size: size_of::<GtkAppChooserWidget>(), alignment: align_of::<GtkAppChooserWidget>()}),
-    ("GtkAppChooserWidgetClass", Layout {size: size_of::<GtkAppChooserWidgetClass>(), alignment: align_of::<GtkAppChooserWidgetClass>()}),
-    ("GtkApplication", Layout {size: size_of::<GtkApplication>(), alignment: align_of::<GtkApplication>()}),
-    ("GtkApplicationClass", Layout {size: size_of::<GtkApplicationClass>(), alignment: align_of::<GtkApplicationClass>()}),
-    ("GtkApplicationInhibitFlags", Layout {size: size_of::<GtkApplicationInhibitFlags>(), alignment: align_of::<GtkApplicationInhibitFlags>()}),
-    ("GtkApplicationWindow", Layout {size: size_of::<GtkApplicationWindow>(), alignment: align_of::<GtkApplicationWindow>()}),
-    ("GtkApplicationWindowClass", Layout {size: size_of::<GtkApplicationWindowClass>(), alignment: align_of::<GtkApplicationWindowClass>()}),
-    ("GtkArrow", Layout {size: size_of::<GtkArrow>(), alignment: align_of::<GtkArrow>()}),
-    ("GtkArrowAccessible", Layout {size: size_of::<GtkArrowAccessible>(), alignment: align_of::<GtkArrowAccessible>()}),
-    ("GtkArrowAccessibleClass", Layout {size: size_of::<GtkArrowAccessibleClass>(), alignment: align_of::<GtkArrowAccessibleClass>()}),
-    ("GtkArrowClass", Layout {size: size_of::<GtkArrowClass>(), alignment: align_of::<GtkArrowClass>()}),
-    ("GtkArrowPlacement", Layout {size: size_of::<GtkArrowPlacement>(), alignment: align_of::<GtkArrowPlacement>()}),
-    ("GtkArrowType", Layout {size: size_of::<GtkArrowType>(), alignment: align_of::<GtkArrowType>()}),
-    ("GtkAspectFrame", Layout {size: size_of::<GtkAspectFrame>(), alignment: align_of::<GtkAspectFrame>()}),
-    ("GtkAspectFrameClass", Layout {size: size_of::<GtkAspectFrameClass>(), alignment: align_of::<GtkAspectFrameClass>()}),
-    ("GtkAssistant", Layout {size: size_of::<GtkAssistant>(), alignment: align_of::<GtkAssistant>()}),
-    ("GtkAssistantClass", Layout {size: size_of::<GtkAssistantClass>(), alignment: align_of::<GtkAssistantClass>()}),
-    ("GtkAssistantPageType", Layout {size: size_of::<GtkAssistantPageType>(), alignment: align_of::<GtkAssistantPageType>()}),
-    ("GtkAttachOptions", Layout {size: size_of::<GtkAttachOptions>(), alignment: align_of::<GtkAttachOptions>()}),
-    ("GtkBaselinePosition", Layout {size: size_of::<GtkBaselinePosition>(), alignment: align_of::<GtkBaselinePosition>()}),
-    ("GtkBin", Layout {size: size_of::<GtkBin>(), alignment: align_of::<GtkBin>()}),
-    ("GtkBinClass", Layout {size: size_of::<GtkBinClass>(), alignment: align_of::<GtkBinClass>()}),
-    ("GtkBindingArg", Layout {size: size_of::<GtkBindingArg>(), alignment: align_of::<GtkBindingArg>()}),
-    ("GtkBindingSet", Layout {size: size_of::<GtkBindingSet>(), alignment: align_of::<GtkBindingSet>()}),
-    ("GtkBindingSignal", Layout {size: size_of::<GtkBindingSignal>(), alignment: align_of::<GtkBindingSignal>()}),
-    ("GtkBooleanCellAccessible", Layout {size: size_of::<GtkBooleanCellAccessible>(), alignment: align_of::<GtkBooleanCellAccessible>()}),
-    ("GtkBooleanCellAccessibleClass", Layout {size: size_of::<GtkBooleanCellAccessibleClass>(), alignment: align_of::<GtkBooleanCellAccessibleClass>()}),
-    ("GtkBorder", Layout {size: size_of::<GtkBorder>(), alignment: align_of::<GtkBorder>()}),
-    ("GtkBorderStyle", Layout {size: size_of::<GtkBorderStyle>(), alignment: align_of::<GtkBorderStyle>()}),
-    ("GtkBox", Layout {size: size_of::<GtkBox>(), alignment: align_of::<GtkBox>()}),
-    ("GtkBoxClass", Layout {size: size_of::<GtkBoxClass>(), alignment: align_of::<GtkBoxClass>()}),
-    ("GtkBuildableIface", Layout {size: size_of::<GtkBuildableIface>(), alignment: align_of::<GtkBuildableIface>()}),
-    ("GtkBuilder", Layout {size: size_of::<GtkBuilder>(), alignment: align_of::<GtkBuilder>()}),
-    ("GtkBuilderClass", Layout {size: size_of::<GtkBuilderClass>(), alignment: align_of::<GtkBuilderClass>()}),
-    ("GtkBuilderError", Layout {size: size_of::<GtkBuilderError>(), alignment: align_of::<GtkBuilderError>()}),
-    ("GtkButton", Layout {size: size_of::<GtkButton>(), alignment: align_of::<GtkButton>()}),
-    ("GtkButtonAccessible", Layout {size: size_of::<GtkButtonAccessible>(), alignment: align_of::<GtkButtonAccessible>()}),
-    ("GtkButtonAccessibleClass", Layout {size: size_of::<GtkButtonAccessibleClass>(), alignment: align_of::<GtkButtonAccessibleClass>()}),
-    ("GtkButtonBox", Layout {size: size_of::<GtkButtonBox>(), alignment: align_of::<GtkButtonBox>()}),
-    ("GtkButtonBoxClass", Layout {size: size_of::<GtkButtonBoxClass>(), alignment: align_of::<GtkButtonBoxClass>()}),
-    ("GtkButtonBoxStyle", Layout {size: size_of::<GtkButtonBoxStyle>(), alignment: align_of::<GtkButtonBoxStyle>()}),
-    ("GtkButtonClass", Layout {size: size_of::<GtkButtonClass>(), alignment: align_of::<GtkButtonClass>()}),
-    ("GtkButtonRole", Layout {size: size_of::<GtkButtonRole>(), alignment: align_of::<GtkButtonRole>()}),
-    ("GtkButtonsType", Layout {size: size_of::<GtkButtonsType>(), alignment: align_of::<GtkButtonsType>()}),
-    ("GtkCalendar", Layout {size: size_of::<GtkCalendar>(), alignment: align_of::<GtkCalendar>()}),
-    ("GtkCalendarClass", Layout {size: size_of::<GtkCalendarClass>(), alignment: align_of::<GtkCalendarClass>()}),
-    ("GtkCalendarDisplayOptions", Layout {size: size_of::<GtkCalendarDisplayOptions>(), alignment: align_of::<GtkCalendarDisplayOptions>()}),
-    ("GtkCellAccessible", Layout {size: size_of::<GtkCellAccessible>(), alignment: align_of::<GtkCellAccessible>()}),
-    ("GtkCellAccessibleClass", Layout {size: size_of::<GtkCellAccessibleClass>(), alignment: align_of::<GtkCellAccessibleClass>()}),
-    ("GtkCellAccessibleParentIface", Layout {size: size_of::<GtkCellAccessibleParentIface>(), alignment: align_of::<GtkCellAccessibleParentIface>()}),
-    ("GtkCellArea", Layout {size: size_of::<GtkCellArea>(), alignment: align_of::<GtkCellArea>()}),
-    ("GtkCellAreaBox", Layout {size: size_of::<GtkCellAreaBox>(), alignment: align_of::<GtkCellAreaBox>()}),
-    ("GtkCellAreaBoxClass", Layout {size: size_of::<GtkCellAreaBoxClass>(), alignment: align_of::<GtkCellAreaBoxClass>()}),
-    ("GtkCellAreaClass", Layout {size: size_of::<GtkCellAreaClass>(), alignment: align_of::<GtkCellAreaClass>()}),
-    ("GtkCellAreaContext", Layout {size: size_of::<GtkCellAreaContext>(), alignment: align_of::<GtkCellAreaContext>()}),
-    ("GtkCellAreaContextClass", Layout {size: size_of::<GtkCellAreaContextClass>(), alignment: align_of::<GtkCellAreaContextClass>()}),
-    ("GtkCellEditableIface", Layout {size: size_of::<GtkCellEditableIface>(), alignment: align_of::<GtkCellEditableIface>()}),
-    ("GtkCellLayoutIface", Layout {size: size_of::<GtkCellLayoutIface>(), alignment: align_of::<GtkCellLayoutIface>()}),
-    ("GtkCellRenderer", Layout {size: size_of::<GtkCellRenderer>(), alignment: align_of::<GtkCellRenderer>()}),
-    ("GtkCellRendererAccel", Layout {size: size_of::<GtkCellRendererAccel>(), alignment: align_of::<GtkCellRendererAccel>()}),
-    ("GtkCellRendererAccelClass", Layout {size: size_of::<GtkCellRendererAccelClass>(), alignment: align_of::<GtkCellRendererAccelClass>()}),
-    ("GtkCellRendererAccelMode", Layout {size: size_of::<GtkCellRendererAccelMode>(), alignment: align_of::<GtkCellRendererAccelMode>()}),
-    ("GtkCellRendererClass", Layout {size: size_of::<GtkCellRendererClass>(), alignment: align_of::<GtkCellRendererClass>()}),
-    ("GtkCellRendererCombo", Layout {size: size_of::<GtkCellRendererCombo>(), alignment: align_of::<GtkCellRendererCombo>()}),
-    ("GtkCellRendererComboClass", Layout {size: size_of::<GtkCellRendererComboClass>(), alignment: align_of::<GtkCellRendererComboClass>()}),
-    ("GtkCellRendererMode", Layout {size: size_of::<GtkCellRendererMode>(), alignment: align_of::<GtkCellRendererMode>()}),
-    ("GtkCellRendererPixbuf", Layout {size: size_of::<GtkCellRendererPixbuf>(), alignment: align_of::<GtkCellRendererPixbuf>()}),
-    ("GtkCellRendererPixbufClass", Layout {size: size_of::<GtkCellRendererPixbufClass>(), alignment: align_of::<GtkCellRendererPixbufClass>()}),
-    ("GtkCellRendererProgress", Layout {size: size_of::<GtkCellRendererProgress>(), alignment: align_of::<GtkCellRendererProgress>()}),
-    ("GtkCellRendererProgressClass", Layout {size: size_of::<GtkCellRendererProgressClass>(), alignment: align_of::<GtkCellRendererProgressClass>()}),
-    ("GtkCellRendererSpin", Layout {size: size_of::<GtkCellRendererSpin>(), alignment: align_of::<GtkCellRendererSpin>()}),
-    ("GtkCellRendererSpinClass", Layout {size: size_of::<GtkCellRendererSpinClass>(), alignment: align_of::<GtkCellRendererSpinClass>()}),
-    ("GtkCellRendererSpinner", Layout {size: size_of::<GtkCellRendererSpinner>(), alignment: align_of::<GtkCellRendererSpinner>()}),
-    ("GtkCellRendererSpinnerClass", Layout {size: size_of::<GtkCellRendererSpinnerClass>(), alignment: align_of::<GtkCellRendererSpinnerClass>()}),
-    ("GtkCellRendererState", Layout {size: size_of::<GtkCellRendererState>(), alignment: align_of::<GtkCellRendererState>()}),
-    ("GtkCellRendererText", Layout {size: size_of::<GtkCellRendererText>(), alignment: align_of::<GtkCellRendererText>()}),
-    ("GtkCellRendererTextClass", Layout {size: size_of::<GtkCellRendererTextClass>(), alignment: align_of::<GtkCellRendererTextClass>()}),
-    ("GtkCellRendererToggle", Layout {size: size_of::<GtkCellRendererToggle>(), alignment: align_of::<GtkCellRendererToggle>()}),
-    ("GtkCellRendererToggleClass", Layout {size: size_of::<GtkCellRendererToggleClass>(), alignment: align_of::<GtkCellRendererToggleClass>()}),
-    ("GtkCellView", Layout {size: size_of::<GtkCellView>(), alignment: align_of::<GtkCellView>()}),
-    ("GtkCellViewClass", Layout {size: size_of::<GtkCellViewClass>(), alignment: align_of::<GtkCellViewClass>()}),
-    ("GtkCheckButton", Layout {size: size_of::<GtkCheckButton>(), alignment: align_of::<GtkCheckButton>()}),
-    ("GtkCheckButtonClass", Layout {size: size_of::<GtkCheckButtonClass>(), alignment: align_of::<GtkCheckButtonClass>()}),
-    ("GtkCheckMenuItem", Layout {size: size_of::<GtkCheckMenuItem>(), alignment: align_of::<GtkCheckMenuItem>()}),
-    ("GtkCheckMenuItemAccessible", Layout {size: size_of::<GtkCheckMenuItemAccessible>(), alignment: align_of::<GtkCheckMenuItemAccessible>()}),
-    ("GtkCheckMenuItemAccessibleClass", Layout {size: size_of::<GtkCheckMenuItemAccessibleClass>(), alignment: align_of::<GtkCheckMenuItemAccessibleClass>()}),
-    ("GtkCheckMenuItemClass", Layout {size: size_of::<GtkCheckMenuItemClass>(), alignment: align_of::<GtkCheckMenuItemClass>()}),
-    ("GtkColorButton", Layout {size: size_of::<GtkColorButton>(), alignment: align_of::<GtkColorButton>()}),
-    ("GtkColorButtonClass", Layout {size: size_of::<GtkColorButtonClass>(), alignment: align_of::<GtkColorButtonClass>()}),
-    ("GtkColorChooserDialog", Layout {size: size_of::<GtkColorChooserDialog>(), alignment: align_of::<GtkColorChooserDialog>()}),
-    ("GtkColorChooserDialogClass", Layout {size: size_of::<GtkColorChooserDialogClass>(), alignment: align_of::<GtkColorChooserDialogClass>()}),
-    ("GtkColorChooserInterface", Layout {size: size_of::<GtkColorChooserInterface>(), alignment: align_of::<GtkColorChooserInterface>()}),
-    ("GtkColorChooserWidget", Layout {size: size_of::<GtkColorChooserWidget>(), alignment: align_of::<GtkColorChooserWidget>()}),
-    ("GtkColorChooserWidgetClass", Layout {size: size_of::<GtkColorChooserWidgetClass>(), alignment: align_of::<GtkColorChooserWidgetClass>()}),
-    ("GtkColorSelection", Layout {size: size_of::<GtkColorSelection>(), alignment: align_of::<GtkColorSelection>()}),
-    ("GtkColorSelectionClass", Layout {size: size_of::<GtkColorSelectionClass>(), alignment: align_of::<GtkColorSelectionClass>()}),
-    ("GtkColorSelectionDialog", Layout {size: size_of::<GtkColorSelectionDialog>(), alignment: align_of::<GtkColorSelectionDialog>()}),
-    ("GtkColorSelectionDialogClass", Layout {size: size_of::<GtkColorSelectionDialogClass>(), alignment: align_of::<GtkColorSelectionDialogClass>()}),
-    ("GtkComboBox", Layout {size: size_of::<GtkComboBox>(), alignment: align_of::<GtkComboBox>()}),
-    ("GtkComboBoxAccessible", Layout {size: size_of::<GtkComboBoxAccessible>(), alignment: align_of::<GtkComboBoxAccessible>()}),
-    ("GtkComboBoxAccessibleClass", Layout {size: size_of::<GtkComboBoxAccessibleClass>(), alignment: align_of::<GtkComboBoxAccessibleClass>()}),
-    ("GtkComboBoxClass", Layout {size: size_of::<GtkComboBoxClass>(), alignment: align_of::<GtkComboBoxClass>()}),
-    ("GtkComboBoxText", Layout {size: size_of::<GtkComboBoxText>(), alignment: align_of::<GtkComboBoxText>()}),
-    ("GtkComboBoxTextClass", Layout {size: size_of::<GtkComboBoxTextClass>(), alignment: align_of::<GtkComboBoxTextClass>()}),
-    ("GtkContainer", Layout {size: size_of::<GtkContainer>(), alignment: align_of::<GtkContainer>()}),
-    ("GtkContainerAccessible", Layout {size: size_of::<GtkContainerAccessible>(), alignment: align_of::<GtkContainerAccessible>()}),
-    ("GtkContainerAccessibleClass", Layout {size: size_of::<GtkContainerAccessibleClass>(), alignment: align_of::<GtkContainerAccessibleClass>()}),
-    ("GtkContainerCellAccessible", Layout {size: size_of::<GtkContainerCellAccessible>(), alignment: align_of::<GtkContainerCellAccessible>()}),
-    ("GtkContainerCellAccessibleClass", Layout {size: size_of::<GtkContainerCellAccessibleClass>(), alignment: align_of::<GtkContainerCellAccessibleClass>()}),
-    ("GtkContainerClass", Layout {size: size_of::<GtkContainerClass>(), alignment: align_of::<GtkContainerClass>()}),
-    ("GtkCornerType", Layout {size: size_of::<GtkCornerType>(), alignment: align_of::<GtkCornerType>()}),
-    ("GtkCssProvider", Layout {size: size_of::<GtkCssProvider>(), alignment: align_of::<GtkCssProvider>()}),
-    ("GtkCssProviderClass", Layout {size: size_of::<GtkCssProviderClass>(), alignment: align_of::<GtkCssProviderClass>()}),
-    ("GtkCssProviderError", Layout {size: size_of::<GtkCssProviderError>(), alignment: align_of::<GtkCssProviderError>()}),
-    ("GtkCssSectionType", Layout {size: size_of::<GtkCssSectionType>(), alignment: align_of::<GtkCssSectionType>()}),
-    ("GtkDebugFlag", Layout {size: size_of::<GtkDebugFlag>(), alignment: align_of::<GtkDebugFlag>()}),
-    ("GtkDeleteType", Layout {size: size_of::<GtkDeleteType>(), alignment: align_of::<GtkDeleteType>()}),
-    ("GtkDestDefaults", Layout {size: size_of::<GtkDestDefaults>(), alignment: align_of::<GtkDestDefaults>()}),
-    ("GtkDialog", Layout {size: size_of::<GtkDialog>(), alignment: align_of::<GtkDialog>()}),
-    ("GtkDialogClass", Layout {size: size_of::<GtkDialogClass>(), alignment: align_of::<GtkDialogClass>()}),
-    ("GtkDialogFlags", Layout {size: size_of::<GtkDialogFlags>(), alignment: align_of::<GtkDialogFlags>()}),
-    ("GtkDirectionType", Layout {size: size_of::<GtkDirectionType>(), alignment: align_of::<GtkDirectionType>()}),
-    ("GtkDragResult", Layout {size: size_of::<GtkDragResult>(), alignment: align_of::<GtkDragResult>()}),
-    ("GtkDrawingArea", Layout {size: size_of::<GtkDrawingArea>(), alignment: align_of::<GtkDrawingArea>()}),
-    ("GtkDrawingAreaClass", Layout {size: size_of::<GtkDrawingAreaClass>(), alignment: align_of::<GtkDrawingAreaClass>()}),
-    ("GtkEditableInterface", Layout {size: size_of::<GtkEditableInterface>(), alignment: align_of::<GtkEditableInterface>()}),
-    ("GtkEntry", Layout {size: size_of::<GtkEntry>(), alignment: align_of::<GtkEntry>()}),
-    ("GtkEntryAccessible", Layout {size: size_of::<GtkEntryAccessible>(), alignment: align_of::<GtkEntryAccessible>()}),
-    ("GtkEntryAccessibleClass", Layout {size: size_of::<GtkEntryAccessibleClass>(), alignment: align_of::<GtkEntryAccessibleClass>()}),
-    ("GtkEntryBuffer", Layout {size: size_of::<GtkEntryBuffer>(), alignment: align_of::<GtkEntryBuffer>()}),
-    ("GtkEntryBufferClass", Layout {size: size_of::<GtkEntryBufferClass>(), alignment: align_of::<GtkEntryBufferClass>()}),
-    ("GtkEntryClass", Layout {size: size_of::<GtkEntryClass>(), alignment: align_of::<GtkEntryClass>()}),
-    ("GtkEntryCompletion", Layout {size: size_of::<GtkEntryCompletion>(), alignment: align_of::<GtkEntryCompletion>()}),
-    ("GtkEntryCompletionClass", Layout {size: size_of::<GtkEntryCompletionClass>(), alignment: align_of::<GtkEntryCompletionClass>()}),
-    ("GtkEntryIconPosition", Layout {size: size_of::<GtkEntryIconPosition>(), alignment: align_of::<GtkEntryIconPosition>()}),
-    ("GtkEventBox", Layout {size: size_of::<GtkEventBox>(), alignment: align_of::<GtkEventBox>()}),
-    ("GtkEventBoxClass", Layout {size: size_of::<GtkEventBoxClass>(), alignment: align_of::<GtkEventBoxClass>()}),
-    ("GtkEventControllerScrollFlags", Layout {size: size_of::<GtkEventControllerScrollFlags>(), alignment: align_of::<GtkEventControllerScrollFlags>()}),
-    ("GtkEventSequenceState", Layout {size: size_of::<GtkEventSequenceState>(), alignment: align_of::<GtkEventSequenceState>()}),
-    ("GtkExpander", Layout {size: size_of::<GtkExpander>(), alignment: align_of::<GtkExpander>()}),
-    ("GtkExpanderAccessible", Layout {size: size_of::<GtkExpanderAccessible>(), alignment: align_of::<GtkExpanderAccessible>()}),
-    ("GtkExpanderAccessibleClass", Layout {size: size_of::<GtkExpanderAccessibleClass>(), alignment: align_of::<GtkExpanderAccessibleClass>()}),
-    ("GtkExpanderClass", Layout {size: size_of::<GtkExpanderClass>(), alignment: align_of::<GtkExpanderClass>()}),
-    ("GtkExpanderStyle", Layout {size: size_of::<GtkExpanderStyle>(), alignment: align_of::<GtkExpanderStyle>()}),
-    ("GtkFileChooserAction", Layout {size: size_of::<GtkFileChooserAction>(), alignment: align_of::<GtkFileChooserAction>()}),
-    ("GtkFileChooserButton", Layout {size: size_of::<GtkFileChooserButton>(), alignment: align_of::<GtkFileChooserButton>()}),
-    ("GtkFileChooserButtonClass", Layout {size: size_of::<GtkFileChooserButtonClass>(), alignment: align_of::<GtkFileChooserButtonClass>()}),
-    ("GtkFileChooserConfirmation", Layout {size: size_of::<GtkFileChooserConfirmation>(), alignment: align_of::<GtkFileChooserConfirmation>()}),
-    ("GtkFileChooserDialog", Layout {size: size_of::<GtkFileChooserDialog>(), alignment: align_of::<GtkFileChooserDialog>()}),
-    ("GtkFileChooserDialogClass", Layout {size: size_of::<GtkFileChooserDialogClass>(), alignment: align_of::<GtkFileChooserDialogClass>()}),
-    ("GtkFileChooserError", Layout {size: size_of::<GtkFileChooserError>(), alignment: align_of::<GtkFileChooserError>()}),
-    ("GtkFileChooserNativeClass", Layout {size: size_of::<GtkFileChooserNativeClass>(), alignment: align_of::<GtkFileChooserNativeClass>()}),
-    ("GtkFileChooserWidget", Layout {size: size_of::<GtkFileChooserWidget>(), alignment: align_of::<GtkFileChooserWidget>()}),
-    ("GtkFileChooserWidgetClass", Layout {size: size_of::<GtkFileChooserWidgetClass>(), alignment: align_of::<GtkFileChooserWidgetClass>()}),
-    ("GtkFileFilterFlags", Layout {size: size_of::<GtkFileFilterFlags>(), alignment: align_of::<GtkFileFilterFlags>()}),
-    ("GtkFileFilterInfo", Layout {size: size_of::<GtkFileFilterInfo>(), alignment: align_of::<GtkFileFilterInfo>()}),
-    ("GtkFixed", Layout {size: size_of::<GtkFixed>(), alignment: align_of::<GtkFixed>()}),
-    ("GtkFixedChild", Layout {size: size_of::<GtkFixedChild>(), alignment: align_of::<GtkFixedChild>()}),
-    ("GtkFixedClass", Layout {size: size_of::<GtkFixedClass>(), alignment: align_of::<GtkFixedClass>()}),
-    ("GtkFlowBox", Layout {size: size_of::<GtkFlowBox>(), alignment: align_of::<GtkFlowBox>()}),
-    ("GtkFlowBoxAccessible", Layout {size: size_of::<GtkFlowBoxAccessible>(), alignment: align_of::<GtkFlowBoxAccessible>()}),
-    ("GtkFlowBoxAccessibleClass", Layout {size: size_of::<GtkFlowBoxAccessibleClass>(), alignment: align_of::<GtkFlowBoxAccessibleClass>()}),
-    ("GtkFlowBoxChild", Layout {size: size_of::<GtkFlowBoxChild>(), alignment: align_of::<GtkFlowBoxChild>()}),
-    ("GtkFlowBoxChildAccessible", Layout {size: size_of::<GtkFlowBoxChildAccessible>(), alignment: align_of::<GtkFlowBoxChildAccessible>()}),
-    ("GtkFlowBoxChildAccessibleClass", Layout {size: size_of::<GtkFlowBoxChildAccessibleClass>(), alignment: align_of::<GtkFlowBoxChildAccessibleClass>()}),
-    ("GtkFlowBoxChildClass", Layout {size: size_of::<GtkFlowBoxChildClass>(), alignment: align_of::<GtkFlowBoxChildClass>()}),
-    ("GtkFlowBoxClass", Layout {size: size_of::<GtkFlowBoxClass>(), alignment: align_of::<GtkFlowBoxClass>()}),
-    ("GtkFontButton", Layout {size: size_of::<GtkFontButton>(), alignment: align_of::<GtkFontButton>()}),
-    ("GtkFontButtonClass", Layout {size: size_of::<GtkFontButtonClass>(), alignment: align_of::<GtkFontButtonClass>()}),
-    ("GtkFontChooserDialog", Layout {size: size_of::<GtkFontChooserDialog>(), alignment: align_of::<GtkFontChooserDialog>()}),
-    ("GtkFontChooserDialogClass", Layout {size: size_of::<GtkFontChooserDialogClass>(), alignment: align_of::<GtkFontChooserDialogClass>()}),
-    ("GtkFontChooserIface", Layout {size: size_of::<GtkFontChooserIface>(), alignment: align_of::<GtkFontChooserIface>()}),
-    ("GtkFontChooserLevel", Layout {size: size_of::<GtkFontChooserLevel>(), alignment: align_of::<GtkFontChooserLevel>()}),
-    ("GtkFontChooserWidget", Layout {size: size_of::<GtkFontChooserWidget>(), alignment: align_of::<GtkFontChooserWidget>()}),
-    ("GtkFontChooserWidgetClass", Layout {size: size_of::<GtkFontChooserWidgetClass>(), alignment: align_of::<GtkFontChooserWidgetClass>()}),
-    ("GtkFontSelection", Layout {size: size_of::<GtkFontSelection>(), alignment: align_of::<GtkFontSelection>()}),
-    ("GtkFontSelectionClass", Layout {size: size_of::<GtkFontSelectionClass>(), alignment: align_of::<GtkFontSelectionClass>()}),
-    ("GtkFontSelectionDialog", Layout {size: size_of::<GtkFontSelectionDialog>(), alignment: align_of::<GtkFontSelectionDialog>()}),
-    ("GtkFontSelectionDialogClass", Layout {size: size_of::<GtkFontSelectionDialogClass>(), alignment: align_of::<GtkFontSelectionDialogClass>()}),
-    ("GtkFrame", Layout {size: size_of::<GtkFrame>(), alignment: align_of::<GtkFrame>()}),
-    ("GtkFrameAccessible", Layout {size: size_of::<GtkFrameAccessible>(), alignment: align_of::<GtkFrameAccessible>()}),
-    ("GtkFrameAccessibleClass", Layout {size: size_of::<GtkFrameAccessibleClass>(), alignment: align_of::<GtkFrameAccessibleClass>()}),
-    ("GtkFrameClass", Layout {size: size_of::<GtkFrameClass>(), alignment: align_of::<GtkFrameClass>()}),
-    ("GtkGLArea", Layout {size: size_of::<GtkGLArea>(), alignment: align_of::<GtkGLArea>()}),
-    ("GtkGLAreaClass", Layout {size: size_of::<GtkGLAreaClass>(), alignment: align_of::<GtkGLAreaClass>()}),
-    ("GtkGrid", Layout {size: size_of::<GtkGrid>(), alignment: align_of::<GtkGrid>()}),
-    ("GtkGridClass", Layout {size: size_of::<GtkGridClass>(), alignment: align_of::<GtkGridClass>()}),
-    ("GtkHBox", Layout {size: size_of::<GtkHBox>(), alignment: align_of::<GtkHBox>()}),
-    ("GtkHBoxClass", Layout {size: size_of::<GtkHBoxClass>(), alignment: align_of::<GtkHBoxClass>()}),
-    ("GtkHButtonBox", Layout {size: size_of::<GtkHButtonBox>(), alignment: align_of::<GtkHButtonBox>()}),
-    ("GtkHButtonBoxClass", Layout {size: size_of::<GtkHButtonBoxClass>(), alignment: align_of::<GtkHButtonBoxClass>()}),
-    ("GtkHPaned", Layout {size: size_of::<GtkHPaned>(), alignment: align_of::<GtkHPaned>()}),
-    ("GtkHPanedClass", Layout {size: size_of::<GtkHPanedClass>(), alignment: align_of::<GtkHPanedClass>()}),
-    ("GtkHSV", Layout {size: size_of::<GtkHSV>(), alignment: align_of::<GtkHSV>()}),
-    ("GtkHSVClass", Layout {size: size_of::<GtkHSVClass>(), alignment: align_of::<GtkHSVClass>()}),
-    ("GtkHScale", Layout {size: size_of::<GtkHScale>(), alignment: align_of::<GtkHScale>()}),
-    ("GtkHScaleClass", Layout {size: size_of::<GtkHScaleClass>(), alignment: align_of::<GtkHScaleClass>()}),
-    ("GtkHScrollbar", Layout {size: size_of::<GtkHScrollbar>(), alignment: align_of::<GtkHScrollbar>()}),
-    ("GtkHScrollbarClass", Layout {size: size_of::<GtkHScrollbarClass>(), alignment: align_of::<GtkHScrollbarClass>()}),
-    ("GtkHSeparator", Layout {size: size_of::<GtkHSeparator>(), alignment: align_of::<GtkHSeparator>()}),
-    ("GtkHSeparatorClass", Layout {size: size_of::<GtkHSeparatorClass>(), alignment: align_of::<GtkHSeparatorClass>()}),
-    ("GtkHandleBox", Layout {size: size_of::<GtkHandleBox>(), alignment: align_of::<GtkHandleBox>()}),
-    ("GtkHandleBoxClass", Layout {size: size_of::<GtkHandleBoxClass>(), alignment: align_of::<GtkHandleBoxClass>()}),
-    ("GtkHeaderBar", Layout {size: size_of::<GtkHeaderBar>(), alignment: align_of::<GtkHeaderBar>()}),
-    ("GtkHeaderBarClass", Layout {size: size_of::<GtkHeaderBarClass>(), alignment: align_of::<GtkHeaderBarClass>()}),
-    ("GtkIMContext", Layout {size: size_of::<GtkIMContext>(), alignment: align_of::<GtkIMContext>()}),
-    ("GtkIMContextClass", Layout {size: size_of::<GtkIMContextClass>(), alignment: align_of::<GtkIMContextClass>()}),
-    ("GtkIMContextInfo", Layout {size: size_of::<GtkIMContextInfo>(), alignment: align_of::<GtkIMContextInfo>()}),
-    ("GtkIMContextSimple", Layout {size: size_of::<GtkIMContextSimple>(), alignment: align_of::<GtkIMContextSimple>()}),
-    ("GtkIMContextSimpleClass", Layout {size: size_of::<GtkIMContextSimpleClass>(), alignment: align_of::<GtkIMContextSimpleClass>()}),
-    ("GtkIMMulticontext", Layout {size: size_of::<GtkIMMulticontext>(), alignment: align_of::<GtkIMMulticontext>()}),
-    ("GtkIMMulticontextClass", Layout {size: size_of::<GtkIMMulticontextClass>(), alignment: align_of::<GtkIMMulticontextClass>()}),
-    ("GtkIMPreeditStyle", Layout {size: size_of::<GtkIMPreeditStyle>(), alignment: align_of::<GtkIMPreeditStyle>()}),
-    ("GtkIMStatusStyle", Layout {size: size_of::<GtkIMStatusStyle>(), alignment: align_of::<GtkIMStatusStyle>()}),
-    ("GtkIconFactory", Layout {size: size_of::<GtkIconFactory>(), alignment: align_of::<GtkIconFactory>()}),
-    ("GtkIconFactoryClass", Layout {size: size_of::<GtkIconFactoryClass>(), alignment: align_of::<GtkIconFactoryClass>()}),
-    ("GtkIconLookupFlags", Layout {size: size_of::<GtkIconLookupFlags>(), alignment: align_of::<GtkIconLookupFlags>()}),
-    ("GtkIconSize", Layout {size: size_of::<GtkIconSize>(), alignment: align_of::<GtkIconSize>()}),
-    ("GtkIconTheme", Layout {size: size_of::<GtkIconTheme>(), alignment: align_of::<GtkIconTheme>()}),
-    ("GtkIconThemeClass", Layout {size: size_of::<GtkIconThemeClass>(), alignment: align_of::<GtkIconThemeClass>()}),
-    ("GtkIconThemeError", Layout {size: size_of::<GtkIconThemeError>(), alignment: align_of::<GtkIconThemeError>()}),
-    ("GtkIconView", Layout {size: size_of::<GtkIconView>(), alignment: align_of::<GtkIconView>()}),
-    ("GtkIconViewAccessible", Layout {size: size_of::<GtkIconViewAccessible>(), alignment: align_of::<GtkIconViewAccessible>()}),
-    ("GtkIconViewAccessibleClass", Layout {size: size_of::<GtkIconViewAccessibleClass>(), alignment: align_of::<GtkIconViewAccessibleClass>()}),
-    ("GtkIconViewClass", Layout {size: size_of::<GtkIconViewClass>(), alignment: align_of::<GtkIconViewClass>()}),
-    ("GtkIconViewDropPosition", Layout {size: size_of::<GtkIconViewDropPosition>(), alignment: align_of::<GtkIconViewDropPosition>()}),
-    ("GtkImage", Layout {size: size_of::<GtkImage>(), alignment: align_of::<GtkImage>()}),
-    ("GtkImageAccessible", Layout {size: size_of::<GtkImageAccessible>(), alignment: align_of::<GtkImageAccessible>()}),
-    ("GtkImageAccessibleClass", Layout {size: size_of::<GtkImageAccessibleClass>(), alignment: align_of::<GtkImageAccessibleClass>()}),
-    ("GtkImageCellAccessible", Layout {size: size_of::<GtkImageCellAccessible>(), alignment: align_of::<GtkImageCellAccessible>()}),
-    ("GtkImageCellAccessibleClass", Layout {size: size_of::<GtkImageCellAccessibleClass>(), alignment: align_of::<GtkImageCellAccessibleClass>()}),
-    ("GtkImageClass", Layout {size: size_of::<GtkImageClass>(), alignment: align_of::<GtkImageClass>()}),
-    ("GtkImageMenuItem", Layout {size: size_of::<GtkImageMenuItem>(), alignment: align_of::<GtkImageMenuItem>()}),
-    ("GtkImageMenuItemClass", Layout {size: size_of::<GtkImageMenuItemClass>(), alignment: align_of::<GtkImageMenuItemClass>()}),
-    ("GtkImageType", Layout {size: size_of::<GtkImageType>(), alignment: align_of::<GtkImageType>()}),
-    ("GtkInfoBar", Layout {size: size_of::<GtkInfoBar>(), alignment: align_of::<GtkInfoBar>()}),
-    ("GtkInfoBarClass", Layout {size: size_of::<GtkInfoBarClass>(), alignment: align_of::<GtkInfoBarClass>()}),
-    ("GtkInputHints", Layout {size: size_of::<GtkInputHints>(), alignment: align_of::<GtkInputHints>()}),
-    ("GtkInputPurpose", Layout {size: size_of::<GtkInputPurpose>(), alignment: align_of::<GtkInputPurpose>()}),
-    ("GtkInvisible", Layout {size: size_of::<GtkInvisible>(), alignment: align_of::<GtkInvisible>()}),
-    ("GtkInvisibleClass", Layout {size: size_of::<GtkInvisibleClass>(), alignment: align_of::<GtkInvisibleClass>()}),
-    ("GtkJunctionSides", Layout {size: size_of::<GtkJunctionSides>(), alignment: align_of::<GtkJunctionSides>()}),
-    ("GtkJustification", Layout {size: size_of::<GtkJustification>(), alignment: align_of::<GtkJustification>()}),
-    ("GtkLabel", Layout {size: size_of::<GtkLabel>(), alignment: align_of::<GtkLabel>()}),
-    ("GtkLabelAccessible", Layout {size: size_of::<GtkLabelAccessible>(), alignment: align_of::<GtkLabelAccessible>()}),
-    ("GtkLabelAccessibleClass", Layout {size: size_of::<GtkLabelAccessibleClass>(), alignment: align_of::<GtkLabelAccessibleClass>()}),
-    ("GtkLabelClass", Layout {size: size_of::<GtkLabelClass>(), alignment: align_of::<GtkLabelClass>()}),
-    ("GtkLayout", Layout {size: size_of::<GtkLayout>(), alignment: align_of::<GtkLayout>()}),
-    ("GtkLayoutClass", Layout {size: size_of::<GtkLayoutClass>(), alignment: align_of::<GtkLayoutClass>()}),
-    ("GtkLevelBar", Layout {size: size_of::<GtkLevelBar>(), alignment: align_of::<GtkLevelBar>()}),
-    ("GtkLevelBarAccessible", Layout {size: size_of::<GtkLevelBarAccessible>(), alignment: align_of::<GtkLevelBarAccessible>()}),
-    ("GtkLevelBarAccessibleClass", Layout {size: size_of::<GtkLevelBarAccessibleClass>(), alignment: align_of::<GtkLevelBarAccessibleClass>()}),
-    ("GtkLevelBarClass", Layout {size: size_of::<GtkLevelBarClass>(), alignment: align_of::<GtkLevelBarClass>()}),
-    ("GtkLevelBarMode", Layout {size: size_of::<GtkLevelBarMode>(), alignment: align_of::<GtkLevelBarMode>()}),
-    ("GtkLicense", Layout {size: size_of::<GtkLicense>(), alignment: align_of::<GtkLicense>()}),
-    ("GtkLinkButton", Layout {size: size_of::<GtkLinkButton>(), alignment: align_of::<GtkLinkButton>()}),
-    ("GtkLinkButtonAccessible", Layout {size: size_of::<GtkLinkButtonAccessible>(), alignment: align_of::<GtkLinkButtonAccessible>()}),
-    ("GtkLinkButtonAccessibleClass", Layout {size: size_of::<GtkLinkButtonAccessibleClass>(), alignment: align_of::<GtkLinkButtonAccessibleClass>()}),
-    ("GtkLinkButtonClass", Layout {size: size_of::<GtkLinkButtonClass>(), alignment: align_of::<GtkLinkButtonClass>()}),
-    ("GtkListBox", Layout {size: size_of::<GtkListBox>(), alignment: align_of::<GtkListBox>()}),
-    ("GtkListBoxAccessible", Layout {size: size_of::<GtkListBoxAccessible>(), alignment: align_of::<GtkListBoxAccessible>()}),
-    ("GtkListBoxAccessibleClass", Layout {size: size_of::<GtkListBoxAccessibleClass>(), alignment: align_of::<GtkListBoxAccessibleClass>()}),
-    ("GtkListBoxClass", Layout {size: size_of::<GtkListBoxClass>(), alignment: align_of::<GtkListBoxClass>()}),
-    ("GtkListBoxRow", Layout {size: size_of::<GtkListBoxRow>(), alignment: align_of::<GtkListBoxRow>()}),
-    ("GtkListBoxRowAccessible", Layout {size: size_of::<GtkListBoxRowAccessible>(), alignment: align_of::<GtkListBoxRowAccessible>()}),
-    ("GtkListBoxRowAccessibleClass", Layout {size: size_of::<GtkListBoxRowAccessibleClass>(), alignment: align_of::<GtkListBoxRowAccessibleClass>()}),
-    ("GtkListBoxRowClass", Layout {size: size_of::<GtkListBoxRowClass>(), alignment: align_of::<GtkListBoxRowClass>()}),
-    ("GtkListStore", Layout {size: size_of::<GtkListStore>(), alignment: align_of::<GtkListStore>()}),
-    ("GtkListStoreClass", Layout {size: size_of::<GtkListStoreClass>(), alignment: align_of::<GtkListStoreClass>()}),
-    ("GtkLockButton", Layout {size: size_of::<GtkLockButton>(), alignment: align_of::<GtkLockButton>()}),
-    ("GtkLockButtonAccessible", Layout {size: size_of::<GtkLockButtonAccessible>(), alignment: align_of::<GtkLockButtonAccessible>()}),
-    ("GtkLockButtonAccessibleClass", Layout {size: size_of::<GtkLockButtonAccessibleClass>(), alignment: align_of::<GtkLockButtonAccessibleClass>()}),
-    ("GtkLockButtonClass", Layout {size: size_of::<GtkLockButtonClass>(), alignment: align_of::<GtkLockButtonClass>()}),
-    ("GtkMenu", Layout {size: size_of::<GtkMenu>(), alignment: align_of::<GtkMenu>()}),
-    ("GtkMenuAccessible", Layout {size: size_of::<GtkMenuAccessible>(), alignment: align_of::<GtkMenuAccessible>()}),
-    ("GtkMenuAccessibleClass", Layout {size: size_of::<GtkMenuAccessibleClass>(), alignment: align_of::<GtkMenuAccessibleClass>()}),
-    ("GtkMenuBar", Layout {size: size_of::<GtkMenuBar>(), alignment: align_of::<GtkMenuBar>()}),
-    ("GtkMenuBarClass", Layout {size: size_of::<GtkMenuBarClass>(), alignment: align_of::<GtkMenuBarClass>()}),
-    ("GtkMenuButton", Layout {size: size_of::<GtkMenuButton>(), alignment: align_of::<GtkMenuButton>()}),
-    ("GtkMenuButtonAccessible", Layout {size: size_of::<GtkMenuButtonAccessible>(), alignment: align_of::<GtkMenuButtonAccessible>()}),
-    ("GtkMenuButtonAccessibleClass", Layout {size: size_of::<GtkMenuButtonAccessibleClass>(), alignment: align_of::<GtkMenuButtonAccessibleClass>()}),
-    ("GtkMenuButtonClass", Layout {size: size_of::<GtkMenuButtonClass>(), alignment: align_of::<GtkMenuButtonClass>()}),
-    ("GtkMenuClass", Layout {size: size_of::<GtkMenuClass>(), alignment: align_of::<GtkMenuClass>()}),
-    ("GtkMenuDirectionType", Layout {size: size_of::<GtkMenuDirectionType>(), alignment: align_of::<GtkMenuDirectionType>()}),
-    ("GtkMenuItem", Layout {size: size_of::<GtkMenuItem>(), alignment: align_of::<GtkMenuItem>()}),
-    ("GtkMenuItemAccessible", Layout {size: size_of::<GtkMenuItemAccessible>(), alignment: align_of::<GtkMenuItemAccessible>()}),
-    ("GtkMenuItemAccessibleClass", Layout {size: size_of::<GtkMenuItemAccessibleClass>(), alignment: align_of::<GtkMenuItemAccessibleClass>()}),
-    ("GtkMenuItemClass", Layout {size: size_of::<GtkMenuItemClass>(), alignment: align_of::<GtkMenuItemClass>()}),
-    ("GtkMenuShell", Layout {size: size_of::<GtkMenuShell>(), alignment: align_of::<GtkMenuShell>()}),
-    ("GtkMenuShellAccessible", Layout {size: size_of::<GtkMenuShellAccessible>(), alignment: align_of::<GtkMenuShellAccessible>()}),
-    ("GtkMenuShellAccessibleClass", Layout {size: size_of::<GtkMenuShellAccessibleClass>(), alignment: align_of::<GtkMenuShellAccessibleClass>()}),
-    ("GtkMenuShellClass", Layout {size: size_of::<GtkMenuShellClass>(), alignment: align_of::<GtkMenuShellClass>()}),
-    ("GtkMenuToolButton", Layout {size: size_of::<GtkMenuToolButton>(), alignment: align_of::<GtkMenuToolButton>()}),
-    ("GtkMenuToolButtonClass", Layout {size: size_of::<GtkMenuToolButtonClass>(), alignment: align_of::<GtkMenuToolButtonClass>()}),
-    ("GtkMessageDialog", Layout {size: size_of::<GtkMessageDialog>(), alignment: align_of::<GtkMessageDialog>()}),
-    ("GtkMessageDialogClass", Layout {size: size_of::<GtkMessageDialogClass>(), alignment: align_of::<GtkMessageDialogClass>()}),
-    ("GtkMessageType", Layout {size: size_of::<GtkMessageType>(), alignment: align_of::<GtkMessageType>()}),
-    ("GtkMisc", Layout {size: size_of::<GtkMisc>(), alignment: align_of::<GtkMisc>()}),
-    ("GtkMiscClass", Layout {size: size_of::<GtkMiscClass>(), alignment: align_of::<GtkMiscClass>()}),
-    ("GtkMountOperation", Layout {size: size_of::<GtkMountOperation>(), alignment: align_of::<GtkMountOperation>()}),
-    ("GtkMountOperationClass", Layout {size: size_of::<GtkMountOperationClass>(), alignment: align_of::<GtkMountOperationClass>()}),
-    ("GtkMovementStep", Layout {size: size_of::<GtkMovementStep>(), alignment: align_of::<GtkMovementStep>()}),
-    ("GtkNativeDialog", Layout {size: size_of::<GtkNativeDialog>(), alignment: align_of::<GtkNativeDialog>()}),
-    ("GtkNativeDialogClass", Layout {size: size_of::<GtkNativeDialogClass>(), alignment: align_of::<GtkNativeDialogClass>()}),
-    ("GtkNotebook", Layout {size: size_of::<GtkNotebook>(), alignment: align_of::<GtkNotebook>()}),
-    ("GtkNotebookAccessible", Layout {size: size_of::<GtkNotebookAccessible>(), alignment: align_of::<GtkNotebookAccessible>()}),
-    ("GtkNotebookAccessibleClass", Layout {size: size_of::<GtkNotebookAccessibleClass>(), alignment: align_of::<GtkNotebookAccessibleClass>()}),
-    ("GtkNotebookClass", Layout {size: size_of::<GtkNotebookClass>(), alignment: align_of::<GtkNotebookClass>()}),
-    ("GtkNotebookPageAccessible", Layout {size: size_of::<GtkNotebookPageAccessible>(), alignment: align_of::<GtkNotebookPageAccessible>()}),
-    ("GtkNotebookPageAccessibleClass", Layout {size: size_of::<GtkNotebookPageAccessibleClass>(), alignment: align_of::<GtkNotebookPageAccessibleClass>()}),
-    ("GtkNotebookTab", Layout {size: size_of::<GtkNotebookTab>(), alignment: align_of::<GtkNotebookTab>()}),
-    ("GtkNumberUpLayout", Layout {size: size_of::<GtkNumberUpLayout>(), alignment: align_of::<GtkNumberUpLayout>()}),
-    ("GtkNumerableIcon", Layout {size: size_of::<GtkNumerableIcon>(), alignment: align_of::<GtkNumerableIcon>()}),
-    ("GtkNumerableIconClass", Layout {size: size_of::<GtkNumerableIconClass>(), alignment: align_of::<GtkNumerableIconClass>()}),
-    ("GtkOffscreenWindow", Layout {size: size_of::<GtkOffscreenWindow>(), alignment: align_of::<GtkOffscreenWindow>()}),
-    ("GtkOffscreenWindowClass", Layout {size: size_of::<GtkOffscreenWindowClass>(), alignment: align_of::<GtkOffscreenWindowClass>()}),
-    ("GtkOrientableIface", Layout {size: size_of::<GtkOrientableIface>(), alignment: align_of::<GtkOrientableIface>()}),
-    ("GtkOrientation", Layout {size: size_of::<GtkOrientation>(), alignment: align_of::<GtkOrientation>()}),
-    ("GtkOverlay", Layout {size: size_of::<GtkOverlay>(), alignment: align_of::<GtkOverlay>()}),
-    ("GtkOverlayClass", Layout {size: size_of::<GtkOverlayClass>(), alignment: align_of::<GtkOverlayClass>()}),
-    ("GtkPackDirection", Layout {size: size_of::<GtkPackDirection>(), alignment: align_of::<GtkPackDirection>()}),
-    ("GtkPackType", Layout {size: size_of::<GtkPackType>(), alignment: align_of::<GtkPackType>()}),
-    ("GtkPadActionEntry", Layout {size: size_of::<GtkPadActionEntry>(), alignment: align_of::<GtkPadActionEntry>()}),
-    ("GtkPadActionType", Layout {size: size_of::<GtkPadActionType>(), alignment: align_of::<GtkPadActionType>()}),
-    ("GtkPageOrientation", Layout {size: size_of::<GtkPageOrientation>(), alignment: align_of::<GtkPageOrientation>()}),
-    ("GtkPageRange", Layout {size: size_of::<GtkPageRange>(), alignment: align_of::<GtkPageRange>()}),
-    ("GtkPageSet", Layout {size: size_of::<GtkPageSet>(), alignment: align_of::<GtkPageSet>()}),
-    ("GtkPanDirection", Layout {size: size_of::<GtkPanDirection>(), alignment: align_of::<GtkPanDirection>()}),
-    ("GtkPaned", Layout {size: size_of::<GtkPaned>(), alignment: align_of::<GtkPaned>()}),
-    ("GtkPanedAccessible", Layout {size: size_of::<GtkPanedAccessible>(), alignment: align_of::<GtkPanedAccessible>()}),
-    ("GtkPanedAccessibleClass", Layout {size: size_of::<GtkPanedAccessibleClass>(), alignment: align_of::<GtkPanedAccessibleClass>()}),
-    ("GtkPanedClass", Layout {size: size_of::<GtkPanedClass>(), alignment: align_of::<GtkPanedClass>()}),
-    ("GtkPathPriorityType", Layout {size: size_of::<GtkPathPriorityType>(), alignment: align_of::<GtkPathPriorityType>()}),
-    ("GtkPathType", Layout {size: size_of::<GtkPathType>(), alignment: align_of::<GtkPathType>()}),
-    ("GtkPlacesOpenFlags", Layout {size: size_of::<GtkPlacesOpenFlags>(), alignment: align_of::<GtkPlacesOpenFlags>()}),
-    ("GtkPlug", Layout {size: size_of::<GtkPlug>(), alignment: align_of::<GtkPlug>()}),
-    ("GtkPlugClass", Layout {size: size_of::<GtkPlugClass>(), alignment: align_of::<GtkPlugClass>()}),
-    ("GtkPolicyType", Layout {size: size_of::<GtkPolicyType>(), alignment: align_of::<GtkPolicyType>()}),
-    ("GtkPopover", Layout {size: size_of::<GtkPopover>(), alignment: align_of::<GtkPopover>()}),
-    ("GtkPopoverAccessible", Layout {size: size_of::<GtkPopoverAccessible>(), alignment: align_of::<GtkPopoverAccessible>()}),
-    ("GtkPopoverAccessibleClass", Layout {size: size_of::<GtkPopoverAccessibleClass>(), alignment: align_of::<GtkPopoverAccessibleClass>()}),
-    ("GtkPopoverClass", Layout {size: size_of::<GtkPopoverClass>(), alignment: align_of::<GtkPopoverClass>()}),
-    ("GtkPopoverConstraint", Layout {size: size_of::<GtkPopoverConstraint>(), alignment: align_of::<GtkPopoverConstraint>()}),
-    ("GtkPopoverMenuClass", Layout {size: size_of::<GtkPopoverMenuClass>(), alignment: align_of::<GtkPopoverMenuClass>()}),
-    ("GtkPositionType", Layout {size: size_of::<GtkPositionType>(), alignment: align_of::<GtkPositionType>()}),
-    ("GtkPrintDuplex", Layout {size: size_of::<GtkPrintDuplex>(), alignment: align_of::<GtkPrintDuplex>()}),
-    ("GtkPrintError", Layout {size: size_of::<GtkPrintError>(), alignment: align_of::<GtkPrintError>()}),
-    ("GtkPrintOperation", Layout {size: size_of::<GtkPrintOperation>(), alignment: align_of::<GtkPrintOperation>()}),
-    ("GtkPrintOperationAction", Layout {size: size_of::<GtkPrintOperationAction>(), alignment: align_of::<GtkPrintOperationAction>()}),
-    ("GtkPrintOperationClass", Layout {size: size_of::<GtkPrintOperationClass>(), alignment: align_of::<GtkPrintOperationClass>()}),
-    ("GtkPrintOperationPreviewIface", Layout {size: size_of::<GtkPrintOperationPreviewIface>(), alignment: align_of::<GtkPrintOperationPreviewIface>()}),
-    ("GtkPrintOperationResult", Layout {size: size_of::<GtkPrintOperationResult>(), alignment: align_of::<GtkPrintOperationResult>()}),
-    ("GtkPrintPages", Layout {size: size_of::<GtkPrintPages>(), alignment: align_of::<GtkPrintPages>()}),
-    ("GtkPrintQuality", Layout {size: size_of::<GtkPrintQuality>(), alignment: align_of::<GtkPrintQuality>()}),
-    ("GtkPrintStatus", Layout {size: size_of::<GtkPrintStatus>(), alignment: align_of::<GtkPrintStatus>()}),
-    ("GtkProgressBar", Layout {size: size_of::<GtkProgressBar>(), alignment: align_of::<GtkProgressBar>()}),
-    ("GtkProgressBarAccessible", Layout {size: size_of::<GtkProgressBarAccessible>(), alignment: align_of::<GtkProgressBarAccessible>()}),
-    ("GtkProgressBarAccessibleClass", Layout {size: size_of::<GtkProgressBarAccessibleClass>(), alignment: align_of::<GtkProgressBarAccessibleClass>()}),
-    ("GtkProgressBarClass", Layout {size: size_of::<GtkProgressBarClass>(), alignment: align_of::<GtkProgressBarClass>()}),
-    ("GtkPropagationPhase", Layout {size: size_of::<GtkPropagationPhase>(), alignment: align_of::<GtkPropagationPhase>()}),
-    ("GtkRadioAction", Layout {size: size_of::<GtkRadioAction>(), alignment: align_of::<GtkRadioAction>()}),
-    ("GtkRadioActionClass", Layout {size: size_of::<GtkRadioActionClass>(), alignment: align_of::<GtkRadioActionClass>()}),
-    ("GtkRadioActionEntry", Layout {size: size_of::<GtkRadioActionEntry>(), alignment: align_of::<GtkRadioActionEntry>()}),
-    ("GtkRadioButton", Layout {size: size_of::<GtkRadioButton>(), alignment: align_of::<GtkRadioButton>()}),
-    ("GtkRadioButtonAccessible", Layout {size: size_of::<GtkRadioButtonAccessible>(), alignment: align_of::<GtkRadioButtonAccessible>()}),
-    ("GtkRadioButtonAccessibleClass", Layout {size: size_of::<GtkRadioButtonAccessibleClass>(), alignment: align_of::<GtkRadioButtonAccessibleClass>()}),
-    ("GtkRadioButtonClass", Layout {size: size_of::<GtkRadioButtonClass>(), alignment: align_of::<GtkRadioButtonClass>()}),
-    ("GtkRadioMenuItem", Layout {size: size_of::<GtkRadioMenuItem>(), alignment: align_of::<GtkRadioMenuItem>()}),
-    ("GtkRadioMenuItemAccessible", Layout {size: size_of::<GtkRadioMenuItemAccessible>(), alignment: align_of::<GtkRadioMenuItemAccessible>()}),
-    ("GtkRadioMenuItemAccessibleClass", Layout {size: size_of::<GtkRadioMenuItemAccessibleClass>(), alignment: align_of::<GtkRadioMenuItemAccessibleClass>()}),
-    ("GtkRadioMenuItemClass", Layout {size: size_of::<GtkRadioMenuItemClass>(), alignment: align_of::<GtkRadioMenuItemClass>()}),
-    ("GtkRadioToolButton", Layout {size: size_of::<GtkRadioToolButton>(), alignment: align_of::<GtkRadioToolButton>()}),
-    ("GtkRadioToolButtonClass", Layout {size: size_of::<GtkRadioToolButtonClass>(), alignment: align_of::<GtkRadioToolButtonClass>()}),
-    ("GtkRange", Layout {size: size_of::<GtkRange>(), alignment: align_of::<GtkRange>()}),
-    ("GtkRangeAccessible", Layout {size: size_of::<GtkRangeAccessible>(), alignment: align_of::<GtkRangeAccessible>()}),
-    ("GtkRangeAccessibleClass", Layout {size: size_of::<GtkRangeAccessibleClass>(), alignment: align_of::<GtkRangeAccessibleClass>()}),
-    ("GtkRangeClass", Layout {size: size_of::<GtkRangeClass>(), alignment: align_of::<GtkRangeClass>()}),
-    ("GtkRcFlags", Layout {size: size_of::<GtkRcFlags>(), alignment: align_of::<GtkRcFlags>()}),
-    ("GtkRcProperty", Layout {size: size_of::<GtkRcProperty>(), alignment: align_of::<GtkRcProperty>()}),
-    ("GtkRcStyle", Layout {size: size_of::<GtkRcStyle>(), alignment: align_of::<GtkRcStyle>()}),
-    ("GtkRcStyleClass", Layout {size: size_of::<GtkRcStyleClass>(), alignment: align_of::<GtkRcStyleClass>()}),
-    ("GtkRcTokenType", Layout {size: size_of::<GtkRcTokenType>(), alignment: align_of::<GtkRcTokenType>()}),
-    ("GtkRecentAction", Layout {size: size_of::<GtkRecentAction>(), alignment: align_of::<GtkRecentAction>()}),
-    ("GtkRecentActionClass", Layout {size: size_of::<GtkRecentActionClass>(), alignment: align_of::<GtkRecentActionClass>()}),
-    ("GtkRecentChooserDialog", Layout {size: size_of::<GtkRecentChooserDialog>(), alignment: align_of::<GtkRecentChooserDialog>()}),
-    ("GtkRecentChooserDialogClass", Layout {size: size_of::<GtkRecentChooserDialogClass>(), alignment: align_of::<GtkRecentChooserDialogClass>()}),
-    ("GtkRecentChooserError", Layout {size: size_of::<GtkRecentChooserError>(), alignment: align_of::<GtkRecentChooserError>()}),
-    ("GtkRecentChooserIface", Layout {size: size_of::<GtkRecentChooserIface>(), alignment: align_of::<GtkRecentChooserIface>()}),
-    ("GtkRecentChooserMenu", Layout {size: size_of::<GtkRecentChooserMenu>(), alignment: align_of::<GtkRecentChooserMenu>()}),
-    ("GtkRecentChooserMenuClass", Layout {size: size_of::<GtkRecentChooserMenuClass>(), alignment: align_of::<GtkRecentChooserMenuClass>()}),
-    ("GtkRecentChooserWidget", Layout {size: size_of::<GtkRecentChooserWidget>(), alignment: align_of::<GtkRecentChooserWidget>()}),
-    ("GtkRecentChooserWidgetClass", Layout {size: size_of::<GtkRecentChooserWidgetClass>(), alignment: align_of::<GtkRecentChooserWidgetClass>()}),
-    ("GtkRecentData", Layout {size: size_of::<GtkRecentData>(), alignment: align_of::<GtkRecentData>()}),
-    ("GtkRecentFilterFlags", Layout {size: size_of::<GtkRecentFilterFlags>(), alignment: align_of::<GtkRecentFilterFlags>()}),
-    ("GtkRecentFilterInfo", Layout {size: size_of::<GtkRecentFilterInfo>(), alignment: align_of::<GtkRecentFilterInfo>()}),
-    ("GtkRecentManager", Layout {size: size_of::<GtkRecentManager>(), alignment: align_of::<GtkRecentManager>()}),
-    ("GtkRecentManagerClass", Layout {size: size_of::<GtkRecentManagerClass>(), alignment: align_of::<GtkRecentManagerClass>()}),
-    ("GtkRecentManagerError", Layout {size: size_of::<GtkRecentManagerError>(), alignment: align_of::<GtkRecentManagerError>()}),
-    ("GtkRecentSortType", Layout {size: size_of::<GtkRecentSortType>(), alignment: align_of::<GtkRecentSortType>()}),
-    ("GtkRegionFlags", Layout {size: size_of::<GtkRegionFlags>(), alignment: align_of::<GtkRegionFlags>()}),
-    ("GtkReliefStyle", Layout {size: size_of::<GtkReliefStyle>(), alignment: align_of::<GtkReliefStyle>()}),
-    ("GtkRendererCellAccessible", Layout {size: size_of::<GtkRendererCellAccessible>(), alignment: align_of::<GtkRendererCellAccessible>()}),
-    ("GtkRendererCellAccessibleClass", Layout {size: size_of::<GtkRendererCellAccessibleClass>(), alignment: align_of::<GtkRendererCellAccessibleClass>()}),
-    ("GtkRequestedSize", Layout {size: size_of::<GtkRequestedSize>(), alignment: align_of::<GtkRequestedSize>()}),
-    ("GtkRequisition", Layout {size: size_of::<GtkRequisition>(), alignment: align_of::<GtkRequisition>()}),
-    ("GtkResizeMode", Layout {size: size_of::<GtkResizeMode>(), alignment: align_of::<GtkResizeMode>()}),
-    ("GtkResponseType", Layout {size: size_of::<GtkResponseType>(), alignment: align_of::<GtkResponseType>()}),
-    ("GtkRevealer", Layout {size: size_of::<GtkRevealer>(), alignment: align_of::<GtkRevealer>()}),
-    ("GtkRevealerClass", Layout {size: size_of::<GtkRevealerClass>(), alignment: align_of::<GtkRevealerClass>()}),
-    ("GtkRevealerTransitionType", Layout {size: size_of::<GtkRevealerTransitionType>(), alignment: align_of::<GtkRevealerTransitionType>()}),
-    ("GtkScale", Layout {size: size_of::<GtkScale>(), alignment: align_of::<GtkScale>()}),
-    ("GtkScaleAccessible", Layout {size: size_of::<GtkScaleAccessible>(), alignment: align_of::<GtkScaleAccessible>()}),
-    ("GtkScaleAccessibleClass", Layout {size: size_of::<GtkScaleAccessibleClass>(), alignment: align_of::<GtkScaleAccessibleClass>()}),
-    ("GtkScaleButton", Layout {size: size_of::<GtkScaleButton>(), alignment: align_of::<GtkScaleButton>()}),
-    ("GtkScaleButtonAccessible", Layout {size: size_of::<GtkScaleButtonAccessible>(), alignment: align_of::<GtkScaleButtonAccessible>()}),
-    ("GtkScaleButtonAccessibleClass", Layout {size: size_of::<GtkScaleButtonAccessibleClass>(), alignment: align_of::<GtkScaleButtonAccessibleClass>()}),
-    ("GtkScaleButtonClass", Layout {size: size_of::<GtkScaleButtonClass>(), alignment: align_of::<GtkScaleButtonClass>()}),
-    ("GtkScaleClass", Layout {size: size_of::<GtkScaleClass>(), alignment: align_of::<GtkScaleClass>()}),
-    ("GtkScrollStep", Layout {size: size_of::<GtkScrollStep>(), alignment: align_of::<GtkScrollStep>()}),
-    ("GtkScrollType", Layout {size: size_of::<GtkScrollType>(), alignment: align_of::<GtkScrollType>()}),
-    ("GtkScrollableInterface", Layout {size: size_of::<GtkScrollableInterface>(), alignment: align_of::<GtkScrollableInterface>()}),
-    ("GtkScrollablePolicy", Layout {size: size_of::<GtkScrollablePolicy>(), alignment: align_of::<GtkScrollablePolicy>()}),
-    ("GtkScrollbar", Layout {size: size_of::<GtkScrollbar>(), alignment: align_of::<GtkScrollbar>()}),
-    ("GtkScrollbarClass", Layout {size: size_of::<GtkScrollbarClass>(), alignment: align_of::<GtkScrollbarClass>()}),
-    ("GtkScrolledWindow", Layout {size: size_of::<GtkScrolledWindow>(), alignment: align_of::<GtkScrolledWindow>()}),
-    ("GtkScrolledWindowAccessible", Layout {size: size_of::<GtkScrolledWindowAccessible>(), alignment: align_of::<GtkScrolledWindowAccessible>()}),
-    ("GtkScrolledWindowAccessibleClass", Layout {size: size_of::<GtkScrolledWindowAccessibleClass>(), alignment: align_of::<GtkScrolledWindowAccessibleClass>()}),
-    ("GtkScrolledWindowClass", Layout {size: size_of::<GtkScrolledWindowClass>(), alignment: align_of::<GtkScrolledWindowClass>()}),
-    ("GtkSearchBar", Layout {size: size_of::<GtkSearchBar>(), alignment: align_of::<GtkSearchBar>()}),
-    ("GtkSearchBarClass", Layout {size: size_of::<GtkSearchBarClass>(), alignment: align_of::<GtkSearchBarClass>()}),
-    ("GtkSearchEntry", Layout {size: size_of::<GtkSearchEntry>(), alignment: align_of::<GtkSearchEntry>()}),
-    ("GtkSearchEntryClass", Layout {size: size_of::<GtkSearchEntryClass>(), alignment: align_of::<GtkSearchEntryClass>()}),
-    ("GtkSelectionMode", Layout {size: size_of::<GtkSelectionMode>(), alignment: align_of::<GtkSelectionMode>()}),
-    ("GtkSensitivityType", Layout {size: size_of::<GtkSensitivityType>(), alignment: align_of::<GtkSensitivityType>()}),
-    ("GtkSeparator", Layout {size: size_of::<GtkSeparator>(), alignment: align_of::<GtkSeparator>()}),
-    ("GtkSeparatorClass", Layout {size: size_of::<GtkSeparatorClass>(), alignment: align_of::<GtkSeparatorClass>()}),
-    ("GtkSeparatorMenuItem", Layout {size: size_of::<GtkSeparatorMenuItem>(), alignment: align_of::<GtkSeparatorMenuItem>()}),
-    ("GtkSeparatorMenuItemClass", Layout {size: size_of::<GtkSeparatorMenuItemClass>(), alignment: align_of::<GtkSeparatorMenuItemClass>()}),
-    ("GtkSeparatorToolItem", Layout {size: size_of::<GtkSeparatorToolItem>(), alignment: align_of::<GtkSeparatorToolItem>()}),
-    ("GtkSeparatorToolItemClass", Layout {size: size_of::<GtkSeparatorToolItemClass>(), alignment: align_of::<GtkSeparatorToolItemClass>()}),
-    ("GtkSettings", Layout {size: size_of::<GtkSettings>(), alignment: align_of::<GtkSettings>()}),
-    ("GtkSettingsClass", Layout {size: size_of::<GtkSettingsClass>(), alignment: align_of::<GtkSettingsClass>()}),
-    ("GtkSettingsValue", Layout {size: size_of::<GtkSettingsValue>(), alignment: align_of::<GtkSettingsValue>()}),
-    ("GtkShadowType", Layout {size: size_of::<GtkShadowType>(), alignment: align_of::<GtkShadowType>()}),
-    ("GtkShortcutType", Layout {size: size_of::<GtkShortcutType>(), alignment: align_of::<GtkShortcutType>()}),
-    ("GtkShortcutsWindow", Layout {size: size_of::<GtkShortcutsWindow>(), alignment: align_of::<GtkShortcutsWindow>()}),
-    ("GtkShortcutsWindowClass", Layout {size: size_of::<GtkShortcutsWindowClass>(), alignment: align_of::<GtkShortcutsWindowClass>()}),
-    ("GtkSizeGroup", Layout {size: size_of::<GtkSizeGroup>(), alignment: align_of::<GtkSizeGroup>()}),
-    ("GtkSizeGroupClass", Layout {size: size_of::<GtkSizeGroupClass>(), alignment: align_of::<GtkSizeGroupClass>()}),
-    ("GtkSizeGroupMode", Layout {size: size_of::<GtkSizeGroupMode>(), alignment: align_of::<GtkSizeGroupMode>()}),
-    ("GtkSizeRequestMode", Layout {size: size_of::<GtkSizeRequestMode>(), alignment: align_of::<GtkSizeRequestMode>()}),
-    ("GtkSocket", Layout {size: size_of::<GtkSocket>(), alignment: align_of::<GtkSocket>()}),
-    ("GtkSocketClass", Layout {size: size_of::<GtkSocketClass>(), alignment: align_of::<GtkSocketClass>()}),
-    ("GtkSortType", Layout {size: size_of::<GtkSortType>(), alignment: align_of::<GtkSortType>()}),
-    ("GtkSpinButton", Layout {size: size_of::<GtkSpinButton>(), alignment: align_of::<GtkSpinButton>()}),
-    ("GtkSpinButtonAccessible", Layout {size: size_of::<GtkSpinButtonAccessible>(), alignment: align_of::<GtkSpinButtonAccessible>()}),
-    ("GtkSpinButtonAccessibleClass", Layout {size: size_of::<GtkSpinButtonAccessibleClass>(), alignment: align_of::<GtkSpinButtonAccessibleClass>()}),
-    ("GtkSpinButtonClass", Layout {size: size_of::<GtkSpinButtonClass>(), alignment: align_of::<GtkSpinButtonClass>()}),
-    ("GtkSpinButtonUpdatePolicy", Layout {size: size_of::<GtkSpinButtonUpdatePolicy>(), alignment: align_of::<GtkSpinButtonUpdatePolicy>()}),
-    ("GtkSpinType", Layout {size: size_of::<GtkSpinType>(), alignment: align_of::<GtkSpinType>()}),
-    ("GtkSpinner", Layout {size: size_of::<GtkSpinner>(), alignment: align_of::<GtkSpinner>()}),
-    ("GtkSpinnerAccessible", Layout {size: size_of::<GtkSpinnerAccessible>(), alignment: align_of::<GtkSpinnerAccessible>()}),
-    ("GtkSpinnerAccessibleClass", Layout {size: size_of::<GtkSpinnerAccessibleClass>(), alignment: align_of::<GtkSpinnerAccessibleClass>()}),
-    ("GtkSpinnerClass", Layout {size: size_of::<GtkSpinnerClass>(), alignment: align_of::<GtkSpinnerClass>()}),
-    ("GtkStack", Layout {size: size_of::<GtkStack>(), alignment: align_of::<GtkStack>()}),
-    ("GtkStackAccessible", Layout {size: size_of::<GtkStackAccessible>(), alignment: align_of::<GtkStackAccessible>()}),
-    ("GtkStackAccessibleClass", Layout {size: size_of::<GtkStackAccessibleClass>(), alignment: align_of::<GtkStackAccessibleClass>()}),
-    ("GtkStackClass", Layout {size: size_of::<GtkStackClass>(), alignment: align_of::<GtkStackClass>()}),
-    ("GtkStackSidebar", Layout {size: size_of::<GtkStackSidebar>(), alignment: align_of::<GtkStackSidebar>()}),
-    ("GtkStackSidebarClass", Layout {size: size_of::<GtkStackSidebarClass>(), alignment: align_of::<GtkStackSidebarClass>()}),
-    ("GtkStackSwitcher", Layout {size: size_of::<GtkStackSwitcher>(), alignment: align_of::<GtkStackSwitcher>()}),
-    ("GtkStackSwitcherClass", Layout {size: size_of::<GtkStackSwitcherClass>(), alignment: align_of::<GtkStackSwitcherClass>()}),
-    ("GtkStackTransitionType", Layout {size: size_of::<GtkStackTransitionType>(), alignment: align_of::<GtkStackTransitionType>()}),
-    ("GtkStateFlags", Layout {size: size_of::<GtkStateFlags>(), alignment: align_of::<GtkStateFlags>()}),
-    ("GtkStateType", Layout {size: size_of::<GtkStateType>(), alignment: align_of::<GtkStateType>()}),
-    ("GtkStatusIcon", Layout {size: size_of::<GtkStatusIcon>(), alignment: align_of::<GtkStatusIcon>()}),
-    ("GtkStatusIconClass", Layout {size: size_of::<GtkStatusIconClass>(), alignment: align_of::<GtkStatusIconClass>()}),
-    ("GtkStatusbar", Layout {size: size_of::<GtkStatusbar>(), alignment: align_of::<GtkStatusbar>()}),
-    ("GtkStatusbarAccessible", Layout {size: size_of::<GtkStatusbarAccessible>(), alignment: align_of::<GtkStatusbarAccessible>()}),
-    ("GtkStatusbarAccessibleClass", Layout {size: size_of::<GtkStatusbarAccessibleClass>(), alignment: align_of::<GtkStatusbarAccessibleClass>()}),
-    ("GtkStatusbarClass", Layout {size: size_of::<GtkStatusbarClass>(), alignment: align_of::<GtkStatusbarClass>()}),
-    ("GtkStock", Layout {size: size_of::<GtkStock>(), alignment: align_of::<GtkStock>()}),
-    ("GtkStockItem", Layout {size: size_of::<GtkStockItem>(), alignment: align_of::<GtkStockItem>()}),
-    ("GtkStyleClass", Layout {size: size_of::<GtkStyleClass>(), alignment: align_of::<GtkStyleClass>()}),
-    ("GtkStyleContext", Layout {size: size_of::<GtkStyleContext>(), alignment: align_of::<GtkStyleContext>()}),
-    ("GtkStyleContextClass", Layout {size: size_of::<GtkStyleContextClass>(), alignment: align_of::<GtkStyleContextClass>()}),
-    ("GtkStyleContextPrintFlags", Layout {size: size_of::<GtkStyleContextPrintFlags>(), alignment: align_of::<GtkStyleContextPrintFlags>()}),
-    ("GtkStyleProperties", Layout {size: size_of::<GtkStyleProperties>(), alignment: align_of::<GtkStyleProperties>()}),
-    ("GtkStylePropertiesClass", Layout {size: size_of::<GtkStylePropertiesClass>(), alignment: align_of::<GtkStylePropertiesClass>()}),
-    ("GtkStyleProviderIface", Layout {size: size_of::<GtkStyleProviderIface>(), alignment: align_of::<GtkStyleProviderIface>()}),
-    ("GtkSwitch", Layout {size: size_of::<GtkSwitch>(), alignment: align_of::<GtkSwitch>()}),
-    ("GtkSwitchAccessible", Layout {size: size_of::<GtkSwitchAccessible>(), alignment: align_of::<GtkSwitchAccessible>()}),
-    ("GtkSwitchAccessibleClass", Layout {size: size_of::<GtkSwitchAccessibleClass>(), alignment: align_of::<GtkSwitchAccessibleClass>()}),
-    ("GtkSwitchClass", Layout {size: size_of::<GtkSwitchClass>(), alignment: align_of::<GtkSwitchClass>()}),
-    ("GtkTable", Layout {size: size_of::<GtkTable>(), alignment: align_of::<GtkTable>()}),
-    ("GtkTableClass", Layout {size: size_of::<GtkTableClass>(), alignment: align_of::<GtkTableClass>()}),
-    ("GtkTargetEntry", Layout {size: size_of::<GtkTargetEntry>(), alignment: align_of::<GtkTargetEntry>()}),
-    ("GtkTargetFlags", Layout {size: size_of::<GtkTargetFlags>(), alignment: align_of::<GtkTargetFlags>()}),
-    ("GtkTargetPair", Layout {size: size_of::<GtkTargetPair>(), alignment: align_of::<GtkTargetPair>()}),
-    ("GtkTearoffMenuItem", Layout {size: size_of::<GtkTearoffMenuItem>(), alignment: align_of::<GtkTearoffMenuItem>()}),
-    ("GtkTearoffMenuItemClass", Layout {size: size_of::<GtkTearoffMenuItemClass>(), alignment: align_of::<GtkTearoffMenuItemClass>()}),
-    ("GtkTextBuffer", Layout {size: size_of::<GtkTextBuffer>(), alignment: align_of::<GtkTextBuffer>()}),
-    ("GtkTextBufferClass", Layout {size: size_of::<GtkTextBufferClass>(), alignment: align_of::<GtkTextBufferClass>()}),
-    ("GtkTextBufferTargetInfo", Layout {size: size_of::<GtkTextBufferTargetInfo>(), alignment: align_of::<GtkTextBufferTargetInfo>()}),
-    ("GtkTextCellAccessible", Layout {size: size_of::<GtkTextCellAccessible>(), alignment: align_of::<GtkTextCellAccessible>()}),
-    ("GtkTextCellAccessibleClass", Layout {size: size_of::<GtkTextCellAccessibleClass>(), alignment: align_of::<GtkTextCellAccessibleClass>()}),
-    ("GtkTextChildAnchor", Layout {size: size_of::<GtkTextChildAnchor>(), alignment: align_of::<GtkTextChildAnchor>()}),
-    ("GtkTextChildAnchorClass", Layout {size: size_of::<GtkTextChildAnchorClass>(), alignment: align_of::<GtkTextChildAnchorClass>()}),
-    ("GtkTextDirection", Layout {size: size_of::<GtkTextDirection>(), alignment: align_of::<GtkTextDirection>()}),
-    ("GtkTextExtendSelection", Layout {size: size_of::<GtkTextExtendSelection>(), alignment: align_of::<GtkTextExtendSelection>()}),
-    ("GtkTextIter", Layout {size: size_of::<GtkTextIter>(), alignment: align_of::<GtkTextIter>()}),
-    ("GtkTextMark", Layout {size: size_of::<GtkTextMark>(), alignment: align_of::<GtkTextMark>()}),
-    ("GtkTextMarkClass", Layout {size: size_of::<GtkTextMarkClass>(), alignment: align_of::<GtkTextMarkClass>()}),
-    ("GtkTextSearchFlags", Layout {size: size_of::<GtkTextSearchFlags>(), alignment: align_of::<GtkTextSearchFlags>()}),
-    ("GtkTextTag", Layout {size: size_of::<GtkTextTag>(), alignment: align_of::<GtkTextTag>()}),
-    ("GtkTextTagClass", Layout {size: size_of::<GtkTextTagClass>(), alignment: align_of::<GtkTextTagClass>()}),
-    ("GtkTextTagTable", Layout {size: size_of::<GtkTextTagTable>(), alignment: align_of::<GtkTextTagTable>()}),
-    ("GtkTextTagTableClass", Layout {size: size_of::<GtkTextTagTableClass>(), alignment: align_of::<GtkTextTagTableClass>()}),
-    ("GtkTextView", Layout {size: size_of::<GtkTextView>(), alignment: align_of::<GtkTextView>()}),
-    ("GtkTextViewAccessible", Layout {size: size_of::<GtkTextViewAccessible>(), alignment: align_of::<GtkTextViewAccessible>()}),
-    ("GtkTextViewAccessibleClass", Layout {size: size_of::<GtkTextViewAccessibleClass>(), alignment: align_of::<GtkTextViewAccessibleClass>()}),
-    ("GtkTextViewClass", Layout {size: size_of::<GtkTextViewClass>(), alignment: align_of::<GtkTextViewClass>()}),
-    ("GtkTextViewLayer", Layout {size: size_of::<GtkTextViewLayer>(), alignment: align_of::<GtkTextViewLayer>()}),
-    ("GtkTextWindowType", Layout {size: size_of::<GtkTextWindowType>(), alignment: align_of::<GtkTextWindowType>()}),
-    ("GtkThemingEngine", Layout {size: size_of::<GtkThemingEngine>(), alignment: align_of::<GtkThemingEngine>()}),
-    ("GtkThemingEngineClass", Layout {size: size_of::<GtkThemingEngineClass>(), alignment: align_of::<GtkThemingEngineClass>()}),
-    ("GtkToggleAction", Layout {size: size_of::<GtkToggleAction>(), alignment: align_of::<GtkToggleAction>()}),
-    ("GtkToggleActionClass", Layout {size: size_of::<GtkToggleActionClass>(), alignment: align_of::<GtkToggleActionClass>()}),
-    ("GtkToggleActionEntry", Layout {size: size_of::<GtkToggleActionEntry>(), alignment: align_of::<GtkToggleActionEntry>()}),
-    ("GtkToggleButton", Layout {size: size_of::<GtkToggleButton>(), alignment: align_of::<GtkToggleButton>()}),
-    ("GtkToggleButtonAccessible", Layout {size: size_of::<GtkToggleButtonAccessible>(), alignment: align_of::<GtkToggleButtonAccessible>()}),
-    ("GtkToggleButtonAccessibleClass", Layout {size: size_of::<GtkToggleButtonAccessibleClass>(), alignment: align_of::<GtkToggleButtonAccessibleClass>()}),
-    ("GtkToggleButtonClass", Layout {size: size_of::<GtkToggleButtonClass>(), alignment: align_of::<GtkToggleButtonClass>()}),
-    ("GtkToggleToolButton", Layout {size: size_of::<GtkToggleToolButton>(), alignment: align_of::<GtkToggleToolButton>()}),
-    ("GtkToggleToolButtonClass", Layout {size: size_of::<GtkToggleToolButtonClass>(), alignment: align_of::<GtkToggleToolButtonClass>()}),
-    ("GtkToolButton", Layout {size: size_of::<GtkToolButton>(), alignment: align_of::<GtkToolButton>()}),
-    ("GtkToolButtonClass", Layout {size: size_of::<GtkToolButtonClass>(), alignment: align_of::<GtkToolButtonClass>()}),
-    ("GtkToolItem", Layout {size: size_of::<GtkToolItem>(), alignment: align_of::<GtkToolItem>()}),
-    ("GtkToolItemClass", Layout {size: size_of::<GtkToolItemClass>(), alignment: align_of::<GtkToolItemClass>()}),
-    ("GtkToolItemGroup", Layout {size: size_of::<GtkToolItemGroup>(), alignment: align_of::<GtkToolItemGroup>()}),
-    ("GtkToolItemGroupClass", Layout {size: size_of::<GtkToolItemGroupClass>(), alignment: align_of::<GtkToolItemGroupClass>()}),
-    ("GtkToolPalette", Layout {size: size_of::<GtkToolPalette>(), alignment: align_of::<GtkToolPalette>()}),
-    ("GtkToolPaletteClass", Layout {size: size_of::<GtkToolPaletteClass>(), alignment: align_of::<GtkToolPaletteClass>()}),
-    ("GtkToolPaletteDragTargets", Layout {size: size_of::<GtkToolPaletteDragTargets>(), alignment: align_of::<GtkToolPaletteDragTargets>()}),
-    ("GtkToolShellIface", Layout {size: size_of::<GtkToolShellIface>(), alignment: align_of::<GtkToolShellIface>()}),
-    ("GtkToolbar", Layout {size: size_of::<GtkToolbar>(), alignment: align_of::<GtkToolbar>()}),
-    ("GtkToolbarClass", Layout {size: size_of::<GtkToolbarClass>(), alignment: align_of::<GtkToolbarClass>()}),
-    ("GtkToolbarSpaceStyle", Layout {size: size_of::<GtkToolbarSpaceStyle>(), alignment: align_of::<GtkToolbarSpaceStyle>()}),
-    ("GtkToolbarStyle", Layout {size: size_of::<GtkToolbarStyle>(), alignment: align_of::<GtkToolbarStyle>()}),
-    ("GtkToplevelAccessible", Layout {size: size_of::<GtkToplevelAccessible>(), alignment: align_of::<GtkToplevelAccessible>()}),
-    ("GtkToplevelAccessibleClass", Layout {size: size_of::<GtkToplevelAccessibleClass>(), alignment: align_of::<GtkToplevelAccessibleClass>()}),
-    ("GtkTreeDragDestIface", Layout {size: size_of::<GtkTreeDragDestIface>(), alignment: align_of::<GtkTreeDragDestIface>()}),
-    ("GtkTreeDragSourceIface", Layout {size: size_of::<GtkTreeDragSourceIface>(), alignment: align_of::<GtkTreeDragSourceIface>()}),
-    ("GtkTreeIter", Layout {size: size_of::<GtkTreeIter>(), alignment: align_of::<GtkTreeIter>()}),
-    ("GtkTreeModelFilter", Layout {size: size_of::<GtkTreeModelFilter>(), alignment: align_of::<GtkTreeModelFilter>()}),
-    ("GtkTreeModelFilterClass", Layout {size: size_of::<GtkTreeModelFilterClass>(), alignment: align_of::<GtkTreeModelFilterClass>()}),
-    ("GtkTreeModelFlags", Layout {size: size_of::<GtkTreeModelFlags>(), alignment: align_of::<GtkTreeModelFlags>()}),
-    ("GtkTreeModelIface", Layout {size: size_of::<GtkTreeModelIface>(), alignment: align_of::<GtkTreeModelIface>()}),
-    ("GtkTreeModelSort", Layout {size: size_of::<GtkTreeModelSort>(), alignment: align_of::<GtkTreeModelSort>()}),
-    ("GtkTreeModelSortClass", Layout {size: size_of::<GtkTreeModelSortClass>(), alignment: align_of::<GtkTreeModelSortClass>()}),
-    ("GtkTreeSelection", Layout {size: size_of::<GtkTreeSelection>(), alignment: align_of::<GtkTreeSelection>()}),
-    ("GtkTreeSelectionClass", Layout {size: size_of::<GtkTreeSelectionClass>(), alignment: align_of::<GtkTreeSelectionClass>()}),
-    ("GtkTreeSortableIface", Layout {size: size_of::<GtkTreeSortableIface>(), alignment: align_of::<GtkTreeSortableIface>()}),
-    ("GtkTreeStore", Layout {size: size_of::<GtkTreeStore>(), alignment: align_of::<GtkTreeStore>()}),
-    ("GtkTreeStoreClass", Layout {size: size_of::<GtkTreeStoreClass>(), alignment: align_of::<GtkTreeStoreClass>()}),
-    ("GtkTreeView", Layout {size: size_of::<GtkTreeView>(), alignment: align_of::<GtkTreeView>()}),
-    ("GtkTreeViewAccessible", Layout {size: size_of::<GtkTreeViewAccessible>(), alignment: align_of::<GtkTreeViewAccessible>()}),
-    ("GtkTreeViewAccessibleClass", Layout {size: size_of::<GtkTreeViewAccessibleClass>(), alignment: align_of::<GtkTreeViewAccessibleClass>()}),
-    ("GtkTreeViewClass", Layout {size: size_of::<GtkTreeViewClass>(), alignment: align_of::<GtkTreeViewClass>()}),
-    ("GtkTreeViewColumn", Layout {size: size_of::<GtkTreeViewColumn>(), alignment: align_of::<GtkTreeViewColumn>()}),
-    ("GtkTreeViewColumnClass", Layout {size: size_of::<GtkTreeViewColumnClass>(), alignment: align_of::<GtkTreeViewColumnClass>()}),
-    ("GtkTreeViewColumnSizing", Layout {size: size_of::<GtkTreeViewColumnSizing>(), alignment: align_of::<GtkTreeViewColumnSizing>()}),
-    ("GtkTreeViewDropPosition", Layout {size: size_of::<GtkTreeViewDropPosition>(), alignment: align_of::<GtkTreeViewDropPosition>()}),
-    ("GtkTreeViewGridLines", Layout {size: size_of::<GtkTreeViewGridLines>(), alignment: align_of::<GtkTreeViewGridLines>()}),
-    ("GtkUIManager", Layout {size: size_of::<GtkUIManager>(), alignment: align_of::<GtkUIManager>()}),
-    ("GtkUIManagerClass", Layout {size: size_of::<GtkUIManagerClass>(), alignment: align_of::<GtkUIManagerClass>()}),
-    ("GtkUIManagerItemType", Layout {size: size_of::<GtkUIManagerItemType>(), alignment: align_of::<GtkUIManagerItemType>()}),
-    ("GtkUnit", Layout {size: size_of::<GtkUnit>(), alignment: align_of::<GtkUnit>()}),
-    ("GtkVBox", Layout {size: size_of::<GtkVBox>(), alignment: align_of::<GtkVBox>()}),
-    ("GtkVBoxClass", Layout {size: size_of::<GtkVBoxClass>(), alignment: align_of::<GtkVBoxClass>()}),
-    ("GtkVButtonBox", Layout {size: size_of::<GtkVButtonBox>(), alignment: align_of::<GtkVButtonBox>()}),
-    ("GtkVButtonBoxClass", Layout {size: size_of::<GtkVButtonBoxClass>(), alignment: align_of::<GtkVButtonBoxClass>()}),
-    ("GtkVPaned", Layout {size: size_of::<GtkVPaned>(), alignment: align_of::<GtkVPaned>()}),
-    ("GtkVPanedClass", Layout {size: size_of::<GtkVPanedClass>(), alignment: align_of::<GtkVPanedClass>()}),
-    ("GtkVScale", Layout {size: size_of::<GtkVScale>(), alignment: align_of::<GtkVScale>()}),
-    ("GtkVScaleClass", Layout {size: size_of::<GtkVScaleClass>(), alignment: align_of::<GtkVScaleClass>()}),
-    ("GtkVScrollbar", Layout {size: size_of::<GtkVScrollbar>(), alignment: align_of::<GtkVScrollbar>()}),
-    ("GtkVScrollbarClass", Layout {size: size_of::<GtkVScrollbarClass>(), alignment: align_of::<GtkVScrollbarClass>()}),
-    ("GtkVSeparator", Layout {size: size_of::<GtkVSeparator>(), alignment: align_of::<GtkVSeparator>()}),
-    ("GtkVSeparatorClass", Layout {size: size_of::<GtkVSeparatorClass>(), alignment: align_of::<GtkVSeparatorClass>()}),
-    ("GtkViewport", Layout {size: size_of::<GtkViewport>(), alignment: align_of::<GtkViewport>()}),
-    ("GtkViewportClass", Layout {size: size_of::<GtkViewportClass>(), alignment: align_of::<GtkViewportClass>()}),
-    ("GtkVolumeButton", Layout {size: size_of::<GtkVolumeButton>(), alignment: align_of::<GtkVolumeButton>()}),
-    ("GtkVolumeButtonClass", Layout {size: size_of::<GtkVolumeButtonClass>(), alignment: align_of::<GtkVolumeButtonClass>()}),
-    ("GtkWidget", Layout {size: size_of::<GtkWidget>(), alignment: align_of::<GtkWidget>()}),
-    ("GtkWidgetAccessible", Layout {size: size_of::<GtkWidgetAccessible>(), alignment: align_of::<GtkWidgetAccessible>()}),
-    ("GtkWidgetAccessibleClass", Layout {size: size_of::<GtkWidgetAccessibleClass>(), alignment: align_of::<GtkWidgetAccessibleClass>()}),
-    ("GtkWidgetClass", Layout {size: size_of::<GtkWidgetClass>(), alignment: align_of::<GtkWidgetClass>()}),
-    ("GtkWidgetHelpType", Layout {size: size_of::<GtkWidgetHelpType>(), alignment: align_of::<GtkWidgetHelpType>()}),
-    ("GtkWindow", Layout {size: size_of::<GtkWindow>(), alignment: align_of::<GtkWindow>()}),
-    ("GtkWindowAccessible", Layout {size: size_of::<GtkWindowAccessible>(), alignment: align_of::<GtkWindowAccessible>()}),
-    ("GtkWindowAccessibleClass", Layout {size: size_of::<GtkWindowAccessibleClass>(), alignment: align_of::<GtkWindowAccessibleClass>()}),
-    ("GtkWindowClass", Layout {size: size_of::<GtkWindowClass>(), alignment: align_of::<GtkWindowClass>()}),
-    ("GtkWindowGroup", Layout {size: size_of::<GtkWindowGroup>(), alignment: align_of::<GtkWindowGroup>()}),
-    ("GtkWindowGroupClass", Layout {size: size_of::<GtkWindowGroupClass>(), alignment: align_of::<GtkWindowGroupClass>()}),
-    ("GtkWindowPosition", Layout {size: size_of::<GtkWindowPosition>(), alignment: align_of::<GtkWindowPosition>()}),
-    ("GtkWindowType", Layout {size: size_of::<GtkWindowType>(), alignment: align_of::<GtkWindowType>()}),
-    ("GtkWrapMode", Layout {size: size_of::<GtkWrapMode>(), alignment: align_of::<GtkWrapMode>()}),
+    (
+        "GtkAboutDialog",
+        Layout {
+            size: size_of::<GtkAboutDialog>(),
+            alignment: align_of::<GtkAboutDialog>(),
+        },
+    ),
+    (
+        "GtkAboutDialogClass",
+        Layout {
+            size: size_of::<GtkAboutDialogClass>(),
+            alignment: align_of::<GtkAboutDialogClass>(),
+        },
+    ),
+    (
+        "GtkAccelFlags",
+        Layout {
+            size: size_of::<GtkAccelFlags>(),
+            alignment: align_of::<GtkAccelFlags>(),
+        },
+    ),
+    (
+        "GtkAccelGroup",
+        Layout {
+            size: size_of::<GtkAccelGroup>(),
+            alignment: align_of::<GtkAccelGroup>(),
+        },
+    ),
+    (
+        "GtkAccelGroupClass",
+        Layout {
+            size: size_of::<GtkAccelGroupClass>(),
+            alignment: align_of::<GtkAccelGroupClass>(),
+        },
+    ),
+    (
+        "GtkAccelGroupEntry",
+        Layout {
+            size: size_of::<GtkAccelGroupEntry>(),
+            alignment: align_of::<GtkAccelGroupEntry>(),
+        },
+    ),
+    (
+        "GtkAccelKey",
+        Layout {
+            size: size_of::<GtkAccelKey>(),
+            alignment: align_of::<GtkAccelKey>(),
+        },
+    ),
+    (
+        "GtkAccelLabel",
+        Layout {
+            size: size_of::<GtkAccelLabel>(),
+            alignment: align_of::<GtkAccelLabel>(),
+        },
+    ),
+    (
+        "GtkAccelLabelClass",
+        Layout {
+            size: size_of::<GtkAccelLabelClass>(),
+            alignment: align_of::<GtkAccelLabelClass>(),
+        },
+    ),
+    (
+        "GtkAccessible",
+        Layout {
+            size: size_of::<GtkAccessible>(),
+            alignment: align_of::<GtkAccessible>(),
+        },
+    ),
+    (
+        "GtkAccessibleClass",
+        Layout {
+            size: size_of::<GtkAccessibleClass>(),
+            alignment: align_of::<GtkAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkAction",
+        Layout {
+            size: size_of::<GtkAction>(),
+            alignment: align_of::<GtkAction>(),
+        },
+    ),
+    (
+        "GtkActionBar",
+        Layout {
+            size: size_of::<GtkActionBar>(),
+            alignment: align_of::<GtkActionBar>(),
+        },
+    ),
+    (
+        "GtkActionBarClass",
+        Layout {
+            size: size_of::<GtkActionBarClass>(),
+            alignment: align_of::<GtkActionBarClass>(),
+        },
+    ),
+    (
+        "GtkActionClass",
+        Layout {
+            size: size_of::<GtkActionClass>(),
+            alignment: align_of::<GtkActionClass>(),
+        },
+    ),
+    (
+        "GtkActionEntry",
+        Layout {
+            size: size_of::<GtkActionEntry>(),
+            alignment: align_of::<GtkActionEntry>(),
+        },
+    ),
+    (
+        "GtkActionGroup",
+        Layout {
+            size: size_of::<GtkActionGroup>(),
+            alignment: align_of::<GtkActionGroup>(),
+        },
+    ),
+    (
+        "GtkActionGroupClass",
+        Layout {
+            size: size_of::<GtkActionGroupClass>(),
+            alignment: align_of::<GtkActionGroupClass>(),
+        },
+    ),
+    (
+        "GtkActionableInterface",
+        Layout {
+            size: size_of::<GtkActionableInterface>(),
+            alignment: align_of::<GtkActionableInterface>(),
+        },
+    ),
+    (
+        "GtkActivatableIface",
+        Layout {
+            size: size_of::<GtkActivatableIface>(),
+            alignment: align_of::<GtkActivatableIface>(),
+        },
+    ),
+    (
+        "GtkAdjustment",
+        Layout {
+            size: size_of::<GtkAdjustment>(),
+            alignment: align_of::<GtkAdjustment>(),
+        },
+    ),
+    (
+        "GtkAdjustmentClass",
+        Layout {
+            size: size_of::<GtkAdjustmentClass>(),
+            alignment: align_of::<GtkAdjustmentClass>(),
+        },
+    ),
+    (
+        "GtkAlign",
+        Layout {
+            size: size_of::<GtkAlign>(),
+            alignment: align_of::<GtkAlign>(),
+        },
+    ),
+    (
+        "GtkAlignment",
+        Layout {
+            size: size_of::<GtkAlignment>(),
+            alignment: align_of::<GtkAlignment>(),
+        },
+    ),
+    (
+        "GtkAlignmentClass",
+        Layout {
+            size: size_of::<GtkAlignmentClass>(),
+            alignment: align_of::<GtkAlignmentClass>(),
+        },
+    ),
+    (
+        "GtkAllocation",
+        Layout {
+            size: size_of::<GtkAllocation>(),
+            alignment: align_of::<GtkAllocation>(),
+        },
+    ),
+    (
+        "GtkAppChooserButton",
+        Layout {
+            size: size_of::<GtkAppChooserButton>(),
+            alignment: align_of::<GtkAppChooserButton>(),
+        },
+    ),
+    (
+        "GtkAppChooserButtonClass",
+        Layout {
+            size: size_of::<GtkAppChooserButtonClass>(),
+            alignment: align_of::<GtkAppChooserButtonClass>(),
+        },
+    ),
+    (
+        "GtkAppChooserDialog",
+        Layout {
+            size: size_of::<GtkAppChooserDialog>(),
+            alignment: align_of::<GtkAppChooserDialog>(),
+        },
+    ),
+    (
+        "GtkAppChooserDialogClass",
+        Layout {
+            size: size_of::<GtkAppChooserDialogClass>(),
+            alignment: align_of::<GtkAppChooserDialogClass>(),
+        },
+    ),
+    (
+        "GtkAppChooserWidget",
+        Layout {
+            size: size_of::<GtkAppChooserWidget>(),
+            alignment: align_of::<GtkAppChooserWidget>(),
+        },
+    ),
+    (
+        "GtkAppChooserWidgetClass",
+        Layout {
+            size: size_of::<GtkAppChooserWidgetClass>(),
+            alignment: align_of::<GtkAppChooserWidgetClass>(),
+        },
+    ),
+    (
+        "GtkApplication",
+        Layout {
+            size: size_of::<GtkApplication>(),
+            alignment: align_of::<GtkApplication>(),
+        },
+    ),
+    (
+        "GtkApplicationClass",
+        Layout {
+            size: size_of::<GtkApplicationClass>(),
+            alignment: align_of::<GtkApplicationClass>(),
+        },
+    ),
+    (
+        "GtkApplicationInhibitFlags",
+        Layout {
+            size: size_of::<GtkApplicationInhibitFlags>(),
+            alignment: align_of::<GtkApplicationInhibitFlags>(),
+        },
+    ),
+    (
+        "GtkApplicationWindow",
+        Layout {
+            size: size_of::<GtkApplicationWindow>(),
+            alignment: align_of::<GtkApplicationWindow>(),
+        },
+    ),
+    (
+        "GtkApplicationWindowClass",
+        Layout {
+            size: size_of::<GtkApplicationWindowClass>(),
+            alignment: align_of::<GtkApplicationWindowClass>(),
+        },
+    ),
+    (
+        "GtkArrow",
+        Layout {
+            size: size_of::<GtkArrow>(),
+            alignment: align_of::<GtkArrow>(),
+        },
+    ),
+    (
+        "GtkArrowAccessible",
+        Layout {
+            size: size_of::<GtkArrowAccessible>(),
+            alignment: align_of::<GtkArrowAccessible>(),
+        },
+    ),
+    (
+        "GtkArrowAccessibleClass",
+        Layout {
+            size: size_of::<GtkArrowAccessibleClass>(),
+            alignment: align_of::<GtkArrowAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkArrowClass",
+        Layout {
+            size: size_of::<GtkArrowClass>(),
+            alignment: align_of::<GtkArrowClass>(),
+        },
+    ),
+    (
+        "GtkArrowPlacement",
+        Layout {
+            size: size_of::<GtkArrowPlacement>(),
+            alignment: align_of::<GtkArrowPlacement>(),
+        },
+    ),
+    (
+        "GtkArrowType",
+        Layout {
+            size: size_of::<GtkArrowType>(),
+            alignment: align_of::<GtkArrowType>(),
+        },
+    ),
+    (
+        "GtkAspectFrame",
+        Layout {
+            size: size_of::<GtkAspectFrame>(),
+            alignment: align_of::<GtkAspectFrame>(),
+        },
+    ),
+    (
+        "GtkAspectFrameClass",
+        Layout {
+            size: size_of::<GtkAspectFrameClass>(),
+            alignment: align_of::<GtkAspectFrameClass>(),
+        },
+    ),
+    (
+        "GtkAssistant",
+        Layout {
+            size: size_of::<GtkAssistant>(),
+            alignment: align_of::<GtkAssistant>(),
+        },
+    ),
+    (
+        "GtkAssistantClass",
+        Layout {
+            size: size_of::<GtkAssistantClass>(),
+            alignment: align_of::<GtkAssistantClass>(),
+        },
+    ),
+    (
+        "GtkAssistantPageType",
+        Layout {
+            size: size_of::<GtkAssistantPageType>(),
+            alignment: align_of::<GtkAssistantPageType>(),
+        },
+    ),
+    (
+        "GtkAttachOptions",
+        Layout {
+            size: size_of::<GtkAttachOptions>(),
+            alignment: align_of::<GtkAttachOptions>(),
+        },
+    ),
+    (
+        "GtkBaselinePosition",
+        Layout {
+            size: size_of::<GtkBaselinePosition>(),
+            alignment: align_of::<GtkBaselinePosition>(),
+        },
+    ),
+    (
+        "GtkBin",
+        Layout {
+            size: size_of::<GtkBin>(),
+            alignment: align_of::<GtkBin>(),
+        },
+    ),
+    (
+        "GtkBinClass",
+        Layout {
+            size: size_of::<GtkBinClass>(),
+            alignment: align_of::<GtkBinClass>(),
+        },
+    ),
+    (
+        "GtkBindingArg",
+        Layout {
+            size: size_of::<GtkBindingArg>(),
+            alignment: align_of::<GtkBindingArg>(),
+        },
+    ),
+    (
+        "GtkBindingSet",
+        Layout {
+            size: size_of::<GtkBindingSet>(),
+            alignment: align_of::<GtkBindingSet>(),
+        },
+    ),
+    (
+        "GtkBindingSignal",
+        Layout {
+            size: size_of::<GtkBindingSignal>(),
+            alignment: align_of::<GtkBindingSignal>(),
+        },
+    ),
+    (
+        "GtkBooleanCellAccessible",
+        Layout {
+            size: size_of::<GtkBooleanCellAccessible>(),
+            alignment: align_of::<GtkBooleanCellAccessible>(),
+        },
+    ),
+    (
+        "GtkBooleanCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkBooleanCellAccessibleClass>(),
+            alignment: align_of::<GtkBooleanCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkBorder",
+        Layout {
+            size: size_of::<GtkBorder>(),
+            alignment: align_of::<GtkBorder>(),
+        },
+    ),
+    (
+        "GtkBorderStyle",
+        Layout {
+            size: size_of::<GtkBorderStyle>(),
+            alignment: align_of::<GtkBorderStyle>(),
+        },
+    ),
+    (
+        "GtkBox",
+        Layout {
+            size: size_of::<GtkBox>(),
+            alignment: align_of::<GtkBox>(),
+        },
+    ),
+    (
+        "GtkBoxClass",
+        Layout {
+            size: size_of::<GtkBoxClass>(),
+            alignment: align_of::<GtkBoxClass>(),
+        },
+    ),
+    (
+        "GtkBuildableIface",
+        Layout {
+            size: size_of::<GtkBuildableIface>(),
+            alignment: align_of::<GtkBuildableIface>(),
+        },
+    ),
+    (
+        "GtkBuilder",
+        Layout {
+            size: size_of::<GtkBuilder>(),
+            alignment: align_of::<GtkBuilder>(),
+        },
+    ),
+    (
+        "GtkBuilderClass",
+        Layout {
+            size: size_of::<GtkBuilderClass>(),
+            alignment: align_of::<GtkBuilderClass>(),
+        },
+    ),
+    (
+        "GtkBuilderError",
+        Layout {
+            size: size_of::<GtkBuilderError>(),
+            alignment: align_of::<GtkBuilderError>(),
+        },
+    ),
+    (
+        "GtkButton",
+        Layout {
+            size: size_of::<GtkButton>(),
+            alignment: align_of::<GtkButton>(),
+        },
+    ),
+    (
+        "GtkButtonAccessible",
+        Layout {
+            size: size_of::<GtkButtonAccessible>(),
+            alignment: align_of::<GtkButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkButtonAccessibleClass>(),
+            alignment: align_of::<GtkButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkButtonBox",
+        Layout {
+            size: size_of::<GtkButtonBox>(),
+            alignment: align_of::<GtkButtonBox>(),
+        },
+    ),
+    (
+        "GtkButtonBoxClass",
+        Layout {
+            size: size_of::<GtkButtonBoxClass>(),
+            alignment: align_of::<GtkButtonBoxClass>(),
+        },
+    ),
+    (
+        "GtkButtonBoxStyle",
+        Layout {
+            size: size_of::<GtkButtonBoxStyle>(),
+            alignment: align_of::<GtkButtonBoxStyle>(),
+        },
+    ),
+    (
+        "GtkButtonClass",
+        Layout {
+            size: size_of::<GtkButtonClass>(),
+            alignment: align_of::<GtkButtonClass>(),
+        },
+    ),
+    (
+        "GtkButtonRole",
+        Layout {
+            size: size_of::<GtkButtonRole>(),
+            alignment: align_of::<GtkButtonRole>(),
+        },
+    ),
+    (
+        "GtkButtonsType",
+        Layout {
+            size: size_of::<GtkButtonsType>(),
+            alignment: align_of::<GtkButtonsType>(),
+        },
+    ),
+    (
+        "GtkCalendar",
+        Layout {
+            size: size_of::<GtkCalendar>(),
+            alignment: align_of::<GtkCalendar>(),
+        },
+    ),
+    (
+        "GtkCalendarClass",
+        Layout {
+            size: size_of::<GtkCalendarClass>(),
+            alignment: align_of::<GtkCalendarClass>(),
+        },
+    ),
+    (
+        "GtkCalendarDisplayOptions",
+        Layout {
+            size: size_of::<GtkCalendarDisplayOptions>(),
+            alignment: align_of::<GtkCalendarDisplayOptions>(),
+        },
+    ),
+    (
+        "GtkCellAccessible",
+        Layout {
+            size: size_of::<GtkCellAccessible>(),
+            alignment: align_of::<GtkCellAccessible>(),
+        },
+    ),
+    (
+        "GtkCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkCellAccessibleClass>(),
+            alignment: align_of::<GtkCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkCellAccessibleParentIface",
+        Layout {
+            size: size_of::<GtkCellAccessibleParentIface>(),
+            alignment: align_of::<GtkCellAccessibleParentIface>(),
+        },
+    ),
+    (
+        "GtkCellArea",
+        Layout {
+            size: size_of::<GtkCellArea>(),
+            alignment: align_of::<GtkCellArea>(),
+        },
+    ),
+    (
+        "GtkCellAreaBox",
+        Layout {
+            size: size_of::<GtkCellAreaBox>(),
+            alignment: align_of::<GtkCellAreaBox>(),
+        },
+    ),
+    (
+        "GtkCellAreaBoxClass",
+        Layout {
+            size: size_of::<GtkCellAreaBoxClass>(),
+            alignment: align_of::<GtkCellAreaBoxClass>(),
+        },
+    ),
+    (
+        "GtkCellAreaClass",
+        Layout {
+            size: size_of::<GtkCellAreaClass>(),
+            alignment: align_of::<GtkCellAreaClass>(),
+        },
+    ),
+    (
+        "GtkCellAreaContext",
+        Layout {
+            size: size_of::<GtkCellAreaContext>(),
+            alignment: align_of::<GtkCellAreaContext>(),
+        },
+    ),
+    (
+        "GtkCellAreaContextClass",
+        Layout {
+            size: size_of::<GtkCellAreaContextClass>(),
+            alignment: align_of::<GtkCellAreaContextClass>(),
+        },
+    ),
+    (
+        "GtkCellEditableIface",
+        Layout {
+            size: size_of::<GtkCellEditableIface>(),
+            alignment: align_of::<GtkCellEditableIface>(),
+        },
+    ),
+    (
+        "GtkCellLayoutIface",
+        Layout {
+            size: size_of::<GtkCellLayoutIface>(),
+            alignment: align_of::<GtkCellLayoutIface>(),
+        },
+    ),
+    (
+        "GtkCellRenderer",
+        Layout {
+            size: size_of::<GtkCellRenderer>(),
+            alignment: align_of::<GtkCellRenderer>(),
+        },
+    ),
+    (
+        "GtkCellRendererAccel",
+        Layout {
+            size: size_of::<GtkCellRendererAccel>(),
+            alignment: align_of::<GtkCellRendererAccel>(),
+        },
+    ),
+    (
+        "GtkCellRendererAccelClass",
+        Layout {
+            size: size_of::<GtkCellRendererAccelClass>(),
+            alignment: align_of::<GtkCellRendererAccelClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererAccelMode",
+        Layout {
+            size: size_of::<GtkCellRendererAccelMode>(),
+            alignment: align_of::<GtkCellRendererAccelMode>(),
+        },
+    ),
+    (
+        "GtkCellRendererClass",
+        Layout {
+            size: size_of::<GtkCellRendererClass>(),
+            alignment: align_of::<GtkCellRendererClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererCombo",
+        Layout {
+            size: size_of::<GtkCellRendererCombo>(),
+            alignment: align_of::<GtkCellRendererCombo>(),
+        },
+    ),
+    (
+        "GtkCellRendererComboClass",
+        Layout {
+            size: size_of::<GtkCellRendererComboClass>(),
+            alignment: align_of::<GtkCellRendererComboClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererMode",
+        Layout {
+            size: size_of::<GtkCellRendererMode>(),
+            alignment: align_of::<GtkCellRendererMode>(),
+        },
+    ),
+    (
+        "GtkCellRendererPixbuf",
+        Layout {
+            size: size_of::<GtkCellRendererPixbuf>(),
+            alignment: align_of::<GtkCellRendererPixbuf>(),
+        },
+    ),
+    (
+        "GtkCellRendererPixbufClass",
+        Layout {
+            size: size_of::<GtkCellRendererPixbufClass>(),
+            alignment: align_of::<GtkCellRendererPixbufClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererProgress",
+        Layout {
+            size: size_of::<GtkCellRendererProgress>(),
+            alignment: align_of::<GtkCellRendererProgress>(),
+        },
+    ),
+    (
+        "GtkCellRendererProgressClass",
+        Layout {
+            size: size_of::<GtkCellRendererProgressClass>(),
+            alignment: align_of::<GtkCellRendererProgressClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererSpin",
+        Layout {
+            size: size_of::<GtkCellRendererSpin>(),
+            alignment: align_of::<GtkCellRendererSpin>(),
+        },
+    ),
+    (
+        "GtkCellRendererSpinClass",
+        Layout {
+            size: size_of::<GtkCellRendererSpinClass>(),
+            alignment: align_of::<GtkCellRendererSpinClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererSpinner",
+        Layout {
+            size: size_of::<GtkCellRendererSpinner>(),
+            alignment: align_of::<GtkCellRendererSpinner>(),
+        },
+    ),
+    (
+        "GtkCellRendererSpinnerClass",
+        Layout {
+            size: size_of::<GtkCellRendererSpinnerClass>(),
+            alignment: align_of::<GtkCellRendererSpinnerClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererState",
+        Layout {
+            size: size_of::<GtkCellRendererState>(),
+            alignment: align_of::<GtkCellRendererState>(),
+        },
+    ),
+    (
+        "GtkCellRendererText",
+        Layout {
+            size: size_of::<GtkCellRendererText>(),
+            alignment: align_of::<GtkCellRendererText>(),
+        },
+    ),
+    (
+        "GtkCellRendererTextClass",
+        Layout {
+            size: size_of::<GtkCellRendererTextClass>(),
+            alignment: align_of::<GtkCellRendererTextClass>(),
+        },
+    ),
+    (
+        "GtkCellRendererToggle",
+        Layout {
+            size: size_of::<GtkCellRendererToggle>(),
+            alignment: align_of::<GtkCellRendererToggle>(),
+        },
+    ),
+    (
+        "GtkCellRendererToggleClass",
+        Layout {
+            size: size_of::<GtkCellRendererToggleClass>(),
+            alignment: align_of::<GtkCellRendererToggleClass>(),
+        },
+    ),
+    (
+        "GtkCellView",
+        Layout {
+            size: size_of::<GtkCellView>(),
+            alignment: align_of::<GtkCellView>(),
+        },
+    ),
+    (
+        "GtkCellViewClass",
+        Layout {
+            size: size_of::<GtkCellViewClass>(),
+            alignment: align_of::<GtkCellViewClass>(),
+        },
+    ),
+    (
+        "GtkCheckButton",
+        Layout {
+            size: size_of::<GtkCheckButton>(),
+            alignment: align_of::<GtkCheckButton>(),
+        },
+    ),
+    (
+        "GtkCheckButtonClass",
+        Layout {
+            size: size_of::<GtkCheckButtonClass>(),
+            alignment: align_of::<GtkCheckButtonClass>(),
+        },
+    ),
+    (
+        "GtkCheckMenuItem",
+        Layout {
+            size: size_of::<GtkCheckMenuItem>(),
+            alignment: align_of::<GtkCheckMenuItem>(),
+        },
+    ),
+    (
+        "GtkCheckMenuItemAccessible",
+        Layout {
+            size: size_of::<GtkCheckMenuItemAccessible>(),
+            alignment: align_of::<GtkCheckMenuItemAccessible>(),
+        },
+    ),
+    (
+        "GtkCheckMenuItemAccessibleClass",
+        Layout {
+            size: size_of::<GtkCheckMenuItemAccessibleClass>(),
+            alignment: align_of::<GtkCheckMenuItemAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkCheckMenuItemClass",
+        Layout {
+            size: size_of::<GtkCheckMenuItemClass>(),
+            alignment: align_of::<GtkCheckMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkColorButton",
+        Layout {
+            size: size_of::<GtkColorButton>(),
+            alignment: align_of::<GtkColorButton>(),
+        },
+    ),
+    (
+        "GtkColorButtonClass",
+        Layout {
+            size: size_of::<GtkColorButtonClass>(),
+            alignment: align_of::<GtkColorButtonClass>(),
+        },
+    ),
+    (
+        "GtkColorChooserDialog",
+        Layout {
+            size: size_of::<GtkColorChooserDialog>(),
+            alignment: align_of::<GtkColorChooserDialog>(),
+        },
+    ),
+    (
+        "GtkColorChooserDialogClass",
+        Layout {
+            size: size_of::<GtkColorChooserDialogClass>(),
+            alignment: align_of::<GtkColorChooserDialogClass>(),
+        },
+    ),
+    (
+        "GtkColorChooserInterface",
+        Layout {
+            size: size_of::<GtkColorChooserInterface>(),
+            alignment: align_of::<GtkColorChooserInterface>(),
+        },
+    ),
+    (
+        "GtkColorChooserWidget",
+        Layout {
+            size: size_of::<GtkColorChooserWidget>(),
+            alignment: align_of::<GtkColorChooserWidget>(),
+        },
+    ),
+    (
+        "GtkColorChooserWidgetClass",
+        Layout {
+            size: size_of::<GtkColorChooserWidgetClass>(),
+            alignment: align_of::<GtkColorChooserWidgetClass>(),
+        },
+    ),
+    (
+        "GtkColorSelection",
+        Layout {
+            size: size_of::<GtkColorSelection>(),
+            alignment: align_of::<GtkColorSelection>(),
+        },
+    ),
+    (
+        "GtkColorSelectionClass",
+        Layout {
+            size: size_of::<GtkColorSelectionClass>(),
+            alignment: align_of::<GtkColorSelectionClass>(),
+        },
+    ),
+    (
+        "GtkColorSelectionDialog",
+        Layout {
+            size: size_of::<GtkColorSelectionDialog>(),
+            alignment: align_of::<GtkColorSelectionDialog>(),
+        },
+    ),
+    (
+        "GtkColorSelectionDialogClass",
+        Layout {
+            size: size_of::<GtkColorSelectionDialogClass>(),
+            alignment: align_of::<GtkColorSelectionDialogClass>(),
+        },
+    ),
+    (
+        "GtkComboBox",
+        Layout {
+            size: size_of::<GtkComboBox>(),
+            alignment: align_of::<GtkComboBox>(),
+        },
+    ),
+    (
+        "GtkComboBoxAccessible",
+        Layout {
+            size: size_of::<GtkComboBoxAccessible>(),
+            alignment: align_of::<GtkComboBoxAccessible>(),
+        },
+    ),
+    (
+        "GtkComboBoxAccessibleClass",
+        Layout {
+            size: size_of::<GtkComboBoxAccessibleClass>(),
+            alignment: align_of::<GtkComboBoxAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkComboBoxClass",
+        Layout {
+            size: size_of::<GtkComboBoxClass>(),
+            alignment: align_of::<GtkComboBoxClass>(),
+        },
+    ),
+    (
+        "GtkComboBoxText",
+        Layout {
+            size: size_of::<GtkComboBoxText>(),
+            alignment: align_of::<GtkComboBoxText>(),
+        },
+    ),
+    (
+        "GtkComboBoxTextClass",
+        Layout {
+            size: size_of::<GtkComboBoxTextClass>(),
+            alignment: align_of::<GtkComboBoxTextClass>(),
+        },
+    ),
+    (
+        "GtkContainer",
+        Layout {
+            size: size_of::<GtkContainer>(),
+            alignment: align_of::<GtkContainer>(),
+        },
+    ),
+    (
+        "GtkContainerAccessible",
+        Layout {
+            size: size_of::<GtkContainerAccessible>(),
+            alignment: align_of::<GtkContainerAccessible>(),
+        },
+    ),
+    (
+        "GtkContainerAccessibleClass",
+        Layout {
+            size: size_of::<GtkContainerAccessibleClass>(),
+            alignment: align_of::<GtkContainerAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkContainerCellAccessible",
+        Layout {
+            size: size_of::<GtkContainerCellAccessible>(),
+            alignment: align_of::<GtkContainerCellAccessible>(),
+        },
+    ),
+    (
+        "GtkContainerCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkContainerCellAccessibleClass>(),
+            alignment: align_of::<GtkContainerCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkContainerClass",
+        Layout {
+            size: size_of::<GtkContainerClass>(),
+            alignment: align_of::<GtkContainerClass>(),
+        },
+    ),
+    (
+        "GtkCornerType",
+        Layout {
+            size: size_of::<GtkCornerType>(),
+            alignment: align_of::<GtkCornerType>(),
+        },
+    ),
+    (
+        "GtkCssProvider",
+        Layout {
+            size: size_of::<GtkCssProvider>(),
+            alignment: align_of::<GtkCssProvider>(),
+        },
+    ),
+    (
+        "GtkCssProviderClass",
+        Layout {
+            size: size_of::<GtkCssProviderClass>(),
+            alignment: align_of::<GtkCssProviderClass>(),
+        },
+    ),
+    (
+        "GtkCssProviderError",
+        Layout {
+            size: size_of::<GtkCssProviderError>(),
+            alignment: align_of::<GtkCssProviderError>(),
+        },
+    ),
+    (
+        "GtkCssSectionType",
+        Layout {
+            size: size_of::<GtkCssSectionType>(),
+            alignment: align_of::<GtkCssSectionType>(),
+        },
+    ),
+    (
+        "GtkDebugFlag",
+        Layout {
+            size: size_of::<GtkDebugFlag>(),
+            alignment: align_of::<GtkDebugFlag>(),
+        },
+    ),
+    (
+        "GtkDeleteType",
+        Layout {
+            size: size_of::<GtkDeleteType>(),
+            alignment: align_of::<GtkDeleteType>(),
+        },
+    ),
+    (
+        "GtkDestDefaults",
+        Layout {
+            size: size_of::<GtkDestDefaults>(),
+            alignment: align_of::<GtkDestDefaults>(),
+        },
+    ),
+    (
+        "GtkDialog",
+        Layout {
+            size: size_of::<GtkDialog>(),
+            alignment: align_of::<GtkDialog>(),
+        },
+    ),
+    (
+        "GtkDialogClass",
+        Layout {
+            size: size_of::<GtkDialogClass>(),
+            alignment: align_of::<GtkDialogClass>(),
+        },
+    ),
+    (
+        "GtkDialogFlags",
+        Layout {
+            size: size_of::<GtkDialogFlags>(),
+            alignment: align_of::<GtkDialogFlags>(),
+        },
+    ),
+    (
+        "GtkDirectionType",
+        Layout {
+            size: size_of::<GtkDirectionType>(),
+            alignment: align_of::<GtkDirectionType>(),
+        },
+    ),
+    (
+        "GtkDragResult",
+        Layout {
+            size: size_of::<GtkDragResult>(),
+            alignment: align_of::<GtkDragResult>(),
+        },
+    ),
+    (
+        "GtkDrawingArea",
+        Layout {
+            size: size_of::<GtkDrawingArea>(),
+            alignment: align_of::<GtkDrawingArea>(),
+        },
+    ),
+    (
+        "GtkDrawingAreaClass",
+        Layout {
+            size: size_of::<GtkDrawingAreaClass>(),
+            alignment: align_of::<GtkDrawingAreaClass>(),
+        },
+    ),
+    (
+        "GtkEditableInterface",
+        Layout {
+            size: size_of::<GtkEditableInterface>(),
+            alignment: align_of::<GtkEditableInterface>(),
+        },
+    ),
+    (
+        "GtkEntry",
+        Layout {
+            size: size_of::<GtkEntry>(),
+            alignment: align_of::<GtkEntry>(),
+        },
+    ),
+    (
+        "GtkEntryAccessible",
+        Layout {
+            size: size_of::<GtkEntryAccessible>(),
+            alignment: align_of::<GtkEntryAccessible>(),
+        },
+    ),
+    (
+        "GtkEntryAccessibleClass",
+        Layout {
+            size: size_of::<GtkEntryAccessibleClass>(),
+            alignment: align_of::<GtkEntryAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkEntryBuffer",
+        Layout {
+            size: size_of::<GtkEntryBuffer>(),
+            alignment: align_of::<GtkEntryBuffer>(),
+        },
+    ),
+    (
+        "GtkEntryBufferClass",
+        Layout {
+            size: size_of::<GtkEntryBufferClass>(),
+            alignment: align_of::<GtkEntryBufferClass>(),
+        },
+    ),
+    (
+        "GtkEntryClass",
+        Layout {
+            size: size_of::<GtkEntryClass>(),
+            alignment: align_of::<GtkEntryClass>(),
+        },
+    ),
+    (
+        "GtkEntryCompletion",
+        Layout {
+            size: size_of::<GtkEntryCompletion>(),
+            alignment: align_of::<GtkEntryCompletion>(),
+        },
+    ),
+    (
+        "GtkEntryCompletionClass",
+        Layout {
+            size: size_of::<GtkEntryCompletionClass>(),
+            alignment: align_of::<GtkEntryCompletionClass>(),
+        },
+    ),
+    (
+        "GtkEntryIconPosition",
+        Layout {
+            size: size_of::<GtkEntryIconPosition>(),
+            alignment: align_of::<GtkEntryIconPosition>(),
+        },
+    ),
+    (
+        "GtkEventBox",
+        Layout {
+            size: size_of::<GtkEventBox>(),
+            alignment: align_of::<GtkEventBox>(),
+        },
+    ),
+    (
+        "GtkEventBoxClass",
+        Layout {
+            size: size_of::<GtkEventBoxClass>(),
+            alignment: align_of::<GtkEventBoxClass>(),
+        },
+    ),
+    (
+        "GtkEventControllerScrollFlags",
+        Layout {
+            size: size_of::<GtkEventControllerScrollFlags>(),
+            alignment: align_of::<GtkEventControllerScrollFlags>(),
+        },
+    ),
+    (
+        "GtkEventSequenceState",
+        Layout {
+            size: size_of::<GtkEventSequenceState>(),
+            alignment: align_of::<GtkEventSequenceState>(),
+        },
+    ),
+    (
+        "GtkExpander",
+        Layout {
+            size: size_of::<GtkExpander>(),
+            alignment: align_of::<GtkExpander>(),
+        },
+    ),
+    (
+        "GtkExpanderAccessible",
+        Layout {
+            size: size_of::<GtkExpanderAccessible>(),
+            alignment: align_of::<GtkExpanderAccessible>(),
+        },
+    ),
+    (
+        "GtkExpanderAccessibleClass",
+        Layout {
+            size: size_of::<GtkExpanderAccessibleClass>(),
+            alignment: align_of::<GtkExpanderAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkExpanderClass",
+        Layout {
+            size: size_of::<GtkExpanderClass>(),
+            alignment: align_of::<GtkExpanderClass>(),
+        },
+    ),
+    (
+        "GtkExpanderStyle",
+        Layout {
+            size: size_of::<GtkExpanderStyle>(),
+            alignment: align_of::<GtkExpanderStyle>(),
+        },
+    ),
+    (
+        "GtkFileChooserAction",
+        Layout {
+            size: size_of::<GtkFileChooserAction>(),
+            alignment: align_of::<GtkFileChooserAction>(),
+        },
+    ),
+    (
+        "GtkFileChooserButton",
+        Layout {
+            size: size_of::<GtkFileChooserButton>(),
+            alignment: align_of::<GtkFileChooserButton>(),
+        },
+    ),
+    (
+        "GtkFileChooserButtonClass",
+        Layout {
+            size: size_of::<GtkFileChooserButtonClass>(),
+            alignment: align_of::<GtkFileChooserButtonClass>(),
+        },
+    ),
+    (
+        "GtkFileChooserConfirmation",
+        Layout {
+            size: size_of::<GtkFileChooserConfirmation>(),
+            alignment: align_of::<GtkFileChooserConfirmation>(),
+        },
+    ),
+    (
+        "GtkFileChooserDialog",
+        Layout {
+            size: size_of::<GtkFileChooserDialog>(),
+            alignment: align_of::<GtkFileChooserDialog>(),
+        },
+    ),
+    (
+        "GtkFileChooserDialogClass",
+        Layout {
+            size: size_of::<GtkFileChooserDialogClass>(),
+            alignment: align_of::<GtkFileChooserDialogClass>(),
+        },
+    ),
+    (
+        "GtkFileChooserError",
+        Layout {
+            size: size_of::<GtkFileChooserError>(),
+            alignment: align_of::<GtkFileChooserError>(),
+        },
+    ),
+    (
+        "GtkFileChooserNativeClass",
+        Layout {
+            size: size_of::<GtkFileChooserNativeClass>(),
+            alignment: align_of::<GtkFileChooserNativeClass>(),
+        },
+    ),
+    (
+        "GtkFileChooserWidget",
+        Layout {
+            size: size_of::<GtkFileChooserWidget>(),
+            alignment: align_of::<GtkFileChooserWidget>(),
+        },
+    ),
+    (
+        "GtkFileChooserWidgetClass",
+        Layout {
+            size: size_of::<GtkFileChooserWidgetClass>(),
+            alignment: align_of::<GtkFileChooserWidgetClass>(),
+        },
+    ),
+    (
+        "GtkFileFilterFlags",
+        Layout {
+            size: size_of::<GtkFileFilterFlags>(),
+            alignment: align_of::<GtkFileFilterFlags>(),
+        },
+    ),
+    (
+        "GtkFileFilterInfo",
+        Layout {
+            size: size_of::<GtkFileFilterInfo>(),
+            alignment: align_of::<GtkFileFilterInfo>(),
+        },
+    ),
+    (
+        "GtkFixed",
+        Layout {
+            size: size_of::<GtkFixed>(),
+            alignment: align_of::<GtkFixed>(),
+        },
+    ),
+    (
+        "GtkFixedChild",
+        Layout {
+            size: size_of::<GtkFixedChild>(),
+            alignment: align_of::<GtkFixedChild>(),
+        },
+    ),
+    (
+        "GtkFixedClass",
+        Layout {
+            size: size_of::<GtkFixedClass>(),
+            alignment: align_of::<GtkFixedClass>(),
+        },
+    ),
+    (
+        "GtkFlowBox",
+        Layout {
+            size: size_of::<GtkFlowBox>(),
+            alignment: align_of::<GtkFlowBox>(),
+        },
+    ),
+    (
+        "GtkFlowBoxAccessible",
+        Layout {
+            size: size_of::<GtkFlowBoxAccessible>(),
+            alignment: align_of::<GtkFlowBoxAccessible>(),
+        },
+    ),
+    (
+        "GtkFlowBoxAccessibleClass",
+        Layout {
+            size: size_of::<GtkFlowBoxAccessibleClass>(),
+            alignment: align_of::<GtkFlowBoxAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkFlowBoxChild",
+        Layout {
+            size: size_of::<GtkFlowBoxChild>(),
+            alignment: align_of::<GtkFlowBoxChild>(),
+        },
+    ),
+    (
+        "GtkFlowBoxChildAccessible",
+        Layout {
+            size: size_of::<GtkFlowBoxChildAccessible>(),
+            alignment: align_of::<GtkFlowBoxChildAccessible>(),
+        },
+    ),
+    (
+        "GtkFlowBoxChildAccessibleClass",
+        Layout {
+            size: size_of::<GtkFlowBoxChildAccessibleClass>(),
+            alignment: align_of::<GtkFlowBoxChildAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkFlowBoxChildClass",
+        Layout {
+            size: size_of::<GtkFlowBoxChildClass>(),
+            alignment: align_of::<GtkFlowBoxChildClass>(),
+        },
+    ),
+    (
+        "GtkFlowBoxClass",
+        Layout {
+            size: size_of::<GtkFlowBoxClass>(),
+            alignment: align_of::<GtkFlowBoxClass>(),
+        },
+    ),
+    (
+        "GtkFontButton",
+        Layout {
+            size: size_of::<GtkFontButton>(),
+            alignment: align_of::<GtkFontButton>(),
+        },
+    ),
+    (
+        "GtkFontButtonClass",
+        Layout {
+            size: size_of::<GtkFontButtonClass>(),
+            alignment: align_of::<GtkFontButtonClass>(),
+        },
+    ),
+    (
+        "GtkFontChooserDialog",
+        Layout {
+            size: size_of::<GtkFontChooserDialog>(),
+            alignment: align_of::<GtkFontChooserDialog>(),
+        },
+    ),
+    (
+        "GtkFontChooserDialogClass",
+        Layout {
+            size: size_of::<GtkFontChooserDialogClass>(),
+            alignment: align_of::<GtkFontChooserDialogClass>(),
+        },
+    ),
+    (
+        "GtkFontChooserIface",
+        Layout {
+            size: size_of::<GtkFontChooserIface>(),
+            alignment: align_of::<GtkFontChooserIface>(),
+        },
+    ),
+    (
+        "GtkFontChooserLevel",
+        Layout {
+            size: size_of::<GtkFontChooserLevel>(),
+            alignment: align_of::<GtkFontChooserLevel>(),
+        },
+    ),
+    (
+        "GtkFontChooserWidget",
+        Layout {
+            size: size_of::<GtkFontChooserWidget>(),
+            alignment: align_of::<GtkFontChooserWidget>(),
+        },
+    ),
+    (
+        "GtkFontChooserWidgetClass",
+        Layout {
+            size: size_of::<GtkFontChooserWidgetClass>(),
+            alignment: align_of::<GtkFontChooserWidgetClass>(),
+        },
+    ),
+    (
+        "GtkFontSelection",
+        Layout {
+            size: size_of::<GtkFontSelection>(),
+            alignment: align_of::<GtkFontSelection>(),
+        },
+    ),
+    (
+        "GtkFontSelectionClass",
+        Layout {
+            size: size_of::<GtkFontSelectionClass>(),
+            alignment: align_of::<GtkFontSelectionClass>(),
+        },
+    ),
+    (
+        "GtkFontSelectionDialog",
+        Layout {
+            size: size_of::<GtkFontSelectionDialog>(),
+            alignment: align_of::<GtkFontSelectionDialog>(),
+        },
+    ),
+    (
+        "GtkFontSelectionDialogClass",
+        Layout {
+            size: size_of::<GtkFontSelectionDialogClass>(),
+            alignment: align_of::<GtkFontSelectionDialogClass>(),
+        },
+    ),
+    (
+        "GtkFrame",
+        Layout {
+            size: size_of::<GtkFrame>(),
+            alignment: align_of::<GtkFrame>(),
+        },
+    ),
+    (
+        "GtkFrameAccessible",
+        Layout {
+            size: size_of::<GtkFrameAccessible>(),
+            alignment: align_of::<GtkFrameAccessible>(),
+        },
+    ),
+    (
+        "GtkFrameAccessibleClass",
+        Layout {
+            size: size_of::<GtkFrameAccessibleClass>(),
+            alignment: align_of::<GtkFrameAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkFrameClass",
+        Layout {
+            size: size_of::<GtkFrameClass>(),
+            alignment: align_of::<GtkFrameClass>(),
+        },
+    ),
+    (
+        "GtkGLArea",
+        Layout {
+            size: size_of::<GtkGLArea>(),
+            alignment: align_of::<GtkGLArea>(),
+        },
+    ),
+    (
+        "GtkGLAreaClass",
+        Layout {
+            size: size_of::<GtkGLAreaClass>(),
+            alignment: align_of::<GtkGLAreaClass>(),
+        },
+    ),
+    (
+        "GtkGrid",
+        Layout {
+            size: size_of::<GtkGrid>(),
+            alignment: align_of::<GtkGrid>(),
+        },
+    ),
+    (
+        "GtkGridClass",
+        Layout {
+            size: size_of::<GtkGridClass>(),
+            alignment: align_of::<GtkGridClass>(),
+        },
+    ),
+    (
+        "GtkHBox",
+        Layout {
+            size: size_of::<GtkHBox>(),
+            alignment: align_of::<GtkHBox>(),
+        },
+    ),
+    (
+        "GtkHBoxClass",
+        Layout {
+            size: size_of::<GtkHBoxClass>(),
+            alignment: align_of::<GtkHBoxClass>(),
+        },
+    ),
+    (
+        "GtkHButtonBox",
+        Layout {
+            size: size_of::<GtkHButtonBox>(),
+            alignment: align_of::<GtkHButtonBox>(),
+        },
+    ),
+    (
+        "GtkHButtonBoxClass",
+        Layout {
+            size: size_of::<GtkHButtonBoxClass>(),
+            alignment: align_of::<GtkHButtonBoxClass>(),
+        },
+    ),
+    (
+        "GtkHPaned",
+        Layout {
+            size: size_of::<GtkHPaned>(),
+            alignment: align_of::<GtkHPaned>(),
+        },
+    ),
+    (
+        "GtkHPanedClass",
+        Layout {
+            size: size_of::<GtkHPanedClass>(),
+            alignment: align_of::<GtkHPanedClass>(),
+        },
+    ),
+    (
+        "GtkHSV",
+        Layout {
+            size: size_of::<GtkHSV>(),
+            alignment: align_of::<GtkHSV>(),
+        },
+    ),
+    (
+        "GtkHSVClass",
+        Layout {
+            size: size_of::<GtkHSVClass>(),
+            alignment: align_of::<GtkHSVClass>(),
+        },
+    ),
+    (
+        "GtkHScale",
+        Layout {
+            size: size_of::<GtkHScale>(),
+            alignment: align_of::<GtkHScale>(),
+        },
+    ),
+    (
+        "GtkHScaleClass",
+        Layout {
+            size: size_of::<GtkHScaleClass>(),
+            alignment: align_of::<GtkHScaleClass>(),
+        },
+    ),
+    (
+        "GtkHScrollbar",
+        Layout {
+            size: size_of::<GtkHScrollbar>(),
+            alignment: align_of::<GtkHScrollbar>(),
+        },
+    ),
+    (
+        "GtkHScrollbarClass",
+        Layout {
+            size: size_of::<GtkHScrollbarClass>(),
+            alignment: align_of::<GtkHScrollbarClass>(),
+        },
+    ),
+    (
+        "GtkHSeparator",
+        Layout {
+            size: size_of::<GtkHSeparator>(),
+            alignment: align_of::<GtkHSeparator>(),
+        },
+    ),
+    (
+        "GtkHSeparatorClass",
+        Layout {
+            size: size_of::<GtkHSeparatorClass>(),
+            alignment: align_of::<GtkHSeparatorClass>(),
+        },
+    ),
+    (
+        "GtkHandleBox",
+        Layout {
+            size: size_of::<GtkHandleBox>(),
+            alignment: align_of::<GtkHandleBox>(),
+        },
+    ),
+    (
+        "GtkHandleBoxClass",
+        Layout {
+            size: size_of::<GtkHandleBoxClass>(),
+            alignment: align_of::<GtkHandleBoxClass>(),
+        },
+    ),
+    (
+        "GtkHeaderBar",
+        Layout {
+            size: size_of::<GtkHeaderBar>(),
+            alignment: align_of::<GtkHeaderBar>(),
+        },
+    ),
+    (
+        "GtkHeaderBarClass",
+        Layout {
+            size: size_of::<GtkHeaderBarClass>(),
+            alignment: align_of::<GtkHeaderBarClass>(),
+        },
+    ),
+    (
+        "GtkIMContext",
+        Layout {
+            size: size_of::<GtkIMContext>(),
+            alignment: align_of::<GtkIMContext>(),
+        },
+    ),
+    (
+        "GtkIMContextClass",
+        Layout {
+            size: size_of::<GtkIMContextClass>(),
+            alignment: align_of::<GtkIMContextClass>(),
+        },
+    ),
+    (
+        "GtkIMContextInfo",
+        Layout {
+            size: size_of::<GtkIMContextInfo>(),
+            alignment: align_of::<GtkIMContextInfo>(),
+        },
+    ),
+    (
+        "GtkIMContextSimple",
+        Layout {
+            size: size_of::<GtkIMContextSimple>(),
+            alignment: align_of::<GtkIMContextSimple>(),
+        },
+    ),
+    (
+        "GtkIMContextSimpleClass",
+        Layout {
+            size: size_of::<GtkIMContextSimpleClass>(),
+            alignment: align_of::<GtkIMContextSimpleClass>(),
+        },
+    ),
+    (
+        "GtkIMMulticontext",
+        Layout {
+            size: size_of::<GtkIMMulticontext>(),
+            alignment: align_of::<GtkIMMulticontext>(),
+        },
+    ),
+    (
+        "GtkIMMulticontextClass",
+        Layout {
+            size: size_of::<GtkIMMulticontextClass>(),
+            alignment: align_of::<GtkIMMulticontextClass>(),
+        },
+    ),
+    (
+        "GtkIMPreeditStyle",
+        Layout {
+            size: size_of::<GtkIMPreeditStyle>(),
+            alignment: align_of::<GtkIMPreeditStyle>(),
+        },
+    ),
+    (
+        "GtkIMStatusStyle",
+        Layout {
+            size: size_of::<GtkIMStatusStyle>(),
+            alignment: align_of::<GtkIMStatusStyle>(),
+        },
+    ),
+    (
+        "GtkIconFactory",
+        Layout {
+            size: size_of::<GtkIconFactory>(),
+            alignment: align_of::<GtkIconFactory>(),
+        },
+    ),
+    (
+        "GtkIconFactoryClass",
+        Layout {
+            size: size_of::<GtkIconFactoryClass>(),
+            alignment: align_of::<GtkIconFactoryClass>(),
+        },
+    ),
+    (
+        "GtkIconLookupFlags",
+        Layout {
+            size: size_of::<GtkIconLookupFlags>(),
+            alignment: align_of::<GtkIconLookupFlags>(),
+        },
+    ),
+    (
+        "GtkIconSize",
+        Layout {
+            size: size_of::<GtkIconSize>(),
+            alignment: align_of::<GtkIconSize>(),
+        },
+    ),
+    (
+        "GtkIconTheme",
+        Layout {
+            size: size_of::<GtkIconTheme>(),
+            alignment: align_of::<GtkIconTheme>(),
+        },
+    ),
+    (
+        "GtkIconThemeClass",
+        Layout {
+            size: size_of::<GtkIconThemeClass>(),
+            alignment: align_of::<GtkIconThemeClass>(),
+        },
+    ),
+    (
+        "GtkIconThemeError",
+        Layout {
+            size: size_of::<GtkIconThemeError>(),
+            alignment: align_of::<GtkIconThemeError>(),
+        },
+    ),
+    (
+        "GtkIconView",
+        Layout {
+            size: size_of::<GtkIconView>(),
+            alignment: align_of::<GtkIconView>(),
+        },
+    ),
+    (
+        "GtkIconViewAccessible",
+        Layout {
+            size: size_of::<GtkIconViewAccessible>(),
+            alignment: align_of::<GtkIconViewAccessible>(),
+        },
+    ),
+    (
+        "GtkIconViewAccessibleClass",
+        Layout {
+            size: size_of::<GtkIconViewAccessibleClass>(),
+            alignment: align_of::<GtkIconViewAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkIconViewClass",
+        Layout {
+            size: size_of::<GtkIconViewClass>(),
+            alignment: align_of::<GtkIconViewClass>(),
+        },
+    ),
+    (
+        "GtkIconViewDropPosition",
+        Layout {
+            size: size_of::<GtkIconViewDropPosition>(),
+            alignment: align_of::<GtkIconViewDropPosition>(),
+        },
+    ),
+    (
+        "GtkImage",
+        Layout {
+            size: size_of::<GtkImage>(),
+            alignment: align_of::<GtkImage>(),
+        },
+    ),
+    (
+        "GtkImageAccessible",
+        Layout {
+            size: size_of::<GtkImageAccessible>(),
+            alignment: align_of::<GtkImageAccessible>(),
+        },
+    ),
+    (
+        "GtkImageAccessibleClass",
+        Layout {
+            size: size_of::<GtkImageAccessibleClass>(),
+            alignment: align_of::<GtkImageAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkImageCellAccessible",
+        Layout {
+            size: size_of::<GtkImageCellAccessible>(),
+            alignment: align_of::<GtkImageCellAccessible>(),
+        },
+    ),
+    (
+        "GtkImageCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkImageCellAccessibleClass>(),
+            alignment: align_of::<GtkImageCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkImageClass",
+        Layout {
+            size: size_of::<GtkImageClass>(),
+            alignment: align_of::<GtkImageClass>(),
+        },
+    ),
+    (
+        "GtkImageMenuItem",
+        Layout {
+            size: size_of::<GtkImageMenuItem>(),
+            alignment: align_of::<GtkImageMenuItem>(),
+        },
+    ),
+    (
+        "GtkImageMenuItemClass",
+        Layout {
+            size: size_of::<GtkImageMenuItemClass>(),
+            alignment: align_of::<GtkImageMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkImageType",
+        Layout {
+            size: size_of::<GtkImageType>(),
+            alignment: align_of::<GtkImageType>(),
+        },
+    ),
+    (
+        "GtkInfoBar",
+        Layout {
+            size: size_of::<GtkInfoBar>(),
+            alignment: align_of::<GtkInfoBar>(),
+        },
+    ),
+    (
+        "GtkInfoBarClass",
+        Layout {
+            size: size_of::<GtkInfoBarClass>(),
+            alignment: align_of::<GtkInfoBarClass>(),
+        },
+    ),
+    (
+        "GtkInputHints",
+        Layout {
+            size: size_of::<GtkInputHints>(),
+            alignment: align_of::<GtkInputHints>(),
+        },
+    ),
+    (
+        "GtkInputPurpose",
+        Layout {
+            size: size_of::<GtkInputPurpose>(),
+            alignment: align_of::<GtkInputPurpose>(),
+        },
+    ),
+    (
+        "GtkInvisible",
+        Layout {
+            size: size_of::<GtkInvisible>(),
+            alignment: align_of::<GtkInvisible>(),
+        },
+    ),
+    (
+        "GtkInvisibleClass",
+        Layout {
+            size: size_of::<GtkInvisibleClass>(),
+            alignment: align_of::<GtkInvisibleClass>(),
+        },
+    ),
+    (
+        "GtkJunctionSides",
+        Layout {
+            size: size_of::<GtkJunctionSides>(),
+            alignment: align_of::<GtkJunctionSides>(),
+        },
+    ),
+    (
+        "GtkJustification",
+        Layout {
+            size: size_of::<GtkJustification>(),
+            alignment: align_of::<GtkJustification>(),
+        },
+    ),
+    (
+        "GtkLabel",
+        Layout {
+            size: size_of::<GtkLabel>(),
+            alignment: align_of::<GtkLabel>(),
+        },
+    ),
+    (
+        "GtkLabelAccessible",
+        Layout {
+            size: size_of::<GtkLabelAccessible>(),
+            alignment: align_of::<GtkLabelAccessible>(),
+        },
+    ),
+    (
+        "GtkLabelAccessibleClass",
+        Layout {
+            size: size_of::<GtkLabelAccessibleClass>(),
+            alignment: align_of::<GtkLabelAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkLabelClass",
+        Layout {
+            size: size_of::<GtkLabelClass>(),
+            alignment: align_of::<GtkLabelClass>(),
+        },
+    ),
+    (
+        "GtkLayout",
+        Layout {
+            size: size_of::<GtkLayout>(),
+            alignment: align_of::<GtkLayout>(),
+        },
+    ),
+    (
+        "GtkLayoutClass",
+        Layout {
+            size: size_of::<GtkLayoutClass>(),
+            alignment: align_of::<GtkLayoutClass>(),
+        },
+    ),
+    (
+        "GtkLevelBar",
+        Layout {
+            size: size_of::<GtkLevelBar>(),
+            alignment: align_of::<GtkLevelBar>(),
+        },
+    ),
+    (
+        "GtkLevelBarAccessible",
+        Layout {
+            size: size_of::<GtkLevelBarAccessible>(),
+            alignment: align_of::<GtkLevelBarAccessible>(),
+        },
+    ),
+    (
+        "GtkLevelBarAccessibleClass",
+        Layout {
+            size: size_of::<GtkLevelBarAccessibleClass>(),
+            alignment: align_of::<GtkLevelBarAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkLevelBarClass",
+        Layout {
+            size: size_of::<GtkLevelBarClass>(),
+            alignment: align_of::<GtkLevelBarClass>(),
+        },
+    ),
+    (
+        "GtkLevelBarMode",
+        Layout {
+            size: size_of::<GtkLevelBarMode>(),
+            alignment: align_of::<GtkLevelBarMode>(),
+        },
+    ),
+    (
+        "GtkLicense",
+        Layout {
+            size: size_of::<GtkLicense>(),
+            alignment: align_of::<GtkLicense>(),
+        },
+    ),
+    (
+        "GtkLinkButton",
+        Layout {
+            size: size_of::<GtkLinkButton>(),
+            alignment: align_of::<GtkLinkButton>(),
+        },
+    ),
+    (
+        "GtkLinkButtonAccessible",
+        Layout {
+            size: size_of::<GtkLinkButtonAccessible>(),
+            alignment: align_of::<GtkLinkButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkLinkButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkLinkButtonAccessibleClass>(),
+            alignment: align_of::<GtkLinkButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkLinkButtonClass",
+        Layout {
+            size: size_of::<GtkLinkButtonClass>(),
+            alignment: align_of::<GtkLinkButtonClass>(),
+        },
+    ),
+    (
+        "GtkListBox",
+        Layout {
+            size: size_of::<GtkListBox>(),
+            alignment: align_of::<GtkListBox>(),
+        },
+    ),
+    (
+        "GtkListBoxAccessible",
+        Layout {
+            size: size_of::<GtkListBoxAccessible>(),
+            alignment: align_of::<GtkListBoxAccessible>(),
+        },
+    ),
+    (
+        "GtkListBoxAccessibleClass",
+        Layout {
+            size: size_of::<GtkListBoxAccessibleClass>(),
+            alignment: align_of::<GtkListBoxAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkListBoxClass",
+        Layout {
+            size: size_of::<GtkListBoxClass>(),
+            alignment: align_of::<GtkListBoxClass>(),
+        },
+    ),
+    (
+        "GtkListBoxRow",
+        Layout {
+            size: size_of::<GtkListBoxRow>(),
+            alignment: align_of::<GtkListBoxRow>(),
+        },
+    ),
+    (
+        "GtkListBoxRowAccessible",
+        Layout {
+            size: size_of::<GtkListBoxRowAccessible>(),
+            alignment: align_of::<GtkListBoxRowAccessible>(),
+        },
+    ),
+    (
+        "GtkListBoxRowAccessibleClass",
+        Layout {
+            size: size_of::<GtkListBoxRowAccessibleClass>(),
+            alignment: align_of::<GtkListBoxRowAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkListBoxRowClass",
+        Layout {
+            size: size_of::<GtkListBoxRowClass>(),
+            alignment: align_of::<GtkListBoxRowClass>(),
+        },
+    ),
+    (
+        "GtkListStore",
+        Layout {
+            size: size_of::<GtkListStore>(),
+            alignment: align_of::<GtkListStore>(),
+        },
+    ),
+    (
+        "GtkListStoreClass",
+        Layout {
+            size: size_of::<GtkListStoreClass>(),
+            alignment: align_of::<GtkListStoreClass>(),
+        },
+    ),
+    (
+        "GtkLockButton",
+        Layout {
+            size: size_of::<GtkLockButton>(),
+            alignment: align_of::<GtkLockButton>(),
+        },
+    ),
+    (
+        "GtkLockButtonAccessible",
+        Layout {
+            size: size_of::<GtkLockButtonAccessible>(),
+            alignment: align_of::<GtkLockButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkLockButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkLockButtonAccessibleClass>(),
+            alignment: align_of::<GtkLockButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkLockButtonClass",
+        Layout {
+            size: size_of::<GtkLockButtonClass>(),
+            alignment: align_of::<GtkLockButtonClass>(),
+        },
+    ),
+    (
+        "GtkMenu",
+        Layout {
+            size: size_of::<GtkMenu>(),
+            alignment: align_of::<GtkMenu>(),
+        },
+    ),
+    (
+        "GtkMenuAccessible",
+        Layout {
+            size: size_of::<GtkMenuAccessible>(),
+            alignment: align_of::<GtkMenuAccessible>(),
+        },
+    ),
+    (
+        "GtkMenuAccessibleClass",
+        Layout {
+            size: size_of::<GtkMenuAccessibleClass>(),
+            alignment: align_of::<GtkMenuAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkMenuBar",
+        Layout {
+            size: size_of::<GtkMenuBar>(),
+            alignment: align_of::<GtkMenuBar>(),
+        },
+    ),
+    (
+        "GtkMenuBarClass",
+        Layout {
+            size: size_of::<GtkMenuBarClass>(),
+            alignment: align_of::<GtkMenuBarClass>(),
+        },
+    ),
+    (
+        "GtkMenuButton",
+        Layout {
+            size: size_of::<GtkMenuButton>(),
+            alignment: align_of::<GtkMenuButton>(),
+        },
+    ),
+    (
+        "GtkMenuButtonAccessible",
+        Layout {
+            size: size_of::<GtkMenuButtonAccessible>(),
+            alignment: align_of::<GtkMenuButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkMenuButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkMenuButtonAccessibleClass>(),
+            alignment: align_of::<GtkMenuButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkMenuButtonClass",
+        Layout {
+            size: size_of::<GtkMenuButtonClass>(),
+            alignment: align_of::<GtkMenuButtonClass>(),
+        },
+    ),
+    (
+        "GtkMenuClass",
+        Layout {
+            size: size_of::<GtkMenuClass>(),
+            alignment: align_of::<GtkMenuClass>(),
+        },
+    ),
+    (
+        "GtkMenuDirectionType",
+        Layout {
+            size: size_of::<GtkMenuDirectionType>(),
+            alignment: align_of::<GtkMenuDirectionType>(),
+        },
+    ),
+    (
+        "GtkMenuItem",
+        Layout {
+            size: size_of::<GtkMenuItem>(),
+            alignment: align_of::<GtkMenuItem>(),
+        },
+    ),
+    (
+        "GtkMenuItemAccessible",
+        Layout {
+            size: size_of::<GtkMenuItemAccessible>(),
+            alignment: align_of::<GtkMenuItemAccessible>(),
+        },
+    ),
+    (
+        "GtkMenuItemAccessibleClass",
+        Layout {
+            size: size_of::<GtkMenuItemAccessibleClass>(),
+            alignment: align_of::<GtkMenuItemAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkMenuItemClass",
+        Layout {
+            size: size_of::<GtkMenuItemClass>(),
+            alignment: align_of::<GtkMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkMenuShell",
+        Layout {
+            size: size_of::<GtkMenuShell>(),
+            alignment: align_of::<GtkMenuShell>(),
+        },
+    ),
+    (
+        "GtkMenuShellAccessible",
+        Layout {
+            size: size_of::<GtkMenuShellAccessible>(),
+            alignment: align_of::<GtkMenuShellAccessible>(),
+        },
+    ),
+    (
+        "GtkMenuShellAccessibleClass",
+        Layout {
+            size: size_of::<GtkMenuShellAccessibleClass>(),
+            alignment: align_of::<GtkMenuShellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkMenuShellClass",
+        Layout {
+            size: size_of::<GtkMenuShellClass>(),
+            alignment: align_of::<GtkMenuShellClass>(),
+        },
+    ),
+    (
+        "GtkMenuToolButton",
+        Layout {
+            size: size_of::<GtkMenuToolButton>(),
+            alignment: align_of::<GtkMenuToolButton>(),
+        },
+    ),
+    (
+        "GtkMenuToolButtonClass",
+        Layout {
+            size: size_of::<GtkMenuToolButtonClass>(),
+            alignment: align_of::<GtkMenuToolButtonClass>(),
+        },
+    ),
+    (
+        "GtkMessageDialog",
+        Layout {
+            size: size_of::<GtkMessageDialog>(),
+            alignment: align_of::<GtkMessageDialog>(),
+        },
+    ),
+    (
+        "GtkMessageDialogClass",
+        Layout {
+            size: size_of::<GtkMessageDialogClass>(),
+            alignment: align_of::<GtkMessageDialogClass>(),
+        },
+    ),
+    (
+        "GtkMessageType",
+        Layout {
+            size: size_of::<GtkMessageType>(),
+            alignment: align_of::<GtkMessageType>(),
+        },
+    ),
+    (
+        "GtkMisc",
+        Layout {
+            size: size_of::<GtkMisc>(),
+            alignment: align_of::<GtkMisc>(),
+        },
+    ),
+    (
+        "GtkMiscClass",
+        Layout {
+            size: size_of::<GtkMiscClass>(),
+            alignment: align_of::<GtkMiscClass>(),
+        },
+    ),
+    (
+        "GtkMountOperation",
+        Layout {
+            size: size_of::<GtkMountOperation>(),
+            alignment: align_of::<GtkMountOperation>(),
+        },
+    ),
+    (
+        "GtkMountOperationClass",
+        Layout {
+            size: size_of::<GtkMountOperationClass>(),
+            alignment: align_of::<GtkMountOperationClass>(),
+        },
+    ),
+    (
+        "GtkMovementStep",
+        Layout {
+            size: size_of::<GtkMovementStep>(),
+            alignment: align_of::<GtkMovementStep>(),
+        },
+    ),
+    (
+        "GtkNativeDialog",
+        Layout {
+            size: size_of::<GtkNativeDialog>(),
+            alignment: align_of::<GtkNativeDialog>(),
+        },
+    ),
+    (
+        "GtkNativeDialogClass",
+        Layout {
+            size: size_of::<GtkNativeDialogClass>(),
+            alignment: align_of::<GtkNativeDialogClass>(),
+        },
+    ),
+    (
+        "GtkNotebook",
+        Layout {
+            size: size_of::<GtkNotebook>(),
+            alignment: align_of::<GtkNotebook>(),
+        },
+    ),
+    (
+        "GtkNotebookAccessible",
+        Layout {
+            size: size_of::<GtkNotebookAccessible>(),
+            alignment: align_of::<GtkNotebookAccessible>(),
+        },
+    ),
+    (
+        "GtkNotebookAccessibleClass",
+        Layout {
+            size: size_of::<GtkNotebookAccessibleClass>(),
+            alignment: align_of::<GtkNotebookAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkNotebookClass",
+        Layout {
+            size: size_of::<GtkNotebookClass>(),
+            alignment: align_of::<GtkNotebookClass>(),
+        },
+    ),
+    (
+        "GtkNotebookPageAccessible",
+        Layout {
+            size: size_of::<GtkNotebookPageAccessible>(),
+            alignment: align_of::<GtkNotebookPageAccessible>(),
+        },
+    ),
+    (
+        "GtkNotebookPageAccessibleClass",
+        Layout {
+            size: size_of::<GtkNotebookPageAccessibleClass>(),
+            alignment: align_of::<GtkNotebookPageAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkNotebookTab",
+        Layout {
+            size: size_of::<GtkNotebookTab>(),
+            alignment: align_of::<GtkNotebookTab>(),
+        },
+    ),
+    (
+        "GtkNumberUpLayout",
+        Layout {
+            size: size_of::<GtkNumberUpLayout>(),
+            alignment: align_of::<GtkNumberUpLayout>(),
+        },
+    ),
+    (
+        "GtkNumerableIcon",
+        Layout {
+            size: size_of::<GtkNumerableIcon>(),
+            alignment: align_of::<GtkNumerableIcon>(),
+        },
+    ),
+    (
+        "GtkNumerableIconClass",
+        Layout {
+            size: size_of::<GtkNumerableIconClass>(),
+            alignment: align_of::<GtkNumerableIconClass>(),
+        },
+    ),
+    (
+        "GtkOffscreenWindow",
+        Layout {
+            size: size_of::<GtkOffscreenWindow>(),
+            alignment: align_of::<GtkOffscreenWindow>(),
+        },
+    ),
+    (
+        "GtkOffscreenWindowClass",
+        Layout {
+            size: size_of::<GtkOffscreenWindowClass>(),
+            alignment: align_of::<GtkOffscreenWindowClass>(),
+        },
+    ),
+    (
+        "GtkOrientableIface",
+        Layout {
+            size: size_of::<GtkOrientableIface>(),
+            alignment: align_of::<GtkOrientableIface>(),
+        },
+    ),
+    (
+        "GtkOrientation",
+        Layout {
+            size: size_of::<GtkOrientation>(),
+            alignment: align_of::<GtkOrientation>(),
+        },
+    ),
+    (
+        "GtkOverlay",
+        Layout {
+            size: size_of::<GtkOverlay>(),
+            alignment: align_of::<GtkOverlay>(),
+        },
+    ),
+    (
+        "GtkOverlayClass",
+        Layout {
+            size: size_of::<GtkOverlayClass>(),
+            alignment: align_of::<GtkOverlayClass>(),
+        },
+    ),
+    (
+        "GtkPackDirection",
+        Layout {
+            size: size_of::<GtkPackDirection>(),
+            alignment: align_of::<GtkPackDirection>(),
+        },
+    ),
+    (
+        "GtkPackType",
+        Layout {
+            size: size_of::<GtkPackType>(),
+            alignment: align_of::<GtkPackType>(),
+        },
+    ),
+    (
+        "GtkPadActionEntry",
+        Layout {
+            size: size_of::<GtkPadActionEntry>(),
+            alignment: align_of::<GtkPadActionEntry>(),
+        },
+    ),
+    (
+        "GtkPadActionType",
+        Layout {
+            size: size_of::<GtkPadActionType>(),
+            alignment: align_of::<GtkPadActionType>(),
+        },
+    ),
+    (
+        "GtkPageOrientation",
+        Layout {
+            size: size_of::<GtkPageOrientation>(),
+            alignment: align_of::<GtkPageOrientation>(),
+        },
+    ),
+    (
+        "GtkPageRange",
+        Layout {
+            size: size_of::<GtkPageRange>(),
+            alignment: align_of::<GtkPageRange>(),
+        },
+    ),
+    (
+        "GtkPageSet",
+        Layout {
+            size: size_of::<GtkPageSet>(),
+            alignment: align_of::<GtkPageSet>(),
+        },
+    ),
+    (
+        "GtkPanDirection",
+        Layout {
+            size: size_of::<GtkPanDirection>(),
+            alignment: align_of::<GtkPanDirection>(),
+        },
+    ),
+    (
+        "GtkPaned",
+        Layout {
+            size: size_of::<GtkPaned>(),
+            alignment: align_of::<GtkPaned>(),
+        },
+    ),
+    (
+        "GtkPanedAccessible",
+        Layout {
+            size: size_of::<GtkPanedAccessible>(),
+            alignment: align_of::<GtkPanedAccessible>(),
+        },
+    ),
+    (
+        "GtkPanedAccessibleClass",
+        Layout {
+            size: size_of::<GtkPanedAccessibleClass>(),
+            alignment: align_of::<GtkPanedAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkPanedClass",
+        Layout {
+            size: size_of::<GtkPanedClass>(),
+            alignment: align_of::<GtkPanedClass>(),
+        },
+    ),
+    (
+        "GtkPathPriorityType",
+        Layout {
+            size: size_of::<GtkPathPriorityType>(),
+            alignment: align_of::<GtkPathPriorityType>(),
+        },
+    ),
+    (
+        "GtkPathType",
+        Layout {
+            size: size_of::<GtkPathType>(),
+            alignment: align_of::<GtkPathType>(),
+        },
+    ),
+    (
+        "GtkPlacesOpenFlags",
+        Layout {
+            size: size_of::<GtkPlacesOpenFlags>(),
+            alignment: align_of::<GtkPlacesOpenFlags>(),
+        },
+    ),
+    (
+        "GtkPlug",
+        Layout {
+            size: size_of::<GtkPlug>(),
+            alignment: align_of::<GtkPlug>(),
+        },
+    ),
+    (
+        "GtkPlugClass",
+        Layout {
+            size: size_of::<GtkPlugClass>(),
+            alignment: align_of::<GtkPlugClass>(),
+        },
+    ),
+    (
+        "GtkPolicyType",
+        Layout {
+            size: size_of::<GtkPolicyType>(),
+            alignment: align_of::<GtkPolicyType>(),
+        },
+    ),
+    (
+        "GtkPopover",
+        Layout {
+            size: size_of::<GtkPopover>(),
+            alignment: align_of::<GtkPopover>(),
+        },
+    ),
+    (
+        "GtkPopoverAccessible",
+        Layout {
+            size: size_of::<GtkPopoverAccessible>(),
+            alignment: align_of::<GtkPopoverAccessible>(),
+        },
+    ),
+    (
+        "GtkPopoverAccessibleClass",
+        Layout {
+            size: size_of::<GtkPopoverAccessibleClass>(),
+            alignment: align_of::<GtkPopoverAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkPopoverClass",
+        Layout {
+            size: size_of::<GtkPopoverClass>(),
+            alignment: align_of::<GtkPopoverClass>(),
+        },
+    ),
+    (
+        "GtkPopoverConstraint",
+        Layout {
+            size: size_of::<GtkPopoverConstraint>(),
+            alignment: align_of::<GtkPopoverConstraint>(),
+        },
+    ),
+    (
+        "GtkPopoverMenuClass",
+        Layout {
+            size: size_of::<GtkPopoverMenuClass>(),
+            alignment: align_of::<GtkPopoverMenuClass>(),
+        },
+    ),
+    (
+        "GtkPositionType",
+        Layout {
+            size: size_of::<GtkPositionType>(),
+            alignment: align_of::<GtkPositionType>(),
+        },
+    ),
+    (
+        "GtkPrintDuplex",
+        Layout {
+            size: size_of::<GtkPrintDuplex>(),
+            alignment: align_of::<GtkPrintDuplex>(),
+        },
+    ),
+    (
+        "GtkPrintError",
+        Layout {
+            size: size_of::<GtkPrintError>(),
+            alignment: align_of::<GtkPrintError>(),
+        },
+    ),
+    (
+        "GtkPrintOperation",
+        Layout {
+            size: size_of::<GtkPrintOperation>(),
+            alignment: align_of::<GtkPrintOperation>(),
+        },
+    ),
+    (
+        "GtkPrintOperationAction",
+        Layout {
+            size: size_of::<GtkPrintOperationAction>(),
+            alignment: align_of::<GtkPrintOperationAction>(),
+        },
+    ),
+    (
+        "GtkPrintOperationClass",
+        Layout {
+            size: size_of::<GtkPrintOperationClass>(),
+            alignment: align_of::<GtkPrintOperationClass>(),
+        },
+    ),
+    (
+        "GtkPrintOperationPreviewIface",
+        Layout {
+            size: size_of::<GtkPrintOperationPreviewIface>(),
+            alignment: align_of::<GtkPrintOperationPreviewIface>(),
+        },
+    ),
+    (
+        "GtkPrintOperationResult",
+        Layout {
+            size: size_of::<GtkPrintOperationResult>(),
+            alignment: align_of::<GtkPrintOperationResult>(),
+        },
+    ),
+    (
+        "GtkPrintPages",
+        Layout {
+            size: size_of::<GtkPrintPages>(),
+            alignment: align_of::<GtkPrintPages>(),
+        },
+    ),
+    (
+        "GtkPrintQuality",
+        Layout {
+            size: size_of::<GtkPrintQuality>(),
+            alignment: align_of::<GtkPrintQuality>(),
+        },
+    ),
+    (
+        "GtkPrintStatus",
+        Layout {
+            size: size_of::<GtkPrintStatus>(),
+            alignment: align_of::<GtkPrintStatus>(),
+        },
+    ),
+    (
+        "GtkProgressBar",
+        Layout {
+            size: size_of::<GtkProgressBar>(),
+            alignment: align_of::<GtkProgressBar>(),
+        },
+    ),
+    (
+        "GtkProgressBarAccessible",
+        Layout {
+            size: size_of::<GtkProgressBarAccessible>(),
+            alignment: align_of::<GtkProgressBarAccessible>(),
+        },
+    ),
+    (
+        "GtkProgressBarAccessibleClass",
+        Layout {
+            size: size_of::<GtkProgressBarAccessibleClass>(),
+            alignment: align_of::<GtkProgressBarAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkProgressBarClass",
+        Layout {
+            size: size_of::<GtkProgressBarClass>(),
+            alignment: align_of::<GtkProgressBarClass>(),
+        },
+    ),
+    (
+        "GtkPropagationPhase",
+        Layout {
+            size: size_of::<GtkPropagationPhase>(),
+            alignment: align_of::<GtkPropagationPhase>(),
+        },
+    ),
+    (
+        "GtkRadioAction",
+        Layout {
+            size: size_of::<GtkRadioAction>(),
+            alignment: align_of::<GtkRadioAction>(),
+        },
+    ),
+    (
+        "GtkRadioActionClass",
+        Layout {
+            size: size_of::<GtkRadioActionClass>(),
+            alignment: align_of::<GtkRadioActionClass>(),
+        },
+    ),
+    (
+        "GtkRadioActionEntry",
+        Layout {
+            size: size_of::<GtkRadioActionEntry>(),
+            alignment: align_of::<GtkRadioActionEntry>(),
+        },
+    ),
+    (
+        "GtkRadioButton",
+        Layout {
+            size: size_of::<GtkRadioButton>(),
+            alignment: align_of::<GtkRadioButton>(),
+        },
+    ),
+    (
+        "GtkRadioButtonAccessible",
+        Layout {
+            size: size_of::<GtkRadioButtonAccessible>(),
+            alignment: align_of::<GtkRadioButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkRadioButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkRadioButtonAccessibleClass>(),
+            alignment: align_of::<GtkRadioButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkRadioButtonClass",
+        Layout {
+            size: size_of::<GtkRadioButtonClass>(),
+            alignment: align_of::<GtkRadioButtonClass>(),
+        },
+    ),
+    (
+        "GtkRadioMenuItem",
+        Layout {
+            size: size_of::<GtkRadioMenuItem>(),
+            alignment: align_of::<GtkRadioMenuItem>(),
+        },
+    ),
+    (
+        "GtkRadioMenuItemAccessible",
+        Layout {
+            size: size_of::<GtkRadioMenuItemAccessible>(),
+            alignment: align_of::<GtkRadioMenuItemAccessible>(),
+        },
+    ),
+    (
+        "GtkRadioMenuItemAccessibleClass",
+        Layout {
+            size: size_of::<GtkRadioMenuItemAccessibleClass>(),
+            alignment: align_of::<GtkRadioMenuItemAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkRadioMenuItemClass",
+        Layout {
+            size: size_of::<GtkRadioMenuItemClass>(),
+            alignment: align_of::<GtkRadioMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkRadioToolButton",
+        Layout {
+            size: size_of::<GtkRadioToolButton>(),
+            alignment: align_of::<GtkRadioToolButton>(),
+        },
+    ),
+    (
+        "GtkRadioToolButtonClass",
+        Layout {
+            size: size_of::<GtkRadioToolButtonClass>(),
+            alignment: align_of::<GtkRadioToolButtonClass>(),
+        },
+    ),
+    (
+        "GtkRange",
+        Layout {
+            size: size_of::<GtkRange>(),
+            alignment: align_of::<GtkRange>(),
+        },
+    ),
+    (
+        "GtkRangeAccessible",
+        Layout {
+            size: size_of::<GtkRangeAccessible>(),
+            alignment: align_of::<GtkRangeAccessible>(),
+        },
+    ),
+    (
+        "GtkRangeAccessibleClass",
+        Layout {
+            size: size_of::<GtkRangeAccessibleClass>(),
+            alignment: align_of::<GtkRangeAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkRangeClass",
+        Layout {
+            size: size_of::<GtkRangeClass>(),
+            alignment: align_of::<GtkRangeClass>(),
+        },
+    ),
+    (
+        "GtkRcFlags",
+        Layout {
+            size: size_of::<GtkRcFlags>(),
+            alignment: align_of::<GtkRcFlags>(),
+        },
+    ),
+    (
+        "GtkRcProperty",
+        Layout {
+            size: size_of::<GtkRcProperty>(),
+            alignment: align_of::<GtkRcProperty>(),
+        },
+    ),
+    (
+        "GtkRcStyle",
+        Layout {
+            size: size_of::<GtkRcStyle>(),
+            alignment: align_of::<GtkRcStyle>(),
+        },
+    ),
+    (
+        "GtkRcStyleClass",
+        Layout {
+            size: size_of::<GtkRcStyleClass>(),
+            alignment: align_of::<GtkRcStyleClass>(),
+        },
+    ),
+    (
+        "GtkRcTokenType",
+        Layout {
+            size: size_of::<GtkRcTokenType>(),
+            alignment: align_of::<GtkRcTokenType>(),
+        },
+    ),
+    (
+        "GtkRecentAction",
+        Layout {
+            size: size_of::<GtkRecentAction>(),
+            alignment: align_of::<GtkRecentAction>(),
+        },
+    ),
+    (
+        "GtkRecentActionClass",
+        Layout {
+            size: size_of::<GtkRecentActionClass>(),
+            alignment: align_of::<GtkRecentActionClass>(),
+        },
+    ),
+    (
+        "GtkRecentChooserDialog",
+        Layout {
+            size: size_of::<GtkRecentChooserDialog>(),
+            alignment: align_of::<GtkRecentChooserDialog>(),
+        },
+    ),
+    (
+        "GtkRecentChooserDialogClass",
+        Layout {
+            size: size_of::<GtkRecentChooserDialogClass>(),
+            alignment: align_of::<GtkRecentChooserDialogClass>(),
+        },
+    ),
+    (
+        "GtkRecentChooserError",
+        Layout {
+            size: size_of::<GtkRecentChooserError>(),
+            alignment: align_of::<GtkRecentChooserError>(),
+        },
+    ),
+    (
+        "GtkRecentChooserIface",
+        Layout {
+            size: size_of::<GtkRecentChooserIface>(),
+            alignment: align_of::<GtkRecentChooserIface>(),
+        },
+    ),
+    (
+        "GtkRecentChooserMenu",
+        Layout {
+            size: size_of::<GtkRecentChooserMenu>(),
+            alignment: align_of::<GtkRecentChooserMenu>(),
+        },
+    ),
+    (
+        "GtkRecentChooserMenuClass",
+        Layout {
+            size: size_of::<GtkRecentChooserMenuClass>(),
+            alignment: align_of::<GtkRecentChooserMenuClass>(),
+        },
+    ),
+    (
+        "GtkRecentChooserWidget",
+        Layout {
+            size: size_of::<GtkRecentChooserWidget>(),
+            alignment: align_of::<GtkRecentChooserWidget>(),
+        },
+    ),
+    (
+        "GtkRecentChooserWidgetClass",
+        Layout {
+            size: size_of::<GtkRecentChooserWidgetClass>(),
+            alignment: align_of::<GtkRecentChooserWidgetClass>(),
+        },
+    ),
+    (
+        "GtkRecentData",
+        Layout {
+            size: size_of::<GtkRecentData>(),
+            alignment: align_of::<GtkRecentData>(),
+        },
+    ),
+    (
+        "GtkRecentFilterFlags",
+        Layout {
+            size: size_of::<GtkRecentFilterFlags>(),
+            alignment: align_of::<GtkRecentFilterFlags>(),
+        },
+    ),
+    (
+        "GtkRecentFilterInfo",
+        Layout {
+            size: size_of::<GtkRecentFilterInfo>(),
+            alignment: align_of::<GtkRecentFilterInfo>(),
+        },
+    ),
+    (
+        "GtkRecentManager",
+        Layout {
+            size: size_of::<GtkRecentManager>(),
+            alignment: align_of::<GtkRecentManager>(),
+        },
+    ),
+    (
+        "GtkRecentManagerClass",
+        Layout {
+            size: size_of::<GtkRecentManagerClass>(),
+            alignment: align_of::<GtkRecentManagerClass>(),
+        },
+    ),
+    (
+        "GtkRecentManagerError",
+        Layout {
+            size: size_of::<GtkRecentManagerError>(),
+            alignment: align_of::<GtkRecentManagerError>(),
+        },
+    ),
+    (
+        "GtkRecentSortType",
+        Layout {
+            size: size_of::<GtkRecentSortType>(),
+            alignment: align_of::<GtkRecentSortType>(),
+        },
+    ),
+    (
+        "GtkRegionFlags",
+        Layout {
+            size: size_of::<GtkRegionFlags>(),
+            alignment: align_of::<GtkRegionFlags>(),
+        },
+    ),
+    (
+        "GtkReliefStyle",
+        Layout {
+            size: size_of::<GtkReliefStyle>(),
+            alignment: align_of::<GtkReliefStyle>(),
+        },
+    ),
+    (
+        "GtkRendererCellAccessible",
+        Layout {
+            size: size_of::<GtkRendererCellAccessible>(),
+            alignment: align_of::<GtkRendererCellAccessible>(),
+        },
+    ),
+    (
+        "GtkRendererCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkRendererCellAccessibleClass>(),
+            alignment: align_of::<GtkRendererCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkRequestedSize",
+        Layout {
+            size: size_of::<GtkRequestedSize>(),
+            alignment: align_of::<GtkRequestedSize>(),
+        },
+    ),
+    (
+        "GtkRequisition",
+        Layout {
+            size: size_of::<GtkRequisition>(),
+            alignment: align_of::<GtkRequisition>(),
+        },
+    ),
+    (
+        "GtkResizeMode",
+        Layout {
+            size: size_of::<GtkResizeMode>(),
+            alignment: align_of::<GtkResizeMode>(),
+        },
+    ),
+    (
+        "GtkResponseType",
+        Layout {
+            size: size_of::<GtkResponseType>(),
+            alignment: align_of::<GtkResponseType>(),
+        },
+    ),
+    (
+        "GtkRevealer",
+        Layout {
+            size: size_of::<GtkRevealer>(),
+            alignment: align_of::<GtkRevealer>(),
+        },
+    ),
+    (
+        "GtkRevealerClass",
+        Layout {
+            size: size_of::<GtkRevealerClass>(),
+            alignment: align_of::<GtkRevealerClass>(),
+        },
+    ),
+    (
+        "GtkRevealerTransitionType",
+        Layout {
+            size: size_of::<GtkRevealerTransitionType>(),
+            alignment: align_of::<GtkRevealerTransitionType>(),
+        },
+    ),
+    (
+        "GtkScale",
+        Layout {
+            size: size_of::<GtkScale>(),
+            alignment: align_of::<GtkScale>(),
+        },
+    ),
+    (
+        "GtkScaleAccessible",
+        Layout {
+            size: size_of::<GtkScaleAccessible>(),
+            alignment: align_of::<GtkScaleAccessible>(),
+        },
+    ),
+    (
+        "GtkScaleAccessibleClass",
+        Layout {
+            size: size_of::<GtkScaleAccessibleClass>(),
+            alignment: align_of::<GtkScaleAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkScaleButton",
+        Layout {
+            size: size_of::<GtkScaleButton>(),
+            alignment: align_of::<GtkScaleButton>(),
+        },
+    ),
+    (
+        "GtkScaleButtonAccessible",
+        Layout {
+            size: size_of::<GtkScaleButtonAccessible>(),
+            alignment: align_of::<GtkScaleButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkScaleButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkScaleButtonAccessibleClass>(),
+            alignment: align_of::<GtkScaleButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkScaleButtonClass",
+        Layout {
+            size: size_of::<GtkScaleButtonClass>(),
+            alignment: align_of::<GtkScaleButtonClass>(),
+        },
+    ),
+    (
+        "GtkScaleClass",
+        Layout {
+            size: size_of::<GtkScaleClass>(),
+            alignment: align_of::<GtkScaleClass>(),
+        },
+    ),
+    (
+        "GtkScrollStep",
+        Layout {
+            size: size_of::<GtkScrollStep>(),
+            alignment: align_of::<GtkScrollStep>(),
+        },
+    ),
+    (
+        "GtkScrollType",
+        Layout {
+            size: size_of::<GtkScrollType>(),
+            alignment: align_of::<GtkScrollType>(),
+        },
+    ),
+    (
+        "GtkScrollableInterface",
+        Layout {
+            size: size_of::<GtkScrollableInterface>(),
+            alignment: align_of::<GtkScrollableInterface>(),
+        },
+    ),
+    (
+        "GtkScrollablePolicy",
+        Layout {
+            size: size_of::<GtkScrollablePolicy>(),
+            alignment: align_of::<GtkScrollablePolicy>(),
+        },
+    ),
+    (
+        "GtkScrollbar",
+        Layout {
+            size: size_of::<GtkScrollbar>(),
+            alignment: align_of::<GtkScrollbar>(),
+        },
+    ),
+    (
+        "GtkScrollbarClass",
+        Layout {
+            size: size_of::<GtkScrollbarClass>(),
+            alignment: align_of::<GtkScrollbarClass>(),
+        },
+    ),
+    (
+        "GtkScrolledWindow",
+        Layout {
+            size: size_of::<GtkScrolledWindow>(),
+            alignment: align_of::<GtkScrolledWindow>(),
+        },
+    ),
+    (
+        "GtkScrolledWindowAccessible",
+        Layout {
+            size: size_of::<GtkScrolledWindowAccessible>(),
+            alignment: align_of::<GtkScrolledWindowAccessible>(),
+        },
+    ),
+    (
+        "GtkScrolledWindowAccessibleClass",
+        Layout {
+            size: size_of::<GtkScrolledWindowAccessibleClass>(),
+            alignment: align_of::<GtkScrolledWindowAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkScrolledWindowClass",
+        Layout {
+            size: size_of::<GtkScrolledWindowClass>(),
+            alignment: align_of::<GtkScrolledWindowClass>(),
+        },
+    ),
+    (
+        "GtkSearchBar",
+        Layout {
+            size: size_of::<GtkSearchBar>(),
+            alignment: align_of::<GtkSearchBar>(),
+        },
+    ),
+    (
+        "GtkSearchBarClass",
+        Layout {
+            size: size_of::<GtkSearchBarClass>(),
+            alignment: align_of::<GtkSearchBarClass>(),
+        },
+    ),
+    (
+        "GtkSearchEntry",
+        Layout {
+            size: size_of::<GtkSearchEntry>(),
+            alignment: align_of::<GtkSearchEntry>(),
+        },
+    ),
+    (
+        "GtkSearchEntryClass",
+        Layout {
+            size: size_of::<GtkSearchEntryClass>(),
+            alignment: align_of::<GtkSearchEntryClass>(),
+        },
+    ),
+    (
+        "GtkSelectionMode",
+        Layout {
+            size: size_of::<GtkSelectionMode>(),
+            alignment: align_of::<GtkSelectionMode>(),
+        },
+    ),
+    (
+        "GtkSensitivityType",
+        Layout {
+            size: size_of::<GtkSensitivityType>(),
+            alignment: align_of::<GtkSensitivityType>(),
+        },
+    ),
+    (
+        "GtkSeparator",
+        Layout {
+            size: size_of::<GtkSeparator>(),
+            alignment: align_of::<GtkSeparator>(),
+        },
+    ),
+    (
+        "GtkSeparatorClass",
+        Layout {
+            size: size_of::<GtkSeparatorClass>(),
+            alignment: align_of::<GtkSeparatorClass>(),
+        },
+    ),
+    (
+        "GtkSeparatorMenuItem",
+        Layout {
+            size: size_of::<GtkSeparatorMenuItem>(),
+            alignment: align_of::<GtkSeparatorMenuItem>(),
+        },
+    ),
+    (
+        "GtkSeparatorMenuItemClass",
+        Layout {
+            size: size_of::<GtkSeparatorMenuItemClass>(),
+            alignment: align_of::<GtkSeparatorMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkSeparatorToolItem",
+        Layout {
+            size: size_of::<GtkSeparatorToolItem>(),
+            alignment: align_of::<GtkSeparatorToolItem>(),
+        },
+    ),
+    (
+        "GtkSeparatorToolItemClass",
+        Layout {
+            size: size_of::<GtkSeparatorToolItemClass>(),
+            alignment: align_of::<GtkSeparatorToolItemClass>(),
+        },
+    ),
+    (
+        "GtkSettings",
+        Layout {
+            size: size_of::<GtkSettings>(),
+            alignment: align_of::<GtkSettings>(),
+        },
+    ),
+    (
+        "GtkSettingsClass",
+        Layout {
+            size: size_of::<GtkSettingsClass>(),
+            alignment: align_of::<GtkSettingsClass>(),
+        },
+    ),
+    (
+        "GtkSettingsValue",
+        Layout {
+            size: size_of::<GtkSettingsValue>(),
+            alignment: align_of::<GtkSettingsValue>(),
+        },
+    ),
+    (
+        "GtkShadowType",
+        Layout {
+            size: size_of::<GtkShadowType>(),
+            alignment: align_of::<GtkShadowType>(),
+        },
+    ),
+    (
+        "GtkShortcutType",
+        Layout {
+            size: size_of::<GtkShortcutType>(),
+            alignment: align_of::<GtkShortcutType>(),
+        },
+    ),
+    (
+        "GtkShortcutsWindow",
+        Layout {
+            size: size_of::<GtkShortcutsWindow>(),
+            alignment: align_of::<GtkShortcutsWindow>(),
+        },
+    ),
+    (
+        "GtkShortcutsWindowClass",
+        Layout {
+            size: size_of::<GtkShortcutsWindowClass>(),
+            alignment: align_of::<GtkShortcutsWindowClass>(),
+        },
+    ),
+    (
+        "GtkSizeGroup",
+        Layout {
+            size: size_of::<GtkSizeGroup>(),
+            alignment: align_of::<GtkSizeGroup>(),
+        },
+    ),
+    (
+        "GtkSizeGroupClass",
+        Layout {
+            size: size_of::<GtkSizeGroupClass>(),
+            alignment: align_of::<GtkSizeGroupClass>(),
+        },
+    ),
+    (
+        "GtkSizeGroupMode",
+        Layout {
+            size: size_of::<GtkSizeGroupMode>(),
+            alignment: align_of::<GtkSizeGroupMode>(),
+        },
+    ),
+    (
+        "GtkSizeRequestMode",
+        Layout {
+            size: size_of::<GtkSizeRequestMode>(),
+            alignment: align_of::<GtkSizeRequestMode>(),
+        },
+    ),
+    (
+        "GtkSocket",
+        Layout {
+            size: size_of::<GtkSocket>(),
+            alignment: align_of::<GtkSocket>(),
+        },
+    ),
+    (
+        "GtkSocketClass",
+        Layout {
+            size: size_of::<GtkSocketClass>(),
+            alignment: align_of::<GtkSocketClass>(),
+        },
+    ),
+    (
+        "GtkSortType",
+        Layout {
+            size: size_of::<GtkSortType>(),
+            alignment: align_of::<GtkSortType>(),
+        },
+    ),
+    (
+        "GtkSpinButton",
+        Layout {
+            size: size_of::<GtkSpinButton>(),
+            alignment: align_of::<GtkSpinButton>(),
+        },
+    ),
+    (
+        "GtkSpinButtonAccessible",
+        Layout {
+            size: size_of::<GtkSpinButtonAccessible>(),
+            alignment: align_of::<GtkSpinButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkSpinButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkSpinButtonAccessibleClass>(),
+            alignment: align_of::<GtkSpinButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkSpinButtonClass",
+        Layout {
+            size: size_of::<GtkSpinButtonClass>(),
+            alignment: align_of::<GtkSpinButtonClass>(),
+        },
+    ),
+    (
+        "GtkSpinButtonUpdatePolicy",
+        Layout {
+            size: size_of::<GtkSpinButtonUpdatePolicy>(),
+            alignment: align_of::<GtkSpinButtonUpdatePolicy>(),
+        },
+    ),
+    (
+        "GtkSpinType",
+        Layout {
+            size: size_of::<GtkSpinType>(),
+            alignment: align_of::<GtkSpinType>(),
+        },
+    ),
+    (
+        "GtkSpinner",
+        Layout {
+            size: size_of::<GtkSpinner>(),
+            alignment: align_of::<GtkSpinner>(),
+        },
+    ),
+    (
+        "GtkSpinnerAccessible",
+        Layout {
+            size: size_of::<GtkSpinnerAccessible>(),
+            alignment: align_of::<GtkSpinnerAccessible>(),
+        },
+    ),
+    (
+        "GtkSpinnerAccessibleClass",
+        Layout {
+            size: size_of::<GtkSpinnerAccessibleClass>(),
+            alignment: align_of::<GtkSpinnerAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkSpinnerClass",
+        Layout {
+            size: size_of::<GtkSpinnerClass>(),
+            alignment: align_of::<GtkSpinnerClass>(),
+        },
+    ),
+    (
+        "GtkStack",
+        Layout {
+            size: size_of::<GtkStack>(),
+            alignment: align_of::<GtkStack>(),
+        },
+    ),
+    (
+        "GtkStackAccessible",
+        Layout {
+            size: size_of::<GtkStackAccessible>(),
+            alignment: align_of::<GtkStackAccessible>(),
+        },
+    ),
+    (
+        "GtkStackAccessibleClass",
+        Layout {
+            size: size_of::<GtkStackAccessibleClass>(),
+            alignment: align_of::<GtkStackAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkStackClass",
+        Layout {
+            size: size_of::<GtkStackClass>(),
+            alignment: align_of::<GtkStackClass>(),
+        },
+    ),
+    (
+        "GtkStackSidebar",
+        Layout {
+            size: size_of::<GtkStackSidebar>(),
+            alignment: align_of::<GtkStackSidebar>(),
+        },
+    ),
+    (
+        "GtkStackSidebarClass",
+        Layout {
+            size: size_of::<GtkStackSidebarClass>(),
+            alignment: align_of::<GtkStackSidebarClass>(),
+        },
+    ),
+    (
+        "GtkStackSwitcher",
+        Layout {
+            size: size_of::<GtkStackSwitcher>(),
+            alignment: align_of::<GtkStackSwitcher>(),
+        },
+    ),
+    (
+        "GtkStackSwitcherClass",
+        Layout {
+            size: size_of::<GtkStackSwitcherClass>(),
+            alignment: align_of::<GtkStackSwitcherClass>(),
+        },
+    ),
+    (
+        "GtkStackTransitionType",
+        Layout {
+            size: size_of::<GtkStackTransitionType>(),
+            alignment: align_of::<GtkStackTransitionType>(),
+        },
+    ),
+    (
+        "GtkStateFlags",
+        Layout {
+            size: size_of::<GtkStateFlags>(),
+            alignment: align_of::<GtkStateFlags>(),
+        },
+    ),
+    (
+        "GtkStateType",
+        Layout {
+            size: size_of::<GtkStateType>(),
+            alignment: align_of::<GtkStateType>(),
+        },
+    ),
+    (
+        "GtkStatusIcon",
+        Layout {
+            size: size_of::<GtkStatusIcon>(),
+            alignment: align_of::<GtkStatusIcon>(),
+        },
+    ),
+    (
+        "GtkStatusIconClass",
+        Layout {
+            size: size_of::<GtkStatusIconClass>(),
+            alignment: align_of::<GtkStatusIconClass>(),
+        },
+    ),
+    (
+        "GtkStatusbar",
+        Layout {
+            size: size_of::<GtkStatusbar>(),
+            alignment: align_of::<GtkStatusbar>(),
+        },
+    ),
+    (
+        "GtkStatusbarAccessible",
+        Layout {
+            size: size_of::<GtkStatusbarAccessible>(),
+            alignment: align_of::<GtkStatusbarAccessible>(),
+        },
+    ),
+    (
+        "GtkStatusbarAccessibleClass",
+        Layout {
+            size: size_of::<GtkStatusbarAccessibleClass>(),
+            alignment: align_of::<GtkStatusbarAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkStatusbarClass",
+        Layout {
+            size: size_of::<GtkStatusbarClass>(),
+            alignment: align_of::<GtkStatusbarClass>(),
+        },
+    ),
+    (
+        "GtkStock",
+        Layout {
+            size: size_of::<GtkStock>(),
+            alignment: align_of::<GtkStock>(),
+        },
+    ),
+    (
+        "GtkStockItem",
+        Layout {
+            size: size_of::<GtkStockItem>(),
+            alignment: align_of::<GtkStockItem>(),
+        },
+    ),
+    (
+        "GtkStyleClass",
+        Layout {
+            size: size_of::<GtkStyleClass>(),
+            alignment: align_of::<GtkStyleClass>(),
+        },
+    ),
+    (
+        "GtkStyleContext",
+        Layout {
+            size: size_of::<GtkStyleContext>(),
+            alignment: align_of::<GtkStyleContext>(),
+        },
+    ),
+    (
+        "GtkStyleContextClass",
+        Layout {
+            size: size_of::<GtkStyleContextClass>(),
+            alignment: align_of::<GtkStyleContextClass>(),
+        },
+    ),
+    (
+        "GtkStyleContextPrintFlags",
+        Layout {
+            size: size_of::<GtkStyleContextPrintFlags>(),
+            alignment: align_of::<GtkStyleContextPrintFlags>(),
+        },
+    ),
+    (
+        "GtkStyleProperties",
+        Layout {
+            size: size_of::<GtkStyleProperties>(),
+            alignment: align_of::<GtkStyleProperties>(),
+        },
+    ),
+    (
+        "GtkStylePropertiesClass",
+        Layout {
+            size: size_of::<GtkStylePropertiesClass>(),
+            alignment: align_of::<GtkStylePropertiesClass>(),
+        },
+    ),
+    (
+        "GtkStyleProviderIface",
+        Layout {
+            size: size_of::<GtkStyleProviderIface>(),
+            alignment: align_of::<GtkStyleProviderIface>(),
+        },
+    ),
+    (
+        "GtkSwitch",
+        Layout {
+            size: size_of::<GtkSwitch>(),
+            alignment: align_of::<GtkSwitch>(),
+        },
+    ),
+    (
+        "GtkSwitchAccessible",
+        Layout {
+            size: size_of::<GtkSwitchAccessible>(),
+            alignment: align_of::<GtkSwitchAccessible>(),
+        },
+    ),
+    (
+        "GtkSwitchAccessibleClass",
+        Layout {
+            size: size_of::<GtkSwitchAccessibleClass>(),
+            alignment: align_of::<GtkSwitchAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkSwitchClass",
+        Layout {
+            size: size_of::<GtkSwitchClass>(),
+            alignment: align_of::<GtkSwitchClass>(),
+        },
+    ),
+    (
+        "GtkTable",
+        Layout {
+            size: size_of::<GtkTable>(),
+            alignment: align_of::<GtkTable>(),
+        },
+    ),
+    (
+        "GtkTableClass",
+        Layout {
+            size: size_of::<GtkTableClass>(),
+            alignment: align_of::<GtkTableClass>(),
+        },
+    ),
+    (
+        "GtkTargetEntry",
+        Layout {
+            size: size_of::<GtkTargetEntry>(),
+            alignment: align_of::<GtkTargetEntry>(),
+        },
+    ),
+    (
+        "GtkTargetFlags",
+        Layout {
+            size: size_of::<GtkTargetFlags>(),
+            alignment: align_of::<GtkTargetFlags>(),
+        },
+    ),
+    (
+        "GtkTargetPair",
+        Layout {
+            size: size_of::<GtkTargetPair>(),
+            alignment: align_of::<GtkTargetPair>(),
+        },
+    ),
+    (
+        "GtkTearoffMenuItem",
+        Layout {
+            size: size_of::<GtkTearoffMenuItem>(),
+            alignment: align_of::<GtkTearoffMenuItem>(),
+        },
+    ),
+    (
+        "GtkTearoffMenuItemClass",
+        Layout {
+            size: size_of::<GtkTearoffMenuItemClass>(),
+            alignment: align_of::<GtkTearoffMenuItemClass>(),
+        },
+    ),
+    (
+        "GtkTextBuffer",
+        Layout {
+            size: size_of::<GtkTextBuffer>(),
+            alignment: align_of::<GtkTextBuffer>(),
+        },
+    ),
+    (
+        "GtkTextBufferClass",
+        Layout {
+            size: size_of::<GtkTextBufferClass>(),
+            alignment: align_of::<GtkTextBufferClass>(),
+        },
+    ),
+    (
+        "GtkTextBufferTargetInfo",
+        Layout {
+            size: size_of::<GtkTextBufferTargetInfo>(),
+            alignment: align_of::<GtkTextBufferTargetInfo>(),
+        },
+    ),
+    (
+        "GtkTextCellAccessible",
+        Layout {
+            size: size_of::<GtkTextCellAccessible>(),
+            alignment: align_of::<GtkTextCellAccessible>(),
+        },
+    ),
+    (
+        "GtkTextCellAccessibleClass",
+        Layout {
+            size: size_of::<GtkTextCellAccessibleClass>(),
+            alignment: align_of::<GtkTextCellAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkTextChildAnchor",
+        Layout {
+            size: size_of::<GtkTextChildAnchor>(),
+            alignment: align_of::<GtkTextChildAnchor>(),
+        },
+    ),
+    (
+        "GtkTextChildAnchorClass",
+        Layout {
+            size: size_of::<GtkTextChildAnchorClass>(),
+            alignment: align_of::<GtkTextChildAnchorClass>(),
+        },
+    ),
+    (
+        "GtkTextDirection",
+        Layout {
+            size: size_of::<GtkTextDirection>(),
+            alignment: align_of::<GtkTextDirection>(),
+        },
+    ),
+    (
+        "GtkTextExtendSelection",
+        Layout {
+            size: size_of::<GtkTextExtendSelection>(),
+            alignment: align_of::<GtkTextExtendSelection>(),
+        },
+    ),
+    (
+        "GtkTextIter",
+        Layout {
+            size: size_of::<GtkTextIter>(),
+            alignment: align_of::<GtkTextIter>(),
+        },
+    ),
+    (
+        "GtkTextMark",
+        Layout {
+            size: size_of::<GtkTextMark>(),
+            alignment: align_of::<GtkTextMark>(),
+        },
+    ),
+    (
+        "GtkTextMarkClass",
+        Layout {
+            size: size_of::<GtkTextMarkClass>(),
+            alignment: align_of::<GtkTextMarkClass>(),
+        },
+    ),
+    (
+        "GtkTextSearchFlags",
+        Layout {
+            size: size_of::<GtkTextSearchFlags>(),
+            alignment: align_of::<GtkTextSearchFlags>(),
+        },
+    ),
+    (
+        "GtkTextTag",
+        Layout {
+            size: size_of::<GtkTextTag>(),
+            alignment: align_of::<GtkTextTag>(),
+        },
+    ),
+    (
+        "GtkTextTagClass",
+        Layout {
+            size: size_of::<GtkTextTagClass>(),
+            alignment: align_of::<GtkTextTagClass>(),
+        },
+    ),
+    (
+        "GtkTextTagTable",
+        Layout {
+            size: size_of::<GtkTextTagTable>(),
+            alignment: align_of::<GtkTextTagTable>(),
+        },
+    ),
+    (
+        "GtkTextTagTableClass",
+        Layout {
+            size: size_of::<GtkTextTagTableClass>(),
+            alignment: align_of::<GtkTextTagTableClass>(),
+        },
+    ),
+    (
+        "GtkTextView",
+        Layout {
+            size: size_of::<GtkTextView>(),
+            alignment: align_of::<GtkTextView>(),
+        },
+    ),
+    (
+        "GtkTextViewAccessible",
+        Layout {
+            size: size_of::<GtkTextViewAccessible>(),
+            alignment: align_of::<GtkTextViewAccessible>(),
+        },
+    ),
+    (
+        "GtkTextViewAccessibleClass",
+        Layout {
+            size: size_of::<GtkTextViewAccessibleClass>(),
+            alignment: align_of::<GtkTextViewAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkTextViewClass",
+        Layout {
+            size: size_of::<GtkTextViewClass>(),
+            alignment: align_of::<GtkTextViewClass>(),
+        },
+    ),
+    (
+        "GtkTextViewLayer",
+        Layout {
+            size: size_of::<GtkTextViewLayer>(),
+            alignment: align_of::<GtkTextViewLayer>(),
+        },
+    ),
+    (
+        "GtkTextWindowType",
+        Layout {
+            size: size_of::<GtkTextWindowType>(),
+            alignment: align_of::<GtkTextWindowType>(),
+        },
+    ),
+    (
+        "GtkThemingEngine",
+        Layout {
+            size: size_of::<GtkThemingEngine>(),
+            alignment: align_of::<GtkThemingEngine>(),
+        },
+    ),
+    (
+        "GtkThemingEngineClass",
+        Layout {
+            size: size_of::<GtkThemingEngineClass>(),
+            alignment: align_of::<GtkThemingEngineClass>(),
+        },
+    ),
+    (
+        "GtkToggleAction",
+        Layout {
+            size: size_of::<GtkToggleAction>(),
+            alignment: align_of::<GtkToggleAction>(),
+        },
+    ),
+    (
+        "GtkToggleActionClass",
+        Layout {
+            size: size_of::<GtkToggleActionClass>(),
+            alignment: align_of::<GtkToggleActionClass>(),
+        },
+    ),
+    (
+        "GtkToggleActionEntry",
+        Layout {
+            size: size_of::<GtkToggleActionEntry>(),
+            alignment: align_of::<GtkToggleActionEntry>(),
+        },
+    ),
+    (
+        "GtkToggleButton",
+        Layout {
+            size: size_of::<GtkToggleButton>(),
+            alignment: align_of::<GtkToggleButton>(),
+        },
+    ),
+    (
+        "GtkToggleButtonAccessible",
+        Layout {
+            size: size_of::<GtkToggleButtonAccessible>(),
+            alignment: align_of::<GtkToggleButtonAccessible>(),
+        },
+    ),
+    (
+        "GtkToggleButtonAccessibleClass",
+        Layout {
+            size: size_of::<GtkToggleButtonAccessibleClass>(),
+            alignment: align_of::<GtkToggleButtonAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkToggleButtonClass",
+        Layout {
+            size: size_of::<GtkToggleButtonClass>(),
+            alignment: align_of::<GtkToggleButtonClass>(),
+        },
+    ),
+    (
+        "GtkToggleToolButton",
+        Layout {
+            size: size_of::<GtkToggleToolButton>(),
+            alignment: align_of::<GtkToggleToolButton>(),
+        },
+    ),
+    (
+        "GtkToggleToolButtonClass",
+        Layout {
+            size: size_of::<GtkToggleToolButtonClass>(),
+            alignment: align_of::<GtkToggleToolButtonClass>(),
+        },
+    ),
+    (
+        "GtkToolButton",
+        Layout {
+            size: size_of::<GtkToolButton>(),
+            alignment: align_of::<GtkToolButton>(),
+        },
+    ),
+    (
+        "GtkToolButtonClass",
+        Layout {
+            size: size_of::<GtkToolButtonClass>(),
+            alignment: align_of::<GtkToolButtonClass>(),
+        },
+    ),
+    (
+        "GtkToolItem",
+        Layout {
+            size: size_of::<GtkToolItem>(),
+            alignment: align_of::<GtkToolItem>(),
+        },
+    ),
+    (
+        "GtkToolItemClass",
+        Layout {
+            size: size_of::<GtkToolItemClass>(),
+            alignment: align_of::<GtkToolItemClass>(),
+        },
+    ),
+    (
+        "GtkToolItemGroup",
+        Layout {
+            size: size_of::<GtkToolItemGroup>(),
+            alignment: align_of::<GtkToolItemGroup>(),
+        },
+    ),
+    (
+        "GtkToolItemGroupClass",
+        Layout {
+            size: size_of::<GtkToolItemGroupClass>(),
+            alignment: align_of::<GtkToolItemGroupClass>(),
+        },
+    ),
+    (
+        "GtkToolPalette",
+        Layout {
+            size: size_of::<GtkToolPalette>(),
+            alignment: align_of::<GtkToolPalette>(),
+        },
+    ),
+    (
+        "GtkToolPaletteClass",
+        Layout {
+            size: size_of::<GtkToolPaletteClass>(),
+            alignment: align_of::<GtkToolPaletteClass>(),
+        },
+    ),
+    (
+        "GtkToolPaletteDragTargets",
+        Layout {
+            size: size_of::<GtkToolPaletteDragTargets>(),
+            alignment: align_of::<GtkToolPaletteDragTargets>(),
+        },
+    ),
+    (
+        "GtkToolShellIface",
+        Layout {
+            size: size_of::<GtkToolShellIface>(),
+            alignment: align_of::<GtkToolShellIface>(),
+        },
+    ),
+    (
+        "GtkToolbar",
+        Layout {
+            size: size_of::<GtkToolbar>(),
+            alignment: align_of::<GtkToolbar>(),
+        },
+    ),
+    (
+        "GtkToolbarClass",
+        Layout {
+            size: size_of::<GtkToolbarClass>(),
+            alignment: align_of::<GtkToolbarClass>(),
+        },
+    ),
+    (
+        "GtkToolbarSpaceStyle",
+        Layout {
+            size: size_of::<GtkToolbarSpaceStyle>(),
+            alignment: align_of::<GtkToolbarSpaceStyle>(),
+        },
+    ),
+    (
+        "GtkToolbarStyle",
+        Layout {
+            size: size_of::<GtkToolbarStyle>(),
+            alignment: align_of::<GtkToolbarStyle>(),
+        },
+    ),
+    (
+        "GtkToplevelAccessible",
+        Layout {
+            size: size_of::<GtkToplevelAccessible>(),
+            alignment: align_of::<GtkToplevelAccessible>(),
+        },
+    ),
+    (
+        "GtkToplevelAccessibleClass",
+        Layout {
+            size: size_of::<GtkToplevelAccessibleClass>(),
+            alignment: align_of::<GtkToplevelAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkTreeDragDestIface",
+        Layout {
+            size: size_of::<GtkTreeDragDestIface>(),
+            alignment: align_of::<GtkTreeDragDestIface>(),
+        },
+    ),
+    (
+        "GtkTreeDragSourceIface",
+        Layout {
+            size: size_of::<GtkTreeDragSourceIface>(),
+            alignment: align_of::<GtkTreeDragSourceIface>(),
+        },
+    ),
+    (
+        "GtkTreeIter",
+        Layout {
+            size: size_of::<GtkTreeIter>(),
+            alignment: align_of::<GtkTreeIter>(),
+        },
+    ),
+    (
+        "GtkTreeModelFilter",
+        Layout {
+            size: size_of::<GtkTreeModelFilter>(),
+            alignment: align_of::<GtkTreeModelFilter>(),
+        },
+    ),
+    (
+        "GtkTreeModelFilterClass",
+        Layout {
+            size: size_of::<GtkTreeModelFilterClass>(),
+            alignment: align_of::<GtkTreeModelFilterClass>(),
+        },
+    ),
+    (
+        "GtkTreeModelFlags",
+        Layout {
+            size: size_of::<GtkTreeModelFlags>(),
+            alignment: align_of::<GtkTreeModelFlags>(),
+        },
+    ),
+    (
+        "GtkTreeModelIface",
+        Layout {
+            size: size_of::<GtkTreeModelIface>(),
+            alignment: align_of::<GtkTreeModelIface>(),
+        },
+    ),
+    (
+        "GtkTreeModelSort",
+        Layout {
+            size: size_of::<GtkTreeModelSort>(),
+            alignment: align_of::<GtkTreeModelSort>(),
+        },
+    ),
+    (
+        "GtkTreeModelSortClass",
+        Layout {
+            size: size_of::<GtkTreeModelSortClass>(),
+            alignment: align_of::<GtkTreeModelSortClass>(),
+        },
+    ),
+    (
+        "GtkTreeSelection",
+        Layout {
+            size: size_of::<GtkTreeSelection>(),
+            alignment: align_of::<GtkTreeSelection>(),
+        },
+    ),
+    (
+        "GtkTreeSelectionClass",
+        Layout {
+            size: size_of::<GtkTreeSelectionClass>(),
+            alignment: align_of::<GtkTreeSelectionClass>(),
+        },
+    ),
+    (
+        "GtkTreeSortableIface",
+        Layout {
+            size: size_of::<GtkTreeSortableIface>(),
+            alignment: align_of::<GtkTreeSortableIface>(),
+        },
+    ),
+    (
+        "GtkTreeStore",
+        Layout {
+            size: size_of::<GtkTreeStore>(),
+            alignment: align_of::<GtkTreeStore>(),
+        },
+    ),
+    (
+        "GtkTreeStoreClass",
+        Layout {
+            size: size_of::<GtkTreeStoreClass>(),
+            alignment: align_of::<GtkTreeStoreClass>(),
+        },
+    ),
+    (
+        "GtkTreeView",
+        Layout {
+            size: size_of::<GtkTreeView>(),
+            alignment: align_of::<GtkTreeView>(),
+        },
+    ),
+    (
+        "GtkTreeViewAccessible",
+        Layout {
+            size: size_of::<GtkTreeViewAccessible>(),
+            alignment: align_of::<GtkTreeViewAccessible>(),
+        },
+    ),
+    (
+        "GtkTreeViewAccessibleClass",
+        Layout {
+            size: size_of::<GtkTreeViewAccessibleClass>(),
+            alignment: align_of::<GtkTreeViewAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkTreeViewClass",
+        Layout {
+            size: size_of::<GtkTreeViewClass>(),
+            alignment: align_of::<GtkTreeViewClass>(),
+        },
+    ),
+    (
+        "GtkTreeViewColumn",
+        Layout {
+            size: size_of::<GtkTreeViewColumn>(),
+            alignment: align_of::<GtkTreeViewColumn>(),
+        },
+    ),
+    (
+        "GtkTreeViewColumnClass",
+        Layout {
+            size: size_of::<GtkTreeViewColumnClass>(),
+            alignment: align_of::<GtkTreeViewColumnClass>(),
+        },
+    ),
+    (
+        "GtkTreeViewColumnSizing",
+        Layout {
+            size: size_of::<GtkTreeViewColumnSizing>(),
+            alignment: align_of::<GtkTreeViewColumnSizing>(),
+        },
+    ),
+    (
+        "GtkTreeViewDropPosition",
+        Layout {
+            size: size_of::<GtkTreeViewDropPosition>(),
+            alignment: align_of::<GtkTreeViewDropPosition>(),
+        },
+    ),
+    (
+        "GtkTreeViewGridLines",
+        Layout {
+            size: size_of::<GtkTreeViewGridLines>(),
+            alignment: align_of::<GtkTreeViewGridLines>(),
+        },
+    ),
+    (
+        "GtkUIManager",
+        Layout {
+            size: size_of::<GtkUIManager>(),
+            alignment: align_of::<GtkUIManager>(),
+        },
+    ),
+    (
+        "GtkUIManagerClass",
+        Layout {
+            size: size_of::<GtkUIManagerClass>(),
+            alignment: align_of::<GtkUIManagerClass>(),
+        },
+    ),
+    (
+        "GtkUIManagerItemType",
+        Layout {
+            size: size_of::<GtkUIManagerItemType>(),
+            alignment: align_of::<GtkUIManagerItemType>(),
+        },
+    ),
+    (
+        "GtkUnit",
+        Layout {
+            size: size_of::<GtkUnit>(),
+            alignment: align_of::<GtkUnit>(),
+        },
+    ),
+    (
+        "GtkVBox",
+        Layout {
+            size: size_of::<GtkVBox>(),
+            alignment: align_of::<GtkVBox>(),
+        },
+    ),
+    (
+        "GtkVBoxClass",
+        Layout {
+            size: size_of::<GtkVBoxClass>(),
+            alignment: align_of::<GtkVBoxClass>(),
+        },
+    ),
+    (
+        "GtkVButtonBox",
+        Layout {
+            size: size_of::<GtkVButtonBox>(),
+            alignment: align_of::<GtkVButtonBox>(),
+        },
+    ),
+    (
+        "GtkVButtonBoxClass",
+        Layout {
+            size: size_of::<GtkVButtonBoxClass>(),
+            alignment: align_of::<GtkVButtonBoxClass>(),
+        },
+    ),
+    (
+        "GtkVPaned",
+        Layout {
+            size: size_of::<GtkVPaned>(),
+            alignment: align_of::<GtkVPaned>(),
+        },
+    ),
+    (
+        "GtkVPanedClass",
+        Layout {
+            size: size_of::<GtkVPanedClass>(),
+            alignment: align_of::<GtkVPanedClass>(),
+        },
+    ),
+    (
+        "GtkVScale",
+        Layout {
+            size: size_of::<GtkVScale>(),
+            alignment: align_of::<GtkVScale>(),
+        },
+    ),
+    (
+        "GtkVScaleClass",
+        Layout {
+            size: size_of::<GtkVScaleClass>(),
+            alignment: align_of::<GtkVScaleClass>(),
+        },
+    ),
+    (
+        "GtkVScrollbar",
+        Layout {
+            size: size_of::<GtkVScrollbar>(),
+            alignment: align_of::<GtkVScrollbar>(),
+        },
+    ),
+    (
+        "GtkVScrollbarClass",
+        Layout {
+            size: size_of::<GtkVScrollbarClass>(),
+            alignment: align_of::<GtkVScrollbarClass>(),
+        },
+    ),
+    (
+        "GtkVSeparator",
+        Layout {
+            size: size_of::<GtkVSeparator>(),
+            alignment: align_of::<GtkVSeparator>(),
+        },
+    ),
+    (
+        "GtkVSeparatorClass",
+        Layout {
+            size: size_of::<GtkVSeparatorClass>(),
+            alignment: align_of::<GtkVSeparatorClass>(),
+        },
+    ),
+    (
+        "GtkViewport",
+        Layout {
+            size: size_of::<GtkViewport>(),
+            alignment: align_of::<GtkViewport>(),
+        },
+    ),
+    (
+        "GtkViewportClass",
+        Layout {
+            size: size_of::<GtkViewportClass>(),
+            alignment: align_of::<GtkViewportClass>(),
+        },
+    ),
+    (
+        "GtkVolumeButton",
+        Layout {
+            size: size_of::<GtkVolumeButton>(),
+            alignment: align_of::<GtkVolumeButton>(),
+        },
+    ),
+    (
+        "GtkVolumeButtonClass",
+        Layout {
+            size: size_of::<GtkVolumeButtonClass>(),
+            alignment: align_of::<GtkVolumeButtonClass>(),
+        },
+    ),
+    (
+        "GtkWidget",
+        Layout {
+            size: size_of::<GtkWidget>(),
+            alignment: align_of::<GtkWidget>(),
+        },
+    ),
+    (
+        "GtkWidgetAccessible",
+        Layout {
+            size: size_of::<GtkWidgetAccessible>(),
+            alignment: align_of::<GtkWidgetAccessible>(),
+        },
+    ),
+    (
+        "GtkWidgetAccessibleClass",
+        Layout {
+            size: size_of::<GtkWidgetAccessibleClass>(),
+            alignment: align_of::<GtkWidgetAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkWidgetClass",
+        Layout {
+            size: size_of::<GtkWidgetClass>(),
+            alignment: align_of::<GtkWidgetClass>(),
+        },
+    ),
+    (
+        "GtkWidgetHelpType",
+        Layout {
+            size: size_of::<GtkWidgetHelpType>(),
+            alignment: align_of::<GtkWidgetHelpType>(),
+        },
+    ),
+    (
+        "GtkWindow",
+        Layout {
+            size: size_of::<GtkWindow>(),
+            alignment: align_of::<GtkWindow>(),
+        },
+    ),
+    (
+        "GtkWindowAccessible",
+        Layout {
+            size: size_of::<GtkWindowAccessible>(),
+            alignment: align_of::<GtkWindowAccessible>(),
+        },
+    ),
+    (
+        "GtkWindowAccessibleClass",
+        Layout {
+            size: size_of::<GtkWindowAccessibleClass>(),
+            alignment: align_of::<GtkWindowAccessibleClass>(),
+        },
+    ),
+    (
+        "GtkWindowClass",
+        Layout {
+            size: size_of::<GtkWindowClass>(),
+            alignment: align_of::<GtkWindowClass>(),
+        },
+    ),
+    (
+        "GtkWindowGroup",
+        Layout {
+            size: size_of::<GtkWindowGroup>(),
+            alignment: align_of::<GtkWindowGroup>(),
+        },
+    ),
+    (
+        "GtkWindowGroupClass",
+        Layout {
+            size: size_of::<GtkWindowGroupClass>(),
+            alignment: align_of::<GtkWindowGroupClass>(),
+        },
+    ),
+    (
+        "GtkWindowPosition",
+        Layout {
+            size: size_of::<GtkWindowPosition>(),
+            alignment: align_of::<GtkWindowPosition>(),
+        },
+    ),
+    (
+        "GtkWindowType",
+        Layout {
+            size: size_of::<GtkWindowType>(),
+            alignment: align_of::<GtkWindowType>(),
+        },
+    ),
+    (
+        "GtkWrapMode",
+        Layout {
+            size: size_of::<GtkWrapMode>(),
+            alignment: align_of::<GtkWrapMode>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -1186,14 +5021,38 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GTK_MOVEMENT_WORDS", "2"),
     ("(gint) GTK_NOTEBOOK_TAB_FIRST", "0"),
     ("(gint) GTK_NOTEBOOK_TAB_LAST", "1"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_LEFT_TO_RIGHT", "6"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_RIGHT_TO_LEFT", "7"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP", "1"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM", "0"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_BOTTOM_TO_TOP", "3"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_TOP_TO_BOTTOM", "2"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_LEFT_TO_RIGHT", "4"),
-    ("(gint) GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_RIGHT_TO_LEFT", "5"),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_LEFT_TO_RIGHT",
+        "6",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_BOTTOM_TO_TOP_RIGHT_TO_LEFT",
+        "7",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_BOTTOM_TO_TOP",
+        "1",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_LEFT_TO_RIGHT_TOP_TO_BOTTOM",
+        "0",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_BOTTOM_TO_TOP",
+        "3",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_RIGHT_TO_LEFT_TOP_TO_BOTTOM",
+        "2",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_LEFT_TO_RIGHT",
+        "4",
+    ),
+    (
+        "(gint) GTK_NUMBER_UP_LAYOUT_TOP_TO_BOTTOM_RIGHT_TO_LEFT",
+        "5",
+    ),
     ("(gint) GTK_ORIENTATION_HORIZONTAL", "0"),
     ("(gint) GTK_ORIENTATION_VERTICAL", "1"),
     ("(gint) GTK_PACK_DIRECTION_BTT", "3"),
@@ -1286,7 +5145,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("GTK_PRINT_SETTINGS_OUTPUT_BASENAME", "output-basename"),
     ("GTK_PRINT_SETTINGS_OUTPUT_BIN", "output-bin"),
     ("GTK_PRINT_SETTINGS_OUTPUT_DIR", "output-dir"),
-    ("GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT", "output-file-format"),
+    (
+        "GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT",
+        "output-file-format",
+    ),
     ("GTK_PRINT_SETTINGS_OUTPUT_URI", "output-uri"),
     ("GTK_PRINT_SETTINGS_PAGE_RANGES", "page-ranges"),
     ("GTK_PRINT_SETTINGS_PAGE_SET", "page-set"),
@@ -1303,8 +5165,14 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("GTK_PRINT_SETTINGS_REVERSE", "reverse"),
     ("GTK_PRINT_SETTINGS_SCALE", "scale"),
     ("GTK_PRINT_SETTINGS_USE_COLOR", "use-color"),
-    ("GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA", "win32-driver-extra"),
-    ("GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION", "win32-driver-version"),
+    (
+        "GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA",
+        "win32-driver-extra",
+    ),
+    (
+        "GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION",
+        "win32-driver-version",
+    ),
     ("(gint) GTK_PRINT_STATUS_FINISHED", "7"),
     ("(gint) GTK_PRINT_STATUS_FINISHED_ABORTED", "8"),
     ("(gint) GTK_PRINT_STATUS_GENERATING_DATA", "2"),
@@ -1524,7 +5392,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("GTK_STOCK_COPY", "gtk-copy"),
     ("GTK_STOCK_CUT", "gtk-cut"),
     ("GTK_STOCK_DELETE", "gtk-delete"),
-    ("GTK_STOCK_DIALOG_AUTHENTICATION", "gtk-dialog-authentication"),
+    (
+        "GTK_STOCK_DIALOG_AUTHENTICATION",
+        "gtk-dialog-authentication",
+    ),
     ("GTK_STOCK_DIALOG_ERROR", "gtk-dialog-error"),
     ("GTK_STOCK_DIALOG_INFO", "gtk-dialog-info"),
     ("GTK_STOCK_DIALOG_QUESTION", "gtk-dialog-question"),
@@ -1576,10 +5447,19 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("GTK_STOCK_NO", "gtk-no"),
     ("GTK_STOCK_OK", "gtk-ok"),
     ("GTK_STOCK_OPEN", "gtk-open"),
-    ("GTK_STOCK_ORIENTATION_LANDSCAPE", "gtk-orientation-landscape"),
+    (
+        "GTK_STOCK_ORIENTATION_LANDSCAPE",
+        "gtk-orientation-landscape",
+    ),
     ("GTK_STOCK_ORIENTATION_PORTRAIT", "gtk-orientation-portrait"),
-    ("GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE", "gtk-orientation-reverse-landscape"),
-    ("GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT", "gtk-orientation-reverse-portrait"),
+    (
+        "GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE",
+        "gtk-orientation-reverse-landscape",
+    ),
+    (
+        "GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT",
+        "gtk-orientation-reverse-portrait",
+    ),
     ("GTK_STOCK_PAGE_SETUP", "gtk-page-setup"),
     ("GTK_STOCK_PASTE", "gtk-paste"),
     ("GTK_STOCK_PREFERENCES", "gtk-preferences"),
@@ -1674,8 +5554,14 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("GTK_STYLE_CLASS_RIGHT", "right"),
     ("GTK_STYLE_CLASS_RUBBERBAND", "rubberband"),
     ("GTK_STYLE_CLASS_SCALE", "scale"),
-    ("GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE", "scale-has-marks-above"),
-    ("GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW", "scale-has-marks-below"),
+    (
+        "GTK_STYLE_CLASS_SCALE_HAS_MARKS_ABOVE",
+        "scale-has-marks-above",
+    ),
+    (
+        "GTK_STYLE_CLASS_SCALE_HAS_MARKS_BELOW",
+        "scale-has-marks-below",
+    ),
     ("GTK_STYLE_CLASS_SCROLLBAR", "scrollbar"),
     ("GTK_STYLE_CLASS_SCROLLBARS_JUNCTION", "scrollbars-junction"),
     ("GTK_STYLE_CLASS_SEPARATOR", "separator"),
@@ -1801,5 +5687,3 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GTK_WRAP_WORD", "2"),
     ("(gint) GTK_WRAP_WORD_CHAR", "3"),
 ];
-
-

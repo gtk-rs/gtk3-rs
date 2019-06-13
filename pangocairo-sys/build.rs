@@ -6,8 +6,8 @@ extern crate pkg_config;
 
 use pkg_config::{Config, Error};
 use std::env;
-use std::io::prelude::*;
 use std::io;
+use std::io::prelude::*;
 use std::process;
 
 fn main() {
@@ -20,9 +20,7 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "pangocairo";
     let shared_libs = ["pangocairo-1.0"];
-    let version = {
-        "1.36"
-    };
+    let version = { "1.36" };
 
     if let Ok(inc_dir) = env::var("GTK_INCLUDE_DIR") {
         println!("cargo:include={}", inc_dir);
@@ -32,7 +30,7 @@ fn find() -> Result<(), Error> {
             println!("cargo:rustc-link-lib=dylib={}", lib_);
         }
         println!("cargo:rustc-link-search=native={}", lib_dir);
-        return Ok(())
+        return Ok(());
     }
 
     let target = env::var("TARGET").expect("TARGET environment variable doesn't exist");
@@ -54,8 +52,10 @@ fn find() -> Result<(), Error> {
                     println!("cargo:rustc-link-lib=dylib={}", lib_);
                 }
                 for path in library.link_paths.iter() {
-                    println!("cargo:rustc-link-search=native={}",
-                             path.to_str().expect("library path doesn't exist"));
+                    println!(
+                        "cargo:rustc-link-search=native={}",
+                        path.to_str().expect("library path doesn't exist")
+                    );
                 }
             }
             Ok(())
@@ -69,4 +69,3 @@ fn find() -> Result<(), Error> {
         Err(err) => Err(err),
     }
 }
-

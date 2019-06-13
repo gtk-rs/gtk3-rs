@@ -5,13 +5,13 @@
 extern crate gio_sys;
 extern crate shell_words;
 extern crate tempdir;
+use gio_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use gio_sys::*;
 
 static PACKAGES: &[&str] = &["gio-2.0"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,301 +229,1982 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("GActionEntry", Layout {size: size_of::<GActionEntry>(), alignment: align_of::<GActionEntry>()}),
-    ("GActionGroupInterface", Layout {size: size_of::<GActionGroupInterface>(), alignment: align_of::<GActionGroupInterface>()}),
-    ("GActionInterface", Layout {size: size_of::<GActionInterface>(), alignment: align_of::<GActionInterface>()}),
-    ("GActionMapInterface", Layout {size: size_of::<GActionMapInterface>(), alignment: align_of::<GActionMapInterface>()}),
-    ("GAppInfoCreateFlags", Layout {size: size_of::<GAppInfoCreateFlags>(), alignment: align_of::<GAppInfoCreateFlags>()}),
-    ("GAppInfoIface", Layout {size: size_of::<GAppInfoIface>(), alignment: align_of::<GAppInfoIface>()}),
-    ("GAppLaunchContext", Layout {size: size_of::<GAppLaunchContext>(), alignment: align_of::<GAppLaunchContext>()}),
-    ("GAppLaunchContextClass", Layout {size: size_of::<GAppLaunchContextClass>(), alignment: align_of::<GAppLaunchContextClass>()}),
-    ("GApplication", Layout {size: size_of::<GApplication>(), alignment: align_of::<GApplication>()}),
-    ("GApplicationClass", Layout {size: size_of::<GApplicationClass>(), alignment: align_of::<GApplicationClass>()}),
-    ("GApplicationCommandLine", Layout {size: size_of::<GApplicationCommandLine>(), alignment: align_of::<GApplicationCommandLine>()}),
-    ("GApplicationCommandLineClass", Layout {size: size_of::<GApplicationCommandLineClass>(), alignment: align_of::<GApplicationCommandLineClass>()}),
-    ("GApplicationFlags", Layout {size: size_of::<GApplicationFlags>(), alignment: align_of::<GApplicationFlags>()}),
-    ("GAskPasswordFlags", Layout {size: size_of::<GAskPasswordFlags>(), alignment: align_of::<GAskPasswordFlags>()}),
-    ("GAsyncInitableIface", Layout {size: size_of::<GAsyncInitableIface>(), alignment: align_of::<GAsyncInitableIface>()}),
-    ("GAsyncResultIface", Layout {size: size_of::<GAsyncResultIface>(), alignment: align_of::<GAsyncResultIface>()}),
-    ("GBufferedInputStream", Layout {size: size_of::<GBufferedInputStream>(), alignment: align_of::<GBufferedInputStream>()}),
-    ("GBufferedInputStreamClass", Layout {size: size_of::<GBufferedInputStreamClass>(), alignment: align_of::<GBufferedInputStreamClass>()}),
-    ("GBufferedOutputStream", Layout {size: size_of::<GBufferedOutputStream>(), alignment: align_of::<GBufferedOutputStream>()}),
-    ("GBufferedOutputStreamClass", Layout {size: size_of::<GBufferedOutputStreamClass>(), alignment: align_of::<GBufferedOutputStreamClass>()}),
-    ("GBusNameOwnerFlags", Layout {size: size_of::<GBusNameOwnerFlags>(), alignment: align_of::<GBusNameOwnerFlags>()}),
-    ("GBusNameWatcherFlags", Layout {size: size_of::<GBusNameWatcherFlags>(), alignment: align_of::<GBusNameWatcherFlags>()}),
-    ("GBusType", Layout {size: size_of::<GBusType>(), alignment: align_of::<GBusType>()}),
-    ("GCancellable", Layout {size: size_of::<GCancellable>(), alignment: align_of::<GCancellable>()}),
-    ("GCancellableClass", Layout {size: size_of::<GCancellableClass>(), alignment: align_of::<GCancellableClass>()}),
-    ("GCharsetConverterClass", Layout {size: size_of::<GCharsetConverterClass>(), alignment: align_of::<GCharsetConverterClass>()}),
-    ("GConverterFlags", Layout {size: size_of::<GConverterFlags>(), alignment: align_of::<GConverterFlags>()}),
-    ("GConverterIface", Layout {size: size_of::<GConverterIface>(), alignment: align_of::<GConverterIface>()}),
-    ("GConverterInputStream", Layout {size: size_of::<GConverterInputStream>(), alignment: align_of::<GConverterInputStream>()}),
-    ("GConverterInputStreamClass", Layout {size: size_of::<GConverterInputStreamClass>(), alignment: align_of::<GConverterInputStreamClass>()}),
-    ("GConverterOutputStream", Layout {size: size_of::<GConverterOutputStream>(), alignment: align_of::<GConverterOutputStream>()}),
-    ("GConverterOutputStreamClass", Layout {size: size_of::<GConverterOutputStreamClass>(), alignment: align_of::<GConverterOutputStreamClass>()}),
-    ("GConverterResult", Layout {size: size_of::<GConverterResult>(), alignment: align_of::<GConverterResult>()}),
-    ("GCredentialsType", Layout {size: size_of::<GCredentialsType>(), alignment: align_of::<GCredentialsType>()}),
-    ("GDBusAnnotationInfo", Layout {size: size_of::<GDBusAnnotationInfo>(), alignment: align_of::<GDBusAnnotationInfo>()}),
-    ("GDBusArgInfo", Layout {size: size_of::<GDBusArgInfo>(), alignment: align_of::<GDBusArgInfo>()}),
-    ("GDBusCallFlags", Layout {size: size_of::<GDBusCallFlags>(), alignment: align_of::<GDBusCallFlags>()}),
-    ("GDBusCapabilityFlags", Layout {size: size_of::<GDBusCapabilityFlags>(), alignment: align_of::<GDBusCapabilityFlags>()}),
-    ("GDBusConnectionFlags", Layout {size: size_of::<GDBusConnectionFlags>(), alignment: align_of::<GDBusConnectionFlags>()}),
-    ("GDBusError", Layout {size: size_of::<GDBusError>(), alignment: align_of::<GDBusError>()}),
-    ("GDBusErrorEntry", Layout {size: size_of::<GDBusErrorEntry>(), alignment: align_of::<GDBusErrorEntry>()}),
-    ("GDBusInterfaceIface", Layout {size: size_of::<GDBusInterfaceIface>(), alignment: align_of::<GDBusInterfaceIface>()}),
-    ("GDBusInterfaceInfo", Layout {size: size_of::<GDBusInterfaceInfo>(), alignment: align_of::<GDBusInterfaceInfo>()}),
-    ("GDBusInterfaceSkeleton", Layout {size: size_of::<GDBusInterfaceSkeleton>(), alignment: align_of::<GDBusInterfaceSkeleton>()}),
-    ("GDBusInterfaceSkeletonClass", Layout {size: size_of::<GDBusInterfaceSkeletonClass>(), alignment: align_of::<GDBusInterfaceSkeletonClass>()}),
-    ("GDBusInterfaceSkeletonFlags", Layout {size: size_of::<GDBusInterfaceSkeletonFlags>(), alignment: align_of::<GDBusInterfaceSkeletonFlags>()}),
-    ("GDBusInterfaceVTable", Layout {size: size_of::<GDBusInterfaceVTable>(), alignment: align_of::<GDBusInterfaceVTable>()}),
-    ("GDBusMessageByteOrder", Layout {size: size_of::<GDBusMessageByteOrder>(), alignment: align_of::<GDBusMessageByteOrder>()}),
-    ("GDBusMessageFlags", Layout {size: size_of::<GDBusMessageFlags>(), alignment: align_of::<GDBusMessageFlags>()}),
-    ("GDBusMessageHeaderField", Layout {size: size_of::<GDBusMessageHeaderField>(), alignment: align_of::<GDBusMessageHeaderField>()}),
-    ("GDBusMessageType", Layout {size: size_of::<GDBusMessageType>(), alignment: align_of::<GDBusMessageType>()}),
-    ("GDBusMethodInfo", Layout {size: size_of::<GDBusMethodInfo>(), alignment: align_of::<GDBusMethodInfo>()}),
-    ("GDBusNodeInfo", Layout {size: size_of::<GDBusNodeInfo>(), alignment: align_of::<GDBusNodeInfo>()}),
-    ("GDBusObjectIface", Layout {size: size_of::<GDBusObjectIface>(), alignment: align_of::<GDBusObjectIface>()}),
-    ("GDBusObjectManagerClient", Layout {size: size_of::<GDBusObjectManagerClient>(), alignment: align_of::<GDBusObjectManagerClient>()}),
-    ("GDBusObjectManagerClientClass", Layout {size: size_of::<GDBusObjectManagerClientClass>(), alignment: align_of::<GDBusObjectManagerClientClass>()}),
-    ("GDBusObjectManagerClientFlags", Layout {size: size_of::<GDBusObjectManagerClientFlags>(), alignment: align_of::<GDBusObjectManagerClientFlags>()}),
-    ("GDBusObjectManagerIface", Layout {size: size_of::<GDBusObjectManagerIface>(), alignment: align_of::<GDBusObjectManagerIface>()}),
-    ("GDBusObjectManagerServer", Layout {size: size_of::<GDBusObjectManagerServer>(), alignment: align_of::<GDBusObjectManagerServer>()}),
-    ("GDBusObjectManagerServerClass", Layout {size: size_of::<GDBusObjectManagerServerClass>(), alignment: align_of::<GDBusObjectManagerServerClass>()}),
-    ("GDBusObjectProxy", Layout {size: size_of::<GDBusObjectProxy>(), alignment: align_of::<GDBusObjectProxy>()}),
-    ("GDBusObjectProxyClass", Layout {size: size_of::<GDBusObjectProxyClass>(), alignment: align_of::<GDBusObjectProxyClass>()}),
-    ("GDBusObjectSkeleton", Layout {size: size_of::<GDBusObjectSkeleton>(), alignment: align_of::<GDBusObjectSkeleton>()}),
-    ("GDBusObjectSkeletonClass", Layout {size: size_of::<GDBusObjectSkeletonClass>(), alignment: align_of::<GDBusObjectSkeletonClass>()}),
-    ("GDBusPropertyInfo", Layout {size: size_of::<GDBusPropertyInfo>(), alignment: align_of::<GDBusPropertyInfo>()}),
-    ("GDBusPropertyInfoFlags", Layout {size: size_of::<GDBusPropertyInfoFlags>(), alignment: align_of::<GDBusPropertyInfoFlags>()}),
-    ("GDBusProxy", Layout {size: size_of::<GDBusProxy>(), alignment: align_of::<GDBusProxy>()}),
-    ("GDBusProxyClass", Layout {size: size_of::<GDBusProxyClass>(), alignment: align_of::<GDBusProxyClass>()}),
-    ("GDBusProxyFlags", Layout {size: size_of::<GDBusProxyFlags>(), alignment: align_of::<GDBusProxyFlags>()}),
-    ("GDBusSendMessageFlags", Layout {size: size_of::<GDBusSendMessageFlags>(), alignment: align_of::<GDBusSendMessageFlags>()}),
-    ("GDBusServerFlags", Layout {size: size_of::<GDBusServerFlags>(), alignment: align_of::<GDBusServerFlags>()}),
-    ("GDBusSignalFlags", Layout {size: size_of::<GDBusSignalFlags>(), alignment: align_of::<GDBusSignalFlags>()}),
-    ("GDBusSignalInfo", Layout {size: size_of::<GDBusSignalInfo>(), alignment: align_of::<GDBusSignalInfo>()}),
-    ("GDBusSubtreeFlags", Layout {size: size_of::<GDBusSubtreeFlags>(), alignment: align_of::<GDBusSubtreeFlags>()}),
-    ("GDBusSubtreeVTable", Layout {size: size_of::<GDBusSubtreeVTable>(), alignment: align_of::<GDBusSubtreeVTable>()}),
-    ("GDataInputStream", Layout {size: size_of::<GDataInputStream>(), alignment: align_of::<GDataInputStream>()}),
-    ("GDataInputStreamClass", Layout {size: size_of::<GDataInputStreamClass>(), alignment: align_of::<GDataInputStreamClass>()}),
-    ("GDataOutputStream", Layout {size: size_of::<GDataOutputStream>(), alignment: align_of::<GDataOutputStream>()}),
-    ("GDataOutputStreamClass", Layout {size: size_of::<GDataOutputStreamClass>(), alignment: align_of::<GDataOutputStreamClass>()}),
-    ("GDataStreamByteOrder", Layout {size: size_of::<GDataStreamByteOrder>(), alignment: align_of::<GDataStreamByteOrder>()}),
-    ("GDataStreamNewlineType", Layout {size: size_of::<GDataStreamNewlineType>(), alignment: align_of::<GDataStreamNewlineType>()}),
-    ("GDatagramBasedInterface", Layout {size: size_of::<GDatagramBasedInterface>(), alignment: align_of::<GDatagramBasedInterface>()}),
-    ("GDesktopAppInfoClass", Layout {size: size_of::<GDesktopAppInfoClass>(), alignment: align_of::<GDesktopAppInfoClass>()}),
-    ("GDesktopAppInfoLookupIface", Layout {size: size_of::<GDesktopAppInfoLookupIface>(), alignment: align_of::<GDesktopAppInfoLookupIface>()}),
-    ("GDriveIface", Layout {size: size_of::<GDriveIface>(), alignment: align_of::<GDriveIface>()}),
-    ("GDriveStartFlags", Layout {size: size_of::<GDriveStartFlags>(), alignment: align_of::<GDriveStartFlags>()}),
-    ("GDriveStartStopType", Layout {size: size_of::<GDriveStartStopType>(), alignment: align_of::<GDriveStartStopType>()}),
-    ("GDtlsClientConnectionInterface", Layout {size: size_of::<GDtlsClientConnectionInterface>(), alignment: align_of::<GDtlsClientConnectionInterface>()}),
-    ("GDtlsConnectionInterface", Layout {size: size_of::<GDtlsConnectionInterface>(), alignment: align_of::<GDtlsConnectionInterface>()}),
-    ("GDtlsServerConnectionInterface", Layout {size: size_of::<GDtlsServerConnectionInterface>(), alignment: align_of::<GDtlsServerConnectionInterface>()}),
-    ("GEmblemOrigin", Layout {size: size_of::<GEmblemOrigin>(), alignment: align_of::<GEmblemOrigin>()}),
-    ("GEmblemedIcon", Layout {size: size_of::<GEmblemedIcon>(), alignment: align_of::<GEmblemedIcon>()}),
-    ("GEmblemedIconClass", Layout {size: size_of::<GEmblemedIconClass>(), alignment: align_of::<GEmblemedIconClass>()}),
-    ("GFileAttributeInfo", Layout {size: size_of::<GFileAttributeInfo>(), alignment: align_of::<GFileAttributeInfo>()}),
-    ("GFileAttributeInfoFlags", Layout {size: size_of::<GFileAttributeInfoFlags>(), alignment: align_of::<GFileAttributeInfoFlags>()}),
-    ("GFileAttributeInfoList", Layout {size: size_of::<GFileAttributeInfoList>(), alignment: align_of::<GFileAttributeInfoList>()}),
-    ("GFileAttributeStatus", Layout {size: size_of::<GFileAttributeStatus>(), alignment: align_of::<GFileAttributeStatus>()}),
-    ("GFileAttributeType", Layout {size: size_of::<GFileAttributeType>(), alignment: align_of::<GFileAttributeType>()}),
-    ("GFileCopyFlags", Layout {size: size_of::<GFileCopyFlags>(), alignment: align_of::<GFileCopyFlags>()}),
-    ("GFileCreateFlags", Layout {size: size_of::<GFileCreateFlags>(), alignment: align_of::<GFileCreateFlags>()}),
-    ("GFileDescriptorBasedIface", Layout {size: size_of::<GFileDescriptorBasedIface>(), alignment: align_of::<GFileDescriptorBasedIface>()}),
-    ("GFileEnumerator", Layout {size: size_of::<GFileEnumerator>(), alignment: align_of::<GFileEnumerator>()}),
-    ("GFileEnumeratorClass", Layout {size: size_of::<GFileEnumeratorClass>(), alignment: align_of::<GFileEnumeratorClass>()}),
-    ("GFileIOStream", Layout {size: size_of::<GFileIOStream>(), alignment: align_of::<GFileIOStream>()}),
-    ("GFileIOStreamClass", Layout {size: size_of::<GFileIOStreamClass>(), alignment: align_of::<GFileIOStreamClass>()}),
-    ("GFileIface", Layout {size: size_of::<GFileIface>(), alignment: align_of::<GFileIface>()}),
-    ("GFileInputStream", Layout {size: size_of::<GFileInputStream>(), alignment: align_of::<GFileInputStream>()}),
-    ("GFileInputStreamClass", Layout {size: size_of::<GFileInputStreamClass>(), alignment: align_of::<GFileInputStreamClass>()}),
-    ("GFileMeasureFlags", Layout {size: size_of::<GFileMeasureFlags>(), alignment: align_of::<GFileMeasureFlags>()}),
-    ("GFileMonitor", Layout {size: size_of::<GFileMonitor>(), alignment: align_of::<GFileMonitor>()}),
-    ("GFileMonitorClass", Layout {size: size_of::<GFileMonitorClass>(), alignment: align_of::<GFileMonitorClass>()}),
-    ("GFileMonitorEvent", Layout {size: size_of::<GFileMonitorEvent>(), alignment: align_of::<GFileMonitorEvent>()}),
-    ("GFileMonitorFlags", Layout {size: size_of::<GFileMonitorFlags>(), alignment: align_of::<GFileMonitorFlags>()}),
-    ("GFileOutputStream", Layout {size: size_of::<GFileOutputStream>(), alignment: align_of::<GFileOutputStream>()}),
-    ("GFileOutputStreamClass", Layout {size: size_of::<GFileOutputStreamClass>(), alignment: align_of::<GFileOutputStreamClass>()}),
-    ("GFileQueryInfoFlags", Layout {size: size_of::<GFileQueryInfoFlags>(), alignment: align_of::<GFileQueryInfoFlags>()}),
-    ("GFileType", Layout {size: size_of::<GFileType>(), alignment: align_of::<GFileType>()}),
-    ("GFilenameCompleterClass", Layout {size: size_of::<GFilenameCompleterClass>(), alignment: align_of::<GFilenameCompleterClass>()}),
-    ("GFilesystemPreviewType", Layout {size: size_of::<GFilesystemPreviewType>(), alignment: align_of::<GFilesystemPreviewType>()}),
-    ("GFilterInputStream", Layout {size: size_of::<GFilterInputStream>(), alignment: align_of::<GFilterInputStream>()}),
-    ("GFilterInputStreamClass", Layout {size: size_of::<GFilterInputStreamClass>(), alignment: align_of::<GFilterInputStreamClass>()}),
-    ("GFilterOutputStream", Layout {size: size_of::<GFilterOutputStream>(), alignment: align_of::<GFilterOutputStream>()}),
-    ("GFilterOutputStreamClass", Layout {size: size_of::<GFilterOutputStreamClass>(), alignment: align_of::<GFilterOutputStreamClass>()}),
-    ("GIOErrorEnum", Layout {size: size_of::<GIOErrorEnum>(), alignment: align_of::<GIOErrorEnum>()}),
-    ("GIOModuleScopeFlags", Layout {size: size_of::<GIOModuleScopeFlags>(), alignment: align_of::<GIOModuleScopeFlags>()}),
-    ("GIOStream", Layout {size: size_of::<GIOStream>(), alignment: align_of::<GIOStream>()}),
-    ("GIOStreamClass", Layout {size: size_of::<GIOStreamClass>(), alignment: align_of::<GIOStreamClass>()}),
-    ("GIOStreamSpliceFlags", Layout {size: size_of::<GIOStreamSpliceFlags>(), alignment: align_of::<GIOStreamSpliceFlags>()}),
-    ("GIconIface", Layout {size: size_of::<GIconIface>(), alignment: align_of::<GIconIface>()}),
-    ("GInetAddress", Layout {size: size_of::<GInetAddress>(), alignment: align_of::<GInetAddress>()}),
-    ("GInetAddressClass", Layout {size: size_of::<GInetAddressClass>(), alignment: align_of::<GInetAddressClass>()}),
-    ("GInetAddressMask", Layout {size: size_of::<GInetAddressMask>(), alignment: align_of::<GInetAddressMask>()}),
-    ("GInetAddressMaskClass", Layout {size: size_of::<GInetAddressMaskClass>(), alignment: align_of::<GInetAddressMaskClass>()}),
-    ("GInetSocketAddress", Layout {size: size_of::<GInetSocketAddress>(), alignment: align_of::<GInetSocketAddress>()}),
-    ("GInetSocketAddressClass", Layout {size: size_of::<GInetSocketAddressClass>(), alignment: align_of::<GInetSocketAddressClass>()}),
-    ("GInitableIface", Layout {size: size_of::<GInitableIface>(), alignment: align_of::<GInitableIface>()}),
-    ("GInputMessage", Layout {size: size_of::<GInputMessage>(), alignment: align_of::<GInputMessage>()}),
-    ("GInputStream", Layout {size: size_of::<GInputStream>(), alignment: align_of::<GInputStream>()}),
-    ("GInputStreamClass", Layout {size: size_of::<GInputStreamClass>(), alignment: align_of::<GInputStreamClass>()}),
-    ("GInputVector", Layout {size: size_of::<GInputVector>(), alignment: align_of::<GInputVector>()}),
-    ("GListModelInterface", Layout {size: size_of::<GListModelInterface>(), alignment: align_of::<GListModelInterface>()}),
-    ("GListStoreClass", Layout {size: size_of::<GListStoreClass>(), alignment: align_of::<GListStoreClass>()}),
-    ("GLoadableIconIface", Layout {size: size_of::<GLoadableIconIface>(), alignment: align_of::<GLoadableIconIface>()}),
-    ("GMemoryInputStream", Layout {size: size_of::<GMemoryInputStream>(), alignment: align_of::<GMemoryInputStream>()}),
-    ("GMemoryInputStreamClass", Layout {size: size_of::<GMemoryInputStreamClass>(), alignment: align_of::<GMemoryInputStreamClass>()}),
-    ("GMemoryOutputStream", Layout {size: size_of::<GMemoryOutputStream>(), alignment: align_of::<GMemoryOutputStream>()}),
-    ("GMemoryOutputStreamClass", Layout {size: size_of::<GMemoryOutputStreamClass>(), alignment: align_of::<GMemoryOutputStreamClass>()}),
-    ("GMenuAttributeIter", Layout {size: size_of::<GMenuAttributeIter>(), alignment: align_of::<GMenuAttributeIter>()}),
-    ("GMenuAttributeIterClass", Layout {size: size_of::<GMenuAttributeIterClass>(), alignment: align_of::<GMenuAttributeIterClass>()}),
-    ("GMenuLinkIter", Layout {size: size_of::<GMenuLinkIter>(), alignment: align_of::<GMenuLinkIter>()}),
-    ("GMenuLinkIterClass", Layout {size: size_of::<GMenuLinkIterClass>(), alignment: align_of::<GMenuLinkIterClass>()}),
-    ("GMenuModel", Layout {size: size_of::<GMenuModel>(), alignment: align_of::<GMenuModel>()}),
-    ("GMenuModelClass", Layout {size: size_of::<GMenuModelClass>(), alignment: align_of::<GMenuModelClass>()}),
-    ("GMountIface", Layout {size: size_of::<GMountIface>(), alignment: align_of::<GMountIface>()}),
-    ("GMountMountFlags", Layout {size: size_of::<GMountMountFlags>(), alignment: align_of::<GMountMountFlags>()}),
-    ("GMountOperation", Layout {size: size_of::<GMountOperation>(), alignment: align_of::<GMountOperation>()}),
-    ("GMountOperationClass", Layout {size: size_of::<GMountOperationClass>(), alignment: align_of::<GMountOperationClass>()}),
-    ("GMountOperationResult", Layout {size: size_of::<GMountOperationResult>(), alignment: align_of::<GMountOperationResult>()}),
-    ("GMountUnmountFlags", Layout {size: size_of::<GMountUnmountFlags>(), alignment: align_of::<GMountUnmountFlags>()}),
-    ("GNativeVolumeMonitor", Layout {size: size_of::<GNativeVolumeMonitor>(), alignment: align_of::<GNativeVolumeMonitor>()}),
-    ("GNativeVolumeMonitorClass", Layout {size: size_of::<GNativeVolumeMonitorClass>(), alignment: align_of::<GNativeVolumeMonitorClass>()}),
-    ("GNetworkAddress", Layout {size: size_of::<GNetworkAddress>(), alignment: align_of::<GNetworkAddress>()}),
-    ("GNetworkAddressClass", Layout {size: size_of::<GNetworkAddressClass>(), alignment: align_of::<GNetworkAddressClass>()}),
-    ("GNetworkConnectivity", Layout {size: size_of::<GNetworkConnectivity>(), alignment: align_of::<GNetworkConnectivity>()}),
-    ("GNetworkMonitorInterface", Layout {size: size_of::<GNetworkMonitorInterface>(), alignment: align_of::<GNetworkMonitorInterface>()}),
-    ("GNetworkService", Layout {size: size_of::<GNetworkService>(), alignment: align_of::<GNetworkService>()}),
-    ("GNetworkServiceClass", Layout {size: size_of::<GNetworkServiceClass>(), alignment: align_of::<GNetworkServiceClass>()}),
-    ("GNotificationPriority", Layout {size: size_of::<GNotificationPriority>(), alignment: align_of::<GNotificationPriority>()}),
-    ("GOutputMessage", Layout {size: size_of::<GOutputMessage>(), alignment: align_of::<GOutputMessage>()}),
-    ("GOutputStream", Layout {size: size_of::<GOutputStream>(), alignment: align_of::<GOutputStream>()}),
-    ("GOutputStreamClass", Layout {size: size_of::<GOutputStreamClass>(), alignment: align_of::<GOutputStreamClass>()}),
-    ("GOutputStreamSpliceFlags", Layout {size: size_of::<GOutputStreamSpliceFlags>(), alignment: align_of::<GOutputStreamSpliceFlags>()}),
-    ("GOutputVector", Layout {size: size_of::<GOutputVector>(), alignment: align_of::<GOutputVector>()}),
-    ("GPasswordSave", Layout {size: size_of::<GPasswordSave>(), alignment: align_of::<GPasswordSave>()}),
-    ("GPermission", Layout {size: size_of::<GPermission>(), alignment: align_of::<GPermission>()}),
-    ("GPermissionClass", Layout {size: size_of::<GPermissionClass>(), alignment: align_of::<GPermissionClass>()}),
-    ("GPollableInputStreamInterface", Layout {size: size_of::<GPollableInputStreamInterface>(), alignment: align_of::<GPollableInputStreamInterface>()}),
-    ("GPollableOutputStreamInterface", Layout {size: size_of::<GPollableOutputStreamInterface>(), alignment: align_of::<GPollableOutputStreamInterface>()}),
-    ("GProxyAddress", Layout {size: size_of::<GProxyAddress>(), alignment: align_of::<GProxyAddress>()}),
-    ("GProxyAddressClass", Layout {size: size_of::<GProxyAddressClass>(), alignment: align_of::<GProxyAddressClass>()}),
-    ("GProxyAddressEnumerator", Layout {size: size_of::<GProxyAddressEnumerator>(), alignment: align_of::<GProxyAddressEnumerator>()}),
-    ("GProxyAddressEnumeratorClass", Layout {size: size_of::<GProxyAddressEnumeratorClass>(), alignment: align_of::<GProxyAddressEnumeratorClass>()}),
-    ("GProxyInterface", Layout {size: size_of::<GProxyInterface>(), alignment: align_of::<GProxyInterface>()}),
-    ("GProxyResolverInterface", Layout {size: size_of::<GProxyResolverInterface>(), alignment: align_of::<GProxyResolverInterface>()}),
-    ("GRemoteActionGroupInterface", Layout {size: size_of::<GRemoteActionGroupInterface>(), alignment: align_of::<GRemoteActionGroupInterface>()}),
-    ("GResolver", Layout {size: size_of::<GResolver>(), alignment: align_of::<GResolver>()}),
-    ("GResolverClass", Layout {size: size_of::<GResolverClass>(), alignment: align_of::<GResolverClass>()}),
-    ("GResolverError", Layout {size: size_of::<GResolverError>(), alignment: align_of::<GResolverError>()}),
-    ("GResolverRecordType", Layout {size: size_of::<GResolverRecordType>(), alignment: align_of::<GResolverRecordType>()}),
-    ("GResourceError", Layout {size: size_of::<GResourceError>(), alignment: align_of::<GResourceError>()}),
-    ("GResourceFlags", Layout {size: size_of::<GResourceFlags>(), alignment: align_of::<GResourceFlags>()}),
-    ("GResourceLookupFlags", Layout {size: size_of::<GResourceLookupFlags>(), alignment: align_of::<GResourceLookupFlags>()}),
-    ("GSeekableIface", Layout {size: size_of::<GSeekableIface>(), alignment: align_of::<GSeekableIface>()}),
-    ("GSettings", Layout {size: size_of::<GSettings>(), alignment: align_of::<GSettings>()}),
-    ("GSettingsBackend", Layout {size: size_of::<GSettingsBackend>(), alignment: align_of::<GSettingsBackend>()}),
-    ("GSettingsBackendClass", Layout {size: size_of::<GSettingsBackendClass>(), alignment: align_of::<GSettingsBackendClass>()}),
-    ("GSettingsBindFlags", Layout {size: size_of::<GSettingsBindFlags>(), alignment: align_of::<GSettingsBindFlags>()}),
-    ("GSettingsClass", Layout {size: size_of::<GSettingsClass>(), alignment: align_of::<GSettingsClass>()}),
-    ("GSimpleActionGroup", Layout {size: size_of::<GSimpleActionGroup>(), alignment: align_of::<GSimpleActionGroup>()}),
-    ("GSimpleActionGroupClass", Layout {size: size_of::<GSimpleActionGroupClass>(), alignment: align_of::<GSimpleActionGroupClass>()}),
-    ("GSimpleProxyResolver", Layout {size: size_of::<GSimpleProxyResolver>(), alignment: align_of::<GSimpleProxyResolver>()}),
-    ("GSimpleProxyResolverClass", Layout {size: size_of::<GSimpleProxyResolverClass>(), alignment: align_of::<GSimpleProxyResolverClass>()}),
-    ("GSocket", Layout {size: size_of::<GSocket>(), alignment: align_of::<GSocket>()}),
-    ("GSocketAddress", Layout {size: size_of::<GSocketAddress>(), alignment: align_of::<GSocketAddress>()}),
-    ("GSocketAddressClass", Layout {size: size_of::<GSocketAddressClass>(), alignment: align_of::<GSocketAddressClass>()}),
-    ("GSocketAddressEnumerator", Layout {size: size_of::<GSocketAddressEnumerator>(), alignment: align_of::<GSocketAddressEnumerator>()}),
-    ("GSocketAddressEnumeratorClass", Layout {size: size_of::<GSocketAddressEnumeratorClass>(), alignment: align_of::<GSocketAddressEnumeratorClass>()}),
-    ("GSocketClass", Layout {size: size_of::<GSocketClass>(), alignment: align_of::<GSocketClass>()}),
-    ("GSocketClient", Layout {size: size_of::<GSocketClient>(), alignment: align_of::<GSocketClient>()}),
-    ("GSocketClientClass", Layout {size: size_of::<GSocketClientClass>(), alignment: align_of::<GSocketClientClass>()}),
-    ("GSocketClientEvent", Layout {size: size_of::<GSocketClientEvent>(), alignment: align_of::<GSocketClientEvent>()}),
-    ("GSocketConnectableIface", Layout {size: size_of::<GSocketConnectableIface>(), alignment: align_of::<GSocketConnectableIface>()}),
-    ("GSocketConnection", Layout {size: size_of::<GSocketConnection>(), alignment: align_of::<GSocketConnection>()}),
-    ("GSocketConnectionClass", Layout {size: size_of::<GSocketConnectionClass>(), alignment: align_of::<GSocketConnectionClass>()}),
-    ("GSocketControlMessage", Layout {size: size_of::<GSocketControlMessage>(), alignment: align_of::<GSocketControlMessage>()}),
-    ("GSocketControlMessageClass", Layout {size: size_of::<GSocketControlMessageClass>(), alignment: align_of::<GSocketControlMessageClass>()}),
-    ("GSocketFamily", Layout {size: size_of::<GSocketFamily>(), alignment: align_of::<GSocketFamily>()}),
-    ("GSocketListener", Layout {size: size_of::<GSocketListener>(), alignment: align_of::<GSocketListener>()}),
-    ("GSocketListenerClass", Layout {size: size_of::<GSocketListenerClass>(), alignment: align_of::<GSocketListenerClass>()}),
-    ("GSocketListenerEvent", Layout {size: size_of::<GSocketListenerEvent>(), alignment: align_of::<GSocketListenerEvent>()}),
-    ("GSocketMsgFlags", Layout {size: size_of::<GSocketMsgFlags>(), alignment: align_of::<GSocketMsgFlags>()}),
-    ("GSocketProtocol", Layout {size: size_of::<GSocketProtocol>(), alignment: align_of::<GSocketProtocol>()}),
-    ("GSocketService", Layout {size: size_of::<GSocketService>(), alignment: align_of::<GSocketService>()}),
-    ("GSocketServiceClass", Layout {size: size_of::<GSocketServiceClass>(), alignment: align_of::<GSocketServiceClass>()}),
-    ("GSocketType", Layout {size: size_of::<GSocketType>(), alignment: align_of::<GSocketType>()}),
-    ("GStaticResource", Layout {size: size_of::<GStaticResource>(), alignment: align_of::<GStaticResource>()}),
-    ("GSubprocessFlags", Layout {size: size_of::<GSubprocessFlags>(), alignment: align_of::<GSubprocessFlags>()}),
-    ("GTcpConnection", Layout {size: size_of::<GTcpConnection>(), alignment: align_of::<GTcpConnection>()}),
-    ("GTcpConnectionClass", Layout {size: size_of::<GTcpConnectionClass>(), alignment: align_of::<GTcpConnectionClass>()}),
-    ("GTcpWrapperConnection", Layout {size: size_of::<GTcpWrapperConnection>(), alignment: align_of::<GTcpWrapperConnection>()}),
-    ("GTcpWrapperConnectionClass", Layout {size: size_of::<GTcpWrapperConnectionClass>(), alignment: align_of::<GTcpWrapperConnectionClass>()}),
-    ("GTestDBusFlags", Layout {size: size_of::<GTestDBusFlags>(), alignment: align_of::<GTestDBusFlags>()}),
-    ("GThreadedSocketService", Layout {size: size_of::<GThreadedSocketService>(), alignment: align_of::<GThreadedSocketService>()}),
-    ("GThreadedSocketServiceClass", Layout {size: size_of::<GThreadedSocketServiceClass>(), alignment: align_of::<GThreadedSocketServiceClass>()}),
-    ("GTlsAuthenticationMode", Layout {size: size_of::<GTlsAuthenticationMode>(), alignment: align_of::<GTlsAuthenticationMode>()}),
-    ("GTlsBackendInterface", Layout {size: size_of::<GTlsBackendInterface>(), alignment: align_of::<GTlsBackendInterface>()}),
-    ("GTlsCertificate", Layout {size: size_of::<GTlsCertificate>(), alignment: align_of::<GTlsCertificate>()}),
-    ("GTlsCertificateClass", Layout {size: size_of::<GTlsCertificateClass>(), alignment: align_of::<GTlsCertificateClass>()}),
-    ("GTlsCertificateFlags", Layout {size: size_of::<GTlsCertificateFlags>(), alignment: align_of::<GTlsCertificateFlags>()}),
-    ("GTlsCertificateRequestFlags", Layout {size: size_of::<GTlsCertificateRequestFlags>(), alignment: align_of::<GTlsCertificateRequestFlags>()}),
-    ("GTlsClientConnectionInterface", Layout {size: size_of::<GTlsClientConnectionInterface>(), alignment: align_of::<GTlsClientConnectionInterface>()}),
-    ("GTlsConnection", Layout {size: size_of::<GTlsConnection>(), alignment: align_of::<GTlsConnection>()}),
-    ("GTlsConnectionClass", Layout {size: size_of::<GTlsConnectionClass>(), alignment: align_of::<GTlsConnectionClass>()}),
-    ("GTlsDatabase", Layout {size: size_of::<GTlsDatabase>(), alignment: align_of::<GTlsDatabase>()}),
-    ("GTlsDatabaseClass", Layout {size: size_of::<GTlsDatabaseClass>(), alignment: align_of::<GTlsDatabaseClass>()}),
-    ("GTlsDatabaseLookupFlags", Layout {size: size_of::<GTlsDatabaseLookupFlags>(), alignment: align_of::<GTlsDatabaseLookupFlags>()}),
-    ("GTlsDatabaseVerifyFlags", Layout {size: size_of::<GTlsDatabaseVerifyFlags>(), alignment: align_of::<GTlsDatabaseVerifyFlags>()}),
-    ("GTlsError", Layout {size: size_of::<GTlsError>(), alignment: align_of::<GTlsError>()}),
-    ("GTlsFileDatabaseInterface", Layout {size: size_of::<GTlsFileDatabaseInterface>(), alignment: align_of::<GTlsFileDatabaseInterface>()}),
-    ("GTlsInteraction", Layout {size: size_of::<GTlsInteraction>(), alignment: align_of::<GTlsInteraction>()}),
-    ("GTlsInteractionClass", Layout {size: size_of::<GTlsInteractionClass>(), alignment: align_of::<GTlsInteractionClass>()}),
-    ("GTlsInteractionResult", Layout {size: size_of::<GTlsInteractionResult>(), alignment: align_of::<GTlsInteractionResult>()}),
-    ("GTlsPassword", Layout {size: size_of::<GTlsPassword>(), alignment: align_of::<GTlsPassword>()}),
-    ("GTlsPasswordClass", Layout {size: size_of::<GTlsPasswordClass>(), alignment: align_of::<GTlsPasswordClass>()}),
-    ("GTlsPasswordFlags", Layout {size: size_of::<GTlsPasswordFlags>(), alignment: align_of::<GTlsPasswordFlags>()}),
-    ("GTlsRehandshakeMode", Layout {size: size_of::<GTlsRehandshakeMode>(), alignment: align_of::<GTlsRehandshakeMode>()}),
-    ("GTlsServerConnectionInterface", Layout {size: size_of::<GTlsServerConnectionInterface>(), alignment: align_of::<GTlsServerConnectionInterface>()}),
-    ("GUnixConnection", Layout {size: size_of::<GUnixConnection>(), alignment: align_of::<GUnixConnection>()}),
-    ("GUnixConnectionClass", Layout {size: size_of::<GUnixConnectionClass>(), alignment: align_of::<GUnixConnectionClass>()}),
-    ("GUnixCredentialsMessage", Layout {size: size_of::<GUnixCredentialsMessage>(), alignment: align_of::<GUnixCredentialsMessage>()}),
-    ("GUnixCredentialsMessageClass", Layout {size: size_of::<GUnixCredentialsMessageClass>(), alignment: align_of::<GUnixCredentialsMessageClass>()}),
-    ("GUnixFDList", Layout {size: size_of::<GUnixFDList>(), alignment: align_of::<GUnixFDList>()}),
-    ("GUnixFDListClass", Layout {size: size_of::<GUnixFDListClass>(), alignment: align_of::<GUnixFDListClass>()}),
-    ("GUnixFDMessage", Layout {size: size_of::<GUnixFDMessage>(), alignment: align_of::<GUnixFDMessage>()}),
-    ("GUnixFDMessageClass", Layout {size: size_of::<GUnixFDMessageClass>(), alignment: align_of::<GUnixFDMessageClass>()}),
-    ("GUnixInputStream", Layout {size: size_of::<GUnixInputStream>(), alignment: align_of::<GUnixInputStream>()}),
-    ("GUnixInputStreamClass", Layout {size: size_of::<GUnixInputStreamClass>(), alignment: align_of::<GUnixInputStreamClass>()}),
-    ("GUnixOutputStream", Layout {size: size_of::<GUnixOutputStream>(), alignment: align_of::<GUnixOutputStream>()}),
-    ("GUnixOutputStreamClass", Layout {size: size_of::<GUnixOutputStreamClass>(), alignment: align_of::<GUnixOutputStreamClass>()}),
-    ("GUnixSocketAddress", Layout {size: size_of::<GUnixSocketAddress>(), alignment: align_of::<GUnixSocketAddress>()}),
-    ("GUnixSocketAddressClass", Layout {size: size_of::<GUnixSocketAddressClass>(), alignment: align_of::<GUnixSocketAddressClass>()}),
-    ("GUnixSocketAddressType", Layout {size: size_of::<GUnixSocketAddressType>(), alignment: align_of::<GUnixSocketAddressType>()}),
-    ("GVfs", Layout {size: size_of::<GVfs>(), alignment: align_of::<GVfs>()}),
-    ("GVfsClass", Layout {size: size_of::<GVfsClass>(), alignment: align_of::<GVfsClass>()}),
-    ("GVolumeIface", Layout {size: size_of::<GVolumeIface>(), alignment: align_of::<GVolumeIface>()}),
-    ("GVolumeMonitor", Layout {size: size_of::<GVolumeMonitor>(), alignment: align_of::<GVolumeMonitor>()}),
-    ("GVolumeMonitorClass", Layout {size: size_of::<GVolumeMonitorClass>(), alignment: align_of::<GVolumeMonitorClass>()}),
-    ("GZlibCompressorClass", Layout {size: size_of::<GZlibCompressorClass>(), alignment: align_of::<GZlibCompressorClass>()}),
-    ("GZlibCompressorFormat", Layout {size: size_of::<GZlibCompressorFormat>(), alignment: align_of::<GZlibCompressorFormat>()}),
-    ("GZlibDecompressorClass", Layout {size: size_of::<GZlibDecompressorClass>(), alignment: align_of::<GZlibDecompressorClass>()}),
+    (
+        "GActionEntry",
+        Layout {
+            size: size_of::<GActionEntry>(),
+            alignment: align_of::<GActionEntry>(),
+        },
+    ),
+    (
+        "GActionGroupInterface",
+        Layout {
+            size: size_of::<GActionGroupInterface>(),
+            alignment: align_of::<GActionGroupInterface>(),
+        },
+    ),
+    (
+        "GActionInterface",
+        Layout {
+            size: size_of::<GActionInterface>(),
+            alignment: align_of::<GActionInterface>(),
+        },
+    ),
+    (
+        "GActionMapInterface",
+        Layout {
+            size: size_of::<GActionMapInterface>(),
+            alignment: align_of::<GActionMapInterface>(),
+        },
+    ),
+    (
+        "GAppInfoCreateFlags",
+        Layout {
+            size: size_of::<GAppInfoCreateFlags>(),
+            alignment: align_of::<GAppInfoCreateFlags>(),
+        },
+    ),
+    (
+        "GAppInfoIface",
+        Layout {
+            size: size_of::<GAppInfoIface>(),
+            alignment: align_of::<GAppInfoIface>(),
+        },
+    ),
+    (
+        "GAppLaunchContext",
+        Layout {
+            size: size_of::<GAppLaunchContext>(),
+            alignment: align_of::<GAppLaunchContext>(),
+        },
+    ),
+    (
+        "GAppLaunchContextClass",
+        Layout {
+            size: size_of::<GAppLaunchContextClass>(),
+            alignment: align_of::<GAppLaunchContextClass>(),
+        },
+    ),
+    (
+        "GApplication",
+        Layout {
+            size: size_of::<GApplication>(),
+            alignment: align_of::<GApplication>(),
+        },
+    ),
+    (
+        "GApplicationClass",
+        Layout {
+            size: size_of::<GApplicationClass>(),
+            alignment: align_of::<GApplicationClass>(),
+        },
+    ),
+    (
+        "GApplicationCommandLine",
+        Layout {
+            size: size_of::<GApplicationCommandLine>(),
+            alignment: align_of::<GApplicationCommandLine>(),
+        },
+    ),
+    (
+        "GApplicationCommandLineClass",
+        Layout {
+            size: size_of::<GApplicationCommandLineClass>(),
+            alignment: align_of::<GApplicationCommandLineClass>(),
+        },
+    ),
+    (
+        "GApplicationFlags",
+        Layout {
+            size: size_of::<GApplicationFlags>(),
+            alignment: align_of::<GApplicationFlags>(),
+        },
+    ),
+    (
+        "GAskPasswordFlags",
+        Layout {
+            size: size_of::<GAskPasswordFlags>(),
+            alignment: align_of::<GAskPasswordFlags>(),
+        },
+    ),
+    (
+        "GAsyncInitableIface",
+        Layout {
+            size: size_of::<GAsyncInitableIface>(),
+            alignment: align_of::<GAsyncInitableIface>(),
+        },
+    ),
+    (
+        "GAsyncResultIface",
+        Layout {
+            size: size_of::<GAsyncResultIface>(),
+            alignment: align_of::<GAsyncResultIface>(),
+        },
+    ),
+    (
+        "GBufferedInputStream",
+        Layout {
+            size: size_of::<GBufferedInputStream>(),
+            alignment: align_of::<GBufferedInputStream>(),
+        },
+    ),
+    (
+        "GBufferedInputStreamClass",
+        Layout {
+            size: size_of::<GBufferedInputStreamClass>(),
+            alignment: align_of::<GBufferedInputStreamClass>(),
+        },
+    ),
+    (
+        "GBufferedOutputStream",
+        Layout {
+            size: size_of::<GBufferedOutputStream>(),
+            alignment: align_of::<GBufferedOutputStream>(),
+        },
+    ),
+    (
+        "GBufferedOutputStreamClass",
+        Layout {
+            size: size_of::<GBufferedOutputStreamClass>(),
+            alignment: align_of::<GBufferedOutputStreamClass>(),
+        },
+    ),
+    (
+        "GBusNameOwnerFlags",
+        Layout {
+            size: size_of::<GBusNameOwnerFlags>(),
+            alignment: align_of::<GBusNameOwnerFlags>(),
+        },
+    ),
+    (
+        "GBusNameWatcherFlags",
+        Layout {
+            size: size_of::<GBusNameWatcherFlags>(),
+            alignment: align_of::<GBusNameWatcherFlags>(),
+        },
+    ),
+    (
+        "GBusType",
+        Layout {
+            size: size_of::<GBusType>(),
+            alignment: align_of::<GBusType>(),
+        },
+    ),
+    (
+        "GCancellable",
+        Layout {
+            size: size_of::<GCancellable>(),
+            alignment: align_of::<GCancellable>(),
+        },
+    ),
+    (
+        "GCancellableClass",
+        Layout {
+            size: size_of::<GCancellableClass>(),
+            alignment: align_of::<GCancellableClass>(),
+        },
+    ),
+    (
+        "GCharsetConverterClass",
+        Layout {
+            size: size_of::<GCharsetConverterClass>(),
+            alignment: align_of::<GCharsetConverterClass>(),
+        },
+    ),
+    (
+        "GConverterFlags",
+        Layout {
+            size: size_of::<GConverterFlags>(),
+            alignment: align_of::<GConverterFlags>(),
+        },
+    ),
+    (
+        "GConverterIface",
+        Layout {
+            size: size_of::<GConverterIface>(),
+            alignment: align_of::<GConverterIface>(),
+        },
+    ),
+    (
+        "GConverterInputStream",
+        Layout {
+            size: size_of::<GConverterInputStream>(),
+            alignment: align_of::<GConverterInputStream>(),
+        },
+    ),
+    (
+        "GConverterInputStreamClass",
+        Layout {
+            size: size_of::<GConverterInputStreamClass>(),
+            alignment: align_of::<GConverterInputStreamClass>(),
+        },
+    ),
+    (
+        "GConverterOutputStream",
+        Layout {
+            size: size_of::<GConverterOutputStream>(),
+            alignment: align_of::<GConverterOutputStream>(),
+        },
+    ),
+    (
+        "GConverterOutputStreamClass",
+        Layout {
+            size: size_of::<GConverterOutputStreamClass>(),
+            alignment: align_of::<GConverterOutputStreamClass>(),
+        },
+    ),
+    (
+        "GConverterResult",
+        Layout {
+            size: size_of::<GConverterResult>(),
+            alignment: align_of::<GConverterResult>(),
+        },
+    ),
+    (
+        "GCredentialsType",
+        Layout {
+            size: size_of::<GCredentialsType>(),
+            alignment: align_of::<GCredentialsType>(),
+        },
+    ),
+    (
+        "GDBusAnnotationInfo",
+        Layout {
+            size: size_of::<GDBusAnnotationInfo>(),
+            alignment: align_of::<GDBusAnnotationInfo>(),
+        },
+    ),
+    (
+        "GDBusArgInfo",
+        Layout {
+            size: size_of::<GDBusArgInfo>(),
+            alignment: align_of::<GDBusArgInfo>(),
+        },
+    ),
+    (
+        "GDBusCallFlags",
+        Layout {
+            size: size_of::<GDBusCallFlags>(),
+            alignment: align_of::<GDBusCallFlags>(),
+        },
+    ),
+    (
+        "GDBusCapabilityFlags",
+        Layout {
+            size: size_of::<GDBusCapabilityFlags>(),
+            alignment: align_of::<GDBusCapabilityFlags>(),
+        },
+    ),
+    (
+        "GDBusConnectionFlags",
+        Layout {
+            size: size_of::<GDBusConnectionFlags>(),
+            alignment: align_of::<GDBusConnectionFlags>(),
+        },
+    ),
+    (
+        "GDBusError",
+        Layout {
+            size: size_of::<GDBusError>(),
+            alignment: align_of::<GDBusError>(),
+        },
+    ),
+    (
+        "GDBusErrorEntry",
+        Layout {
+            size: size_of::<GDBusErrorEntry>(),
+            alignment: align_of::<GDBusErrorEntry>(),
+        },
+    ),
+    (
+        "GDBusInterfaceIface",
+        Layout {
+            size: size_of::<GDBusInterfaceIface>(),
+            alignment: align_of::<GDBusInterfaceIface>(),
+        },
+    ),
+    (
+        "GDBusInterfaceInfo",
+        Layout {
+            size: size_of::<GDBusInterfaceInfo>(),
+            alignment: align_of::<GDBusInterfaceInfo>(),
+        },
+    ),
+    (
+        "GDBusInterfaceSkeleton",
+        Layout {
+            size: size_of::<GDBusInterfaceSkeleton>(),
+            alignment: align_of::<GDBusInterfaceSkeleton>(),
+        },
+    ),
+    (
+        "GDBusInterfaceSkeletonClass",
+        Layout {
+            size: size_of::<GDBusInterfaceSkeletonClass>(),
+            alignment: align_of::<GDBusInterfaceSkeletonClass>(),
+        },
+    ),
+    (
+        "GDBusInterfaceSkeletonFlags",
+        Layout {
+            size: size_of::<GDBusInterfaceSkeletonFlags>(),
+            alignment: align_of::<GDBusInterfaceSkeletonFlags>(),
+        },
+    ),
+    (
+        "GDBusInterfaceVTable",
+        Layout {
+            size: size_of::<GDBusInterfaceVTable>(),
+            alignment: align_of::<GDBusInterfaceVTable>(),
+        },
+    ),
+    (
+        "GDBusMessageByteOrder",
+        Layout {
+            size: size_of::<GDBusMessageByteOrder>(),
+            alignment: align_of::<GDBusMessageByteOrder>(),
+        },
+    ),
+    (
+        "GDBusMessageFlags",
+        Layout {
+            size: size_of::<GDBusMessageFlags>(),
+            alignment: align_of::<GDBusMessageFlags>(),
+        },
+    ),
+    (
+        "GDBusMessageHeaderField",
+        Layout {
+            size: size_of::<GDBusMessageHeaderField>(),
+            alignment: align_of::<GDBusMessageHeaderField>(),
+        },
+    ),
+    (
+        "GDBusMessageType",
+        Layout {
+            size: size_of::<GDBusMessageType>(),
+            alignment: align_of::<GDBusMessageType>(),
+        },
+    ),
+    (
+        "GDBusMethodInfo",
+        Layout {
+            size: size_of::<GDBusMethodInfo>(),
+            alignment: align_of::<GDBusMethodInfo>(),
+        },
+    ),
+    (
+        "GDBusNodeInfo",
+        Layout {
+            size: size_of::<GDBusNodeInfo>(),
+            alignment: align_of::<GDBusNodeInfo>(),
+        },
+    ),
+    (
+        "GDBusObjectIface",
+        Layout {
+            size: size_of::<GDBusObjectIface>(),
+            alignment: align_of::<GDBusObjectIface>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerClient",
+        Layout {
+            size: size_of::<GDBusObjectManagerClient>(),
+            alignment: align_of::<GDBusObjectManagerClient>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerClientClass",
+        Layout {
+            size: size_of::<GDBusObjectManagerClientClass>(),
+            alignment: align_of::<GDBusObjectManagerClientClass>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerClientFlags",
+        Layout {
+            size: size_of::<GDBusObjectManagerClientFlags>(),
+            alignment: align_of::<GDBusObjectManagerClientFlags>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerIface",
+        Layout {
+            size: size_of::<GDBusObjectManagerIface>(),
+            alignment: align_of::<GDBusObjectManagerIface>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerServer",
+        Layout {
+            size: size_of::<GDBusObjectManagerServer>(),
+            alignment: align_of::<GDBusObjectManagerServer>(),
+        },
+    ),
+    (
+        "GDBusObjectManagerServerClass",
+        Layout {
+            size: size_of::<GDBusObjectManagerServerClass>(),
+            alignment: align_of::<GDBusObjectManagerServerClass>(),
+        },
+    ),
+    (
+        "GDBusObjectProxy",
+        Layout {
+            size: size_of::<GDBusObjectProxy>(),
+            alignment: align_of::<GDBusObjectProxy>(),
+        },
+    ),
+    (
+        "GDBusObjectProxyClass",
+        Layout {
+            size: size_of::<GDBusObjectProxyClass>(),
+            alignment: align_of::<GDBusObjectProxyClass>(),
+        },
+    ),
+    (
+        "GDBusObjectSkeleton",
+        Layout {
+            size: size_of::<GDBusObjectSkeleton>(),
+            alignment: align_of::<GDBusObjectSkeleton>(),
+        },
+    ),
+    (
+        "GDBusObjectSkeletonClass",
+        Layout {
+            size: size_of::<GDBusObjectSkeletonClass>(),
+            alignment: align_of::<GDBusObjectSkeletonClass>(),
+        },
+    ),
+    (
+        "GDBusPropertyInfo",
+        Layout {
+            size: size_of::<GDBusPropertyInfo>(),
+            alignment: align_of::<GDBusPropertyInfo>(),
+        },
+    ),
+    (
+        "GDBusPropertyInfoFlags",
+        Layout {
+            size: size_of::<GDBusPropertyInfoFlags>(),
+            alignment: align_of::<GDBusPropertyInfoFlags>(),
+        },
+    ),
+    (
+        "GDBusProxy",
+        Layout {
+            size: size_of::<GDBusProxy>(),
+            alignment: align_of::<GDBusProxy>(),
+        },
+    ),
+    (
+        "GDBusProxyClass",
+        Layout {
+            size: size_of::<GDBusProxyClass>(),
+            alignment: align_of::<GDBusProxyClass>(),
+        },
+    ),
+    (
+        "GDBusProxyFlags",
+        Layout {
+            size: size_of::<GDBusProxyFlags>(),
+            alignment: align_of::<GDBusProxyFlags>(),
+        },
+    ),
+    (
+        "GDBusSendMessageFlags",
+        Layout {
+            size: size_of::<GDBusSendMessageFlags>(),
+            alignment: align_of::<GDBusSendMessageFlags>(),
+        },
+    ),
+    (
+        "GDBusServerFlags",
+        Layout {
+            size: size_of::<GDBusServerFlags>(),
+            alignment: align_of::<GDBusServerFlags>(),
+        },
+    ),
+    (
+        "GDBusSignalFlags",
+        Layout {
+            size: size_of::<GDBusSignalFlags>(),
+            alignment: align_of::<GDBusSignalFlags>(),
+        },
+    ),
+    (
+        "GDBusSignalInfo",
+        Layout {
+            size: size_of::<GDBusSignalInfo>(),
+            alignment: align_of::<GDBusSignalInfo>(),
+        },
+    ),
+    (
+        "GDBusSubtreeFlags",
+        Layout {
+            size: size_of::<GDBusSubtreeFlags>(),
+            alignment: align_of::<GDBusSubtreeFlags>(),
+        },
+    ),
+    (
+        "GDBusSubtreeVTable",
+        Layout {
+            size: size_of::<GDBusSubtreeVTable>(),
+            alignment: align_of::<GDBusSubtreeVTable>(),
+        },
+    ),
+    (
+        "GDataInputStream",
+        Layout {
+            size: size_of::<GDataInputStream>(),
+            alignment: align_of::<GDataInputStream>(),
+        },
+    ),
+    (
+        "GDataInputStreamClass",
+        Layout {
+            size: size_of::<GDataInputStreamClass>(),
+            alignment: align_of::<GDataInputStreamClass>(),
+        },
+    ),
+    (
+        "GDataOutputStream",
+        Layout {
+            size: size_of::<GDataOutputStream>(),
+            alignment: align_of::<GDataOutputStream>(),
+        },
+    ),
+    (
+        "GDataOutputStreamClass",
+        Layout {
+            size: size_of::<GDataOutputStreamClass>(),
+            alignment: align_of::<GDataOutputStreamClass>(),
+        },
+    ),
+    (
+        "GDataStreamByteOrder",
+        Layout {
+            size: size_of::<GDataStreamByteOrder>(),
+            alignment: align_of::<GDataStreamByteOrder>(),
+        },
+    ),
+    (
+        "GDataStreamNewlineType",
+        Layout {
+            size: size_of::<GDataStreamNewlineType>(),
+            alignment: align_of::<GDataStreamNewlineType>(),
+        },
+    ),
+    (
+        "GDatagramBasedInterface",
+        Layout {
+            size: size_of::<GDatagramBasedInterface>(),
+            alignment: align_of::<GDatagramBasedInterface>(),
+        },
+    ),
+    (
+        "GDesktopAppInfoClass",
+        Layout {
+            size: size_of::<GDesktopAppInfoClass>(),
+            alignment: align_of::<GDesktopAppInfoClass>(),
+        },
+    ),
+    (
+        "GDesktopAppInfoLookupIface",
+        Layout {
+            size: size_of::<GDesktopAppInfoLookupIface>(),
+            alignment: align_of::<GDesktopAppInfoLookupIface>(),
+        },
+    ),
+    (
+        "GDriveIface",
+        Layout {
+            size: size_of::<GDriveIface>(),
+            alignment: align_of::<GDriveIface>(),
+        },
+    ),
+    (
+        "GDriveStartFlags",
+        Layout {
+            size: size_of::<GDriveStartFlags>(),
+            alignment: align_of::<GDriveStartFlags>(),
+        },
+    ),
+    (
+        "GDriveStartStopType",
+        Layout {
+            size: size_of::<GDriveStartStopType>(),
+            alignment: align_of::<GDriveStartStopType>(),
+        },
+    ),
+    (
+        "GDtlsClientConnectionInterface",
+        Layout {
+            size: size_of::<GDtlsClientConnectionInterface>(),
+            alignment: align_of::<GDtlsClientConnectionInterface>(),
+        },
+    ),
+    (
+        "GDtlsConnectionInterface",
+        Layout {
+            size: size_of::<GDtlsConnectionInterface>(),
+            alignment: align_of::<GDtlsConnectionInterface>(),
+        },
+    ),
+    (
+        "GDtlsServerConnectionInterface",
+        Layout {
+            size: size_of::<GDtlsServerConnectionInterface>(),
+            alignment: align_of::<GDtlsServerConnectionInterface>(),
+        },
+    ),
+    (
+        "GEmblemOrigin",
+        Layout {
+            size: size_of::<GEmblemOrigin>(),
+            alignment: align_of::<GEmblemOrigin>(),
+        },
+    ),
+    (
+        "GEmblemedIcon",
+        Layout {
+            size: size_of::<GEmblemedIcon>(),
+            alignment: align_of::<GEmblemedIcon>(),
+        },
+    ),
+    (
+        "GEmblemedIconClass",
+        Layout {
+            size: size_of::<GEmblemedIconClass>(),
+            alignment: align_of::<GEmblemedIconClass>(),
+        },
+    ),
+    (
+        "GFileAttributeInfo",
+        Layout {
+            size: size_of::<GFileAttributeInfo>(),
+            alignment: align_of::<GFileAttributeInfo>(),
+        },
+    ),
+    (
+        "GFileAttributeInfoFlags",
+        Layout {
+            size: size_of::<GFileAttributeInfoFlags>(),
+            alignment: align_of::<GFileAttributeInfoFlags>(),
+        },
+    ),
+    (
+        "GFileAttributeInfoList",
+        Layout {
+            size: size_of::<GFileAttributeInfoList>(),
+            alignment: align_of::<GFileAttributeInfoList>(),
+        },
+    ),
+    (
+        "GFileAttributeStatus",
+        Layout {
+            size: size_of::<GFileAttributeStatus>(),
+            alignment: align_of::<GFileAttributeStatus>(),
+        },
+    ),
+    (
+        "GFileAttributeType",
+        Layout {
+            size: size_of::<GFileAttributeType>(),
+            alignment: align_of::<GFileAttributeType>(),
+        },
+    ),
+    (
+        "GFileCopyFlags",
+        Layout {
+            size: size_of::<GFileCopyFlags>(),
+            alignment: align_of::<GFileCopyFlags>(),
+        },
+    ),
+    (
+        "GFileCreateFlags",
+        Layout {
+            size: size_of::<GFileCreateFlags>(),
+            alignment: align_of::<GFileCreateFlags>(),
+        },
+    ),
+    (
+        "GFileDescriptorBasedIface",
+        Layout {
+            size: size_of::<GFileDescriptorBasedIface>(),
+            alignment: align_of::<GFileDescriptorBasedIface>(),
+        },
+    ),
+    (
+        "GFileEnumerator",
+        Layout {
+            size: size_of::<GFileEnumerator>(),
+            alignment: align_of::<GFileEnumerator>(),
+        },
+    ),
+    (
+        "GFileEnumeratorClass",
+        Layout {
+            size: size_of::<GFileEnumeratorClass>(),
+            alignment: align_of::<GFileEnumeratorClass>(),
+        },
+    ),
+    (
+        "GFileIOStream",
+        Layout {
+            size: size_of::<GFileIOStream>(),
+            alignment: align_of::<GFileIOStream>(),
+        },
+    ),
+    (
+        "GFileIOStreamClass",
+        Layout {
+            size: size_of::<GFileIOStreamClass>(),
+            alignment: align_of::<GFileIOStreamClass>(),
+        },
+    ),
+    (
+        "GFileIface",
+        Layout {
+            size: size_of::<GFileIface>(),
+            alignment: align_of::<GFileIface>(),
+        },
+    ),
+    (
+        "GFileInputStream",
+        Layout {
+            size: size_of::<GFileInputStream>(),
+            alignment: align_of::<GFileInputStream>(),
+        },
+    ),
+    (
+        "GFileInputStreamClass",
+        Layout {
+            size: size_of::<GFileInputStreamClass>(),
+            alignment: align_of::<GFileInputStreamClass>(),
+        },
+    ),
+    (
+        "GFileMeasureFlags",
+        Layout {
+            size: size_of::<GFileMeasureFlags>(),
+            alignment: align_of::<GFileMeasureFlags>(),
+        },
+    ),
+    (
+        "GFileMonitor",
+        Layout {
+            size: size_of::<GFileMonitor>(),
+            alignment: align_of::<GFileMonitor>(),
+        },
+    ),
+    (
+        "GFileMonitorClass",
+        Layout {
+            size: size_of::<GFileMonitorClass>(),
+            alignment: align_of::<GFileMonitorClass>(),
+        },
+    ),
+    (
+        "GFileMonitorEvent",
+        Layout {
+            size: size_of::<GFileMonitorEvent>(),
+            alignment: align_of::<GFileMonitorEvent>(),
+        },
+    ),
+    (
+        "GFileMonitorFlags",
+        Layout {
+            size: size_of::<GFileMonitorFlags>(),
+            alignment: align_of::<GFileMonitorFlags>(),
+        },
+    ),
+    (
+        "GFileOutputStream",
+        Layout {
+            size: size_of::<GFileOutputStream>(),
+            alignment: align_of::<GFileOutputStream>(),
+        },
+    ),
+    (
+        "GFileOutputStreamClass",
+        Layout {
+            size: size_of::<GFileOutputStreamClass>(),
+            alignment: align_of::<GFileOutputStreamClass>(),
+        },
+    ),
+    (
+        "GFileQueryInfoFlags",
+        Layout {
+            size: size_of::<GFileQueryInfoFlags>(),
+            alignment: align_of::<GFileQueryInfoFlags>(),
+        },
+    ),
+    (
+        "GFileType",
+        Layout {
+            size: size_of::<GFileType>(),
+            alignment: align_of::<GFileType>(),
+        },
+    ),
+    (
+        "GFilenameCompleterClass",
+        Layout {
+            size: size_of::<GFilenameCompleterClass>(),
+            alignment: align_of::<GFilenameCompleterClass>(),
+        },
+    ),
+    (
+        "GFilesystemPreviewType",
+        Layout {
+            size: size_of::<GFilesystemPreviewType>(),
+            alignment: align_of::<GFilesystemPreviewType>(),
+        },
+    ),
+    (
+        "GFilterInputStream",
+        Layout {
+            size: size_of::<GFilterInputStream>(),
+            alignment: align_of::<GFilterInputStream>(),
+        },
+    ),
+    (
+        "GFilterInputStreamClass",
+        Layout {
+            size: size_of::<GFilterInputStreamClass>(),
+            alignment: align_of::<GFilterInputStreamClass>(),
+        },
+    ),
+    (
+        "GFilterOutputStream",
+        Layout {
+            size: size_of::<GFilterOutputStream>(),
+            alignment: align_of::<GFilterOutputStream>(),
+        },
+    ),
+    (
+        "GFilterOutputStreamClass",
+        Layout {
+            size: size_of::<GFilterOutputStreamClass>(),
+            alignment: align_of::<GFilterOutputStreamClass>(),
+        },
+    ),
+    (
+        "GIOErrorEnum",
+        Layout {
+            size: size_of::<GIOErrorEnum>(),
+            alignment: align_of::<GIOErrorEnum>(),
+        },
+    ),
+    (
+        "GIOModuleScopeFlags",
+        Layout {
+            size: size_of::<GIOModuleScopeFlags>(),
+            alignment: align_of::<GIOModuleScopeFlags>(),
+        },
+    ),
+    (
+        "GIOStream",
+        Layout {
+            size: size_of::<GIOStream>(),
+            alignment: align_of::<GIOStream>(),
+        },
+    ),
+    (
+        "GIOStreamClass",
+        Layout {
+            size: size_of::<GIOStreamClass>(),
+            alignment: align_of::<GIOStreamClass>(),
+        },
+    ),
+    (
+        "GIOStreamSpliceFlags",
+        Layout {
+            size: size_of::<GIOStreamSpliceFlags>(),
+            alignment: align_of::<GIOStreamSpliceFlags>(),
+        },
+    ),
+    (
+        "GIconIface",
+        Layout {
+            size: size_of::<GIconIface>(),
+            alignment: align_of::<GIconIface>(),
+        },
+    ),
+    (
+        "GInetAddress",
+        Layout {
+            size: size_of::<GInetAddress>(),
+            alignment: align_of::<GInetAddress>(),
+        },
+    ),
+    (
+        "GInetAddressClass",
+        Layout {
+            size: size_of::<GInetAddressClass>(),
+            alignment: align_of::<GInetAddressClass>(),
+        },
+    ),
+    (
+        "GInetAddressMask",
+        Layout {
+            size: size_of::<GInetAddressMask>(),
+            alignment: align_of::<GInetAddressMask>(),
+        },
+    ),
+    (
+        "GInetAddressMaskClass",
+        Layout {
+            size: size_of::<GInetAddressMaskClass>(),
+            alignment: align_of::<GInetAddressMaskClass>(),
+        },
+    ),
+    (
+        "GInetSocketAddress",
+        Layout {
+            size: size_of::<GInetSocketAddress>(),
+            alignment: align_of::<GInetSocketAddress>(),
+        },
+    ),
+    (
+        "GInetSocketAddressClass",
+        Layout {
+            size: size_of::<GInetSocketAddressClass>(),
+            alignment: align_of::<GInetSocketAddressClass>(),
+        },
+    ),
+    (
+        "GInitableIface",
+        Layout {
+            size: size_of::<GInitableIface>(),
+            alignment: align_of::<GInitableIface>(),
+        },
+    ),
+    (
+        "GInputMessage",
+        Layout {
+            size: size_of::<GInputMessage>(),
+            alignment: align_of::<GInputMessage>(),
+        },
+    ),
+    (
+        "GInputStream",
+        Layout {
+            size: size_of::<GInputStream>(),
+            alignment: align_of::<GInputStream>(),
+        },
+    ),
+    (
+        "GInputStreamClass",
+        Layout {
+            size: size_of::<GInputStreamClass>(),
+            alignment: align_of::<GInputStreamClass>(),
+        },
+    ),
+    (
+        "GInputVector",
+        Layout {
+            size: size_of::<GInputVector>(),
+            alignment: align_of::<GInputVector>(),
+        },
+    ),
+    (
+        "GListModelInterface",
+        Layout {
+            size: size_of::<GListModelInterface>(),
+            alignment: align_of::<GListModelInterface>(),
+        },
+    ),
+    (
+        "GListStoreClass",
+        Layout {
+            size: size_of::<GListStoreClass>(),
+            alignment: align_of::<GListStoreClass>(),
+        },
+    ),
+    (
+        "GLoadableIconIface",
+        Layout {
+            size: size_of::<GLoadableIconIface>(),
+            alignment: align_of::<GLoadableIconIface>(),
+        },
+    ),
+    (
+        "GMemoryInputStream",
+        Layout {
+            size: size_of::<GMemoryInputStream>(),
+            alignment: align_of::<GMemoryInputStream>(),
+        },
+    ),
+    (
+        "GMemoryInputStreamClass",
+        Layout {
+            size: size_of::<GMemoryInputStreamClass>(),
+            alignment: align_of::<GMemoryInputStreamClass>(),
+        },
+    ),
+    (
+        "GMemoryOutputStream",
+        Layout {
+            size: size_of::<GMemoryOutputStream>(),
+            alignment: align_of::<GMemoryOutputStream>(),
+        },
+    ),
+    (
+        "GMemoryOutputStreamClass",
+        Layout {
+            size: size_of::<GMemoryOutputStreamClass>(),
+            alignment: align_of::<GMemoryOutputStreamClass>(),
+        },
+    ),
+    (
+        "GMenuAttributeIter",
+        Layout {
+            size: size_of::<GMenuAttributeIter>(),
+            alignment: align_of::<GMenuAttributeIter>(),
+        },
+    ),
+    (
+        "GMenuAttributeIterClass",
+        Layout {
+            size: size_of::<GMenuAttributeIterClass>(),
+            alignment: align_of::<GMenuAttributeIterClass>(),
+        },
+    ),
+    (
+        "GMenuLinkIter",
+        Layout {
+            size: size_of::<GMenuLinkIter>(),
+            alignment: align_of::<GMenuLinkIter>(),
+        },
+    ),
+    (
+        "GMenuLinkIterClass",
+        Layout {
+            size: size_of::<GMenuLinkIterClass>(),
+            alignment: align_of::<GMenuLinkIterClass>(),
+        },
+    ),
+    (
+        "GMenuModel",
+        Layout {
+            size: size_of::<GMenuModel>(),
+            alignment: align_of::<GMenuModel>(),
+        },
+    ),
+    (
+        "GMenuModelClass",
+        Layout {
+            size: size_of::<GMenuModelClass>(),
+            alignment: align_of::<GMenuModelClass>(),
+        },
+    ),
+    (
+        "GMountIface",
+        Layout {
+            size: size_of::<GMountIface>(),
+            alignment: align_of::<GMountIface>(),
+        },
+    ),
+    (
+        "GMountMountFlags",
+        Layout {
+            size: size_of::<GMountMountFlags>(),
+            alignment: align_of::<GMountMountFlags>(),
+        },
+    ),
+    (
+        "GMountOperation",
+        Layout {
+            size: size_of::<GMountOperation>(),
+            alignment: align_of::<GMountOperation>(),
+        },
+    ),
+    (
+        "GMountOperationClass",
+        Layout {
+            size: size_of::<GMountOperationClass>(),
+            alignment: align_of::<GMountOperationClass>(),
+        },
+    ),
+    (
+        "GMountOperationResult",
+        Layout {
+            size: size_of::<GMountOperationResult>(),
+            alignment: align_of::<GMountOperationResult>(),
+        },
+    ),
+    (
+        "GMountUnmountFlags",
+        Layout {
+            size: size_of::<GMountUnmountFlags>(),
+            alignment: align_of::<GMountUnmountFlags>(),
+        },
+    ),
+    (
+        "GNativeVolumeMonitor",
+        Layout {
+            size: size_of::<GNativeVolumeMonitor>(),
+            alignment: align_of::<GNativeVolumeMonitor>(),
+        },
+    ),
+    (
+        "GNativeVolumeMonitorClass",
+        Layout {
+            size: size_of::<GNativeVolumeMonitorClass>(),
+            alignment: align_of::<GNativeVolumeMonitorClass>(),
+        },
+    ),
+    (
+        "GNetworkAddress",
+        Layout {
+            size: size_of::<GNetworkAddress>(),
+            alignment: align_of::<GNetworkAddress>(),
+        },
+    ),
+    (
+        "GNetworkAddressClass",
+        Layout {
+            size: size_of::<GNetworkAddressClass>(),
+            alignment: align_of::<GNetworkAddressClass>(),
+        },
+    ),
+    (
+        "GNetworkConnectivity",
+        Layout {
+            size: size_of::<GNetworkConnectivity>(),
+            alignment: align_of::<GNetworkConnectivity>(),
+        },
+    ),
+    (
+        "GNetworkMonitorInterface",
+        Layout {
+            size: size_of::<GNetworkMonitorInterface>(),
+            alignment: align_of::<GNetworkMonitorInterface>(),
+        },
+    ),
+    (
+        "GNetworkService",
+        Layout {
+            size: size_of::<GNetworkService>(),
+            alignment: align_of::<GNetworkService>(),
+        },
+    ),
+    (
+        "GNetworkServiceClass",
+        Layout {
+            size: size_of::<GNetworkServiceClass>(),
+            alignment: align_of::<GNetworkServiceClass>(),
+        },
+    ),
+    (
+        "GNotificationPriority",
+        Layout {
+            size: size_of::<GNotificationPriority>(),
+            alignment: align_of::<GNotificationPriority>(),
+        },
+    ),
+    (
+        "GOutputMessage",
+        Layout {
+            size: size_of::<GOutputMessage>(),
+            alignment: align_of::<GOutputMessage>(),
+        },
+    ),
+    (
+        "GOutputStream",
+        Layout {
+            size: size_of::<GOutputStream>(),
+            alignment: align_of::<GOutputStream>(),
+        },
+    ),
+    (
+        "GOutputStreamClass",
+        Layout {
+            size: size_of::<GOutputStreamClass>(),
+            alignment: align_of::<GOutputStreamClass>(),
+        },
+    ),
+    (
+        "GOutputStreamSpliceFlags",
+        Layout {
+            size: size_of::<GOutputStreamSpliceFlags>(),
+            alignment: align_of::<GOutputStreamSpliceFlags>(),
+        },
+    ),
+    (
+        "GOutputVector",
+        Layout {
+            size: size_of::<GOutputVector>(),
+            alignment: align_of::<GOutputVector>(),
+        },
+    ),
+    (
+        "GPasswordSave",
+        Layout {
+            size: size_of::<GPasswordSave>(),
+            alignment: align_of::<GPasswordSave>(),
+        },
+    ),
+    (
+        "GPermission",
+        Layout {
+            size: size_of::<GPermission>(),
+            alignment: align_of::<GPermission>(),
+        },
+    ),
+    (
+        "GPermissionClass",
+        Layout {
+            size: size_of::<GPermissionClass>(),
+            alignment: align_of::<GPermissionClass>(),
+        },
+    ),
+    (
+        "GPollableInputStreamInterface",
+        Layout {
+            size: size_of::<GPollableInputStreamInterface>(),
+            alignment: align_of::<GPollableInputStreamInterface>(),
+        },
+    ),
+    (
+        "GPollableOutputStreamInterface",
+        Layout {
+            size: size_of::<GPollableOutputStreamInterface>(),
+            alignment: align_of::<GPollableOutputStreamInterface>(),
+        },
+    ),
+    (
+        "GProxyAddress",
+        Layout {
+            size: size_of::<GProxyAddress>(),
+            alignment: align_of::<GProxyAddress>(),
+        },
+    ),
+    (
+        "GProxyAddressClass",
+        Layout {
+            size: size_of::<GProxyAddressClass>(),
+            alignment: align_of::<GProxyAddressClass>(),
+        },
+    ),
+    (
+        "GProxyAddressEnumerator",
+        Layout {
+            size: size_of::<GProxyAddressEnumerator>(),
+            alignment: align_of::<GProxyAddressEnumerator>(),
+        },
+    ),
+    (
+        "GProxyAddressEnumeratorClass",
+        Layout {
+            size: size_of::<GProxyAddressEnumeratorClass>(),
+            alignment: align_of::<GProxyAddressEnumeratorClass>(),
+        },
+    ),
+    (
+        "GProxyInterface",
+        Layout {
+            size: size_of::<GProxyInterface>(),
+            alignment: align_of::<GProxyInterface>(),
+        },
+    ),
+    (
+        "GProxyResolverInterface",
+        Layout {
+            size: size_of::<GProxyResolverInterface>(),
+            alignment: align_of::<GProxyResolverInterface>(),
+        },
+    ),
+    (
+        "GRemoteActionGroupInterface",
+        Layout {
+            size: size_of::<GRemoteActionGroupInterface>(),
+            alignment: align_of::<GRemoteActionGroupInterface>(),
+        },
+    ),
+    (
+        "GResolver",
+        Layout {
+            size: size_of::<GResolver>(),
+            alignment: align_of::<GResolver>(),
+        },
+    ),
+    (
+        "GResolverClass",
+        Layout {
+            size: size_of::<GResolverClass>(),
+            alignment: align_of::<GResolverClass>(),
+        },
+    ),
+    (
+        "GResolverError",
+        Layout {
+            size: size_of::<GResolverError>(),
+            alignment: align_of::<GResolverError>(),
+        },
+    ),
+    (
+        "GResolverRecordType",
+        Layout {
+            size: size_of::<GResolverRecordType>(),
+            alignment: align_of::<GResolverRecordType>(),
+        },
+    ),
+    (
+        "GResourceError",
+        Layout {
+            size: size_of::<GResourceError>(),
+            alignment: align_of::<GResourceError>(),
+        },
+    ),
+    (
+        "GResourceFlags",
+        Layout {
+            size: size_of::<GResourceFlags>(),
+            alignment: align_of::<GResourceFlags>(),
+        },
+    ),
+    (
+        "GResourceLookupFlags",
+        Layout {
+            size: size_of::<GResourceLookupFlags>(),
+            alignment: align_of::<GResourceLookupFlags>(),
+        },
+    ),
+    (
+        "GSeekableIface",
+        Layout {
+            size: size_of::<GSeekableIface>(),
+            alignment: align_of::<GSeekableIface>(),
+        },
+    ),
+    (
+        "GSettings",
+        Layout {
+            size: size_of::<GSettings>(),
+            alignment: align_of::<GSettings>(),
+        },
+    ),
+    (
+        "GSettingsBackend",
+        Layout {
+            size: size_of::<GSettingsBackend>(),
+            alignment: align_of::<GSettingsBackend>(),
+        },
+    ),
+    (
+        "GSettingsBackendClass",
+        Layout {
+            size: size_of::<GSettingsBackendClass>(),
+            alignment: align_of::<GSettingsBackendClass>(),
+        },
+    ),
+    (
+        "GSettingsBindFlags",
+        Layout {
+            size: size_of::<GSettingsBindFlags>(),
+            alignment: align_of::<GSettingsBindFlags>(),
+        },
+    ),
+    (
+        "GSettingsClass",
+        Layout {
+            size: size_of::<GSettingsClass>(),
+            alignment: align_of::<GSettingsClass>(),
+        },
+    ),
+    (
+        "GSimpleActionGroup",
+        Layout {
+            size: size_of::<GSimpleActionGroup>(),
+            alignment: align_of::<GSimpleActionGroup>(),
+        },
+    ),
+    (
+        "GSimpleActionGroupClass",
+        Layout {
+            size: size_of::<GSimpleActionGroupClass>(),
+            alignment: align_of::<GSimpleActionGroupClass>(),
+        },
+    ),
+    (
+        "GSimpleProxyResolver",
+        Layout {
+            size: size_of::<GSimpleProxyResolver>(),
+            alignment: align_of::<GSimpleProxyResolver>(),
+        },
+    ),
+    (
+        "GSimpleProxyResolverClass",
+        Layout {
+            size: size_of::<GSimpleProxyResolverClass>(),
+            alignment: align_of::<GSimpleProxyResolverClass>(),
+        },
+    ),
+    (
+        "GSocket",
+        Layout {
+            size: size_of::<GSocket>(),
+            alignment: align_of::<GSocket>(),
+        },
+    ),
+    (
+        "GSocketAddress",
+        Layout {
+            size: size_of::<GSocketAddress>(),
+            alignment: align_of::<GSocketAddress>(),
+        },
+    ),
+    (
+        "GSocketAddressClass",
+        Layout {
+            size: size_of::<GSocketAddressClass>(),
+            alignment: align_of::<GSocketAddressClass>(),
+        },
+    ),
+    (
+        "GSocketAddressEnumerator",
+        Layout {
+            size: size_of::<GSocketAddressEnumerator>(),
+            alignment: align_of::<GSocketAddressEnumerator>(),
+        },
+    ),
+    (
+        "GSocketAddressEnumeratorClass",
+        Layout {
+            size: size_of::<GSocketAddressEnumeratorClass>(),
+            alignment: align_of::<GSocketAddressEnumeratorClass>(),
+        },
+    ),
+    (
+        "GSocketClass",
+        Layout {
+            size: size_of::<GSocketClass>(),
+            alignment: align_of::<GSocketClass>(),
+        },
+    ),
+    (
+        "GSocketClient",
+        Layout {
+            size: size_of::<GSocketClient>(),
+            alignment: align_of::<GSocketClient>(),
+        },
+    ),
+    (
+        "GSocketClientClass",
+        Layout {
+            size: size_of::<GSocketClientClass>(),
+            alignment: align_of::<GSocketClientClass>(),
+        },
+    ),
+    (
+        "GSocketClientEvent",
+        Layout {
+            size: size_of::<GSocketClientEvent>(),
+            alignment: align_of::<GSocketClientEvent>(),
+        },
+    ),
+    (
+        "GSocketConnectableIface",
+        Layout {
+            size: size_of::<GSocketConnectableIface>(),
+            alignment: align_of::<GSocketConnectableIface>(),
+        },
+    ),
+    (
+        "GSocketConnection",
+        Layout {
+            size: size_of::<GSocketConnection>(),
+            alignment: align_of::<GSocketConnection>(),
+        },
+    ),
+    (
+        "GSocketConnectionClass",
+        Layout {
+            size: size_of::<GSocketConnectionClass>(),
+            alignment: align_of::<GSocketConnectionClass>(),
+        },
+    ),
+    (
+        "GSocketControlMessage",
+        Layout {
+            size: size_of::<GSocketControlMessage>(),
+            alignment: align_of::<GSocketControlMessage>(),
+        },
+    ),
+    (
+        "GSocketControlMessageClass",
+        Layout {
+            size: size_of::<GSocketControlMessageClass>(),
+            alignment: align_of::<GSocketControlMessageClass>(),
+        },
+    ),
+    (
+        "GSocketFamily",
+        Layout {
+            size: size_of::<GSocketFamily>(),
+            alignment: align_of::<GSocketFamily>(),
+        },
+    ),
+    (
+        "GSocketListener",
+        Layout {
+            size: size_of::<GSocketListener>(),
+            alignment: align_of::<GSocketListener>(),
+        },
+    ),
+    (
+        "GSocketListenerClass",
+        Layout {
+            size: size_of::<GSocketListenerClass>(),
+            alignment: align_of::<GSocketListenerClass>(),
+        },
+    ),
+    (
+        "GSocketListenerEvent",
+        Layout {
+            size: size_of::<GSocketListenerEvent>(),
+            alignment: align_of::<GSocketListenerEvent>(),
+        },
+    ),
+    (
+        "GSocketMsgFlags",
+        Layout {
+            size: size_of::<GSocketMsgFlags>(),
+            alignment: align_of::<GSocketMsgFlags>(),
+        },
+    ),
+    (
+        "GSocketProtocol",
+        Layout {
+            size: size_of::<GSocketProtocol>(),
+            alignment: align_of::<GSocketProtocol>(),
+        },
+    ),
+    (
+        "GSocketService",
+        Layout {
+            size: size_of::<GSocketService>(),
+            alignment: align_of::<GSocketService>(),
+        },
+    ),
+    (
+        "GSocketServiceClass",
+        Layout {
+            size: size_of::<GSocketServiceClass>(),
+            alignment: align_of::<GSocketServiceClass>(),
+        },
+    ),
+    (
+        "GSocketType",
+        Layout {
+            size: size_of::<GSocketType>(),
+            alignment: align_of::<GSocketType>(),
+        },
+    ),
+    (
+        "GStaticResource",
+        Layout {
+            size: size_of::<GStaticResource>(),
+            alignment: align_of::<GStaticResource>(),
+        },
+    ),
+    (
+        "GSubprocessFlags",
+        Layout {
+            size: size_of::<GSubprocessFlags>(),
+            alignment: align_of::<GSubprocessFlags>(),
+        },
+    ),
+    (
+        "GTcpConnection",
+        Layout {
+            size: size_of::<GTcpConnection>(),
+            alignment: align_of::<GTcpConnection>(),
+        },
+    ),
+    (
+        "GTcpConnectionClass",
+        Layout {
+            size: size_of::<GTcpConnectionClass>(),
+            alignment: align_of::<GTcpConnectionClass>(),
+        },
+    ),
+    (
+        "GTcpWrapperConnection",
+        Layout {
+            size: size_of::<GTcpWrapperConnection>(),
+            alignment: align_of::<GTcpWrapperConnection>(),
+        },
+    ),
+    (
+        "GTcpWrapperConnectionClass",
+        Layout {
+            size: size_of::<GTcpWrapperConnectionClass>(),
+            alignment: align_of::<GTcpWrapperConnectionClass>(),
+        },
+    ),
+    (
+        "GTestDBusFlags",
+        Layout {
+            size: size_of::<GTestDBusFlags>(),
+            alignment: align_of::<GTestDBusFlags>(),
+        },
+    ),
+    (
+        "GThreadedSocketService",
+        Layout {
+            size: size_of::<GThreadedSocketService>(),
+            alignment: align_of::<GThreadedSocketService>(),
+        },
+    ),
+    (
+        "GThreadedSocketServiceClass",
+        Layout {
+            size: size_of::<GThreadedSocketServiceClass>(),
+            alignment: align_of::<GThreadedSocketServiceClass>(),
+        },
+    ),
+    (
+        "GTlsAuthenticationMode",
+        Layout {
+            size: size_of::<GTlsAuthenticationMode>(),
+            alignment: align_of::<GTlsAuthenticationMode>(),
+        },
+    ),
+    (
+        "GTlsBackendInterface",
+        Layout {
+            size: size_of::<GTlsBackendInterface>(),
+            alignment: align_of::<GTlsBackendInterface>(),
+        },
+    ),
+    (
+        "GTlsCertificate",
+        Layout {
+            size: size_of::<GTlsCertificate>(),
+            alignment: align_of::<GTlsCertificate>(),
+        },
+    ),
+    (
+        "GTlsCertificateClass",
+        Layout {
+            size: size_of::<GTlsCertificateClass>(),
+            alignment: align_of::<GTlsCertificateClass>(),
+        },
+    ),
+    (
+        "GTlsCertificateFlags",
+        Layout {
+            size: size_of::<GTlsCertificateFlags>(),
+            alignment: align_of::<GTlsCertificateFlags>(),
+        },
+    ),
+    (
+        "GTlsCertificateRequestFlags",
+        Layout {
+            size: size_of::<GTlsCertificateRequestFlags>(),
+            alignment: align_of::<GTlsCertificateRequestFlags>(),
+        },
+    ),
+    (
+        "GTlsClientConnectionInterface",
+        Layout {
+            size: size_of::<GTlsClientConnectionInterface>(),
+            alignment: align_of::<GTlsClientConnectionInterface>(),
+        },
+    ),
+    (
+        "GTlsConnection",
+        Layout {
+            size: size_of::<GTlsConnection>(),
+            alignment: align_of::<GTlsConnection>(),
+        },
+    ),
+    (
+        "GTlsConnectionClass",
+        Layout {
+            size: size_of::<GTlsConnectionClass>(),
+            alignment: align_of::<GTlsConnectionClass>(),
+        },
+    ),
+    (
+        "GTlsDatabase",
+        Layout {
+            size: size_of::<GTlsDatabase>(),
+            alignment: align_of::<GTlsDatabase>(),
+        },
+    ),
+    (
+        "GTlsDatabaseClass",
+        Layout {
+            size: size_of::<GTlsDatabaseClass>(),
+            alignment: align_of::<GTlsDatabaseClass>(),
+        },
+    ),
+    (
+        "GTlsDatabaseLookupFlags",
+        Layout {
+            size: size_of::<GTlsDatabaseLookupFlags>(),
+            alignment: align_of::<GTlsDatabaseLookupFlags>(),
+        },
+    ),
+    (
+        "GTlsDatabaseVerifyFlags",
+        Layout {
+            size: size_of::<GTlsDatabaseVerifyFlags>(),
+            alignment: align_of::<GTlsDatabaseVerifyFlags>(),
+        },
+    ),
+    (
+        "GTlsError",
+        Layout {
+            size: size_of::<GTlsError>(),
+            alignment: align_of::<GTlsError>(),
+        },
+    ),
+    (
+        "GTlsFileDatabaseInterface",
+        Layout {
+            size: size_of::<GTlsFileDatabaseInterface>(),
+            alignment: align_of::<GTlsFileDatabaseInterface>(),
+        },
+    ),
+    (
+        "GTlsInteraction",
+        Layout {
+            size: size_of::<GTlsInteraction>(),
+            alignment: align_of::<GTlsInteraction>(),
+        },
+    ),
+    (
+        "GTlsInteractionClass",
+        Layout {
+            size: size_of::<GTlsInteractionClass>(),
+            alignment: align_of::<GTlsInteractionClass>(),
+        },
+    ),
+    (
+        "GTlsInteractionResult",
+        Layout {
+            size: size_of::<GTlsInteractionResult>(),
+            alignment: align_of::<GTlsInteractionResult>(),
+        },
+    ),
+    (
+        "GTlsPassword",
+        Layout {
+            size: size_of::<GTlsPassword>(),
+            alignment: align_of::<GTlsPassword>(),
+        },
+    ),
+    (
+        "GTlsPasswordClass",
+        Layout {
+            size: size_of::<GTlsPasswordClass>(),
+            alignment: align_of::<GTlsPasswordClass>(),
+        },
+    ),
+    (
+        "GTlsPasswordFlags",
+        Layout {
+            size: size_of::<GTlsPasswordFlags>(),
+            alignment: align_of::<GTlsPasswordFlags>(),
+        },
+    ),
+    (
+        "GTlsRehandshakeMode",
+        Layout {
+            size: size_of::<GTlsRehandshakeMode>(),
+            alignment: align_of::<GTlsRehandshakeMode>(),
+        },
+    ),
+    (
+        "GTlsServerConnectionInterface",
+        Layout {
+            size: size_of::<GTlsServerConnectionInterface>(),
+            alignment: align_of::<GTlsServerConnectionInterface>(),
+        },
+    ),
+    (
+        "GUnixConnection",
+        Layout {
+            size: size_of::<GUnixConnection>(),
+            alignment: align_of::<GUnixConnection>(),
+        },
+    ),
+    (
+        "GUnixConnectionClass",
+        Layout {
+            size: size_of::<GUnixConnectionClass>(),
+            alignment: align_of::<GUnixConnectionClass>(),
+        },
+    ),
+    (
+        "GUnixCredentialsMessage",
+        Layout {
+            size: size_of::<GUnixCredentialsMessage>(),
+            alignment: align_of::<GUnixCredentialsMessage>(),
+        },
+    ),
+    (
+        "GUnixCredentialsMessageClass",
+        Layout {
+            size: size_of::<GUnixCredentialsMessageClass>(),
+            alignment: align_of::<GUnixCredentialsMessageClass>(),
+        },
+    ),
+    (
+        "GUnixFDList",
+        Layout {
+            size: size_of::<GUnixFDList>(),
+            alignment: align_of::<GUnixFDList>(),
+        },
+    ),
+    (
+        "GUnixFDListClass",
+        Layout {
+            size: size_of::<GUnixFDListClass>(),
+            alignment: align_of::<GUnixFDListClass>(),
+        },
+    ),
+    (
+        "GUnixFDMessage",
+        Layout {
+            size: size_of::<GUnixFDMessage>(),
+            alignment: align_of::<GUnixFDMessage>(),
+        },
+    ),
+    (
+        "GUnixFDMessageClass",
+        Layout {
+            size: size_of::<GUnixFDMessageClass>(),
+            alignment: align_of::<GUnixFDMessageClass>(),
+        },
+    ),
+    (
+        "GUnixInputStream",
+        Layout {
+            size: size_of::<GUnixInputStream>(),
+            alignment: align_of::<GUnixInputStream>(),
+        },
+    ),
+    (
+        "GUnixInputStreamClass",
+        Layout {
+            size: size_of::<GUnixInputStreamClass>(),
+            alignment: align_of::<GUnixInputStreamClass>(),
+        },
+    ),
+    (
+        "GUnixOutputStream",
+        Layout {
+            size: size_of::<GUnixOutputStream>(),
+            alignment: align_of::<GUnixOutputStream>(),
+        },
+    ),
+    (
+        "GUnixOutputStreamClass",
+        Layout {
+            size: size_of::<GUnixOutputStreamClass>(),
+            alignment: align_of::<GUnixOutputStreamClass>(),
+        },
+    ),
+    (
+        "GUnixSocketAddress",
+        Layout {
+            size: size_of::<GUnixSocketAddress>(),
+            alignment: align_of::<GUnixSocketAddress>(),
+        },
+    ),
+    (
+        "GUnixSocketAddressClass",
+        Layout {
+            size: size_of::<GUnixSocketAddressClass>(),
+            alignment: align_of::<GUnixSocketAddressClass>(),
+        },
+    ),
+    (
+        "GUnixSocketAddressType",
+        Layout {
+            size: size_of::<GUnixSocketAddressType>(),
+            alignment: align_of::<GUnixSocketAddressType>(),
+        },
+    ),
+    (
+        "GVfs",
+        Layout {
+            size: size_of::<GVfs>(),
+            alignment: align_of::<GVfs>(),
+        },
+    ),
+    (
+        "GVfsClass",
+        Layout {
+            size: size_of::<GVfsClass>(),
+            alignment: align_of::<GVfsClass>(),
+        },
+    ),
+    (
+        "GVolumeIface",
+        Layout {
+            size: size_of::<GVolumeIface>(),
+            alignment: align_of::<GVolumeIface>(),
+        },
+    ),
+    (
+        "GVolumeMonitor",
+        Layout {
+            size: size_of::<GVolumeMonitor>(),
+            alignment: align_of::<GVolumeMonitor>(),
+        },
+    ),
+    (
+        "GVolumeMonitorClass",
+        Layout {
+            size: size_of::<GVolumeMonitorClass>(),
+            alignment: align_of::<GVolumeMonitorClass>(),
+        },
+    ),
+    (
+        "GZlibCompressorClass",
+        Layout {
+            size: size_of::<GZlibCompressorClass>(),
+            alignment: align_of::<GZlibCompressorClass>(),
+        },
+    ),
+    (
+        "GZlibCompressorFormat",
+        Layout {
+            size: size_of::<GZlibCompressorFormat>(),
+            alignment: align_of::<GZlibCompressorFormat>(),
+        },
+    ),
+    (
+        "GZlibDecompressorClass",
+        Layout {
+            size: size_of::<GZlibDecompressorClass>(),
+            alignment: align_of::<GZlibDecompressorClass>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -531,7 +2218,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_APPLICATION_SEND_ENVIRONMENT", "16"),
     ("(guint) G_APP_INFO_CREATE_NEEDS_TERMINAL", "1"),
     ("(guint) G_APP_INFO_CREATE_NONE", "0"),
-    ("(guint) G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION", "4"),
+    (
+        "(guint) G_APP_INFO_CREATE_SUPPORTS_STARTUP_NOTIFICATION",
+        "4",
+    ),
     ("(guint) G_APP_INFO_CREATE_SUPPORTS_URIS", "2"),
     ("(guint) G_ASK_PASSWORD_ANONYMOUS_SUPPORTED", "16"),
     ("(guint) G_ASK_PASSWORD_NEED_DOMAIN", "4"),
@@ -569,16 +2259,28 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_DATA_STREAM_NEWLINE_TYPE_CR", "1"),
     ("(gint) G_DATA_STREAM_NEWLINE_TYPE_CR_LF", "2"),
     ("(gint) G_DATA_STREAM_NEWLINE_TYPE_LF", "0"),
-    ("(guint) G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION", "2"),
+    (
+        "(guint) G_DBUS_CALL_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION",
+        "2",
+    ),
     ("(guint) G_DBUS_CALL_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_CALL_FLAGS_NO_AUTO_START", "1"),
     ("(guint) G_DBUS_CAPABILITY_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_CAPABILITY_FLAGS_UNIX_FD_PASSING", "1"),
-    ("(guint) G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS", "4"),
+    (
+        "(guint) G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS",
+        "4",
+    ),
     ("(guint) G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_CLIENT", "1"),
     ("(guint) G_DBUS_CONNECTION_FLAGS_AUTHENTICATION_SERVER", "2"),
-    ("(guint) G_DBUS_CONNECTION_FLAGS_DELAY_MESSAGE_PROCESSING", "16"),
-    ("(guint) G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION", "8"),
+    (
+        "(guint) G_DBUS_CONNECTION_FLAGS_DELAY_MESSAGE_PROCESSING",
+        "16",
+    ),
+    (
+        "(guint) G_DBUS_CONNECTION_FLAGS_MESSAGE_BUS_CONNECTION",
+        "8",
+    ),
     ("(guint) G_DBUS_CONNECTION_FLAGS_NONE", "0"),
     ("(gint) G_DBUS_ERROR_ACCESS_DENIED", "9"),
     ("(gint) G_DBUS_ERROR_ADDRESS_IN_USE", "14"),
@@ -625,11 +2327,17 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_DBUS_ERROR_UNKNOWN_METHOD", "19"),
     ("(gint) G_DBUS_ERROR_UNKNOWN_OBJECT", "41"),
     ("(gint) G_DBUS_ERROR_UNKNOWN_PROPERTY", "43"),
-    ("(guint) G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD", "1"),
+    (
+        "(guint) G_DBUS_INTERFACE_SKELETON_FLAGS_HANDLE_METHOD_INVOCATIONS_IN_THREAD",
+        "1",
+    ),
     ("(guint) G_DBUS_INTERFACE_SKELETON_FLAGS_NONE", "0"),
     ("(gint) G_DBUS_MESSAGE_BYTE_ORDER_BIG_ENDIAN", "66"),
     ("(gint) G_DBUS_MESSAGE_BYTE_ORDER_LITTLE_ENDIAN", "108"),
-    ("(guint) G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION", "4"),
+    (
+        "(guint) G_DBUS_MESSAGE_FLAGS_ALLOW_INTERACTIVE_AUTHORIZATION",
+        "4",
+    ),
     ("(guint) G_DBUS_MESSAGE_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_MESSAGE_FLAGS_NO_AUTO_START", "2"),
     ("(guint) G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED", "1"),
@@ -648,29 +2356,44 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_DBUS_MESSAGE_TYPE_METHOD_CALL", "1"),
     ("(gint) G_DBUS_MESSAGE_TYPE_METHOD_RETURN", "2"),
     ("(gint) G_DBUS_MESSAGE_TYPE_SIGNAL", "4"),
-    ("(guint) G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START", "1"),
+    (
+        "(guint) G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_DO_NOT_AUTO_START",
+        "1",
+    ),
     ("(guint) G_DBUS_OBJECT_MANAGER_CLIENT_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_PROPERTY_INFO_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_PROPERTY_INFO_FLAGS_READABLE", "1"),
     ("(guint) G_DBUS_PROPERTY_INFO_FLAGS_WRITABLE", "2"),
     ("(guint) G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START", "4"),
-    ("(guint) G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION", "16"),
+    (
+        "(guint) G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START_AT_CONSTRUCTION",
+        "16",
+    ),
     ("(guint) G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS", "2"),
     ("(guint) G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES", "1"),
     ("(guint) G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES", "8"),
     ("(guint) G_DBUS_PROXY_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_SEND_MESSAGE_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL", "1"),
-    ("(guint) G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS", "2"),
+    (
+        "(guint) G_DBUS_SERVER_FLAGS_AUTHENTICATION_ALLOW_ANONYMOUS",
+        "2",
+    ),
     ("(guint) G_DBUS_SERVER_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_SERVER_FLAGS_RUN_IN_THREAD", "1"),
     ("(guint) G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_NAMESPACE", "2"),
     ("(guint) G_DBUS_SIGNAL_FLAGS_MATCH_ARG0_PATH", "4"),
     ("(guint) G_DBUS_SIGNAL_FLAGS_NONE", "0"),
     ("(guint) G_DBUS_SIGNAL_FLAGS_NO_MATCH_RULE", "1"),
-    ("(guint) G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES", "1"),
+    (
+        "(guint) G_DBUS_SUBTREE_FLAGS_DISPATCH_TO_UNENUMERATED_NODES",
+        "1",
+    ),
     ("(guint) G_DBUS_SUBTREE_FLAGS_NONE", "0"),
-    ("G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME", "gio-desktop-app-info-lookup"),
+    (
+        "G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME",
+        "gio-desktop-app-info-lookup",
+    ),
     ("G_DRIVE_IDENTIFIER_KIND_UNIX_DEVICE", "unix-device"),
     ("(guint) G_DRIVE_START_NONE", "0"),
     ("(gint) G_DRIVE_START_STOP_TYPE_MULTIDISK", "3"),
@@ -695,55 +2418,124 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("G_FILE_ATTRIBUTE_DOS_IS_SYSTEM", "dos::is-system"),
     ("G_FILE_ATTRIBUTE_ETAG_VALUE", "etag::value"),
     ("G_FILE_ATTRIBUTE_FILESYSTEM_FREE", "filesystem::free"),
-    ("G_FILE_ATTRIBUTE_FILESYSTEM_READONLY", "filesystem::readonly"),
+    (
+        "G_FILE_ATTRIBUTE_FILESYSTEM_READONLY",
+        "filesystem::readonly",
+    ),
     ("G_FILE_ATTRIBUTE_FILESYSTEM_REMOTE", "filesystem::remote"),
     ("G_FILE_ATTRIBUTE_FILESYSTEM_SIZE", "filesystem::size"),
     ("G_FILE_ATTRIBUTE_FILESYSTEM_TYPE", "filesystem::type"),
     ("G_FILE_ATTRIBUTE_FILESYSTEM_USED", "filesystem::used"),
-    ("G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW", "filesystem::use-preview"),
+    (
+        "G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW",
+        "filesystem::use-preview",
+    ),
     ("G_FILE_ATTRIBUTE_GVFS_BACKEND", "gvfs::backend"),
     ("G_FILE_ATTRIBUTE_ID_FILE", "id::file"),
     ("G_FILE_ATTRIBUTE_ID_FILESYSTEM", "id::filesystem"),
     ("(guint) G_FILE_ATTRIBUTE_INFO_COPY_WHEN_MOVED", "2"),
     ("(guint) G_FILE_ATTRIBUTE_INFO_COPY_WITH_FILE", "1"),
     ("(guint) G_FILE_ATTRIBUTE_INFO_NONE", "0"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_EJECT", "mountable::can-eject"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_MOUNT", "mountable::can-mount"),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_CAN_EJECT",
+        "mountable::can-eject",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_CAN_MOUNT",
+        "mountable::can-mount",
+    ),
     ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_POLL", "mountable::can-poll"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_START", "mountable::can-start"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_START_DEGRADED", "mountable::can-start-degraded"),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_CAN_START",
+        "mountable::can-start",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_CAN_START_DEGRADED",
+        "mountable::can-start-degraded",
+    ),
     ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_STOP", "mountable::can-stop"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_CAN_UNMOUNT", "mountable::can-unmount"),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_CAN_UNMOUNT",
+        "mountable::can-unmount",
+    ),
     ("G_FILE_ATTRIBUTE_MOUNTABLE_HAL_UDI", "mountable::hal-udi"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_IS_MEDIA_CHECK_AUTOMATIC", "mountable::is-media-check-automatic"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_START_STOP_TYPE", "mountable::start-stop-type"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE", "mountable::unix-device"),
-    ("G_FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE_FILE", "mountable::unix-device-file"),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_IS_MEDIA_CHECK_AUTOMATIC",
+        "mountable::is-media-check-automatic",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_START_STOP_TYPE",
+        "mountable::start-stop-type",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE",
+        "mountable::unix-device",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE_FILE",
+        "mountable::unix-device-file",
+    ),
     ("G_FILE_ATTRIBUTE_OWNER_GROUP", "owner::group"),
     ("G_FILE_ATTRIBUTE_OWNER_USER", "owner::user"),
     ("G_FILE_ATTRIBUTE_OWNER_USER_REAL", "owner::user-real"),
     ("G_FILE_ATTRIBUTE_PREVIEW_ICON", "preview::icon"),
     ("G_FILE_ATTRIBUTE_RECENT_MODIFIED", "recent::modified"),
     ("G_FILE_ATTRIBUTE_SELINUX_CONTEXT", "selinux::context"),
-    ("G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE", "standard::allocated-size"),
-    ("G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE", "standard::content-type"),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE",
+        "standard::allocated-size",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE",
+        "standard::content-type",
+    ),
     ("G_FILE_ATTRIBUTE_STANDARD_COPY_NAME", "standard::copy-name"),
-    ("G_FILE_ATTRIBUTE_STANDARD_DESCRIPTION", "standard::description"),
-    ("G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME", "standard::display-name"),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_DESCRIPTION",
+        "standard::description",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME",
+        "standard::display-name",
+    ),
     ("G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME", "standard::edit-name"),
-    ("G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE", "standard::fast-content-type"),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE",
+        "standard::fast-content-type",
+    ),
     ("G_FILE_ATTRIBUTE_STANDARD_ICON", "standard::icon"),
     ("G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP", "standard::is-backup"),
     ("G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN", "standard::is-hidden"),
-    ("G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK", "standard::is-symlink"),
-    ("G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL", "standard::is-virtual"),
-    ("G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE", "standard::is-volatile"),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK",
+        "standard::is-symlink",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL",
+        "standard::is-virtual",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_IS_VOLATILE",
+        "standard::is-volatile",
+    ),
     ("G_FILE_ATTRIBUTE_STANDARD_NAME", "standard::name"),
     ("G_FILE_ATTRIBUTE_STANDARD_SIZE", "standard::size"),
-    ("G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER", "standard::sort-order"),
-    ("G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON", "standard::symbolic-icon"),
-    ("G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET", "standard::symlink-target"),
-    ("G_FILE_ATTRIBUTE_STANDARD_TARGET_URI", "standard::target-uri"),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER",
+        "standard::sort-order",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON",
+        "standard::symbolic-icon",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET",
+        "standard::symlink-target",
+    ),
+    (
+        "G_FILE_ATTRIBUTE_STANDARD_TARGET_URI",
+        "standard::target-uri",
+    ),
     ("G_FILE_ATTRIBUTE_STANDARD_TYPE", "standard::type"),
     ("(gint) G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING", "2"),
     ("(gint) G_FILE_ATTRIBUTE_STATUS_SET", "1"),
@@ -759,7 +2551,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("G_FILE_ATTRIBUTE_TIME_CREATED_USEC", "time::created-usec"),
     ("G_FILE_ATTRIBUTE_TIME_MODIFIED", "time::modified"),
     ("G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC", "time::modified-usec"),
-    ("G_FILE_ATTRIBUTE_TRASH_DELETION_DATE", "trash::deletion-date"),
+    (
+        "G_FILE_ATTRIBUTE_TRASH_DELETION_DATE",
+        "trash::deletion-date",
+    ),
     ("G_FILE_ATTRIBUTE_TRASH_ITEM_COUNT", "trash::item-count"),
     ("G_FILE_ATTRIBUTE_TRASH_ORIG_PATH", "trash::orig-path"),
     ("(gint) G_FILE_ATTRIBUTE_TYPE_BOOLEAN", "3"),
@@ -888,12 +2683,18 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_MOUNT_OPERATION_UNHANDLED", "2"),
     ("(guint) G_MOUNT_UNMOUNT_FORCE", "1"),
     ("(guint) G_MOUNT_UNMOUNT_NONE", "0"),
-    ("G_NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME", "gio-native-volume-monitor"),
+    (
+        "G_NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME",
+        "gio-native-volume-monitor",
+    ),
     ("(gint) G_NETWORK_CONNECTIVITY_FULL", "4"),
     ("(gint) G_NETWORK_CONNECTIVITY_LIMITED", "2"),
     ("(gint) G_NETWORK_CONNECTIVITY_LOCAL", "1"),
     ("(gint) G_NETWORK_CONNECTIVITY_PORTAL", "3"),
-    ("G_NETWORK_MONITOR_EXTENSION_POINT_NAME", "gio-network-monitor"),
+    (
+        "G_NETWORK_MONITOR_EXTENSION_POINT_NAME",
+        "gio-network-monitor",
+    ),
     ("(gint) G_NOTIFICATION_PRIORITY_HIGH", "2"),
     ("(gint) G_NOTIFICATION_PRIORITY_LOW", "1"),
     ("(gint) G_NOTIFICATION_PRIORITY_NORMAL", "0"),
@@ -905,7 +2706,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_PASSWORD_SAVE_NEVER", "0"),
     ("(gint) G_PASSWORD_SAVE_PERMANENTLY", "2"),
     ("G_PROXY_EXTENSION_POINT_NAME", "gio-proxy"),
-    ("G_PROXY_RESOLVER_EXTENSION_POINT_NAME", "gio-proxy-resolver"),
+    (
+        "G_PROXY_RESOLVER_EXTENSION_POINT_NAME",
+        "gio-proxy-resolver",
+    ),
     ("(gint) G_RESOLVER_ERROR_INTERNAL", "2"),
     ("(gint) G_RESOLVER_ERROR_NOT_FOUND", "0"),
     ("(gint) G_RESOLVER_ERROR_TEMPORARY_FAILURE", "1"),
@@ -919,7 +2723,10 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_RESOURCE_FLAGS_COMPRESSED", "1"),
     ("(guint) G_RESOURCE_FLAGS_NONE", "0"),
     ("(guint) G_RESOURCE_LOOKUP_FLAGS_NONE", "0"),
-    ("G_SETTINGS_BACKEND_EXTENSION_POINT_NAME", "gsettings-backend"),
+    (
+        "G_SETTINGS_BACKEND_EXTENSION_POINT_NAME",
+        "gsettings-backend",
+    ),
     ("(guint) G_SETTINGS_BIND_DEFAULT", "0"),
     ("(guint) G_SETTINGS_BIND_GET", "1"),
     ("(guint) G_SETTINGS_BIND_GET_NO_CHANGES", "8"),
@@ -981,8 +2788,14 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(guint) G_TLS_CERTIFICATE_VALIDATE_ALL", "127"),
     ("(gint) G_TLS_DATABASE_LOOKUP_KEYPAIR", "1"),
     ("(gint) G_TLS_DATABASE_LOOKUP_NONE", "0"),
-    ("G_TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT", "1.3.6.1.5.5.7.3.2"),
-    ("G_TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER", "1.3.6.1.5.5.7.3.1"),
+    (
+        "G_TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT",
+        "1.3.6.1.5.5.7.3.2",
+    ),
+    (
+        "G_TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER",
+        "1.3.6.1.5.5.7.3.1",
+    ),
     ("(guint) G_TLS_DATABASE_VERIFY_NONE", "0"),
     ("(gint) G_TLS_ERROR_BAD_CERTIFICATE", "2"),
     ("(gint) G_TLS_ERROR_CERTIFICATE_REQUIRED", "5"),
@@ -1013,10 +2826,11 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("G_VOLUME_IDENTIFIER_KIND_NFS_MOUNT", "nfs-mount"),
     ("G_VOLUME_IDENTIFIER_KIND_UNIX_DEVICE", "unix-device"),
     ("G_VOLUME_IDENTIFIER_KIND_UUID", "uuid"),
-    ("G_VOLUME_MONITOR_EXTENSION_POINT_NAME", "gio-volume-monitor"),
+    (
+        "G_VOLUME_MONITOR_EXTENSION_POINT_NAME",
+        "gio-volume-monitor",
+    ),
     ("(gint) G_ZLIB_COMPRESSOR_FORMAT_GZIP", "1"),
     ("(gint) G_ZLIB_COMPRESSOR_FORMAT_RAW", "2"),
     ("(gint) G_ZLIB_COMPRESSOR_FORMAT_ZLIB", "0"),
 ];
-
-
