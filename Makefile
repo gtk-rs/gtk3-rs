@@ -6,10 +6,14 @@ GIR = gir/target/release/gir
 CONFIGS = $(wildcard conf/gir-*.toml)
 GIR_FILES = $(shell ls $(CONFIGS) | xargs -n1 perl -ne '$$name = $$1 if /^library = "(.*)"$$/; $$ver = $$1 if /^version = "(.*)"/; END { print "gir-files/$$name-$$ver.gir\n" }')
 LIBS = $(CONFIGS:conf/gir-%.toml=%-sys/src/lib.rs)
+CRATES = $(CONFIGS:conf/gir-%.toml=%-sys)
 TEST_C_FILES = $(CONFIGS:conf/gir-%.toml=%-sys/tests/*.c)
 TEST_RS_FILES = $(CONFIGS:conf/gir-%.toml=%-sys/tests/*.rs)
 
 libs : $(LIBS)
+	for crate in $(CRATES); do \
+		cd $$crate && cargo fmt && cd ..; \
+	done
 
 %-sys/src/lib.rs : conf/gir-%.toml $(GIR) $(GIR_FILES)
 	$(GIR) -c $< -o $(abspath $*-sys) -d gir-files

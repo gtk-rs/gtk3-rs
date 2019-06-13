@@ -13,7 +13,7 @@ pub type GPid = c_int;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
-#[cfg(all(windows,target_arch="x86_64"))]
+#[cfg(all(windows, target_arch = "x86_64"))]
 pub struct GPollFD {
     pub fd: i64,
     pub events: c_ushort,
@@ -22,7 +22,7 @@ pub struct GPollFD {
 
 #[repr(C)]
 #[derive(Copy, Clone)]
-#[cfg(not(all(windows,target_arch="x86_64")))]
+#[cfg(not(all(windows, target_arch = "x86_64")))]
 pub struct GPollFD {
     pub fd: c_int,
     pub events: c_ushort,

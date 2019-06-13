@@ -5,13 +5,13 @@
 extern crate gdk_sys;
 extern crate shell_words;
 extern crate tempdir;
+use gdk_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use gdk_sys::*;
 
 static PACKAGES: &[&str] = &["gdk-3.0"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,102 +229,589 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("GdkAnchorHints", Layout {size: size_of::<GdkAnchorHints>(), alignment: align_of::<GdkAnchorHints>()}),
-    ("GdkAxisFlags", Layout {size: size_of::<GdkAxisFlags>(), alignment: align_of::<GdkAxisFlags>()}),
-    ("GdkAxisUse", Layout {size: size_of::<GdkAxisUse>(), alignment: align_of::<GdkAxisUse>()}),
-    ("GdkByteOrder", Layout {size: size_of::<GdkByteOrder>(), alignment: align_of::<GdkByteOrder>()}),
-    ("GdkColor", Layout {size: size_of::<GdkColor>(), alignment: align_of::<GdkColor>()}),
-    ("GdkCrossingMode", Layout {size: size_of::<GdkCrossingMode>(), alignment: align_of::<GdkCrossingMode>()}),
-    ("GdkCursorType", Layout {size: size_of::<GdkCursorType>(), alignment: align_of::<GdkCursorType>()}),
-    ("GdkDevicePadFeature", Layout {size: size_of::<GdkDevicePadFeature>(), alignment: align_of::<GdkDevicePadFeature>()}),
-    ("GdkDeviceToolType", Layout {size: size_of::<GdkDeviceToolType>(), alignment: align_of::<GdkDeviceToolType>()}),
-    ("GdkDeviceType", Layout {size: size_of::<GdkDeviceType>(), alignment: align_of::<GdkDeviceType>()}),
-    ("GdkDragAction", Layout {size: size_of::<GdkDragAction>(), alignment: align_of::<GdkDragAction>()}),
-    ("GdkDragCancelReason", Layout {size: size_of::<GdkDragCancelReason>(), alignment: align_of::<GdkDragCancelReason>()}),
-    ("GdkDragProtocol", Layout {size: size_of::<GdkDragProtocol>(), alignment: align_of::<GdkDragProtocol>()}),
-    ("GdkEvent", Layout {size: size_of::<GdkEvent>(), alignment: align_of::<GdkEvent>()}),
-    ("GdkEventAny", Layout {size: size_of::<GdkEventAny>(), alignment: align_of::<GdkEventAny>()}),
-    ("GdkEventButton", Layout {size: size_of::<GdkEventButton>(), alignment: align_of::<GdkEventButton>()}),
-    ("GdkEventConfigure", Layout {size: size_of::<GdkEventConfigure>(), alignment: align_of::<GdkEventConfigure>()}),
-    ("GdkEventCrossing", Layout {size: size_of::<GdkEventCrossing>(), alignment: align_of::<GdkEventCrossing>()}),
-    ("GdkEventDND", Layout {size: size_of::<GdkEventDND>(), alignment: align_of::<GdkEventDND>()}),
-    ("GdkEventExpose", Layout {size: size_of::<GdkEventExpose>(), alignment: align_of::<GdkEventExpose>()}),
-    ("GdkEventFocus", Layout {size: size_of::<GdkEventFocus>(), alignment: align_of::<GdkEventFocus>()}),
-    ("GdkEventGrabBroken", Layout {size: size_of::<GdkEventGrabBroken>(), alignment: align_of::<GdkEventGrabBroken>()}),
-    ("GdkEventKey", Layout {size: size_of::<GdkEventKey>(), alignment: align_of::<GdkEventKey>()}),
-    ("GdkEventMask", Layout {size: size_of::<GdkEventMask>(), alignment: align_of::<GdkEventMask>()}),
-    ("GdkEventMotion", Layout {size: size_of::<GdkEventMotion>(), alignment: align_of::<GdkEventMotion>()}),
-    ("GdkEventOwnerChange", Layout {size: size_of::<GdkEventOwnerChange>(), alignment: align_of::<GdkEventOwnerChange>()}),
-    ("GdkEventPadAxis", Layout {size: size_of::<GdkEventPadAxis>(), alignment: align_of::<GdkEventPadAxis>()}),
-    ("GdkEventPadButton", Layout {size: size_of::<GdkEventPadButton>(), alignment: align_of::<GdkEventPadButton>()}),
-    ("GdkEventPadGroupMode", Layout {size: size_of::<GdkEventPadGroupMode>(), alignment: align_of::<GdkEventPadGroupMode>()}),
-    ("GdkEventProperty", Layout {size: size_of::<GdkEventProperty>(), alignment: align_of::<GdkEventProperty>()}),
-    ("GdkEventProximity", Layout {size: size_of::<GdkEventProximity>(), alignment: align_of::<GdkEventProximity>()}),
-    ("GdkEventScroll", Layout {size: size_of::<GdkEventScroll>(), alignment: align_of::<GdkEventScroll>()}),
-    ("GdkEventSelection", Layout {size: size_of::<GdkEventSelection>(), alignment: align_of::<GdkEventSelection>()}),
-    ("GdkEventSetting", Layout {size: size_of::<GdkEventSetting>(), alignment: align_of::<GdkEventSetting>()}),
-    ("GdkEventTouch", Layout {size: size_of::<GdkEventTouch>(), alignment: align_of::<GdkEventTouch>()}),
-    ("GdkEventTouchpadPinch", Layout {size: size_of::<GdkEventTouchpadPinch>(), alignment: align_of::<GdkEventTouchpadPinch>()}),
-    ("GdkEventTouchpadSwipe", Layout {size: size_of::<GdkEventTouchpadSwipe>(), alignment: align_of::<GdkEventTouchpadSwipe>()}),
-    ("GdkEventType", Layout {size: size_of::<GdkEventType>(), alignment: align_of::<GdkEventType>()}),
-    ("GdkEventVisibility", Layout {size: size_of::<GdkEventVisibility>(), alignment: align_of::<GdkEventVisibility>()}),
-    ("GdkEventWindowState", Layout {size: size_of::<GdkEventWindowState>(), alignment: align_of::<GdkEventWindowState>()}),
-    ("GdkFilterReturn", Layout {size: size_of::<GdkFilterReturn>(), alignment: align_of::<GdkFilterReturn>()}),
-    ("GdkFrameClockPhase", Layout {size: size_of::<GdkFrameClockPhase>(), alignment: align_of::<GdkFrameClockPhase>()}),
-    ("GdkFullscreenMode", Layout {size: size_of::<GdkFullscreenMode>(), alignment: align_of::<GdkFullscreenMode>()}),
-    ("GdkGLError", Layout {size: size_of::<GdkGLError>(), alignment: align_of::<GdkGLError>()}),
-    ("GdkGeometry", Layout {size: size_of::<GdkGeometry>(), alignment: align_of::<GdkGeometry>()}),
-    ("GdkGrabOwnership", Layout {size: size_of::<GdkGrabOwnership>(), alignment: align_of::<GdkGrabOwnership>()}),
-    ("GdkGrabStatus", Layout {size: size_of::<GdkGrabStatus>(), alignment: align_of::<GdkGrabStatus>()}),
-    ("GdkGravity", Layout {size: size_of::<GdkGravity>(), alignment: align_of::<GdkGravity>()}),
-    ("GdkInputMode", Layout {size: size_of::<GdkInputMode>(), alignment: align_of::<GdkInputMode>()}),
-    ("GdkInputSource", Layout {size: size_of::<GdkInputSource>(), alignment: align_of::<GdkInputSource>()}),
-    ("GdkKeymapKey", Layout {size: size_of::<GdkKeymapKey>(), alignment: align_of::<GdkKeymapKey>()}),
-    ("GdkModifierIntent", Layout {size: size_of::<GdkModifierIntent>(), alignment: align_of::<GdkModifierIntent>()}),
-    ("GdkModifierType", Layout {size: size_of::<GdkModifierType>(), alignment: align_of::<GdkModifierType>()}),
-    ("GdkNotifyType", Layout {size: size_of::<GdkNotifyType>(), alignment: align_of::<GdkNotifyType>()}),
-    ("GdkOwnerChange", Layout {size: size_of::<GdkOwnerChange>(), alignment: align_of::<GdkOwnerChange>()}),
-    ("GdkPoint", Layout {size: size_of::<GdkPoint>(), alignment: align_of::<GdkPoint>()}),
-    ("GdkPropMode", Layout {size: size_of::<GdkPropMode>(), alignment: align_of::<GdkPropMode>()}),
-    ("GdkPropertyState", Layout {size: size_of::<GdkPropertyState>(), alignment: align_of::<GdkPropertyState>()}),
-    ("GdkRGBA", Layout {size: size_of::<GdkRGBA>(), alignment: align_of::<GdkRGBA>()}),
-    ("GdkRectangle", Layout {size: size_of::<GdkRectangle>(), alignment: align_of::<GdkRectangle>()}),
-    ("GdkScrollDirection", Layout {size: size_of::<GdkScrollDirection>(), alignment: align_of::<GdkScrollDirection>()}),
-    ("GdkSeat", Layout {size: size_of::<GdkSeat>(), alignment: align_of::<GdkSeat>()}),
-    ("GdkSeatCapabilities", Layout {size: size_of::<GdkSeatCapabilities>(), alignment: align_of::<GdkSeatCapabilities>()}),
-    ("GdkSettingAction", Layout {size: size_of::<GdkSettingAction>(), alignment: align_of::<GdkSettingAction>()}),
-    ("GdkStatus", Layout {size: size_of::<GdkStatus>(), alignment: align_of::<GdkStatus>()}),
-    ("GdkSubpixelLayout", Layout {size: size_of::<GdkSubpixelLayout>(), alignment: align_of::<GdkSubpixelLayout>()}),
-    ("GdkTimeCoord", Layout {size: size_of::<GdkTimeCoord>(), alignment: align_of::<GdkTimeCoord>()}),
-    ("GdkTouchpadGesturePhase", Layout {size: size_of::<GdkTouchpadGesturePhase>(), alignment: align_of::<GdkTouchpadGesturePhase>()}),
-    ("GdkVisibilityState", Layout {size: size_of::<GdkVisibilityState>(), alignment: align_of::<GdkVisibilityState>()}),
-    ("GdkVisualType", Layout {size: size_of::<GdkVisualType>(), alignment: align_of::<GdkVisualType>()}),
-    ("GdkWMDecoration", Layout {size: size_of::<GdkWMDecoration>(), alignment: align_of::<GdkWMDecoration>()}),
-    ("GdkWMFunction", Layout {size: size_of::<GdkWMFunction>(), alignment: align_of::<GdkWMFunction>()}),
-    ("GdkWindowAttr", Layout {size: size_of::<GdkWindowAttr>(), alignment: align_of::<GdkWindowAttr>()}),
-    ("GdkWindowAttributesType", Layout {size: size_of::<GdkWindowAttributesType>(), alignment: align_of::<GdkWindowAttributesType>()}),
-    ("GdkWindowClass", Layout {size: size_of::<GdkWindowClass>(), alignment: align_of::<GdkWindowClass>()}),
-    ("GdkWindowEdge", Layout {size: size_of::<GdkWindowEdge>(), alignment: align_of::<GdkWindowEdge>()}),
-    ("GdkWindowHints", Layout {size: size_of::<GdkWindowHints>(), alignment: align_of::<GdkWindowHints>()}),
-    ("GdkWindowState", Layout {size: size_of::<GdkWindowState>(), alignment: align_of::<GdkWindowState>()}),
-    ("GdkWindowType", Layout {size: size_of::<GdkWindowType>(), alignment: align_of::<GdkWindowType>()}),
-    ("GdkWindowTypeHint", Layout {size: size_of::<GdkWindowTypeHint>(), alignment: align_of::<GdkWindowTypeHint>()}),
-    ("GdkWindowWindowClass", Layout {size: size_of::<GdkWindowWindowClass>(), alignment: align_of::<GdkWindowWindowClass>()}),
+    (
+        "GdkAnchorHints",
+        Layout {
+            size: size_of::<GdkAnchorHints>(),
+            alignment: align_of::<GdkAnchorHints>(),
+        },
+    ),
+    (
+        "GdkAxisFlags",
+        Layout {
+            size: size_of::<GdkAxisFlags>(),
+            alignment: align_of::<GdkAxisFlags>(),
+        },
+    ),
+    (
+        "GdkAxisUse",
+        Layout {
+            size: size_of::<GdkAxisUse>(),
+            alignment: align_of::<GdkAxisUse>(),
+        },
+    ),
+    (
+        "GdkByteOrder",
+        Layout {
+            size: size_of::<GdkByteOrder>(),
+            alignment: align_of::<GdkByteOrder>(),
+        },
+    ),
+    (
+        "GdkColor",
+        Layout {
+            size: size_of::<GdkColor>(),
+            alignment: align_of::<GdkColor>(),
+        },
+    ),
+    (
+        "GdkCrossingMode",
+        Layout {
+            size: size_of::<GdkCrossingMode>(),
+            alignment: align_of::<GdkCrossingMode>(),
+        },
+    ),
+    (
+        "GdkCursorType",
+        Layout {
+            size: size_of::<GdkCursorType>(),
+            alignment: align_of::<GdkCursorType>(),
+        },
+    ),
+    (
+        "GdkDevicePadFeature",
+        Layout {
+            size: size_of::<GdkDevicePadFeature>(),
+            alignment: align_of::<GdkDevicePadFeature>(),
+        },
+    ),
+    (
+        "GdkDeviceToolType",
+        Layout {
+            size: size_of::<GdkDeviceToolType>(),
+            alignment: align_of::<GdkDeviceToolType>(),
+        },
+    ),
+    (
+        "GdkDeviceType",
+        Layout {
+            size: size_of::<GdkDeviceType>(),
+            alignment: align_of::<GdkDeviceType>(),
+        },
+    ),
+    (
+        "GdkDragAction",
+        Layout {
+            size: size_of::<GdkDragAction>(),
+            alignment: align_of::<GdkDragAction>(),
+        },
+    ),
+    (
+        "GdkDragCancelReason",
+        Layout {
+            size: size_of::<GdkDragCancelReason>(),
+            alignment: align_of::<GdkDragCancelReason>(),
+        },
+    ),
+    (
+        "GdkDragProtocol",
+        Layout {
+            size: size_of::<GdkDragProtocol>(),
+            alignment: align_of::<GdkDragProtocol>(),
+        },
+    ),
+    (
+        "GdkEvent",
+        Layout {
+            size: size_of::<GdkEvent>(),
+            alignment: align_of::<GdkEvent>(),
+        },
+    ),
+    (
+        "GdkEventAny",
+        Layout {
+            size: size_of::<GdkEventAny>(),
+            alignment: align_of::<GdkEventAny>(),
+        },
+    ),
+    (
+        "GdkEventButton",
+        Layout {
+            size: size_of::<GdkEventButton>(),
+            alignment: align_of::<GdkEventButton>(),
+        },
+    ),
+    (
+        "GdkEventConfigure",
+        Layout {
+            size: size_of::<GdkEventConfigure>(),
+            alignment: align_of::<GdkEventConfigure>(),
+        },
+    ),
+    (
+        "GdkEventCrossing",
+        Layout {
+            size: size_of::<GdkEventCrossing>(),
+            alignment: align_of::<GdkEventCrossing>(),
+        },
+    ),
+    (
+        "GdkEventDND",
+        Layout {
+            size: size_of::<GdkEventDND>(),
+            alignment: align_of::<GdkEventDND>(),
+        },
+    ),
+    (
+        "GdkEventExpose",
+        Layout {
+            size: size_of::<GdkEventExpose>(),
+            alignment: align_of::<GdkEventExpose>(),
+        },
+    ),
+    (
+        "GdkEventFocus",
+        Layout {
+            size: size_of::<GdkEventFocus>(),
+            alignment: align_of::<GdkEventFocus>(),
+        },
+    ),
+    (
+        "GdkEventGrabBroken",
+        Layout {
+            size: size_of::<GdkEventGrabBroken>(),
+            alignment: align_of::<GdkEventGrabBroken>(),
+        },
+    ),
+    (
+        "GdkEventKey",
+        Layout {
+            size: size_of::<GdkEventKey>(),
+            alignment: align_of::<GdkEventKey>(),
+        },
+    ),
+    (
+        "GdkEventMask",
+        Layout {
+            size: size_of::<GdkEventMask>(),
+            alignment: align_of::<GdkEventMask>(),
+        },
+    ),
+    (
+        "GdkEventMotion",
+        Layout {
+            size: size_of::<GdkEventMotion>(),
+            alignment: align_of::<GdkEventMotion>(),
+        },
+    ),
+    (
+        "GdkEventOwnerChange",
+        Layout {
+            size: size_of::<GdkEventOwnerChange>(),
+            alignment: align_of::<GdkEventOwnerChange>(),
+        },
+    ),
+    (
+        "GdkEventPadAxis",
+        Layout {
+            size: size_of::<GdkEventPadAxis>(),
+            alignment: align_of::<GdkEventPadAxis>(),
+        },
+    ),
+    (
+        "GdkEventPadButton",
+        Layout {
+            size: size_of::<GdkEventPadButton>(),
+            alignment: align_of::<GdkEventPadButton>(),
+        },
+    ),
+    (
+        "GdkEventPadGroupMode",
+        Layout {
+            size: size_of::<GdkEventPadGroupMode>(),
+            alignment: align_of::<GdkEventPadGroupMode>(),
+        },
+    ),
+    (
+        "GdkEventProperty",
+        Layout {
+            size: size_of::<GdkEventProperty>(),
+            alignment: align_of::<GdkEventProperty>(),
+        },
+    ),
+    (
+        "GdkEventProximity",
+        Layout {
+            size: size_of::<GdkEventProximity>(),
+            alignment: align_of::<GdkEventProximity>(),
+        },
+    ),
+    (
+        "GdkEventScroll",
+        Layout {
+            size: size_of::<GdkEventScroll>(),
+            alignment: align_of::<GdkEventScroll>(),
+        },
+    ),
+    (
+        "GdkEventSelection",
+        Layout {
+            size: size_of::<GdkEventSelection>(),
+            alignment: align_of::<GdkEventSelection>(),
+        },
+    ),
+    (
+        "GdkEventSetting",
+        Layout {
+            size: size_of::<GdkEventSetting>(),
+            alignment: align_of::<GdkEventSetting>(),
+        },
+    ),
+    (
+        "GdkEventTouch",
+        Layout {
+            size: size_of::<GdkEventTouch>(),
+            alignment: align_of::<GdkEventTouch>(),
+        },
+    ),
+    (
+        "GdkEventTouchpadPinch",
+        Layout {
+            size: size_of::<GdkEventTouchpadPinch>(),
+            alignment: align_of::<GdkEventTouchpadPinch>(),
+        },
+    ),
+    (
+        "GdkEventTouchpadSwipe",
+        Layout {
+            size: size_of::<GdkEventTouchpadSwipe>(),
+            alignment: align_of::<GdkEventTouchpadSwipe>(),
+        },
+    ),
+    (
+        "GdkEventType",
+        Layout {
+            size: size_of::<GdkEventType>(),
+            alignment: align_of::<GdkEventType>(),
+        },
+    ),
+    (
+        "GdkEventVisibility",
+        Layout {
+            size: size_of::<GdkEventVisibility>(),
+            alignment: align_of::<GdkEventVisibility>(),
+        },
+    ),
+    (
+        "GdkEventWindowState",
+        Layout {
+            size: size_of::<GdkEventWindowState>(),
+            alignment: align_of::<GdkEventWindowState>(),
+        },
+    ),
+    (
+        "GdkFilterReturn",
+        Layout {
+            size: size_of::<GdkFilterReturn>(),
+            alignment: align_of::<GdkFilterReturn>(),
+        },
+    ),
+    (
+        "GdkFrameClockPhase",
+        Layout {
+            size: size_of::<GdkFrameClockPhase>(),
+            alignment: align_of::<GdkFrameClockPhase>(),
+        },
+    ),
+    (
+        "GdkFullscreenMode",
+        Layout {
+            size: size_of::<GdkFullscreenMode>(),
+            alignment: align_of::<GdkFullscreenMode>(),
+        },
+    ),
+    (
+        "GdkGLError",
+        Layout {
+            size: size_of::<GdkGLError>(),
+            alignment: align_of::<GdkGLError>(),
+        },
+    ),
+    (
+        "GdkGeometry",
+        Layout {
+            size: size_of::<GdkGeometry>(),
+            alignment: align_of::<GdkGeometry>(),
+        },
+    ),
+    (
+        "GdkGrabOwnership",
+        Layout {
+            size: size_of::<GdkGrabOwnership>(),
+            alignment: align_of::<GdkGrabOwnership>(),
+        },
+    ),
+    (
+        "GdkGrabStatus",
+        Layout {
+            size: size_of::<GdkGrabStatus>(),
+            alignment: align_of::<GdkGrabStatus>(),
+        },
+    ),
+    (
+        "GdkGravity",
+        Layout {
+            size: size_of::<GdkGravity>(),
+            alignment: align_of::<GdkGravity>(),
+        },
+    ),
+    (
+        "GdkInputMode",
+        Layout {
+            size: size_of::<GdkInputMode>(),
+            alignment: align_of::<GdkInputMode>(),
+        },
+    ),
+    (
+        "GdkInputSource",
+        Layout {
+            size: size_of::<GdkInputSource>(),
+            alignment: align_of::<GdkInputSource>(),
+        },
+    ),
+    (
+        "GdkKeymapKey",
+        Layout {
+            size: size_of::<GdkKeymapKey>(),
+            alignment: align_of::<GdkKeymapKey>(),
+        },
+    ),
+    (
+        "GdkModifierIntent",
+        Layout {
+            size: size_of::<GdkModifierIntent>(),
+            alignment: align_of::<GdkModifierIntent>(),
+        },
+    ),
+    (
+        "GdkModifierType",
+        Layout {
+            size: size_of::<GdkModifierType>(),
+            alignment: align_of::<GdkModifierType>(),
+        },
+    ),
+    (
+        "GdkNotifyType",
+        Layout {
+            size: size_of::<GdkNotifyType>(),
+            alignment: align_of::<GdkNotifyType>(),
+        },
+    ),
+    (
+        "GdkOwnerChange",
+        Layout {
+            size: size_of::<GdkOwnerChange>(),
+            alignment: align_of::<GdkOwnerChange>(),
+        },
+    ),
+    (
+        "GdkPoint",
+        Layout {
+            size: size_of::<GdkPoint>(),
+            alignment: align_of::<GdkPoint>(),
+        },
+    ),
+    (
+        "GdkPropMode",
+        Layout {
+            size: size_of::<GdkPropMode>(),
+            alignment: align_of::<GdkPropMode>(),
+        },
+    ),
+    (
+        "GdkPropertyState",
+        Layout {
+            size: size_of::<GdkPropertyState>(),
+            alignment: align_of::<GdkPropertyState>(),
+        },
+    ),
+    (
+        "GdkRGBA",
+        Layout {
+            size: size_of::<GdkRGBA>(),
+            alignment: align_of::<GdkRGBA>(),
+        },
+    ),
+    (
+        "GdkRectangle",
+        Layout {
+            size: size_of::<GdkRectangle>(),
+            alignment: align_of::<GdkRectangle>(),
+        },
+    ),
+    (
+        "GdkScrollDirection",
+        Layout {
+            size: size_of::<GdkScrollDirection>(),
+            alignment: align_of::<GdkScrollDirection>(),
+        },
+    ),
+    (
+        "GdkSeat",
+        Layout {
+            size: size_of::<GdkSeat>(),
+            alignment: align_of::<GdkSeat>(),
+        },
+    ),
+    (
+        "GdkSeatCapabilities",
+        Layout {
+            size: size_of::<GdkSeatCapabilities>(),
+            alignment: align_of::<GdkSeatCapabilities>(),
+        },
+    ),
+    (
+        "GdkSettingAction",
+        Layout {
+            size: size_of::<GdkSettingAction>(),
+            alignment: align_of::<GdkSettingAction>(),
+        },
+    ),
+    (
+        "GdkStatus",
+        Layout {
+            size: size_of::<GdkStatus>(),
+            alignment: align_of::<GdkStatus>(),
+        },
+    ),
+    (
+        "GdkSubpixelLayout",
+        Layout {
+            size: size_of::<GdkSubpixelLayout>(),
+            alignment: align_of::<GdkSubpixelLayout>(),
+        },
+    ),
+    (
+        "GdkTimeCoord",
+        Layout {
+            size: size_of::<GdkTimeCoord>(),
+            alignment: align_of::<GdkTimeCoord>(),
+        },
+    ),
+    (
+        "GdkTouchpadGesturePhase",
+        Layout {
+            size: size_of::<GdkTouchpadGesturePhase>(),
+            alignment: align_of::<GdkTouchpadGesturePhase>(),
+        },
+    ),
+    (
+        "GdkVisibilityState",
+        Layout {
+            size: size_of::<GdkVisibilityState>(),
+            alignment: align_of::<GdkVisibilityState>(),
+        },
+    ),
+    (
+        "GdkVisualType",
+        Layout {
+            size: size_of::<GdkVisualType>(),
+            alignment: align_of::<GdkVisualType>(),
+        },
+    ),
+    (
+        "GdkWMDecoration",
+        Layout {
+            size: size_of::<GdkWMDecoration>(),
+            alignment: align_of::<GdkWMDecoration>(),
+        },
+    ),
+    (
+        "GdkWMFunction",
+        Layout {
+            size: size_of::<GdkWMFunction>(),
+            alignment: align_of::<GdkWMFunction>(),
+        },
+    ),
+    (
+        "GdkWindowAttr",
+        Layout {
+            size: size_of::<GdkWindowAttr>(),
+            alignment: align_of::<GdkWindowAttr>(),
+        },
+    ),
+    (
+        "GdkWindowAttributesType",
+        Layout {
+            size: size_of::<GdkWindowAttributesType>(),
+            alignment: align_of::<GdkWindowAttributesType>(),
+        },
+    ),
+    (
+        "GdkWindowClass",
+        Layout {
+            size: size_of::<GdkWindowClass>(),
+            alignment: align_of::<GdkWindowClass>(),
+        },
+    ),
+    (
+        "GdkWindowEdge",
+        Layout {
+            size: size_of::<GdkWindowEdge>(),
+            alignment: align_of::<GdkWindowEdge>(),
+        },
+    ),
+    (
+        "GdkWindowHints",
+        Layout {
+            size: size_of::<GdkWindowHints>(),
+            alignment: align_of::<GdkWindowHints>(),
+        },
+    ),
+    (
+        "GdkWindowState",
+        Layout {
+            size: size_of::<GdkWindowState>(),
+            alignment: align_of::<GdkWindowState>(),
+        },
+    ),
+    (
+        "GdkWindowType",
+        Layout {
+            size: size_of::<GdkWindowType>(),
+            alignment: align_of::<GdkWindowType>(),
+        },
+    ),
+    (
+        "GdkWindowTypeHint",
+        Layout {
+            size: size_of::<GdkWindowTypeHint>(),
+            alignment: align_of::<GdkWindowTypeHint>(),
+        },
+    ),
+    (
+        "GdkWindowWindowClass",
+        Layout {
+            size: size_of::<GdkWindowWindowClass>(),
+            alignment: align_of::<GdkWindowWindowClass>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -3047,5 +3540,3 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GDK_XTERM", "152"),
     ("(gint) GDK_X_CURSOR", "0"),
 ];
-
-

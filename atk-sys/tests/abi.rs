@@ -5,13 +5,13 @@
 extern crate atk_sys;
 extern crate shell_words;
 extern crate tempdir;
+use atk_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use atk_sys::*;
 
 static PACKAGES: &[&str] = &["atk"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,84 +229,463 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("AtkActionIface", Layout {size: size_of::<AtkActionIface>(), alignment: align_of::<AtkActionIface>()}),
-    ("AtkAttribute", Layout {size: size_of::<AtkAttribute>(), alignment: align_of::<AtkAttribute>()}),
-    ("AtkAttributeSet", Layout {size: size_of::<AtkAttributeSet>(), alignment: align_of::<AtkAttributeSet>()}),
-    ("AtkComponentIface", Layout {size: size_of::<AtkComponentIface>(), alignment: align_of::<AtkComponentIface>()}),
-    ("AtkCoordType", Layout {size: size_of::<AtkCoordType>(), alignment: align_of::<AtkCoordType>()}),
-    ("AtkDocumentIface", Layout {size: size_of::<AtkDocumentIface>(), alignment: align_of::<AtkDocumentIface>()}),
-    ("AtkEditableTextIface", Layout {size: size_of::<AtkEditableTextIface>(), alignment: align_of::<AtkEditableTextIface>()}),
-    ("AtkGObjectAccessible", Layout {size: size_of::<AtkGObjectAccessible>(), alignment: align_of::<AtkGObjectAccessible>()}),
-    ("AtkGObjectAccessibleClass", Layout {size: size_of::<AtkGObjectAccessibleClass>(), alignment: align_of::<AtkGObjectAccessibleClass>()}),
-    ("AtkHyperlink", Layout {size: size_of::<AtkHyperlink>(), alignment: align_of::<AtkHyperlink>()}),
-    ("AtkHyperlinkClass", Layout {size: size_of::<AtkHyperlinkClass>(), alignment: align_of::<AtkHyperlinkClass>()}),
-    ("AtkHyperlinkImplIface", Layout {size: size_of::<AtkHyperlinkImplIface>(), alignment: align_of::<AtkHyperlinkImplIface>()}),
-    ("AtkHyperlinkStateFlags", Layout {size: size_of::<AtkHyperlinkStateFlags>(), alignment: align_of::<AtkHyperlinkStateFlags>()}),
-    ("AtkHypertextIface", Layout {size: size_of::<AtkHypertextIface>(), alignment: align_of::<AtkHypertextIface>()}),
-    ("AtkImageIface", Layout {size: size_of::<AtkImageIface>(), alignment: align_of::<AtkImageIface>()}),
-    ("AtkKeyEventStruct", Layout {size: size_of::<AtkKeyEventStruct>(), alignment: align_of::<AtkKeyEventStruct>()}),
-    ("AtkKeyEventType", Layout {size: size_of::<AtkKeyEventType>(), alignment: align_of::<AtkKeyEventType>()}),
-    ("AtkLayer", Layout {size: size_of::<AtkLayer>(), alignment: align_of::<AtkLayer>()}),
-    ("AtkMisc", Layout {size: size_of::<AtkMisc>(), alignment: align_of::<AtkMisc>()}),
-    ("AtkMiscClass", Layout {size: size_of::<AtkMiscClass>(), alignment: align_of::<AtkMiscClass>()}),
-    ("AtkNoOpObject", Layout {size: size_of::<AtkNoOpObject>(), alignment: align_of::<AtkNoOpObject>()}),
-    ("AtkNoOpObjectClass", Layout {size: size_of::<AtkNoOpObjectClass>(), alignment: align_of::<AtkNoOpObjectClass>()}),
-    ("AtkNoOpObjectFactory", Layout {size: size_of::<AtkNoOpObjectFactory>(), alignment: align_of::<AtkNoOpObjectFactory>()}),
-    ("AtkNoOpObjectFactoryClass", Layout {size: size_of::<AtkNoOpObjectFactoryClass>(), alignment: align_of::<AtkNoOpObjectFactoryClass>()}),
-    ("AtkObject", Layout {size: size_of::<AtkObject>(), alignment: align_of::<AtkObject>()}),
-    ("AtkObjectClass", Layout {size: size_of::<AtkObjectClass>(), alignment: align_of::<AtkObjectClass>()}),
-    ("AtkObjectFactory", Layout {size: size_of::<AtkObjectFactory>(), alignment: align_of::<AtkObjectFactory>()}),
-    ("AtkObjectFactoryClass", Layout {size: size_of::<AtkObjectFactoryClass>(), alignment: align_of::<AtkObjectFactoryClass>()}),
-    ("AtkPlug", Layout {size: size_of::<AtkPlug>(), alignment: align_of::<AtkPlug>()}),
-    ("AtkPlugClass", Layout {size: size_of::<AtkPlugClass>(), alignment: align_of::<AtkPlugClass>()}),
-    ("AtkPropertyValues", Layout {size: size_of::<AtkPropertyValues>(), alignment: align_of::<AtkPropertyValues>()}),
-    ("AtkRectangle", Layout {size: size_of::<AtkRectangle>(), alignment: align_of::<AtkRectangle>()}),
-    ("AtkRegistry", Layout {size: size_of::<AtkRegistry>(), alignment: align_of::<AtkRegistry>()}),
-    ("AtkRegistryClass", Layout {size: size_of::<AtkRegistryClass>(), alignment: align_of::<AtkRegistryClass>()}),
-    ("AtkRelation", Layout {size: size_of::<AtkRelation>(), alignment: align_of::<AtkRelation>()}),
-    ("AtkRelationClass", Layout {size: size_of::<AtkRelationClass>(), alignment: align_of::<AtkRelationClass>()}),
-    ("AtkRelationSet", Layout {size: size_of::<AtkRelationSet>(), alignment: align_of::<AtkRelationSet>()}),
-    ("AtkRelationSetClass", Layout {size: size_of::<AtkRelationSetClass>(), alignment: align_of::<AtkRelationSetClass>()}),
-    ("AtkRelationType", Layout {size: size_of::<AtkRelationType>(), alignment: align_of::<AtkRelationType>()}),
-    ("AtkRole", Layout {size: size_of::<AtkRole>(), alignment: align_of::<AtkRole>()}),
-    ("AtkScrollType", Layout {size: size_of::<AtkScrollType>(), alignment: align_of::<AtkScrollType>()}),
-    ("AtkSelectionIface", Layout {size: size_of::<AtkSelectionIface>(), alignment: align_of::<AtkSelectionIface>()}),
-    ("AtkSocket", Layout {size: size_of::<AtkSocket>(), alignment: align_of::<AtkSocket>()}),
-    ("AtkSocketClass", Layout {size: size_of::<AtkSocketClass>(), alignment: align_of::<AtkSocketClass>()}),
-    ("AtkState", Layout {size: size_of::<AtkState>(), alignment: align_of::<AtkState>()}),
-    ("AtkStateSet", Layout {size: size_of::<AtkStateSet>(), alignment: align_of::<AtkStateSet>()}),
-    ("AtkStateSetClass", Layout {size: size_of::<AtkStateSetClass>(), alignment: align_of::<AtkStateSetClass>()}),
-    ("AtkStateType", Layout {size: size_of::<AtkStateType>(), alignment: align_of::<AtkStateType>()}),
-    ("AtkStreamableContentIface", Layout {size: size_of::<AtkStreamableContentIface>(), alignment: align_of::<AtkStreamableContentIface>()}),
-    ("AtkTableCellIface", Layout {size: size_of::<AtkTableCellIface>(), alignment: align_of::<AtkTableCellIface>()}),
-    ("AtkTableIface", Layout {size: size_of::<AtkTableIface>(), alignment: align_of::<AtkTableIface>()}),
-    ("AtkTextAttribute", Layout {size: size_of::<AtkTextAttribute>(), alignment: align_of::<AtkTextAttribute>()}),
-    ("AtkTextBoundary", Layout {size: size_of::<AtkTextBoundary>(), alignment: align_of::<AtkTextBoundary>()}),
-    ("AtkTextClipType", Layout {size: size_of::<AtkTextClipType>(), alignment: align_of::<AtkTextClipType>()}),
-    ("AtkTextGranularity", Layout {size: size_of::<AtkTextGranularity>(), alignment: align_of::<AtkTextGranularity>()}),
-    ("AtkTextIface", Layout {size: size_of::<AtkTextIface>(), alignment: align_of::<AtkTextIface>()}),
-    ("AtkTextRange", Layout {size: size_of::<AtkTextRange>(), alignment: align_of::<AtkTextRange>()}),
-    ("AtkTextRectangle", Layout {size: size_of::<AtkTextRectangle>(), alignment: align_of::<AtkTextRectangle>()}),
-    ("AtkUtil", Layout {size: size_of::<AtkUtil>(), alignment: align_of::<AtkUtil>()}),
-    ("AtkUtilClass", Layout {size: size_of::<AtkUtilClass>(), alignment: align_of::<AtkUtilClass>()}),
-    ("AtkValueIface", Layout {size: size_of::<AtkValueIface>(), alignment: align_of::<AtkValueIface>()}),
-    ("AtkValueType", Layout {size: size_of::<AtkValueType>(), alignment: align_of::<AtkValueType>()}),
-    ("AtkWindowIface", Layout {size: size_of::<AtkWindowIface>(), alignment: align_of::<AtkWindowIface>()}),
+    (
+        "AtkActionIface",
+        Layout {
+            size: size_of::<AtkActionIface>(),
+            alignment: align_of::<AtkActionIface>(),
+        },
+    ),
+    (
+        "AtkAttribute",
+        Layout {
+            size: size_of::<AtkAttribute>(),
+            alignment: align_of::<AtkAttribute>(),
+        },
+    ),
+    (
+        "AtkAttributeSet",
+        Layout {
+            size: size_of::<AtkAttributeSet>(),
+            alignment: align_of::<AtkAttributeSet>(),
+        },
+    ),
+    (
+        "AtkComponentIface",
+        Layout {
+            size: size_of::<AtkComponentIface>(),
+            alignment: align_of::<AtkComponentIface>(),
+        },
+    ),
+    (
+        "AtkCoordType",
+        Layout {
+            size: size_of::<AtkCoordType>(),
+            alignment: align_of::<AtkCoordType>(),
+        },
+    ),
+    (
+        "AtkDocumentIface",
+        Layout {
+            size: size_of::<AtkDocumentIface>(),
+            alignment: align_of::<AtkDocumentIface>(),
+        },
+    ),
+    (
+        "AtkEditableTextIface",
+        Layout {
+            size: size_of::<AtkEditableTextIface>(),
+            alignment: align_of::<AtkEditableTextIface>(),
+        },
+    ),
+    (
+        "AtkGObjectAccessible",
+        Layout {
+            size: size_of::<AtkGObjectAccessible>(),
+            alignment: align_of::<AtkGObjectAccessible>(),
+        },
+    ),
+    (
+        "AtkGObjectAccessibleClass",
+        Layout {
+            size: size_of::<AtkGObjectAccessibleClass>(),
+            alignment: align_of::<AtkGObjectAccessibleClass>(),
+        },
+    ),
+    (
+        "AtkHyperlink",
+        Layout {
+            size: size_of::<AtkHyperlink>(),
+            alignment: align_of::<AtkHyperlink>(),
+        },
+    ),
+    (
+        "AtkHyperlinkClass",
+        Layout {
+            size: size_of::<AtkHyperlinkClass>(),
+            alignment: align_of::<AtkHyperlinkClass>(),
+        },
+    ),
+    (
+        "AtkHyperlinkImplIface",
+        Layout {
+            size: size_of::<AtkHyperlinkImplIface>(),
+            alignment: align_of::<AtkHyperlinkImplIface>(),
+        },
+    ),
+    (
+        "AtkHyperlinkStateFlags",
+        Layout {
+            size: size_of::<AtkHyperlinkStateFlags>(),
+            alignment: align_of::<AtkHyperlinkStateFlags>(),
+        },
+    ),
+    (
+        "AtkHypertextIface",
+        Layout {
+            size: size_of::<AtkHypertextIface>(),
+            alignment: align_of::<AtkHypertextIface>(),
+        },
+    ),
+    (
+        "AtkImageIface",
+        Layout {
+            size: size_of::<AtkImageIface>(),
+            alignment: align_of::<AtkImageIface>(),
+        },
+    ),
+    (
+        "AtkKeyEventStruct",
+        Layout {
+            size: size_of::<AtkKeyEventStruct>(),
+            alignment: align_of::<AtkKeyEventStruct>(),
+        },
+    ),
+    (
+        "AtkKeyEventType",
+        Layout {
+            size: size_of::<AtkKeyEventType>(),
+            alignment: align_of::<AtkKeyEventType>(),
+        },
+    ),
+    (
+        "AtkLayer",
+        Layout {
+            size: size_of::<AtkLayer>(),
+            alignment: align_of::<AtkLayer>(),
+        },
+    ),
+    (
+        "AtkMisc",
+        Layout {
+            size: size_of::<AtkMisc>(),
+            alignment: align_of::<AtkMisc>(),
+        },
+    ),
+    (
+        "AtkMiscClass",
+        Layout {
+            size: size_of::<AtkMiscClass>(),
+            alignment: align_of::<AtkMiscClass>(),
+        },
+    ),
+    (
+        "AtkNoOpObject",
+        Layout {
+            size: size_of::<AtkNoOpObject>(),
+            alignment: align_of::<AtkNoOpObject>(),
+        },
+    ),
+    (
+        "AtkNoOpObjectClass",
+        Layout {
+            size: size_of::<AtkNoOpObjectClass>(),
+            alignment: align_of::<AtkNoOpObjectClass>(),
+        },
+    ),
+    (
+        "AtkNoOpObjectFactory",
+        Layout {
+            size: size_of::<AtkNoOpObjectFactory>(),
+            alignment: align_of::<AtkNoOpObjectFactory>(),
+        },
+    ),
+    (
+        "AtkNoOpObjectFactoryClass",
+        Layout {
+            size: size_of::<AtkNoOpObjectFactoryClass>(),
+            alignment: align_of::<AtkNoOpObjectFactoryClass>(),
+        },
+    ),
+    (
+        "AtkObject",
+        Layout {
+            size: size_of::<AtkObject>(),
+            alignment: align_of::<AtkObject>(),
+        },
+    ),
+    (
+        "AtkObjectClass",
+        Layout {
+            size: size_of::<AtkObjectClass>(),
+            alignment: align_of::<AtkObjectClass>(),
+        },
+    ),
+    (
+        "AtkObjectFactory",
+        Layout {
+            size: size_of::<AtkObjectFactory>(),
+            alignment: align_of::<AtkObjectFactory>(),
+        },
+    ),
+    (
+        "AtkObjectFactoryClass",
+        Layout {
+            size: size_of::<AtkObjectFactoryClass>(),
+            alignment: align_of::<AtkObjectFactoryClass>(),
+        },
+    ),
+    (
+        "AtkPlug",
+        Layout {
+            size: size_of::<AtkPlug>(),
+            alignment: align_of::<AtkPlug>(),
+        },
+    ),
+    (
+        "AtkPlugClass",
+        Layout {
+            size: size_of::<AtkPlugClass>(),
+            alignment: align_of::<AtkPlugClass>(),
+        },
+    ),
+    (
+        "AtkPropertyValues",
+        Layout {
+            size: size_of::<AtkPropertyValues>(),
+            alignment: align_of::<AtkPropertyValues>(),
+        },
+    ),
+    (
+        "AtkRectangle",
+        Layout {
+            size: size_of::<AtkRectangle>(),
+            alignment: align_of::<AtkRectangle>(),
+        },
+    ),
+    (
+        "AtkRegistry",
+        Layout {
+            size: size_of::<AtkRegistry>(),
+            alignment: align_of::<AtkRegistry>(),
+        },
+    ),
+    (
+        "AtkRegistryClass",
+        Layout {
+            size: size_of::<AtkRegistryClass>(),
+            alignment: align_of::<AtkRegistryClass>(),
+        },
+    ),
+    (
+        "AtkRelation",
+        Layout {
+            size: size_of::<AtkRelation>(),
+            alignment: align_of::<AtkRelation>(),
+        },
+    ),
+    (
+        "AtkRelationClass",
+        Layout {
+            size: size_of::<AtkRelationClass>(),
+            alignment: align_of::<AtkRelationClass>(),
+        },
+    ),
+    (
+        "AtkRelationSet",
+        Layout {
+            size: size_of::<AtkRelationSet>(),
+            alignment: align_of::<AtkRelationSet>(),
+        },
+    ),
+    (
+        "AtkRelationSetClass",
+        Layout {
+            size: size_of::<AtkRelationSetClass>(),
+            alignment: align_of::<AtkRelationSetClass>(),
+        },
+    ),
+    (
+        "AtkRelationType",
+        Layout {
+            size: size_of::<AtkRelationType>(),
+            alignment: align_of::<AtkRelationType>(),
+        },
+    ),
+    (
+        "AtkRole",
+        Layout {
+            size: size_of::<AtkRole>(),
+            alignment: align_of::<AtkRole>(),
+        },
+    ),
+    (
+        "AtkScrollType",
+        Layout {
+            size: size_of::<AtkScrollType>(),
+            alignment: align_of::<AtkScrollType>(),
+        },
+    ),
+    (
+        "AtkSelectionIface",
+        Layout {
+            size: size_of::<AtkSelectionIface>(),
+            alignment: align_of::<AtkSelectionIface>(),
+        },
+    ),
+    (
+        "AtkSocket",
+        Layout {
+            size: size_of::<AtkSocket>(),
+            alignment: align_of::<AtkSocket>(),
+        },
+    ),
+    (
+        "AtkSocketClass",
+        Layout {
+            size: size_of::<AtkSocketClass>(),
+            alignment: align_of::<AtkSocketClass>(),
+        },
+    ),
+    (
+        "AtkState",
+        Layout {
+            size: size_of::<AtkState>(),
+            alignment: align_of::<AtkState>(),
+        },
+    ),
+    (
+        "AtkStateSet",
+        Layout {
+            size: size_of::<AtkStateSet>(),
+            alignment: align_of::<AtkStateSet>(),
+        },
+    ),
+    (
+        "AtkStateSetClass",
+        Layout {
+            size: size_of::<AtkStateSetClass>(),
+            alignment: align_of::<AtkStateSetClass>(),
+        },
+    ),
+    (
+        "AtkStateType",
+        Layout {
+            size: size_of::<AtkStateType>(),
+            alignment: align_of::<AtkStateType>(),
+        },
+    ),
+    (
+        "AtkStreamableContentIface",
+        Layout {
+            size: size_of::<AtkStreamableContentIface>(),
+            alignment: align_of::<AtkStreamableContentIface>(),
+        },
+    ),
+    (
+        "AtkTableCellIface",
+        Layout {
+            size: size_of::<AtkTableCellIface>(),
+            alignment: align_of::<AtkTableCellIface>(),
+        },
+    ),
+    (
+        "AtkTableIface",
+        Layout {
+            size: size_of::<AtkTableIface>(),
+            alignment: align_of::<AtkTableIface>(),
+        },
+    ),
+    (
+        "AtkTextAttribute",
+        Layout {
+            size: size_of::<AtkTextAttribute>(),
+            alignment: align_of::<AtkTextAttribute>(),
+        },
+    ),
+    (
+        "AtkTextBoundary",
+        Layout {
+            size: size_of::<AtkTextBoundary>(),
+            alignment: align_of::<AtkTextBoundary>(),
+        },
+    ),
+    (
+        "AtkTextClipType",
+        Layout {
+            size: size_of::<AtkTextClipType>(),
+            alignment: align_of::<AtkTextClipType>(),
+        },
+    ),
+    (
+        "AtkTextGranularity",
+        Layout {
+            size: size_of::<AtkTextGranularity>(),
+            alignment: align_of::<AtkTextGranularity>(),
+        },
+    ),
+    (
+        "AtkTextIface",
+        Layout {
+            size: size_of::<AtkTextIface>(),
+            alignment: align_of::<AtkTextIface>(),
+        },
+    ),
+    (
+        "AtkTextRange",
+        Layout {
+            size: size_of::<AtkTextRange>(),
+            alignment: align_of::<AtkTextRange>(),
+        },
+    ),
+    (
+        "AtkTextRectangle",
+        Layout {
+            size: size_of::<AtkTextRectangle>(),
+            alignment: align_of::<AtkTextRectangle>(),
+        },
+    ),
+    (
+        "AtkUtil",
+        Layout {
+            size: size_of::<AtkUtil>(),
+            alignment: align_of::<AtkUtil>(),
+        },
+    ),
+    (
+        "AtkUtilClass",
+        Layout {
+            size: size_of::<AtkUtilClass>(),
+            alignment: align_of::<AtkUtilClass>(),
+        },
+    ),
+    (
+        "AtkValueIface",
+        Layout {
+            size: size_of::<AtkValueIface>(),
+            alignment: align_of::<AtkValueIface>(),
+        },
+    ),
+    (
+        "AtkValueType",
+        Layout {
+            size: size_of::<AtkValueType>(),
+            alignment: align_of::<AtkValueType>(),
+        },
+    ),
+    (
+        "AtkWindowIface",
+        Layout {
+            size: size_of::<AtkWindowIface>(),
+            alignment: align_of::<AtkWindowIface>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -578,5 +963,3 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) ATK_XY_SCREEN", "0"),
     ("(gint) ATK_XY_WINDOW", "1"),
 ];
-
-

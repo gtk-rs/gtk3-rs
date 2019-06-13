@@ -3,15 +3,20 @@
 // DO NOT EDIT
 
 #![allow(non_camel_case_types, non_upper_case_globals, non_snake_case)]
-#![allow(clippy::approx_constant, clippy::type_complexity, clippy::unreadable_literal)]
+#![allow(
+    clippy::approx_constant,
+    clippy::type_complexity,
+    clippy::unreadable_literal
+)]
 
-extern crate libc;
 extern crate glib_sys as glib;
+extern crate libc;
 
 #[allow(unused_imports)]
-use libc::{c_int, c_char, c_uchar, c_float, c_uint, c_double,
-    c_short, c_ushort, c_long, c_ulong,
-    c_void, size_t, ssize_t, intptr_t, uintptr_t, time_t, FILE};
+use libc::{
+    c_char, c_double, c_float, c_int, c_long, c_short, c_uchar, c_uint, c_ulong, c_ushort, c_void,
+    intptr_t, size_t, ssize_t, time_t, uintptr_t, FILE,
+};
 
 #[allow(unused_imports)]
 use glib::{gboolean, gconstpointer, gpointer, GType};
@@ -134,12 +139,12 @@ pub union GTypeCValue {
 impl ::std::fmt::Debug for GTypeCValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeCValue @ {:?}", self as *const _))
-         .field("v_int", unsafe { &self.v_int })
-         .field("v_long", unsafe { &self.v_long })
-         .field("v_int64", unsafe { &self.v_int64 })
-         .field("v_double", unsafe { &self.v_double })
-         .field("v_pointer", unsafe { &self.v_pointer })
-         .finish()
+            .field("v_int", unsafe { &self.v_int })
+            .field("v_long", unsafe { &self.v_long })
+            .field("v_int64", unsafe { &self.v_int64 })
+            .field("v_double", unsafe { &self.v_double })
+            .field("v_pointer", unsafe { &self.v_pointer })
+            .finish()
     }
 }
 
@@ -160,16 +165,16 @@ pub union GValue_data {
 impl ::std::fmt::Debug for GValue_data {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GValue_data @ {:?}", self as *const _))
-         .field("v_int", unsafe { &self.v_int })
-         .field("v_uint", unsafe { &self.v_uint })
-         .field("v_long", unsafe { &self.v_long })
-         .field("v_ulong", unsafe { &self.v_ulong })
-         .field("v_int64", unsafe { &self.v_int64 })
-         .field("v_uint64", unsafe { &self.v_uint64 })
-         .field("v_float", unsafe { &self.v_float })
-         .field("v_double", unsafe { &self.v_double })
-         .field("v_pointer", unsafe { &self.v_pointer })
-         .finish()
+            .field("v_int", unsafe { &self.v_int })
+            .field("v_uint", unsafe { &self.v_uint })
+            .field("v_long", unsafe { &self.v_long })
+            .field("v_ulong", unsafe { &self.v_ulong })
+            .field("v_int64", unsafe { &self.v_int64 })
+            .field("v_uint64", unsafe { &self.v_uint64 })
+            .field("v_float", unsafe { &self.v_float })
+            .field("v_double", unsafe { &self.v_double })
+            .field("v_pointer", unsafe { &self.v_pointer })
+            .finish()
     }
 }
 
@@ -182,35 +187,51 @@ pub union GWeakRef_priv {
 impl ::std::fmt::Debug for GWeakRef_priv {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GWeakRef_priv @ {:?}", self as *const _))
-         .field("p", unsafe { &self.p })
-         .finish()
+            .field("p", unsafe { &self.p })
+            .finish()
     }
 }
 
 // Callbacks
 pub type GBaseFinalizeFunc = Option<unsafe extern "C" fn(gpointer)>;
 pub type GBaseInitFunc = Option<unsafe extern "C" fn(gpointer)>;
-pub type GBindingTransformFunc = Option<unsafe extern "C" fn(*mut GBinding, *const GValue, *mut GValue, gpointer) -> gboolean>;
+pub type GBindingTransformFunc =
+    Option<unsafe extern "C" fn(*mut GBinding, *const GValue, *mut GValue, gpointer) -> gboolean>;
 pub type GBoxedCopyFunc = Option<unsafe extern "C" fn(gpointer) -> gpointer>;
 pub type GBoxedFreeFunc = Option<unsafe extern "C" fn(gpointer)>;
 pub type GCallback = Option<unsafe extern "C" fn()>;
 pub type GClassFinalizeFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
 pub type GClassInitFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
-pub type GClosureMarshal = Option<unsafe extern "C" fn(*mut GClosure, *mut GValue, c_uint, *const GValue, gpointer, gpointer)>;
+pub type GClosureMarshal = Option<
+    unsafe extern "C" fn(*mut GClosure, *mut GValue, c_uint, *const GValue, gpointer, gpointer),
+>;
 pub type GClosureNotify = Option<unsafe extern "C" fn(gpointer, *mut GClosure)>;
 pub type GInstanceInitFunc = Option<unsafe extern "C" fn(*mut GTypeInstance, gpointer)>;
 pub type GInterfaceFinalizeFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
 pub type GInterfaceInitFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
 pub type GObjectFinalizeFunc = Option<unsafe extern "C" fn(*mut GObject)>;
-pub type GObjectGetPropertyFunc = Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>;
-pub type GObjectSetPropertyFunc = Option<unsafe extern "C" fn(*mut GObject, c_uint, *const GValue, *mut GParamSpec)>;
-pub type GSignalAccumulator = Option<unsafe extern "C" fn(*mut GSignalInvocationHint, *mut GValue, *const GValue, gpointer) -> gboolean>;
-pub type GSignalEmissionHook = Option<unsafe extern "C" fn(*mut GSignalInvocationHint, c_uint, *const GValue, gpointer) -> gboolean>;
+pub type GObjectGetPropertyFunc =
+    Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>;
+pub type GObjectSetPropertyFunc =
+    Option<unsafe extern "C" fn(*mut GObject, c_uint, *const GValue, *mut GParamSpec)>;
+pub type GSignalAccumulator = Option<
+    unsafe extern "C" fn(
+        *mut GSignalInvocationHint,
+        *mut GValue,
+        *const GValue,
+        gpointer,
+    ) -> gboolean,
+>;
+pub type GSignalEmissionHook = Option<
+    unsafe extern "C" fn(*mut GSignalInvocationHint, c_uint, *const GValue, gpointer) -> gboolean,
+>;
 pub type GToggleNotify = Option<unsafe extern "C" fn(gpointer, *mut GObject, gboolean)>;
 pub type GTypeClassCacheFunc = Option<unsafe extern "C" fn(gpointer, *mut GTypeClass) -> gboolean>;
 pub type GTypeInterfaceCheckFunc = Option<unsafe extern "C" fn(gpointer, gpointer)>;
-pub type GTypePluginCompleteInterfaceInfo = Option<unsafe extern "C" fn(*mut GTypePlugin, GType, GType, *mut GInterfaceInfo)>;
-pub type GTypePluginCompleteTypeInfo = Option<unsafe extern "C" fn(*mut GTypePlugin, GType, *mut GTypeInfo, *mut GTypeValueTable)>;
+pub type GTypePluginCompleteInterfaceInfo =
+    Option<unsafe extern "C" fn(*mut GTypePlugin, GType, GType, *mut GInterfaceInfo)>;
+pub type GTypePluginCompleteTypeInfo =
+    Option<unsafe extern "C" fn(*mut GTypePlugin, GType, *mut GTypeInfo, *mut GTypeValueTable)>;
 pub type GTypePluginUnuse = Option<unsafe extern "C" fn(*mut GTypePlugin)>;
 pub type GTypePluginUse = Option<unsafe extern "C" fn(*mut GTypePlugin)>;
 //pub type GVaClosureMarshal = Option<unsafe extern "C" fn(*mut GClosure, *mut GValue, gpointer, /*Unimplemented*/va_list, gpointer, c_int, *mut GType)>;
@@ -227,13 +248,13 @@ pub struct GCClosure {
 impl ::std::fmt::Debug for GCClosure {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GCClosure @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
 #[repr(C)]
 pub struct GClosure {
-    pub ref_count: /*volatile*/c_uint,
+    pub ref_count: c_uint,
     _truncated_record_marker: c_void,
     // field meta_marshal_nouse has incomplete type
 }
@@ -241,7 +262,7 @@ pub struct GClosure {
 impl ::std::fmt::Debug for GClosure {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GClosure @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -255,9 +276,9 @@ pub struct GClosureNotifyData {
 impl ::std::fmt::Debug for GClosureNotifyData {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GClosureNotifyData @ {:?}", self as *const _))
-         .field("data", &self.data)
-         .field("notify", &self.notify)
-         .finish()
+            .field("data", &self.data)
+            .field("notify", &self.notify)
+            .finish()
     }
 }
 
@@ -274,12 +295,12 @@ pub struct GEnumClass {
 impl ::std::fmt::Debug for GEnumClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GEnumClass @ {:?}", self as *const _))
-         .field("g_type_class", &self.g_type_class)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("n_values", &self.n_values)
-         .field("values", &self.values)
-         .finish()
+            .field("g_type_class", &self.g_type_class)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("n_values", &self.n_values)
+            .field("values", &self.values)
+            .finish()
     }
 }
 
@@ -294,10 +315,10 @@ pub struct GEnumValue {
 impl ::std::fmt::Debug for GEnumValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GEnumValue @ {:?}", self as *const _))
-         .field("value", &self.value)
-         .field("value_name", &self.value_name)
-         .field("value_nick", &self.value_nick)
-         .finish()
+            .field("value", &self.value)
+            .field("value_name", &self.value_name)
+            .field("value_nick", &self.value_nick)
+            .finish()
     }
 }
 
@@ -313,11 +334,11 @@ pub struct GFlagsClass {
 impl ::std::fmt::Debug for GFlagsClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GFlagsClass @ {:?}", self as *const _))
-         .field("g_type_class", &self.g_type_class)
-         .field("mask", &self.mask)
-         .field("n_values", &self.n_values)
-         .field("values", &self.values)
-         .finish()
+            .field("g_type_class", &self.g_type_class)
+            .field("mask", &self.mask)
+            .field("n_values", &self.n_values)
+            .field("values", &self.values)
+            .finish()
     }
 }
 
@@ -332,10 +353,10 @@ pub struct GFlagsValue {
 impl ::std::fmt::Debug for GFlagsValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GFlagsValue @ {:?}", self as *const _))
-         .field("value", &self.value)
-         .field("value_name", &self.value_name)
-         .field("value_nick", &self.value_nick)
-         .finish()
+            .field("value", &self.value)
+            .field("value_name", &self.value_name)
+            .field("value_nick", &self.value_nick)
+            .finish()
     }
 }
 
@@ -344,12 +365,16 @@ impl ::std::fmt::Debug for GFlagsValue {
 pub struct GInitiallyUnownedClass {
     pub g_type_class: GTypeClass,
     pub construct_properties: *mut glib::GSList,
-    pub constructor: Option<unsafe extern "C" fn(GType, c_uint, *mut GObjectConstructParam) -> *mut GObject>,
-    pub set_property: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
-    pub get_property: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
+    pub constructor:
+        Option<unsafe extern "C" fn(GType, c_uint, *mut GObjectConstructParam) -> *mut GObject>,
+    pub set_property:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
+    pub get_property:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
     pub dispose: Option<unsafe extern "C" fn(*mut GObject)>,
     pub finalize: Option<unsafe extern "C" fn(*mut GObject)>,
-    pub dispatch_properties_changed: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut *mut GParamSpec)>,
+    pub dispatch_properties_changed:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut *mut GParamSpec)>,
     pub notify: Option<unsafe extern "C" fn(*mut GObject, *mut GParamSpec)>,
     pub constructed: Option<unsafe extern "C" fn(*mut GObject)>,
     pub flags: size_t,
@@ -359,16 +384,19 @@ pub struct GInitiallyUnownedClass {
 impl ::std::fmt::Debug for GInitiallyUnownedClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GInitiallyUnownedClass @ {:?}", self as *const _))
-         .field("g_type_class", &self.g_type_class)
-         .field("constructor", &self.constructor)
-         .field("set_property", &self.set_property)
-         .field("get_property", &self.get_property)
-         .field("dispose", &self.dispose)
-         .field("finalize", &self.finalize)
-         .field("dispatch_properties_changed", &self.dispatch_properties_changed)
-         .field("notify", &self.notify)
-         .field("constructed", &self.constructed)
-         .finish()
+            .field("g_type_class", &self.g_type_class)
+            .field("constructor", &self.constructor)
+            .field("set_property", &self.set_property)
+            .field("get_property", &self.get_property)
+            .field("dispose", &self.dispose)
+            .field("finalize", &self.finalize)
+            .field(
+                "dispatch_properties_changed",
+                &self.dispatch_properties_changed,
+            )
+            .field("notify", &self.notify)
+            .field("constructed", &self.constructed)
+            .finish()
     }
 }
 
@@ -383,10 +411,10 @@ pub struct GInterfaceInfo {
 impl ::std::fmt::Debug for GInterfaceInfo {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GInterfaceInfo @ {:?}", self as *const _))
-         .field("interface_init", &self.interface_init)
-         .field("interface_finalize", &self.interface_finalize)
-         .field("interface_data", &self.interface_data)
-         .finish()
+            .field("interface_init", &self.interface_init)
+            .field("interface_finalize", &self.interface_finalize)
+            .field("interface_data", &self.interface_data)
+            .finish()
     }
 }
 
@@ -395,12 +423,16 @@ impl ::std::fmt::Debug for GInterfaceInfo {
 pub struct GObjectClass {
     pub g_type_class: GTypeClass,
     pub construct_properties: *mut glib::GSList,
-    pub constructor: Option<unsafe extern "C" fn(GType, c_uint, *mut GObjectConstructParam) -> *mut GObject>,
-    pub set_property: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
-    pub get_property: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
+    pub constructor:
+        Option<unsafe extern "C" fn(GType, c_uint, *mut GObjectConstructParam) -> *mut GObject>,
+    pub set_property:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
+    pub get_property:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut GValue, *mut GParamSpec)>,
     pub dispose: Option<unsafe extern "C" fn(*mut GObject)>,
     pub finalize: Option<unsafe extern "C" fn(*mut GObject)>,
-    pub dispatch_properties_changed: Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut *mut GParamSpec)>,
+    pub dispatch_properties_changed:
+        Option<unsafe extern "C" fn(*mut GObject, c_uint, *mut *mut GParamSpec)>,
     pub notify: Option<unsafe extern "C" fn(*mut GObject, *mut GParamSpec)>,
     pub constructed: Option<unsafe extern "C" fn(*mut GObject)>,
     pub flags: size_t,
@@ -410,16 +442,19 @@ pub struct GObjectClass {
 impl ::std::fmt::Debug for GObjectClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GObjectClass @ {:?}", self as *const _))
-         .field("g_type_class", &self.g_type_class)
-         .field("constructor", &self.constructor)
-         .field("set_property", &self.set_property)
-         .field("get_property", &self.get_property)
-         .field("dispose", &self.dispose)
-         .field("finalize", &self.finalize)
-         .field("dispatch_properties_changed", &self.dispatch_properties_changed)
-         .field("notify", &self.notify)
-         .field("constructed", &self.constructed)
-         .finish()
+            .field("g_type_class", &self.g_type_class)
+            .field("constructor", &self.constructor)
+            .field("set_property", &self.set_property)
+            .field("get_property", &self.get_property)
+            .field("dispose", &self.dispose)
+            .field("finalize", &self.finalize)
+            .field(
+                "dispatch_properties_changed",
+                &self.dispatch_properties_changed,
+            )
+            .field("notify", &self.notify)
+            .field("constructed", &self.constructed)
+            .finish()
     }
 }
 
@@ -433,9 +468,9 @@ pub struct GObjectConstructParam {
 impl ::std::fmt::Debug for GObjectConstructParam {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GObjectConstructParam @ {:?}", self as *const _))
-         .field("pspec", &self.pspec)
-         .field("value", &self.value)
-         .finish()
+            .field("pspec", &self.pspec)
+            .field("value", &self.value)
+            .finish()
     }
 }
 
@@ -447,20 +482,21 @@ pub struct GParamSpecClass {
     pub finalize: Option<unsafe extern "C" fn(*mut GParamSpec)>,
     pub value_set_default: Option<unsafe extern "C" fn(*mut GParamSpec, *mut GValue)>,
     pub value_validate: Option<unsafe extern "C" fn(*mut GParamSpec, *mut GValue) -> gboolean>,
-    pub values_cmp: Option<unsafe extern "C" fn(*mut GParamSpec, *const GValue, *const GValue) -> c_int>,
+    pub values_cmp:
+        Option<unsafe extern "C" fn(*mut GParamSpec, *const GValue, *const GValue) -> c_int>,
     pub dummy: [gpointer; 4],
 }
 
 impl ::std::fmt::Debug for GParamSpecClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecClass @ {:?}", self as *const _))
-         .field("g_type_class", &self.g_type_class)
-         .field("value_type", &self.value_type)
-         .field("finalize", &self.finalize)
-         .field("value_set_default", &self.value_set_default)
-         .field("value_validate", &self.value_validate)
-         .field("values_cmp", &self.values_cmp)
-         .finish()
+            .field("g_type_class", &self.g_type_class)
+            .field("value_type", &self.value_type)
+            .field("finalize", &self.finalize)
+            .field("value_set_default", &self.value_set_default)
+            .field("value_validate", &self.value_validate)
+            .field("values_cmp", &self.values_cmp)
+            .finish()
     }
 }
 
@@ -479,21 +515,22 @@ pub struct GParamSpecTypeInfo {
     pub finalize: Option<unsafe extern "C" fn(*mut GParamSpec)>,
     pub value_set_default: Option<unsafe extern "C" fn(*mut GParamSpec, *mut GValue)>,
     pub value_validate: Option<unsafe extern "C" fn(*mut GParamSpec, *mut GValue) -> gboolean>,
-    pub values_cmp: Option<unsafe extern "C" fn(*mut GParamSpec, *const GValue, *const GValue) -> c_int>,
+    pub values_cmp:
+        Option<unsafe extern "C" fn(*mut GParamSpec, *const GValue, *const GValue) -> c_int>,
 }
 
 impl ::std::fmt::Debug for GParamSpecTypeInfo {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecTypeInfo @ {:?}", self as *const _))
-         .field("instance_size", &self.instance_size)
-         .field("n_preallocs", &self.n_preallocs)
-         .field("instance_init", &self.instance_init)
-         .field("value_type", &self.value_type)
-         .field("finalize", &self.finalize)
-         .field("value_set_default", &self.value_set_default)
-         .field("value_validate", &self.value_validate)
-         .field("values_cmp", &self.values_cmp)
-         .finish()
+            .field("instance_size", &self.instance_size)
+            .field("n_preallocs", &self.n_preallocs)
+            .field("instance_init", &self.instance_init)
+            .field("value_type", &self.value_type)
+            .field("finalize", &self.finalize)
+            .field("value_set_default", &self.value_set_default)
+            .field("value_validate", &self.value_validate)
+            .field("values_cmp", &self.values_cmp)
+            .finish()
     }
 }
 
@@ -507,9 +544,9 @@ pub struct GParameter {
 impl ::std::fmt::Debug for GParameter {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParameter @ {:?}", self as *const _))
-         .field("name", &self.name)
-         .field("value", &self.value)
-         .finish()
+            .field("name", &self.name)
+            .field("value", &self.value)
+            .finish()
     }
 }
 
@@ -524,10 +561,10 @@ pub struct GSignalInvocationHint {
 impl ::std::fmt::Debug for GSignalInvocationHint {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GSignalInvocationHint @ {:?}", self as *const _))
-         .field("signal_id", &self.signal_id)
-         .field("detail", &self.detail)
-         .field("run_type", &self.run_type)
-         .finish()
+            .field("signal_id", &self.signal_id)
+            .field("detail", &self.detail)
+            .field("run_type", &self.run_type)
+            .finish()
     }
 }
 
@@ -546,14 +583,14 @@ pub struct GSignalQuery {
 impl ::std::fmt::Debug for GSignalQuery {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GSignalQuery @ {:?}", self as *const _))
-         .field("signal_id", &self.signal_id)
-         .field("signal_name", &self.signal_name)
-         .field("itype", &self.itype)
-         .field("signal_flags", &self.signal_flags)
-         .field("return_type", &self.return_type)
-         .field("n_params", &self.n_params)
-         .field("param_types", &self.param_types)
-         .finish()
+            .field("signal_id", &self.signal_id)
+            .field("signal_name", &self.signal_name)
+            .field("itype", &self.itype)
+            .field("signal_flags", &self.signal_flags)
+            .field("return_type", &self.return_type)
+            .field("n_params", &self.n_params)
+            .field("param_types", &self.param_types)
+            .finish()
     }
 }
 
@@ -566,7 +603,7 @@ pub struct GTypeClass {
 impl ::std::fmt::Debug for GTypeClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeClass @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -579,8 +616,8 @@ pub struct GTypeFundamentalInfo {
 impl ::std::fmt::Debug for GTypeFundamentalInfo {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeFundamentalInfo @ {:?}", self as *const _))
-         .field("type_flags", &self.type_flags)
-         .finish()
+            .field("type_flags", &self.type_flags)
+            .finish()
     }
 }
 
@@ -602,17 +639,17 @@ pub struct GTypeInfo {
 impl ::std::fmt::Debug for GTypeInfo {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeInfo @ {:?}", self as *const _))
-         .field("class_size", &self.class_size)
-         .field("base_init", &self.base_init)
-         .field("base_finalize", &self.base_finalize)
-         .field("class_init", &self.class_init)
-         .field("class_finalize", &self.class_finalize)
-         .field("class_data", &self.class_data)
-         .field("instance_size", &self.instance_size)
-         .field("n_preallocs", &self.n_preallocs)
-         .field("instance_init", &self.instance_init)
-         .field("value_table", &self.value_table)
-         .finish()
+            .field("class_size", &self.class_size)
+            .field("base_init", &self.base_init)
+            .field("base_finalize", &self.base_finalize)
+            .field("class_init", &self.class_init)
+            .field("class_finalize", &self.class_finalize)
+            .field("class_data", &self.class_data)
+            .field("instance_size", &self.instance_size)
+            .field("n_preallocs", &self.n_preallocs)
+            .field("instance_init", &self.instance_init)
+            .field("value_table", &self.value_table)
+            .finish()
     }
 }
 
@@ -625,7 +662,7 @@ pub struct GTypeInstance {
 impl ::std::fmt::Debug for GTypeInstance {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeInstance @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -639,7 +676,7 @@ pub struct GTypeInterface {
 impl ::std::fmt::Debug for GTypeInterface {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeInterface @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -658,14 +695,14 @@ pub struct GTypeModuleClass {
 impl ::std::fmt::Debug for GTypeModuleClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeModuleClass @ {:?}", self as *const _))
-         .field("parent_class", &self.parent_class)
-         .field("load", &self.load)
-         .field("unload", &self.unload)
-         .field("reserved1", &self.reserved1)
-         .field("reserved2", &self.reserved2)
-         .field("reserved3", &self.reserved3)
-         .field("reserved4", &self.reserved4)
-         .finish()
+            .field("parent_class", &self.parent_class)
+            .field("load", &self.load)
+            .field("unload", &self.unload)
+            .field("reserved1", &self.reserved1)
+            .field("reserved2", &self.reserved2)
+            .field("reserved3", &self.reserved3)
+            .field("reserved4", &self.reserved4)
+            .finish()
     }
 }
 
@@ -682,11 +719,11 @@ pub struct GTypePluginClass {
 impl ::std::fmt::Debug for GTypePluginClass {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypePluginClass @ {:?}", self as *const _))
-         .field("use_plugin", &self.use_plugin)
-         .field("unuse_plugin", &self.unuse_plugin)
-         .field("complete_type_info", &self.complete_type_info)
-         .field("complete_interface_info", &self.complete_interface_info)
-         .finish()
+            .field("use_plugin", &self.use_plugin)
+            .field("unuse_plugin", &self.unuse_plugin)
+            .field("complete_type_info", &self.complete_type_info)
+            .field("complete_interface_info", &self.complete_interface_info)
+            .finish()
     }
 }
 
@@ -702,11 +739,11 @@ pub struct GTypeQuery {
 impl ::std::fmt::Debug for GTypeQuery {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeQuery @ {:?}", self as *const _))
-         .field("type_", &self.type_)
-         .field("type_name", &self.type_name)
-         .field("class_size", &self.class_size)
-         .field("instance_size", &self.instance_size)
-         .finish()
+            .field("type_", &self.type_)
+            .field("type_name", &self.type_name)
+            .field("class_size", &self.class_size)
+            .field("instance_size", &self.instance_size)
+            .finish()
     }
 }
 
@@ -718,23 +755,27 @@ pub struct GTypeValueTable {
     pub value_copy: Option<unsafe extern "C" fn(*const GValue, *mut GValue)>,
     pub value_peek_pointer: Option<unsafe extern "C" fn(*const GValue) -> gpointer>,
     pub collect_format: *const c_char,
-    pub collect_value: Option<unsafe extern "C" fn(*const GValue, c_uint, *mut GTypeCValue, c_uint) -> *mut c_char>,
+    pub collect_value: Option<
+        unsafe extern "C" fn(*const GValue, c_uint, *mut GTypeCValue, c_uint) -> *mut c_char,
+    >,
     pub lcopy_format: *const c_char,
-    pub lcopy_value: Option<unsafe extern "C" fn(*const GValue, c_uint, *mut GTypeCValue, c_uint) -> *mut c_char>,
+    pub lcopy_value: Option<
+        unsafe extern "C" fn(*const GValue, c_uint, *mut GTypeCValue, c_uint) -> *mut c_char,
+    >,
 }
 
 impl ::std::fmt::Debug for GTypeValueTable {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeValueTable @ {:?}", self as *const _))
-         .field("value_init", &self.value_init)
-         .field("value_free", &self.value_free)
-         .field("value_copy", &self.value_copy)
-         .field("value_peek_pointer", &self.value_peek_pointer)
-         .field("collect_format", &self.collect_format)
-         .field("collect_value", &self.collect_value)
-         .field("lcopy_format", &self.lcopy_format)
-         .field("lcopy_value", &self.lcopy_value)
-         .finish()
+            .field("value_init", &self.value_init)
+            .field("value_free", &self.value_free)
+            .field("value_copy", &self.value_copy)
+            .field("value_peek_pointer", &self.value_peek_pointer)
+            .field("collect_format", &self.collect_format)
+            .field("collect_value", &self.collect_value)
+            .field("lcopy_format", &self.lcopy_format)
+            .field("lcopy_value", &self.lcopy_value)
+            .finish()
     }
 }
 
@@ -748,8 +789,8 @@ pub struct GValue {
 impl ::std::fmt::Debug for GValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GValue @ {:?}", self as *const _))
-         .field("data", &self.data)
-         .finish()
+            .field("data", &self.data)
+            .finish()
     }
 }
 
@@ -764,9 +805,9 @@ pub struct GValueArray {
 impl ::std::fmt::Debug for GValueArray {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GValueArray @ {:?}", self as *const _))
-         .field("n_values", &self.n_values)
-         .field("values", &self.values)
-         .finish()
+            .field("n_values", &self.n_values)
+            .field("values", &self.values)
+            .finish()
     }
 }
 
@@ -779,8 +820,8 @@ pub struct GWeakRef {
 impl ::std::fmt::Debug for GWeakRef {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GWeakRef @ {:?}", self as *const _))
-         .field("priv_", &self.priv_)
-         .finish()
+            .field("priv_", &self.priv_)
+            .finish()
     }
 }
 
@@ -791,7 +832,7 @@ pub struct GBinding(c_void);
 impl ::std::fmt::Debug for GBinding {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GBinding @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -799,15 +840,15 @@ impl ::std::fmt::Debug for GBinding {
 #[derive(Copy, Clone)]
 pub struct GInitiallyUnowned {
     pub g_type_instance: GTypeInstance,
-    pub ref_count: /*volatile*/c_uint,
+    pub ref_count: c_uint,
     pub qdata: *mut glib::GData,
 }
 
 impl ::std::fmt::Debug for GInitiallyUnowned {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GInitiallyUnowned @ {:?}", self as *const _))
-         .field("g_type_instance", &self.g_type_instance)
-         .finish()
+            .field("g_type_instance", &self.g_type_instance)
+            .finish()
     }
 }
 
@@ -815,15 +856,15 @@ impl ::std::fmt::Debug for GInitiallyUnowned {
 #[derive(Copy, Clone)]
 pub struct GObject {
     pub g_type_instance: GTypeInstance,
-    pub ref_count: /*volatile*/c_uint,
+    pub ref_count: c_uint,
     pub qdata: *mut glib::GData,
 }
 
 impl ::std::fmt::Debug for GObject {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GObject @ {:?}", self as *const _))
-         .field("g_type_instance", &self.g_type_instance)
-         .finish()
+            .field("g_type_instance", &self.g_type_instance)
+            .finish()
     }
 }
 
@@ -845,12 +886,12 @@ pub struct GParamSpec {
 impl ::std::fmt::Debug for GParamSpec {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpec @ {:?}", self as *const _))
-         .field("g_type_instance", &self.g_type_instance)
-         .field("name", &self.name)
-         .field("flags", &self.flags)
-         .field("value_type", &self.value_type)
-         .field("owner_type", &self.owner_type)
-         .finish()
+            .field("g_type_instance", &self.g_type_instance)
+            .field("name", &self.name)
+            .field("flags", &self.flags)
+            .field("value_type", &self.value_type)
+            .field("owner_type", &self.owner_type)
+            .finish()
     }
 }
 
@@ -864,9 +905,9 @@ pub struct GParamSpecBoolean {
 impl ::std::fmt::Debug for GParamSpecBoolean {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecBoolean @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -879,8 +920,8 @@ pub struct GParamSpecBoxed {
 impl ::std::fmt::Debug for GParamSpecBoxed {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecBoxed @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .finish()
     }
 }
 
@@ -896,11 +937,11 @@ pub struct GParamSpecChar {
 impl ::std::fmt::Debug for GParamSpecChar {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecChar @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -917,12 +958,12 @@ pub struct GParamSpecDouble {
 impl ::std::fmt::Debug for GParamSpecDouble {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecDouble @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .field("epsilon", &self.epsilon)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .field("epsilon", &self.epsilon)
+            .finish()
     }
 }
 
@@ -937,10 +978,10 @@ pub struct GParamSpecEnum {
 impl ::std::fmt::Debug for GParamSpecEnum {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecEnum @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("enum_class", &self.enum_class)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("enum_class", &self.enum_class)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -955,10 +996,10 @@ pub struct GParamSpecFlags {
 impl ::std::fmt::Debug for GParamSpecFlags {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecFlags @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("flags_class", &self.flags_class)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("flags_class", &self.flags_class)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -975,12 +1016,12 @@ pub struct GParamSpecFloat {
 impl ::std::fmt::Debug for GParamSpecFloat {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecFloat @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .field("epsilon", &self.epsilon)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .field("epsilon", &self.epsilon)
+            .finish()
     }
 }
 
@@ -994,9 +1035,9 @@ pub struct GParamSpecGType {
 impl ::std::fmt::Debug for GParamSpecGType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecGType @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("is_a_type", &self.is_a_type)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("is_a_type", &self.is_a_type)
+            .finish()
     }
 }
 
@@ -1012,11 +1053,11 @@ pub struct GParamSpecInt {
 impl ::std::fmt::Debug for GParamSpecInt {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecInt @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1032,11 +1073,11 @@ pub struct GParamSpecInt64 {
 impl ::std::fmt::Debug for GParamSpecInt64 {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecInt64 @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1052,11 +1093,11 @@ pub struct GParamSpecLong {
 impl ::std::fmt::Debug for GParamSpecLong {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecLong @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1069,8 +1110,8 @@ pub struct GParamSpecObject {
 impl ::std::fmt::Debug for GParamSpecObject {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecObject @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .finish()
     }
 }
 
@@ -1084,7 +1125,7 @@ pub struct GParamSpecOverride {
 impl ::std::fmt::Debug for GParamSpecOverride {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecOverride @ {:?}", self as *const _))
-         .finish()
+            .finish()
     }
 }
 
@@ -1097,8 +1138,8 @@ pub struct GParamSpecParam {
 impl ::std::fmt::Debug for GParamSpecParam {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecParam @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .finish()
     }
 }
 
@@ -1111,8 +1152,8 @@ pub struct GParamSpecPointer {
 impl ::std::fmt::Debug for GParamSpecPointer {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecPointer @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .finish()
     }
 }
 
@@ -1131,13 +1172,13 @@ pub struct GParamSpecString {
 impl ::std::fmt::Debug for GParamSpecString {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecString @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("default_value", &self.default_value)
-         .field("cset_first", &self.cset_first)
-         .field("cset_nth", &self.cset_nth)
-         .field("substitutor", &self.substitutor)
-         .field("null_fold_if_empty", &self.null_fold_if_empty)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("default_value", &self.default_value)
+            .field("cset_first", &self.cset_first)
+            .field("cset_nth", &self.cset_nth)
+            .field("substitutor", &self.substitutor)
+            .field("null_fold_if_empty", &self.null_fold_if_empty)
+            .finish()
     }
 }
 
@@ -1153,11 +1194,11 @@ pub struct GParamSpecUChar {
 impl ::std::fmt::Debug for GParamSpecUChar {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecUChar @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1173,11 +1214,11 @@ pub struct GParamSpecUInt {
 impl ::std::fmt::Debug for GParamSpecUInt {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecUInt @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1193,11 +1234,11 @@ pub struct GParamSpecUInt64 {
 impl ::std::fmt::Debug for GParamSpecUInt64 {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecUInt64 @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1213,11 +1254,11 @@ pub struct GParamSpecULong {
 impl ::std::fmt::Debug for GParamSpecULong {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecULong @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("minimum", &self.minimum)
-         .field("maximum", &self.maximum)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("minimum", &self.minimum)
+            .field("maximum", &self.maximum)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1231,9 +1272,9 @@ pub struct GParamSpecUnichar {
 impl ::std::fmt::Debug for GParamSpecUnichar {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecUnichar @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1248,10 +1289,10 @@ pub struct GParamSpecValueArray {
 impl ::std::fmt::Debug for GParamSpecValueArray {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecValueArray @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("element_spec", &self.element_spec)
-         .field("fixed_n_elements", &self.fixed_n_elements)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("element_spec", &self.element_spec)
+            .field("fixed_n_elements", &self.fixed_n_elements)
+            .finish()
     }
 }
 
@@ -1267,10 +1308,10 @@ pub struct GParamSpecVariant {
 impl ::std::fmt::Debug for GParamSpecVariant {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GParamSpecVariant @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("type_", &self.type_)
-         .field("default_value", &self.default_value)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("type_", &self.type_)
+            .field("default_value", &self.default_value)
+            .finish()
     }
 }
 
@@ -1287,12 +1328,12 @@ pub struct GTypeModule {
 impl ::std::fmt::Debug for GTypeModule {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeModule @ {:?}", self as *const _))
-         .field("parent_instance", &self.parent_instance)
-         .field("use_count", &self.use_count)
-         .field("type_infos", &self.type_infos)
-         .field("interface_infos", &self.interface_infos)
-         .field("name", &self.name)
-         .finish()
+            .field("parent_instance", &self.parent_instance)
+            .field("use_count", &self.use_count)
+            .field("type_infos", &self.type_infos)
+            .field("interface_infos", &self.interface_infos)
+            .field("name", &self.name)
+            .finish()
     }
 }
 
@@ -1306,7 +1347,6 @@ impl ::std::fmt::Debug for GTypePlugin {
     }
 }
 
-
 extern "C" {
 
     //=========================================================================
@@ -1317,56 +1357,228 @@ extern "C" {
     //=========================================================================
     // GCClosure
     //=========================================================================
-    pub fn g_cclosure_marshal_BOOLEAN__BOXED_BOXED(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_BOOLEAN__BOXED_BOXED(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_BOOLEAN__BOXED_BOXEDv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_BOOLEAN__FLAGS(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_BOOLEAN__FLAGS(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_BOOLEAN__FLAGSv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_STRING__OBJECT_POINTER(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_STRING__OBJECT_POINTER(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_STRING__OBJECT_POINTERv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__BOOLEAN(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__BOOLEAN(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__BOOLEANv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__BOXED(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__BOXED(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__BOXEDv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__CHAR(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__CHAR(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__CHARv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__DOUBLE(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__DOUBLE(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__DOUBLEv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__ENUM(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__ENUM(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__ENUMv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__FLAGS(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__FLAGS(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__FLAGSv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__FLOAT(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__FLOAT(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__FLOATv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__INT(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__INT(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__INTv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__LONG(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__LONG(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__LONGv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__OBJECT(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__OBJECT(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__OBJECTv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__PARAM(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__PARAM(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__PARAMv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__POINTER(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__POINTER(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__POINTERv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__STRING(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__STRING(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__STRINGv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__UCHAR(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__UCHAR(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__UCHARv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__UINT(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
-    pub fn g_cclosure_marshal_VOID__UINT_POINTER(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__UINT(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
+    pub fn g_cclosure_marshal_VOID__UINT_POINTER(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__UINT_POINTERv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
     //pub fn g_cclosure_marshal_VOID__UINTv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__ULONG(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__ULONG(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__ULONGv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__VARIANT(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__VARIANT(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__VARIANTv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_VOID__VOID(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_VOID__VOID(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_VOID__VOIDv(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_marshal_generic(closure: *mut GClosure, return_gvalue: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer, marshal_data: gpointer);
+    pub fn g_cclosure_marshal_generic(
+        closure: *mut GClosure,
+        return_gvalue: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+        marshal_data: gpointer,
+    );
     //pub fn g_cclosure_marshal_generic_va(closure: *mut GClosure, return_value: *mut GValue, instance: gpointer, args_list: /*Unimplemented*/va_list, marshal_data: gpointer, n_params: c_int, param_types: *mut GType);
-    pub fn g_cclosure_new(callback_func: GCallback, user_data: gpointer, destroy_data: GClosureNotify) -> *mut GClosure;
+    pub fn g_cclosure_new(
+        callback_func: GCallback,
+        user_data: gpointer,
+        destroy_data: GClosureNotify,
+    ) -> *mut GClosure;
     pub fn g_cclosure_new_object(callback_func: GCallback, object: *mut GObject) -> *mut GClosure;
-    pub fn g_cclosure_new_object_swap(callback_func: GCallback, object: *mut GObject) -> *mut GClosure;
-    pub fn g_cclosure_new_swap(callback_func: GCallback, user_data: gpointer, destroy_data: GClosureNotify) -> *mut GClosure;
+    pub fn g_cclosure_new_object_swap(
+        callback_func: GCallback,
+        object: *mut GObject,
+    ) -> *mut GClosure;
+    pub fn g_cclosure_new_swap(
+        callback_func: GCallback,
+        user_data: gpointer,
+        destroy_data: GClosureNotify,
+    ) -> *mut GClosure;
 
     //=========================================================================
     // GClosure
@@ -1374,35 +1586,101 @@ extern "C" {
     pub fn g_closure_get_type() -> GType;
     pub fn g_closure_new_object(sizeof_closure: c_uint, object: *mut GObject) -> *mut GClosure;
     pub fn g_closure_new_simple(sizeof_closure: c_uint, data: gpointer) -> *mut GClosure;
-    pub fn g_closure_add_finalize_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
-    pub fn g_closure_add_invalidate_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
-    pub fn g_closure_add_marshal_guards(closure: *mut GClosure, pre_marshal_data: gpointer, pre_marshal_notify: GClosureNotify, post_marshal_data: gpointer, post_marshal_notify: GClosureNotify);
+    pub fn g_closure_add_finalize_notifier(
+        closure: *mut GClosure,
+        notify_data: gpointer,
+        notify_func: GClosureNotify,
+    );
+    pub fn g_closure_add_invalidate_notifier(
+        closure: *mut GClosure,
+        notify_data: gpointer,
+        notify_func: GClosureNotify,
+    );
+    pub fn g_closure_add_marshal_guards(
+        closure: *mut GClosure,
+        pre_marshal_data: gpointer,
+        pre_marshal_notify: GClosureNotify,
+        post_marshal_data: gpointer,
+        post_marshal_notify: GClosureNotify,
+    );
     pub fn g_closure_invalidate(closure: *mut GClosure);
-    pub fn g_closure_invoke(closure: *mut GClosure, return_value: *mut GValue, n_param_values: c_uint, param_values: *const GValue, invocation_hint: gpointer);
+    pub fn g_closure_invoke(
+        closure: *mut GClosure,
+        return_value: *mut GValue,
+        n_param_values: c_uint,
+        param_values: *const GValue,
+        invocation_hint: gpointer,
+    );
     pub fn g_closure_ref(closure: *mut GClosure) -> *mut GClosure;
-    pub fn g_closure_remove_finalize_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
-    pub fn g_closure_remove_invalidate_notifier(closure: *mut GClosure, notify_data: gpointer, notify_func: GClosureNotify);
+    pub fn g_closure_remove_finalize_notifier(
+        closure: *mut GClosure,
+        notify_data: gpointer,
+        notify_func: GClosureNotify,
+    );
+    pub fn g_closure_remove_invalidate_notifier(
+        closure: *mut GClosure,
+        notify_data: gpointer,
+        notify_func: GClosureNotify,
+    );
     pub fn g_closure_set_marshal(closure: *mut GClosure, marshal: GClosureMarshal);
-    pub fn g_closure_set_meta_marshal(closure: *mut GClosure, marshal_data: gpointer, meta_marshal: GClosureMarshal);
+    pub fn g_closure_set_meta_marshal(
+        closure: *mut GClosure,
+        marshal_data: gpointer,
+        meta_marshal: GClosureMarshal,
+    );
     pub fn g_closure_sink(closure: *mut GClosure);
     pub fn g_closure_unref(closure: *mut GClosure);
 
     //=========================================================================
     // GObjectClass
     //=========================================================================
-    pub fn g_object_class_find_property(oclass: *mut GObjectClass, property_name: *const c_char) -> *mut GParamSpec;
-    pub fn g_object_class_install_properties(oclass: *mut GObjectClass, n_pspecs: c_uint, pspecs: *mut *mut GParamSpec);
-    pub fn g_object_class_install_property(oclass: *mut GObjectClass, property_id: c_uint, pspec: *mut GParamSpec);
-    pub fn g_object_class_list_properties(oclass: *mut GObjectClass, n_properties: *mut c_uint) -> *mut *mut GParamSpec;
-    pub fn g_object_class_override_property(oclass: *mut GObjectClass, property_id: c_uint, name: *const c_char);
+    pub fn g_object_class_find_property(
+        oclass: *mut GObjectClass,
+        property_name: *const c_char,
+    ) -> *mut GParamSpec;
+    pub fn g_object_class_install_properties(
+        oclass: *mut GObjectClass,
+        n_pspecs: c_uint,
+        pspecs: *mut *mut GParamSpec,
+    );
+    pub fn g_object_class_install_property(
+        oclass: *mut GObjectClass,
+        property_id: c_uint,
+        pspec: *mut GParamSpec,
+    );
+    pub fn g_object_class_list_properties(
+        oclass: *mut GObjectClass,
+        n_properties: *mut c_uint,
+    ) -> *mut *mut GParamSpec;
+    pub fn g_object_class_override_property(
+        oclass: *mut GObjectClass,
+        property_id: c_uint,
+        name: *const c_char,
+    );
 
     //=========================================================================
     // GParamSpecPool
     //=========================================================================
-    pub fn g_param_spec_pool_insert(pool: *mut GParamSpecPool, pspec: *mut GParamSpec, owner_type: GType);
-    pub fn g_param_spec_pool_list(pool: *mut GParamSpecPool, owner_type: GType, n_pspecs_p: *mut c_uint) -> *mut *mut GParamSpec;
-    pub fn g_param_spec_pool_list_owned(pool: *mut GParamSpecPool, owner_type: GType) -> *mut glib::GList;
-    pub fn g_param_spec_pool_lookup(pool: *mut GParamSpecPool, param_name: *const c_char, owner_type: GType, walk_ancestors: gboolean) -> *mut GParamSpec;
+    pub fn g_param_spec_pool_insert(
+        pool: *mut GParamSpecPool,
+        pspec: *mut GParamSpec,
+        owner_type: GType,
+    );
+    pub fn g_param_spec_pool_list(
+        pool: *mut GParamSpecPool,
+        owner_type: GType,
+        n_pspecs_p: *mut c_uint,
+    ) -> *mut *mut GParamSpec;
+    pub fn g_param_spec_pool_list_owned(
+        pool: *mut GParamSpecPool,
+        owner_type: GType,
+    ) -> *mut glib::GList;
+    pub fn g_param_spec_pool_lookup(
+        pool: *mut GParamSpecPool,
+        param_name: *const c_char,
+        owner_type: GType,
+        walk_ancestors: gboolean,
+    ) -> *mut GParamSpec;
     pub fn g_param_spec_pool_remove(pool: *mut GParamSpecPool, pspec: *mut GParamSpec);
     pub fn g_param_spec_pool_new(type_prefixing: gboolean) -> *mut GParamSpecPool;
 
@@ -1415,7 +1693,10 @@ extern "C" {
     pub fn g_type_class_peek_parent(g_class: gpointer) -> gpointer;
     pub fn g_type_class_unref(g_class: gpointer);
     pub fn g_type_class_unref_uncached(g_class: gpointer);
-    pub fn g_type_class_adjust_private_offset(g_class: gpointer, private_size_or_offset: *mut c_int);
+    pub fn g_type_class_adjust_private_offset(
+        g_class: gpointer,
+        private_size_or_offset: *mut c_int,
+    );
     pub fn g_type_class_peek(type_: GType) -> gpointer;
     pub fn g_type_class_peek_static(type_: GType) -> gpointer;
     pub fn g_type_class_ref(type_: GType) -> gpointer;
@@ -1423,16 +1704,25 @@ extern "C" {
     //=========================================================================
     // GTypeInstance
     //=========================================================================
-    pub fn g_type_instance_get_private(instance: *mut GTypeInstance, private_type: GType) -> gpointer;
+    pub fn g_type_instance_get_private(
+        instance: *mut GTypeInstance,
+        private_type: GType,
+    ) -> gpointer;
 
     //=========================================================================
     // GTypeInterface
     //=========================================================================
     pub fn g_type_interface_peek_parent(g_iface: gpointer) -> gpointer;
     pub fn g_type_interface_add_prerequisite(interface_type: GType, prerequisite_type: GType);
-    pub fn g_type_interface_get_plugin(instance_type: GType, interface_type: GType) -> *mut GTypePlugin;
+    pub fn g_type_interface_get_plugin(
+        instance_type: GType,
+        interface_type: GType,
+    ) -> *mut GTypePlugin;
     pub fn g_type_interface_peek(instance_class: gpointer, iface_type: GType) -> gpointer;
-    pub fn g_type_interface_prerequisites(interface_type: GType, n_prerequisites: *mut c_uint) -> *mut GType;
+    pub fn g_type_interface_prerequisites(
+        interface_type: GType,
+        n_prerequisites: *mut c_uint,
+    ) -> *mut GType;
 
     //=========================================================================
     // GTypeValueTable
@@ -1510,7 +1800,11 @@ extern "C" {
     pub fn g_value_take_variant(value: *mut GValue, variant: *mut glib::GVariant);
     pub fn g_value_transform(src_value: *const GValue, dest_value: *mut GValue) -> gboolean;
     pub fn g_value_unset(value: *mut GValue);
-    pub fn g_value_register_transform_func(src_type: GType, dest_type: GType, transform_func: GValueTransform);
+    pub fn g_value_register_transform_func(
+        src_type: GType,
+        dest_type: GType,
+        transform_func: GValueTransform,
+    );
     pub fn g_value_type_compatible(src_type: GType, dest_type: GType) -> gboolean;
     pub fn g_value_type_transformable(src_type: GType, dest_type: GType) -> gboolean;
 
@@ -1519,15 +1813,32 @@ extern "C" {
     //=========================================================================
     pub fn g_value_array_get_type() -> GType;
     pub fn g_value_array_new(n_prealloced: c_uint) -> *mut GValueArray;
-    pub fn g_value_array_append(value_array: *mut GValueArray, value: *const GValue) -> *mut GValueArray;
+    pub fn g_value_array_append(
+        value_array: *mut GValueArray,
+        value: *const GValue,
+    ) -> *mut GValueArray;
     pub fn g_value_array_copy(value_array: *const GValueArray) -> *mut GValueArray;
     pub fn g_value_array_free(value_array: *mut GValueArray);
     pub fn g_value_array_get_nth(value_array: *mut GValueArray, index_: c_uint) -> *mut GValue;
-    pub fn g_value_array_insert(value_array: *mut GValueArray, index_: c_uint, value: *const GValue) -> *mut GValueArray;
-    pub fn g_value_array_prepend(value_array: *mut GValueArray, value: *const GValue) -> *mut GValueArray;
+    pub fn g_value_array_insert(
+        value_array: *mut GValueArray,
+        index_: c_uint,
+        value: *const GValue,
+    ) -> *mut GValueArray;
+    pub fn g_value_array_prepend(
+        value_array: *mut GValueArray,
+        value: *const GValue,
+    ) -> *mut GValueArray;
     pub fn g_value_array_remove(value_array: *mut GValueArray, index_: c_uint) -> *mut GValueArray;
-    pub fn g_value_array_sort(value_array: *mut GValueArray, compare_func: glib::GCompareFunc) -> *mut GValueArray;
-    pub fn g_value_array_sort_with_data(value_array: *mut GValueArray, compare_func: glib::GCompareDataFunc, user_data: gpointer) -> *mut GValueArray;
+    pub fn g_value_array_sort(
+        value_array: *mut GValueArray,
+        compare_func: glib::GCompareFunc,
+    ) -> *mut GValueArray;
+    pub fn g_value_array_sort_with_data(
+        value_array: *mut GValueArray,
+        compare_func: glib::GCompareDataFunc,
+        user_data: gpointer,
+    ) -> *mut GValueArray;
 
     //=========================================================================
     // GWeakRef
@@ -1557,33 +1868,95 @@ extern "C" {
     // GObject
     //=========================================================================
     pub fn g_object_get_type() -> GType;
-    pub fn g_object_new(object_type: GType, first_property_name: *const c_char, ...) -> *mut GObject;
+    pub fn g_object_new(
+        object_type: GType,
+        first_property_name: *const c_char,
+        ...
+    ) -> *mut GObject;
     //pub fn g_object_new_valist(object_type: GType, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list) -> *mut GObject;
     #[cfg(any(feature = "v2_54", feature = "dox"))]
-    pub fn g_object_new_with_properties(object_type: GType, n_properties: c_uint, names: *mut *const c_char, values: *const GValue) -> *mut GObject;
-    pub fn g_object_newv(object_type: GType, n_parameters: c_uint, parameters: *mut GParameter) -> *mut GObject;
+    pub fn g_object_new_with_properties(
+        object_type: GType,
+        n_properties: c_uint,
+        names: *mut *const c_char,
+        values: *const GValue,
+    ) -> *mut GObject;
+    pub fn g_object_newv(
+        object_type: GType,
+        n_parameters: c_uint,
+        parameters: *mut GParameter,
+    ) -> *mut GObject;
     pub fn g_object_compat_control(what: size_t, data: gpointer) -> size_t;
-    pub fn g_object_interface_find_property(g_iface: gpointer, property_name: *const c_char) -> *mut GParamSpec;
+    pub fn g_object_interface_find_property(
+        g_iface: gpointer,
+        property_name: *const c_char,
+    ) -> *mut GParamSpec;
     pub fn g_object_interface_install_property(g_iface: gpointer, pspec: *mut GParamSpec);
-    pub fn g_object_interface_list_properties(g_iface: gpointer, n_properties_p: *mut c_uint) -> *mut *mut GParamSpec;
+    pub fn g_object_interface_list_properties(
+        g_iface: gpointer,
+        n_properties_p: *mut c_uint,
+    ) -> *mut *mut GParamSpec;
     pub fn g_object_add_toggle_ref(object: *mut GObject, notify: GToggleNotify, data: gpointer);
     pub fn g_object_add_weak_pointer(object: *mut GObject, weak_pointer_location: *mut gpointer);
-    pub fn g_object_bind_property(source: *mut GObject, source_property: *const c_char, target: *mut GObject, target_property: *const c_char, flags: GBindingFlags) -> *mut GBinding;
-    pub fn g_object_bind_property_full(source: *mut GObject, source_property: *const c_char, target: *mut GObject, target_property: *const c_char, flags: GBindingFlags, transform_to: GBindingTransformFunc, transform_from: GBindingTransformFunc, user_data: gpointer, notify: glib::GDestroyNotify) -> *mut GBinding;
-    pub fn g_object_bind_property_with_closures(source: *mut GObject, source_property: *const c_char, target: *mut GObject, target_property: *const c_char, flags: GBindingFlags, transform_to: *mut GClosure, transform_from: *mut GClosure) -> *mut GBinding;
+    pub fn g_object_bind_property(
+        source: *mut GObject,
+        source_property: *const c_char,
+        target: *mut GObject,
+        target_property: *const c_char,
+        flags: GBindingFlags,
+    ) -> *mut GBinding;
+    pub fn g_object_bind_property_full(
+        source: *mut GObject,
+        source_property: *const c_char,
+        target: *mut GObject,
+        target_property: *const c_char,
+        flags: GBindingFlags,
+        transform_to: GBindingTransformFunc,
+        transform_from: GBindingTransformFunc,
+        user_data: gpointer,
+        notify: glib::GDestroyNotify,
+    ) -> *mut GBinding;
+    pub fn g_object_bind_property_with_closures(
+        source: *mut GObject,
+        source_property: *const c_char,
+        target: *mut GObject,
+        target_property: *const c_char,
+        flags: GBindingFlags,
+        transform_to: *mut GClosure,
+        transform_from: *mut GClosure,
+    ) -> *mut GBinding;
     pub fn g_object_connect(object: *mut GObject, signal_spec: *const c_char, ...) -> *mut GObject;
     pub fn g_object_disconnect(object: *mut GObject, signal_spec: *const c_char, ...);
-    pub fn g_object_dup_data(object: *mut GObject, key: *const c_char, dup_func: glib::GDuplicateFunc, user_data: gpointer) -> gpointer;
-    pub fn g_object_dup_qdata(object: *mut GObject, quark: glib::GQuark, dup_func: glib::GDuplicateFunc, user_data: gpointer) -> gpointer;
+    pub fn g_object_dup_data(
+        object: *mut GObject,
+        key: *const c_char,
+        dup_func: glib::GDuplicateFunc,
+        user_data: gpointer,
+    ) -> gpointer;
+    pub fn g_object_dup_qdata(
+        object: *mut GObject,
+        quark: glib::GQuark,
+        dup_func: glib::GDuplicateFunc,
+        user_data: gpointer,
+    ) -> gpointer;
     pub fn g_object_force_floating(object: *mut GObject);
     pub fn g_object_freeze_notify(object: *mut GObject);
     pub fn g_object_get(object: *mut GObject, first_property_name: *const c_char, ...);
     pub fn g_object_get_data(object: *mut GObject, key: *const c_char) -> gpointer;
-    pub fn g_object_get_property(object: *mut GObject, property_name: *const c_char, value: *mut GValue);
+    pub fn g_object_get_property(
+        object: *mut GObject,
+        property_name: *const c_char,
+        value: *mut GValue,
+    );
     pub fn g_object_get_qdata(object: *mut GObject, quark: glib::GQuark) -> gpointer;
     //pub fn g_object_get_valist(object: *mut GObject, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list);
     #[cfg(any(feature = "v2_54", feature = "dox"))]
-    pub fn g_object_getv(object: *mut GObject, n_properties: c_uint, names: *mut *const c_char, values: *mut GValue);
+    pub fn g_object_getv(
+        object: *mut GObject,
+        n_properties: c_uint,
+        names: *mut *const c_char,
+        values: *mut GValue,
+    );
     pub fn g_object_is_floating(object: *mut GObject) -> gboolean;
     pub fn g_object_notify(object: *mut GObject, property_name: *const c_char);
     pub fn g_object_notify_by_pspec(object: *mut GObject, pspec: *mut GParamSpec);
@@ -1591,18 +1964,51 @@ extern "C" {
     pub fn g_object_ref_sink(object: *mut GObject) -> *mut GObject;
     pub fn g_object_remove_toggle_ref(object: *mut GObject, notify: GToggleNotify, data: gpointer);
     pub fn g_object_remove_weak_pointer(object: *mut GObject, weak_pointer_location: *mut gpointer);
-    pub fn g_object_replace_data(object: *mut GObject, key: *const c_char, oldval: gpointer, newval: gpointer, destroy: glib::GDestroyNotify, old_destroy: *mut glib::GDestroyNotify) -> gboolean;
-    pub fn g_object_replace_qdata(object: *mut GObject, quark: glib::GQuark, oldval: gpointer, newval: gpointer, destroy: glib::GDestroyNotify, old_destroy: *mut glib::GDestroyNotify) -> gboolean;
+    pub fn g_object_replace_data(
+        object: *mut GObject,
+        key: *const c_char,
+        oldval: gpointer,
+        newval: gpointer,
+        destroy: glib::GDestroyNotify,
+        old_destroy: *mut glib::GDestroyNotify,
+    ) -> gboolean;
+    pub fn g_object_replace_qdata(
+        object: *mut GObject,
+        quark: glib::GQuark,
+        oldval: gpointer,
+        newval: gpointer,
+        destroy: glib::GDestroyNotify,
+        old_destroy: *mut glib::GDestroyNotify,
+    ) -> gboolean;
     pub fn g_object_run_dispose(object: *mut GObject);
     pub fn g_object_set(object: *mut GObject, first_property_name: *const c_char, ...);
     pub fn g_object_set_data(object: *mut GObject, key: *const c_char, data: gpointer);
-    pub fn g_object_set_data_full(object: *mut GObject, key: *const c_char, data: gpointer, destroy: glib::GDestroyNotify);
-    pub fn g_object_set_property(object: *mut GObject, property_name: *const c_char, value: *const GValue);
+    pub fn g_object_set_data_full(
+        object: *mut GObject,
+        key: *const c_char,
+        data: gpointer,
+        destroy: glib::GDestroyNotify,
+    );
+    pub fn g_object_set_property(
+        object: *mut GObject,
+        property_name: *const c_char,
+        value: *const GValue,
+    );
     pub fn g_object_set_qdata(object: *mut GObject, quark: glib::GQuark, data: gpointer);
-    pub fn g_object_set_qdata_full(object: *mut GObject, quark: glib::GQuark, data: gpointer, destroy: glib::GDestroyNotify);
+    pub fn g_object_set_qdata_full(
+        object: *mut GObject,
+        quark: glib::GQuark,
+        data: gpointer,
+        destroy: glib::GDestroyNotify,
+    );
     //pub fn g_object_set_valist(object: *mut GObject, first_property_name: *const c_char, var_args: /*Unimplemented*/va_list);
     #[cfg(any(feature = "v2_54", feature = "dox"))]
-    pub fn g_object_setv(object: *mut GObject, n_properties: c_uint, names: *mut *const c_char, values: *const GValue);
+    pub fn g_object_setv(
+        object: *mut GObject,
+        n_properties: c_uint,
+        names: *mut *const c_char,
+        values: *const GValue,
+    );
     pub fn g_object_steal_data(object: *mut GObject, key: *const c_char) -> gpointer;
     pub fn g_object_steal_qdata(object: *mut GObject, quark: glib::GQuark) -> gpointer;
     pub fn g_object_thaw_notify(object: *mut GObject);
@@ -1614,7 +2020,13 @@ extern "C" {
     //=========================================================================
     // GParamSpec
     //=========================================================================
-    pub fn g_param_spec_internal(param_type: GType, name: *const c_char, nick: *const c_char, blurb: *const c_char, flags: GParamFlags) -> *mut GParamSpec;
+    pub fn g_param_spec_internal(
+        param_type: GType,
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
     pub fn g_param_spec_get_blurb(pspec: *mut GParamSpec) -> *const c_char;
     pub fn g_param_spec_get_default_value(pspec: *mut GParamSpec) -> *const GValue;
     pub fn g_param_spec_get_name(pspec: *mut GParamSpec) -> *const c_char;
@@ -1626,7 +2038,12 @@ extern "C" {
     pub fn g_param_spec_ref(pspec: *mut GParamSpec) -> *mut GParamSpec;
     pub fn g_param_spec_ref_sink(pspec: *mut GParamSpec) -> *mut GParamSpec;
     pub fn g_param_spec_set_qdata(pspec: *mut GParamSpec, quark: glib::GQuark, data: gpointer);
-    pub fn g_param_spec_set_qdata_full(pspec: *mut GParamSpec, quark: glib::GQuark, data: gpointer, destroy: glib::GDestroyNotify);
+    pub fn g_param_spec_set_qdata_full(
+        pspec: *mut GParamSpec,
+        quark: glib::GQuark,
+        data: gpointer,
+        destroy: glib::GDestroyNotify,
+    );
     pub fn g_param_spec_sink(pspec: *mut GParamSpec);
     pub fn g_param_spec_steal_qdata(pspec: *mut GParamSpec, quark: glib::GQuark) -> gpointer;
     pub fn g_param_spec_unref(pspec: *mut GParamSpec);
@@ -1635,10 +2052,29 @@ extern "C" {
     // GTypeModule
     //=========================================================================
     pub fn g_type_module_get_type() -> GType;
-    pub fn g_type_module_add_interface(module: *mut GTypeModule, instance_type: GType, interface_type: GType, interface_info: *const GInterfaceInfo);
-    pub fn g_type_module_register_enum(module: *mut GTypeModule, name: *const c_char, const_static_values: *const GEnumValue) -> GType;
-    pub fn g_type_module_register_flags(module: *mut GTypeModule, name: *const c_char, const_static_values: *const GFlagsValue) -> GType;
-    pub fn g_type_module_register_type(module: *mut GTypeModule, parent_type: GType, type_name: *const c_char, type_info: *const GTypeInfo, flags: GTypeFlags) -> GType;
+    pub fn g_type_module_add_interface(
+        module: *mut GTypeModule,
+        instance_type: GType,
+        interface_type: GType,
+        interface_info: *const GInterfaceInfo,
+    );
+    pub fn g_type_module_register_enum(
+        module: *mut GTypeModule,
+        name: *const c_char,
+        const_static_values: *const GEnumValue,
+    ) -> GType;
+    pub fn g_type_module_register_flags(
+        module: *mut GTypeModule,
+        name: *const c_char,
+        const_static_values: *const GFlagsValue,
+    ) -> GType;
+    pub fn g_type_module_register_type(
+        module: *mut GTypeModule,
+        parent_type: GType,
+        type_name: *const c_char,
+        type_info: *const GTypeInfo,
+        flags: GTypeFlags,
+    ) -> GType;
     pub fn g_type_module_set_name(module: *mut GTypeModule, name: *const c_char);
     pub fn g_type_module_unuse(module: *mut GTypeModule);
     pub fn g_type_module_use(module: *mut GTypeModule) -> gboolean;
@@ -1647,8 +2083,18 @@ extern "C" {
     // GTypePlugin
     //=========================================================================
     pub fn g_type_plugin_get_type() -> GType;
-    pub fn g_type_plugin_complete_interface_info(plugin: *mut GTypePlugin, instance_type: GType, interface_type: GType, info: *mut GInterfaceInfo);
-    pub fn g_type_plugin_complete_type_info(plugin: *mut GTypePlugin, g_type: GType, info: *mut GTypeInfo, value_table: *mut GTypeValueTable);
+    pub fn g_type_plugin_complete_interface_info(
+        plugin: *mut GTypePlugin,
+        instance_type: GType,
+        interface_type: GType,
+        info: *mut GInterfaceInfo,
+    );
+    pub fn g_type_plugin_complete_type_info(
+        plugin: *mut GTypePlugin,
+        g_type: GType,
+        info: *mut GTypeInfo,
+        value_table: *mut GTypeValueTable,
+    );
     pub fn g_type_plugin_unuse(plugin: *mut GTypePlugin);
     pub fn g_type_plugin_use(plugin: *mut GTypePlugin);
 
@@ -1657,87 +2103,421 @@ extern "C" {
     //=========================================================================
     pub fn g_boxed_copy(boxed_type: GType, src_boxed: gconstpointer) -> gpointer;
     pub fn g_boxed_free(boxed_type: GType, boxed: gpointer);
-    pub fn g_boxed_type_register_static(name: *const c_char, boxed_copy: GBoxedCopyFunc, boxed_free: GBoxedFreeFunc) -> GType;
+    pub fn g_boxed_type_register_static(
+        name: *const c_char,
+        boxed_copy: GBoxedCopyFunc,
+        boxed_free: GBoxedFreeFunc,
+    ) -> GType;
     pub fn g_clear_object(object_ptr: *mut *mut GObject);
-    pub fn g_enum_complete_type_info(g_enum_type: GType, info: *mut GTypeInfo, const_values: *const GEnumValue);
+    pub fn g_enum_complete_type_info(
+        g_enum_type: GType,
+        info: *mut GTypeInfo,
+        const_values: *const GEnumValue,
+    );
     pub fn g_enum_get_value(enum_class: *mut GEnumClass, value: c_int) -> *mut GEnumValue;
-    pub fn g_enum_get_value_by_name(enum_class: *mut GEnumClass, name: *const c_char) -> *mut GEnumValue;
-    pub fn g_enum_get_value_by_nick(enum_class: *mut GEnumClass, nick: *const c_char) -> *mut GEnumValue;
-    pub fn g_enum_register_static(name: *const c_char, const_static_values: *const GEnumValue) -> GType;
+    pub fn g_enum_get_value_by_name(
+        enum_class: *mut GEnumClass,
+        name: *const c_char,
+    ) -> *mut GEnumValue;
+    pub fn g_enum_get_value_by_nick(
+        enum_class: *mut GEnumClass,
+        nick: *const c_char,
+    ) -> *mut GEnumValue;
+    pub fn g_enum_register_static(
+        name: *const c_char,
+        const_static_values: *const GEnumValue,
+    ) -> GType;
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     pub fn g_enum_to_string(g_enum_type: GType, value: c_int) -> *mut c_char;
-    pub fn g_flags_complete_type_info(g_flags_type: GType, info: *mut GTypeInfo, const_values: *const GFlagsValue);
-    pub fn g_flags_get_first_value(flags_class: *mut GFlagsClass, value: c_uint) -> *mut GFlagsValue;
-    pub fn g_flags_get_value_by_name(flags_class: *mut GFlagsClass, name: *const c_char) -> *mut GFlagsValue;
-    pub fn g_flags_get_value_by_nick(flags_class: *mut GFlagsClass, nick: *const c_char) -> *mut GFlagsValue;
-    pub fn g_flags_register_static(name: *const c_char, const_static_values: *const GFlagsValue) -> GType;
+    pub fn g_flags_complete_type_info(
+        g_flags_type: GType,
+        info: *mut GTypeInfo,
+        const_values: *const GFlagsValue,
+    );
+    pub fn g_flags_get_first_value(
+        flags_class: *mut GFlagsClass,
+        value: c_uint,
+    ) -> *mut GFlagsValue;
+    pub fn g_flags_get_value_by_name(
+        flags_class: *mut GFlagsClass,
+        name: *const c_char,
+    ) -> *mut GFlagsValue;
+    pub fn g_flags_get_value_by_nick(
+        flags_class: *mut GFlagsClass,
+        nick: *const c_char,
+    ) -> *mut GFlagsValue;
+    pub fn g_flags_register_static(
+        name: *const c_char,
+        const_static_values: *const GFlagsValue,
+    ) -> GType;
     #[cfg(any(feature = "v2_54", feature = "dox"))]
     pub fn g_flags_to_string(flags_type: GType, value: c_uint) -> *mut c_char;
     pub fn g_gtype_get_type() -> GType;
-    pub fn g_param_spec_boolean(name: *const c_char, nick: *const c_char, blurb: *const c_char, default_value: gboolean, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_boxed(name: *const c_char, nick: *const c_char, blurb: *const c_char, boxed_type: GType, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_char(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: i8, maximum: i8, default_value: i8, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_double(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_double, maximum: c_double, default_value: c_double, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_enum(name: *const c_char, nick: *const c_char, blurb: *const c_char, enum_type: GType, default_value: c_int, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_flags(name: *const c_char, nick: *const c_char, blurb: *const c_char, flags_type: GType, default_value: c_uint, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_float(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_float, maximum: c_float, default_value: c_float, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_gtype(name: *const c_char, nick: *const c_char, blurb: *const c_char, is_a_type: GType, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_int(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_int, maximum: c_int, default_value: c_int, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_int64(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: i64, maximum: i64, default_value: i64, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_long(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_long, maximum: c_long, default_value: c_long, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_object(name: *const c_char, nick: *const c_char, blurb: *const c_char, object_type: GType, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_override(name: *const c_char, overridden: *mut GParamSpec) -> *mut GParamSpec;
-    pub fn g_param_spec_param(name: *const c_char, nick: *const c_char, blurb: *const c_char, param_type: GType, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_pointer(name: *const c_char, nick: *const c_char, blurb: *const c_char, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_string(name: *const c_char, nick: *const c_char, blurb: *const c_char, default_value: *const c_char, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_uchar(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: u8, maximum: u8, default_value: u8, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_uint(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_uint, maximum: c_uint, default_value: c_uint, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_uint64(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: u64, maximum: u64, default_value: u64, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_ulong(name: *const c_char, nick: *const c_char, blurb: *const c_char, minimum: c_ulong, maximum: c_ulong, default_value: c_ulong, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_unichar(name: *const c_char, nick: *const c_char, blurb: *const c_char, default_value: u32, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_value_array(name: *const c_char, nick: *const c_char, blurb: *const c_char, element_spec: *mut GParamSpec, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_spec_variant(name: *const c_char, nick: *const c_char, blurb: *const c_char, type_: *const glib::GVariantType, default_value: *mut glib::GVariant, flags: GParamFlags) -> *mut GParamSpec;
-    pub fn g_param_type_register_static(name: *const c_char, pspec_info: *const GParamSpecTypeInfo) -> GType;
-    pub fn g_param_value_convert(pspec: *mut GParamSpec, src_value: *const GValue, dest_value: *mut GValue, strict_validation: gboolean) -> gboolean;
+    pub fn g_param_spec_boolean(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        default_value: gboolean,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_boxed(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        boxed_type: GType,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_char(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: i8,
+        maximum: i8,
+        default_value: i8,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_double(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_double,
+        maximum: c_double,
+        default_value: c_double,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_enum(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        enum_type: GType,
+        default_value: c_int,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_flags(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        flags_type: GType,
+        default_value: c_uint,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_float(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_float,
+        maximum: c_float,
+        default_value: c_float,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_gtype(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        is_a_type: GType,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_int(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_int,
+        maximum: c_int,
+        default_value: c_int,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_int64(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: i64,
+        maximum: i64,
+        default_value: i64,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_long(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_long,
+        maximum: c_long,
+        default_value: c_long,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_object(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        object_type: GType,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_override(
+        name: *const c_char,
+        overridden: *mut GParamSpec,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_param(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        param_type: GType,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_pointer(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_string(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        default_value: *const c_char,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_uchar(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: u8,
+        maximum: u8,
+        default_value: u8,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_uint(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_uint,
+        maximum: c_uint,
+        default_value: c_uint,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_uint64(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: u64,
+        maximum: u64,
+        default_value: u64,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_ulong(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        minimum: c_ulong,
+        maximum: c_ulong,
+        default_value: c_ulong,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_unichar(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        default_value: u32,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_value_array(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        element_spec: *mut GParamSpec,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_spec_variant(
+        name: *const c_char,
+        nick: *const c_char,
+        blurb: *const c_char,
+        type_: *const glib::GVariantType,
+        default_value: *mut glib::GVariant,
+        flags: GParamFlags,
+    ) -> *mut GParamSpec;
+    pub fn g_param_type_register_static(
+        name: *const c_char,
+        pspec_info: *const GParamSpecTypeInfo,
+    ) -> GType;
+    pub fn g_param_value_convert(
+        pspec: *mut GParamSpec,
+        src_value: *const GValue,
+        dest_value: *mut GValue,
+        strict_validation: gboolean,
+    ) -> gboolean;
     pub fn g_param_value_defaults(pspec: *mut GParamSpec, value: *mut GValue) -> gboolean;
     pub fn g_param_value_set_default(pspec: *mut GParamSpec, value: *mut GValue);
     pub fn g_param_value_validate(pspec: *mut GParamSpec, value: *mut GValue) -> gboolean;
-    pub fn g_param_values_cmp(pspec: *mut GParamSpec, value1: *const GValue, value2: *const GValue) -> c_int;
+    pub fn g_param_values_cmp(
+        pspec: *mut GParamSpec,
+        value1: *const GValue,
+        value2: *const GValue,
+    ) -> c_int;
     pub fn g_pointer_type_register_static(name: *const c_char) -> GType;
-    pub fn g_signal_accumulator_first_wins(ihint: *mut GSignalInvocationHint, return_accu: *mut GValue, handler_return: *const GValue, dummy: gpointer) -> gboolean;
-    pub fn g_signal_accumulator_true_handled(ihint: *mut GSignalInvocationHint, return_accu: *mut GValue, handler_return: *const GValue, dummy: gpointer) -> gboolean;
-    pub fn g_signal_add_emission_hook(signal_id: c_uint, detail: glib::GQuark, hook_func: GSignalEmissionHook, hook_data: gpointer, data_destroy: glib::GDestroyNotify) -> c_ulong;
-    pub fn g_signal_chain_from_overridden(instance_and_params: *const GValue, return_value: *mut GValue);
+    pub fn g_signal_accumulator_first_wins(
+        ihint: *mut GSignalInvocationHint,
+        return_accu: *mut GValue,
+        handler_return: *const GValue,
+        dummy: gpointer,
+    ) -> gboolean;
+    pub fn g_signal_accumulator_true_handled(
+        ihint: *mut GSignalInvocationHint,
+        return_accu: *mut GValue,
+        handler_return: *const GValue,
+        dummy: gpointer,
+    ) -> gboolean;
+    pub fn g_signal_add_emission_hook(
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        hook_func: GSignalEmissionHook,
+        hook_data: gpointer,
+        data_destroy: glib::GDestroyNotify,
+    ) -> c_ulong;
+    pub fn g_signal_chain_from_overridden(
+        instance_and_params: *const GValue,
+        return_value: *mut GValue,
+    );
     pub fn g_signal_chain_from_overridden_handler(instance: gpointer, ...);
-    pub fn g_signal_connect_closure(instance: *mut GObject, detailed_signal: *const c_char, closure: *mut GClosure, after: gboolean) -> c_ulong;
-    pub fn g_signal_connect_closure_by_id(instance: *mut GObject, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, after: gboolean) -> c_ulong;
-    pub fn g_signal_connect_data(instance: *mut GObject, detailed_signal: *const c_char, c_handler: GCallback, data: gpointer, destroy_data: GClosureNotify, connect_flags: GConnectFlags) -> c_ulong;
-    pub fn g_signal_connect_object(instance: gpointer, detailed_signal: *const c_char, c_handler: GCallback, gobject: *mut GObject, connect_flags: GConnectFlags) -> c_ulong;
+    pub fn g_signal_connect_closure(
+        instance: *mut GObject,
+        detailed_signal: *const c_char,
+        closure: *mut GClosure,
+        after: gboolean,
+    ) -> c_ulong;
+    pub fn g_signal_connect_closure_by_id(
+        instance: *mut GObject,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        closure: *mut GClosure,
+        after: gboolean,
+    ) -> c_ulong;
+    pub fn g_signal_connect_data(
+        instance: *mut GObject,
+        detailed_signal: *const c_char,
+        c_handler: GCallback,
+        data: gpointer,
+        destroy_data: GClosureNotify,
+        connect_flags: GConnectFlags,
+    ) -> c_ulong;
+    pub fn g_signal_connect_object(
+        instance: gpointer,
+        detailed_signal: *const c_char,
+        c_handler: GCallback,
+        gobject: *mut GObject,
+        connect_flags: GConnectFlags,
+    ) -> c_ulong;
     pub fn g_signal_emit(instance: *mut GObject, signal_id: c_uint, detail: glib::GQuark, ...);
     pub fn g_signal_emit_by_name(instance: *mut GObject, detailed_signal: *const c_char, ...);
     //pub fn g_signal_emit_valist(instance: gpointer, signal_id: c_uint, detail: glib::GQuark, var_args: /*Unimplemented*/va_list);
-    pub fn g_signal_emitv(instance_and_params: *const GValue, signal_id: c_uint, detail: glib::GQuark, return_value: *mut GValue);
+    pub fn g_signal_emitv(
+        instance_and_params: *const GValue,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        return_value: *mut GValue,
+    );
     pub fn g_signal_get_invocation_hint(instance: *mut GObject) -> *mut GSignalInvocationHint;
     pub fn g_signal_handler_block(instance: *mut GObject, handler_id: c_ulong);
     pub fn g_signal_handler_disconnect(instance: *mut GObject, handler_id: c_ulong);
-    pub fn g_signal_handler_find(instance: *mut GObject, mask: GSignalMatchType, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, func: gpointer, data: gpointer) -> c_ulong;
+    pub fn g_signal_handler_find(
+        instance: *mut GObject,
+        mask: GSignalMatchType,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        closure: *mut GClosure,
+        func: gpointer,
+        data: gpointer,
+    ) -> c_ulong;
     pub fn g_signal_handler_is_connected(instance: *mut GObject, handler_id: c_ulong) -> gboolean;
     pub fn g_signal_handler_unblock(instance: *mut GObject, handler_id: c_ulong);
-    pub fn g_signal_handlers_block_matched(instance: *mut GObject, mask: GSignalMatchType, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, func: gpointer, data: gpointer) -> c_uint;
+    pub fn g_signal_handlers_block_matched(
+        instance: *mut GObject,
+        mask: GSignalMatchType,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        closure: *mut GClosure,
+        func: gpointer,
+        data: gpointer,
+    ) -> c_uint;
     pub fn g_signal_handlers_destroy(instance: *mut GObject);
-    pub fn g_signal_handlers_disconnect_matched(instance: *mut GObject, mask: GSignalMatchType, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, func: gpointer, data: gpointer) -> c_uint;
-    pub fn g_signal_handlers_unblock_matched(instance: *mut GObject, mask: GSignalMatchType, signal_id: c_uint, detail: glib::GQuark, closure: *mut GClosure, func: gpointer, data: gpointer) -> c_uint;
-    pub fn g_signal_has_handler_pending(instance: *mut GObject, signal_id: c_uint, detail: glib::GQuark, may_be_blocked: gboolean) -> gboolean;
+    pub fn g_signal_handlers_disconnect_matched(
+        instance: *mut GObject,
+        mask: GSignalMatchType,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        closure: *mut GClosure,
+        func: gpointer,
+        data: gpointer,
+    ) -> c_uint;
+    pub fn g_signal_handlers_unblock_matched(
+        instance: *mut GObject,
+        mask: GSignalMatchType,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        closure: *mut GClosure,
+        func: gpointer,
+        data: gpointer,
+    ) -> c_uint;
+    pub fn g_signal_has_handler_pending(
+        instance: *mut GObject,
+        signal_id: c_uint,
+        detail: glib::GQuark,
+        may_be_blocked: gboolean,
+    ) -> gboolean;
     pub fn g_signal_list_ids(itype: GType, n_ids: *mut c_uint) -> *mut c_uint;
     pub fn g_signal_lookup(name: *const c_char, itype: GType) -> c_uint;
     pub fn g_signal_name(signal_id: c_uint) -> *const c_char;
-    pub fn g_signal_new(signal_name: *const c_char, itype: GType, signal_flags: GSignalFlags, class_offset: c_uint, accumulator: GSignalAccumulator, accu_data: gpointer, c_marshaller: GSignalCMarshaller, return_type: GType, n_params: c_uint, ...) -> c_uint;
-    pub fn g_signal_new_class_handler(signal_name: *const c_char, itype: GType, signal_flags: GSignalFlags, class_handler: GCallback, accumulator: GSignalAccumulator, accu_data: gpointer, c_marshaller: GSignalCMarshaller, return_type: GType, n_params: c_uint, ...) -> c_uint;
+    pub fn g_signal_new(
+        signal_name: *const c_char,
+        itype: GType,
+        signal_flags: GSignalFlags,
+        class_offset: c_uint,
+        accumulator: GSignalAccumulator,
+        accu_data: gpointer,
+        c_marshaller: GSignalCMarshaller,
+        return_type: GType,
+        n_params: c_uint,
+        ...
+    ) -> c_uint;
+    pub fn g_signal_new_class_handler(
+        signal_name: *const c_char,
+        itype: GType,
+        signal_flags: GSignalFlags,
+        class_handler: GCallback,
+        accumulator: GSignalAccumulator,
+        accu_data: gpointer,
+        c_marshaller: GSignalCMarshaller,
+        return_type: GType,
+        n_params: c_uint,
+        ...
+    ) -> c_uint;
     //pub fn g_signal_new_valist(signal_name: *const c_char, itype: GType, signal_flags: GSignalFlags, class_closure: *mut GClosure, accumulator: GSignalAccumulator, accu_data: gpointer, c_marshaller: GSignalCMarshaller, return_type: GType, n_params: c_uint, args: /*Unimplemented*/va_list) -> c_uint;
-    pub fn g_signal_newv(signal_name: *const c_char, itype: GType, signal_flags: GSignalFlags, class_closure: *mut GClosure, accumulator: GSignalAccumulator, accu_data: gpointer, c_marshaller: GSignalCMarshaller, return_type: GType, n_params: c_uint, param_types: *mut GType) -> c_uint;
-    pub fn g_signal_override_class_closure(signal_id: c_uint, instance_type: GType, class_closure: *mut GClosure);
-    pub fn g_signal_override_class_handler(signal_name: *const c_char, instance_type: GType, class_handler: GCallback);
-    pub fn g_signal_parse_name(detailed_signal: *const c_char, itype: GType, signal_id_p: *mut c_uint, detail_p: *mut glib::GQuark, force_detail_quark: gboolean) -> gboolean;
+    pub fn g_signal_newv(
+        signal_name: *const c_char,
+        itype: GType,
+        signal_flags: GSignalFlags,
+        class_closure: *mut GClosure,
+        accumulator: GSignalAccumulator,
+        accu_data: gpointer,
+        c_marshaller: GSignalCMarshaller,
+        return_type: GType,
+        n_params: c_uint,
+        param_types: *mut GType,
+    ) -> c_uint;
+    pub fn g_signal_override_class_closure(
+        signal_id: c_uint,
+        instance_type: GType,
+        class_closure: *mut GClosure,
+    );
+    pub fn g_signal_override_class_handler(
+        signal_name: *const c_char,
+        instance_type: GType,
+        class_handler: GCallback,
+    );
+    pub fn g_signal_parse_name(
+        detailed_signal: *const c_char,
+        itype: GType,
+        signal_id_p: *mut c_uint,
+        detail_p: *mut glib::GQuark,
+        force_detail_quark: gboolean,
+    ) -> gboolean;
     pub fn g_signal_query(signal_id: c_uint, query: *mut GSignalQuery);
     pub fn g_signal_remove_emission_hook(signal_id: c_uint, hook_id: c_ulong);
     //pub fn g_signal_set_va_marshaller(signal_id: c_uint, instance_type: GType, va_marshaller: /*Ignored*/GSignalCVaMarshaller);
@@ -1751,14 +2531,28 @@ extern "C" {
     pub fn g_type_add_class_private(class_type: GType, private_size: size_t);
     pub fn g_type_add_instance_private(class_type: GType, private_size: size_t) -> c_int;
     pub fn g_type_add_interface_check(check_data: gpointer, check_func: GTypeInterfaceCheckFunc);
-    pub fn g_type_add_interface_dynamic(instance_type: GType, interface_type: GType, plugin: *mut GTypePlugin);
-    pub fn g_type_add_interface_static(instance_type: GType, interface_type: GType, info: *const GInterfaceInfo);
+    pub fn g_type_add_interface_dynamic(
+        instance_type: GType,
+        interface_type: GType,
+        plugin: *mut GTypePlugin,
+    );
+    pub fn g_type_add_interface_static(
+        instance_type: GType,
+        interface_type: GType,
+        info: *const GInterfaceInfo,
+    );
     pub fn g_type_check_class_cast(g_class: *mut GTypeClass, is_a_type: GType) -> *mut GTypeClass;
     pub fn g_type_check_class_is_a(g_class: *mut GTypeClass, is_a_type: GType) -> gboolean;
     pub fn g_type_check_instance(instance: *mut GTypeInstance) -> gboolean;
-    pub fn g_type_check_instance_cast(instance: *mut GTypeInstance, iface_type: GType) -> *mut GTypeInstance;
+    pub fn g_type_check_instance_cast(
+        instance: *mut GTypeInstance,
+        iface_type: GType,
+    ) -> *mut GTypeInstance;
     pub fn g_type_check_instance_is_a(instance: *mut GTypeInstance, iface_type: GType) -> gboolean;
-    pub fn g_type_check_instance_is_fundamentally_a(instance: *mut GTypeInstance, fundamental_type: GType) -> gboolean;
+    pub fn g_type_check_instance_is_fundamentally_a(
+        instance: *mut GTypeInstance,
+        fundamental_type: GType,
+    ) -> gboolean;
     pub fn g_type_check_is_value_type(type_: GType) -> gboolean;
     pub fn g_type_check_value(value: *const GValue) -> gboolean;
     pub fn g_type_check_value_holds(value: *const GValue, type_: GType) -> gboolean;
@@ -1789,10 +2583,34 @@ extern "C" {
     pub fn g_type_parent(type_: GType) -> GType;
     pub fn g_type_qname(type_: GType) -> glib::GQuark;
     pub fn g_type_query(type_: GType, query: *mut GTypeQuery);
-    pub fn g_type_register_dynamic(parent_type: GType, type_name: *const c_char, plugin: *mut GTypePlugin, flags: GTypeFlags) -> GType;
-    pub fn g_type_register_fundamental(type_id: GType, type_name: *const c_char, info: *const GTypeInfo, finfo: *const GTypeFundamentalInfo, flags: GTypeFlags) -> GType;
-    pub fn g_type_register_static(parent_type: GType, type_name: *const c_char, info: *const GTypeInfo, flags: GTypeFlags) -> GType;
-    pub fn g_type_register_static_simple(parent_type: GType, type_name: *const c_char, class_size: c_uint, class_init: GClassInitFunc, instance_size: c_uint, instance_init: GInstanceInitFunc, flags: GTypeFlags) -> GType;
+    pub fn g_type_register_dynamic(
+        parent_type: GType,
+        type_name: *const c_char,
+        plugin: *mut GTypePlugin,
+        flags: GTypeFlags,
+    ) -> GType;
+    pub fn g_type_register_fundamental(
+        type_id: GType,
+        type_name: *const c_char,
+        info: *const GTypeInfo,
+        finfo: *const GTypeFundamentalInfo,
+        flags: GTypeFlags,
+    ) -> GType;
+    pub fn g_type_register_static(
+        parent_type: GType,
+        type_name: *const c_char,
+        info: *const GTypeInfo,
+        flags: GTypeFlags,
+    ) -> GType;
+    pub fn g_type_register_static_simple(
+        parent_type: GType,
+        type_name: *const c_char,
+        class_size: c_uint,
+        class_init: GClassInitFunc,
+        instance_size: c_uint,
+        instance_init: GInstanceInitFunc,
+        flags: GTypeFlags,
+    ) -> GType;
     pub fn g_type_remove_class_cache_func(cache_data: gpointer, cache_func: GTypeClassCacheFunc);
     pub fn g_type_remove_interface_check(check_data: gpointer, check_func: GTypeInterfaceCheckFunc);
     pub fn g_type_set_qdata(type_: GType, quark: glib::GQuark, data: gpointer);

@@ -5,13 +5,13 @@
 extern crate pango_sys;
 extern crate shell_words;
 extern crate tempdir;
+use pango_sys::*;
 use std::env;
 use std::error::Error;
-use std::path::Path;
 use std::mem::{align_of, size_of};
+use std::path::Path;
 use std::process::Command;
 use std::str;
-use pango_sys::*;
 
 static PACKAGES: &[&str] = &["pango"];
 
@@ -47,8 +47,7 @@ impl Compiler {
         cmd.arg(out);
         let status = cmd.spawn()?.wait()?;
         if !status.success() {
-            return Err(format!("compilation command {:?} failed, {}",
-                               &cmd, status).into());
+            return Err(format!("compilation command {:?} failed, {}", &cmd, status).into());
         }
         Ok(())
     }
@@ -77,13 +76,11 @@ fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
     cmd.args(packages);
     let out = cmd.output()?;
     if !out.status.success() {
-        return Err(format!("command {:?} returned {}",
-                           &cmd, out.status).into());
+        return Err(format!("command {:?} returned {}", &cmd, out.status).into());
     }
     let stdout = str::from_utf8(&out.stdout)?;
     Ok(shell_words::split(stdout.trim())?)
 }
-
 
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 struct Layout {
@@ -115,9 +112,8 @@ impl Results {
     fn summary(&self) -> String {
         format!(
             "{} passed; {} failed (compilation errors: {})",
-            self.passed,
-            self.failed,
-            self.failed_to_compile)
+            self.passed, self.failed, self.failed_to_compile
+        )
     }
     fn expect_total_success(&self) {
         if self.failed == 0 {
@@ -133,24 +129,28 @@ fn cross_validate_constants_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!("1",
-               get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
-               "failed to obtain correct constant value for 1");
+    assert_eq!(
+        "1",
+        get_c_value(tmpdir.path(), &cc, "1").expect("C constant"),
+        "failed to obtain correct constant value for 1"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_value)) in RUST_CONSTANTS.iter().enumerate() {
         match get_c_value(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(ref c_value) => {
                 if rust_value == c_value {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_value, c_value);
+                    eprintln!(
+                        "Constant value mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_value, c_value
+                    );
                 }
             }
         };
@@ -166,24 +166,31 @@ fn cross_validate_layout_with_c() {
     let tmpdir = tempdir::TempDir::new("abi").expect("temporary directory");
     let cc = Compiler::new().expect("configured compiler");
 
-    assert_eq!(Layout {size: 1, alignment: 1},
-               get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
-               "failed to obtain correct layout for char type");
+    assert_eq!(
+        Layout {
+            size: 1,
+            alignment: 1
+        },
+        get_c_layout(tmpdir.path(), &cc, "char").expect("C layout"),
+        "failed to obtain correct layout for char type"
+    );
 
-    let mut results : Results = Default::default();
+    let mut results: Results = Default::default();
     for (i, &(name, rust_layout)) in RUST_LAYOUTS.iter().enumerate() {
         match get_c_layout(tmpdir.path(), &cc, name) {
             Err(e) => {
                 results.record_failed_to_compile();
                 eprintln!("{}", e);
-            },
+            }
             Ok(c_layout) => {
                 if rust_layout == c_layout {
                     results.record_passed();
                 } else {
                     results.record_failed();
-                    eprintln!("Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
-                              name, rust_layout, &c_layout);
+                    eprintln!(
+                        "Layout mismatch for {}\nRust: {:?}\nC:    {:?}",
+                        name, rust_layout, &c_layout
+                    );
                 }
             }
         };
@@ -203,15 +210,14 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let stdout = str::from_utf8(&output.stdout)?;
     let mut words = stdout.trim().split_whitespace();
     let size = words.next().unwrap().parse().unwrap();
     let alignment = words.next().unwrap().parse().unwrap();
-    Ok(Layout {size, alignment})
+    Ok(Layout { size, alignment })
 }
 
 fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
@@ -223,86 +229,477 @@ fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Erro
     let mut abi_cmd = Command::new(exe);
     let output = abi_cmd.output()?;
     if !output.status.success() {
-        return Err(format!("command {:?} failed, {:?}",
-                           &abi_cmd, &output).into());
+        return Err(format!("command {:?} failed, {:?}", &abi_cmd, &output).into());
     }
 
     let output = str::from_utf8(&output.stdout)?.trim();
-    if !output.starts_with("###gir test###") ||
-       !output.ends_with("###gir test###") {
-        return Err(format!("command {:?} return invalid output, {:?}",
-                           &abi_cmd, &output).into());
+    if !output.starts_with("###gir test###") || !output.ends_with("###gir test###") {
+        return Err(format!(
+            "command {:?} return invalid output, {:?}",
+            &abi_cmd, &output
+        )
+        .into());
     }
 
     Ok(String::from(&output[14..(output.len() - 14)]))
 }
 
 const RUST_LAYOUTS: &[(&str, Layout)] = &[
-    ("PangoAlignment", Layout {size: size_of::<PangoAlignment>(), alignment: align_of::<PangoAlignment>()}),
-    ("PangoAnalysis", Layout {size: size_of::<PangoAnalysis>(), alignment: align_of::<PangoAnalysis>()}),
-    ("PangoAttrClass", Layout {size: size_of::<PangoAttrClass>(), alignment: align_of::<PangoAttrClass>()}),
-    ("PangoAttrColor", Layout {size: size_of::<PangoAttrColor>(), alignment: align_of::<PangoAttrColor>()}),
-    ("PangoAttrFloat", Layout {size: size_of::<PangoAttrFloat>(), alignment: align_of::<PangoAttrFloat>()}),
-    ("PangoAttrFontDesc", Layout {size: size_of::<PangoAttrFontDesc>(), alignment: align_of::<PangoAttrFontDesc>()}),
-    ("PangoAttrFontFeatures", Layout {size: size_of::<PangoAttrFontFeatures>(), alignment: align_of::<PangoAttrFontFeatures>()}),
-    ("PangoAttrInt", Layout {size: size_of::<PangoAttrInt>(), alignment: align_of::<PangoAttrInt>()}),
-    ("PangoAttrLanguage", Layout {size: size_of::<PangoAttrLanguage>(), alignment: align_of::<PangoAttrLanguage>()}),
-    ("PangoAttrShape", Layout {size: size_of::<PangoAttrShape>(), alignment: align_of::<PangoAttrShape>()}),
-    ("PangoAttrSize", Layout {size: size_of::<PangoAttrSize>(), alignment: align_of::<PangoAttrSize>()}),
-    ("PangoAttrString", Layout {size: size_of::<PangoAttrString>(), alignment: align_of::<PangoAttrString>()}),
-    ("PangoAttrType", Layout {size: size_of::<PangoAttrType>(), alignment: align_of::<PangoAttrType>()}),
-    ("PangoAttribute", Layout {size: size_of::<PangoAttribute>(), alignment: align_of::<PangoAttribute>()}),
-    ("PangoBidiType", Layout {size: size_of::<PangoBidiType>(), alignment: align_of::<PangoBidiType>()}),
-    ("PangoColor", Layout {size: size_of::<PangoColor>(), alignment: align_of::<PangoColor>()}),
-    ("PangoCoverageLevel", Layout {size: size_of::<PangoCoverageLevel>(), alignment: align_of::<PangoCoverageLevel>()}),
-    ("PangoDirection", Layout {size: size_of::<PangoDirection>(), alignment: align_of::<PangoDirection>()}),
-    ("PangoEllipsizeMode", Layout {size: size_of::<PangoEllipsizeMode>(), alignment: align_of::<PangoEllipsizeMode>()}),
-    ("PangoEngine", Layout {size: size_of::<PangoEngine>(), alignment: align_of::<PangoEngine>()}),
-    ("PangoEngineClass", Layout {size: size_of::<PangoEngineClass>(), alignment: align_of::<PangoEngineClass>()}),
-    ("PangoEngineInfo", Layout {size: size_of::<PangoEngineInfo>(), alignment: align_of::<PangoEngineInfo>()}),
-    ("PangoEngineLang", Layout {size: size_of::<PangoEngineLang>(), alignment: align_of::<PangoEngineLang>()}),
-    ("PangoEngineLangClass", Layout {size: size_of::<PangoEngineLangClass>(), alignment: align_of::<PangoEngineLangClass>()}),
-    ("PangoEngineScriptInfo", Layout {size: size_of::<PangoEngineScriptInfo>(), alignment: align_of::<PangoEngineScriptInfo>()}),
-    ("PangoEngineShape", Layout {size: size_of::<PangoEngineShape>(), alignment: align_of::<PangoEngineShape>()}),
-    ("PangoEngineShapeClass", Layout {size: size_of::<PangoEngineShapeClass>(), alignment: align_of::<PangoEngineShapeClass>()}),
-    ("PangoFont", Layout {size: size_of::<PangoFont>(), alignment: align_of::<PangoFont>()}),
-    ("PangoFontClass", Layout {size: size_of::<PangoFontClass>(), alignment: align_of::<PangoFontClass>()}),
-    ("PangoFontFace", Layout {size: size_of::<PangoFontFace>(), alignment: align_of::<PangoFontFace>()}),
-    ("PangoFontFaceClass", Layout {size: size_of::<PangoFontFaceClass>(), alignment: align_of::<PangoFontFaceClass>()}),
-    ("PangoFontFamily", Layout {size: size_of::<PangoFontFamily>(), alignment: align_of::<PangoFontFamily>()}),
-    ("PangoFontFamilyClass", Layout {size: size_of::<PangoFontFamilyClass>(), alignment: align_of::<PangoFontFamilyClass>()}),
-    ("PangoFontMap", Layout {size: size_of::<PangoFontMap>(), alignment: align_of::<PangoFontMap>()}),
-    ("PangoFontMapClass", Layout {size: size_of::<PangoFontMapClass>(), alignment: align_of::<PangoFontMapClass>()}),
-    ("PangoFontMask", Layout {size: size_of::<PangoFontMask>(), alignment: align_of::<PangoFontMask>()}),
-    ("PangoFontMetrics", Layout {size: size_of::<PangoFontMetrics>(), alignment: align_of::<PangoFontMetrics>()}),
-    ("PangoFontset", Layout {size: size_of::<PangoFontset>(), alignment: align_of::<PangoFontset>()}),
-    ("PangoFontsetClass", Layout {size: size_of::<PangoFontsetClass>(), alignment: align_of::<PangoFontsetClass>()}),
-    ("PangoGlyph", Layout {size: size_of::<PangoGlyph>(), alignment: align_of::<PangoGlyph>()}),
-    ("PangoGlyphGeometry", Layout {size: size_of::<PangoGlyphGeometry>(), alignment: align_of::<PangoGlyphGeometry>()}),
-    ("PangoGlyphInfo", Layout {size: size_of::<PangoGlyphInfo>(), alignment: align_of::<PangoGlyphInfo>()}),
-    ("PangoGlyphItem", Layout {size: size_of::<PangoGlyphItem>(), alignment: align_of::<PangoGlyphItem>()}),
-    ("PangoGlyphItemIter", Layout {size: size_of::<PangoGlyphItemIter>(), alignment: align_of::<PangoGlyphItemIter>()}),
-    ("PangoGlyphString", Layout {size: size_of::<PangoGlyphString>(), alignment: align_of::<PangoGlyphString>()}),
-    ("PangoGlyphUnit", Layout {size: size_of::<PangoGlyphUnit>(), alignment: align_of::<PangoGlyphUnit>()}),
-    ("PangoGlyphVisAttr", Layout {size: size_of::<PangoGlyphVisAttr>(), alignment: align_of::<PangoGlyphVisAttr>()}),
-    ("PangoGravity", Layout {size: size_of::<PangoGravity>(), alignment: align_of::<PangoGravity>()}),
-    ("PangoGravityHint", Layout {size: size_of::<PangoGravityHint>(), alignment: align_of::<PangoGravityHint>()}),
-    ("PangoIncludedModule", Layout {size: size_of::<PangoIncludedModule>(), alignment: align_of::<PangoIncludedModule>()}),
-    ("PangoItem", Layout {size: size_of::<PangoItem>(), alignment: align_of::<PangoItem>()}),
-    ("PangoLayoutRun", Layout {size: size_of::<PangoLayoutRun>(), alignment: align_of::<PangoLayoutRun>()}),
-    ("PangoMatrix", Layout {size: size_of::<PangoMatrix>(), alignment: align_of::<PangoMatrix>()}),
-    ("PangoRectangle", Layout {size: size_of::<PangoRectangle>(), alignment: align_of::<PangoRectangle>()}),
-    ("PangoRenderPart", Layout {size: size_of::<PangoRenderPart>(), alignment: align_of::<PangoRenderPart>()}),
-    ("PangoRenderer", Layout {size: size_of::<PangoRenderer>(), alignment: align_of::<PangoRenderer>()}),
-    ("PangoRendererClass", Layout {size: size_of::<PangoRendererClass>(), alignment: align_of::<PangoRendererClass>()}),
-    ("PangoScript", Layout {size: size_of::<PangoScript>(), alignment: align_of::<PangoScript>()}),
-    ("PangoStretch", Layout {size: size_of::<PangoStretch>(), alignment: align_of::<PangoStretch>()}),
-    ("PangoStyle", Layout {size: size_of::<PangoStyle>(), alignment: align_of::<PangoStyle>()}),
-    ("PangoTabAlign", Layout {size: size_of::<PangoTabAlign>(), alignment: align_of::<PangoTabAlign>()}),
-    ("PangoUnderline", Layout {size: size_of::<PangoUnderline>(), alignment: align_of::<PangoUnderline>()}),
-    ("PangoVariant", Layout {size: size_of::<PangoVariant>(), alignment: align_of::<PangoVariant>()}),
-    ("PangoWeight", Layout {size: size_of::<PangoWeight>(), alignment: align_of::<PangoWeight>()}),
-    ("PangoWrapMode", Layout {size: size_of::<PangoWrapMode>(), alignment: align_of::<PangoWrapMode>()}),
+    (
+        "PangoAlignment",
+        Layout {
+            size: size_of::<PangoAlignment>(),
+            alignment: align_of::<PangoAlignment>(),
+        },
+    ),
+    (
+        "PangoAnalysis",
+        Layout {
+            size: size_of::<PangoAnalysis>(),
+            alignment: align_of::<PangoAnalysis>(),
+        },
+    ),
+    (
+        "PangoAttrClass",
+        Layout {
+            size: size_of::<PangoAttrClass>(),
+            alignment: align_of::<PangoAttrClass>(),
+        },
+    ),
+    (
+        "PangoAttrColor",
+        Layout {
+            size: size_of::<PangoAttrColor>(),
+            alignment: align_of::<PangoAttrColor>(),
+        },
+    ),
+    (
+        "PangoAttrFloat",
+        Layout {
+            size: size_of::<PangoAttrFloat>(),
+            alignment: align_of::<PangoAttrFloat>(),
+        },
+    ),
+    (
+        "PangoAttrFontDesc",
+        Layout {
+            size: size_of::<PangoAttrFontDesc>(),
+            alignment: align_of::<PangoAttrFontDesc>(),
+        },
+    ),
+    (
+        "PangoAttrFontFeatures",
+        Layout {
+            size: size_of::<PangoAttrFontFeatures>(),
+            alignment: align_of::<PangoAttrFontFeatures>(),
+        },
+    ),
+    (
+        "PangoAttrInt",
+        Layout {
+            size: size_of::<PangoAttrInt>(),
+            alignment: align_of::<PangoAttrInt>(),
+        },
+    ),
+    (
+        "PangoAttrLanguage",
+        Layout {
+            size: size_of::<PangoAttrLanguage>(),
+            alignment: align_of::<PangoAttrLanguage>(),
+        },
+    ),
+    (
+        "PangoAttrShape",
+        Layout {
+            size: size_of::<PangoAttrShape>(),
+            alignment: align_of::<PangoAttrShape>(),
+        },
+    ),
+    (
+        "PangoAttrSize",
+        Layout {
+            size: size_of::<PangoAttrSize>(),
+            alignment: align_of::<PangoAttrSize>(),
+        },
+    ),
+    (
+        "PangoAttrString",
+        Layout {
+            size: size_of::<PangoAttrString>(),
+            alignment: align_of::<PangoAttrString>(),
+        },
+    ),
+    (
+        "PangoAttrType",
+        Layout {
+            size: size_of::<PangoAttrType>(),
+            alignment: align_of::<PangoAttrType>(),
+        },
+    ),
+    (
+        "PangoAttribute",
+        Layout {
+            size: size_of::<PangoAttribute>(),
+            alignment: align_of::<PangoAttribute>(),
+        },
+    ),
+    (
+        "PangoBidiType",
+        Layout {
+            size: size_of::<PangoBidiType>(),
+            alignment: align_of::<PangoBidiType>(),
+        },
+    ),
+    (
+        "PangoColor",
+        Layout {
+            size: size_of::<PangoColor>(),
+            alignment: align_of::<PangoColor>(),
+        },
+    ),
+    (
+        "PangoCoverageLevel",
+        Layout {
+            size: size_of::<PangoCoverageLevel>(),
+            alignment: align_of::<PangoCoverageLevel>(),
+        },
+    ),
+    (
+        "PangoDirection",
+        Layout {
+            size: size_of::<PangoDirection>(),
+            alignment: align_of::<PangoDirection>(),
+        },
+    ),
+    (
+        "PangoEllipsizeMode",
+        Layout {
+            size: size_of::<PangoEllipsizeMode>(),
+            alignment: align_of::<PangoEllipsizeMode>(),
+        },
+    ),
+    (
+        "PangoEngine",
+        Layout {
+            size: size_of::<PangoEngine>(),
+            alignment: align_of::<PangoEngine>(),
+        },
+    ),
+    (
+        "PangoEngineClass",
+        Layout {
+            size: size_of::<PangoEngineClass>(),
+            alignment: align_of::<PangoEngineClass>(),
+        },
+    ),
+    (
+        "PangoEngineInfo",
+        Layout {
+            size: size_of::<PangoEngineInfo>(),
+            alignment: align_of::<PangoEngineInfo>(),
+        },
+    ),
+    (
+        "PangoEngineLang",
+        Layout {
+            size: size_of::<PangoEngineLang>(),
+            alignment: align_of::<PangoEngineLang>(),
+        },
+    ),
+    (
+        "PangoEngineLangClass",
+        Layout {
+            size: size_of::<PangoEngineLangClass>(),
+            alignment: align_of::<PangoEngineLangClass>(),
+        },
+    ),
+    (
+        "PangoEngineScriptInfo",
+        Layout {
+            size: size_of::<PangoEngineScriptInfo>(),
+            alignment: align_of::<PangoEngineScriptInfo>(),
+        },
+    ),
+    (
+        "PangoEngineShape",
+        Layout {
+            size: size_of::<PangoEngineShape>(),
+            alignment: align_of::<PangoEngineShape>(),
+        },
+    ),
+    (
+        "PangoEngineShapeClass",
+        Layout {
+            size: size_of::<PangoEngineShapeClass>(),
+            alignment: align_of::<PangoEngineShapeClass>(),
+        },
+    ),
+    (
+        "PangoFont",
+        Layout {
+            size: size_of::<PangoFont>(),
+            alignment: align_of::<PangoFont>(),
+        },
+    ),
+    (
+        "PangoFontClass",
+        Layout {
+            size: size_of::<PangoFontClass>(),
+            alignment: align_of::<PangoFontClass>(),
+        },
+    ),
+    (
+        "PangoFontFace",
+        Layout {
+            size: size_of::<PangoFontFace>(),
+            alignment: align_of::<PangoFontFace>(),
+        },
+    ),
+    (
+        "PangoFontFaceClass",
+        Layout {
+            size: size_of::<PangoFontFaceClass>(),
+            alignment: align_of::<PangoFontFaceClass>(),
+        },
+    ),
+    (
+        "PangoFontFamily",
+        Layout {
+            size: size_of::<PangoFontFamily>(),
+            alignment: align_of::<PangoFontFamily>(),
+        },
+    ),
+    (
+        "PangoFontFamilyClass",
+        Layout {
+            size: size_of::<PangoFontFamilyClass>(),
+            alignment: align_of::<PangoFontFamilyClass>(),
+        },
+    ),
+    (
+        "PangoFontMap",
+        Layout {
+            size: size_of::<PangoFontMap>(),
+            alignment: align_of::<PangoFontMap>(),
+        },
+    ),
+    (
+        "PangoFontMapClass",
+        Layout {
+            size: size_of::<PangoFontMapClass>(),
+            alignment: align_of::<PangoFontMapClass>(),
+        },
+    ),
+    (
+        "PangoFontMask",
+        Layout {
+            size: size_of::<PangoFontMask>(),
+            alignment: align_of::<PangoFontMask>(),
+        },
+    ),
+    (
+        "PangoFontMetrics",
+        Layout {
+            size: size_of::<PangoFontMetrics>(),
+            alignment: align_of::<PangoFontMetrics>(),
+        },
+    ),
+    (
+        "PangoFontset",
+        Layout {
+            size: size_of::<PangoFontset>(),
+            alignment: align_of::<PangoFontset>(),
+        },
+    ),
+    (
+        "PangoFontsetClass",
+        Layout {
+            size: size_of::<PangoFontsetClass>(),
+            alignment: align_of::<PangoFontsetClass>(),
+        },
+    ),
+    (
+        "PangoGlyph",
+        Layout {
+            size: size_of::<PangoGlyph>(),
+            alignment: align_of::<PangoGlyph>(),
+        },
+    ),
+    (
+        "PangoGlyphGeometry",
+        Layout {
+            size: size_of::<PangoGlyphGeometry>(),
+            alignment: align_of::<PangoGlyphGeometry>(),
+        },
+    ),
+    (
+        "PangoGlyphInfo",
+        Layout {
+            size: size_of::<PangoGlyphInfo>(),
+            alignment: align_of::<PangoGlyphInfo>(),
+        },
+    ),
+    (
+        "PangoGlyphItem",
+        Layout {
+            size: size_of::<PangoGlyphItem>(),
+            alignment: align_of::<PangoGlyphItem>(),
+        },
+    ),
+    (
+        "PangoGlyphItemIter",
+        Layout {
+            size: size_of::<PangoGlyphItemIter>(),
+            alignment: align_of::<PangoGlyphItemIter>(),
+        },
+    ),
+    (
+        "PangoGlyphString",
+        Layout {
+            size: size_of::<PangoGlyphString>(),
+            alignment: align_of::<PangoGlyphString>(),
+        },
+    ),
+    (
+        "PangoGlyphUnit",
+        Layout {
+            size: size_of::<PangoGlyphUnit>(),
+            alignment: align_of::<PangoGlyphUnit>(),
+        },
+    ),
+    (
+        "PangoGlyphVisAttr",
+        Layout {
+            size: size_of::<PangoGlyphVisAttr>(),
+            alignment: align_of::<PangoGlyphVisAttr>(),
+        },
+    ),
+    (
+        "PangoGravity",
+        Layout {
+            size: size_of::<PangoGravity>(),
+            alignment: align_of::<PangoGravity>(),
+        },
+    ),
+    (
+        "PangoGravityHint",
+        Layout {
+            size: size_of::<PangoGravityHint>(),
+            alignment: align_of::<PangoGravityHint>(),
+        },
+    ),
+    (
+        "PangoIncludedModule",
+        Layout {
+            size: size_of::<PangoIncludedModule>(),
+            alignment: align_of::<PangoIncludedModule>(),
+        },
+    ),
+    (
+        "PangoItem",
+        Layout {
+            size: size_of::<PangoItem>(),
+            alignment: align_of::<PangoItem>(),
+        },
+    ),
+    (
+        "PangoLayoutRun",
+        Layout {
+            size: size_of::<PangoLayoutRun>(),
+            alignment: align_of::<PangoLayoutRun>(),
+        },
+    ),
+    (
+        "PangoMatrix",
+        Layout {
+            size: size_of::<PangoMatrix>(),
+            alignment: align_of::<PangoMatrix>(),
+        },
+    ),
+    (
+        "PangoRectangle",
+        Layout {
+            size: size_of::<PangoRectangle>(),
+            alignment: align_of::<PangoRectangle>(),
+        },
+    ),
+    (
+        "PangoRenderPart",
+        Layout {
+            size: size_of::<PangoRenderPart>(),
+            alignment: align_of::<PangoRenderPart>(),
+        },
+    ),
+    (
+        "PangoRenderer",
+        Layout {
+            size: size_of::<PangoRenderer>(),
+            alignment: align_of::<PangoRenderer>(),
+        },
+    ),
+    (
+        "PangoRendererClass",
+        Layout {
+            size: size_of::<PangoRendererClass>(),
+            alignment: align_of::<PangoRendererClass>(),
+        },
+    ),
+    (
+        "PangoScript",
+        Layout {
+            size: size_of::<PangoScript>(),
+            alignment: align_of::<PangoScript>(),
+        },
+    ),
+    (
+        "PangoStretch",
+        Layout {
+            size: size_of::<PangoStretch>(),
+            alignment: align_of::<PangoStretch>(),
+        },
+    ),
+    (
+        "PangoStyle",
+        Layout {
+            size: size_of::<PangoStyle>(),
+            alignment: align_of::<PangoStyle>(),
+        },
+    ),
+    (
+        "PangoTabAlign",
+        Layout {
+            size: size_of::<PangoTabAlign>(),
+            alignment: align_of::<PangoTabAlign>(),
+        },
+    ),
+    (
+        "PangoUnderline",
+        Layout {
+            size: size_of::<PangoUnderline>(),
+            alignment: align_of::<PangoUnderline>(),
+        },
+    ),
+    (
+        "PangoVariant",
+        Layout {
+            size: size_of::<PangoVariant>(),
+            alignment: align_of::<PangoVariant>(),
+        },
+    ),
+    (
+        "PangoWeight",
+        Layout {
+            size: size_of::<PangoWeight>(),
+            alignment: align_of::<PangoWeight>(),
+        },
+    ),
+    (
+        "PangoWrapMode",
+        Layout {
+            size: size_of::<PangoWrapMode>(),
+            alignment: align_of::<PangoWrapMode>(),
+        },
+    ),
 ];
 
 const RUST_CONSTANTS: &[(&str, &str)] = &[
@@ -556,5 +953,3 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) PANGO_WRAP_WORD", "0"),
     ("(gint) PANGO_WRAP_WORD_CHAR", "2"),
 ];
-
-
