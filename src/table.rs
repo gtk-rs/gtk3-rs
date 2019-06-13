@@ -16,7 +16,10 @@ impl<O: IsA<Table>> TableExtManual for O {
     fn get_selected_columns(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
-            let nb = atk_sys::atk_table_get_selected_columns(self.as_ref().to_glib_none().0, &mut selected);
+            let nb = atk_sys::atk_table_get_selected_columns(
+                self.as_ref().to_glib_none().0,
+                &mut selected,
+            );
             if nb <= 0 {
                 Vec::new()
             } else {
@@ -28,7 +31,8 @@ impl<O: IsA<Table>> TableExtManual for O {
     fn get_selected_rows(&self) -> Vec<i32> {
         unsafe {
             let mut selected = ::std::ptr::null_mut();
-            let nb = atk_sys::atk_table_get_selected_rows(self.as_ref().to_glib_none().0, &mut selected);
+            let nb =
+                atk_sys::atk_table_get_selected_rows(self.as_ref().to_glib_none().0, &mut selected);
             if nb <= 0 {
                 Vec::new()
             } else {

@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Object;
-use Relation;
-use RelationType;
 use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Object;
+use Relation;
+use RelationType;
 
 glib_wrapper! {
     pub struct RelationSet(Object<atk_sys::AtkRelationSet, atk_sys::AtkRelationSetClass, RelationSetClass>);
@@ -21,9 +21,7 @@ glib_wrapper! {
 impl RelationSet {
     pub fn new() -> RelationSet {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(atk_sys::atk_relation_set_new())
-        }
+        unsafe { from_glib_full(atk_sys::atk_relation_set_new()) }
     }
 }
 
@@ -56,49 +54,70 @@ pub trait RelationSetExt: 'static {
 impl<O: IsA<RelationSet>> RelationSetExt for O {
     fn add<P: IsA<Relation>>(&self, relation: &P) {
         unsafe {
-            atk_sys::atk_relation_set_add(self.as_ref().to_glib_none().0, relation.as_ref().to_glib_none().0);
+            atk_sys::atk_relation_set_add(
+                self.as_ref().to_glib_none().0,
+                relation.as_ref().to_glib_none().0,
+            );
         }
     }
 
     fn add_relation_by_type<P: IsA<Object>>(&self, relationship: RelationType, target: &P) {
         unsafe {
-            atk_sys::atk_relation_set_add_relation_by_type(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0);
+            atk_sys::atk_relation_set_add_relation_by_type(
+                self.as_ref().to_glib_none().0,
+                relationship.to_glib(),
+                target.as_ref().to_glib_none().0,
+            );
         }
     }
 
     fn contains(&self, relationship: RelationType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_relation_set_contains(self.as_ref().to_glib_none().0, relationship.to_glib()))
+            from_glib(atk_sys::atk_relation_set_contains(
+                self.as_ref().to_glib_none().0,
+                relationship.to_glib(),
+            ))
         }
     }
 
     fn contains_target<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_relation_set_contains_target(self.as_ref().to_glib_none().0, relationship.to_glib(), target.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_relation_set_contains_target(
+                self.as_ref().to_glib_none().0,
+                relationship.to_glib(),
+                target.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_n_relations(&self) -> i32 {
-        unsafe {
-            atk_sys::atk_relation_set_get_n_relations(self.as_ref().to_glib_none().0)
-        }
+        unsafe { atk_sys::atk_relation_set_get_n_relations(self.as_ref().to_glib_none().0) }
     }
 
     fn get_relation(&self, i: i32) -> Option<Relation> {
         unsafe {
-            from_glib_none(atk_sys::atk_relation_set_get_relation(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_relation_set_get_relation(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_relation_by_type(&self, relationship: RelationType) -> Option<Relation> {
         unsafe {
-            from_glib_none(atk_sys::atk_relation_set_get_relation_by_type(self.as_ref().to_glib_none().0, relationship.to_glib()))
+            from_glib_none(atk_sys::atk_relation_set_get_relation_by_type(
+                self.as_ref().to_glib_none().0,
+                relationship.to_glib(),
+            ))
         }
     }
 
     fn remove<P: IsA<Relation>>(&self, relation: &P) {
         unsafe {
-            atk_sys::atk_relation_set_remove(self.as_ref().to_glib_none().0, relation.as_ref().to_glib_none().0);
+            atk_sys::atk_relation_set_remove(
+                self.as_ref().to_glib_none().0,
+                relation.as_ref().to_glib_none().0,
+            );
         }
     }
 }

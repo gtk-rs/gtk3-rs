@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ObjectFactory;
 use atk_sys;
 use glib::object::Cast;
 use glib::translate::*;
 use std::fmt;
+use ObjectFactory;
 
 glib_wrapper! {
     pub struct NoOpObjectFactory(Object<atk_sys::AtkNoOpObjectFactory, atk_sys::AtkNoOpObjectFactoryClass, NoOpObjectFactoryClass>) @extends ObjectFactory;

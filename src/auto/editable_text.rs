@@ -34,7 +34,11 @@ pub trait EditableTextExt: 'static {
 impl<O: IsA<EditableText>> EditableTextExt for O {
     fn copy_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {
-            atk_sys::atk_editable_text_copy_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
+            atk_sys::atk_editable_text_copy_text(
+                self.as_ref().to_glib_none().0,
+                start_pos,
+                end_pos,
+            );
         }
     }
 
@@ -46,7 +50,11 @@ impl<O: IsA<EditableText>> EditableTextExt for O {
 
     fn delete_text(&self, start_pos: i32, end_pos: i32) {
         unsafe {
-            atk_sys::atk_editable_text_delete_text(self.as_ref().to_glib_none().0, start_pos, end_pos);
+            atk_sys::atk_editable_text_delete_text(
+                self.as_ref().to_glib_none().0,
+                start_pos,
+                end_pos,
+            );
         }
     }
 
@@ -62,7 +70,10 @@ impl<O: IsA<EditableText>> EditableTextExt for O {
 
     fn set_text_contents(&self, string: &str) {
         unsafe {
-            atk_sys::atk_editable_text_set_text_contents(self.as_ref().to_glib_none().0, string.to_glib_none().0);
+            atk_sys::atk_editable_text_set_text_contents(
+                self.as_ref().to_glib_none().0,
+                string.to_glib_none().0,
+            );
         }
     }
 }

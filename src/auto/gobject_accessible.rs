@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Object;
 use atk_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Object;
 
 glib_wrapper! {
     pub struct GObjectAccessible(Object<atk_sys::AtkGObjectAccessible, atk_sys::AtkGObjectAccessibleClass, GObjectAccessibleClass>) @extends Object;
@@ -21,7 +21,9 @@ impl GObjectAccessible {
     pub fn for_object<P: IsA<glib::Object>>(obj: &P) -> Option<Object> {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_none(atk_sys::atk_gobject_accessible_for_object(obj.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_gobject_accessible_for_object(
+                obj.as_ref().to_glib_none().0,
+            ))
         }
     }
 }
@@ -35,7 +37,9 @@ pub trait GObjectAccessibleExt: 'static {
 impl<O: IsA<GObjectAccessible>> GObjectAccessibleExt for O {
     fn get_object(&self) -> Option<glib::Object> {
         unsafe {
-            from_glib_none(atk_sys::atk_gobject_accessible_get_object(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_gobject_accessible_get_object(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

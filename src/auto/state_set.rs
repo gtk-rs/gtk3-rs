@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use StateType;
 use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use StateType;
 
 glib_wrapper! {
     pub struct StateSet(Object<atk_sys::AtkStateSet, atk_sys::AtkStateSetClass, StateSetClass>);
@@ -19,9 +19,7 @@ glib_wrapper! {
 impl StateSet {
     pub fn new() -> StateSet {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_full(atk_sys::atk_state_set_new())
-        }
+        unsafe { from_glib_full(atk_sys::atk_state_set_new()) }
     }
 }
 
@@ -58,7 +56,10 @@ pub trait StateSetExt: 'static {
 impl<O: IsA<StateSet>> StateSetExt for O {
     fn add_state(&self, type_: StateType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_state_set_add_state(self.as_ref().to_glib_none().0, type_.to_glib()))
+            from_glib(atk_sys::atk_state_set_add_state(
+                self.as_ref().to_glib_none().0,
+                type_.to_glib(),
+            ))
         }
     }
 
@@ -68,7 +69,10 @@ impl<O: IsA<StateSet>> StateSetExt for O {
 
     fn and_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
         unsafe {
-            from_glib_full(atk_sys::atk_state_set_and_sets(self.as_ref().to_glib_none().0, compare_set.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_state_set_and_sets(
+                self.as_ref().to_glib_none().0,
+                compare_set.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -80,7 +84,10 @@ impl<O: IsA<StateSet>> StateSetExt for O {
 
     fn contains_state(&self, type_: StateType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_state_set_contains_state(self.as_ref().to_glib_none().0, type_.to_glib()))
+            from_glib(atk_sys::atk_state_set_contains_state(
+                self.as_ref().to_glib_none().0,
+                type_.to_glib(),
+            ))
         }
     }
 
@@ -90,25 +97,36 @@ impl<O: IsA<StateSet>> StateSetExt for O {
 
     fn is_empty(&self) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_state_set_is_empty(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_state_set_is_empty(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn or_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
         unsafe {
-            from_glib_full(atk_sys::atk_state_set_or_sets(self.as_ref().to_glib_none().0, compare_set.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_state_set_or_sets(
+                self.as_ref().to_glib_none().0,
+                compare_set.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn remove_state(&self, type_: StateType) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_state_set_remove_state(self.as_ref().to_glib_none().0, type_.to_glib()))
+            from_glib(atk_sys::atk_state_set_remove_state(
+                self.as_ref().to_glib_none().0,
+                type_.to_glib(),
+            ))
         }
     }
 
     fn xor_sets<P: IsA<StateSet>>(&self, compare_set: &P) -> Option<StateSet> {
         unsafe {
-            from_glib_full(atk_sys::atk_state_set_xor_sets(self.as_ref().to_glib_none().0, compare_set.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_state_set_xor_sets(
+                self.as_ref().to_glib_none().0,
+                compare_set.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

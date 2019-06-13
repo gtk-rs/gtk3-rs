@@ -3,9 +3,9 @@
 // DO NOT EDIT
 
 use atk_sys;
-use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::GString;
 use std::fmt;
 
 glib_wrapper! {
@@ -31,14 +31,15 @@ pub trait StreamableContentExt: 'static {
 impl<O: IsA<StreamableContent>> StreamableContentExt for O {
     fn get_mime_type(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_streamable_content_get_mime_type(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_streamable_content_get_mime_type(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_n_mime_types(&self) -> i32 {
-        unsafe {
-            atk_sys::atk_streamable_content_get_n_mime_types(self.as_ref().to_glib_none().0)
-        }
+        unsafe { atk_sys::atk_streamable_content_get_n_mime_types(self.as_ref().to_glib_none().0) }
     }
 
     //fn get_stream(&self, mime_type: &str) -> /*Ignored*/Option<glib::IOChannel> {
@@ -47,7 +48,10 @@ impl<O: IsA<StreamableContent>> StreamableContentExt for O {
 
     fn get_uri(&self, mime_type: &str) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_streamable_content_get_uri(self.as_ref().to_glib_none().0, mime_type.to_glib_none().0))
+            from_glib_none(atk_sys::atk_streamable_content_get_uri(
+                self.as_ref().to_glib_none().0,
+                mime_type.to_glib_none().0,
+            ))
         }
     }
 }
