@@ -10,9 +10,7 @@ use std::mem::transmute;
 
 pub fn keyval_name(keyval: u32) -> Option<GString> {
     skip_assert_initialized!();
-    unsafe {
-        from_glib_none(gdk_sys::gdk_keyval_name(keyval as c_uint))
-    }
+    unsafe { from_glib_none(gdk_sys::gdk_keyval_name(keyval as c_uint)) }
 }
 
 pub fn keyval_to_unicode(keyval: u32) -> Option<char> {

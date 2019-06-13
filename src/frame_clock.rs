@@ -11,8 +11,12 @@ impl FrameClock {
         unsafe {
             let mut refresh_interval = 0;
             let mut presentation_time = 0;
-            gdk_sys::gdk_frame_clock_get_refresh_info(self.to_glib_none().0, base_time,
-                                                  &mut refresh_interval, &mut presentation_time);
+            gdk_sys::gdk_frame_clock_get_refresh_info(
+                self.to_glib_none().0,
+                base_time,
+                &mut refresh_interval,
+                &mut presentation_time,
+            );
             (refresh_interval, presentation_time)
         }
     }

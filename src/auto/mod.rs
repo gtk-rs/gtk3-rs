@@ -17,9 +17,9 @@ pub use self::device_manager::{DeviceManager, DeviceManagerClass};
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod device_pad;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
-pub use self::device_pad::{DevicePad, NONE_DEVICE_PAD};
-#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::device_pad::DevicePadExt;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+pub use self::device_pad::{DevicePad, NONE_DEVICE_PAD};
 
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod device_tool;
@@ -65,8 +65,8 @@ mod visual;
 pub use self::visual::{Visual, VisualClass};
 
 mod window;
-pub use self::window::{Window, WindowClass, NONE_WINDOW};
 pub use self::window::WindowExt;
+pub use self::window::{Window, WindowClass, NONE_WINDOW};
 
 mod event_sequence;
 pub use self::event_sequence::EventSequence;

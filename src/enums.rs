@@ -216,7 +216,8 @@ pub mod key {
     pub const ISO_Fast_Cursor_Up: Key = gdk_sys::GDK_KEY_ISO_Fast_Cursor_Up as u32;
     pub const ISO_Fast_Cursor_Down: Key = gdk_sys::GDK_KEY_ISO_Fast_Cursor_Down as u32;
     pub const ISO_Continuous_Underline: Key = gdk_sys::GDK_KEY_ISO_Continuous_Underline as u32;
-    pub const ISO_Discontinuous_Underline: Key = gdk_sys::GDK_KEY_ISO_Discontinuous_Underline as u32;
+    pub const ISO_Discontinuous_Underline: Key =
+        gdk_sys::GDK_KEY_ISO_Discontinuous_Underline as u32;
     pub const ISO_Emphasize: Key = gdk_sys::GDK_KEY_ISO_Emphasize as u32;
     pub const ISO_Center_Object: Key = gdk_sys::GDK_KEY_ISO_Center_Object as u32;
     pub const ISO_Enter: Key = gdk_sys::GDK_KEY_ISO_Enter as u32;
@@ -1012,7 +1013,8 @@ pub mod key {
     pub const Greek_omicronaccent: Key = gdk_sys::GDK_KEY_Greek_omicronaccent as u32;
     pub const Greek_upsilonaccent: Key = gdk_sys::GDK_KEY_Greek_upsilonaccent as u32;
     pub const Greek_upsilondieresis: Key = gdk_sys::GDK_KEY_Greek_upsilondieresis as u32;
-    pub const Greek_upsilonaccentdieresis: Key = gdk_sys::GDK_KEY_Greek_upsilonaccentdieresis as u32;
+    pub const Greek_upsilonaccentdieresis: Key =
+        gdk_sys::GDK_KEY_Greek_upsilonaccentdieresis as u32;
     pub const Greek_omegaaccent: Key = gdk_sys::GDK_KEY_Greek_omegaaccent as u32;
     pub const Greek_ALPHA: Key = gdk_sys::GDK_KEY_Greek_ALPHA as u32;
     pub const Greek_BETA: Key = gdk_sys::GDK_KEY_Greek_BETA as u32;

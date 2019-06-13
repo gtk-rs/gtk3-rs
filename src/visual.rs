@@ -15,8 +15,7 @@ impl Visual {
 
         unsafe {
             gdk_sys::gdk_query_depths(&mut ptr, &mut count);
-            Vec::from(
-                slice::from_raw_parts(ptr as *const i32, count as usize))
+            Vec::from(slice::from_raw_parts(ptr as *const i32, count as usize))
         }
     }
 }

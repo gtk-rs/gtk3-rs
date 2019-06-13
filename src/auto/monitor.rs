@@ -2,24 +2,24 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Display;
-use Rectangle;
-#[cfg(any(feature = "v3_22", feature = "dox"))]
-use SubpixelLayout;
 use gdk_sys;
+use glib::object::ObjectType as ObjectType_;
+use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
+use glib::translate::*;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
-use glib::object::ObjectType as ObjectType_;
-use glib::signal::SignalHandlerId;
-use glib::signal::connect_raw;
-use glib::translate::*;
 use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use Display;
+use Rectangle;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
+use SubpixelLayout;
 
 glib_wrapper! {
     pub struct Monitor(Object<gdk_sys::GdkMonitor, gdk_sys::GdkMonitorClass, MonitorClass>);
@@ -32,9 +32,7 @@ glib_wrapper! {
 impl Monitor {
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_display(&self) -> Option<Display> {
-        unsafe {
-            from_glib_none(gdk_sys::gdk_monitor_get_display(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gdk_sys::gdk_monitor_get_display(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -48,51 +46,41 @@ impl Monitor {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_height_mm(&self) -> i32 {
-        unsafe {
-            gdk_sys::gdk_monitor_get_height_mm(self.to_glib_none().0)
-        }
+        unsafe { gdk_sys::gdk_monitor_get_height_mm(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_manufacturer(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gdk_sys::gdk_monitor_get_manufacturer(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gdk_sys::gdk_monitor_get_manufacturer(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_model(&self) -> Option<GString> {
-        unsafe {
-            from_glib_none(gdk_sys::gdk_monitor_get_model(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(gdk_sys::gdk_monitor_get_model(self.to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_refresh_rate(&self) -> i32 {
-        unsafe {
-            gdk_sys::gdk_monitor_get_refresh_rate(self.to_glib_none().0)
-        }
+        unsafe { gdk_sys::gdk_monitor_get_refresh_rate(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_scale_factor(&self) -> i32 {
-        unsafe {
-            gdk_sys::gdk_monitor_get_scale_factor(self.to_glib_none().0)
-        }
+        unsafe { gdk_sys::gdk_monitor_get_scale_factor(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_subpixel_layout(&self) -> SubpixelLayout {
         unsafe {
-            from_glib(gdk_sys::gdk_monitor_get_subpixel_layout(self.to_glib_none().0))
+            from_glib(gdk_sys::gdk_monitor_get_subpixel_layout(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn get_width_mm(&self) -> i32 {
-        unsafe {
-            gdk_sys::gdk_monitor_get_width_mm(self.to_glib_none().0)
-        }
+        unsafe { gdk_sys::gdk_monitor_get_width_mm(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
@@ -106,15 +94,17 @@ impl Monitor {
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
     pub fn is_primary(&self) -> bool {
-        unsafe {
-            from_glib(gdk_sys::gdk_monitor_is_primary(self.to_glib_none().0))
-        }
+        unsafe { from_glib(gdk_sys::gdk_monitor_is_primary(self.to_glib_none().0)) }
     }
 
     pub fn get_property_display(&self) -> Option<Display> {
         unsafe {
             let mut value = Value::from_type(<Display as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"display\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"display\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get()
         }
     }
@@ -122,7 +112,11 @@ impl Monitor {
     pub fn get_property_geometry(&self) -> Option<Rectangle> {
         unsafe {
             let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"geometry\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"geometry\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get()
         }
     }
@@ -130,7 +124,11 @@ impl Monitor {
     pub fn get_property_height_mm(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"height-mm\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"height-mm\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get().unwrap()
         }
     }
@@ -138,7 +136,11 @@ impl Monitor {
     pub fn get_property_refresh_rate(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"refresh-rate\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"refresh-rate\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get().unwrap()
         }
     }
@@ -146,7 +148,11 @@ impl Monitor {
     pub fn get_property_scale_factor(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"scale-factor\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"scale-factor\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get().unwrap()
         }
     }
@@ -154,7 +160,11 @@ impl Monitor {
     pub fn get_property_width_mm(&self) -> i32 {
         unsafe {
             let mut value = Value::from_type(<i32 as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"width-mm\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"width-mm\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get().unwrap()
         }
     }
@@ -162,131 +172,241 @@ impl Monitor {
     pub fn get_property_workarea(&self) -> Option<Rectangle> {
         unsafe {
             let mut value = Value::from_type(<Rectangle as StaticType>::static_type());
-            gobject_sys::g_object_get_property(self.as_ptr() as *mut gobject_sys::GObject, b"workarea\0".as_ptr() as *const _, value.to_glib_none_mut().0);
+            gobject_sys::g_object_get_property(
+                self.as_ptr() as *mut gobject_sys::GObject,
+                b"workarea\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
             value.get()
         }
     }
 
     pub fn connect_invalidate<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn invalidate_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, f: glib_sys::gpointer) {
+        unsafe extern "C" fn invalidate_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"invalidate\0".as_ptr() as *const _,
-                Some(transmute(invalidate_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"invalidate\0".as_ptr() as *const _,
+                Some(transmute(invalidate_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_geometry_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_geometry_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_geometry_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_geometry_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::geometry\0".as_ptr() as *const _,
-                Some(transmute(notify_geometry_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::geometry\0".as_ptr() as *const _,
+                Some(transmute(notify_geometry_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_height_mm_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_height_mm_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_height_mm_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_height_mm_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::height-mm\0".as_ptr() as *const _,
-                Some(transmute(notify_height_mm_trampoline::<F> as usize)), Box_::into_raw(f))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn connect_property_manufacturer_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_manufacturer_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::manufacturer\0".as_ptr() as *const _,
-                Some(transmute(notify_manufacturer_trampoline::<F> as usize)), Box_::into_raw(f))
-        }
-    }
-
-    #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn connect_property_model_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_model_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::model\0".as_ptr() as *const _,
-                Some(transmute(notify_model_trampoline::<F> as usize)), Box_::into_raw(f))
-        }
-    }
-
-    pub fn connect_property_refresh_rate_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_refresh_rate_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::refresh-rate\0".as_ptr() as *const _,
-                Some(transmute(notify_refresh_rate_trampoline::<F> as usize)), Box_::into_raw(f))
-        }
-    }
-
-    pub fn connect_property_scale_factor_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_scale_factor_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
-            let f: &F = &*(f as *const F);
-            f(&from_glib_borrow(this))
-        }
-        unsafe {
-            let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::scale-factor\0".as_ptr() as *const _,
-                Some(transmute(notify_scale_factor_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::height-mm\0".as_ptr() as *const _,
+                Some(transmute(notify_height_mm_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
     #[cfg(any(feature = "v3_22", feature = "dox"))]
-    pub fn connect_property_subpixel_layout_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_subpixel_layout_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_manufacturer_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_manufacturer_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::subpixel-layout\0".as_ptr() as *const _,
-                Some(transmute(notify_subpixel_layout_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::manufacturer\0".as_ptr() as *const _,
+                Some(transmute(notify_manufacturer_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_width_mm_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_width_mm_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn connect_property_model_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_model_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::width-mm\0".as_ptr() as *const _,
-                Some(transmute(notify_width_mm_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::model\0".as_ptr() as *const _,
+                Some(transmute(notify_model_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 
-    pub fn connect_property_workarea_notify<F: Fn(&Monitor) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_workarea_trampoline<F: Fn(&Monitor) + 'static>(this: *mut gdk_sys::GdkMonitor, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer) {
+    pub fn connect_property_refresh_rate_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_refresh_rate_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
             let f: &F = &*(f as *const F);
             f(&from_glib_borrow(this))
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::workarea\0".as_ptr() as *const _,
-                Some(transmute(notify_workarea_trampoline::<F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::refresh-rate\0".as_ptr() as *const _,
+                Some(transmute(notify_refresh_rate_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    pub fn connect_property_scale_factor_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_scale_factor_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::scale-factor\0".as_ptr() as *const _,
+                Some(transmute(notify_scale_factor_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(any(feature = "v3_22", feature = "dox"))]
+    pub fn connect_property_subpixel_layout_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_subpixel_layout_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::subpixel-layout\0".as_ptr() as *const _,
+                Some(transmute(notify_subpixel_layout_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    pub fn connect_property_width_mm_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_width_mm_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::width-mm\0".as_ptr() as *const _,
+                Some(transmute(notify_width_mm_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    pub fn connect_property_workarea_notify<F: Fn(&Monitor) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_workarea_trampoline<F: Fn(&Monitor) + 'static>(
+            this: *mut gdk_sys::GdkMonitor,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) {
+            let f: &F = &*(f as *const F);
+            f(&from_glib_borrow(this))
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::workarea\0".as_ptr() as *const _,
+                Some(transmute(notify_workarea_trampoline::<F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

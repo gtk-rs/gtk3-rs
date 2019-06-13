@@ -25,11 +25,13 @@ impl Rectangle {
     pub fn intersect(&self, other: &Rectangle) -> Option<Rectangle> {
         unsafe {
             let mut ret = Rectangle::uninitialized();
-            if from_glib(gdk_sys::gdk_rectangle_intersect(self.to_glib_none().0, other.to_glib_none().0,
-                    ret.to_glib_none_mut().0)) {
+            if from_glib(gdk_sys::gdk_rectangle_intersect(
+                self.to_glib_none().0,
+                other.to_glib_none().0,
+                ret.to_glib_none_mut().0,
+            )) {
                 Some(ret)
-            }
-            else {
+            } else {
                 None
             }
         }
@@ -38,8 +40,11 @@ impl Rectangle {
     pub fn union(&self, other: &Rectangle) -> Rectangle {
         unsafe {
             let mut ret = Rectangle::uninitialized();
-            gdk_sys::gdk_rectangle_union(self.to_glib_none().0, other.to_glib_none().0,
-                ret.to_glib_none_mut().0);
+            gdk_sys::gdk_rectangle_union(
+                self.to_glib_none().0,
+                other.to_glib_none().0,
+                ret.to_glib_none_mut().0,
+            );
             ret
         }
     }
@@ -143,20 +148,26 @@ impl glib::StaticType for Rectangle {
 
 impl<'a> glib::value::FromValueOptional<'a> for Rectangle {
     unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
-        from_glib_full(gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRectangle)
+        from_glib_full(
+            gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRectangle
+        )
     }
 }
 
 impl glib::value::SetValue for Rectangle {
-    unsafe fn set_value(value: &mut glib::Value, this: &Self)  {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0,
-                                       this.to_glib_none().0 as gconstpointer)
+    unsafe fn set_value(value: &mut glib::Value, this: &Self) {
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as gconstpointer,
+        )
     }
 }
 
 impl glib::value::SetValueOptional for Rectangle {
     unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0,
-                                       this.to_glib_none().0 as gconstpointer)
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as gconstpointer,
+        )
     }
 }

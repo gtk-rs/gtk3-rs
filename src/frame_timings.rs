@@ -19,9 +19,8 @@ impl FrameTimings {
     }
 
     pub fn get_presentation_time(&self) -> Option<NonZeroU64> {
-        let presentation_time = unsafe {
-            gdk_sys::gdk_frame_timings_get_presentation_time(self.to_glib_none().0)
-        };
+        let presentation_time =
+            unsafe { gdk_sys::gdk_frame_timings_get_presentation_time(self.to_glib_none().0) };
         // assuming presentation time is always positive
         assert!(presentation_time >= 0);
         // `0` means the value is not available
@@ -29,9 +28,8 @@ impl FrameTimings {
     }
 
     pub fn get_refresh_interval(&self) -> Option<NonZeroU64> {
-        let refresh_interval = unsafe {
-            gdk_sys::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0)
-        };
+        let refresh_interval =
+            unsafe { gdk_sys::gdk_frame_timings_get_refresh_interval(self.to_glib_none().0) };
         // assuming refresh interval is always positive
         assert!(refresh_interval >= 0);
         // `0` means the value is not available

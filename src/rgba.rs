@@ -31,7 +31,7 @@ impl RGBA {
             red: 0f64,
             green: 0f64,
             blue: 0f64,
-            alpha: 1f64
+            alpha: 1f64,
         }
     }
 
@@ -41,7 +41,7 @@ impl RGBA {
             red: 0f64,
             green: 0f64,
             blue: 1f64,
-            alpha: 1f64
+            alpha: 1f64,
         }
     }
 
@@ -51,7 +51,7 @@ impl RGBA {
             red: 0f64,
             green: 1f64,
             blue: 0f64,
-            alpha: 1f64
+            alpha: 1f64,
         }
     }
 
@@ -61,7 +61,7 @@ impl RGBA {
             red: 1f64,
             green: 0f64,
             blue: 0f64,
-            alpha: 1f64
+            alpha: 1f64,
         }
     }
 
@@ -71,16 +71,15 @@ impl RGBA {
             red: 1f64,
             green: 1f64,
             blue: 1f64,
-            alpha: 1f64
+            alpha: 1f64,
         }
     }
 }
 
 impl fmt::Display for RGBA {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let string: glib::GString = unsafe {
-            from_glib_full(gdk_sys::gdk_rgba_to_string(self.to_glib_none().0))
-        };
+        let string: glib::GString =
+            unsafe { from_glib_full(gdk_sys::gdk_rgba_to_string(self.to_glib_none().0)) };
         f.write_str(&string)
     }
 }
@@ -91,7 +90,10 @@ impl FromStr for RGBA {
         skip_assert_initialized!();
         unsafe {
             let mut rgba = RGBA::uninitialized();
-            if from_glib(gdk_sys::gdk_rgba_parse(rgba.to_glib_none_mut().0, s.to_glib_none().0)) {
+            if from_glib(gdk_sys::gdk_rgba_parse(
+                rgba.to_glib_none_mut().0,
+                s.to_glib_none().0,
+            )) {
                 Ok(rgba)
             } else {
                 Err(RgbaParseError)
@@ -110,8 +112,10 @@ impl Hash for RGBA {
 impl PartialEq for RGBA {
     fn eq(&self, other: &RGBA) -> bool {
         unsafe {
-            from_glib(gdk_sys::gdk_rgba_equal(self.to_glib_none().0 as gconstpointer,
-                                          other.to_glib_none().0 as gconstpointer))
+            from_glib(gdk_sys::gdk_rgba_equal(
+                self.to_glib_none().0 as gconstpointer,
+                other.to_glib_none().0 as gconstpointer,
+            ))
         }
     }
 }
@@ -195,20 +199,26 @@ impl glib::StaticType for RGBA {
 
 impl<'a> glib::value::FromValueOptional<'a> for RGBA {
     unsafe fn from_value_optional(value: &'a glib::Value) -> Option<Self> {
-        from_glib_full(gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRGBA)
+        from_glib_full(
+            gobject_sys::g_value_dup_boxed(value.to_glib_none().0) as *mut gdk_sys::GdkRGBA
+        )
     }
 }
 
 impl glib::value::SetValue for RGBA {
-    unsafe fn set_value(value: &mut glib::Value, this: &Self)  {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0,
-                                       this.to_glib_none().0 as gconstpointer)
+    unsafe fn set_value(value: &mut glib::Value, this: &Self) {
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as gconstpointer,
+        )
     }
 }
 
 impl glib::value::SetValueOptional for RGBA {
     unsafe fn set_value_optional(value: &mut glib::Value, this: Option<&Self>) {
-        gobject_sys::g_value_set_boxed(value.to_glib_none_mut().0,
-                                       this.to_glib_none().0 as gconstpointer)
+        gobject_sys::g_value_set_boxed(
+            value.to_glib_none_mut().0,
+            this.to_glib_none().0 as gconstpointer,
+        )
     }
 }

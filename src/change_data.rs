@@ -32,9 +32,7 @@ impl<'a> ChangeData<'a> {
             ChangeData::UChars(d) => d.len(),
             ChangeData::UShorts(d) => d.len(),
             ChangeData::ULongs(d) => d.len(),
-            ChangeData::UChar(_) |
-            ChangeData::UShort(_) |
-            ChangeData::ULong(_) => 1,
+            ChangeData::UChar(_) | ChangeData::UShort(_) | ChangeData::ULong(_) => 1,
         }
     }
 }
