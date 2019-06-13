@@ -2,10 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use TabAlign;
 use glib::translate::*;
 use pango_sys;
 use std::mem;
+use TabAlign;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -21,7 +21,10 @@ glib_wrapper! {
 impl TabArray {
     pub fn new(initial_size: i32, positions_in_pixels: bool) -> TabArray {
         unsafe {
-            from_glib_full(pango_sys::pango_tab_array_new(initial_size, positions_in_pixels.to_glib()))
+            from_glib_full(pango_sys::pango_tab_array_new(
+                initial_size,
+                positions_in_pixels.to_glib(),
+            ))
         }
     }
 
@@ -31,21 +34,26 @@ impl TabArray {
 
     pub fn get_positions_in_pixels(&mut self) -> bool {
         unsafe {
-            from_glib(pango_sys::pango_tab_array_get_positions_in_pixels(self.to_glib_none_mut().0))
+            from_glib(pango_sys::pango_tab_array_get_positions_in_pixels(
+                self.to_glib_none_mut().0,
+            ))
         }
     }
 
     pub fn get_size(&mut self) -> i32 {
-        unsafe {
-            pango_sys::pango_tab_array_get_size(self.to_glib_none_mut().0)
-        }
+        unsafe { pango_sys::pango_tab_array_get_size(self.to_glib_none_mut().0) }
     }
 
     pub fn get_tab(&mut self, tab_index: i32) -> (TabAlign, i32) {
         unsafe {
             let mut alignment = mem::uninitialized();
             let mut location = mem::uninitialized();
-            pango_sys::pango_tab_array_get_tab(self.to_glib_none_mut().0, tab_index, &mut alignment, &mut location);
+            pango_sys::pango_tab_array_get_tab(
+                self.to_glib_none_mut().0,
+                tab_index,
+                &mut alignment,
+                &mut location,
+            );
             (from_glib(alignment), location)
         }
     }
@@ -62,7 +70,12 @@ impl TabArray {
 
     pub fn set_tab(&mut self, tab_index: i32, alignment: TabAlign, location: i32) {
         unsafe {
-            pango_sys::pango_tab_array_set_tab(self.to_glib_none_mut().0, tab_index, alignment.to_glib(), location);
+            pango_sys::pango_tab_array_set_tab(
+                self.to_glib_none_mut().0,
+                tab_index,
+                alignment.to_glib(),
+                location,
+            );
         }
     }
 }

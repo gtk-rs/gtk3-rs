@@ -2,6 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use glib::object::IsA;
+use glib::translate::*;
+use pango_sys;
+use std::fmt;
+use std::mem;
+use std::ptr;
 use Direction;
 use Font;
 use FontDescription;
@@ -13,12 +19,6 @@ use Gravity;
 use GravityHint;
 use Language;
 use Matrix;
-use glib::object::IsA;
-use glib::translate::*;
-use pango_sys;
-use std::fmt;
-use std::mem;
-use std::ptr;
 
 glib_wrapper! {
     pub struct Context(Object<pango_sys::PangoContext, pango_sys::PangoContextClass, ContextClass>);
@@ -30,9 +30,7 @@ glib_wrapper! {
 
 impl Context {
     pub fn new() -> Context {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_new())
-        }
+        unsafe { from_glib_full(pango_sys::pango_context_new()) }
     }
 
     pub fn changed(&self) {
@@ -42,83 +40,96 @@ impl Context {
     }
 
     pub fn get_base_dir(&self) -> Direction {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_base_dir(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_context_get_base_dir(self.to_glib_none().0)) }
     }
 
     pub fn get_base_gravity(&self) -> Gravity {
         unsafe {
-            from_glib(pango_sys::pango_context_get_base_gravity(self.to_glib_none().0))
+            from_glib(pango_sys::pango_context_get_base_gravity(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_font_description(&self) -> Option<FontDescription> {
         unsafe {
-            from_glib_none(pango_sys::pango_context_get_font_description(self.to_glib_none().0))
+            from_glib_none(pango_sys::pango_context_get_font_description(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_font_map(&self) -> Option<FontMap> {
-        unsafe {
-            from_glib_none(pango_sys::pango_context_get_font_map(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(pango_sys::pango_context_get_font_map(self.to_glib_none().0)) }
     }
 
     pub fn get_gravity(&self) -> Gravity {
-        unsafe {
-            from_glib(pango_sys::pango_context_get_gravity(self.to_glib_none().0))
-        }
+        unsafe { from_glib(pango_sys::pango_context_get_gravity(self.to_glib_none().0)) }
     }
 
     pub fn get_gravity_hint(&self) -> GravityHint {
         unsafe {
-            from_glib(pango_sys::pango_context_get_gravity_hint(self.to_glib_none().0))
+            from_glib(pango_sys::pango_context_get_gravity_hint(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_language(&self) -> Option<Language> {
-        unsafe {
-            from_glib_full(pango_sys::pango_context_get_language(self.to_glib_none().0))
-        }
+        unsafe { from_glib_full(pango_sys::pango_context_get_language(self.to_glib_none().0)) }
     }
 
     pub fn get_matrix(&self) -> Option<Matrix> {
-        unsafe {
-            from_glib_none(pango_sys::pango_context_get_matrix(self.to_glib_none().0))
-        }
+        unsafe { from_glib_none(pango_sys::pango_context_get_matrix(self.to_glib_none().0)) }
     }
 
-    pub fn get_metrics(&self, desc: Option<&FontDescription>, language: Option<&Language>) -> Option<FontMetrics> {
+    pub fn get_metrics(
+        &self,
+        desc: Option<&FontDescription>,
+        language: Option<&Language>,
+    ) -> Option<FontMetrics> {
         unsafe {
-            from_glib_full(pango_sys::pango_context_get_metrics(self.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
+            from_glib_full(pango_sys::pango_context_get_metrics(
+                self.to_glib_none().0,
+                desc.to_glib_none().0,
+                mut_override(language.to_glib_none().0),
+            ))
         }
     }
 
     pub fn get_serial(&self) -> u32 {
-        unsafe {
-            pango_sys::pango_context_get_serial(self.to_glib_none().0)
-        }
+        unsafe { pango_sys::pango_context_get_serial(self.to_glib_none().0) }
     }
 
     pub fn list_families(&self) -> Vec<FontFamily> {
         unsafe {
             let mut families = ptr::null_mut();
             let mut n_families = mem::uninitialized();
-            pango_sys::pango_context_list_families(self.to_glib_none().0, &mut families, &mut n_families);
+            pango_sys::pango_context_list_families(
+                self.to_glib_none().0,
+                &mut families,
+                &mut n_families,
+            );
             FromGlibContainer::from_glib_container_num(families, n_families as usize)
         }
     }
 
     pub fn load_font(&self, desc: &FontDescription) -> Option<Font> {
         unsafe {
-            from_glib_full(pango_sys::pango_context_load_font(self.to_glib_none().0, desc.to_glib_none().0))
+            from_glib_full(pango_sys::pango_context_load_font(
+                self.to_glib_none().0,
+                desc.to_glib_none().0,
+            ))
         }
     }
 
     pub fn load_fontset(&self, desc: &FontDescription, language: &Language) -> Option<Fontset> {
         unsafe {
-            from_glib_full(pango_sys::pango_context_load_fontset(self.to_glib_none().0, desc.to_glib_none().0, mut_override(language.to_glib_none().0)))
+            from_glib_full(pango_sys::pango_context_load_fontset(
+                self.to_glib_none().0,
+                desc.to_glib_none().0,
+                mut_override(language.to_glib_none().0),
+            ))
         }
     }
 
@@ -136,13 +147,19 @@ impl Context {
 
     pub fn set_font_description(&self, desc: &FontDescription) {
         unsafe {
-            pango_sys::pango_context_set_font_description(self.to_glib_none().0, desc.to_glib_none().0);
+            pango_sys::pango_context_set_font_description(
+                self.to_glib_none().0,
+                desc.to_glib_none().0,
+            );
         }
     }
 
     pub fn set_font_map<P: IsA<FontMap>>(&self, font_map: &P) {
         unsafe {
-            pango_sys::pango_context_set_font_map(self.to_glib_none().0, font_map.as_ref().to_glib_none().0);
+            pango_sys::pango_context_set_font_map(
+                self.to_glib_none().0,
+                font_map.as_ref().to_glib_none().0,
+            );
         }
     }
 
@@ -154,7 +171,10 @@ impl Context {
 
     pub fn set_language(&self, language: &Language) {
         unsafe {
-            pango_sys::pango_context_set_language(self.to_glib_none().0, mut_override(language.to_glib_none().0));
+            pango_sys::pango_context_set_language(
+                self.to_glib_none().0,
+                mut_override(language.to_glib_none().0),
+            );
         }
     }
 

@@ -68,7 +68,11 @@ impl Default for Language {
 
 impl Language {
     pub fn from_string(language: &str) -> Language {
-        unsafe { from_glib_full(pango_sys::pango_language_from_string(language.to_glib_none().0)) }
+        unsafe {
+            from_glib_full(pango_sys::pango_language_from_string(
+                language.to_glib_none().0,
+            ))
+        }
     }
 
     pub fn to_string(&self) -> GString {
@@ -76,12 +80,17 @@ impl Language {
     }
 
     pub fn matches(&self, range_list: &str) -> bool {
-        unsafe { pango_sys::pango_language_matches(self.to_glib_none().0,
-                                             range_list.to_glib_none().0).to_bool() }
+        unsafe {
+            pango_sys::pango_language_matches(self.to_glib_none().0, range_list.to_glib_none().0)
+                .to_bool()
+        }
     }
 
     pub fn includes_script(&self, script: Script) -> bool {
-        unsafe { pango_sys::pango_language_includes_script(self.to_glib_none().0, script.to_glib()).to_bool() }
+        unsafe {
+            pango_sys::pango_language_includes_script(self.to_glib_none().0, script.to_glib())
+                .to_bool()
+        }
     }
 
     pub fn get_scripts(&self) -> Vec<Script> {
@@ -89,11 +98,13 @@ impl Language {
         let mut ret = Vec::new();
 
         unsafe {
-            let scripts: *const pango_sys::PangoScript = pango_sys::pango_language_get_scripts(self.to_glib_none().0,
-                                                                                   &mut num_scripts);
+            let scripts: *const pango_sys::PangoScript =
+                pango_sys::pango_language_get_scripts(self.to_glib_none().0, &mut num_scripts);
             if num_scripts > 0 {
                 for x in 0..num_scripts {
-                    ret.push(from_glib(*(scripts.offset(x as isize) as *const pango_sys::PangoScript)));
+                    ret.push(from_glib(
+                        *(scripts.offset(x as isize) as *const pango_sys::PangoScript),
+                    ));
                 }
             }
             ret
@@ -101,6 +112,10 @@ impl Language {
     }
 
     pub fn get_sample_string(&self) -> GString {
-        unsafe { from_glib_none(pango_sys::pango_language_get_sample_string(self.to_glib_none().0)) }
+        unsafe {
+            from_glib_none(pango_sys::pango_language_get_sample_string(
+                self.to_glib_none().0,
+            ))
+        }
     }
 }

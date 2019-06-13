@@ -2,19 +2,18 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use glib::StaticType;
-use glib::Type;
 use glib::translate::*;
 use glib::value::FromValue;
 use glib::value::FromValueOptional;
 use glib::value::SetValue;
 use glib::value::Value;
+use glib::StaticType;
+use glib::Type;
 use gobject_sys;
 use pango_sys;
 use std::fmt;
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Alignment {
     Left,
     Center,
@@ -25,12 +24,16 @@ pub enum Alignment {
 
 impl fmt::Display for Alignment {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Alignment::{}", match *self {
-            Alignment::Left => "Left",
-            Alignment::Center => "Center",
-            Alignment::Right => "Right",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Alignment::{}",
+            match *self {
+                Alignment::Left => "Left",
+                Alignment::Center => "Center",
+                Alignment::Right => "Right",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -43,7 +46,7 @@ impl ToGlib for Alignment {
             Alignment::Left => pango_sys::PANGO_ALIGN_LEFT,
             Alignment::Center => pango_sys::PANGO_ALIGN_CENTER,
             Alignment::Right => pango_sys::PANGO_ALIGN_RIGHT,
-            Alignment::__Unknown(value) => value
+            Alignment::__Unknown(value) => value,
         }
     }
 }
@@ -84,8 +87,7 @@ impl SetValue for Alignment {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum AttrType {
     Invalid,
     Language,
@@ -119,35 +121,39 @@ pub enum AttrType {
 
 impl fmt::Display for AttrType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "AttrType::{}", match *self {
-            AttrType::Invalid => "Invalid",
-            AttrType::Language => "Language",
-            AttrType::Family => "Family",
-            AttrType::Style => "Style",
-            AttrType::Weight => "Weight",
-            AttrType::Variant => "Variant",
-            AttrType::Stretch => "Stretch",
-            AttrType::Size => "Size",
-            AttrType::FontDesc => "FontDesc",
-            AttrType::Foreground => "Foreground",
-            AttrType::Background => "Background",
-            AttrType::Underline => "Underline",
-            AttrType::Strikethrough => "Strikethrough",
-            AttrType::Rise => "Rise",
-            AttrType::Shape => "Shape",
-            AttrType::Scale => "Scale",
-            AttrType::Fallback => "Fallback",
-            AttrType::LetterSpacing => "LetterSpacing",
-            AttrType::UnderlineColor => "UnderlineColor",
-            AttrType::StrikethroughColor => "StrikethroughColor",
-            AttrType::AbsoluteSize => "AbsoluteSize",
-            AttrType::Gravity => "Gravity",
-            AttrType::GravityHint => "GravityHint",
-            AttrType::FontFeatures => "FontFeatures",
-            AttrType::ForegroundAlpha => "ForegroundAlpha",
-            AttrType::BackgroundAlpha => "BackgroundAlpha",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "AttrType::{}",
+            match *self {
+                AttrType::Invalid => "Invalid",
+                AttrType::Language => "Language",
+                AttrType::Family => "Family",
+                AttrType::Style => "Style",
+                AttrType::Weight => "Weight",
+                AttrType::Variant => "Variant",
+                AttrType::Stretch => "Stretch",
+                AttrType::Size => "Size",
+                AttrType::FontDesc => "FontDesc",
+                AttrType::Foreground => "Foreground",
+                AttrType::Background => "Background",
+                AttrType::Underline => "Underline",
+                AttrType::Strikethrough => "Strikethrough",
+                AttrType::Rise => "Rise",
+                AttrType::Shape => "Shape",
+                AttrType::Scale => "Scale",
+                AttrType::Fallback => "Fallback",
+                AttrType::LetterSpacing => "LetterSpacing",
+                AttrType::UnderlineColor => "UnderlineColor",
+                AttrType::StrikethroughColor => "StrikethroughColor",
+                AttrType::AbsoluteSize => "AbsoluteSize",
+                AttrType::Gravity => "Gravity",
+                AttrType::GravityHint => "GravityHint",
+                AttrType::FontFeatures => "FontFeatures",
+                AttrType::ForegroundAlpha => "ForegroundAlpha",
+                AttrType::BackgroundAlpha => "BackgroundAlpha",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -183,7 +189,7 @@ impl ToGlib for AttrType {
             AttrType::FontFeatures => pango_sys::PANGO_ATTR_FONT_FEATURES,
             AttrType::ForegroundAlpha => pango_sys::PANGO_ATTR_FOREGROUND_ALPHA,
             AttrType::BackgroundAlpha => pango_sys::PANGO_ATTR_BACKGROUND_ALPHA,
-            AttrType::__Unknown(value) => value
+            AttrType::__Unknown(value) => value,
         }
     }
 }
@@ -247,8 +253,7 @@ impl SetValue for AttrType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum BidiType {
     L,
     Lre,
@@ -275,28 +280,32 @@ pub enum BidiType {
 
 impl fmt::Display for BidiType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "BidiType::{}", match *self {
-            BidiType::L => "L",
-            BidiType::Lre => "Lre",
-            BidiType::Lro => "Lro",
-            BidiType::R => "R",
-            BidiType::Al => "Al",
-            BidiType::Rle => "Rle",
-            BidiType::Rlo => "Rlo",
-            BidiType::Pdf => "Pdf",
-            BidiType::En => "En",
-            BidiType::Es => "Es",
-            BidiType::Et => "Et",
-            BidiType::An => "An",
-            BidiType::Cs => "Cs",
-            BidiType::Nsm => "Nsm",
-            BidiType::Bn => "Bn",
-            BidiType::B => "B",
-            BidiType::S => "S",
-            BidiType::Ws => "Ws",
-            BidiType::On => "On",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "BidiType::{}",
+            match *self {
+                BidiType::L => "L",
+                BidiType::Lre => "Lre",
+                BidiType::Lro => "Lro",
+                BidiType::R => "R",
+                BidiType::Al => "Al",
+                BidiType::Rle => "Rle",
+                BidiType::Rlo => "Rlo",
+                BidiType::Pdf => "Pdf",
+                BidiType::En => "En",
+                BidiType::Es => "Es",
+                BidiType::Et => "Et",
+                BidiType::An => "An",
+                BidiType::Cs => "Cs",
+                BidiType::Nsm => "Nsm",
+                BidiType::Bn => "Bn",
+                BidiType::B => "B",
+                BidiType::S => "S",
+                BidiType::Ws => "Ws",
+                BidiType::On => "On",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -325,7 +334,7 @@ impl ToGlib for BidiType {
             BidiType::S => pango_sys::PANGO_BIDI_TYPE_S,
             BidiType::Ws => pango_sys::PANGO_BIDI_TYPE_WS,
             BidiType::On => pango_sys::PANGO_BIDI_TYPE_ON,
-            BidiType::__Unknown(value) => value
+            BidiType::__Unknown(value) => value,
         }
     }
 }
@@ -382,8 +391,7 @@ impl SetValue for BidiType {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum CoverageLevel {
     None,
     Fallback,
@@ -395,13 +403,17 @@ pub enum CoverageLevel {
 
 impl fmt::Display for CoverageLevel {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "CoverageLevel::{}", match *self {
-            CoverageLevel::None => "None",
-            CoverageLevel::Fallback => "Fallback",
-            CoverageLevel::Approximate => "Approximate",
-            CoverageLevel::Exact => "Exact",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "CoverageLevel::{}",
+            match *self {
+                CoverageLevel::None => "None",
+                CoverageLevel::Fallback => "Fallback",
+                CoverageLevel::Approximate => "Approximate",
+                CoverageLevel::Exact => "Exact",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -415,7 +427,7 @@ impl ToGlib for CoverageLevel {
             CoverageLevel::Fallback => pango_sys::PANGO_COVERAGE_FALLBACK,
             CoverageLevel::Approximate => pango_sys::PANGO_COVERAGE_APPROXIMATE,
             CoverageLevel::Exact => pango_sys::PANGO_COVERAGE_EXACT,
-            CoverageLevel::__Unknown(value) => value
+            CoverageLevel::__Unknown(value) => value,
         }
     }
 }
@@ -457,8 +469,7 @@ impl SetValue for CoverageLevel {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Direction {
     Ltr,
     Rtl,
@@ -473,16 +484,20 @@ pub enum Direction {
 
 impl fmt::Display for Direction {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Direction::{}", match *self {
-            Direction::Ltr => "Ltr",
-            Direction::Rtl => "Rtl",
-            Direction::TtbLtr => "TtbLtr",
-            Direction::TtbRtl => "TtbRtl",
-            Direction::WeakLtr => "WeakLtr",
-            Direction::WeakRtl => "WeakRtl",
-            Direction::Neutral => "Neutral",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Direction::{}",
+            match *self {
+                Direction::Ltr => "Ltr",
+                Direction::Rtl => "Rtl",
+                Direction::TtbLtr => "TtbLtr",
+                Direction::TtbRtl => "TtbRtl",
+                Direction::WeakLtr => "WeakLtr",
+                Direction::WeakRtl => "WeakRtl",
+                Direction::Neutral => "Neutral",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -499,7 +514,7 @@ impl ToGlib for Direction {
             Direction::WeakLtr => pango_sys::PANGO_DIRECTION_WEAK_LTR,
             Direction::WeakRtl => pango_sys::PANGO_DIRECTION_WEAK_RTL,
             Direction::Neutral => pango_sys::PANGO_DIRECTION_NEUTRAL,
-            Direction::__Unknown(value) => value
+            Direction::__Unknown(value) => value,
         }
     }
 }
@@ -544,8 +559,7 @@ impl SetValue for Direction {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum EllipsizeMode {
     None,
     Start,
@@ -557,13 +571,17 @@ pub enum EllipsizeMode {
 
 impl fmt::Display for EllipsizeMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EllipsizeMode::{}", match *self {
-            EllipsizeMode::None => "None",
-            EllipsizeMode::Start => "Start",
-            EllipsizeMode::Middle => "Middle",
-            EllipsizeMode::End => "End",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "EllipsizeMode::{}",
+            match *self {
+                EllipsizeMode::None => "None",
+                EllipsizeMode::Start => "Start",
+                EllipsizeMode::Middle => "Middle",
+                EllipsizeMode::End => "End",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -577,7 +595,7 @@ impl ToGlib for EllipsizeMode {
             EllipsizeMode::Start => pango_sys::PANGO_ELLIPSIZE_START,
             EllipsizeMode::Middle => pango_sys::PANGO_ELLIPSIZE_MIDDLE,
             EllipsizeMode::End => pango_sys::PANGO_ELLIPSIZE_END,
-            EllipsizeMode::__Unknown(value) => value
+            EllipsizeMode::__Unknown(value) => value,
         }
     }
 }
@@ -619,8 +637,7 @@ impl SetValue for EllipsizeMode {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Gravity {
     South,
     East,
@@ -633,14 +650,18 @@ pub enum Gravity {
 
 impl fmt::Display for Gravity {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Gravity::{}", match *self {
-            Gravity::South => "South",
-            Gravity::East => "East",
-            Gravity::North => "North",
-            Gravity::West => "West",
-            Gravity::Auto => "Auto",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Gravity::{}",
+            match *self {
+                Gravity::South => "South",
+                Gravity::East => "East",
+                Gravity::North => "North",
+                Gravity::West => "West",
+                Gravity::Auto => "Auto",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -655,7 +676,7 @@ impl ToGlib for Gravity {
             Gravity::North => pango_sys::PANGO_GRAVITY_NORTH,
             Gravity::West => pango_sys::PANGO_GRAVITY_WEST,
             Gravity::Auto => pango_sys::PANGO_GRAVITY_AUTO,
-            Gravity::__Unknown(value) => value
+            Gravity::__Unknown(value) => value,
         }
     }
 }
@@ -698,8 +719,7 @@ impl SetValue for Gravity {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum GravityHint {
     Natural,
     Strong,
@@ -710,12 +730,16 @@ pub enum GravityHint {
 
 impl fmt::Display for GravityHint {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "GravityHint::{}", match *self {
-            GravityHint::Natural => "Natural",
-            GravityHint::Strong => "Strong",
-            GravityHint::Line => "Line",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "GravityHint::{}",
+            match *self {
+                GravityHint::Natural => "Natural",
+                GravityHint::Strong => "Strong",
+                GravityHint::Line => "Line",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -728,7 +752,7 @@ impl ToGlib for GravityHint {
             GravityHint::Natural => pango_sys::PANGO_GRAVITY_HINT_NATURAL,
             GravityHint::Strong => pango_sys::PANGO_GRAVITY_HINT_STRONG,
             GravityHint::Line => pango_sys::PANGO_GRAVITY_HINT_LINE,
-            GravityHint::__Unknown(value) => value
+            GravityHint::__Unknown(value) => value,
         }
     }
 }
@@ -769,8 +793,7 @@ impl SetValue for GravityHint {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum RenderPart {
     Foreground,
     Background,
@@ -782,13 +805,17 @@ pub enum RenderPart {
 
 impl fmt::Display for RenderPart {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "RenderPart::{}", match *self {
-            RenderPart::Foreground => "Foreground",
-            RenderPart::Background => "Background",
-            RenderPart::Underline => "Underline",
-            RenderPart::Strikethrough => "Strikethrough",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "RenderPart::{}",
+            match *self {
+                RenderPart::Foreground => "Foreground",
+                RenderPart::Background => "Background",
+                RenderPart::Underline => "Underline",
+                RenderPart::Strikethrough => "Strikethrough",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -802,7 +829,7 @@ impl ToGlib for RenderPart {
             RenderPart::Background => pango_sys::PANGO_RENDER_PART_BACKGROUND,
             RenderPart::Underline => pango_sys::PANGO_RENDER_PART_UNDERLINE,
             RenderPart::Strikethrough => pango_sys::PANGO_RENDER_PART_STRIKETHROUGH,
-            RenderPart::__Unknown(value) => value
+            RenderPart::__Unknown(value) => value,
         }
     }
 }
@@ -844,8 +871,7 @@ impl SetValue for RenderPart {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Script {
     InvalidCode,
     Common,
@@ -971,127 +997,131 @@ pub enum Script {
 
 impl fmt::Display for Script {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Script::{}", match *self {
-            Script::InvalidCode => "InvalidCode",
-            Script::Common => "Common",
-            Script::Inherited => "Inherited",
-            Script::Arabic => "Arabic",
-            Script::Armenian => "Armenian",
-            Script::Bengali => "Bengali",
-            Script::Bopomofo => "Bopomofo",
-            Script::Cherokee => "Cherokee",
-            Script::Coptic => "Coptic",
-            Script::Cyrillic => "Cyrillic",
-            Script::Deseret => "Deseret",
-            Script::Devanagari => "Devanagari",
-            Script::Ethiopic => "Ethiopic",
-            Script::Georgian => "Georgian",
-            Script::Gothic => "Gothic",
-            Script::Greek => "Greek",
-            Script::Gujarati => "Gujarati",
-            Script::Gurmukhi => "Gurmukhi",
-            Script::Han => "Han",
-            Script::Hangul => "Hangul",
-            Script::Hebrew => "Hebrew",
-            Script::Hiragana => "Hiragana",
-            Script::Kannada => "Kannada",
-            Script::Katakana => "Katakana",
-            Script::Khmer => "Khmer",
-            Script::Lao => "Lao",
-            Script::Latin => "Latin",
-            Script::Malayalam => "Malayalam",
-            Script::Mongolian => "Mongolian",
-            Script::Myanmar => "Myanmar",
-            Script::Ogham => "Ogham",
-            Script::OldItalic => "OldItalic",
-            Script::Oriya => "Oriya",
-            Script::Runic => "Runic",
-            Script::Sinhala => "Sinhala",
-            Script::Syriac => "Syriac",
-            Script::Tamil => "Tamil",
-            Script::Telugu => "Telugu",
-            Script::Thaana => "Thaana",
-            Script::Thai => "Thai",
-            Script::Tibetan => "Tibetan",
-            Script::CanadianAboriginal => "CanadianAboriginal",
-            Script::Yi => "Yi",
-            Script::Tagalog => "Tagalog",
-            Script::Hanunoo => "Hanunoo",
-            Script::Buhid => "Buhid",
-            Script::Tagbanwa => "Tagbanwa",
-            Script::Braille => "Braille",
-            Script::Cypriot => "Cypriot",
-            Script::Limbu => "Limbu",
-            Script::Osmanya => "Osmanya",
-            Script::Shavian => "Shavian",
-            Script::LinearB => "LinearB",
-            Script::TaiLe => "TaiLe",
-            Script::Ugaritic => "Ugaritic",
-            Script::NewTaiLue => "NewTaiLue",
-            Script::Buginese => "Buginese",
-            Script::Glagolitic => "Glagolitic",
-            Script::Tifinagh => "Tifinagh",
-            Script::SylotiNagri => "SylotiNagri",
-            Script::OldPersian => "OldPersian",
-            Script::Kharoshthi => "Kharoshthi",
-            Script::Unknown => "Unknown",
-            Script::Balinese => "Balinese",
-            Script::Cuneiform => "Cuneiform",
-            Script::Phoenician => "Phoenician",
-            Script::PhagsPa => "PhagsPa",
-            Script::Nko => "Nko",
-            Script::KayahLi => "KayahLi",
-            Script::Lepcha => "Lepcha",
-            Script::Rejang => "Rejang",
-            Script::Sundanese => "Sundanese",
-            Script::Saurashtra => "Saurashtra",
-            Script::Cham => "Cham",
-            Script::OlChiki => "OlChiki",
-            Script::Vai => "Vai",
-            Script::Carian => "Carian",
-            Script::Lycian => "Lycian",
-            Script::Lydian => "Lydian",
-            Script::Batak => "Batak",
-            Script::Brahmi => "Brahmi",
-            Script::Mandaic => "Mandaic",
-            Script::Chakma => "Chakma",
-            Script::MeroiticCursive => "MeroiticCursive",
-            Script::MeroiticHieroglyphs => "MeroiticHieroglyphs",
-            Script::Miao => "Miao",
-            Script::Sharada => "Sharada",
-            Script::SoraSompeng => "SoraSompeng",
-            Script::Takri => "Takri",
-            Script::BassaVah => "BassaVah",
-            Script::CaucasianAlbanian => "CaucasianAlbanian",
-            Script::Duployan => "Duployan",
-            Script::Elbasan => "Elbasan",
-            Script::Grantha => "Grantha",
-            Script::Khojki => "Khojki",
-            Script::Khudawadi => "Khudawadi",
-            Script::LinearA => "LinearA",
-            Script::Mahajani => "Mahajani",
-            Script::Manichaean => "Manichaean",
-            Script::MendeKikakui => "MendeKikakui",
-            Script::Modi => "Modi",
-            Script::Mro => "Mro",
-            Script::Nabataean => "Nabataean",
-            Script::OldNorthArabian => "OldNorthArabian",
-            Script::OldPermic => "OldPermic",
-            Script::PahawhHmong => "PahawhHmong",
-            Script::Palmyrene => "Palmyrene",
-            Script::PauCinHau => "PauCinHau",
-            Script::PsalterPahlavi => "PsalterPahlavi",
-            Script::Siddham => "Siddham",
-            Script::Tirhuta => "Tirhuta",
-            Script::WarangCiti => "WarangCiti",
-            Script::Ahom => "Ahom",
-            Script::AnatolianHieroglyphs => "AnatolianHieroglyphs",
-            Script::Hatran => "Hatran",
-            Script::Multani => "Multani",
-            Script::OldHungarian => "OldHungarian",
-            Script::Signwriting => "Signwriting",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Script::{}",
+            match *self {
+                Script::InvalidCode => "InvalidCode",
+                Script::Common => "Common",
+                Script::Inherited => "Inherited",
+                Script::Arabic => "Arabic",
+                Script::Armenian => "Armenian",
+                Script::Bengali => "Bengali",
+                Script::Bopomofo => "Bopomofo",
+                Script::Cherokee => "Cherokee",
+                Script::Coptic => "Coptic",
+                Script::Cyrillic => "Cyrillic",
+                Script::Deseret => "Deseret",
+                Script::Devanagari => "Devanagari",
+                Script::Ethiopic => "Ethiopic",
+                Script::Georgian => "Georgian",
+                Script::Gothic => "Gothic",
+                Script::Greek => "Greek",
+                Script::Gujarati => "Gujarati",
+                Script::Gurmukhi => "Gurmukhi",
+                Script::Han => "Han",
+                Script::Hangul => "Hangul",
+                Script::Hebrew => "Hebrew",
+                Script::Hiragana => "Hiragana",
+                Script::Kannada => "Kannada",
+                Script::Katakana => "Katakana",
+                Script::Khmer => "Khmer",
+                Script::Lao => "Lao",
+                Script::Latin => "Latin",
+                Script::Malayalam => "Malayalam",
+                Script::Mongolian => "Mongolian",
+                Script::Myanmar => "Myanmar",
+                Script::Ogham => "Ogham",
+                Script::OldItalic => "OldItalic",
+                Script::Oriya => "Oriya",
+                Script::Runic => "Runic",
+                Script::Sinhala => "Sinhala",
+                Script::Syriac => "Syriac",
+                Script::Tamil => "Tamil",
+                Script::Telugu => "Telugu",
+                Script::Thaana => "Thaana",
+                Script::Thai => "Thai",
+                Script::Tibetan => "Tibetan",
+                Script::CanadianAboriginal => "CanadianAboriginal",
+                Script::Yi => "Yi",
+                Script::Tagalog => "Tagalog",
+                Script::Hanunoo => "Hanunoo",
+                Script::Buhid => "Buhid",
+                Script::Tagbanwa => "Tagbanwa",
+                Script::Braille => "Braille",
+                Script::Cypriot => "Cypriot",
+                Script::Limbu => "Limbu",
+                Script::Osmanya => "Osmanya",
+                Script::Shavian => "Shavian",
+                Script::LinearB => "LinearB",
+                Script::TaiLe => "TaiLe",
+                Script::Ugaritic => "Ugaritic",
+                Script::NewTaiLue => "NewTaiLue",
+                Script::Buginese => "Buginese",
+                Script::Glagolitic => "Glagolitic",
+                Script::Tifinagh => "Tifinagh",
+                Script::SylotiNagri => "SylotiNagri",
+                Script::OldPersian => "OldPersian",
+                Script::Kharoshthi => "Kharoshthi",
+                Script::Unknown => "Unknown",
+                Script::Balinese => "Balinese",
+                Script::Cuneiform => "Cuneiform",
+                Script::Phoenician => "Phoenician",
+                Script::PhagsPa => "PhagsPa",
+                Script::Nko => "Nko",
+                Script::KayahLi => "KayahLi",
+                Script::Lepcha => "Lepcha",
+                Script::Rejang => "Rejang",
+                Script::Sundanese => "Sundanese",
+                Script::Saurashtra => "Saurashtra",
+                Script::Cham => "Cham",
+                Script::OlChiki => "OlChiki",
+                Script::Vai => "Vai",
+                Script::Carian => "Carian",
+                Script::Lycian => "Lycian",
+                Script::Lydian => "Lydian",
+                Script::Batak => "Batak",
+                Script::Brahmi => "Brahmi",
+                Script::Mandaic => "Mandaic",
+                Script::Chakma => "Chakma",
+                Script::MeroiticCursive => "MeroiticCursive",
+                Script::MeroiticHieroglyphs => "MeroiticHieroglyphs",
+                Script::Miao => "Miao",
+                Script::Sharada => "Sharada",
+                Script::SoraSompeng => "SoraSompeng",
+                Script::Takri => "Takri",
+                Script::BassaVah => "BassaVah",
+                Script::CaucasianAlbanian => "CaucasianAlbanian",
+                Script::Duployan => "Duployan",
+                Script::Elbasan => "Elbasan",
+                Script::Grantha => "Grantha",
+                Script::Khojki => "Khojki",
+                Script::Khudawadi => "Khudawadi",
+                Script::LinearA => "LinearA",
+                Script::Mahajani => "Mahajani",
+                Script::Manichaean => "Manichaean",
+                Script::MendeKikakui => "MendeKikakui",
+                Script::Modi => "Modi",
+                Script::Mro => "Mro",
+                Script::Nabataean => "Nabataean",
+                Script::OldNorthArabian => "OldNorthArabian",
+                Script::OldPermic => "OldPermic",
+                Script::PahawhHmong => "PahawhHmong",
+                Script::Palmyrene => "Palmyrene",
+                Script::PauCinHau => "PauCinHau",
+                Script::PsalterPahlavi => "PsalterPahlavi",
+                Script::Siddham => "Siddham",
+                Script::Tirhuta => "Tirhuta",
+                Script::WarangCiti => "WarangCiti",
+                Script::Ahom => "Ahom",
+                Script::AnatolianHieroglyphs => "AnatolianHieroglyphs",
+                Script::Hatran => "Hatran",
+                Script::Multani => "Multani",
+                Script::OldHungarian => "OldHungarian",
+                Script::Signwriting => "Signwriting",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1219,7 +1249,7 @@ impl ToGlib for Script {
             Script::Multani => pango_sys::PANGO_SCRIPT_MULTANI,
             Script::OldHungarian => pango_sys::PANGO_SCRIPT_OLD_HUNGARIAN,
             Script::Signwriting => pango_sys::PANGO_SCRIPT_SIGNWRITING,
-            Script::__Unknown(value) => value
+            Script::__Unknown(value) => value,
         }
     }
 }
@@ -1375,8 +1405,7 @@ impl SetValue for Script {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Stretch {
     UltraCondensed,
     ExtraCondensed,
@@ -1393,18 +1422,22 @@ pub enum Stretch {
 
 impl fmt::Display for Stretch {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Stretch::{}", match *self {
-            Stretch::UltraCondensed => "UltraCondensed",
-            Stretch::ExtraCondensed => "ExtraCondensed",
-            Stretch::Condensed => "Condensed",
-            Stretch::SemiCondensed => "SemiCondensed",
-            Stretch::Normal => "Normal",
-            Stretch::SemiExpanded => "SemiExpanded",
-            Stretch::Expanded => "Expanded",
-            Stretch::ExtraExpanded => "ExtraExpanded",
-            Stretch::UltraExpanded => "UltraExpanded",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Stretch::{}",
+            match *self {
+                Stretch::UltraCondensed => "UltraCondensed",
+                Stretch::ExtraCondensed => "ExtraCondensed",
+                Stretch::Condensed => "Condensed",
+                Stretch::SemiCondensed => "SemiCondensed",
+                Stretch::Normal => "Normal",
+                Stretch::SemiExpanded => "SemiExpanded",
+                Stretch::Expanded => "Expanded",
+                Stretch::ExtraExpanded => "ExtraExpanded",
+                Stretch::UltraExpanded => "UltraExpanded",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1423,7 +1456,7 @@ impl ToGlib for Stretch {
             Stretch::Expanded => pango_sys::PANGO_STRETCH_EXPANDED,
             Stretch::ExtraExpanded => pango_sys::PANGO_STRETCH_EXTRA_EXPANDED,
             Stretch::UltraExpanded => pango_sys::PANGO_STRETCH_ULTRA_EXPANDED,
-            Stretch::__Unknown(value) => value
+            Stretch::__Unknown(value) => value,
         }
     }
 }
@@ -1470,8 +1503,7 @@ impl SetValue for Stretch {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Style {
     Normal,
     Oblique,
@@ -1482,12 +1514,16 @@ pub enum Style {
 
 impl fmt::Display for Style {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Style::{}", match *self {
-            Style::Normal => "Normal",
-            Style::Oblique => "Oblique",
-            Style::Italic => "Italic",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Style::{}",
+            match *self {
+                Style::Normal => "Normal",
+                Style::Oblique => "Oblique",
+                Style::Italic => "Italic",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1500,7 +1536,7 @@ impl ToGlib for Style {
             Style::Normal => pango_sys::PANGO_STYLE_NORMAL,
             Style::Oblique => pango_sys::PANGO_STYLE_OBLIQUE,
             Style::Italic => pango_sys::PANGO_STYLE_ITALIC,
-            Style::__Unknown(value) => value
+            Style::__Unknown(value) => value,
         }
     }
 }
@@ -1541,8 +1577,7 @@ impl SetValue for Style {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TabAlign {
     Left,
     #[doc(hidden)]
@@ -1551,10 +1586,14 @@ pub enum TabAlign {
 
 impl fmt::Display for TabAlign {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "TabAlign::{}", match *self {
-            TabAlign::Left => "Left",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "TabAlign::{}",
+            match *self {
+                TabAlign::Left => "Left",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1565,7 +1604,7 @@ impl ToGlib for TabAlign {
     fn to_glib(&self) -> pango_sys::PangoTabAlign {
         match *self {
             TabAlign::Left => pango_sys::PANGO_TAB_LEFT,
-            TabAlign::__Unknown(value) => value
+            TabAlign::__Unknown(value) => value,
         }
     }
 }
@@ -1604,8 +1643,7 @@ impl SetValue for TabAlign {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Underline {
     None,
     Single,
@@ -1618,14 +1656,18 @@ pub enum Underline {
 
 impl fmt::Display for Underline {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Underline::{}", match *self {
-            Underline::None => "None",
-            Underline::Single => "Single",
-            Underline::Double => "Double",
-            Underline::Low => "Low",
-            Underline::Error => "Error",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Underline::{}",
+            match *self {
+                Underline::None => "None",
+                Underline::Single => "Single",
+                Underline::Double => "Double",
+                Underline::Low => "Low",
+                Underline::Error => "Error",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1640,7 +1682,7 @@ impl ToGlib for Underline {
             Underline::Double => pango_sys::PANGO_UNDERLINE_DOUBLE,
             Underline::Low => pango_sys::PANGO_UNDERLINE_LOW,
             Underline::Error => pango_sys::PANGO_UNDERLINE_ERROR,
-            Underline::__Unknown(value) => value
+            Underline::__Unknown(value) => value,
         }
     }
 }
@@ -1683,8 +1725,7 @@ impl SetValue for Underline {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Variant {
     Normal,
     SmallCaps,
@@ -1694,11 +1735,15 @@ pub enum Variant {
 
 impl fmt::Display for Variant {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Variant::{}", match *self {
-            Variant::Normal => "Normal",
-            Variant::SmallCaps => "SmallCaps",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Variant::{}",
+            match *self {
+                Variant::Normal => "Normal",
+                Variant::SmallCaps => "SmallCaps",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1710,7 +1755,7 @@ impl ToGlib for Variant {
         match *self {
             Variant::Normal => pango_sys::PANGO_VARIANT_NORMAL,
             Variant::SmallCaps => pango_sys::PANGO_VARIANT_SMALL_CAPS,
-            Variant::__Unknown(value) => value
+            Variant::__Unknown(value) => value,
         }
     }
 }
@@ -1750,8 +1795,7 @@ impl SetValue for Variant {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum Weight {
     Thin,
     Ultralight,
@@ -1771,21 +1815,25 @@ pub enum Weight {
 
 impl fmt::Display for Weight {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "Weight::{}", match *self {
-            Weight::Thin => "Thin",
-            Weight::Ultralight => "Ultralight",
-            Weight::Light => "Light",
-            Weight::Semilight => "Semilight",
-            Weight::Book => "Book",
-            Weight::Normal => "Normal",
-            Weight::Medium => "Medium",
-            Weight::Semibold => "Semibold",
-            Weight::Bold => "Bold",
-            Weight::Ultrabold => "Ultrabold",
-            Weight::Heavy => "Heavy",
-            Weight::Ultraheavy => "Ultraheavy",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "Weight::{}",
+            match *self {
+                Weight::Thin => "Thin",
+                Weight::Ultralight => "Ultralight",
+                Weight::Light => "Light",
+                Weight::Semilight => "Semilight",
+                Weight::Book => "Book",
+                Weight::Normal => "Normal",
+                Weight::Medium => "Medium",
+                Weight::Semibold => "Semibold",
+                Weight::Bold => "Bold",
+                Weight::Ultrabold => "Ultrabold",
+                Weight::Heavy => "Heavy",
+                Weight::Ultraheavy => "Ultraheavy",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1807,7 +1855,7 @@ impl ToGlib for Weight {
             Weight::Ultrabold => pango_sys::PANGO_WEIGHT_ULTRABOLD,
             Weight::Heavy => pango_sys::PANGO_WEIGHT_HEAVY,
             Weight::Ultraheavy => pango_sys::PANGO_WEIGHT_ULTRAHEAVY,
-            Weight::__Unknown(value) => value
+            Weight::__Unknown(value) => value,
         }
     }
 }
@@ -1857,8 +1905,7 @@ impl SetValue for Weight {
     }
 }
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum WrapMode {
     Word,
     Char,
@@ -1869,12 +1916,16 @@ pub enum WrapMode {
 
 impl fmt::Display for WrapMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "WrapMode::{}", match *self {
-            WrapMode::Word => "Word",
-            WrapMode::Char => "Char",
-            WrapMode::WordChar => "WordChar",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "WrapMode::{}",
+            match *self {
+                WrapMode::Word => "Word",
+                WrapMode::Char => "Char",
+                WrapMode::WordChar => "WordChar",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -1887,7 +1938,7 @@ impl ToGlib for WrapMode {
             WrapMode::Word => pango_sys::PANGO_WRAP_WORD,
             WrapMode::Char => pango_sys::PANGO_WRAP_CHAR,
             WrapMode::WordChar => pango_sys::PANGO_WRAP_WORD_CHAR,
-            WrapMode::__Unknown(value) => value
+            WrapMode::__Unknown(value) => value,
         }
     }
 }
@@ -1927,4 +1978,3 @@ impl SetValue for WrapMode {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
     }
 }
-
