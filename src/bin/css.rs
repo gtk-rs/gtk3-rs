@@ -80,9 +80,8 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.css"),
-                                            gio::ApplicationFlags::empty())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(Some("com.github.css"), gio::ApplicationFlags::empty())
+        .expect("Initialization failed...");
 
     application.connect_startup(|app| {
         // The CSS "magic" happens here.

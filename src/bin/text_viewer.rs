@@ -31,14 +31,18 @@ macro_rules! upgrade_weak {
 pub fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("text_viewer.glade");
     let builder = Builder::new();
-    builder.add_from_string(glade_src).expect("Couldn't add from string");
+    builder
+        .add_from_string(glade_src)
+        .expect("Couldn't add from string");
 
     let window: gtk::ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(Some(application));
-    let open_button: gtk::ToolButton = builder.get_object("open_button")
-                                              .expect("Couldn't get builder");
-    let text_view: gtk::TextView = builder.get_object("text_view")
-                                          .expect("Couldn't get text_view");
+    let open_button: gtk::ToolButton = builder
+        .get_object("open_button")
+        .expect("Couldn't get builder");
+    let text_view: gtk::TextView = builder
+        .get_object("text_view")
+        .expect("Couldn't get text_view");
 
     let window_weak = window.downgrade();
     open_button.connect_clicked(move |_| {
@@ -46,7 +50,10 @@ pub fn build_ui(application: &gtk::Application) {
 
         // TODO move this to a impl?
         let file_chooser = gtk::FileChooserDialog::new(
-            Some("Open File"), Some(&window), gtk::FileChooserAction::Open);
+            Some("Open File"),
+            Some(&window),
+            gtk::FileChooserAction::Open,
+        );
         file_chooser.add_buttons(&[
             ("Open", gtk::ResponseType::Ok),
             ("Cancel", gtk::ResponseType::Cancel),
@@ -59,7 +66,10 @@ pub fn build_ui(application: &gtk::Application) {
             let mut contents = String::new();
             let _ = reader.read_to_string(&mut contents);
 
-            text_view.get_buffer().expect("Couldn't get window").set_text(&contents);
+            text_view
+                .get_buffer()
+                .expect("Couldn't get window")
+                .set_text(&contents);
         }
 
         file_chooser.destroy();
@@ -69,9 +79,11 @@ pub fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.text_viewer"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.text_viewer"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

@@ -6,8 +6,8 @@
 
 extern crate cairo;
 
-use std::fs::File;
 use cairo::{Context, Format, ImageSurface};
+use std::fs::File;
 
 fn main() {
     let surface = ImageSurface::create(Format::ARgb32, 120, 120).expect("Can't create surface");

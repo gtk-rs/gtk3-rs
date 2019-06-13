@@ -59,8 +59,12 @@ fn build_system_menu(application: &gtk::Application) {
 }
 
 // This function creates "actions" which connect on the declared actions from the menu items.
-fn add_actions(application: &gtk::Application, switch: &gtk::Switch, label: &gtk::Label,
-               window: &gtk::ApplicationWindow) {
+fn add_actions(
+    application: &gtk::Application,
+    switch: &gtk::Switch,
+    label: &gtk::Label,
+    window: &gtk::ApplicationWindow,
+) {
     // Thanks to this method, we can say that this item is actually a checkbox.
     let switch_action = gio::SimpleAction::new_stateful("switch", None, &false.to_variant());
     switch_action.connect_activate(clone!(switch => move |g, _| {
@@ -152,9 +156,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.menu_bar_system"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.menu_bar_system"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_startup(|app| {
         add_accelerators(app);

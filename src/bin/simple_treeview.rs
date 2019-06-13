@@ -78,13 +78,17 @@ fn build_ui(application: &gtk::Application) {
             // iterator `iter`.
             //
             // The `get_value` method do the conversion between the gtk type and Rust.
-            label.set_text(&format!("Hello '{}' from row {}",
-                                    model.get_value(&iter, 1)
-                                         .get::<String>()
-                                         .expect("Couldn't get string value"),
-                                    model.get_value(&iter, 0)
-                                         .get::<u32>()
-                                         .expect("Couldn't get u32 value")));
+            label.set_text(&format!(
+                "Hello '{}' from row {}",
+                model
+                    .get_value(&iter, 1)
+                    .get::<String>()
+                    .expect("Couldn't get string value"),
+                model
+                    .get_value(&iter, 0)
+                    .get::<u32>()
+                    .expect("Couldn't get u32 value")
+            ));
         }
     });
 
@@ -95,9 +99,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.simple_treeview"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.simple_treeview"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

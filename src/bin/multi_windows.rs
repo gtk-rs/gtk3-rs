@@ -1,5 +1,5 @@
-extern crate glib;
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
@@ -42,8 +42,13 @@ macro_rules! upgrade_weak {
     };
 }
 
-fn create_sub_window(application: &gtk::Application, title: &str, main_window_entry: &gtk::Entry, id: usize,
-                     windows: &Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>>) {
+fn create_sub_window(
+    application: &gtk::Application,
+    title: &str,
+    main_window_entry: &gtk::Entry,
+    id: usize,
+    windows: &Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>>,
+) {
     let window = gtk::Window::new(gtk::WindowType::Toplevel);
 
     application.add_window(&window);
@@ -90,7 +95,8 @@ fn generate_new_id(windows: &HashMap<usize, glib::WeakRef<gtk::Window>>) -> usiz
 }
 
 fn build_ui(application: &gtk::Application) {
-    let windows: Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>> = Rc::new(RefCell::new(HashMap::new()));
+    let windows: Rc<RefCell<HashMap<usize, glib::WeakRef<gtk::Window>>>> =
+        Rc::new(RefCell::new(HashMap::new()));
     let window = create_main_window(application);
 
     // Why not changing all sub-windows' title at once?
@@ -137,9 +143,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.multi_windows"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.multi_windows"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

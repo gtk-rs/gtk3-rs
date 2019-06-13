@@ -33,7 +33,8 @@ pub fn main() {
     let application = gtk::Application::new(
         Some("com.github.progress-tracker"),
         gio::ApplicationFlags::empty(),
-    ).expect("initialization failed");
+    )
+    .expect("initialization failed");
 
     application.connect_startup(|app| {
         let application = Application::new(app);
@@ -90,33 +91,33 @@ impl Application {
 
             let active = active.clone();
             let widgets = widgets.clone();
-            rx.attach(None, move |value| {
-                match value {
-                    Some(value) => {
-                        widgets
-                            .main_view
-                            .progress
-                            .set_fraction(f64::from(value) / 10.0);
+            rx.attach(None, move |value| match value {
+                Some(value) => {
+                    widgets
+                        .main_view
+                        .progress
+                        .set_fraction(f64::from(value) / 10.0);
 
-                        if value == 10 {
+                    if value == 10 {
+                        widgets
+                            .view_stack
+                            .set_visible_child(&widgets.complete_view.container);
+
+                        let widgets = widgets.clone();
+                        gtk::timeout_add(1500, move || {
+                            widgets.main_view.progress.set_fraction(0.0);
                             widgets
                                 .view_stack
-                                .set_visible_child(&widgets.complete_view.container);
-
-                            let widgets = widgets.clone();
-                            gtk::timeout_add(1500, move || {
-                                widgets.main_view.progress.set_fraction(0.0);
-                                widgets.view_stack.set_visible_child(&widgets.main_view.container);
-                                gtk::Continue(false)
-                            });
-                        }
-
-                        glib::Continue(true)
+                                .set_visible_child(&widgets.main_view.container);
+                            gtk::Continue(false)
+                        });
                     }
-                    None => {
-                        active.set(false);
-                        glib::Continue(false)
-                    }
+
+                    glib::Continue(true)
+                }
+                None => {
+                    active.set(false);
+                    glib::Continue(false)
                 }
             });
         });

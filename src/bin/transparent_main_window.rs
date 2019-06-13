@@ -9,7 +9,7 @@ extern crate gtk;
 
 use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{ApplicationWindow, Fixed, Button};
+use gtk::{ApplicationWindow, Button, Fixed};
 
 use std::env::args;
 
@@ -37,7 +37,8 @@ fn main() {
     let application = gtk::Application::new(
         Some("com.github.gtk-rs.examples.transparent_main_window"),
         Default::default(),
-    ).expect("Initialization failed...");
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

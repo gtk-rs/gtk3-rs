@@ -227,16 +227,18 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     for i in 0..10 {
-        model.append(&RowData::new(&format!("Name {}", i), i*10));
+        model.append(&RowData::new(&format!("Name {}", i), i * 10));
     }
 
     window.show_all();
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.listbox-model"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.listbox-model"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);
@@ -271,30 +273,26 @@ mod row_data {
 
         // GObject property definitions for our two values
         static PROPERTIES: [subclass::Property; 2] = [
-            subclass::Property(
-                "name",
-                |name| {
-                    glib::ParamSpec::string(
-                        name,
-                        "Name",
-                        "Name",
-                        None, // Default value
-                        glib::ParamFlags::READWRITE,
-                    )
-                }
-            ),
-            subclass::Property(
-                "count",
-                |name| {
-                    glib::ParamSpec::uint(
-                        name,
-                        "Count",
-                        "Count",
-                        0, 100, 0, // Allowed range and default value
-                        glib::ParamFlags::READWRITE,
-                    )
-                }
-            ),
+            subclass::Property("name", |name| {
+                glib::ParamSpec::string(
+                    name,
+                    "Name",
+                    "Name",
+                    None, // Default value
+                    glib::ParamFlags::READWRITE,
+                )
+            }),
+            subclass::Property("count", |name| {
+                glib::ParamSpec::uint(
+                    name,
+                    "Count",
+                    "Count",
+                    0,
+                    100,
+                    0, // Allowed range and default value
+                    glib::ParamFlags::READWRITE,
+                )
+            }),
         ];
 
         // Basic declaration of our type for the GObject type system
@@ -375,11 +373,7 @@ mod row_data {
     // initial values for our two properties and then returns the new instance
     impl RowData {
         pub fn new(name: &str, count: u32) -> RowData {
-            glib::Object::new(
-                Self::static_type(),
-                &[("name", &name),
-                  ("count", &count),
-                ])
+            glib::Object::new(Self::static_type(), &[("name", &name), ("count", &count)])
                 .expect("Failed to create row data")
                 .downcast()
                 .expect("Created row data is of wrong type")

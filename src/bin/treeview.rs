@@ -12,7 +12,7 @@ use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{
     ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
-    MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition
+    MessageDialog, MessageType, Orientation, TreeStore, TreeView, TreeViewColumn, WindowPosition,
 };
 
 use std::env::args;
@@ -84,31 +84,39 @@ fn build_ui(application: &gtk::Application) {
     let renderer2 = CellRendererText::new();
     col.pack_start(&renderer2, true);
     col.add_attribute(&renderer2, "text", 1);
-    let image = Pixbuf::new_from_file("./resources/eye.png").or_else(|err| {
-        let mut msg = err.to_string();
-        if err.kind() == Some(glib::FileError::Noent) {
-            msg.push_str("\nRelaunch this example from the same level \
-                          as the `resources` folder");
-        }
+    let image = Pixbuf::new_from_file("./resources/eye.png")
+        .or_else(|err| {
+            let mut msg = err.to_string();
+            if err.kind() == Some(glib::FileError::Noent) {
+                msg.push_str(
+                    "\nRelaunch this example from the same level \
+                     as the `resources` folder",
+                );
+            }
 
-        gtk::idle_add(clone!(window => move || {
-            let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
-                MessageType::Error, ButtonsType::Ok, &msg);
-            dialog.run();
-            dialog.destroy();
-            Continue(false)
-        }));
+            gtk::idle_add(clone!(window => move || {
+                let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
+                    MessageType::Error, ButtonsType::Ok, &msg);
+                dialog.run();
+                dialog.destroy();
+                Continue(false)
+            }));
 
-        Err(())
-    }).ok();
+            Err(())
+        })
+        .ok();
 
     right_tree.append_column(&col);
     right_tree.set_model(Some(&right_store));
     right_tree.set_headers_visible(true);
 
     for _ in 0..10 {
-        right_store.insert_with_values(None, None, &[0, 1],
-                                       &[&image, &"I'm a child node with an image"]);
+        right_store.insert_with_values(
+            None,
+            None,
+            &[0, 1],
+            &[&image, &"I'm a child node with an image"],
+        );
     }
 
     // selection and path manipulation
@@ -137,9 +145,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.treeview"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.treeview"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);
