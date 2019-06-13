@@ -5,9 +5,7 @@ extern crate gtk;
 
 use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{
-    ApplicationWindow, Builder, Button, Grid,
-};
+use gtk::{ApplicationWindow, Builder, Button, Grid};
 
 use std::env::args;
 
@@ -53,9 +51,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.grid"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application =
+        gtk::Application::new(Some("com.github.gtk-rs.examples.grid"), Default::default())
+            .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

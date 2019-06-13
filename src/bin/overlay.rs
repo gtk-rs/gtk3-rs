@@ -68,15 +68,15 @@ fn build_ui(application: &gtk::Application) {
     // When a button is clicked on, we set its label to the overlay label.
     let overlay_text_weak = overlay_text.downgrade();
     but1.connect_clicked(move |b| {
-       button_clicked(b, &overlay_text_weak);
+        button_clicked(b, &overlay_text_weak);
     });
     let overlay_text_weak = overlay_text.downgrade();
     but2.connect_clicked(move |b| {
-       button_clicked(b, &overlay_text_weak);
+        button_clicked(b, &overlay_text_weak);
     });
     let overlay_text_weak = overlay_text.downgrade();
     but3.connect_clicked(move |b| {
-       button_clicked(b, &overlay_text_weak);
+        button_clicked(b, &overlay_text_weak);
     });
 
     hbox.add(&but1);
@@ -93,9 +93,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.overlay"),
-                                            gio::ApplicationFlags::empty())
-                                       .expect("Initialization failed...");
+    let application =
+        gtk::Application::new(Some("com.github.overlay"), gio::ApplicationFlags::empty())
+            .expect("Initialization failed...");
 
     application.connect_startup(|_| {
         // We add a bit of CSS in order to make the overlay label easier to be seen.
@@ -108,7 +108,6 @@ fn main() {
             &provider,
             gtk::STYLE_PROVIDER_PRIORITY_APPLICATION,
         );
-
     });
 
     application.connect_activate(|app| {

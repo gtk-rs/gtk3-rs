@@ -3,15 +3,14 @@
 //! This sample demonstrates how to use gtk::timeout_add_seconds to run
 //! a periodic task, implementing a clock in this example.
 
+extern crate chrono;
 extern crate gio;
 extern crate gtk;
-extern crate chrono;
 
+use chrono::Local;
 use gio::prelude::*;
 use gtk::prelude::*;
 use std::env::args;
-use chrono::Local;
-
 
 fn current_time() -> String {
     return format!("{}", Local::now().format("%Y-%m-%d %H:%M:%S"));
@@ -46,9 +45,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.clock"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application =
+        gtk::Application::new(Some("com.github.gtk-rs.examples.clock"), Default::default())
+            .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

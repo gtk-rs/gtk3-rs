@@ -2,14 +2,14 @@
 //!
 //! This sample demonstrates how to use the `TreeModelSort` widget.
 
-extern crate gtk;
-extern crate gio;
 extern crate gdk;
+extern crate gio;
+extern crate gtk;
 
-use std::env::args;
 use gio::ApplicationExt;
 use gio::ApplicationExtManual;
 use gtk::prelude::*;
+use std::env::args;
 
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -45,11 +45,14 @@ fn build_ui(application: &gtk::Application) {
     treeview.append_column(&column);
 
     treeview.connect_row_activated(move |_, path, _column| {
-        let real_path = sortable_store.convert_path_to_child_path(&path)
+        let real_path = sortable_store
+            .convert_path_to_child_path(&path)
             .expect("Sorted path does not correspond to real path");
-        println!("Clicked on sorted: {:?}, real: {:?}",
-                 path.get_indices(),
-                 real_path.get_indices());
+        println!(
+            "Clicked on sorted: {:?}, real: {:?}",
+            path.get_indices(),
+            real_path.get_indices()
+        );
     });
 
     // We finally add the `TreeView` to the window.
@@ -58,9 +61,9 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.basic"),
-        gio::ApplicationFlags::empty())
-        .expect("Initialization failed...");
+    let application =
+        gtk::Application::new(Some("com.github.basic"), gio::ApplicationFlags::empty())
+            .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);

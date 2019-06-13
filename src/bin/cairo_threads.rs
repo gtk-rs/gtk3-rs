@@ -1,13 +1,13 @@
 extern crate cairo;
 extern crate gio;
-extern crate gtk;
 extern crate glib;
+extern crate gtk;
 
-use std::thread;
-use std::env::args;
-use std::sync::mpsc;
-use std::rc::Rc;
 use std::cell::RefCell;
+use std::env::args;
+use std::rc::Rc;
+use std::sync::mpsc;
+use std::thread;
 use std::time::Duration;
 
 use cairo::prelude::*;
@@ -67,7 +67,8 @@ impl Image {
         // references the pixels anymore
         impl Drop for ImageHolder {
             fn drop(&mut self) {
-                *self.return_location.borrow_mut() = Some(self.image.take().expect("Holding no image"));
+                *self.return_location.borrow_mut() =
+                    Some(self.image.take().expect("Holding no image"));
             }
         }
 
@@ -96,14 +97,21 @@ impl Image {
             };
 
             // The surface will own the image for the scope of the block below
-            let surface = ImageSurface::create_for_data(holder, Format::Rgb24, WIDTH, HEIGHT, 4 * WIDTH).expect("Can't create surface");
+            let surface =
+                ImageSurface::create_for_data(holder, Format::Rgb24, WIDTH, HEIGHT, 4 * WIDTH)
+                    .expect("Can't create surface");
             func(&surface);
 
             // Now the surface will be destroyed and the pixels are stored in the return_location
         }
 
         // And here move the pixels back again
-        self.0 = Some(return_location.borrow_mut().take().expect("Image not returned"));
+        self.0 = Some(
+            return_location
+                .borrow_mut()
+                .take()
+                .expect("Image not returned"),
+        );
     }
 }
 
@@ -235,9 +243,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.cairo_threads"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.cairo_threads"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);
@@ -272,8 +282,12 @@ fn draw_slow(cr: &Context, delay: Duration, x: f64, y: f64, radius: f64) {
 }
 
 // Render the image surface into the context at the given position
-fn draw_image_if_dirty(cr: &Context, image: &ImageSurface, origin: (i32, i32),
-        dimensions: (i32, i32)) {
+fn draw_image_if_dirty(
+    cr: &Context,
+    image: &ImageSurface,
+    origin: (i32, i32),
+    dimensions: (i32, i32),
+) {
     let x = origin.0 as f64;
     let y = origin.1 as f64;
     let w = dimensions.0 as f64;

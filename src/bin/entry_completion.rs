@@ -3,9 +3,9 @@
 //! This example demonstrates how to build a list of items and use them
 //! to autocomplete a field as the user types in something.
 
-extern crate glib;
 extern crate gdk;
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
@@ -29,29 +29,32 @@ struct Data {
 }
 
 fn create_list_model() -> gtk::ListStore {
-    let col_types: [gtk::Type; 1] = [
-        gtk::Type::String,
-    ];
+    let col_types: [gtk::Type; 1] = [gtk::Type::String];
 
     let data: [Data; 4] = [
-        Data {description: "France".to_string()},
-        Data {description: "Italy".to_string()},
-        Data {description: "Sweden".to_string()},
-        Data {description: "Switzerland".to_string()},
+        Data {
+            description: "France".to_string(),
+        },
+        Data {
+            description: "Italy".to_string(),
+        },
+        Data {
+            description: "Sweden".to_string(),
+        },
+        Data {
+            description: "Switzerland".to_string(),
+        },
     ];
     let store = gtk::ListStore::new(&col_types);
     let col_indices: [u32; 1] = [0];
     for d in data.iter() {
-        let values: [&dyn ToValue; 1] = [
-            &d.description,
-        ];
+        let values: [&dyn ToValue; 1] = [&d.description];
         store.set(&store.append(), &col_indices, &values);
     }
     store
 }
 
 fn build_ui(application: &gtk::Application) {
-
     // create the main window
     let window = gtk::ApplicationWindow::new(application);
     window.set_title("Entry with autocompletion");
@@ -93,11 +96,12 @@ fn build_ui(application: &gtk::Application) {
     window.show_all();
 }
 
-
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.entry-completion"),
-                                            Default::default())
-        .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.entry-completion"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
     application.connect_activate(|app| {
         build_ui(app);
     });

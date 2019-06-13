@@ -29,7 +29,9 @@ fn build_ui(application: &gtk::Application) {
         button_obj.set_description("Button to increase label value");
 
         // Then we setup the relation saying that the label is linked to the button.
-        let relation_set = label_obj.ref_relation_set().expect("Failed to get relation for label");
+        let relation_set = label_obj
+            .ref_relation_set()
+            .expect("Failed to get relation for label");
         let relation = atk::Relation::new(&[button_obj], atk::RelationType::LabelFor);
 
         relation_set.add(&relation);
@@ -41,9 +43,11 @@ fn build_ui(application: &gtk::Application) {
     window.add(&vbox);
 
     button.connect_clicked(move |_| {
-        let value = label.get_text()
+        let value = label
+            .get_text()
             .and_then(|s| u32::from_str_radix(&s, 10).ok())
-            .unwrap_or(0) + 1;
+            .unwrap_or(0)
+            + 1;
         label.set_text(&value.to_string());
     });
 
@@ -51,9 +55,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.accessibility"),
-                                            gio::ApplicationFlags::empty())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.accessibility"),
+        gio::ApplicationFlags::empty(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         // We build the application UI.

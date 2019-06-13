@@ -18,7 +18,7 @@ fn build_ui(application: &gtk::Application) {
 
         cr.scale(500f64, 500f64);
 
-        cr.set_source_rgb(250.0/255.0, 224.0/255.0, 55.0/255.0);
+        cr.set_source_rgb(250.0 / 255.0, 224.0 / 255.0, 55.0 / 255.0);
         cr.paint();
 
         cr.set_line_width(0.05);
@@ -34,7 +34,6 @@ fn build_ui(application: &gtk::Application) {
         cr.arc(0.5, 0.5, 0.4, 0.0, PI * 2.);
         cr.stroke();
 
-
         // mouth
         let mouth_top = 0.68;
         let mouth_width = 0.38;
@@ -42,10 +41,15 @@ fn build_ui(application: &gtk::Application) {
         let mouth_dx = 0.10;
         let mouth_dy = 0.10;
 
-        cr.move_to( 0.50 - mouth_width/2.0, mouth_top);
-        cr.curve_to(0.50 - mouth_dx,        mouth_top + mouth_dy,
-                     0.50 + mouth_dx,        mouth_top + mouth_dy,
-                     0.50 + mouth_width/2.0, mouth_top);
+        cr.move_to(0.50 - mouth_width / 2.0, mouth_top);
+        cr.curve_to(
+            0.50 - mouth_dx,
+            mouth_top + mouth_dy,
+            0.50 + mouth_dx,
+            mouth_top + mouth_dy,
+            0.50 + mouth_width / 2.0,
+            mouth_top,
+        );
 
         println!("Extents: {:?}", cr.fill_extents());
 
@@ -89,9 +93,11 @@ fn build_ui(application: &gtk::Application) {
 }
 
 fn main() {
-    let application = gtk::Application::new(Some("com.github.gtk-rs.examples.cairotest"),
-                                            Default::default())
-                                       .expect("Initialization failed...");
+    let application = gtk::Application::new(
+        Some("com.github.gtk-rs.examples.cairotest"),
+        Default::default(),
+    )
+    .expect("Initialization failed...");
 
     application.connect_activate(|app| {
         build_ui(app);
@@ -101,7 +107,9 @@ fn main() {
 }
 
 pub fn drawable<F>(application: &gtk::Application, width: i32, height: i32, draw_fn: F)
-where F: Fn(&DrawingArea, &Context) -> Inhibit + 'static {
+where
+    F: Fn(&DrawingArea, &Context) -> Inhibit + 'static,
+{
     let window = gtk::ApplicationWindow::new(application);
     let drawing_area = Box::new(DrawingArea::new)();
 
