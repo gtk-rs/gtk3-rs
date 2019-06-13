@@ -2,21 +2,21 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Object;
-use RelationType;
 use atk_sys;
 use glib;
-use glib::Value;
 use glib::object::Cast;
 use glib::object::IsA;
-use glib::signal::SignalHandlerId;
 use glib::signal::connect_raw;
+use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::Value;
 use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use Object;
+use RelationType;
 
 glib_wrapper! {
     pub struct Relation(Object<atk_sys::AtkRelation, atk_sys::AtkRelationClass, RelationClass>);
@@ -31,7 +31,11 @@ impl Relation {
         assert_initialized_main_thread!();
         let n_targets = targets.len() as i32;
         unsafe {
-            from_glib_full(atk_sys::atk_relation_new(targets.to_glib_none().0, n_targets, relationship.to_glib()))
+            from_glib_full(atk_sys::atk_relation_new(
+                targets.to_glib_none().0,
+                n_targets,
+                relationship.to_glib(),
+            ))
         }
     }
 }
@@ -51,7 +55,10 @@ pub trait RelationExt: 'static {
 
     fn set_property_target(&self, target: Option<&glib::ValueArray>);
 
-    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -59,13 +66,18 @@ pub trait RelationExt: 'static {
 impl<O: IsA<Relation>> RelationExt for O {
     fn add_target<P: IsA<Object>>(&self, target: &P) {
         unsafe {
-            atk_sys::atk_relation_add_target(self.as_ref().to_glib_none().0, target.as_ref().to_glib_none().0);
+            atk_sys::atk_relation_add_target(
+                self.as_ref().to_glib_none().0,
+                target.as_ref().to_glib_none().0,
+            );
         }
     }
 
     fn get_relation_type(&self) -> RelationType {
         unsafe {
-            from_glib(atk_sys::atk_relation_get_relation_type(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_relation_get_relation_type(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -75,47 +87,79 @@ impl<O: IsA<Relation>> RelationExt for O {
 
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_relation_remove_target(self.as_ref().to_glib_none().0, target.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_relation_remove_target(
+                self.as_ref().to_glib_none().0,
+                target.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn set_property_relation_type(&self, relation_type: RelationType) {
         unsafe {
-            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"relation-type\0".as_ptr() as *const _, Value::from(&relation_type).to_glib_none().0);
+            gobject_sys::g_object_set_property(
+                self.to_glib_none().0 as *mut gobject_sys::GObject,
+                b"relation-type\0".as_ptr() as *const _,
+                Value::from(&relation_type).to_glib_none().0,
+            );
         }
     }
 
     fn set_property_target(&self, target: Option<&glib::ValueArray>) {
         unsafe {
-            gobject_sys::g_object_set_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"target\0".as_ptr() as *const _, Value::from(target).to_glib_none().0);
+            gobject_sys::g_object_set_property(
+                self.to_glib_none().0 as *mut gobject_sys::GObject,
+                b"target\0".as_ptr() as *const _,
+                Value::from(target).to_glib_none().0,
+            );
         }
     }
 
-    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkRelation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<Relation>
+    fn connect_property_relation_type_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_relation_type_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut atk_sys::AtkRelation,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<Relation>,
         {
             let f: &F = &*(f as *const F);
             f(&Relation::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::relation-type\0".as_ptr() as *const _,
-                Some(transmute(notify_relation_type_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::relation-type\0".as_ptr() as *const _,
+                Some(transmute(
+                    notify_relation_type_trampoline::<Self, F> as usize,
+                )),
+                Box_::into_raw(f),
+            )
         }
     }
 
     fn connect_property_target_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-        unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(this: *mut atk_sys::AtkRelation, _param_spec: glib_sys::gpointer, f: glib_sys::gpointer)
-            where P: IsA<Relation>
+        unsafe extern "C" fn notify_target_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut atk_sys::AtkRelation,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<Relation>,
         {
             let f: &F = &*(f as *const F);
             f(&Relation::from_glib_borrow(this).unsafe_cast())
         }
         unsafe {
             let f: Box_<F> = Box_::new(f);
-            connect_raw(self.as_ptr() as *mut _, b"notify::target\0".as_ptr() as *const _,
-                Some(transmute(notify_target_trampoline::<Self, F> as usize)), Box_::into_raw(f))
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::target\0".as_ptr() as *const _,
+                Some(transmute(notify_target_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
         }
     }
 }

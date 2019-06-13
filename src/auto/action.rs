@@ -3,9 +3,9 @@
 // DO NOT EDIT
 
 use atk_sys;
-use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::GString;
 use std::fmt;
 
 glib_wrapper! {
@@ -37,43 +37,60 @@ pub trait AtkActionExt: 'static {
 impl<O: IsA<Action>> AtkActionExt for O {
     fn do_action(&self, i: i32) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_action_do_action(self.as_ref().to_glib_none().0, i))
+            from_glib(atk_sys::atk_action_do_action(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_description(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_action_get_description(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_action_get_description(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_keybinding(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_action_get_keybinding(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_action_get_keybinding(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_localized_name(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_action_get_localized_name(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_action_get_localized_name(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn get_n_actions(&self) -> i32 {
-        unsafe {
-            atk_sys::atk_action_get_n_actions(self.as_ref().to_glib_none().0)
-        }
+        unsafe { atk_sys::atk_action_get_n_actions(self.as_ref().to_glib_none().0) }
     }
 
     fn get_name(&self, i: i32) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_action_get_name(self.as_ref().to_glib_none().0, i))
+            from_glib_none(atk_sys::atk_action_get_name(
+                self.as_ref().to_glib_none().0,
+                i,
+            ))
         }
     }
 
     fn set_description(&self, i: i32, desc: &str) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_action_set_description(self.as_ref().to_glib_none().0, i, desc.to_glib_none().0))
+            from_glib(atk_sys::atk_action_set_description(
+                self.as_ref().to_glib_none().0,
+                i,
+                desc.to_glib_none().0,
+            ))
         }
     }
 }

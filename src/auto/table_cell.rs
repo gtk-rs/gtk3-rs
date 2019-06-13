@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Object;
 use atk_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::mem;
+use Object;
 
 glib_wrapper! {
     pub struct TableCell(Interface<atk_sys::AtkTableCell>) @requires Object;
@@ -41,17 +41,23 @@ impl<O: IsA<TableCell>> TableCellExt for O {
     //}
 
     fn get_column_span(&self) -> i32 {
-        unsafe {
-            atk_sys::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0)
-        }
+        unsafe { atk_sys::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0) }
     }
 
     fn get_position(&self) -> Option<(i32, i32)> {
         unsafe {
             let mut row = mem::uninitialized();
             let mut column = mem::uninitialized();
-            let ret = from_glib(atk_sys::atk_table_cell_get_position(self.as_ref().to_glib_none().0, &mut row, &mut column));
-            if ret { Some((row, column)) } else { None }
+            let ret = from_glib(atk_sys::atk_table_cell_get_position(
+                self.as_ref().to_glib_none().0,
+                &mut row,
+                &mut column,
+            ));
+            if ret {
+                Some((row, column))
+            } else {
+                None
+            }
         }
     }
 
@@ -61,8 +67,18 @@ impl<O: IsA<TableCell>> TableCellExt for O {
             let mut column = mem::uninitialized();
             let mut row_span = mem::uninitialized();
             let mut column_span = mem::uninitialized();
-            let ret = from_glib(atk_sys::atk_table_cell_get_row_column_span(self.as_ref().to_glib_none().0, &mut row, &mut column, &mut row_span, &mut column_span));
-            if ret { Some((row, column, row_span, column_span)) } else { None }
+            let ret = from_glib(atk_sys::atk_table_cell_get_row_column_span(
+                self.as_ref().to_glib_none().0,
+                &mut row,
+                &mut column,
+                &mut row_span,
+                &mut column_span,
+            ));
+            if ret {
+                Some((row, column, row_span, column_span))
+            } else {
+                None
+            }
         }
     }
 
@@ -71,14 +87,14 @@ impl<O: IsA<TableCell>> TableCellExt for O {
     //}
 
     fn get_row_span(&self) -> i32 {
-        unsafe {
-            atk_sys::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0)
-        }
+        unsafe { atk_sys::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0) }
     }
 
     fn get_table(&self) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_table_cell_get_table(self.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_table_cell_get_table(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }

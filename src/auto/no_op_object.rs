@@ -2,6 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use atk_sys;
+use glib;
+use glib::object::Cast;
+use glib::object::IsA;
+use glib::translate::*;
+use std::fmt;
 use Action;
 use Component;
 use Document;
@@ -15,12 +21,6 @@ use TableCell;
 use Text;
 use Value;
 use Window;
-use atk_sys;
-use glib;
-use glib::object::Cast;
-use glib::object::IsA;
-use glib::translate::*;
-use std::fmt;
 
 glib_wrapper! {
     pub struct NoOpObject(Object<atk_sys::AtkNoOpObject, atk_sys::AtkNoOpObjectClass, NoOpObjectClass>) @extends Object, @implements Action, Component, Document, EditableText, Hypertext, Image, Selection, Table, TableCell, Text, Value, Window;
@@ -34,7 +34,8 @@ impl NoOpObject {
     pub fn new<P: IsA<glib::Object>>(obj: &P) -> NoOpObject {
         assert_initialized_main_thread!();
         unsafe {
-            Object::from_glib_full(atk_sys::atk_no_op_object_new(obj.as_ref().to_glib_none().0)).unsafe_cast()
+            Object::from_glib_full(atk_sys::atk_no_op_object_new(obj.as_ref().to_glib_none().0))
+                .unsafe_cast()
         }
     }
 }

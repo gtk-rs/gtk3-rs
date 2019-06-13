@@ -34,11 +34,11 @@ impl TextRectangle {
 impl fmt::Display for TextRectangle {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("TextRectangle")
-         .field("x", &self.x)
-         .field("y", &self.y)
-         .field("width", &self.width)
-         .field("height", &self.height)
-         .finish()
+            .field("x", &self.x)
+            .field("y", &self.y)
+            .field("width", &self.width)
+            .field("height", &self.height)
+            .finish()
     }
 }
 

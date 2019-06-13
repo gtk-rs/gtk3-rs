@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use CoordType;
 use atk_sys;
-use glib::GString;
 use glib::object::IsA;
 use glib::translate::*;
+use glib::GString;
 use std::fmt;
 use std::mem;
+use CoordType;
 
 glib_wrapper! {
     pub struct Image(Interface<atk_sys::AtkImage>);
@@ -35,13 +35,17 @@ pub trait AtkImageExt: 'static {
 impl<O: IsA<Image>> AtkImageExt for O {
     fn get_image_description(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_image_get_image_description(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_image_get_image_description(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_image_locale(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(atk_sys::atk_image_get_image_locale(self.as_ref().to_glib_none().0))
+            from_glib_none(atk_sys::atk_image_get_image_locale(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 
@@ -49,7 +53,12 @@ impl<O: IsA<Image>> AtkImageExt for O {
         unsafe {
             let mut x = mem::uninitialized();
             let mut y = mem::uninitialized();
-            atk_sys::atk_image_get_image_position(self.as_ref().to_glib_none().0, &mut x, &mut y, coord_type.to_glib());
+            atk_sys::atk_image_get_image_position(
+                self.as_ref().to_glib_none().0,
+                &mut x,
+                &mut y,
+                coord_type.to_glib(),
+            );
             (x, y)
         }
     }
@@ -58,14 +67,21 @@ impl<O: IsA<Image>> AtkImageExt for O {
         unsafe {
             let mut width = mem::uninitialized();
             let mut height = mem::uninitialized();
-            atk_sys::atk_image_get_image_size(self.as_ref().to_glib_none().0, &mut width, &mut height);
+            atk_sys::atk_image_get_image_size(
+                self.as_ref().to_glib_none().0,
+                &mut width,
+                &mut height,
+            );
             (width, height)
         }
     }
 
     fn set_image_description(&self, description: &str) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_image_set_image_description(self.as_ref().to_glib_none().0, description.to_glib_none().0))
+            from_glib(atk_sys::atk_image_set_image_description(
+                self.as_ref().to_glib_none().0,
+                description.to_glib_none().0,
+            ))
         }
     }
 }

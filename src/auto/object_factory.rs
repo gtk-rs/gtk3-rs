@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Object;
 use atk_sys;
 use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Object;
 
 glib_wrapper! {
     pub struct ObjectFactory(Object<atk_sys::AtkObjectFactory, atk_sys::AtkObjectFactoryClass, ObjectFactoryClass>);
@@ -30,13 +30,18 @@ pub trait ObjectFactoryExt: 'static {
 impl<O: IsA<ObjectFactory>> ObjectFactoryExt for O {
     fn create_accessible<P: IsA<glib::Object>>(&self, obj: &P) -> Option<Object> {
         unsafe {
-            from_glib_full(atk_sys::atk_object_factory_create_accessible(self.as_ref().to_glib_none().0, obj.as_ref().to_glib_none().0))
+            from_glib_full(atk_sys::atk_object_factory_create_accessible(
+                self.as_ref().to_glib_none().0,
+                obj.as_ref().to_glib_none().0,
+            ))
         }
     }
 
     fn get_accessible_type(&self) -> glib::types::Type {
         unsafe {
-            from_glib(atk_sys::atk_object_factory_get_accessible_type(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_object_factory_get_accessible_type(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 

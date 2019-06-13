@@ -15,9 +15,9 @@ pub struct Attribute {
 impl fmt::Display for Attribute {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_struct("Attribute")
-         .field("name", &self.name)
-         .field("value", &self.value)
-         .finish()
+            .field("name", &self.name)
+            .field("value", &self.value)
+            .finish()
     }
 }
 
@@ -41,7 +41,7 @@ impl ToGlib for Attribute {
     fn to_glib(&self) -> atk_sys::AtkAttribute {
         atk_sys::AtkAttribute {
             name: self.name.to_glib_none().0,
-            value: self.value.to_glib_none().0
+            value: self.value.to_glib_none().0,
         }
     }
 }

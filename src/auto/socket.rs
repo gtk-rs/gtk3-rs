@@ -2,13 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Component;
-use Object;
 use atk_sys;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
+use Component;
+use Object;
 
 glib_wrapper! {
     pub struct Socket(Object<atk_sys::AtkSocket, atk_sys::AtkSocketClass, SocketClass>) @extends Object, @implements Component;
@@ -21,9 +21,7 @@ glib_wrapper! {
 impl Socket {
     pub fn new() -> Socket {
         assert_initialized_main_thread!();
-        unsafe {
-            Object::from_glib_full(atk_sys::atk_socket_new()).unsafe_cast()
-        }
+        unsafe { Object::from_glib_full(atk_sys::atk_socket_new()).unsafe_cast() }
     }
 }
 
@@ -50,7 +48,9 @@ impl<O: IsA<Socket>> AtkSocketExt for O {
 
     fn is_occupied(&self) -> bool {
         unsafe {
-            from_glib(atk_sys::atk_socket_is_occupied(self.as_ref().to_glib_none().0))
+            from_glib(atk_sys::atk_socket_is_occupied(
+                self.as_ref().to_glib_none().0,
+            ))
         }
     }
 }
