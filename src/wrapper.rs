@@ -265,6 +265,38 @@ macro_rules! glib_wrapper {
             @free $free_arg $free_expr, @get_type $get_type_expr);
     };
 
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Boxed<$ffi_name:path>);
+
+        match fn {
+            copy => |$copy_arg:ident| $copy_expr:expr,
+            free => |$free_arg:ident| $free_expr:expr,
+            init => |$init_arg:ident| $init_expr:expr,
+            clear => |$clear_arg:ident| $clear_expr:expr,
+        }
+    ) => {
+        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr, @init $init_arg $init_expr, @clear $clear_arg $clear_expr);
+    };
+
+    (
+        $(#[$attr:meta])*
+        pub struct $name:ident(Boxed<$ffi_name:path>);
+
+        match fn {
+            copy => |$copy_arg:ident| $copy_expr:expr,
+            free => |$free_arg:ident| $free_expr:expr,
+            init => |$init_arg:ident| $init_expr:expr,
+            clear => |$clear_arg:ident| $clear_expr:expr,
+            get_type => || $get_type_expr:expr,
+        }
+    ) => {
+        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+            @free $free_arg $free_expr, @init $init_arg $init_expr, @clear $clear_arg $clear_expr,
+            @get_type $get_type_expr);
+    };
+
     // Shared
 
     (
