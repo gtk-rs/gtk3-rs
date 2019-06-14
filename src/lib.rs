@@ -12,9 +12,9 @@
 extern crate bitflags;
 #[macro_use]
 extern crate glib;
-extern crate glib_sys as glib_ffi;
-extern crate gobject_sys as gobject_ffi;
-extern crate graphene_sys as ffi;
+extern crate glib_sys as glib_sys;
+extern crate gobject_sys as gobject_sys;
+extern crate graphene_sys as graphene_sys;
 #[macro_use]
 extern crate lazy_static;
 extern crate libc;
