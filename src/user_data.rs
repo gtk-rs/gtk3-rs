@@ -2,20 +2,6 @@ use std::marker::PhantomData;
 
 use ffi::cairo_user_data_key_t;
 
-/// A key for indexing user data in various cairo types.
-///
-/// Some types like [`Surface`] have `get_user_data`, `set_user_data`, and `remove_user_data`
-/// methods that take `&'static UserDataKey`, where the address of that reference is significant.
-///
-/// To reliably have a stable address, the expected usage is to define a `static` item:
-///
-/// ```
-/// use cairo::UserDataKey;
-/// static FOO: UserDataKey<String> = UserDataKey::new();
-///
-/// # fn foo(surface: &cairo::Surface) {
-/// surface.get_user_data(&FOO)
-/// # ; }
 pub struct UserDataKey<T> {
     pub(crate) ffi: cairo_user_data_key_t,
     marker: PhantomData<*const T>,
