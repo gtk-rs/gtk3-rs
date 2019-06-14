@@ -336,6 +336,16 @@ impl MainContext {
 
 impl Spawn for MainContext {
     fn spawn_obj(&mut self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
+        (&*self).spawn_obj(f)
+    }
+}
+
+/// Implementing `Spawn` for a _reference_ of `MainContext` allows to convert it to a futures-0.1 `Executor`,
+/// using the futures-0.1 compatibility layer.
+///
+/// See https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.16/src/futures_util/compat/executor.rs.html#85
+impl Spawn for &MainContext {
+    fn spawn_obj(&mut self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
         let source = TaskSource::new(::PRIORITY_DEFAULT, None, f);
         source.attach(Some(&*self));
         Ok(())
