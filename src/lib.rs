@@ -86,20 +86,11 @@ pub use error::{
 };
 
 pub use patterns::{
-    // Enums
     Pattern,
-    // Traits
-    PatternTrait,
-    Gradient,
-
-    // Structs
     LinearGradient,
     RadialGradient,
     SolidPattern,
     SurfacePattern,
-};
-
-pub use patterns::{
     Mesh,
 };
 
@@ -117,10 +108,7 @@ pub use font::{
     TextCluster,
 };
 
-pub use matrices::{
-    Matrix,
-    MatrixTrait,
-};
+pub use matrices::Matrix;
 
 pub use recording_surface::RecordingSurface;
 pub use rectangle::Rectangle;
@@ -131,13 +119,24 @@ pub use region::Region;
 pub use surface::{
     MappedImageSurface,
     Surface,
-    SurfaceExt,
 };
 
 pub use image_surface::{
     ImageSurface,
     ImageSurfaceData,
 };
+
+#[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
+pub use stream::StreamWithError;
+
+#[cfg(any(feature = "pdf", feature = "dox"))]
+pub use pdf::PdfSurface;
+
+#[cfg(any(feature = "ps", feature = "dox"))]
+pub use ps::PsSurface;
+
+#[cfg(any(feature = "svg", feature = "dox"))]
+pub use svg::SvgSurface;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
@@ -149,8 +148,6 @@ pub use xcb::{
     XCBScreen,
     XCBVisualType,
 };
-
-pub mod prelude;
 
 #[macro_use] mod user_data;
 mod constants;
@@ -178,13 +175,14 @@ mod matrices;
 mod xcb;
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
-mod support;
+#[macro_use]
+mod stream;
 #[cfg(any(feature = "pdf", feature = "dox"))]
-pub mod pdf;
+mod pdf;
 #[cfg(any(feature = "svg", feature = "dox"))]
-pub mod svg;
+mod svg;
 #[cfg(any(feature = "ps", feature = "dox"))]
-pub mod ps;
+mod ps;
 
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 mod quartz_surface;

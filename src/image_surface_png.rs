@@ -2,8 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::any::Any;
 use std::slice;
 use std::io::{Read, Write, Error};
+use std::panic::AssertUnwindSafe;
 
 use libc::{c_void, c_uint};
 
@@ -14,42 +16,70 @@ use ImageSurface;
 
 struct ReadEnv<'a, R: 'a + Read> {
     reader: &'a mut R,
-    error: Option<Error>,
+    io_error: Option<Error>,
+    unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
 unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
+
+    // Don’t attempt another read if a previous one errored or panicked:
+    if read_env.io_error.is_some() || read_env.unwind_payload.is_some() {
+        return Status::ReadError.into()
+    }
+
     let buffer = slice::from_raw_parts_mut(data, len as usize);
-    match read_env.reader.read_exact(buffer) {
-        Ok(()) => Status::Success,
-        Err(error) => {
-            read_env.error = Some(error);
+    let result = std::panic::catch_unwind(AssertUnwindSafe(|| read_env.reader.read_exact(buffer)));
+    match result {
+        Ok(Ok(())) => {
+            Status::Success
+        }
+        Ok(Err(error)) => {
+            read_env.io_error = Some(error);
             Status::ReadError
-        },
+        }
+        Err(payload) => {
+            read_env.unwind_payload = Some(payload);
+            Status::ReadError
+        }
     }.into()
 }
 
 struct WriteEnv<'a, W: 'a + Write> {
     writer: &'a mut W,
-    error: Option<Error>,
+    io_error: Option<Error>,
+    unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
 unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
     let write_env: &mut WriteEnv<W> = &mut *(closure as *mut WriteEnv<W>);
+
+    // Don’t attempt another write if a previous one errored or panicked:
+    if write_env.io_error.is_some() || write_env.unwind_payload.is_some() {
+        return Status::WriteError.into()
+    }
+
     let buffer = slice::from_raw_parts(data, len as usize);
-    match write_env.writer.write_all(buffer) {
-        Ok(()) => Status::Success,
-        Err(error) => {
-            write_env.error = Some(error);
+    let result = std::panic::catch_unwind(AssertUnwindSafe(|| write_env.writer.write_all(buffer)));
+    match result {
+        Ok(Ok(())) => {
+            Status::Success
+        }
+        Ok(Err(error)) => {
+            write_env.io_error = Some(error);
             Status::WriteError
-        },
+        }
+        Err(payload) => {
+            write_env.unwind_payload = Some(payload);
+            Status::WriteError
+        }
     }.into()
 }
 
 
 impl ImageSurface {
     pub fn create_from_png<R: Read>(stream: &mut R) -> Result<ImageSurface, IoError> {
-        let mut env = ReadEnv{ reader: stream, error: None };
+        let mut env = ReadEnv { reader: stream, io_error: None, unwind_payload: None };
         unsafe {
             let raw_surface = ffi::cairo_image_surface_create_from_png_stream(
                 Some(read_func::<R>),
@@ -57,7 +87,11 @@ impl ImageSurface {
 
             let surface = ImageSurface::from_raw_full(raw_surface)?;
 
-            match env.error {
+            if let Some(payload) = env.unwind_payload {
+                std::panic::resume_unwind(payload)
+            }
+
+            match env.io_error {
                 None => Ok(surface),
                 Some(err) => Err(IoError::Io(err)),
             }
@@ -65,10 +99,15 @@ impl ImageSurface {
     }
 
     pub fn write_to_png<W: Write>(&self, stream: &mut W) -> Result<(), IoError> {
-        let mut env = WriteEnv{ writer: stream, error: None };
+        let mut env = WriteEnv { writer: stream, io_error: None, unwind_payload: None };
         let status = unsafe { ffi::cairo_surface_write_to_png_stream(self.to_raw_none(),
             Some(write_func::<W>), &mut env as *mut WriteEnv<W> as *mut c_void) };
-        match env.error {
+
+        if let Some(payload) = env.unwind_payload {
+            std::panic::resume_unwind(payload)
+        }
+
+        match env.io_error {
             None => match Status::from(status) {
                 Status::Success => Ok(()),
                 st => Err(IoError::Cairo(st.into())),

@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ops::{Deref, DerefMut};
 use std::rc::Rc;
 use std::slice;
@@ -15,15 +16,17 @@ use ::enums::{
 };
 
 use BorrowError;
-use surface::{Surface, SurfaceExt};
+use surface::Surface;
 use Status;
 use std::fmt;
 
 #[derive(Debug)]
 pub struct ImageSurface(Surface);
 
-impl ImageSurface {
-    pub fn from(surface: Surface) -> Result<ImageSurface, Surface> {
+impl TryFrom<Surface> for ImageSurface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<ImageSurface, Surface> {
         if surface.get_type() == SurfaceType::Image {
             Ok(ImageSurface(surface))
         }
@@ -31,9 +34,11 @@ impl ImageSurface {
             Err(surface)
         }
     }
+}
 
+impl ImageSurface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<ImageSurface, Status> {
-        let surface = Self::from(Surface::from_raw_full(ptr)).unwrap();
+        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
         let status = surface.status();
         match status {
             Status::Success => Ok(surface),
@@ -129,7 +134,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for ImageSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
-        Self::from(from_glib_none(ptr)).unwrap()
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -137,7 +142,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for ImageSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for ImageSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> ImageSurface {
-        Self::from(from_glib_borrow(ptr)).unwrap()
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -151,12 +156,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for ImageSurface {
 
 #[cfg(feature = "use_glib")]
 gvalue_impl!(ImageSurface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
-
-impl AsRef<Surface> for ImageSurface {
-    fn as_ref(&self) -> &Surface {
-        &self.0
-    }
-}
 
 impl Deref for ImageSurface {
     type Target = Surface;

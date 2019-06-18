@@ -2,20 +2,6 @@ use std::marker::PhantomData;
 
 use ffi::cairo_user_data_key_t;
 
-/// A key for indexing user data in various cairo types.
-///
-/// Some types like [`Surface`] have `get_user_data`, `set_user_data`, and `remove_user_data`
-/// methods that take `&'static UserDataKey`, where the address of that reference is significant.
-///
-/// To reliably have a stable address, the expected usage is to define a `static` item:
-///
-/// ```
-/// use cairo::UserDataKey;
-/// static FOO: UserDataKey<String> = UserDataKey::new();
-///
-/// # fn foo(surface: &cairo::Surface) {
-/// surface.get_user_data(&FOO)
-/// # ; }
 pub struct UserDataKey<T> {
     pub(crate) ffi: cairo_user_data_key_t,
     marker: PhantomData<*const T>,
@@ -48,7 +34,7 @@ impl<T> UserDataKey<T> {
 // See <https://github.com/gtk-rs/cairo/issues/256>
 
 macro_rules! user_data_methods {
-    ($as_ptr: expr, $ffi_get_user_data: path, $ffi_set_user_data: path,) => {
+    ($ffi_get_user_data: path, $ffi_set_user_data: path,) => {
         /// Attach user data to `self` for the given `key`.
         pub fn set_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>,
                                          value: std::rc::Rc<T>)
@@ -66,7 +52,7 @@ macro_rules! user_data_methods {
             let ptr: *const T = std::rc::Rc::into_raw(value);
             let ptr = ptr as *mut T as *mut libc::c_void;
             let result = unsafe {
-                $ffi_set_user_data($as_ptr(self), &key.ffi, ptr, Some(destructor::<T>))
+                $ffi_set_user_data(self.to_raw_none(), &key.ffi, ptr, Some(destructor::<T>))
             };
             Status::from(result).ensure_valid()
         }
@@ -75,6 +61,8 @@ macro_rules! user_data_methods {
         pub fn get_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>)
                                          -> Option<std::rc::Rc<T>>
         {
+            let ptr = self.get_user_data_ptr(key)?.as_ptr();
+
             // Safety:
             //
             // `Rc::from_raw` would normally take ownership of a strong reference for this pointer.
@@ -82,6 +70,22 @@ macro_rules! user_data_methods {
             // with the same key.
             // We use `ManuallyDrop` to avoid running the destructor of that first `Rc`,
             // and return a cloned one (which increments the reference count).
+            unsafe {
+                let rc = std::mem::ManuallyDrop::new(std::rc::Rc::from_raw(ptr));
+                Some(std::rc::Rc::clone(&rc))
+            }
+        }
+
+        /// Return the user data previously attached to `self` with the given `key`, if any,
+        /// without incrementing the reference count.
+        ///
+        /// The pointer is valid when it is returned from this method,
+        /// until the cairo object that `self` represents is destroyed
+        /// or `remove_user_data` or `set_user_data` is called with the same key.
+        pub fn get_user_data_ptr<T: 'static>(&self, key: &'static crate::UserDataKey<T>)
+                                             -> Option<std::ptr::NonNull<T>>
+        {
+            // Safety:
             //
             // If `ffi_get_user_data` returns a non-null pointer,
             // there was a previous call to `ffi_set_user_data` with a key with the same address.
@@ -102,10 +106,8 @@ macro_rules! user_data_methods {
             //   Since this involves a C (or FFI) call *and* is so far out of “typical” use
             //   of the user data functionality, we consider this a misuse of an unsafe API.
             unsafe {
-                let ptr = $ffi_get_user_data($as_ptr(self), &key.ffi);
-                let ptr: *mut T = std::ptr::NonNull::new(ptr)?.cast().as_ptr();
-                let rc = std::mem::ManuallyDrop::new(std::rc::Rc::from_raw(ptr));
-                Some(std::rc::Rc::clone(&rc))
+                let ptr = $ffi_get_user_data(self.to_raw_none(), &key.ffi);
+                Some(std::ptr::NonNull::new(ptr)?.cast())
             }
         }
 
@@ -113,7 +115,7 @@ macro_rules! user_data_methods {
         /// If there is no other `Rc` strong reference, the data is destroyed.
         pub fn remove_user_data<T: 'static>(&self, key: &'static crate::UserDataKey<T>) {
             let result = unsafe {
-                $ffi_set_user_data($as_ptr(self), &key.ffi, std::ptr::null_mut(), None)
+                $ffi_set_user_data(self.to_raw_none(), &key.ffi, std::ptr::null_mut(), None)
             };
             Status::from(result).ensure_valid()
         }

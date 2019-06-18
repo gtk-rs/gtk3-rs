@@ -11,7 +11,7 @@ use std::ops;
 use std::slice;
 use ::paths::Path;
 use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
-use ::matrices::{Matrix, MatrixTrait};
+use ::matrices::Matrix;
 use ::{
     Antialias,
     Content,
@@ -31,7 +31,7 @@ use ffi::{
     cairo_t,
     cairo_rectangle_list_t,
 };
-use ::patterns::{Pattern, PatternTrait};
+use ::patterns::Pattern;
 use surface::Surface;
 
 pub struct RectangleList {
@@ -124,12 +124,6 @@ impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
 #[cfg(feature = "use_glib")]
 gvalue_impl!(Context, cairo_t, ffi::gobject::cairo_gobject_context_get_type);
 
-impl AsRef<Context> for Context {
-    fn as_ref(&self) -> &Context {
-        self
-    }
-}
-
 impl Clone for Context {
     fn clone(&self) -> Context {
         unsafe { Self::from_raw_none(self.to_raw_none()) }
@@ -172,9 +166,9 @@ impl Context {
         self.status().ensure_valid();
     }
 
-    pub fn new<T: AsRef<Surface>>(target: &T) -> Context {
+    pub fn new(target: &Surface) -> Context {
         unsafe {
-            Self::from_raw_full(ffi::cairo_create(target.as_ref().to_raw_none()))
+            Self::from_raw_full(ffi::cairo_create(target.to_raw_none()))
         }
     }
 
@@ -248,7 +242,7 @@ impl Context {
 
     pub fn set_source(&self, source: &Pattern) {
         unsafe {
-            ffi::cairo_set_source(self.0, source.as_ptr());
+            ffi::cairo_set_source(self.0, source.to_raw_none());
         }
         self.ensure_status();
     }
@@ -259,8 +253,8 @@ impl Context {
         }
     }
 
-    pub fn set_source_surface<T: AsRef<Surface>>(&self, surface: &T, x: f64, y: f64) {
-        unsafe { ffi::cairo_set_source_surface(self.0, surface.as_ref().to_raw_none(), x, y); }
+    pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) {
+        unsafe { ffi::cairo_set_source_surface(self.0, surface.to_raw_none(), x, y); }
     }
 
     pub fn set_antialias(&self, antialias : Antialias) {
@@ -482,7 +476,7 @@ impl Context {
 
     pub fn mask(&self, pattern: &Pattern) {
         unsafe {
-            ffi::cairo_mask(self.0, pattern.as_ptr())
+            ffi::cairo_mask(self.0, pattern.to_raw_none())
         }
     }
 
@@ -574,20 +568,20 @@ impl Context {
 
     pub fn transform(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_transform(self.0, &matrix);
+            ffi::cairo_transform(self.0, matrix.ptr());
         }
     }
 
     pub fn set_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_set_matrix(self.0, &matrix);
+            ffi::cairo_set_matrix(self.0, matrix.ptr());
         }
     }
 
     pub fn get_matrix(&self) -> Matrix {
-        let mut matrix = <Matrix as MatrixTrait>::null();
+        let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_get_matrix(self.0, &mut matrix);
+            ffi::cairo_get_matrix(self.0, matrix.mut_ptr());
         }
         matrix
     }
@@ -644,14 +638,14 @@ impl Context {
     // FIXME probably needs a heap allocation
     pub fn set_font_matrix(&self, matrix: Matrix) {
         unsafe {
-            ffi::cairo_set_font_matrix(self.0, &matrix)
+            ffi::cairo_set_font_matrix(self.0, matrix.ptr())
         }
     }
 
     pub fn get_font_matrix(&self) -> Matrix {
-        let mut matrix = <Matrix as MatrixTrait>::null();
+        let mut matrix = Matrix::null();
         unsafe {
-            ffi::cairo_get_font_matrix(self.0, &mut matrix);
+            ffi::cairo_get_font_matrix(self.0, matrix.mut_ptr());
         }
         matrix
     }
@@ -952,7 +946,7 @@ mod tests {
     #[test]
     fn drop_non_reference_pattern() {
         let ctx = create_ctx();
-        let mut pattern = Pattern::LinearGradient(LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64));
-        ctx.set_source(&mut pattern);
+        let pattern = LinearGradient::new(1.0f64, 2.0f64, 3.0f64, 4.0f64);
+        ctx.set_source(&pattern);
     }
 }

@@ -128,7 +128,6 @@ impl FontFace {
     }
 
     user_data_methods! {
-        FontFace::to_raw_none,
         ffi::cairo_font_face_get_user_data,
         ffi::cairo_font_face_set_user_data,
     }

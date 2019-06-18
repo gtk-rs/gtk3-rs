@@ -8,10 +8,7 @@ use ::enums::{
     FontType,
     Status,
 };
-use ::matrices::{
-    Matrix,
-    MatrixTrait
-};
+use ::matrices::Matrix;
 use ffi::{
     FontExtents,
     Glyph,
@@ -40,7 +37,7 @@ pub struct ScaledFont(*mut ffi::cairo_scaled_font_t);
 impl ScaledFont {
     pub fn new(font_face: &FontFace, font_matrix: &Matrix, ctm: &Matrix, options: &FontOptions) -> ScaledFont {
         let scaled_font: ScaledFont = unsafe {
-            ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(font_face.to_raw_none(), font_matrix, ctm, options.to_raw_none()))
+            ScaledFont::from_raw_full(ffi::cairo_scaled_font_create(font_face.to_raw_none(), font_matrix.ptr(), ctm.ptr(), options.to_raw_none()))
         };
         scaled_font.ensure_status();
         scaled_font
@@ -224,7 +221,7 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_font_matrix(self.to_raw_none(), &mut matrix)
+            ffi::cairo_scaled_font_get_font_matrix(self.to_raw_none(), matrix.mut_ptr())
         }
 
         matrix
@@ -234,7 +231,7 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_ctm(self.to_raw_none(), &mut matrix)
+            ffi::cairo_scaled_font_get_ctm(self.to_raw_none(), matrix.mut_ptr())
         }
 
         matrix
@@ -244,14 +241,13 @@ impl ScaledFont {
         let mut matrix = Matrix::null();
 
         unsafe {
-            ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), &mut matrix)
+            ffi::cairo_scaled_font_get_scale_matrix(self.to_raw_none(), matrix.mut_ptr())
         }
 
         matrix
     }
 
     user_data_methods! {
-        ScaledFont::to_raw_none,
         ffi::cairo_scaled_font_get_user_data,
         ffi::cairo_scaled_font_set_user_data,
     }
