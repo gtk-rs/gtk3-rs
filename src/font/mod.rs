@@ -2,28 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-mod font_options;
 mod font_face;
+mod font_options;
 mod scaled_font;
 
-pub use ::enums::{
-    Antialias,
-    SubpixelOrder,
-    HintStyle,
-    HintMetrics,
-
-    FontType,
-    FontWeight,
-    FontSlant,
+pub use enums::{
+    Antialias, FontSlant, FontType, FontWeight, HintMetrics, HintStyle, SubpixelOrder,
     TextClusterFlags,
 };
 
-pub use ffi::{
-    FontExtents,
-    Glyph,
-    TextCluster,
-    TextExtents
-};
+pub use ffi::{FontExtents, Glyph, TextCluster, TextExtents};
 
 /* TODO
  Allocates an array of cairo_glyph_t's. This function is only useful in
@@ -51,6 +39,6 @@ impl TextCluster {
 }
 */
 
-pub use self::font_options::FontOptions;
 pub use self::font_face::FontFace;
+pub use self::font_options::FontOptions;
 pub use self::scaled_font::ScaledFont;

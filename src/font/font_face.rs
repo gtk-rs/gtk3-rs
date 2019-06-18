@@ -1,16 +1,10 @@
+use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use libc::c_char;
-use ffi;
-use std::ffi::{CString, CStr};
+use std::ffi::{CStr, CString};
 
-use ::enums::{
-    FontSlant,
-    FontType,
-    FontWeight,
-    FtSynthesize,
-    Status,
-};
+use enums::{FontSlant, FontType, FontWeight, FtSynthesize, Status};
 
 #[cfg(feature = "use_glib")]
 glib_wrapper! {
@@ -32,9 +26,11 @@ impl FontFace {
     pub fn toy_create(family: &str, slant: FontSlant, weight: FontWeight) -> FontFace {
         let font_face: FontFace = unsafe {
             let family = CString::new(family).unwrap();
-            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(family.as_ptr(),
-                                                                    slant.into(),
-                                                                    weight.into()))
+            FontFace::from_raw_full(ffi::cairo_toy_font_face_create(
+                family.as_ptr(),
+                slant.into(),
+                weight.into(),
+            ))
         };
         font_face.ensure_status();
         font_face
@@ -73,58 +69,40 @@ impl FontFace {
     }
 
     pub fn toy_get_family(&self) -> Option<String> {
-        unsafe {
-            to_optional_string(ffi::cairo_toy_font_face_get_family(self.to_raw_none()))
-        }
+        unsafe { to_optional_string(ffi::cairo_toy_font_face_get_family(self.to_raw_none())) }
     }
 
     pub fn toy_get_slant(&self) -> FontSlant {
-        unsafe {
-            FontSlant::from(ffi::cairo_toy_font_face_get_slant(self.to_raw_none()))
-        }
+        unsafe { FontSlant::from(ffi::cairo_toy_font_face_get_slant(self.to_raw_none())) }
     }
 
     pub fn toy_get_weight(&self) -> FontWeight {
-        unsafe {
-            FontWeight::from(ffi::cairo_toy_font_face_get_weight(self.to_raw_none()))
-        }
+        unsafe { FontWeight::from(ffi::cairo_toy_font_face_get_weight(self.to_raw_none())) }
     }
 
     pub fn ensure_status(&self) {
-        let status = unsafe {
-            ffi::cairo_font_face_status(self.to_raw_none())
-        };
+        let status = unsafe { ffi::cairo_font_face_status(self.to_raw_none()) };
         Status::from(status).ensure_valid()
     }
 
     pub fn get_type(&self) -> FontType {
-        unsafe {
-            FontType::from(ffi::cairo_font_face_get_type(self.to_raw_none()))
-        }
+        unsafe { FontType::from(ffi::cairo_font_face_get_type(self.to_raw_none())) }
     }
 
     pub fn get_reference_count(&self) -> usize {
-        unsafe {
-            ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize
-        }
+        unsafe { ffi::cairo_font_face_get_reference_count(self.to_raw_none()) as usize }
     }
 
     pub fn get_synthesize(&self) -> FtSynthesize {
-        unsafe {
-            FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none()))
-        }
+        unsafe { FtSynthesize::from(ffi::cairo_ft_font_face_get_synthesize(self.to_raw_none())) }
     }
 
     pub fn set_synthesize(&self, synth_flags: FtSynthesize) {
-        unsafe {
-            ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into())
-        }
+        unsafe { ffi::cairo_ft_font_face_set_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
 
     pub fn unset_synthesize(&self, synth_flags: FtSynthesize) {
-        unsafe {
-            ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into())
-        }
+        unsafe { ffi::cairo_ft_font_face_unset_synthesize(self.to_raw_none(), synth_flags.into()) }
     }
 
     user_data_methods! {
@@ -145,9 +123,7 @@ impl Drop for FontFace {
 #[cfg(not(feature = "use_glib"))]
 impl Clone for FontFace {
     fn clone(&self) -> FontFace {
-        unsafe {
-            FontFace::from_raw_none(self.to_raw_none())
-        }
+        unsafe { FontFace::from_raw_none(self.to_raw_none()) }
     }
 }
 
@@ -158,4 +134,3 @@ pub(crate) unsafe fn to_optional_string(str: *const c_char) -> Option<String> {
         Some(String::from_utf8_lossy(CStr::from_ptr(str).to_bytes()).into_owned())
     }
 }
-

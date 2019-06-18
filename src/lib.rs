@@ -47,65 +47,45 @@ macro_rules! gvalue_impl {
 
         impl glib::value::SetValue for $name {
             unsafe fn set_value(v: &mut glib::value::Value, s: &Self) {
-                gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, s.to_glib_none().0 as glib_ffi::gpointer);
+                gobject_ffi::g_value_set_boxed(
+                    v.to_glib_none_mut().0,
+                    s.to_glib_none().0 as glib_ffi::gpointer,
+                );
             }
         }
 
         impl glib::value::SetValueOptional for $name {
             unsafe fn set_value_optional(v: &mut glib::value::Value, s: Option<&Self>) {
                 if let Some(s) = s {
-                    gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, s.to_glib_none().0 as glib_ffi::gpointer);
+                    gobject_ffi::g_value_set_boxed(
+                        v.to_glib_none_mut().0,
+                        s.to_glib_none().0 as glib_ffi::gpointer,
+                    );
                 } else {
                     gobject_ffi::g_value_set_boxed(v.to_glib_none_mut().0, ::std::ptr::null_mut());
                 }
             }
         }
-    }
+    };
 }
 
 pub use user_data::UserDataKey;
 
-pub use context::{
-    Context,
-    RectangleList,
-};
+pub use context::{Context, RectangleList};
 
-pub use paths::{
-    Path,
-    PathSegments,
-    PathSegment
-};
+pub use paths::{Path, PathSegment, PathSegments};
 
 pub use device::Device;
 
 pub use enums::*;
 
-pub use error::{
-    BorrowError,
-    IoError,
-};
+pub use error::{BorrowError, IoError};
 
-pub use patterns::{
-    Pattern,
-    LinearGradient,
-    RadialGradient,
-    SolidPattern,
-    SurfacePattern,
-    Mesh,
-};
+pub use patterns::{LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern};
 
 pub use font::{
-    FontFace,
-    FontType,
-    FontSlant,
-    FontWeight,
-    ScaledFont,
-    FontOptions,
-
-    Glyph,
-    FontExtents,
-    TextExtents,
-    TextCluster,
+    FontExtents, FontFace, FontOptions, FontSlant, FontType, FontWeight, Glyph, ScaledFont,
+    TextCluster, TextExtents,
 };
 
 pub use matrices::Matrix;
@@ -116,15 +96,9 @@ pub use rectangle_int::RectangleInt;
 
 pub use region::Region;
 
-pub use surface::{
-    MappedImageSurface,
-    Surface,
-};
+pub use surface::{MappedImageSurface, Surface};
 
-pub use image_surface::{
-    ImageSurface,
-    ImageSurfaceData,
-};
+pub use image_surface::{ImageSurface, ImageSurfaceData};
 
 #[cfg(any(feature = "pdf", feature = "svg", feature = "ps", feature = "dox"))]
 pub use stream::StreamWithError;
@@ -140,29 +114,26 @@ pub use svg::SvgSurface;
 
 #[cfg(any(feature = "xcb", feature = "dox"))]
 pub use xcb::{
-    XCBConnection,
-    XCBSurface,
-    XCBDrawable,
-    XCBPixmap,
-    XCBRenderPictFormInfo,
-    XCBScreen,
+    XCBConnection, XCBDrawable, XCBPixmap, XCBRenderPictFormInfo, XCBScreen, XCBSurface,
     XCBVisualType,
 };
 
-#[macro_use] mod user_data;
+#[macro_use]
+mod user_data;
 mod constants;
 pub use constants::*;
 mod utils;
 pub use utils::*;
 
-mod font;
 mod context;
 mod device;
 mod enums;
 mod error;
+mod font;
 mod image_surface;
 #[cfg(any(feature = "png", feature = "dox"))]
 mod image_surface_png;
+mod matrices;
 mod paths;
 mod patterns;
 mod recording_surface;
@@ -170,7 +141,6 @@ mod rectangle;
 mod rectangle_int;
 mod region;
 mod surface;
-mod matrices;
 #[cfg(any(feature = "xcb", feature = "dox"))]
 mod xcb;
 
@@ -179,10 +149,10 @@ mod xcb;
 mod stream;
 #[cfg(any(feature = "pdf", feature = "dox"))]
 mod pdf;
-#[cfg(any(feature = "svg", feature = "dox"))]
-mod svg;
 #[cfg(any(feature = "ps", feature = "dox"))]
 mod ps;
+#[cfg(any(feature = "svg", feature = "dox"))]
+mod svg;
 
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 mod quartz_surface;

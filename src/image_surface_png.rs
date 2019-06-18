@@ -3,15 +3,15 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::any::Any;
-use std::slice;
-use std::io::{Read, Write, Error};
+use std::io::{Error, Read, Write};
 use std::panic::AssertUnwindSafe;
+use std::slice;
 
-use libc::{c_void, c_uint};
+use libc::{c_uint, c_void};
 
-use ffi::{self, cairo_status_t};
-use ::enums::Status;
+use enums::Status;
 use error::IoError;
+use ffi::{self, cairo_status_t};
 use ImageSurface;
 
 struct ReadEnv<'a, R: 'a + Read> {
@@ -20,20 +20,22 @@ struct ReadEnv<'a, R: 'a + Read> {
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
-unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
+unsafe extern "C" fn read_func<R: Read>(
+    closure: *mut c_void,
+    data: *mut u8,
+    len: c_uint,
+) -> cairo_status_t {
     let read_env: &mut ReadEnv<R> = &mut *(closure as *mut ReadEnv<R>);
 
     // Don’t attempt another read if a previous one errored or panicked:
     if read_env.io_error.is_some() || read_env.unwind_payload.is_some() {
-        return Status::ReadError.into()
+        return Status::ReadError.into();
     }
 
     let buffer = slice::from_raw_parts_mut(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| read_env.reader.read_exact(buffer)));
     match result {
-        Ok(Ok(())) => {
-            Status::Success
-        }
+        Ok(Ok(())) => Status::Success,
         Ok(Err(error)) => {
             read_env.io_error = Some(error);
             Status::ReadError
@@ -42,7 +44,8 @@ unsafe extern "C" fn read_func<R: Read>(closure: *mut c_void, data: *mut u8, len
             read_env.unwind_payload = Some(payload);
             Status::ReadError
         }
-    }.into()
+    }
+    .into()
 }
 
 struct WriteEnv<'a, W: 'a + Write> {
@@ -51,20 +54,22 @@ struct WriteEnv<'a, W: 'a + Write> {
     unwind_payload: Option<Box<dyn Any + Send + 'static>>,
 }
 
-unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, len: c_uint) -> cairo_status_t {
+unsafe extern "C" fn write_func<W: Write>(
+    closure: *mut c_void,
+    data: *mut u8,
+    len: c_uint,
+) -> cairo_status_t {
     let write_env: &mut WriteEnv<W> = &mut *(closure as *mut WriteEnv<W>);
 
     // Don’t attempt another write if a previous one errored or panicked:
     if write_env.io_error.is_some() || write_env.unwind_payload.is_some() {
-        return Status::WriteError.into()
+        return Status::WriteError.into();
     }
 
     let buffer = slice::from_raw_parts(data, len as usize);
     let result = std::panic::catch_unwind(AssertUnwindSafe(|| write_env.writer.write_all(buffer)));
     match result {
-        Ok(Ok(())) => {
-            Status::Success
-        }
+        Ok(Ok(())) => Status::Success,
         Ok(Err(error)) => {
             write_env.io_error = Some(error);
             Status::WriteError
@@ -73,17 +78,22 @@ unsafe extern "C" fn write_func<W: Write>(closure: *mut c_void, data: *mut u8, l
             write_env.unwind_payload = Some(payload);
             Status::WriteError
         }
-    }.into()
+    }
+    .into()
 }
-
 
 impl ImageSurface {
     pub fn create_from_png<R: Read>(stream: &mut R) -> Result<ImageSurface, IoError> {
-        let mut env = ReadEnv { reader: stream, io_error: None, unwind_payload: None };
+        let mut env = ReadEnv {
+            reader: stream,
+            io_error: None,
+            unwind_payload: None,
+        };
         unsafe {
             let raw_surface = ffi::cairo_image_surface_create_from_png_stream(
                 Some(read_func::<R>),
-                &mut env as *mut ReadEnv<R> as *mut c_void);
+                &mut env as *mut ReadEnv<R> as *mut c_void,
+            );
 
             let surface = ImageSurface::from_raw_full(raw_surface)?;
 
@@ -99,9 +109,18 @@ impl ImageSurface {
     }
 
     pub fn write_to_png<W: Write>(&self, stream: &mut W) -> Result<(), IoError> {
-        let mut env = WriteEnv { writer: stream, io_error: None, unwind_payload: None };
-        let status = unsafe { ffi::cairo_surface_write_to_png_stream(self.to_raw_none(),
-            Some(write_func::<W>), &mut env as *mut WriteEnv<W> as *mut c_void) };
+        let mut env = WriteEnv {
+            writer: stream,
+            io_error: None,
+            unwind_payload: None,
+        };
+        let status = unsafe {
+            ffi::cairo_surface_write_to_png_stream(
+                self.to_raw_none(),
+                Some(write_func::<W>),
+                &mut env as *mut WriteEnv<W> as *mut c_void,
+            )
+        };
 
         if let Some(payload) = env.unwind_payload {
             std::panic::resume_unwind(payload)
@@ -119,9 +138,9 @@ impl ImageSurface {
 
 #[cfg(test)]
 mod tests {
-    use std::io::ErrorKind;
     use super::*;
-    use ::enums::Format;
+    use enums::Format;
+    use std::io::ErrorKind;
 
     struct IoErrorReader;
 
@@ -136,11 +155,11 @@ mod tests {
     fn valid_png_reads_correctly() {
         // A 1x1 PNG, RGB, no alpha, with a single pixel with (42, 42, 42) values
         let png_data: Vec<u8> = vec![
-            0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,  0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
-            0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,  0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
-            0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41,  0x54, 0x08, 0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02,
-            0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,  0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e,
-            0x44, 0xae, 0x42, 0x60, 0x82
+            0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48,
+            0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x02, 0x00, 0x00,
+            0x00, 0x90, 0x77, 0x53, 0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41, 0x54, 0x08,
+            0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02, 0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,
+            0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
         ];
 
         let r = ImageSurface::create_from_png(&mut &png_data[..]);
@@ -165,16 +184,16 @@ mod tests {
     fn invalid_png_yields_error() {
         let png_data: Vec<u8> = vec![
             //      v--- this byte is modified
-            0x89, 0x40, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,  0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
-            0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,  0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
-            0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41,  0x54, 0x08, 0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02,
-            0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,  0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e,
-            0x44, 0xae, 0x42, 0x60, 0x82
+            0x89, 0x40, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48,
+            0x44, 0x52, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x02, 0x00, 0x00,
+            0x00, 0x90, 0x77, 0x53, 0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41, 0x54, 0x08,
+            0xd7, 0x63, 0xd0, 0xd2, 0xd2, 0x02, 0x00, 0x01, 0x00, 0x00, 0x7f, 0x09, 0xa9, 0x5a,
+            0x4d, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
         ];
 
         match ImageSurface::create_from_png(&mut &png_data[..]) {
             Err(IoError::Cairo(_)) => (),
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 
@@ -185,7 +204,7 @@ mod tests {
 
         match ImageSurface::create_from_png(&mut r) {
             Err(IoError::Cairo(Status::ReadError)) => (),
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }

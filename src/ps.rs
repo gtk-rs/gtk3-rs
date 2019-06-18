@@ -2,15 +2,15 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use std::ffi::{CStr, CString};
+use std::fmt;
+use std::io;
+use std::mem;
 use std::ops::Deref;
 use std::path::Path;
-use std::io;
-use std::fmt;
 
+use enums::PsLevel;
 use ffi;
-use ::enums::PsLevel;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
@@ -20,7 +20,8 @@ impl PsLevel {
     pub fn as_str(self) -> Option<&'static str> {
         unsafe {
             let res = ffi::cairo_ps_level_to_string(self.into());
-            res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+            res.as_ref()
+                .and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
         }
     }
 }
@@ -45,7 +46,9 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface { inner: from_glib_none(ptr) }
+        PsSurface {
+            inner: from_glib_none(ptr),
+        }
     }
 }
 
@@ -53,7 +56,9 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface { inner: from_glib_borrow(ptr) }
+        PsSurface {
+            inner: from_glib_borrow(ptr),
+        }
     }
 }
 
@@ -61,7 +66,9 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface { inner: Surface::from_raw_full(ptr) }
+        PsSurface {
+            inner: Surface::from_raw_full(ptr),
+        }
     }
 }
 
@@ -72,16 +79,18 @@ impl PsSurface {
 
         unsafe {
             Self {
-                inner: Surface::from_raw_full(
-                    ffi::cairo_ps_surface_create(path.as_ptr(), width, height)
-                ),
+                inner: Surface::from_raw_full(ffi::cairo_ps_surface_create(
+                    path.as_ptr(),
+                    width,
+                    height,
+                )),
             }
         }
     }
 
     for_stream_constructors!(cairo_ps_surface_create_for_stream);
 
-    pub fn get_levels() -> impl Iterator<Item=PsLevel> {
+    pub fn get_levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
             let mut vers_ptr: *mut ffi::cairo_ps_level_t = mem::uninitialized();
             let mut num_vers = 0;
@@ -100,9 +109,7 @@ impl PsSurface {
     }
 
     pub fn get_eps(&self) -> bool {
-        unsafe {
-            ffi::cairo_ps_surface_get_eps(self.inner.to_raw_none()).as_bool()
-        }
+        unsafe { ffi::cairo_ps_surface_get_eps(self.inner.to_raw_none()).as_bool() }
     }
 
     pub fn set_eps(&self, eps: bool) {
@@ -135,7 +142,6 @@ impl PsSurface {
             ffi::cairo_ps_surface_dsc_comment(self.inner.to_raw_none(), comment.as_ptr());
         }
     }
-
 }
 
 impl Deref for PsSurface {
@@ -167,13 +173,13 @@ mod test {
         cr.set_line_width(25.0);
 
         cr.set_source_rgb(1.0, 0.0, 0.0);
-        cr.line_to(0.,0.);
-        cr.line_to(100.,100.);
+        cr.line_to(0., 0.);
+        cr.line_to(100., 100.);
         cr.stroke();
 
         cr.set_source_rgb(0.0, 0.0, 1.0);
-        cr.line_to(0.,100.);
-        cr.line_to(100.,0.);
+        cr.line_to(0., 100.);
+        cr.line_to(100., 0.);
         cr.stroke();
     }
 
@@ -253,7 +259,9 @@ mod test {
                 Ok(buf.len())
             }
 
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let custom_writer = CustomWriter(0);
@@ -273,8 +281,12 @@ mod test {
         struct PanicWriter;
 
         impl io::Write for PanicWriter {
-            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> { panic!("panic in writer"); }
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> {
+                panic!("panic in writer");
+            }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let surface = PsSurface::for_stream(20., 20., PanicWriter);

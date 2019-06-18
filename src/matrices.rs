@@ -2,9 +2,9 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use libc::c_double;
+use enums::Status;
 use ffi;
-use ::enums::Status;
+use libc::c_double;
 
 #[repr(C)]
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -57,7 +57,14 @@ impl Matrix {
     }
 
     pub fn new(xx: f64, yx: f64, xy: f64, yy: f64, x0: f64, y0: f64) -> Matrix {
-        Matrix { xx, yx, xy, yy, x0, y0 }
+        Matrix {
+            xx,
+            yx,
+            xy,
+            yy,
+            x0,
+            y0,
+        }
     }
 
     pub fn multiply(left: &Matrix, right: &Matrix) -> Matrix {
@@ -69,36 +76,26 @@ impl Matrix {
     }
 
     pub fn translate(&mut self, tx: f64, ty: f64) {
-        unsafe {
-            ffi::cairo_matrix_translate(self.mut_ptr(), tx, ty)
-        }
+        unsafe { ffi::cairo_matrix_translate(self.mut_ptr(), tx, ty) }
     }
 
     pub fn scale(&mut self, sx: f64, sy: f64) {
-        unsafe {
-            ffi::cairo_matrix_scale(self.mut_ptr(), sx, sy)
-        }
+        unsafe { ffi::cairo_matrix_scale(self.mut_ptr(), sx, sy) }
     }
 
     pub fn rotate(&mut self, angle: f64) {
-        unsafe {
-            ffi::cairo_matrix_rotate(self.mut_ptr(), angle)
-        }
+        unsafe { ffi::cairo_matrix_rotate(self.mut_ptr(), angle) }
     }
 
     pub fn invert(&mut self) {
-        let result = unsafe{
-            ffi::cairo_matrix_invert(self.mut_ptr())
-        };
+        let result = unsafe { ffi::cairo_matrix_invert(self.mut_ptr()) };
         Status::from(result).ensure_valid();
     }
 
     pub fn try_invert(&self) -> Result<Matrix, Status> {
         let mut matrix = *self;
 
-        let result = unsafe {
-            Status::from(ffi::cairo_matrix_invert(matrix.mut_ptr()))
-        };
+        let result = unsafe { Status::from(ffi::cairo_matrix_invert(matrix.mut_ptr())) };
 
         match result {
             Status::Success => Ok(matrix),
@@ -106,7 +103,7 @@ impl Matrix {
         }
     }
 
-    pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64){
+    pub fn transform_distance(&self, _dx: f64, _dy: f64) -> (f64, f64) {
         let mut dx = _dx;
         let mut dy = _dy;
 
@@ -116,7 +113,7 @@ impl Matrix {
         (dx, dy)
     }
 
-    pub fn transform_point(&self, _x: f64, _y: f64) -> (f64, f64){
+    pub fn transform_point(&self, _x: f64, _y: f64) -> (f64, f64) {
         let mut x = _x;
         let mut y = _y;
 
@@ -143,12 +140,10 @@ mod tests {
                     x0: 5.0,
                     y0: 6.0,
                 }
-            }
+            };
         }
         use ffi::Matrix as FfiMatrix;
-        let transmuted: Matrix = unsafe {
-            std::mem::transmute(dummy_values!(FfiMatrix))
-        };
+        let transmuted: Matrix = unsafe { std::mem::transmute(dummy_values!(FfiMatrix)) };
         assert_eq!(transmuted, dummy_values!(Matrix));
     }
 
