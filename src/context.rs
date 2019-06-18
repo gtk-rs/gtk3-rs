@@ -2,36 +2,25 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use ffi;
+use font::{FontExtents, FontFace, FontOptions, Glyph, ScaledFont, TextCluster, TextExtents};
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 use libc::c_int;
+use matrices::Matrix;
+use paths::Path;
 use std::ffi::CString;
 use std::fmt;
 use std::ops;
 use std::slice;
-use ::paths::Path;
-use ::font::{TextExtents, TextCluster, FontExtents, ScaledFont, FontOptions, FontFace, Glyph};
-use ::matrices::Matrix;
-use ::{
-    Antialias,
-    Content,
-    FillRule,
-    FontSlant,
-    FontWeight,
-    LineCap,
-    LineJoin,
-    Operator,
-    TextClusterFlags,
-    Status,
-};
 use Rectangle;
-use ffi;
-
-use ffi::{
-    cairo_t,
-    cairo_rectangle_list_t,
+use {
+    Antialias, Content, FillRule, FontSlant, FontWeight, LineCap, LineJoin, Operator, Status,
+    TextClusterFlags,
 };
-use ::patterns::Pattern;
+
+use ffi::{cairo_rectangle_list_t, cairo_t};
+use patterns::Pattern;
 use surface::Surface;
 
 pub struct RectangleList {
@@ -65,9 +54,7 @@ impl Drop for RectangleList {
 
 impl fmt::Debug for RectangleList {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.debug_tuple("RectangleList")
-            .field(&*self)
-            .finish()
+        f.debug_tuple("RectangleList").field(&*self).finish()
     }
 }
 
@@ -91,9 +78,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_t> for &'a Context {
 
     #[inline]
     fn to_glib_full(&self) -> *mut ffi::cairo_t {
-        unsafe {
-            ffi::cairo_reference(self.0)
-        }
+        unsafe { ffi::cairo_reference(self.0) }
     }
 }
 
@@ -122,7 +107,11 @@ impl FromGlibPtrFull<*mut ffi::cairo_t> for Context {
 }
 
 #[cfg(feature = "use_glib")]
-gvalue_impl!(Context, cairo_t, ffi::gobject::cairo_gobject_context_get_type);
+gvalue_impl!(
+    Context,
+    cairo_t,
+    ffi::gobject::cairo_gobject_context_get_type
+);
 
 impl Clone for Context {
     fn clone(&self) -> Context {
@@ -133,7 +122,9 @@ impl Clone for Context {
 impl Drop for Context {
     fn drop(&mut self) {
         if !self.1 {
-            unsafe { ffi::cairo_destroy(self.0); }
+            unsafe {
+                ffi::cairo_destroy(self.0);
+            }
         }
     }
 }
@@ -167,77 +158,53 @@ impl Context {
     }
 
     pub fn new(target: &Surface) -> Context {
-        unsafe {
-            Self::from_raw_full(ffi::cairo_create(target.to_raw_none()))
-        }
+        unsafe { Self::from_raw_full(ffi::cairo_create(target.to_raw_none())) }
     }
 
     pub fn status(&self) -> Status {
-        unsafe {
-            Status::from(ffi::cairo_status(self.0))
-        }
+        unsafe { Status::from(ffi::cairo_status(self.0)) }
     }
 
     pub fn save(&self) {
-        unsafe {
-            ffi::cairo_save(self.0)
-        }
+        unsafe { ffi::cairo_save(self.0) }
         self.ensure_status()
     }
 
     pub fn restore(&self) {
-        unsafe {
-            ffi::cairo_restore(self.0)
-        }
+        unsafe { ffi::cairo_restore(self.0) }
         self.ensure_status()
     }
 
     pub fn get_target(&self) -> Surface {
-        unsafe {
-            Surface::from_raw_none(ffi::cairo_get_target(self.0))
-        }
+        unsafe { Surface::from_raw_none(ffi::cairo_get_target(self.0)) }
     }
 
     pub fn push_group(&self) {
-        unsafe {
-            ffi::cairo_push_group(self.0)
-        }
+        unsafe { ffi::cairo_push_group(self.0) }
     }
 
     pub fn push_group_with_content(&self, content: Content) {
-        unsafe {
-            ffi::cairo_push_group_with_content(self.0, content.into())
-        }
+        unsafe { ffi::cairo_push_group_with_content(self.0, content.into()) }
     }
 
     pub fn pop_group(&self) -> Pattern {
-        unsafe {
-            Pattern::from_raw_full(ffi::cairo_pop_group(self.0))
-        }
+        unsafe { Pattern::from_raw_full(ffi::cairo_pop_group(self.0)) }
     }
 
     pub fn pop_group_to_source(&self) {
-        unsafe {
-            ffi::cairo_pop_group_to_source(self.0)
-        }
+        unsafe { ffi::cairo_pop_group_to_source(self.0) }
     }
 
     pub fn get_group_target(&self) -> Surface {
-        unsafe {
-            Surface::from_raw_none(ffi::cairo_get_group_target(self.0))
-        }
+        unsafe { Surface::from_raw_none(ffi::cairo_get_group_target(self.0)) }
     }
 
     pub fn set_source_rgb(&self, red: f64, green: f64, blue: f64) {
-        unsafe {
-            ffi::cairo_set_source_rgb(self.0, red, green, blue)
-        }
+        unsafe { ffi::cairo_set_source_rgb(self.0, red, green, blue) }
     }
 
     pub fn set_source_rgba(&self, red: f64, green: f64, blue: f64, alpha: f64) {
-        unsafe {
-            ffi::cairo_set_source_rgba(self.0, red, green, blue, alpha)
-        }
+        unsafe { ffi::cairo_set_source_rgba(self.0, red, green, blue, alpha) }
     }
 
     pub fn set_source(&self, source: &Pattern) {
@@ -248,39 +215,31 @@ impl Context {
     }
 
     pub fn get_source(&self) -> Pattern {
-        unsafe {
-            Pattern::from_raw_none(ffi::cairo_get_source(self.0))
-        }
+        unsafe { Pattern::from_raw_none(ffi::cairo_get_source(self.0)) }
     }
 
     pub fn set_source_surface(&self, surface: &Surface, x: f64, y: f64) {
-        unsafe { ffi::cairo_set_source_surface(self.0, surface.to_raw_none(), x, y); }
+        unsafe {
+            ffi::cairo_set_source_surface(self.0, surface.to_raw_none(), x, y);
+        }
     }
 
-    pub fn set_antialias(&self, antialias : Antialias) {
-        unsafe {
-            ffi::cairo_set_antialias(self.0, antialias.into())
-        }
+    pub fn set_antialias(&self, antialias: Antialias) {
+        unsafe { ffi::cairo_set_antialias(self.0, antialias.into()) }
         self.ensure_status()
     }
 
     pub fn get_antialias(&self) -> Antialias {
-        unsafe {
-            Antialias::from(ffi::cairo_get_antialias(self.0))
-        }
+        unsafe { Antialias::from(ffi::cairo_get_antialias(self.0)) }
     }
 
     pub fn set_dash(&self, dashes: &[f64], offset: f64) {
-        unsafe {
-            ffi::cairo_set_dash(self.0, dashes.as_ptr(), dashes.len() as i32, offset)
-        }
+        unsafe { ffi::cairo_set_dash(self.0, dashes.as_ptr(), dashes.len() as i32, offset) }
         self.ensure_status(); //Possible invalid dashes value
     }
 
     pub fn get_dash_count(&self) -> i32 {
-        unsafe {
-            ffi::cairo_get_dash_count(self.0)
-        }
+        unsafe { ffi::cairo_get_dash_count(self.0) }
     }
 
     pub fn get_dash(&self) -> (Vec<f64>, f64) {
@@ -305,7 +264,7 @@ impl Context {
         offset
     }
 
-    pub fn set_fill_rule(&self, fill_rule : FillRule) {
+    pub fn set_fill_rule(&self, fill_rule: FillRule) {
         unsafe {
             ffi::cairo_set_fill_rule(self.0, fill_rule.into());
         }
@@ -313,61 +272,43 @@ impl Context {
     }
 
     pub fn get_fill_rule(&self) -> FillRule {
-        unsafe {
-            FillRule::from(ffi::cairo_get_fill_rule(self.0))
-        }
+        unsafe { FillRule::from(ffi::cairo_get_fill_rule(self.0)) }
     }
 
     pub fn set_line_cap(&self, arg: LineCap) {
-        unsafe {
-            ffi::cairo_set_line_cap(self.0, arg.into())
-        }
+        unsafe { ffi::cairo_set_line_cap(self.0, arg.into()) }
         self.ensure_status();
     }
 
     pub fn get_line_cap(&self) -> LineCap {
-        unsafe {
-            LineCap::from(ffi::cairo_get_line_cap(self.0))
-        }
+        unsafe { LineCap::from(ffi::cairo_get_line_cap(self.0)) }
     }
 
     pub fn set_line_join(&self, arg: LineJoin) {
-        unsafe {
-            ffi::cairo_set_line_join(self.0, arg.into())
-        }
+        unsafe { ffi::cairo_set_line_join(self.0, arg.into()) }
         self.ensure_status();
     }
 
     pub fn get_line_join(&self) -> LineJoin {
-        unsafe {
-            LineJoin::from(ffi::cairo_get_line_join(self.0))
-        }
+        unsafe { LineJoin::from(ffi::cairo_get_line_join(self.0)) }
     }
 
     pub fn set_line_width(&self, arg: f64) {
-        unsafe {
-            ffi::cairo_set_line_width(self.0, arg)
-        }
+        unsafe { ffi::cairo_set_line_width(self.0, arg) }
         self.ensure_status();
     }
 
     pub fn get_line_width(&self) -> f64 {
-        unsafe {
-            ffi::cairo_get_line_width(self.0)
-        }
+        unsafe { ffi::cairo_get_line_width(self.0) }
     }
 
     pub fn set_miter_limit(&self, arg: f64) {
-        unsafe {
-            ffi::cairo_set_miter_limit(self.0, arg)
-        }
+        unsafe { ffi::cairo_set_miter_limit(self.0, arg) }
         self.ensure_status();
     }
 
     pub fn get_miter_limit(&self) -> f64 {
-        unsafe {
-            ffi::cairo_get_miter_limit(self.0)
-        }
+        unsafe { ffi::cairo_get_miter_limit(self.0) }
     }
 
     pub fn set_operator(&self, op: Operator) {
@@ -377,34 +318,24 @@ impl Context {
     }
 
     pub fn get_operator(&self) -> Operator {
-        unsafe {
-            Operator::from(ffi::cairo_get_operator(self.0))
-        }
+        unsafe { Operator::from(ffi::cairo_get_operator(self.0)) }
     }
 
     pub fn set_tolerance(&self, arg: f64) {
-        unsafe {
-            ffi::cairo_set_tolerance(self.0, arg)
-        }
+        unsafe { ffi::cairo_set_tolerance(self.0, arg) }
         self.ensure_status();
     }
 
     pub fn get_tolerance(&self) -> f64 {
-        unsafe {
-            ffi::cairo_get_tolerance(self.0)
-        }
+        unsafe { ffi::cairo_get_tolerance(self.0) }
     }
 
     pub fn clip(&self) {
-        unsafe {
-            ffi::cairo_clip(self.0)
-        }
+        unsafe { ffi::cairo_clip(self.0) }
     }
 
     pub fn clip_preserve(&self) {
-        unsafe {
-            ffi::cairo_clip_preserve(self.0)
-        }
+        unsafe { ffi::cairo_clip_preserve(self.0) }
     }
 
     pub fn clip_extents(&self) -> (f64, f64, f64, f64) {
@@ -419,16 +350,12 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
-    pub fn in_clip(&self, x:f64, y:f64) -> bool {
-        unsafe {
-            ffi::cairo_in_clip(self.0, x, y).as_bool()
-        }
+    pub fn in_clip(&self, x: f64, y: f64) -> bool {
+        unsafe { ffi::cairo_in_clip(self.0, x, y).as_bool() }
     }
 
     pub fn reset_clip(&self) {
-        unsafe {
-            ffi::cairo_reset_clip(self.0)
-        }
+        unsafe { ffi::cairo_reset_clip(self.0) }
         self.ensure_status()
     }
 
@@ -445,15 +372,11 @@ impl Context {
     }
 
     pub fn fill(&self) {
-        unsafe {
-            ffi::cairo_fill(self.0)
-        }
+        unsafe { ffi::cairo_fill(self.0) }
     }
 
     pub fn fill_preserve(&self) {
-        unsafe {
-            ffi::cairo_fill_preserve(self.0)
-        }
+        unsafe { ffi::cairo_fill_preserve(self.0) }
     }
 
     pub fn fill_extents(&self) -> (f64, f64, f64, f64) {
@@ -468,16 +391,12 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
-    pub fn in_fill(&self, x:f64, y:f64) -> bool {
-        unsafe {
-            ffi::cairo_in_fill(self.0, x, y).as_bool()
-        }
+    pub fn in_fill(&self, x: f64, y: f64) -> bool {
+        unsafe { ffi::cairo_in_fill(self.0, x, y).as_bool() }
     }
 
     pub fn mask(&self, pattern: &Pattern) {
-        unsafe {
-            ffi::cairo_mask(self.0, pattern.to_raw_none())
-        }
+        unsafe { ffi::cairo_mask(self.0, pattern.to_raw_none()) }
     }
 
     pub fn mask_surface(&self, surface: &Surface, x: f64, y: f64) {
@@ -487,27 +406,19 @@ impl Context {
     }
 
     pub fn paint(&self) {
-        unsafe {
-            ffi::cairo_paint(self.0)
-        }
+        unsafe { ffi::cairo_paint(self.0) }
     }
 
     pub fn paint_with_alpha(&self, alpha: f64) {
-        unsafe {
-            ffi::cairo_paint_with_alpha(self.0, alpha)
-        }
+        unsafe { ffi::cairo_paint_with_alpha(self.0, alpha) }
     }
 
     pub fn stroke(&self) {
-        unsafe {
-            ffi::cairo_stroke(self.0)
-        }
+        unsafe { ffi::cairo_stroke(self.0) }
     }
 
     pub fn stroke_preserve(&self) {
-        unsafe {
-            ffi::cairo_stroke_preserve(self.0)
-        }
+        unsafe { ffi::cairo_stroke_preserve(self.0) }
     }
 
     pub fn stroke_extents(&self) -> (f64, f64, f64, f64) {
@@ -522,48 +433,34 @@ impl Context {
         (x1, y1, x2, y2)
     }
 
-    pub fn in_stroke(&self, x:f64, y:f64) -> bool {
-        unsafe {
-            ffi::cairo_in_stroke(self.0, x, y).as_bool()
-        }
+    pub fn in_stroke(&self, x: f64, y: f64) -> bool {
+        unsafe { ffi::cairo_in_stroke(self.0, x, y).as_bool() }
     }
 
     pub fn copy_page(&self) {
-        unsafe {
-            ffi::cairo_copy_page(self.0)
-        }
+        unsafe { ffi::cairo_copy_page(self.0) }
     }
 
     pub fn show_page(&self) {
-        unsafe {
-            ffi::cairo_show_page(self.0)
-        }
+        unsafe { ffi::cairo_show_page(self.0) }
     }
 
     pub fn get_reference_count(&self) -> u32 {
-        unsafe {
-            ffi::cairo_get_reference_count(self.0)
-        }
+        unsafe { ffi::cairo_get_reference_count(self.0) }
     }
 
     // transformations stuff
 
-     pub fn translate(&self, tx: f64, ty: f64) {
-        unsafe {
-            ffi::cairo_translate(self.0, tx, ty)
-        }
+    pub fn translate(&self, tx: f64, ty: f64) {
+        unsafe { ffi::cairo_translate(self.0, tx, ty) }
     }
 
     pub fn scale(&self, sx: f64, sy: f64) {
-        unsafe {
-            ffi::cairo_scale(self.0, sx, sy)
-        }
+        unsafe { ffi::cairo_scale(self.0, sx, sy) }
     }
 
     pub fn rotate(&self, angle: f64) {
-        unsafe {
-            ffi::cairo_rotate(self.0, angle)
-        }
+        unsafe { ffi::cairo_rotate(self.0, angle) }
     }
 
     pub fn transform(&self, matrix: Matrix) {
@@ -587,9 +484,7 @@ impl Context {
     }
 
     pub fn identity_matrix(&self) {
-        unsafe {
-            ffi::cairo_identity_matrix(self.0)
-        }
+        unsafe { ffi::cairo_identity_matrix(self.0) }
     }
 
     pub fn user_to_device(&self, mut x: f64, mut y: f64) -> (f64, f64) {
@@ -630,16 +525,12 @@ impl Context {
     }
 
     pub fn set_font_size(&self, size: f64) {
-        unsafe {
-            ffi::cairo_set_font_size(self.0, size)
-        }
+        unsafe { ffi::cairo_set_font_size(self.0, size) }
     }
 
     // FIXME probably needs a heap allocation
     pub fn set_font_matrix(&self, matrix: Matrix) {
-        unsafe {
-            ffi::cairo_set_font_matrix(self.0, matrix.ptr())
-        }
+        unsafe { ffi::cairo_set_font_matrix(self.0, matrix.ptr()) }
     }
 
     pub fn get_font_matrix(&self) -> Matrix {
@@ -651,9 +542,7 @@ impl Context {
     }
 
     pub fn set_font_options(&self, options: &FontOptions) {
-        unsafe {
-            ffi::cairo_set_font_options(self.0, options.to_raw_none())
-        }
+        unsafe { ffi::cairo_set_font_options(self.0, options.to_raw_none()) }
     }
 
     pub fn get_font_options(&self) -> FontOptions {
@@ -665,27 +554,19 @@ impl Context {
     }
 
     pub fn set_font_face(&self, font_face: &FontFace) {
-        unsafe {
-            ffi::cairo_set_font_face(self.0, font_face.to_raw_none())
-        }
+        unsafe { ffi::cairo_set_font_face(self.0, font_face.to_raw_none()) }
     }
 
     pub fn get_font_face(&self) -> FontFace {
-        unsafe {
-            FontFace::from_raw_none(ffi::cairo_get_font_face(self.0))
-        }
+        unsafe { FontFace::from_raw_none(ffi::cairo_get_font_face(self.0)) }
     }
 
     pub fn set_scaled_font(&self, scaled_font: &ScaledFont) {
-        unsafe {
-            ffi::cairo_set_scaled_font(self.0, scaled_font.to_raw_none())
-        }
+        unsafe { ffi::cairo_set_scaled_font(self.0, scaled_font.to_raw_none()) }
     }
 
     pub fn get_scaled_font(&self) -> ScaledFont {
-        unsafe {
-            ScaledFont::from_raw_none(ffi::cairo_get_scaled_font(self.0))
-        }
+        unsafe { ScaledFont::from_raw_none(ffi::cairo_get_scaled_font(self.0)) }
     }
 
     pub fn show_text(&self, text: &str) {
@@ -696,26 +577,28 @@ impl Context {
     }
 
     pub fn show_glyphs(&self, glyphs: &[Glyph]) {
-        unsafe {
-            ffi::cairo_show_glyphs(self.0, glyphs.as_ptr(), glyphs.len() as c_int)
-        }
+        unsafe { ffi::cairo_show_glyphs(self.0, glyphs.as_ptr(), glyphs.len() as c_int) }
     }
 
-    pub fn show_text_glyphs(&self,
-                            text: &str,
-                            glyphs: &[Glyph],
-                            clusters: &[TextCluster],
-                            cluster_flags: TextClusterFlags) {
+    pub fn show_text_glyphs(
+        &self,
+        text: &str,
+        glyphs: &[Glyph],
+        clusters: &[TextCluster],
+        cluster_flags: TextClusterFlags,
+    ) {
         unsafe {
             let text = CString::new(text).unwrap();
-            ffi::cairo_show_text_glyphs(self.0,
-                                        text.as_ptr(),
-                                        -1 as c_int, //NULL terminated
-                                        glyphs.as_ptr(),
-                                        glyphs.len() as c_int,
-                                        clusters.as_ptr(),
-                                        clusters.len() as c_int,
-                                        cluster_flags.into())
+            ffi::cairo_show_text_glyphs(
+                self.0,
+                text.as_ptr(),
+                -1 as c_int, //NULL terminated
+                glyphs.as_ptr(),
+                glyphs.len() as c_int,
+                clusters.as_ptr(),
+                clusters.len() as c_int,
+                cluster_flags.into(),
+            )
         }
     }
 
@@ -772,27 +655,19 @@ impl Context {
     // paths stuff
 
     pub fn copy_path(&self) -> Path {
-        unsafe {
-            Path::from_raw_full(ffi::cairo_copy_path(self.0))
-        }
+        unsafe { Path::from_raw_full(ffi::cairo_copy_path(self.0)) }
     }
 
     pub fn copy_path_flat(&self) -> Path {
-        unsafe {
-            Path::from_raw_full(ffi::cairo_copy_path_flat(self.0))
-        }
+        unsafe { Path::from_raw_full(ffi::cairo_copy_path_flat(self.0)) }
     }
 
     pub fn append_path(&self, path: &Path) {
-        unsafe {
-            ffi::cairo_append_path(self.0, path.as_ptr())
-        }
+        unsafe { ffi::cairo_append_path(self.0, path.as_ptr()) }
     }
 
     pub fn has_current_point(&self) -> bool {
-        unsafe {
-            ffi::cairo_has_current_point(self.0).as_bool()
-        }
+        unsafe { ffi::cairo_has_current_point(self.0).as_bool() }
     }
 
     pub fn get_current_point(&self) -> (f64, f64) {
@@ -805,57 +680,39 @@ impl Context {
     }
 
     pub fn new_path(&self) {
-        unsafe {
-            ffi::cairo_new_path(self.0)
-        }
+        unsafe { ffi::cairo_new_path(self.0) }
     }
 
     pub fn new_sub_path(&self) {
-        unsafe {
-            ffi::cairo_new_sub_path(self.0)
-        }
+        unsafe { ffi::cairo_new_sub_path(self.0) }
     }
 
     pub fn close_path(&self) {
-        unsafe {
-            ffi::cairo_close_path(self.0)
-        }
+        unsafe { ffi::cairo_close_path(self.0) }
     }
 
     pub fn arc(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
-        unsafe {
-            ffi::cairo_arc(self.0, xc, yc, radius, angle1, angle2)
-        }
+        unsafe { ffi::cairo_arc(self.0, xc, yc, radius, angle1, angle2) }
     }
 
     pub fn arc_negative(&self, xc: f64, yc: f64, radius: f64, angle1: f64, angle2: f64) {
-        unsafe {
-            ffi::cairo_arc_negative(self.0, xc, yc, radius, angle1, angle2)
-        }
+        unsafe { ffi::cairo_arc_negative(self.0, xc, yc, radius, angle1, angle2) }
     }
 
     pub fn curve_to(&self, x1: f64, y1: f64, x2: f64, y2: f64, x3: f64, y3: f64) {
-        unsafe {
-            ffi::cairo_curve_to(self.0, x1, y1, x2, y2, x3, y3)
-        }
+        unsafe { ffi::cairo_curve_to(self.0, x1, y1, x2, y2, x3, y3) }
     }
 
     pub fn line_to(&self, x: f64, y: f64) {
-        unsafe {
-            ffi::cairo_line_to(self.0, x, y)
-        }
+        unsafe { ffi::cairo_line_to(self.0, x, y) }
     }
 
     pub fn move_to(&self, x: f64, y: f64) {
-        unsafe {
-            ffi::cairo_move_to(self.0, x, y)
-        }
+        unsafe { ffi::cairo_move_to(self.0, x, y) }
     }
 
     pub fn rectangle(&self, x: f64, y: f64, width: f64, height: f64) {
-        unsafe {
-            ffi::cairo_rectangle(self.0, x, y, width, height)
-        }
+        unsafe { ffi::cairo_rectangle(self.0, x, y, width, height) }
     }
 
     pub fn text_path(&self, str_: &str) {
@@ -866,27 +723,19 @@ impl Context {
     }
 
     pub fn glyph_path(&self, glyphs: &[Glyph]) {
-        unsafe {
-            ffi::cairo_glyph_path(self.0, glyphs.as_ptr(), glyphs.len() as i32)
-        }
+        unsafe { ffi::cairo_glyph_path(self.0, glyphs.as_ptr(), glyphs.len() as i32) }
     }
 
     pub fn rel_curve_to(&self, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) {
-        unsafe {
-            ffi::cairo_rel_curve_to(self.0, dx1, dy1, dx2, dy2, dx3, dy3)
-        }
+        unsafe { ffi::cairo_rel_curve_to(self.0, dx1, dy1, dx2, dy2, dx3, dy3) }
     }
 
     pub fn rel_line_to(&self, dx: f64, dy: f64) {
-        unsafe {
-            ffi::cairo_rel_line_to(self.0, dx, dy)
-        }
+        unsafe { ffi::cairo_rel_line_to(self.0, dx, dy) }
     }
 
     pub fn rel_move_to(&self, dx: f64, dy: f64) {
-        unsafe {
-            ffi::cairo_rel_move_to(self.0, dx, dy)
-        }
+        unsafe { ffi::cairo_rel_move_to(self.0, dx, dy) }
     }
 
     pub fn path_extents(&self) -> (f64, f64, f64, f64) {
@@ -928,9 +777,9 @@ impl fmt::Display for Context {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use ::image_surface::{ImageSurface};
-    use ::patterns::{LinearGradient};
-    use ::enums::{Format};
+    use enums::Format;
+    use image_surface::ImageSurface;
+    use patterns::LinearGradient;
 
     fn create_ctx() -> Context {
         let surface = ImageSurface::create(Format::ARgb32, 10, 10).unwrap();

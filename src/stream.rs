@@ -2,10 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use ::ffi::{self, cairo_status_t};
-use ::{Status, Surface, UserDataKey};
+use ffi::{self, cairo_status_t};
+use {Status, Surface, UserDataKey};
 
-use libc::{c_void, c_double, c_uchar, c_uint};
+use libc::{c_double, c_uchar, c_uint, c_void};
 use std::any::Any;
 use std::cell::{Cell, RefCell};
 use std::io;
@@ -22,12 +22,7 @@ macro_rules! for_stream_constructors {
         /// how long it can keep writing to the stream.
         pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Self {
             Self {
-                inner: Surface::_for_stream(
-                    ffi::$constructor_ffi,
-                    width,
-                    height,
-                    stream,
-                ),
+                inner: Surface::_for_stream(ffi::$constructor_ffi, width, height, stream),
             }
         }
 
@@ -43,14 +38,13 @@ macro_rules! for_stream_constructors {
         /// The concrete type behind the `Box<dyn Any>` value returned by `take_output_stream`
         /// is private, so you won’t be able to downcast it.
         /// But removing it anyway ensures that later writes do no go through a dangling pointer.
-        pub unsafe fn for_raw_stream<W: io::Write + 'static>(width: f64, height: f64, stream: *mut W) -> Self {
+        pub unsafe fn for_raw_stream<W: io::Write + 'static>(
+            width: f64,
+            height: f64,
+            stream: *mut W,
+        ) -> Self {
             Self {
-                inner: Surface::_for_raw_stream(
-                    ffi::$constructor_ffi,
-                    width,
-                    height,
-                    stream,
-                ),
+                inner: Surface::_for_raw_stream(ffi::$constructor_ffi, width, height, stream),
             }
         }
     };
@@ -111,7 +105,8 @@ impl Surface {
     pub fn finish_output_stream(&self) -> Result<Box<dyn Any>, StreamWithError> {
         self.finish();
 
-        let env = self.get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)
+        let env = self
+            .get_user_data_ptr(&STREAM_CALLBACK_ENVIRONMENT)
             .expect("surface without an output stream");
 
         // Safety: since `STREAM_CALLBACK_ENVIRONMENT` is private and we never
@@ -122,7 +117,9 @@ impl Surface {
         let env = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
-            panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
+            panic!(
+                "The output stream’s RefCell was already borrowed when cairo attempted a write"
+            )
         }
 
         let mut mutable = env.mutable.borrow_mut();
@@ -130,7 +127,10 @@ impl Surface {
             std::panic::resume_unwind(payload)
         }
 
-        let (stream, io_error) = mutable.stream.take().expect("output stream was already taken");
+        let (stream, io_error) = mutable
+            .stream
+            .take()
+            .expect("output stream was already taken");
         if let Some(error) = io_error {
             Err(StreamWithError { stream, error })
         } else {
@@ -162,15 +162,14 @@ impl From<StreamWithError> for io::Error {
     }
 }
 
-pub(crate) type Constructor = unsafe extern fn(
+pub(crate) type Constructor = unsafe extern "C" fn(
     ffi::cairo_write_func_t,
     *mut c_void,
     c_double,
     c_double,
 ) -> *mut ffi::cairo_surface_t;
 
-static STREAM_CALLBACK_ENVIRONMENT: UserDataKey<CallbackEnvironment> =
-    UserDataKey::new();
+static STREAM_CALLBACK_ENVIRONMENT: UserDataKey<CallbackEnvironment> = UserDataKey::new();
 
 struct CallbackEnvironment {
     mutable: RefCell<MutableCallbackEnvironment>,
@@ -199,29 +198,25 @@ extern "C" fn write_callback<W: io::Write + 'static>(
 
     if let Ok(mut mutable) = env.mutable.try_borrow_mut() {
         if let MutableCallbackEnvironment {
-            stream: Some((
-                stream,
-                // Don’t attempt another write if a previous one errored or panicked:
-                io_error @ None,
-            )),
+            stream:
+                Some((
+                    stream,
+                    // Don’t attempt another write if a previous one errored or panicked:
+                    io_error @ None,
+                )),
             unwind_payload: unwind_payload @ None,
-        } = &mut *mutable {
+        } = &mut *mutable
+        {
             // Safety: `write_callback<W>` was instanciated in `Surface::_for_stream`
             // with a W parameter consistent with the box that was unsized to `Box<dyn Any>`.
-            let stream = unsafe {
-                stream.downcast_mut_unchecked::<W>()
-            };
+            let stream = unsafe { stream.downcast_mut_unchecked::<W>() };
             // Safety: this is the callback contract from cairo’s API
-            let data = unsafe {
-                std::slice::from_raw_parts(data, length as usize)
-            };
+            let data = unsafe { std::slice::from_raw_parts(data, length as usize) };
             // Because `<W as Write>::write_all` is a generic,
             // we must conservatively assume that it can panic.
             let result = std::panic::catch_unwind(AssertUnwindSafe(|| stream.write_all(data)));
             match result {
-                Ok(Ok(())) => {
-                    return Status::Success.into()
-                }
+                Ok(Ok(())) => return Status::Success.into(),
                 Ok(Err(error)) => {
                     *io_error = Some(error);
                 }
@@ -239,9 +234,15 @@ extern "C" fn write_callback<W: io::Write + 'static>(
 struct RawStream<W>(*mut W);
 
 impl<W: io::Write> io::Write for RawStream<W> {
-    fn write(&mut self, buf: &[u8]) -> io::Result<usize> { unsafe { (*self.0).write(buf) }}
-    fn write_all(&mut self, buf: &[u8]) -> io::Result<()> { unsafe { (*self.0).write_all(buf) }}
-    fn flush(&mut self) -> io::Result<()> { unsafe { (*self.0).flush() } }
+    fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+        unsafe { (*self.0).write(buf) }
+    }
+    fn write_all(&mut self, buf: &[u8]) -> io::Result<()> {
+        unsafe { (*self.0).write_all(buf) }
+    }
+    fn flush(&mut self) -> io::Result<()> {
+        unsafe { (*self.0).flush() }
+    }
 }
 
 trait AnyExt {

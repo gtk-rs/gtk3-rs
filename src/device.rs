@@ -2,21 +2,16 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::path::Path;
 use std::ffi::CString;
+use std::path::Path;
 
+use enums::{Content, DeviceType, ScriptMode, Status};
+use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use ffi;
-use ::enums::{
-    Content,
-    DeviceType,
-    ScriptMode,
-    Status,
-};
-use ::surface::Surface;
-use ::recording_surface::RecordingSurface;
+use recording_surface::RecordingSurface;
 use std::fmt;
+use surface::Surface;
 
 #[derive(Debug)]
 pub struct Device(*mut ffi::cairo_device_t, bool);
@@ -57,26 +52,25 @@ impl Device {
 
     pub fn from_recording_surface(&self, surface: &RecordingSurface) -> Status {
         unsafe {
-            Status::from(ffi::cairo_script_from_recording_surface(self.to_raw_none(),
-                                                                  surface.to_raw_none()))
+            Status::from(ffi::cairo_script_from_recording_surface(
+                self.to_raw_none(),
+                surface.to_raw_none(),
+            ))
         }
     }
 
     pub fn get_mode(&self) -> ScriptMode {
-        unsafe {
-            ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none()))
-        }
+        unsafe { ScriptMode::from(ffi::cairo_script_get_mode(self.to_raw_none())) }
     }
 
     pub fn set_mode(&self, mode: ScriptMode) {
-        unsafe {
-            ffi::cairo_script_set_mode(self.to_raw_none(), mode.into())
-        }
+        unsafe { ffi::cairo_script_set_mode(self.to_raw_none(), mode.into()) }
     }
 
     pub fn surface_create(&self, content: Content, width: f64, height: f64) -> Option<Surface> {
         unsafe {
-            let p = ffi::cairo_script_surface_create(self.to_raw_none(), content.into(), width, height);
+            let p =
+                ffi::cairo_script_surface_create(self.to_raw_none(), content.into(), width, height);
             if p.is_null() {
                 None
             } else {
@@ -87,7 +81,10 @@ impl Device {
 
     pub fn surface_create_for_target(&self, target: &Surface) -> Option<Surface> {
         unsafe {
-            let p = ffi::cairo_script_surface_create_for_target(self.to_raw_none(), target.to_raw_none());
+            let p = ffi::cairo_script_surface_create_for_target(
+                self.to_raw_none(),
+                target.to_raw_none(),
+            );
             if p.is_null() {
                 None
             } else {
@@ -105,77 +102,53 @@ impl Device {
     }
 
     pub fn status(&self) -> Status {
-        unsafe {
-            Status::from(ffi::cairo_device_status(self.to_raw_none()))
-        }
+        unsafe { Status::from(ffi::cairo_device_status(self.to_raw_none())) }
     }
 
     pub fn finish(&self) {
-        unsafe {
-            ffi::cairo_device_finish(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_finish(self.to_raw_none()) }
     }
 
     pub fn flush(&self) {
-        unsafe {
-            ffi::cairo_device_flush(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_flush(self.to_raw_none()) }
     }
 
     pub fn get_type(&self) -> DeviceType {
-        unsafe {
-            DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none()))
-        }
+        unsafe { DeviceType::from(ffi::cairo_device_get_type(self.to_raw_none())) }
     }
 
     // Maybe improve this API?
     pub fn acquire(&self) -> Status {
-        unsafe {
-            Status::from(ffi::cairo_device_acquire(self.to_raw_none()))
-        }
+        unsafe { Status::from(ffi::cairo_device_acquire(self.to_raw_none())) }
     }
 
     // Maybe improve this API?
     pub fn release(&self) {
-        unsafe {
-            ffi::cairo_device_release(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_release(self.to_raw_none()) }
     }
 
     pub fn observer_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_elapsed(self.to_raw_none()) }
     }
 
     pub fn observer_fill_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_fill_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_fill_elapsed(self.to_raw_none()) }
     }
 
     pub fn observer_glyphs_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_glyphs_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_glyphs_elapsed(self.to_raw_none()) }
     }
 
     pub fn observer_mask_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_mask_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_mask_elapsed(self.to_raw_none()) }
     }
 
     pub fn observer_paint_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_paint_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_paint_elapsed(self.to_raw_none()) }
     }
 
     pub fn observer_stroke_elapsed(&self) -> f64 {
-        unsafe {
-            ffi::cairo_device_observer_stroke_elapsed(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_observer_stroke_elapsed(self.to_raw_none()) }
     }
 
     #[cfg(any(feature = "xlib", feature = "xcb", feature = "dox"))]
@@ -185,9 +158,11 @@ impl Device {
                 DeviceType::Xlib => {
                     #[cfg(feature = "xlib")]
                     {
-                        ffi::cairo_xlib_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                                         major_version,
-                                                                         minor_version)
+                        ffi::cairo_xlib_device_debug_cap_xrender_version(
+                            self.to_raw_none(),
+                            major_version,
+                            minor_version,
+                        )
                     }
                     #[cfg(not(feature = "xlib"))]
                     {
@@ -197,18 +172,18 @@ impl Device {
                 DeviceType::Xcb => {
                     #[cfg(feature = "xcb")]
                     {
-                        ffi::cairo_xcb_device_debug_cap_xrender_version(self.to_raw_none(),
-                                                                        major_version,
-                                                                        minor_version)
+                        ffi::cairo_xcb_device_debug_cap_xrender_version(
+                            self.to_raw_none(),
+                            major_version,
+                            minor_version,
+                        )
                     }
                     #[cfg(not(feature = "xcb"))]
                     {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                d => {
-                    panic!("invalid device type: {}", d)
-                }
+                d => panic!("invalid device type: {}", d),
             }
         }
     }
@@ -237,9 +212,7 @@ impl Device {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                d => {
-                    panic!("invalid device type: {}", d)
-                }
+                d => panic!("invalid device type: {}", d),
             }
         }
     }
@@ -268,9 +241,7 @@ impl Device {
                         panic!("you need to enable \"xcb\" feature")
                     }
                 }
-                d => {
-                    panic!("invalid device type: {}", d)
-                }
+                d => panic!("invalid device type: {}", d),
             }
         }
     }
@@ -292,9 +263,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_device_t> for Device {
 
     #[inline]
     fn to_glib_full(&self) -> *mut ffi::cairo_device_t {
-        unsafe {
-            ffi::cairo_device_reference(self.to_raw_none())
-        }
+        unsafe { ffi::cairo_device_reference(self.to_raw_none()) }
     }
 }
 
@@ -323,7 +292,11 @@ impl FromGlibPtrFull<*mut ffi::cairo_device_t> for Device {
 }
 
 #[cfg(feature = "use_glib")]
-gvalue_impl!(Device, ffi::cairo_device_t, ffi::gobject::cairo_gobject_device_get_type);
+gvalue_impl!(
+    Device,
+    ffi::cairo_device_t,
+    ffi::gobject::cairo_gobject_device_get_type
+);
 
 impl Clone for Device {
     fn clone(&self) -> Device {
@@ -334,7 +307,9 @@ impl Clone for Device {
 impl Drop for Device {
     fn drop(&mut self) {
         if !self.1 {
-            unsafe { ffi::cairo_device_destroy(self.0); }
+            unsafe {
+                ffi::cairo_device_destroy(self.0);
+            }
         }
     }
 }

@@ -2,28 +2,28 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use std::ffi::{CStr, CString};
+use std::fmt;
+use std::io;
+use std::mem;
 use std::ops::Deref;
 use std::path::Path;
-use std::io;
-use std::fmt;
 
-use ffi;
+use enums::PdfVersion;
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-use ::enums::{PdfOutline, PdfMetadata};
-use ::enums::PdfVersion;
+use enums::{PdfMetadata, PdfOutline};
+use ffi;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
 
-
 impl PdfVersion {
     pub fn as_str(self) -> Option<&'static str> {
         unsafe {
             let res = ffi::cairo_pdf_version_to_string(self.into());
-            res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+            res.as_ref()
+                .and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
         }
     }
 }
@@ -41,14 +41,14 @@ impl PdfSurface {
         unsafe {
             let raw = ffi::cairo_pdf_surface_create(path.as_ptr(), width, height);
             Self {
-                inner: Surface::from_raw_full(raw)
+                inner: Surface::from_raw_full(raw),
             }
         }
     }
 
     for_stream_constructors!(cairo_pdf_surface_create_for_stream);
 
-    pub fn get_versions() -> impl Iterator<Item=PdfVersion> {
+    pub fn get_versions() -> impl Iterator<Item = PdfVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr: *mut ffi::cairo_pdf_version_t = mem::uninitialized();
             let mut num_vers = 0;
@@ -61,8 +61,7 @@ impl PdfSurface {
 
     pub fn restrict(&self, version: PdfVersion) {
         unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(),
-                                                       version.into());
+            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
         }
     }
 
@@ -76,7 +75,11 @@ impl PdfSurface {
     pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
         let value = CString::new(value).unwrap();
         unsafe {
-            ffi::cairo_pdf_surface_set_metadata(self.inner.to_raw_none(), metadata.into(), value.as_ptr());
+            ffi::cairo_pdf_surface_set_metadata(
+                self.inner.to_raw_none(),
+                metadata.into(),
+                value.as_ptr(),
+            );
         }
     }
 
@@ -91,12 +94,22 @@ impl PdfSurface {
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
     pub fn set_thumbnail_size(&self, width: i32, height: i32) {
         unsafe {
-            ffi::cairo_pdf_surface_set_thumbnail_size(self.inner.to_raw_none(), width as _, height as _);
+            ffi::cairo_pdf_surface_set_thumbnail_size(
+                self.inner.to_raw_none(),
+                width as _,
+                height as _,
+            );
         }
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn add_outline(&self, parent_id: i32, name: &str, link_attribs: &str, flags: PdfOutline) -> i32 {
+    pub fn add_outline(
+        &self,
+        parent_id: i32,
+        name: &str,
+        link_attribs: &str,
+        flags: PdfOutline,
+    ) -> i32 {
         let name = CString::new(name).unwrap();
         let link_attribs = CString::new(link_attribs).unwrap();
 
@@ -106,7 +119,7 @@ impl PdfSurface {
                 parent_id,
                 name.as_ptr(),
                 link_attribs.as_ptr(),
-                flags.bits() as _
+                flags.bits() as _,
             ) as _
         }
     }
@@ -135,7 +148,9 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface { inner: from_glib_none(ptr) }
+        PdfSurface {
+            inner: from_glib_none(ptr),
+        }
     }
 }
 
@@ -143,7 +158,9 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface { inner: from_glib_borrow(ptr) }
+        PdfSurface {
+            inner: from_glib_borrow(ptr),
+        }
     }
 }
 
@@ -151,7 +168,9 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        Self { inner: Surface::from_raw_full(ptr) }
+        Self {
+            inner: Surface::from_raw_full(ptr),
+        }
     }
 }
 
@@ -227,9 +246,7 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = unsafe {
-            PdfSurface::for_raw_stream(100., 100., &mut file)
-        };
+        let surface = unsafe { PdfSurface::for_raw_stream(100., 100., &mut file) };
 
         draw(&surface);
         surface.finish_output_stream().unwrap();
@@ -254,7 +271,9 @@ mod test {
                 Ok(buf.len())
             }
 
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let custom_writer = CustomWriter(0);
@@ -274,8 +293,12 @@ mod test {
         struct PanicWriter;
 
         impl io::Write for PanicWriter {
-            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> { panic!("panic in writer"); }
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> {
+                panic!("panic in writer");
+            }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let surface = PdfSurface::for_stream(20., 20., PanicWriter);

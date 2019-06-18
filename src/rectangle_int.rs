@@ -1,9 +1,9 @@
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+use std::fmt;
 #[cfg(feature = "use_glib")]
 use std::mem;
-use std::fmt;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(C)]
@@ -72,7 +72,11 @@ impl FromGlibPtrNone<*mut ffi::cairo_rectangle_int_t> for RectangleInt {
 }
 
 #[cfg(feature = "use_glib")]
-gvalue_impl!(RectangleInt, ffi::cairo_rectangle_int_t, ffi::gobject::cairo_gobject_rectangle_int_get_type);
+gvalue_impl!(
+    RectangleInt,
+    ffi::cairo_rectangle_int_t,
+    ffi::gobject::cairo_gobject_rectangle_int_get_type
+);
 
 impl RectangleInt {
     pub fn to_raw_none(&self) -> *mut ffi::cairo_rectangle_int_t {

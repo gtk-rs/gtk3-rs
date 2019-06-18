@@ -3,13 +3,13 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use std::convert::TryFrom;
-use std::ops::Deref;
 use std::fmt;
+use std::ops::Deref;
 
+use enums::{Format, SurfaceType};
+use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
-use ffi;
-use ::enums::{Format, SurfaceType};
 use surface::Surface;
 use Status;
 
@@ -36,18 +36,30 @@ impl QuartzSurface {
         let status = surface.status();
         match status {
             Status::Success => Ok(surface),
-            _ => Err(status)
+            _ => Err(status),
         }
     }
 
     pub fn create(format: Format, width: u32, height: u32) -> Result<QuartzSurface, Status> {
         unsafe {
-            Self::from_raw_full(ffi::cairo_quartz_surface_create(format.into(), width, height))
+            Self::from_raw_full(ffi::cairo_quartz_surface_create(
+                format.into(),
+                width,
+                height,
+            ))
         }
     }
 
-    pub fn create_for_cg_context(cg_context: CGContextRef, width: u32, height: u32) -> Result<QuartzSurface, Status> {
-        unsafe { Self::from_raw_full(ffi::cairo_quartz_surface_create_for_cg_context(cg_context, width, height)) }
+    pub fn create_for_cg_context(
+        cg_context: CGContextRef,
+        width: u32,
+        height: u32,
+    ) -> Result<QuartzSurface, Status> {
+        unsafe {
+            Self::from_raw_full(ffi::cairo_quartz_surface_create_for_cg_context(
+                cg_context, width, height,
+            ))
+        }
     }
 
     pub fn get_cg_context(&self) -> CGContextRef {
@@ -67,9 +79,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for QuartzSurface {
 
     #[inline]
     fn to_glib_full(&self) -> *mut ffi::cairo_surface_t {
-        unsafe {
-            ffi::cairo_surface_reference(self.to_glib_none().0)
-        }
+        unsafe { ffi::cairo_surface_reference(self.to_glib_none().0) }
     }
 }
 
@@ -98,7 +108,11 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for QuartzSurface {
 }
 
 #[cfg(feature = "use_glib")]
-gvalue_impl!(QuartzSurface, ffi::cairo_surface_t, ffi::gobject::cairo_gobject_surface_get_type);
+gvalue_impl!(
+    QuartzSurface,
+    ffi::cairo_surface_t,
+    ffi::gobject::cairo_gobject_surface_get_type
+);
 
 impl Deref for QuartzSurface {
     type Target = Surface;

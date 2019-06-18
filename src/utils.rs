@@ -13,7 +13,9 @@ pub unsafe fn debug_reset_static_data() {
 pub fn get_version_string() -> &'static str {
     unsafe {
         let ptr = ffi::cairo_version_string();
-        CStr::from_ptr(ptr).to_str().expect("invalid version string")
+        CStr::from_ptr(ptr)
+            .to_str()
+            .expect("invalid version string")
     }
 }
 

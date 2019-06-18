@@ -2,17 +2,17 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::mem;
 use std::ffi::{CStr, CString};
+use std::fmt;
+use std::io;
+use std::mem;
 use std::ops::Deref;
 use std::path::Path;
-use std::io;
-use std::fmt;
 
-use ffi;
-use ::enums::SvgVersion;
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
-use ::enums::SvgUnit;
+use enums::SvgUnit;
+use enums::SvgVersion;
+use ffi;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
@@ -22,7 +22,8 @@ impl SvgVersion {
     pub fn as_str(self) -> Option<&'static str> {
         unsafe {
             let res = ffi::cairo_svg_version_to_string(self.into());
-            res.as_ref().and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
+            res.as_ref()
+                .and_then(|cstr| CStr::from_ptr(cstr as _).to_str().ok())
         }
     }
 }
@@ -39,16 +40,18 @@ impl SvgSurface {
 
         unsafe {
             Self {
-                inner: Surface::from_raw_full(
-                    ffi::cairo_svg_surface_create(path.as_ptr(), width, height)
-                ),
+                inner: Surface::from_raw_full(ffi::cairo_svg_surface_create(
+                    path.as_ptr(),
+                    width,
+                    height,
+                )),
             }
         }
     }
 
     for_stream_constructors!(cairo_svg_surface_create_for_stream);
 
-    pub fn get_versions() -> impl Iterator<Item=SvgVersion> {
+    pub fn get_versions() -> impl Iterator<Item = SvgVersion> {
         let vers_slice = unsafe {
             let mut vers_ptr: *mut ffi::cairo_svg_version_t = mem::uninitialized();
             let mut num_vers = 0;
@@ -76,7 +79,9 @@ impl SvgSurface {
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
-            SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(self.inner.to_raw_none()))
+            SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(
+                self.inner.to_raw_none(),
+            ))
         }
     }
 }
@@ -104,7 +109,9 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface { inner: from_glib_borrow(ptr) }
+        SvgSurface {
+            inner: from_glib_borrow(ptr),
+        }
     }
 }
 
@@ -112,7 +119,9 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface { inner: from_glib_borrow(ptr) }
+        SvgSurface {
+            inner: from_glib_borrow(ptr),
+        }
     }
 }
 
@@ -120,7 +129,9 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self { inner: Surface::from_raw_full(ptr) }
+        Self {
+            inner: Surface::from_raw_full(ptr),
+        }
     }
 }
 
@@ -142,13 +153,13 @@ mod test {
         cr.set_line_width(25.0);
 
         cr.set_source_rgba(1.0, 0.0, 0.0, 0.5);
-        cr.line_to(0.,0.);
-        cr.line_to(100.,100.);
+        cr.line_to(0., 0.);
+        cr.line_to(100., 100.);
         cr.stroke();
 
         cr.set_source_rgba(0.0, 0.0, 1.0, 0.5);
-        cr.line_to(0.,100.);
-        cr.line_to(100.,0.);
+        cr.line_to(0., 100.);
+        cr.line_to(100., 0.);
         cr.stroke();
     }
 
@@ -226,13 +237,15 @@ mod test {
 
         impl io::Write for CustomWriter {
             fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
-                self.1.write(buf) ?;
+                self.1.write(buf)?;
 
                 self.0 += buf.len();
                 Ok(buf.len())
             }
 
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let file = tempfile().expect("tempfile failed");
@@ -252,8 +265,12 @@ mod test {
         struct PanicWriter;
 
         impl io::Write for PanicWriter {
-            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> { panic!("panic in writer"); }
-            fn flush(&mut self) -> io::Result<()> { Ok(()) }
+            fn write(&mut self, _buf: &[u8]) -> io::Result<usize> {
+                panic!("panic in writer");
+            }
+            fn flush(&mut self) -> io::Result<()> {
+                Ok(())
+            }
         }
 
         let surface = SvgSurface::for_stream(20., 20., PanicWriter);
