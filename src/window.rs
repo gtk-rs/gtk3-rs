@@ -2,7 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use cairo::{self, PatternTrait, Surface};
+use cairo::{self, Surface};
 use gdk_pixbuf;
 use gdk_sys;
 use glib::object::IsA;
@@ -259,7 +259,7 @@ impl<O: IsA<Window>> WindowExtManual for O {
     fn set_background_pattern(&self, pattern: Option<&cairo::Pattern>) {
         unsafe {
             let ptr = if let Some(pattern) = pattern {
-                pattern.as_ptr()
+                pattern.to_raw_none()
             } else {
                 ::std::ptr::null_mut()
             };
