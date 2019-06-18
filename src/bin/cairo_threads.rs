@@ -10,7 +10,6 @@ use std::sync::mpsc;
 use std::thread;
 use std::time::Duration;
 
-use cairo::prelude::*;
 use cairo::{Context, Format, ImageSurface};
 use gio::prelude::*;
 use gtk::prelude::*;
