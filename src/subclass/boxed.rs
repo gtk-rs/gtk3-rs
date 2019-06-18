@@ -41,6 +41,16 @@ pub trait BoxedType: Clone + Sized + 'static {
 ///
 /// [`glib_boxed_type!`]: ../../macro.glib_boxed_type.html
 pub fn register_boxed_type<T: BoxedType>() -> ::Type {
+    unsafe extern "C" fn boxed_copy<T: BoxedType>(v: glib_sys::gpointer) -> glib_sys::gpointer {
+        let v = &*(v as *mut T);
+        let copy = Box::new(v.clone());
+
+        Box::into_raw(copy) as glib_sys::gpointer
+    }
+    unsafe extern "C" fn boxed_free<T: BoxedType>(v: glib_sys::gpointer) {
+        let v = v as *mut T;
+        let _ = Box::from_raw(v);
+    }
     unsafe {
         use std::ffi::CString;
 
@@ -58,18 +68,6 @@ pub fn register_boxed_type<T: BoxedType>() -> ::Type {
             Some(boxed_free::<T>),
         ))
     }
-}
-
-unsafe extern "C" fn boxed_copy<T: BoxedType>(v: glib_sys::gpointer) -> glib_sys::gpointer {
-    let v = &*(v as *mut T);
-    let copy = Box::new(v.clone());
-
-    Box::into_raw(copy) as glib_sys::gpointer
-}
-
-unsafe extern "C" fn boxed_free<T: BoxedType>(v: glib_sys::gpointer) {
-    let v = v as *mut T;
-    let _ = Box::from_raw(v);
 }
 
 #[macro_export]

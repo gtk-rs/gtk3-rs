@@ -86,6 +86,17 @@ impl MainContext {
     where
         F: FnOnce() + 'static,
     {
+        unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboolean {
+            let func: &mut Option<F> = &mut *(func as *mut Option<F>);
+            let func = func
+                .take()
+                .expect("MainContext::invoke() closure called multiple times");
+            func();
+            glib_sys::G_SOURCE_REMOVE
+        }
+        unsafe extern "C" fn destroy_closure<F: FnOnce() + 'static>(ptr: gpointer) {
+            Box::<Option<F>>::from_raw(ptr as *mut _);
+        }
         let func = Box::into_raw(Box::new(Some(func)));
         glib_sys::g_main_context_invoke_full(
             self.to_glib_none().0,
@@ -112,19 +123,6 @@ impl MainContext {
         let _thread_default = ThreadDefaultContext::new(self);
         func()
     }
-}
-
-unsafe extern "C" fn trampoline<F: FnOnce() + 'static>(func: gpointer) -> gboolean {
-    let func: &mut Option<F> = &mut *(func as *mut Option<F>);
-    let func = func
-        .take()
-        .expect("MainContext::invoke() closure called multiple times");
-    func();
-    glib_sys::G_SOURCE_REMOVE
-}
-
-unsafe extern "C" fn destroy_closure<F: FnOnce() + 'static>(ptr: gpointer) {
-    Box::<Option<F>>::from_raw(ptr as *mut _);
 }
 
 struct ThreadDefaultContext<'a>(&'a MainContext);
