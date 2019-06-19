@@ -254,9 +254,9 @@ pub trait FileExt: 'static {
 
     fn get_relative_path<P: IsA<File>>(&self, descendant: &P) -> Option<std::path::PathBuf>;
 
-    fn get_uri(&self) -> Option<GString>;
+    fn get_uri(&self) -> GString;
 
-    fn get_uri_scheme(&self) -> Option<GString>;
+    fn get_uri_scheme(&self) -> GString;
 
     fn has_parent<P: IsA<File>>(&self, parent: Option<&P>) -> bool;
 
@@ -1359,11 +1359,11 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_uri(&self) -> Option<GString> {
+    fn get_uri(&self) -> GString {
         unsafe { from_glib_full(gio_sys::g_file_get_uri(self.as_ref().to_glib_none().0)) }
     }
 
-    fn get_uri_scheme(&self) -> Option<GString> {
+    fn get_uri_scheme(&self) -> GString {
         unsafe {
             from_glib_full(gio_sys::g_file_get_uri_scheme(
                 self.as_ref().to_glib_none().0,

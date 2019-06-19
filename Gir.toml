@@ -362,6 +362,14 @@ manual_traits = ["FileExtManual"]
     name = "replace_contents_async"
     # AsRef
     ignore = true
+    [[object.function]]
+    name = "get_uri_scheme"
+        [object.function.return]
+        nullable = false
+    [[object.function]]
+    name = "get_uri"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Gio.FileAttributeMatcher"
@@ -654,6 +662,11 @@ status = "generate"
 manual_traits = ["SocketListenerExtManual"]
     [[object.function]]
     name = "accept_socket_async"
+    # finish function misses nullable return annotation
+    ignore = true
+
+    [[object.function]]
+    name = "accept_async"
     # finish function misses nullable return annotation
     ignore = true
 
