@@ -665,6 +665,11 @@ manual_traits = ["SocketListenerExtManual"]
     # finish function misses nullable return annotation
     ignore = true
 
+    [[object.function]]
+    name = "accept_async"
+    # finish function misses nullable return annotation
+    ignore = true
+
 [[object]]
 name = "Gio.Subprocess"
 status = "generate"
