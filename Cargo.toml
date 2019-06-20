@@ -73,6 +73,9 @@ name = "cairotest"
 name = "child-properties"
 
 [[bin]]
+name = "clipboard_simple"
+
+[[bin]]
 name = "clock"
 
 [[bin]]
