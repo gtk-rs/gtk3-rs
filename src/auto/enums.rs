@@ -2,8 +2,8 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::translate::*;
+use graphene_sys;
 use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -37,25 +37,25 @@ impl fmt::Display for EulerOrder {
 
 #[doc(hidden)]
 impl ToGlib for EulerOrder {
-    type GlibType = ffi::graphene_euler_order_t;
+    type GlibType = graphene_sys::graphene_euler_order_t;
 
-    fn to_glib(&self) -> ffi::graphene_euler_order_t {
+    fn to_glib(&self) -> graphene_sys::graphene_euler_order_t {
         match *self {
-            EulerOrder::Default => ffi::GRAPHENE_EULER_ORDER_DEFAULT,
-            EulerOrder::Xyz => ffi::GRAPHENE_EULER_ORDER_XYZ,
-            EulerOrder::Yzx => ffi::GRAPHENE_EULER_ORDER_YZX,
-            EulerOrder::Zxy => ffi::GRAPHENE_EULER_ORDER_ZXY,
-            EulerOrder::Xzy => ffi::GRAPHENE_EULER_ORDER_XZY,
-            EulerOrder::Yxz => ffi::GRAPHENE_EULER_ORDER_YXZ,
-            EulerOrder::Zyx => ffi::GRAPHENE_EULER_ORDER_ZYX,
+            EulerOrder::Default => graphene_sys::GRAPHENE_EULER_ORDER_DEFAULT,
+            EulerOrder::Xyz => graphene_sys::GRAPHENE_EULER_ORDER_XYZ,
+            EulerOrder::Yzx => graphene_sys::GRAPHENE_EULER_ORDER_YZX,
+            EulerOrder::Zxy => graphene_sys::GRAPHENE_EULER_ORDER_ZXY,
+            EulerOrder::Xzy => graphene_sys::GRAPHENE_EULER_ORDER_XZY,
+            EulerOrder::Yxz => graphene_sys::GRAPHENE_EULER_ORDER_YXZ,
+            EulerOrder::Zyx => graphene_sys::GRAPHENE_EULER_ORDER_ZYX,
             EulerOrder::__Unknown(value) => value
         }
     }
 }
 
 #[doc(hidden)]
-impl FromGlib<ffi::graphene_euler_order_t> for EulerOrder {
-    fn from_glib(value: ffi::graphene_euler_order_t) -> Self {
+impl FromGlib<graphene_sys::graphene_euler_order_t> for EulerOrder {
+    fn from_glib(value: graphene_sys::graphene_euler_order_t) -> Self {
         skip_assert_initialized!();
         match value {
             -1 => EulerOrder::Default,

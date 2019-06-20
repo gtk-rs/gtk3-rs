@@ -7,65 +7,67 @@ use Matrix;
 use Plane;
 use Point3D;
 use Sphere;
-use ffi;
 use glib::translate::*;
-use gobject_ffi;
+use gobject_sys;
+use graphene_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Frustum(Boxed<ffi::graphene_frustum_t>);
+    pub struct Frustum(Boxed<graphene_sys::graphene_frustum_t>);
 
     match fn {
-        copy => |ptr| gobject_ffi::g_boxed_copy(ffi::graphene_frustum_get_type(), ptr as *mut _) as *mut ffi::graphene_frustum_t,
-        free => |ptr| gobject_ffi::g_boxed_free(ffi::graphene_frustum_get_type(), ptr as *mut _),
-        get_type => || ffi::graphene_frustum_get_type(),
+        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_frustum_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_frustum_t,
+        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_frustum_get_type(), ptr as *mut _),
+        init => |_ptr| (),
+        clear => |_ptr| (),
+        get_type => || graphene_sys::graphene_frustum_get_type(),
     }
 }
 
 impl Frustum {
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
-            from_glib(ffi::graphene_frustum_contains_point(self.to_glib_none().0, point.to_glib_none().0))
+            from_glib(graphene_sys::graphene_frustum_contains_point(self.to_glib_none().0, point.to_glib_none().0))
         }
     }
 
     fn equal(&self, b: &Frustum) -> bool {
         unsafe {
-            from_glib(ffi::graphene_frustum_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_frustum_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
     //pub fn get_planes(&self, planes: /*Unimplemented*/FixedArray TypeId { ns_id: 1, id: 8 }; 6) {
-    //    unsafe { TODO: call ffi::graphene_frustum_get_planes() }
+    //    unsafe { TODO: call graphene_sys:graphene_frustum_get_planes() }
     //}
 
     pub fn init(&mut self, p0: &Plane, p1: &Plane, p2: &Plane, p3: &Plane, p4: &Plane, p5: &Plane) {
         unsafe {
-            ffi::graphene_frustum_init(self.to_glib_none_mut().0, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0);
+            graphene_sys::graphene_frustum_init(self.to_glib_none_mut().0, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0);
         }
     }
 
     pub fn init_from_frustum(&mut self, src: &Frustum) {
         unsafe {
-            ffi::graphene_frustum_init_from_frustum(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_frustum_init_from_frustum(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
     pub fn init_from_matrix(&mut self, matrix: &Matrix) {
         unsafe {
-            ffi::graphene_frustum_init_from_matrix(self.to_glib_none_mut().0, matrix.to_glib_none().0);
+            graphene_sys::graphene_frustum_init_from_matrix(self.to_glib_none_mut().0, matrix.to_glib_none().0);
         }
     }
 
     pub fn intersects_box(&self, box_: &Box) -> bool {
         unsafe {
-            from_glib(ffi::graphene_frustum_intersects_box(self.to_glib_none().0, box_.to_glib_none().0))
+            from_glib(graphene_sys::graphene_frustum_intersects_box(self.to_glib_none().0, box_.to_glib_none().0))
         }
     }
 
     pub fn intersects_sphere(&self, sphere: &Sphere) -> bool {
         unsafe {
-            from_glib(ffi::graphene_frustum_intersects_sphere(self.to_glib_none().0, sphere.to_glib_none().0))
+            from_glib(graphene_sys::graphene_frustum_intersects_sphere(self.to_glib_none().0, sphere.to_glib_none().0))
         }
     }
 }

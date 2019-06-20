@@ -2,44 +2,46 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use ffi;
 use glib::translate::*;
-use gobject_ffi;
+use gobject_sys;
+use graphene_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Size(Boxed<ffi::graphene_size_t>);
+    pub struct Size(Boxed<graphene_sys::graphene_size_t>);
 
     match fn {
-        copy => |ptr| gobject_ffi::g_boxed_copy(ffi::graphene_size_get_type(), ptr as *mut _) as *mut ffi::graphene_size_t,
-        free => |ptr| gobject_ffi::g_boxed_free(ffi::graphene_size_get_type(), ptr as *mut _),
-        get_type => || ffi::graphene_size_get_type(),
+        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_size_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_size_t,
+        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_size_get_type(), ptr as *mut _),
+        init => |_ptr| (),
+        clear => |_ptr| (),
+        get_type => || graphene_sys::graphene_size_get_type(),
     }
 }
 
 impl Size {
     fn equal(&self, b: &Size) -> bool {
         unsafe {
-            from_glib(ffi::graphene_size_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_size_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
     pub fn init(&mut self, width: f32, height: f32) {
         unsafe {
-            ffi::graphene_size_init(self.to_glib_none_mut().0, width, height);
+            graphene_sys::graphene_size_init(self.to_glib_none_mut().0, width, height);
         }
     }
 
     pub fn init_from_size(&mut self, src: &Size) {
         unsafe {
-            ffi::graphene_size_init_from_size(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_size_init_from_size(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
     pub fn interpolate(&self, b: &Size, factor: f64) -> Size {
         unsafe {
             let mut res = Size::uninitialized();
-            ffi::graphene_size_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_size_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
             res
         }
     }
@@ -47,7 +49,7 @@ impl Size {
     pub fn scale(&self, factor: f32) -> Size {
         unsafe {
             let mut res = Size::uninitialized();
-            ffi::graphene_size_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_size_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
             res
         }
     }
@@ -55,7 +57,7 @@ impl Size {
     pub fn zero() -> Size {
         assert_initialized_main_thread!();
         unsafe {
-            from_glib_none(ffi::graphene_size_zero())
+            from_glib_none(graphene_sys::graphene_size_zero())
         }
     }
 }

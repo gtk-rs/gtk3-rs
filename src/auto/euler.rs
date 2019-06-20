@@ -6,92 +6,94 @@ use EulerOrder;
 use Matrix;
 use Quaternion;
 use Vec3;
-use ffi;
 use glib::translate::*;
-use gobject_ffi;
+use gobject_sys;
+use graphene_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
-    pub struct Euler(Boxed<ffi::graphene_euler_t>);
+    pub struct Euler(Boxed<graphene_sys::graphene_euler_t>);
 
     match fn {
-        copy => |ptr| gobject_ffi::g_boxed_copy(ffi::graphene_euler_get_type(), ptr as *mut _) as *mut ffi::graphene_euler_t,
-        free => |ptr| gobject_ffi::g_boxed_free(ffi::graphene_euler_get_type(), ptr as *mut _),
-        get_type => || ffi::graphene_euler_get_type(),
+        copy => |ptr| gobject_sys::g_boxed_copy(graphene_sys::graphene_euler_get_type(), ptr as *mut _) as *mut graphene_sys::graphene_euler_t,
+        free => |ptr| gobject_sys::g_boxed_free(graphene_sys::graphene_euler_get_type(), ptr as *mut _),
+        init => |_ptr| (),
+        clear => |_ptr| (),
+        get_type => || graphene_sys::graphene_euler_get_type(),
     }
 }
 
 impl Euler {
     fn equal(&self, b: &Euler) -> bool {
         unsafe {
-            from_glib(ffi::graphene_euler_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_euler_equal(self.to_glib_none().0, b.to_glib_none().0))
         }
     }
 
     pub fn get_order(&self) -> EulerOrder {
         unsafe {
-            from_glib(ffi::graphene_euler_get_order(self.to_glib_none().0))
+            from_glib(graphene_sys::graphene_euler_get_order(self.to_glib_none().0))
         }
     }
 
     pub fn get_x(&self) -> f32 {
         unsafe {
-            ffi::graphene_euler_get_x(self.to_glib_none().0)
+            graphene_sys::graphene_euler_get_x(self.to_glib_none().0)
         }
     }
 
     pub fn get_y(&self) -> f32 {
         unsafe {
-            ffi::graphene_euler_get_y(self.to_glib_none().0)
+            graphene_sys::graphene_euler_get_y(self.to_glib_none().0)
         }
     }
 
     pub fn get_z(&self) -> f32 {
         unsafe {
-            ffi::graphene_euler_get_z(self.to_glib_none().0)
+            graphene_sys::graphene_euler_get_z(self.to_glib_none().0)
         }
     }
 
     pub fn init(&mut self, x: f32, y: f32, z: f32) {
         unsafe {
-            ffi::graphene_euler_init(self.to_glib_none_mut().0, x, y, z);
+            graphene_sys::graphene_euler_init(self.to_glib_none_mut().0, x, y, z);
         }
     }
 
     pub fn init_from_euler(&mut self, src: Option<&Euler>) {
         unsafe {
-            ffi::graphene_euler_init_from_euler(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_euler_init_from_euler(self.to_glib_none_mut().0, src.to_glib_none().0);
         }
     }
 
     pub fn init_from_matrix(&mut self, m: Option<&Matrix>, order: EulerOrder) {
         unsafe {
-            ffi::graphene_euler_init_from_matrix(self.to_glib_none_mut().0, m.to_glib_none().0, order.to_glib());
+            graphene_sys::graphene_euler_init_from_matrix(self.to_glib_none_mut().0, m.to_glib_none().0, order.to_glib());
         }
     }
 
     pub fn init_from_quaternion(&mut self, q: Option<&Quaternion>, order: EulerOrder) {
         unsafe {
-            ffi::graphene_euler_init_from_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0, order.to_glib());
+            graphene_sys::graphene_euler_init_from_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0, order.to_glib());
         }
     }
 
     pub fn init_from_vec3(&mut self, v: Option<&Vec3>, order: EulerOrder) {
         unsafe {
-            ffi::graphene_euler_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0, order.to_glib());
+            graphene_sys::graphene_euler_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0, order.to_glib());
         }
     }
 
     pub fn init_with_order(&mut self, x: f32, y: f32, z: f32, order: EulerOrder) {
         unsafe {
-            ffi::graphene_euler_init_with_order(self.to_glib_none_mut().0, x, y, z, order.to_glib());
+            graphene_sys::graphene_euler_init_with_order(self.to_glib_none_mut().0, x, y, z, order.to_glib());
         }
     }
 
     pub fn reorder(&self, order: EulerOrder) -> Euler {
         unsafe {
             let mut res = Euler::uninitialized();
-            ffi::graphene_euler_reorder(self.to_glib_none().0, order.to_glib(), res.to_glib_none_mut().0);
+            graphene_sys::graphene_euler_reorder(self.to_glib_none().0, order.to_glib(), res.to_glib_none_mut().0);
             res
         }
     }
@@ -99,7 +101,7 @@ impl Euler {
     pub fn to_matrix(&self) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            ffi::graphene_euler_to_matrix(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_euler_to_matrix(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
@@ -107,7 +109,7 @@ impl Euler {
     pub fn to_vec3(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            ffi::graphene_euler_to_vec3(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_euler_to_vec3(self.to_glib_none().0, res.to_glib_none_mut().0);
             res
         }
     }
