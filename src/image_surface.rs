@@ -62,7 +62,7 @@ impl ImageSurface {
         let mut data: Box<dyn AsMut<[u8]>> = Box::new(data);
 
         let (ptr, len) = {
-            let mut data: &mut [u8] = (*data).as_mut();
+            let data: &mut [u8] = (*data).as_mut();
 
             (data.as_mut_ptr(), data.len())
         };

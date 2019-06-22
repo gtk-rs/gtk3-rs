@@ -36,7 +36,7 @@ impl Error for BorrowError {
         }
     }
 
-    fn cause(&self) -> Option<&Error> {
+    fn cause(&self) -> Option<&dyn Error> {
         None
     }
 }
@@ -70,7 +70,7 @@ impl Error for IoError {
         }
     }
 
-    fn cause(&self) -> Option<&Error> {
+    fn cause(&self) -> Option<&dyn Error> {
         match *self {
             IoError::Cairo(_) => None,
             IoError::Io(ref e) => Some(e),
