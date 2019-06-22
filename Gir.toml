@@ -223,9 +223,11 @@ generate_builder = true
     [[object.signal]]
     name = "open"
     ignore = true
+    doc_trait_name = "ApplicationExtManual"
     [[object.function]]
     name = "run"
     ignore = true
+    doc_trait_name = "ApplicationExtManual"
 
 [[object]]
 name = "Gio.ApplicationCommandLine"
@@ -284,6 +286,7 @@ manual_traits = ["ConverterExtManual"]
     [[object.function]]
     name = "convert"
     ignore = true
+    doc_trait_name = "ConverterExtManual"
 
 [[object]]
 name = "Gio.Credentials"
@@ -362,6 +365,7 @@ manual_traits = ["FileExtManual"]
     name = "replace_contents_async"
     # AsRef
     ignore = true
+    doc_trait_name = "FileExtManual"
     [[object.function]]
     name = "get_uri_scheme"
         [object.function.return]
@@ -440,6 +444,7 @@ manual_traits = ["InputStreamExtManual"]
     pattern = "read(_all)?(_async)?"
     #mutable buffer
     ignore = true
+    doc_trait_name = "InputStreamExtManual"
 
 [[object]]
 name = "Gio.IOStream"
@@ -462,6 +467,14 @@ name = "Gio.ListStore"
 status = "generate"
 generate_builder = true
 manual_traits = ["ListStoreExtManual"]
+    [[object.function]]
+    name = "insert_sorted"
+    ignore = true
+    doc_trait_name = "ListStoreExtManual"
+    [[object.function]]
+    name = "sort"
+    ignore = true
+    doc_trait_name = "ListStoreExtManual"
 
 [[object]]
 name = "Gio.MemoryInputStream"
@@ -527,14 +540,17 @@ manual_traits = ["OutputStreamExtManual"]
     name = "write_async"
     #AsRef<u8>
     ignore = true
+    doc_trait_name = "OutputStreamExtManual"
     [[object.function]]
     name = "write_all_async"
     #AsRef<u8>
     ignore = true
+    doc_trait_name = "OutputStreamExtManual"
     [[object.function]]
     name = "write_all"
     # special return value
     ignore = true
+    doc_trait_name = "OutputStreamExtManual"
 
 [[object]]
 name = "Gio.PollableInputStream"
@@ -544,10 +560,12 @@ manual_traits = ["PollableInputStreamExtManual"]
     name = "create_source"
     # manual source implementation
     ignore = true
+    doc_trait_name = "PollableInputStreamExtManual"
     [[object.function]]
     name = "read_nonblocking"
     # wrong mutability
     ignore = true
+    doc_trait_name = "PollableInputStreamExtManual"
 
 [[object]]
 name = "Gio.PollableOutputStream"
@@ -557,6 +575,7 @@ manual_traits = ["PollableOutputStreamExtManual"]
     name = "create_source"
     # manual source implementation
     ignore = true
+    doc_trait_name = "PollableOutputStreamExtManual"
 
 [[object]]
 name = "Gio.ProxyAddress"
@@ -625,11 +644,13 @@ manual_traits = ["SocketExtManual"]
     name = "new_from_fd"
     # has to use RawFd / SOCKET
     ignore = true
+    doc_trait_name = "SocketExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd / SOCKET
     ignore = true
+    doc_trait_name = "SocketExtManual"
 
     [[object.property]]
     name = "fd"
@@ -640,16 +661,19 @@ manual_traits = ["SocketExtManual"]
     name = "create_source"
     # needs custom impl for Source callback
     ignore = true
+    doc_trait_name = "SocketExtManual"
 
     [[object.function]]
     pattern = "receive.*"
     # &[u8]
     ignore = true
+    doc_trait_name = "SocketExtManual"
 
     [[object.function]]
     pattern = "send.*"
     # &[u8]
     ignore = true
+    doc_trait_name = "SocketExtManual"
 
 [[object]]
 name = "Gio.SocketAddress"
@@ -664,11 +688,13 @@ manual_traits = ["SocketListenerExtManual"]
     name = "accept_socket_async"
     # finish function misses nullable return annotation
     ignore = true
+    doc_trait_name = "SocketListenerExtManual"
 
     [[object.function]]
     name = "accept_async"
     # finish function misses nullable return annotation
     ignore = true
+    doc_trait_name = "SocketListenerExtManual"
 
 [[object]]
 name = "Gio.Subprocess"
@@ -751,11 +777,13 @@ manual_traits = ["UnixInputStreamExtManual"]
     name = "set_close_fd"
     # Can cause file descriptor leaks
     ignore = true
+    doc_trait_name = "UnixInputStreamExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd
     ignore = true
+    doc_trait_name = "UnixInputStreamExtManual"
 
     [[object.property]]
     name = "fd"
@@ -780,11 +808,13 @@ manual_traits = ["UnixOutputStreamExtManual"]
     name = "set_close_fd"
     # Can cause file descriptor leaks
     ignore = true
+    doc_trait_name = "UnixOutputStreamExtManual"
 
     [[object.function]]
     name = "get_fd"
     # has to use RawFd
     ignore = true
+    doc_trait_name = "UnixOutputStreamExtManual"
 
     [[object.property]]
     name = "fd"
@@ -807,6 +837,7 @@ manual_traits = ["UnixSocketAddressExtManual"]
     [[object.function]]
     name = "get_path"
     ignore = true
+    doc_trait_name = "UnixSocketAddressExtManual"
     [[object.property]]
     name = "path"
     ignore = true
