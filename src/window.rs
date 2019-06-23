@@ -148,8 +148,6 @@ pub trait WindowExtManual: 'static {
     #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
     unsafe fn get_user_data<T>(&self) -> &mut T;
 
-    fn set_geometry_hints(&self, geometry: &gdk_sys::GdkGeometry, geom_mask: WindowHints);
-
     fn get_default_root_window() -> Window;
 
     fn offscreen_window_set_embedder(&self, embedder: &Window);
