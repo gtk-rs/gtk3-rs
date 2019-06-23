@@ -185,16 +185,6 @@ impl<O: IsA<Window>> WindowExtManual for O {
         &mut *(pointer as *mut T)
     }
 
-    fn set_geometry_hints(&self, geometry: &gdk_sys::GdkGeometry, geom_mask: WindowHints) {
-        unsafe {
-            gdk_sys::gdk_window_set_geometry_hints(
-                self.as_ref().to_glib_none().0,
-                geometry,
-                geom_mask.to_glib(),
-            )
-        }
-    }
-
     fn get_default_root_window() -> Window {
         assert_initialized_main_thread!();
         unsafe { from_glib_none(gdk_sys::gdk_get_default_root_window()) }

@@ -364,6 +364,11 @@ manual_traits = ["WindowExtManual"]
     [[object.function]]
     pattern = "[gs]et_background_pattern"
     ignore = true
+    doc_trait_name = "WindowExtManual"
+    [[object.function]]
+    pattern = "[gs]et_user_data"
+    ignore = true
+    doc_trait_name = "WindowExtManual"
     [[object.function]]
     name = "get_effective_toplevel"
         [object.function.return]

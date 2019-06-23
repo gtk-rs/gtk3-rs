@@ -270,8 +270,6 @@ pub trait WindowExt: 'static {
 
     fn get_update_area(&self) -> Option<cairo::Region>;
 
-    //fn get_user_data(&self, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>);
-
     fn get_visible_region(&self) -> Option<cairo::Region>;
 
     fn get_visual(&self) -> Visual;
@@ -439,8 +437,6 @@ pub trait WindowExt: 'static {
     fn set_type_hint(&self, hint: WindowTypeHint);
 
     fn set_urgency_hint(&self, urgent: bool);
-
-    //fn set_user_data(&self, user_data: /*Ignored*/Option<&glib::Object>);
 
     fn shape_combine_region(
         &self,
@@ -1100,10 +1096,6 @@ impl<O: IsA<Window>> WindowExt for O {
         }
     }
 
-    //fn get_user_data(&self, data: /*Unimplemented*/&mut Option<Fundamental: Pointer>) {
-    //    unsafe { TODO: call gdk_sys:gdk_window_get_user_data() }
-    //}
-
     fn get_visible_region(&self) -> Option<cairo::Region> {
         unsafe {
             from_glib_full(gdk_sys::gdk_window_get_visible_region(
@@ -1712,10 +1704,6 @@ impl<O: IsA<Window>> WindowExt for O {
             gdk_sys::gdk_window_set_urgency_hint(self.as_ref().to_glib_none().0, urgent.to_glib());
         }
     }
-
-    //fn set_user_data(&self, user_data: /*Ignored*/Option<&glib::Object>) {
-    //    unsafe { TODO: call gdk_sys:gdk_window_set_user_data() }
-    //}
 
     fn shape_combine_region(
         &self,
