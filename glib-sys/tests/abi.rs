@@ -1415,6 +1415,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_TEST_LOG_START_SUITE", "10"),
     ("(gint) G_TEST_LOG_STOP_CASE", "6"),
     ("(gint) G_TEST_LOG_STOP_SUITE", "11"),
+    ("G_TEST_OPTION_ISOLATE_DIRS", "isolate_dirs"),
     ("(gint) G_TEST_RUN_FAILURE", "2"),
     ("(gint) G_TEST_RUN_INCOMPLETE", "3"),
     ("(gint) G_TEST_RUN_SKIPPED", "1"),

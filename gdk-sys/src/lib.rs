@@ -2675,9 +2675,12 @@ pub const GDK_KEY_zcaron: c_int = 446;
 pub const GDK_KEY_zerosubscript: c_int = 16785536;
 pub const GDK_KEY_zerosuperior: c_int = 16785520;
 pub const GDK_KEY_zstroke: c_int = 16777654;
+pub const GDK_MAJOR_VERSION: c_int = 3;
 pub const GDK_MAX_TIMECOORD_AXES: c_int = 128;
+pub const GDK_MICRO_VERSION: c_int = 8;
+pub const GDK_MINOR_VERSION: c_int = 24;
 pub const GDK_PARENT_RELATIVE: c_int = 1;
-pub const GDK_PRIORITY_REDRAW: c_int = 20;
+pub const GDK_PRIORITY_REDRAW: c_int = 120;
 
 // Flags
 pub type GdkAnchorHints = c_uint;

@@ -810,7 +810,7 @@ pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA: *const c_char =
     b"win32-driver-extra\0" as *const u8 as *const c_char;
 pub const GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION: *const c_char =
     b"win32-driver-version\0" as *const u8 as *const c_char;
-pub const GTK_PRIORITY_RESIZE: c_int = 10;
+pub const GTK_PRIORITY_RESIZE: c_int = 110;
 pub const GTK_STOCK_ABOUT: *const c_char = b"gtk-about\0" as *const u8 as *const c_char;
 pub const GTK_STOCK_ADD: *const c_char = b"gtk-add\0" as *const u8 as *const c_char;
 pub const GTK_STOCK_APPLY: *const c_char = b"gtk-apply\0" as *const u8 as *const c_char;
@@ -1074,7 +1074,7 @@ pub const GTK_STYLE_REGION_COLUMN_HEADER: *const c_char =
     b"column-header\0" as *const u8 as *const c_char;
 pub const GTK_STYLE_REGION_ROW: *const c_char = b"row\0" as *const u8 as *const c_char;
 pub const GTK_STYLE_REGION_TAB: *const c_char = b"tab\0" as *const u8 as *const c_char;
-pub const GTK_TEXT_VIEW_PRIORITY_VALIDATE: c_int = 5;
+pub const GTK_TEXT_VIEW_PRIORITY_VALIDATE: c_int = 125;
 pub const GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID: c_int = -1;
 pub const GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID: c_int = -2;
 
@@ -1305,7 +1305,7 @@ impl ::std::fmt::Debug for GtkBindingArg_d {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union GtkTextAppearance_u1 {
-    pub rgba: [*mut gdk::GdkRGBA; 2],
+    pub rgba: *mut [*mut gdk::GdkRGBA; 2],
     pub padding: [c_uint; 4],
 }
 
@@ -2679,6 +2679,26 @@ pub struct GtkCellAccessibleParentIface {
             *mut atk::AtkRelationSet,
         ),
     >,
+    pub get_cell_position: Option<
+        unsafe extern "C" fn(
+            *mut GtkCellAccessibleParent,
+            *mut GtkCellAccessible,
+            *mut c_int,
+            *mut c_int,
+        ),
+    >,
+    pub get_column_header_cells: Option<
+        unsafe extern "C" fn(
+            *mut GtkCellAccessibleParent,
+            *mut GtkCellAccessible,
+        ) -> *mut glib::GPtrArray,
+    >,
+    pub get_row_header_cells: Option<
+        unsafe extern "C" fn(
+            *mut GtkCellAccessibleParent,
+            *mut GtkCellAccessible,
+        ) -> *mut glib::GPtrArray,
+    >,
 }
 
 impl ::std::fmt::Debug for GtkCellAccessibleParentIface {
@@ -2697,6 +2717,9 @@ impl ::std::fmt::Debug for GtkCellAccessibleParentIface {
         .field("activate", &self.activate)
         .field("edit", &self.edit)
         .field("update_relationset", &self.update_relationset)
+        .field("get_cell_position", &self.get_cell_position)
+        .field("get_column_header_cells", &self.get_column_header_cells)
+        .field("get_row_header_cells", &self.get_row_header_cells)
         .finish()
     }
 }
@@ -13545,7 +13568,7 @@ impl ::std::fmt::Debug for GtkRangeAccessible {
 pub struct GtkRcStyle {
     pub parent_instance: gobject::GObject,
     pub name: *mut c_char,
-    pub bg_pixmap_name: [*mut c_char; 5],
+    pub bg_pixmap_name: *mut [*mut c_char; 5],
     pub font_desc: *mut pango::PangoFontDescription,
     pub color_flags: [GtkRcFlags; 5],
     pub fg: [gdk::GdkColor; 5],
@@ -14147,6 +14170,7 @@ impl ::std::fmt::Debug for GtkStatusbarAccessible {
 }
 
 #[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkStyle {
     pub parent_instance: gobject::GObject,
     pub fg: [gdk::GdkColor; 5],
@@ -14162,8 +14186,14 @@ pub struct GtkStyle {
     pub font_desc: *mut pango::PangoFontDescription,
     pub xthickness: c_int,
     pub ythickness: c_int,
-    _truncated_record_marker: c_void,
-    // /*Ignored*/field background has incomplete type
+    pub background: *mut [*mut cairo::cairo_pattern_t; 5],
+    pub attach_count: c_int,
+    pub visual: *mut gdk::GdkVisual,
+    pub private_font_desc: *mut pango::PangoFontDescription,
+    pub rc_style: *mut GtkRcStyle,
+    pub styles: *mut glib::GSList,
+    pub property_cache: *mut glib::GArray,
+    pub icon_factories: *mut glib::GSList,
 }
 
 impl ::std::fmt::Debug for GtkStyle {
@@ -14182,6 +14212,7 @@ impl ::std::fmt::Debug for GtkStyle {
             .field("font_desc", &self.font_desc)
             .field("xthickness", &self.xthickness)
             .field("ythickness", &self.ythickness)
+            .field("background", &self.background)
             .finish()
     }
 }
@@ -25989,14 +26020,28 @@ extern "C" {
         height: *mut c_int,
         coord_type: atk::AtkCoordType,
     );
+    pub fn gtk_cell_accessible_parent_get_cell_position(
+        parent: *mut GtkCellAccessibleParent,
+        cell: *mut GtkCellAccessible,
+        row: *mut c_int,
+        column: *mut c_int,
+    );
     pub fn gtk_cell_accessible_parent_get_child_index(
         parent: *mut GtkCellAccessibleParent,
         cell: *mut GtkCellAccessible,
     ) -> c_int;
+    pub fn gtk_cell_accessible_parent_get_column_header_cells(
+        parent: *mut GtkCellAccessibleParent,
+        cell: *mut GtkCellAccessible,
+    ) -> *mut glib::GPtrArray;
     pub fn gtk_cell_accessible_parent_get_renderer_state(
         parent: *mut GtkCellAccessibleParent,
         cell: *mut GtkCellAccessible,
     ) -> GtkCellRendererState;
+    pub fn gtk_cell_accessible_parent_get_row_header_cells(
+        parent: *mut GtkCellAccessibleParent,
+        cell: *mut GtkCellAccessible,
+    ) -> *mut glib::GPtrArray;
     pub fn gtk_cell_accessible_parent_grab_focus(
         parent: *mut GtkCellAccessibleParent,
         cell: *mut GtkCellAccessible,

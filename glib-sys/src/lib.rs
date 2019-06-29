@@ -33,6 +33,7 @@ pub type GDateDay = u8;
 pub type GDateYear = u16;
 pub type GMutexLocker = c_void;
 pub type GQuark = u32;
+pub type GRecMutexLocker = c_void;
 pub type GRefString = c_char;
 pub type GStrv = *mut *mut c_char;
 pub type GTime = i32;
@@ -744,6 +745,8 @@ pub const GLIB_SYSDEF_AF_UNIX: c_int = 1;
 pub const GLIB_SYSDEF_MSG_DONTROUTE: c_int = 4;
 pub const GLIB_SYSDEF_MSG_OOB: c_int = 1;
 pub const GLIB_SYSDEF_MSG_PEEK: c_int = 2;
+pub const G_TEST_OPTION_ISOLATE_DIRS: *const c_char =
+    b"isolate_dirs\0" as *const u8 as *const c_char;
 pub const G_TIME_SPAN_DAY: i64 = 86400000000;
 pub const G_TIME_SPAN_HOUR: i64 = 3600000000;
 pub const G_TIME_SPAN_MILLISECOND: i64 = 1000;
@@ -2005,13 +2008,13 @@ impl ::std::fmt::Debug for GTestLogBuffer {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GTestLogMsg {
     pub log_type: GTestLogType,
     pub n_strings: c_uint,
     pub strings: *mut *mut c_char,
     pub n_nums: c_uint,
-    pub nums: *mut c_long,
+    _truncated_record_marker: c_void,
+    // /*Unimplemented*/*mut long double
 }
 
 impl ::std::fmt::Debug for GTestLogMsg {
@@ -2021,7 +2024,6 @@ impl ::std::fmt::Debug for GTestLogMsg {
             .field("n_strings", &self.n_strings)
             .field("strings", &self.strings)
             .field("n_nums", &self.n_nums)
-            .field("nums", &self.nums)
             .finish()
     }
 }
@@ -3820,6 +3822,8 @@ extern "C" {
     // GQueue
     //=========================================================================
     pub fn g_queue_clear(queue: *mut GQueue);
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    pub fn g_queue_clear_full(queue: *mut GQueue, free_func: GDestroyNotify);
     pub fn g_queue_copy(queue: *mut GQueue) -> *mut GQueue;
     pub fn g_queue_delete_link(queue: *mut GQueue, link_: *mut GList);
     pub fn g_queue_find(queue: *mut GQueue, data: gconstpointer) -> *mut GList;
@@ -4797,6 +4801,7 @@ extern "C" {
     pub fn g_variant_type_peek_string(type_: *const GVariantType) -> *const c_char;
     pub fn g_variant_type_value(type_: *const GVariantType) -> *const GVariantType;
     pub fn g_variant_type_checked_(arg0: *const c_char) -> *const GVariantType;
+    pub fn g_variant_type_string_get_depth_(type_string: *const c_char) -> size_t;
     pub fn g_variant_type_string_is_valid(type_string: *const c_char) -> gboolean;
     pub fn g_variant_type_string_scan(
         string: *const c_char,
@@ -5818,6 +5823,8 @@ extern "C" {
     pub fn g_strup(string: *mut c_char) -> *mut c_char;
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     pub fn g_strv_contains(strv: *const *const c_char, str: *const c_char) -> gboolean;
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    pub fn g_strv_equal(strv1: *const *const c_char, strv2: *const *const c_char) -> gboolean;
     pub fn g_strv_get_type() -> GType;
     pub fn g_strv_length(str_array: *mut *mut c_char) -> c_uint;
     pub fn g_test_add_data_func(
@@ -6101,6 +6108,12 @@ extern "C" {
         error: *mut *mut GError,
     ) -> *mut u16;
     pub fn g_utf8_validate(str: *const u8, max_len: ssize_t, end: *mut *const c_char) -> gboolean;
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    pub fn g_utf8_validate_len(
+        str: *const u8,
+        max_len: size_t,
+        end: *mut *const c_char,
+    ) -> gboolean;
     #[cfg(any(feature = "v2_52", feature = "dox"))]
     pub fn g_uuid_string_is_valid(str: *const c_char) -> gboolean;
     #[cfg(any(feature = "v2_52", feature = "dox"))]
