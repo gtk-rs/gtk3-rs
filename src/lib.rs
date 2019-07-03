@@ -81,7 +81,9 @@ pub use enums::*;
 
 pub use error::{BorrowError, IoError};
 
-pub use patterns::{LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern};
+pub use patterns::{
+    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern
+};
 
 pub use font::{
     FontExtents, FontFace, FontOptions, FontSlant, FontType, FontWeight, Glyph, ScaledFont,
