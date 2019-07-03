@@ -61,7 +61,6 @@ pub const G_TYPE_RESERVED_BSE_LAST: c_int = 48;
 pub const G_TYPE_RESERVED_GLIB_FIRST: c_int = 22;
 pub const G_TYPE_RESERVED_GLIB_LAST: c_int = 31;
 pub const G_TYPE_RESERVED_USER_FIRST: c_int = 49;
-pub const G_VALUE_COLLECT_FORMAT_MAX_LENGTH: c_int = 8;
 pub const G_VALUE_NOCOPY_CONTENTS: c_int = 134217728;
 
 // Flags
@@ -127,23 +126,11 @@ pub const G_TYPE_FLAG_DEEP_DERIVABLE: GTypeFundamentalFlags = 8;
 
 // Unions
 #[repr(C)]
-#[derive(Copy, Clone)]
-pub union GTypeCValue {
-    pub v_int: c_int,
-    pub v_long: c_long,
-    pub v_int64: i64,
-    pub v_double: c_double,
-    pub v_pointer: gpointer,
-}
+pub struct GTypeCValue(c_void);
 
 impl ::std::fmt::Debug for GTypeCValue {
     fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
         f.debug_struct(&format!("GTypeCValue @ {:?}", self as *const _))
-            .field("v_int", unsafe { &self.v_int })
-            .field("v_long", unsafe { &self.v_long })
-            .field("v_int64", unsafe { &self.v_int64 })
-            .field("v_double", unsafe { &self.v_double })
-            .field("v_pointer", unsafe { &self.v_pointer })
             .finish()
     }
 }

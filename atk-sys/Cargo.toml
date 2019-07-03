@@ -16,6 +16,7 @@ tempdir = "0.3"
 
 [features]
 v2_30 = []
+v2_32 = ["v2_30"]
 dox = []
 
 [lib]

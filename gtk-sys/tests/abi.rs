@@ -3837,6 +3837,13 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
+        "GtkStyle",
+        Layout {
+            size: size_of::<GtkStyle>(),
+            alignment: align_of::<GtkStyle>(),
+        },
+    ),
+    (
         "GtkStyleClass",
         Layout {
             size: size_of::<GtkStyleClass>(),
@@ -5182,7 +5189,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GTK_PRINT_STATUS_PREPARING", "1"),
     ("(gint) GTK_PRINT_STATUS_PRINTING", "6"),
     ("(gint) GTK_PRINT_STATUS_SENDING_DATA", "3"),
-    ("GTK_PRIORITY_RESIZE", "10"),
+    ("GTK_PRIORITY_RESIZE", "110"),
     ("(guint) GTK_RC_BASE", "8"),
     ("(guint) GTK_RC_BG", "2"),
     ("(guint) GTK_RC_FG", "1"),
@@ -5625,7 +5632,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) GTK_TEXT_VIEW_LAYER_ABOVE_TEXT", "3"),
     ("(gint) GTK_TEXT_VIEW_LAYER_BELOW", "0"),
     ("(gint) GTK_TEXT_VIEW_LAYER_BELOW_TEXT", "2"),
-    ("GTK_TEXT_VIEW_PRIORITY_VALIDATE", "5"),
+    ("GTK_TEXT_VIEW_PRIORITY_VALIDATE", "125"),
     ("(gint) GTK_TEXT_WINDOW_BOTTOM", "6"),
     ("(gint) GTK_TEXT_WINDOW_LEFT", "3"),
     ("(gint) GTK_TEXT_WINDOW_PRIVATE", "0"),

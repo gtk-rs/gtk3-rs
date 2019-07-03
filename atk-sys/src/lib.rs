@@ -1238,6 +1238,11 @@ pub struct AtkTextIface {
             *mut c_int,
         ) -> *mut c_char,
     >,
+    pub scroll_substring_to:
+        Option<unsafe extern "C" fn(*mut AtkText, c_int, c_int, AtkScrollType) -> gboolean>,
+    pub scroll_substring_to_point: Option<
+        unsafe extern "C" fn(*mut AtkText, c_int, c_int, AtkCoordType, c_int, c_int) -> gboolean,
+    >,
 }
 
 impl ::std::fmt::Debug for AtkTextIface {
@@ -1268,6 +1273,8 @@ impl ::std::fmt::Debug for AtkTextIface {
             .field("get_range_extents", &self.get_range_extents)
             .field("get_bounded_ranges", &self.get_bounded_ranges)
             .field("get_string_at_offset", &self.get_string_at_offset)
+            .field("scroll_substring_to", &self.scroll_substring_to)
+            .field("scroll_substring_to_point", &self.scroll_substring_to_point)
             .finish()
     }
 }
@@ -2446,6 +2453,22 @@ extern "C" {
         end_offset: *mut c_int,
     ) -> *mut c_char;
     pub fn atk_text_remove_selection(text: *mut AtkText, selection_num: c_int) -> gboolean;
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    pub fn atk_text_scroll_substring_to(
+        text: *mut AtkText,
+        start_offset: c_int,
+        end_offset: c_int,
+        type_: AtkScrollType,
+    ) -> gboolean;
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    pub fn atk_text_scroll_substring_to_point(
+        text: *mut AtkText,
+        start_offset: c_int,
+        end_offset: c_int,
+        coords: AtkCoordType,
+        x: c_int,
+        y: c_int,
+    ) -> gboolean;
     pub fn atk_text_set_caret_offset(text: *mut AtkText, offset: c_int) -> gboolean;
     pub fn atk_text_set_selection(
         text: *mut AtkText,

@@ -561,13 +561,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
-        "GTypeCValue",
-        Layout {
-            size: size_of::<GTypeCValue>(),
-            alignment: align_of::<GTypeCValue>(),
-        },
-    ),
-    (
         "GTypeClass",
         Layout {
             size: size_of::<GTypeClass>(),
@@ -739,6 +732,5 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("G_TYPE_RESERVED_GLIB_FIRST", "22"),
     ("G_TYPE_RESERVED_GLIB_LAST", "31"),
     ("G_TYPE_RESERVED_USER_FIRST", "49"),
-    ("G_VALUE_COLLECT_FORMAT_MAX_LENGTH", "8"),
     ("G_VALUE_NOCOPY_CONTENTS", "134217728"),
 ];
