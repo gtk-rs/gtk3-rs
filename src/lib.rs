@@ -43,6 +43,7 @@ mod output_stream;
 mod pollable_input_stream;
 mod pollable_output_stream;
 mod resource;
+mod settings;
 mod socket;
 mod socket_listener;
 mod subprocess;
