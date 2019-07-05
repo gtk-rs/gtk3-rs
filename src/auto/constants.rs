@@ -231,6 +231,14 @@ lazy_static! {
     pub static ref STR_DELIMITERS: &'static str =
         unsafe { CStr::from_ptr(glib_sys::G_STR_DELIMITERS).to_str().unwrap() };
 }
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+lazy_static! {
+    pub static ref TEST_OPTION_ISOLATE_DIRS: &'static str = unsafe {
+        CStr::from_ptr(glib_sys::G_TEST_OPTION_ISOLATE_DIRS)
+            .to_str()
+            .unwrap()
+    };
+}
 lazy_static! {
     pub static ref URI_RESERVED_CHARS_GENERIC_DELIMITERS: &'static str = unsafe {
         CStr::from_ptr(glib_sys::G_URI_RESERVED_CHARS_GENERIC_DELIMITERS)

@@ -83,6 +83,8 @@ pub use self::constants::KEY_FILE_DESKTOP_TYPE_DIRECTORY;
 pub use self::constants::KEY_FILE_DESKTOP_TYPE_LINK;
 pub use self::constants::OPTION_REMAINING;
 pub use self::constants::STR_DELIMITERS;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub use self::constants::TEST_OPTION_ISOLATE_DIRS;
 pub use self::constants::URI_RESERVED_CHARS_GENERIC_DELIMITERS;
 pub use self::constants::URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS;
 
