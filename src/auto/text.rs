@@ -16,6 +16,8 @@ use std::fmt;
 use std::mem;
 use std::mem::transmute;
 use CoordType;
+#[cfg(any(feature = "v2_32", feature = "dox"))]
+use ScrollType;
 use TextBoundary;
 use TextClipType;
 use TextGranularity;
@@ -79,6 +81,19 @@ pub trait TextExt: 'static {
     fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32);
 
     fn remove_selection(&self, selection_num: i32) -> bool;
+
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool;
+
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    fn scroll_substring_to_point(
+        &self,
+        start_offset: i32,
+        end_offset: i32,
+        coords: CoordType,
+        x: i32,
+        y: i32,
+    ) -> bool;
 
     fn set_caret_offset(&self, offset: i32) -> bool;
 
@@ -265,6 +280,39 @@ impl<O: IsA<Text>> TextExt for O {
             from_glib(atk_sys::atk_text_remove_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    fn scroll_substring_to(&self, start_offset: i32, end_offset: i32, type_: ScrollType) -> bool {
+        unsafe {
+            from_glib(atk_sys::atk_text_scroll_substring_to(
+                self.as_ref().to_glib_none().0,
+                start_offset,
+                end_offset,
+                type_.to_glib(),
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_32", feature = "dox"))]
+    fn scroll_substring_to_point(
+        &self,
+        start_offset: i32,
+        end_offset: i32,
+        coords: CoordType,
+        x: i32,
+        y: i32,
+    ) -> bool {
+        unsafe {
+            from_glib(atk_sys::atk_text_scroll_substring_to_point(
+                self.as_ref().to_glib_none().0,
+                start_offset,
+                end_offset,
+                coords.to_glib(),
+                x,
+                y,
             ))
         }
     }
