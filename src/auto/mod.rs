@@ -531,6 +531,8 @@ pub use self::flags::IOStreamSpliceFlags;
 pub use self::flags::MountMountFlags;
 pub use self::flags::MountUnmountFlags;
 pub use self::flags::OutputStreamSpliceFlags;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub use self::flags::ResolverNameLookupFlags;
 pub use self::flags::ResourceLookupFlags;
 pub use self::flags::SettingsBindFlags;
 pub use self::flags::SubprocessFlags;
@@ -551,7 +553,11 @@ pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_RENAME;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_TRASH;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_WRITE;
 pub use self::constants::FILE_ATTRIBUTE_DOS_IS_ARCHIVE;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub use self::constants::FILE_ATTRIBUTE_DOS_IS_MOUNTPOINT;
 pub use self::constants::FILE_ATTRIBUTE_DOS_IS_SYSTEM;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub use self::constants::FILE_ATTRIBUTE_DOS_REPARSE_POINT_TAG;
 pub use self::constants::FILE_ATTRIBUTE_ETAG_VALUE;
 pub use self::constants::FILE_ATTRIBUTE_FILESYSTEM_FREE;
 pub use self::constants::FILE_ATTRIBUTE_FILESYSTEM_READONLY;

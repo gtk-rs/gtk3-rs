@@ -82,7 +82,7 @@ pub trait SocketExt: 'static {
     fn condition_timed_wait<P: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        timeout: i64,
+        timeout_us: i64,
         cancellable: Option<&P>,
     ) -> Result<(), Error>;
 
@@ -311,7 +311,7 @@ impl<O: IsA<Socket>> SocketExt for O {
     fn condition_timed_wait<P: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        timeout: i64,
+        timeout_us: i64,
         cancellable: Option<&P>,
     ) -> Result<(), Error> {
         unsafe {
@@ -319,7 +319,7 @@ impl<O: IsA<Socket>> SocketExt for O {
             let _ = gio_sys::g_socket_condition_timed_wait(
                 self.as_ref().to_glib_none().0,
                 condition.to_glib(),
-                timeout,
+                timeout_us,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );

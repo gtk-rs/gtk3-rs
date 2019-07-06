@@ -454,6 +454,24 @@ pub trait FileExt: 'static {
         cancellable: Option<&P>,
     ) -> Result<AppInfo, Error>;
 
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn query_default_handler_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+    >(
+        &self,
+        io_priority: glib::Priority,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn query_default_handler_async_future(
+        &self,
+        io_priority: glib::Priority,
+    ) -> Box_<dyn future::Future<Output = Result<AppInfo, Error>> + std::marker::Unpin>;
+
     fn query_exists<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> bool;
 
     fn query_file_type<P: IsA<Cancellable>>(
@@ -2206,6 +2224,70 @@ impl<O: IsA<File>> FileExt for O {
                 Err(from_glib_full(error))
             }
         }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn query_default_handler_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+    >(
+        &self,
+        io_priority: glib::Priority,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn query_default_handler_async_trampoline<
+            Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let ret = gio_sys::g_file_query_default_handler_finish(
+                _source_object as *mut _,
+                res,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = query_default_handler_async_trampoline::<Q>;
+        unsafe {
+            gio_sys::g_file_query_default_handler_async(
+                self.as_ref().to_glib_none().0,
+                io_priority.to_glib(),
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn query_default_handler_async_future(
+        &self,
+        io_priority: glib::Priority,
+    ) -> Box_<dyn future::Future<Output = Result<AppInfo, Error>> + std::marker::Unpin> {
+        use fragile::Fragile;
+        use GioFuture;
+
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = Fragile::new(send);
+            obj.query_default_handler_async(io_priority, Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
+
+            cancellable
+        })
     }
 
     fn query_exists<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> bool {

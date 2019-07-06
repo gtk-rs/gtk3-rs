@@ -9,6 +9,8 @@ use glib::translate::*;
 use glib::GString;
 use std;
 use std::fmt;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+use std::mem;
 use AppInfo;
 use AppLaunchContext;
 
@@ -77,6 +79,9 @@ pub trait DesktopAppInfoExt: 'static {
     fn get_startup_wm_class(&self) -> Option<GString>;
 
     fn get_string(&self, key: &str) -> Option<GString>;
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_string_list(&self, key: &str) -> Vec<GString>;
 
     fn has_key(&self, key: &str) -> bool;
 
@@ -194,6 +199,22 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
                 self.as_ref().to_glib_none().0,
                 key.to_glib_none().0,
             ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_string_list(&self, key: &str) -> Vec<GString> {
+        unsafe {
+            let mut length = mem::uninitialized();
+            let ret = FromGlibContainer::from_glib_full_num(
+                gio_sys::g_desktop_app_info_get_string_list(
+                    self.as_ref().to_glib_none().0,
+                    key.to_glib_none().0,
+                    &mut length,
+                ),
+                length as usize,
+            );
+            ret
         }
     }
 

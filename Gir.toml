@@ -74,6 +74,7 @@ generate = [
     "Gio.ProxyResolver",
     "Gio.RemoteActionGroup",
     "Gio.Resolver",
+    "Gio.ResolverNameLookupFlags",
     "Gio.ResolverRecordType",
     "Gio.ResourceError",
     "Gio.ResourceLookupFlags",
