@@ -2366,6 +2366,7 @@ impl SetValue for TlsInteractionResult {
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum TlsRehandshakeMode {
     Never,
@@ -2375,6 +2376,7 @@ pub enum TlsRehandshakeMode {
     __Unknown(i32),
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 impl fmt::Display for TlsRehandshakeMode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -2390,6 +2392,7 @@ impl fmt::Display for TlsRehandshakeMode {
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 #[doc(hidden)]
 impl ToGlib for TlsRehandshakeMode {
     type GlibType = gio_sys::GTlsRehandshakeMode;
@@ -2404,6 +2407,7 @@ impl ToGlib for TlsRehandshakeMode {
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 #[doc(hidden)]
 impl FromGlib<gio_sys::GTlsRehandshakeMode> for TlsRehandshakeMode {
     fn from_glib(value: gio_sys::GTlsRehandshakeMode) -> Self {
@@ -2416,24 +2420,28 @@ impl FromGlib<gio_sys::GTlsRehandshakeMode> for TlsRehandshakeMode {
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 impl StaticType for TlsRehandshakeMode {
     fn static_type() -> Type {
         unsafe { from_glib(gio_sys::g_tls_rehandshake_mode_get_type()) }
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 impl<'a> FromValueOptional<'a> for TlsRehandshakeMode {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 impl<'a> FromValue<'a> for TlsRehandshakeMode {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
+#[cfg_attr(feature = "v2_60", deprecated)]
 impl SetValue for TlsRehandshakeMode {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())

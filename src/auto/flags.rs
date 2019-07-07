@@ -71,6 +71,8 @@ bitflags! {
         const SEND_ENVIRONMENT = 16;
         const NON_UNIQUE = 32;
         const CAN_OVERRIDE_APP_ID = 64;
+        const ALLOW_REPLACEMENT = 128;
+        const REPLACE = 256;
     }
 }
 
@@ -690,6 +692,61 @@ impl<'a> FromValue<'a> for OutputStreamSpliceFlags {
 }
 
 impl SetValue for OutputStreamSpliceFlags {
+    unsafe fn set_value(value: &mut Value, this: &Self) {
+        gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+bitflags! {
+    pub struct ResolverNameLookupFlags: u32 {
+        const DEFAULT = 0;
+        const IPV4_ONLY = 1;
+        const IPV6_ONLY = 2;
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[doc(hidden)]
+impl ToGlib for ResolverNameLookupFlags {
+    type GlibType = gio_sys::GResolverNameLookupFlags;
+
+    fn to_glib(&self) -> gio_sys::GResolverNameLookupFlags {
+        self.bits()
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+#[doc(hidden)]
+impl FromGlib<gio_sys::GResolverNameLookupFlags> for ResolverNameLookupFlags {
+    fn from_glib(value: gio_sys::GResolverNameLookupFlags) -> ResolverNameLookupFlags {
+        ResolverNameLookupFlags::from_bits_truncate(value)
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+impl StaticType for ResolverNameLookupFlags {
+    fn static_type() -> Type {
+        unsafe { from_glib(gio_sys::g_resolver_name_lookup_flags_get_type()) }
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+impl<'a> FromValueOptional<'a> for ResolverNameLookupFlags {
+    unsafe fn from_value_optional(value: &Value) -> Option<Self> {
+        Some(FromValue::from_value(value))
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+impl<'a> FromValue<'a> for ResolverNameLookupFlags {
+    unsafe fn from_value(value: &Value) -> Self {
+        from_glib(gobject_sys::g_value_get_flags(value.to_glib_none().0))
+    }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+impl SetValue for ResolverNameLookupFlags {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_flags(value.to_glib_none_mut().0, this.to_glib())
     }

@@ -144,6 +144,11 @@ pub fn content_type_get_icon(type_: &str) -> Option<Icon> {
     unsafe { from_glib_full(gio_sys::g_content_type_get_icon(type_.to_glib_none().0)) }
 }
 
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub fn content_type_get_mime_dirs() -> Vec<GString> {
+    unsafe { FromGlibPtrContainer::from_glib_none(gio_sys::g_content_type_get_mime_dirs()) }
+}
+
 pub fn content_type_get_mime_type(type_: &str) -> Option<GString> {
     unsafe {
         from_glib_full(gio_sys::g_content_type_get_mime_type(
@@ -203,6 +208,13 @@ pub fn content_type_is_mime_type(type_: &str, mime_type: &str) -> bool {
 
 pub fn content_type_is_unknown(type_: &str) -> bool {
     unsafe { from_glib(gio_sys::g_content_type_is_unknown(type_.to_glib_none().0)) }
+}
+
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub fn content_type_set_mime_dirs(dirs: &[&str]) {
+    unsafe {
+        gio_sys::g_content_type_set_mime_dirs(dirs.to_glib_none().0);
+    }
 }
 
 pub fn content_types_get_registered() -> Vec<GString> {
@@ -601,6 +613,12 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
 //#[cfg(any(feature = "v2_58", feature = "dox"))]
 //pub fn unix_mount_get_options(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
 //    unsafe { TODO: call gio_sys:g_unix_mount_get_options() }
+//}
+
+//#[cfg(any(unix, feature = "dox"))]
+//#[cfg(any(feature = "v2_60", feature = "dox"))]
+//pub fn unix_mount_get_root_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
+//    unsafe { TODO: call gio_sys:g_unix_mount_get_root_path() }
 //}
 
 //#[cfg(any(unix, feature = "dox"))]

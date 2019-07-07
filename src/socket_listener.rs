@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
+#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::ptr;
 use Cancellable;

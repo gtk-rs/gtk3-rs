@@ -21,6 +21,8 @@ use std::ptr;
 use Cancellable;
 use Error;
 use InetAddress;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+use ResolverNameLookupFlags;
 use ResolverRecordType;
 use SrvTarget;
 
@@ -92,6 +94,34 @@ pub trait ResolverExt: 'static {
     fn lookup_by_name_async_future(
         &self,
         hostname: &str,
+    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin>;
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags<P: IsA<Cancellable>>(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Option<&P>,
+    ) -> Result<Vec<InetAddress>, Error>;
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static,
+    >(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Option<&P>,
+        callback: Q,
+    );
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags_async_future(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
     ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin>;
 
     fn lookup_records<P: IsA<Cancellable>>(
@@ -316,6 +346,99 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             let cancellable = Cancellable::new();
             let send = Fragile::new(send);
             obj.lookup_by_name_async(&hostname, Some(&cancellable), move |res| {
+                let _ = send.into_inner().send(res);
+            });
+
+            cancellable
+        })
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags<P: IsA<Cancellable>>(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Option<&P>,
+    ) -> Result<Vec<InetAddress>, Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = gio_sys::g_resolver_lookup_by_name_with_flags(
+                self.as_ref().to_glib_none().0,
+                hostname.to_glib_none().0,
+                flags.to_glib(),
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(FromGlibPtrContainer::from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static,
+    >(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
+        cancellable: Option<&P>,
+        callback: Q,
+    ) {
+        let user_data: Box<Q> = Box::new(callback);
+        unsafe extern "C" fn lookup_by_name_with_flags_async_trampoline<
+            Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static,
+        >(
+            _source_object: *mut gobject_sys::GObject,
+            res: *mut gio_sys::GAsyncResult,
+            user_data: glib_sys::gpointer,
+        ) {
+            let mut error = ptr::null_mut();
+            let ret = gio_sys::g_resolver_lookup_by_name_with_flags_finish(
+                _source_object as *mut _,
+                res,
+                &mut error,
+            );
+            let result = if error.is_null() {
+                Ok(FromGlibPtrContainer::from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            };
+            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            callback(result);
+        }
+        let callback = lookup_by_name_with_flags_async_trampoline::<Q>;
+        unsafe {
+            gio_sys::g_resolver_lookup_by_name_with_flags_async(
+                self.as_ref().to_glib_none().0,
+                hostname.to_glib_none().0,
+                flags.to_glib(),
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                Some(callback),
+                Box::into_raw(user_data) as *mut _,
+            );
+        }
+    }
+
+    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn lookup_by_name_with_flags_async_future(
+        &self,
+        hostname: &str,
+        flags: ResolverNameLookupFlags,
+    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, Error>> + std::marker::Unpin>
+    {
+        use fragile::Fragile;
+        use GioFuture;
+
+        let hostname = String::from(hostname);
+        GioFuture::new(self, move |obj, send| {
+            let cancellable = Cancellable::new();
+            let send = Fragile::new(send);
+            obj.lookup_by_name_with_flags_async(&hostname, flags, Some(&cancellable), move |res| {
                 let _ = send.into_inner().send(res);
             });
 

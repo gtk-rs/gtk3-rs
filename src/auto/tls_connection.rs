@@ -11,6 +11,8 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+use glib::GString;
 use glib::StaticType;
 use glib::Value;
 use glib_sys;
@@ -51,10 +53,14 @@ pub trait TlsConnectionExt: 'static {
 
     fn get_interaction(&self) -> Option<TlsInteraction>;
 
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_negotiated_protocol(&self) -> Option<GString>;
+
     fn get_peer_certificate(&self) -> Option<TlsCertificate>;
 
     fn get_peer_certificate_errors(&self) -> TlsCertificateFlags;
 
+    #[cfg_attr(feature = "v2_60", deprecated)]
     fn get_rehandshake_mode(&self) -> TlsRehandshakeMode;
 
     fn get_require_close_notify(&self) -> bool;
@@ -74,15 +80,22 @@ pub trait TlsConnectionExt: 'static {
         io_priority: glib::Priority,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn set_advertised_protocols(&self, protocols: &[&str]);
+
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P);
 
     fn set_database<P: IsA<TlsDatabase>>(&self, database: &P);
 
     fn set_interaction<P: IsA<TlsInteraction>>(&self, interaction: Option<&P>);
 
+    #[cfg_attr(feature = "v2_60", deprecated)]
     fn set_rehandshake_mode(&self, mode: TlsRehandshakeMode);
 
     fn set_require_close_notify(&self, require_close_notify: bool);
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_property_advertised_protocols(&self) -> Vec<GString>;
 
     fn get_property_base_io_stream(&self) -> Option<IOStream>;
 
@@ -93,11 +106,23 @@ pub trait TlsConnectionExt: 'static {
         f: F,
     ) -> SignalHandlerId;
 
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId;
+
     fn connect_property_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_database_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
     fn connect_property_interaction_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId;
 
     fn connect_property_peer_certificate_notify<F: Fn(&Self) + 'static>(
         &self,
@@ -154,6 +179,15 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn get_interaction(&self) -> Option<TlsInteraction> {
         unsafe {
             from_glib_none(gio_sys::g_tls_connection_get_interaction(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_negotiated_protocol(&self) -> Option<GString> {
+        unsafe {
+            from_glib_none(gio_sys::g_tls_connection_get_negotiated_protocol(
                 self.as_ref().to_glib_none().0,
             ))
         }
@@ -266,6 +300,16 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         })
     }
 
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn set_advertised_protocols(&self, protocols: &[&str]) {
+        unsafe {
+            gio_sys::g_tls_connection_set_advertised_protocols(
+                self.as_ref().to_glib_none().0,
+                protocols.to_glib_none().0,
+            );
+        }
+    }
+
     fn set_certificate<P: IsA<TlsCertificate>>(&self, certificate: &P) {
         unsafe {
             gio_sys::g_tls_connection_set_certificate(
@@ -308,6 +352,19 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 self.as_ref().to_glib_none().0,
                 require_close_notify.to_glib(),
             );
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn get_property_advertised_protocols(&self) -> Vec<GString> {
+        unsafe {
+            let mut value = Value::from_type(<Vec<GString> as StaticType>::static_type());
+            gobject_sys::g_object_get_property(
+                self.to_glib_none().0 as *mut gobject_sys::GObject,
+                b"advertised-protocols\0".as_ptr() as *const _,
+                value.to_glib_none_mut().0,
+            );
+            value.get().unwrap()
         }
     }
 
@@ -355,6 +412,34 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 self.as_ptr() as *mut _,
                 b"accept-certificate\0".as_ptr() as *const _,
                 Some(transmute(accept_certificate_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn connect_property_advertised_protocols_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_advertised_protocols_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GTlsConnection,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<TlsConnection>,
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::advertised-protocols\0".as_ptr() as *const _,
+                Some(transmute(
+                    notify_advertised_protocols_trampoline::<Self, F> as usize,
+                )),
                 Box_::into_raw(f),
             )
         }
@@ -421,6 +506,34 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 self.as_ptr() as *mut _,
                 b"notify::interaction\0".as_ptr() as *const _,
                 Some(transmute(notify_interaction_trampoline::<Self, F> as usize)),
+                Box_::into_raw(f),
+            )
+        }
+    }
+
+    #[cfg(any(feature = "v2_60", feature = "dox"))]
+    fn connect_property_negotiated_protocol_notify<F: Fn(&Self) + 'static>(
+        &self,
+        f: F,
+    ) -> SignalHandlerId {
+        unsafe extern "C" fn notify_negotiated_protocol_trampoline<P, F: Fn(&P) + 'static>(
+            this: *mut gio_sys::GTlsConnection,
+            _param_spec: glib_sys::gpointer,
+            f: glib_sys::gpointer,
+        ) where
+            P: IsA<TlsConnection>,
+        {
+            let f: &F = &*(f as *const F);
+            f(&TlsConnection::from_glib_borrow(this).unsafe_cast())
+        }
+        unsafe {
+            let f: Box_<F> = Box_::new(f);
+            connect_raw(
+                self.as_ptr() as *mut _,
+                b"notify::negotiated-protocol\0".as_ptr() as *const _,
+                Some(transmute(
+                    notify_negotiated_protocol_trampoline::<Self, F> as usize,
+                )),
                 Box_::into_raw(f),
             )
         }
