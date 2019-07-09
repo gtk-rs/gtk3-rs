@@ -277,10 +277,18 @@ impl DateTime {
 
     pub fn get_ymd(&self) -> (i32, i32, i32) {
         unsafe {
-            let mut year = mem::uninitialized();
-            let mut month = mem::uninitialized();
-            let mut day = mem::uninitialized();
-            glib_sys::g_date_time_get_ymd(self.to_glib_none().0, &mut year, &mut month, &mut day);
+            let mut year = mem::MaybeUninit::uninit();
+            let mut month = mem::MaybeUninit::uninit();
+            let mut day = mem::MaybeUninit::uninit();
+            glib_sys::g_date_time_get_ymd(
+                self.to_glib_none().0,
+                year.as_mut_ptr(),
+                month.as_mut_ptr(),
+                day.as_mut_ptr(),
+            );
+            let year = year.assume_init();
+            let month = month.assume_init();
+            let day = day.assume_init();
             (year, month, day)
         }
     }
