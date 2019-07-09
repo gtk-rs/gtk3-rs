@@ -135,17 +135,18 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         let cancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
-            let mut bytes_written = mem::uninitialized();
+            let mut bytes_written = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_output_stream_write_all(
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
-                &mut bytes_written,
+                bytes_written.as_mut_ptr(),
                 cancellable.0,
                 &mut error,
             );
 
+            let bytes_written = bytes_written.assume_init();
             if error.is_null() {
                 Ok((bytes_written, None))
             } else if bytes_written != 0 {
@@ -188,13 +189,14 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
-            let mut bytes_written = mem::uninitialized();
+            let mut bytes_written = mem::MaybeUninit::uninit();
             let _ = gio_sys::g_output_stream_write_all_finish(
                 _source_object as *mut _,
                 res,
-                &mut bytes_written,
+                bytes_written.as_mut_ptr(),
                 &mut error,
             );
+            let bytes_written = bytes_written.assume_init();
             let result = if error.is_null() {
                 Ok((buffer, bytes_written, None))
             } else if bytes_written != 0 {
