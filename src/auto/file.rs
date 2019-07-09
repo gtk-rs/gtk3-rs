@@ -1512,20 +1512,20 @@ impl<O: IsA<File>> FileExt for O {
     ) -> Result<(Vec<u8>, GString), Error> {
         unsafe {
             let mut contents = ptr::null_mut();
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut etag_out = ptr::null_mut();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_load_contents(
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut contents,
-                &mut length,
+                length.as_mut_ptr(),
                 &mut etag_out,
                 &mut error,
             );
             if error.is_null() {
                 Ok((
-                    FromGlibContainer::from_glib_full_num(contents, length as usize),
+                    FromGlibContainer::from_glib_full_num(contents, length.assume_init() as usize),
                     from_glib_full(etag_out),
                 ))
             } else {
@@ -1552,19 +1552,19 @@ impl<O: IsA<File>> FileExt for O {
         ) {
             let mut error = ptr::null_mut();
             let mut contents = ptr::null_mut();
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut etag_out = ptr::null_mut();
             let _ = gio_sys::g_file_load_contents_finish(
                 _source_object as *mut _,
                 res,
                 &mut contents,
-                &mut length,
+                length.as_mut_ptr(),
                 &mut etag_out,
                 &mut error,
             );
             let result = if error.is_null() {
                 Ok((
-                    FromGlibContainer::from_glib_full_num(contents, length as usize),
+                    FromGlibContainer::from_glib_full_num(contents, length.assume_init() as usize),
                     from_glib_full(etag_out),
                 ))
             } else {
@@ -1771,9 +1771,9 @@ impl<O: IsA<File>> FileExt for O {
         let super_callback0: Box_<Option<Box<dyn Fn(bool, u64, u64, u64) + 'static>>> =
             progress_callback_data;
         unsafe {
-            let mut disk_usage = mem::uninitialized();
-            let mut num_dirs = mem::uninitialized();
-            let mut num_files = mem::uninitialized();
+            let mut disk_usage = mem::MaybeUninit::uninit();
+            let mut num_dirs = mem::MaybeUninit::uninit();
+            let mut num_files = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_measure_disk_usage(
                 self.as_ref().to_glib_none().0,
@@ -1781,11 +1781,14 @@ impl<O: IsA<File>> FileExt for O {
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 progress_callback,
                 Box::into_raw(super_callback0) as *mut _,
-                &mut disk_usage,
-                &mut num_dirs,
-                &mut num_files,
+                disk_usage.as_mut_ptr(),
+                num_dirs.as_mut_ptr(),
+                num_files.as_mut_ptr(),
                 &mut error,
             );
+            let disk_usage = disk_usage.assume_init();
+            let num_dirs = num_dirs.assume_init();
+            let num_files = num_files.assume_init();
             if error.is_null() {
                 Ok((disk_usage, num_dirs, num_files))
             } else {

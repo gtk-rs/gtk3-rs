@@ -456,15 +456,16 @@ impl<O: IsA<Socket>> SocketExt for O {
 
     fn get_option(&self, level: i32, optname: i32) -> Result<i32, Error> {
         unsafe {
-            let mut value = mem::uninitialized();
+            let mut value = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_get_option(
                 self.as_ref().to_glib_none().0,
                 level,
                 optname,
-                &mut value,
+                value.as_mut_ptr(),
                 &mut error,
             );
+            let value = value.assume_init();
             if error.is_null() {
                 Ok(value)
             } else {

@@ -205,14 +205,14 @@ impl<O: IsA<DesktopAppInfo>> DesktopAppInfoExt for O {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn get_string_list(&self, key: &str) -> Vec<GString> {
         unsafe {
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
                 gio_sys::g_desktop_app_info_get_string_list(
                     self.as_ref().to_glib_none().0,
                     key.to_glib_none().0,
-                    &mut length,
+                    length.as_mut_ptr(),
                 ),
-                length as usize,
+                length.assume_init() as usize,
             );
             ret
         }

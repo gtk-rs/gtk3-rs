@@ -295,14 +295,15 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         cancellable: Option<&P>,
     ) -> Result<(Option<GString>, usize), Error> {
         unsafe {
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_data_input_stream_read_line_utf8(
                 self.as_ref().to_glib_none().0,
-                &mut length,
+                length.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
+            let length = length.assume_init();
             if error.is_null() {
                 Ok((from_glib_full(ret), length))
             } else {
@@ -365,15 +366,16 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         cancellable: Option<&P>,
     ) -> Result<(GString, usize), Error> {
         unsafe {
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_data_input_stream_read_until(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0,
-                &mut length,
+                length.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
+            let length = length.assume_init();
             if error.is_null() {
                 Ok((from_glib_full(ret), length))
             } else {
@@ -401,13 +403,14 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             user_data: glib_sys::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let ret = gio_sys::g_data_input_stream_read_until_finish(
                 _source_object as *mut _,
                 res,
-                &mut length,
+                length.as_mut_ptr(),
                 &mut error,
             );
+            let length = length.assume_init();
             let result = if error.is_null() {
                 Ok((from_glib_full(ret), length))
             } else {
@@ -458,16 +461,17 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
     ) -> Result<(GString, usize), Error> {
         let stop_chars_len = stop_chars.len() as isize;
         unsafe {
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_data_input_stream_read_upto(
                 self.as_ref().to_glib_none().0,
                 stop_chars.to_glib_none().0,
                 stop_chars_len,
-                &mut length,
+                length.as_mut_ptr(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 &mut error,
             );
+            let length = length.assume_init();
             if error.is_null() {
                 Ok((from_glib_full(ret), length))
             } else {
@@ -496,13 +500,14 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             user_data: glib_sys::gpointer,
         ) {
             let mut error = ptr::null_mut();
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let ret = gio_sys::g_data_input_stream_read_upto_finish(
                 _source_object as *mut _,
                 res,
-                &mut length,
+                length.as_mut_ptr(),
                 &mut error,
             );
+            let length = length.assume_init();
             let result = if error.is_null() {
                 Ok((from_glib_full(ret), length))
             } else {

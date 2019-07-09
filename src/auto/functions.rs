@@ -168,13 +168,14 @@ pub fn content_type_get_symbolic_icon(type_: &str) -> Option<Icon> {
 pub fn content_type_guess(filename: Option<&str>, data: &[u8]) -> (GString, bool) {
     let data_size = data.len() as usize;
     unsafe {
-        let mut result_uncertain = mem::uninitialized();
+        let mut result_uncertain = mem::MaybeUninit::uninit();
         let ret = from_glib_full(gio_sys::g_content_type_guess(
             filename.to_glib_none().0,
             data.to_glib_none().0,
             data_size,
-            &mut result_uncertain,
+            result_uncertain.as_mut_ptr(),
         ));
+        let result_uncertain = result_uncertain.assume_init();
         (ret, from_glib(result_uncertain))
     }
 }
@@ -459,16 +460,18 @@ pub fn resources_get_info(
     lookup_flags: ResourceLookupFlags,
 ) -> Result<(usize, u32), Error> {
     unsafe {
-        let mut size = mem::uninitialized();
-        let mut flags = mem::uninitialized();
+        let mut size = mem::MaybeUninit::uninit();
+        let mut flags = mem::MaybeUninit::uninit();
         let mut error = ptr::null_mut();
         let _ = gio_sys::g_resources_get_info(
             path.to_glib_none().0,
             lookup_flags.to_glib(),
-            &mut size,
-            &mut flags,
+            size.as_mut_ptr(),
+            flags.as_mut_ptr(),
             &mut error,
         );
+        let size = size.assume_init();
+        let flags = flags.assume_init();
         if error.is_null() {
             Ok((size, flags))
         } else {

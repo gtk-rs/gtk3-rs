@@ -234,13 +234,13 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
 
     fn peek_buffer(&self) -> Vec<u8> {
         unsafe {
-            let mut count = mem::uninitialized();
+            let mut count = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_none_num(
                 gio_sys::g_buffered_input_stream_peek_buffer(
                     self.as_ref().to_glib_none().0,
-                    &mut count,
+                    count.as_mut_ptr(),
                 ),
-                count as usize,
+                count.assume_init() as usize,
             );
             ret
         }
