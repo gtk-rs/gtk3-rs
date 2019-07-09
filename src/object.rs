@@ -1436,7 +1436,7 @@ impl<T: ObjectType> ObjectExt for T {
 
     fn downgrade(&self) -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
             gobject_sys::g_weak_ref_init(
                 mut_override(&*w.0),
                 self.as_object_ref().to_glib_none().0,
@@ -1530,7 +1530,7 @@ pub struct WeakRef<T: ObjectType>(Box<gobject_sys::GWeakRef>, PhantomData<*const
 impl<T: ObjectType> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
             gobject_sys::g_weak_ref_init(mut_override(&*w.0), ptr::null_mut());
             w
         }
@@ -1560,7 +1560,7 @@ impl<T: ObjectType> Drop for WeakRef<T> {
 impl<T: ObjectType> Clone for WeakRef<T> {
     fn clone(&self) -> Self {
         unsafe {
-            let c = WeakRef(Box::new(mem::uninitialized()), PhantomData);
+            let c = WeakRef(Box::new(mem::zeroed()), PhantomData);
 
             let o = gobject_sys::g_weak_ref_get(mut_override(&*self.0));
             gobject_sys::g_weak_ref_init(mut_override(&*c.0), o);
