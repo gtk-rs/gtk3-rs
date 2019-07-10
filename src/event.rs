@@ -197,12 +197,12 @@ impl Event {
 
     pub fn get_scroll_direction(&self) -> Option<ScrollDirection> {
         unsafe {
-            let mut direction = mem::uninitialized();
+            let mut direction = mem::MaybeUninit::uninit();
             if from_glib(gdk_sys::gdk_event_get_scroll_direction(
                 self.to_glib_none().0,
-                &mut direction,
+                direction.as_mut_ptr(),
             )) {
-                Some(from_glib(direction))
+                Some(from_glib(direction.assume_init()))
             } else {
                 None
             }
@@ -236,12 +236,12 @@ impl Event {
 
     pub fn get_state(&self) -> Option<ModifierType> {
         unsafe {
-            let mut state = mem::uninitialized();
+            let mut state = mem::MaybeUninit::uninit();
             if from_glib(gdk_sys::gdk_event_get_scroll_direction(
                 self.to_glib_none().0,
-                &mut state,
+                state.as_mut_ptr(),
             )) {
-                Some(from_glib(state as u32))
+                Some(from_glib(state.assume_init() as u32))
             } else {
                 None
             }
