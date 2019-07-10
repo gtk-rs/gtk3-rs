@@ -115,17 +115,18 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
         unsafe {
-            let mut bytes_read = mem::uninitialized();
+            let mut bytes_read = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_input_stream_read_all(
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                &mut bytes_read,
+                bytes_read.as_mut_ptr(),
                 cancellable.0,
                 &mut error,
             );
 
+            let bytes_read = bytes_read.assume_init();
             if error.is_null() {
                 Ok((bytes_read, None))
             } else if bytes_read != 0 {
@@ -167,14 +168,15 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
             let (callback, buffer) = user_data.take().unwrap();
 
             let mut error = ptr::null_mut();
-            let mut bytes_read = mem::uninitialized();
+            let mut bytes_read = mem::MaybeUninit::uninit();
             let _ = gio_sys::g_input_stream_read_all_finish(
                 _source_object as *mut _,
                 res,
-                &mut bytes_read,
+                bytes_read.as_mut_ptr(),
                 &mut error,
             );
 
+            let bytes_read = bytes_read.assume_init();
             let result = if error.is_null() {
                 Ok((buffer, bytes_read, None))
             } else if bytes_read != 0 {

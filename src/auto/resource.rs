@@ -52,17 +52,19 @@ impl Resource {
         lookup_flags: ResourceLookupFlags,
     ) -> Result<(usize, u32), Error> {
         unsafe {
-            let mut size = mem::uninitialized();
-            let mut flags = mem::uninitialized();
+            let mut size = mem::MaybeUninit::uninit();
+            let mut flags = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_resource_get_info(
                 self.to_glib_none().0,
                 path.to_glib_none().0,
                 lookup_flags.to_glib(),
-                &mut size,
-                &mut flags,
+                size.as_mut_ptr(),
+                flags.as_mut_ptr(),
                 &mut error,
             );
+            let size = size.assume_init();
+            let flags = flags.assume_init();
             if error.is_null() {
                 Ok((size, flags))
             } else {

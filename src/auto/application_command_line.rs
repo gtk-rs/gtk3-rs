@@ -71,13 +71,13 @@ impl<O: IsA<ApplicationCommandLine>> ApplicationCommandLineExt for O {
 
     fn get_arguments(&self) -> Vec<std::ffi::OsString> {
         unsafe {
-            let mut argc = mem::uninitialized();
+            let mut argc = mem::MaybeUninit::uninit();
             let ret = FromGlibContainer::from_glib_full_num(
                 gio_sys::g_application_command_line_get_arguments(
                     self.as_ref().to_glib_none().0,
-                    &mut argc,
+                    argc.as_mut_ptr(),
                 ),
-                argc as usize,
+                argc.assume_init() as usize,
             );
             ret
         }
