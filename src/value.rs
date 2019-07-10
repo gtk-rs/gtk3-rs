@@ -201,7 +201,7 @@ impl Value {
     #[doc(hidden)]
     pub fn into_raw(mut self) -> gobject_sys::GValue {
         unsafe {
-            let ret = mem::replace(&mut self.0, mem::uninitialized());
+            let ret = ptr::read(&self.0);
             mem::forget(self);
             ret
         }

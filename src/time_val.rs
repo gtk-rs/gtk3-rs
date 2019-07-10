@@ -10,9 +10,9 @@ pub use glib_sys::GTimeVal as TimeVal;
 
 pub fn get_current_time() -> TimeVal {
     unsafe {
-        let mut ret = mem::uninitialized();
-        glib_sys::g_get_current_time(&mut ret);
-        ret
+        let mut ret = mem::MaybeUninit::uninit();
+        glib_sys::g_get_current_time(ret.as_mut_ptr());
+        ret.assume_init()
     }
 }
 
@@ -27,6 +27,6 @@ impl<'a> ToGlibPtrMut<'a, *mut glib_sys::GTimeVal> for TimeVal {
 
 impl Uninitialized for TimeVal {
     unsafe fn uninitialized() -> TimeVal {
-        mem::uninitialized()
+        mem::zeroed()
     }
 }

@@ -131,13 +131,13 @@ impl KeyFile {
 
     pub fn get_boolean_list(&self, group_name: &str, key: &str) -> Result<Vec<bool>, Error> {
         unsafe {
-            let mut length = mem::uninitialized();
+            let mut length = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
             let ret = glib_sys::g_key_file_get_boolean_list(
                 self.to_glib_none().0,
                 group_name.to_glib_none().0,
                 key.to_glib_none().0,
-                &mut length,
+                length.as_mut_ptr(),
                 &mut error,
             );
             if !error.is_null() {
@@ -145,7 +145,7 @@ impl KeyFile {
             }
             Ok(FromGlibContainer::from_glib_container_num(
                 ret,
-                length as usize,
+                length.assume_init() as usize,
             ))
         }
     }

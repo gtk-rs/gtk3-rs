@@ -13,13 +13,13 @@ use SourceId;
 impl MainContext {
     pub fn prepare(&self) -> (bool, i32) {
         unsafe {
-            let mut priority = mem::uninitialized();
+            let mut priority = mem::MaybeUninit::uninit();
 
             let res = from_glib(glib_sys::g_main_context_prepare(
                 self.to_glib_none().0,
-                &mut priority,
+                priority.as_mut_ptr(),
             ));
-
+            let priority = priority.assume_init();
             (res, priority)
         }
     }

@@ -82,10 +82,10 @@ pub fn assertion_message_cmpstr(
 
 pub fn base64_decode(text: &str) -> Vec<u8> {
     unsafe {
-        let mut out_len = mem::uninitialized();
+        let mut out_len = mem::MaybeUninit::uninit();
         let ret = FromGlibContainer::from_glib_full_num(
-            glib_sys::g_base64_decode(text.to_glib_none().0, &mut out_len),
-            out_len as usize,
+            glib_sys::g_base64_decode(text.to_glib_none().0, out_len.as_mut_ptr()),
+            out_len.assume_init() as usize,
         );
         ret
     }
@@ -434,18 +434,18 @@ pub fn dpgettext2(domain: Option<&str>, context: &str, msgid: &str) -> Option<GS
 pub fn file_get_contents<P: AsRef<std::path::Path>>(filename: P) -> Result<Vec<u8>, Error> {
     unsafe {
         let mut contents = ptr::null_mut();
-        let mut length = mem::uninitialized();
+        let mut length = mem::MaybeUninit::uninit();
         let mut error = ptr::null_mut();
         let _ = glib_sys::g_file_get_contents(
             filename.as_ref().to_glib_none().0,
             &mut contents,
-            &mut length,
+            length.as_mut_ptr(),
             &mut error,
         );
         if error.is_null() {
             Ok(FromGlibContainer::from_glib_full_num(
                 contents,
-                length as usize,
+                length.assume_init() as usize,
             ))
         } else {
             Err(from_glib_full(error))
@@ -1064,17 +1064,20 @@ pub fn shell_parse_argv<P: AsRef<std::ffi::OsStr>>(
     command_line: P,
 ) -> Result<Vec<std::ffi::OsString>, Error> {
     unsafe {
-        let mut argcp = mem::uninitialized();
+        let mut argcp = mem::MaybeUninit::uninit();
         let mut argvp = ptr::null_mut();
         let mut error = ptr::null_mut();
         let _ = glib_sys::g_shell_parse_argv(
             command_line.as_ref().to_glib_none().0,
-            &mut argcp,
+            argcp.as_mut_ptr(),
             &mut argvp,
             &mut error,
         );
         if error.is_null() {
-            Ok(FromGlibContainer::from_glib_full_num(argvp, argcp as usize))
+            Ok(FromGlibContainer::from_glib_full_num(
+                argvp,
+                argcp.assume_init() as usize,
+            ))
         } else {
             Err(from_glib_full(error))
         }
