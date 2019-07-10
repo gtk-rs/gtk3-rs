@@ -13,7 +13,7 @@ use Cursor;
 use Visual;
 use Window;
 
-use {WindowHints, WindowType, WindowTypeHint, WindowWindowClass};
+use {WindowType, WindowTypeHint, WindowWindowClass};
 
 pub struct WindowAttr {
     pub title: Option<String>,

@@ -58,7 +58,7 @@ impl GlibPtrDefault for Atom {
 impl Uninitialized for Atom {
     #[inline]
     unsafe fn uninitialized() -> Self {
-        mem::uninitialized()
+        mem::zeroed()
     }
 }
 

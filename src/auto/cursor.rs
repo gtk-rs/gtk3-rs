@@ -89,13 +89,15 @@ impl Cursor {
 
     pub fn get_surface(&self) -> (Option<cairo::Surface>, f64, f64) {
         unsafe {
-            let mut x_hot = mem::uninitialized();
-            let mut y_hot = mem::uninitialized();
+            let mut x_hot = mem::MaybeUninit::uninit();
+            let mut y_hot = mem::MaybeUninit::uninit();
             let ret = from_glib_full(gdk_sys::gdk_cursor_get_surface(
                 self.to_glib_none().0,
-                &mut x_hot,
-                &mut y_hot,
+                x_hot.as_mut_ptr(),
+                y_hot.as_mut_ptr(),
             ));
+            let x_hot = x_hot.assume_init();
+            let y_hot = y_hot.assume_init();
             (ret, x_hot, y_hot)
         }
     }

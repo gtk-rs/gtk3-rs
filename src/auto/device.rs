@@ -96,14 +96,16 @@ impl Device {
 
     pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
-            let mut keyval = mem::uninitialized();
-            let mut modifiers = mem::uninitialized();
+            let mut keyval = mem::MaybeUninit::uninit();
+            let mut modifiers = mem::MaybeUninit::uninit();
             let ret = from_glib(gdk_sys::gdk_device_get_key(
                 self.to_glib_none().0,
                 index_,
-                &mut keyval,
-                &mut modifiers,
+                keyval.as_mut_ptr(),
+                modifiers.as_mut_ptr(),
             ));
+            let keyval = keyval.assume_init();
+            let modifiers = modifiers.assume_init();
             if ret {
                 Some((keyval, from_glib(modifiers)))
             } else {
@@ -139,9 +141,16 @@ impl Device {
     pub fn get_position(&self) -> (Screen, i32, i32) {
         unsafe {
             let mut screen = ptr::null_mut();
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
-            gdk_sys::gdk_device_get_position(self.to_glib_none().0, &mut screen, &mut x, &mut y);
+            let mut x = mem::MaybeUninit::uninit();
+            let mut y = mem::MaybeUninit::uninit();
+            gdk_sys::gdk_device_get_position(
+                self.to_glib_none().0,
+                &mut screen,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
+            );
+            let x = x.assume_init();
+            let y = y.assume_init();
             (from_glib_none(screen), x, y)
         }
     }
@@ -149,14 +158,16 @@ impl Device {
     pub fn get_position_double(&self) -> (Screen, f64, f64) {
         unsafe {
             let mut screen = ptr::null_mut();
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
+            let mut x = mem::MaybeUninit::uninit();
+            let mut y = mem::MaybeUninit::uninit();
             gdk_sys::gdk_device_get_position_double(
                 self.to_glib_none().0,
                 &mut screen,
-                &mut x,
-                &mut y,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
             );
+            let x = x.assume_init();
+            let y = y.assume_init();
             (from_glib_none(screen), x, y)
         }
     }
@@ -186,26 +197,30 @@ impl Device {
 
     pub fn get_window_at_position(&self) -> (Option<Window>, i32, i32) {
         unsafe {
-            let mut win_x = mem::uninitialized();
-            let mut win_y = mem::uninitialized();
+            let mut win_x = mem::MaybeUninit::uninit();
+            let mut win_y = mem::MaybeUninit::uninit();
             let ret = from_glib_none(gdk_sys::gdk_device_get_window_at_position(
                 self.to_glib_none().0,
-                &mut win_x,
-                &mut win_y,
+                win_x.as_mut_ptr(),
+                win_y.as_mut_ptr(),
             ));
+            let win_x = win_x.assume_init();
+            let win_y = win_y.assume_init();
             (ret, win_x, win_y)
         }
     }
 
     pub fn get_window_at_position_double(&self) -> (Option<Window>, f64, f64) {
         unsafe {
-            let mut win_x = mem::uninitialized();
-            let mut win_y = mem::uninitialized();
+            let mut win_x = mem::MaybeUninit::uninit();
+            let mut win_y = mem::MaybeUninit::uninit();
             let ret = from_glib_none(gdk_sys::gdk_device_get_window_at_position_double(
                 self.to_glib_none().0,
-                &mut win_x,
-                &mut win_y,
+                win_x.as_mut_ptr(),
+                win_y.as_mut_ptr(),
             ));
+            let win_x = win_x.assume_init();
+            let win_y = win_y.assume_init();
             (ret, win_x, win_y)
         }
     }
@@ -387,13 +402,14 @@ impl Device {
         skip_assert_initialized!();
         unsafe {
             let mut grab_window = ptr::null_mut();
-            let mut owner_events = mem::uninitialized();
+            let mut owner_events = mem::MaybeUninit::uninit();
             let ret = from_glib(gdk_sys::gdk_device_grab_info_libgtk_only(
                 display.to_glib_none().0,
                 device.to_glib_none().0,
                 &mut grab_window,
-                &mut owner_events,
+                owner_events.as_mut_ptr(),
             ));
+            let owner_events = owner_events.assume_init();
             if ret {
                 Some((from_glib_none(grab_window), from_glib(owner_events)))
             } else {

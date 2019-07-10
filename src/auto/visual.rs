@@ -26,15 +26,18 @@ impl Visual {
 
     pub fn get_blue_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::uninitialized();
-            let mut shift = mem::uninitialized();
-            let mut precision = mem::uninitialized();
+            let mut mask = mem::MaybeUninit::uninit();
+            let mut shift = mem::MaybeUninit::uninit();
+            let mut precision = mem::MaybeUninit::uninit();
             gdk_sys::gdk_visual_get_blue_pixel_details(
                 self.to_glib_none().0,
-                &mut mask,
-                &mut shift,
-                &mut precision,
+                mask.as_mut_ptr(),
+                shift.as_mut_ptr(),
+                precision.as_mut_ptr(),
             );
+            let mask = mask.assume_init();
+            let shift = shift.assume_init();
+            let precision = precision.assume_init();
             (mask, shift, precision)
         }
     }
@@ -55,30 +58,36 @@ impl Visual {
 
     pub fn get_green_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::uninitialized();
-            let mut shift = mem::uninitialized();
-            let mut precision = mem::uninitialized();
+            let mut mask = mem::MaybeUninit::uninit();
+            let mut shift = mem::MaybeUninit::uninit();
+            let mut precision = mem::MaybeUninit::uninit();
             gdk_sys::gdk_visual_get_green_pixel_details(
                 self.to_glib_none().0,
-                &mut mask,
-                &mut shift,
-                &mut precision,
+                mask.as_mut_ptr(),
+                shift.as_mut_ptr(),
+                precision.as_mut_ptr(),
             );
+            let mask = mask.assume_init();
+            let shift = shift.assume_init();
+            let precision = precision.assume_init();
             (mask, shift, precision)
         }
     }
 
     pub fn get_red_pixel_details(&self) -> (u32, i32, i32) {
         unsafe {
-            let mut mask = mem::uninitialized();
-            let mut shift = mem::uninitialized();
-            let mut precision = mem::uninitialized();
+            let mut mask = mem::MaybeUninit::uninit();
+            let mut shift = mem::MaybeUninit::uninit();
+            let mut precision = mem::MaybeUninit::uninit();
             gdk_sys::gdk_visual_get_red_pixel_details(
                 self.to_glib_none().0,
-                &mut mask,
-                &mut shift,
-                &mut precision,
+                mask.as_mut_ptr(),
+                shift.as_mut_ptr(),
+                precision.as_mut_ptr(),
             );
+            let mask = mask.assume_init();
+            let shift = shift.assume_init();
+            let precision = precision.assume_init();
             (mask, shift, precision)
         }
     }

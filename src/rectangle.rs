@@ -54,7 +54,7 @@ impl Rectangle {
 impl Uninitialized for Rectangle {
     #[inline]
     unsafe fn uninitialized() -> Self {
-        mem::uninitialized()
+        mem::zeroed()
     }
 }
 
