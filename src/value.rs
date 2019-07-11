@@ -273,7 +273,7 @@ impl From<SendValue> for Value {
 
 impl Uninitialized for Value {
     unsafe fn uninitialized() -> Value {
-        Value(mem::zeroed(), PhantomData)
+        Value(mem::MaybeUninit::zeroed().assume_init(), PhantomData)
     }
 }
 

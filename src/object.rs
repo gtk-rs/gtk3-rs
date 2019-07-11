@@ -1269,8 +1269,9 @@ impl<T: ObjectType> ObjectExt for T {
             return Err(glib_bool_error!("Signal not found"));
         }
 
-        let mut details = mem::zeroed();
-        gobject_sys::g_signal_query(signal_id, &mut details);
+        let mut details = mem::MaybeUninit::zeroed();
+        gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+        let details = details.assume_init();
         if details.signal_id != signal_id {
             return Err(glib_bool_error!("Signal not found"));
         }
@@ -1370,8 +1371,9 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(glib_bool_error!("Signal not found"));
             }
 
-            let mut details = mem::zeroed();
-            gobject_sys::g_signal_query(signal_id, &mut details);
+            let mut details = mem::MaybeUninit::zeroed();
+            gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+            let details = details.assume_init();
             if details.signal_id != signal_id {
                 return Err(glib_bool_error!("Signal not found"));
             }
@@ -1389,7 +1391,7 @@ impl<T: ObjectType> ObjectExt for T {
             }
 
             let mut v_args: Vec<Value>;
-            let mut s_args: [Value; 10] = mem::zeroed();
+            let mut s_args: [Value; 10] = mem::MaybeUninit::zeroed().assume_init();
             let self_v = {
                 let mut v = Value::uninitialized();
                 gobject_sys::g_value_init(v.to_glib_none_mut().0, self.get_type().to_glib());
@@ -1436,7 +1438,7 @@ impl<T: ObjectType> ObjectExt for T {
 
     fn downgrade(&self) -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
+            let w = WeakRef(Box::new(mem::MaybeUninit::zeroed().assume_init()), PhantomData);
             gobject_sys::g_weak_ref_init(
                 mut_override(&*w.0),
                 self.as_object_ref().to_glib_none().0,
@@ -1530,7 +1532,7 @@ pub struct WeakRef<T: ObjectType>(Box<gobject_sys::GWeakRef>, PhantomData<*const
 impl<T: ObjectType> WeakRef<T> {
     pub fn new() -> WeakRef<T> {
         unsafe {
-            let w = WeakRef(Box::new(mem::zeroed()), PhantomData);
+            let w = WeakRef(Box::new(mem::MaybeUninit::zeroed().assume_init()), PhantomData);
             gobject_sys::g_weak_ref_init(mut_override(&*w.0), ptr::null_mut());
             w
         }
@@ -1560,7 +1562,7 @@ impl<T: ObjectType> Drop for WeakRef<T> {
 impl<T: ObjectType> Clone for WeakRef<T> {
     fn clone(&self) -> Self {
         unsafe {
-            let c = WeakRef(Box::new(mem::zeroed()), PhantomData);
+            let c = WeakRef(Box::new(mem::MaybeUninit::zeroed().assume_init()), PhantomData);
 
             let o = gobject_sys::g_weak_ref_get(mut_override(&*self.0));
             gobject_sys::g_weak_ref_init(mut_override(&*c.0), o);

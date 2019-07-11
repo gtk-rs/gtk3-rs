@@ -93,7 +93,7 @@ impl Closure {
         let mut result = unsafe { Value::uninitialized() };
 
         let v_args: Vec<Value>;
-        let mut s_args: [Value; 10] = unsafe { mem::zeroed() };
+        let mut s_args: [Value; 10] = unsafe { mem::MaybeUninit::zeroed().assume_init() };
         let values = if values.len() <= 10 {
             for (i, arg) in values.iter().enumerate() {
                 s_args[i] = arg.to_value();

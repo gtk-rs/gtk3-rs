@@ -366,7 +366,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Uninitialized for Boxed<T, MM> {
     unsafe fn uninitialized() -> Self {
         Boxed {
             inner: {
-                let mut inner = Box::<T>::new(mem::zeroed());
+                let mut inner = Box::<T>::new(mem::MaybeUninit::zeroed().assume_init());
                 MM::init(&mut *inner);
 
                 AnyBox::Native(inner)

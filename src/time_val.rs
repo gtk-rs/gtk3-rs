@@ -27,6 +27,6 @@ impl<'a> ToGlibPtrMut<'a, *mut glib_sys::GTimeVal> for TimeVal {
 
 impl Uninitialized for TimeVal {
     unsafe fn uninitialized() -> TimeVal {
-        mem::zeroed()
+        mem::MaybeUninit::zeroed().assume_init()
     }
 }
