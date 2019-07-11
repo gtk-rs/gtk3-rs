@@ -199,7 +199,7 @@ impl Value {
     }
 
     #[doc(hidden)]
-    pub fn into_raw(mut self) -> gobject_sys::GValue {
+    pub fn into_raw(self) -> gobject_sys::GValue {
         unsafe {
             let ret = ptr::read(&self.0);
             mem::forget(self);
@@ -273,7 +273,7 @@ impl From<SendValue> for Value {
 
 impl Uninitialized for Value {
     unsafe fn uninitialized() -> Value {
-        Value(mem::MaybeUninit::zeroed().assume_init(), PhantomData)
+        mem::zeroed()
     }
 }
 

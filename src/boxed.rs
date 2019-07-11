@@ -366,10 +366,10 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> Uninitialized for Boxed<T, MM> {
     unsafe fn uninitialized() -> Self {
         Boxed {
             inner: {
-                let mut inner = Box::<T>::new(mem::MaybeUninit::zeroed().assume_init());
-                MM::init(&mut *inner);
+                let mut inner = mem::MaybeUninit::zeroed();
+                MM::init(inner.as_mut_ptr());
 
-                AnyBox::Native(inner)
+                AnyBox::Native(Box::new(inner.assume_init()))
             },
             _dummy: PhantomData,
         }
