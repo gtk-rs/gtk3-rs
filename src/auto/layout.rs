@@ -185,9 +185,15 @@ impl Layout {
 
     pub fn get_pixel_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::uninitialized();
-            let mut height = mem::uninitialized();
-            pango_sys::pango_layout_get_pixel_size(self.to_glib_none().0, &mut width, &mut height);
+            let mut width = mem::MaybeUninit::uninit();
+            let mut height = mem::MaybeUninit::uninit();
+            pango_sys::pango_layout_get_pixel_size(
+                self.to_glib_none().0,
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
+            );
+            let width = width.assume_init();
+            let height = height.assume_init();
             (width, height)
         }
     }
@@ -206,9 +212,15 @@ impl Layout {
 
     pub fn get_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::uninitialized();
-            let mut height = mem::uninitialized();
-            pango_sys::pango_layout_get_size(self.to_glib_none().0, &mut width, &mut height);
+            let mut width = mem::MaybeUninit::uninit();
+            let mut height = mem::MaybeUninit::uninit();
+            pango_sys::pango_layout_get_size(
+                self.to_glib_none().0,
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
+            );
+            let width = width.assume_init();
+            let height = height.assume_init();
             (width, height)
         }
     }
@@ -239,15 +251,17 @@ impl Layout {
 
     pub fn index_to_line_x(&self, index_: i32, trailing: bool) -> (i32, i32) {
         unsafe {
-            let mut line = mem::uninitialized();
-            let mut x_pos = mem::uninitialized();
+            let mut line = mem::MaybeUninit::uninit();
+            let mut x_pos = mem::MaybeUninit::uninit();
             pango_sys::pango_layout_index_to_line_x(
                 self.to_glib_none().0,
                 index_,
                 trailing.to_glib(),
-                &mut line,
-                &mut x_pos,
+                line.as_mut_ptr(),
+                x_pos.as_mut_ptr(),
             );
+            let line = line.assume_init();
+            let x_pos = x_pos.assume_init();
             (line, x_pos)
         }
     }
@@ -280,17 +294,19 @@ impl Layout {
         direction: i32,
     ) -> (i32, i32) {
         unsafe {
-            let mut new_index = mem::uninitialized();
-            let mut new_trailing = mem::uninitialized();
+            let mut new_index = mem::MaybeUninit::uninit();
+            let mut new_trailing = mem::MaybeUninit::uninit();
             pango_sys::pango_layout_move_cursor_visually(
                 self.to_glib_none().0,
                 strong.to_glib(),
                 old_index,
                 old_trailing,
                 direction,
-                &mut new_index,
-                &mut new_trailing,
+                new_index.as_mut_ptr(),
+                new_trailing.as_mut_ptr(),
             );
+            let new_index = new_index.assume_init();
+            let new_trailing = new_trailing.assume_init();
             (new_index, new_trailing)
         }
     }
@@ -360,14 +376,15 @@ impl Layout {
     pub fn set_markup_with_accel(&self, markup: &str, accel_marker: char) -> char {
         let length = markup.len() as i32;
         unsafe {
-            let mut accel_char = mem::uninitialized();
+            let mut accel_char = mem::MaybeUninit::uninit();
             pango_sys::pango_layout_set_markup_with_accel(
                 self.to_glib_none().0,
                 markup.to_glib_none().0,
                 length,
                 accel_marker.to_glib(),
-                &mut accel_char,
+                accel_char.as_mut_ptr(),
             );
+            let accel_char = accel_char.assume_init();
             from_glib(accel_char)
         }
     }
@@ -417,15 +434,17 @@ impl Layout {
 
     pub fn xy_to_index(&self, x: i32, y: i32) -> (bool, i32, i32) {
         unsafe {
-            let mut index_ = mem::uninitialized();
-            let mut trailing = mem::uninitialized();
+            let mut index_ = mem::MaybeUninit::uninit();
+            let mut trailing = mem::MaybeUninit::uninit();
             let ret = from_glib(pango_sys::pango_layout_xy_to_index(
                 self.to_glib_none().0,
                 x,
                 y,
-                &mut index_,
-                &mut trailing,
+                index_.as_mut_ptr(),
+                trailing.as_mut_ptr(),
             ));
+            let index_ = index_.assume_init();
+            let trailing = trailing.assume_init();
             (ret, index_, trailing)
         }
     }

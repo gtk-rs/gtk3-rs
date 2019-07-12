@@ -32,13 +32,15 @@ impl Matrix {
     #[cfg(any(feature = "v1_38", feature = "dox"))]
     pub fn get_font_scale_factors(&self) -> (f64, f64) {
         unsafe {
-            let mut xscale = mem::uninitialized();
-            let mut yscale = mem::uninitialized();
+            let mut xscale = mem::MaybeUninit::uninit();
+            let mut yscale = mem::MaybeUninit::uninit();
             pango_sys::pango_matrix_get_font_scale_factors(
                 self.to_glib_none().0,
-                &mut xscale,
-                &mut yscale,
+                xscale.as_mut_ptr(),
+                yscale.as_mut_ptr(),
             );
+            let xscale = xscale.assume_init();
+            let yscale = yscale.assume_init();
             (xscale, yscale)
         }
     }
