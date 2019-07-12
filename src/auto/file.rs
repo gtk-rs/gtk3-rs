@@ -22,6 +22,7 @@ use DriveStartFlags;
 use Error;
 use FileCopyFlags;
 use FileCreateFlags;
+use FileEnumerator;
 use FileIOStream;
 use FileInfo;
 use FileInputStream;
@@ -231,7 +232,12 @@ pub trait FileExt: 'static {
         mount_operation: Option<&P>,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
 
-    //fn enumerate_children<P: IsA<Cancellable>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result</*Ignored*/FileEnumerator, Error>;
+    fn enumerate_children<P: IsA<Cancellable>>(
+        &self,
+        attributes: &str,
+        flags: FileQueryInfoFlags,
+        cancellable: Option<&P>,
+    ) -> Result<FileEnumerator, Error>;
 
     fn equal<P: IsA<File>>(&self, file2: &P) -> bool;
 
@@ -1291,9 +1297,28 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn enumerate_children<P: IsA<Cancellable>>(&self, attributes: &str, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result</*Ignored*/FileEnumerator, Error> {
-    //    unsafe { TODO: call gio_sys:g_file_enumerate_children() }
-    //}
+    fn enumerate_children<P: IsA<Cancellable>>(
+        &self,
+        attributes: &str,
+        flags: FileQueryInfoFlags,
+        cancellable: Option<&P>,
+    ) -> Result<FileEnumerator, Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let ret = gio_sys::g_file_enumerate_children(
+                self.as_ref().to_glib_none().0,
+                attributes.to_glib_none().0,
+                flags.to_glib(),
+                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                &mut error,
+            );
+            if error.is_null() {
+                Ok(from_glib_full(ret))
+            } else {
+                Err(from_glib_full(error))
+            }
+        }
+    }
 
     fn equal<P: IsA<File>>(&self, file2: &P) -> bool {
         unsafe {

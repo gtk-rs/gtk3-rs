@@ -390,6 +390,14 @@ status = "generate"
         nullable = true
 
 [[object]]
+name = "Gio.FileEnumerator"
+status = "generate"
+    [[object.function]]
+    name = "iterate"
+    # better with rust iterators
+    ignore = true
+
+[[object]]
 name = "Gio.FilterInputStream"
 status = "generate"
     [[object.property]]

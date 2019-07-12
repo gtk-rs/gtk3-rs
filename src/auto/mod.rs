@@ -121,6 +121,10 @@ mod file;
 pub use self::file::FileExt;
 pub use self::file::{File, NONE_FILE};
 
+mod file_enumerator;
+pub use self::file_enumerator::FileEnumeratorExt;
+pub use self::file_enumerator::{FileEnumerator, FileEnumeratorClass, NONE_FILE_ENUMERATOR};
+
 mod file_io_stream;
 pub use self::file_io_stream::FileIOStreamExt;
 pub use self::file_io_stream::{FileIOStream, FileIOStreamClass, NONE_FILE_IO_STREAM};
@@ -679,6 +683,7 @@ pub mod traits {
     pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
     pub use super::EmblemedIconExt;
+    pub use super::FileEnumeratorExt;
     pub use super::FileExt;
     pub use super::FileIOStreamExt;
     pub use super::FileInputStreamExt;
