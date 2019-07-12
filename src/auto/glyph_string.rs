@@ -78,7 +78,7 @@ impl GlyphString {
     ) -> i32 {
         let length = text.len() as i32;
         unsafe {
-            let mut x_pos = mem::uninitialized();
+            let mut x_pos = mem::MaybeUninit::uninit();
             pango_sys::pango_glyph_string_index_to_x(
                 self.to_glib_none_mut().0,
                 text.to_glib_none().0,
@@ -86,8 +86,9 @@ impl GlyphString {
                 analysis.to_glib_none_mut().0,
                 index_,
                 trailing.to_glib(),
-                &mut x_pos,
+                x_pos.as_mut_ptr(),
             );
+            let x_pos = x_pos.assume_init();
             x_pos
         }
     }
@@ -101,17 +102,19 @@ impl GlyphString {
     pub fn x_to_index(&mut self, text: &str, analysis: &mut Analysis, x_pos: i32) -> (i32, i32) {
         let length = text.len() as i32;
         unsafe {
-            let mut index_ = mem::uninitialized();
-            let mut trailing = mem::uninitialized();
+            let mut index_ = mem::MaybeUninit::uninit();
+            let mut trailing = mem::MaybeUninit::uninit();
             pango_sys::pango_glyph_string_x_to_index(
                 self.to_glib_none_mut().0,
                 text.to_glib_none().0,
                 length,
                 analysis.to_glib_none_mut().0,
                 x_pos,
-                &mut index_,
-                &mut trailing,
+                index_.as_mut_ptr(),
+                trailing.as_mut_ptr(),
             );
+            let index_ = index_.assume_init();
+            let trailing = trailing.assume_init();
             (index_, trailing)
         }
     }

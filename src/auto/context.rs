@@ -104,13 +104,13 @@ impl Context {
     pub fn list_families(&self) -> Vec<FontFamily> {
         unsafe {
             let mut families = ptr::null_mut();
-            let mut n_families = mem::uninitialized();
+            let mut n_families = mem::MaybeUninit::uninit();
             pango_sys::pango_context_list_families(
                 self.to_glib_none().0,
                 &mut families,
-                &mut n_families,
+                n_families.as_mut_ptr(),
             );
-            FromGlibContainer::from_glib_container_num(families, n_families as usize)
+            FromGlibContainer::from_glib_container_num(families, n_families.assume_init() as usize)
         }
     }
 

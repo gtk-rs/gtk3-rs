@@ -46,14 +46,16 @@ impl TabArray {
 
     pub fn get_tab(&mut self, tab_index: i32) -> (TabAlign, i32) {
         unsafe {
-            let mut alignment = mem::uninitialized();
-            let mut location = mem::uninitialized();
+            let mut alignment = mem::MaybeUninit::uninit();
+            let mut location = mem::MaybeUninit::uninit();
             pango_sys::pango_tab_array_get_tab(
                 self.to_glib_none_mut().0,
                 tab_index,
-                &mut alignment,
-                &mut location,
+                alignment.as_mut_ptr(),
+                location.as_mut_ptr(),
             );
+            let alignment = alignment.assume_init();
+            let location = location.assume_init();
             (from_glib(alignment), location)
         }
     }

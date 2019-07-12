@@ -42,9 +42,13 @@ impl Coverage {
     pub fn to_bytes(&self) -> Vec<u8> {
         unsafe {
             let mut bytes = ptr::null_mut();
-            let mut n_bytes = mem::uninitialized();
-            pango_sys::pango_coverage_to_bytes(self.to_glib_none().0, &mut bytes, &mut n_bytes);
-            FromGlibContainer::from_glib_full_num(bytes, n_bytes as usize)
+            let mut n_bytes = mem::MaybeUninit::uninit();
+            pango_sys::pango_coverage_to_bytes(
+                self.to_glib_none().0,
+                &mut bytes,
+                n_bytes.as_mut_ptr(),
+            );
+            FromGlibContainer::from_glib_full_num(bytes, n_bytes.assume_init() as usize)
         }
     }
 

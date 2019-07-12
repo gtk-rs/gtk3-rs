@@ -114,13 +114,15 @@ impl LayoutIter {
 
     pub fn get_line_yrange(&mut self) -> (i32, i32) {
         unsafe {
-            let mut y0_ = mem::uninitialized();
-            let mut y1_ = mem::uninitialized();
+            let mut y0_ = mem::MaybeUninit::uninit();
+            let mut y1_ = mem::MaybeUninit::uninit();
             pango_sys::pango_layout_iter_get_line_yrange(
                 self.to_glib_none_mut().0,
-                &mut y0_,
-                &mut y1_,
+                y0_.as_mut_ptr(),
+                y1_.as_mut_ptr(),
             );
+            let y0_ = y0_.assume_init();
+            let y1_ = y1_.assume_init();
             (y0_, y1_)
         }
     }
