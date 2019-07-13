@@ -51,27 +51,31 @@ impl<O: IsA<Image>> AtkImageExt for O {
 
     fn get_image_position(&self, coord_type: CoordType) -> (i32, i32) {
         unsafe {
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
+            let mut x = mem::MaybeUninit::uninit();
+            let mut y = mem::MaybeUninit::uninit();
             atk_sys::atk_image_get_image_position(
                 self.as_ref().to_glib_none().0,
-                &mut x,
-                &mut y,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
                 coord_type.to_glib(),
             );
+            let x = x.assume_init();
+            let y = y.assume_init();
             (x, y)
         }
     }
 
     fn get_image_size(&self) -> (i32, i32) {
         unsafe {
-            let mut width = mem::uninitialized();
-            let mut height = mem::uninitialized();
+            let mut width = mem::MaybeUninit::uninit();
+            let mut height = mem::MaybeUninit::uninit();
             atk_sys::atk_image_get_image_size(
                 self.as_ref().to_glib_none().0,
-                &mut width,
-                &mut height,
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
             );
+            let width = width.assume_init();
+            let height = height.assume_init();
             (width, height)
         }
     }

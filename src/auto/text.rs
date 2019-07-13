@@ -158,19 +158,23 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn get_character_extents(&self, offset: i32, coords: CoordType) -> (i32, i32, i32, i32) {
         unsafe {
-            let mut x = mem::uninitialized();
-            let mut y = mem::uninitialized();
-            let mut width = mem::uninitialized();
-            let mut height = mem::uninitialized();
+            let mut x = mem::MaybeUninit::uninit();
+            let mut y = mem::MaybeUninit::uninit();
+            let mut width = mem::MaybeUninit::uninit();
+            let mut height = mem::MaybeUninit::uninit();
             atk_sys::atk_text_get_character_extents(
                 self.as_ref().to_glib_none().0,
                 offset,
-                &mut x,
-                &mut y,
-                &mut width,
-                &mut height,
+                x.as_mut_ptr(),
+                y.as_mut_ptr(),
+                width.as_mut_ptr(),
+                height.as_mut_ptr(),
                 coords.to_glib(),
             );
+            let x = x.assume_init();
+            let y = y.assume_init();
+            let width = width.assume_init();
+            let height = height.assume_init();
             (x, y, width, height)
         }
     }
@@ -219,14 +223,16 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn get_selection(&self, selection_num: i32) -> (GString, i32, i32) {
         unsafe {
-            let mut start_offset = mem::uninitialized();
-            let mut end_offset = mem::uninitialized();
+            let mut start_offset = mem::MaybeUninit::uninit();
+            let mut end_offset = mem::MaybeUninit::uninit();
             let ret = from_glib_full(atk_sys::atk_text_get_selection(
                 self.as_ref().to_glib_none().0,
                 selection_num,
-                &mut start_offset,
-                &mut end_offset,
+                start_offset.as_mut_ptr(),
+                end_offset.as_mut_ptr(),
             ));
+            let start_offset = start_offset.assume_init();
+            let end_offset = end_offset.assume_init();
             (ret, start_offset, end_offset)
         }
     }
@@ -237,15 +243,17 @@ impl<O: IsA<Text>> TextExt for O {
         granularity: TextGranularity,
     ) -> (Option<GString>, i32, i32) {
         unsafe {
-            let mut start_offset = mem::uninitialized();
-            let mut end_offset = mem::uninitialized();
+            let mut start_offset = mem::MaybeUninit::uninit();
+            let mut end_offset = mem::MaybeUninit::uninit();
             let ret = from_glib_full(atk_sys::atk_text_get_string_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
                 granularity.to_glib(),
-                &mut start_offset,
-                &mut end_offset,
+                start_offset.as_mut_ptr(),
+                end_offset.as_mut_ptr(),
             ));
+            let start_offset = start_offset.assume_init();
+            let end_offset = end_offset.assume_init();
             (ret, start_offset, end_offset)
         }
     }
@@ -262,15 +270,17 @@ impl<O: IsA<Text>> TextExt for O {
 
     fn get_text_at_offset(&self, offset: i32, boundary_type: TextBoundary) -> (GString, i32, i32) {
         unsafe {
-            let mut start_offset = mem::uninitialized();
-            let mut end_offset = mem::uninitialized();
+            let mut start_offset = mem::MaybeUninit::uninit();
+            let mut end_offset = mem::MaybeUninit::uninit();
             let ret = from_glib_full(atk_sys::atk_text_get_text_at_offset(
                 self.as_ref().to_glib_none().0,
                 offset,
                 boundary_type.to_glib(),
-                &mut start_offset,
-                &mut end_offset,
+                start_offset.as_mut_ptr(),
+                end_offset.as_mut_ptr(),
             ));
+            let start_offset = start_offset.assume_init();
+            let end_offset = end_offset.assume_init();
             (ret, start_offset, end_offset)
         }
     }
