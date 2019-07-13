@@ -46,13 +46,15 @@ impl<O: IsA<TableCell>> TableCellExt for O {
 
     fn get_position(&self) -> Option<(i32, i32)> {
         unsafe {
-            let mut row = mem::uninitialized();
-            let mut column = mem::uninitialized();
+            let mut row = mem::MaybeUninit::uninit();
+            let mut column = mem::MaybeUninit::uninit();
             let ret = from_glib(atk_sys::atk_table_cell_get_position(
                 self.as_ref().to_glib_none().0,
-                &mut row,
-                &mut column,
+                row.as_mut_ptr(),
+                column.as_mut_ptr(),
             ));
+            let row = row.assume_init();
+            let column = column.assume_init();
             if ret {
                 Some((row, column))
             } else {
@@ -63,17 +65,21 @@ impl<O: IsA<TableCell>> TableCellExt for O {
 
     fn get_row_column_span(&self) -> Option<(i32, i32, i32, i32)> {
         unsafe {
-            let mut row = mem::uninitialized();
-            let mut column = mem::uninitialized();
-            let mut row_span = mem::uninitialized();
-            let mut column_span = mem::uninitialized();
+            let mut row = mem::MaybeUninit::uninit();
+            let mut column = mem::MaybeUninit::uninit();
+            let mut row_span = mem::MaybeUninit::uninit();
+            let mut column_span = mem::MaybeUninit::uninit();
             let ret = from_glib(atk_sys::atk_table_cell_get_row_column_span(
                 self.as_ref().to_glib_none().0,
-                &mut row,
-                &mut column,
-                &mut row_span,
-                &mut column_span,
+                row.as_mut_ptr(),
+                column.as_mut_ptr(),
+                row_span.as_mut_ptr(),
+                column_span.as_mut_ptr(),
             ));
+            let row = row.assume_init();
+            let column = column.assume_init();
+            let row_span = row_span.assume_init();
+            let column_span = column_span.assume_init();
             if ret {
                 Some((row, column, row_span, column_span))
             } else {

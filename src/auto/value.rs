@@ -116,13 +116,14 @@ impl<O: IsA<Value>> ValueExt for O {
 
     fn get_value_and_text(&self) -> (f64, GString) {
         unsafe {
-            let mut value = mem::uninitialized();
+            let mut value = mem::MaybeUninit::uninit();
             let mut text = ptr::null_mut();
             atk_sys::atk_value_get_value_and_text(
                 self.as_ref().to_glib_none().0,
-                &mut value,
+                value.as_mut_ptr(),
                 &mut text,
             );
+            let value = value.assume_init();
             (value, from_glib_full(text))
         }
     }
