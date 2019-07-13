@@ -8,6 +8,7 @@ use std::io;
 use std::mem;
 use std::ops::Deref;
 use std::path::Path;
+use std::ptr;
 
 use enums::PdfVersion;
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -50,11 +51,11 @@ impl PdfSurface {
 
     pub fn get_versions() -> impl Iterator<Item = PdfVersion> {
         let vers_slice = unsafe {
-            let mut vers_ptr: *mut ffi::cairo_pdf_version_t = mem::uninitialized();
-            let mut num_vers = 0;
-            ffi::cairo_pdf_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+            let mut vers_ptr = ptr::null_mut();
+            let mut num_vers = mem::MaybeUninit::uninit();
+            ffi::cairo_pdf_get_versions(&mut vers_ptr, num_vers.as_mut_ptr());
 
-            std::slice::from_raw_parts(vers_ptr, num_vers as _)
+            std::slice::from_raw_parts(vers_ptr, num_vers.assume_init() as _)
         };
         vers_slice.iter().map(|v| PdfVersion::from(*v))
     }

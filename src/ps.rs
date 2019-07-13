@@ -8,6 +8,7 @@ use std::io;
 use std::mem;
 use std::ops::Deref;
 use std::path::Path;
+use std::ptr;
 
 use enums::PsLevel;
 use ffi;
@@ -92,11 +93,11 @@ impl PsSurface {
 
     pub fn get_levels() -> impl Iterator<Item = PsLevel> {
         let lvls_slice = unsafe {
-            let mut vers_ptr: *mut ffi::cairo_ps_level_t = mem::uninitialized();
-            let mut num_vers = 0;
-            ffi::cairo_ps_get_levels(&mut vers_ptr as _, &mut num_vers as _);
+            let mut vers_ptr = ptr::null_mut();
+            let mut num_vers = mem::MaybeUninit::uninit();
+            ffi::cairo_ps_get_levels(&mut vers_ptr, num_vers.as_mut_ptr());
 
-            std::slice::from_raw_parts(vers_ptr, num_vers as _)
+            std::slice::from_raw_parts(vers_ptr, num_vers.assume_init() as _)
         };
 
         lvls_slice.iter().map(|v| PsLevel::from(*v))

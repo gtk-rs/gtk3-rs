@@ -19,7 +19,7 @@ pub struct RectangleInt {
 impl Uninitialized for RectangleInt {
     #[inline]
     unsafe fn uninitialized() -> Self {
-        mem::uninitialized()
+        mem::zeroed()
     }
 }
 
