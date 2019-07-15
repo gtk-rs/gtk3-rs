@@ -5,10 +5,10 @@ pkg-config = "0.3.7"
 libc = "0.2"
 
 [dependencies.glib-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../glib-sys"
 
 [dependencies.gobject-sys]
-git = "https://github.com/gtk-rs/sys"
+path = "../gobject-sys"
 
 [dev-dependencies]
 shell-words = "0.1.0"
@@ -16,8 +16,8 @@ tempdir = "0.3"
 
 [features]
 default = ["v1_10"]
-dox = []
 v1_10 = []
+dox = []
 
 [lib]
 name = "graphene_sys"
