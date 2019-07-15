@@ -7,7 +7,6 @@ rust:
 env:
   - GTK=3.14
   - GTK=3.24
-  - GTK=3.96
 addons:
   apt:
     packages:
@@ -21,10 +20,6 @@ script:
     fi
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
-  - if [ "$GTK" == "3.96" ]; then
-    git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples4 _examples;
-    else
-    git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples;
-    fi
+  - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
   - cd _examples
   - ./build_travis.sh
