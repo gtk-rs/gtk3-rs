@@ -30,6 +30,7 @@ mod desktop_app_info;
 mod error;
 mod file;
 mod file_attribute_matcher;
+mod file_enumerator;
 pub use file_attribute_matcher::FileAttributematcherIter;
 mod flags;
 mod inet_address;
