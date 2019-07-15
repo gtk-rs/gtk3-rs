@@ -8,6 +8,7 @@ use std::io;
 use std::mem;
 use std::ops::Deref;
 use std::path::Path;
+use std::ptr;
 
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 use enums::SvgUnit;
@@ -53,11 +54,11 @@ impl SvgSurface {
 
     pub fn get_versions() -> impl Iterator<Item = SvgVersion> {
         let vers_slice = unsafe {
-            let mut vers_ptr: *mut ffi::cairo_svg_version_t = mem::uninitialized();
-            let mut num_vers = 0;
-            ffi::cairo_svg_get_versions(&mut vers_ptr as _, &mut num_vers as _);
+            let mut vers_ptr = ptr::null_mut();
+            let mut num_vers = mem::MaybeUninit::uninit();
+            ffi::cairo_svg_get_versions(&mut vers_ptr, num_vers.as_mut_ptr());
 
-            std::slice::from_raw_parts(vers_ptr, num_vers as _)
+            std::slice::from_raw_parts(vers_ptr, num_vers.assume_init() as _)
         };
 
         vers_slice.iter().map(|v| SvgVersion::from(*v))
