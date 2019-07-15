@@ -1269,8 +1269,9 @@ impl<T: ObjectType> ObjectExt for T {
             return Err(glib_bool_error!("Signal not found"));
         }
 
-        let mut details = mem::zeroed();
-        gobject_sys::g_signal_query(signal_id, &mut details);
+        let mut details = mem::MaybeUninit::zeroed();
+        gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+        let details = details.assume_init();
         if details.signal_id != signal_id {
             return Err(glib_bool_error!("Signal not found"));
         }
@@ -1370,8 +1371,9 @@ impl<T: ObjectType> ObjectExt for T {
                 return Err(glib_bool_error!("Signal not found"));
             }
 
-            let mut details = mem::zeroed();
-            gobject_sys::g_signal_query(signal_id, &mut details);
+            let mut details = mem::MaybeUninit::zeroed();
+            gobject_sys::g_signal_query(signal_id, details.as_mut_ptr());
+            let details = details.assume_init();
             if details.signal_id != signal_id {
                 return Err(glib_bool_error!("Signal not found"));
             }
