@@ -712,8 +712,16 @@ macro_rules! glib_object_wrapper {
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
-                Option::<$name>::from_glib_full($crate::gobject_sys::g_value_dup_object($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
-                    .map(|o| $crate::object::Cast::unsafe_cast(o))
+                let obj = $crate::gobject_sys::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
+
+                // If the object was floating, clear the floating flag. The one and only
+                // reference is still owned by the GValue at this point
+                if !obj.is_null() && gobject_sys::g_object_is_floating(obj) != glib_sys::GFALSE {
+                    gobject_sys::g_object_ref_sink(obj);
+                }
+
+                // And get a new reference to the object to pass to the caller
+                Option::<$name>::from_glib_none(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
             }
         }
 
