@@ -48,6 +48,24 @@ pub struct Pid(pub glib_sys::GPid);
 unsafe impl Send for Pid {}
 unsafe impl Sync for Pid {}
 
+#[doc(hidden)]
+impl ToGlib for Pid {
+    type GlibType = glib_sys::GPid;
+
+    #[inline]
+    fn to_glib(&self) -> glib_sys::GPid {
+        self.0
+    }
+}
+
+#[doc(hidden)]
+impl FromGlib<glib_sys::GPid> for Pid {
+    #[inline]
+    fn from_glib(val: glib_sys::GPid) -> Pid {
+        Pid(val)
+    }
+}
+
 /// Continue calling the closure in the future iterations or drop it.
 ///
 /// This is the return type of `idle_add` and `timeout_add` closures.
