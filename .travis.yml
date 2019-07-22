@@ -20,6 +20,12 @@ matrix:
     - os: linux
       rust: 1.36.0
       env: GTK=3.24 FEATURES=subclassing,v2_48
+    - os: linux
+      rust: stable
+      env: GTK=3.14 FEATURES=subclassing
+    - os: linux
+      rust: stable
+      env: GTK=3.24 FEATURES=subclassing,v2_48
     - os: osx
       rust: nightly
       env: GTK=3.14 FEATURES=subclassing,futures
@@ -31,6 +37,12 @@ matrix:
       env: GTK=3.14 FEATURES=subclassing
     # - os: osx
     #   rust: beta
+    #   env: GTK=3.24 FEATURES=subclassing,v2_48
+    - os: osx
+      rust: 1.36.0
+      env: GTK=3.14 FEATURES=subclassing
+    # - os: osx
+    #   rust: 1.36.0
     #   env: GTK=3.24 FEATURES=subclassing,v2_48
     - os: osx
       rust: stable
@@ -59,7 +71,7 @@ script:
     rustup component add clippy;
     cargo clippy --release;
     fi
-  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.14" ] && ! [ "$ARM" == "1" ]; then
+  - if [ "$TRAVIS_RUST_VERSION" == "stable" ] && ! [ "$ARM" == "1" ]; then
     rustup component add rustfmt;
     make regen_check;
     fi
