@@ -1,0 +1,45 @@
+[build-dependencies]
+pkg-config = "0.3.7"
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.cairo-sys-rs]
+git = "https://github.com/gtk-rs/cairo"
+
+[dependencies.gdk-pixbuf-sys]
+path = "../gdk-pixbuf-sys"
+
+[dependencies.gio-sys]
+path = "../gio-sys"
+
+[dependencies.glib-sys]
+path = "../glib-sys"
+
+[dependencies.gobject-sys]
+path = "../gobject-sys"
+
+[dependencies.pango-sys]
+path = "../pango-sys"
+
+[dev-dependencies]
+shell-words = "0.1.0"
+tempdir = "0.3"
+
+[features]
+dox = []
+
+[lib]
+name = "gdk4_sys"
+
+[package]
+authors = ["The Gtk-rs Project Developers"]
+build = "build.rs"
+description = "FFI bindings to libgdk-4"
+homepage = "http://gtk-rs.org/"
+keywords = ["gdk", "gdk4", "ffi", "gtk-rs", "gnome"]
+license = "MIT"
+links = "gdk4"
+name = "gdk4-sys"
+repository = "https://github.com/gtk-rs/sys"
+version = "0.1.0"
