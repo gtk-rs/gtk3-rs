@@ -2,6 +2,10 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use glib::translate::*;
+use gobject_sys;
+use graphene_sys;
+use std::mem;
 use Box;
 use Euler;
 use Point;
@@ -13,10 +17,6 @@ use Rect;
 use Sphere;
 use Vec3;
 use Vec4;
-use glib::translate::*;
-use gobject_sys;
-use graphene_sys;
-use std::mem;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -33,81 +33,83 @@ glib_wrapper! {
 
 impl Matrix {
     pub fn determinant(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_determinant(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_determinant(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     fn equal(&self, b: &Matrix) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_matrix_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn equal_fast(&self, b: &Matrix) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_equal_fast(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_matrix_equal_fast(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_row(&self, index_: u32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
-            graphene_sys::graphene_matrix_get_row(self.to_glib_none().0, index_, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_get_row(
+                self.to_glib_none().0,
+                index_,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn get_value(&self, row: u32, col: u32) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_value(self.to_glib_none().0, row, col)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_value(self.to_glib_none().0, row, col) }
     }
 
     pub fn get_x_scale(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_x_scale(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_x_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn get_x_translation(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_x_translation(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_x_translation(self.to_glib_none().0) }
     }
 
     pub fn get_y_scale(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_y_scale(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_y_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn get_y_translation(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_y_translation(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_y_translation(self.to_glib_none().0) }
     }
 
     pub fn get_z_scale(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_z_scale(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_z_scale(self.to_glib_none().0) }
     }
 
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn get_z_translation(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_matrix_get_z_translation(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_matrix_get_z_translation(self.to_glib_none().0) }
     }
 
     pub fn init_from_2d(&mut self, xx: f64, yx: f64, xy: f64, yy: f64, x_0: f64, y_0: f64) {
         unsafe {
-            graphene_sys::graphene_matrix_init_from_2d(self.to_glib_none_mut().0, xx, yx, xy, yy, x_0, y_0);
+            graphene_sys::graphene_matrix_init_from_2d(
+                self.to_glib_none_mut().0,
+                xx,
+                yx,
+                xy,
+                yy,
+                x_0,
+                y_0,
+            );
         }
     }
 
@@ -117,19 +119,44 @@ impl Matrix {
 
     pub fn init_from_matrix(&mut self, src: &Matrix) {
         unsafe {
-            graphene_sys::graphene_matrix_init_from_matrix(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_from_matrix(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec4(&mut self, v0: &Vec4, v1: &Vec4, v2: &Vec4, v3: &Vec4) {
         unsafe {
-            graphene_sys::graphene_matrix_init_from_vec4(self.to_glib_none_mut().0, v0.to_glib_none().0, v1.to_glib_none().0, v2.to_glib_none().0, v3.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_from_vec4(
+                self.to_glib_none_mut().0,
+                v0.to_glib_none().0,
+                v1.to_glib_none().0,
+                v2.to_glib_none().0,
+                v3.to_glib_none().0,
+            );
         }
     }
 
-    pub fn init_frustum(&mut self, left: f32, right: f32, bottom: f32, top: f32, z_near: f32, z_far: f32) {
+    pub fn init_frustum(
+        &mut self,
+        left: f32,
+        right: f32,
+        bottom: f32,
+        top: f32,
+        z_near: f32,
+        z_far: f32,
+    ) {
         unsafe {
-            graphene_sys::graphene_matrix_init_frustum(self.to_glib_none_mut().0, left, right, bottom, top, z_near, z_far);
+            graphene_sys::graphene_matrix_init_frustum(
+                self.to_glib_none_mut().0,
+                left,
+                right,
+                bottom,
+                top,
+                z_near,
+                z_far,
+            );
         }
     }
 
@@ -141,25 +168,56 @@ impl Matrix {
 
     pub fn init_look_at(&mut self, eye: &Vec3, center: &Vec3, up: &Vec3) {
         unsafe {
-            graphene_sys::graphene_matrix_init_look_at(self.to_glib_none_mut().0, eye.to_glib_none().0, center.to_glib_none().0, up.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_look_at(
+                self.to_glib_none_mut().0,
+                eye.to_glib_none().0,
+                center.to_glib_none().0,
+                up.to_glib_none().0,
+            );
         }
     }
 
-    pub fn init_ortho(&mut self, left: f32, right: f32, top: f32, bottom: f32, z_near: f32, z_far: f32) {
+    pub fn init_ortho(
+        &mut self,
+        left: f32,
+        right: f32,
+        top: f32,
+        bottom: f32,
+        z_near: f32,
+        z_far: f32,
+    ) {
         unsafe {
-            graphene_sys::graphene_matrix_init_ortho(self.to_glib_none_mut().0, left, right, top, bottom, z_near, z_far);
+            graphene_sys::graphene_matrix_init_ortho(
+                self.to_glib_none_mut().0,
+                left,
+                right,
+                top,
+                bottom,
+                z_near,
+                z_far,
+            );
         }
     }
 
     pub fn init_perspective(&mut self, fovy: f32, aspect: f32, z_near: f32, z_far: f32) {
         unsafe {
-            graphene_sys::graphene_matrix_init_perspective(self.to_glib_none_mut().0, fovy, aspect, z_near, z_far);
+            graphene_sys::graphene_matrix_init_perspective(
+                self.to_glib_none_mut().0,
+                fovy,
+                aspect,
+                z_near,
+                z_far,
+            );
         }
     }
 
     pub fn init_rotate(&mut self, angle: f32, axis: &Vec3) {
         unsafe {
-            graphene_sys::graphene_matrix_init_rotate(self.to_glib_none_mut().0, angle, axis.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_rotate(
+                self.to_glib_none_mut().0,
+                angle,
+                axis.to_glib_none().0,
+            );
         }
     }
 
@@ -177,14 +235,22 @@ impl Matrix {
 
     pub fn init_translate(&mut self, p: &Point3D) {
         unsafe {
-            graphene_sys::graphene_matrix_init_translate(self.to_glib_none_mut().0, p.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_translate(
+                self.to_glib_none_mut().0,
+                p.to_glib_none().0,
+            );
         }
     }
 
     pub fn interpolate(&self, b: &Matrix, factor: f64) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            graphene_sys::graphene_matrix_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_interpolate(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -192,39 +258,54 @@ impl Matrix {
     pub fn inverse(&self) -> Option<Matrix> {
         unsafe {
             let mut res = Matrix::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_matrix_inverse(self.to_glib_none().0, res.to_glib_none_mut().0));
-            if ret { Some(res) } else { None }
+            let ret = from_glib(graphene_sys::graphene_matrix_inverse(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            ));
+            if ret {
+                Some(res)
+            } else {
+                None
+            }
         }
     }
 
     pub fn is_2d(&self) -> bool {
-        unsafe {
-            from_glib(graphene_sys::graphene_matrix_is_2d(self.to_glib_none().0))
-        }
+        unsafe { from_glib(graphene_sys::graphene_matrix_is_2d(self.to_glib_none().0)) }
     }
 
     pub fn is_backface_visible(&self) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_is_backface_visible(self.to_glib_none().0))
+            from_glib(graphene_sys::graphene_matrix_is_backface_visible(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn is_identity(&self) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_is_identity(self.to_glib_none().0))
+            from_glib(graphene_sys::graphene_matrix_is_identity(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn is_singular(&self) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_is_singular(self.to_glib_none().0))
+            from_glib(graphene_sys::graphene_matrix_is_singular(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn multiply(&self, b: &Matrix) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            graphene_sys::graphene_matrix_multiply(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_multiply(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -232,14 +313,21 @@ impl Matrix {
     #[cfg(any(feature = "v1_10", feature = "dox"))]
     pub fn near(&self, b: &Matrix, epsilon: f32) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_matrix_near(self.to_glib_none().0, b.to_glib_none().0, epsilon))
+            from_glib(graphene_sys::graphene_matrix_near(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                epsilon,
+            ))
         }
     }
 
     pub fn normalize(&self) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            graphene_sys::graphene_matrix_normalize(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_normalize(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -247,7 +335,11 @@ impl Matrix {
     pub fn perspective(&self, depth: f32) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            graphene_sys::graphene_matrix_perspective(self.to_glib_none().0, depth, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_perspective(
+                self.to_glib_none().0,
+                depth,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -261,7 +353,11 @@ impl Matrix {
     pub fn project_point(&self, p: &Point) -> Point {
         unsafe {
             let mut res = Point::uninitialized();
-            graphene_sys::graphene_matrix_project_point(self.to_glib_none().0, p.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_project_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -269,7 +365,11 @@ impl Matrix {
     pub fn project_rect(&self, r: &Rect) -> Quad {
         unsafe {
             let mut res = Quad::uninitialized();
-            graphene_sys::graphene_matrix_project_rect(self.to_glib_none().0, r.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_project_rect(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -277,26 +377,40 @@ impl Matrix {
     pub fn project_rect_bounds(&self, r: &Rect) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
-            graphene_sys::graphene_matrix_project_rect_bounds(self.to_glib_none().0, r.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_project_rect_bounds(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn rotate(&mut self, angle: f32, axis: &Vec3) {
         unsafe {
-            graphene_sys::graphene_matrix_rotate(self.to_glib_none_mut().0, angle, axis.to_glib_none().0);
+            graphene_sys::graphene_matrix_rotate(
+                self.to_glib_none_mut().0,
+                angle,
+                axis.to_glib_none().0,
+            );
         }
     }
 
     pub fn rotate_euler(&mut self, e: &Euler) {
         unsafe {
-            graphene_sys::graphene_matrix_rotate_euler(self.to_glib_none_mut().0, e.to_glib_none().0);
+            graphene_sys::graphene_matrix_rotate_euler(
+                self.to_glib_none_mut().0,
+                e.to_glib_none().0,
+            );
         }
     }
 
     pub fn rotate_quaternion(&mut self, q: &Quaternion) {
         unsafe {
-            graphene_sys::graphene_matrix_rotate_quaternion(self.to_glib_none_mut().0, q.to_glib_none().0);
+            graphene_sys::graphene_matrix_rotate_quaternion(
+                self.to_glib_none_mut().0,
+                q.to_glib_none().0,
+            );
         }
     }
 
@@ -320,7 +434,12 @@ impl Matrix {
 
     pub fn scale(&mut self, factor_x: f32, factor_y: f32, factor_z: f32) {
         unsafe {
-            graphene_sys::graphene_matrix_scale(self.to_glib_none_mut().0, factor_x, factor_y, factor_z);
+            graphene_sys::graphene_matrix_scale(
+                self.to_glib_none_mut().0,
+                factor_x,
+                factor_y,
+                factor_z,
+            );
         }
     }
 
@@ -350,8 +469,20 @@ impl Matrix {
             let mut yy = mem::uninitialized();
             let mut x_0 = mem::uninitialized();
             let mut y_0 = mem::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_matrix_to_2d(self.to_glib_none().0, &mut xx, &mut yx, &mut xy, &mut yy, &mut x_0, &mut y_0));
-            if ret { Some((xx, yx, xy, yy, x_0, y_0)) } else { None }
+            let ret = from_glib(graphene_sys::graphene_matrix_to_2d(
+                self.to_glib_none().0,
+                &mut xx,
+                &mut yx,
+                &mut xy,
+                &mut yy,
+                &mut x_0,
+                &mut y_0,
+            ));
+            if ret {
+                Some((xx, yx, xy, yy, x_0, y_0))
+            } else {
+                None
+            }
         }
     }
 
@@ -362,7 +493,11 @@ impl Matrix {
     pub fn transform_bounds(&self, r: &Rect) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
-            graphene_sys::graphene_matrix_transform_bounds(self.to_glib_none().0, r.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_bounds(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -370,7 +505,11 @@ impl Matrix {
     pub fn transform_box(&self, b: &Box) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
-            graphene_sys::graphene_matrix_transform_box(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_box(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -378,7 +517,11 @@ impl Matrix {
     pub fn transform_point(&self, p: &Point) -> Point {
         unsafe {
             let mut res = Point::uninitialized();
-            graphene_sys::graphene_matrix_transform_point(self.to_glib_none().0, p.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -386,7 +529,11 @@ impl Matrix {
     pub fn transform_point3d(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_matrix_transform_point3d(self.to_glib_none().0, p.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_point3d(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -394,7 +541,11 @@ impl Matrix {
     pub fn transform_ray(&self, r: &Ray) -> Ray {
         unsafe {
             let mut res = Ray::uninitialized();
-            graphene_sys::graphene_matrix_transform_ray(self.to_glib_none().0, r.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_ray(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -402,7 +553,11 @@ impl Matrix {
     pub fn transform_rect(&self, r: &Rect) -> Quad {
         unsafe {
             let mut res = Quad::uninitialized();
-            graphene_sys::graphene_matrix_transform_rect(self.to_glib_none().0, r.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_rect(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -410,7 +565,11 @@ impl Matrix {
     pub fn transform_sphere(&self, s: &Sphere) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();
-            graphene_sys::graphene_matrix_transform_sphere(self.to_glib_none().0, s.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_sphere(
+                self.to_glib_none().0,
+                s.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -418,7 +577,11 @@ impl Matrix {
     pub fn transform_vec3(&self, v: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_matrix_transform_vec3(self.to_glib_none().0, v.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_vec3(
+                self.to_glib_none().0,
+                v.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -426,21 +589,31 @@ impl Matrix {
     pub fn transform_vec4(&self, v: &Vec4) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
-            graphene_sys::graphene_matrix_transform_vec4(self.to_glib_none().0, v.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transform_vec4(
+                self.to_glib_none().0,
+                v.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn translate(&mut self, pos: &Point3D) {
         unsafe {
-            graphene_sys::graphene_matrix_translate(self.to_glib_none_mut().0, pos.to_glib_none().0);
+            graphene_sys::graphene_matrix_translate(
+                self.to_glib_none_mut().0,
+                pos.to_glib_none().0,
+            );
         }
     }
 
     pub fn transpose(&self) -> Matrix {
         unsafe {
             let mut res = Matrix::uninitialized();
-            graphene_sys::graphene_matrix_transpose(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_transpose(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -448,7 +621,12 @@ impl Matrix {
     pub fn unproject_point3d(&self, modelview: &Matrix, point: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_matrix_unproject_point3d(self.to_glib_none().0, modelview.to_glib_none().0, point.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_unproject_point3d(
+                self.to_glib_none().0,
+                modelview.to_glib_none().0,
+                point.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -456,7 +634,12 @@ impl Matrix {
     pub fn untransform_bounds(&self, r: &Rect, bounds: &Rect) -> Rect {
         unsafe {
             let mut res = Rect::uninitialized();
-            graphene_sys::graphene_matrix_untransform_bounds(self.to_glib_none().0, r.to_glib_none().0, bounds.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_matrix_untransform_bounds(
+                self.to_glib_none().0,
+                r.to_glib_none().0,
+                bounds.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -464,8 +647,17 @@ impl Matrix {
     pub fn untransform_point(&self, p: &Point, bounds: &Rect) -> Option<Point> {
         unsafe {
             let mut res = Point::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_matrix_untransform_point(self.to_glib_none().0, p.to_glib_none().0, bounds.to_glib_none().0, res.to_glib_none_mut().0));
-            if ret { Some(res) } else { None }
+            let ret = from_glib(graphene_sys::graphene_matrix_untransform_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                bounds.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            ));
+            if ret {
+                Some(res)
+            } else {
+                None
+            }
         }
     }
 }

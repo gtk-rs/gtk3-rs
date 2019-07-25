@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Point;
-use Rect;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Point;
+use Rect;
 
 glib_wrapper! {
     #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -32,19 +32,31 @@ impl Quad {
 
     pub fn contains(&self, p: &Point) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_quad_contains(self.to_glib_none().0, p.to_glib_none().0))
+            from_glib(graphene_sys::graphene_quad_contains(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_point(&self, index_: u32) -> Option<Point> {
         unsafe {
-            from_glib_none(graphene_sys::graphene_quad_get_point(self.to_glib_none().0, index_))
+            from_glib_none(graphene_sys::graphene_quad_get_point(
+                self.to_glib_none().0,
+                index_,
+            ))
         }
     }
 
     pub fn init(&mut self, p1: &Point, p2: &Point, p3: &Point, p4: &Point) {
         unsafe {
-            graphene_sys::graphene_quad_init(self.to_glib_none_mut().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0);
+            graphene_sys::graphene_quad_init(
+                self.to_glib_none_mut().0,
+                p1.to_glib_none().0,
+                p2.to_glib_none().0,
+                p3.to_glib_none().0,
+                p4.to_glib_none().0,
+            );
         }
     }
 
@@ -54,7 +66,10 @@ impl Quad {
 
     pub fn init_from_rect(&mut self, r: &Rect) {
         unsafe {
-            graphene_sys::graphene_quad_init_from_rect(self.to_glib_none_mut().0, r.to_glib_none().0);
+            graphene_sys::graphene_quad_init_from_rect(
+                self.to_glib_none_mut().0,
+                r.to_glib_none().0,
+            );
         }
     }
 }

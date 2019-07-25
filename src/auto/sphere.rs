@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Box;
-use Point3D;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Box;
+use Point3D;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -24,7 +24,10 @@ glib_wrapper! {
 impl Sphere {
     pub fn contains_point(&self, point: &Point3D) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_sphere_contains_point(self.to_glib_none().0, point.to_glib_none().0))
+            from_glib(graphene_sys::graphene_sphere_contains_point(
+                self.to_glib_none().0,
+                point.to_glib_none().0,
+            ))
         }
     }
 
@@ -36,14 +39,20 @@ impl Sphere {
 
     fn equal(&self, b: &Sphere) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_sphere_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_sphere_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut box_ = Box::uninitialized();
-            graphene_sys::graphene_sphere_get_bounding_box(self.to_glib_none().0, box_.to_glib_none_mut().0);
+            graphene_sys::graphene_sphere_get_bounding_box(
+                self.to_glib_none().0,
+                box_.to_glib_none_mut().0,
+            );
             box_
         }
     }
@@ -51,33 +60,44 @@ impl Sphere {
     pub fn get_center(&self) -> Point3D {
         unsafe {
             let mut center = Point3D::uninitialized();
-            graphene_sys::graphene_sphere_get_center(self.to_glib_none().0, center.to_glib_none_mut().0);
+            graphene_sys::graphene_sphere_get_center(
+                self.to_glib_none().0,
+                center.to_glib_none_mut().0,
+            );
             center
         }
     }
 
     pub fn get_radius(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_sphere_get_radius(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_sphere_get_radius(self.to_glib_none().0) }
     }
 
     pub fn init(&mut self, center: Option<&Point3D>, radius: f32) {
         unsafe {
-            graphene_sys::graphene_sphere_init(self.to_glib_none_mut().0, center.to_glib_none().0, radius);
+            graphene_sys::graphene_sphere_init(
+                self.to_glib_none_mut().0,
+                center.to_glib_none().0,
+                radius,
+            );
         }
     }
 
     pub fn is_empty(&self) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_sphere_is_empty(self.to_glib_none().0))
+            from_glib(graphene_sys::graphene_sphere_is_empty(
+                self.to_glib_none().0,
+            ))
         }
     }
 
     pub fn translate(&self, point: &Point3D) -> Sphere {
         unsafe {
             let mut res = Sphere::uninitialized();
-            graphene_sys::graphene_sphere_translate(self.to_glib_none().0, point.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_sphere_translate(
+                self.to_glib_none().0,
+                point.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }

@@ -60,5 +60,4 @@ mod constants;
 pub use self::constants::SIMD_S;
 
 #[doc(hidden)]
-pub mod traits {
-}
+pub mod traits {}

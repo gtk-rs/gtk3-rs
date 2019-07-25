@@ -1,7 +1,7 @@
+use glib::translate::*;
+use graphene_sys;
 use Rect;
 use Vec2;
-use graphene_sys;
-use glib::translate::*;
 
 impl Rect {
     pub fn get_vertices(&self) -> [Vec2; 4] {

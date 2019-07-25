@@ -6,8 +6,7 @@ use glib::translate::*;
 use graphene_sys;
 use std::fmt;
 
-#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash)]
-#[derive(Clone, Copy)]
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum EulerOrder {
     Default,
     Xyz,
@@ -22,16 +21,20 @@ pub enum EulerOrder {
 
 impl fmt::Display for EulerOrder {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "EulerOrder::{}", match *self {
-            EulerOrder::Default => "Default",
-            EulerOrder::Xyz => "Xyz",
-            EulerOrder::Yzx => "Yzx",
-            EulerOrder::Zxy => "Zxy",
-            EulerOrder::Xzy => "Xzy",
-            EulerOrder::Yxz => "Yxz",
-            EulerOrder::Zyx => "Zyx",
-            _ => "Unknown",
-        })
+        write!(
+            f,
+            "EulerOrder::{}",
+            match *self {
+                EulerOrder::Default => "Default",
+                EulerOrder::Xyz => "Xyz",
+                EulerOrder::Yzx => "Yzx",
+                EulerOrder::Zxy => "Zxy",
+                EulerOrder::Xzy => "Xzy",
+                EulerOrder::Yxz => "Yxz",
+                EulerOrder::Zyx => "Zyx",
+                _ => "Unknown",
+            }
+        )
     }
 }
 
@@ -48,7 +51,7 @@ impl ToGlib for EulerOrder {
             EulerOrder::Xzy => graphene_sys::GRAPHENE_EULER_ORDER_XZY,
             EulerOrder::Yxz => graphene_sys::GRAPHENE_EULER_ORDER_YXZ,
             EulerOrder::Zyx => graphene_sys::GRAPHENE_EULER_ORDER_ZYX,
-            EulerOrder::__Unknown(value) => value
+            EulerOrder::__Unknown(value) => value,
         }
     }
 }
@@ -69,4 +72,3 @@ impl FromGlib<graphene_sys::graphene_euler_order_t> for EulerOrder {
         }
     }
 }
-

@@ -1,10 +1,10 @@
+use glib::translate::*;
+use graphene_sys;
 use Euler;
 use EulerOrder;
 use Matrix;
 use Quaternion;
 use Vec3;
-use graphene_sys;
-use glib::translate::*;
 
 impl Euler {
     pub fn new(x: f32, y: f32, z: f32) -> Euler {
@@ -29,7 +29,11 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_euler_alloc();
-            graphene_sys::graphene_euler_init_from_matrix(alloc, m.to_glib_none().0, order.to_glib());
+            graphene_sys::graphene_euler_init_from_matrix(
+                alloc,
+                m.to_glib_none().0,
+                order.to_glib(),
+            );
             from_glib_full(alloc)
         }
     }
@@ -38,7 +42,11 @@ impl Euler {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_euler_alloc();
-            graphene_sys::graphene_euler_init_from_quaternion(alloc, q.to_glib_none().0, order.to_glib());
+            graphene_sys::graphene_euler_init_from_quaternion(
+                alloc,
+                q.to_glib_none().0,
+                order.to_glib(),
+            );
             from_glib_full(alloc)
         }
     }

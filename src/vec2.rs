@@ -1,6 +1,6 @@
-use Vec2;
-use graphene_sys;
 use glib::translate::*;
+use graphene_sys;
+use Vec2;
 
 impl Vec2 {
     pub fn init_from_float(&mut self, src: &[f32; 2]) {

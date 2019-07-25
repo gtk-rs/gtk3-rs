@@ -1,9 +1,9 @@
+use glib::translate::*;
+use graphene_sys;
 use Plane;
 use Point3D;
 use Vec3;
 use Vec4;
-use graphene_sys;
-use glib::translate::*;
 
 impl Plane {
     pub fn new(normal: Option<&Vec3>, constant: f32) -> Plane {
@@ -28,7 +28,11 @@ impl Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_plane_alloc();
-            graphene_sys::graphene_plane_init_from_point(alloc, normal.to_glib_none().0, point.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_point(
+                alloc,
+                normal.to_glib_none().0,
+                point.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }
@@ -37,7 +41,12 @@ impl Plane {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_plane_alloc();
-            graphene_sys::graphene_plane_init_from_points(alloc, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_points(
+                alloc,
+                a.to_glib_none().0,
+                b.to_glib_none().0,
+                c.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

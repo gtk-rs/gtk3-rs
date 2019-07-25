@@ -21,12 +21,12 @@ extern crate libc;
 
 // Graphene has no runtime to initialize
 macro_rules! assert_initialized_main_thread {
-    () => ()
+    () => {};
 }
 
 // No-op
 macro_rules! skip_assert_initialized {
-    () => ()
+    () => {};
 }
 
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
@@ -36,8 +36,8 @@ mod auto;
 
 pub mod prelude;
 
-pub use prelude::*;
 pub use auto::*;
+pub use prelude::*;
 
 pub use glib::Error;
 
@@ -46,8 +46,8 @@ mod euler;
 mod frustum;
 mod matrix;
 mod plane;
-mod point3_d;
 mod point;
+mod point3_d;
 mod quad;
 mod quaternion;
 mod ray;

@@ -6,5 +6,9 @@ use graphene_sys;
 use std::ffi::CStr;
 
 lazy_static! {
-    pub static ref SIMD_S: &'static str = unsafe{CStr::from_ptr(graphene_sys::GRAPHENE_SIMD_S).to_str().unwrap()};
+    pub static ref SIMD_S: &'static str = unsafe {
+        CStr::from_ptr(graphene_sys::GRAPHENE_SIMD_S)
+            .to_str()
+            .unwrap()
+    };
 }

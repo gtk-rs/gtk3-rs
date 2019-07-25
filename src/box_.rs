@@ -1,8 +1,8 @@
+use glib::translate::*;
+use graphene_sys;
 use Box;
 use Point3D;
 use Vec3;
-use graphene_sys;
-use glib::translate::*;
 
 impl Box {
     pub fn get_vertices(&self) -> [Vec3; 8] {
@@ -42,7 +42,11 @@ impl Box {
         let n = vec.len() as u32;
 
         unsafe {
-            graphene_sys::graphene_box_init_from_vectors(self.to_glib_none_mut().0, n, vec.as_ptr());
+            graphene_sys::graphene_box_init_from_vectors(
+                self.to_glib_none_mut().0,
+                n,
+                vec.as_ptr(),
+            );
         }
     }
 
@@ -84,7 +88,11 @@ impl Box {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_box_alloc();
-            graphene_sys::graphene_box_init_from_vec3(alloc, min.to_glib_none().0, max.to_glib_none().0);
+            graphene_sys::graphene_box_init_from_vec3(
+                alloc,
+                min.to_glib_none().0,
+                max.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

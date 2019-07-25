@@ -1,8 +1,8 @@
-use Sphere;
-use Point3D;
-use Vec3;
-use graphene_sys;
 use glib::translate::*;
+use graphene_sys;
+use Point3D;
+use Sphere;
+use Vec3;
 
 impl Sphere {
     pub fn init_from_points(&mut self, points: &[&Point3D], center: Option<&Point3D>) {
@@ -13,7 +13,12 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            graphene_sys::graphene_sphere_init_from_points(self.to_glib_none_mut().0, n, vec.as_ptr(), center.to_glib_none().0);
+            graphene_sys::graphene_sphere_init_from_points(
+                self.to_glib_none_mut().0,
+                n,
+                vec.as_ptr(),
+                center.to_glib_none().0,
+            );
         }
     }
 
@@ -25,7 +30,12 @@ impl Sphere {
         let n = vec.len() as u32;
 
         unsafe {
-            graphene_sys::graphene_sphere_init_from_vectors(self.to_glib_none_mut().0, n, vec.as_ptr(), center.to_glib_none().0);
+            graphene_sys::graphene_sphere_init_from_vectors(
+                self.to_glib_none_mut().0,
+                n,
+                vec.as_ptr(),
+                center.to_glib_none().0,
+            );
         }
     }
 
@@ -49,7 +59,12 @@ impl Sphere {
 
         unsafe {
             let alloc = graphene_sys::graphene_sphere_alloc();
-            graphene_sys::graphene_sphere_init_from_points(alloc, n, vec.as_ptr(), center.to_glib_none().0);
+            graphene_sys::graphene_sphere_init_from_points(
+                alloc,
+                n,
+                vec.as_ptr(),
+                center.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }
@@ -65,7 +80,12 @@ impl Sphere {
 
         unsafe {
             let alloc = graphene_sys::graphene_sphere_alloc();
-            graphene_sys::graphene_sphere_init_from_vectors(alloc, n, vec.as_ptr(), center.to_glib_none().0);
+            graphene_sys::graphene_sphere_init_from_vectors(
+                alloc,
+                n,
+                vec.as_ptr(),
+                center.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

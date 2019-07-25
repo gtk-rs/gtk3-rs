@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Point3D;
-use Vec3;
-use Vec4;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Point3D;
+use Vec3;
+use Vec4;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -31,51 +31,74 @@ impl Plane {
 
     fn equal(&self, b: &Plane) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_plane_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_plane_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_constant(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_plane_get_constant(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_plane_get_constant(self.to_glib_none().0) }
     }
 
     pub fn get_normal(&self) -> Vec3 {
         unsafe {
             let mut normal = Vec3::uninitialized();
-            graphene_sys::graphene_plane_get_normal(self.to_glib_none().0, normal.to_glib_none_mut().0);
+            graphene_sys::graphene_plane_get_normal(
+                self.to_glib_none().0,
+                normal.to_glib_none_mut().0,
+            );
             normal
         }
     }
 
     pub fn init(&mut self, normal: Option<&Vec3>, constant: f32) {
         unsafe {
-            graphene_sys::graphene_plane_init(self.to_glib_none_mut().0, normal.to_glib_none().0, constant);
+            graphene_sys::graphene_plane_init(
+                self.to_glib_none_mut().0,
+                normal.to_glib_none().0,
+                constant,
+            );
         }
     }
 
     pub fn init_from_plane(&mut self, src: &Plane) {
         unsafe {
-            graphene_sys::graphene_plane_init_from_plane(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_plane(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_point(&mut self, normal: &Vec3, point: &Point3D) {
         unsafe {
-            graphene_sys::graphene_plane_init_from_point(self.to_glib_none_mut().0, normal.to_glib_none().0, point.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_point(
+                self.to_glib_none_mut().0,
+                normal.to_glib_none().0,
+                point.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_points(&mut self, a: &Point3D, b: &Point3D, c: &Point3D) {
         unsafe {
-            graphene_sys::graphene_plane_init_from_points(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_points(
+                self.to_glib_none_mut().0,
+                a.to_glib_none().0,
+                b.to_glib_none().0,
+                c.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec4(&mut self, src: &Vec4) {
         unsafe {
-            graphene_sys::graphene_plane_init_from_vec4(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_plane_init_from_vec4(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 

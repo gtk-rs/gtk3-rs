@@ -1,9 +1,9 @@
+use glib::translate::*;
+use graphene_sys;
 use Matrix;
 use Point3D;
 use Vec3;
 use Vec4;
-use graphene_sys;
-use glib::translate::*;
 
 impl Matrix {
     pub fn init_from_float(&mut self, v: &[f32; 16]) {
@@ -43,16 +43,31 @@ impl Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_matrix_alloc();
-            graphene_sys::graphene_matrix_init_from_vec4(alloc, v0.to_glib_none().0, v1.to_glib_none().0, v2.to_glib_none().0, v3.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_from_vec4(
+                alloc,
+                v0.to_glib_none().0,
+                v1.to_glib_none().0,
+                v2.to_glib_none().0,
+                v3.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }
 
-    pub fn new_frustum(left: f32, right: f32, bottom: f32, top: f32, z_near: f32, z_far: f32) -> Matrix {
+    pub fn new_frustum(
+        left: f32,
+        right: f32,
+        bottom: f32,
+        top: f32,
+        z_near: f32,
+        z_far: f32,
+    ) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_matrix_alloc();
-            graphene_sys::graphene_matrix_init_frustum(alloc, left, right, bottom, top, z_near, z_far);
+            graphene_sys::graphene_matrix_init_frustum(
+                alloc, left, right, bottom, top, z_near, z_far,
+            );
             from_glib_full(alloc)
         }
     }
@@ -70,16 +85,30 @@ impl Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_matrix_alloc();
-            graphene_sys::graphene_matrix_init_look_at(alloc, eye.to_glib_none().0, center.to_glib_none().0, up.to_glib_none().0);
+            graphene_sys::graphene_matrix_init_look_at(
+                alloc,
+                eye.to_glib_none().0,
+                center.to_glib_none().0,
+                up.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }
 
-    pub fn new_ortho(left: f32, right: f32, top: f32, bottom: f32, z_near: f32, z_far: f32) -> Matrix {
+    pub fn new_ortho(
+        left: f32,
+        right: f32,
+        top: f32,
+        bottom: f32,
+        z_near: f32,
+        z_far: f32,
+    ) -> Matrix {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_matrix_alloc();
-            graphene_sys::graphene_matrix_init_ortho(alloc, left, right, top, bottom, z_near, z_far);
+            graphene_sys::graphene_matrix_init_ortho(
+                alloc, left, right, top, bottom, z_near, z_far,
+            );
             from_glib_full(alloc)
         }
     }

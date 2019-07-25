@@ -22,7 +22,10 @@ glib_wrapper! {
 impl Size {
     fn equal(&self, b: &Size) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_size_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_size_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
@@ -34,14 +37,22 @@ impl Size {
 
     pub fn init_from_size(&mut self, src: &Size) {
         unsafe {
-            graphene_sys::graphene_size_init_from_size(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_size_init_from_size(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn interpolate(&self, b: &Size, factor: f64) -> Size {
         unsafe {
             let mut res = Size::uninitialized();
-            graphene_sys::graphene_size_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_size_interpolate(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -49,16 +60,18 @@ impl Size {
     pub fn scale(&self, factor: f32) -> Size {
         unsafe {
             let mut res = Size::uninitialized();
-            graphene_sys::graphene_size_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_size_scale(
+                self.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn zero() -> Size {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_size_zero())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_size_zero()) }
     }
 }
 

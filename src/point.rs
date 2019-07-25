@@ -1,7 +1,7 @@
+use glib::translate::*;
+use graphene_sys;
 use Point;
 use Vec2;
-use graphene_sys;
-use glib::translate::*;
 
 impl Point {
     pub fn new(x: f32, y: f32) -> Point {

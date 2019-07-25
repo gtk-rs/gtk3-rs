@@ -1,8 +1,8 @@
-use Quad;
-use Point;
-use Rect;
-use graphene_sys;
 use glib::translate::*;
+use graphene_sys;
+use Point;
+use Quad;
+use Rect;
 
 impl Quad {
     pub fn init_from_points(&mut self, points: &[&Point; 4]) {
@@ -13,7 +13,10 @@ impl Quad {
                 *points[2].to_glib_none().0,
                 *points[3].to_glib_none().0,
             ];
-            graphene_sys::graphene_quad_init_from_points(self.to_glib_none_mut().0, &points as *const _);
+            graphene_sys::graphene_quad_init_from_points(
+                self.to_glib_none_mut().0,
+                &points as *const _,
+            );
         }
     }
 
@@ -21,7 +24,13 @@ impl Quad {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_quad_alloc();
-            graphene_sys::graphene_quad_init(alloc, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0);
+            graphene_sys::graphene_quad_init(
+                alloc,
+                p1.to_glib_none().0,
+                p2.to_glib_none().0,
+                p3.to_glib_none().0,
+                p4.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

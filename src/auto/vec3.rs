@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Vec2;
-use Vec4;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Vec2;
+use Vec4;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -25,7 +25,11 @@ impl Vec3 {
     pub fn add(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_add(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_add(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -33,7 +37,11 @@ impl Vec3 {
     pub fn cross(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_cross(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_cross(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -41,27 +49,30 @@ impl Vec3 {
     pub fn divide(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_divide(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_divide(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn dot(&self, b: &Vec3) -> f32 {
-        unsafe {
-            graphene_sys::graphene_vec3_dot(self.to_glib_none().0, b.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_vec3_dot(self.to_glib_none().0, b.to_glib_none().0) }
     }
 
     fn equal(&self, v2: &Vec3) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_vec3_equal(self.to_glib_none().0, v2.to_glib_none().0))
+            from_glib(graphene_sys::graphene_vec3_equal(
+                self.to_glib_none().0,
+                v2.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_x(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_vec3_get_x(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_vec3_get_x(self.to_glib_none().0) }
     }
 
     pub fn get_xy(&self) -> Vec2 {
@@ -99,21 +110,21 @@ impl Vec3 {
     pub fn get_xyzw(&self, w: f32) -> Vec4 {
         unsafe {
             let mut res = Vec4::uninitialized();
-            graphene_sys::graphene_vec3_get_xyzw(self.to_glib_none().0, w, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_get_xyzw(
+                self.to_glib_none().0,
+                w,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn get_y(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_vec3_get_y(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_vec3_get_y(self.to_glib_none().0) }
     }
 
     pub fn get_z(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_vec3_get_z(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_vec3_get_z(self.to_glib_none().0) }
     }
 
     pub fn init(&mut self, x: f32, y: f32, z: f32) {
@@ -128,20 +139,25 @@ impl Vec3 {
 
     pub fn init_from_vec3(&mut self, src: &Vec3) {
         unsafe {
-            graphene_sys::graphene_vec3_init_from_vec3(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_vec3_init_from_vec3(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn length(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_vec3_length(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_vec3_length(self.to_glib_none().0) }
     }
 
     pub fn max(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_max(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_max(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -149,7 +165,11 @@ impl Vec3 {
     pub fn min(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_min(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_min(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -157,14 +177,22 @@ impl Vec3 {
     pub fn multiply(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_multiply(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_multiply(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn near(&self, v2: &Vec3, epsilon: f32) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_vec3_near(self.to_glib_none().0, v2.to_glib_none().0, epsilon))
+            from_glib(graphene_sys::graphene_vec3_near(
+                self.to_glib_none().0,
+                v2.to_glib_none().0,
+                epsilon,
+            ))
         }
     }
 
@@ -187,7 +215,11 @@ impl Vec3 {
     pub fn scale(&self, factor: f32) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_scale(
+                self.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -195,7 +227,11 @@ impl Vec3 {
     pub fn subtract(&self, b: &Vec3) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_vec3_subtract(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_vec3_subtract(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -206,37 +242,27 @@ impl Vec3 {
 
     pub fn one() -> Vec3 {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_vec3_one())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_vec3_one()) }
     }
 
     pub fn x_axis() -> Vec3 {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_vec3_x_axis())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_vec3_x_axis()) }
     }
 
     pub fn y_axis() -> Vec3 {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_vec3_y_axis())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_vec3_y_axis()) }
     }
 
     pub fn z_axis() -> Vec3 {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_vec3_z_axis())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_vec3_z_axis()) }
     }
 
     pub fn zero() -> Vec3 {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_vec3_zero())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_vec3_zero()) }
     }
 }
 

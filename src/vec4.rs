@@ -1,8 +1,8 @@
-use Vec4;
+use glib::translate::*;
+use graphene_sys;
 use Vec2;
 use Vec3;
-use graphene_sys;
-use glib::translate::*;
+use Vec4;
 
 impl Vec4 {
     pub fn init_from_float(&mut self, src: &[f32; 4]) {

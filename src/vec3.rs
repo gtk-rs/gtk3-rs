@@ -1,6 +1,6 @@
-use Vec3;
-use graphene_sys;
 use glib::translate::*;
+use graphene_sys;
+use Vec3;
 
 impl Vec3 {
     pub fn init_from_float(&mut self, src: &[f32; 3]) {

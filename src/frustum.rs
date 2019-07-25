@@ -1,8 +1,8 @@
+use glib::translate::*;
+use graphene_sys;
 use Frustum;
 use Matrix;
 use Plane;
-use graphene_sys;
-use glib::translate::*;
 
 impl Frustum {
     pub fn get_planes(&self) -> [Plane; 6] {
@@ -24,7 +24,15 @@ impl Frustum {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_frustum_alloc();
-            graphene_sys::graphene_frustum_init(alloc, p0.to_glib_none().0, p1.to_glib_none().0, p2.to_glib_none().0, p3.to_glib_none().0, p4.to_glib_none().0, p5.to_glib_none().0);
+            graphene_sys::graphene_frustum_init(
+                alloc,
+                p0.to_glib_none().0,
+                p1.to_glib_none().0,
+                p2.to_glib_none().0,
+                p3.to_glib_none().0,
+                p4.to_glib_none().0,
+                p5.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

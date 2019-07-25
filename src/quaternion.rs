@@ -1,10 +1,10 @@
-use Quaternion;
+use glib::translate::*;
+use graphene_sys;
 use Euler;
 use Matrix;
+use Quaternion;
 use Vec3;
 use Vec4;
-use graphene_sys;
-use glib::translate::*;
 
 impl Quaternion {
     pub fn new(x: f32, y: f32, z: f32, w: f32) -> Quaternion {
@@ -20,7 +20,11 @@ impl Quaternion {
         assert_initialized_main_thread!();
         unsafe {
             let alloc = graphene_sys::graphene_quaternion_alloc();
-            graphene_sys::graphene_quaternion_init_from_angle_vec3(alloc, angle, axis.to_glib_none().0);
+            graphene_sys::graphene_quaternion_init_from_angle_vec3(
+                alloc,
+                angle,
+                axis.to_glib_none().0,
+            );
             from_glib_full(alloc)
         }
     }

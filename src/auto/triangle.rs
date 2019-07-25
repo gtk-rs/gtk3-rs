@@ -2,14 +2,14 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
+use glib::translate::*;
+use gobject_sys;
+use graphene_sys;
 use Box;
 use Plane;
 use Point3D;
 use Vec2;
 use Vec3;
-use glib::translate::*;
-use gobject_sys;
-use graphene_sys;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -27,34 +27,49 @@ glib_wrapper! {
 impl Triangle {
     pub fn contains_point(&self, p: &Point3D) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_triangle_contains_point(self.to_glib_none().0, p.to_glib_none().0))
+            from_glib(graphene_sys::graphene_triangle_contains_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+            ))
         }
     }
 
     fn equal(&self, b: &Triangle) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_triangle_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_triangle_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_area(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_triangle_get_area(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_triangle_get_area(self.to_glib_none().0) }
     }
 
     pub fn get_barycoords(&self, p: Option<&Point3D>) -> Option<Vec2> {
         unsafe {
             let mut res = Vec2::uninitialized();
-            let ret = from_glib(graphene_sys::graphene_triangle_get_barycoords(self.to_glib_none().0, p.to_glib_none().0, res.to_glib_none_mut().0));
-            if ret { Some(res) } else { None }
+            let ret = from_glib(graphene_sys::graphene_triangle_get_barycoords(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            ));
+            if ret {
+                Some(res)
+            } else {
+                None
+            }
         }
     }
 
     pub fn get_bounding_box(&self) -> Box {
         unsafe {
             let mut res = Box::uninitialized();
-            graphene_sys::graphene_triangle_get_bounding_box(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_bounding_box(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -62,7 +77,10 @@ impl Triangle {
     pub fn get_midpoint(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_triangle_get_midpoint(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_midpoint(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -70,7 +88,10 @@ impl Triangle {
     pub fn get_normal(&self) -> Vec3 {
         unsafe {
             let mut res = Vec3::uninitialized();
-            graphene_sys::graphene_triangle_get_normal(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_normal(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -78,7 +99,10 @@ impl Triangle {
     pub fn get_plane(&self) -> Plane {
         unsafe {
             let mut res = Plane::uninitialized();
-            graphene_sys::graphene_triangle_get_plane(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_plane(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -88,7 +112,12 @@ impl Triangle {
             let mut a = Point3D::uninitialized();
             let mut b = Point3D::uninitialized();
             let mut c = Point3D::uninitialized();
-            graphene_sys::graphene_triangle_get_points(self.to_glib_none().0, a.to_glib_none_mut().0, b.to_glib_none_mut().0, c.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_points(
+                self.to_glib_none().0,
+                a.to_glib_none_mut().0,
+                b.to_glib_none_mut().0,
+                c.to_glib_none_mut().0,
+            );
             (a, b, c)
         }
     }
@@ -98,20 +127,40 @@ impl Triangle {
             let mut a = Vec3::uninitialized();
             let mut b = Vec3::uninitialized();
             let mut c = Vec3::uninitialized();
-            graphene_sys::graphene_triangle_get_vertices(self.to_glib_none().0, a.to_glib_none_mut().0, b.to_glib_none_mut().0, c.to_glib_none_mut().0);
+            graphene_sys::graphene_triangle_get_vertices(
+                self.to_glib_none().0,
+                a.to_glib_none_mut().0,
+                b.to_glib_none_mut().0,
+                c.to_glib_none_mut().0,
+            );
             (a, b, c)
         }
     }
 
-    pub fn init_from_point3d(&mut self, a: Option<&Point3D>, b: Option<&Point3D>, c: Option<&Point3D>) {
+    pub fn init_from_point3d(
+        &mut self,
+        a: Option<&Point3D>,
+        b: Option<&Point3D>,
+        c: Option<&Point3D>,
+    ) {
         unsafe {
-            graphene_sys::graphene_triangle_init_from_point3d(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
+            graphene_sys::graphene_triangle_init_from_point3d(
+                self.to_glib_none_mut().0,
+                a.to_glib_none().0,
+                b.to_glib_none().0,
+                c.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec3(&mut self, a: Option<&Vec3>, b: Option<&Vec3>, c: Option<&Vec3>) {
         unsafe {
-            graphene_sys::graphene_triangle_init_from_vec3(self.to_glib_none_mut().0, a.to_glib_none().0, b.to_glib_none().0, c.to_glib_none().0);
+            graphene_sys::graphene_triangle_init_from_vec3(
+                self.to_glib_none_mut().0,
+                a.to_glib_none().0,
+                b.to_glib_none().0,
+                c.to_glib_none().0,
+            );
         }
     }
 }

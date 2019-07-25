@@ -2,12 +2,12 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Plane;
-use Point3D;
-use Vec3;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Plane;
+use Point3D;
+use Vec3;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -25,14 +25,21 @@ glib_wrapper! {
 impl Ray {
     fn equal(&self, b: &Ray) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_ray_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_ray_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
     pub fn get_closest_point_to_point(&self, p: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_ray_get_closest_point_to_point(self.to_glib_none().0, p.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_ray_get_closest_point_to_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -40,27 +47,39 @@ impl Ray {
     pub fn get_direction(&self) -> Vec3 {
         unsafe {
             let mut direction = Vec3::uninitialized();
-            graphene_sys::graphene_ray_get_direction(self.to_glib_none().0, direction.to_glib_none_mut().0);
+            graphene_sys::graphene_ray_get_direction(
+                self.to_glib_none().0,
+                direction.to_glib_none_mut().0,
+            );
             direction
         }
     }
 
     pub fn get_distance_to_plane(&self, p: &Plane) -> f32 {
         unsafe {
-            graphene_sys::graphene_ray_get_distance_to_plane(self.to_glib_none().0, p.to_glib_none().0)
+            graphene_sys::graphene_ray_get_distance_to_plane(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+            )
         }
     }
 
     pub fn get_distance_to_point(&self, p: &Point3D) -> f32 {
         unsafe {
-            graphene_sys::graphene_ray_get_distance_to_point(self.to_glib_none().0, p.to_glib_none().0)
+            graphene_sys::graphene_ray_get_distance_to_point(
+                self.to_glib_none().0,
+                p.to_glib_none().0,
+            )
         }
     }
 
     pub fn get_origin(&self) -> Point3D {
         unsafe {
             let mut origin = Point3D::uninitialized();
-            graphene_sys::graphene_ray_get_origin(self.to_glib_none().0, origin.to_glib_none_mut().0);
+            graphene_sys::graphene_ray_get_origin(
+                self.to_glib_none().0,
+                origin.to_glib_none_mut().0,
+            );
             origin
         }
     }
@@ -68,26 +87,41 @@ impl Ray {
     pub fn get_position_at(&self, t: f32) -> Point3D {
         unsafe {
             let mut position = Point3D::uninitialized();
-            graphene_sys::graphene_ray_get_position_at(self.to_glib_none().0, t, position.to_glib_none_mut().0);
+            graphene_sys::graphene_ray_get_position_at(
+                self.to_glib_none().0,
+                t,
+                position.to_glib_none_mut().0,
+            );
             position
         }
     }
 
     pub fn init(&mut self, origin: Option<&Point3D>, direction: Option<&Vec3>) {
         unsafe {
-            graphene_sys::graphene_ray_init(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0);
+            graphene_sys::graphene_ray_init(
+                self.to_glib_none_mut().0,
+                origin.to_glib_none().0,
+                direction.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_ray(&mut self, src: &Ray) {
         unsafe {
-            graphene_sys::graphene_ray_init_from_ray(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_ray_init_from_ray(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec3(&mut self, origin: Option<&Vec3>, direction: Option<&Vec3>) {
         unsafe {
-            graphene_sys::graphene_ray_init_from_vec3(self.to_glib_none_mut().0, origin.to_glib_none().0, direction.to_glib_none().0);
+            graphene_sys::graphene_ray_init_from_vec3(
+                self.to_glib_none_mut().0,
+                origin.to_glib_none().0,
+                direction.to_glib_none().0,
+            );
         }
     }
 }

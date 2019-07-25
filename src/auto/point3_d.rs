@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Rect;
-use Vec3;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
+use Rect;
+use Vec3;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -25,7 +25,11 @@ impl Point3D {
     pub fn cross(&self, b: &Point3D) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_point3d_cross(self.to_glib_none().0, b.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point3d_cross(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -33,20 +37,25 @@ impl Point3D {
     pub fn distance(&self, b: &Point3D) -> (f32, Vec3) {
         unsafe {
             let mut delta = Vec3::uninitialized();
-            let ret = graphene_sys::graphene_point3d_distance(self.to_glib_none().0, b.to_glib_none().0, delta.to_glib_none_mut().0);
+            let ret = graphene_sys::graphene_point3d_distance(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                delta.to_glib_none_mut().0,
+            );
             (ret, delta)
         }
     }
 
     pub fn dot(&self, b: &Point3D) -> f32 {
-        unsafe {
-            graphene_sys::graphene_point3d_dot(self.to_glib_none().0, b.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_point3d_dot(self.to_glib_none().0, b.to_glib_none().0) }
     }
 
     fn equal(&self, b: &Point3D) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_point3d_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_point3d_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
@@ -58,40 +67,56 @@ impl Point3D {
 
     pub fn init_from_point(&mut self, src: &Point3D) {
         unsafe {
-            graphene_sys::graphene_point3d_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_point3d_init_from_point(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec3(&mut self, v: &Vec3) {
         unsafe {
-            graphene_sys::graphene_point3d_init_from_vec3(self.to_glib_none_mut().0, v.to_glib_none().0);
+            graphene_sys::graphene_point3d_init_from_vec3(
+                self.to_glib_none_mut().0,
+                v.to_glib_none().0,
+            );
         }
     }
 
     pub fn interpolate(&self, b: &Point3D, factor: f64) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_point3d_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point3d_interpolate(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn length(&self) -> f32 {
-        unsafe {
-            graphene_sys::graphene_point3d_length(self.to_glib_none().0)
-        }
+        unsafe { graphene_sys::graphene_point3d_length(self.to_glib_none().0) }
     }
 
     pub fn near(&self, b: &Point3D, epsilon: f32) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_point3d_near(self.to_glib_none().0, b.to_glib_none().0, epsilon))
+            from_glib(graphene_sys::graphene_point3d_near(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                epsilon,
+            ))
         }
     }
 
     pub fn normalize(&self) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_point3d_normalize(self.to_glib_none().0, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point3d_normalize(
+                self.to_glib_none().0,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -99,7 +124,13 @@ impl Point3D {
     pub fn normalize_viewport(&self, viewport: &Rect, z_near: f32, z_far: f32) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_point3d_normalize_viewport(self.to_glib_none().0, viewport.to_glib_none().0, z_near, z_far, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point3d_normalize_viewport(
+                self.to_glib_none().0,
+                viewport.to_glib_none().0,
+                z_near,
+                z_far,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -107,7 +138,11 @@ impl Point3D {
     pub fn scale(&self, factor: f32) -> Point3D {
         unsafe {
             let mut res = Point3D::uninitialized();
-            graphene_sys::graphene_point3d_scale(self.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point3d_scale(
+                self.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
@@ -122,9 +157,7 @@ impl Point3D {
 
     pub fn zero() -> Point3D {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_point3d_zero())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_point3d_zero()) }
     }
 }
 

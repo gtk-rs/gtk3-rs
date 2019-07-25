@@ -2,11 +2,11 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-use Vec2;
 use glib::translate::*;
 use gobject_sys;
 use graphene_sys;
 use std::mem;
+use Vec2;
 
 glib_wrapper! {
     #[derive(Debug, PartialOrd, Ord, Hash)]
@@ -26,14 +26,22 @@ impl Point {
         unsafe {
             let mut d_x = mem::uninitialized();
             let mut d_y = mem::uninitialized();
-            let ret = graphene_sys::graphene_point_distance(self.to_glib_none().0, b.to_glib_none().0, &mut d_x, &mut d_y);
+            let ret = graphene_sys::graphene_point_distance(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                &mut d_x,
+                &mut d_y,
+            );
             (ret, d_x, d_y)
         }
     }
 
     fn equal(&self, b: &Point) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_point_equal(self.to_glib_none().0, b.to_glib_none().0))
+            from_glib(graphene_sys::graphene_point_equal(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+            ))
         }
     }
 
@@ -45,27 +53,42 @@ impl Point {
 
     pub fn init_from_point(&mut self, src: &Point) {
         unsafe {
-            graphene_sys::graphene_point_init_from_point(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_point_init_from_point(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn init_from_vec2(&mut self, src: &Vec2) {
         unsafe {
-            graphene_sys::graphene_point_init_from_vec2(self.to_glib_none_mut().0, src.to_glib_none().0);
+            graphene_sys::graphene_point_init_from_vec2(
+                self.to_glib_none_mut().0,
+                src.to_glib_none().0,
+            );
         }
     }
 
     pub fn interpolate(&self, b: &Point, factor: f64) -> Point {
         unsafe {
             let mut res = Point::uninitialized();
-            graphene_sys::graphene_point_interpolate(self.to_glib_none().0, b.to_glib_none().0, factor, res.to_glib_none_mut().0);
+            graphene_sys::graphene_point_interpolate(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                factor,
+                res.to_glib_none_mut().0,
+            );
             res
         }
     }
 
     pub fn near(&self, b: &Point, epsilon: f32) -> bool {
         unsafe {
-            from_glib(graphene_sys::graphene_point_near(self.to_glib_none().0, b.to_glib_none().0, epsilon))
+            from_glib(graphene_sys::graphene_point_near(
+                self.to_glib_none().0,
+                b.to_glib_none().0,
+                epsilon,
+            ))
         }
     }
 
@@ -79,9 +102,7 @@ impl Point {
 
     pub fn zero() -> Point {
         assert_initialized_main_thread!();
-        unsafe {
-            from_glib_none(graphene_sys::graphene_point_zero())
-        }
+        unsafe { from_glib_none(graphene_sys::graphene_point_zero()) }
     }
 }
 
