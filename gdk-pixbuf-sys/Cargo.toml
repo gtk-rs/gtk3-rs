@@ -37,3 +37,6 @@ links = "gdk_pixbuf"
 name = "gdk-pixbuf-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.9.0"
+
+["package.metadata.docs.rs"]
+features = ["dox", "v2_36_8"]
