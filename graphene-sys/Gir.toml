@@ -3,6 +3,8 @@ work_mode = "sys"
 library = "Graphene"
 version = "1.0"
 min_cfg_version = "1.9.2"
+girs_dir = "../gir-files"
+target_path = "."
 single_version_file = "."
 
 external_libraries = [

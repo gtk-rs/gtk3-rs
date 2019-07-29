@@ -14,12 +14,21 @@ not_bound: $(GIR) $(GIR_FILES)
 
 regen_check: $(GIR) $(GIR_FILES)
 	rm src/auto/*
+	rm graphene-sys/tests/*.c graphene-sys/tests/*.rs
 	$(GIR) -c Gir.toml
+	$(GIR) -c graphene-sys/Gir.toml
 	cargo fmt
+	cd graphene-sys && cargo fmt
 	git diff -R --exit-code
 
 src/auto/mod.rs : Gir.toml $(GIR) $(GIR_FILES)
 	$(GIR) -c Gir.toml
+
+gir-sys: graphene-sys/src/lib.rs
+	cd graphene-sys && cargo fmt
+
+graphene-sys/src/lib.rs : graphene-sys/Gir.toml $(GIR) $(GIR_FILES)
+	$(GIR) -c graphene-sys/Gir.toml
 
 $(GIR) : $(GIR_SRC)
 	rm -f gir/target/bin/gir
