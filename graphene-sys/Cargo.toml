@@ -33,3 +33,6 @@ links = "graphene"
 name = "graphene-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.1.0"
+
+["package.metadata.docs.rs"]
+features = ["dox", "v1_10"]

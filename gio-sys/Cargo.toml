@@ -40,3 +40,6 @@ links = "gio"
 name = "gio-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.9.0"
+
+["package.metadata.docs.rs"]
+features = ["dox", "v2_60"]

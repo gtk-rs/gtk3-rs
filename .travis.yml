@@ -3,7 +3,8 @@ language: rust
 rust:
   - nightly
   - beta
-  - 1.36.0 # stable
+  - 1.36.0
+  - stable
 env:
   - GTK=3.14
   - GTK=3.24
@@ -14,7 +15,7 @@ addons:
     - libmount-dev
 script:
   - rustc --version
-  - if [ "$TRAVIS_RUST_VERSION" == "nightly" ] && [ "$GTK" == "3.14" ]; then
+  - if [ "$TRAVIS_RUST_VERSION" == "stable" ] && [ "$GTK" == "3.14" ]; then
     rustup component add rustfmt;
     make regen_check;
     fi

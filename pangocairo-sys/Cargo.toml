@@ -34,3 +34,6 @@ links = "pango_cairo"
 name = "pangocairo-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.10.0"
+
+["package.metadata.docs.rs"]
+features = ["dox"]
