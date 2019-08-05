@@ -98,10 +98,8 @@ impl ByteArray {
         }
     }
 
-    pub fn set_size(&self, size: usize) {
-        unsafe {
-            glib_sys::g_byte_array_set_size(self.to_glib_none().0, size as u32);
-        }
+    pub unsafe fn set_size(&self, size: usize) {
+        glib_sys::g_byte_array_set_size(self.to_glib_none().0, size as u32);
     }
 
     pub fn sort<F: FnMut(&u8, &u8) -> Ordering>(&self, compare_func: F) {
@@ -245,8 +243,9 @@ mod tests {
         ba.remove_index(0);
         ba.remove_index_fast(1);
         ba.remove_range(1, 2);
-        ba.set_size(20);
         ba.sort(|a, b| a.cmp(b));
+        unsafe { ba.set_size(3) };
+        assert_eq!(ba, "aab".as_bytes());
         let abc: &[u8] = b"abc";
         assert_eq!(ByteArray::from(abc), "abc".as_bytes());
     }
