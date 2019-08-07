@@ -120,11 +120,11 @@
 //!     let obj = glib::Object::new(SimpleObject::get_type(), &[]).unwrap();
 //!
 //!     // Get the name property and change its value.
-//!     assert_eq!(obj.get_property("name").unwrap().get::<&str>().unwrap(), None);
+//!     assert_eq!(obj.get_property("name").unwrap().get::<&str>(), Ok(None));
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
-//!         obj.get_property("name").unwrap().get::<&str>().unwrap(),
-//!         Some("test")
+//!         obj.get_property("name").unwrap().get::<&str>(),
+//!         Ok(Some("test"))
 //!     );
 //! }
 //! ```

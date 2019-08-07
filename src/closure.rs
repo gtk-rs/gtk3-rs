@@ -135,10 +135,10 @@ mod tests {
 
     fn closure_fn(values: &[Value]) -> Option<Value> {
         assert_eq!(values.len(), 2);
-        let string_arg: Option<String> = values[0].get().unwrap();
-        assert_eq!(string_arg, Some("test".to_string()));
-        let int_arg: i32 = values[1].get_some().unwrap();
-        assert_eq!(int_arg, 42);
+        let string_arg = values[0].get::<String>();
+        assert_eq!(string_arg, Ok(Some("test".to_string())));
+        let int_arg = values[1].get_some::<i32>();
+        assert_eq!(int_arg, Ok(42));
         Some(24.to_value())
     }
 
@@ -150,10 +150,10 @@ mod tests {
         let closure = Closure::new(move |values| {
             count.fetch_add(1, Ordering::Relaxed);
             assert_eq!(values.len(), 2);
-            let string_arg: Option<String> = values[0].get().unwrap();
-            assert_eq!(string_arg, Some("test".to_string()));
-            let int_arg: i32 = values[1].get_some().unwrap();
-            assert_eq!(int_arg, 42);
+            let string_arg = values[0].get::<String>();
+            assert_eq!(string_arg, Ok(Some("test".to_string())));
+            let int_arg = values[1].get_some::<i32>();
+            assert_eq!(int_arg, Ok(42));
             None
         });
         let result = closure.invoke(&[&"test".to_string(), &42]);
@@ -166,7 +166,7 @@ mod tests {
 
         let closure = Closure::new(closure_fn);
         let result = closure.invoke(&[&"test".to_string(), &42]);
-        let int: Option<i32> = result.and_then(|result| result.get().unwrap());
-        assert_eq!(int, Some(24));
+        let int_res = result.map(|result| result.get_some::<i32>());
+        assert_eq!(int_res, Some(Ok(24)));
     }
 }

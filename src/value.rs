@@ -39,15 +39,16 @@
 //!
 //! // `get` tries to get an optional value of the specified type
 //! // and returns an `Err` if the type doesn't match.
-//! assert_eq!(num.get().unwrap(), Some(10));
-//! assert_eq!(num.get::<String>(), Err(ValueTypeMismatch));
-//! assert_eq!(hello.get().unwrap(), Some(String::from("Hello!")));
-//! assert_eq!(hello.get::<String>().unwrap(), Some(String::from("Hello!")));
-//! assert_eq!(str_none.get::<String>().unwrap(), None);
+//! assert_eq!(num.get(), Ok(Some(10)));
+//! assert!(num.get::<String>().is_err());
+//! assert_eq!(hello.get(), Ok(Some(String::from("Hello!"))));
+//! assert_eq!(hello.get::<String>(), Ok(Some(String::from("Hello!"))));
+//! assert_eq!(str_none.get::<String>(), Ok(None));
 //!
-//! // `get_some` tries to get a value of the specified type
-//! // and returns an `Err` if the type doesn't match or if no value could be found
-//! assert_eq!(num.get_some::<i32>().unwrap(), 10);
+//! // `get_some` tries to get a value of the specified non-optional type
+//! // and returns an `Err` if the type doesn't match.
+//! assert_eq!(num.get_some::<i32>(), Ok(10));
+//! assert!(num.get_some::<bool>().is_err());
 //!
 //! // `typed` tries to convert a `Value` to `TypedValue`.
 //! let mut typed_num = num.downcast::<i32>().unwrap();
@@ -80,6 +81,7 @@
 
 use libc::{c_char, c_void};
 use std::borrow::Borrow;
+use std::error;
 use std::ffi::CStr;
 use std::fmt;
 use std::marker::PhantomData;
@@ -94,7 +96,26 @@ use translate::*;
 use types::{StaticType, Type};
 
 #[derive(Debug, PartialEq)]
-pub struct ValueTypeMismatch;
+pub struct ValueTypeMismatch {
+    actual: Type,
+    requested: Type,
+}
+
+impl fmt::Display for ValueTypeMismatch {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Value type mismatch error. Actual {:?}, requested {:?}",
+            self.actual, self.requested,
+        )
+    }
+}
+
+impl error::Error for ValueTypeMismatch {
+    fn description(&self) -> &str {
+        "Value type mismatch error"
+    }
+}
 
 /// A generic value capable of carrying various types.
 ///
@@ -175,7 +196,10 @@ impl Value {
             if ok {
                 Ok(T::from_value_optional(self))
             } else {
-                Err(ValueTypeMismatch)
+                Err(ValueTypeMismatch {
+                    actual: self.type_(),
+                    requested: T::static_type(),
+                })
             }
         }
     }
@@ -195,7 +219,10 @@ impl Value {
             if ok {
                 Ok(T::from_value(self))
             } else {
-                Err(ValueTypeMismatch)
+                Err(ValueTypeMismatch {
+                    actual: self.type_(),
+                    requested: T::static_type(),
+                })
             }
         }
     }
@@ -1065,16 +1092,34 @@ mod tests {
         let v = 123.to_value();
         assert_eq!(v.get(), Ok(Some(123)));
         assert_eq!(v.get_some::<i32>(), Ok(123));
-        assert_eq!(v.get::<&str>(), Err(ValueTypeMismatch));
+        assert_eq!(
+            v.get::<&str>(),
+            Err(ValueTypeMismatch {
+                actual: Type::I32,
+                requested: Type::String
+            })
+        );
 
         let some_v = Some("test").to_value();
         assert_eq!(some_v.get::<&str>(), Ok(Some("test")));
         assert_eq!(some_v.get::<&str>(), Ok(Some("test")));
-        assert_eq!(some_v.get::<i32>(), Err(ValueTypeMismatch));
+        assert_eq!(
+            some_v.get::<i32>(),
+            Err(ValueTypeMismatch {
+                actual: Type::String,
+                requested: Type::I32
+            })
+        );
 
         let none_str: Option<&str> = None;
         let none_v = none_str.to_value();
         assert_eq!(none_v.get::<&str>(), Ok(None));
-        assert_eq!(none_v.get::<i32>(), Err(ValueTypeMismatch));
+        assert_eq!(
+            none_v.get::<i32>(),
+            Err(ValueTypeMismatch {
+                actual: Type::String,
+                requested: Type::I32
+            })
+        );
     }
 }

@@ -662,7 +662,8 @@ mod test {
         })
         .unwrap();
 
-        assert!(obj.emit("create-string", &[]).is_ok());
+        let value = obj.emit("create-string", &[]).unwrap().unwrap();
+        assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
     }
 
     #[test]
@@ -674,13 +675,7 @@ mod test {
         obj.connect("create-string", false, move |_args| Some(true.to_value()))
             .unwrap();
 
-        assert_eq!(
-            obj.emit("create-string", &[])
-                .err()
-                .unwrap()
-                .description(),
-            "Signal required return value of type ChildObject but got GObject (actual SimpleObject)",
-        );
+        let _res = obj.emit("create-string", &[]);
     }
 
     #[test]
@@ -696,7 +691,8 @@ mod test {
         })
         .unwrap();
 
-        assert!(obj.emit("create-child-object", &[]).is_ok());
+        let value = obj.emit("create-child-object", &[]).unwrap().unwrap();
+        assert!(value.type_().is_a(&ChildObject::static_type()));
     }
 
     #[test]
@@ -716,12 +712,6 @@ mod test {
         })
         .unwrap();
 
-        assert_eq!(
-            obj.emit("create-child-object", &[])
-                .err()
-                .unwrap()
-                .description(),
-            "Signal required return value of type ChildObject but got GObject (actual SimpleObject)",
-        );
+        let _res = obj.emit("create-child-object", &[]);
     }
 }
