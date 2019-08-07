@@ -48,8 +48,6 @@
 //! // `get_some` tries to get a value of the specified type
 //! // and returns an `Err` if the type doesn't match or if no value could be found
 //! assert_eq!(num.get_some::<i32>().unwrap(), 10);
-//! assert_eq!(hello.get::<String>().unwrap(), Some(String::from("Hello!")));
-//! assert_eq!(str_none.get::<String>(), Ok(None));
 //!
 //! // `typed` tries to convert a `Value` to `TypedValue`.
 //! let mut typed_num = num.downcast::<i32>().unwrap();
