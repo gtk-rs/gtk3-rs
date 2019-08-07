@@ -437,8 +437,8 @@ mod test {
                 &[String::static_type()],
                 String::static_type(),
                 |_, args| {
-                    let obj = args[0].get_some::<Object>().unwrap();
-                    let new_name = args[1].get_some::<String>().unwrap();
+                    let obj = args[0].get::<Object>().unwrap().unwrap();
+                    let new_name = args[1].get::<String>().unwrap().unwrap();
                     let imp = Self::from_instance(&obj);
 
                     let old_name = imp.name.borrow_mut().take();
@@ -579,11 +579,8 @@ mod test {
             .is_none());
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
-            obj.get_property("name")
-                .unwrap()
-                .get_some::<&str>()
-                .unwrap(),
-            "test"
+            obj.get_property("name").unwrap().get::<&str>().unwrap(),
+            Some("test")
         );
 
         assert_eq!(
@@ -630,8 +627,8 @@ mod test {
         let name_changed_triggered = Arc::new(Mutex::new(false));
         let name_changed_clone = name_changed_triggered.clone();
         obj.connect("name-changed", false, move |args| {
-            let _obj = args[0].get_some::<Object>().unwrap();
-            let name = args[1].get_some::<&str>().unwrap();
+            let _obj = args[0].get::<Object>().unwrap().unwrap();
+            let name = args[1].get::<&str>().unwrap().unwrap();
 
             assert_eq!(name, "new-name");
             *name_changed_clone.lock().unwrap() = true;
@@ -641,11 +638,8 @@ mod test {
         .unwrap();
 
         assert_eq!(
-            obj.get_property("name")
-                .unwrap()
-                .get_some::<&str>()
-                .unwrap(),
-            "old-name"
+            obj.get_property("name").unwrap().get::<&str>().unwrap(),
+            Some("old-name")
         );
         assert!(!*name_changed_triggered.lock().unwrap());
 
@@ -653,9 +647,9 @@ mod test {
             .emit("change-name", &[&"new-name"])
             .unwrap()
             .unwrap()
-            .get_some::<String>()
+            .get::<String>()
             .unwrap();
-        assert_eq!(old_name, "old-name".to_string());
+        assert_eq!(old_name, Some("old-name".to_string()));
         assert!(*name_changed_triggered.lock().unwrap());
     }
 

@@ -6,7 +6,6 @@
 
 use glib_sys;
 use gobject_sys;
-use std::error::Error;
 use std::fmt;
 use std::hash;
 use std::marker::PhantomData;
@@ -1697,11 +1696,14 @@ impl<'a> BindingBuilder<'a> {
     ) -> ::Closure {
         ::Closure::new(move |values| {
             assert_eq!(values.len(), 3);
-            let binding = values[0].get_some::<::Binding>().unwrap_or_else(|err| {
+            let binding = values[0].get::<::Binding>().unwrap_or_else(|_| {
                 panic!(
-                    "Error with the first argument in the closure: {}",
-                    err.description(),
+                    "Type mismatch with the first argument in the closure: expected: `Binding`, got: {:?}",
+                    values[0].type_(),
                 )
+            })
+            .unwrap_or_else(|| {
+                panic!("Found `None` for the first argument in the closure, expected `Some`")
             });
             let from = unsafe {
                 let ptr = gobject_sys::g_value_get_boxed(mut_override(

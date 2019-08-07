@@ -123,8 +123,8 @@
 //!     assert_eq!(obj.get_property("name").unwrap().get::<&str>().unwrap(), None);
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
-//!         obj.get_property("name").unwrap().get_some::<&str>().unwrap(),
-//!         "test"
+//!         obj.get_property("name").unwrap().get::<&str>().unwrap(),
+//!         Some("test")
 //!     );
 //! }
 //! ```
@@ -162,7 +162,7 @@
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();
-//!     let b2 = v.get_some::<&MyBoxed>().unwrap();
+//!     let b2 = v.get::<&MyBoxed>().unwrap().unwrap();
 //!     assert_eq!(&b, b2);
 //! }
 //! ```
