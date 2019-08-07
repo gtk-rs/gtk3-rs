@@ -437,8 +437,8 @@ mod test {
                 &[String::static_type()],
                 String::static_type(),
                 |_, args| {
-                    let obj = args[0].get::<Object>().unwrap();
-                    let new_name = args[1].get::<String>().unwrap();
+                    let obj = args[0].get_some::<Object>().unwrap();
+                    let new_name = args[1].get_some::<String>().unwrap();
                     let imp = Self::from_instance(&obj);
 
                     let old_name = imp.name.borrow_mut().take();
@@ -481,7 +481,9 @@ mod test {
 
             match *prop {
                 Property("name", ..) => {
-                    let name = value.get();
+                    let name = value
+                        .get()
+                        .expect("type conformity checked by `Object::set_property`");
                     self.name.replace(name);
                     obj.emit("name-changed", &[&*self.name.borrow()]).unwrap();
                 }
@@ -553,8 +555,11 @@ mod test {
         assert!(obj.get_type().is_a(&DummyInterface::static_type()));
 
         assert_eq!(
-            obj.get_property("constructed").unwrap().get::<bool>(),
-            Some(true)
+            obj.get_property("constructed")
+                .unwrap()
+                .get_some::<bool>()
+                .unwrap(),
+            true
         );
 
         let weak = obj.downgrade();
@@ -566,11 +571,19 @@ mod test {
     fn test_set_properties() {
         let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
 
-        assert!(obj.get_property("name").unwrap().get::<&str>().is_none());
+        assert!(obj
+            .get_property("name")
+            .unwrap()
+            .get::<&str>()
+            .unwrap()
+            .is_none());
         assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
-            obj.get_property("name").unwrap().get::<&str>(),
-            Some("test")
+            obj.get_property("name")
+                .unwrap()
+                .get_some::<&str>()
+                .unwrap(),
+            "test"
         );
 
         assert_eq!(
@@ -591,7 +604,7 @@ mod test {
                 .err()
                 .unwrap()
                 .description(),
-            "property can't be set from the given type",
+            "property can't be set from the given type (expected: gchararray, got: gboolean)",
         );
 
         let other_obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
@@ -600,7 +613,7 @@ mod test {
                 .err()
                 .unwrap()
                 .description(),
-            "property can't be set from the given object type",
+            "property can't be set from the given object type (expected: ChildObject, got: SimpleObject)",
         );
 
         let child = Object::new(ChildObject::get_type(), &[]).unwrap();
@@ -617,8 +630,8 @@ mod test {
         let name_changed_triggered = Arc::new(Mutex::new(false));
         let name_changed_clone = name_changed_triggered.clone();
         obj.connect("name-changed", false, move |args| {
-            let _obj = args[0].get::<Object>().unwrap();
-            let name = args[1].get::<&str>().unwrap();
+            let _obj = args[0].get_some::<Object>().unwrap();
+            let name = args[1].get_some::<&str>().unwrap();
 
             assert_eq!(name, "new-name");
             *name_changed_clone.lock().unwrap() = true;
@@ -628,8 +641,11 @@ mod test {
         .unwrap();
 
         assert_eq!(
-            obj.get_property("name").unwrap().get::<&str>(),
-            Some("old-name")
+            obj.get_property("name")
+                .unwrap()
+                .get_some::<&str>()
+                .unwrap(),
+            "old-name"
         );
         assert!(!*name_changed_triggered.lock().unwrap());
 
@@ -637,8 +653,9 @@ mod test {
             .emit("change-name", &[&"new-name"])
             .unwrap()
             .unwrap()
-            .get::<String>();
-        assert_eq!(old_name, Some(String::from("old-name")));
+            .get_some::<String>()
+            .unwrap();
+        assert_eq!(old_name, "old-name".to_string());
         assert!(*name_changed_triggered.lock().unwrap());
     }
 

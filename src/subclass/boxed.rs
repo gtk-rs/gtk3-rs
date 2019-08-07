@@ -236,7 +236,7 @@ mod test {
 
         let b = Boxed(MyBoxed(String::from("abc")));
         let v = b.to_value();
-        let b2 = v.get::<&Boxed<MyBoxed>>().unwrap();
+        let b2 = v.get_some::<&Boxed<MyBoxed>>().unwrap();
         assert_eq!(&b, b2);
     }
 
@@ -246,7 +246,7 @@ mod test {
 
         let b = MyBoxed(String::from("abc"));
         let v = b.to_value();
-        let b2 = v.get::<&MyBoxed>().unwrap();
+        let b2 = v.get_some::<&MyBoxed>().unwrap();
         assert_eq!(&b, b2);
     }
 }

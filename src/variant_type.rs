@@ -435,12 +435,12 @@ mod tests {
     fn value() {
         let ty1 = VariantType::new("*").unwrap();
         let tyv = ty1.to_value();
-        let ty2 = tyv.get::<VariantType>().unwrap();
+        let ty2 = tyv.get_some::<VariantType>().unwrap();
         assert_eq!(ty1, ty2);
 
         let ty3 = VariantTy::new("*").unwrap();
         let tyv2 = ty1.to_value();
-        let ty4 = tyv2.get::<VariantType>().unwrap();
+        let ty4 = tyv2.get_some::<VariantType>().unwrap();
         assert_eq!(ty3, ty4);
 
         assert_eq!(VariantTy::static_type(), VariantTy::static_type());

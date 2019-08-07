@@ -6,6 +6,7 @@
 
 use glib_sys;
 use gobject_sys;
+use std::error::Error;
 use std::fmt;
 use std::hash;
 use std::marker::PhantomData;
@@ -1047,22 +1048,33 @@ impl<T: ObjectType> ObjectExt for T {
             // a properly type Value. This can happen if the type field in the
             // Value is set to a more generic type than the contained value
             if !valid_type && property_value.type_().is_a(&Object::static_type()) {
-                if let Some(obj) = property_value.get::<Object>() {
-                    if obj.get_type().is_a(&pspec.get_value_type()) {
-                        property_value.0.g_type = pspec.get_value_type().to_glib();
-                    } else {
-                        return Err(glib_bool_error!(
-                            "property can't be set from the given object type"
-                        ));
+                match property_value.get::<Object>() {
+                    Ok(Some(obj)) => {
+                        if obj.get_type().is_a(&pspec.get_value_type()) {
+                            property_value.0.g_type = pspec.get_value_type().to_glib();
+                        } else {
+                            return Err(glib_bool_error!(format!(
+                                concat!(
+                                    "property can't be set from the given object type ",
+                                    "(expected: {:?}, got: {:?})",
+                                ),
+                                pspec.get_value_type(),
+                                obj.get_type(),
+                            )));
+                        }
                     }
-                } else {
-                    // Otherwise if the value is None then the type is compatible too
-                    property_value.0.g_type = pspec.get_value_type().to_glib();
+                    Ok(None) => {
+                        // If the value is None then the type is compatible too
+                        property_value.0.g_type = pspec.get_value_type().to_glib();
+                    }
+                    Err(_) => unreachable!("property_value type conformity already checked"),
                 }
             } else if !valid_type {
-                return Err(glib_bool_error!(
-                    "property can't be set from the given type"
-                ));
+                return Err(glib_bool_error!(format!(
+                    "property can't be set from the given type (expected: {:?}, got: {:?})",
+                    pspec.get_value_type(),
+                    property_value.type_(),
+                )));
             }
 
             let changed: bool = from_glib(gobject_sys::g_param_value_validate(
@@ -1311,16 +1323,20 @@ impl<T: ObjectType> ObjectExt for T {
                         // a properly typed Value. This can happen if the type field in the
                         // Value is set to a more generic type than the contained value
                         if !valid_type && ret.type_().is_a(&Object::static_type()) {
-                            if let Some(obj) = ret.get::<Object>() {
-                                if obj.get_type().is_a(&return_type) {
-                                    ret.0.g_type = return_type.to_glib();
-                                } else {
-                                    panic!("Signal required return value of type {} but got {} (actual {})",
-                                       return_type.name(), ret.type_().name(), obj.get_type().name());
+                            match ret.get::<Object>() {
+                                Ok(Some(obj)) => {
+                                    if obj.get_type().is_a(&return_type) {
+                                        ret.0.g_type = return_type.to_glib();
+                                    } else {
+                                        panic!("Signal required return value of type {} but got {} (actual {})",
+                                           return_type.name(), ret.type_().name(), obj.get_type().name());
+                                    }
                                 }
-                            } else {
-                                // Otherwise if the value is None then the type is compatible too
-                                ret.0.g_type = return_type.to_glib();
+                                Ok(None) => {
+                                    // If the value is None then the type is compatible too
+                                    ret.0.g_type = return_type.to_glib();
+                                }
+                                Err(_) => unreachable!("ret type conformity already checked"),
                             }
                         } else if !valid_type {
                             panic!(
@@ -1681,7 +1697,12 @@ impl<'a> BindingBuilder<'a> {
     ) -> ::Closure {
         ::Closure::new(move |values| {
             assert_eq!(values.len(), 3);
-            let binding = values[0].get::<::Binding>().unwrap();
+            let binding = values[0].get_some::<::Binding>().unwrap_or_else(|err| {
+                panic!(
+                    "Error with the first argument in the closure: {}",
+                    err.description(),
+                )
+            });
             let from = unsafe {
                 let ptr = gobject_sys::g_value_get_boxed(mut_override(
                     &values[1] as *const Value as *const gobject_sys::GValue,

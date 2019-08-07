@@ -37,13 +37,19 @@
 //! assert!(num.is::<i32>());
 //! assert!(hello.is::<String>());
 //!
-//! // `get` tries to get a value of specific type and returns None
-//! // if the type doesn't match or the value is None.
-//! assert_eq!(num.get(), Some(10));
-//! assert_eq!(num.get::<String>(), None);
-//! assert_eq!(hello.get(), Some(String::from("Hello!")));
-//! assert_eq!(hello.get::<String>(), Some(String::from("Hello!")));
-//! assert_eq!(str_none.get::<String>(), None);
+//! // `get` tries to get an optional value of the specified type
+//! // and returns an `Err` if the type doesn't match.
+//! assert_eq!(num.get().unwrap(), Some(10));
+//! assert!(num.get::<String>().is_err());
+//! assert_eq!(hello.get().unwrap(), Some(String::from("Hello!")));
+//! assert_eq!(hello.get::<String>().unwrap(), Some(String::from("Hello!")));
+//! assert_eq!(str_none.get::<String>().unwrap(), None);
+//!
+//! // `get_some` tries to get a value of the specified type
+//! // and returns an `Err` if the type doesn't match or if no value could be found
+//! assert_eq!(num.get_some::<i32>().unwrap(), 10);
+//! assert_eq!(hello.get_some::<String>().unwrap(), String::from("Hello!"));
+//! assert!(str_none.get_some::<String>().is_err());
 //!
 //! // `typed` tries to convert a `Value` to `TypedValue`.
 //! let mut typed_num = num.downcast::<i32>().unwrap();
@@ -83,6 +89,7 @@ use std::mem;
 use std::ops::Deref;
 use std::ptr;
 
+use error::BoolError;
 use glib_sys;
 use gobject_sys;
 use gstring::GString;
@@ -156,24 +163,34 @@ impl Value {
         }
     }
 
-    /// Tries to get a value of type `T`.
+    /// Tries to get a possibly optional value of type `T`.
     ///
-    /// Returns `Some` if the type is correct and the value is not `None`.
-    ///
-    /// This function doesn't distinguish between type mismatches and correctly
-    /// typed `None` values. Use `downcast` or `is` for that.
-    pub fn get<'a, T: FromValueOptional<'a>>(&'a self) -> Option<T> {
+    /// Returns `Ok` if the type is correct.
+    pub fn get<'a, T: FromValueOptional<'a>>(&'a self) -> Result<Option<T>, BoolError> {
         unsafe {
             let ok = from_glib(gobject_sys::g_type_check_value_holds(
                 mut_override(self.to_glib_none().0),
                 T::static_type().to_glib(),
             ));
             if ok {
-                T::from_value_optional(self)
+                Ok(T::from_value_optional(self))
             } else {
-                None
+                Err(glib_bool_error!(format!(
+                    "Value type mismatch (actual: {:?}, requested: {:?})",
+                    self.type_(),
+                    T::static_type(),
+                )))
             }
         }
+    }
+
+    /// Tries to get a value of type `T`.
+    ///
+    /// Returns `Ok` if the type is correct and `Some` value is available.
+    /// (check the `BoolError` description for details in case of an error).
+    pub fn get_some<'a, T: FromValueOptional<'a>>(&'a self) -> Result<T, BoolError> {
+        self.get::<T>()?
+            .ok_or_else(|| glib_bool_error!("Expected `Some` value, but `None` was found"))
     }
 
     /// Returns `true` if the type of the value corresponds to `T`
@@ -1009,6 +1026,8 @@ numeric!(f64, g_value_get_double, g_value_set_double);
 
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
+
     use super::*;
 
     #[test]
@@ -1025,31 +1044,45 @@ mod tests {
     fn test_strv() {
         let v = vec!["123", "456"].to_value();
         assert_eq!(
-            v.get::<Vec<GString>>(),
+            v.get::<Vec<GString>>().unwrap(),
             Some(vec![GString::from("123"), GString::from("456")])
         );
 
         let v = vec![String::from("123"), String::from("456")].to_value();
         assert_eq!(
-            v.get::<Vec<GString>>(),
-            Some(vec![GString::from("123"), GString::from("456")])
+            v.get_some::<Vec<GString>>().unwrap(),
+            vec![GString::from("123"), GString::from("456")]
         );
     }
 
     #[test]
     fn test_get() {
         let v = 123.to_value();
-        assert_eq!(v.get(), Some(123));
-        assert_eq!(v.get::<i32>(), Some(123));
-        assert_eq!(v.get::<&str>(), None);
+        assert_eq!(v.get().unwrap(), Some(123));
+        assert_eq!(v.get_some::<i32>().unwrap(), 123);
+        assert_eq!(
+            v.get::<&str>().err().unwrap().description(),
+            "Value type mismatch (actual: gint, requested: gchararray)"
+        );
 
         let some_v = Some("test").to_value();
-        assert_eq!(some_v.get::<i32>(), None);
-        assert_eq!(some_v.get::<&str>(), Some("test"));
+        assert_eq!(some_v.get::<&str>().unwrap(), Some("test"));
+        assert_eq!(some_v.get_some::<&str>().unwrap(), "test");
+        assert_eq!(
+            some_v.get::<i32>().err().unwrap().description(),
+            "Value type mismatch (actual: gchararray, requested: gint)"
+        );
 
         let none_str: Option<&str> = None;
         let none_v = none_str.to_value();
-        assert_eq!(none_v.get::<i32>(), None);
-        assert_eq!(none_v.get::<&str>(), None);
+        assert_eq!(none_v.get::<&str>().unwrap(), None);
+        assert_eq!(
+            none_v.get_some::<&str>().err().unwrap().description(),
+            "Expected `Some` value, but `None` was found",
+        );
+        assert_eq!(
+            none_v.get::<i32>().err().unwrap().description(),
+            "Value type mismatch (actual: gchararray, requested: gint)"
+        );
     }
 }
