@@ -1035,4 +1035,21 @@ mod tests {
             Some(vec![GString::from("123"), GString::from("456")])
         );
     }
+
+    #[test]
+    fn test_get() {
+        let v = 123.to_value();
+        assert_eq!(v.get(), Some(123));
+        assert_eq!(v.get::<i32>(), Some(123));
+        assert_eq!(v.get::<&str>(), None);
+
+        let some_v = Some("test").to_value();
+        assert_eq!(some_v.get::<i32>(), None);
+        assert_eq!(some_v.get::<&str>(), Some("test"));
+
+        let none_str: Option<&str> = None;
+        let none_v = none_str.to_value();
+        assert_eq!(none_v.get::<i32>(), None);
+        assert_eq!(none_v.get::<&str>(), None);
+    }
 }

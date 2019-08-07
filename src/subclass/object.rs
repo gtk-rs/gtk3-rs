@@ -349,9 +349,32 @@ mod test {
     use super::*;
     use prelude::*;
 
-    use std::cell::RefCell;
+    use std::{cell::RefCell, error::Error};
 
-    static PROPERTIES: [Property; 2] = [
+    // A dummy `Object` to test setting an `Object` property and returning an `Object` in signals
+    pub struct ChildObject;
+    impl ObjectSubclass for ChildObject {
+        const NAME: &'static str = "ChildObject";
+        type ParentType = Object;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
+
+        glib_object_subclass!();
+
+        fn new() -> Self {
+            ChildObject
+        }
+    }
+    impl ObjectImpl for ChildObject {
+        glib_object_impl!();
+    }
+    impl StaticType for ChildObject {
+        fn static_type() -> Type {
+            ChildObject::get_type()
+        }
+    }
+
+    static PROPERTIES: [Property; 3] = [
         Property("name", |name| {
             ::ParamSpec::string(
                 name,
@@ -368,6 +391,15 @@ mod test {
                 "True if the constructed() virtual method was called",
                 false,
                 ::ParamFlags::READABLE,
+            )
+        }),
+        Property("child", |name| {
+            ::ParamSpec::object(
+                name,
+                "Child",
+                "Child object",
+                ChildObject::static_type(),
+                ::ParamFlags::READWRITE,
             )
         }),
     ];
@@ -417,6 +449,20 @@ mod test {
                     Some(old_name.to_value())
                 },
             );
+
+            klass.add_signal(
+                "create-string",
+                SignalFlags::RUN_LAST,
+                &[],
+                String::static_type(),
+            );
+
+            klass.add_signal(
+                "create-child-object",
+                SignalFlags::RUN_LAST,
+                &[],
+                ChildObject::static_type(),
+            );
         }
 
         fn new() -> Self {
@@ -438,6 +484,9 @@ mod test {
                     let name = value.get();
                     self.name.replace(name);
                     obj.emit("name-changed", &[&*self.name.borrow()]).unwrap();
+                }
+                Property("child", ..) => {
+                    // not stored, only used to test `set_property` with `Objects`
                 }
                 _ => unimplemented!(),
             }
@@ -508,16 +557,54 @@ mod test {
             Some(true)
         );
 
-        assert_eq!(obj.get_property("name").unwrap().get::<&str>(), None);
-        obj.set_property("name", &"test").unwrap();
+        let weak = obj.downgrade();
+        drop(obj);
+        assert!(weak.upgrade().is_none());
+    }
+
+    #[test]
+    fn test_set_properties() {
+        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+
+        assert!(obj.get_property("name").unwrap().get::<&str>().is_none());
+        assert!(obj.set_property("name", &"test").is_ok());
         assert_eq!(
             obj.get_property("name").unwrap().get::<&str>(),
             Some("test")
         );
 
-        let weak = obj.downgrade();
-        drop(obj);
-        assert!(weak.upgrade().is_none());
+        assert_eq!(
+            obj.set_property("test", &true).err().unwrap().description(),
+            "property not found",
+        );
+
+        assert_eq!(
+            obj.set_property("constructed", &false)
+                .err()
+                .unwrap()
+                .description(),
+            "property is not writable",
+        );
+
+        assert_eq!(
+            obj.set_property("name", &false)
+                .err()
+                .unwrap()
+                .description(),
+            "property can't be set from the given type",
+        );
+
+        let other_obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+        assert_eq!(
+            obj.set_property("child", &other_obj)
+                .err()
+                .unwrap()
+                .description(),
+            "property can't be set from the given object type",
+        );
+
+        let child = Object::new(ChildObject::get_type(), &[]).unwrap();
+        assert!(obj.set_property("child", &child).is_ok());
     }
 
     #[test]
@@ -553,5 +640,77 @@ mod test {
             .get::<String>();
         assert_eq!(old_name, Some(String::from("old-name")));
         assert!(*name_changed_triggered.lock().unwrap());
+    }
+
+    #[test]
+    fn test_signal_return_expected_type() {
+        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+
+        obj.connect("create-string", false, move |_args| {
+            Some("return value".to_value())
+        })
+        .unwrap();
+
+        assert!(obj.emit("create-string", &[]).is_ok());
+    }
+
+    #[test]
+    #[should_panic(expected = "Signal required return value of type gchararray but got gboolean")]
+    fn test_signal_return_wrong_type() {
+        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+
+        // Returning a `bool` when a `String` was expected
+        obj.connect("create-string", false, move |_args| Some(true.to_value()))
+            .unwrap();
+
+        assert_eq!(
+            obj.emit("create-string", &[])
+                .err()
+                .unwrap()
+                .description(),
+            "Signal required return value of type ChildObject but got GObject (actual SimpleObject)",
+        );
+    }
+
+    #[test]
+    fn test_signal_return_expected_object_type() {
+        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+
+        obj.connect("create-child-object", false, move |_args| {
+            Some(
+                Object::new(ChildObject::get_type(), &[])
+                    .unwrap()
+                    .to_value(),
+            )
+        })
+        .unwrap();
+
+        assert!(obj.emit("create-child-object", &[]).is_ok());
+    }
+
+    #[test]
+    #[should_panic(
+        expected = "Signal required return value of type ChildObject but got GObject (actual SimpleObject)"
+    )]
+    fn test_signal_return_wrong_object_type() {
+        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
+
+        // Returning a `SimpleObject` when a `ChildObject` was expected
+        obj.connect("create-child-object", false, move |_args| {
+            Some(
+                Object::new(SimpleObject::get_type(), &[])
+                    .unwrap()
+                    .to_value(),
+            )
+        })
+        .unwrap();
+
+        assert_eq!(
+            obj.emit("create-child-object", &[])
+                .err()
+                .unwrap()
+                .description(),
+            "Signal required return value of type ChildObject but got GObject (actual SimpleObject)",
+        );
     }
 }
