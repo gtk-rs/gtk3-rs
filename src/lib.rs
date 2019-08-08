@@ -111,7 +111,7 @@ pub use string::String;
 pub use enums::{EnumClass, EnumValue, FlagsBuilder, FlagsClass, FlagsValue, UserDirectory};
 pub use time_val::{get_current_time, TimeVal};
 pub use types::{StaticType, Type};
-pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value, ValueTypeMismatch};
+pub use value::{SendValue, ToSendValue, ToValue, TypedValue, Value};
 pub use variant::{StaticVariantType, ToVariant, Variant};
 pub use variant_type::{VariantTy, VariantType};
 

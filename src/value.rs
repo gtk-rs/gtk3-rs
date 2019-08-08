@@ -23,7 +23,7 @@
 //!
 //! ```
 //! use glib::prelude::*; // or `use gtk::prelude::*;`
-//! use glib::{TypedValue, Value, ValueTypeMismatch};
+//! use glib::{TypedValue, Value};
 //!
 //! // Value and TypedValue implement From<&i32>, From<&str>
 //! // and From<Option<&str>>. Another option is the `ToValue` trait.
@@ -95,25 +95,27 @@ use gstring::GString;
 use translate::*;
 use types::{StaticType, Type};
 
-#[derive(Debug, PartialEq)]
-pub struct ValueTypeMismatch {
+/// An error returned from the [`get`](struct.Value.html#method.get)
+/// or [`get_some`](struct.Value.html#method.get_some) functions on a [`Value`](struct.Value.html)
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub struct GetError {
     actual: Type,
     requested: Type,
 }
 
-impl fmt::Display for ValueTypeMismatch {
+impl fmt::Display for GetError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "Value type mismatch error. Actual {:?}, requested {:?}",
+            "GetError: Value type mismatch. Actual {:?}, requested {:?}",
             self.actual, self.requested,
         )
     }
 }
 
-impl error::Error for ValueTypeMismatch {
+impl error::Error for GetError {
     fn description(&self) -> &str {
-        "Value type mismatch error"
+        "GetError: Value type mismatch"
     }
 }
 
@@ -187,7 +189,7 @@ impl Value {
     /// Tries to get a possibly optional value of type `T`.
     ///
     /// Returns `Ok` if the type is correct.
-    pub fn get<'a, T: FromValueOptional<'a>>(&'a self) -> Result<Option<T>, ValueTypeMismatch> {
+    pub fn get<'a, T: FromValueOptional<'a>>(&'a self) -> Result<Option<T>, GetError> {
         unsafe {
             let ok = from_glib(gobject_sys::g_type_check_value_holds(
                 mut_override(self.to_glib_none().0),
@@ -196,7 +198,7 @@ impl Value {
             if ok {
                 Ok(T::from_value_optional(self))
             } else {
-                Err(ValueTypeMismatch {
+                Err(GetError {
                     actual: self.type_(),
                     requested: T::static_type(),
                 })
@@ -210,7 +212,7 @@ impl Value {
     /// value.
     ///
     /// Returns `Ok` if the type is correct.
-    pub fn get_some<'a, T: FromValue<'a>>(&'a self) -> Result<T, ValueTypeMismatch> {
+    pub fn get_some<'a, T: FromValue<'a>>(&'a self) -> Result<T, GetError> {
         unsafe {
             let ok = from_glib(gobject_sys::g_type_check_value_holds(
                 mut_override(self.to_glib_none().0),
@@ -219,7 +221,7 @@ impl Value {
             if ok {
                 Ok(T::from_value(self))
             } else {
-                Err(ValueTypeMismatch {
+                Err(GetError {
                     actual: self.type_(),
                     requested: T::static_type(),
                 })
@@ -1094,7 +1096,7 @@ mod tests {
         assert_eq!(v.get_some::<i32>(), Ok(123));
         assert_eq!(
             v.get::<&str>(),
-            Err(ValueTypeMismatch {
+            Err(GetError {
                 actual: Type::I32,
                 requested: Type::String
             })
@@ -1105,7 +1107,7 @@ mod tests {
         assert_eq!(some_v.get::<&str>(), Ok(Some("test")));
         assert_eq!(
             some_v.get::<i32>(),
-            Err(ValueTypeMismatch {
+            Err(GetError {
                 actual: Type::String,
                 requested: Type::I32
             })
@@ -1116,7 +1118,7 @@ mod tests {
         assert_eq!(none_v.get::<&str>(), Ok(None));
         assert_eq!(
             none_v.get::<i32>(),
-            Err(ValueTypeMismatch {
+            Err(GetError {
                 actual: Type::String,
                 requested: Type::I32
             })
