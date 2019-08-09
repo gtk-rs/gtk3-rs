@@ -142,7 +142,9 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
                 b"from-charset\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `from-charset` getter")
         }
     }
 
@@ -154,7 +156,9 @@ impl<O: IsA<CharsetConverter>> CharsetConverterExt for O {
                 b"to-charset\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `to-charset` getter")
         }
     }
 

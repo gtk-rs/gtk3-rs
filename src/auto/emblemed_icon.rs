@@ -85,7 +85,9 @@ impl<O: IsA<EmblemedIcon>> EmblemedIconExt for O {
                 b"gicon\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `gicon` getter")
         }
     }
 }

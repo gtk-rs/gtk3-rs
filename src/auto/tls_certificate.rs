@@ -145,7 +145,7 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
     //    unsafe {
     //        let mut value = Value::from_type(</*Unknown type*/ as StaticType>::static_type());
     //        gobject_sys::g_object_get_property(self.to_glib_none().0 as *mut gobject_sys::GObject, b"certificate\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-    //        value.get()
+    //        value.get().expect("Return Value for property `certificate` getter")
     //    }
     //}
 
@@ -157,7 +157,9 @@ impl<O: IsA<TlsCertificate>> TlsCertificateExt for O {
                 b"certificate-pem\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `certificate-pem` getter")
         }
     }
 }

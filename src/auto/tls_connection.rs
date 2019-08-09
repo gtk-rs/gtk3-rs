@@ -364,7 +364,10 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 b"advertised-protocols\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `advertised-protocols` getter")
+                .unwrap()
         }
     }
 
@@ -376,7 +379,9 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
                 b"base-io-stream\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `base-io-stream` getter")
         }
     }
 
