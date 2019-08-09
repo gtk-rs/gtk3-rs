@@ -113,7 +113,10 @@ impl<O: IsA<Hyperlink>> HyperlinkExt for O {
                 b"number-of-anchors\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `number-of-anchors` getter")
+                .unwrap()
         }
     }
 

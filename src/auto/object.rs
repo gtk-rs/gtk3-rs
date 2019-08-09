@@ -419,7 +419,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-component-layer\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `accessible-component-layer` getter")
+                .unwrap()
         }
     }
 
@@ -431,7 +434,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-component-mdi-zorder\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `accessible-component-mdi-zorder` getter")
+                .unwrap()
         }
     }
 
@@ -443,7 +449,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-description\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-description` getter")
         }
     }
 
@@ -465,7 +473,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-hypertext-nlinks\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `accessible-hypertext-nlinks` getter")
+                .unwrap()
         }
     }
 
@@ -477,7 +488,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-name\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-name` getter")
         }
     }
 
@@ -499,7 +512,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-parent\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-parent` getter")
         }
     }
 
@@ -521,7 +536,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-role\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `accessible-role` getter")
+                .unwrap()
         }
     }
 
@@ -543,7 +561,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-caption\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-caption` getter")
         }
     }
 
@@ -565,7 +585,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-caption-object\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-caption-object` getter")
         }
     }
 
@@ -592,7 +614,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-column-description\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-column-description` getter")
         }
     }
 
@@ -619,7 +643,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-column-header\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-column-header` getter")
         }
     }
 
@@ -644,7 +670,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-row-description\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-row-description` getter")
         }
     }
 
@@ -671,7 +699,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-row-header\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-row-header` getter")
         }
     }
 
@@ -696,7 +726,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-table-summary\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `accessible-table-summary` getter")
         }
     }
 
@@ -718,7 +750,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 b"accessible-value\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `accessible-value` getter")
+                .unwrap()
         }
     }
 
