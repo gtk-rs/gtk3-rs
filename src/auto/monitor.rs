@@ -105,7 +105,9 @@ impl Monitor {
                 b"display\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `display` getter")
         }
     }
 
@@ -117,7 +119,9 @@ impl Monitor {
                 b"geometry\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `geometry` getter")
         }
     }
 
@@ -129,7 +133,10 @@ impl Monitor {
                 b"height-mm\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `height-mm` getter")
+                .unwrap()
         }
     }
 
@@ -141,7 +148,10 @@ impl Monitor {
                 b"refresh-rate\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `refresh-rate` getter")
+                .unwrap()
         }
     }
 
@@ -153,7 +163,10 @@ impl Monitor {
                 b"scale-factor\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `scale-factor` getter")
+                .unwrap()
         }
     }
 
@@ -165,7 +178,10 @@ impl Monitor {
                 b"width-mm\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `width-mm` getter")
+                .unwrap()
         }
     }
 
@@ -177,7 +193,9 @@ impl Monitor {
                 b"workarea\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `workarea` getter")
         }
     }
 
