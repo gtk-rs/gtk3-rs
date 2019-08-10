@@ -525,5 +525,4 @@ mod tests {
 
         assert!(app.run(&["--local".to_string()]) == EXIT_STATUS);
     }
-
 }
