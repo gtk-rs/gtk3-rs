@@ -32,6 +32,7 @@ default = ["use_glib"]
 xcb = ["cairo-sys-rs/xcb"]
 xlib = ["cairo-sys-rs/xlib"]
 dox = ["cairo-sys-rs/dox", "glib/dox"]
+win32-surface = ["cairo-sys-rs/win32-surface"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.8"

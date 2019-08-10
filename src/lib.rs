@@ -161,8 +161,8 @@ mod quartz_surface;
 #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
 pub use quartz_surface::QuartzSurface;
 
-#[cfg(any(windows, feature = "dox"))]
+#[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
 mod win32_surface;
 
-#[cfg(any(windows, feature = "dox"))]
+#[cfg(any(all(windows, feature = "win32-surface"), feature = "dox"))]
 pub use win32_surface::Win32Surface;
