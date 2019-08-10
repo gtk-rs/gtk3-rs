@@ -7,6 +7,7 @@ use gtk::prelude::*;
 use std::env::args;
 use std::rc::Rc;
 
+#[derive(Debug)]
 #[repr(i32)]
 enum Columns {
     Fixed = 0,
@@ -200,8 +201,15 @@ fn fixed_toggled<W: IsA<gtk::CellRendererToggle>>(
     let iter = model.get_iter(&path).unwrap();
     let mut fixed = model
         .get_value(&iter, Columns::Fixed as i32)
-        .get::<bool>()
-        .unwrap();
+        .get_some::<bool>()
+        .unwrap_or_else(|err| {
+            panic!(
+                "ListStore value for {:?} at path {}: {}",
+                Columns::Fixed,
+                path,
+                err
+            )
+        });
     fixed = !fixed;
     model.set_value(&iter, Columns::Fixed as u32, &fixed.to_value());
 }
@@ -282,8 +290,14 @@ fn spinner_timeout(model: &gtk::ListStore) -> Continue {
     let iter = model.get_iter_first().unwrap();
     let pulse = model
         .get_value(&iter, Columns::Pulse as i32)
-        .get::<u32>()
-        .unwrap()
+        .get_some::<u32>()
+        .unwrap_or_else(|err| {
+            panic!(
+                "ListStore value for {:?} at first entry: {}",
+                Columns::Pulse,
+                err
+            )
+        })
         .wrapping_add(1);
 
     model.set_value(&iter, Columns::Pulse as i32 as u32, &pulse.to_value());
