@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gdk_sys;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::object::IsA;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use glib::object::ObjectType as ObjectType_;
@@ -32,6 +33,7 @@ use Event;
 use GrabStatus;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use SeatCapabilities;
+#[cfg(any(feature = "v3_20", feature = "dox"))]
 use Window;
 
 glib_wrapper! {

@@ -544,7 +544,7 @@ pub fn text_property_to_utf8_list_for_display(
 
 pub fn threads_add_idle<P: Fn() -> bool + Send + Sync + 'static>(function: P) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -554,7 +554,7 @@ pub fn threads_add_idle<P: Fn() -> bool + Send + Sync + 'static>(function: P) ->
     }
     let function = Some(function_func::<P> as _);
     let super_callback0: Box_<P> = function_data;
-    unsafe { gdk_sys::gdk_threads_add_idle(function, Box::into_raw(super_callback0) as *mut _) }
+    unsafe { gdk_sys::gdk_threads_add_idle(function, Box_::into_raw(super_callback0) as *mut _) }
 }
 
 pub fn threads_add_idle_full<P: Fn() -> bool + Send + Sync + 'static>(
@@ -562,7 +562,7 @@ pub fn threads_add_idle_full<P: Fn() -> bool + Send + Sync + 'static>(
     function: P,
 ) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -582,7 +582,7 @@ pub fn threads_add_idle_full<P: Fn() -> bool + Send + Sync + 'static>(
         gdk_sys::gdk_threads_add_idle_full(
             priority,
             function,
-            Box::into_raw(super_callback0) as *mut _,
+            Box_::into_raw(super_callback0) as *mut _,
             destroy_call3,
         )
     }
@@ -593,7 +593,7 @@ pub fn threads_add_timeout<P: Fn() -> bool + Send + Sync + 'static>(
     function: P,
 ) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -607,7 +607,7 @@ pub fn threads_add_timeout<P: Fn() -> bool + Send + Sync + 'static>(
         gdk_sys::gdk_threads_add_timeout(
             interval,
             function,
-            Box::into_raw(super_callback0) as *mut _,
+            Box_::into_raw(super_callback0) as *mut _,
         )
     }
 }
@@ -618,7 +618,7 @@ pub fn threads_add_timeout_full<P: Fn() -> bool + Send + Sync + 'static>(
     function: P,
 ) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -639,7 +639,7 @@ pub fn threads_add_timeout_full<P: Fn() -> bool + Send + Sync + 'static>(
             priority,
             interval,
             function,
-            Box::into_raw(super_callback0) as *mut _,
+            Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
         )
     }
@@ -650,7 +650,7 @@ pub fn threads_add_timeout_seconds<P: Fn() -> bool + Send + Sync + 'static>(
     function: P,
 ) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -664,7 +664,7 @@ pub fn threads_add_timeout_seconds<P: Fn() -> bool + Send + Sync + 'static>(
         gdk_sys::gdk_threads_add_timeout_seconds(
             interval,
             function,
-            Box::into_raw(super_callback0) as *mut _,
+            Box_::into_raw(super_callback0) as *mut _,
         )
     }
 }
@@ -675,7 +675,7 @@ pub fn threads_add_timeout_seconds_full<P: Fn() -> bool + Send + Sync + 'static>
     function: P,
 ) -> u32 {
     assert_initialized_main_thread!();
-    let function_data: Box_<P> = Box::new(function);
+    let function_data: Box_<P> = Box_::new(function);
     unsafe extern "C" fn function_func<P: Fn() -> bool + Send + Sync + 'static>(
         user_data: glib_sys::gpointer,
     ) -> glib_sys::gboolean {
@@ -696,7 +696,7 @@ pub fn threads_add_timeout_seconds_full<P: Fn() -> bool + Send + Sync + 'static>
             priority,
             interval,
             function,
-            Box::into_raw(super_callback0) as *mut _,
+            Box_::into_raw(super_callback0) as *mut _,
             destroy_call4,
         )
     }
