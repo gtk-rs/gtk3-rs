@@ -24,6 +24,7 @@ svg = []
 ps = []
 xcb = []
 use_glib = ["glib-sys"]
+win32-surface = ["winapi"]
 
 [dependencies]
 libc = "0.2"
@@ -38,7 +39,7 @@ version = "2.16"
 features = ["xlib"]
 
 [target.'cfg(windows)'.dependencies]
-winapi = { version = "0.3.2", features = ["windef"] }
+winapi = { version = "0.3.2", features = ["windef"], optional = true }
 
 [build-dependencies]
 pkg-config = "0.3.7"

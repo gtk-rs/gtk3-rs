@@ -13,15 +13,15 @@ extern crate glib_sys as glib_ffi;
 #[cfg(any(feature = "xlib", feature = "dox"))]
 extern crate x11;
 
-#[cfg(windows)]
+#[cfg(feature = "win32-surface")]
 extern crate winapi as winapi_orig;
 
-#[cfg(windows)]
+#[cfg(feature = "win32-surface")]
 pub mod winapi {
     pub use winapi_orig::shared::windef::HDC;
 }
 
-#[cfg(all(not(windows), feature = "dox"))]
+#[cfg(all(feature = "dox", not(feature = "win32-surface")))]
 pub mod winapi {
    use libc::c_void;
 
@@ -795,28 +795,28 @@ extern "C" {
     pub fn cairo_xlib_device_debug_set_precision(device: *mut cairo_device_t, precision: c_int);
 
     // CAIRO WINDOWS SURFACE
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
-    #[cfg(any(all(windows, feature = "v1_14"), feature = "dox"))]
+    #[cfg(all(feature = "v1_14", any(feature = "win32-surface", feature = "dox")))]
     pub fn cairo_win32_surface_create_with_format(hdc: winapi::HDC,
                                                   format: cairo_format_t)
                                                   -> *mut cairo_surface_t;
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_surface_create_with_dib(format: cairo_format_t,
                                                width: c_int,
                                                height: c_int)
                                                -> *mut cairo_surface_t;
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_surface_create_with_ddb(hdc: winapi::HDC,
                                                format: cairo_format_t,
                                                width: c_int,
                                                height: c_int)
                                                -> *mut cairo_surface_t;
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_printing_surface_create(hdc: winapi::HDC) -> *mut cairo_surface_t;
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_surface_get_dc(surface: *mut cairo_surface_t) -> winapi::HDC;
-    #[cfg(any(windows, feature = "dox"))]
+    #[cfg(any(feature = "win32-surface", feature = "dox"))]
     pub fn cairo_win32_surface_get_image(surface: *mut cairo_surface_t) -> *mut cairo_surface_t;
 
     #[cfg(any(target_os = "macos", target_os = "ios", feature = "dox"))]
