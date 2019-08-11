@@ -85,7 +85,9 @@
 //!
 //!         match *prop {
 //!             subclass::Property("name", ..) => {
-//!                 let name = value.get();
+//!                 let name = value
+//!                     .get()
+//!                     .expect("type conformity checked by `Object::set_property`");
 //!                 self.name.replace(name);
 //!             }
 //!             _ => unimplemented!(),
@@ -118,11 +120,11 @@
 //!     let obj = glib::Object::new(SimpleObject::get_type(), &[]).unwrap();
 //!
 //!     // Get the name property and change its value.
-//!     assert_eq!(obj.get_property("name").unwrap().get::<&str>(), None);
+//!     assert_eq!(obj.get_property("name").unwrap().get::<&str>(), Ok(None));
 //!     obj.set_property("name", &"test").unwrap();
 //!     assert_eq!(
 //!         obj.get_property("name").unwrap().get::<&str>(),
-//!         Some("test")
+//!         Ok(Some("test"))
 //!     );
 //! }
 //! ```
@@ -160,7 +162,7 @@
 //!
 //!     let b = MyBoxed(String::from("abc"));
 //!     let v = b.to_value();
-//!     let b2 = v.get::<&MyBoxed>().unwrap();
+//!     let b2 = v.get::<&MyBoxed>().unwrap().unwrap();
 //!     assert_eq!(&b, b2);
 //! }
 //! ```
