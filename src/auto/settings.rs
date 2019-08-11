@@ -568,7 +568,9 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 b"backend\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `backend` getter")
         }
     }
 
@@ -580,7 +582,10 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 b"delay-apply\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get().unwrap()
+            value
+                .get()
+                .expect("Return Value for property `delay-apply` getter")
+                .unwrap()
         }
     }
 
@@ -592,7 +597,9 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 b"path\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `path` getter")
         }
     }
 
@@ -604,7 +611,9 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 b"schema-id\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `schema-id` getter")
         }
     }
 
@@ -616,7 +625,9 @@ impl<O: IsA<Settings>> SettingsExt for O {
                 b"settings-schema\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `settings-schema` getter")
         }
     }
 

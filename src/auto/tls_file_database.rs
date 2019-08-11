@@ -63,7 +63,9 @@ impl<O: IsA<TlsFileDatabase>> TlsFileDatabaseExt for O {
                 b"anchors\0".as_ptr() as *const _,
                 value.to_glib_none_mut().0,
             );
-            value.get()
+            value
+                .get()
+                .expect("Return Value for property `anchors` getter")
         }
     }
 
