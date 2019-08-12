@@ -336,11 +336,15 @@ mod row_data {
 
                 match *prop {
                     subclass::Property("name", ..) => {
-                        let name = value.get();
+                        let name = value
+                            .get()
+                            .expect("type conformity checked by `Object::set_property`");
                         self.name.replace(name);
                     }
                     subclass::Property("count", ..) => {
-                        let count = value.get().expect("Got value of wrong type");
+                        let count = value
+                            .get_some()
+                            .expect("type conformity checked by `Object::set_property`");
                         self.count.replace(count);
                     }
                     _ => unimplemented!(),
