@@ -13,6 +13,9 @@ extern crate bitflags;
 extern crate lazy_static;
 #[macro_use]
 extern crate glib;
+#[cfg_attr(test, macro_use)]
+#[cfg(test)]
+extern crate serial_test_derive;
 
 extern crate fragile;
 extern crate gio_sys;
