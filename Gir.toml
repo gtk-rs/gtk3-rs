@@ -614,6 +614,10 @@ status = "generate"
     [[object.signal]]
     name = "writable-change-event"
     inhibit = true
+    [[object.function]]
+    pattern="set_.*"
+        [object.function.return]
+        bool_return_is_error = "Can't set readonly key"
 
 [[object]]
 name = "Gio.SettingsSchemaKey"
