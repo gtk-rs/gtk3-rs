@@ -5,5 +5,5 @@
 //! Traits intended for blanket imports.
 
 pub use auto::traits::*;
-pub use cairo_interaction::ContextExt;
+pub use cairo_interaction::{ContextExt, PixbufExt, SurfaceExt};
 pub use window::WindowExtManual;
