@@ -157,7 +157,7 @@ pub trait SettingsExt: 'static {
 
     fn get_user_value(&self, key: &str) -> Option<glib::Variant>;
 
-    fn get_value(&self, key: &str) -> Option<glib::Variant>;
+    fn get_value(&self, key: &str) -> glib::Variant;
 
     fn is_writable(&self, name: &str) -> bool;
 
@@ -398,7 +398,7 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn get_value(&self, key: &str) -> Option<glib::Variant> {
+    fn get_value(&self, key: &str) -> glib::Variant {
         unsafe {
             from_glib_full(gio_sys::g_settings_get_value(
                 self.as_ref().to_glib_none().0,

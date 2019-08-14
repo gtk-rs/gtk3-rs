@@ -618,6 +618,10 @@ status = "generate"
     pattern="set_.*"
         [object.function.return]
         bool_return_is_error = "Can't set readonly key"
+    [[object.function]]
+    name = "get_value"
+        [object.function.return]
+        nullable = false
 
 [[object]]
 name = "Gio.SettingsSchemaKey"
