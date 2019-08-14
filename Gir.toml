@@ -95,6 +95,7 @@ manual = [
     "Gdk.EventVisibility",
     "Gdk.EventWindowState",
     "Gdk.Geometry",
+    "Gdk.KeymapKey",
     "Gdk.Rectangle",
     "Gdk.RGBA",
     "Gdk.TimeCoord",
