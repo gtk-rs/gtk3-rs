@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -12,7 +12,6 @@ use glib::GString;
 use glib_sys;
 use gobject_sys;
 use std;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -82,7 +81,7 @@ impl Subprocess {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn communicate_async_trampoline<
             Q: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static,
         >(
@@ -105,7 +104,7 @@ impl Subprocess {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = communicate_async_trampoline::<Q>;
@@ -115,12 +114,12 @@ impl Subprocess {
                 stdin_buf.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn communicate_async_future(
         &self,
         stdin_buf: Option<&glib::Bytes>,
@@ -245,7 +244,7 @@ impl Subprocess {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn wait_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -260,7 +259,7 @@ impl Subprocess {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = wait_async_trampoline::<Q>;
@@ -269,12 +268,12 @@ impl Subprocess {
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
@@ -313,7 +312,7 @@ impl Subprocess {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn wait_check_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -329,7 +328,7 @@ impl Subprocess {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = wait_check_async_trampoline::<Q>;
@@ -338,12 +337,12 @@ impl Subprocess {
                 self.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_check_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {

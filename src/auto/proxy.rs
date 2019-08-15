@@ -2,14 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -59,7 +58,7 @@ pub trait ProxyExt: 'static {
         callback: S,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<
         P: IsA<IOStream> + Clone + 'static,
         Q: IsA<ProxyAddress> + Clone + 'static,
@@ -108,7 +107,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         cancellable: Option<&R>,
         callback: S,
     ) {
-        let user_data: Box<S> = Box::new(callback);
+        let user_data: Box_<S> = Box_::new(callback);
         unsafe extern "C" fn connect_async_trampoline<
             S: FnOnce(Result<IOStream, Error>) + Send + 'static,
         >(
@@ -123,7 +122,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<S> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<S> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_async_trampoline::<S>;
@@ -134,12 +133,12 @@ impl<O: IsA<Proxy>> ProxyExt for O {
                 proxy_address.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<
         P: IsA<IOStream> + Clone + 'static,
         Q: IsA<ProxyAddress> + Clone + 'static,

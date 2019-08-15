@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -12,7 +12,6 @@ use glib::GString;
 use glib_sys;
 use gobject_sys;
 use std;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
@@ -31,7 +30,7 @@ use SettingsBackend;
 //    unsafe { TODO: call gio_sys:g_bus_get() }
 //}
 
-//#[cfg(feature = "futures")]
+//#[cfg(any(feature = "futures", feature = "dox"))]
 //pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<dyn future::Future<Output = Result</*Ignored*/DBusConnection, Error>> + std::marker::Unpin> {
 //use GioFuture;
 //use fragile::Fragile;
@@ -242,7 +241,7 @@ pub fn dbus_address_get_stream<
     cancellable: Option<&P>,
     callback: Q,
 ) {
-    let user_data: Box<Q> = Box::new(callback);
+    let user_data: Box_<Q> = Box_::new(callback);
     unsafe extern "C" fn dbus_address_get_stream_trampoline<
         Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static,
     >(
@@ -258,7 +257,7 @@ pub fn dbus_address_get_stream<
         } else {
             Err(from_glib_full(error))
         };
-        let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+        let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
         callback(result);
     }
     let callback = dbus_address_get_stream_trampoline::<Q>;
@@ -267,12 +266,12 @@ pub fn dbus_address_get_stream<
             address.to_glib_none().0,
             cancellable.map(|p| p.as_ref()).to_glib_none().0,
             Some(callback),
-            Box::into_raw(user_data) as *mut _,
+            Box_::into_raw(user_data) as *mut _,
         );
     }
 }
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 pub fn dbus_address_get_stream_future(
     address: &str,
 ) -> Box_<dyn future::Future<Output = Result<(IOStream, GString), Error>> + std::marker::Unpin> {

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::Cast;
@@ -38,7 +38,7 @@ pub trait PermissionExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn acquire_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
@@ -59,7 +59,7 @@ pub trait PermissionExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn release_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
@@ -93,7 +93,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn acquire_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -108,7 +108,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = acquire_async_trampoline::<Q>;
@@ -117,12 +117,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn acquire_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
@@ -196,7 +196,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn release_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -211,7 +211,7 @@ impl<O: IsA<Permission>> PermissionExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = release_async_trampoline::<Q>;
@@ -220,12 +220,12 @@ impl<O: IsA<Permission>> PermissionExt for O {
                 self.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn release_async_future(
         &self,
     ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {

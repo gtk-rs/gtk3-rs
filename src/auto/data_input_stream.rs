@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -164,7 +164,7 @@ pub trait DataInputStreamExt: 'static {
     );
 
     #[cfg_attr(feature = "v2_56", deprecated)]
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_until_async_future(
         &self,
         stop_chars: &str,
@@ -188,7 +188,7 @@ pub trait DataInputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_upto_async_future(
         &self,
         stop_chars: &str,
@@ -394,7 +394,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn read_until_async_trampoline<
             Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static,
         >(
@@ -416,7 +416,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = read_until_async_trampoline::<Q>;
@@ -427,12 +427,12 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_until_async_future(
         &self,
         stop_chars: &str,
@@ -491,7 +491,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         callback: Q,
     ) {
         let stop_chars_len = stop_chars.len() as isize;
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn read_upto_async_trampoline<
             Q: FnOnce(Result<(GString, usize), Error>) + Send + 'static,
         >(
@@ -513,7 +513,7 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = read_upto_async_trampoline::<Q>;
@@ -525,12 +525,12 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_upto_async_future(
         &self,
         stop_chars: &str,

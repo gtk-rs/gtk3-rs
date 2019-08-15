@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -10,7 +10,6 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -82,7 +81,7 @@ pub trait SocketConnectionExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(
         &self,
         address: &P,
@@ -129,7 +128,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn connect_async_trampoline<
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -148,7 +147,7 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_async_trampoline::<R>;
@@ -158,12 +157,12 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
                 address.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(
         &self,
         address: &P,

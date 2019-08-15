@@ -3,7 +3,9 @@
 // DO NOT EDIT
 
 use gio_sys;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::Cast;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
