@@ -15,6 +15,7 @@ pub use list_store::ListStoreExtManual;
 pub use output_stream::OutputStreamExtManual;
 pub use pollable_input_stream::PollableInputStreamExtManual;
 pub use pollable_output_stream::PollableOutputStreamExtManual;
+pub use settings::SettingsExtManual;
 pub use socket::*;
 pub use socket_listener::SocketListenerExtManual;
 #[cfg(any(unix, feature = "dox"))]
