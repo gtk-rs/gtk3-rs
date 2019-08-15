@@ -25,6 +25,10 @@ use InputStream;
 use Resource;
 use ResourceLookupFlags;
 use SettingsBackend;
+#[cfg(any(unix, feature = "dox"))]
+use UnixMountEntry;
+#[cfg(any(unix, feature = "dox"))]
+use UnixMountPoint;
 
 //pub fn bus_get<P: IsA<Cancellable>, Q: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>, callback: Q) {
 //    unsafe { TODO: call gio_sys:g_bus_get() }
@@ -569,111 +573,193 @@ pub fn unix_is_system_fs_type(fs_type: &str) -> bool {
     unsafe { from_glib(gio_sys::g_unix_is_system_fs_type(fs_type.to_glib_none().0)) }
 }
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_at<P: AsRef<std::path::Path>>(mount_path: P) -> (/*Ignored*/UnixMountEntry, u64) {
-//    unsafe { TODO: call gio_sys:g_unix_mount_at() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_at<P: AsRef<std::path::Path>>(mount_path: P) -> (UnixMountEntry, u64) {
+    unsafe {
+        let mut time_read = mem::MaybeUninit::uninit();
+        let ret = from_glib_full(gio_sys::g_unix_mount_at(
+            mount_path.as_ref().to_glib_none().0,
+            time_read.as_mut_ptr(),
+        ));
+        let time_read = time_read.assume_init();
+        (ret, time_read)
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_compare(mount1: /*Ignored*/&mut UnixMountEntry, mount2: /*Ignored*/&mut UnixMountEntry) -> i32 {
-//    unsafe { TODO: call gio_sys:g_unix_mount_compare() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_compare(mount1: &mut UnixMountEntry, mount2: &mut UnixMountEntry) -> i32 {
+    unsafe {
+        gio_sys::g_unix_mount_compare(mount1.to_glib_none_mut().0, mount2.to_glib_none_mut().0)
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//#[cfg(any(feature = "v2_54", feature = "dox"))]
-//pub fn unix_mount_copy(mount_entry: /*Ignored*/&mut UnixMountEntry) -> /*Ignored*/Option<UnixMountEntry> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_copy() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
+pub fn unix_mount_copy(mount_entry: &mut UnixMountEntry) -> Option<UnixMountEntry> {
+    unsafe { from_glib_full(gio_sys::g_unix_mount_copy(mount_entry.to_glib_none_mut().0)) }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//#[cfg(any(feature = "v2_52", feature = "dox"))]
-//pub fn unix_mount_for<P: AsRef<std::path::Path>>(file_path: P) -> (/*Ignored*/UnixMountEntry, u64) {
-//    unsafe { TODO: call gio_sys:g_unix_mount_for() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_52", feature = "dox"))]
+pub fn unix_mount_for<P: AsRef<std::path::Path>>(file_path: P) -> (UnixMountEntry, u64) {
+    unsafe {
+        let mut time_read = mem::MaybeUninit::uninit();
+        let ret = from_glib_full(gio_sys::g_unix_mount_for(
+            file_path.as_ref().to_glib_none().0,
+            time_read.as_mut_ptr(),
+        ));
+        let time_read = time_read.assume_init();
+        (ret, time_read)
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_free(mount_entry: /*Ignored*/&mut UnixMountEntry) {
-//    unsafe { TODO: call gio_sys:g_unix_mount_free() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_free(mount_entry: &mut UnixMountEntry) {
+    unsafe {
+        gio_sys::g_unix_mount_free(mount_entry.to_glib_none_mut().0);
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_get_device_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_get_device_path() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_get_device_path(mount_entry: &mut UnixMountEntry) -> Option<std::path::PathBuf> {
+    unsafe {
+        from_glib_none(gio_sys::g_unix_mount_get_device_path(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_get_fs_type(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_get_fs_type() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_get_fs_type(mount_entry: &mut UnixMountEntry) -> Option<GString> {
+    unsafe {
+        from_glib_none(gio_sys::g_unix_mount_get_fs_type(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_get_mount_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<std::path::PathBuf> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_get_mount_path() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_get_mount_path(mount_entry: &mut UnixMountEntry) -> Option<std::path::PathBuf> {
+    unsafe {
+        from_glib_none(gio_sys::g_unix_mount_get_mount_path(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//#[cfg(any(feature = "v2_58", feature = "dox"))]
-//pub fn unix_mount_get_options(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_get_options() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_58", feature = "dox"))]
+pub fn unix_mount_get_options(mount_entry: &mut UnixMountEntry) -> Option<GString> {
+    unsafe {
+        from_glib_none(gio_sys::g_unix_mount_get_options(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//#[cfg(any(feature = "v2_60", feature = "dox"))]
-//pub fn unix_mount_get_root_path(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_get_root_path() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub fn unix_mount_get_root_path(mount_entry: &mut UnixMountEntry) -> Option<GString> {
+    unsafe {
+        from_glib_none(gio_sys::g_unix_mount_get_root_path(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_can_eject(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
-//    unsafe { TODO: call gio_sys:g_unix_mount_guess_can_eject() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_guess_can_eject(mount_entry: &mut UnixMountEntry) -> bool {
+    unsafe {
+        from_glib(gio_sys::g_unix_mount_guess_can_eject(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_guess_icon() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_guess_icon(mount_entry: &mut UnixMountEntry) -> Option<Icon> {
+    unsafe {
+        from_glib_full(gio_sys::g_unix_mount_guess_icon(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_name(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<GString> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_guess_name() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_guess_name(mount_entry: &mut UnixMountEntry) -> Option<GString> {
+    unsafe {
+        from_glib_full(gio_sys::g_unix_mount_guess_name(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_should_display(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
-//    unsafe { TODO: call gio_sys:g_unix_mount_guess_should_display() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_guess_should_display(mount_entry: &mut UnixMountEntry) -> bool {
+    unsafe {
+        from_glib(gio_sys::g_unix_mount_guess_should_display(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_guess_symbolic_icon(mount_entry: /*Ignored*/&mut UnixMountEntry) -> Option<Icon> {
-//    unsafe { TODO: call gio_sys:g_unix_mount_guess_symbolic_icon() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_guess_symbolic_icon(mount_entry: &mut UnixMountEntry) -> Option<Icon> {
+    unsafe {
+        from_glib_full(gio_sys::g_unix_mount_guess_symbolic_icon(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_is_readonly(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
-//    unsafe { TODO: call gio_sys:g_unix_mount_is_readonly() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_is_readonly(mount_entry: &mut UnixMountEntry) -> bool {
+    unsafe {
+        from_glib(gio_sys::g_unix_mount_is_readonly(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_is_system_internal(mount_entry: /*Ignored*/&mut UnixMountEntry) -> bool {
-//    unsafe { TODO: call gio_sys:g_unix_mount_is_system_internal() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_is_system_internal(mount_entry: &mut UnixMountEntry) -> bool {
+    unsafe {
+        from_glib(gio_sys::g_unix_mount_is_system_internal(
+            mount_entry.to_glib_none_mut().0,
+        ))
+    }
+}
 
 #[cfg(any(unix, feature = "dox"))]
 pub fn unix_mount_points_changed_since(time: u64) -> bool {
     unsafe { from_glib(gio_sys::g_unix_mount_points_changed_since(time)) }
 }
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mount_points_get() -> (/*Ignored*/Vec<UnixMountPoint>, u64) {
-//    unsafe { TODO: call gio_sys:g_unix_mount_points_get() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mount_points_get() -> (Vec<UnixMountPoint>, u64) {
+    unsafe {
+        let mut time_read = mem::MaybeUninit::uninit();
+        let ret = FromGlibPtrContainer::from_glib_full(gio_sys::g_unix_mount_points_get(
+            time_read.as_mut_ptr(),
+        ));
+        let time_read = time_read.assume_init();
+        (ret, time_read)
+    }
+}
 
 #[cfg(any(unix, feature = "dox"))]
 pub fn unix_mounts_changed_since(time: u64) -> bool {
     unsafe { from_glib(gio_sys::g_unix_mounts_changed_since(time)) }
 }
 
-//#[cfg(any(unix, feature = "dox"))]
-//pub fn unix_mounts_get() -> (/*Ignored*/Vec<UnixMountEntry>, u64) {
-//    unsafe { TODO: call gio_sys:g_unix_mounts_get() }
-//}
+#[cfg(any(unix, feature = "dox"))]
+pub fn unix_mounts_get() -> (Vec<UnixMountEntry>, u64) {
+    unsafe {
+        let mut time_read = mem::MaybeUninit::uninit();
+        let ret = FromGlibPtrContainer::from_glib_full(gio_sys::g_unix_mounts_get(
+            time_read.as_mut_ptr(),
+        ));
+        let time_read = time_read.assume_init();
+        (ret, time_read)
+    }
+}

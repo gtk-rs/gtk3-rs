@@ -812,6 +812,22 @@ manual_traits = ["UnixInputStreamExtManual"]
     ignore = true
 
 [[object]]
+name = "Gio.UnixMountEntry"
+status = "generate"
+cfg_condition = "unix"
+
+[[object]]
+name = "Gio.UnixMountPoint"
+status = "generate"
+use_boxed_functions = true
+cfg_condition = "unix"
+    [[object.function]]
+    name = "compare"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
+
+[[object]]
 name = "Gio.UnixOutputStream"
 status = "generate"
 cfg_condition = "unix"
