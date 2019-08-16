@@ -351,7 +351,6 @@ impl Eq for VariantType {}
 mod tests {
     use super::*;
     use glib_sys;
-    use translate::*;
     use value::ToValue;
 
     unsafe fn equal<T, U>(ptr1: *const T, ptr2: *const U) -> bool {

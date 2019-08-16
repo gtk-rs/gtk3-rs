@@ -99,8 +99,14 @@ use types::{StaticType, Type};
 /// or [`get_some`](struct.Value.html#method.get_some) functions on a [`Value`](struct.Value.html)
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct GetError {
-    actual: Type,
-    requested: Type,
+    pub actual: Type,
+    pub requested: Type,
+}
+
+impl GetError {
+    pub fn new_type_mismatch(actual: Type, requested: Type) -> Self {
+        GetError { actual, requested }
+    }
 }
 
 impl fmt::Display for GetError {
@@ -198,10 +204,7 @@ impl Value {
             if ok {
                 Ok(T::from_value_optional(self))
             } else {
-                Err(GetError {
-                    actual: self.type_(),
-                    requested: T::static_type(),
-                })
+                Err(GetError::new_type_mismatch(self.type_(), T::static_type()))
             }
         }
     }
@@ -221,10 +224,7 @@ impl Value {
             if ok {
                 Ok(T::from_value(self))
             } else {
-                Err(GetError {
-                    actual: self.type_(),
-                    requested: T::static_type(),
-                })
+                Err(GetError::new_type_mismatch(self.type_(), T::static_type()))
             }
         }
     }
@@ -1096,10 +1096,11 @@ mod tests {
         assert_eq!(v.get_some::<i32>(), Ok(123));
         assert_eq!(
             v.get::<&str>(),
-            Err(GetError {
-                actual: Type::I32,
-                requested: Type::String
-            })
+            Err(GetError::new_type_mismatch(Type::I32, Type::String))
+        );
+        assert_eq!(
+            v.get_some::<bool>(),
+            Err(GetError::new_type_mismatch(Type::I32, Type::Bool))
         );
 
         let some_v = Some("test").to_value();
@@ -1107,10 +1108,7 @@ mod tests {
         assert_eq!(some_v.get::<&str>(), Ok(Some("test")));
         assert_eq!(
             some_v.get::<i32>(),
-            Err(GetError {
-                actual: Type::String,
-                requested: Type::I32
-            })
+            Err(GetError::new_type_mismatch(Type::String, Type::I32))
         );
 
         let none_str: Option<&str> = None;
@@ -1118,10 +1116,7 @@ mod tests {
         assert_eq!(none_v.get::<&str>(), Ok(None));
         assert_eq!(
             none_v.get::<i32>(),
-            Err(GetError {
-                actual: Type::String,
-                requested: Type::I32
-            })
+            Err(GetError::new_type_mismatch(Type::String, Type::I32))
         );
     }
 }
