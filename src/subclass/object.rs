@@ -666,18 +666,8 @@ mod test {
         assert_eq!(value.get::<String>(), Ok(Some("return value".to_string())));
     }
 
-    #[cfg(not(all(windows, target_pointer_width = "32")))] //  Windows 32bits CI fails on this test
-    #[test]
-    #[should_panic(expected = "Signal required return value of type gchararray but got gboolean")]
-    fn test_signal_return_wrong_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
-
-        // Returning a `bool` when a `String` was expected
-        obj.connect("create-string", false, move |_args| Some(true.to_value()))
-            .unwrap();
-
-        let _res = obj.emit("create-string", &[]);
-    }
+    // Note: can't test type mismatch in signals since panics accross FFI boundaries
+    // are UB. See https://github.com/gtk-rs/glib/issues/518
 
     #[test]
     fn test_signal_return_expected_object_type() {
@@ -694,26 +684,5 @@ mod test {
 
         let value = obj.emit("create-child-object", &[]).unwrap().unwrap();
         assert!(value.type_().is_a(&ChildObject::static_type()));
-    }
-
-    #[cfg(not(all(windows, target_pointer_width = "32")))] //  Windows 32bits CI fails on this test
-    #[test]
-    #[should_panic(
-        expected = "Signal required return value of type ChildObject but got GObject (actual SimpleObject)"
-    )]
-    fn test_signal_return_wrong_object_type() {
-        let obj = Object::new(SimpleObject::get_type(), &[]).unwrap();
-
-        // Returning a `SimpleObject` when a `ChildObject` was expected
-        obj.connect("create-child-object", false, move |_args| {
-            Some(
-                Object::new(SimpleObject::get_type(), &[])
-                    .unwrap()
-                    .to_value(),
-            )
-        })
-        .unwrap();
-
-        let _res = obj.emit("create-child-object", &[]);
     }
 }
