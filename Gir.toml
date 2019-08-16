@@ -175,6 +175,10 @@ status = "generate"
         [[object.function.parameter]]
         name = "device_path"
         string_type = "filename"
+    [[object.function]]
+    pattern = "unix_mount.+"
+    #impl UnixMountEntry
+    ignore = true
 
 [[object]]
 name = "Gio.ActionGroup"
@@ -813,7 +817,8 @@ manual_traits = ["UnixInputStreamExtManual"]
 
 [[object]]
 name = "Gio.UnixMountEntry"
-status = "generate"
+#manual compare
+status = "manual"
 cfg_condition = "unix"
 
 [[object]]

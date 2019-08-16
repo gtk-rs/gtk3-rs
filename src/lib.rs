@@ -33,8 +33,8 @@ mod desktop_app_info;
 mod error;
 mod file;
 mod file_attribute_matcher;
-mod file_enumerator;
 pub use file_attribute_matcher::FileAttributematcherIter;
+mod file_enumerator;
 mod flags;
 mod inet_address;
 mod input_stream;
@@ -53,6 +53,12 @@ mod subprocess;
 mod subprocess_launcher;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_input_stream;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_mount_entry;
+#[cfg(any(unix, feature = "dox"))]
+pub use unix_mount_entry::UnixMountEntry;
+#[cfg(any(unix, feature = "dox"))]
+mod unix_mount_point;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_output_stream;
 #[cfg(any(unix, feature = "dox"))]
