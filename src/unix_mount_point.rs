@@ -8,7 +8,7 @@ use UnixMountPoint;
 
 impl UnixMountPoint {
     #[cfg(any(unix, feature = "dox"))]
-    pub fn get() -> (Vec<UnixMountPoint>, u64) {
+    pub fn get_mount_points() -> (Vec<UnixMountPoint>, u64) {
         unsafe {
             let mut time_read = mem::MaybeUninit::uninit();
             let ret = FromGlibPtrContainer::from_glib_full(gio_sys::g_unix_mount_points_get(
