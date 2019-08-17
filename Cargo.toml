@@ -44,3 +44,6 @@ v2_60 = ["v2_58", "glib-sys/v2_60"]
 futures = ["futures-preview"]
 subclassing = []
 dox = ["glib-sys/dox", "gobject-sys/dox"]
+
+["package.metadata.docs.rs"]
+features = ["dox", "v2_60", "futures", "subclassing"]
