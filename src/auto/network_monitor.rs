@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::Cast;
@@ -56,7 +56,7 @@ pub trait NetworkMonitorExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
@@ -120,7 +120,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn can_reach_async_trampoline<
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -139,7 +139,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = can_reach_async_trampoline::<R>;
@@ -149,12 +149,12 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
                 connectable.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,

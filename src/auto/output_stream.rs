@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -10,7 +10,6 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -41,7 +40,7 @@ pub trait OutputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
@@ -56,7 +55,7 @@ pub trait OutputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn flush_async_future(
         &self,
         io_priority: glib::Priority,
@@ -92,7 +91,7 @@ pub trait OutputStreamExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(
         &self,
         source: &P,
@@ -122,7 +121,7 @@ pub trait OutputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_bytes_async_future(
         &self,
         bytes: &glib::Bytes,
@@ -138,14 +137,14 @@ pub trait OutputStreamExt: 'static {
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_all_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_all_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<usize, Error>> + std::marker::Unpin>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_async<P: IsA<Cancellable>, Q: FnOnce(Result<usize, Error>) + Send + 'static>(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority, cancellable: Option<&P>, callback: Q);
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<usize, Error>> + std::marker::Unpin>;
 }
@@ -179,7 +178,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn close_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -195,7 +194,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = close_async_trampoline::<Q>;
@@ -205,12 +204,12 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
@@ -251,7 +250,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn flush_async_trampoline<
             Q: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -267,7 +266,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = flush_async_trampoline::<Q>;
@@ -277,12 +276,12 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn flush_async_future(
         &self,
         io_priority: glib::Priority,
@@ -377,7 +376,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn splice_async_trampoline<
             R: FnOnce(Result<isize, Error>) + Send + 'static,
         >(
@@ -393,7 +392,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = splice_async_trampoline::<R>;
@@ -405,12 +404,12 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn splice_async_future<P: IsA<InputStream> + Clone + 'static>(
         &self,
         source: &P,
@@ -493,7 +492,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn write_bytes_async_trampoline<
             Q: FnOnce(Result<isize, Error>) + Send + 'static,
         >(
@@ -512,7 +511,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = write_bytes_async_trampoline::<Q>;
@@ -523,12 +522,12 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
                 io_priority.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_bytes_async_future(
         &self,
         bytes: &glib::Bytes,
@@ -564,7 +563,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev_all_async() }
     //}
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_all_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<usize, Error>> + std::marker::Unpin> {
     //use GioFuture;
@@ -592,7 +591,7 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     //    unsafe { TODO: call gio_sys:g_output_stream_writev_async() }
     //}
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Box_<dyn future::Future<Output = Result<usize, Error>> + std::marker::Unpin> {
     //use GioFuture;

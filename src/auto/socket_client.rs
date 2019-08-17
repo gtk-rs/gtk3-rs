@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::Cast;
@@ -73,7 +73,7 @@ pub trait SocketClientExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
@@ -97,7 +97,7 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_host_async_future(
         &self,
         host_and_port: &str,
@@ -122,7 +122,7 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_service_async_future(
         &self,
         domain: &str,
@@ -147,7 +147,7 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_uri_async_future(
         &self,
         uri: &str,
@@ -271,7 +271,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn connect_async_trampoline<
             R: FnOnce(Result<SocketConnection, Error>) + Send + 'static,
         >(
@@ -287,7 +287,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_async_trampoline::<R>;
@@ -297,12 +297,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
                 connectable.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
@@ -356,7 +356,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn connect_to_host_async_trampoline<
             Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static,
         >(
@@ -375,7 +375,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_to_host_async_trampoline::<Q>;
@@ -386,12 +386,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
                 default_port,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_host_async_future(
         &self,
         host_and_port: &str,
@@ -451,7 +451,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn connect_to_service_async_trampoline<
             Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static,
         >(
@@ -470,7 +470,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_to_service_async_trampoline::<Q>;
@@ -481,12 +481,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
                 service.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_service_async_future(
         &self,
         domain: &str,
@@ -542,7 +542,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn connect_to_uri_async_trampoline<
             Q: FnOnce(Result<SocketConnection, Error>) + Send + 'static,
         >(
@@ -561,7 +561,7 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = connect_to_uri_async_trampoline::<Q>;
@@ -572,12 +572,12 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
                 default_port,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_uri_async_future(
         &self,
         uri: &str,

@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::Cast;
@@ -54,7 +54,7 @@ pub trait MountExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
@@ -89,7 +89,7 @@ pub trait MountExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn guess_content_type_future(
         &self,
         force_rescan: bool,
@@ -115,7 +115,7 @@ pub trait MountExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn remount_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountMountFlags,
@@ -136,7 +136,7 @@ pub trait MountExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
@@ -172,7 +172,7 @@ impl<O: IsA<Mount>> MountExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn eject_with_operation_trampoline<
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -191,7 +191,7 @@ impl<O: IsA<Mount>> MountExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = eject_with_operation_trampoline::<R>;
@@ -202,12 +202,12 @@ impl<O: IsA<Mount>> MountExt for O {
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
@@ -290,7 +290,7 @@ impl<O: IsA<Mount>> MountExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn guess_content_type_trampoline<
             Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
         >(
@@ -309,7 +309,7 @@ impl<O: IsA<Mount>> MountExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = guess_content_type_trampoline::<Q>;
@@ -319,12 +319,12 @@ impl<O: IsA<Mount>> MountExt for O {
                 force_rescan.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn guess_content_type_future(
         &self,
         force_rescan: bool,
@@ -379,7 +379,7 @@ impl<O: IsA<Mount>> MountExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn remount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -392,7 +392,7 @@ impl<O: IsA<Mount>> MountExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = remount_trampoline::<R>;
@@ -403,12 +403,12 @@ impl<O: IsA<Mount>> MountExt for O {
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn remount_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountMountFlags,
@@ -451,7 +451,7 @@ impl<O: IsA<Mount>> MountExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn unmount_with_operation_trampoline<
             R: FnOnce(Result<(), Error>) + Send + 'static,
         >(
@@ -470,7 +470,7 @@ impl<O: IsA<Mount>> MountExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = unmount_with_operation_trampoline::<R>;
@@ -481,12 +481,12 @@ impl<O: IsA<Mount>> MountExt for O {
                 mount_operation.map(|p| p.as_ref()).to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn unmount_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,

@@ -2,14 +2,13 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -48,7 +47,7 @@ pub trait TlsInteractionExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(
         &self,
         password: &P,
@@ -86,7 +85,7 @@ pub trait TlsInteractionExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(
         &self,
         connection: &P,
@@ -126,7 +125,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn ask_password_async_trampoline<
             R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static,
         >(
@@ -145,7 +144,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = ask_password_async_trampoline::<R>;
@@ -155,12 +154,12 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
                 password.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(
         &self,
         password: &P,
@@ -259,7 +258,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn request_certificate_async_trampoline<
             R: FnOnce(Result<TlsInteractionResult, Error>) + Send + 'static,
         >(
@@ -278,7 +277,7 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = request_certificate_async_trampoline::<R>;
@@ -289,12 +288,12 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(
         &self,
         connection: &P,

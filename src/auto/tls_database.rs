@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::object::IsA;
@@ -10,7 +10,6 @@ use glib::translate::*;
 use glib::GString;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
@@ -58,7 +57,7 @@ pub trait TlsDatabaseExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_certificate_for_handle_async_future<P: IsA<TlsInteraction> + Clone + 'static>(
         &self,
         handle: &str,
@@ -92,7 +91,7 @@ pub trait TlsDatabaseExt: 'static {
         callback: S,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_certificate_issuer_async_future<
         P: IsA<TlsCertificate> + Clone + 'static,
         Q: IsA<TlsInteraction> + Clone + 'static,
@@ -107,7 +106,7 @@ pub trait TlsDatabaseExt: 'static {
 
     //fn lookup_certificates_issued_by_async<P: IsA<TlsInteraction>, Q: IsA<Cancellable>, R: FnOnce(Result<Vec<TlsCertificate>, Error>) + Send + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>, callback: R);
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //fn lookup_certificates_issued_by_async_future<P: IsA<TlsInteraction> + Clone + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags) -> Box_<dyn future::Future<Output = Result<Vec<TlsCertificate>, Error>> + std::marker::Unpin>;
 
     fn verify_chain<
@@ -142,7 +141,7 @@ pub trait TlsDatabaseExt: 'static {
         callback: T,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn verify_chain_async_future<
         P: IsA<TlsCertificate> + Clone + 'static,
         Q: IsA<SocketConnectable> + Clone + 'static,
@@ -207,7 +206,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn lookup_certificate_for_handle_async_trampoline<
             R: FnOnce(Result<TlsCertificate, Error>) + Send + 'static,
         >(
@@ -226,7 +225,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_for_handle_async_trampoline::<R>;
@@ -238,12 +237,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_certificate_for_handle_async_future<P: IsA<TlsInteraction> + Clone + 'static>(
         &self,
         handle: &str,
@@ -314,7 +313,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         cancellable: Option<&R>,
         callback: S,
     ) {
-        let user_data: Box<S> = Box::new(callback);
+        let user_data: Box_<S> = Box_::new(callback);
         unsafe extern "C" fn lookup_certificate_issuer_async_trampoline<
             S: FnOnce(Result<TlsCertificate, Error>) + Send + 'static,
         >(
@@ -333,7 +332,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<S> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<S> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_certificate_issuer_async_trampoline::<S>;
@@ -345,12 +344,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_certificate_issuer_async_future<
         P: IsA<TlsCertificate> + Clone + 'static,
         Q: IsA<TlsInteraction> + Clone + 'static,
@@ -390,7 +389,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     //    unsafe { TODO: call gio_sys:g_tls_database_lookup_certificates_issued_by_async() }
     //}
 
-    //#[cfg(feature = "futures")]
+    //#[cfg(any(feature = "futures", feature = "dox"))]
     //fn lookup_certificates_issued_by_async_future<P: IsA<TlsInteraction> + Clone + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags) -> Box_<dyn future::Future<Output = Result<Vec<TlsCertificate>, Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
@@ -464,7 +463,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         cancellable: Option<&S>,
         callback: T,
     ) {
-        let user_data: Box<T> = Box::new(callback);
+        let user_data: Box_<T> = Box_::new(callback);
         unsafe extern "C" fn verify_chain_async_trampoline<
             T: FnOnce(Result<TlsCertificateFlags, Error>) + Send + 'static,
         >(
@@ -483,7 +482,7 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<T> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<T> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = verify_chain_async_trampoline::<T>;
@@ -497,12 +496,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn verify_chain_async_future<
         P: IsA<TlsCertificate> + Clone + 'static,
         Q: IsA<SocketConnectable> + Clone + 'static,

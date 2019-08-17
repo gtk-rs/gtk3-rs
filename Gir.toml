@@ -175,6 +175,10 @@ status = "generate"
         [[object.function.parameter]]
         name = "device_path"
         string_type = "filename"
+    [[object.function]]
+    pattern = "unix_mount.+"
+    #impl UnixMountEntry
+    ignore = true
 
 [[object]]
 name = "Gio.ActionGroup"
@@ -810,6 +814,24 @@ manual_traits = ["UnixInputStreamExtManual"]
     [[object.property]]
     name = "close-fd"
     ignore = true
+
+[[object]]
+name = "Gio.UnixMountEntry"
+status = "generate"
+cfg_condition = "unix"
+    [[object.derive]]
+    name = "Debug, Hash"
+
+[[object]]
+name = "Gio.UnixMountPoint"
+status = "generate"
+use_boxed_functions = true
+cfg_condition = "unix"
+    [[object.function]]
+    name = "compare"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
 
 [[object]]
 name = "Gio.UnixOutputStream"

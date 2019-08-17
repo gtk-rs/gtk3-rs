@@ -2,7 +2,7 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib;
@@ -68,7 +68,7 @@ pub trait ResolverExt: 'static {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(
         &self,
         address: &P,
@@ -90,7 +90,7 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_name_async_future(
         &self,
         hostname: &str,
@@ -116,7 +116,7 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn lookup_by_name_with_flags_async_future(
         &self,
@@ -142,7 +142,7 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_records_async_future(
         &self,
         rrname: &str,
@@ -169,7 +169,7 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_service_async_future(
         &self,
         service: &str,
@@ -214,7 +214,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         cancellable: Option<&Q>,
         callback: R,
     ) {
-        let user_data: Box<R> = Box::new(callback);
+        let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn lookup_by_address_async_trampoline<
             R: FnOnce(Result<GString, Error>) + Send + 'static,
         >(
@@ -233,7 +233,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<R> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_by_address_async_trampoline::<R>;
@@ -243,12 +243,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
                 address.as_ref().to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(
         &self,
         address: &P,
@@ -298,7 +298,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_by_name_async_trampoline<
             Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static,
         >(
@@ -317,7 +317,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_by_name_async_trampoline::<Q>;
@@ -327,12 +327,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
                 hostname.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_name_async_future(
         &self,
         hostname: &str,
@@ -388,7 +388,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_by_name_with_flags_async_trampoline<
             Q: FnOnce(Result<Vec<InetAddress>, Error>) + Send + 'static,
         >(
@@ -407,7 +407,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_by_name_with_flags_async_trampoline::<Q>;
@@ -418,12 +418,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
                 flags.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn lookup_by_name_with_flags_async_future(
         &self,
@@ -479,7 +479,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_records_async_trampoline<
             Q: FnOnce(Result<Vec<glib::Variant>, Error>) + Send + 'static,
         >(
@@ -498,7 +498,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_records_async_trampoline::<Q>;
@@ -509,12 +509,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
                 record_type.to_glib(),
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_records_async_future(
         &self,
         rrname: &str,
@@ -572,7 +572,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         cancellable: Option<&P>,
         callback: Q,
     ) {
-        let user_data: Box<Q> = Box::new(callback);
+        let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_service_async_trampoline<
             Q: FnOnce(Result<Vec<SrvTarget>, Error>) + Send + 'static,
         >(
@@ -591,7 +591,7 @@ impl<O: IsA<Resolver>> ResolverExt for O {
             } else {
                 Err(from_glib_full(error))
             };
-            let callback: Box<Q> = Box::from_raw(user_data as *mut _);
+            let callback: Box_<Q> = Box_::from_raw(user_data as *mut _);
             callback(result);
         }
         let callback = lookup_service_async_trampoline::<Q>;
@@ -603,12 +603,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
                 domain.to_glib_none().0,
                 cancellable.map(|p| p.as_ref()).to_glib_none().0,
                 Some(callback),
-                Box::into_raw(user_data) as *mut _,
+                Box_::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_service_async_future(
         &self,
         service: &str,

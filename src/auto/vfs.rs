@@ -6,6 +6,7 @@ use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
 use File;
@@ -48,8 +49,8 @@ pub trait VfsExt: 'static {
     fn register_uri_scheme(
         &self,
         scheme: &str,
-        uri_func: Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>,
-        parse_name_func: Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>,
+        uri_func: Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>,
+        parse_name_func: Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>,
     ) -> bool;
 
     #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -100,11 +101,11 @@ impl<O: IsA<Vfs>> VfsExt for O {
     fn register_uri_scheme(
         &self,
         scheme: &str,
-        uri_func: Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>,
-        parse_name_func: Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>,
+        uri_func: Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>,
+        parse_name_func: Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>,
     ) -> bool {
-        let uri_func_data: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
-            Box::new(uri_func);
+        let uri_func_data: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+            Box_::new(uri_func);
         unsafe extern "C" fn uri_func_func(
             vfs: *mut gio_sys::GVfs,
             identifier: *const libc::c_char,
@@ -112,7 +113,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         ) -> *mut gio_sys::GFile {
             let vfs = from_glib_borrow(vfs);
             let identifier: GString = from_glib_borrow(identifier);
-            let callback: &Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>> =
+            let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {
                 callback(&vfs, identifier.as_str())
@@ -126,8 +127,8 @@ impl<O: IsA<Vfs>> VfsExt for O {
         } else {
             None
         };
-        let parse_name_func_data: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
-            Box::new(parse_name_func);
+        let parse_name_func_data: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+            Box_::new(parse_name_func);
         unsafe extern "C" fn parse_name_func_func(
             vfs: *mut gio_sys::GVfs,
             identifier: *const libc::c_char,
@@ -135,7 +136,7 @@ impl<O: IsA<Vfs>> VfsExt for O {
         ) -> *mut gio_sys::GFile {
             let vfs = from_glib_borrow(vfs);
             let identifier: GString = from_glib_borrow(identifier);
-            let callback: &Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>> =
+            let callback: &Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>> =
                 &*(user_data as *mut _);
             let res = if let Some(ref callback) = *callback {
                 callback(&vfs, identifier.as_str())
@@ -150,28 +151,28 @@ impl<O: IsA<Vfs>> VfsExt for O {
             None
         };
         unsafe extern "C" fn uri_destroy_func(data: glib_sys::gpointer) {
-            let _callback: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+            let _callback: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
                 Box_::from_raw(data as *mut _);
         }
         let destroy_call4 = Some(uri_destroy_func as _);
         unsafe extern "C" fn parse_name_destroy_func(data: glib_sys::gpointer) {
-            let _callback: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+            let _callback: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
                 Box_::from_raw(data as *mut _);
         }
         let destroy_call7 = Some(parse_name_destroy_func as _);
-        let super_callback0: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+        let super_callback0: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
             uri_func_data;
-        let super_callback1: Box_<Option<Box<dyn Fn(&Vfs, &str) -> File + 'static>>> =
+        let super_callback1: Box_<Option<Box_<dyn Fn(&Vfs, &str) -> File + 'static>>> =
             parse_name_func_data;
         unsafe {
             from_glib(gio_sys::g_vfs_register_uri_scheme(
                 self.as_ref().to_glib_none().0,
                 scheme.to_glib_none().0,
                 uri_func,
-                Box::into_raw(super_callback0) as *mut _,
+                Box_::into_raw(super_callback0) as *mut _,
                 destroy_call4,
                 parse_name_func,
-                Box::into_raw(super_callback1) as *mut _,
+                Box_::into_raw(super_callback1) as *mut _,
                 destroy_call7,
             ))
         }

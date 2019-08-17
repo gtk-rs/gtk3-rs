@@ -487,6 +487,16 @@ pub use self::settings_schema_source::SettingsSchemaSource;
 mod srv_target;
 pub use self::srv_target::SrvTarget;
 
+#[cfg(any(unix, feature = "dox"))]
+mod unix_mount_entry;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_mount_entry::UnixMountEntry;
+
+#[cfg(any(unix, feature = "dox"))]
+mod unix_mount_point;
+#[cfg(any(unix, feature = "dox"))]
+pub use self::unix_mount_point::UnixMountPoint;
+
 mod enums;
 pub use self::enums::ConverterResult;
 pub use self::enums::CredentialsType;
