@@ -7,17 +7,7 @@ use glib::GString;
 use std::cmp;
 use std::mem;
 use Icon;
-
-glib_wrapper! {
-    #[derive(Debug, Hash)]
-    pub struct UnixMountEntry(Boxed<gio_sys::GUnixMountEntry>);
-
-    match fn {
-        copy => |ptr| gobject_sys::g_boxed_copy(gio_sys::g_unix_mount_entry_get_type(), ptr as *mut _) as *mut gio_sys::GUnixMountEntry,
-        free => |ptr| gobject_sys::g_boxed_free(gio_sys::g_unix_mount_entry_get_type(), ptr as *mut _),
-        get_type => || gio_sys::g_unix_mount_entry_get_type(),
-    }
-}
+use UnixMountEntry;
 
 impl UnixMountEntry {
     pub fn new_at<P: AsRef<std::path::Path>>(mount_path: P) -> (UnixMountEntry, u64) {

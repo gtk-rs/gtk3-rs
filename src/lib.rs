@@ -56,8 +56,6 @@ mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_mount_entry;
 #[cfg(any(unix, feature = "dox"))]
-pub use unix_mount_entry::UnixMountEntry;
-#[cfg(any(unix, feature = "dox"))]
 mod unix_mount_point;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_output_stream;

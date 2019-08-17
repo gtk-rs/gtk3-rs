@@ -817,9 +817,10 @@ manual_traits = ["UnixInputStreamExtManual"]
 
 [[object]]
 name = "Gio.UnixMountEntry"
-#manual compare
-status = "manual"
+status = "generate"
 cfg_condition = "unix"
+    [[object.derive]]
+    name = "Debug, Hash"
 
 [[object]]
 name = "Gio.UnixMountPoint"
