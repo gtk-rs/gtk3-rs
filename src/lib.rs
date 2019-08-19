@@ -38,6 +38,7 @@ pub mod attr_list;
 pub mod attribute;
 pub mod font_description;
 mod functions;
+pub mod gravity;
 pub mod item;
 pub mod language;
 pub use language::Language;
