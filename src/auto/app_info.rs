@@ -238,27 +238,6 @@ pub trait AppInfoExt: 'static {
         context: Option<&P>,
     ) -> Result<(), Error>;
 
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    fn launch_uris_async<
-        P: IsA<AppLaunchContext>,
-        Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
-    >(
-        &self,
-        uris: &[&str],
-        context: Option<&P>,
-        cancellable: Option<&Q>,
-        callback: R,
-    );
-
-    #[cfg(any(feature = "futures", feature = "dox"))]
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
-        &self,
-        uris: &[&str],
-        context: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
-
     fn remove_supports_type(&self, content_type: &str) -> Result<(), Error>;
 
     fn set_as_default_for_extension<P: AsRef<std::path::Path>>(
@@ -419,78 +398,6 @@ impl<O: IsA<AppInfo>> AppInfoExt for O {
                 Err(from_glib_full(error))
             }
         }
-    }
-
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    fn launch_uris_async<
-        P: IsA<AppLaunchContext>,
-        Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
-    >(
-        &self,
-        uris: &[&str],
-        context: Option<&P>,
-        cancellable: Option<&Q>,
-        callback: R,
-    ) {
-        let user_data: Box_<R> = Box_::new(callback);
-        unsafe extern "C" fn launch_uris_async_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
-        >(
-            _source_object: *mut gobject_sys::GObject,
-            res: *mut gio_sys::GAsyncResult,
-            user_data: glib_sys::gpointer,
-        ) {
-            let mut error = ptr::null_mut();
-            let _ =
-                gio_sys::g_app_info_launch_uris_finish(_source_object as *mut _, res, &mut error);
-            let result = if error.is_null() {
-                Ok(())
-            } else {
-                Err(from_glib_full(error))
-            };
-            let callback: Box_<R> = Box_::from_raw(user_data as *mut _);
-            callback(result);
-        }
-        let callback = launch_uris_async_trampoline::<R>;
-        unsafe {
-            gio_sys::g_app_info_launch_uris_async(
-                self.as_ref().to_glib_none().0,
-                uris.to_glib_none().0,
-                context.map(|p| p.as_ref()).to_glib_none().0,
-                cancellable.map(|p| p.as_ref()).to_glib_none().0,
-                Some(callback),
-                Box_::into_raw(user_data) as *mut _,
-            );
-        }
-    }
-
-    #[cfg(any(feature = "futures", feature = "dox"))]
-    #[cfg(any(feature = "v2_60", feature = "dox"))]
-    fn launch_uris_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
-        &self,
-        uris: &[&str],
-        context: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
-        use fragile::Fragile;
-        use GioFuture;
-
-        let uris = uris.map(ToOwned::to_owned);
-        let context = context.map(ToOwned::to_owned);
-        GioFuture::new(self, move |obj, send| {
-            let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
-            obj.launch_uris_async(
-                uris.as_ref().map(::std::borrow::Borrow::borrow),
-                context.as_ref().map(::std::borrow::Borrow::borrow),
-                Some(&cancellable),
-                move |res| {
-                    let _ = send.into_inner().send(res);
-                },
-            );
-
-            cancellable
-        })
     }
 
     fn remove_supports_type(&self, content_type: &str) -> Result<(), Error> {
