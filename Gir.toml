@@ -195,6 +195,10 @@ status = "generate"
         [[object.function.parameter]]
         name = "commandline"
         string_type = "os_string"
+    [[object.function]]
+    name = "launch_uris_async"
+    #in array of strings
+    ignore = true
 
 [[object]]
 name = "Gio.AppInfoMonitor"
