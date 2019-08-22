@@ -30,6 +30,9 @@ purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 futures = ["futures-preview", "fragile", "glib/futures", "gio/futures"]
 
+["package.metadata.docs.rs"]
+features = ["dox", "embed-lgpl-docs", "v2_36_8", "futures"]
+
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
 optional = true
