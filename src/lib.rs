@@ -89,3 +89,7 @@ pub use gio_future::*;
 #[macro_use]
 #[cfg(feature = "subclassing")]
 pub mod subclass;
+#[cfg(feature = "subclassing")]
+mod read_input_stream;
+#[cfg(feature = "subclassing")]
+pub use read_input_stream::ReadInputStream;
