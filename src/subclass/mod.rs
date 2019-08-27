@@ -4,9 +4,11 @@
 
 pub mod application;
 pub mod input_stream;
+pub mod output_stream;
 
 pub mod prelude {
     pub use super::application::{ApplicationImpl, ArgumentList};
     pub use super::input_stream::InputStreamImpl;
+    pub use super::output_stream::OutputStreamImpl;
     pub use glib::subclass::prelude::*;
 }
