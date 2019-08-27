@@ -3,8 +3,10 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 pub mod application;
+pub mod input_stream;
 
 pub mod prelude {
     pub use super::application::{ApplicationImpl, ArgumentList};
+    pub use super::input_stream::InputStreamImpl;
     pub use glib::subclass::prelude::*;
 }
