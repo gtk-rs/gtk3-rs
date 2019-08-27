@@ -264,6 +264,8 @@ where
 mod tests {
     use super::*;
     use crate::prelude::*;
+    use crate::subclass::prelude::*;
+    use crate::Seekable;
     use glib;
     use glib::prelude::*;
     use glib::subclass;
@@ -285,6 +287,10 @@ mod tests {
             Self {
                 pos: RefCell::new(0),
             }
+        }
+
+        fn type_init(type_: &mut subclass::InitializingType<Self>) {
+            type_.add_interface::<crate::Seekable>();
         }
     }
 
@@ -308,6 +314,58 @@ mod tests {
         }
     }
 
+    impl SeekableImpl for SimpleInputStream {
+        fn tell(&self, _seekable: &Seekable) -> i64 {
+            *self.pos.borrow() as i64
+        }
+
+        fn can_seek(&self, _seekable: &Seekable) -> bool {
+            true
+        }
+
+        fn seek(
+            &self,
+            _seekable: &Seekable,
+            offset: i64,
+            type_: glib::SeekType,
+            _cancellable: Option<&Cancellable>,
+        ) -> Result<(), glib::Error> {
+            let mut pos = self.pos.borrow_mut();
+            match type_ {
+                glib::SeekType::Set => {
+                    *pos = offset as usize;
+                    Ok(())
+                }
+                glib::SeekType::Cur => {
+                    if offset < 0 {
+                        *pos -= (-offset) as usize;
+                    } else {
+                        *pos += offset as usize;
+                    }
+
+                    Ok(())
+                }
+                glib::SeekType::End => Err(glib::Error::new(
+                    crate::IOErrorEnum::NotSupported,
+                    "Can't seek relative to end",
+                )),
+                _ => unreachable!(),
+            }
+        }
+
+        fn can_truncate(&self, _seekable: &Seekable) -> bool {
+            false
+        }
+        fn truncate(
+            &self,
+            _seekable: &Seekable,
+            _offset: i64,
+            _cancellable: Option<&Cancellable>,
+        ) -> Result<(), Error> {
+            unimplemented!()
+        }
+    }
+
     #[test]
     fn test_simple_stream() {
         let stream = glib::Object::new(SimpleInputStream::get_type(), &[])
@@ -328,6 +386,22 @@ mod tests {
         assert_eq!(
             &buf,
             &[18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]
+        );
+
+        let seekable = stream.dynamic_cast_ref::<Seekable>().unwrap();
+        assert_eq!(seekable.tell(), 34);
+        assert!(seekable.can_seek());
+
+        assert_eq!(
+            seekable.seek(0, glib::SeekType::Set, crate::NONE_CANCELLABLE),
+            Ok(())
+        );
+
+        assert_eq!(seekable.tell(), 0);
+        assert_eq!(stream.read(&mut buf, crate::NONE_CANCELLABLE), Ok(16));
+        assert_eq!(
+            &buf,
+            &[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
         );
 
         assert_eq!(stream.close(crate::NONE_CANCELLABLE), Ok(()));
