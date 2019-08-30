@@ -93,3 +93,7 @@ pub mod subclass;
 mod read_input_stream;
 #[cfg(feature = "subclassing")]
 pub use read_input_stream::ReadInputStream;
+#[cfg(feature = "subclassing")]
+mod write_output_stream;
+#[cfg(feature = "subclassing")]
+pub use write_output_stream::WriteOutputStream;
