@@ -10,11 +10,11 @@ use glib::object::IsA;
 use glib::translate::*;
 use {Rectangle, Window, RGBA};
 
-pub trait SurfaceExt {
+pub trait GdkSurfaceExt {
     fn create_region(&self) -> Option<Region>;
 }
 
-impl SurfaceExt for Surface {
+impl GdkSurfaceExt for Surface {
     fn create_region(&self) -> Option<Region> {
         unsafe {
             from_glib_full(gdk_sys::gdk_cairo_region_create_from_surface(
@@ -24,29 +24,29 @@ impl SurfaceExt for Surface {
     }
 }
 
-pub trait PixbufExt {
-    fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface>;
+pub trait GdkPixbufExt {
+    fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: &W) -> Option<Surface>;
 }
 
-impl PixbufExt for Pixbuf {
-    fn create_surface(&self, scale: i32, for_window: &Window) -> Option<Surface> {
+impl GdkPixbufExt for Pixbuf {
+    fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: &W) -> Option<Surface> {
         unsafe {
             from_glib_full(gdk_sys::gdk_cairo_surface_create_from_pixbuf(
                 self.to_glib_none().0,
                 scale,
-                for_window.to_glib_none().0,
+                for_window.as_ref().to_glib_none().0,
             ))
         }
     }
 }
 
-pub trait ContextExt {
-    fn create_from_window(window: &Window) -> Context;
+pub trait GdkContextExt {
+    fn create_from_window<W: IsA<Window>>(window: &W) -> Context;
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn cairo_draw_from_gl(
-        cr: &Context,
-        window: &Window,
+    unsafe fn draw_from_gl<W: IsA<Window>>(
+        &self,
+        window: &W,
         source: i32,
         source_type: i32,
         buffer_scale: i32,
@@ -56,35 +56,29 @@ pub trait ContextExt {
         height: i32,
     );
 
-    fn cairo_surface_create_from_pixbuf<T: IsA<Window>>(
-        pixbuf: &Pixbuf,
-        scale: i32,
-        for_window: Option<&T>,
-    ) -> Option<Surface>;
-
     fn get_clip_rectangle(&self) -> Option<Rectangle>;
 
     fn set_source_rgba(&self, rgba: &RGBA);
 
     fn set_source_pixbuf(&self, pixbuf: &Pixbuf, x: f64, y: f64);
 
-    fn set_source_window(&self, window: &Window, x: f64, y: f64);
+    fn set_source_window<W: IsA<Window>>(&self, window: &W, x: f64, y: f64);
 
     fn rectangle(&self, rectangle: &Rectangle);
 
     fn add_region(&self, region: &Region);
 }
 
-impl ContextExt for Context {
-    fn create_from_window(window: &Window) -> Context {
+impl GdkContextExt for Context {
+    fn create_from_window<W: IsA<Window>>(window: &W) -> Context {
         skip_assert_initialized!();
-        unsafe { from_glib_full(gdk_sys::gdk_cairo_create(window.to_glib_none().0)) }
+        unsafe { from_glib_full(gdk_sys::gdk_cairo_create(window.as_ref().to_glib_none().0)) }
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn cairo_draw_from_gl(
-        cr: &Context,
-        window: &Window,
+    unsafe fn draw_from_gl<W: IsA<Window>>(
+        &self,
+        window: &W,
         source: i32,
         source_type: i32,
         buffer_scale: i32,
@@ -94,36 +88,17 @@ impl ContextExt for Context {
         height: i32,
     ) {
         skip_assert_initialized!();
-        unsafe {
-            gdk_sys::gdk_cairo_draw_from_gl(
-                mut_override(cr.to_glib_none().0),
-                window.to_glib_none().0,
-                source,
-                source_type,
-                buffer_scale,
-                x,
-                y,
-                width,
-                height,
-            );
-        }
-    }
-
-    fn cairo_surface_create_from_pixbuf<T: IsA<Window>>(
-        pixbuf: &Pixbuf,
-        scale: i32,
-        for_window: Option<&T>,
-    ) -> Option<Surface> {
-        assert_initialized_main_thread!();
-        let for_window = for_window.map(|f| f.as_ref());
-        let for_window = for_window.to_glib_none();
-        unsafe {
-            from_glib_full(gdk_sys::gdk_cairo_surface_create_from_pixbuf(
-                pixbuf.to_glib_none().0,
-                scale,
-                for_window.0,
-            ))
-        }
+        gdk_sys::gdk_cairo_draw_from_gl(
+            mut_override(self.to_glib_none().0),
+            window.as_ref().to_glib_none().0,
+            source,
+            source_type,
+            buffer_scale,
+            x,
+            y,
+            width,
+            height,
+        );
     }
 
     fn get_clip_rectangle(&self) -> Option<Rectangle> {
@@ -157,11 +132,11 @@ impl ContextExt for Context {
         }
     }
 
-    fn set_source_window(&self, window: &Window, x: f64, y: f64) {
+    fn set_source_window<W: IsA<Window>>(&self, window: &W, x: f64, y: f64) {
         unsafe {
             gdk_sys::gdk_cairo_set_source_window(
                 self.to_glib_none().0,
-                window.to_glib_none().0,
+                window.as_ref().to_glib_none().0,
                 x,
                 y,
             );
