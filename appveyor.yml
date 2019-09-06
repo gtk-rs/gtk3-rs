@@ -17,8 +17,7 @@ install:
 
 build_script:
   - cargo doc --features "dox"
-  - cargo test --features subclassing
-  - cargo test --features subclassing,v2_58
+  - cargo test --features v2_58
   - mkdir .cargo
   - echo paths = ["."] > .cargo\config
   - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples

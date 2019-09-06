@@ -57,8 +57,7 @@
 //! `ObjectExt` and `gtk::WidgetExt`), which are blanketly implemented for all
 //! their subtypes.
 //!
-//! For creating new subclasses of `Object` or other object types this crate has to be compiled
-//! with the `subclassing` feature to enable the [`subclass`](subclass/index.html) module. Check
+//! You can create new subclasses of `Object` or other object types. Look at
 //! the module's documentation for further details and a code example.
 //!
 //! # Under the hood
@@ -177,6 +176,9 @@ pub use quark::Quark;
 pub mod send_unique;
 pub use send_unique::{SendUnique, SendUniqueCell};
 
+#[macro_use]
+pub mod subclass;
+
 #[cfg(feature = "futures")]
 mod main_context_futures;
 #[cfg(feature = "futures")]
@@ -198,7 +200,3 @@ pub(crate) fn get_thread_id() -> usize {
     thread_local!(static THREAD_ID: usize = next_thread_id());
     THREAD_ID.with(|&x| x)
 }
-
-#[macro_use]
-#[cfg(any(feature = "dox", feature = "subclassing"))]
-pub mod subclass;
