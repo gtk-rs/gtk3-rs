@@ -16,7 +16,7 @@ use std::path::Path;
 use std::ptr;
 use std::slice;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future::Future;
 
 use {Colorspace, Pixbuf, PixbufFormat};
@@ -173,7 +173,7 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
     ) -> Box<dyn Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
@@ -239,7 +239,7 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
         width: i32,
@@ -368,7 +368,7 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
@@ -497,7 +497,7 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(
         &self,

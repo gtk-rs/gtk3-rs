@@ -15,9 +15,9 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 extern crate fragile;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 extern crate futures;
 
 pub use glib::{Cast, Continue, Error, IsA, Object, StaticType, ToValue, Type, TypedValue, Value};
