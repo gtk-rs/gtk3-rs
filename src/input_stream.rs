@@ -16,7 +16,7 @@ use Cancellable;
 use Error;
 use InputStream;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 
 pub trait InputStreamExtManual: Sized {
@@ -55,7 +55,7 @@ pub trait InputStreamExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
@@ -66,7 +66,7 @@ pub trait InputStreamExtManual: Sized {
             + std::marker::Unpin,
     >;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -256,7 +256,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
@@ -281,7 +281,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         })
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,

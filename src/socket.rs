@@ -20,9 +20,9 @@ use Error;
 use Socket;
 use SocketAddress;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future::Future;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::stream::Stream;
 
 #[cfg(unix)]
@@ -123,7 +123,7 @@ pub trait SocketExtManual: Sized {
     where
         F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future(
         &self,
         condition: glib::IOCondition,
@@ -131,7 +131,7 @@ pub trait SocketExtManual: Sized {
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin>;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream(
         &self,
         condition: glib::IOCondition,
@@ -381,7 +381,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future(
         &self,
         condition: glib::IOCondition,
@@ -406,7 +406,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }))
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream(
         &self,
         condition: glib::IOCondition,

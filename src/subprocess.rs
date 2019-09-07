@@ -1,4 +1,4 @@
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
 use glib::translate::*;
@@ -58,7 +58,7 @@ impl Subprocess {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn communicate_utf8_async_future(
         &self,
         stdin_buf: Option<String>,

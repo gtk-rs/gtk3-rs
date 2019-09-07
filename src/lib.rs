@@ -23,7 +23,7 @@ extern crate glib_sys;
 extern crate gobject_sys;
 extern crate libc;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 extern crate futures;
 
 mod application;
@@ -81,9 +81,9 @@ pub use prelude::*;
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 mod auto;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 mod gio_future;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 pub use gio_future::*;
 
 #[macro_use]
