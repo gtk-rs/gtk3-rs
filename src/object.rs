@@ -716,8 +716,8 @@ macro_rules! glib_object_wrapper {
 
                 // If the object was floating, clear the floating flag. The one and only
                 // reference is still owned by the GValue at this point
-                if !obj.is_null() && gobject_sys::g_object_is_floating(obj) != glib_sys::GFALSE {
-                    gobject_sys::g_object_ref_sink(obj);
+                if !obj.is_null() && $crate::gobject_sys::g_object_is_floating(obj) != $crate::glib_sys::GFALSE {
+                    $crate::gobject_sys::g_object_ref_sink(obj);
                 }
 
                 // And get a new reference to the object to pass to the caller

@@ -247,7 +247,7 @@ macro_rules! glib_wrapper {
             free => |$free_arg:ident| $free_expr:expr,
         }
     ) => {
-        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+        $crate::glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
             @free $free_arg $free_expr);
     };
 
@@ -261,7 +261,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+        $crate::glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
             @free $free_arg $free_expr, @get_type $get_type_expr);
     };
 
@@ -276,7 +276,7 @@ macro_rules! glib_wrapper {
             clear => |$clear_arg:ident| $clear_expr:expr,
         }
     ) => {
-        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+        $crate::glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
             @free $free_arg $free_expr, @init $init_arg $init_expr, @clear $clear_arg $clear_expr);
     };
 
@@ -292,7 +292,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
+        $crate::glib_boxed_wrapper!([$($attr)*] $name, $ffi_name, @copy $copy_arg $copy_expr,
             @free $free_arg $free_expr, @init $init_arg $init_expr, @clear $clear_arg $clear_expr,
             @get_type $get_type_expr);
     };
@@ -308,7 +308,7 @@ macro_rules! glib_wrapper {
             unref => |$unref_arg:ident| $unref_expr:expr,
         }
     ) => {
-        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+        $crate::glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr);
     };
 
@@ -322,7 +322,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
+        $crate::glib_shared_wrapper!([$($attr)*] $name, $ffi_name, @ref $ref_arg $ref_expr,
             @unref $unref_arg $unref_expr, @get_type $get_type_expr);
     };
 
@@ -335,7 +335,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
     // Object, class struct, no parents or interfaces
@@ -347,7 +347,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name, @get_type $get_type_expr, @extends [], @implements []);
     };
 
     // Object, no class struct, parents, no interfaces
@@ -359,7 +359,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
@@ -372,7 +372,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements []);
     };
 
@@ -385,7 +385,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
@@ -398,7 +398,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr, @extends [], @implements [$($implements),+]);
     };
 
@@ -411,7 +411,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $crate::wrapper::Void, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
@@ -424,7 +424,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
+        $crate::glib_object_wrapper!(@object [$($attr)*] $name, $ffi_name, $ffi_class_name, $rust_class_name,
             @get_type $get_type_expr, @extends [$($extends),+], @implements [$($implements),+]);
     };
 
@@ -437,7 +437,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires []);
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires []);
     };
 
     // Interface, prerequisites
@@ -449,7 +449,7 @@ macro_rules! glib_wrapper {
             get_type => || $get_type_expr:expr,
         }
     ) => {
-        glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
+        $crate::glib_object_wrapper!(@interface [$($attr)*] $name, $ffi_name, @get_type $get_type_expr, @requires [$($requires),+]);
     };
 }
 
