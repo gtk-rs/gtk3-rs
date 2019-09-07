@@ -26,7 +26,7 @@ purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 
 ["package.metadata.docs.rs"]
-features = ["dox", "embed-lgpl-docs", "v1_42"]
+features = ["dox", "embed-lgpl-docs"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
 version = "0.1.3"
