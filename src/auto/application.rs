@@ -9,6 +9,7 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::value::SetValueOptional;
 use glib::GString;
 use glib::StaticType;
 use glib::ToValue;
@@ -209,7 +210,10 @@ pub trait ApplicationExt: 'static {
 
     fn withdraw_notification(&self, id: &str);
 
-    fn set_property_action_group(&self, action_group: Option<&ActionGroup>);
+    fn set_property_action_group<P: IsA<ActionGroup> + SetValueOptional>(
+        &self,
+        action_group: Option<&P>,
+    );
 
     fn connect_activate<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -528,7 +532,10 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn set_property_action_group(&self, action_group: Option<&ActionGroup>) {
+    fn set_property_action_group<P: IsA<ActionGroup> + SetValueOptional>(
+        &self,
+        action_group: Option<&P>,
+    ) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.to_glib_none().0 as *mut gobject_sys::GObject,
