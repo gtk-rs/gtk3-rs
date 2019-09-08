@@ -41,12 +41,11 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-#default = ["gtk_3_22_30", "futures", "subclassing"]
+#default = ["gtk_3_22_30", "futures"]
 gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
 gtk_3_22_30 = ["gtk_3_18", "gtk/v3_22_30", "gdk-pixbuf/v2_36", "gdk/v3_22", "gio/v2_56", "glib/v2_56", "pango/v1_42"] #for CI tools
 gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24", "atk/v2_30", "gdk-pixbuf/v2_36_8", "gdk/v3_24", "gio/v2_58", "glib/v2_58"] #for CI tools
 futures = ["futures-preview", "glib/futures", "gio/futures"]
-subclassing = ["glib/subclassing"]
 
 [[bin]]
 name = "accessibility"
@@ -107,7 +106,7 @@ name = "gtktest"
 
 [[bin]]
 name = "listbox_model"
-required-features = ["gtk/v3_16", "gio/v2_44", "subclassing"]
+required-features = ["gtk/v3_16", "gio/v2_44"]
 
 [[bin]]
 name = "menu_bar"
