@@ -37,6 +37,7 @@ use ModifierType;
 use Screen;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use Seat;
+use TimeCoord;
 use Window;
 
 glib_wrapper! {
@@ -90,9 +91,33 @@ impl Device {
         unsafe { from_glib(gdk_sys::gdk_device_get_has_cursor(self.to_glib_none().0)) }
     }
 
-    //pub fn get_history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32, events: /*Ignored*/Vec<TimeCoord>) -> Option<i32> {
-    //    unsafe { TODO: call gdk_sys:gdk_device_get_history() }
-    //}
+    pub fn get_history<P: IsA<Window>>(
+        &self,
+        window: &P,
+        start: u32,
+        stop: u32,
+    ) -> Option<Vec<TimeCoord>> {
+        unsafe {
+            let mut events = ptr::null_mut();
+            let mut n_events = mem::MaybeUninit::uninit();
+            let ret = from_glib(gdk_sys::gdk_device_get_history(
+                self.to_glib_none().0,
+                window.as_ref().to_glib_none().0,
+                start,
+                stop,
+                &mut events,
+                n_events.as_mut_ptr(),
+            ));
+            if ret {
+                Some(FromGlibContainer::from_glib_full_num(
+                    events,
+                    n_events.assume_init() as usize,
+                ))
+            } else {
+                None
+            }
+        }
+    }
 
     pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
@@ -408,10 +433,6 @@ impl Device {
                 .unwrap()
         }
     }
-
-    //pub fn free_history(events: /*Ignored*/&[&TimeCoord]) {
-    //    unsafe { TODO: call gdk_sys:gdk_device_free_history() }
-    //}
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     pub fn grab_info_libgtk_only(display: &Display, device: &Device) -> Option<(Window, bool)> {
