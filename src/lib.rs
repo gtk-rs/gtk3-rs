@@ -23,7 +23,7 @@ extern crate glib_sys;
 extern crate gobject_sys;
 extern crate libc;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 extern crate futures;
 
 mod application;
@@ -81,19 +81,14 @@ pub use prelude::*;
 #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
 mod auto;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 mod gio_future;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 pub use gio_future::*;
 
 #[macro_use]
-#[cfg(feature = "subclassing")]
 pub mod subclass;
-#[cfg(feature = "subclassing")]
 mod read_input_stream;
-#[cfg(feature = "subclassing")]
 pub use read_input_stream::ReadInputStream;
-#[cfg(feature = "subclassing")]
 mod write_output_stream;
-#[cfg(feature = "subclassing")]
 pub use write_output_stream::WriteOutputStream;

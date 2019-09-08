@@ -8,7 +8,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::ptr;
 use Cancellable;
@@ -17,7 +17,7 @@ use Socket;
 use SocketConnection;
 use SocketListener;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 
 pub trait SocketListenerExtManual: Sized {
@@ -29,7 +29,7 @@ pub trait SocketListenerExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_socket_async_future(
         &self,
     ) -> Box<
@@ -46,7 +46,7 @@ pub trait SocketListenerExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_async_future(
         &self,
     ) -> Box_<
@@ -99,7 +99,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_socket_async_future(
         &self,
     ) -> Box<
@@ -164,7 +164,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_async_future(
         &self,
     ) -> Box_<

@@ -14,7 +14,7 @@ use Error;
 use File;
 use FileCreateFlags;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 
 pub trait FileExtManual: Sized {
@@ -31,7 +31,7 @@ pub trait FileExtManual: Sized {
         callback: R,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         contents: B,
@@ -105,7 +105,7 @@ impl<O: IsA<File>> FileExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(
         &self,
         contents: B,

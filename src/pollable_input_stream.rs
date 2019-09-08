@@ -15,9 +15,9 @@ use Cancellable;
 use Error;
 use PollableInputStream;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future::Future;
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::stream::Stream;
 
 pub trait PollableInputStreamExtManual: Sized {
@@ -31,14 +31,14 @@ pub trait PollableInputStreamExtManual: Sized {
     where
         F: FnMut(&Self) -> glib::Continue + 'static;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future(
         &self,
         cancellable: Option<&Cancellable>,
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream(
         &self,
         cancellable: Option<&Cancellable>,
@@ -127,7 +127,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future(
         &self,
         cancellable: Option<&Cancellable>,
@@ -146,7 +146,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }))
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream(
         &self,
         cancellable: Option<&Cancellable>,

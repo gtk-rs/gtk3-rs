@@ -17,7 +17,7 @@ use Error;
 use OutputStream;
 use OutputStreamExt;
 
-#[cfg(feature = "futures")]
+#[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
@@ -50,14 +50,14 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
         callback: Q,
     );
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
     ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
@@ -220,7 +220,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
@@ -241,7 +241,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         })
     }
 
-    #[cfg(feature = "futures")]
+    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
