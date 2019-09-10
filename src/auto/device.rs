@@ -37,7 +37,6 @@ use ModifierType;
 use Screen;
 #[cfg(any(feature = "v3_20", feature = "dox"))]
 use Seat;
-use TimeCoord;
 use Window;
 
 glib_wrapper! {
@@ -89,34 +88,6 @@ impl Device {
 
     pub fn get_has_cursor(&self) -> bool {
         unsafe { from_glib(gdk_sys::gdk_device_get_has_cursor(self.to_glib_none().0)) }
-    }
-
-    pub fn get_history<P: IsA<Window>>(
-        &self,
-        window: &P,
-        start: u32,
-        stop: u32,
-    ) -> Option<Vec<TimeCoord>> {
-        unsafe {
-            let mut events = ptr::null_mut();
-            let mut n_events = mem::MaybeUninit::uninit();
-            let ret = from_glib(gdk_sys::gdk_device_get_history(
-                self.to_glib_none().0,
-                window.as_ref().to_glib_none().0,
-                start,
-                stop,
-                &mut events,
-                n_events.as_mut_ptr(),
-            ));
-            if ret {
-                Some(FromGlibContainer::from_glib_full_num(
-                    events,
-                    n_events.assume_init() as usize,
-                ))
-            } else {
-                None
-            }
-        }
     }
 
     pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {

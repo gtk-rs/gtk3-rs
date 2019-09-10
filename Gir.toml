@@ -208,7 +208,10 @@ status = "generate"
         nullable = false
     [[object.function]]
     name = "free_history"
-    ignore = true # useless function
+    ignore = true # cannot be used as is
+    [[object.function]]
+    name = "get_history"
+    ignore = true # need to call "free_history" function by hand
     [[object.property]]
     name = "tool"
     version = "3.22"
