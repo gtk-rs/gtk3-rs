@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::value::SetValueOptional;
 use glib::GString;
 use glib::StaticType;
 use glib::Value;
@@ -99,7 +100,10 @@ pub trait AtkObjectExt: 'static {
 
     fn get_property_accessible_parent(&self) -> Option<Object>;
 
-    fn set_property_accessible_parent(&self, accessible_parent: Option<&Object>);
+    fn set_property_accessible_parent<P: IsA<Object> + SetValueOptional>(
+        &self,
+        accessible_parent: Option<&P>,
+    );
 
     fn get_property_accessible_role(&self) -> Role;
 
@@ -111,9 +115,9 @@ pub trait AtkObjectExt: 'static {
 
     fn get_property_accessible_table_caption_object(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_caption_object(
+    fn set_property_accessible_table_caption_object<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_caption_object: Option<&Object>,
+        accessible_table_caption_object: Option<&P>,
     );
 
     fn get_property_accessible_table_column_description(&self) -> Option<GString>;
@@ -125,9 +129,9 @@ pub trait AtkObjectExt: 'static {
 
     fn get_property_accessible_table_column_header(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_column_header(
+    fn set_property_accessible_table_column_header<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_column_header: Option<&Object>,
+        accessible_table_column_header: Option<&P>,
     );
 
     fn get_property_accessible_table_row_description(&self) -> Option<GString>;
@@ -139,14 +143,17 @@ pub trait AtkObjectExt: 'static {
 
     fn get_property_accessible_table_row_header(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_row_header(
+    fn set_property_accessible_table_row_header<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_row_header: Option<&Object>,
+        accessible_table_row_header: Option<&P>,
     );
 
     fn get_property_accessible_table_summary(&self) -> Option<Object>;
 
-    fn set_property_accessible_table_summary(&self, accessible_table_summary: Option<&Object>);
+    fn set_property_accessible_table_summary<P: IsA<Object> + SetValueOptional>(
+        &self,
+        accessible_table_summary: Option<&P>,
+    );
 
     fn get_property_accessible_value(&self) -> f64;
 
@@ -518,7 +525,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_parent(&self, accessible_parent: Option<&Object>) {
+    fn set_property_accessible_parent<P: IsA<Object> + SetValueOptional>(
+        &self,
+        accessible_parent: Option<&P>,
+    ) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.to_glib_none().0 as *mut gobject_sys::GObject,
@@ -591,9 +601,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_caption_object(
+    fn set_property_accessible_table_caption_object<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_caption_object: Option<&Object>,
+        accessible_table_caption_object: Option<&P>,
     ) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -649,9 +659,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_column_header(
+    fn set_property_accessible_table_column_header<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_column_header: Option<&Object>,
+        accessible_table_column_header: Option<&P>,
     ) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -705,9 +715,9 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_row_header(
+    fn set_property_accessible_table_row_header<P: IsA<Object> + SetValueOptional>(
         &self,
-        accessible_table_row_header: Option<&Object>,
+        accessible_table_row_header: Option<&P>,
     ) {
         unsafe {
             gobject_sys::g_object_set_property(
@@ -732,7 +742,10 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn set_property_accessible_table_summary(&self, accessible_table_summary: Option<&Object>) {
+    fn set_property_accessible_table_summary<P: IsA<Object> + SetValueOptional>(
+        &self,
+        accessible_table_summary: Option<&P>,
+    ) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.to_glib_none().0 as *mut gobject_sys::GObject,
