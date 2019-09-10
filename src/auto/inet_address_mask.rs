@@ -8,6 +8,7 @@ use glib::object::IsA;
 use glib::signal::connect_raw;
 use glib::signal::SignalHandlerId;
 use glib::translate::*;
+use glib::value::SetValueOptional;
 use glib::GString;
 use glib::Value;
 use glib_sys;
@@ -79,7 +80,7 @@ pub trait InetAddressMaskExt: 'static {
 
     fn to_string(&self) -> GString;
 
-    fn set_property_address(&self, address: Option<&InetAddress>);
+    fn set_property_address<P: IsA<InetAddress> + SetValueOptional>(&self, address: Option<&P>);
 
     fn set_property_length(&self, length: u32);
 
@@ -146,7 +147,7 @@ impl<O: IsA<InetAddressMask>> InetAddressMaskExt for O {
         }
     }
 
-    fn set_property_address(&self, address: Option<&InetAddress>) {
+    fn set_property_address<P: IsA<InetAddress> + SetValueOptional>(&self, address: Option<&P>) {
         unsafe {
             gobject_sys::g_object_set_property(
                 self.to_glib_none().0 as *mut gobject_sys::GObject,
