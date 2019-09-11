@@ -83,6 +83,7 @@ mod keys;
 mod rectangle;
 mod rgba;
 mod screen;
+mod time_coord;
 mod visual;
 mod window;
 
@@ -143,6 +144,7 @@ pub use functions::*;
 pub use geometry::Geometry;
 pub use rectangle::Rectangle;
 pub use rgba::{RgbaParseError, RGBA};
+pub use time_coord::TimeCoord;
 pub use window::WindowAttr;
 
 #[allow(non_camel_case_types)]

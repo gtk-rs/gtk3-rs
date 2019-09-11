@@ -96,6 +96,7 @@ manual = [
     "Gdk.Geometry",
     "Gdk.Rectangle",
     "Gdk.RGBA",
+    "Gdk.TimeCoord",
     "GdkPixbuf.Pixbuf",
     "Gio.AppLaunchContext",
     "Gio.Icon",
@@ -205,6 +206,12 @@ status = "generate"
     name = "get_display"
         [object.function.return]
         nullable = false
+    [[object.function]]
+    name = "free_history"
+    ignore = true # cannot be used as is
+    [[object.function]]
+    name = "get_history"
+    ignore = true # need to call "free_history" function by hand
     [[object.property]]
     name = "tool"
     version = "3.22"

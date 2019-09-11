@@ -90,10 +90,6 @@ impl Device {
         unsafe { from_glib(gdk_sys::gdk_device_get_has_cursor(self.to_glib_none().0)) }
     }
 
-    //pub fn get_history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32, events: /*Ignored*/Vec<TimeCoord>) -> Option<i32> {
-    //    unsafe { TODO: call gdk_sys:gdk_device_get_history() }
-    //}
-
     pub fn get_key(&self, index_: u32) -> Option<(u32, ModifierType)> {
         unsafe {
             let mut keyval = mem::MaybeUninit::uninit();
@@ -408,10 +404,6 @@ impl Device {
                 .unwrap()
         }
     }
-
-    //pub fn free_history(events: /*Ignored*/&[&TimeCoord]) {
-    //    unsafe { TODO: call gdk_sys:gdk_device_free_history() }
-    //}
 
     #[cfg_attr(feature = "v3_16", deprecated)]
     pub fn grab_info_libgtk_only(display: &Display, device: &Device) -> Option<(Window, bool)> {
