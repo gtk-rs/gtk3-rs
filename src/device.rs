@@ -25,12 +25,7 @@ impl Device {
         }
     }
 
-    pub fn get_history<P: IsA<Window>>(
-        &self,
-        window: &P,
-        start: u32,
-        stop: u32,
-    ) -> Option<Vec<TimeCoord>> {
+    pub fn get_history<P: IsA<Window>>(&self, window: &P, start: u32, stop: u32) -> Vec<TimeCoord> {
         unsafe {
             let mut events = ptr::null_mut();
             let mut n_events = mem::MaybeUninit::uninit();
@@ -43,7 +38,7 @@ impl Device {
                 n_events.as_mut_ptr(),
             ));
             if !ret {
-                return None;
+                return Vec::new();
             }
             let n_events = n_events.assume_init() as usize;
             let mut r_events = Vec::with_capacity(n_events);
@@ -51,7 +46,7 @@ impl Device {
                 r_events.push((*(events.offset(i as isize) as *mut TimeCoord)).clone());
             }
             gdk_sys::gdk_device_free_history(events, n_events as _);
-            Some(r_events)
+            r_events
         }
     }
 }
