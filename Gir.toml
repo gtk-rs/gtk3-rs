@@ -47,6 +47,7 @@ generate = [
     "Gio.FileOutputStream",
     "Gio.FileQueryInfoFlags",
     "Gio.FileType",
+    "Gio.FilterInputStream",
     "Gio.Icon",
     "Gio.IOErrorEnum",
     "Gio.IOStreamSpliceFlags",
@@ -406,20 +407,8 @@ status = "generate"
     ignore = true
 
 [[object]]
-name = "Gio.FilterInputStream"
-status = "generate"
-    [[object.property]]
-    name = "base-stream"
-    #readonly
-    ignore = true
-
-[[object]]
 name = "Gio.FilterOutputStream"
 status = "generate"
-    [[object.property]]
-    name = "base-stream"
-    #readonly
-    ignore = true
     [[object.property]]
     name = "close-base-stream"
     #has get/set function, ConstructOnly
