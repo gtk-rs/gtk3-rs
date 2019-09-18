@@ -1,32 +1,43 @@
-[build-dependencies]
-pkg-config = "0.3.7"
+[package]
+name = "gtk-sys"
+version = "0.0.1"
+links = "gtk"
+build = "build.rs"
+[package.metadata.docs.rs]
+features = ["dox"]
+
+[lib]
+name = "gtk_sys"
 
 [dependencies]
 libc = "0.2"
 
+[dependencies.glib-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gobject-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gio-sys]
+git = "https://github.com/gtk-rs/sys"
+
 [dependencies.atk-sys]
-path = "../atk-sys"
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gdk-pixbuf-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.gdk-sys]
+git = "https://github.com/gtk-rs/sys"
+
+[dependencies.pango-sys]
+git = "https://github.com/gtk-rs/sys"
 
 [dependencies.cairo-sys-rs]
 git = "https://github.com/gtk-rs/cairo"
 
-[dependencies.gdk-pixbuf-sys]
-path = "../gdk-pixbuf-sys"
-
-[dependencies.gdk-sys]
-path = "../gdk-sys"
-
-[dependencies.gio-sys]
-path = "../gio-sys"
-
-[dependencies.glib-sys]
-path = "../glib-sys"
-
-[dependencies.gobject-sys]
-path = "../gobject-sys"
-
-[dependencies.pango-sys]
-path = "../pango-sys"
+[build-dependencies]
+pkg-config = "0.3.7"
 
 [dev-dependencies]
 shell-words = "0.1.0"
@@ -45,21 +56,3 @@ v3_22_30 = ["v3_22_29"]
 v3_24 = ["v3_22_30"]
 v3_24_8 = ["v3_24"]
 dox = []
-
-[lib]
-name = "gtk_sys"
-
-[package]
-authors = ["The Gtk-rs Project Developers"]
-build = "build.rs"
-description = "FFI bindings to libgtk-3"
-homepage = "http://gtk-rs.org/"
-keywords = ["gtk", "ffi", "gtk-rs", "gnome"]
-license = "MIT"
-links = "gtk"
-name = "gtk-sys"
-repository = "https://github.com/gtk-rs/sys"
-version = "0.9.0"
-
-["package.metadata.docs.rs"]
-features = ["dox", "v3_24_8"]
