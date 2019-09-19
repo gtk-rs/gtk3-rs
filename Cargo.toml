@@ -29,7 +29,7 @@ dox = ["atk-sys/dox"]
 v2_30 = ["atk-sys/v2_30"]
 v2_32 = ["v2_30", "atk-sys/v2_32"]
 
-["package.metadata.docs.rs"]
+[package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
 
 [build-dependencies.gtk-rs-lgpl-docs]
