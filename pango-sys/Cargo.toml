@@ -34,6 +34,5 @@ links = "pango"
 name = "pango-sys"
 repository = "https://github.com/gtk-rs/sys"
 version = "0.9.0"
-
-["package.metadata.docs.rs"]
-features = ["dox", "v1_42"]
+[package.metadata.docs.rs]
+features = ["dox"]
