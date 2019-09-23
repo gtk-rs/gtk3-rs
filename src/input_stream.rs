@@ -20,38 +20,40 @@ use InputStream;
 use futures::future;
 
 pub trait InputStreamExtManual: Sized {
-    fn read<B: AsMut<[u8]>>(
+    fn read<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
 
-    fn read_all<B: AsMut<[u8]>>(
+    fn read_all<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
     fn read_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
@@ -79,12 +81,13 @@ pub trait InputStreamExtManual: Sized {
 }
 
 impl<O: IsA<InputStream>> InputStreamExtManual for O {
-    fn read<B: AsMut<[u8]>>(
+    fn read<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         mut buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
@@ -94,7 +97,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -105,12 +108,13 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    fn read_all<B: AsMut<[u8]>>(
+    fn read_all<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         mut buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, Option<Error>), Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
@@ -122,7 +126,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 buffer_ptr,
                 count,
                 bytes_read.as_mut_ptr(),
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
 
@@ -141,14 +145,16 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
@@ -194,7 +200,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 buffer_ptr,
                 count,
                 io_priority.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
@@ -204,14 +210,16 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     fn read_async<
         B: AsMut<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let mut user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
@@ -249,7 +257,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 buffer_ptr,
                 count,
                 io_priority.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
@@ -318,7 +326,7 @@ impl<T: InputStreamExtManual> InputStreamRead<T> {
 
 impl<T: InputStreamExtManual> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        let gio_result = self.0.read(buf, None);
+        let gio_result = self.0.read(buf, None::<&Cancellable>);
         to_std_io_result(gio_result)
     }
 }
@@ -338,7 +346,7 @@ mod tests {
             let strm = MemoryInputStream::new_from_bytes(&b);
 
             let buf = vec![0; 10];
-            strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
@@ -358,7 +366,7 @@ mod tests {
         let strm = MemoryInputStream::new_from_bytes(&b);
         let mut buf = vec![0; 10];
 
-        let ret = strm.read_all(&mut buf, None).unwrap();
+        let ret = strm.read_all(&mut buf, ::NONE_CANCELLABLE).unwrap();
 
         assert_eq!(ret.0, 3);
         assert!(ret.1.is_none());
@@ -373,7 +381,7 @@ mod tests {
         let strm = MemoryInputStream::new_from_bytes(&b);
         let mut buf = vec![0; 10];
 
-        let ret = strm.read(&mut buf, None);
+        let ret = strm.read(&mut buf, ::NONE_CANCELLABLE);
 
         assert_eq!(ret.unwrap(), 3);
         assert_eq!(buf[0], 1);
@@ -388,7 +396,7 @@ mod tests {
             let strm = MemoryInputStream::new_from_bytes(&b);
 
             let buf = vec![0; 10];
-            strm.read_async(buf, PRIORITY_DEFAULT_IDLE, None, move |ret| {
+            strm.read_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
                 tx.send(ret).unwrap();
                 l.quit();
             });
