@@ -19,41 +19,43 @@ use futures::future::Future;
 use futures::stream::Stream;
 
 pub trait PollableOutputStreamExtManual {
-    fn create_source<F>(
+    fn create_source<F, C>(
         &self,
-        cancellable: Option<&Cancellable>,
-        name: Option<&str>,
-        priority: glib::Priority,
-        func: F,
-    ) -> glib::Source
-    where
-        F: FnMut(&Self) -> glib::Continue + 'static;
-
-    #[cfg(feature = "futures")]
-    fn create_source_future(
-        &self,
-        cancellable: Option<&Cancellable>,
-        priority: glib::Priority,
-    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
-
-    #[cfg(feature = "futures")]
-    fn create_source_stream(
-        &self,
-        cancellable: Option<&Cancellable>,
-        priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
-}
-
-impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
-    fn create_source<F>(
-        &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         name: Option<&str>,
         priority: glib::Priority,
         func: F,
     ) -> glib::Source
     where
         F: FnMut(&Self) -> glib::Continue + 'static,
+        C: IsA<Cancellable>;
+
+    #[cfg(feature = "futures")]
+    fn create_source_future<C: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&C>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
+
+    #[cfg(feature = "futures")]
+    fn create_source_stream<C: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&C>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
+}
+
+impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
+    fn create_source<F, C>(
+        &self,
+        cancellable: Option<&C>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
+    where
+        F: FnMut(&Self) -> glib::Continue + 'static,
+        C: IsA<Cancellable>,
     {
         #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
         unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(
@@ -71,11 +73,12 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
                 ptr as *mut _,
             );
         }
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         unsafe {
             let source = gio_sys::g_pollable_output_stream_create_source(
                 self.as_ref().to_glib_none().0,
-                cancellable.0,
+                gcancellable.0,
             );
 
             let trampoline = trampoline::<Self> as glib_sys::gpointer;
@@ -96,12 +99,12 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_future(
+    fn create_source_future<C: IsA<Cancellable>>(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = ()> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
@@ -115,12 +118,12 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
     }
 
     #[cfg(feature = "futures")]
-    fn create_source_stream(
+    fn create_source_stream<C: IsA<Cancellable>>(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
