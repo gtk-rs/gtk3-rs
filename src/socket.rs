@@ -71,39 +71,39 @@ impl AsRawSocket for Socket {
 }
 
 pub trait SocketExtManual: Sized {
-    fn receive<B: AsMut<[u8]>>(
+    fn receive<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
-    fn receive_from<B: AsMut<[u8]>>(
+    fn receive_from<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, SocketAddress), Error>;
-    fn receive_with_blocking<B: AsMut<[u8]>>(
+    fn receive_with_blocking<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         blocking: bool,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
 
-    fn send<B: AsRef<[u8]>>(
+    fn send<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
-    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>, C: IsA<Cancellable>>(
         &self,
         address: Option<&P>,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
-    fn send_with_blocking<B: AsRef<[u8]>>(
+    fn send_with_blocking<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         blocking: bool,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error>;
 
     #[cfg(any(unix, feature = "dox"))]
@@ -112,41 +112,43 @@ pub trait SocketExtManual: Sized {
     #[cfg(any(windows, feature = "dox"))]
     fn get_socket<T: FromRawSocket>(&self) -> T;
 
-    fn create_source<F>(
+    fn create_source<F, C>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         name: Option<&str>,
         priority: glib::Priority,
         func: F,
     ) -> glib::Source
     where
-        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static;
+        F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
+        C: IsA<Cancellable>;
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_future(
+    fn create_source_future<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin>;
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_stream(
+    fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin>;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
-    fn receive<B: AsMut<[u8]>>(
+    fn receive<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         mut buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
@@ -156,7 +158,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer_ptr,
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -167,12 +169,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_from<B: AsMut<[u8]>>(
+    fn receive_from<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         mut buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, SocketAddress), Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
@@ -185,7 +188,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 &mut addr_ptr,
                 buffer_ptr,
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -196,13 +199,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn receive_with_blocking<B: AsMut<[u8]>>(
+    fn receive_with_blocking<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         mut buffer: B,
         blocking: bool,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
         let buffer_ptr = buffer.as_mut_ptr();
         let count = buffer.len();
@@ -213,7 +217,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 buffer_ptr,
                 count,
                 blocking.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -224,12 +228,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send<B: AsRef<[u8]>>(
+    fn send<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
@@ -240,7 +245,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 self.as_ref().to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -251,13 +256,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>>(
+    fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>, C: IsA<Cancellable>>(
         &self,
         address: Option<&P>,
         buffer: B,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
@@ -270,7 +276,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 address.map(|p| p.as_ref()).to_glib_none().0,
                 mut_override(buffer_ptr),
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -281,13 +287,14 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn send_with_blocking<B: AsRef<[u8]>>(
+    fn send_with_blocking<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         blocking: bool,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<usize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
             let slice = buffer.as_ref();
             (slice.len(), slice.as_ptr())
@@ -299,7 +306,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 mut_override(buffer_ptr),
                 count,
                 blocking.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -324,16 +331,17 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    fn create_source<F>(
+    fn create_source<F, C>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         name: Option<&str>,
         priority: glib::Priority,
         func: F,
     ) -> glib::Source
     where
         F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
+        C: IsA<Cancellable>,
     {
         #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
         unsafe extern "C" fn trampoline<O: IsA<Socket>>(
@@ -357,12 +365,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>,
             >::from_raw(ptr as *mut _);
         }
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         unsafe {
             let source = gio_sys::g_socket_create_source(
                 self.as_ref().to_glib_none().0,
                 condition.to_glib(),
-                cancellable.0,
+                gcancellable.0,
             );
             let trampoline = trampoline::<O> as glib_sys::gpointer;
             glib_sys::g_source_set_callback(
@@ -382,13 +391,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_future(
+    fn create_source_future<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
@@ -407,13 +416,13 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     }
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_stream(
+    fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
