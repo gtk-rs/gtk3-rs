@@ -23,9 +23,10 @@ use futures::future;
 pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<
         Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
@@ -38,11 +39,11 @@ pub trait SocketListenerExtManual: Sized {
     >;
 
     fn accept_async<
-        P: IsA<Cancellable>,
+        C: IsA<Cancellable>,
         Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
     >(
         &self,
-        cancellable: Option<&P>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
@@ -58,12 +59,14 @@ pub trait SocketListenerExtManual: Sized {
 impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     fn accept_socket_async<
         Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn accept_socket_async_trampoline<
             Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
@@ -92,7 +95,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         unsafe {
             gio_sys::g_socket_listener_accept_socket_async(
                 self.as_ref().to_glib_none().0,
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
@@ -122,13 +125,15 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     }
 
     fn accept_async<
-        P: IsA<Cancellable>,
+        C: IsA<Cancellable>,
         Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
     >(
         &self,
-        cancellable: Option<&P>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn accept_async_trampoline<
             Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
@@ -157,7 +162,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         unsafe {
             gio_sys::g_socket_listener_accept_async(
                 self.as_ref().to_glib_none().0,
-                cancellable.map(|p| p.as_ref()).to_glib_none().0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
