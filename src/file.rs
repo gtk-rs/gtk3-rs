@@ -21,13 +21,14 @@ pub trait FileExtManual: Sized {
     fn replace_contents_async<
         B: AsRef<[u8]> + Send + 'static,
         R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         contents: B,
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: R,
     );
 
@@ -45,17 +46,19 @@ impl<O: IsA<File>> FileExtManual for O {
     fn replace_contents_async<
         B: AsRef<[u8]> + Send + 'static,
         R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         contents: B,
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: R,
     ) {
         let etag = etag.to_glib_none();
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(R, B)>> = Box::new(Some((callback, contents)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, contents_ptr) = {
@@ -98,7 +101,7 @@ impl<O: IsA<File>> FileExtManual for O {
                 etag.0,
                 make_backup.to_glib(),
                 flags.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
