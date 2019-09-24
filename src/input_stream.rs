@@ -326,7 +326,7 @@ impl<T: InputStreamExtManual> InputStreamRead<T> {
 
 impl<T: InputStreamExtManual> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        let gio_result = self.0.read(buf, None::<&Cancellable>);
+        let gio_result = self.0.read(buf, ::NONE_CANCELLABLE);
         to_std_io_result(gio_result)
     }
 }

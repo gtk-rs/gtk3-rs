@@ -1,5 +1,4 @@
 use std::iter::Iterator;
-use Cancellable;
 use Error;
 use FileEnumerator;
 use FileEnumeratorExt;
@@ -9,7 +8,7 @@ impl Iterator for FileEnumerator {
     type Item = Result<FileInfo, Error>;
 
     fn next(&mut self) -> Option<Result<FileInfo, Error>> {
-        match self.next_file(None::<&Cancellable>) {
+        match self.next_file(::NONE_CANCELLABLE) {
             Err(err) => Some(Err(err)),
             Ok(file_info) => file_info.map(Ok),
         }
