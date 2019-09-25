@@ -24,14 +24,16 @@ glib_wrapper! {
 impl Point {
     pub fn distance(&self, b: &Point) -> (f32, f32, f32) {
         unsafe {
-            let mut d_x = mem::uninitialized();
-            let mut d_y = mem::uninitialized();
+            let mut d_x = mem::MaybeUninit::uninit();
+            let mut d_y = mem::MaybeUninit::uninit();
             let ret = graphene_sys::graphene_point_distance(
                 self.to_glib_none().0,
                 b.to_glib_none().0,
-                &mut d_x,
-                &mut d_y,
+                d_x.as_mut_ptr(),
+                d_y.as_mut_ptr(),
             );
+            let d_x = d_x.assume_init();
+            let d_y = d_y.assume_init();
             (ret, d_x, d_y)
         }
     }

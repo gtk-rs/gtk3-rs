@@ -463,21 +463,27 @@ impl Matrix {
 
     pub fn to_2d(&self) -> Option<(f64, f64, f64, f64, f64, f64)> {
         unsafe {
-            let mut xx = mem::uninitialized();
-            let mut yx = mem::uninitialized();
-            let mut xy = mem::uninitialized();
-            let mut yy = mem::uninitialized();
-            let mut x_0 = mem::uninitialized();
-            let mut y_0 = mem::uninitialized();
+            let mut xx = mem::MaybeUninit::uninit();
+            let mut yx = mem::MaybeUninit::uninit();
+            let mut xy = mem::MaybeUninit::uninit();
+            let mut yy = mem::MaybeUninit::uninit();
+            let mut x_0 = mem::MaybeUninit::uninit();
+            let mut y_0 = mem::MaybeUninit::uninit();
             let ret = from_glib(graphene_sys::graphene_matrix_to_2d(
                 self.to_glib_none().0,
-                &mut xx,
-                &mut yx,
-                &mut xy,
-                &mut yy,
-                &mut x_0,
-                &mut y_0,
+                xx.as_mut_ptr(),
+                yx.as_mut_ptr(),
+                xy.as_mut_ptr(),
+                yy.as_mut_ptr(),
+                x_0.as_mut_ptr(),
+                y_0.as_mut_ptr(),
             ));
+            let xx = xx.assume_init();
+            let yx = yx.assume_init();
+            let xy = xy.assume_init();
+            let yy = yy.assume_init();
+            let x_0 = x_0.assume_init();
+            let y_0 = y_0.assume_init();
             if ret {
                 Some((xx, yx, xy, yy, x_0, y_0))
             } else {
