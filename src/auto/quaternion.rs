@@ -155,28 +155,32 @@ impl Quaternion {
 
     pub fn to_angle_vec3(&self) -> (f32, Vec3) {
         unsafe {
-            let mut angle = mem::uninitialized();
+            let mut angle = mem::MaybeUninit::uninit();
             let mut axis = Vec3::uninitialized();
             graphene_sys::graphene_quaternion_to_angle_vec3(
                 self.to_glib_none().0,
-                &mut angle,
+                angle.as_mut_ptr(),
                 axis.to_glib_none_mut().0,
             );
+            let angle = angle.assume_init();
             (angle, axis)
         }
     }
 
     pub fn to_angles(&self) -> (f32, f32, f32) {
         unsafe {
-            let mut deg_x = mem::uninitialized();
-            let mut deg_y = mem::uninitialized();
-            let mut deg_z = mem::uninitialized();
+            let mut deg_x = mem::MaybeUninit::uninit();
+            let mut deg_y = mem::MaybeUninit::uninit();
+            let mut deg_z = mem::MaybeUninit::uninit();
             graphene_sys::graphene_quaternion_to_angles(
                 self.to_glib_none().0,
-                &mut deg_x,
-                &mut deg_y,
-                &mut deg_z,
+                deg_x.as_mut_ptr(),
+                deg_y.as_mut_ptr(),
+                deg_z.as_mut_ptr(),
             );
+            let deg_x = deg_x.assume_init();
+            let deg_y = deg_y.assume_init();
+            let deg_z = deg_z.assume_init();
             (deg_x, deg_y, deg_z)
         }
     }
@@ -194,15 +198,18 @@ impl Quaternion {
 
     pub fn to_radians(&self) -> (f32, f32, f32) {
         unsafe {
-            let mut rad_x = mem::uninitialized();
-            let mut rad_y = mem::uninitialized();
-            let mut rad_z = mem::uninitialized();
+            let mut rad_x = mem::MaybeUninit::uninit();
+            let mut rad_y = mem::MaybeUninit::uninit();
+            let mut rad_z = mem::MaybeUninit::uninit();
             graphene_sys::graphene_quaternion_to_radians(
                 self.to_glib_none().0,
-                &mut rad_x,
-                &mut rad_y,
-                &mut rad_z,
+                rad_x.as_mut_ptr(),
+                rad_y.as_mut_ptr(),
+                rad_z.as_mut_ptr(),
             );
+            let rad_x = rad_x.assume_init();
+            let rad_y = rad_y.assume_init();
+            let rad_z = rad_z.assume_init();
             (rad_x, rad_y, rad_z)
         }
     }
