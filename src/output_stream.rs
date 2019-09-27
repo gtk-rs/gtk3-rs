@@ -24,29 +24,31 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
-    fn write_all(
+    fn write_all<C: IsA<Cancellable>>(
         &self,
         buffer: &[u8],
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, Option<Error>), Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     );
 
@@ -77,14 +79,16 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     fn write_async<
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
@@ -120,19 +124,20 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
                 mut_override(buffer_ptr),
                 count,
                 io_priority.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );
         }
     }
 
-    fn write_all(
+    fn write_all<C: IsA<Cancellable>>(
         &self,
         buffer: &[u8],
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<(usize, Option<Error>), Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
             let mut bytes_written = mem::MaybeUninit::uninit();
@@ -142,7 +147,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
                 buffer.to_glib_none().0,
                 count,
                 bytes_written.as_mut_ptr(),
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
 
@@ -162,14 +167,16 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         'a,
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        C: IsA<Cancellable>,
     >(
         &self,
         buffer: B,
         io_priority: Priority,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: Q,
     ) {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Option<(Q, B)>> = Box::new(Some((callback, buffer)));
         // Need to do this after boxing as the contents pointer might change by moving into the box
         let (count, buffer_ptr) = {
@@ -213,7 +220,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
                 mut_override(buffer_ptr),
                 count,
                 io_priority.to_glib(),
-                cancellable.0,
+                gcancellable.0,
                 Some(callback),
                 Box::into_raw(user_data) as *mut _,
             );

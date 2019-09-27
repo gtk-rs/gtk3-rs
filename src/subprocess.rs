@@ -1,6 +1,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
 use glib_sys;
@@ -12,14 +13,18 @@ use Error;
 use Subprocess;
 
 impl Subprocess {
-    pub fn communicate_utf8_async<R: FnOnce(Result<(GString, GString), Error>) + Send + 'static>(
+    pub fn communicate_utf8_async<
+        R: FnOnce(Result<(GString, GString), Error>) + Send + 'static,
+        C: IsA<Cancellable>,
+    >(
         &self,
         stdin_buf: Option<String>,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         callback: R,
     ) {
         let stdin_buf = stdin_buf.to_glib_full();
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let user_data: Box<(R, *mut c_char)> = Box::new((callback, stdin_buf));
         unsafe extern "C" fn communicate_utf8_async_trampoline<
             R: FnOnce(Result<(GString, GString), Error>) + Send + 'static,
@@ -51,7 +56,7 @@ impl Subprocess {
             gio_sys::g_subprocess_communicate_utf8_async(
                 self.to_glib_none().0,
                 stdin_buf,
-                cancellable.0,
+                gcancellable.0,
                 Some(communicate_utf8_async_trampoline::<R>),
                 Box::into_raw(user_data) as *mut _,
             );

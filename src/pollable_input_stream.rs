@@ -21,47 +21,49 @@ use futures::future::Future;
 use futures::stream::Stream;
 
 pub trait PollableInputStreamExtManual: Sized {
-    fn create_source<F>(
+    fn create_source<F, C>(
         &self,
-        cancellable: Option<&Cancellable>,
-        name: Option<&str>,
-        priority: glib::Priority,
-        func: F,
-    ) -> glib::Source
-    where
-        F: FnMut(&Self) -> glib::Continue + 'static;
-
-    #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_future(
-        &self,
-        cancellable: Option<&Cancellable>,
-        priority: glib::Priority,
-    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
-
-    #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_stream(
-        &self,
-        cancellable: Option<&Cancellable>,
-        priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
-
-    fn read_nonblocking(
-        &self,
-        buffer: &mut [u8],
-        cancellable: Option<&Cancellable>,
-    ) -> Result<isize, Error>;
-}
-
-impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
-    fn create_source<F>(
-        &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         name: Option<&str>,
         priority: glib::Priority,
         func: F,
     ) -> glib::Source
     where
         F: FnMut(&Self) -> glib::Continue + 'static,
+        C: IsA<Cancellable>;
+
+    #[cfg(any(feature = "futures", feature = "dox"))]
+    fn create_source_future<C: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&C>,
+        priority: glib::Priority,
+    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
+
+    #[cfg(any(feature = "futures", feature = "dox"))]
+    fn create_source_stream<C: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&C>,
+        priority: glib::Priority,
+    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
+
+    fn read_nonblocking<C: IsA<Cancellable>>(
+        &self,
+        buffer: &mut [u8],
+        cancellable: Option<&C>,
+    ) -> Result<isize, Error>;
+}
+
+impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
+    fn create_source<F, C>(
+        &self,
+        cancellable: Option<&C>,
+        name: Option<&str>,
+        priority: glib::Priority,
+        func: F,
+    ) -> glib::Source
+    where
+        F: FnMut(&Self) -> glib::Continue + 'static,
+        C: IsA<Cancellable>,
     {
         #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
         unsafe extern "C" fn trampoline<O: IsA<PollableInputStream>>(
@@ -79,11 +81,12 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
                 ptr as *mut _,
             );
         }
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         unsafe {
             let source = gio_sys::g_pollable_input_stream_create_source(
                 self.as_ref().to_glib_none().0,
-                cancellable.0,
+                gcancellable.0,
             );
 
             let trampoline = trampoline::<Self> as glib_sys::gpointer;
@@ -103,12 +106,13 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }
     }
 
-    fn read_nonblocking(
+    fn read_nonblocking<C: IsA<Cancellable>>(
         &self,
         buffer: &mut [u8],
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
     ) -> Result<isize, Error> {
-        let cancellable = cancellable.to_glib_none();
+        let cancellable = cancellable.map(|c| c.as_ref());
+        let gcancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
@@ -116,7 +120,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
                 self.as_ref().to_glib_none().0,
                 buffer.to_glib_none().0,
                 count,
-                cancellable.0,
+                gcancellable.0,
                 &mut error,
             );
             if error.is_null() {
@@ -128,12 +132,12 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_future(
+    fn create_source_future<C: IsA<Cancellable>>(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Future<Output = ()> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceFuture::new(move |send| {
@@ -147,12 +151,12 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
     }
 
     #[cfg(any(feature = "futures", feature = "dox"))]
-    fn create_source_stream(
+    fn create_source_stream<C: IsA<Cancellable>>(
         &self,
-        cancellable: Option<&Cancellable>,
+        cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin> {
-        let cancellable: Option<Cancellable> = cancellable.cloned();
+        let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
         Box::new(glib::SourceStream::new(move |send| {
