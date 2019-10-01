@@ -427,7 +427,7 @@ mod tests {
     #[test]
     fn test_gstring() {
         let data = CString::new("foo").unwrap();
-        let ptr = data.into_raw();
+        let ptr = data.as_ptr();
 
         unsafe {
             let ptr_copy = glib_sys::g_strdup(ptr);
@@ -441,7 +441,7 @@ mod tests {
     #[test]
     fn test_owned_glib_string() {
         let data = CString::new("foo").unwrap();
-        let ptr = data.into_raw();
+        let ptr = data.as_ptr();
         unsafe {
             let ptr_copy = glib_sys::g_strdup(ptr);
             let gstr = GString::new(ptr_copy);
