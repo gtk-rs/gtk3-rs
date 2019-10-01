@@ -444,5 +444,4 @@ mod tests {
 
         assert_eq!(VariantTy::static_type(), VariantTy::static_type());
     }
-
 }

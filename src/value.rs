@@ -251,6 +251,21 @@ impl Value {
         }
     }
 
+    /// Tries to transform the value into a value of the target type
+    pub fn transform<T: StaticType + SetValue>(&self) -> Option<Value> {
+        unsafe {
+            let mut dest = Value::from_type(T::static_type());
+            if from_glib(gobject_sys::g_value_transform(
+                self.to_glib_none().0,
+                dest.to_glib_none_mut().0,
+            )) {
+                Some(dest)
+            } else {
+                None
+            }
+        }
+    }
+
     #[doc(hidden)]
     pub fn into_raw(self) -> gobject_sys::GValue {
         unsafe {
@@ -1118,5 +1133,14 @@ mod tests {
             none_v.get::<i32>(),
             Err(GetError::new_type_mismatch(Type::String, Type::I32))
         );
+    }
+
+    #[test]
+    fn test_transform() {
+        let v = 123.to_value();
+        let v2 = v
+            .transform::<String>()
+            .expect("Failed to transform to string");
+        assert_eq!(v2.get::<&str>(), Ok(Some("123")));
     }
 }
