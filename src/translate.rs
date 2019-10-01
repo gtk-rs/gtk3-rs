@@ -1954,10 +1954,7 @@ mod tests {
         // And test with some non-ASCII characters
         let dir_2 = tmp_dir.as_ref().join("øäöü");
         fs::create_dir(&dir_2).unwrap();
-        assert_eq!(
-            ::functions::path_get_basename(&dir_2),
-            Some("øäöü".into())
-        );
+        assert_eq!(::functions::path_get_basename(&dir_2), Some("øäöü".into()));
         assert_eq!(
             ::functions::path_get_basename(dir_2.canonicalize().unwrap()),
             Some("øäöü".into())

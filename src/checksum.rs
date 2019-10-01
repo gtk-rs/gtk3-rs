@@ -68,5 +68,4 @@ mod tests {
         let vec = cs.get_digest();
         assert_eq!(vec, CS_SLICE);
     }
-
 }
