@@ -813,13 +813,15 @@ name = "Gio.UnixMountEntry"
 status = "generate"
 cfg_condition = "unix"
     [[object.derive]]
-    name = "Debug, Hash"
+    name = "Debug"
 
 [[object]]
 name = "Gio.UnixMountPoint"
 status = "generate"
 use_boxed_functions = true
 cfg_condition = "unix"
+    [[object.derive]]
+    name = "Debug"
     [[object.function]]
     name = "compare"
         [[object.function.parameter]]

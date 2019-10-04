@@ -57,7 +57,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
         F: FnMut(&Self) -> glib::Continue + 'static,
         C: IsA<Cancellable>,
     {
-        #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+        #[allow(clippy::transmute_ptr_to_ref)]
         unsafe extern "C" fn trampoline<O: IsA<PollableOutputStream>>(
             stream: *mut gio_sys::GPollableOutputStream,
             func: glib_sys::gpointer,
