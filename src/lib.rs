@@ -44,3 +44,5 @@ pub mod language;
 pub use language::Language;
 pub mod rectangle;
 pub use rectangle::Rectangle;
+pub mod glyph;
+
