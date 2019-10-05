@@ -3,9 +3,9 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 #![allow(deprecated)]
-#![cfg_attr(feature = "cargo-clippy", allow(let_and_return))]
-#![cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
-#![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
+#![allow(clippy::let_and_return)]
+#![allow(clippy::too_many_arguments)]
+#![allow(clippy::type_complexity)]
 
 #[macro_use]
 extern crate bitflags;
@@ -78,7 +78,8 @@ pub mod signal {
 pub mod prelude;
 pub use prelude::*;
 
-#[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+#[allow(clippy::transmute_ptr_to_ref)]
+#[allow(clippy::cast_ptr_alignment)]
 mod auto;
 
 #[cfg(any(feature = "futures", feature = "dox"))]

@@ -343,7 +343,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
         C: IsA<Cancellable>,
     {
-        #[cfg_attr(feature = "cargo-clippy", allow(transmute_ptr_to_ref))]
+        #[allow(clippy::transmute_ptr_to_ref)]
         unsafe extern "C" fn trampoline<O: IsA<Socket>>(
             socket: *mut gio_sys::GSocket,
             condition: glib_sys::GIOCondition,

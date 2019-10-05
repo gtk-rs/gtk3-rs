@@ -39,21 +39,18 @@ impl ArgumentList {
     // remove the item at index `idx` and shift the raw array
     pub fn remove(&mut self, idx: usize) {
         unsafe {
-            let n_args = glib_sys::g_strv_length(*self.ptr);
-            assert!((n_args as usize) == self.items.len());
-            assert!((idx as u32) < n_args);
+            let n_args = glib_sys::g_strv_length(*self.ptr) as usize;
+            assert!(n_args == self.items.len());
+            assert!(idx < n_args);
 
             self.items.remove(idx);
 
-            glib_sys::g_free(((*self.ptr).offset(idx as isize)) as *mut c_void);
+            glib_sys::g_free((*self.ptr).add(idx) as *mut c_void);
 
-            for i in (idx as u32)..n_args - 1 {
-                ptr::write(
-                    (*self.ptr).offset(i as isize),
-                    *(*self.ptr).offset((i + 1) as isize),
-                )
+            for i in idx..n_args - 1 {
+                ptr::write((*self.ptr).add(i), *(*self.ptr).add(i + 1))
             }
-            ptr::write((*self.ptr).offset((n_args - 1) as isize), ptr::null_mut());
+            ptr::write((*self.ptr).add(n_args - 1), ptr::null_mut());
         }
     }
 }

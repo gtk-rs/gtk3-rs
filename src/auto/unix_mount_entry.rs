@@ -6,7 +6,7 @@ use gio_sys;
 use gobject_sys;
 
 glib_wrapper! {
-    #[derive(Debug, Hash)]
+    #[derive(Debug)]
     pub struct UnixMountEntry(Boxed<gio_sys::GUnixMountEntry>);
 
     match fn {

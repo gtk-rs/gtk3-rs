@@ -11,7 +11,7 @@ use std::cmp;
 use Icon;
 
 glib_wrapper! {
-    #[derive(Debug, Hash)]
+    #[derive(Debug)]
     pub struct UnixMountPoint(Boxed<gio_sys::GUnixMountPoint>);
 
     match fn {

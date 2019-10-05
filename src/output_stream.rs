@@ -164,7 +164,6 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async<
-        'a,
         B: AsRef<[u8]> + Send + 'static,
         Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
         C: IsA<Cancellable>,
