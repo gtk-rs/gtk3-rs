@@ -31,91 +31,91 @@ impl UnixMountPoint {
         }
     }
 
-    pub fn get_device_path(&mut self) -> Option<std::path::PathBuf> {
+    pub fn get_device_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_none(gio_sys::g_unix_mount_point_get_device_path(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_none(gio_sys::g_unix_mount_point_get_device_path(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn get_fs_type(&mut self) -> Option<GString> {
+    pub fn get_fs_type(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gio_sys::g_unix_mount_point_get_fs_type(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_none(gio_sys::g_unix_mount_point_get_fs_type(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn get_mount_path(&mut self) -> Option<std::path::PathBuf> {
+    pub fn get_mount_path(&self) -> Option<std::path::PathBuf> {
         unsafe {
-            from_glib_none(gio_sys::g_unix_mount_point_get_mount_path(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_none(gio_sys::g_unix_mount_point_get_mount_path(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn get_options(&mut self) -> Option<GString> {
+    pub fn get_options(&self) -> Option<GString> {
         unsafe {
-            from_glib_none(gio_sys::g_unix_mount_point_get_options(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_none(gio_sys::g_unix_mount_point_get_options(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn guess_can_eject(&mut self) -> bool {
+    pub fn guess_can_eject(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_mount_point_guess_can_eject(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib(gio_sys::g_unix_mount_point_guess_can_eject(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn guess_icon(&mut self) -> Option<Icon> {
+    pub fn guess_icon(&self) -> Option<Icon> {
         unsafe {
-            from_glib_full(gio_sys::g_unix_mount_point_guess_icon(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_full(gio_sys::g_unix_mount_point_guess_icon(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn guess_name(&mut self) -> Option<GString> {
+    pub fn guess_name(&self) -> Option<GString> {
         unsafe {
-            from_glib_full(gio_sys::g_unix_mount_point_guess_name(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib_full(gio_sys::g_unix_mount_point_guess_name(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn guess_symbolic_icon(&mut self) -> Option<Icon> {
+    pub fn guess_symbolic_icon(&self) -> Option<Icon> {
         unsafe {
             from_glib_full(gio_sys::g_unix_mount_point_guess_symbolic_icon(
-                self.to_glib_none_mut().0,
+                mut_override(self.to_glib_none().0),
             ))
         }
     }
 
-    pub fn is_loopback(&mut self) -> bool {
+    pub fn is_loopback(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_mount_point_is_loopback(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib(gio_sys::g_unix_mount_point_is_loopback(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn is_readonly(&mut self) -> bool {
+    pub fn is_readonly(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_mount_point_is_readonly(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib(gio_sys::g_unix_mount_point_is_readonly(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 
-    pub fn is_user_mountable(&mut self) -> bool {
+    pub fn is_user_mountable(&self) -> bool {
         unsafe {
-            from_glib(gio_sys::g_unix_mount_point_is_user_mountable(
-                self.to_glib_none_mut().0,
-            ))
+            from_glib(gio_sys::g_unix_mount_point_is_user_mountable(mut_override(
+                self.to_glib_none().0,
+            )))
         }
     }
 }
