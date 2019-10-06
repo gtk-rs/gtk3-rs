@@ -827,6 +827,21 @@ cfg_condition = "unix"
         [[object.function.parameter]]
         pattern = ".+"
         const = true
+    [[object.function]]
+    pattern = "get_.*"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
+    [[object.function]]
+    pattern = "guess_.*"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
+    [[object.function]]
+    pattern = "is_.*"
+        [[object.function.parameter]]
+        pattern = ".+"
+        const = true
 
 [[object]]
 name = "Gio.UnixOutputStream"
