@@ -11,20 +11,10 @@ impl GlyphString {
     }
 
     pub fn glyph_info(&self) -> Vec<GlyphInfo> {
-
-        let num_glyphs = self.num_glyphs();
-        let mut ret = Vec::new();
-
+        let num_glyphs = self.num_glyphs() as usize;
         unsafe {
             let glyphs: *mut pango_sys::PangoGlyphInfo = (*self.to_glib_none().0).glyphs;
-            if num_glyphs > 0 {
-                for x in 0..num_glyphs {
-                    ret.push(from_glib_none(
-                        glyphs.offset(x as isize),
-                    ));
-                }
-            }
-            ret
+            FromGlibContainer::from_glib_none_num(glyphs, num_glyphs)
         }
     }
 }
@@ -45,11 +35,33 @@ pub struct GlyphInfo(*mut pango_sys::PangoGlyphInfo);
 
 impl GlyphInfo {
     pub fn glyph(&self) -> u32 {
-        unsafe { (*self.to_glib_none().0).glyph }
+        unsafe { (*self.0).glyph }
     }
 
     pub fn geometry(&self) -> &GlyphGeometry {
-        unsafe { &*(&((*self.to_glib_none().0).geometry) as *const _ as *const GlyphGeometry) }
+        unsafe { &*(&((*self.0).geometry) as *const _ as *const GlyphGeometry) }
+    }
+}
+
+impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::PangoGlyphInfo> for GlyphInfo {
+    
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<GlyphInfo> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new()
+        }
+        let mut res = Vec::with_capacity(num);
+        for x in 0..num {
+            res.push(from_glib_none(ptr.add(x)));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_ptr: *mut pango_sys::PangoGlyphInfo, _num: usize) -> Vec<Self> {
+        unimplemented!();
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_ptr: *mut pango_sys::PangoGlyphInfo, _num: usize) -> Vec<Self> {
+        unimplemented!();
     }
 }
 
@@ -109,15 +121,15 @@ pub struct GlyphGeometry(pango_sys::PangoGlyphGeometry);
 
 impl GlyphGeometry {
     pub fn width(&self) -> i32 {
-        unsafe { (*self.to_glib_none().0).width }
+        self.0.width
     }
 
     pub fn x_offset(&self) -> i32 {
-        unsafe { (*self.to_glib_none().0).x_offset }
+       self.0.x_offset
     }
 
     pub fn y_offset(&self) -> i32 {
-        unsafe { (*self.to_glib_none().0).y_offset }
+        self.0.y_offset
     }
 }
 
