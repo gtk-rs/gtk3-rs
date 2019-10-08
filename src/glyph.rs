@@ -48,7 +48,7 @@ impl GlyphInfo {
 
 impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::PangoGlyphInfo> for GlyphInfo {
     
-    unsafe fn from_glib_none_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<GlyphInfo> {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
             return Vec::new()
         }
@@ -59,12 +59,14 @@ impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::Pang
         res
     }
 
-    unsafe fn from_glib_container_num_as_vec(_ptr: *mut pango_sys::PangoGlyphInfo, _num: usize) -> Vec<Self> {
-        unimplemented!();
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_sys::g_free(ptr as *mut _);
+        res
     }
 
-    unsafe fn from_glib_full_num_as_vec(_ptr: *mut pango_sys::PangoGlyphInfo, _num: usize) -> Vec<Self> {
-        unimplemented!();
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
     }
 }
 
