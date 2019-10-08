@@ -11,6 +11,9 @@ impl GlyphString {
     }
 
     pub fn glyph_info(&self) -> Vec<GlyphInfo> {
+        if self.num_glyphs() < 0 {
+            return Vec::new()
+        }
         let num_glyphs = self.num_glyphs() as usize;
         unsafe {
             let glyphs: *mut pango_sys::PangoGlyphInfo = (*self.to_glib_none().0).glyphs;
