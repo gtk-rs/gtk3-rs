@@ -1,18 +1,17 @@
 use glib::translate::*;
 use pango_sys;
 use GlyphItem;
-use Item;
 use GlyphString;
+use Item;
 
 impl GlyphString {
-
     pub fn num_glyphs(&self) -> i32 {
         unsafe { (*self.to_glib_none().0).num_glyphs }
     }
 
     pub fn glyph_info(&self) -> Vec<GlyphInfo> {
         if self.num_glyphs() < 0 {
-            return Vec::new()
+            return Vec::new();
         }
         let num_glyphs = self.num_glyphs() as usize;
         unsafe {
@@ -46,11 +45,15 @@ impl GlyphInfo {
     }
 }
 
-impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::PangoGlyphInfo> for GlyphInfo {
-    
-    unsafe fn from_glib_none_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
+impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::PangoGlyphInfo>
+    for GlyphInfo
+{
+    unsafe fn from_glib_none_num_as_vec(
+        ptr: *mut pango_sys::PangoGlyphInfo,
+        num: usize,
+    ) -> Vec<Self> {
         if num == 0 || ptr.is_null() {
-            return Vec::new()
+            return Vec::new();
         }
         let mut res = Vec::with_capacity(num);
         for x in 0..num {
@@ -59,13 +62,19 @@ impl FromGlibContainerAsVec<*mut pango_sys::PangoGlyphInfo, *mut pango_sys::Pang
         res
     }
 
-    unsafe fn from_glib_container_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
+    unsafe fn from_glib_container_num_as_vec(
+        ptr: *mut pango_sys::PangoGlyphInfo,
+        num: usize,
+    ) -> Vec<Self> {
         let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
         glib_sys::g_free(ptr as *mut _);
         res
     }
 
-    unsafe fn from_glib_full_num_as_vec(ptr: *mut pango_sys::PangoGlyphInfo, num: usize) -> Vec<Self> {
+    unsafe fn from_glib_full_num_as_vec(
+        ptr: *mut pango_sys::PangoGlyphInfo,
+        num: usize,
+    ) -> Vec<Self> {
         FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
     }
 }
@@ -130,7 +139,7 @@ impl GlyphGeometry {
     }
 
     pub fn x_offset(&self) -> i32 {
-       self.0.x_offset
+        self.0.x_offset
     }
 
     pub fn y_offset(&self) -> i32 {
@@ -151,8 +160,7 @@ impl<'a> ToGlibPtr<'a, *const pango_sys::PangoGlyphGeometry> for GlyphGeometry {
 
 #[doc(hidden)]
 impl FromGlibPtrNone<*const pango_sys::PangoGlyphGeometry> for GlyphGeometry {
-    unsafe fn from_glib_none(ptr: *const  pango_sys::PangoGlyphGeometry) -> Self {
+    unsafe fn from_glib_none(ptr: *const pango_sys::PangoGlyphGeometry) -> Self {
         GlyphGeometry(*ptr)
     }
 }
-
