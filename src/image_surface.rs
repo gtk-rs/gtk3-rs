@@ -34,12 +34,8 @@ impl TryFrom<Surface> for ImageSurface {
 
 impl ImageSurface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<ImageSurface, Status> {
-        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
-        let status = surface.status();
-        match status {
-            Status::Success => Ok(surface),
-            _ => Err(status),
-        }
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
     }
 
     pub fn create(format: Format, width: i32, height: i32) -> Result<ImageSurface, Status> {

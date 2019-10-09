@@ -32,16 +32,25 @@ impl Surface {
         Surface(ptr, true)
     }
 
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Status> {
         assert!(!ptr.is_null());
-        Surface(ptr, false)
+        let status = Status::from(ffi::cairo_surface_status(ptr));
+        match status {
+            Status::Success => Ok(Surface(ptr, false)),
+            _ => Err(status),
+        }
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
         self.0
     }
 
-    pub fn create_similar(&self, content: Content, width: i32, height: i32) -> Surface {
+    pub fn create_similar(
+        &self,
+        content: Content,
+        width: i32,
+        height: i32
+    ) -> Result<Surface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar(
                 self.0,
@@ -185,19 +194,14 @@ impl Surface {
         (x_pixels_per_inch, y_pixels_per_inch)
     }
 
-    pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Option<Surface> {
+    pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Result<Surface, Status> {
         unsafe {
-            let p = ffi::cairo_surface_create_similar_image(
+            Self::from_raw_full(ffi::cairo_surface_create_similar_image(
                 self.to_raw_none(),
                 format.into(),
                 width,
                 height,
-            );
-            if p.is_null() {
-                None
-            } else {
-                Some(Self::from_raw_full(p))
-            }
+            ))
         }
     }
 
@@ -258,7 +262,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for Surface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for Surface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> Surface {
-        Self::from_raw_full(ptr)
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 

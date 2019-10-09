@@ -20,10 +20,10 @@ macro_rules! for_stream_constructors {
         /// Because the underlying `cairo_surface_t` is reference-counted,
         /// a lifetime parameter in a Rust wrapper type would not be enough to track
         /// how long it can keep writing to the stream.
-        pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Self {
-            Self {
-                inner: Surface::_for_stream(ffi::$constructor_ffi, width, height, stream),
-            }
+        pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Result<Self, Status> {
+            Ok(Self {
+                inner: Surface::_for_stream(ffi::$constructor_ffi, width, height, stream)?,
+            })
         }
 
         /// Allows writing to a borrowed stream. The lifetime of the borrow is not tracked.
@@ -42,10 +42,10 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: *mut W,
-        ) -> Self {
-            Self {
-                inner: Surface::_for_raw_stream(ffi::$constructor_ffi, width, height, stream),
-            }
+        ) -> Result<Self, Status> {
+            Ok(Self {
+                inner: Surface::_for_raw_stream(ffi::$constructor_ffi, width, height, stream)?,
+            })
         }
     };
 }
@@ -56,7 +56,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: W,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         let env_rc = Rc::new(CallbackEnvironment {
             mutable: RefCell::new(MutableCallbackEnvironment {
                 stream: Some((Box::new(stream), None)),
@@ -67,9 +67,9 @@ impl Surface {
         let env: *const CallbackEnvironment = &*env_rc;
         unsafe {
             let ptr = constructor(Some(write_callback::<W>), env as *mut c_void, width, height);
-            let surface = Surface::from_raw_full(ptr);
+            let surface = Surface::from_raw_full(ptr)?;
             surface.set_user_data(&STREAM_CALLBACK_ENVIRONMENT, env_rc);
-            surface
+            Ok(surface)
         }
     }
 
@@ -78,7 +78,7 @@ impl Surface {
         width: f64,
         height: f64,
         stream: *mut W,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         Self::_for_stream(constructor, width, height, RawStream(stream))
     }
 

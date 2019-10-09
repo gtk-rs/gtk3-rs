@@ -6,7 +6,7 @@ use std::convert::TryFrom;
 use std::fmt;
 use std::ops::Deref;
 
-use enums::{Content, SurfaceType};
+use enums::{Content, Status, SurfaceType};
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
@@ -30,22 +30,28 @@ impl TryFrom<Surface> for RecordingSurface {
 }
 
 impl RecordingSurface {
+    pub unsafe fn from_raw_full(
+        ptr: *mut ffi::cairo_surface_t,
+    ) -> Result<RecordingSurface, Status> {
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
+    }
+
     pub fn create<T: Into<Option<Rectangle>>>(
         content: Content,
         extends: T,
-    ) -> Option<RecordingSurface> {
+    ) -> Result<RecordingSurface, Status> {
         unsafe {
             let extends = extends.into();
             let extends = match extends {
                 Some(c) => c.to_raw_none(),
                 None => ::std::ptr::null(),
             };
-            let p = ffi::cairo_recording_surface_create(content.into(), extends);
-            if p.is_null() {
-                None
-            } else {
-                Some(RecordingSurface(Surface::from_raw_full(p)))
-            }
+
+            Ok(Self::from_raw_full(ffi::cairo_recording_surface_create(
+                content.into(),
+                extends,
+            ))?)
         }
     }
 
@@ -101,7 +107,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for RecordingSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for RecordingSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> RecordingSurface {
-        RecordingSurface(Surface::from_raw_full(ptr))
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 

@@ -8,6 +8,7 @@ use ffi;
 use glib::translate::*;
 use std::fmt;
 
+use enums::Status;
 use surface::Surface;
 
 #[derive(Debug)]
@@ -283,15 +284,17 @@ impl XCBSurface {
         visual: &XCBVisualType,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(ffi::cairo_xcb_surface_create(
-                connection.to_raw_none(),
-                drawable.to_raw_none(),
-                visual.to_raw_none(),
-                width,
-                height,
-            )))
+            Ok(Self(Surface::from_raw_full(
+                ffi::cairo_xcb_surface_create(
+                    connection.to_raw_none(),
+                    drawable.to_raw_none(),
+                    visual.to_raw_none(),
+                    width,
+                    height,
+                ),
+            )?))
         }
     }
 
@@ -301,9 +304,9 @@ impl XCBSurface {
         bitmap: &XCBPixmap,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(
+            Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_for_bitmap(
                     connection.to_raw_none(),
                     screen.to_raw_none(),
@@ -311,7 +314,7 @@ impl XCBSurface {
                     width,
                     height,
                 ),
-            ))
+            )?))
         }
     }
 
@@ -322,9 +325,9 @@ impl XCBSurface {
         format: &XCBRenderPictFormInfo,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(
+            Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_with_xrender_format(
                     connection.to_raw_none(),
                     screen.to_raw_none(),
@@ -333,7 +336,7 @@ impl XCBSurface {
                     width,
                     height,
                 ),
-            ))
+            )?))
         }
     }
 

@@ -10,7 +10,7 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::PdfVersion;
+use enums::{PdfVersion, Status};
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 use enums::{PdfMetadata, PdfOutline};
 use ffi;
@@ -35,15 +35,14 @@ pub struct PdfSurface {
 }
 
 impl PdfSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Self {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            let raw = ffi::cairo_pdf_surface_create(path.as_ptr(), width, height);
-            Self {
-                inner: Surface::from_raw_full(raw),
-            }
+            Ok(Self {
+                inner: Surface::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height))?
+            })
         }
     }
 
@@ -170,7 +169,7 @@ impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
         Self {
-            inner: Surface::from_raw_full(ptr),
+            inner: Surface::from_raw_full(ptr).unwrap(),
         }
     }
 }
@@ -206,7 +205,7 @@ mod test {
     fn draw_in_buffer() -> Vec<u8> {
         let buffer: Vec<u8> = vec![];
 
-        let surface = PdfSurface::for_stream(100., 100., buffer);
+        let surface = PdfSurface::for_stream(100., 100., buffer).unwrap();
         draw(&surface);
         *surface.finish_output_stream().unwrap().downcast().unwrap()
     }
@@ -225,7 +224,7 @@ mod test {
     #[test]
     #[cfg(unix)]
     fn file() {
-        let surface = PdfSurface::new(100., 100., "/dev/null");
+        let surface = PdfSurface::new(100., 100., "/dev/null").unwrap();
         draw(&surface);
         surface.finish();
     }
@@ -233,7 +232,7 @@ mod test {
     #[test]
     fn writer() {
         let file = tempfile().expect("tempfile failed");
-        let surface = PdfSurface::for_stream(100., 100., file);
+        let surface = PdfSurface::for_stream(100., 100., file).unwrap();
 
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -247,7 +246,7 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = unsafe { PdfSurface::for_raw_stream(100., 100., &mut file) };
+        let surface = unsafe { PdfSurface::for_raw_stream(100., 100., &mut file).unwrap() };
 
         draw(&surface);
         surface.finish_output_stream().unwrap();
@@ -279,7 +278,7 @@ mod test {
 
         let custom_writer = CustomWriter(0);
 
-        let surface = PdfSurface::for_stream(20., 20., custom_writer);
+        let surface = PdfSurface::for_stream(20., 20., custom_writer).unwrap();
         surface.set_size(100., 100.);
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -302,7 +301,7 @@ mod test {
             }
         }
 
-        let surface = PdfSurface::for_stream(20., 20., PanicWriter);
+        let surface = PdfSurface::for_stream(20., 20., PanicWriter).unwrap();
         surface.finish();
         surface
     }

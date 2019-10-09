@@ -67,29 +67,28 @@ impl Device {
         unsafe { ffi::cairo_script_set_mode(self.to_raw_none(), mode.into()) }
     }
 
-    pub fn surface_create(&self, content: Content, width: f64, height: f64) -> Option<Surface> {
+    pub fn surface_create(
+        &self,
+        content: Content,
+        width: f64,
+        height: f64,
+    ) -> Result<Surface, Status> {
         unsafe {
-            let p =
-                ffi::cairo_script_surface_create(self.to_raw_none(), content.into(), width, height);
-            if p.is_null() {
-                None
-            } else {
-                Some(Surface::from_raw_full(p))
-            }
+            Ok(Surface::from_raw_full(ffi::cairo_script_surface_create(
+                self.to_raw_none(),
+                content.into(),
+                width,
+                height,
+            ))?)
         }
     }
 
-    pub fn surface_create_for_target(&self, target: &Surface) -> Option<Surface> {
+    pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Status> {
         unsafe {
-            let p = ffi::cairo_script_surface_create_for_target(
+            Ok(Surface::from_raw_full(ffi::cairo_script_surface_create_for_target(
                 self.to_raw_none(),
                 target.to_raw_none(),
-            );
-            if p.is_null() {
-                None
-            } else {
-                Some(Surface::from_raw_full(p))
-            }
+            ))?)
         }
     }
 
