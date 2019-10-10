@@ -59,20 +59,28 @@ impl PdfSurface {
         vers_slice.iter().map(|v| PdfVersion::from(*v))
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
+    pub fn restrict(&self, version: PdfVersion) -> Result<(), Status> {
         unsafe {
             ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
         }
+        match self.status() {
+            Status::Success => Ok(()),
+            s => Err(s),
+        }
     }
 
-    pub fn set_size(&self, width: f64, height: f64) {
+    pub fn set_size(&self, width: f64, height: f64) -> Result<(), Status> {
         unsafe {
             ffi::cairo_pdf_surface_set_size(self.inner.to_raw_none(), width, height);
+        }
+        match self.status() {
+            Status::Success => Ok(()),
+            s => Err(s),
         }
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
+    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Status> {
         let value = CString::new(value).unwrap();
         unsafe {
             ffi::cairo_pdf_surface_set_metadata(
@@ -81,24 +89,36 @@ impl PdfSurface {
                 value.as_ptr(),
             );
         }
-    }
-
-    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_page_label(&self, label: &str) {
-        let label = CString::new(label).unwrap();
-        unsafe {
-            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
+        match self.status() {
+            Status::Success => Ok(()),
+            s => Err(s),
         }
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_thumbnail_size(&self, width: i32, height: i32) {
+    pub fn set_page_label(&self, label: &str) -> Result<(), Status> {
+        let label = CString::new(label).unwrap();
+        unsafe {
+            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
+        }
+        match self.status() {
+            Status::Success => Ok(()),
+            s => Err(s),
+        }
+    }
+
+    #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
+    pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Status> {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(
                 self.inner.to_raw_none(),
                 width as _,
                 height as _,
             );
+        }
+        match self.status() {
+            Status::Success => Ok(()),
+            s => Err(s),
         }
     }
 
@@ -109,11 +129,11 @@ impl PdfSurface {
         name: &str,
         link_attribs: &str,
         flags: PdfOutline,
-    ) -> i32 {
+    ) -> Result<i32, Status> {
         let name = CString::new(name).unwrap();
         let link_attribs = CString::new(link_attribs).unwrap();
 
-        unsafe {
+        let res = unsafe {
             ffi::cairo_pdf_surface_add_outline(
                 self.inner.to_raw_none(),
                 parent_id,
@@ -121,6 +141,11 @@ impl PdfSurface {
                 link_attribs.as_ptr(),
                 flags.bits() as _,
             ) as _
+        };
+
+        match self.status() {
+            Status::Success => Ok(res),
+            s => Err(s),
         }
     }
 }
@@ -279,7 +304,7 @@ mod test {
         let custom_writer = CustomWriter(0);
 
         let surface = PdfSurface::for_stream(20., 20., custom_writer).unwrap();
-        surface.set_size(100., 100.);
+        surface.set_size(100., 100.).unwrap();
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
         let custom_writer = stream.downcast::<CustomWriter>().unwrap();
