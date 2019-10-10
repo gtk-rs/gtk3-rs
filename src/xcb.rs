@@ -342,10 +342,7 @@ impl XCBSurface {
 
     pub fn set_size(&self, width: i32, height: i32) -> Result<(), Status> {
         unsafe { ffi::cairo_xcb_surface_set_size(self.to_raw_none(), width, height) }
-        match self.status() {
-            Status::Success => Ok(()),
-            s => Err(s),
-        }
+        self.status().to_result(())
     }
 
     pub fn set_drawable(
@@ -362,10 +359,7 @@ impl XCBSurface {
                 height,
             )
         }
-        match self.status() {
-            Status::Success => Ok(()),
-            s => Err(s),
-        }
+        self.status().to_result(())
     }
 }
 

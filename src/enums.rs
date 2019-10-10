@@ -274,6 +274,14 @@ impl Status {
             panic!("Cairo error {:?}", self)
         }
     }
+
+    pub(crate) fn to_result<T>(self, obj: T) -> Result<T, Self> {
+        if self == Status::Success {
+            Ok(obj)
+        } else {
+            Err(self)
+        }
+    }
 }
 
 #[cfg(feature = "use_glib")]

@@ -35,10 +35,7 @@ impl Surface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Surface, Status> {
         assert!(!ptr.is_null());
         let status = Status::from(ffi::cairo_surface_status(ptr));
-        match status {
-            Status::Success => Ok(Surface(ptr, false)),
-            _ => Err(status),
-        }
+        status.to_result(Surface(ptr, false))
     }
 
     pub fn to_raw_none(&self) -> *mut ffi::cairo_surface_t {
@@ -120,20 +117,17 @@ impl Surface {
 
         let status = unsafe {
             let mime_type = CString::new(mime_type).unwrap();
-            ffi::cairo_surface_set_mime_data(
+            Status::from(ffi::cairo_surface_set_mime_data(
                 self.to_raw_none(),
                 mime_type.as_ptr(),
                 data,
                 size as c_ulong,
                 Some(unbox::<T>),
                 user_data as *mut _,
-            )
+            ))
         };
 
-        match Status::from(status) {
-            Status::Success => Ok(()),
-            x => Err(x),
-        }
+        status.to_result(())
     }
 
     pub fn supports_mime_type(&self, mime_type: &str) -> bool {
