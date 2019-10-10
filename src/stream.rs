@@ -20,7 +20,7 @@ macro_rules! for_stream_constructors {
         /// Because the underlying `cairo_surface_t` is reference-counted,
         /// a lifetime parameter in a Rust wrapper type would not be enough to track
         /// how long it can keep writing to the stream.
-        pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Result<Self, Status> {
+        pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Result<Self, crate::enums::Status> {
             Ok(Self {
                 inner: Surface::_for_stream(ffi::$constructor_ffi, width, height, stream)?,
             })
@@ -42,7 +42,7 @@ macro_rules! for_stream_constructors {
             width: f64,
             height: f64,
             stream: *mut W,
-        ) -> Result<Self, Status> {
+        ) -> Result<Self, crate::enums::Status> {
             Ok(Self {
                 inner: Surface::_for_raw_stream(ffi::$constructor_ffi, width, height, stream)?,
             })
