@@ -32,7 +32,6 @@ impl GlyphItem {
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-#[repr(C)]
 pub struct GlyphInfo(*mut pango_sys::PangoGlyphInfo);
 
 impl GlyphInfo {
@@ -130,6 +129,7 @@ impl FromGlibPtrFull<*const pango_sys::PangoGlyphInfo> for GlyphInfo {
     }
 }
 
+#[derive(Clone, Copy, Debug)]
 #[repr(C)]
 pub struct GlyphGeometry(pango_sys::PangoGlyphGeometry);
 
