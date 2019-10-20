@@ -1,7 +1,29 @@
 // Copyright 2013-2016, The Gtk-rs Project Developers.
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
-
+//! # Cairo bindings
+//!   This library contains safe Rust bindings for [Cairo](https://www.cairographics.org/).
+//!   It is a part of [Gtk-rs](http://gtk-rs.org/).
+//! ## Crate features
+//! ### Default-on features
+//! * **use_glib** -  Use with [glib](https://gtk-rs.org/docs/glib/)
+//! ### Fileformat features
+//! * **png** - Reading and writing PNG images
+//! * **pdf** - Rendering PDF documents
+//! * **svg** - Rendering SVG documents
+//! * **ps** - Rendering PostScript documents
+//! ### Cairo API version features
+//! * **v1_14** - Use Cairo 1.14 APIs
+//! * **v1_16** - Use Cairo 1.16 APIs
+//! ### Documentation features
+//! * **embed-lgpl-docs** - Embed API docs locally
+//! * **purge-lgpl-docs** - Remove API docs again (counterpart to `embed-lgpl-docs`)
+//! * **dox** - Used to keep system dependent items in documentation
+//! ### X Window features
+//! * **xcb** - X Window System rendering using the XCB library
+//! * **xlib** - X Window System rendering using XLib
+//! ### Windows API features
+//! * **win32-surface** - Microsoft Windows surface support
 extern crate cairo_sys as ffi;
 extern crate libc;
 
@@ -82,7 +104,7 @@ pub use enums::*;
 pub use error::{BorrowError, IoError};
 
 pub use patterns::{
-    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern
+    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,
 };
 
 pub use font::{
