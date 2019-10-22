@@ -58,32 +58,40 @@ macro_rules! to_type_before {
 
 #[macro_export]
 macro_rules! to_type_after {
-    (_) => ();
-    ($variable:ident) => ();
-    (@weak $variable:ident) => (
+    (_ , $return_value:expr) => ();
+    ($variable:ident , $return_value:expr) => ();
+    (@weak $variable:ident , $return_value:expr) => (
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
-            None => panic!("cannot upgrade weak reference `{}`", stringify!($n)),
+            None => return $return_value,
         };
     );
 }
 
 #[macro_export]
+macro_rules! to_return_value {
+    () => (());
+    ($value:expr) => ( $value );
+}
+
+#[macro_export]
 macro_rules! clone {
-    ($($(@ $weak:ident)? $variables:ident),+ => move || $body:block )=> (
+    ($($(@ $weak:ident)? $variables:ident),+ => move || $body:block $(, $return_value:expr)? ) => (
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
+            let return_value = $crate::to_return_value!($($return_value)?);
             move || {
-                $( $crate::to_type_after!($(@ $weak)? $variables );)*
+                $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
         }
     );
-    ($($(@ $weak:ident)? $variables:ident),+ => move | $($pattern:pat),* | $body:block )=> (
+    ($($(@ $weak:ident)? $variables:ident),+ => move | $($pattern:pat),* | $body:block $(, $return_value:expr)? ) => (
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
+            let return_value = $crate::to_return_value!($($return_value)?);
             move |$($pattern),*| {
-                $( $crate::to_type_after!($(@ $weak)? $variables );)*
+                $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
         }
