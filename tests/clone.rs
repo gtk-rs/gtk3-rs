@@ -6,12 +6,14 @@ use std::rc::Rc;
 use glib::clone;
 
 struct State {
+    count: i32,
     started: bool,
 }
 
 impl State {
     fn new() -> Self {
         Self {
+            count: 0,
             started: false,
         }
     }
@@ -30,6 +32,23 @@ fn clone_closure() {
 
     assert_eq!(closure(), ());
 
+    assert_eq!(state.borrow().started, true);
+    assert_eq!(state.borrow().count, 0);
+
+    let closure = {
+        let state2 = Rc::new(RefCell::new(State::new()));
+        assert_eq!(state.borrow().started, true);
+
+        clone!(@weak state, state2 => move || {
+            state.borrow_mut().count += 1;
+            state.borrow_mut().started = true;
+            state2.borrow_mut().started = true;
+        })
+    };
+
+    assert_eq!(closure(), ());
+
+    assert_eq!(state.borrow().count, 1);
     assert_eq!(state.borrow().started, true);
 }
 
