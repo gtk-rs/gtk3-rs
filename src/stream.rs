@@ -117,9 +117,7 @@ impl Surface {
         let env = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
-            panic!(
-                "The output stream’s RefCell was already borrowed when cairo attempted a write"
-            )
+            panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
         }
 
         let mut mutable = env.mutable.borrow_mut();

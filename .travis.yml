@@ -52,6 +52,10 @@ before_install:
     fi
 script:
   - rustc --version
+  - if [ "$TRAVIS_RUST_VERSION" == "stable" ] && [ "$GTK" == "3.14" ]; then
+    rustup component add rustfmt;
+    cargo fmt --all -- --check;
+    fi
   - cargo doc --features "dox,embed-lgpl-docs"
   - cargo test --features "$FEATURES,png,pdf,svg,pdf,xcb"
   - cargo test --no-default-features --features "$FEATURES,png,pdf,svg,pdf,xcb"
