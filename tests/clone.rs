@@ -57,10 +57,10 @@ fn clone_default_value() {
     let closure =
         {
             let state = Rc::new(RefCell::new(State::new()));
-            clone!(@weak state => move |_| {
+            clone!(@weak state => @default-return 42, move |_| {
                 state.borrow_mut().started = true;
                 10
-            }, 42)
+            })
         };
 
     assert_eq!(42, closure(50));
