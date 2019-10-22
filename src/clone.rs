@@ -72,9 +72,9 @@ macro_rules! to_type_after {
 macro_rules! clone {
     ($($(@ $weak:ident)? $variables:ident),+ => move | $($pattern:pat),* | $body:block )=> (
         {
-            $( $crate::to_type_before!($(@ $weak)? $variables) )*;
+            $( $crate::to_type_before!($(@ $weak)? $variables); )*
             move |$($pattern)*| {
-                $( $crate::to_type_after!($(@ $weak)? $variables ))*;
+                $( $crate::to_type_after!($(@ $weak)? $variables );)*
                 $body
             }
         }
