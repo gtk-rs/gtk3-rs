@@ -33,8 +33,6 @@ glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }
 
 [dev-dependencies]
-gio = { git = "https://github.com/gtk-rs/gio" }
-gtk = { git = "https://github.com/gtk-rs/gtk" }
 tempfile = "3"
 
 [features]

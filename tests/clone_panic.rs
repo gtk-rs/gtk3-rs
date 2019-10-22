@@ -1,20 +1,8 @@
-extern crate gio;
 extern crate glib;
-extern crate gtk;
 
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use gio::{ApplicationExt, ApplicationExtManual};
-use gtk::{
-    Application,
-    ApplicationWindow,
-    Button,
-    ButtonExt,
-    ContainerExt,
-    GtkWindowExt,
-    WidgetExt,
-};
 use glib::clone;
 
 struct State {
@@ -32,34 +20,34 @@ impl State {
 }
 
 #[test]
+fn clone_closure() {
+    let state = Rc::new(RefCell::new(State::new()));
+    assert_eq!(state.borrow().started, false);
+
+    let closure = {
+
+        clone!(@weak state => move || {
+            state.borrow_mut().started = true;
+
+        })
+    };
+
+    closure();
+
+    assert_eq!(state.borrow().started, true);
+}
+
+#[test]
 #[should_panic]
 fn clone_panic() {
-    let application = Application::new(
-        Some("com.github.gtk-rs.examples.basic"),
-        Default::default(),
-    ).expect("failed to initialize GTK application");
+    let closure = {
+        let state = Rc::new(RefCell::new(State::new()));
 
-    {
-    let state = Rc::new(RefCell::new(State::new()));
+        clone!(@weak state => move |_| {
+            state.borrow_mut().started = true;
 
-    application.connect_activate(clone!(@weak state => move |app| {
-        state.borrow_mut().started = true;
+        })
+    };
 
-        let window = ApplicationWindow::new(app);
-        window.set_title("First GTK+ Program");
-        window.set_default_size(350, 70);
-
-        let button = Button::new_with_label("Click me!");
-        button.connect_clicked(clone!(state => move |_| {
-            let mut state = state.borrow_mut();
-            println!("Clicked (started: {}): {}!", state.started, state.count);
-            state.count += 1;
-        }));
-        window.add(&button);
-
-        window.show_all();
-    }));
-    }
-
-    application.run(&[]);
+    closure(10);
 }

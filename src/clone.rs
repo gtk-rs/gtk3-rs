@@ -70,10 +70,19 @@ macro_rules! to_type_after {
 
 #[macro_export]
 macro_rules! clone {
+    ($($(@ $weak:ident)? $variables:ident),+ => move || $body:block )=> (
+        {
+            $( $crate::to_type_before!($(@ $weak)? $variables); )*
+            move || {
+                $( $crate::to_type_after!($(@ $weak)? $variables );)*
+                $body
+            }
+        }
+    );
     ($($(@ $weak:ident)? $variables:ident),+ => move | $($pattern:pat),* | $body:block )=> (
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
-            move |$($pattern)*| {
+            move |$($pattern),*| {
                 $( $crate::to_type_after!($(@ $weak)? $variables );)*
                 $body
             }
