@@ -5,18 +5,16 @@ extern crate gtk;
 use std::cell::RefCell;
 use std::rc::Rc;
 
-use gio::{ApplicationExt, ApplicationExtManual};
+use gio::prelude::*;
 use gtk::{
     Application,
     ApplicationWindow,
     Button,
-    ButtonExt,
-    ContainerExt,
-    GtkWindowExt,
-    WidgetExt,
+    prelude::*,
 };
 use glib::clone;
 
+#[derive(Default)]
 struct State {
     started: bool,
     count: i32,
@@ -39,23 +37,29 @@ fn main() {
 
     let state = Rc::new(RefCell::new(State::new()));
 
-    application.connect_activate(clone!(@weak state => move |app| {
-        state.borrow_mut().started = true;
+    {
+        let state2 = Rc::new(RefCell::new(State::new()));
 
-        let window = ApplicationWindow::new(app);
-        window.set_title("First GTK+ Program");
-        window.set_default_size(350, 70);
+        application.connect_activate(clone!(@weak state, state2 => move |app| {
+            state.borrow_mut().started = true;
 
-        let button = Button::new_with_label("Click me!");
-        button.connect_clicked(clone!(state => move |_| {
-            let mut state = state.borrow_mut();
-            println!("Clicked (started: {}): {}!", state.started, state.count);
-            state.count += 1;
+            let window = ApplicationWindow::new(app);
+            window.set_title("First GTK+ Program");
+            window.set_default_size(350, 70);
+
+            let button = Button::new_with_label("Click me!");
+            button.connect_clicked(clone!(@weak state, state2 => move |_| {
+                let mut state = state.borrow_mut();
+                let mut state2 = state2.borrow_mut();
+                println!("Clicked (started: {}): {} - {}!", state.started, state.count, state2.count);
+                state.count += 1;
+                state2.count += 1;
+            }));
+            window.add(&button);
+
+            window.show_all();
         }));
-        window.add(&button);
-
-        window.show_all();
-    }));
+    }
 
     application.run(&[]);
 }
