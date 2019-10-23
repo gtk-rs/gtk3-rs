@@ -13,7 +13,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
-use std::ptr;
 use Display;
 use KeymapKey;
 use ModifierIntent;
@@ -28,12 +27,6 @@ glib_wrapper! {
 }
 
 impl Keymap {
-    pub fn add_virtual_modifiers(&self, state: &mut ModifierType) {
-        unsafe {
-            gdk_sys::gdk_keymap_add_virtual_modifiers(self.to_glib_none().0, state.to_glib());
-        }
-    }
-
     pub fn get_caps_lock_state(&self) -> bool {
         unsafe {
             from_glib(gdk_sys::gdk_keymap_get_caps_lock_state(
@@ -44,56 +37,6 @@ impl Keymap {
 
     pub fn get_direction(&self) -> pango::Direction {
         unsafe { from_glib(gdk_sys::gdk_keymap_get_direction(self.to_glib_none().0)) }
-    }
-
-    pub fn get_entries_for_keycode(
-        &self,
-        hardware_keycode: u32,
-    ) -> Option<Vec<KeymapKey>, Vec<u32>> {
-        unsafe {
-            let mut keys = ptr::null_mut();
-            let mut keyvals = ptr::null_mut();
-            let mut n_entries = mem::MaybeUninit::uninit();
-            let ret = from_glib(gdk_sys::gdk_keymap_get_entries_for_keycode(
-                self.to_glib_none().0,
-                hardware_keycode,
-                &mut keys,
-                &mut keyvals,
-                n_entries.as_mut_ptr(),
-            ));
-            if ret {
-                Some((
-                    FromGlibPtrContainer::from_glib_full(keys),
-                    FromGlibContainer::from_glib_full_num(
-                        keyvals,
-                        n_entries.assume_init() as usize,
-                    ),
-                ))
-            } else {
-                None
-            }
-        }
-    }
-
-    pub fn get_entries_for_keyval(&self, keyval: u32) -> Option<Vec<KeymapKey>> {
-        unsafe {
-            let mut keys = ptr::null_mut();
-            let mut n_keys = mem::MaybeUninit::uninit();
-            let ret = from_glib(gdk_sys::gdk_keymap_get_entries_for_keyval(
-                self.to_glib_none().0,
-                keyval,
-                &mut keys,
-                n_keys.as_mut_ptr(),
-            ));
-            if ret {
-                Some(FromGlibContainer::from_glib_full_num(
-                    keys,
-                    n_keys.assume_init() as usize,
-                ))
-            } else {
-                None
-            }
-        }
     }
 
     pub fn get_modifier_mask(&self, intent: ModifierIntent) -> ModifierType {
@@ -132,15 +75,6 @@ impl Keymap {
 
     pub fn lookup_key(&self, key: &KeymapKey) -> u32 {
         unsafe { gdk_sys::gdk_keymap_lookup_key(self.to_glib_none().0, key.to_glib_none().0) }
-    }
-
-    pub fn map_virtual_modifiers(&self, state: &mut ModifierType) -> bool {
-        unsafe {
-            from_glib(gdk_sys::gdk_keymap_map_virtual_modifiers(
-                self.to_glib_none().0,
-                state.to_glib(),
-            ))
-        }
     }
 
     pub fn translate_keyboard_state(

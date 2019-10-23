@@ -50,7 +50,7 @@ impl FromGlibPtrNone<*mut gdk_sys::GdkKeymapKey> for KeymapKey {
 }
 
 #[doc(hidden)]
-impl FromGlibPtrFull<*mut gdk_sys::GdkKeymapKey> for GdkKeymapKey {
+impl FromGlibPtrFull<*mut gdk_sys::GdkKeymapKey> for KeymapKey {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut gdk_sys::GdkKeymapKey) -> Self {
         let geom = *(ptr as *mut KeymapKey);

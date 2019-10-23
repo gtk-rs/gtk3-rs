@@ -38,7 +38,6 @@ generate = [
     "Gdk.Gravity",
     "Gdk.InputMode",
     "Gdk.InputSource",
-    "Gdk.Keymap",
     "Gdk.ModifierIntent",
     "Gdk.ModifierType",
     "Gdk.NotifyType",
@@ -308,6 +307,26 @@ version = "3.8"
     [[object.function]]
     name = "get_refresh_interval"
     # Use an `Option` for the return value
+    ignore = true
+
+[[object]]
+name = "Gdk.Keymap"
+status = "generate"
+    [[object.function]]
+    name = "get_entries_for_keycode"
+    # Invalid generation of Vec<KeymapKey>
+    ignore = true
+    [[object.function]]
+    name = "get_entries_for_keyval"
+    # Invalid generation of Vec<KeymapKey>
+    ignore = true
+    [[object.function]]
+    name = "add_virtual_modifiers"
+    # Invalid usage of "&mut ModifierType"
+    ignore = true
+    [[object.function]]
+    name = "map_virtual_modifiers"
+    # Invalid usage of "&mut ModifierType"
     ignore = true
 
 [[object]]

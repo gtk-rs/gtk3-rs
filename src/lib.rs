@@ -79,6 +79,7 @@ mod frame_clock;
 mod frame_timings;
 mod functions;
 mod geometry;
+mod keymap;
 mod keymap_key;
 mod keys;
 mod rectangle;
