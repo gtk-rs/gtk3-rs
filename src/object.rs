@@ -740,6 +740,24 @@ macro_rules! glib_object_wrapper {
                 $crate::gobject_sys::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_sys::GObject)
             }
         }
+
+        #[doc(hidden)]
+        impl $crate::clone::Downgrade for $name {
+            type Target = $crate::object::WeakRef<Self>;
+
+            fn downgrade(&self) -> Self::Target {
+                <Self as $crate::object::ObjectExt>::downgrade(&self)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::clone::Upgrade for $crate::object::WeakRef<$name> {
+            type Target = $name;
+
+            fn upgrade(&self) -> Option<Self::Target> {
+                self.upgrade()
+            }
+        }
     };
 
     (@munch_impls $name:ident, ) => { };
