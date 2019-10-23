@@ -386,6 +386,30 @@ glib_wrapper! {
     }
 }
 
+#[macro_export]
+macro_rules! glib_weak_impl {
+    ($name:ident, $crate::wrapper::Void) => {
+        #[doc(hidden)]
+        impl $crate::clone::Downgrade for $name {
+            type Target = $crate::object::WeakRef<Self>;
+
+            fn downgrade(&self) -> Self::Target {
+                <Self as $crate::object::ObjectExt>::downgrade(&self)
+            }
+        }
+
+        #[doc(hidden)]
+        impl $crate::clone::Upgrade for $crate::object::WeakRef<$name> {
+            type Target = $name;
+
+            fn upgrade(&self) -> Option<Self::Target> {
+                self.upgrade()
+            }
+        }
+    };
+    ($name:ident, $ty:ty) => ();
+}
+
 /// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
@@ -741,23 +765,7 @@ macro_rules! glib_object_wrapper {
             }
         }
 
-        #[doc(hidden)]
-        impl $crate::clone::Downgrade for $name {
-            type Target = $crate::object::WeakRef<Self>;
-
-            fn downgrade(&self) -> Self::Target {
-                <Self as $crate::object::ObjectExt>::downgrade(&self)
-            }
-        }
-
-        #[doc(hidden)]
-        impl $crate::clone::Upgrade for $crate::object::WeakRef<$name> {
-            type Target = $name;
-
-            fn upgrade(&self) -> Option<Self::Target> {
-                self.upgrade()
-            }
-        }
+        $crate::glib_weak_impl!($name, $ffi_class_name);
     };
 
     (@munch_impls $name:ident, ) => { };
