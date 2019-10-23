@@ -1,7 +1,9 @@
 extern crate glib;
 
 use std::cell::RefCell;
+use std::panic;
 use std::rc::Rc;
+use std::sync::{Arc, Mutex};
 
 use glib::clone;
 
@@ -64,4 +66,31 @@ fn clone_default_value() {
         };
 
     assert_eq!(42, closure(50));
+}
+
+#[allow(unreachable_code)]
+#[test]
+fn clone_panic() {
+    let state = Arc::new(Mutex::new(State::new()));
+    state.lock().unwrap().count = 20;
+
+    let closure =
+        {
+            let state2 = Arc::new(Mutex::new(State::new()));
+            clone!(@weak state2, state => @default-return panic!(), move |_| {
+                state.lock().unwrap().count = 21;
+                state2.lock().unwrap().started = true;
+                10
+            })
+        };
+
+    let result = panic::catch_unwind(|| {
+        closure(50);
+    });
+
+    if result.is_ok() {
+        assert!(false, "should panic");
+    }
+
+    assert_eq!(state.lock().unwrap().count, 20);
 }

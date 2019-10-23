@@ -79,8 +79,8 @@ macro_rules! clone {
     ($($(@ $weak:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
-            let return_value = $crate::to_return_value!($($return_value)?);
             move || {
+                let return_value = $crate::to_return_value!($($return_value)?);
                 $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
@@ -89,8 +89,8 @@ macro_rules! clone {
     ($($(@ $weak:ident)? $variables:ident),+ => $(@default-return $return_value:expr ,)? move | $($pattern:pat),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
-            let return_value = $crate::to_return_value!($($return_value)?);
             move |$($pattern),*| {
+                let return_value = $crate::to_return_value!($($return_value)?);
                 $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
