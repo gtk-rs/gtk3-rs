@@ -68,7 +68,6 @@ fn clone_default_value() {
     assert_eq!(42, closure(50));
 }
 
-#[allow(unreachable_code)]
 #[test]
 fn clone_panic() {
     let state = Arc::new(Mutex::new(State::new()));

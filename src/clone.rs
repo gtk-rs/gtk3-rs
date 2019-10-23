@@ -63,7 +63,7 @@ macro_rules! to_type_after {
     (@weak $variable:ident , $return_value:expr) => (
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
-            None => return $return_value,
+            None => return ($return_value)(),
         };
     );
 }
@@ -80,7 +80,7 @@ macro_rules! clone {
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
             move || {
-                let return_value = $crate::to_return_value!($($return_value)?);
+                let return_value = || $crate::to_return_value!($($return_value)?);
                 $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
@@ -90,7 +90,7 @@ macro_rules! clone {
         {
             $( $crate::to_type_before!($(@ $weak)? $variables); )*
             move |$($pattern),*| {
-                let return_value = $crate::to_return_value!($($return_value)?);
+                let return_value = || $crate::to_return_value!($($return_value)?);
                 $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
                 $body
             }
