@@ -9,12 +9,11 @@ use gobject_sys;
 use libc::c_char;
 use std::ptr;
 use Cancellable;
-use Error;
 use Subprocess;
 
 impl Subprocess {
     pub fn communicate_utf8_async<
-        R: FnOnce(Result<(GString, GString), Error>) + Send + 'static,
+        R: FnOnce(Result<(GString, GString), glib::Error>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -27,7 +26,7 @@ impl Subprocess {
         let gcancellable = cancellable.to_glib_none();
         let user_data: Box<(R, *mut c_char)> = Box::new((callback, stdin_buf));
         unsafe extern "C" fn communicate_utf8_async_trampoline<
-            R: FnOnce(Result<(GString, GString), Error>) + Send + 'static,
+            R: FnOnce(Result<(GString, GString), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -67,8 +66,9 @@ impl Subprocess {
     pub fn communicate_utf8_async_future(
         &self,
         stdin_buf: Option<String>,
-    ) -> Box<dyn future::Future<Output = Result<(GString, GString), Error>> + std::marker::Unpin>
-    {
+    ) -> Box<
+        dyn future::Future<Output = Result<(GString, GString), glib::Error>> + std::marker::Unpin,
+    > {
         use fragile::Fragile;
         use GioFuture;
 

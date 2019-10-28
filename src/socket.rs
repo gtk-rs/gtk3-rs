@@ -16,7 +16,6 @@ use std::os::raw::c_int;
 use std::os::raw::c_void;
 use std::ptr;
 use Cancellable;
-use Error;
 use Socket;
 use SocketAddress;
 
@@ -33,7 +32,7 @@ use std::os::windows::io::{AsRawSocket, FromRawSocket, IntoRawSocket, RawSocket}
 
 impl Socket {
     #[cfg(any(unix, feature = "dox"))]
-    pub unsafe fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_fd<T: IntoRawFd>(fd: T) -> Result<Socket, glib::Error> {
         let fd = fd.into_raw_fd();
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_socket_new_from_fd(fd, &mut error);
@@ -44,7 +43,7 @@ impl Socket {
         }
     }
     #[cfg(any(windows, feature = "dox"))]
-    pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, Error> {
+    pub unsafe fn new_from_socket<T: IntoRawSocket>(socket: T) -> Result<Socket, glib::Error> {
         let socket = socket.into_raw_socket();
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_socket_new_from_fd(socket as i32, &mut error);
@@ -75,36 +74,36 @@ pub trait SocketExtManual: Sized {
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
     fn receive_from<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<(usize, SocketAddress), Error>;
+    ) -> Result<(usize, SocketAddress), glib::Error>;
     fn receive_with_blocking<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         blocking: bool,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
 
     fn send<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
     fn send_to<B: AsRef<[u8]>, P: IsA<SocketAddress>, C: IsA<Cancellable>>(
         &self,
         address: Option<&P>,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
     fn send_with_blocking<B: AsRef<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         blocking: bool,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
 
     #[cfg(any(unix, feature = "dox"))]
     fn get_fd<T: FromRawFd>(&self) -> T;
@@ -146,7 +145,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         &self,
         mut buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
@@ -173,7 +172,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         &self,
         mut buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<(usize, SocketAddress), Error> {
+    ) -> Result<(usize, SocketAddress), glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
@@ -204,7 +203,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         mut buffer: B,
         blocking: bool,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
@@ -232,7 +231,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
@@ -261,7 +260,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         address: Option<&P>,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {
@@ -292,7 +291,7 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         buffer: B,
         blocking: bool,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let (count, buffer_ptr) = {

@@ -12,7 +12,6 @@ use std::cell::RefCell;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 use PollableInputStream;
 
 #[cfg(any(feature = "futures", feature = "dox"))]
@@ -50,7 +49,7 @@ pub trait PollableInputStreamExtManual: Sized {
         &self,
         buffer: &mut [u8],
         cancellable: Option<&C>,
-    ) -> Result<isize, Error>;
+    ) -> Result<isize, glib::Error>;
 }
 
 impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
@@ -110,7 +109,7 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         &self,
         buffer: &mut [u8],
         cancellable: Option<&C>,
-    ) -> Result<isize, Error> {
+    ) -> Result<isize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let count = buffer.len() as usize;

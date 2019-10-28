@@ -10,7 +10,6 @@ use glib_sys;
 use gobject_sys;
 use std::ptr;
 use Cancellable;
-use Error;
 use File;
 use FileCreateFlags;
 
@@ -20,7 +19,7 @@ use futures::future;
 pub trait FileExtManual: Sized {
     fn replace_contents_async<
         B: AsRef<[u8]> + Send + 'static,
-        R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+        R: FnOnce(Result<(B, glib::GString), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -39,13 +38,16 @@ pub trait FileExtManual: Sized {
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>;
+    ) -> Box<
+        dyn future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
+            + std::marker::Unpin,
+    >;
 }
 
 impl<O: IsA<File>> FileExtManual for O {
     fn replace_contents_async<
         B: AsRef<[u8]> + Send + 'static,
-        R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+        R: FnOnce(Result<(B, glib::GString), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -68,7 +70,7 @@ impl<O: IsA<File>> FileExtManual for O {
         };
         unsafe extern "C" fn replace_contents_async_trampoline<
             B: AsRef<[u8]> + Send + 'static,
-            R: FnOnce(Result<(B, glib::GString), (B, Error)>) + Send + 'static,
+            R: FnOnce(Result<(B, glib::GString), (B, glib::Error)>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -115,8 +117,10 @@ impl<O: IsA<File>> FileExtManual for O {
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-    ) -> Box<dyn future::Future<Output = Result<(B, glib::GString), (B, Error)>> + std::marker::Unpin>
-    {
+    ) -> Box<
+        dyn future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
+            + std::marker::Unpin,
+    > {
         use fragile::Fragile;
         use GioFuture;
 

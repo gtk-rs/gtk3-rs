@@ -13,7 +13,6 @@ use std::io;
 use std::mem;
 use std::ptr;
 use Cancellable;
-use Error;
 use InputStream;
 
 #[cfg(any(feature = "futures", feature = "dox"))]
@@ -24,18 +23,18 @@ pub trait InputStreamExtManual: Sized {
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error>;
+    ) -> Result<usize, glib::Error>;
 
     fn read_all<B: AsMut<[u8]>, C: IsA<Cancellable>>(
         &self,
         buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<(usize, Option<Error>), Error>;
+    ) -> Result<(usize, Option<glib::Error>), glib::Error>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
-        Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -47,7 +46,7 @@ pub trait InputStreamExtManual: Sized {
 
     fn read_async<
         B: AsMut<[u8]> + Send + 'static,
-        Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        Q: FnOnce(Result<(B, usize), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -64,7 +63,7 @@ pub trait InputStreamExtManual: Sized {
         buffer: B,
         io_priority: Priority,
     ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>>
+        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
             + std::marker::Unpin,
     >;
 
@@ -73,7 +72,7 @@ pub trait InputStreamExtManual: Sized {
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin>;
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>;
 
     fn into_read(self) -> InputStreamRead<Self> {
         InputStreamRead(self)
@@ -85,7 +84,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         &self,
         mut buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<usize, Error> {
+    ) -> Result<usize, glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
@@ -112,7 +111,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         &self,
         mut buffer: B,
         cancellable: Option<&C>,
-    ) -> Result<(usize, Option<Error>), Error> {
+    ) -> Result<(usize, Option<glib::Error>), glib::Error> {
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
         let buffer = buffer.as_mut();
@@ -144,7 +143,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async<
         B: AsMut<[u8]> + Send + 'static,
-        Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+        Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -164,7 +163,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         };
         unsafe extern "C" fn read_all_async_trampoline<
             B: AsMut<[u8]> + Send + 'static,
-            Q: FnOnce(Result<(B, usize, Option<Error>), (B, Error)>) + Send + 'static,
+            Q: FnOnce(Result<(B, usize, Option<glib::Error>), (B, glib::Error)>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -209,7 +208,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
 
     fn read_async<
         B: AsMut<[u8]> + Send + 'static,
-        Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+        Q: FnOnce(Result<(B, usize), (B, glib::Error)>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -229,7 +228,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         };
         unsafe extern "C" fn read_async_trampoline<
             B: AsMut<[u8]> + Send + 'static,
-            Q: FnOnce(Result<(B, usize), (B, Error)>) + Send + 'static,
+            Q: FnOnce(Result<(B, usize), (B, glib::Error)>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -271,7 +270,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         buffer: B,
         io_priority: Priority,
     ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<Error>), (B, Error)>>
+        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
             + std::marker::Unpin,
     > {
         use GioFuture;
@@ -294,7 +293,8 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, Error)>> + std::marker::Unpin> {
+    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>
+    {
         use GioFuture;
 
         GioFuture::new(self, move |obj, send| {
