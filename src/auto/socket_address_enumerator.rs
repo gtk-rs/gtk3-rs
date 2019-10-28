@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
@@ -13,7 +14,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use SocketAddress;
 
 glib_wrapper! {
@@ -27,9 +27,15 @@ glib_wrapper! {
 pub const NONE_SOCKET_ADDRESS_ENUMERATOR: Option<&SocketAddressEnumerator> = None;
 
 pub trait SocketAddressEnumeratorExt: 'static {
-    fn next<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<SocketAddress, Error>;
+    fn next<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<SocketAddress, glib::Error>;
 
-    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(
+    fn next_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<SocketAddress, glib::Error>) + Send + 'static,
+    >(
         &self,
         cancellable: Option<&P>,
         callback: Q,
@@ -38,11 +44,14 @@ pub trait SocketAddressEnumeratorExt: 'static {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn next_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, glib::Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
-    fn next<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<SocketAddress, Error> {
+    fn next<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_socket_address_enumerator_next(
@@ -58,14 +67,17 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
         }
     }
 
-    fn next_async<P: IsA<Cancellable>, Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static>(
+    fn next_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<SocketAddress, glib::Error>) + Send + 'static,
+    >(
         &self,
         cancellable: Option<&P>,
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn next_async_trampoline<
-            Q: FnOnce(Result<SocketAddress, Error>) + Send + 'static,
+            Q: FnOnce(Result<SocketAddress, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -99,7 +111,8 @@ impl<O: IsA<SocketAddressEnumerator>> SocketAddressEnumeratorExt for O {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn next_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<SocketAddress, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 

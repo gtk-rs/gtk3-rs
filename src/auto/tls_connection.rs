@@ -22,7 +22,6 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 use IOStream;
 use TlsCertificate;
 use TlsCertificateFlags;
@@ -65,9 +64,9 @@ pub trait TlsConnectionExt: 'static {
 
     fn get_require_close_notify(&self) -> bool;
 
-    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
-    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -78,7 +77,7 @@ pub trait TlsConnectionExt: 'static {
     fn handshake_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn set_advertised_protocols(&self, protocols: &[&str]);
@@ -225,7 +224,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn handshake<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_tls_connection_handshake(
@@ -241,7 +240,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn handshake_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -249,7 +248,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn handshake_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -285,7 +284,7 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
     fn handshake_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

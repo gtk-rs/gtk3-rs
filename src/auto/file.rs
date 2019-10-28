@@ -19,7 +19,6 @@ use std::ptr;
 use AppInfo;
 use Cancellable;
 use DriveStartFlags;
-use Error;
 use FileCopyFlags;
 use FileCreateFlags;
 use FileEnumerator;
@@ -79,7 +78,9 @@ impl File {
         unsafe { from_glib_full(gio_sys::g_file_new_for_uri(uri.to_glib_none().0)) }
     }
 
-    pub fn new_tmp<P: AsRef<std::path::Path>>(tmpl: P) -> Result<(File, FileIOStream), Error> {
+    pub fn new_tmp<P: AsRef<std::path::Path>>(
+        tmpl: P,
+    ) -> Result<(File, FileIOStream), glib::Error> {
         unsafe {
             let mut iostream = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -108,11 +109,11 @@ pub trait FileExt: 'static {
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error>;
+    ) -> Result<FileOutputStream, glib::Error>;
 
     fn append_to_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -126,7 +127,7 @@ pub trait FileExt: 'static {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>;
 
     fn copy<P: IsA<File>, Q: IsA<Cancellable>>(
         &self,
@@ -134,29 +135,29 @@ pub trait FileExt: 'static {
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
         progress_callback: Option<&mut dyn (FnMut(i64, i64))>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S);
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), glib::Error>) + Send + 'static, S: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S);
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn copy_attributes<P: IsA<File>, Q: IsA<Cancellable>>(
         &self,
         destination: &P,
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn create<P: IsA<Cancellable>>(
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error>;
+    ) -> Result<FileOutputStream, glib::Error>;
 
     fn create_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -170,17 +171,17 @@ pub trait FileExt: 'static {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>;
 
     fn create_readwrite<P: IsA<Cancellable>>(
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error>;
+    ) -> Result<FileIOStream, glib::Error>;
 
     fn create_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -194,11 +195,11 @@ pub trait FileExt: 'static {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>;
 
-    fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
-    fn delete_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn delete_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -209,14 +210,14 @@ pub trait FileExt: 'static {
     fn delete_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn dup(&self) -> Option<File>;
 
     fn eject_mountable_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -230,27 +231,27 @@ pub trait FileExt: 'static {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn enumerate_children<P: IsA<Cancellable>>(
         &self,
         attributes: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileEnumerator, Error>;
+    ) -> Result<FileEnumerator, glib::Error>;
 
     fn equal<P: IsA<File>>(&self, file2: &P) -> bool;
 
     fn find_enclosing_mount<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<Mount, Error>;
+    ) -> Result<Mount, glib::Error>;
 
     fn get_basename(&self) -> Option<std::path::PathBuf>;
 
     fn get_child<P: AsRef<std::path::Path>>(&self, name: P) -> Option<File>;
 
-    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, Error>;
+    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error>;
 
     fn get_parent(&self) -> Option<File>;
 
@@ -276,12 +277,12 @@ pub trait FileExt: 'static {
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(glib::Bytes, Option<GString>), Error>;
+    ) -> Result<(glib::Bytes, Option<GString>), glib::Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -292,16 +293,19 @@ pub trait FileExt: 'static {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(glib::Bytes, GString), Error>> + std::marker::Unpin>;
+    ) -> Box_<
+        dyn future::Future<Output = Result<(glib::Bytes, GString), glib::Error>>
+            + std::marker::Unpin,
+    >;
 
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, GString), Error>;
+    ) -> Result<(Vec<u8>, GString), glib::Error>;
 
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -311,16 +315,24 @@ pub trait FileExt: 'static {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn load_contents_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
+    ) -> Box_<
+        dyn future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + std::marker::Unpin,
+    >;
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R);
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>;
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + std::marker::Unpin>;
 
-    fn make_directory<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn make_directory<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<(), glib::Error>;
 
-    fn make_directory_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn make_directory_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
+    >(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -331,53 +343,53 @@ pub trait FileExt: 'static {
     fn make_directory_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn make_directory_with_parents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn make_symbolic_link<P: AsRef<std::path::Path>, Q: IsA<Cancellable>>(
         &self,
         symlink_value: P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn measure_disk_usage<P: IsA<Cancellable>>(
         &self,
         flags: FileMeasureFlags,
         cancellable: Option<&P>,
         progress_callback: Option<Box_<dyn Fn(bool, u64, u64, u64) + 'static>>,
-    ) -> Result<(u64, u64, u64), Error>;
+    ) -> Result<(u64, u64, u64), glib::Error>;
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R);
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R);
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin>;
+    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), glib::Error>> + std::marker::Unpin>;
 
     fn monitor<P: IsA<Cancellable>>(
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error>;
+    ) -> Result<FileMonitor, glib::Error>;
 
     fn monitor_directory<P: IsA<Cancellable>>(
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error>;
+    ) -> Result<FileMonitor, glib::Error>;
 
     fn monitor_file<P: IsA<Cancellable>>(
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error>;
+    ) -> Result<FileMonitor, glib::Error>;
 
     fn mount_enclosing_volume<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -391,12 +403,12 @@ pub trait FileExt: 'static {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn mount_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<File, Error>) + Send + 'static,
+        R: FnOnce(Result<File, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -410,7 +422,7 @@ pub trait FileExt: 'static {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<File, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<File, glib::Error>> + std::marker::Unpin>;
 
     fn move_<P: IsA<File>, Q: IsA<Cancellable>>(
         &self,
@@ -418,16 +430,16 @@ pub trait FileExt: 'static {
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
         progress_callback: Option<&mut dyn (FnMut(i64, i64))>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn open_readwrite<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error>;
+    ) -> Result<FileIOStream, glib::Error>;
 
     fn open_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         io_priority: glib::Priority,
@@ -439,12 +451,12 @@ pub trait FileExt: 'static {
     fn open_readwrite_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn peek_path(&self) -> Option<std::path::PathBuf>;
 
-    fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
         callback: Q,
@@ -453,17 +465,17 @@ pub trait FileExt: 'static {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn poll_mountable_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn query_default_handler<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<AppInfo, Error>;
+    ) -> Result<AppInfo, glib::Error>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn query_default_handler_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         io_priority: glib::Priority,
@@ -476,7 +488,7 @@ pub trait FileExt: 'static {
     fn query_default_handler_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<AppInfo, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<AppInfo, glib::Error>> + std::marker::Unpin>;
 
     fn query_exists<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> bool;
 
@@ -490,11 +502,11 @@ pub trait FileExt: 'static {
         &self,
         attributes: &str,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error>;
+    ) -> Result<FileInfo, glib::Error>;
 
     fn query_filesystem_info_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         attributes: &str,
@@ -508,16 +520,19 @@ pub trait FileExt: 'static {
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin>;
 
     fn query_info<P: IsA<Cancellable>>(
         &self,
         attributes: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error>;
+    ) -> Result<FileInfo, glib::Error>;
 
-    fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(
+    fn query_info_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
+    >(
         &self,
         attributes: &str,
         flags: FileQueryInfoFlags,
@@ -532,15 +547,21 @@ pub trait FileExt: 'static {
         attributes: &str,
         flags: FileQueryInfoFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin>;
 
-    //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, Error>;
+    //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error>;
 
-    //fn query_writable_namespaces<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, Error>;
+    //fn query_writable_namespaces<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error>;
 
-    fn read<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<FileInputStream, Error>;
+    fn read<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<FileInputStream, glib::Error>;
 
-    fn read_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static>(
+    fn read_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<FileInputStream, glib::Error>) + Send + 'static,
+    >(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -551,7 +572,7 @@ pub trait FileExt: 'static {
     fn read_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInputStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileInputStream, glib::Error>> + std::marker::Unpin>;
 
     fn replace<P: IsA<Cancellable>>(
         &self,
@@ -559,11 +580,11 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error>;
+    ) -> Result<FileOutputStream, glib::Error>;
 
     fn replace_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         etag: Option<&str>,
@@ -581,7 +602,7 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>;
 
     fn replace_contents<P: IsA<Cancellable>>(
         &self,
@@ -590,9 +611,9 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<GString, Error>;
+    ) -> Result<GString, glib::Error>;
 
-    //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q);
+    //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q);
 
     fn replace_readwrite<P: IsA<Cancellable>>(
         &self,
@@ -600,11 +621,11 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error>;
+    ) -> Result<FileIOStream, glib::Error>;
 
     fn replace_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         etag: Option<&str>,
@@ -622,11 +643,11 @@ pub trait FileExt: 'static {
         make_backup: bool,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>;
 
     fn resolve_relative_path<P: AsRef<std::path::Path>>(&self, relative_path: P) -> Option<File>;
 
-    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error>;
+    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
     fn set_attribute_byte_string<P: IsA<Cancellable>>(
         &self,
@@ -634,7 +655,7 @@ pub trait FileExt: 'static {
         value: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attribute_int32<P: IsA<Cancellable>>(
         &self,
@@ -642,7 +663,7 @@ pub trait FileExt: 'static {
         value: i32,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attribute_int64<P: IsA<Cancellable>>(
         &self,
@@ -650,7 +671,7 @@ pub trait FileExt: 'static {
         value: i64,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attribute_string<P: IsA<Cancellable>>(
         &self,
@@ -658,7 +679,7 @@ pub trait FileExt: 'static {
         value: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attribute_uint32<P: IsA<Cancellable>>(
         &self,
@@ -666,7 +687,7 @@ pub trait FileExt: 'static {
         value: u32,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attribute_uint64<P: IsA<Cancellable>>(
         &self,
@@ -674,11 +695,11 @@ pub trait FileExt: 'static {
         value: u64,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_attributes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         info: &FileInfo,
@@ -694,24 +715,24 @@ pub trait FileExt: 'static {
         info: &FileInfo,
         flags: FileQueryInfoFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin>;
 
     fn set_attributes_from_info<P: IsA<Cancellable>>(
         &self,
         info: &FileInfo,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_display_name<P: IsA<Cancellable>>(
         &self,
         display_name: &str,
         cancellable: Option<&P>,
-    ) -> Result<File, Error>;
+    ) -> Result<File, glib::Error>;
 
     fn set_display_name_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<File, Error>) + Send + 'static,
+        Q: FnOnce(Result<File, glib::Error>) + Send + 'static,
     >(
         &self,
         display_name: &str,
@@ -725,12 +746,12 @@ pub trait FileExt: 'static {
         &self,
         display_name: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<File, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<File, glib::Error>> + std::marker::Unpin>;
 
     fn start_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: DriveStartFlags,
@@ -744,12 +765,12 @@ pub trait FileExt: 'static {
         &self,
         flags: DriveStartFlags,
         start_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn stop_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -763,13 +784,13 @@ pub trait FileExt: 'static {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn supports_thread_contexts(&self) -> bool;
 
-    fn trash<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn trash<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
-    fn trash_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn trash_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -780,12 +801,12 @@ pub trait FileExt: 'static {
     fn trash_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn unmount_mountable_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -799,7 +820,7 @@ pub trait FileExt: 'static {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<File>> FileExt for O {
@@ -807,7 +828,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error> {
+    ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_append_to(
@@ -826,7 +847,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn append_to_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -836,7 +857,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn append_to_async_trampoline<
-            Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -870,7 +891,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -892,7 +913,7 @@ impl<O: IsA<File>> FileExt for O {
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
         progress_callback: Option<&mut dyn (FnMut(i64, i64))>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         let progress_callback_data: Option<&mut dyn (FnMut(i64, i64))> = progress_callback;
         unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(
             current_num_bytes: i64,
@@ -932,12 +953,12 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static, S: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S) {
+    //fn copy_async<P: IsA<File>, Q: IsA<Cancellable>, R: FnOnce(Result<(), glib::Error>) + Send + 'static, S: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, cancellable: Option<&Q>, progress_callback: R, callback: S) {
     //    unsafe { TODO: call gio_sys:g_file_copy_async() }
     //}
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    //fn copy_async_future<P: IsA<File> + Clone + 'static, R: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, destination: &P, flags: FileCopyFlags, io_priority: glib::Priority, progress_callback: R) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -966,7 +987,7 @@ impl<O: IsA<File>> FileExt for O {
         destination: &P,
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_copy_attributes(
@@ -988,7 +1009,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error> {
+    ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_create(
@@ -1007,7 +1028,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn create_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -1017,7 +1038,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn create_async_trampoline<
-            Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1051,7 +1072,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -1071,7 +1092,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error> {
+    ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_create_readwrite(
@@ -1090,7 +1111,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn create_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: FileCreateFlags,
@@ -1100,7 +1121,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn create_readwrite_async_trampoline<
-            Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1135,7 +1156,8 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1150,7 +1172,7 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn delete<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_delete(
@@ -1166,7 +1188,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn delete_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn delete_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -1174,7 +1196,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn delete_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1206,7 +1228,7 @@ impl<O: IsA<File>> FileExt for O {
     fn delete_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1228,7 +1250,7 @@ impl<O: IsA<File>> FileExt for O {
     fn eject_mountable_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -1238,7 +1260,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn eject_mountable_with_operation_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1276,7 +1298,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1302,7 +1324,7 @@ impl<O: IsA<File>> FileExt for O {
         attributes: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileEnumerator, Error> {
+    ) -> Result<FileEnumerator, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_enumerate_children(
@@ -1332,7 +1354,7 @@ impl<O: IsA<File>> FileExt for O {
     fn find_enclosing_mount<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<Mount, Error> {
+    ) -> Result<Mount, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_find_enclosing_mount(
@@ -1361,7 +1383,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, Error> {
+    fn get_child_for_display_name(&self, display_name: &str) -> Result<File, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_get_child_for_display_name(
@@ -1449,7 +1471,7 @@ impl<O: IsA<File>> FileExt for O {
     fn load_bytes<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(glib::Bytes, Option<GString>), Error> {
+    ) -> Result<(glib::Bytes, Option<GString>), glib::Error> {
         unsafe {
             let mut etag_out = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -1470,7 +1492,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1478,7 +1500,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_bytes_async_trampoline<
-            Q: FnOnce(Result<(glib::Bytes, GString), Error>) + Send + 'static,
+            Q: FnOnce(Result<(glib::Bytes, GString), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1515,8 +1537,10 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn load_bytes_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(glib::Bytes, GString), Error>> + std::marker::Unpin>
-    {
+    ) -> Box_<
+        dyn future::Future<Output = Result<(glib::Bytes, GString), glib::Error>>
+            + std::marker::Unpin,
+    > {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1534,7 +1558,7 @@ impl<O: IsA<File>> FileExt for O {
     fn load_contents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Vec<u8>, GString), Error> {
+    ) -> Result<(Vec<u8>, GString), glib::Error> {
         unsafe {
             let mut contents = ptr::null_mut();
             let mut length = mem::MaybeUninit::uninit();
@@ -1561,7 +1585,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn load_contents_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&P>,
@@ -1569,7 +1593,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_contents_async_trampoline<
-            Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static,
+            Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1612,8 +1636,9 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn load_contents_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin>
-    {
+    ) -> Box_<
+        dyn future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + std::marker::Unpin,
+    > {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1628,12 +1653,12 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
+    //fn load_partial_contents_async<P: IsA<Cancellable>, Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static, R: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, cancellable: Option<&P>, read_more_callback: Q, callback: R) {
     //    unsafe { TODO: call gio_sys:g_file_load_partial_contents_async() }
     //}
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), Error>> + std::marker::Unpin> {
+    //fn load_partial_contents_async_future<Q: FnOnce(Result<(Vec<u8>, GString), glib::Error>) + Send + 'static>(&self, read_more_callback: Q) -> Box_<dyn future::Future<Output = Result<(Vec<u8>, GString), glib::Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -1652,7 +1677,10 @@ impl<O: IsA<File>> FileExt for O {
     //})
     //}
 
-    fn make_directory<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn make_directory<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_make_directory(
@@ -1668,7 +1696,10 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn make_directory_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn make_directory_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
+    >(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -1676,7 +1707,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn make_directory_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1709,7 +1740,7 @@ impl<O: IsA<File>> FileExt for O {
     fn make_directory_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1727,7 +1758,7 @@ impl<O: IsA<File>> FileExt for O {
     fn make_directory_with_parents<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_make_directory_with_parents(
@@ -1747,7 +1778,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         symlink_value: P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_make_symbolic_link(
@@ -1769,7 +1800,7 @@ impl<O: IsA<File>> FileExt for O {
         flags: FileMeasureFlags,
         cancellable: Option<&P>,
         progress_callback: Option<Box_<dyn Fn(bool, u64, u64, u64) + 'static>>,
-    ) -> Result<(u64, u64, u64), Error> {
+    ) -> Result<(u64, u64, u64), glib::Error> {
         let progress_callback_data: Box_<Option<Box_<dyn Fn(bool, u64, u64, u64) + 'static>>> =
             Box_::new(progress_callback);
         unsafe extern "C" fn progress_callback_func<P: IsA<Cancellable>>(
@@ -1822,12 +1853,12 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R) {
+    //fn measure_disk_usage_async<P: IsA<Cancellable>, Q: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static, R: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, cancellable: Option<&P>, progress_callback: Q, callback: R) {
     //    unsafe { TODO: call gio_sys:g_file_measure_disk_usage_async() }
     //}
 
     //#[cfg(any(feature = "futures", feature = "dox"))]
-    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), Error>> + std::marker::Unpin> {
+    //fn measure_disk_usage_async_future<Q: FnOnce(Result<(u64, u64, u64), glib::Error>) + Send + 'static>(&self, flags: FileMeasureFlags, io_priority: glib::Priority, progress_callback: Q) -> Box_<dyn future::Future<Output = Result<(u64, u64, u64), glib::Error>> + std::marker::Unpin> {
     //use GioFuture;
     //use fragile::Fragile;
 
@@ -1853,7 +1884,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error> {
+    ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_monitor(
@@ -1874,7 +1905,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error> {
+    ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_monitor_directory(
@@ -1895,7 +1926,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: FileMonitorFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileMonitor, Error> {
+    ) -> Result<FileMonitor, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_monitor_file(
@@ -1915,7 +1946,7 @@ impl<O: IsA<File>> FileExt for O {
     fn mount_enclosing_volume<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -1925,7 +1956,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn mount_enclosing_volume_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -1963,7 +1994,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -1987,7 +2018,7 @@ impl<O: IsA<File>> FileExt for O {
     fn mount_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<File, Error>) + Send + 'static,
+        R: FnOnce(Result<File, glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -1997,7 +2028,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn mount_mountable_trampoline<
-            R: FnOnce(Result<File, Error>) + Send + 'static,
+            R: FnOnce(Result<File, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2032,7 +2063,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<File, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<File, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2059,7 +2090,7 @@ impl<O: IsA<File>> FileExt for O {
         flags: FileCopyFlags,
         cancellable: Option<&Q>,
         progress_callback: Option<&mut dyn (FnMut(i64, i64))>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         let progress_callback_data: Option<&mut dyn (FnMut(i64, i64))> = progress_callback;
         unsafe extern "C" fn progress_callback_func<P: IsA<File>, Q: IsA<Cancellable>>(
             current_num_bytes: i64,
@@ -2102,7 +2133,7 @@ impl<O: IsA<File>> FileExt for O {
     fn open_readwrite<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error> {
+    ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_open_readwrite(
@@ -2120,7 +2151,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn open_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         io_priority: glib::Priority,
@@ -2129,7 +2160,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn open_readwrite_async_trampoline<
-            Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2162,7 +2193,8 @@ impl<O: IsA<File>> FileExt for O {
     fn open_readwrite_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2182,14 +2214,14 @@ impl<O: IsA<File>> FileExt for O {
         unsafe { from_glib_none(gio_sys::g_file_peek_path(self.as_ref().to_glib_none().0)) }
     }
 
-    fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn poll_mountable<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn poll_mountable_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2220,7 +2252,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "futures", feature = "dox"))]
     fn poll_mountable_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2238,7 +2270,7 @@ impl<O: IsA<File>> FileExt for O {
     fn query_default_handler<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<AppInfo, Error> {
+    ) -> Result<AppInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_query_default_handler(
@@ -2257,7 +2289,7 @@ impl<O: IsA<File>> FileExt for O {
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn query_default_handler_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         io_priority: glib::Priority,
@@ -2266,7 +2298,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn query_default_handler_async_trampoline<
-            Q: FnOnce(Result<AppInfo, Error>) + Send + 'static,
+            Q: FnOnce(Result<AppInfo, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2303,7 +2335,7 @@ impl<O: IsA<File>> FileExt for O {
     fn query_default_handler_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<AppInfo, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<AppInfo, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2345,7 +2377,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         attributes: &str,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error> {
+    ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_query_filesystem_info(
@@ -2364,7 +2396,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn query_filesystem_info_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         attributes: &str,
@@ -2374,7 +2406,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn query_filesystem_info_async_trampoline<
-            Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2412,7 +2444,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2438,7 +2470,7 @@ impl<O: IsA<File>> FileExt for O {
         attributes: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error> {
+    ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_query_info(
@@ -2458,7 +2490,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn query_info_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         attributes: &str,
@@ -2469,7 +2501,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn query_info_async_trampoline<
-            Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2505,7 +2537,7 @@ impl<O: IsA<File>> FileExt for O {
         attributes: &str,
         flags: FileQueryInfoFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2527,15 +2559,18 @@ impl<O: IsA<File>> FileExt for O {
         })
     }
 
-    //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, Error> {
+    //fn query_settable_attributes<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error> {
     //    unsafe { TODO: call gio_sys:g_file_query_settable_attributes() }
     //}
 
-    //fn query_writable_namespaces<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, Error> {
+    //fn query_writable_namespaces<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result</*Ignored*/FileAttributeInfoList, glib::Error> {
     //    unsafe { TODO: call gio_sys:g_file_query_writable_namespaces() }
     //}
 
-    fn read<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<FileInputStream, Error> {
+    fn read<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<FileInputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_read(
@@ -2553,7 +2588,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn read_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         io_priority: glib::Priority,
@@ -2562,7 +2597,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn read_async_trampoline<
-            Q: FnOnce(Result<FileInputStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileInputStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2594,7 +2629,7 @@ impl<O: IsA<File>> FileExt for O {
     fn read_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInputStream, Error>> + std::marker::Unpin>
+    ) -> Box_<dyn future::Future<Output = Result<FileInputStream, glib::Error>> + std::marker::Unpin>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -2616,7 +2651,7 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileOutputStream, Error> {
+    ) -> Result<FileOutputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_replace(
@@ -2637,7 +2672,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn replace_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
     >(
         &self,
         etag: Option<&str>,
@@ -2649,7 +2684,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn replace_async_trampoline<
-            Q: FnOnce(Result<FileOutputStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileOutputStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2687,7 +2722,7 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, Error>> + std::marker::Unpin>
+    ) -> Box_<dyn future::Future<Output = Result<FileOutputStream, glib::Error>> + std::marker::Unpin>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -2718,7 +2753,7 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<GString, Error> {
+    ) -> Result<GString, glib::Error> {
         let length = contents.len() as usize;
         unsafe {
             let mut new_etag = ptr::null_mut();
@@ -2742,7 +2777,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q) {
+    //fn replace_contents_bytes_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + 'static>(&self, contents: &glib::Bytes, etag: Option<&str>, make_backup: bool, flags: FileCreateFlags, cancellable: Option<&P>, callback: Q) {
     //    unsafe { TODO: call gio_sys:g_file_replace_contents_bytes_async() }
     //}
 
@@ -2752,7 +2787,7 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         cancellable: Option<&P>,
-    ) -> Result<FileIOStream, Error> {
+    ) -> Result<FileIOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_replace_readwrite(
@@ -2773,7 +2808,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn replace_readwrite_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         etag: Option<&str>,
@@ -2785,7 +2820,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn replace_readwrite_async_trampoline<
-            Q: FnOnce(Result<FileIOStream, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileIOStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -2824,7 +2859,8 @@ impl<O: IsA<File>> FileExt for O {
         make_backup: bool,
         flags: FileCreateFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileIOStream, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 
@@ -2856,7 +2892,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), Error> {
+    //fn set_attribute<P: IsA<Cancellable>>(&self, attribute: &str, type_: FileAttributeType, value_p: /*Unimplemented*/Option<Fundamental: Pointer>, flags: FileQueryInfoFlags, cancellable: Option<&P>) -> Result<(), glib::Error> {
     //    unsafe { TODO: call gio_sys:g_file_set_attribute() }
     //}
 
@@ -2866,7 +2902,7 @@ impl<O: IsA<File>> FileExt for O {
         value: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_byte_string(
@@ -2891,7 +2927,7 @@ impl<O: IsA<File>> FileExt for O {
         value: i32,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_int32(
@@ -2916,7 +2952,7 @@ impl<O: IsA<File>> FileExt for O {
         value: i64,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_int64(
@@ -2941,7 +2977,7 @@ impl<O: IsA<File>> FileExt for O {
         value: &str,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_string(
@@ -2966,7 +3002,7 @@ impl<O: IsA<File>> FileExt for O {
         value: u32,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_uint32(
@@ -2991,7 +3027,7 @@ impl<O: IsA<File>> FileExt for O {
         value: u64,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attribute_uint64(
@@ -3012,7 +3048,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn set_attributes_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         info: &FileInfo,
@@ -3023,7 +3059,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn set_attributes_async_trampoline<
-            Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3065,7 +3101,7 @@ impl<O: IsA<File>> FileExt for O {
         info: &FileInfo,
         flags: FileQueryInfoFlags,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -3086,7 +3122,7 @@ impl<O: IsA<File>> FileExt for O {
         info: &FileInfo,
         flags: FileQueryInfoFlags,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_set_attributes_from_info(
@@ -3108,7 +3144,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         display_name: &str,
         cancellable: Option<&P>,
-    ) -> Result<File, Error> {
+    ) -> Result<File, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_set_display_name(
@@ -3127,7 +3163,7 @@ impl<O: IsA<File>> FileExt for O {
 
     fn set_display_name_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<File, Error>) + Send + 'static,
+        Q: FnOnce(Result<File, glib::Error>) + Send + 'static,
     >(
         &self,
         display_name: &str,
@@ -3137,7 +3173,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn set_display_name_async_trampoline<
-            Q: FnOnce(Result<File, Error>) + Send + 'static,
+            Q: FnOnce(Result<File, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3172,7 +3208,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         display_name: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<File, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<File, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -3196,7 +3232,7 @@ impl<O: IsA<File>> FileExt for O {
     fn start_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: DriveStartFlags,
@@ -3206,7 +3242,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn start_mountable_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3241,7 +3277,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: DriveStartFlags,
         start_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -3265,7 +3301,7 @@ impl<O: IsA<File>> FileExt for O {
     fn stop_mountable<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -3275,7 +3311,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn stop_mountable_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3310,7 +3346,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -3339,7 +3375,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn trash<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn trash<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_trash(
@@ -3355,7 +3391,7 @@ impl<O: IsA<File>> FileExt for O {
         }
     }
 
-    fn trash_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn trash_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -3363,7 +3399,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn trash_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3395,7 +3431,7 @@ impl<O: IsA<File>> FileExt for O {
     fn trash_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -3413,7 +3449,7 @@ impl<O: IsA<File>> FileExt for O {
     fn unmount_mountable_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -3423,7 +3459,7 @@ impl<O: IsA<File>> FileExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn unmount_mountable_with_operation_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -3461,7 +3497,7 @@ impl<O: IsA<File>> FileExt for O {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

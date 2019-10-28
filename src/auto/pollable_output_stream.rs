@@ -3,12 +3,12 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use OutputStream;
 
 glib_wrapper! {
@@ -30,10 +30,10 @@ pub trait PollableOutputStreamExt: 'static {
         &self,
         buffer: &[u8],
         cancellable: Option<&P>,
-    ) -> Result<isize, Error>;
+    ) -> Result<isize, glib::Error>;
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
-    //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), Error>;
+    //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error>;
 }
 
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
@@ -57,7 +57,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
         &self,
         buffer: &[u8],
         cancellable: Option<&P>,
-    ) -> Result<isize, Error> {
+    ) -> Result<isize, glib::Error> {
         let count = buffer.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
@@ -77,7 +77,7 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExt for O {
     }
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
-    //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), Error> {
+    //fn writev_nonblocking<P: IsA<Cancellable>>(&self, vectors: /*Ignored*/&[&OutputVector], cancellable: Option<&P>) -> Result<(/*Ignored*/PollableReturn, usize), glib::Error> {
     //    unsafe { TODO: call gio_sys:g_pollable_output_stream_writev_nonblocking() }
     //}
 }

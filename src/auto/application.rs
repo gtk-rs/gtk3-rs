@@ -26,7 +26,6 @@ use ActionMap;
 use ApplicationCommandLine;
 use ApplicationFlags;
 use Cancellable;
-use Error;
 use File;
 use Notification;
 
@@ -103,8 +102,8 @@ impl ApplicationBuilder {
             .expect("downcast")
     }
 
-    pub fn action_group(mut self, action_group: &ActionGroup) -> Self {
-        self.action_group = Some(action_group.clone());
+    pub fn action_group<P: IsA<ActionGroup>>(mut self, action_group: &P) -> Self {
+        self.action_group = Some(action_group.clone().upcast());
         self
     }
 
@@ -178,7 +177,7 @@ pub trait ApplicationExt: 'static {
 
     fn quit(&self);
 
-    fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
     fn release(&self);
 
@@ -405,7 +404,7 @@ impl<O: IsA<Application>> ApplicationExt for O {
         }
     }
 
-    fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn register<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_application_register(

@@ -3,11 +3,11 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::translate::*;
 use glib::GString;
 use std;
 use std::ptr;
-use Error;
 use SettingsSchema;
 
 glib_wrapper! {
@@ -26,7 +26,7 @@ impl SettingsSchemaSource {
         directory: P,
         parent: Option<&SettingsSchemaSource>,
         trusted: bool,
-    ) -> Result<SettingsSchemaSource, Error> {
+    ) -> Result<SettingsSchemaSource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_settings_schema_source_new_from_directory(

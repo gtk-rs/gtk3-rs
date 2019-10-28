@@ -15,7 +15,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 
 glib_wrapper! {
     pub struct Action(Interface<gio_sys::GAction>);
@@ -34,7 +33,9 @@ impl Action {
         }
     }
 
-    pub fn parse_detailed_name(detailed_name: &str) -> Result<(GString, glib::Variant), Error> {
+    pub fn parse_detailed_name(
+        detailed_name: &str,
+    ) -> Result<(GString, glib::Variant), glib::Error> {
         unsafe {
             let mut action_name = ptr::null_mut();
             let mut target_value = ptr::null_mut();

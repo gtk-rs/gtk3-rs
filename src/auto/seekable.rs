@@ -9,7 +9,6 @@ use glib::translate::*;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 
 glib_wrapper! {
     pub struct Seekable(Interface<gio_sys::GSeekable>);
@@ -31,7 +30,7 @@ pub trait SeekableExt: 'static {
         offset: i64,
         type_: glib::SeekType,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn tell(&self) -> i64;
 
@@ -39,7 +38,7 @@ pub trait SeekableExt: 'static {
         &self,
         offset: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 }
 
 impl<O: IsA<Seekable>> SeekableExt for O {
@@ -60,7 +59,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
         offset: i64,
         type_: glib::SeekType,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_seekable_seek(
@@ -86,7 +85,7 @@ impl<O: IsA<Seekable>> SeekableExt for O {
         &self,
         offset: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_seekable_truncate(

@@ -10,7 +10,6 @@ use glib::GString;
 use glib_sys;
 use std::fmt;
 use std::ptr;
-use Error;
 
 glib_wrapper! {
     pub struct Icon(Interface<gio_sys::GIcon>);
@@ -33,7 +32,7 @@ impl Icon {
         }
     }
 
-    pub fn new_for_string(str: &str) -> Result<Icon, Error> {
+    pub fn new_for_string(str: &str) -> Result<Icon, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_icon_new_for_string(str.to_glib_none().0, &mut error);

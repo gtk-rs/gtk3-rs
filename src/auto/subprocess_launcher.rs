@@ -3,13 +3,13 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::translate::*;
 use std;
 #[cfg(any(unix, feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
-use Error;
 use Subprocess;
 use SubprocessFlags;
 
@@ -125,11 +125,11 @@ impl SubprocessLauncher {
         }
     }
 
-    //pub fn spawn(&self, error: &mut Error, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Subprocess> {
+    //pub fn spawn(&self, error: &mut glib::Error, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Subprocess> {
     //    unsafe { TODO: call gio_sys:g_subprocess_launcher_spawn() }
     //}
 
-    pub fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, Error> {
+    pub fn spawnv(&self, argv: &[&std::ffi::OsStr]) -> Result<Subprocess, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_subprocess_launcher_spawnv(

@@ -21,7 +21,6 @@ use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use Credentials;
-use Error;
 use InetAddress;
 use SocketAddress;
 use SocketConnection;
@@ -42,7 +41,7 @@ impl Socket {
         family: SocketFamily,
         type_: SocketType,
         protocol: SocketProtocol,
-    ) -> Result<Socket, Error> {
+    ) -> Result<Socket, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_socket_new(
@@ -69,13 +68,17 @@ unsafe impl glib::SendUnique for Socket {
 pub const NONE_SOCKET: Option<&Socket> = None;
 
 pub trait SocketExt: 'static {
-    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, Error>;
+    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, glib::Error>;
 
-    fn bind<P: IsA<SocketAddress>>(&self, address: &P, allow_reuse: bool) -> Result<(), Error>;
+    fn bind<P: IsA<SocketAddress>>(
+        &self,
+        address: &P,
+        allow_reuse: bool,
+    ) -> Result<(), glib::Error>;
 
-    fn check_connect_result(&self) -> Result<(), Error>;
+    fn check_connect_result(&self) -> Result<(), glib::Error>;
 
-    fn close(&self) -> Result<(), Error>;
+    fn close(&self) -> Result<(), glib::Error>;
 
     fn condition_check(&self, condition: glib::IOCondition) -> glib::IOCondition;
 
@@ -84,19 +87,19 @@ pub trait SocketExt: 'static {
         condition: glib::IOCondition,
         timeout_us: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn condition_wait<P: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn connect<P: IsA<SocketAddress>, Q: IsA<Cancellable>>(
         &self,
         address: &P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn connection_factory_create_connection(&self) -> Option<SocketConnection>;
 
@@ -106,7 +109,7 @@ pub trait SocketExt: 'static {
 
     fn get_broadcast(&self) -> bool;
 
-    fn get_credentials(&self) -> Result<Credentials, Error>;
+    fn get_credentials(&self) -> Result<Credentials, glib::Error>;
 
     fn get_family(&self) -> SocketFamily;
 
@@ -114,17 +117,17 @@ pub trait SocketExt: 'static {
 
     fn get_listen_backlog(&self) -> i32;
 
-    fn get_local_address(&self) -> Result<SocketAddress, Error>;
+    fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
 
     fn get_multicast_loopback(&self) -> bool;
 
     fn get_multicast_ttl(&self) -> u32;
 
-    fn get_option(&self, level: i32, optname: i32) -> Result<i32, Error>;
+    fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error>;
 
     fn get_protocol(&self) -> SocketProtocol;
 
-    fn get_remote_address(&self) -> Result<SocketAddress, Error>;
+    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error>;
 
     fn get_socket_type(&self) -> SocketType;
 
@@ -141,7 +144,7 @@ pub trait SocketExt: 'static {
         group: &P,
         source_specific: bool,
         iface: Option<&str>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn join_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
@@ -149,14 +152,14 @@ pub trait SocketExt: 'static {
         group: &P,
         source_specific: Option<&Q>,
         iface: Option<&str>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn leave_multicast_group<P: IsA<InetAddress>>(
         &self,
         group: &P,
         source_specific: bool,
         iface: Option<&str>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     #[cfg(any(feature = "v2_56", feature = "dox"))]
     fn leave_multicast_group_ssm<P: IsA<InetAddress>, Q: IsA<InetAddress>>(
@@ -164,9 +167,9 @@ pub trait SocketExt: 'static {
         group: &P,
         source_specific: Option<&Q>,
         iface: Option<&str>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
-    fn listen(&self) -> Result<(), Error>;
+    fn listen(&self) -> Result<(), glib::Error>;
 
     fn set_blocking(&self, blocking: bool);
 
@@ -180,13 +183,13 @@ pub trait SocketExt: 'static {
 
     fn set_multicast_ttl(&self, ttl: u32);
 
-    fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), Error>;
+    fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), glib::Error>;
 
     fn set_timeout(&self, timeout: u32);
 
     fn set_ttl(&self, ttl: u32);
 
-    fn shutdown(&self, shutdown_read: bool, shutdown_write: bool) -> Result<(), Error>;
+    fn shutdown(&self, shutdown_read: bool, shutdown_write: bool) -> Result<(), glib::Error>;
 
     fn speaks_ipv4(&self) -> bool;
 
@@ -241,7 +244,7 @@ pub trait SocketExt: 'static {
 }
 
 impl<O: IsA<Socket>> SocketExt for O {
-    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, Error> {
+    fn accept<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<Socket, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_socket_accept(
@@ -257,7 +260,11 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn bind<P: IsA<SocketAddress>>(&self, address: &P, allow_reuse: bool) -> Result<(), Error> {
+    fn bind<P: IsA<SocketAddress>>(
+        &self,
+        address: &P,
+        allow_reuse: bool,
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_bind(
@@ -274,7 +281,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn check_connect_result(&self) -> Result<(), Error> {
+    fn check_connect_result(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ =
@@ -287,7 +294,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn close(&self) -> Result<(), Error> {
+    fn close(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_close(self.as_ref().to_glib_none().0, &mut error);
@@ -313,7 +320,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         condition: glib::IOCondition,
         timeout_us: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_condition_timed_wait(
@@ -335,7 +342,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_condition_wait(
@@ -356,7 +363,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         &self,
         address: &P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_connect(
@@ -401,7 +408,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_credentials(&self) -> Result<Credentials, Error> {
+    fn get_credentials(&self) -> Result<Credentials, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_socket_get_credentials(self.as_ref().to_glib_none().0, &mut error);
@@ -429,7 +436,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         unsafe { gio_sys::g_socket_get_listen_backlog(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_local_address(&self) -> Result<SocketAddress, Error> {
+    fn get_local_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret =
@@ -454,7 +461,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         unsafe { gio_sys::g_socket_get_multicast_ttl(self.as_ref().to_glib_none().0) }
     }
 
-    fn get_option(&self, level: i32, optname: i32) -> Result<i32, Error> {
+    fn get_option(&self, level: i32, optname: i32) -> Result<i32, glib::Error> {
         unsafe {
             let mut value = mem::MaybeUninit::uninit();
             let mut error = ptr::null_mut();
@@ -482,7 +489,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn get_remote_address(&self) -> Result<SocketAddress, Error> {
+    fn get_remote_address(&self) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret =
@@ -528,7 +535,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         group: &P,
         source_specific: bool,
         iface: Option<&str>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_join_multicast_group(
@@ -552,7 +559,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         group: &P,
         source_specific: Option<&Q>,
         iface: Option<&str>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_join_multicast_group_ssm(
@@ -575,7 +582,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         group: &P,
         source_specific: bool,
         iface: Option<&str>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_leave_multicast_group(
@@ -599,7 +606,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         group: &P,
         source_specific: Option<&Q>,
         iface: Option<&str>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_leave_multicast_group_ssm(
@@ -617,7 +624,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn listen(&self) -> Result<(), Error> {
+    fn listen(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_listen(self.as_ref().to_glib_none().0, &mut error);
@@ -668,7 +675,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), Error> {
+    fn set_option(&self, level: i32, optname: i32, value: i32) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_set_option(
@@ -698,7 +705,7 @@ impl<O: IsA<Socket>> SocketExt for O {
         }
     }
 
-    fn shutdown(&self, shutdown_read: bool, shutdown_write: bool) -> Result<(), Error> {
+    fn shutdown(&self, shutdown_read: bool, shutdown_write: bool) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_shutdown(

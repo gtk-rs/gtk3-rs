@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -18,7 +19,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 use TlsDatabase;
 
 glib_wrapper! {
@@ -30,7 +30,7 @@ glib_wrapper! {
 }
 
 impl TlsFileDatabase {
-    pub fn new<P: AsRef<std::path::Path>>(anchors: P) -> Result<TlsFileDatabase, Error> {
+    pub fn new<P: AsRef<std::path::Path>>(anchors: P) -> Result<TlsFileDatabase, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret =

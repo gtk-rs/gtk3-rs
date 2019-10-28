@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -13,7 +14,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 use IOStream;
 use SocketConnectable;
 use TlsCertificateFlags;
@@ -31,7 +31,7 @@ impl TlsClientConnection {
     pub fn new<P: IsA<IOStream>, Q: IsA<SocketConnectable>>(
         base_io_stream: &P,
         server_identity: Option<&Q>,
-    ) -> Result<TlsClientConnection, Error> {
+    ) -> Result<TlsClientConnection, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_tls_client_connection_new(

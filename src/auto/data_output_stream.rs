@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -17,7 +18,6 @@ use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use DataStreamByteOrder;
-use Error;
 use FilterOutputStream;
 use OutputStream;
 use Seekable;
@@ -77,8 +77,8 @@ impl DataOutputStreamBuilder {
         self
     }
 
-    pub fn base_stream(mut self, base_stream: &OutputStream) -> Self {
-        self.base_stream = Some(base_stream.clone());
+    pub fn base_stream<P: IsA<OutputStream>>(mut self, base_stream: &P) -> Self {
+        self.base_stream = Some(base_stream.clone().upcast());
         self
     }
 
@@ -93,50 +93,53 @@ pub const NONE_DATA_OUTPUT_STREAM: Option<&DataOutputStream> = None;
 pub trait DataOutputStreamExt: 'static {
     fn get_byte_order(&self) -> DataStreamByteOrder;
 
-    fn put_byte<P: IsA<Cancellable>>(&self, data: u8, cancellable: Option<&P>)
-        -> Result<(), Error>;
+    fn put_byte<P: IsA<Cancellable>>(
+        &self,
+        data: u8,
+        cancellable: Option<&P>,
+    ) -> Result<(), glib::Error>;
 
     fn put_int16<P: IsA<Cancellable>>(
         &self,
         data: i16,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_int32<P: IsA<Cancellable>>(
         &self,
         data: i32,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_int64<P: IsA<Cancellable>>(
         &self,
         data: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_string<P: IsA<Cancellable>>(
         &self,
         str: &str,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_uint16<P: IsA<Cancellable>>(
         &self,
         data: u16,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_uint32<P: IsA<Cancellable>>(
         &self,
         data: u32,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn put_uint64<P: IsA<Cancellable>>(
         &self,
         data: u64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
@@ -156,7 +159,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: u8,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_byte(
@@ -177,7 +180,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: i16,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_int16(
@@ -198,7 +201,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: i32,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_int32(
@@ -219,7 +222,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: i64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_int64(
@@ -240,7 +243,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         str: &str,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_string(
@@ -261,7 +264,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: u16,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_uint16(
@@ -282,7 +285,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: u32,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_uint32(
@@ -303,7 +306,7 @@ impl<O: IsA<DataOutputStream>> DataOutputStreamExt for O {
         &self,
         data: u64,
         cancellable: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_data_output_stream_put_uint64(

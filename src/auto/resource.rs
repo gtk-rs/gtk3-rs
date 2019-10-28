@@ -9,7 +9,6 @@ use glib::GString;
 use std;
 use std::mem;
 use std::ptr;
-use Error;
 use InputStream;
 use ResourceLookupFlags;
 
@@ -29,7 +28,7 @@ impl Resource {
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,
-    ) -> Result<Vec<GString>, Error> {
+    ) -> Result<Vec<GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_resource_enumerate_children(
@@ -50,7 +49,7 @@ impl Resource {
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,
-    ) -> Result<(usize, u32), Error> {
+    ) -> Result<(usize, u32), glib::Error> {
         unsafe {
             let mut size = mem::MaybeUninit::uninit();
             let mut flags = mem::MaybeUninit::uninit();
@@ -77,7 +76,7 @@ impl Resource {
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,
-    ) -> Result<glib::Bytes, Error> {
+    ) -> Result<glib::Bytes, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_resource_lookup_data(
@@ -98,7 +97,7 @@ impl Resource {
         &self,
         path: &str,
         lookup_flags: ResourceLookupFlags,
-    ) -> Result<InputStream, Error> {
+    ) -> Result<InputStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_resource_open_stream(
@@ -115,7 +114,7 @@ impl Resource {
         }
     }
 
-    pub fn load<P: AsRef<std::path::Path>>(filename: P) -> Result<Resource, Error> {
+    pub fn load<P: AsRef<std::path::Path>>(filename: P) -> Result<Resource, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_resource_load(filename.as_ref().to_glib_none().0, &mut error);

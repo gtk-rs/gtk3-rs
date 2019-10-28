@@ -20,7 +20,6 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 use InputStream;
 use OutputStream;
 
@@ -39,9 +38,9 @@ pub const NONE_IO_STREAM: Option<&IOStream> = None;
 pub trait IOStreamExt: 'static {
     fn clear_pending(&self);
 
-    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
-    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -52,7 +51,7 @@ pub trait IOStreamExt: 'static {
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn get_input_stream(&self) -> Option<InputStream>;
 
@@ -62,7 +61,7 @@ pub trait IOStreamExt: 'static {
 
     fn is_closed(&self) -> bool;
 
-    fn set_pending(&self) -> Result<(), Error>;
+    fn set_pending(&self) -> Result<(), glib::Error>;
 
     fn get_property_closed(&self) -> bool;
 
@@ -76,7 +75,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_io_stream_close(
@@ -92,7 +91,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -100,7 +99,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn close_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -132,7 +131,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -179,7 +178,7 @@ impl<O: IsA<IOStream>> IOStreamExt for O {
         }
     }
 
-    fn set_pending(&self) -> Result<(), Error> {
+    fn set_pending(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_io_stream_set_pending(self.as_ref().to_glib_none().0, &mut error);
