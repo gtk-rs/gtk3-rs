@@ -18,7 +18,6 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 use Socket;
 use SocketAddress;
 use SocketConnection;
@@ -53,12 +52,12 @@ pub trait SocketListenerExt: 'static {
     fn accept<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(SocketConnection, Option<glib::Object>), Error>;
+    ) -> Result<(SocketConnection, Option<glib::Object>), glib::Error>;
 
     fn accept_socket<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Socket, Option<glib::Object>), Error>;
+    ) -> Result<(Socket, Option<glib::Object>), glib::Error>;
 
     fn add_address<P: IsA<SocketAddress>, Q: IsA<glib::Object>>(
         &self,
@@ -66,24 +65,24 @@ pub trait SocketListenerExt: 'static {
         type_: SocketType,
         protocol: SocketProtocol,
         source_object: Option<&Q>,
-    ) -> Result<SocketAddress, Error>;
+    ) -> Result<SocketAddress, glib::Error>;
 
     fn add_any_inet_port<P: IsA<glib::Object>>(
         &self,
         source_object: Option<&P>,
-    ) -> Result<u16, Error>;
+    ) -> Result<u16, glib::Error>;
 
     fn add_inet_port<P: IsA<glib::Object>>(
         &self,
         port: u16,
         source_object: Option<&P>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn add_socket<P: IsA<Socket>, Q: IsA<glib::Object>>(
         &self,
         socket: &P,
         source_object: Option<&Q>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn close(&self);
 
@@ -109,7 +108,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     fn accept<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(SocketConnection, Option<glib::Object>), Error> {
+    ) -> Result<(SocketConnection, Option<glib::Object>), glib::Error> {
         unsafe {
             let mut source_object = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -130,7 +129,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     fn accept_socket<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<(Socket, Option<glib::Object>), Error> {
+    ) -> Result<(Socket, Option<glib::Object>), glib::Error> {
         unsafe {
             let mut source_object = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -154,7 +153,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         type_: SocketType,
         protocol: SocketProtocol,
         source_object: Option<&Q>,
-    ) -> Result<SocketAddress, Error> {
+    ) -> Result<SocketAddress, glib::Error> {
         unsafe {
             let mut effective_address = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -178,7 +177,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
     fn add_any_inet_port<P: IsA<glib::Object>>(
         &self,
         source_object: Option<&P>,
-    ) -> Result<u16, Error> {
+    ) -> Result<u16, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_socket_listener_add_any_inet_port(
@@ -198,7 +197,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         &self,
         port: u16,
         source_object: Option<&P>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_listener_add_inet_port(
@@ -219,7 +218,7 @@ impl<O: IsA<SocketListener>> SocketListenerExt for O {
         &self,
         socket: &P,
         source_object: Option<&Q>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_socket_listener_add_socket(

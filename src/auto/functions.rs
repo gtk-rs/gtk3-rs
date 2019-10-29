@@ -16,7 +16,6 @@ use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 use Cancellable;
-use Error;
 use File;
 use IOErrorEnum;
 use IOStream;
@@ -26,12 +25,12 @@ use Resource;
 use ResourceLookupFlags;
 use SettingsBackend;
 
-//pub fn bus_get<P: IsA<Cancellable>, Q: FnOnce(Result</*Ignored*/DBusConnection, Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>, callback: Q) {
+//pub fn bus_get<P: IsA<Cancellable>, Q: FnOnce(Result</*Ignored*/DBusConnection, glib::Error>) + Send + 'static>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>, callback: Q) {
 //    unsafe { TODO: call gio_sys:g_bus_get() }
 //}
 
 //#[cfg(any(feature = "futures", feature = "dox"))]
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<dyn future::Future<Output = Result</*Ignored*/DBusConnection, Error>> + std::marker::Unpin> {
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<dyn future::Future<Output = Result</*Ignored*/DBusConnection, glib::Error>> + std::marker::Unpin> {
 //use GioFuture;
 //use fragile::Fragile;
 
@@ -50,7 +49,7 @@ use SettingsBackend;
 //})
 //}
 
-//pub fn bus_get_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result</*Ignored*/DBusConnection, Error> {
+//pub fn bus_get_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result</*Ignored*/DBusConnection, glib::Error> {
 //    unsafe { TODO: call gio_sys:g_bus_get_sync() }
 //}
 
@@ -229,13 +228,13 @@ pub fn dbus_address_escape_value(string: &str) -> Option<GString> {
     }
 }
 
-//pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result<GString, Error> {
+//pub fn dbus_address_get_for_bus_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result<GString, glib::Error> {
 //    unsafe { TODO: call gio_sys:g_dbus_address_get_for_bus_sync() }
 //}
 
 pub fn dbus_address_get_stream<
     P: IsA<Cancellable>,
-    Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static,
+    Q: FnOnce(Result<(IOStream, GString), glib::Error>) + Send + 'static,
 >(
     address: &str,
     cancellable: Option<&P>,
@@ -243,7 +242,7 @@ pub fn dbus_address_get_stream<
 ) {
     let user_data: Box_<Q> = Box_::new(callback);
     unsafe extern "C" fn dbus_address_get_stream_trampoline<
-        Q: FnOnce(Result<(IOStream, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(IOStream, GString), glib::Error>) + Send + 'static,
     >(
         _source_object: *mut gobject_sys::GObject,
         res: *mut gio_sys::GAsyncResult,
@@ -274,7 +273,8 @@ pub fn dbus_address_get_stream<
 #[cfg(any(feature = "futures", feature = "dox"))]
 pub fn dbus_address_get_stream_future(
     address: &str,
-) -> Box_<dyn future::Future<Output = Result<(IOStream, GString), Error>> + std::marker::Unpin> {
+) -> Box_<dyn future::Future<Output = Result<(IOStream, GString), glib::Error>> + std::marker::Unpin>
+{
     use fragile::Fragile;
     use GioFuture;
 
@@ -293,7 +293,7 @@ pub fn dbus_address_get_stream_future(
 pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(
     address: &str,
     cancellable: Option<&P>,
-) -> Result<(IOStream, GString), Error> {
+) -> Result<(IOStream, GString), glib::Error> {
     unsafe {
         let mut out_guid = ptr::null_mut();
         let mut error = ptr::null_mut();
@@ -355,7 +355,7 @@ pub fn dbus_is_name(string: &str) -> bool {
     unsafe { from_glib(gio_sys::g_dbus_is_name(string.to_glib_none().0)) }
 }
 
-pub fn dbus_is_supported_address(string: &str) -> Result<(), Error> {
+pub fn dbus_is_supported_address(string: &str) -> Result<(), glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
         let _ = gio_sys::g_dbus_is_supported_address(string.to_glib_none().0, &mut error);
@@ -438,7 +438,7 @@ pub fn null_settings_backend_new() -> Option<SettingsBackend> {
 pub fn resources_enumerate_children(
     path: &str,
     lookup_flags: ResourceLookupFlags,
-) -> Result<Vec<GString>, Error> {
+) -> Result<Vec<GString>, glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_resources_enumerate_children(
@@ -457,7 +457,7 @@ pub fn resources_enumerate_children(
 pub fn resources_get_info(
     path: &str,
     lookup_flags: ResourceLookupFlags,
-) -> Result<(usize, u32), Error> {
+) -> Result<(usize, u32), glib::Error> {
     unsafe {
         let mut size = mem::MaybeUninit::uninit();
         let mut flags = mem::MaybeUninit::uninit();
@@ -482,7 +482,7 @@ pub fn resources_get_info(
 pub fn resources_lookup_data(
     path: &str,
     lookup_flags: ResourceLookupFlags,
-) -> Result<glib::Bytes, Error> {
+) -> Result<glib::Bytes, glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_resources_lookup_data(
@@ -501,7 +501,7 @@ pub fn resources_lookup_data(
 pub fn resources_open_stream(
     path: &str,
     lookup_flags: ResourceLookupFlags,
-) -> Result<InputStream, Error> {
+) -> Result<InputStream, glib::Error> {
     unsafe {
         let mut error = ptr::null_mut();
         let ret = gio_sys::g_resources_open_stream(
@@ -530,17 +530,17 @@ pub fn resources_unregister(resource: &Resource) {
 }
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+//pub fn simple_async_report_error_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, domain: glib::Quark, code: i32, format: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
 //    unsafe { TODO: call gio_sys:g_simple_async_report_error_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, error: &Error) {
+//pub fn simple_async_report_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &glib::Error) {
 //    unsafe { TODO: call gio_sys:g_simple_async_report_gerror_in_idle() }
 //}
 
 //#[cfg_attr(feature = "v2_46", deprecated)]
-//pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut Error) {
+//pub fn simple_async_report_take_gerror_in_idle<P: IsA<glib::Object>, Q: FnOnce(Result<(), glib::Error>) + 'static>(object: Option<&P>, callback: Q, error: &mut glib::Error) {
 //    unsafe { TODO: call gio_sys:g_simple_async_report_take_gerror_in_idle() }
 //}
 

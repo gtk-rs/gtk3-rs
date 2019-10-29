@@ -69,13 +69,13 @@ impl ConverterOutputStreamBuilder {
             .expect("downcast")
     }
 
-    pub fn converter(mut self, converter: &Converter) -> Self {
-        self.converter = Some(converter.clone());
+    pub fn converter<P: IsA<Converter>>(mut self, converter: &P) -> Self {
+        self.converter = Some(converter.clone().upcast());
         self
     }
 
-    pub fn base_stream(mut self, base_stream: &OutputStream) -> Self {
-        self.base_stream = Some(base_stream.clone());
+    pub fn base_stream<P: IsA<OutputStream>>(mut self, base_stream: &P) -> Self {
+        self.base_stream = Some(base_stream.clone().upcast());
         self
     }
 

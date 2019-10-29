@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -14,7 +15,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 
 glib_wrapper! {
     pub struct Cancellable(Object<gio_sys::GCancellable, gio_sys::GCancellableClass, CancellableClass>);
@@ -64,7 +64,7 @@ pub trait CancellableExt: 'static {
 
     fn release_fd(&self);
 
-    fn set_error_if_cancelled(&self) -> Result<(), Error>;
+    fn set_error_if_cancelled(&self) -> Result<(), glib::Error>;
 
     fn connect_cancelled<F: Fn(&Self) + Send + Sync + 'static>(&self, f: F) -> SignalHandlerId;
 }
@@ -120,7 +120,7 @@ impl<O: IsA<Cancellable>> CancellableExt for O {
         }
     }
 
-    fn set_error_if_cancelled(&self) -> Result<(), Error> {
+    fn set_error_if_cancelled(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_cancellable_set_error_if_cancelled(

@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
@@ -13,7 +14,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use IOStream;
 use ProxyAddress;
 
@@ -43,13 +43,13 @@ pub trait ProxyExt: 'static {
         connection: &P,
         proxy_address: &Q,
         cancellable: Option<&R>,
-    ) -> Result<IOStream, Error>;
+    ) -> Result<IOStream, glib::Error>;
 
     fn connect_async<
         P: IsA<IOStream>,
         Q: IsA<ProxyAddress>,
         R: IsA<Cancellable>,
-        S: FnOnce(Result<IOStream, Error>) + Send + 'static,
+        S: FnOnce(Result<IOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         connection: &P,
@@ -66,7 +66,7 @@ pub trait ProxyExt: 'static {
         &self,
         connection: &P,
         proxy_address: &Q,
-    ) -> Box_<dyn future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<IOStream, glib::Error>> + std::marker::Unpin>;
 
     fn supports_hostname(&self) -> bool;
 }
@@ -77,7 +77,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         connection: &P,
         proxy_address: &Q,
         cancellable: Option<&R>,
-    ) -> Result<IOStream, Error> {
+    ) -> Result<IOStream, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_proxy_connect(
@@ -99,7 +99,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         P: IsA<IOStream>,
         Q: IsA<ProxyAddress>,
         R: IsA<Cancellable>,
-        S: FnOnce(Result<IOStream, Error>) + Send + 'static,
+        S: FnOnce(Result<IOStream, glib::Error>) + Send + 'static,
     >(
         &self,
         connection: &P,
@@ -109,7 +109,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
     ) {
         let user_data: Box_<S> = Box_::new(callback);
         unsafe extern "C" fn connect_async_trampoline<
-            S: FnOnce(Result<IOStream, Error>) + Send + 'static,
+            S: FnOnce(Result<IOStream, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -146,7 +146,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         &self,
         connection: &P,
         proxy_address: &Q,
-    ) -> Box_<dyn future::Future<Output = Result<IOStream, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<IOStream, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

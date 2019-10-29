@@ -94,8 +94,8 @@ impl BufferedOutputStreamBuilder {
         self
     }
 
-    pub fn base_stream(mut self, base_stream: &OutputStream) -> Self {
-        self.base_stream = Some(base_stream.clone());
+    pub fn base_stream<P: IsA<OutputStream>>(mut self, base_stream: &P) -> Self {
+        self.base_stream = Some(base_stream.clone().upcast());
         self
     }
 

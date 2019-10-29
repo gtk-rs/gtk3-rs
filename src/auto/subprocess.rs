@@ -16,7 +16,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use InputStream;
 use OutputStream;
 use SubprocessFlags;
@@ -30,11 +29,14 @@ glib_wrapper! {
 }
 
 impl Subprocess {
-    //pub fn new(flags: SubprocessFlags, error: Option<&mut Error>, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
+    //pub fn new(flags: SubprocessFlags, error: Option<&mut glib::Error>, argv0: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Subprocess {
     //    unsafe { TODO: call gio_sys:g_subprocess_new() }
     //}
 
-    pub fn newv(argv: &[&std::ffi::OsStr], flags: SubprocessFlags) -> Result<Subprocess, Error> {
+    pub fn newv(
+        argv: &[&std::ffi::OsStr],
+        flags: SubprocessFlags,
+    ) -> Result<Subprocess, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret =
@@ -51,7 +53,7 @@ impl Subprocess {
         &self,
         stdin_buf: Option<&glib::Bytes>,
         cancellable: Option<&P>,
-    ) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), Error> {
+    ) -> Result<(Option<glib::Bytes>, Option<glib::Bytes>), glib::Error> {
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
@@ -74,7 +76,7 @@ impl Subprocess {
 
     pub fn communicate_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static,
+        Q: FnOnce(Result<(glib::Bytes, glib::Bytes), glib::Error>) + Send + 'static,
     >(
         &self,
         stdin_buf: Option<&glib::Bytes>,
@@ -83,7 +85,7 @@ impl Subprocess {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn communicate_async_trampoline<
-            Q: FnOnce(Result<(glib::Bytes, glib::Bytes), Error>) + Send + 'static,
+            Q: FnOnce(Result<(glib::Bytes, glib::Bytes), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -124,7 +126,8 @@ impl Subprocess {
         &self,
         stdin_buf: Option<&glib::Bytes>,
     ) -> Box_<
-        dyn future::Future<Output = Result<(glib::Bytes, glib::Bytes), Error>> + std::marker::Unpin,
+        dyn future::Future<Output = Result<(glib::Bytes, glib::Bytes), glib::Error>>
+            + std::marker::Unpin,
     > {
         use fragile::Fragile;
         use GioFuture;
@@ -149,7 +152,7 @@ impl Subprocess {
         &self,
         stdin_buf: Option<&str>,
         cancellable: Option<&P>,
-    ) -> Result<(Option<GString>, Option<GString>), Error> {
+    ) -> Result<(Option<GString>, Option<GString>), glib::Error> {
         unsafe {
             let mut stdout_buf = ptr::null_mut();
             let mut stderr_buf = ptr::null_mut();
@@ -223,7 +226,7 @@ impl Subprocess {
         }
     }
 
-    pub fn wait<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    pub fn wait<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_subprocess_wait(
@@ -239,14 +242,14 @@ impl Subprocess {
         }
     }
 
-    pub fn wait_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    pub fn wait_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         cancellable: Option<&P>,
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn wait_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -276,7 +279,7 @@ impl Subprocess {
     #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -291,7 +294,10 @@ impl Subprocess {
         })
     }
 
-    pub fn wait_check<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    pub fn wait_check<P: IsA<Cancellable>>(
+        &self,
+        cancellable: Option<&P>,
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_subprocess_wait_check(
@@ -307,14 +313,17 @@ impl Subprocess {
         }
     }
 
-    pub fn wait_check_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    pub fn wait_check_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
+    >(
         &self,
         cancellable: Option<&P>,
         callback: Q,
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn wait_check_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -345,7 +354,7 @@ impl Subprocess {
     #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_check_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

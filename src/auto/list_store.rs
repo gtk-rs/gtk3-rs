@@ -5,10 +5,14 @@
 use gio_sys;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::Cast;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::object::IsA;
 use glib::translate::*;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::StaticType;
+#[cfg(any(feature = "v2_44", feature = "dox"))]
 use glib::ToValue;
 use std::fmt;
 use ListModel;

@@ -14,7 +14,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use File;
 use FileInfo;
 
@@ -29,9 +28,9 @@ glib_wrapper! {
 pub const NONE_FILE_ENUMERATOR: Option<&FileEnumerator> = None;
 
 pub trait FileEnumeratorExt: 'static {
-    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error>;
+    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error>;
 
-    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -42,7 +41,7 @@ pub trait FileEnumeratorExt: 'static {
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn get_child(&self, info: &FileInfo) -> Option<File>;
 
@@ -55,11 +54,11 @@ pub trait FileEnumeratorExt: 'static {
     fn next_file<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<Option<FileInfo>, Error>;
+    ) -> Result<Option<FileInfo>, glib::Error>;
 
     fn next_files_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<FileInfo>, Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<FileInfo>, glib::Error>) + Send + 'static,
     >(
         &self,
         num_files: i32,
@@ -73,13 +72,13 @@ pub trait FileEnumeratorExt: 'static {
         &self,
         num_files: i32,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + std::marker::Unpin>;
 
     fn set_pending(&self, pending: bool);
 }
 
 impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
-    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), Error> {
+    fn close<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_file_enumerator_close(
@@ -95,7 +94,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         }
     }
 
-    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), Error>) + Send + 'static>(
+    fn close_async<P: IsA<Cancellable>, Q: FnOnce(Result<(), glib::Error>) + Send + 'static>(
         &self,
         io_priority: glib::Priority,
         cancellable: Option<&P>,
@@ -103,7 +102,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn close_async_trampoline<
-            Q: FnOnce(Result<(), Error>) + Send + 'static,
+            Q: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -136,7 +135,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -187,7 +186,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
     fn next_file<P: IsA<Cancellable>>(
         &self,
         cancellable: Option<&P>,
-    ) -> Result<Option<FileInfo>, Error> {
+    ) -> Result<Option<FileInfo>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_enumerator_next_file(
@@ -205,7 +204,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
 
     fn next_files_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<FileInfo>, Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<FileInfo>, glib::Error>) + Send + 'static,
     >(
         &self,
         num_files: i32,
@@ -215,7 +214,7 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn next_files_async_trampoline<
-            Q: FnOnce(Result<Vec<FileInfo>, Error>) + Send + 'static,
+            Q: FnOnce(Result<Vec<FileInfo>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -253,7 +252,8 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         &self,
         num_files: i32,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 

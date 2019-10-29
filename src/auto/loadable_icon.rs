@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
@@ -14,7 +15,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use Icon;
 use InputStream;
 
@@ -33,11 +33,11 @@ pub trait LoadableIconExt: 'static {
         &self,
         size: i32,
         cancellable: Option<&P>,
-    ) -> Result<(InputStream, GString), Error>;
+    ) -> Result<(InputStream, GString), glib::Error>;
 
     fn load_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         size: i32,
@@ -49,7 +49,10 @@ pub trait LoadableIconExt: 'static {
     fn load_async_future(
         &self,
         size: i32,
-    ) -> Box_<dyn future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin>;
+    ) -> Box_<
+        dyn future::Future<Output = Result<(InputStream, GString), glib::Error>>
+            + std::marker::Unpin,
+    >;
 }
 
 impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
@@ -57,7 +60,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
         &self,
         size: i32,
         cancellable: Option<&P>,
-    ) -> Result<(InputStream, GString), Error> {
+    ) -> Result<(InputStream, GString), glib::Error> {
         unsafe {
             let mut type_ = ptr::null_mut();
             let mut error = ptr::null_mut();
@@ -78,7 +81,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
 
     fn load_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static,
+        Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
     >(
         &self,
         size: i32,
@@ -87,7 +90,7 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn load_async_trampoline<
-            Q: FnOnce(Result<(InputStream, GString), Error>) + Send + 'static,
+            Q: FnOnce(Result<(InputStream, GString), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -125,8 +128,10 @@ impl<O: IsA<LoadableIcon>> LoadableIconExt for O {
     fn load_async_future(
         &self,
         size: i32,
-    ) -> Box_<dyn future::Future<Output = Result<(InputStream, GString), Error>> + std::marker::Unpin>
-    {
+    ) -> Box_<
+        dyn future::Future<Output = Result<(InputStream, GString), glib::Error>>
+            + std::marker::Unpin,
+    > {
         use fragile::Fragile;
         use GioFuture;
 

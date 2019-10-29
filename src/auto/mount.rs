@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -19,7 +20,6 @@ use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use Drive;
-use Error;
 use File;
 use Icon;
 use MountMountFlags;
@@ -45,7 +45,7 @@ pub trait MountExt: 'static {
     fn eject_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -59,7 +59,7 @@ pub trait MountExt: 'static {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn get_default_location(&self) -> Option<File>;
 
@@ -81,7 +81,7 @@ pub trait MountExt: 'static {
 
     fn guess_content_type<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
     >(
         &self,
         force_rescan: bool,
@@ -93,20 +93,20 @@ pub trait MountExt: 'static {
     fn guess_content_type_future(
         &self,
         force_rescan: bool,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, glib::Error>> + std::marker::Unpin>;
 
     fn guess_content_type_sync<P: IsA<Cancellable>>(
         &self,
         force_rescan: bool,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, Error>;
+    ) -> Result<Vec<GString>, glib::Error>;
 
     fn is_shadowed(&self) -> bool;
 
     fn remount<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -120,14 +120,14 @@ pub trait MountExt: 'static {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn shadow(&self);
 
     fn unmount_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -141,7 +141,7 @@ pub trait MountExt: 'static {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     fn unshadow(&self);
 
@@ -164,7 +164,7 @@ impl<O: IsA<Mount>> MountExt for O {
     fn eject_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -174,7 +174,7 @@ impl<O: IsA<Mount>> MountExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn eject_with_operation_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -212,7 +212,7 @@ impl<O: IsA<Mount>> MountExt for O {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -283,7 +283,7 @@ impl<O: IsA<Mount>> MountExt for O {
 
     fn guess_content_type<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
     >(
         &self,
         force_rescan: bool,
@@ -292,7 +292,7 @@ impl<O: IsA<Mount>> MountExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn guess_content_type_trampoline<
-            Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+            Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -328,7 +328,8 @@ impl<O: IsA<Mount>> MountExt for O {
     fn guess_content_type_future(
         &self,
         force_rescan: bool,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 
@@ -347,7 +348,7 @@ impl<O: IsA<Mount>> MountExt for O {
         &self,
         force_rescan: bool,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, Error> {
+    ) -> Result<Vec<GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_mount_guess_content_type_sync(
@@ -371,7 +372,7 @@ impl<O: IsA<Mount>> MountExt for O {
     fn remount<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountMountFlags,
@@ -380,7 +381,9 @@ impl<O: IsA<Mount>> MountExt for O {
         callback: R,
     ) {
         let user_data: Box_<R> = Box_::new(callback);
-        unsafe extern "C" fn remount_trampoline<R: FnOnce(Result<(), Error>) + Send + 'static>(
+        unsafe extern "C" fn remount_trampoline<
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
+        >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
             user_data: glib_sys::gpointer,
@@ -413,7 +416,7 @@ impl<O: IsA<Mount>> MountExt for O {
         &self,
         flags: MountMountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -443,7 +446,7 @@ impl<O: IsA<Mount>> MountExt for O {
     fn unmount_with_operation<
         P: IsA<MountOperation>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         flags: MountUnmountFlags,
@@ -453,7 +456,7 @@ impl<O: IsA<Mount>> MountExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn unmount_with_operation_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -491,7 +494,7 @@ impl<O: IsA<Mount>> MountExt for O {
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

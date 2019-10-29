@@ -66,14 +66,8 @@ pub use inet_address::InetAddressBytes;
 #[cfg(test)]
 mod test_util;
 
-pub use glib::{Error, Object};
-
 pub use auto::functions::*;
 pub use auto::*;
-
-pub mod signal {
-    pub use glib::signal::Inhibit;
-}
 
 pub mod prelude;
 pub use prelude::*;

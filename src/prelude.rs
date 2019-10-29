@@ -4,6 +4,8 @@
 
 //! Traits and essential types intended for blanket imports.
 
+pub use glib::prelude::*;
+
 pub use auto::traits::*;
 
 pub use application::*;

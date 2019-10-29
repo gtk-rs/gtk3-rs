@@ -6,7 +6,6 @@ use std::ptr;
 use Converter;
 use ConverterFlags;
 use ConverterResult;
-use Error;
 
 pub trait ConverterExtManual {
     fn convert<IN: AsRef<[u8]>, OUT: AsMut<[u8]>>(
@@ -14,7 +13,7 @@ pub trait ConverterExtManual {
         inbuf: IN,
         outbuf: OUT,
         flags: ConverterFlags,
-    ) -> Result<(ConverterResult, usize, usize), Error>;
+    ) -> Result<(ConverterResult, usize, usize), glib::Error>;
 }
 
 impl<O: IsA<Converter>> ConverterExtManual for O {
@@ -23,7 +22,7 @@ impl<O: IsA<Converter>> ConverterExtManual for O {
         inbuf: IN,
         outbuf: OUT,
         flags: ConverterFlags,
-    ) -> Result<(ConverterResult, usize, usize), Error> {
+    ) -> Result<(ConverterResult, usize, usize), glib::Error> {
         let inbuf: Box<IN> = Box::new(inbuf);
         let (inbuf_size, inbuf) = {
             let slice = (*inbuf).as_ref();

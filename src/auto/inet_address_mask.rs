@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -17,7 +18,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 use InetAddress;
 use SocketFamily;
 
@@ -30,7 +30,7 @@ glib_wrapper! {
 }
 
 impl InetAddressMask {
-    pub fn new<P: IsA<InetAddress>>(addr: &P, length: u32) -> Result<InetAddressMask, Error> {
+    pub fn new<P: IsA<InetAddress>>(addr: &P, length: u32) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_inet_address_mask_new(
@@ -46,7 +46,7 @@ impl InetAddressMask {
         }
     }
 
-    pub fn new_from_string(mask_string: &str) -> Result<InetAddressMask, Error> {
+    pub fn new_from_string(mask_string: &str) -> Result<InetAddressMask, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_inet_address_mask_new_from_string(

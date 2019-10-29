@@ -3,11 +3,11 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::translate::*;
 use glib::GString;
 use std::fmt;
 use std::ptr;
-use Error;
 
 glib_wrapper! {
     pub struct Credentials(Object<gio_sys::GCredentials, gio_sys::GCredentialsClass, CredentialsClass>);
@@ -27,7 +27,7 @@ impl Credentials {
     //}
 
     #[cfg(any(unix, feature = "dox"))]
-    pub fn get_unix_pid(&self) -> Result<i32, Error> {
+    pub fn get_unix_pid(&self) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_credentials_get_unix_pid(self.to_glib_none().0, &mut error);
@@ -40,7 +40,7 @@ impl Credentials {
     }
 
     #[cfg(any(unix, feature = "dox"))]
-    pub fn get_unix_user(&self) -> Result<(), Error> {
+    pub fn get_unix_user(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_credentials_get_unix_user(self.to_glib_none().0, &mut error);
@@ -52,7 +52,7 @@ impl Credentials {
         }
     }
 
-    pub fn is_same_user(&self, other_credentials: &Credentials) -> Result<(), Error> {
+    pub fn is_same_user(&self, other_credentials: &Credentials) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_credentials_is_same_user(
@@ -73,7 +73,7 @@ impl Credentials {
     //}
 
     #[cfg(any(unix, feature = "dox"))]
-    pub fn set_unix_user(&self, uid: u32) -> Result<(), Error> {
+    pub fn set_unix_user(&self, uid: u32) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_credentials_set_unix_user(self.to_glib_none().0, uid, &mut error);

@@ -39,7 +39,7 @@ pub trait SocketAddressExt: 'static {
 
     fn get_native_size(&self) -> isize;
 
-    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), Error>;
+    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), glib::Error>;
 
     fn connect_property_family_notify<F: Fn(&Self) + Send + Sync + 'static>(
         &self,
@@ -60,7 +60,7 @@ impl<O: IsA<SocketAddress>> SocketAddressExt for O {
         unsafe { gio_sys::g_socket_address_get_native_size(self.as_ref().to_glib_none().0) }
     }
 
-    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), Error> {
+    //fn to_native(&self, dest: /*Unimplemented*/Option<Fundamental: Pointer>, destlen: usize) -> Result<(), glib::Error> {
     //    unsafe { TODO: call gio_sys:g_socket_address_to_native() }
     //}
 

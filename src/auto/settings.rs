@@ -15,7 +15,6 @@ use glib::Value;
 use glib_sys;
 use gobject_sys;
 use libc;
-use signal::Inhibit;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
@@ -209,7 +208,7 @@ pub trait SettingsExt: 'static {
 
     fn connect_changed<F: Fn(&Self, &str) + 'static>(&self, f: F) -> SignalHandlerId;
 
-    fn connect_writable_change_event<F: Fn(&Self, u32) -> Inhibit + 'static>(
+    fn connect_writable_change_event<F: Fn(&Self, u32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId;
@@ -693,13 +692,13 @@ impl<O: IsA<Settings>> SettingsExt for O {
         }
     }
 
-    fn connect_writable_change_event<F: Fn(&Self, u32) -> Inhibit + 'static>(
+    fn connect_writable_change_event<F: Fn(&Self, u32) -> glib::signal::Inhibit + 'static>(
         &self,
         f: F,
     ) -> SignalHandlerId {
         unsafe extern "C" fn writable_change_event_trampoline<
             P,
-            F: Fn(&P, u32) -> Inhibit + 'static,
+            F: Fn(&P, u32) -> glib::signal::Inhibit + 'static,
         >(
             this: *mut gio_sys::GSettings,
             key: libc::c_uint,

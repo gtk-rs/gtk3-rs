@@ -14,7 +14,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 use FileInfo;
 use InputStream;
 use Seekable;
@@ -34,9 +33,12 @@ pub trait FileInputStreamExt: 'static {
         &self,
         attributes: &str,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error>;
+    ) -> Result<FileInfo, glib::Error>;
 
-    fn query_info_async<P: IsA<Cancellable>, Q: FnOnce(Result<FileInfo, Error>) + Send + 'static>(
+    fn query_info_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
+    >(
         &self,
         attributes: &str,
         io_priority: glib::Priority,
@@ -49,7 +51,7 @@ pub trait FileInputStreamExt: 'static {
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
@@ -57,7 +59,7 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
         &self,
         attributes: &str,
         cancellable: Option<&P>,
-    ) -> Result<FileInfo, Error> {
+    ) -> Result<FileInfo, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_file_input_stream_query_info(
@@ -76,7 +78,7 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
 
     fn query_info_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+        Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
     >(
         &self,
         attributes: &str,
@@ -86,7 +88,7 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn query_info_async_trampoline<
-            Q: FnOnce(Result<FileInfo, Error>) + Send + 'static,
+            Q: FnOnce(Result<FileInfo, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -124,7 +126,7 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

@@ -267,7 +267,6 @@ mod tests {
     use crate::subclass::prelude::*;
     use crate::Seekable;
     use glib;
-    use glib::prelude::*;
     use glib::subclass;
     use std::cell::RefCell;
 

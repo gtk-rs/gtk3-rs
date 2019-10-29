@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
@@ -14,7 +15,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::ptr;
 use Cancellable;
-use Error;
 
 glib_wrapper! {
     pub struct ProxyResolver(Interface<gio_sys::GProxyResolver>);
@@ -39,9 +39,12 @@ pub trait ProxyResolverExt: 'static {
         &self,
         uri: &str,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, Error>;
+    ) -> Result<Vec<GString>, glib::Error>;
 
-    fn lookup_async<P: IsA<Cancellable>, Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static>(
+    fn lookup_async<
+        P: IsA<Cancellable>,
+        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
+    >(
         &self,
         uri: &str,
         cancellable: Option<&P>,
@@ -52,7 +55,7 @@ pub trait ProxyResolverExt: 'static {
     fn lookup_async_future(
         &self,
         uri: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, glib::Error>> + std::marker::Unpin>;
 }
 
 impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
@@ -68,7 +71,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         &self,
         uri: &str,
         cancellable: Option<&P>,
-    ) -> Result<Vec<GString>, Error> {
+    ) -> Result<Vec<GString>, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_proxy_resolver_lookup(
@@ -87,7 +90,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
 
     fn lookup_async<
         P: IsA<Cancellable>,
-        Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+        Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
     >(
         &self,
         uri: &str,
@@ -96,7 +99,7 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn lookup_async_trampoline<
-            Q: FnOnce(Result<Vec<GString>, Error>) + Send + 'static,
+            Q: FnOnce(Result<Vec<GString>, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -129,7 +132,8 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
     fn lookup_async_future(
         &self,
         uri: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<Vec<GString>, glib::Error>> + std::marker::Unpin>
+    {
         use fragile::Fragile;
         use GioFuture;
 

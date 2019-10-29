@@ -3,6 +3,7 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -19,7 +20,6 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 use Converter;
-use Error;
 
 glib_wrapper! {
     pub struct CharsetConverter(Object<gio_sys::GCharsetConverter, gio_sys::GCharsetConverterClass, CharsetConverterClass>) @implements Converter;
@@ -30,7 +30,7 @@ glib_wrapper! {
 }
 
 impl CharsetConverter {
-    pub fn new(to_charset: &str, from_charset: &str) -> Result<CharsetConverter, Error> {
+    pub fn new(to_charset: &str, from_charset: &str) -> Result<CharsetConverter, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_charset_converter_new(

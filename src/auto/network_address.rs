@@ -3,12 +3,12 @@
 // DO NOT EDIT
 
 use gio_sys;
+use glib;
 use glib::object::IsA;
 use glib::translate::*;
 use glib::GString;
 use std::fmt;
 use std::ptr;
-use Error;
 use SocketConnectable;
 
 glib_wrapper! {
@@ -34,7 +34,7 @@ impl NetworkAddress {
         unsafe { from_glib_full(gio_sys::g_network_address_new_loopback(port)) }
     }
 
-    pub fn parse(host_and_port: &str, default_port: u16) -> Result<NetworkAddress, Error> {
+    pub fn parse(host_and_port: &str, default_port: u16) -> Result<NetworkAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_network_address_parse(
@@ -50,7 +50,7 @@ impl NetworkAddress {
         }
     }
 
-    pub fn parse_uri(uri: &str, default_port: u16) -> Result<NetworkAddress, Error> {
+    pub fn parse_uri(uri: &str, default_port: u16) -> Result<NetworkAddress, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_network_address_parse_uri(

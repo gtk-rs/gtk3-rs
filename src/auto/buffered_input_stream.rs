@@ -21,7 +21,6 @@ use std::mem;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 use FilterInputStream;
 use InputStream;
 use Seekable;
@@ -92,8 +91,8 @@ impl BufferedInputStreamBuilder {
         self
     }
 
-    pub fn base_stream(mut self, base_stream: &InputStream) -> Self {
-        self.base_stream = Some(base_stream.clone());
+    pub fn base_stream<P: IsA<InputStream>>(mut self, base_stream: &P) -> Self {
+        self.base_stream = Some(base_stream.clone().upcast());
         self
     }
 
@@ -110,9 +109,9 @@ pub trait BufferedInputStreamExt: 'static {
         &self,
         count: isize,
         cancellable: Option<&P>,
-    ) -> Result<isize, Error>;
+    ) -> Result<isize, glib::Error>;
 
-    fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(
+    fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, glib::Error>) + Send + 'static>(
         &self,
         count: isize,
         io_priority: glib::Priority,
@@ -125,7 +124,7 @@ pub trait BufferedInputStreamExt: 'static {
         &self,
         count: isize,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<isize, glib::Error>> + std::marker::Unpin>;
 
     fn get_available(&self) -> usize;
 
@@ -133,7 +132,7 @@ pub trait BufferedInputStreamExt: 'static {
 
     fn peek_buffer(&self) -> Vec<u8>;
 
-    fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, Error>;
+    fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error>;
 
     fn set_buffer_size(&self, size: usize);
 
@@ -145,7 +144,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         &self,
         count: isize,
         cancellable: Option<&P>,
-    ) -> Result<isize, Error> {
+    ) -> Result<isize, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_buffered_input_stream_fill(
@@ -162,7 +161,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }
     }
 
-    fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, Error>) + Send + 'static>(
+    fn fill_async<P: IsA<Cancellable>, Q: FnOnce(Result<isize, glib::Error>) + Send + 'static>(
         &self,
         count: isize,
         io_priority: glib::Priority,
@@ -171,7 +170,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
     ) {
         let user_data: Box_<Q> = Box_::new(callback);
         unsafe extern "C" fn fill_async_trampoline<
-            Q: FnOnce(Result<isize, Error>) + Send + 'static,
+            Q: FnOnce(Result<isize, glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -209,7 +208,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         &self,
         count: isize,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<isize, Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<isize, glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -246,7 +245,7 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }
     }
 
-    fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, Error> {
+    fn read_byte<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<i32, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gio_sys::g_buffered_input_stream_read_byte(

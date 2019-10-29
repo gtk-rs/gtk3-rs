@@ -439,7 +439,6 @@ mod tests {
     use super::*;
     use crate::prelude::*;
     use glib;
-    use glib::prelude::*;
     use glib::subclass;
 
     const EXIT_STATUS: i32 = 20;

@@ -5,6 +5,7 @@
 #[cfg(any(feature = "futures", feature = "dox"))]
 use futures::future;
 use gio_sys;
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -17,7 +18,6 @@ use std::fmt;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
-use Error;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 use NetworkConnectivity;
 use SocketConnectable;
@@ -43,12 +43,12 @@ pub trait NetworkMonitorExt: 'static {
         &self,
         connectable: &P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error>;
+    ) -> Result<(), glib::Error>;
 
     fn can_reach_async<
         P: IsA<SocketConnectable>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         connectable: &P,
@@ -60,7 +60,7 @@ pub trait NetworkMonitorExt: 'static {
     fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin>;
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn get_connectivity(&self) -> NetworkConnectivity;
@@ -93,7 +93,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         &self,
         connectable: &P,
         cancellable: Option<&Q>,
-    ) -> Result<(), Error> {
+    ) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gio_sys::g_network_monitor_can_reach(
@@ -113,7 +113,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     fn can_reach_async<
         P: IsA<SocketConnectable>,
         Q: IsA<Cancellable>,
-        R: FnOnce(Result<(), Error>) + Send + 'static,
+        R: FnOnce(Result<(), glib::Error>) + Send + 'static,
     >(
         &self,
         connectable: &P,
@@ -122,7 +122,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     ) {
         let user_data: Box_<R> = Box_::new(callback);
         unsafe extern "C" fn can_reach_async_trampoline<
-            R: FnOnce(Result<(), Error>) + Send + 'static,
+            R: FnOnce(Result<(), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -158,7 +158,7 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
     fn can_reach_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
-    ) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
         use fragile::Fragile;
         use GioFuture;
 

@@ -329,7 +329,6 @@ mod tests {
     use super::*;
     use crate::prelude::*;
     use glib;
-    use glib::prelude::*;
     use glib::subclass;
     use std::cell::RefCell;
 

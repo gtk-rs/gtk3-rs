@@ -12,7 +12,6 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::ptr;
 use Cancellable;
-use Error;
 use Socket;
 use SocketConnection;
 use SocketListener;
@@ -22,7 +21,7 @@ use futures::future;
 
 pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<
-        Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
+        Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -34,13 +33,13 @@ pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async_future(
         &self,
     ) -> Box<
-        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), Error>>
+        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
             + std::marker::Unpin,
     >;
 
     fn accept_async<
         C: IsA<Cancellable>,
-        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
+        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&C>,
@@ -51,14 +50,14 @@ pub trait SocketListenerExtManual: Sized {
     fn accept_async_future(
         &self,
     ) -> Box_<
-        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), Error>>
+        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>>
             + std::marker::Unpin,
     >;
 }
 
 impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     fn accept_socket_async<
-        Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
+        Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
         C: IsA<Cancellable>,
     >(
         &self,
@@ -69,7 +68,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn accept_socket_async_trampoline<
-            Q: FnOnce(Result<(Socket, Option<glib::Object>), Error>) + Send + 'static,
+            Q: FnOnce(Result<(Socket, Option<glib::Object>), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -106,7 +105,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     fn accept_socket_async_future(
         &self,
     ) -> Box<
-        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), Error>>
+        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
             + std::marker::Unpin,
     > {
         use GioFuture;
@@ -126,7 +125,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
 
     fn accept_async<
         C: IsA<Cancellable>,
-        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
+        Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
     >(
         &self,
         cancellable: Option<&C>,
@@ -136,7 +135,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         let gcancellable = cancellable.to_glib_none();
         let user_data: Box<Q> = Box::new(callback);
         unsafe extern "C" fn accept_async_trampoline<
-            Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), Error>) + Send + 'static,
+            Q: FnOnce(Result<(SocketConnection, Option<glib::Object>), glib::Error>) + Send + 'static,
         >(
             _source_object: *mut gobject_sys::GObject,
             res: *mut gio_sys::GAsyncResult,
@@ -173,7 +172,7 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
     fn accept_async_future(
         &self,
     ) -> Box_<
-        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), Error>>
+        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>>
             + std::marker::Unpin,
     > {
         use fragile::Fragile;
