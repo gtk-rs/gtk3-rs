@@ -6,7 +6,6 @@ use crate::prelude::*;
 use crate::subclass::prelude::*;
 use crate::OutputStream;
 use glib;
-use glib::prelude::*;
 use glib::subclass;
 use glib::translate::*;
 
