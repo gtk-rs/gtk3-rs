@@ -21,7 +21,7 @@ struct Compiler {
 }
 
 impl Compiler {
-    pub fn new() -> Result<Compiler, Box<Error>> {
+    pub fn new() -> Result<Compiler, Box<dyn Error>> {
         let mut args = get_var("CC", "cc")?;
         args.push("-Wno-deprecated-declarations".to_owned());
         // For %z support in printf when using MinGW.
@@ -40,7 +40,7 @@ impl Compiler {
         self.args.push(arg);
     }
 
-    pub fn compile(&self, src: &Path, out: &Path) -> Result<(), Box<Error>> {
+    pub fn compile(&self, src: &Path, out: &Path) -> Result<(), Box<dyn Error>> {
         let mut cmd = self.to_command();
         cmd.arg(src);
         cmd.arg("-o");
@@ -59,7 +59,7 @@ impl Compiler {
     }
 }
 
-fn get_var(name: &str, default: &str) -> Result<Vec<String>, Box<Error>> {
+fn get_var(name: &str, default: &str) -> Result<Vec<String>, Box<dyn Error>> {
     match env::var(name) {
         Ok(value) => Ok(shell_words::split(&value)?),
         Err(env::VarError::NotPresent) => Ok(shell_words::split(default)?),
@@ -67,7 +67,7 @@ fn get_var(name: &str, default: &str) -> Result<Vec<String>, Box<Error>> {
     }
 }
 
-fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<Error>> {
+fn pkg_config_cflags(packages: &[&str]) -> Result<Vec<String>, Box<dyn Error>> {
     if packages.is_empty() {
         return Ok(Vec::new());
     }
@@ -201,7 +201,7 @@ fn cross_validate_layout_with_c() {
     results.expect_total_success();
 }
 
-fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Error>> {
+fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<dyn Error>> {
     let exe = dir.join("layout");
     let mut cc = cc.clone();
     cc.define("ABI_TYPE_NAME", name);
@@ -220,7 +220,7 @@ fn get_c_layout(dir: &Path, cc: &Compiler, name: &str) -> Result<Layout, Box<Err
     Ok(Layout { size, alignment })
 }
 
-fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<Error>> {
+fn get_c_value(dir: &Path, cc: &Compiler, name: &str) -> Result<String, Box<dyn Error>> {
     let exe = dir.join("constant");
     let mut cc = cc.clone();
     cc.define("ABI_CONSTANT_NAME", name);
@@ -1566,6 +1566,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_UNICODE_SCRIPT_DUPLOYAN", "105"),
     ("(gint) G_UNICODE_SCRIPT_EGYPTIAN_HIEROGLYPHS", "80"),
     ("(gint) G_UNICODE_SCRIPT_ELBASAN", "106"),
+    ("(gint) G_UNICODE_SCRIPT_ELYMAIC", "149"),
     ("(gint) G_UNICODE_SCRIPT_ETHIOPIC", "11"),
     ("(gint) G_UNICODE_SCRIPT_GEORGIAN", "12"),
     ("(gint) G_UNICODE_SCRIPT_GLAGOLITIC", "56"),
@@ -1624,10 +1625,12 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_UNICODE_SCRIPT_MULTANI", "129"),
     ("(gint) G_UNICODE_SCRIPT_MYANMAR", "28"),
     ("(gint) G_UNICODE_SCRIPT_NABATAEAN", "116"),
+    ("(gint) G_UNICODE_SCRIPT_NANDINAGARI", "150"),
     ("(gint) G_UNICODE_SCRIPT_NEWA", "135"),
     ("(gint) G_UNICODE_SCRIPT_NEW_TAI_LUE", "54"),
     ("(gint) G_UNICODE_SCRIPT_NKO", "66"),
     ("(gint) G_UNICODE_SCRIPT_NUSHU", "139"),
+    ("(gint) G_UNICODE_SCRIPT_NYIAKENG_PUACHUE_HMONG", "151"),
     ("(gint) G_UNICODE_SCRIPT_OGHAM", "29"),
     ("(gint) G_UNICODE_SCRIPT_OLD_HUNGARIAN", "130"),
     ("(gint) G_UNICODE_SCRIPT_OLD_ITALIC", "30"),
@@ -1679,6 +1682,7 @@ const RUST_CONSTANTS: &[(&str, &str)] = &[
     ("(gint) G_UNICODE_SCRIPT_UGARITIC", "53"),
     ("(gint) G_UNICODE_SCRIPT_UNKNOWN", "61"),
     ("(gint) G_UNICODE_SCRIPT_VAI", "74"),
+    ("(gint) G_UNICODE_SCRIPT_WANCHO", "152"),
     ("(gint) G_UNICODE_SCRIPT_WARANG_CITI", "125"),
     ("(gint) G_UNICODE_SCRIPT_YI", "41"),
     ("(gint) G_UNICODE_SCRIPT_ZANABAZAR_SQUARE", "141"),

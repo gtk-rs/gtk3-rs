@@ -4529,9 +4529,26 @@ pub struct _GMountOperationPrivate(c_void);
 pub type GMountOperationPrivate = *mut _GMountOperationPrivate;
 
 #[repr(C)]
-pub struct _GNativeSocketAddress(c_void);
+#[derive(Copy, Clone)]
+pub struct GNativeSocketAddressClass {
+    pub parent_class: GSocketAddressClass,
+}
 
-pub type GNativeSocketAddress = *mut _GNativeSocketAddress;
+impl ::std::fmt::Debug for GNativeSocketAddressClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!(
+            "GNativeSocketAddressClass @ {:?}",
+            self as *const _
+        ))
+        .field("parent_class", &self.parent_class)
+        .finish()
+    }
+}
+
+#[repr(C)]
+pub struct _GNativeSocketAddressPrivate(c_void);
+
+pub type GNativeSocketAddressPrivate = *mut _GNativeSocketAddressPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7634,6 +7651,21 @@ impl ::std::fmt::Debug for GMountOperation {
         f.debug_struct(&format!("GMountOperation @ {:?}", self as *const _))
             .field("parent_instance", &self.parent_instance)
             .field("priv_", &self.priv_)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct GNativeSocketAddress {
+    pub parent_instance: GSocketAddress,
+    pub priv_: *mut GNativeSocketAddressPrivate,
+}
+
+impl ::std::fmt::Debug for GNativeSocketAddress {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GNativeSocketAddress @ {:?}", self as *const _))
+            .field("parent_instance", &self.parent_instance)
             .finish()
     }
 }
@@ -11094,6 +11126,8 @@ extern "C" {
     pub fn g_file_info_get_is_backup(info: *mut GFileInfo) -> gboolean;
     pub fn g_file_info_get_is_hidden(info: *mut GFileInfo) -> gboolean;
     pub fn g_file_info_get_is_symlink(info: *mut GFileInfo) -> gboolean;
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn g_file_info_get_modification_date_time(info: *mut GFileInfo) -> *mut glib::GDateTime;
     pub fn g_file_info_get_modification_time(info: *mut GFileInfo, result: *mut glib::GTimeVal);
     pub fn g_file_info_get_name(info: *mut GFileInfo) -> *const c_char;
     pub fn g_file_info_get_size(info: *mut GFileInfo) -> i64;
@@ -11171,6 +11205,11 @@ extern "C" {
     pub fn g_file_info_set_icon(info: *mut GFileInfo, icon: *mut GIcon);
     pub fn g_file_info_set_is_hidden(info: *mut GFileInfo, is_hidden: gboolean);
     pub fn g_file_info_set_is_symlink(info: *mut GFileInfo, is_symlink: gboolean);
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn g_file_info_set_modification_date_time(
+        info: *mut GFileInfo,
+        mtime: *mut glib::GDateTime,
+    );
     pub fn g_file_info_set_modification_time(info: *mut GFileInfo, mtime: *mut glib::GTimeVal);
     pub fn g_file_info_set_name(info: *mut GFileInfo, name: *const c_char);
     pub fn g_file_info_set_size(info: *mut GFileInfo, size: i64);
@@ -11806,6 +11845,13 @@ extern "C" {
     #[cfg(any(feature = "v2_58", feature = "dox"))]
     pub fn g_mount_operation_set_pim(op: *mut GMountOperation, pim: c_uint);
     pub fn g_mount_operation_set_username(op: *mut GMountOperation, username: *const c_char);
+
+    //=========================================================================
+    // GNativeSocketAddress
+    //=========================================================================
+    pub fn g_native_socket_address_get_type() -> GType;
+    #[cfg(any(feature = "v2_46", feature = "dox"))]
+    pub fn g_native_socket_address_new(native: gpointer, len: size_t) -> *mut GSocketAddress;
 
     //=========================================================================
     // GNativeVolumeMonitor
