@@ -2096,6 +2096,8 @@ extern "C" {
         boxed_free: GBoxedFreeFunc,
     ) -> GType;
     pub fn g_clear_object(object_ptr: *mut *mut GObject);
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn g_clear_signal_handler(handler_id_ptr: *mut c_ulong, instance: *mut GObject);
     pub fn g_enum_complete_type_info(
         g_enum_type: GType,
         info: *mut GTypeInfo,

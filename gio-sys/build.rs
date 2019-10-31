@@ -31,7 +31,9 @@ fn main() {
 fn find() -> Result<(), Error> {
     let package_name = "gio-2.0";
     let shared_libs = ["gio-2.0"];
-    let version = if cfg!(feature = "v2_60") {
+    let version = if cfg!(feature = "v2_62") {
+        "2.62"
+    } else if cfg!(feature = "v2_60") {
         "2.60"
     } else if cfg!(feature = "v2_58") {
         "2.58"

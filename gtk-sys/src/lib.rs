@@ -5084,6 +5084,28 @@ pub type GtkHandleBoxPrivate = *mut _GtkHandleBoxPrivate;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct GtkHeaderBarAccessibleClass {
+    pub parent_class: GtkContainerAccessibleClass,
+}
+
+impl ::std::fmt::Debug for GtkHeaderBarAccessibleClass {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!(
+            "GtkHeaderBarAccessibleClass @ {:?}",
+            self as *const _
+        ))
+        .field("parent_class", &self.parent_class)
+        .finish()
+    }
+}
+
+#[repr(C)]
+pub struct _GtkHeaderBarAccessiblePrivate(c_void);
+
+pub type GtkHeaderBarAccessiblePrivate = *mut _GtkHeaderBarAccessiblePrivate;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkHeaderBarClass {
     pub parent_class: GtkContainerClass,
     pub _gtk_reserved1: Option<unsafe extern "C" fn()>,
@@ -12516,6 +12538,20 @@ impl ::std::fmt::Debug for GtkHeaderBar {
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub struct GtkHeaderBarAccessible {
+    pub parent: GtkContainerAccessible,
+}
+
+impl ::std::fmt::Debug for GtkHeaderBarAccessible {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+        f.debug_struct(&format!("GtkHeaderBarAccessible @ {:?}", self as *const _))
+            .field("parent", &self.parent)
+            .finish()
+    }
+}
+
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct GtkIMContext {
     pub parent_instance: gobject::GObject,
 }
@@ -19848,6 +19884,11 @@ extern "C" {
     pub fn gtk_header_bar_set_title(bar: *mut GtkHeaderBar, title: *const c_char);
 
     //=========================================================================
+    // GtkHeaderBarAccessible
+    //=========================================================================
+    pub fn gtk_header_bar_accessible_get_type() -> GType;
+
+    //=========================================================================
     // GtkIMContext
     //=========================================================================
     pub fn gtk_im_context_get_type() -> GType;
@@ -21341,7 +21382,7 @@ extern "C" {
     pub fn gtk_overlay_reorder_overlay(
         overlay: *mut GtkOverlay,
         child: *mut GtkWidget,
-        position: c_int,
+        index_: c_int,
     );
     #[cfg(any(feature = "v3_18", feature = "dox"))]
     pub fn gtk_overlay_set_overlay_pass_through(
