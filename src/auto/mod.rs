@@ -48,6 +48,9 @@ mod gl_context;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 pub use self::gl_context::{GLContext, GLContextClass};
 
+mod keymap;
+pub use self::keymap::{Keymap, KeymapClass};
+
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 mod monitor;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
