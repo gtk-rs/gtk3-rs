@@ -65,6 +65,14 @@ impl Attribute {
         unsafe { from_glib_full(pango_sys::pango_attr_scale_new(scale_factor)) }
     }
 
+    pub fn new_size(size: i32) -> Option<Attribute> {
+        unsafe { from_glib_full(pango_sys::pango_attr_size_new(size)) }
+    }
+
+    pub fn new_size_absolute(size: i32) -> Option<Attribute> {
+        unsafe { from_glib_full(pango_sys::pango_attr_size_new_absolute(size)) }
+    }
+
     pub fn new_stretch(stretch: Stretch) -> Option<Attribute> {
         unsafe { from_glib_full(pango_sys::pango_attr_stretch_new(stretch.to_glib())) }
     }
