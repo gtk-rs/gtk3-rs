@@ -38,7 +38,8 @@ pub const NONE_OBJECT: Option<&Object> = None;
 pub trait AtkObjectExt: 'static {
     fn add_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
 
-    //fn connect_property_change_handler(&self, handler: /*Unimplemented*/Fn(&Object, /*Ignored*/PropertyValues)) -> u32;
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn get_accessible_id(&self) -> Option<GString>;
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet>;
 
@@ -72,9 +73,10 @@ pub trait AtkObjectExt: 'static {
 
     fn ref_state_set(&self) -> Option<StateSet>;
 
-    fn remove_property_change_handler(&self, handler_id: u32);
-
     fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool;
+
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn set_accessible_id(&self, name: &str);
 
     fn set_description(&self, description: &str);
 
@@ -262,9 +264,14 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    //fn connect_property_change_handler(&self, handler: /*Unimplemented*/Fn(&Object, /*Ignored*/PropertyValues)) -> u32 {
-    //    unsafe { TODO: call atk_sys:atk_object_connect_property_change_handler() }
-    //}
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn get_accessible_id(&self) -> Option<GString> {
+        unsafe {
+            from_glib_none(atk_sys::atk_object_get_accessible_id(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     //fn get_attributes(&self) -> /*Ignored*/Option<AttributeSet> {
     //    unsafe { TODO: call atk_sys:atk_object_get_attributes() }
@@ -369,15 +376,6 @@ impl<O: IsA<Object>> AtkObjectExt for O {
         }
     }
 
-    fn remove_property_change_handler(&self, handler_id: u32) {
-        unsafe {
-            atk_sys::atk_object_remove_property_change_handler(
-                self.as_ref().to_glib_none().0,
-                handler_id,
-            );
-        }
-    }
-
     fn remove_relationship<P: IsA<Object>>(&self, relationship: RelationType, target: &P) -> bool {
         unsafe {
             from_glib(atk_sys::atk_object_remove_relationship(
@@ -385,6 +383,16 @@ impl<O: IsA<Object>> AtkObjectExt for O {
                 relationship.to_glib(),
                 target.as_ref().to_glib_none().0,
             ))
+        }
+    }
+
+    #[cfg(any(feature = "v2_34", feature = "dox"))]
+    fn set_accessible_id(&self, name: &str) {
+        unsafe {
+            atk_sys::atk_object_set_accessible_id(
+                self.as_ref().to_glib_none().0,
+                name.to_glib_none().0,
+            );
         }
     }
 
