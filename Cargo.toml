@@ -28,6 +28,7 @@ embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
 dox = ["atk-sys/dox"]
 v2_30 = ["atk-sys/v2_30"]
 v2_32 = ["v2_30", "atk-sys/v2_32"]
+v2_34 = ["v2_32", "atk-sys/v2_34"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]

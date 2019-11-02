@@ -6,4 +6,5 @@
 
 pub use auto::traits::*;
 pub use editable_text::EditableTextExtManual;
+pub use glib::prelude::*;
 pub use table::TableExtManual;

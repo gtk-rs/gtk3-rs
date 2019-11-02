@@ -459,6 +459,8 @@ pub enum Role {
     Subscript,
     Superscript,
     Footnote,
+    ContentDeletion,
+    ContentInsertion,
     LastDefined,
     #[doc(hidden)]
     __Unknown(i32),
@@ -593,6 +595,8 @@ impl fmt::Display for Role {
                 Role::Subscript => "Subscript",
                 Role::Superscript => "Superscript",
                 Role::Footnote => "Footnote",
+                Role::ContentDeletion => "ContentDeletion",
+                Role::ContentInsertion => "ContentInsertion",
                 Role::LastDefined => "LastDefined",
                 _ => "Unknown",
             }
@@ -729,6 +733,8 @@ impl ToGlib for Role {
             Role::Subscript => atk_sys::ATK_ROLE_SUBSCRIPT,
             Role::Superscript => atk_sys::ATK_ROLE_SUPERSCRIPT,
             Role::Footnote => atk_sys::ATK_ROLE_FOOTNOTE,
+            Role::ContentDeletion => atk_sys::ATK_ROLE_CONTENT_DELETION,
+            Role::ContentInsertion => atk_sys::ATK_ROLE_CONTENT_INSERTION,
             Role::LastDefined => atk_sys::ATK_ROLE_LAST_DEFINED,
             Role::__Unknown(value) => value,
         }
@@ -863,7 +869,9 @@ impl FromGlib<atk_sys::AtkRole> for Role {
             120 => Role::Subscript,
             121 => Role::Superscript,
             122 => Role::Footnote,
-            123 => Role::LastDefined,
+            123 => Role::ContentDeletion,
+            124 => Role::ContentInsertion,
+            125 => Role::LastDefined,
             value => Role::__Unknown(value),
         }
     }

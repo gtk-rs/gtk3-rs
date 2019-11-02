@@ -39,8 +39,6 @@ pub use auto::*;
 
 pub mod prelude;
 
-pub use prelude::*;
-
 pub use attribute::Attribute;
 pub use attribute_set::AttributeSet;
 pub use text_rectangle::TextRectangle;
