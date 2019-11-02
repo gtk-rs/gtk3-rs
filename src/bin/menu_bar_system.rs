@@ -58,7 +58,7 @@ fn build_system_menu(application: &gtk::Application) {
     application.set_menubar(Some(&menu_bar));
 }
 
-// This function creates "actions" which connect on the declared actions from the menu items.
+/// This function creates "actions" which connect on the declared actions from the menu items.
 fn add_actions(
     application: &gtk::Application,
     switch: &gtk::Switch,
@@ -105,7 +105,6 @@ fn add_actions(
     let about = gio::SimpleAction::new("about", None);
     about.connect_activate(clone!(window => move |_, _| {
         let p = AboutDialog::new();
-        p.set_authors(&["gtk-rs developers"]);
         p.set_website_label(Some("gtk-rs"));
         p.set_website(Some("http://gtk-rs.org"));
         p.set_authors(&["Gtk-rs developers"]);
