@@ -200,6 +200,16 @@ impl FileInfo {
         unsafe { from_glib(gio_sys::g_file_info_get_is_symlink(self.to_glib_none().0)) }
     }
 
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn get_modification_date_time(&self) -> Option<glib::DateTime> {
+        unsafe {
+            from_glib_full(gio_sys::g_file_info_get_modification_date_time(
+                self.to_glib_none().0,
+            ))
+        }
+    }
+
+    #[cfg_attr(feature = "v2_62", deprecated)]
     pub fn get_modification_time(&self) -> glib::TimeVal {
         unsafe {
             let mut result = glib::TimeVal::uninitialized();
@@ -433,6 +443,17 @@ impl FileInfo {
         }
     }
 
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn set_modification_date_time(&self, mtime: &glib::DateTime) {
+        unsafe {
+            gio_sys::g_file_info_set_modification_date_time(
+                self.to_glib_none().0,
+                mtime.to_glib_none().0,
+            );
+        }
+    }
+
+    #[cfg_attr(feature = "v2_62", deprecated)]
     pub fn set_modification_time(&self, mtime: &mut glib::TimeVal) {
         unsafe {
             gio_sys::g_file_info_set_modification_time(

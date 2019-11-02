@@ -557,7 +557,6 @@ pub use self::flags::TlsPasswordFlags;
 pub mod functions;
 
 mod constants;
-pub use self::constants::DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 pub use self::constants::DRIVE_IDENTIFIER_KIND_UNIX_DEVICE;
 pub use self::constants::FILE_ATTRIBUTE_ACCESS_CAN_DELETE;
