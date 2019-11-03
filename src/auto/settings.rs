@@ -162,6 +162,7 @@ pub trait SettingsExt: 'static {
 
     fn list_children(&self) -> Vec<GString>;
 
+    #[cfg_attr(feature = "v2_46", deprecated)]
     fn list_keys(&self) -> Vec<GString>;
 
     fn reset(&self, key: &str);

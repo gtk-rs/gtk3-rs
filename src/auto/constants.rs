@@ -5,13 +5,6 @@
 use gio_sys;
 use std::ffi::CStr;
 
-lazy_static! {
-    pub static ref DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME: &'static str = unsafe {
-        CStr::from_ptr(gio_sys::G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME)
-            .to_str()
-            .unwrap()
-    };
-}
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 lazy_static! {
     pub static ref DRIVE_IDENTIFIER_KIND_UNIX_DEVICE: &'static str = unsafe {
