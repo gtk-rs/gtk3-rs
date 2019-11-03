@@ -146,10 +146,12 @@ manual = [
     "GLib.MainContext",
     "GLib.OptionArg",
     "GLib.OptionFlags",
+    "GLib.Pid",
     "GLib.Priority",
     "GLib.Quark",
     "GLib.SeekType",
     "GLib.Source",
+    "GLib.SpawnFlags",
     "GLib.TimeVal",
     "GLib.Variant",
     "GLib.VariantType",
@@ -331,6 +333,10 @@ cfg_condition = "not(windows)"
     [[object.function]]
     name = "search"
     # returns vec of string
+    ignore = true
+    [[object.function]]
+    name = "launch_uris_as_manager_with_fds"
+    # has to use RawFd / SOCKET
     ignore = true
 
 [[object]]
