@@ -13,7 +13,6 @@ use AttrIterator;
 use AttrList;
 use Context;
 use Direction;
-use Error;
 use GlyphString;
 use Item;
 use Rectangle;
@@ -141,7 +140,7 @@ pub fn itemize_with_base_dir(
     }
 }
 
-//pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext) -> Result<(AttrList, GString, char), Error> {
+//pub fn markup_parser_finish(context: /*Ignored*/&glib::MarkupParseContext) -> Result<(AttrList, GString, char), glib::Error> {
 //    unsafe { TODO: call pango_sys:pango_markup_parser_finish() }
 //}
 
@@ -182,7 +181,7 @@ pub fn parse_enum(
 pub fn parse_markup(
     markup_text: &str,
     accel_marker: char,
-) -> Result<(AttrList, GString, char), Error> {
+) -> Result<(AttrList, GString, char), glib::Error> {
     let length = markup_text.len() as i32;
     unsafe {
         let mut attr_list = ptr::null_mut();
