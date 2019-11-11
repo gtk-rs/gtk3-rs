@@ -15,7 +15,6 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
 use std::ptr;
-use Error;
 use Pixbuf;
 use PixbufAnimation;
 use PixbufFormat;
@@ -33,7 +32,7 @@ impl PixbufLoader {
         unsafe { from_glib_full(gdk_pixbuf_sys::gdk_pixbuf_loader_new()) }
     }
 
-    pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, Error> {
+    pub fn new_with_mime_type(mime_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_loader_new_with_mime_type(
@@ -48,7 +47,7 @@ impl PixbufLoader {
         }
     }
 
-    pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, Error> {
+    pub fn new_with_type(image_type: &str) -> Result<PixbufLoader, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_loader_new_with_type(
@@ -73,7 +72,7 @@ impl Default for PixbufLoader {
 pub const NONE_PIXBUF_LOADER: Option<&PixbufLoader> = None;
 
 pub trait PixbufLoaderExt: 'static {
-    fn close(&self) -> Result<(), Error>;
+    fn close(&self) -> Result<(), glib::Error>;
 
     fn get_animation(&self) -> Option<PixbufAnimation>;
 
@@ -83,9 +82,9 @@ pub trait PixbufLoaderExt: 'static {
 
     fn set_size(&self, width: i32, height: i32);
 
-    fn write(&self, buf: &[u8]) -> Result<(), Error>;
+    fn write(&self, buf: &[u8]) -> Result<(), glib::Error>;
 
-    fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), Error>;
+    fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), glib::Error>;
 
     fn connect_area_prepared<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -100,7 +99,7 @@ pub trait PixbufLoaderExt: 'static {
 }
 
 impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
-    fn close(&self) -> Result<(), Error> {
+    fn close(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ =
@@ -147,7 +146,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    fn write(&self, buf: &[u8]) -> Result<(), Error> {
+    fn write(&self, buf: &[u8]) -> Result<(), glib::Error> {
         let count = buf.len() as usize;
         unsafe {
             let mut error = ptr::null_mut();
@@ -165,7 +164,7 @@ impl<O: IsA<PixbufLoader>> PixbufLoaderExt for O {
         }
     }
 
-    fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), Error> {
+    fn write_bytes(&self, buffer: &glib::Bytes) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gdk_pixbuf_sys::gdk_pixbuf_loader_write_bytes(

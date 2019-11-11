@@ -15,7 +15,6 @@ use gobject_sys;
 use std::fmt;
 use std::ptr;
 use Colorspace;
-use Error;
 use InterpType;
 use PixbufFormat;
 use PixbufRotation;
@@ -70,12 +69,12 @@ impl Pixbuf {
         }
     }
 
-    //pub fn new_from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
+    //pub fn new_from_data(data: &[u8], colorspace: Colorspace, has_alpha: bool, bits_per_sample: i32, width: i32, height: i32, rowstride: i32, destroy_fn: Option<Box_<dyn FnOnce(&Vec<u8>) + 'static>>) -> Pixbuf {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_new_from_data() }
     //}
 
     #[cfg_attr(feature = "v2_32", deprecated)]
-    pub fn new_from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, Error> {
+    pub fn new_from_inline(data: &[u8], copy_pixels: bool) -> Result<Pixbuf, glib::Error> {
         let data_length = data.len() as i32;
         unsafe {
             let mut error = ptr::null_mut();
@@ -93,7 +92,7 @@ impl Pixbuf {
         }
     }
 
-    pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, Error> {
+    pub fn new_from_resource(resource_path: &str) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_new_from_resource(
@@ -113,7 +112,7 @@ impl Pixbuf {
         width: i32,
         height: i32,
         preserve_aspect_ratio: bool,
-    ) -> Result<Pixbuf, Error> {
+    ) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_new_from_resource_at_scale(
@@ -134,7 +133,7 @@ impl Pixbuf {
     pub fn new_from_stream<P: IsA<gio::InputStream>, Q: IsA<gio::Cancellable>>(
         stream: &P,
         cancellable: Option<&Q>,
-    ) -> Result<Pixbuf, Error> {
+    ) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream(
@@ -156,7 +155,7 @@ impl Pixbuf {
         height: i32,
         preserve_aspect_ratio: bool,
         cancellable: Option<&Q>,
-    ) -> Result<Pixbuf, Error> {
+    ) -> Result<Pixbuf, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret = gdk_pixbuf_sys::gdk_pixbuf_new_from_stream_at_scale(
@@ -459,32 +458,32 @@ impl Pixbuf {
         }
     }
 
-    //pub fn save<P: AsRef<std::path::Path>>(&self, filename: P, type_: &str, error: Option<&mut Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn save<P: AsRef<std::path::Path>>(&self, filename: P, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save() }
     //}
 
-    //pub fn save_to_buffer(&self, type_: &str, error: Option<&mut Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Vec<u8>> {
+    //pub fn save_to_buffer(&self, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Vec<u8>> {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save_to_buffer() }
     //}
 
-    //pub fn save_to_callback<P: FnMut(&Vec<u8>, usize, &Error) -> bool>(&self, save_func: P, type_: &str, error: Option<&mut Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn save_to_callback<P: FnMut(&Vec<u8>, usize, &glib::Error) -> bool>(&self, save_func: P, type_: &str, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save_to_callback() }
     //}
 
-    //pub fn save_to_callbackv<P: FnMut(&Vec<u8>, usize, &Error) -> bool>(&self, save_func: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), Error> {
+    //pub fn save_to_callbackv<P: FnMut(&Vec<u8>, usize, &glib::Error) -> bool>(&self, save_func: P, type_: &str, option_keys: &[&str], option_values: &[&str]) -> Result<(), glib::Error> {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save_to_callbackv() }
     //}
 
-    //pub fn save_to_stream<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, error: Option<&mut Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
+    //pub fn save_to_stream<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, error: Option<&mut glib::Error>, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> bool {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save_to_stream() }
     //}
 
-    //pub fn save_to_stream_async<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<(), Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
+    //pub fn save_to_stream_async<P: IsA<gio::OutputStream>, Q: IsA<gio::Cancellable>, R: FnOnce(Result<(), glib::Error>) + Send + 'static>(&self, stream: &P, type_: &str, cancellable: Option<&Q>, callback: R, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) {
     //    unsafe { TODO: call gdk_pixbuf_sys:gdk_pixbuf_save_to_stream_async() }
     //}
 
-    //#[cfg(feature = "futures")]
-    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Box_<dyn future::Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    //
+    //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
     //use gio::GioFuture;
     //use fragile::Fragile;
 
@@ -607,6 +606,19 @@ impl Pixbuf {
     pub fn get_formats() -> Vec<PixbufFormat> {
         unsafe {
             FromGlibPtrContainer::from_glib_container(gdk_pixbuf_sys::gdk_pixbuf_get_formats())
+        }
+    }
+
+    #[cfg(any(feature = "v2_40", feature = "dox"))]
+    pub fn init_modules(path: &str) -> Result<(), glib::Error> {
+        unsafe {
+            let mut error = ptr::null_mut();
+            let _ = gdk_pixbuf_sys::gdk_pixbuf_init_modules(path.to_glib_none().0, &mut error);
+            if error.is_null() {
+                Ok(())
+            } else {
+                Err(from_glib_full(error))
+            }
         }
     }
 }
