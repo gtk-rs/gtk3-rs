@@ -37,7 +37,6 @@ pub mod prelude;
 
 pub use self::auto::functions::*;
 pub use auto::*;
-pub use prelude::*;
 
 pub mod enums;
 
