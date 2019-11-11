@@ -39,8 +39,6 @@ pub mod prelude;
 pub use auto::*;
 pub use prelude::*;
 
-pub use glib::Error;
-
 mod box_;
 mod euler;
 mod frustum;
