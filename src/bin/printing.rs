@@ -15,6 +15,20 @@ use gtk::prelude::*;
 
 use std::env::args;
 
+// upgrade weak reference or return
+#[macro_export]
+macro_rules! upgrade_weak {
+    ($x:ident, $r:expr) => {{
+        match $x.upgrade() {
+            Some(o) => o,
+            None => return $r,
+        }
+    }};
+    ($x:ident) => {
+        upgrade_weak!($x, ())
+    };
+}
+
 fn print(window: &gtk::Window, value1: String, value2: String) {
     let print_operation = gtk::PrintOperation::new();
 
@@ -74,11 +88,12 @@ fn build_ui(application: &gtk::Application) {
         .get_object("buttonprint")
         .expect("Couldn't get buttonprint");
 
-    let window_clone = window.clone();
+    let weak_window = window.downgrade();
     button_print.connect_clicked(move |_| {
+        let window = upgrade_weak!(weak_window);
         let text1 = entry1.get_text().expect("Couldn't get text1").to_string();
         let text2 = entry2.get_text().expect("Couldn't get text2").to_string();
-        print(&window_clone, text1, text2);
+        print(&window, text1, text2);
     });
 
     window.show_all();
