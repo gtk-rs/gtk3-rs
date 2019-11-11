@@ -21,10 +21,10 @@ matrix:
       rust: stable
       env: GTK=3.24 FEATURES=v2_32
     - os: linux
-      rust: 1.36.0
+      rust: 1.39.0
       env: GTK=3.14
     - os: linux
-      rust: 1.36.0
+      rust: 1.39.0
       env: GTK=3.24 FEATURES=v2_32
     - os: osx
       rust: nightly
