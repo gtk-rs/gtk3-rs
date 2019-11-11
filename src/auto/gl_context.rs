@@ -3,6 +3,8 @@
 // DO NOT EDIT
 
 use gdk_sys;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+use glib;
 use glib::translate::*;
 use std::fmt;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
@@ -11,8 +13,6 @@ use std::mem;
 use std::ptr;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use Display;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use Error;
 #[cfg(any(feature = "v3_16", feature = "dox"))]
 use Window;
 
@@ -112,7 +112,7 @@ impl GLContext {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    pub fn realize(&self) -> Result<(), Error> {
+    pub fn realize(&self) -> Result<(), glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let _ = gdk_sys::gdk_gl_context_realize(self.to_glib_none().0, &mut error);

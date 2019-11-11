@@ -90,7 +90,6 @@ mod visual;
 mod window;
 
 pub use gdk_sys::GdkColor as Color;
-pub use glib::Error;
 
 pub use self::rt::{init, set_initialized};
 

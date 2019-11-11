@@ -6,6 +6,8 @@ use cairo;
 use cairo_sys;
 use gdk_pixbuf;
 use gdk_sys;
+#[cfg(any(feature = "v3_16", feature = "dox"))]
+use glib;
 use glib::object::Cast;
 use glib::object::IsA;
 use glib::signal::connect_raw;
@@ -26,8 +28,6 @@ use Display;
 use DragProtocol;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 use DrawingContext;
-#[cfg(any(feature = "v3_16", feature = "dox"))]
-use Error;
 use Event;
 use EventMask;
 use FrameClock;
@@ -152,7 +152,7 @@ pub trait WindowExt: 'static {
     fn coords_to_parent(&self, x: f64, y: f64) -> (f64, f64);
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn create_gl_context(&self) -> Result<GLContext, Error>;
+    fn create_gl_context(&self) -> Result<GLContext, glib::Error>;
 
     fn create_similar_image_surface(
         &self,
@@ -636,7 +636,7 @@ impl<O: IsA<Window>> WindowExt for O {
     }
 
     #[cfg(any(feature = "v3_16", feature = "dox"))]
-    fn create_gl_context(&self) -> Result<GLContext, Error> {
+    fn create_gl_context(&self) -> Result<GLContext, glib::Error> {
         unsafe {
             let mut error = ptr::null_mut();
             let ret =
