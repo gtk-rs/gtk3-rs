@@ -4,10 +4,10 @@ matrix:
   include:
     - os: linux
       rust: nightly
-      env: GTK=3.14 FEATURES=futures
+      env: GTK=3.14 FEATURES=
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=v2_48,futures
+      env: GTK=3.24 FEATURES=v2_48
     - os: linux
       rust: beta
       env: GTK=3.14 FEATURES=
@@ -15,10 +15,10 @@ matrix:
       rust: beta
       env: GTK=3.24 FEATURES=v2_48
     - os: linux
-      rust: 1.36.0
+      rust: 1.39.0
       env: GTK=3.14 FEATURES=
     - os: linux
-      rust: 1.36.0
+      rust: 1.39.0
       env: GTK=3.24 FEATURES=v2_48
     - os: linux
       rust: stable
@@ -28,10 +28,10 @@ matrix:
       env: GTK=3.24 FEATURES=v2_48
     - os: osx
       rust: nightly
-      env: GTK=3.14 FEATURES=futures
+      env: GTK=3.14 FEATURES=
     # - os: osx
     #   rust: nightly
-    #   env: GTK=3.24 FEATURES=v2_48,futures
+    #   env: GTK=3.24 FEATURES=v2_48
     - os: osx
       rust: beta
       env: GTK=3.14 FEATURES=
@@ -39,10 +39,10 @@ matrix:
     #   rust: beta
     #   env: GTK=3.24 FEATURES=v2_48
     - os: osx
-      rust: 1.36.0
+      rust: 1.39.0
       env: GTK=3.14 FEATURES=
     # - os: osx
-    #   rust: 1.36.0
+    #   rust: 1.39.0
     #   env: GTK=3.24 FEATURES=v2_48
     - os: osx
       rust: stable
@@ -52,10 +52,10 @@ matrix:
     #   env: GTK=3.24 FEATURES=v2_48
     - os: linux
       rust: nightly
-      env: GTK=3.14 FEATURES=futures ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
+      env: GTK=3.14 FEATURES= ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
     - os: linux
       rust: nightly
-      env: GTK=3.24 FEATURES=v2_48,futures ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
+      env: GTK=3.24 FEATURES=v2_48 ARM=1 OTHER_TARGET="--target armv7-unknown-linux-gnueabihf"
 addons:
   apt:
     packages:

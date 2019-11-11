@@ -88,8 +88,11 @@ pub extern crate glib_sys;
 #[doc(hidden)]
 pub extern crate gobject_sys;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-pub extern crate futures;
+extern crate futures_channel;
+extern crate futures_core;
+extern crate futures_executor;
+extern crate futures_task;
+extern crate futures_util;
 
 pub use byte_array::ByteArray;
 pub use bytes::Bytes;
@@ -179,11 +182,8 @@ pub use send_unique::{SendUnique, SendUniqueCell};
 #[macro_use]
 pub mod subclass;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
 mod main_context_futures;
-#[cfg(any(feature = "futures", feature = "dox"))]
 mod source_futures;
-#[cfg(any(feature = "futures", feature = "dox"))]
 pub use source_futures::*;
 
 // Actual thread IDs can be reused by the OS once the old thread finished.
