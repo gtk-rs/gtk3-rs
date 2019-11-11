@@ -2,10 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures::channel::{mpsc, oneshot};
-use futures::prelude::*;
-use futures::task;
-use futures::task::Poll;
+use futures_channel::{mpsc, oneshot};
+use futures_core::future::Future;
+use futures_core::stream::Stream;
+use futures_core::task;
+use futures_core::task::Poll;
+use futures_util::future::FutureExt;
+use futures_util::stream::StreamExt;
 use std::marker::Unpin;
 use std::pin;
 
@@ -391,7 +394,7 @@ mod tests {
         let l_clone = l.clone();
         c.spawn(timeout_future(20).then(move |()| {
             l_clone.quit();
-            future::ready(())
+            futures_util::future::ready(())
         }));
 
         l.run();
@@ -411,7 +414,7 @@ mod tests {
                     .for_each(|()| {
                         *count = *count + 1;
 
-                        future::ready(())
+                        futures_util::future::ready(())
                     })
                     .map(|_| ()),
             );
@@ -433,7 +436,7 @@ mod tests {
                 sender.send(1).unwrap();
             });
 
-            receiver.then(|i| future::ready(i.unwrap()))
+            receiver.then(|i| futures_util::future::ready(i.unwrap()))
         }));
 
         assert_eq!(res, 1);

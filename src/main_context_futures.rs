@@ -2,12 +2,10 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures;
-use futures::future::{FutureObj, LocalFutureObj};
-use futures::prelude::*;
-use futures::task::{
-    Context, LocalSpawn, Poll, RawWaker, RawWakerVTable, Spawn, SpawnError, Waker,
-};
+use futures_core::future::Future;
+use futures_core::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
+use futures_task::{FutureObj, LocalFutureObj, LocalSpawn, Spawn, SpawnError};
+use futures_util::future::FutureExt;
 use get_thread_id;
 use glib_sys;
 use std::mem;
@@ -215,7 +213,7 @@ impl TaskSource {
             // Clone that we store in the task local data so that
             // it can be retrieved as needed
             let res = executor.with_thread_default(|| {
-                let enter = futures::executor::enter().unwrap();
+                let enter = futures_executor::enter().unwrap();
                 let mut context = Context::from_waker(&waker);
 
                 let res = future.poll_unpin(&mut context);
@@ -311,7 +309,7 @@ impl MainContext {
             let f = f.then(|r| {
                 res = Some(r);
                 l_clone.quit();
-                future::ready(())
+                futures_util::future::ready(())
             });
 
             // Super-unsafe: We transmute here to get rid of the 'static lifetime
@@ -332,17 +330,7 @@ impl MainContext {
 }
 
 impl Spawn for MainContext {
-    fn spawn_obj(&mut self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
-        (&*self).spawn_obj(f)
-    }
-}
-
-/// Implementing `Spawn` for a _reference_ of `MainContext` allows to convert it to a futures-0.1 `Executor`,
-/// using the futures-0.1 compatibility layer.
-///
-/// See https://rust-lang-nursery.github.io/futures-api-docs/0.3.0-alpha.16/src/futures_util/compat/executor.rs.html#85
-impl Spawn for &MainContext {
-    fn spawn_obj(&mut self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
+    fn spawn_obj(&self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
         let source = TaskSource::new(::PRIORITY_DEFAULT, None, f);
         source.attach(Some(&*self));
         Ok(())
@@ -350,7 +338,7 @@ impl Spawn for &MainContext {
 }
 
 impl LocalSpawn for MainContext {
-    fn spawn_local_obj(&mut self, f: LocalFutureObj<'static, ()>) -> Result<(), SpawnError> {
+    fn spawn_local_obj(&self, f: LocalFutureObj<'static, ()>) -> Result<(), SpawnError> {
         let source = TaskSource::new(::PRIORITY_DEFAULT, Some(get_thread_id()), unsafe {
             f.into_future_obj()
         });
@@ -362,7 +350,8 @@ impl LocalSpawn for MainContext {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use futures::channel::oneshot;
+    use futures_channel::oneshot;
+    use futures_util::future::TryFutureExt;
     use std::sync::mpsc;
     use std::thread;
 
@@ -381,9 +370,9 @@ mod tests {
                     sender.send(()).unwrap();
                     l_clone.quit();
 
-                    future::ok(())
+                    futures_util::future::ok(())
                 })
-                .then(|res| future::ready(res.unwrap())),
+                .then(|res| futures_util::future::ready(res.unwrap())),
         );
 
         thread::spawn(move || {
@@ -402,7 +391,7 @@ mod tests {
 
         c.push_thread_default();
         let l_clone = l.clone();
-        c.spawn_local(future::lazy(move |_ctx| {
+        c.spawn_local(futures_util::future::lazy(move |_ctx| {
             l_clone.quit();
         }));
 
@@ -419,7 +408,7 @@ mod tests {
         {
             let v = &mut v;
 
-            let future = future::lazy(|_ctx| {
+            let future = futures_util::future::lazy(|_ctx| {
                 *v = Some(123);
                 Ok::<i32, ()>(123)
             });
