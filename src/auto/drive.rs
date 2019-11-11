@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -17,6 +15,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use DriveStartFlags;
@@ -59,12 +58,11 @@ pub trait DriveExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn enumerate_identifiers(&self) -> Vec<GString>;
 
@@ -99,10 +97,9 @@ pub trait DriveExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn poll_for_media_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn start<
         P: IsA<MountOperation>,
@@ -116,12 +113,11 @@ pub trait DriveExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn start_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: DriveStartFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn stop<
         P: IsA<MountOperation>,
@@ -135,12 +131,11 @@ pub trait DriveExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn stop_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn connect_changed<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
 
@@ -226,12 +221,11 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn eject_with_operation_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -377,10 +371,9 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn poll_for_media_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -437,12 +430,11 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn start_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: DriveStartFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -505,12 +497,11 @@ impl<O: IsA<Drive>> DriveExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn stop_future<P: IsA<MountOperation> + Clone + 'static>(
         &self,
         flags: MountUnmountFlags,
         mount_operation: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

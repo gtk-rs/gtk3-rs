@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -12,6 +10,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use FileInfo;
@@ -46,12 +45,11 @@ pub trait FileInputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn query_info_async_future(
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<FileInfo, glib::Error>> + 'static>>;
 }
 
 impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
@@ -121,12 +119,11 @@ impl<O: IsA<FileInputStream>> FileInputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn query_info_async_future(
         &self,
         attributes: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<FileInfo, glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<FileInfo, glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

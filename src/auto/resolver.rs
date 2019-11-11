@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -17,6 +15,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use InetAddress;
@@ -67,11 +66,10 @@ pub trait ResolverExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(
         &self,
         address: &P,
-    ) -> Box_<dyn future::Future<Output = Result<GString, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<GString, glib::Error>> + 'static>>;
 
     fn lookup_by_name<P: IsA<Cancellable>>(
         &self,
@@ -89,11 +87,10 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_name_async_future(
         &self,
         hostname: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn lookup_by_name_with_flags<P: IsA<Cancellable>>(
@@ -115,13 +112,12 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn lookup_by_name_with_flags_async_future(
         &self,
         hostname: &str,
         flags: ResolverNameLookupFlags,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>;
 
     fn lookup_records<P: IsA<Cancellable>>(
         &self,
@@ -141,13 +137,12 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_records_async_future(
         &self,
         rrname: &str,
         record_type: ResolverRecordType,
-    ) -> Box_<
-        dyn future::Future<Output = Result<Vec<glib::Variant>, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<Vec<glib::Variant>, glib::Error>> + 'static>,
     >;
 
     fn lookup_service<P: IsA<Cancellable>>(
@@ -170,13 +165,12 @@ pub trait ResolverExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_service_async_future(
         &self,
         service: &str,
         protocol: &str,
         domain: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<SrvTarget>, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<SrvTarget>, glib::Error>> + 'static>>;
 
     fn set_default(&self);
 
@@ -249,11 +243,10 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_address_async_future<P: IsA<InetAddress> + Clone + 'static>(
         &self,
         address: &P,
-    ) -> Box_<dyn future::Future<Output = Result<GString, glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<GString, glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -333,11 +326,10 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_by_name_async_future(
         &self,
         hostname: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -424,13 +416,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn lookup_by_name_with_flags_async_future(
         &self,
         hostname: &str,
         flags: ResolverNameLookupFlags,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -515,13 +506,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_records_async_future(
         &self,
         rrname: &str,
         record_type: ResolverRecordType,
-    ) -> Box_<
-        dyn future::Future<Output = Result<Vec<glib::Variant>, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<Vec<glib::Variant>, glib::Error>> + 'static>,
     > {
         use fragile::Fragile;
         use GioFuture;
@@ -610,13 +600,12 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn lookup_service_async_future(
         &self,
         service: &str,
         protocol: &str,
         domain: &str,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<SrvTarget>, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<SrvTarget>, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;

@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -20,6 +18,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use IOStream;
@@ -73,11 +72,10 @@ pub trait TlsConnectionExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn handshake_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
     fn set_advertised_protocols(&self, protocols: &[&str]);
@@ -280,11 +278,10 @@ impl<O: IsA<TlsConnection>> TlsConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn handshake_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

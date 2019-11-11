@@ -2,9 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-#[cfg(any(feature = "v2_50", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -18,6 +15,8 @@ use std;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 use std::boxed::Box as Box_;
 use std::fmt;
+#[cfg(any(feature = "v2_50", feature = "dox"))]
+use std::pin::Pin;
 use std::ptr;
 use AppInfoCreateFlags;
 use AppLaunchContext;
@@ -161,12 +160,11 @@ impl AppInfo {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_50", feature = "dox"))]
     pub fn launch_default_for_uri_async_future<P: IsA<AppLaunchContext> + Clone + 'static>(
         uri: &str,
         context: Option<&P>,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

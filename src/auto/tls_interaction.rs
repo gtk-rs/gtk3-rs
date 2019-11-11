@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -12,6 +10,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use TlsCertificateRequestFlags;
@@ -47,12 +46,11 @@ pub trait TlsInteractionExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(
         &self,
         password: &P,
-    ) -> Box_<
-        dyn future::Future<Output = Result<TlsInteractionResult, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<TlsInteractionResult, glib::Error>> + 'static>,
     >;
 
     fn invoke_ask_password<P: IsA<TlsPassword>, Q: IsA<Cancellable>>(
@@ -87,13 +85,12 @@ pub trait TlsInteractionExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(
         &self,
         connection: &P,
         flags: TlsCertificateRequestFlags,
-    ) -> Box_<
-        dyn future::Future<Output = Result<TlsInteractionResult, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<TlsInteractionResult, glib::Error>> + 'static>,
     >;
 }
 
@@ -163,12 +160,11 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn ask_password_async_future<P: IsA<TlsPassword> + Clone + 'static>(
         &self,
         password: &P,
-    ) -> Box_<
-        dyn future::Future<Output = Result<TlsInteractionResult, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<TlsInteractionResult, glib::Error>> + 'static>,
     > {
         use fragile::Fragile;
         use GioFuture;
@@ -298,13 +294,12 @@ impl<O: IsA<TlsInteraction>> TlsInteractionExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn request_certificate_async_future<P: IsA<TlsConnection> + Clone + 'static>(
         &self,
         connection: &P,
         flags: TlsCertificateRequestFlags,
-    ) -> Box_<
-        dyn future::Future<Output = Result<TlsInteractionResult, glib::Error>> + std::marker::Unpin,
+    ) -> Pin<
+        Box_<dyn std::future::Future<Output = Result<TlsInteractionResult, glib::Error>> + 'static>,
     > {
         use fragile::Fragile;
         use GioFuture;
