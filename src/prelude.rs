@@ -11,6 +11,11 @@ pub use auto::traits::*;
 
 pub use application::*;
 pub use converter::*;
+#[cfg(any(
+    all(not(windows), feature = "v2_58"),
+    all(not(windows), feature = "dox")
+))]
+pub use desktop_app_info::DesktopAppInfoExtManual;
 pub use file::FileExtManual;
 pub use input_stream::InputStreamExtManual;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
