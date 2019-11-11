@@ -68,7 +68,10 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
         >,
     >;
 
-    fn into_write(self) -> OutputStreamWrite<Self> {
+    fn into_write(self) -> OutputStreamWrite<Self>
+    where
+        Self: IsA<OutputStream>,
+    {
         OutputStreamWrite(self)
     }
 }
@@ -274,9 +277,9 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash, Clone)]
-pub struct OutputStreamWrite<T: OutputStreamExt>(T);
+pub struct OutputStreamWrite<T: IsA<OutputStream>>(T);
 
-impl<T: OutputStreamExt> OutputStreamWrite<T> {
+impl<T: IsA<OutputStream>> OutputStreamWrite<T> {
     pub fn into_output_stream(self) -> T {
         self.0
     }
@@ -286,17 +289,18 @@ impl<T: OutputStreamExt> OutputStreamWrite<T> {
     }
 }
 
-impl<T: OutputStreamExt> io::Write for OutputStreamWrite<T> {
+impl<T: IsA<OutputStream>> io::Write for OutputStreamWrite<T> {
     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
         let result = self
             .0
+            .as_ref()
             .write(buf, ::NONE_CANCELLABLE)
             .map(|size| size as usize);
         to_std_io_result(result)
     }
 
     fn flush(&mut self) -> io::Result<()> {
-        let gio_result = self.0.flush(::NONE_CANCELLABLE);
+        let gio_result = self.0.as_ref().flush(::NONE_CANCELLABLE);
         to_std_io_result(gio_result)
     }
 }
