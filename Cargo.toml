@@ -25,10 +25,9 @@ name = "gdk_pixbuf"
 v2_32 = ["gdk-pixbuf-sys/v2_32"]
 v2_36 = ["v2_32", "gdk-pixbuf-sys/v2_36"]
 v2_36_8 = ["v2_36", "gdk-pixbuf-sys/v2_36_8"]
-dox = ["glib/dox", "gdk-pixbuf-sys/dox", "futures"]
+dox = ["glib/dox", "gdk-pixbuf-sys/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-futures = ["futures-preview", "fragile", "glib/futures", "gio/futures"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
@@ -40,8 +39,7 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 
 [dependencies]
 libc = "0.2"
-fragile = { version = "0.3", optional = true }
-futures-preview = { version = "0.3.0-alpha", optional = true }
+fragile = { version = "0.3" }
 gdk-pixbuf-sys = { git = "https://github.com/gtk-rs/sys" }
 glib = { git = "https://github.com/gtk-rs/glib" }
 glib-sys = { git = "https://github.com/gtk-rs/sys" }

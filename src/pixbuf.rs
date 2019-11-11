@@ -13,11 +13,11 @@ use gobject_sys;
 use libc::{c_uchar, c_void};
 use std::mem;
 use std::path::Path;
+use std::pin::Pin;
 use std::ptr;
 use std::slice;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future::Future;
+use std::future::Future;
 
 use {Colorspace, Pixbuf, PixbufFormat};
 
@@ -173,10 +173,9 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
-    ) -> Box<dyn Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn Future<Output = Result<Pixbuf, Error>> + 'static>> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -239,13 +238,12 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn new_from_stream_at_scale_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
         width: i32,
         height: i32,
         preserve_aspect_ratio: bool,
-    ) -> Box<dyn Future<Output = Result<Pixbuf, Error>> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn Future<Output = Result<Pixbuf, Error>> + 'static>> {
         use gio::GioFuture;
 
         let stream = stream.clone();
@@ -368,13 +366,11 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_32", feature = "dox"))]
     pub fn get_file_info_async_future<T: AsRef<Path> + Clone + 'static>(
         filename: T,
-    ) -> Box<
-        dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + std::marker::Unpin,
-    > {
+    ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>
+    {
         use gio::GioFuture;
 
         GioFuture::new(&(), move |_obj, send| {
@@ -497,14 +493,13 @@ impl Pixbuf {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_36", feature = "dox"))]
     pub fn save_to_streamv_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(
         &self,
         stream: &P,
         type_: &str,
         options: &[(&str, &str)],
-    ) -> Box<dyn Future<Output = Result<(), Error>> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + 'static>> {
         use fragile::Fragile;
         use gio::GioFuture;
 

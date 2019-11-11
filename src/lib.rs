@@ -15,10 +15,7 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
 extern crate fragile;
-#[cfg(any(feature = "futures", feature = "dox"))]
-extern crate futures;
 
 mod auto;
 
