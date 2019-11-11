@@ -1,5 +1,3 @@
-#![feature(async_await)]
-
 extern crate gio;
 extern crate glib;
 use gio::prelude::*;

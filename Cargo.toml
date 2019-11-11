@@ -7,7 +7,7 @@ autobins = false
 [dependencies]
 chrono = "0.4"
 url = "1.4"
-futures-preview = { version = "0.3.0-alpha.15", optional = true}
+futures = "0.3"
 
 [dependencies.atk]
 git = "https://github.com/gtk-rs/atk"
@@ -41,11 +41,10 @@ git = "https://github.com/gtk-rs/gdk"
 git = "https://github.com/gtk-rs/gtk"
 
 [features]
-#default = ["gtk_3_22_30", "futures"]
+#default = ["gtk_3_22_30"]
 gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
 gtk_3_22_30 = ["gtk_3_18", "gtk/v3_22_30", "gdk-pixbuf/v2_36", "gdk/v3_22", "gio/v2_56", "glib/v2_56", "pango/v1_42"] #for CI tools
 gtk_3_24 = ["gtk_3_22_30", "gtk/v3_24", "atk/v2_30", "gdk-pixbuf/v2_36_8", "gdk/v3_24", "gio/v2_58", "glib/v2_58"] #for CI tools
-futures = ["futures-preview", "glib/futures", "gio/futures"]
 
 [[bin]]
 name = "accessibility"
@@ -91,11 +90,9 @@ name = "drag_and_drop_textview"
 
 [[bin]]
 name = "gio_futures"
-required-features = ["futures"]
 
 [[bin]]
 name = "gio_futures_await"
-required-features = ["futures"]
 edition = "2018"
 
 [[bin]]
