@@ -25,6 +25,7 @@ extern crate libc;
 
 extern crate futures_channel;
 extern crate futures_core;
+extern crate futures_io;
 extern crate futures_util;
 
 mod application;
