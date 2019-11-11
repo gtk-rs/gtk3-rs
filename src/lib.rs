@@ -15,8 +15,6 @@ extern crate bitflags;
 extern crate lazy_static;
 extern crate libc;
 
-pub use glib::Error;
-
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[cfg_attr(feature = "cargo-clippy", allow(useless_transmute))]
 #[cfg_attr(feature = "cargo-clippy", allow(should_implement_trait))]
