@@ -65,15 +65,15 @@ struct Data {
 }
 
 fn create_model() -> gtk::ListStore {
-    let col_types: [gtk::Type; 8] = [
-        gtk::Type::Bool,
-        gtk::Type::U32,
-        gtk::Type::String,
-        gtk::Type::String,
-        gtk::Type::U32,
-        gtk::Type::String,
-        gtk::Type::Bool,
-        gtk::Type::Bool,
+    let col_types: [glib::Type; 8] = [
+        glib::Type::Bool,
+        glib::Type::U32,
+        glib::Type::String,
+        glib::Type::String,
+        glib::Type::U32,
+        glib::Type::String,
+        glib::Type::Bool,
+        glib::Type::Bool,
     ];
 
     let data: [Data; 14] = [

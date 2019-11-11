@@ -18,7 +18,7 @@ fn build_ui(application: &gtk::Application) {
     window.set_position(gtk::WindowPosition::Center);
     window.set_default_size(350, 70);
 
-    let store = gtk::TreeStore::new(&[gtk::Type::String]);
+    let store = gtk::TreeStore::new(&[glib::Type::String]);
     store.insert_with_values(None, None, &[0], &[&"One"]);
     store.insert_with_values(None, None, &[0], &[&"Two"]);
     store.insert_with_values(None, None, &[0], &[&"Three"]);
