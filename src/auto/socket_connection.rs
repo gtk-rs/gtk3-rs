@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -12,6 +10,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use IOStream;
@@ -80,11 +79,10 @@ pub trait SocketConnectionExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(
         &self,
         address: &P,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn get_local_address(&self) -> Result<SocketAddress, glib::Error>;
 
@@ -161,11 +159,10 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketAddress> + Clone + 'static>(
         &self,
         address: &P,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

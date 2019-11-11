@@ -11,12 +11,10 @@ use glib_sys;
 use gobject_sys;
 use std::io;
 use std::mem;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use InputStream;
-
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 
 pub trait InputStreamExtManual: Sized {
     fn read<B: AsMut<[u8]>, C: IsA<Cancellable>>(
@@ -56,23 +54,24 @@ pub trait InputStreamExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<
+                    Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>,
+                > + 'static,
+        >,
     >;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>;
 
     fn into_read(self) -> InputStreamRead<Self> {
         InputStreamRead(self)
@@ -263,15 +262,17 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<
+                    Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>,
+                > + 'static,
+        >,
     > {
         use GioFuture;
 
@@ -288,12 +289,11 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         })
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>
     {
         use GioFuture;
 

@@ -23,8 +23,9 @@ extern crate glib_sys;
 extern crate gobject_sys;
 extern crate libc;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-extern crate futures;
+extern crate futures_channel;
+extern crate futures_core;
+extern crate futures_util;
 
 mod application;
 mod converter;
@@ -76,9 +77,7 @@ pub use prelude::*;
 #[allow(clippy::cast_ptr_alignment)]
 mod auto;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
 mod gio_future;
-#[cfg(any(feature = "futures", feature = "dox"))]
 pub use gio_future::*;
 
 #[macro_use]

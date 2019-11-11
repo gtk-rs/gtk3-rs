@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -20,6 +18,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use BufferedInputStream;
 use Cancellable;
@@ -166,12 +165,12 @@ pub trait DataInputStreamExt: 'static {
     );
 
     #[cfg_attr(feature = "v2_56", deprecated)]
-    #[cfg(any(feature = "futures", feature = "dox"))]
+
     fn read_until_async_future(
         &self,
         stop_chars: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(GString, usize), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>;
 
     fn read_upto<P: IsA<Cancellable>>(
         &self,
@@ -190,12 +189,11 @@ pub trait DataInputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_upto_async_future(
         &self,
         stop_chars: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(GString, usize), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>;
 
     fn set_byte_order(&self, order: DataStreamByteOrder);
 
@@ -443,12 +441,11 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_until_async_future(
         &self,
         stop_chars: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(GString, usize), glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -541,12 +538,11 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn read_upto_async_future(
         &self,
         stop_chars: &str,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(GString, usize), glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;

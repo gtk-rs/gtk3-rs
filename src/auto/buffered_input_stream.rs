@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -19,6 +17,7 @@ use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use FilterInputStream;
@@ -119,12 +118,11 @@ pub trait BufferedInputStreamExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn fill_async_future(
         &self,
         count: isize,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<isize, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>>;
 
     fn get_available(&self) -> usize;
 
@@ -203,12 +201,11 @@ impl<O: IsA<BufferedInputStream>> BufferedInputStreamExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn fill_async_future(
         &self,
         count: isize,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<isize, glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

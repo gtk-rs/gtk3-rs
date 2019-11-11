@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -14,6 +12,7 @@ use gobject_sys;
 use std;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use InputStream;
@@ -121,13 +120,14 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn communicate_async_future(
         &self,
         stdin_buf: Option<&glib::Bytes>,
-    ) -> Box_<
-        dyn future::Future<Output = Result<(glib::Bytes, glib::Bytes), glib::Error>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<Output = Result<(glib::Bytes, glib::Bytes), glib::Error>>
+                + 'static,
+        >,
     > {
         use fragile::Fragile;
         use GioFuture;
@@ -276,10 +276,9 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -351,10 +350,9 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn wait_check_async_future(
         &self,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

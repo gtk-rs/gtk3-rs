@@ -14,10 +14,8 @@ use std::ptr;
 use Cancellable;
 use PollableInputStream;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future::Future;
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::stream::Stream;
+use futures_core::stream::Stream;
+use std::pin::Pin;
 
 pub trait PollableInputStreamExtManual: Sized {
     fn create_source<F, C>(
@@ -31,19 +29,17 @@ pub trait PollableInputStreamExtManual: Sized {
         F: FnMut(&Self) -> glib::Continue + 'static,
         C: IsA<Cancellable>;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future<C: IsA<Cancellable>>(
         &self,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn std::future::Future<Output = ()> + 'static>>;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn Stream<Item = ()> + 'static>>;
 
     fn read_nonblocking<C: IsA<Cancellable>>(
         &self,
@@ -130,16 +126,15 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future<C: IsA<Cancellable>>(
         &self,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Future<Output = ()> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn std::future::Future<Output = ()> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
-        Box::new(glib::SourceFuture::new(move |send| {
+        Box::pin(glib::SourceFuture::new(move |send| {
             let mut send = Some(send);
             obj.get()
                 .create_source(cancellable.as_ref(), None, priority, move |_| {
@@ -149,16 +144,15 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
         }))
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = ()> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn Stream<Item = ()> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
-        Box::new(glib::SourceStream::new(move |send| {
+        Box::pin(glib::SourceStream::new(move |send| {
             obj.get()
                 .create_source(cancellable.as_ref(), None, priority, move |_| {
                     if send.unbounded_send(()).is_err() {

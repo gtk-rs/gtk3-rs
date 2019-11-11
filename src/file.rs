@@ -8,13 +8,11 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use File;
 use FileCreateFlags;
-
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 
 pub trait FileExtManual: Sized {
     fn replace_contents_async<
@@ -31,16 +29,17 @@ pub trait FileExtManual: Sized {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         contents: B,
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
+                + 'static,
+        >,
     >;
 }
 
@@ -110,16 +109,17 @@ impl<O: IsA<File>> FileExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(
         &self,
         contents: B,
         etag: Option<&str>,
         make_backup: bool,
         flags: FileCreateFlags,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(B, glib::GString), (B, glib::Error)>>
+                + 'static,
+        >,
     > {
         use fragile::Fragile;
         use GioFuture;

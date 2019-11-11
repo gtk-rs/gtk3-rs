@@ -14,15 +14,13 @@ use std::mem::transmute;
 use std::os::raw::c_int;
 #[cfg(all(not(windows), feature = "dox"))]
 use std::os::raw::c_void;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use Socket;
 use SocketAddress;
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future::Future;
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::stream::Stream;
+use futures_core::stream::Stream;
 
 #[cfg(unix)]
 use std::os::unix::io::{AsRawFd, FromRawFd, IntoRawFd, RawFd};
@@ -123,21 +121,19 @@ pub trait SocketExtManual: Sized {
         F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
         C: IsA<Cancellable>;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn std::future::Future<Output = glib::IOCondition> + 'static>>;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn Stream<Item = glib::IOCondition> + 'static>>;
 }
 
 impl<O: IsA<Socket>> SocketExtManual for O {
@@ -389,17 +385,16 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_future<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Future<Output = glib::IOCondition> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn std::future::Future<Output = glib::IOCondition> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
-        Box::new(glib::SourceFuture::new(move |send| {
+        Box::pin(glib::SourceFuture::new(move |send| {
             let mut send = Some(send);
             obj.get().create_source(
                 condition,
@@ -414,17 +409,16 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         }))
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn create_source_stream<C: IsA<Cancellable>>(
         &self,
         condition: glib::IOCondition,
         cancellable: Option<&C>,
         priority: glib::Priority,
-    ) -> Box<dyn Stream<Item = glib::IOCondition> + std::marker::Unpin> {
+    ) -> Pin<Box<dyn Stream<Item = glib::IOCondition> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
         let obj = Fragile::new(self.clone());
-        Box::new(glib::SourceStream::new(move |send| {
+        Box::pin(glib::SourceStream::new(move |send| {
             let send = Some(send);
             obj.get().create_source(
                 condition,

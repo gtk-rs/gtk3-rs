@@ -31,10 +31,9 @@ v2_54 = ["v2_52", "gio-sys/v2_54", "glib/v2_54"]
 v2_56 = ["v2_54", "gio-sys/v2_56", "glib/v2_56"]
 v2_58 = ["v2_56", "gio-sys/v2_58", "glib/v2_58"]
 v2_60 = ["v2_58", "gio-sys/v2_60", "glib/v2_60"]
-dox = ["gio-sys/dox", "glib/dox", "futures"]
+dox = ["gio-sys/dox", "glib/dox"]
 purge-lgpl-docs = ["gtk-rs-lgpl-docs"]
 embed-lgpl-docs = ["gtk-rs-lgpl-docs"]
-futures = ["futures-preview", "glib/futures"]
 
 [package.metadata.docs.rs]
 features = ["dox", "embed-lgpl-docs"]
@@ -48,7 +47,9 @@ git = "https://github.com/gtk-rs/lgpl-docs"
 libc = "0.2"
 bitflags = "1.0"
 lazy_static = "1.0"
-futures-preview = { version = "0.3.0-alpha", optional = true }
+futures-core = "0.3"
+futures-channel = "0.3"
+futures-util = "0.3"
 fragile = "0.3"
 gio-sys = { git = "https://github.com/gtk-rs/sys" }
 glib-sys = { git = "https://github.com/gtk-rs/sys" }

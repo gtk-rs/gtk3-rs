@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -12,6 +10,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use IOStream;
@@ -58,7 +57,6 @@ pub trait ProxyExt: 'static {
         callback: S,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<
         P: IsA<IOStream> + Clone + 'static,
         Q: IsA<ProxyAddress> + Clone + 'static,
@@ -66,7 +64,7 @@ pub trait ProxyExt: 'static {
         &self,
         connection: &P,
         proxy_address: &Q,
-    ) -> Box_<dyn future::Future<Output = Result<IOStream, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<IOStream, glib::Error>> + 'static>>;
 
     fn supports_hostname(&self) -> bool;
 }
@@ -138,7 +136,6 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<
         P: IsA<IOStream> + Clone + 'static,
         Q: IsA<ProxyAddress> + Clone + 'static,
@@ -146,7 +143,7 @@ impl<O: IsA<Proxy>> ProxyExt for O {
         &self,
         connection: &P,
         proxy_address: &Q,
-    ) -> Box_<dyn future::Future<Output = Result<IOStream, glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<IOStream, glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 

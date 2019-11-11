@@ -8,16 +8,13 @@ use glib::object::IsA;
 use glib::translate::*;
 use glib_sys;
 use gobject_sys;
-#[cfg(any(feature = "futures", feature = "dox"))]
 use std::boxed::Box as Box_;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use Socket;
 use SocketConnection;
 use SocketListener;
-
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 
 pub trait SocketListenerExtManual: Sized {
     fn accept_socket_async<
@@ -29,12 +26,13 @@ pub trait SocketListenerExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_socket_async_future(
         &self,
-    ) -> Box<
-        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
+                + 'static,
+        >,
     >;
 
     fn accept_async<
@@ -46,12 +44,14 @@ pub trait SocketListenerExtManual: Sized {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_async_future(
         &self,
-    ) -> Box_<
-        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<
+                    Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>,
+                > + 'static,
+        >,
     >;
 }
 
@@ -101,12 +101,13 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_socket_async_future(
         &self,
-    ) -> Box<
-        dyn future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<Output = Result<(Socket, Option<glib::Object>), glib::Error>>
+                + 'static,
+        >,
     > {
         use GioFuture;
 
@@ -168,12 +169,14 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn accept_async_future(
         &self,
-    ) -> Box_<
-        dyn future::Future<Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box_<
+            dyn std::future::Future<
+                    Output = Result<(SocketConnection, Option<glib::Object>), glib::Error>,
+                > + 'static,
+        >,
     > {
         use fragile::Fragile;
         use GioFuture;

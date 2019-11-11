@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -14,6 +12,7 @@ use gobject_sys;
 use std;
 use std::boxed::Box as Box_;
 use std::mem;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use File;
@@ -29,8 +28,8 @@ use SettingsBackend;
 //    unsafe { TODO: call gio_sys:g_bus_get() }
 //}
 
-//#[cfg(any(feature = "futures", feature = "dox"))]
-//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Box_<dyn future::Future<Output = Result</*Ignored*/DBusConnection, glib::Error>> + std::marker::Unpin> {
+//
+//pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Pin<Box_<dyn std::future::Future<Output = Result</*Ignored*/DBusConnection, glib::Error>> + 'static>> {
 //use GioFuture;
 //use fragile::Fragile;
 
@@ -270,10 +269,9 @@ pub fn dbus_address_get_stream<
     }
 }
 
-#[cfg(any(feature = "futures", feature = "dox"))]
 pub fn dbus_address_get_stream_future(
     address: &str,
-) -> Box_<dyn future::Future<Output = Result<(IOStream, GString), glib::Error>> + std::marker::Unpin>
+) -> Pin<Box_<dyn std::future::Future<Output = Result<(IOStream, GString), glib::Error>> + 'static>>
 {
     use fragile::Fragile;
     use GioFuture;

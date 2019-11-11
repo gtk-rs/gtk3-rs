@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::IsA;
@@ -12,6 +10,7 @@ use glib_sys;
 use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use File;
@@ -37,11 +36,10 @@ pub trait FileEnumeratorExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>>;
 
     fn get_child(&self, info: &FileInfo) -> Option<File>;
 
@@ -67,12 +65,11 @@ pub trait FileEnumeratorExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn next_files_async_future(
         &self,
         num_files: i32,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + 'static>>;
 
     fn set_pending(&self, pending: bool);
 }
@@ -131,11 +128,10 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn close_async_future(
         &self,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<(), glib::Error>> + std::marker::Unpin> {
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
         use fragile::Fragile;
         use GioFuture;
 
@@ -247,12 +243,11 @@ impl<O: IsA<FileEnumerator>> FileEnumeratorExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn next_files_async_future(
         &self,
         num_files: i32,
         io_priority: glib::Priority,
-    ) -> Box_<dyn future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<FileInfo>, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;

@@ -2,8 +2,6 @@
 // from gir-files (https://github.com/gtk-rs/gir-files)
 // DO NOT EDIT
 
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib;
 use glib::object::Cast;
@@ -18,6 +16,7 @@ use gobject_sys;
 use std::boxed::Box as Box_;
 use std::fmt;
 use std::mem::transmute;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use IOStream;
@@ -73,11 +72,10 @@ pub trait SocketClientExt: 'static {
         callback: R,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     fn connect_to_host<P: IsA<Cancellable>>(
         &self,
@@ -97,12 +95,11 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_host_async_future(
         &self,
         host_and_port: &str,
         default_port: u16,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     fn connect_to_service<P: IsA<Cancellable>>(
         &self,
@@ -122,12 +119,11 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_service_async_future(
         &self,
         domain: &str,
         service: &str,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     fn connect_to_uri<P: IsA<Cancellable>>(
         &self,
@@ -147,12 +143,11 @@ pub trait SocketClientExt: 'static {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_uri_async_future(
         &self,
         uri: &str,
         default_port: u16,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>;
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>;
 
     fn get_enable_proxy(&self) -> bool;
 
@@ -302,11 +297,10 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_async_future<P: IsA<SocketConnectable> + Clone + 'static>(
         &self,
         connectable: &P,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -391,12 +385,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_host_async_future(
         &self,
         host_and_port: &str,
         default_port: u16,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -486,12 +479,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_service_async_future(
         &self,
         domain: &str,
         service: &str,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
@@ -577,12 +569,11 @@ impl<O: IsA<SocketClient>> SocketClientExt for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn connect_to_uri_async_future(
         &self,
         uri: &str,
         default_port: u16,
-    ) -> Box_<dyn future::Future<Output = Result<SocketConnection, glib::Error>> + std::marker::Unpin>
+    ) -> Pin<Box_<dyn std::future::Future<Output = Result<SocketConnection, glib::Error>> + 'static>>
     {
         use fragile::Fragile;
         use GioFuture;
