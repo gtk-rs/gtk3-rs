@@ -11,6 +11,7 @@ use futures_util::future::FutureExt;
 use futures_util::stream::StreamExt;
 use std::marker::Unpin;
 use std::pin;
+use std::pin::Pin;
 
 use Continue;
 use MainContext;
@@ -107,7 +108,7 @@ impl<T, F> Drop for SourceFuture<T, F> {
 /// Create a `Future` that will resolve after the given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future(value: u32) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
+pub fn timeout_future(value: u32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     timeout_future_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -117,8 +118,8 @@ pub fn timeout_future(value: u32) -> Box<dyn Future<Output = ()> + std::marker::
 pub fn timeout_future_with_priority(
     priority: Priority,
     value: u32,
-) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceFuture::new(move |send| {
+) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
+    Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
@@ -130,9 +131,7 @@ pub fn timeout_future_with_priority(
 /// Create a `Future` that will resolve after the given number of seconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn timeout_future_seconds(
-    value: u32,
-) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
+pub fn timeout_future_seconds(value: u32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     timeout_future_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -142,8 +141,8 @@ pub fn timeout_future_seconds(
 pub fn timeout_future_seconds_with_priority(
     priority: Priority,
     value: u32,
-) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceFuture::new(move |send| {
+) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
+    Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::timeout_source_new_seconds(value, None, priority, move || {
             let _ = send.take().unwrap().send(());
@@ -159,7 +158,7 @@ pub fn timeout_future_seconds_with_priority(
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
 pub fn child_watch_future(
     pid: ::Pid,
-) -> Box<dyn Future<Output = (::Pid, i32)> + std::marker::Unpin + Send> {
+) -> Pin<Box<dyn Future<Output = (::Pid, i32)> + Send + 'static>> {
     child_watch_future_with_priority(::PRIORITY_DEFAULT, pid)
 }
 
@@ -171,8 +170,8 @@ pub fn child_watch_future(
 pub fn child_watch_future_with_priority(
     priority: Priority,
     pid: ::Pid,
-) -> Box<dyn Future<Output = (::Pid, i32)> + std::marker::Unpin + Send> {
-    Box::new(SourceFuture::new(move |send| {
+) -> Pin<Box<dyn Future<Output = (::Pid, i32)> + Send + 'static>> {
+    Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::child_watch_source_new(pid, None, priority, move |pid, code| {
             let _ = send.take().unwrap().send((pid, code));
@@ -184,7 +183,7 @@ pub fn child_watch_future_with_priority(
 /// Create a `Future` that will resolve once the given UNIX signal is raised
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_future(signum: i32) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
+pub fn unix_signal_future(signum: i32) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
     unix_signal_future_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -195,8 +194,8 @@ pub fn unix_signal_future(signum: i32) -> Box<dyn Future<Output = ()> + std::mar
 pub fn unix_signal_future_with_priority(
     priority: Priority,
     signum: i32,
-) -> Box<dyn Future<Output = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceFuture::new(move |send| {
+) -> Pin<Box<dyn Future<Output = ()> + Send + 'static>> {
+    Box::pin(SourceFuture::new(move |send| {
         let mut send = Some(send);
         ::unix_signal_source_new(signum, None, priority, move || {
             let _ = send.take().unwrap().send(());
@@ -296,7 +295,7 @@ impl<T, F> Drop for SourceStream<T, F> {
 /// Create a `Stream` that will provide a value every given number of milliseconds.
 ///
 /// The `Future` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream(value: u32) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
+pub fn interval_stream(value: u32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     interval_stream_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -306,8 +305,8 @@ pub fn interval_stream(value: u32) -> Box<dyn Stream<Item = ()> + std::marker::U
 pub fn interval_stream_with_priority(
     priority: Priority,
     value: u32,
-) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceStream::new(move |send| {
+) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
+    Box::pin(SourceStream::new(move |send| {
         ::timeout_source_new(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
@@ -321,9 +320,7 @@ pub fn interval_stream_with_priority(
 /// Create a `Stream` that will provide a value every given number of seconds.
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn interval_stream_seconds(
-    value: u32,
-) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
+pub fn interval_stream_seconds(value: u32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     interval_stream_seconds_with_priority(::PRIORITY_DEFAULT, value)
 }
 
@@ -333,8 +330,8 @@ pub fn interval_stream_seconds(
 pub fn interval_stream_seconds_with_priority(
     priority: Priority,
     value: u32,
-) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceStream::new(move |send| {
+) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
+    Box::pin(SourceStream::new(move |send| {
         ::timeout_source_new_seconds(value, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
@@ -349,7 +346,7 @@ pub fn interval_stream_seconds_with_priority(
 /// Create a `Stream` that will provide a value whenever the given UNIX signal is raised
 ///
 /// The `Stream` must be spawned on an `Executor` backed by a `glib::MainContext`.
-pub fn unix_signal_stream(signum: i32) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
+pub fn unix_signal_stream(signum: i32) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
     unix_signal_stream_with_priority(::PRIORITY_DEFAULT, signum)
 }
 
@@ -360,8 +357,8 @@ pub fn unix_signal_stream(signum: i32) -> Box<dyn Stream<Item = ()> + std::marke
 pub fn unix_signal_stream_with_priority(
     priority: Priority,
     signum: i32,
-) -> Box<dyn Stream<Item = ()> + std::marker::Unpin + Send> {
-    Box::new(SourceStream::new(move |send| {
+) -> Pin<Box<dyn Stream<Item = ()> + Send + 'static>> {
+    Box::pin(SourceStream::new(move |send| {
         ::unix_signal_source_new(signum, None, priority, move || {
             if send.unbounded_send(()).is_err() {
                 Continue(false)
