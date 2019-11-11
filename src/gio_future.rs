@@ -2,11 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use futures::channel::oneshot;
-use futures::prelude::*;
-use futures::task::{Context, Poll};
-use std::marker::Unpin;
+use futures_channel::oneshot;
+use futures_core::task::{Context, Poll};
+use futures_util::future::FutureExt;
+use std::future::Future;
 use std::pin;
+use std::pin::Pin;
 
 use glib;
 use Cancellable;
@@ -23,8 +24,11 @@ where
     O: Clone + 'static,
     F: FnOnce(&O, oneshot::Sender<Result<T, E>>) -> Cancellable + 'static,
 {
-    pub fn new(obj: &O, schedule_operation: F) -> Box<dyn Future<Output = Result<T, E>> + Unpin> {
-        Box::new(GioFuture {
+    pub fn new(
+        obj: &O,
+        schedule_operation: F,
+    ) -> Pin<Box<dyn Future<Output = Result<T, E>> + 'static>> {
+        Box::pin(GioFuture {
             obj: obj.clone(),
             schedule_operation: Some(schedule_operation),
             cancellable: None,
