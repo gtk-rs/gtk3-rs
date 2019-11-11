@@ -1,5 +1,3 @@
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 use gio_sys;
 use glib::object::IsA;
 use glib::translate::*;
@@ -7,6 +5,7 @@ use glib::GString;
 use glib_sys;
 use gobject_sys;
 use libc::c_char;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use Subprocess;
@@ -62,13 +61,11 @@ impl Subprocess {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     pub fn communicate_utf8_async_future(
         &self,
         stdin_buf: Option<String>,
-    ) -> Box<
-        dyn future::Future<Output = Result<(GString, GString), glib::Error>> + std::marker::Unpin,
-    > {
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<(GString, GString), glib::Error>> + 'static>>
+    {
         use fragile::Fragile;
         use GioFuture;
 

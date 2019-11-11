@@ -11,13 +11,11 @@ use glib_sys;
 use gobject_sys;
 use std::io;
 use std::mem;
+use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use OutputStream;
 use OutputStreamExt;
-
-#[cfg(any(feature = "futures", feature = "dox"))]
-use futures::future;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<
@@ -51,22 +49,23 @@ pub trait OutputStreamExtManual: Sized + OutputStreamExt {
         callback: Q,
     );
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>;
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>;
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<
+                    Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>,
+                > + 'static,
+        >,
     >;
 
     fn into_write(self) -> OutputStreamWrite<Self> {
@@ -225,12 +224,11 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         }
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     fn write_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<dyn future::Future<Output = Result<(B, usize), (B, glib::Error)>> + std::marker::Unpin>
+    ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>
     {
         use GioFuture;
 
@@ -247,15 +245,17 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
         })
     }
 
-    #[cfg(any(feature = "futures", feature = "dox"))]
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     fn write_all_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
-    ) -> Box<
-        dyn future::Future<Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>>
-            + std::marker::Unpin,
+    ) -> Pin<
+        Box<
+            dyn std::future::Future<
+                    Output = Result<(B, usize, Option<glib::Error>), (B, glib::Error)>,
+                > + 'static,
+        >,
     > {
         use GioFuture;
 
