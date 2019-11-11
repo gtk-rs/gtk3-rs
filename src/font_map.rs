@@ -7,7 +7,7 @@ use glib::object::IsA;
 use glib::translate::*;
 use pango;
 use pango_cairo_sys;
-use FontMap;
+use crate::FontMap;
 
 pub trait FontMapExtManual {
     fn get_font_type(&self) -> cairo::FontType;
