@@ -333,10 +333,11 @@ impl<T: InputStreamExtManual> io::Read for InputStreamRead<T> {
 
 #[cfg(test)]
 mod tests {
-    use glib::*;
+    use crate::prelude::*;
+    use crate::MemoryInputStream;
+    use glib::Bytes;
     use std::io::Read;
     use test_util::run_async;
-    use *;
 
     #[test]
     #[cfg(feature = "v2_44")]
@@ -346,10 +347,15 @@ mod tests {
             let strm = MemoryInputStream::new_from_bytes(&b);
 
             let buf = vec![0; 10];
-            strm.read_all_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.read_all_async(
+                buf,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let (buf, count, err) = ret.unwrap();
@@ -396,10 +402,15 @@ mod tests {
             let strm = MemoryInputStream::new_from_bytes(&b);
 
             let buf = vec![0; 10];
-            strm.read_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.read_async(
+                buf,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let (buf, count) = ret.unwrap();
@@ -415,10 +426,15 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            strm.read_bytes_async(10, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.read_bytes_async(
+                10,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let bytes = ret.unwrap();
@@ -431,10 +447,15 @@ mod tests {
             let b = Bytes::from_owned(vec![1, 2, 3]);
             let strm = MemoryInputStream::new_from_bytes(&b);
 
-            strm.skip_async(10, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.skip_async(
+                10,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let skipped = ret.unwrap();

@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::prelude::*;
 use error::to_std_io_result;
 use gio_sys;
 use glib::object::IsA;
@@ -15,7 +16,6 @@ use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use OutputStream;
-use OutputStreamExt;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<
@@ -303,10 +303,12 @@ impl<T: OutputStreamExt> io::Write for OutputStreamWrite<T> {
 
 #[cfg(test)]
 mod tests {
-    use glib::*;
+    use crate::prelude::*;
+    use crate::MemoryInputStream;
+    use crate::MemoryOutputStream;
+    use glib::Bytes;
     use std::io::Write;
     use test_util::run_async;
-    use *;
 
     #[test]
     fn splice_async() {
@@ -318,8 +320,8 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
             strm.splice_async(
                 &input,
-                OutputStreamSpliceFlags::CLOSE_SOURCE,
-                PRIORITY_DEFAULT_IDLE,
+                crate::OutputStreamSpliceFlags::CLOSE_SOURCE,
+                glib::PRIORITY_DEFAULT_IDLE,
                 ::NONE_CANCELLABLE,
                 move |ret| {
                     tx.send(ret).unwrap();
@@ -337,10 +339,15 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let buf = vec![1, 2, 3];
-            strm.write_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.write_async(
+                buf,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let (buf, size) = ret.unwrap();
@@ -355,10 +362,15 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let buf = vec![1, 2, 3];
-            strm.write_all_async(buf, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.write_all_async(
+                buf,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         let (buf, size, err) = ret.unwrap();
@@ -373,10 +385,15 @@ mod tests {
             let strm = MemoryOutputStream::new_resizable();
 
             let b = Bytes::from_owned(vec![1, 2, 3]);
-            strm.write_bytes_async(&b, PRIORITY_DEFAULT_IDLE, ::NONE_CANCELLABLE, move |ret| {
-                tx.send(ret).unwrap();
-                l.quit();
-            });
+            strm.write_bytes_async(
+                &b,
+                glib::PRIORITY_DEFAULT_IDLE,
+                ::NONE_CANCELLABLE,
+                move |ret| {
+                    tx.send(ret).unwrap();
+                    l.quit();
+                },
+            );
         });
 
         assert_eq!(ret.unwrap(), 3);

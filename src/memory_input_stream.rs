@@ -4,8 +4,9 @@
 
 #[cfg(test)]
 mod tests {
+    use crate::prelude::*;
+    use crate::MemoryInputStream;
     use glib::Bytes;
-    use *;
 
     #[test]
     fn new() {
