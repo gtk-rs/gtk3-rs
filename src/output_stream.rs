@@ -16,6 +16,8 @@ use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use OutputStream;
+use Seekable;
+use SeekableExt;
 
 pub trait OutputStreamExtManual: Sized + OutputStreamExt {
     fn write_async<
@@ -301,6 +303,21 @@ impl<T: IsA<OutputStream>> io::Write for OutputStreamWrite<T> {
 
     fn flush(&mut self) -> io::Result<()> {
         let gio_result = self.0.as_ref().flush(::NONE_CANCELLABLE);
+        to_std_io_result(gio_result)
+    }
+}
+
+impl<T: IsA<OutputStream> + IsA<Seekable>> io::Seek for OutputStreamWrite<T> {
+    fn seek(&mut self, pos: io::SeekFrom) -> io::Result<u64> {
+        let (pos, type_) = match pos {
+            io::SeekFrom::Start(pos) => (pos as i64, glib::SeekType::Set),
+            io::SeekFrom::End(pos) => (pos, glib::SeekType::End),
+            io::SeekFrom::Current(pos) => (pos, glib::SeekType::Cur),
+        };
+        let seekable: &Seekable = self.0.as_ref();
+        let gio_result = seekable
+            .seek(pos, type_, ::NONE_CANCELLABLE)
+            .map(|_| seekable.tell() as u64);
         to_std_io_result(gio_result)
     }
 }
