@@ -16,12 +16,8 @@ extern crate glib;
 extern crate bitflags;
 extern crate libc;
 
-pub use glib::Error;
-
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
 #[cfg_attr(feature = "cargo-clippy", allow(useless_transmute))]
 mod auto;
-pub use auto::*;
 
 mod font_map;
-pub use font_map::*;
