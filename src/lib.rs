@@ -37,7 +37,6 @@ mod auto;
 pub mod prelude;
 
 pub use auto::*;
-pub use prelude::*;
 
 mod box_;
 mod euler;
