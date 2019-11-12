@@ -56,14 +56,13 @@ fn clone_closure() {
 
 #[test]
 fn clone_default_value() {
-    let closure =
-        {
-            let state = Rc::new(RefCell::new(State::new()));
-            clone!(@weak state => @default-return 42, move |_| {
-                state.borrow_mut().started = true;
-                10
-            })
-        };
+    let closure = {
+        let state = Rc::new(RefCell::new(State::new()));
+        clone!(@weak state => @default-return 42, move |_| {
+            state.borrow_mut().started = true;
+            10
+        })
+    };
 
     assert_eq!(42, closure(50));
 }
@@ -73,15 +72,14 @@ fn clone_panic() {
     let state = Arc::new(Mutex::new(State::new()));
     state.lock().unwrap().count = 20;
 
-    let closure =
-        {
-            let state2 = Arc::new(Mutex::new(State::new()));
-            clone!(@weak state2, state => @default-return panic!(), move |_| {
-                state.lock().unwrap().count = 21;
-                state2.lock().unwrap().started = true;
-                10
-            })
-        };
+    let closure = {
+        let state2 = Arc::new(Mutex::new(State::new()));
+        clone!(@weak state2, state => @default-return panic!(), move |_| {
+            state.lock().unwrap().count = 21;
+            state2.lock().unwrap().started = true;
+            10
+        })
+    };
 
     let result = panic::catch_unwind(|| {
         closure(50);
