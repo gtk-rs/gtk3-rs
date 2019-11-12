@@ -45,9 +45,16 @@ impl<T> Upgrade for rc::Weak<T> {
     }
 }
 
+#[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_before {
     (_) => ();
+    (self) => (
+        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
+    );
+    (@weak self) => (
+        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
+    );
     ($variable:ident) => (
         let $variable = $variable.clone();
     );
@@ -56,9 +63,12 @@ macro_rules! to_type_before {
     );
 }
 
+#[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_after {
     (_ , $return_value:expr) => ();
+    (self, $return_value:expr) => ();
+    (@weak self, $return_value:expr) => ();
     ($variable:ident , $return_value:expr) => ();
     (@weak $variable:ident , $return_value:expr) => (
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
@@ -68,6 +78,7 @@ macro_rules! to_type_after {
     );
 }
 
+#[doc(hidden)]
 #[macro_export]
 macro_rules! to_return_value {
     () => (());
