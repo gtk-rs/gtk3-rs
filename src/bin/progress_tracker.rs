@@ -109,7 +109,7 @@ impl Application {
                             widgets
                                 .view_stack
                                 .set_visible_child(&widgets.main_view.container);
-                            gtk::Continue(false)
+                            glib::Continue(false)
                         });
                     }
 

@@ -36,8 +36,8 @@ fn build_ui(application: &gtk::Application) {
     let tick = move || {
         let time = current_time();
         label.set_text(&time);
-        // we could return gtk::Continue(false) to stop our clock after this tick
-        gtk::Continue(true)
+        // we could return glib::Continue(false) to stop our clock after this tick
+        glib::Continue(true)
     };
 
     // executes the closure once every second

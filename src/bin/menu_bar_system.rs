@@ -8,7 +8,7 @@ extern crate gtk;
 
 use gio::prelude::*;
 use gtk::prelude::*;
-use gtk::{AboutDialog, ToVariant};
+use gtk::AboutDialog;
 
 use std::env::args;
 
