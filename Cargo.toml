@@ -43,6 +43,10 @@ git = "https://github.com/gtk-rs/gtk"
 [dependencies.pangocairo]
 git = "https://github.com/gtk-rs/pangocairo"
 
+[dependencies.async-tls]
+version = "0.6"
+optional = true
+
 [features]
 #default = ["gtk_3_22_30"]
 gtk_3_18 = ["gtk/v3_18", "gdk-pixbuf/v2_32", "gdk/v3_18", "gio/v2_46", "glib/v2_46", "pango/v1_38"] #for CI tools
@@ -159,3 +163,8 @@ name = "entry_completion"
 
 [[bin]]
 name = "printing"
+
+[[bin]]
+name = "gio_async_tls"
+required-features = ["async-tls"]
+edition = "2018"
