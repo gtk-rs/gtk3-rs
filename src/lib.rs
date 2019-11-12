@@ -25,6 +25,7 @@ extern crate libc;
 
 extern crate futures_channel;
 extern crate futures_core;
+extern crate futures_io;
 extern crate futures_util;
 
 mod application;
@@ -39,13 +40,17 @@ mod file_enumerator;
 mod flags;
 mod inet_address;
 mod input_stream;
+pub use input_stream::InputStreamRead;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 mod list_store;
 mod memory_input_stream;
 mod memory_output_stream;
 mod output_stream;
+pub use output_stream::OutputStreamWrite;
 mod pollable_input_stream;
+pub use pollable_input_stream::InputStreamAsyncRead;
 mod pollable_output_stream;
+pub use pollable_output_stream::OutputStreamAsyncWrite;
 mod resource;
 mod settings;
 mod socket;

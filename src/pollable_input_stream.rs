@@ -3,16 +3,20 @@
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
 use fragile::Fragile;
+use futures_core::task::{Context, Poll};
+use futures_io::AsyncRead;
 use gio_sys;
 use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib_sys;
 use std::cell::RefCell;
+use std::io;
 use std::mem::transmute;
 use std::ptr;
 use Cancellable;
 use PollableInputStream;
+use PollableInputStreamExt;
 
 use futures_core::stream::Stream;
 use std::pin::Pin;
@@ -46,6 +50,17 @@ pub trait PollableInputStreamExtManual: Sized {
         buffer: &mut [u8],
         cancellable: Option<&C>,
     ) -> Result<isize, glib::Error>;
+
+    fn into_async_read(self) -> Result<InputStreamAsyncRead<Self>, Self>
+    where
+        Self: IsA<PollableInputStream>,
+    {
+        if self.can_poll() {
+            Ok(InputStreamAsyncRead(self))
+        } else {
+            Err(self)
+        }
+    }
 }
 
 impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
@@ -162,6 +177,57 @@ impl<O: IsA<PollableInputStream>> PollableInputStreamExtManual for O {
                     }
                 })
         }))
+    }
+}
+
+#[derive(Debug)]
+pub struct InputStreamAsyncRead<T: IsA<PollableInputStream>>(T);
+
+impl<T: IsA<PollableInputStream>> InputStreamAsyncRead<T> {
+    pub fn into_input_stream(self) -> T {
+        self.0
+    }
+
+    pub fn input_stream(&self) -> &T {
+        &self.0
+    }
+}
+
+impl<T: IsA<PollableInputStream>> AsyncRead for InputStreamAsyncRead<T> {
+    fn poll_read(
+        self: Pin<&mut Self>,
+        cx: &mut Context,
+        buf: &mut [u8],
+    ) -> Poll<io::Result<usize>> {
+        let stream = Pin::get_ref(self.as_ref());
+        let gio_result = stream.0.as_ref().read_nonblocking(buf, ::NONE_CANCELLABLE);
+
+        match gio_result {
+            Ok(size) => Poll::Ready(Ok(size as usize)),
+            Err(err) => {
+                let kind = err.kind::<crate::IOErrorEnum>().unwrap();
+                if kind == crate::IOErrorEnum::WouldBlock {
+                    let mut waker = Some(cx.waker().clone());
+                    let source = stream.0.as_ref().create_source(
+                        ::NONE_CANCELLABLE,
+                        None,
+                        glib::PRIORITY_DEFAULT,
+                        move |_| {
+                            if let Some(waker) = waker.take() {
+                                waker.wake();
+                            }
+                            glib::Continue(false)
+                        },
+                    );
+                    let main_context = glib::MainContext::ref_thread_default();
+                    source.attach(Some(&main_context));
+
+                    Poll::Pending
+                } else {
+                    Poll::Ready(Err(io::Error::new(io::ErrorKind::from(kind), err)))
+                }
+            }
+        }
     }
 }
 

@@ -2,17 +2,25 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use error::to_std_io_result;
 use fragile::Fragile;
+use futures_channel::oneshot;
+use futures_core::task::{Context, Poll};
+use futures_core::Future;
+use futures_io::AsyncWrite;
 use gio_sys;
 use glib;
 use glib::object::{Cast, IsA};
 use glib::translate::*;
 use glib_sys;
 use std::cell::RefCell;
+use std::io;
 use std::mem::transmute;
 use std::pin::Pin;
 use Cancellable;
+use OutputStreamExt;
 use PollableOutputStream;
+use PollableOutputStreamExt;
 
 use futures_core::stream::Stream;
 
@@ -39,6 +47,17 @@ pub trait PollableOutputStreamExtManual {
         cancellable: Option<&C>,
         priority: glib::Priority,
     ) -> Pin<Box<dyn Stream<Item = ()> + 'static>>;
+
+    fn into_async_write(self) -> Result<OutputStreamAsyncWrite<Self>, Self>
+    where
+        Self: IsA<PollableOutputStream>,
+    {
+        if self.can_poll() {
+            Ok(OutputStreamAsyncWrite(self, None))
+        } else {
+            Err(self)
+        }
+    }
 }
 
 impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
@@ -131,6 +150,118 @@ impl<O: IsA<PollableOutputStream>> PollableOutputStreamExtManual for O {
                     }
                 })
         }))
+    }
+}
+
+#[derive(Debug)]
+pub struct OutputStreamAsyncWrite<T: IsA<PollableOutputStream>>(
+    T,
+    Option<oneshot::Receiver<Result<(), glib::Error>>>,
+);
+
+impl<T: IsA<PollableOutputStream>> OutputStreamAsyncWrite<T> {
+    pub fn into_input_stream(self) -> T {
+        self.0
+    }
+
+    pub fn input_stream(&self) -> &T {
+        &self.0
+    }
+}
+
+impl<T: IsA<PollableOutputStream>> AsyncWrite for OutputStreamAsyncWrite<T> {
+    fn poll_write(self: Pin<&mut Self>, cx: &mut Context, buf: &[u8]) -> Poll<io::Result<usize>> {
+        let stream = Pin::get_ref(self.as_ref());
+        let gio_result = stream.0.as_ref().write_nonblocking(buf, ::NONE_CANCELLABLE);
+
+        match gio_result {
+            Ok(size) => Poll::Ready(Ok(size as usize)),
+            Err(err) => {
+                let kind = err.kind::<crate::IOErrorEnum>().unwrap();
+                if kind == crate::IOErrorEnum::WouldBlock {
+                    let mut waker = Some(cx.waker().clone());
+                    let source = stream.0.as_ref().create_source(
+                        ::NONE_CANCELLABLE,
+                        None,
+                        glib::PRIORITY_DEFAULT,
+                        move |_| {
+                            if let Some(waker) = waker.take() {
+                                waker.wake();
+                            }
+                            glib::Continue(false)
+                        },
+                    );
+                    let main_context = glib::MainContext::ref_thread_default();
+                    source.attach(Some(&main_context));
+
+                    Poll::Pending
+                } else {
+                    Poll::Ready(Err(io::Error::new(io::ErrorKind::from(kind), err)))
+                }
+            }
+        }
+    }
+
+    fn poll_close(self: Pin<&mut Self>, cx: &mut Context) -> Poll<io::Result<()>> {
+        let stream = unsafe { Pin::get_unchecked_mut(self) };
+
+        let rx = if let Some(ref mut rx) = stream.1 {
+            rx
+        } else {
+            let (tx, rx) = oneshot::channel();
+            stream
+                .0
+                .as_ref()
+                .close_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+                    let _ = tx.send(res);
+                });
+
+            stream.1 = Some(rx);
+            stream.1.as_mut().unwrap()
+        };
+
+        match Pin::new(rx).poll(cx) {
+            Poll::Ready(Ok(res)) => {
+                let _ = stream.1.take();
+                Poll::Ready(to_std_io_result(res))
+            }
+            Poll::Ready(Err(_)) => {
+                let _ = stream.1.take();
+                Poll::Ready(Ok(()))
+            }
+            Poll::Pending => Poll::Pending,
+        }
+    }
+
+    fn poll_flush(self: Pin<&mut Self>, cx: &mut Context) -> Poll<io::Result<()>> {
+        let stream = unsafe { Pin::get_unchecked_mut(self) };
+
+        let rx = if let Some(ref mut rx) = stream.1 {
+            rx
+        } else {
+            let (tx, rx) = oneshot::channel();
+            stream
+                .0
+                .as_ref()
+                .flush_async(glib::PRIORITY_DEFAULT, ::NONE_CANCELLABLE, move |res| {
+                    let _ = tx.send(res);
+                });
+
+            stream.1 = Some(rx);
+            stream.1.as_mut().unwrap()
+        };
+
+        match Pin::new(rx).poll(cx) {
+            Poll::Ready(Ok(res)) => {
+                let _ = stream.1.take();
+                Poll::Ready(to_std_io_result(res))
+            }
+            Poll::Ready(Err(_)) => {
+                let _ = stream.1.take();
+                Poll::Ready(Ok(()))
+            }
+            Poll::Pending => Poll::Pending,
+        }
     }
 }
 

@@ -15,6 +15,8 @@ use std::pin::Pin;
 use std::ptr;
 use Cancellable;
 use InputStream;
+use Seekable;
+use SeekableExt;
 
 pub trait InputStreamExtManual: Sized {
     fn read<B: AsMut<[u8]>, C: IsA<Cancellable>>(
@@ -73,7 +75,10 @@ pub trait InputStreamExtManual: Sized {
         io_priority: Priority,
     ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>;
 
-    fn into_read(self) -> InputStreamRead<Self> {
+    fn into_read(self) -> InputStreamRead<Self>
+    where
+        Self: IsA<InputStream>,
+    {
         InputStreamRead(self)
     }
 }
@@ -311,10 +316,10 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
-pub struct InputStreamRead<T: InputStreamExtManual>(T);
+#[derive(Debug)]
+pub struct InputStreamRead<T: IsA<InputStream>>(T);
 
-impl<T: InputStreamExtManual> InputStreamRead<T> {
+impl<T: IsA<InputStream>> InputStreamRead<T> {
     pub fn into_input_stream(self) -> T {
         self.0
     }
@@ -324,9 +329,24 @@ impl<T: InputStreamExtManual> InputStreamRead<T> {
     }
 }
 
-impl<T: InputStreamExtManual> io::Read for InputStreamRead<T> {
+impl<T: IsA<InputStream>> io::Read for InputStreamRead<T> {
     fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
-        let gio_result = self.0.read(buf, ::NONE_CANCELLABLE);
+        let gio_result = self.0.as_ref().read(buf, ::NONE_CANCELLABLE);
+        to_std_io_result(gio_result)
+    }
+}
+
+impl<T: IsA<InputStream> + IsA<Seekable>> io::Seek for InputStreamRead<T> {
+    fn seek(&mut self, pos: io::SeekFrom) -> io::Result<u64> {
+        let (pos, type_) = match pos {
+            io::SeekFrom::Start(pos) => (pos as i64, glib::SeekType::Set),
+            io::SeekFrom::End(pos) => (pos, glib::SeekType::End),
+            io::SeekFrom::Current(pos) => (pos, glib::SeekType::Cur),
+        };
+        let seekable: &Seekable = self.0.as_ref();
+        let gio_result = seekable
+            .seek(pos, type_, ::NONE_CANCELLABLE)
+            .map(|_| seekable.tell() as u64);
         to_std_io_result(gio_result)
     }
 }
