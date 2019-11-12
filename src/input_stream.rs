@@ -316,7 +316,7 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug)]
 pub struct InputStreamRead<T: IsA<InputStream>>(T);
 
 impl<T: IsA<InputStream>> InputStreamRead<T> {

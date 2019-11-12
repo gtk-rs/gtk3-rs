@@ -278,7 +278,7 @@ impl<O: IsA<OutputStream>> OutputStreamExtManual for O {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug)]
 pub struct OutputStreamWrite<T: IsA<OutputStream>>(T);
 
 impl<T: IsA<OutputStream>> OutputStreamWrite<T> {
