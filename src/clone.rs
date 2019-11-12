@@ -1,58 +1,66 @@
 use std::rc::{self, Rc};
 use std::sync::{self, Arc};
 
-/// Trait for generalizing downgrading from a strong reference to a weak reference
+/// Trait for generalizing downgrading a strong reference to a weak reference.
 pub trait Downgrade
 where
     Self: Sized,
 {
-    /// Weak reference type
-    type Target: Upgrade<Target = Self>;
+    /// Weak reference type.
+    type Weak;
 
-    /// Downgrade to a weak reference
-    fn downgrade(&self) -> Self::Target;
+    /// Downgrade to a weak reference.
+    fn downgrade(&self) -> Self::Weak;
 }
 
-impl<T> Downgrade for Arc<T> {
-    type Target = sync::Weak<T>;
-
-    fn downgrade(&self) -> Self::Target {
-        Arc::downgrade(self)
-    }
-}
-
-impl<T> Downgrade for Rc<T> {
-    type Target = rc::Weak<T>;
-
-    fn downgrade(&self) -> Self::Target {
-        Rc::downgrade(self)
-    }
-}
-
-/// Trait for generalizing upgrading of weak references to a strong reference
+/// Trait for generalizing upgrading a weak reference to a strong reference.
 pub trait Upgrade
 where
     Self: Sized,
 {
-    /// Strong reference type
-    type Target: Downgrade<Target = Self>;
+    /// Strong reference type.
+    type Strong;
 
-    /// Try upgrading to a strong reference
-    fn upgrade(&self) -> Option<Self::Target>;
+    /// Try upgrading a weak reference to a strong reference.
+    fn upgrade(&self) -> Option<Self::Strong>;
 }
 
-impl<T> Upgrade for sync::Weak<T> {
-    type Target = Arc<T>;
+impl<T: Downgrade + crate::ObjectType> Upgrade for crate::WeakRef<T> {
+    type Strong = T;
 
-    fn upgrade(&self) -> Option<Self::Target> {
+    fn upgrade(&self) -> Option<Self::Strong> {
         self.upgrade()
     }
 }
 
-impl<T> Upgrade for rc::Weak<T> {
-    type Target = Rc<T>;
+impl<T> Downgrade for Arc<T> {
+    type Weak = sync::Weak<T>;
 
-    fn upgrade(&self) -> Option<Self::Target> {
+    fn downgrade(&self) -> Self::Weak {
+        Arc::downgrade(self)
+    }
+}
+
+impl<T> Upgrade for sync::Weak<T> {
+    type Strong = Arc<T>;
+
+    fn upgrade(&self) -> Option<Self::Strong> {
+        self.upgrade()
+    }
+}
+
+impl<T> Downgrade for Rc<T> {
+    type Weak = rc::Weak<T>;
+
+    fn downgrade(&self) -> Self::Weak {
+        Rc::downgrade(self)
+    }
+}
+
+impl<T> Upgrade for rc::Weak<T> {
+    type Strong = Rc<T>;
+
+    fn upgrade(&self) -> Option<Self::Strong> {
         self.upgrade()
     }
 }
@@ -101,7 +109,7 @@ macro_rules! to_return_value {
     };
 }
 
-/// Macro for passing variables  as strong or weak references into a closure
+/// Macro for passing variables  as strong or weak references into a closure.
 ///
 /// This macro can be useful in combination with closures, e.g. signal handlers, to reduce the
 /// boilerplate required for passing strong or weak references into the closure. It will
@@ -149,7 +157,7 @@ macro_rules! to_return_value {
 ///     true
 /// });
 ///
-/// // Drop value so that the weak reference can't be upgraded
+/// // Drop value so that the weak reference can't be upgraded.
 /// drop(v);
 ///
 /// assert_eq!(closure(2), false);

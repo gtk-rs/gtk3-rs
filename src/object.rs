@@ -392,19 +392,10 @@ macro_rules! glib_weak_impl {
     ($name:ident) => {
         #[doc(hidden)]
         impl $crate::clone::Downgrade for $name {
-            type Target = $crate::object::WeakRef<Self>;
+            type Weak = $crate::object::WeakRef<Self>;
 
-            fn downgrade(&self) -> Self::Target {
+            fn downgrade(&self) -> Self::Weak {
                 <Self as $crate::object::ObjectExt>::downgrade(&self)
-            }
-        }
-
-        #[doc(hidden)]
-        impl $crate::clone::Upgrade for $crate::object::WeakRef<$name> {
-            type Target = $name;
-
-            fn upgrade(&self) -> Option<Self::Target> {
-                self.upgrade()
             }
         }
     };
