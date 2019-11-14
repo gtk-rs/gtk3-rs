@@ -6,6 +6,7 @@ extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{
     AboutDialog, AppChooserDialog, ApplicationWindow, Builder, Button, Dialog, Entry,
@@ -14,38 +15,6 @@ use gtk::{
 };
 
 use std::env::args;
-
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-                move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-                move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
 
 fn about_clicked(button: &Button, dialog: &AboutDialog) {
     if let Some(window) = button
@@ -108,16 +77,10 @@ fn build_ui(application: &gtk::Application) {
     let window: ApplicationWindow = builder.get_object("window").expect("Couldn't get window");
     window.set_application(Some(application));
 
-    let window_weak = window.downgrade();
-
     let button: Button = builder.get_object("button").expect("Couldn't get button");
     let entry: Entry = builder.get_object("entry").expect("Couldn't get entry");
 
-    let entry_weak = entry.downgrade();
-    button.connect_clicked(clone!(window_weak, entry_weak => move |_| {
-        let window = upgrade_weak!(window_weak);
-        let entry = upgrade_weak!(entry_weak);
-
+    button.connect_clicked(clone!(@weak window, @weak entry => move |_| {
         let dialog = Dialog::new_with_buttons(Some("Hello!"),
                                               Some(&window),
                                               gtk::DialogFlags::MODAL,
@@ -135,9 +98,7 @@ fn build_ui(application: &gtk::Application) {
     let button_font: Button = builder
         .get_object("button_font")
         .expect("Couldn't get button_font");
-    button_font.connect_clicked(clone!(window_weak => move |_| {
-            let window = upgrade_weak!(window_weak);
-
+    button_font.connect_clicked(clone!(@weak window => move |_| {
         let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
         dialog.run();
@@ -147,9 +108,7 @@ fn build_ui(application: &gtk::Application) {
     let button_recent: Button = builder
         .get_object("button_recent")
         .expect("Couldn't get button_recent");
-    button_recent.connect_clicked(clone!(window_weak => move |_| {
-        let window = upgrade_weak!(window_weak);
-
+    button_recent.connect_clicked(clone!(@weak window => move |_| {
         let dialog = RecentChooserDialog::new(Some("Recent chooser test"), Some(&window));
         dialog.add_buttons(&[
             ("Ok", ResponseType::Ok),
@@ -163,10 +122,8 @@ fn build_ui(application: &gtk::Application) {
     let file_button: Button = builder
         .get_object("file_button")
         .expect("Couldn't get file_button");
-    file_button.connect_clicked(clone!(window_weak => move |_| {
-        let window = upgrade_weak!(window_weak);
-
-        //entry.set_text("Clicked!");
+    file_button.connect_clicked(clone!(@weak window => move |_| {
+        // entry.set_text("Clicked!");
         let dialog = FileChooserDialog::new(Some("Choose a file"), Some(&window),
                                             FileChooserAction::Open);
         dialog.add_buttons(&[
@@ -185,10 +142,8 @@ fn build_ui(application: &gtk::Application) {
     let app_button: Button = builder
         .get_object("app_button")
         .expect("Couldn't get app_button");
-    app_button.connect_clicked(clone!(window_weak => move |_| {
-        let window = upgrade_weak!(window_weak);
-
-        //entry.set_text("Clicked!");
+    app_button.connect_clicked(clone!(@weak window => move |_| {
+        // entry.set_text("Clicked!");
         let dialog = AppChooserDialog::new_for_content_type(Some(&window),
                                                             gtk::DialogFlags::MODAL,
                                                             "sh");
@@ -198,9 +153,7 @@ fn build_ui(application: &gtk::Application) {
     }));
 
     let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
-    switch.connect_changed_active(clone!(entry_weak => move |switch| {
-        let entry = upgrade_weak!(entry_weak);
-
+    switch.connect_changed_active(clone!(@weak entry => move |switch| {
         if switch.get_active() {
             entry.set_text("Switch On");
         } else {
@@ -214,21 +167,21 @@ fn build_ui(application: &gtk::Application) {
     let dialog: AboutDialog = builder.get_object("dialog").expect("Couldn't get dialog");
     button_about.connect_clicked(move |x| about_clicked(x, &dialog));
 
-    window.connect_key_press_event(clone!(entry_weak => move |_, key| {
-        let entry = upgrade_weak!(entry_weak, Inhibit(false));
+    window.connect_key_press_event(
+        clone!(@weak entry => @default-return Inhibit(false), move |_, key| {
+            let keyval = key.get_keyval();
+            let keystate = key.get_state();
 
-        let keyval = key.get_keyval();
-        let keystate = key.get_state();
+            println!("key pressed: {} / {:?}", keyval, keystate);
+            println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
 
-        println!("key pressed: {} / {:?}", keyval, keystate);
-        println!("text: {}", entry.get_text().expect("Couldn't get text from entry"));
+            if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
+                println!("You pressed Ctrl!");
+            }
 
-        if keystate.intersects(gdk::ModifierType::CONTROL_MASK) {
-            println!("You pressed Ctrl!");
-        }
-
-        Inhibit(false)
-    }));
+            Inhibit(false)
+        }),
+    );
 
     window.show_all();
 }

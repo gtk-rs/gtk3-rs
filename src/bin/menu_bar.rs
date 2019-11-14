@@ -5,9 +5,11 @@
 //! /!\ This is different from the system menu bar (which are preferred) available in `gio::Menu`!
 
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{
     AboutDialog, AccelFlags, AccelGroup, ApplicationWindow, CheckMenuItem, IconSize, Image, Label,
@@ -15,20 +17,6 @@ use gtk::{
 };
 
 use std::env::args;
-
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
 
 fn build_ui(application: &gtk::Application) {
     let window = ApplicationWindow::new(application);
@@ -86,11 +74,9 @@ fn build_ui(application: &gtk::Application) {
     other.set_submenu(Some(&other_menu));
     menu_bar.append(&other);
 
-    let window_weak = window.downgrade();
-    quit.connect_activate(move |_| {
-        let window = upgrade_weak!(window_weak);
+    quit.connect_activate(clone!(@weak window => move |_| {
         window.destroy();
-    });
+    }));
 
     // `Primary` is `Ctrl` on Windows and Linux, and `command` on macOS
     // It isn't available directly through gdk::ModifierType, since it has

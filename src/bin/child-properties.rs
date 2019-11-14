@@ -5,33 +5,17 @@
 #![crate_type = "bin"]
 
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::Orientation::Vertical;
 use gtk::{ApplicationWindow, Button, Label, PackType};
 
 use std::env::args;
 use std::str::FromStr;
-
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
 
 fn build_ui(application: &gtk::Application) {
     let vbox = gtk::Box::new(Vertical, 0);
@@ -51,7 +35,7 @@ fn build_ui(application: &gtk::Application) {
     let minus_button = Button::new_with_label("-");
     vbox.add(&minus_button);
 
-    minus_button.connect_clicked(clone!(counter_label => move |_| {
+    minus_button.connect_clicked(clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
             .and_then(|s| u32::from_str(&s).ok())
             .unwrap_or(0);
@@ -59,7 +43,7 @@ fn build_ui(application: &gtk::Application) {
             counter_label.set_text(&format!("{}", nb - 1));
         }
     }));
-    plus_button.connect_clicked(clone!(counter_label => move |_| {
+    plus_button.connect_clicked(clone!(@weak counter_label => move |_| {
         let nb = counter_label.get_text()
             .and_then(|s| u32::from_str(&s).ok())
             .unwrap_or(0);

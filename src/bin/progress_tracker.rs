@@ -5,6 +5,7 @@ extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 
 use std::cell::{Cell, RefCell};
@@ -12,20 +13,6 @@ use std::env::args;
 use std::rc::Rc;
 use std::thread;
 use std::time::Duration;
-
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
 
 pub fn main() {
     glib::set_program_name(Some("Progress Tracker"));
@@ -70,10 +57,8 @@ impl Application {
     }
 
     fn connect_progress(&self) {
-        let widgets = Rc::downgrade(&self.widgets);
         let active = Rc::new(Cell::new(false));
-        self.widgets.main_view.button.connect_clicked(move |_| {
-            let widgets = upgrade_weak!(widgets);
+        self.widgets.main_view.button.connect_clicked(clone!(@weak self.widgets => move |_| {
             if active.get() {
                 return;
             }
@@ -120,7 +105,7 @@ impl Application {
                     glib::Continue(false)
                 }
             });
-        });
+        }));
     }
 }
 

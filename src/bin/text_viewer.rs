@@ -3,6 +3,7 @@
 //! A simple text file viewer
 
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use std::env::args;
@@ -11,22 +12,9 @@ use std::io::prelude::*;
 use std::io::BufReader;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::Builder;
-
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
 
 pub fn build_ui(application: &gtk::Application) {
     let glade_src = include_str!("text_viewer.glade");
@@ -44,10 +32,7 @@ pub fn build_ui(application: &gtk::Application) {
         .get_object("text_view")
         .expect("Couldn't get text_view");
 
-    let window_weak = window.downgrade();
-    open_button.connect_clicked(move |_| {
-        let window = upgrade_weak!(window_weak);
-
+    open_button.connect_clicked(clone!(@weak window => move |_| {
         // TODO move this to a impl?
         let file_chooser = gtk::FileChooserDialog::new(
             Some("Open File"),
@@ -73,7 +58,7 @@ pub fn build_ui(application: &gtk::Application) {
         }
 
         file_chooser.destroy();
-    });
+    }));
 
     window.show_all();
 }

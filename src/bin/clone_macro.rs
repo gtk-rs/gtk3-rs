@@ -6,13 +6,8 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 use gio::prelude::*;
-use gtk::{
-    Application,
-    ApplicationWindow,
-    Button,
-    prelude::*,
-};
 use glib::clone;
+use gtk::{prelude::*, Application, ApplicationWindow, Button};
 
 #[derive(Default)]
 struct State {
@@ -30,10 +25,9 @@ impl State {
 }
 
 fn main() {
-    let application = Application::new(
-        Some("com.github.gtk-rs.examples.basic"),
-        Default::default(),
-    ).expect("failed to initialize GTK application");
+    let application =
+        Application::new(Some("com.github.gtk-rs.examples.basic"), Default::default())
+            .expect("failed to initialize GTK application");
 
     let state = Rc::new(RefCell::new(State::new()));
 
