@@ -87,6 +87,9 @@ name = "clipboard_simple"
 name = "clock"
 
 [[bin]]
+name = "clone_macro"
+
+[[bin]]
 name = "css"
 
 [[bin]]
