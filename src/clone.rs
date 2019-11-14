@@ -155,6 +155,10 @@ macro_rules! to_return_value {
 ///
 /// ### Providing a default return value if upgrading a weak reference fails
 ///
+/// You can do it in two different ways:
+///
+/// Either by providing the value yourself using `@default-return`:
+///
 /// ```
 /// use glib::clone;
 /// use std::rc::Rc;
@@ -169,6 +173,20 @@ macro_rules! to_return_value {
 /// drop(v);
 ///
 /// assert_eq!(closure(2), false);
+/// ```
+///
+/// Or by using `@default-panic` (if the value fails to get upgraded, it'll panic):
+///
+/// ```run_fail
+/// # use glib::clone;
+/// # use std::rc::Rc;
+/// # let v = Rc::new(1);
+/// let closure = clone!(@weak v => @default-panic, move |x| {
+///     println!("v: {}, x: {}", v, x);
+///     true
+/// });
+/// # drop(v);
+/// # assert_eq!(closure(2), false);
 /// ```
 ///
 /// ### Errors
@@ -206,6 +224,16 @@ macro_rules! to_return_value {
 /// ```
 #[macro_export]
 macro_rules! clone {
+    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-panic,)? move || $body:block ) => (
+        {
+            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            move || {
+                let return_value = || $crate::to_return_value!(panic!("Failed to upgrade weak reference"));
+                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $body
+            }
+        }
+    );
     ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
@@ -216,7 +244,17 @@ macro_rules! clone {
             }
         }
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr ,)? move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-panic,)? move | $($pattern:pat),* | $body:block ) => (
+        {
+            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            move |$($pattern),*| {
+                let return_value = || $crate::to_return_value!(panic!("Failed to upgrade weak reference"));
+                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $body
+            }
+        }
+    );
+    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move |$($pattern),*| {
