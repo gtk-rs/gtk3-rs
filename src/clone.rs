@@ -75,7 +75,13 @@ macro_rules! to_type_before {
     (@weak self) => (
         compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
     );
+    (@strong self) => (
+        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
+    );
     ($variable:ident) => (
+        compile_error!("You need to specify if this is a weak or a strong clone.");
+    );
+    (@strong $variable:ident) => (
         let $variable = $variable.clone();
     );
     (@weak $variable:ident) => (
@@ -86,16 +92,15 @@ macro_rules! to_type_before {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_after {
-    (_ , $return_value:expr) => {};
-    (self, $return_value:expr) => {};
     (@weak self, $return_value:expr) => {};
-    ($variable:ident , $return_value:expr) => {};
+    (@strong self, $return_value:expr) => {};
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
             None => return ($return_value)(),
         };
     };
+    (@strong $variable:ident , $return_value:expr) => {};
 }
 
 #[doc(hidden)]
@@ -126,7 +131,7 @@ macro_rules! to_return_value {
 /// use std::rc::Rc;
 ///
 /// let v = Rc::new(1);
-/// let closure = clone!(v => move |x| {
+/// let closure = clone!(@strong v => move |x| {
 ///     println!("v: {}, x: {}", v, x);
 /// });
 ///
@@ -141,7 +146,7 @@ macro_rules! to_return_value {
 ///
 /// let v = Rc::new(1);
 /// let u = Rc::new(2);
-/// let closure = clone!(v, @weak u => move |x| {
+/// let closure = clone!(@strong v, @weak u => move |x| {
 ///     println!("v: {}, u: {}, x: {}", v, u, x);
 /// });
 ///
@@ -165,24 +170,58 @@ macro_rules! to_return_value {
 ///
 /// assert_eq!(closure(2), false);
 /// ```
+///
+/// ### Errors
+///
+/// Here is a list of errors you might encounter:
+///
+/// **Missing `@weak` or `@strong`**:
+///
+/// ```compile_fail
+/// # use glib::clone;
+/// # use std::rc::Rc;
+/// let v = Rc::new(1);
+///
+/// let closure = clone!(v => move |x| {
+///     println!("v: {}, x: {}", v, x);
+/// });
+/// ```
+///
+/// **Passing `self` as an argument**:
+///
+/// ```compile_fail
+/// # use glib::clone;
+/// # use std::rc::Rc;
+/// struct Foo;
+///
+/// impl Foo {
+///     fn foo(&self) {
+///         let v = Rc::new(1);
+///
+///         let closure = clone!(self => move |x| {
+///             println!("v: {}, x: {}", v, x);
+///         });
+///     }
+/// }
+/// ```
 #[macro_export]
 macro_rules! clone {
-    ($($(@ $weak:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $weak)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move || {
                 let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
+                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
                 $body
             }
         }
     );
-    ($($(@ $weak:ident)? $variables:ident),+ => $(@default-return $return_value:expr ,)? move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr ,)? move | $($pattern:pat),* | $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $weak)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move |$($pattern),*| {
                 let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(@ $weak)? $variables, return_value );)*
+                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
                 $body
             }
         }
