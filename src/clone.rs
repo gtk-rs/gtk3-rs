@@ -109,7 +109,7 @@ macro_rules! to_return_value {
     };
 }
 
-/// Macro for passing variables  as strong or weak references into a closure.
+/// Macro for passing variables as strong or weak references into a closure.
 ///
 /// This macro can be useful in combination with closures, e.g. signal handlers, to reduce the
 /// boilerplate required for passing strong or weak references into the closure. It will
@@ -119,8 +119,9 @@ macro_rules! to_return_value {
 /// closure is immediately returning an optional default return value. If none is provided, `()` is
 /// returned.
 ///
-///  ### Passing a strong reference
-/// ```rust
+/// ### Passing a strong reference
+///
+/// ```
 /// use glib::clone;
 /// use std::rc::Rc;
 ///
@@ -132,8 +133,9 @@ macro_rules! to_return_value {
 /// closure(2);
 /// ```
 ///
-///  ### Passing a strong and weak reference
-/// ```rust
+/// ### Passing a strong and weak reference
+///
+/// ```
 /// use glib::clone;
 /// use std::rc::Rc;
 ///
@@ -146,8 +148,9 @@ macro_rules! to_return_value {
 /// closure(3);
 /// ```
 ///
-///  ### Providing a default return value if upgrading a weak reference fails
-/// ```rust
+/// ### Providing a default return value if upgrading a weak reference fails
+///
+/// ```
 /// use glib::clone;
 /// use std::rc::Rc;
 ///
