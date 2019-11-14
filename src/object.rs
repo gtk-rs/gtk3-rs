@@ -386,6 +386,21 @@ glib_wrapper! {
     }
 }
 
+#[doc(hidden)]
+#[macro_export]
+macro_rules! glib_weak_impl {
+    ($name:ident) => {
+        #[doc(hidden)]
+        impl $crate::clone::Downgrade for $name {
+            type Weak = $crate::object::WeakRef<Self>;
+
+            fn downgrade(&self) -> Self::Weak {
+                <Self as $crate::object::ObjectExt>::downgrade(&self)
+            }
+        }
+    };
+}
+
 /// ObjectType implementations for Object types. See `glib_wrapper!`.
 #[macro_export]
 macro_rules! glib_object_wrapper {
@@ -740,6 +755,8 @@ macro_rules! glib_object_wrapper {
                 $crate::gobject_sys::g_value_set_object($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as *mut $crate::gobject_sys::GObject)
             }
         }
+
+        $crate::glib_weak_impl!($name);
     };
 
     (@munch_impls $name:ident, ) => { };

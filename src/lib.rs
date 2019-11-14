@@ -118,6 +118,8 @@ pub use variant::{StaticVariantType, ToVariant, Variant};
 pub use variant_type::{VariantTy, VariantType};
 
 #[macro_use]
+pub mod clone;
+#[macro_use]
 pub mod wrapper;
 #[macro_use]
 pub mod boxed;
