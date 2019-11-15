@@ -87,6 +87,10 @@ macro_rules! to_type_before {
     (@weak $variable:ident) => (
         let $variable = $crate::clone::Downgrade::downgrade(&$variable);
     );
+    (@ $keyword:ident $variable:ident) => (
+        compile_error!("Unknown keyword `{}`, only `weak` and `strong` are allowed",
+                       stringify!($keyword));
+    );
 }
 
 #[doc(hidden)]
@@ -223,11 +227,23 @@ macro_rules! to_return_value {
 ///     fn foo(&self) {
 ///         let v = Rc::new(1);
 ///
-///         let closure = clone!(self => move |x| {
+///         let closure = clone!(@strong self => move |x| {
 ///             println!("v: {}, x: {}", v, x);
 ///         });
 ///     }
 /// }
+/// ```
+///
+/// **Using another keyword than `weak` or `strong`**:
+///
+/// ```compile_fail
+/// # use glib::clone;
+/// # use std::rc::Rc;
+/// let v = Rc::new(1);
+///
+/// let closure = clone!(@hello v => move |x| {
+///     println!("v: {}, x: {}", v, x);
+/// });
 /// ```
 #[macro_export]
 macro_rules! clone {
