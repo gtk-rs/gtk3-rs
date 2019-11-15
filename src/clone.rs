@@ -94,6 +94,13 @@ macro_rules! to_type_before {
 macro_rules! to_type_after {
     (@weak self, $return_value:expr) => {};
     (@strong self, $return_value:expr) => {};
+    (@default-panic, @weak $variable:ident) => {
+        let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
+            Some(val) => val,
+            None => panic!("failed to upgrade {}", stringify!($variable)),
+        };
+    };
+    (@default-panic, @strong $variable:ident) => {};
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
@@ -224,12 +231,11 @@ macro_rules! to_return_value {
 /// ```
 #[macro_export]
 macro_rules! clone {
-    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-panic,)? move || $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move || {
-                let return_value = || $crate::to_return_value!(panic!("Failed to upgrade weak reference"));
-                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables );)*
                 $body
             }
         }
@@ -244,12 +250,11 @@ macro_rules! clone {
             }
         }
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-panic,)? move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move |$($pattern),*| {
-                let return_value = || $crate::to_return_value!(panic!("Failed to upgrade weak reference"));
-                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables, return_value );)*
                 $body
             }
         }
