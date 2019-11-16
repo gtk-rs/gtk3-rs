@@ -33,6 +33,14 @@ impl<T: Downgrade + crate::ObjectType> Upgrade for crate::WeakRef<T> {
     }
 }
 
+impl<T: Downgrade> Downgrade for &T {
+    type Weak = T::Weak;
+
+    fn downgrade(&self) -> Self::Weak {
+        T::downgrade(*self)
+    }
+}
+
 impl<T> Downgrade for Arc<T> {
     type Weak = sync::Weak<T>;
 

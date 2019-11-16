@@ -22,6 +22,21 @@ impl State {
 }
 
 #[test]
+fn clone_and_references() {
+    let state = Rc::new(RefCell::new(State::new()));
+    let ref_state = &state;
+    assert_eq!(ref_state.borrow().started, false);
+
+    let closure = {
+        clone!(@weak ref_state => move || {
+            ref_state.borrow_mut().started = true;
+        })
+    };
+
+    assert_eq!(closure(), ());
+}
+
+#[test]
 fn clone_closure() {
     let state = Rc::new(RefCell::new(State::new()));
     assert_eq!(state.borrow().started, false);
