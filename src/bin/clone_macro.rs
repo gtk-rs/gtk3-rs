@@ -34,7 +34,7 @@ fn main() {
     {
         let state2 = Rc::new(RefCell::new(State::new()));
 
-        application.connect_activate(clone!(@weak state, state2 => move |app| {
+        application.connect_activate(clone!(@weak state, @weak state2 => move |app| {
             state.borrow_mut().started = true;
 
             let window = ApplicationWindow::new(app);
@@ -42,7 +42,7 @@ fn main() {
             window.set_default_size(350, 70);
 
             let button = Button::new_with_label("Click me!");
-            button.connect_clicked(clone!(@weak state, state2 => move |_| {
+            button.connect_clicked(clone!(@weak state, @weak state2 => move |_| {
                 let mut state = state.borrow_mut();
                 let mut state2 = state2.borrow_mut();
                 println!("Clicked (started: {}): {} - {}!", state.started, state.count, state2.count);

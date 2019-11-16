@@ -171,7 +171,7 @@ fn build_ui(application: &gtk::Application) {
         let delay = Duration::from_millis((100 << thread_num) - 5);
 
         // Spawn the worker thread
-        thread::spawn(clone!(ready_tx => move || {
+        thread::spawn(clone!(@strong ready_tx => move || {
             let mut n = 0;
             for mut image in rx.iter() {
                 n = (n + 1) % 0x10000;

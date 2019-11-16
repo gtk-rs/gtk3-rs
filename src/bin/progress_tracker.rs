@@ -58,7 +58,8 @@ impl Application {
 
     fn connect_progress(&self) {
         let active = Rc::new(Cell::new(false));
-        self.widgets.main_view.button.connect_clicked(clone!(@weak self.widgets => move |_| {
+	let widgets = &self.widgets;
+        self.widgets.main_view.button.connect_clicked(clone!(@weak widgets => move |_| {
             if active.get() {
                 return;
             }

@@ -47,7 +47,7 @@ fn build_ui(application: &gtk::Application) {
     // The gtk::ListBoxRow can contain any possible widgets.
     let listbox = gtk::ListBox::new();
     listbox.bind_model(Some(&model),
-        clone!(@weak window => @default-return panic!("failed to upgrade"), move |item| {
+        clone!(@weak window => @default-panic, move |item| {
             let box_ = gtk::ListBoxRow::new();
             let item = item.downcast_ref::<RowData>().expect("Row data is of wrong type");
 
@@ -77,7 +77,7 @@ fn build_ui(application: &gtk::Application) {
         // When the edit button is clicked, a new modal dialog is created for editing
         // the corresponding row
         let edit_button = gtk::Button::new_with_label("Edit");
-        edit_button.connect_clicked(clone!(@weak window, @weak *item => move |_| {
+        edit_button.connect_clicked(clone!(@weak window, @strong item => move |_| {
             let dialog = gtk::Dialog::new_with_buttons(Some("Edit Item"), Some(&window), gtk::DialogFlags::MODAL,
                 &[("Close", ResponseType::Close)]);
             dialog.set_default_response(ResponseType::Close);
