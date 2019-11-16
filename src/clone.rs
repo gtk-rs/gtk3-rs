@@ -232,19 +232,6 @@ macro_rules! to_return_value {
 ///         });
 ///     }
 /// }
-/// ```
-///
-/// **Using another keyword than `weak` or `strong`**:
-///
-/// ```compile_fail
-/// # use glib::clone;
-/// # use std::rc::Rc;
-/// let v = Rc::new(1);
-///
-/// let closure = clone!(@hello v => move |x| {
-///     println!("v: {}, x: {}", v, x);
-/// });
-/// ```
 #[macro_export]
 macro_rules! clone {
     ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move || $body:block ) => (
