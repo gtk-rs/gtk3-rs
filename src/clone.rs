@@ -257,7 +257,7 @@ macro_rules! clone {
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
             move |$($pattern),*| {
-                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables, return_value );)*
+                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables );)*
                 $body
             }
         }
