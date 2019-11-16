@@ -1,25 +1,13 @@
 extern crate gio;
+extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{IconSize, Orientation, ReliefStyle, Widget};
 
 use std::env::args;
-
-// upgrade weak reference or return
-#[macro_export]
-macro_rules! upgrade_weak {
-    ($x:ident, $r:expr) => {{
-        match $x.upgrade() {
-            Some(o) => o,
-            None => return $r,
-        }
-    }};
-    ($x:ident) => {
-        upgrade_weak!($x, ())
-    };
-}
 
 struct Notebook {
     notebook: gtk::Notebook,
@@ -50,14 +38,13 @@ impl Notebook {
 
         let index = self.notebook.append_page(&widget, Some(&tab));
 
-        let notebook_weak = self.notebook.downgrade();
-        button.connect_clicked(move |_| {
-            let notebook = upgrade_weak!(notebook_weak);
+        let notebook = &self.notebook;
+        button.connect_clicked(clone!(@weak notebook => move |_| {
             let index = notebook
                 .page_num(&widget)
                 .expect("Couldn't get page_num from notebook");
             notebook.remove_page(Some(index));
-        });
+        }));
 
         self.tabs.push(tab);
 

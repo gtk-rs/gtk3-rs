@@ -11,24 +11,6 @@ use std::env::args;
 use gio::prelude::*;
 use gtk::prelude::*;
 
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
-
 struct Ui {
     pub button_a1: gtk::ToggleButton,
     pub button_a2: gtk::ToggleButton,
@@ -46,10 +28,10 @@ fn build_ui(application: &gtk::Application) {
 
     // Create the whole window
     window.set_title("gtk::Clipboard Simple Example");
-    window.connect_delete_event(clone!(window => move |_, _| {
+    window.connect_delete_event(|window, _| {
         window.destroy();
         Inhibit(false)
-    }));
+    });
 
     // Create the button grid
     let grid = gtk::Grid::new();

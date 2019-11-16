@@ -9,6 +9,7 @@ extern crate gtk;
 
 use gdk_pixbuf::Pixbuf;
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 use gtk::{
     ApplicationWindow, ButtonsType, CellRendererPixbuf, CellRendererText, DialogFlags,
@@ -16,24 +17,6 @@ use gtk::{
 };
 
 use std::env::args;
-
-// make moving clones into closures more convenient
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move || $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move || $body
-        }
-    );
-    ($($n:ident),+ => move |$($p:tt),+| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-            move |$(clone!(@param $p),)+| $body
-        }
-    );
-}
 
 fn append_text_column(tree: &TreeView) {
     let column = TreeViewColumn::new();
@@ -94,7 +77,7 @@ fn build_ui(application: &gtk::Application) {
                 );
             }
 
-            gtk::idle_add(clone!(window => move || {
+            gtk::idle_add(clone!(@weak window => @default-return glib::Continue(false), move || {
                 let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                     MessageType::Error, ButtonsType::Ok, &msg);
                 dialog.run();
@@ -122,7 +105,7 @@ fn build_ui(application: &gtk::Application) {
     // selection and path manipulation
 
     let left_selection = left_tree.get_selection();
-    left_selection.connect_changed(clone!(right_tree => move |tree_selection| {
+    left_selection.connect_changed(clone!(@weak right_tree => move |tree_selection| {
         let (left_model, iter) = tree_selection.get_selected().expect("Couldn't get selected");
         let mut path = left_model.get_path(&iter).expect("Couldn't get path");
         // get the top-level element path

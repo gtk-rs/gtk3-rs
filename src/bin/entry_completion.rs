@@ -9,20 +9,10 @@ extern crate glib;
 extern crate gtk;
 
 use gio::prelude::*;
+use glib::clone;
 use gtk::prelude::*;
 
 use std::env::args;
-
-macro_rules! clone {
-    (@param _) => ( _ );
-    (@param $x:ident) => ( $x );
-    ($($n:ident),+ => move |$($p:tt),*| $body:expr) => (
-        {
-            $( let $n = $n.clone(); )+
-                move |$(clone!(@param $p),)*| $body
-        }
-    );
-}
 
 struct Data {
     description: String,
@@ -108,7 +98,7 @@ fn main() {
 
     // When activated, shuts down the application
     let quit = gio::SimpleAction::new("quit", None);
-    quit.connect_activate(clone!(application => move |_action, _parameter| {
+    quit.connect_activate(clone!(@weak application => move |_action, _parameter| {
         application.quit();
     }));
     application.set_accels_for_action("app.quit", &["<Primary>Q"]);
