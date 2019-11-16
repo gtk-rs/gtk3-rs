@@ -9,7 +9,7 @@ path = "../glib-sys"
 
 [dev-dependencies]
 shell-words = "0.1.0"
-tempdir = "0.3"
+tempfile = "3"
 
 [features]
 v2_44 = []
