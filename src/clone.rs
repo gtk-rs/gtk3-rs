@@ -69,15 +69,6 @@ impl<T> Upgrade for rc::Weak<T> {
 #[macro_export]
 macro_rules! to_type_before {
     (_) => ();
-    (self) => (
-        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
-    );
-    (@weak self) => (
-        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
-    );
-    (@strong self) => (
-        compile_error!("Can't use `self` as variable name for the `clone!` macro. Try storing it in a temporary variable.");
-    );
     ($variable:ident) => (
         compile_error!("You need to specify if this is a weak or a strong clone.");
     );
@@ -234,6 +225,9 @@ macro_rules! to_return_value {
 /// }
 #[macro_export]
 macro_rules! clone {
+    ($($(@ $strength:ident)? self),+ => $($_:tt)* ) => (
+        compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable.");
+    );
     ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $variables); )*
@@ -271,5 +265,8 @@ macro_rules! clone {
                 $body
             }
         }
+    );
+    ($($(@ $strength:ident)? $variables:expr),+ => $($_:tt)* ) => (
+        compile_error!("Variables need to be valid identifiers, e.g. field accesses are not allowed");
     );
 }
