@@ -41,7 +41,7 @@ fn clone_closure() {
         let state2 = Rc::new(RefCell::new(State::new()));
         assert_eq!(state.borrow().started, true);
 
-        clone!(@weak state, state2 => move || {
+        clone!(@weak state, @strong state2 => move || {
             state.borrow_mut().count += 1;
             state.borrow_mut().started = true;
             state2.borrow_mut().started = true;
@@ -74,7 +74,7 @@ fn clone_panic() {
 
     let closure = {
         let state2 = Arc::new(Mutex::new(State::new()));
-        clone!(@weak state2, state => @default-return panic!(), move |_| {
+        clone!(@weak state2, @strong state => @default-return panic!(), move |_| {
             state.lock().unwrap().count = 21;
             state2.lock().unwrap().started = true;
             10
