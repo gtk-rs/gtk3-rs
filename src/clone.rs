@@ -88,8 +88,7 @@ macro_rules! to_type_before {
         let $variable = $crate::clone::Downgrade::downgrade(&$variable);
     );
     (@ $keyword:ident $variable:ident) => (
-        compile_error!("Unknown keyword `{}`, only `weak` and `strong` are allowed",
-                       stringify!($keyword));
+        compile_error!("Unknown keyword, only `weak` and `strong` are allowed");
     );
 }
 
@@ -112,6 +111,7 @@ macro_rules! to_type_after {
         };
     };
     (@strong $variable:ident , $return_value:expr) => {};
+    (@ $keyword:ident $variable:ident, $return_value:expr) => {};
 }
 
 #[doc(hidden)]
