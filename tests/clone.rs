@@ -37,6 +37,20 @@ fn clone_and_references() {
 }
 
 #[test]
+fn renaming() {
+    let state = Rc::new(RefCell::new(State::new()));
+    assert_eq!(state.borrow().started, false);
+
+    let closure = {
+        clone!(@weak state as hello => move || {
+            hello.borrow_mut().started = true;
+        })
+    };
+
+    assert_eq!(closure(), ());
+}
+
+#[test]
 fn clone_closure() {
     let state = Rc::new(RefCell::new(State::new()));
     assert_eq!(state.borrow().started, false);

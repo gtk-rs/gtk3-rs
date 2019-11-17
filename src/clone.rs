@@ -76,8 +76,8 @@ impl<T> Upgrade for rc::Weak<T> {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_before {
-    (_) => {};
-    ($variable:ident) => {
+    (_) => ();
+    ($variable:ident $(as $rename:ident)?) => (
         compile_error!("You need to specify if this is a weak or a strong clone.");
     };
     (@strong $variable:ident) => {
@@ -85,8 +85,14 @@ macro_rules! to_type_before {
     };
     (@weak $variable:ident) => {
         let $variable = $crate::clone::Downgrade::downgrade(&$variable);
-    };
-    (@ $keyword:ident $variable:ident) => {
+    );
+    (@strong $variable:ident as $rename:ident) => (
+        let $rename = $variable.clone();
+    );
+    (@weak $variable:ident as $rename:ident) => (
+        let $rename = $crate::clone::Downgrade::downgrade(&$variable);
+    );
+    (@ $keyword:ident $variable:ident $(as $rename:ident)?) => (
         compile_error!("Unknown keyword, only `weak` and `strong` are allowed");
     };
 }
@@ -94,23 +100,35 @@ macro_rules! to_type_before {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_after {
-    (@weak self, $return_value:expr) => {};
-    (@strong self, $return_value:expr) => {};
+    ($(as $rename:ident)? @weak self, $return_value:expr) => {};
+    ($(as $rename:ident)? @strong self, $return_value:expr) => {};
     (@default-panic, @weak $variable:ident) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
             None => panic!("failed to upgrade {}", stringify!($variable)),
         };
     };
-    (@default-panic, @strong $variable:ident) => {};
+    (as $rename:ident @default-panic, @weak $variable:ident) => {
+        let $rename = match $crate::clone::Upgrade::upgrade(&$rename) {
+            Some(val) => val,
+            None => panic!("failed to upgrade {}", stringify!($rename)),
+        };
+    };
+    ($(as $rename:ident)? @default-panic, @strong $variable:ident) => {};
     (@weak $variable:ident , $return_value:expr) => {
         let $variable = match $crate::clone::Upgrade::upgrade(&$variable) {
             Some(val) => val,
             None => return ($return_value)(),
         };
     };
-    (@strong $variable:ident , $return_value:expr) => {};
-    (@ $keyword:ident $variable:ident, $return_value:expr) => {};
+    (as $rename:ident @weak $variable:ident , $return_value:expr) => {
+        let $rename = match $crate::clone::Upgrade::upgrade(&$rename) {
+            Some(val) => val,
+            None => return ($return_value)(),
+        };
+    };
+    ($(as $rename:ident)? @strong $variable:ident , $return_value:expr) => {};
+    ($(as $rename:ident)? @ $keyword:ident $variable:ident, $return_value:expr) => {};
 }
 
 #[doc(hidden)]
@@ -158,6 +176,21 @@ macro_rules! to_return_value {
 /// let u = Rc::new(2);
 /// let closure = clone!(@strong v, @weak u => move |x| {
 ///     println!("v: {}, u: {}, x: {}", v, u, x);
+/// });
+///
+/// closure(3);
+/// ```
+///
+/// ### Renaming variables
+///
+/// ```
+/// use glib::clone;
+/// use std::rc::Rc;
+///
+/// let v = Rc::new(1);
+/// let u = Rc::new(2);
+/// let closure = clone!(@strong v as y, @weak u => move |x| {
+///     println!("v as y: {}, u: {}, x: {}", y, u, x);
 /// });
 ///
 /// closure(3);
@@ -236,40 +269,40 @@ macro_rules! clone {
     ($($(@ $strength:ident)? self),+ => $($_:tt)* ) => (
         compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable.");
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move || $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident $(as $rename:ident)?),+ => @default-panic, move || $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables $(as $rename)?); )*
             move || {
-                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables );)*
+                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength)? $variables);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables $(as $rename)?); )*
             move || {
                 let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $variables, return_value );)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables $(as $rename)?); )*
             move |$($pattern),*| {
-                $( $crate::to_type_after!(@default-panic, $(@ $strength)? $variables );)*
+                $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength)? $variables);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $variables:ident),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $variables:ident $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
         {
-            $( $crate::to_type_before!($(@ $strength)? $variables); )*
+            $( $crate::to_type_before!($(@ $strength)? $variables $(as $rename)?); )*
             move |$($pattern),*| {
                 let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(@ $strength)? $variables, return_value );)*
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $variables, return_value);)*
                 $body
             }
         }
