@@ -29,6 +29,7 @@ macro_rules! glib_shared_wrapper {
 
         #[doc(hidden)]
         impl<'a> $crate::value::FromValueOptional<'a> for $name {
+            #[allow(clippy::missing_safety_doc)]
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
                 $crate::translate::from_glib_full($crate::gobject_sys::g_value_dup_boxed($crate::translate::ToGlibPtr::to_glib_none(value).0) as *mut $ffi_name)
             }
@@ -36,6 +37,7 @@ macro_rules! glib_shared_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValue for $name {
+            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value(value: &mut $crate::Value, this: &Self) {
                 $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(this).0 as $crate::glib_sys::gpointer)
             }
@@ -43,6 +45,7 @@ macro_rules! glib_shared_wrapper {
 
         #[doc(hidden)]
         impl $crate::value::SetValueOptional for $name {
+            #[allow(clippy::missing_safety_doc)]
             unsafe fn set_value_optional(value: &mut $crate::Value, this: Option<&Self>) {
                 $crate::gobject_sys::g_value_set_boxed($crate::translate::ToGlibPtrMut::to_glib_none_mut(value).0, $crate::translate::ToGlibPtr::<*mut $ffi_name>::to_glib_none(&this).0 as $crate::glib_sys::gpointer)
             }

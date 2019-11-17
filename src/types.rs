@@ -221,6 +221,7 @@ impl StaticType for Vec<String> {
 }
 
 #[inline]
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn instance_of<C: StaticType>(ptr: glib_sys::gconstpointer) -> bool {
     from_glib(gobject_sys::g_type_check_instance_is_a(
         ptr as *mut _,

@@ -72,7 +72,7 @@ impl ErrorDomain for FileError {
         }
     }
 
-    #[allow(clippy::cyclomatic_complexity)]
+    #[allow(clippy::cognitive_complexity)]
     fn from(code: i32) -> Option<Self> {
         use self::FileError::*;
         match code {
