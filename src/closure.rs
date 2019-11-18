@@ -10,6 +10,7 @@ use std::slice;
 
 use libc::{c_uint, c_void};
 
+use get_thread_id;
 use gobject_sys;
 use translate::{from_glib_none, mut_override, ToGlibPtr, ToGlibPtrMut, Uninitialized};
 use types::Type;
@@ -33,6 +34,36 @@ glib_wrapper! {
 impl Closure {
     pub fn new<F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static>(callback: F) -> Self {
         unsafe { Closure::new_unsafe(callback) }
+    }
+
+    pub fn new_local<F: Fn(&[Value]) -> Option<Value> + 'static>(callback: F) -> Self {
+        struct Wrapper<F> {
+            thread_id: usize,
+            callback: F,
+        }
+
+        impl<F> Drop for Wrapper<F> {
+            fn drop(&mut self) {
+                if self.thread_id != get_thread_id() {
+                    panic!("Local closure dropped on a different thread than where it was created");
+                }
+            }
+        }
+
+        let wrapper = Wrapper {
+            thread_id: get_thread_id(),
+            callback,
+        };
+
+        unsafe {
+            Closure::new_unsafe(move |values| {
+                if wrapper.thread_id != get_thread_id() {
+                    panic!("Local closure called on a different thread");
+                }
+
+                (wrapper.callback)(values)
+            })
+        }
     }
 
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {
