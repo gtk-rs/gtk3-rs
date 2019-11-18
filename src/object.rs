@@ -1316,31 +1316,11 @@ impl<T: ObjectType> ObjectExt for T {
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + 'static,
     {
-        struct Wrapper<F> {
-            thread_id: usize,
-            callback: F,
-        }
-
-        impl<F> Drop for Wrapper<F> {
-            fn drop(&mut self) {
-                if self.thread_id != get_thread_id() {
-                    panic!("Local signal handler closure dropped on a different thread than where it was created");
-                }
-            }
-        }
-
-        let wrapper = Wrapper {
-            thread_id: get_thread_id(),
-            callback,
-        };
+        let callback = crate::ThreadGuard::new(callback);
 
         unsafe {
             self.connect_unsafe(signal_name, after, move |values| {
-                if wrapper.thread_id != get_thread_id() {
-                    panic!("Local signal handler closure called on a different thread");
-                }
-
-                (wrapper.callback)(values)
+                (callback.get_ref())(values)
             })
         }
     }

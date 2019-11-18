@@ -202,3 +202,43 @@ pub(crate) fn get_thread_id() -> usize {
     thread_local!(static THREAD_ID: usize = next_thread_id());
     THREAD_ID.with(|&x| x)
 }
+
+pub(crate) struct ThreadGuard<T> {
+    thread_id: usize,
+    value: T,
+}
+
+impl<T> ThreadGuard<T> {
+    pub(crate) fn new(value: T) -> Self {
+        Self {
+            thread_id: get_thread_id(),
+            value,
+        }
+    }
+
+    pub(crate) fn get_ref(&self) -> &T {
+        if self.thread_id != get_thread_id() {
+            panic!("Value accessed from different thread than where it was created");
+        }
+
+        &self.value
+    }
+
+    pub(crate) fn get_mut(&mut self) -> &mut T {
+        if self.thread_id != get_thread_id() {
+            panic!("Value accessed from different thread than where it was created");
+        }
+
+        &mut self.value
+    }
+}
+
+impl<T> Drop for ThreadGuard<T> {
+    fn drop(&mut self) {
+        if self.thread_id != get_thread_id() {
+            panic!("Value dropped on a different thread than where it was created");
+        }
+    }
+}
+
+unsafe impl<T> Send for ThreadGuard<T> {}
