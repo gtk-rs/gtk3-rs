@@ -2,9 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use get_thread_id;
 use glib_sys;
-use std::cell::RefCell;
 use std::collections::VecDeque;
 use std::fmt;
 use std::mem;
@@ -17,6 +15,7 @@ use MainContext;
 use Priority;
 use Source;
 use SourceId;
+use ThreadGuard;
 
 enum ChannelSourceState {
     NotAttached,
@@ -215,10 +214,9 @@ impl<T> Channel<T> {
 #[repr(C)]
 struct ChannelSource<T, F: FnMut(T) -> Continue + 'static> {
     source: glib_sys::GSource,
-    thread_id: usize,
     source_funcs: Option<Box<glib_sys::GSourceFuncs>>,
     channel: Option<Channel<T>>,
-    callback: Option<RefCell<F>>,
+    callback: Option<ThreadGuard<F>>,
 }
 
 unsafe extern "C" fn prepare<T>(
@@ -256,12 +254,13 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
 
     glib_sys::g_source_set_ready_time(&mut source.source, -1);
 
-    // Check the thread to ensure we're only ever called from the same thread
-    assert_eq!(
-        get_thread_id(),
-        source.thread_id,
-        "Source dispatched on a different thread than before"
-    );
+    // Get a reference to the callback. This will panic if we're called from a different
+    // thread than where the source was attached to the main context.
+    let callback = source
+        .callback
+        .as_mut()
+        .expect("ChannelSource called before Receiver was attached")
+        .get_mut();
 
     // Now iterate over all items that we currently have in the channel until it is
     // empty again. If all senders are disconnected at some point we remove the GSource
@@ -275,11 +274,7 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
             Err(mpsc::TryRecvError::Empty) => break,
             Err(mpsc::TryRecvError::Disconnected) => return glib_sys::G_SOURCE_REMOVE,
             Ok(item) => {
-                let callback = source
-                    .callback
-                    .as_mut()
-                    .expect("ChannelSource called before Receiver was attached");
-                if (&mut *callback.borrow_mut())(item) == Continue(false) {
+                if callback(item) == Continue(false) {
                     return glib_sys::G_SOURCE_REMOVE;
                 }
             }
@@ -307,8 +302,11 @@ unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
         }
     }
 
-    let _ = source.callback.take();
     let _ = source.source_funcs.take();
+
+    // Take the callback out of the source. This will panic if the value is dropped
+    // from a different thread than where the callback was created
+    let _ = source.callback.take();
 }
 
 /// A `Sender` that can be used to send items to the corresponding main context receiver.
@@ -510,9 +508,8 @@ impl<T> Receiver<T> {
             // Store all our data inside our part of the GSource
             {
                 let source = &mut *source;
-                source.thread_id = get_thread_id();
                 ptr::write(&mut source.channel, Some(channel));
-                ptr::write(&mut source.callback, Some(RefCell::new(func)));
+                ptr::write(&mut source.callback, Some(ThreadGuard::new(func)));
                 ptr::write(&mut source.source_funcs, Some(source_funcs));
             }
 
