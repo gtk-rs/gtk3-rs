@@ -9,7 +9,7 @@ use std::mem;
 use std::ptr;
 use std::sync::mpsc;
 use std::sync::{Arc, Condvar, Mutex};
-use translate::{mut_override, FromGlibPtrFull, FromGlibPtrNone, ToGlib, ToGlibPtr};
+use translate::{mut_override, FromGlibPtrFull, ToGlib};
 use Continue;
 use MainContext;
 use Priority;
@@ -29,6 +29,7 @@ unsafe impl Sync for ChannelSourceState {}
 struct ChannelInner<T> {
     queue: VecDeque<T>,
     source: ChannelSourceState,
+    num_senders: usize,
 }
 
 impl<T> ChannelInner<T> {
@@ -55,18 +56,6 @@ impl<T> ChannelInner<T> {
             }
         }
     }
-
-    fn source(&self) -> Option<Source> {
-        match self.source {
-            // Receiver exists and is not destroyed yet
-            ChannelSourceState::Attached(source)
-                if unsafe { glib_sys::g_source_is_destroyed(source) == glib_sys::GFALSE } =>
-            {
-                Some(unsafe { Source::from_glib_none(source) })
-            }
-            _ => None,
-        }
-    }
 }
 
 struct ChannelBound {
@@ -88,6 +77,7 @@ impl<T> Channel<T> {
             Mutex::new(ChannelInner {
                 queue: VecDeque::new(),
                 source: ChannelSourceState::NotAttached,
+                num_senders: 0,
             }),
             bound.map(|bound| ChannelBound {
                 bound,
@@ -203,7 +193,7 @@ impl<T> Channel<T> {
 
         // If there are no senders left we are disconnected or otherwise empty. That's the case if
         // the only remaining strong reference is the one of the receiver
-        if Arc::strong_count(&self.0) == 1 {
+        if inner.num_senders == 0 {
             Err(mpsc::TryRecvError::Disconnected)
         } else {
             Err(mpsc::TryRecvError::Empty)
@@ -326,11 +316,21 @@ impl<T> fmt::Debug for Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Sender<T> {
-        Sender(self.0.clone())
+        Sender::new(self.0.as_ref())
     }
 }
 
 impl<T> Sender<T> {
+    fn new(channel: Option<&Channel<T>>) -> Self {
+        if let Some(channel) = channel {
+            let mut inner = (channel.0).0.lock().unwrap();
+            inner.num_senders += 1;
+            Sender(Some(channel.clone()))
+        } else {
+            Sender(None)
+        }
+    }
+
     /// Sends a value to the channel.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
         self.0.as_ref().expect("Sender with no channel").send(t)
@@ -339,25 +339,13 @@ impl<T> Sender<T> {
 
 impl<T> Drop for Sender<T> {
     fn drop(&mut self) {
-        unsafe {
-            // Wake up the receiver after dropping our own reference to ensure
-            // that after the last sender is dropped the receiver will see a strong
-            // reference count of exactly 1 by itself.
-            let channel = self.0.take().expect("Sender with no channel");
-
-            let source = {
-                let inner = (channel.0).0.lock().unwrap();
-
-                // Get a strong reference to the source
-                match inner.source() {
-                    None => return,
-                    Some(source) => source,
-                }
-            };
-
-            // Drop the channel and wake up the source/receiver
-            drop(channel);
-            glib_sys::g_source_set_ready_time(source.to_glib_none().0, 0);
+        // Decrease the number of senders and wake up the channel if this
+        // was the last sender that was dropped.
+        let channel = self.0.take().expect("Sender with no channel");
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders -= 1;
+        if inner.num_senders == 0 {
+            inner.set_ready_time(0);
         }
     }
 }
@@ -379,11 +367,21 @@ impl<T> fmt::Debug for SyncSender<T> {
 
 impl<T> Clone for SyncSender<T> {
     fn clone(&self) -> SyncSender<T> {
-        SyncSender(self.0.clone())
+        SyncSender::new(self.0.as_ref())
     }
 }
 
 impl<T> SyncSender<T> {
+    fn new(channel: Option<&Channel<T>>) -> Self {
+        if let Some(channel) = channel {
+            let mut inner = (channel.0).0.lock().unwrap();
+            inner.num_senders += 1;
+            SyncSender(Some(channel.clone()))
+        } else {
+            SyncSender(None)
+        }
+    }
+
     /// Sends a value to the channel and blocks if the channel is full.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
         self.0.as_ref().expect("Sender with no channel").send(t)
@@ -397,25 +395,13 @@ impl<T> SyncSender<T> {
 
 impl<T> Drop for SyncSender<T> {
     fn drop(&mut self) {
-        unsafe {
-            // Wake up the receiver after dropping our own reference to ensure
-            // that after the last sender is dropped the receiver will see a strong
-            // reference count of exactly 1 by itself.
-            let channel = self.0.take().expect("Sender with no channel");
-
-            let source = {
-                let inner = (channel.0).0.lock().unwrap();
-
-                // Get a strong reference to the source
-                match inner.source() {
-                    None => return,
-                    Some(source) => source,
-                }
-            };
-
-            // Drop the channel and wake up the source/receiver
-            drop(channel);
-            glib_sys::g_source_set_ready_time(source.to_glib_none().0, 0);
+        // Decrease the number of senders and wake up the channel if this
+        // was the last sender that was dropped.
+        let channel = self.0.take().expect("Sender with no channel");
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders -= 1;
+        if inner.num_senders == 0 {
+            inner.set_ready_time(0);
         }
     }
 }
@@ -496,7 +482,7 @@ impl<T> Receiver<T> {
                 // We're immediately ready if the queue is not empty or if no sender is left at this point
                 glib_sys::g_source_set_ready_time(
                     mut_override(&source.source),
-                    if !inner.queue.is_empty() || Arc::strong_count(&channel.0) == 1 {
+                    if !inner.queue.is_empty() || inner.num_senders == 0 {
                         0
                     } else {
                         -1
@@ -543,7 +529,7 @@ impl MainContext {
     pub fn channel<T>(priority: Priority) -> (Sender<T>, Receiver<T>) {
         let channel = Channel::new(None);
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = Sender(Some(channel));
+        let sender = Sender::new(Some(&channel));
 
         (sender, receiver)
     }
@@ -565,7 +551,7 @@ impl MainContext {
     pub fn sync_channel<T>(priority: Priority, bound: usize) -> (SyncSender<T>, Receiver<T>) {
         let channel = Channel::new(Some(bound));
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = SyncSender(Some(channel));
+        let sender = SyncSender::new(Some(&channel));
 
         (sender, receiver)
     }
