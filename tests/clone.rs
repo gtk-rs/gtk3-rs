@@ -37,6 +37,41 @@ fn clone_and_references() {
 }
 
 #[test]
+fn subfields_renaming() {
+    struct Foo {
+        v: Rc<usize>,
+    }
+
+    impl Foo {
+        fn foo(&self) {
+            let state = Rc::new(RefCell::new(State::new()));
+
+            let closure = clone!(@strong self.v as v, @weak state as hello => move |_| {
+                println!("v: {}", v);
+                hello.borrow_mut().started = true;
+            });
+            closure(2);
+        }
+    }
+
+    Foo { v: Rc::new(0) }.foo();
+}
+
+#[test]
+fn renaming() {
+    let state = Rc::new(RefCell::new(State::new()));
+    assert_eq!(state.borrow().started, false);
+
+    let closure = {
+        clone!(@weak state as hello => move || {
+            hello.borrow_mut().started = true;
+        })
+    };
+
+    assert_eq!(closure(), ());
+}
+
+#[test]
 fn clone_closure() {
     let state = Rc::new(RefCell::new(State::new()));
     assert_eq!(state.borrow().started, false);
