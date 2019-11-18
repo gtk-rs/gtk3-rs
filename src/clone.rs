@@ -76,19 +76,19 @@ impl<T> Upgrade for rc::Weak<T> {
 #[doc(hidden)]
 #[macro_export]
 macro_rules! to_type_before {
-    (_) => ();
-    ($variable:ident) => (
+    (_) => {};
+    ($variable:ident) => {
         compile_error!("You need to specify if this is a weak or a strong clone.");
-    );
-    (@strong $variable:ident) => (
+    };
+    (@strong $variable:ident) => {
         let $variable = $variable.clone();
-    );
-    (@weak $variable:ident) => (
+    };
+    (@weak $variable:ident) => {
         let $variable = $crate::clone::Downgrade::downgrade(&$variable);
-    );
-    (@ $keyword:ident $variable:ident) => (
+    };
+    (@ $keyword:ident $variable:ident) => {
         compile_error!("Unknown keyword, only `weak` and `strong` are allowed");
-    );
+    };
 }
 
 #[doc(hidden)]
