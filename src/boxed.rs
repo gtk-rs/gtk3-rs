@@ -59,14 +59,12 @@ macro_rules! glib_boxed_wrapper {
             type Storage = &'a $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             fn to_glib_none(&'a self) -> $crate::translate::Stash<'a, *const $ffi_name, Self> {
                 let stash = $crate::translate::ToGlibPtr::to_glib_none(&self.0);
                 $crate::translate::Stash(stash.0, stash.1)
             }
 
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             fn to_glib_full(&self) -> *const $ffi_name {
                 $crate::translate::ToGlibPtr::to_glib_full(&self.0)
             }
@@ -77,7 +75,6 @@ macro_rules! glib_boxed_wrapper {
             type Storage = &'a mut $crate::boxed::Boxed<$ffi_name, MemoryManager>;
 
             #[inline]
-            #[allow(clippy::missing_safety_doc)]
             fn to_glib_none_mut(&'a mut self) -> $crate::translate::StashMut<'a, *mut $ffi_name, Self> {
                 let stash = $crate::translate::ToGlibPtrMut::to_glib_none_mut(&mut self.0);
                 $crate::translate::StashMut(stash.0, stash.1)
