@@ -209,31 +209,6 @@ struct ChannelSource<T, F: FnMut(T) -> Continue + 'static> {
     callback: Option<ThreadGuard<F>>,
 }
 
-unsafe extern "C" fn prepare<T>(
-    source: *mut glib_sys::GSource,
-    timeout: *mut i32,
-) -> glib_sys::gboolean {
-    *timeout = -1;
-
-    // We're always ready when the ready time was set to 0. There
-    // will be at least one item or the senders are disconnected now
-    if glib_sys::g_source_get_ready_time(source) == 0 {
-        glib_sys::GTRUE
-    } else {
-        glib_sys::GFALSE
-    }
-}
-
-unsafe extern "C" fn check<T>(source: *mut glib_sys::GSource) -> glib_sys::gboolean {
-    // We're always ready when the ready time was set to 0. There
-    // will be at least one item or the senders are disconnected now
-    if glib_sys::g_source_get_ready_time(source) == 0 {
-        glib_sys::GTRUE
-    } else {
-        glib_sys::GFALSE
-    }
-}
-
 unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     source: *mut glib_sys::GSource,
     callback: glib_sys::GSourceFunc,
@@ -242,6 +217,8 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     let source = &mut *(source as *mut ChannelSource<T, F>);
     assert!(callback.is_none());
 
+    // Set ready-time to -1 so that we won't get called again before a new item is added
+    // to the channel queue.
     glib_sys::g_source_set_ready_time(&mut source.source, -1);
 
     // Get a reference to the callback. This will panic if we're called from a different
@@ -458,8 +435,8 @@ impl<T> Receiver<T> {
             let channel = self.0.take().expect("Receiver without channel");
 
             let source_funcs = Box::new(glib_sys::GSourceFuncs {
-                check: Some(check::<T>),
-                prepare: Some(prepare::<T>),
+                check: None,
+                prepare: None,
                 dispatch: Some(dispatch::<T, F>),
                 finalize: Some(finalize::<T, F>),
                 closure_callback: None,
