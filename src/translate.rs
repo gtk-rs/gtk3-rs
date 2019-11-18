@@ -124,6 +124,7 @@ pub trait Uninitialized {
 
 /// Returns an uninitialized value.
 #[inline]
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn uninitialized<T: Uninitialized>() -> T {
     T::uninitialized()
 }
@@ -913,7 +914,7 @@ impl<'a, P: Ptr, T: ToGlibContainerFromSlice<'a, P>> ToGlibPtr<'a, P> for [T] {
 
 #[allow(clippy::implicit_hasher)]
 impl<'a> ToGlibPtr<'a, *mut glib_sys::GHashTable> for HashMap<String, String> {
-    type Storage = (HashTable);
+    type Storage = HashTable;
 
     #[inline]
     fn to_glib_none(&self) -> Stash<'a, *mut glib_sys::GHashTable, Self> {
@@ -1126,18 +1127,21 @@ pub trait FromGlibPtrBorrow<P: Ptr>: Sized {
 
 /// Translate from a pointer type, transfer: none.
 #[inline]
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_none<P: Ptr, T: FromGlibPtrNone<P>>(ptr: P) -> T {
     FromGlibPtrNone::from_glib_none(ptr)
 }
 
 /// Translate from a pointer type, transfer: full (assume ownership).
 #[inline]
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_full<P: Ptr, T: FromGlibPtrFull<P>>(ptr: P) -> T {
     FromGlibPtrFull::from_glib_full(ptr)
 }
 
 /// Translate from a pointer type, borrowing the pointer.
 #[inline]
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn from_glib_borrow<P: Ptr, T: FromGlibPtrBorrow<P>>(ptr: P) -> T {
     FromGlibPtrBorrow::from_glib_borrow(ptr)
 }
@@ -1357,6 +1361,7 @@ pub trait FromGlibPtrContainer<P: Ptr, PP: Ptr>: FromGlibContainer<P, PP> + Size
     unsafe fn from_glib_full(ptr: PP) -> Self;
 }
 
+#[allow(clippy::missing_safety_doc)]
 pub unsafe fn c_ptr_array_len<P: Ptr>(mut ptr: *const P) -> usize {
     let mut len = 0;
 

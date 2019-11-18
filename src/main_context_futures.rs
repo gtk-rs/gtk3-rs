@@ -212,7 +212,7 @@ impl TaskSource {
 
             // Clone that we store in the task local data so that
             // it can be retrieved as needed
-            let res = executor.with_thread_default(|| {
+            executor.with_thread_default(|| {
                 let enter = futures_executor::enter().unwrap();
                 let mut context = Context::from_waker(&waker);
 
@@ -221,9 +221,7 @@ impl TaskSource {
                 drop(enter);
 
                 res
-            });
-
-            res
+            })
         } else {
             Poll::Ready(())
         }
@@ -314,7 +312,7 @@ impl MainContext {
 
             // Super-unsafe: We transmute here to get rid of the 'static lifetime
             let f = LocalFutureObj::new(Box::new(f));
-            let f: (LocalFutureObj<'static, ()>) = mem::transmute(f);
+            let f: LocalFutureObj<'static, ()> = mem::transmute(f);
 
             // And ensure that we are only ever running on this very thread.
             let f = f.into_future_obj();
