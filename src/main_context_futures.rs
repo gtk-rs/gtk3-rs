@@ -6,12 +6,13 @@ use futures_core::future::Future;
 use futures_core::task::{Context, Poll, RawWaker, RawWakerVTable, Waker};
 use futures_task::{FutureObj, LocalFutureObj, LocalSpawn, Spawn, SpawnError};
 use futures_util::future::FutureExt;
-use get_thread_id;
 use glib_sys;
 use std::mem;
+use std::pin;
 use std::ptr;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use translate::{from_glib_full, from_glib_none, mut_override, ToGlib};
+use ThreadGuard;
 
 use MainContext;
 use MainLoop;
@@ -24,12 +25,30 @@ const NOT_READY: usize = 1;
 const READY: usize = 2;
 const DONE: usize = 3;
 
+// Wrapper around Send Futures and non-Send Futures that will panic
+// if the non-Send Future is polled/dropped from a different thread
+// than where this was created.
+enum FutureWrapper {
+    Send(FutureObj<'static, ()>),
+    NonSend(ThreadGuard<LocalFutureObj<'static, ()>>),
+}
+
+impl Future for FutureWrapper {
+    type Output = ();
+
+    fn poll(self: pin::Pin<&mut Self>, ctx: &mut Context) -> Poll<()> {
+        match self.get_mut() {
+            FutureWrapper::Send(fut) => fut.poll_unpin(ctx),
+            FutureWrapper::NonSend(fut) => fut.get_mut().poll_unpin(ctx),
+        }
+    }
+}
+
 #[allow(clippy::type_complexity)]
 #[repr(C)]
 struct TaskSource {
     source: glib_sys::GSource,
-    future: Option<FutureObj<'static, ()>>,
-    thread: Option<usize>,
+    future: Option<FutureWrapper>,
     state: AtomicUsize,
 }
 
@@ -143,6 +162,9 @@ unsafe extern "C" fn dispatch(
 
 unsafe extern "C" fn finalize(source: *mut glib_sys::GSource) {
     let source = source as *mut TaskSource;
+
+    // This will panic if the future was a local future and is dropped from
+    // a different thread than where it was created
     let _ = (*source).future.take();
 }
 
@@ -160,7 +182,7 @@ unsafe impl Sync for TaskSource {}
 
 impl TaskSource {
     #[allow(clippy::new_ret_no_self)]
-    fn new(priority: Priority, thread: Option<usize>, future: FutureObj<'static, ()>) -> Source {
+    fn new(priority: Priority, future: FutureWrapper) -> Source {
         unsafe {
             let source = glib_sys::g_source_new(
                 mut_override(&SOURCE_FUNCS),
@@ -169,7 +191,6 @@ impl TaskSource {
             {
                 let source = &mut *(source as *mut TaskSource);
                 ptr::write(&mut source.future, Some(future));
-                source.thread = thread;
                 source.state = AtomicUsize::new(INIT);
             }
 
@@ -180,25 +201,6 @@ impl TaskSource {
     }
 
     fn poll(&mut self) -> Poll<()> {
-        // Make sure that the first time we're polled that the current thread is remembered
-        // and from there one we ensure that we're always polled from exactly the same thread.
-        //
-        // In theory a GMainContext can be first run from one thread and later from another
-        // thread, but we allow spawning non-Send futures and must not ever use them from
-        // any other thread.
-        match &mut self.thread {
-            thread @ &mut None => {
-                *thread = Some(get_thread_id());
-            }
-            &mut Some(thread_id) => {
-                assert_eq!(
-                    get_thread_id(),
-                    thread_id,
-                    "Task polled on a different thread than before"
-                );
-            }
-        }
-
         let waker = self.as_waker();
         let source = &self.source as *const _;
         if let Some(ref mut future) = self.future {
@@ -216,6 +218,8 @@ impl TaskSource {
                 let enter = futures_executor::enter().unwrap();
                 let mut context = Context::from_waker(&waker);
 
+                // This will panic if the future was a local future and is called from
+                // a different thread than where it was created
                 let res = future.poll_unpin(&mut context);
 
                 drop(enter);
@@ -258,7 +262,7 @@ impl MainContext {
         f: F,
     ) {
         let f = FutureObj::new(Box::new(f));
-        let source = TaskSource::new(priority, None, f);
+        let source = TaskSource::new(priority, FutureWrapper::Send(f));
         source.attach(Some(&*self));
     }
 
@@ -278,16 +282,9 @@ impl MainContext {
             self.is_owner(),
             "Spawning local futures only allowed on the thread owning the MainContext"
         );
-        unsafe {
-            let f = LocalFutureObj::new(Box::new(f));
-            // We ensure here that we only ever run the future on this very task
-            // and that the futures executor is running on this task. Otherwise
-            // we will panic later.
-            // As such we can add the Send impl here safely
-            let f = f.into_future_obj();
-            let source = TaskSource::new(priority, Some(get_thread_id()), f);
-            source.attach(Some(&*self));
-        }
+        let f = LocalFutureObj::new(Box::new(f));
+        let source = TaskSource::new(priority, FutureWrapper::NonSend(ThreadGuard::new(f)));
+        source.attach(Some(&*self));
     }
 
     /// Runs a new, infallible `Future` on the main context and block until it finished, returning
@@ -314,10 +311,10 @@ impl MainContext {
             let f = LocalFutureObj::new(Box::new(f));
             let f: LocalFutureObj<'static, ()> = mem::transmute(f);
 
-            // And ensure that we are only ever running on this very thread.
-            let f = f.into_future_obj();
-
-            let source = TaskSource::new(::PRIORITY_DEFAULT, Some(get_thread_id()), f);
+            let source = TaskSource::new(
+                ::PRIORITY_DEFAULT,
+                FutureWrapper::NonSend(ThreadGuard::new(f)),
+            );
             source.attach(Some(&*self));
         }
 
@@ -329,7 +326,7 @@ impl MainContext {
 
 impl Spawn for MainContext {
     fn spawn_obj(&self, f: FutureObj<'static, ()>) -> Result<(), SpawnError> {
-        let source = TaskSource::new(::PRIORITY_DEFAULT, None, f);
+        let source = TaskSource::new(::PRIORITY_DEFAULT, FutureWrapper::Send(f));
         source.attach(Some(&*self));
         Ok(())
     }
@@ -337,9 +334,10 @@ impl Spawn for MainContext {
 
 impl LocalSpawn for MainContext {
     fn spawn_local_obj(&self, f: LocalFutureObj<'static, ()>) -> Result<(), SpawnError> {
-        let source = TaskSource::new(::PRIORITY_DEFAULT, Some(get_thread_id()), unsafe {
-            f.into_future_obj()
-        });
+        let source = TaskSource::new(
+            ::PRIORITY_DEFAULT,
+            FutureWrapper::NonSend(ThreadGuard::new(f)),
+        );
         source.attach(Some(&*self));
         Ok(())
     }
