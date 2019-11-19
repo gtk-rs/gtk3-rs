@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
@@ -10,12 +11,14 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::PsLevel;
+use enums::{PsLevel, SurfaceType};
 use ffi;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+
+use Status;
 
 impl PsLevel {
     pub fn as_str(self) -> Option<&'static str> {
@@ -32,6 +35,17 @@ pub struct PsSurface {
     inner: Surface,
 }
 
+impl TryFrom<Surface> for PsSurface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<PsSurface, Surface> {
+        if surface.get_type() == SurfaceType::Ps {
+            Ok(PsSurface { inner: surface })
+        } else {
+            Err(surface)
+        }
+    }
+}
 #[cfg(feature = "use_glib")]
 impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PsSurface {
     type Storage = &'a Surface;
@@ -47,9 +61,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface {
-            inner: from_glib_none(ptr),
-        }
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -57,9 +69,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface {
-            inner: from_glib_borrow(ptr),
-        }
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -67,25 +77,26 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PsSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PsSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        PsSurface {
-            inner: Surface::from_raw_full(ptr),
-        }
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 
 impl PsSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Self {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<PsSurface, Status> {
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
+    }
+
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<PsSurface, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Self {
-                inner: Surface::from_raw_full(ffi::cairo_ps_surface_create(
-                    path.as_ptr(),
-                    width,
-                    height,
-                )),
-            }
+            Self::from_raw_full(ffi::cairo_ps_surface_create(
+                path.as_ptr(),
+                width,
+                height,
+            ))
         }
     }
 
@@ -187,7 +198,7 @@ mod test {
     fn draw_in_buffer() -> Vec<u8> {
         let buffer: Vec<u8> = vec![];
 
-        let surface = PsSurface::for_stream(100., 100., buffer);
+        let surface = PsSurface::for_stream(100., 100., buffer).unwrap();
         draw(&surface);
         *surface.finish_output_stream().unwrap().downcast().unwrap()
     }
@@ -206,7 +217,7 @@ mod test {
     #[test]
     fn eps() {
         let buffer: Vec<u8> = vec![];
-        let surface = PsSurface::for_stream(100., 100., buffer);
+        let surface = PsSurface::for_stream(100., 100., buffer).unwrap();
         surface.set_eps(true);
         assert_eq!(surface.get_eps(), true);
     }
@@ -214,7 +225,7 @@ mod test {
     #[test]
     #[cfg(unix)]
     fn file() {
-        let surface = PsSurface::new(100., 100., "/dev/null");
+        let surface = PsSurface::new(100., 100., "/dev/null").unwrap();
         draw(&surface);
         surface.finish();
     }
@@ -222,7 +233,7 @@ mod test {
     #[test]
     fn writer() {
         let file = tempfile().expect("tempfile failed");
-        let surface = PsSurface::for_stream(100., 100., file);
+        let surface = PsSurface::for_stream(100., 100., file).unwrap();
 
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -236,7 +247,7 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = unsafe { PsSurface::for_raw_stream(100., 100., &mut file) };
+        let surface = unsafe { PsSurface::for_raw_stream(100., 100., &mut file).unwrap() };
 
         draw(&surface);
         surface.finish_output_stream().unwrap();
@@ -267,7 +278,7 @@ mod test {
 
         let custom_writer = CustomWriter(0);
 
-        let surface = PsSurface::for_stream(20., 20., custom_writer);
+        let surface = PsSurface::for_stream(20., 20., custom_writer).unwrap();
         surface.set_size(100., 100.);
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -290,7 +301,7 @@ mod test {
             }
         }
 
-        let surface = PsSurface::for_stream(20., 20., PanicWriter);
+        let surface = PsSurface::for_stream(20., 20., PanicWriter).unwrap();
         surface.finish();
         surface
     }
