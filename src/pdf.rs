@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
@@ -10,7 +11,7 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::{PdfVersion, Status};
+use enums::{PdfVersion, Status, SurfaceType};
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 use enums::{PdfMetadata, PdfOutline};
 use ffi;
@@ -34,15 +35,30 @@ pub struct PdfSurface {
     inner: Surface,
 }
 
+impl TryFrom<Surface> for PdfSurface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<PdfSurface, Surface> {
+        if surface.get_type() == SurfaceType::Pdf {
+            Ok(PdfSurface { inner: surface })
+        } else {
+            Err(surface)
+        }
+    }
+}
+
 impl PdfSurface {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<PdfSurface, Status> {
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
+    }
+
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Ok(Self {
-                inner: Surface::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height))?
-            })
+            Self::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height))
         }
     }
 
@@ -155,9 +171,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface {
-            inner: from_glib_none(ptr),
-        }
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -165,9 +179,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface {
-            inner: from_glib_borrow(ptr),
-        }
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -175,9 +187,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PdfSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        Self {
-            inner: Surface::from_raw_full(ptr).unwrap(),
-        }
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 
