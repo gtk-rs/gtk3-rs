@@ -35,6 +35,12 @@ impl Closure {
         unsafe { Closure::new_unsafe(callback) }
     }
 
+    pub fn new_local<F: Fn(&[Value]) -> Option<Value> + 'static>(callback: F) -> Self {
+        let callback = crate::ThreadGuard::new(callback);
+
+        unsafe { Closure::new_unsafe(move |values| (callback.get_ref())(values)) }
+    }
+
     pub unsafe fn new_unsafe<F: Fn(&[Value]) -> Option<Value>>(callback: F) -> Self {
         unsafe extern "C" fn marshal<F>(
             _closure: *mut gobject_sys::GClosure,

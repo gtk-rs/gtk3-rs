@@ -2,21 +2,20 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use get_thread_id;
 use glib_sys;
-use std::cell::RefCell;
 use std::collections::VecDeque;
 use std::fmt;
 use std::mem;
 use std::ptr;
 use std::sync::mpsc;
 use std::sync::{Arc, Condvar, Mutex};
-use translate::{mut_override, FromGlibPtrFull, FromGlibPtrNone, ToGlib, ToGlibPtr};
+use translate::{mut_override, FromGlibPtrFull, ToGlib};
 use Continue;
 use MainContext;
 use Priority;
 use Source;
 use SourceId;
+use ThreadGuard;
 
 enum ChannelSourceState {
     NotAttached,
@@ -30,6 +29,7 @@ unsafe impl Sync for ChannelSourceState {}
 struct ChannelInner<T> {
     queue: VecDeque<T>,
     source: ChannelSourceState,
+    num_senders: usize,
 }
 
 impl<T> ChannelInner<T> {
@@ -56,18 +56,6 @@ impl<T> ChannelInner<T> {
             }
         }
     }
-
-    fn source(&self) -> Option<Source> {
-        match self.source {
-            // Receiver exists and is not destroyed yet
-            ChannelSourceState::Attached(source)
-                if unsafe { glib_sys::g_source_is_destroyed(source) == glib_sys::GFALSE } =>
-            {
-                Some(unsafe { Source::from_glib_none(source) })
-            }
-            _ => None,
-        }
-    }
 }
 
 struct ChannelBound {
@@ -89,6 +77,7 @@ impl<T> Channel<T> {
             Mutex::new(ChannelInner {
                 queue: VecDeque::new(),
                 source: ChannelSourceState::NotAttached,
+                num_senders: 0,
             }),
             bound.map(|bound| ChannelBound {
                 bound,
@@ -204,7 +193,7 @@ impl<T> Channel<T> {
 
         // If there are no senders left we are disconnected or otherwise empty. That's the case if
         // the only remaining strong reference is the one of the receiver
-        if Arc::strong_count(&self.0) == 1 {
+        if inner.num_senders == 0 {
             Err(mpsc::TryRecvError::Disconnected)
         } else {
             Err(mpsc::TryRecvError::Empty)
@@ -215,35 +204,9 @@ impl<T> Channel<T> {
 #[repr(C)]
 struct ChannelSource<T, F: FnMut(T) -> Continue + 'static> {
     source: glib_sys::GSource,
-    thread_id: usize,
     source_funcs: Option<Box<glib_sys::GSourceFuncs>>,
     channel: Option<Channel<T>>,
-    callback: Option<RefCell<F>>,
-}
-
-unsafe extern "C" fn prepare<T>(
-    source: *mut glib_sys::GSource,
-    timeout: *mut i32,
-) -> glib_sys::gboolean {
-    *timeout = -1;
-
-    // We're always ready when the ready time was set to 0. There
-    // will be at least one item or the senders are disconnected now
-    if glib_sys::g_source_get_ready_time(source) == 0 {
-        glib_sys::GTRUE
-    } else {
-        glib_sys::GFALSE
-    }
-}
-
-unsafe extern "C" fn check<T>(source: *mut glib_sys::GSource) -> glib_sys::gboolean {
-    // We're always ready when the ready time was set to 0. There
-    // will be at least one item or the senders are disconnected now
-    if glib_sys::g_source_get_ready_time(source) == 0 {
-        glib_sys::GTRUE
-    } else {
-        glib_sys::GFALSE
-    }
+    callback: Option<ThreadGuard<F>>,
 }
 
 unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
@@ -254,14 +217,17 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
     let source = &mut *(source as *mut ChannelSource<T, F>);
     assert!(callback.is_none());
 
+    // Set ready-time to -1 so that we won't get called again before a new item is added
+    // to the channel queue.
     glib_sys::g_source_set_ready_time(&mut source.source, -1);
 
-    // Check the thread to ensure we're only ever called from the same thread
-    assert_eq!(
-        get_thread_id(),
-        source.thread_id,
-        "Source dispatched on a different thread than before"
-    );
+    // Get a reference to the callback. This will panic if we're called from a different
+    // thread than where the source was attached to the main context.
+    let callback = source
+        .callback
+        .as_mut()
+        .expect("ChannelSource called before Receiver was attached")
+        .get_mut();
 
     // Now iterate over all items that we currently have in the channel until it is
     // empty again. If all senders are disconnected at some point we remove the GSource
@@ -275,11 +241,7 @@ unsafe extern "C" fn dispatch<T, F: FnMut(T) -> Continue + 'static>(
             Err(mpsc::TryRecvError::Empty) => break,
             Err(mpsc::TryRecvError::Disconnected) => return glib_sys::G_SOURCE_REMOVE,
             Ok(item) => {
-                let callback = source
-                    .callback
-                    .as_mut()
-                    .expect("ChannelSource called before Receiver was attached");
-                if (&mut *callback.borrow_mut())(item) == Continue(false) {
+                if callback(item) == Continue(false) {
                     return glib_sys::G_SOURCE_REMOVE;
                 }
             }
@@ -307,8 +269,11 @@ unsafe extern "C" fn finalize<T, F: FnMut(T) -> Continue + 'static>(
         }
     }
 
-    let _ = source.callback.take();
     let _ = source.source_funcs.take();
+
+    // Take the callback out of the source. This will panic if the value is dropped
+    // from a different thread than where the callback was created
+    let _ = source.callback.take();
 }
 
 /// A `Sender` that can be used to send items to the corresponding main context receiver.
@@ -328,11 +293,21 @@ impl<T> fmt::Debug for Sender<T> {
 
 impl<T> Clone for Sender<T> {
     fn clone(&self) -> Sender<T> {
-        Sender(self.0.clone())
+        Sender::new(self.0.as_ref())
     }
 }
 
 impl<T> Sender<T> {
+    fn new(channel: Option<&Channel<T>>) -> Self {
+        if let Some(channel) = channel {
+            let mut inner = (channel.0).0.lock().unwrap();
+            inner.num_senders += 1;
+            Sender(Some(channel.clone()))
+        } else {
+            Sender(None)
+        }
+    }
+
     /// Sends a value to the channel.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
         self.0.as_ref().expect("Sender with no channel").send(t)
@@ -341,25 +316,13 @@ impl<T> Sender<T> {
 
 impl<T> Drop for Sender<T> {
     fn drop(&mut self) {
-        unsafe {
-            // Wake up the receiver after dropping our own reference to ensure
-            // that after the last sender is dropped the receiver will see a strong
-            // reference count of exactly 1 by itself.
-            let channel = self.0.take().expect("Sender with no channel");
-
-            let source = {
-                let inner = (channel.0).0.lock().unwrap();
-
-                // Get a strong reference to the source
-                match inner.source() {
-                    None => return,
-                    Some(source) => source,
-                }
-            };
-
-            // Drop the channel and wake up the source/receiver
-            drop(channel);
-            glib_sys::g_source_set_ready_time(source.to_glib_none().0, 0);
+        // Decrease the number of senders and wake up the channel if this
+        // was the last sender that was dropped.
+        let channel = self.0.take().expect("Sender with no channel");
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders -= 1;
+        if inner.num_senders == 0 {
+            inner.set_ready_time(0);
         }
     }
 }
@@ -381,11 +344,21 @@ impl<T> fmt::Debug for SyncSender<T> {
 
 impl<T> Clone for SyncSender<T> {
     fn clone(&self) -> SyncSender<T> {
-        SyncSender(self.0.clone())
+        SyncSender::new(self.0.as_ref())
     }
 }
 
 impl<T> SyncSender<T> {
+    fn new(channel: Option<&Channel<T>>) -> Self {
+        if let Some(channel) = channel {
+            let mut inner = (channel.0).0.lock().unwrap();
+            inner.num_senders += 1;
+            SyncSender(Some(channel.clone()))
+        } else {
+            SyncSender(None)
+        }
+    }
+
     /// Sends a value to the channel and blocks if the channel is full.
     pub fn send(&self, t: T) -> Result<(), mpsc::SendError<T>> {
         self.0.as_ref().expect("Sender with no channel").send(t)
@@ -399,25 +372,13 @@ impl<T> SyncSender<T> {
 
 impl<T> Drop for SyncSender<T> {
     fn drop(&mut self) {
-        unsafe {
-            // Wake up the receiver after dropping our own reference to ensure
-            // that after the last sender is dropped the receiver will see a strong
-            // reference count of exactly 1 by itself.
-            let channel = self.0.take().expect("Sender with no channel");
-
-            let source = {
-                let inner = (channel.0).0.lock().unwrap();
-
-                // Get a strong reference to the source
-                match inner.source() {
-                    None => return,
-                    Some(source) => source,
-                }
-            };
-
-            // Drop the channel and wake up the source/receiver
-            drop(channel);
-            glib_sys::g_source_set_ready_time(source.to_glib_none().0, 0);
+        // Decrease the number of senders and wake up the channel if this
+        // was the last sender that was dropped.
+        let channel = self.0.take().expect("Sender with no channel");
+        let mut inner = (channel.0).0.lock().unwrap();
+        inner.num_senders -= 1;
+        if inner.num_senders == 0 {
+            inner.set_ready_time(0);
         }
     }
 }
@@ -474,8 +435,8 @@ impl<T> Receiver<T> {
             let channel = self.0.take().expect("Receiver without channel");
 
             let source_funcs = Box::new(glib_sys::GSourceFuncs {
-                check: Some(check::<T>),
-                prepare: Some(prepare::<T>),
+                check: None,
+                prepare: None,
                 dispatch: Some(dispatch::<T, F>),
                 finalize: Some(finalize::<T, F>),
                 closure_callback: None,
@@ -498,7 +459,7 @@ impl<T> Receiver<T> {
                 // We're immediately ready if the queue is not empty or if no sender is left at this point
                 glib_sys::g_source_set_ready_time(
                     mut_override(&source.source),
-                    if !inner.queue.is_empty() || Arc::strong_count(&channel.0) == 1 {
+                    if !inner.queue.is_empty() || inner.num_senders == 0 {
                         0
                     } else {
                         -1
@@ -510,9 +471,8 @@ impl<T> Receiver<T> {
             // Store all our data inside our part of the GSource
             {
                 let source = &mut *source;
-                source.thread_id = get_thread_id();
                 ptr::write(&mut source.channel, Some(channel));
-                ptr::write(&mut source.callback, Some(RefCell::new(func)));
+                ptr::write(&mut source.callback, Some(ThreadGuard::new(func)));
                 ptr::write(&mut source.source_funcs, Some(source_funcs));
             }
 
@@ -546,7 +506,7 @@ impl MainContext {
     pub fn channel<T>(priority: Priority) -> (Sender<T>, Receiver<T>) {
         let channel = Channel::new(None);
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = Sender(Some(channel));
+        let sender = Sender::new(Some(&channel));
 
         (sender, receiver)
     }
@@ -568,7 +528,7 @@ impl MainContext {
     pub fn sync_channel<T>(priority: Priority, bound: usize) -> (SyncSender<T>, Receiver<T>) {
         let channel = Channel::new(Some(bound));
         let receiver = Receiver(Some(channel.clone()), priority);
-        let sender = SyncSender(Some(channel));
+        let sender = SyncSender::new(Some(&channel));
 
         (sender, receiver)
     }

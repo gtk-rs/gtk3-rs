@@ -991,6 +991,15 @@ pub trait ObjectExt: ObjectType {
     where
         N: Into<&'a str>,
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static;
+    fn connect_local<'a, N, F>(
+        &self,
+        signal_name: N,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        N: Into<&'a str>,
+        F: Fn(&[Value]) -> Option<Value> + 'static;
     unsafe fn connect_unsafe<'a, N, F>(
         &self,
         signal_name: N,
@@ -1295,6 +1304,25 @@ impl<T: ObjectType> ObjectExt for T {
         F: Fn(&[Value]) -> Option<Value> + Send + Sync + 'static,
     {
         unsafe { self.connect_unsafe(signal_name, after, callback) }
+    }
+
+    fn connect_local<'a, N, F>(
+        &self,
+        signal_name: N,
+        after: bool,
+        callback: F,
+    ) -> Result<SignalHandlerId, BoolError>
+    where
+        N: Into<&'a str>,
+        F: Fn(&[Value]) -> Option<Value> + 'static,
+    {
+        let callback = crate::ThreadGuard::new(callback);
+
+        unsafe {
+            self.connect_unsafe(signal_name, after, move |values| {
+                (callback.get_ref())(values)
+            })
+        }
     }
 
     unsafe fn connect_unsafe<'a, N, F>(
