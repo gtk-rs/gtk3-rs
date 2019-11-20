@@ -31,16 +31,14 @@ impl PdfVersion {
 }
 
 #[derive(Debug)]
-pub struct PdfSurface {
-    inner: Surface,
-}
+pub struct PdfSurface(Surface);
 
 impl TryFrom<Surface> for PdfSurface {
     type Error = Surface;
 
     fn try_from(surface: Surface) -> Result<PdfSurface, Surface> {
         if surface.get_type() == SurfaceType::Pdf {
-            Ok(PdfSurface { inner: surface })
+            Ok(PdfSurface(surface))
         } else {
             Err(surface)
         }
@@ -77,14 +75,14 @@ impl PdfSurface {
 
     pub fn restrict(&self, version: PdfVersion) -> Result<(), Status> {
         unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
+            ffi::cairo_pdf_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
         self.status().to_result(())
     }
 
     pub fn set_size(&self, width: f64, height: f64) -> Result<(), Status> {
         unsafe {
-            ffi::cairo_pdf_surface_set_size(self.inner.to_raw_none(), width, height);
+            ffi::cairo_pdf_surface_set_size(self.0.to_raw_none(), width, height);
         }
         self.status().to_result(())
     }
@@ -94,7 +92,7 @@ impl PdfSurface {
         let value = CString::new(value).unwrap();
         unsafe {
             ffi::cairo_pdf_surface_set_metadata(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 metadata.into(),
                 value.as_ptr(),
             );
@@ -106,7 +104,7 @@ impl PdfSurface {
     pub fn set_page_label(&self, label: &str) -> Result<(), Status> {
         let label = CString::new(label).unwrap();
         unsafe {
-            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
+            ffi::cairo_pdf_surface_set_page_label(self.0.to_raw_none(), label.as_ptr());
         }
         self.status().to_result(())
     }
@@ -115,7 +113,7 @@ impl PdfSurface {
     pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Status> {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 width as _,
                 height as _,
             );
@@ -136,7 +134,7 @@ impl PdfSurface {
 
         let res = unsafe {
             ffi::cairo_pdf_surface_add_outline(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 parent_id,
                 name.as_ptr(),
                 link_attribs.as_ptr(),
@@ -152,7 +150,7 @@ impl Deref for PdfSurface {
     type Target = Surface;
 
     fn deref(&self) -> &Surface {
-        &self.inner
+        &self.0
     }
 }
 
@@ -162,7 +160,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PdfSurface {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
+        let stash = self.0.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }

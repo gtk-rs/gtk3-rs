@@ -31,16 +31,14 @@ impl SvgVersion {
 }
 
 #[derive(Debug)]
-pub struct SvgSurface {
-    inner: Surface,
-}
+pub struct SvgSurface(Surface);
 
 impl TryFrom<Surface> for SvgSurface {
     type Error = Surface;
 
     fn try_from(surface: Surface) -> Result<SvgSurface, Surface> {
         if surface.get_type() == SurfaceType::Svg {
-            Ok(SvgSurface { inner: surface })
+            Ok(SvgSurface(surface))
         } else {
             Err(surface)
         }
@@ -58,13 +56,9 @@ impl SvgSurface {
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Ok(Self {
-                inner: Surface::from_raw_full(ffi::cairo_svg_surface_create(
-                    path.as_ptr(),
-                    width,
-                    height,
-                ))?,
-            })
+            Ok(Self(Surface::from_raw_full(
+                ffi::cairo_svg_surface_create(path.as_ptr(), width, height)
+            )?))
         }
     }
 
@@ -84,14 +78,14 @@ impl SvgSurface {
 
     pub fn restrict(&self, version: SvgVersion) {
         unsafe {
-            ffi::cairo_svg_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
+            ffi::cairo_svg_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
     }
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn set_document_unit(&mut self, unit: SvgUnit) {
         unsafe {
-            ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit.into());
+            ffi::cairo_svg_surface_set_document_unit(self.0.to_raw_none(), unit.into());
         }
     }
 
@@ -99,7 +93,7 @@ impl SvgSurface {
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
             ))
         }
     }
@@ -109,7 +103,7 @@ impl Deref for SvgSurface {
     type Target = Surface;
 
     fn deref(&self) -> &Surface {
-        &self.inner
+        &self.0
     }
 }
 
@@ -119,7 +113,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for SvgSurface {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
+        let stash = self.0.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }

@@ -31,16 +31,14 @@ impl PsLevel {
 }
 
 #[derive(Debug)]
-pub struct PsSurface {
-    inner: Surface,
-}
+pub struct PsSurface(Surface);
 
 impl TryFrom<Surface> for PsSurface {
     type Error = Surface;
 
     fn try_from(surface: Surface) -> Result<PsSurface, Surface> {
         if surface.get_type() == SurfaceType::Ps {
-            Ok(PsSurface { inner: surface })
+            Ok(PsSurface(surface))
         } else {
             Err(surface)
         }
@@ -52,7 +50,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PsSurface {
 
     #[inline]
     fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
+        let stash = self.0.to_glib_none();
         Stash(stash.0, stash.1)
     }
 }
@@ -116,42 +114,42 @@ impl PsSurface {
 
     pub fn restrict(&self, level: PsLevel) {
         unsafe {
-            ffi::cairo_ps_surface_restrict_to_level(self.inner.to_raw_none(), level.into());
+            ffi::cairo_ps_surface_restrict_to_level(self.0.to_raw_none(), level.into());
         }
     }
 
     pub fn get_eps(&self) -> bool {
-        unsafe { ffi::cairo_ps_surface_get_eps(self.inner.to_raw_none()).as_bool() }
+        unsafe { ffi::cairo_ps_surface_get_eps(self.0.to_raw_none()).as_bool() }
     }
 
     pub fn set_eps(&self, eps: bool) {
         unsafe {
-            ffi::cairo_ps_surface_set_eps(self.inner.to_raw_none(), eps.into());
+            ffi::cairo_ps_surface_set_eps(self.0.to_raw_none(), eps.into());
         }
     }
 
     pub fn set_size(&self, width: f64, height: f64) {
         unsafe {
-            ffi::cairo_ps_surface_set_size(self.inner.to_raw_none(), width, height);
+            ffi::cairo_ps_surface_set_size(self.0.to_raw_none(), width, height);
         }
     }
 
     pub fn cairo_ps_surface_dsc_begin_setup(&self) {
         unsafe {
-            ffi::cairo_ps_surface_dsc_begin_setup(self.inner.to_raw_none());
+            ffi::cairo_ps_surface_dsc_begin_setup(self.0.to_raw_none());
         }
     }
 
     pub fn cairo_ps_surface_dsc_begin_page_setup(&self) {
         unsafe {
-            ffi::cairo_ps_surface_dsc_begin_page_setup(self.inner.to_raw_none());
+            ffi::cairo_ps_surface_dsc_begin_page_setup(self.0.to_raw_none());
         }
     }
 
     pub fn cairo_ps_surface_dsc_comment(&self, comment: &str) {
         let comment = CString::new(comment).unwrap();
         unsafe {
-            ffi::cairo_ps_surface_dsc_comment(self.inner.to_raw_none(), comment.as_ptr());
+            ffi::cairo_ps_surface_dsc_comment(self.0.to_raw_none(), comment.as_ptr());
         }
     }
 }
@@ -160,7 +158,7 @@ impl Deref for PsSurface {
     type Target = Surface;
 
     fn deref(&self) -> &Surface {
-        &self.inner
+        &self.0
     }
 }
 
