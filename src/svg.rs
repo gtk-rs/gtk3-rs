@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
@@ -12,7 +13,7 @@ use std::ptr;
 
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 use enums::SvgUnit;
-use enums::{Status, SvgVersion};
+use enums::{Status, SurfaceType, SvgVersion};
 use ffi;
 use surface::Surface;
 
@@ -34,7 +35,24 @@ pub struct SvgSurface {
     inner: Surface,
 }
 
+impl TryFrom<Surface> for SvgSurface {
+    type Error = Surface;
+
+    fn try_from(surface: Surface) -> Result<SvgSurface, Surface> {
+        if surface.get_type() == SurfaceType::Svg {
+            Ok(SvgSurface { inner: surface })
+        } else {
+            Err(surface)
+        }
+    }
+}
+
 impl SvgSurface {
+    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<SvgSurface, Status> {
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
+    }
+
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<SvgSurface, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
@@ -110,9 +128,7 @@ impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface {
-            inner: from_glib_borrow(ptr),
-        }
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -120,9 +136,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface {
-            inner: from_glib_borrow(ptr),
-        }
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -130,9 +144,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for SvgSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self {
-            inner: Surface::from_raw_full(ptr).unwrap(),
-        }
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 
