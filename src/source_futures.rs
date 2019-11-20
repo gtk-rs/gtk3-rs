@@ -27,7 +27,7 @@ pub struct SourceFuture<F, T> {
 
 impl<F, T: 'static> SourceFuture<F, T>
 where
-    F: FnOnce(oneshot::Sender<T>) -> Source + Send + 'static,
+    F: FnOnce(oneshot::Sender<T>) -> Source + 'static,
 {
     /// Create a new `SourceFuture`
     ///
@@ -46,7 +46,7 @@ impl<F, T> Unpin for SourceFuture<F, T> {}
 
 impl<F, T> Future for SourceFuture<F, T>
 where
-    F: FnOnce(oneshot::Sender<T>) -> Source + Send + 'static,
+    F: FnOnce(oneshot::Sender<T>) -> Source + 'static,
 {
     type Output = T;
 
@@ -215,7 +215,7 @@ impl<F, T> Unpin for SourceStream<F, T> {}
 
 impl<F, T: 'static> SourceStream<F, T>
 where
-    F: FnOnce(mpsc::UnboundedSender<T>) -> Source + Send + 'static,
+    F: FnOnce(mpsc::UnboundedSender<T>) -> Source + 'static,
 {
     /// Create a new `SourceStream`
     ///
@@ -232,7 +232,7 @@ where
 
 impl<F, T> Stream for SourceStream<F, T>
 where
-    F: FnOnce(mpsc::UnboundedSender<T>) -> Source + Send + 'static,
+    F: FnOnce(mpsc::UnboundedSender<T>) -> Source + 'static,
 {
     type Item = T;
 
