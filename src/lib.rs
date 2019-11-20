@@ -121,6 +121,8 @@ pub use xcb::{
 };
 
 #[macro_use]
+mod surface_macros;
+#[macro_use]
 mod user_data;
 mod constants;
 pub use constants::*;

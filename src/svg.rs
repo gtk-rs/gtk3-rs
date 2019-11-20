@@ -30,27 +30,9 @@ impl SvgVersion {
     }
 }
 
-#[derive(Debug)]
-pub struct SvgSurface(Surface);
-
-impl TryFrom<Surface> for SvgSurface {
-    type Error = Surface;
-
-    fn try_from(surface: Surface) -> Result<SvgSurface, Surface> {
-        if surface.get_type() == SurfaceType::Svg {
-            Ok(SvgSurface(surface))
-        } else {
-            Err(surface)
-        }
-    }
-}
+declare_surface!(SvgSurface, SurfaceType::Svg);
 
 impl SvgSurface {
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<SvgSurface, Status> {
-        let surface = Surface::from_raw_full(ptr)?;
-        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
-    }
-
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<SvgSurface, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
@@ -96,55 +78,6 @@ impl SvgSurface {
                 self.0.to_raw_none(),
             ))
         }
-    }
-}
-
-impl Deref for SvgSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.0
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for SvgSurface {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.0.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self::from_raw_full(ptr).unwrap()
-    }
-}
-
-impl fmt::Display for SvgSurface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SvgSurface")
     }
 }
 

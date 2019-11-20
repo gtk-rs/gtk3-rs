@@ -30,61 +30,9 @@ impl PsLevel {
     }
 }
 
-#[derive(Debug)]
-pub struct PsSurface(Surface);
-
-impl TryFrom<Surface> for PsSurface {
-    type Error = Surface;
-
-    fn try_from(surface: Surface) -> Result<PsSurface, Surface> {
-        if surface.get_type() == SurfaceType::Ps {
-            Ok(PsSurface(surface))
-        } else {
-            Err(surface)
-        }
-    }
-}
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PsSurface {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.0.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PsSurface {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PsSurface {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PsSurface {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PsSurface {
-        Self::from_raw_full(ptr).unwrap()
-    }
-}
+declare_surface!(PsSurface, SurfaceType::Ps);
 
 impl PsSurface {
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<PsSurface, Status> {
-        let surface = Surface::from_raw_full(ptr)?;
-        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
-    }
-
     pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<PsSurface, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
@@ -151,20 +99,6 @@ impl PsSurface {
         unsafe {
             ffi::cairo_ps_surface_dsc_comment(self.0.to_raw_none(), comment.as_ptr());
         }
-    }
-}
-
-impl Deref for PsSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.0
-    }
-}
-
-impl fmt::Display for PsSurface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PsSurface")
     }
 }
 
