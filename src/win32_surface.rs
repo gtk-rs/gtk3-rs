@@ -32,12 +32,8 @@ impl TryFrom<Surface> for Win32Surface {
 
 impl Win32Surface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<Win32Surface, Status> {
-        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
-        let status = surface.status();
-        match status {
-            Status::Success => Ok(surface),
-            _ => Err(status),
-        }
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
     }
 
     pub fn create(hdc: winapi::HDC) -> Result<Win32Surface, Status> {
