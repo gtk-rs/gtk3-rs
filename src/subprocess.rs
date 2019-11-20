@@ -66,17 +66,13 @@ impl Subprocess {
         stdin_buf: Option<String>,
     ) -> Pin<Box<dyn std::future::Future<Output = Result<(GString, GString), glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.communicate_utf8_async(stdin_buf, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 }

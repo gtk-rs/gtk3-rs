@@ -109,19 +109,14 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
                 + 'static,
         >,
     > {
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.accept_socket_async(Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn accept_async<
@@ -178,17 +173,13 @@ impl<O: IsA<SocketListener>> SocketListenerExtManual for O {
                 > + 'static,
         >,
     > {
-        use fragile::Fragile;
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.accept_async(Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 }
