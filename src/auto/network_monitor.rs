@@ -156,19 +156,15 @@ impl<O: IsA<NetworkMonitor>> NetworkMonitorExt for O {
         &self,
         connectable: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let connectable = connectable.clone();
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.can_reach_async(&connectable, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]

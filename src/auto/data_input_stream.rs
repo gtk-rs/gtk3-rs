@@ -447,19 +447,15 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let stop_chars = String::from(stop_chars);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.read_until_async(&stop_chars, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn read_upto<P: IsA<Cancellable>>(
@@ -544,19 +540,15 @@ impl<O: IsA<DataInputStream>> DataInputStreamExt for O {
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(GString, usize), glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let stop_chars = String::from(stop_chars);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.read_upto_async(&stop_chars, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn set_byte_order(&self, order: DataStreamByteOrder) {

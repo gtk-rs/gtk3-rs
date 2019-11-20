@@ -247,19 +247,15 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         &self,
         address: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<GString, glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let address = address.clone();
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_by_address_async(&address, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn lookup_by_name<P: IsA<Cancellable>>(
@@ -331,19 +327,15 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         hostname: &str,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let hostname = String::from(hostname);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_by_name_async(&hostname, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     #[cfg(any(feature = "v2_60", feature = "dox"))]
@@ -423,19 +415,15 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         flags: ResolverNameLookupFlags,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<InetAddress>, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let hostname = String::from(hostname);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_by_name_with_flags_async(&hostname, flags, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn lookup_records<P: IsA<Cancellable>>(
@@ -513,19 +501,15 @@ impl<O: IsA<Resolver>> ResolverExt for O {
     ) -> Pin<
         Box_<dyn std::future::Future<Output = Result<Vec<glib::Variant>, glib::Error>> + 'static>,
     > {
-        use fragile::Fragile;
-        use GioFuture;
-
         let rrname = String::from(rrname);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_records_async(&rrname, record_type, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn lookup_service<P: IsA<Cancellable>>(
@@ -607,27 +591,23 @@ impl<O: IsA<Resolver>> ResolverExt for O {
         domain: &str,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<SrvTarget>, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let service = String::from(service);
         let protocol = String::from(protocol);
         let domain = String::from(domain);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_service_async(
                 &service,
                 &protocol,
                 &domain,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     fn set_default(&self) {
