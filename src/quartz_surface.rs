@@ -32,12 +32,8 @@ impl TryFrom<Surface> for QuartzSurface {
 
 impl QuartzSurface {
     pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<QuartzSurface, Status> {
-        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
-        let status = surface.status();
-        match status {
-            Status::Success => Ok(surface),
-            _ => Err(status),
-        }
+        let surface = Surface::from_raw_full(ptr)?;
+        Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
     }
 
     pub fn create(format: Format, width: u32, height: u32) -> Result<QuartzSurface, Status> {
@@ -103,7 +99,7 @@ impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for QuartzSurface {
 impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for QuartzSurface {
     #[inline]
     unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> QuartzSurface {
-        Self::try_from(from_glib_full::<_, Surface>(ptr)).unwrap()
+        Self::from_raw_full(ptr).unwrap()
     }
 }
 
