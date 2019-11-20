@@ -2,6 +2,8 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
+use std::ops::Deref;
 use enums::SurfaceType;
 use ffi;
 #[cfg(feature = "use_glib")]
@@ -255,27 +257,7 @@ impl fmt::Display for XCBScreen {
     }
 }
 
-pub struct XCBSurface(Surface);
-
-impl std::ops::Deref for XCBSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.0
-    }
-}
-
-impl std::convert::TryFrom<Surface> for XCBSurface {
-    type Error = Surface;
-
-    fn try_from(surface: Surface) -> Result<Self, Surface> {
-        if surface.get_type() == SurfaceType::Xcb {
-            Ok(Self(surface))
-        } else {
-            Err(surface)
-        }
-    }
-}
+declare_surface!(XCBSurface, SurfaceType::Xcb);
 
 impl XCBSurface {
     pub fn create(
@@ -286,7 +268,7 @@ impl XCBSurface {
         height: i32,
     ) -> Result<Self, Status> {
         unsafe {
-            Ok(Self(Surface::from_raw_full(
+            Ok(Self::from_raw_full(
                 ffi::cairo_xcb_surface_create(
                     connection.to_raw_none(),
                     drawable.to_raw_none(),
@@ -294,7 +276,7 @@ impl XCBSurface {
                     width,
                     height,
                 ),
-            )?))
+            )?)
         }
     }
 
