@@ -91,7 +91,7 @@ impl RecordingSurface {
 impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for RecordingSurface {
     #[inline]
     unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> RecordingSurface {
-        RecordingSurface(Surface::from_glib_none(ptr))
+        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
     }
 }
 
@@ -99,7 +99,7 @@ impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for RecordingSurface {
 impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for RecordingSurface {
     #[inline]
     unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> RecordingSurface {
-        RecordingSurface(Surface::from_glib_borrow(ptr))
+        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
     }
 }
 
