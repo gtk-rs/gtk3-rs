@@ -131,19 +131,15 @@ impl<O: IsA<ProxyResolver>> ProxyResolverExt for O {
         uri: &str,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<GString>, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let uri = String::from(uri);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_async(&uri, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 }
 

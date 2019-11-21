@@ -210,18 +210,14 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         &self,
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.close_async(io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn flush<P: IsA<Cancellable>>(&self, cancellable: Option<&P>) -> Result<(), glib::Error> {
@@ -281,18 +277,14 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         &self,
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.flush_async(io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn has_pending(&self) -> bool {
@@ -410,25 +402,21 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         flags: OutputStreamSpliceFlags,
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let source = source.clone();
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.splice_async(
                 &source,
                 flags,
                 io_priority,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     //fn vprintf<P: IsA<Cancellable>>(&self, cancellable: Option<&P>, error: &mut glib::Error, format: &str, args: /*Unknown conversion*//*Unimplemented*/Unsupported) -> Option<usize> {
@@ -529,19 +517,15 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
         bytes: &glib::Bytes,
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<isize, glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let bytes = bytes.clone();
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.write_bytes_async(&bytes, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
@@ -562,24 +546,21 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_all_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>> {
-    //use GioFuture;
-    //use fragile::Fragile;
 
     //let vectors = vectors.clone();
-    //GioFuture::new(self, move |obj, send| {
+    //Box_::pin(crate::GioFuture::new(self, move |obj, send| {
     //    let cancellable = Cancellable::new();
-    //    let send = Fragile::new(send);
     //    obj.writev_all_async(
     //        &vectors,
     //        io_priority,
     //        Some(&cancellable),
     //        move |res| {
-    //            let _ = send.into_inner().send(res);
+    //            send.resolve(res);
     //        },
     //    );
 
     //    cancellable
-    //})
+    //}))
     //}
 
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
@@ -590,24 +571,21 @@ impl<O: IsA<OutputStream>> OutputStreamExt for O {
     //
     //#[cfg(any(feature = "v2_60", feature = "dox"))]
     //fn writev_async_future(&self, vectors: /*Ignored*/&[&OutputVector], io_priority: glib::Priority) -> Pin<Box_<dyn std::future::Future<Output = Result<usize, glib::Error>> + 'static>> {
-    //use GioFuture;
-    //use fragile::Fragile;
 
     //let vectors = vectors.clone();
-    //GioFuture::new(self, move |obj, send| {
+    //Box_::pin(crate::GioFuture::new(self, move |obj, send| {
     //    let cancellable = Cancellable::new();
-    //    let send = Fragile::new(send);
     //    obj.writev_async(
     //        &vectors,
     //        io_priority,
     //        Some(&cancellable),
     //        move |res| {
-    //            let _ = send.into_inner().send(res);
+    //            send.resolve(res);
     //        },
     //    );
 
     //    cancellable
-    //})
+    //}))
     //}
 }
 

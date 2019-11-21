@@ -279,19 +279,14 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
                 > + 'static,
         >,
     > {
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.read_all_async(buffer, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
@@ -300,19 +295,14 @@ impl<O: IsA<InputStream>> InputStreamExtManual for O {
         io_priority: Priority,
     ) -> Pin<Box<dyn std::future::Future<Output = Result<(B, usize), (B, glib::Error)>> + 'static>>
     {
-        use GioFuture;
-
-        GioFuture::new(self, move |obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.read_async(buffer, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 }
 

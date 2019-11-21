@@ -30,22 +30,19 @@ use SettingsBackend;
 
 //
 //pub fn bus_get_future(bus_type: /*Ignored*/BusType) -> Pin<Box_<dyn std::future::Future<Output = Result</*Ignored*/DBusConnection, glib::Error>> + 'static>> {
-//use GioFuture;
-//use fragile::Fragile;
 
-//GioFuture::new(&(), move |_obj, send| {
+//Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
 //    let cancellable = Cancellable::new();
-//    let send = Fragile::new(send);
 //    bus_get(
 //        bus_type,
 //        Some(&cancellable),
 //        move |res| {
-//            let _ = send.into_inner().send(res);
+//            send.resolve(res);
 //        },
 //    );
 
 //    cancellable
-//})
+//}))
 //}
 
 //pub fn bus_get_sync<P: IsA<Cancellable>>(bus_type: /*Ignored*/BusType, cancellable: Option<&P>) -> Result</*Ignored*/DBusConnection, glib::Error> {
@@ -273,19 +270,15 @@ pub fn dbus_address_get_stream_future(
     address: &str,
 ) -> Pin<Box_<dyn std::future::Future<Output = Result<(IOStream, GString), glib::Error>> + 'static>>
 {
-    use fragile::Fragile;
-    use GioFuture;
-
     let address = String::from(address);
-    GioFuture::new(&(), move |_obj, send| {
+    Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
         let cancellable = Cancellable::new();
-        let send = Fragile::new(send);
         dbus_address_get_stream(&address, Some(&cancellable), move |res| {
-            let _ = send.into_inner().send(res);
+            send.resolve(res);
         });
 
         cancellable
-    })
+    }))
 }
 
 pub fn dbus_address_get_stream_sync<P: IsA<Cancellable>>(

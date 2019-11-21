@@ -165,25 +165,21 @@ impl AppInfo {
         uri: &str,
         context: Option<&P>,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let uri = String::from(uri);
         let context = context.map(ToOwned::to_owned);
-        GioFuture::new(&(), move |_obj, send| {
+        Box_::pin(crate::GioFuture::new(&(), move |_obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             Self::launch_default_for_uri_async(
                 &uri,
                 context.as_ref().map(::std::borrow::Borrow::borrow),
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     pub fn reset_type_associations(content_type: &str) {

@@ -121,13 +121,9 @@ impl<O: IsA<File>> FileExtManual for O {
                 + 'static,
         >,
     > {
-        use fragile::Fragile;
-        use GioFuture;
-
         let etag = etag.map(glib::GString::from);
-        GioFuture::new(self, move |obj, send| {
+        Box::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.replace_contents_async(
                 contents,
                 etag.as_ref().map(|s| s.as_str()),
@@ -135,11 +131,11 @@ impl<O: IsA<File>> FileExtManual for O {
                 flags,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 }

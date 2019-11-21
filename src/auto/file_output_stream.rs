@@ -135,19 +135,15 @@ impl<O: IsA<FileOutputStream>> FileOutputStreamExt for O {
         attributes: &str,
         io_priority: glib::Priority,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<FileInfo, glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let attributes = String::from(attributes);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.query_info_async(&attributes, io_priority, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 }
 

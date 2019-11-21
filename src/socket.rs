@@ -2,7 +2,6 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use fragile::Fragile;
 use gio_sys;
 use glib;
 use glib::object::{Cast, IsA};
@@ -338,16 +337,15 @@ impl<O: IsA<Socket>> SocketExtManual for O {
         F: FnMut(&Self, glib::IOCondition) -> glib::Continue + 'static,
         C: IsA<Cancellable>,
     {
-        #[allow(clippy::transmute_ptr_to_ref)]
-        unsafe extern "C" fn trampoline<O: IsA<Socket>>(
+        unsafe extern "C" fn trampoline<
+            O: IsA<Socket>,
+            F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static,
+        >(
             socket: *mut gio_sys::GSocket,
             condition: glib_sys::GIOCondition,
             func: glib_sys::gpointer,
         ) -> glib_sys::gboolean {
-            let func: &Fragile<
-                RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>,
-            > = transmute(func);
-            let func = func.get();
+            let func: &RefCell<F> = &*(func as *const RefCell<F>);
             let mut func = func.borrow_mut();
             (&mut *func)(
                 &Socket::from_glib_borrow(socket).unsafe_cast(),
@@ -355,10 +353,8 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             )
             .to_glib()
         }
-        unsafe extern "C" fn destroy_closure<O>(ptr: glib_sys::gpointer) {
-            Box::<
-                Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>,
-            >::from_raw(ptr as *mut _);
+        unsafe extern "C" fn destroy_closure<O, F>(ptr: glib_sys::gpointer) {
+            Box::<RefCell<F>>::from_raw(ptr as *mut _);
         }
         let cancellable = cancellable.map(|c| c.as_ref());
         let gcancellable = cancellable.to_glib_none();
@@ -368,12 +364,12 @@ impl<O: IsA<Socket>> SocketExtManual for O {
                 condition.to_glib(),
                 gcancellable.0,
             );
-            let trampoline = trampoline::<O> as glib_sys::gpointer;
+            let trampoline = trampoline::<O, F> as glib_sys::gpointer;
             glib_sys::g_source_set_callback(
                 source,
                 Some(transmute(trampoline)),
-                into_raw(func),
-                Some(destroy_closure::<O>),
+                Box::into_raw(Box::new(RefCell::new(func))) as glib_sys::gpointer,
+                Some(destroy_closure::<O, F>),
             );
             glib_sys::g_source_set_priority(source, priority.to_glib());
 
@@ -393,10 +389,10 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     ) -> Pin<Box<dyn std::future::Future<Output = glib::IOCondition> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
-        let obj = Fragile::new(self.clone());
+        let obj = self.clone();
         Box::pin(glib::SourceFuture::new(move |send| {
             let mut send = Some(send);
-            obj.get().create_source(
+            obj.create_source(
                 condition,
                 cancellable.as_ref(),
                 None,
@@ -417,10 +413,10 @@ impl<O: IsA<Socket>> SocketExtManual for O {
     ) -> Pin<Box<dyn Stream<Item = glib::IOCondition> + 'static>> {
         let cancellable: Option<Cancellable> = cancellable.map(|c| c.as_ref()).cloned();
 
-        let obj = Fragile::new(self.clone());
+        let obj = self.clone();
         Box::pin(glib::SourceStream::new(move |send| {
             let send = Some(send);
-            obj.get().create_source(
+            obj.create_source(
                 condition,
                 cancellable.as_ref(),
                 None,
@@ -435,15 +431,6 @@ impl<O: IsA<Socket>> SocketExtManual for O {
             )
         }))
     }
-}
-
-fn into_raw<O, F: FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>(
-    func: F,
-) -> glib_sys::gpointer {
-    let func: Box<
-        Fragile<RefCell<Box<dyn FnMut(&O, glib::IOCondition) -> glib::Continue + 'static>>>,
-    > = Box::new(Fragile::new(RefCell::new(Box::new(func))));
-    Box::into_raw(func) as glib_sys::gpointer
 }
 
 #[cfg(all(not(unix), feature = "dox"))]

@@ -163,19 +163,15 @@ impl<O: IsA<SocketConnection>> SocketConnectionExt for O {
         &self,
         address: &P,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-        use fragile::Fragile;
-        use GioFuture;
-
         let address = address.clone();
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.connect_async(&address, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     fn get_local_address(&self) -> Result<SocketAddress, glib::Error> {

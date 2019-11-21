@@ -247,26 +247,22 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         flags: TlsDatabaseLookupFlags,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<TlsCertificate, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let handle = String::from(handle);
         let interaction = interaction.map(ToOwned::to_owned);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_certificate_for_handle_async(
                 &handle,
                 interaction.as_ref().map(::std::borrow::Borrow::borrow),
                 flags,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     fn lookup_certificate_issuer<
@@ -357,26 +353,22 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
         flags: TlsDatabaseLookupFlags,
     ) -> Pin<Box_<dyn std::future::Future<Output = Result<TlsCertificate, glib::Error>> + 'static>>
     {
-        use fragile::Fragile;
-        use GioFuture;
-
         let certificate = certificate.clone();
         let interaction = interaction.map(ToOwned::to_owned);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.lookup_certificate_issuer_async(
                 &certificate,
                 interaction.as_ref().map(::std::borrow::Borrow::borrow),
                 flags,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     //fn lookup_certificates_issued_by<P: IsA<TlsInteraction>, Q: IsA<Cancellable>>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags, cancellable: Option<&Q>) -> Result<Vec<TlsCertificate>, glib::Error> {
@@ -389,26 +381,23 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
 
     //
     //fn lookup_certificates_issued_by_async_future<P: IsA<TlsInteraction> + Clone + 'static>(&self, issuer_raw_dn: /*Ignored*/&glib::ByteArray, interaction: Option<&P>, flags: TlsDatabaseLookupFlags) -> Pin<Box_<dyn std::future::Future<Output = Result<Vec<TlsCertificate>, glib::Error>> + 'static>> {
-    //use GioFuture;
-    //use fragile::Fragile;
 
     //let issuer_raw_dn = issuer_raw_dn.clone();
     //let interaction = interaction.map(ToOwned::to_owned);
-    //GioFuture::new(self, move |obj, send| {
+    //Box_::pin(crate::GioFuture::new(self, move |obj, send| {
     //    let cancellable = Cancellable::new();
-    //    let send = Fragile::new(send);
     //    obj.lookup_certificates_issued_by_async(
     //        &issuer_raw_dn,
     //        interaction.as_ref().map(::std::borrow::Borrow::borrow),
     //        flags,
     //        Some(&cancellable),
     //        move |res| {
-    //            let _ = send.into_inner().send(res);
+    //            send.resolve(res);
     //        },
     //    );
 
     //    cancellable
-    //})
+    //}))
     //}
 
     fn verify_chain<
@@ -513,16 +502,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
     ) -> Pin<
         Box_<dyn std::future::Future<Output = Result<TlsCertificateFlags, glib::Error>> + 'static>,
     > {
-        use fragile::Fragile;
-        use GioFuture;
-
         let chain = chain.clone();
         let purpose = String::from(purpose);
         let identity = identity.map(ToOwned::to_owned);
         let interaction = interaction.map(ToOwned::to_owned);
-        GioFuture::new(self, move |obj, send| {
+        Box_::pin(crate::GioFuture::new(self, move |obj, send| {
             let cancellable = Cancellable::new();
-            let send = Fragile::new(send);
             obj.verify_chain_async(
                 &chain,
                 &purpose,
@@ -531,12 +516,12 @@ impl<O: IsA<TlsDatabase>> TlsDatabaseExt for O {
                 flags,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 }
 
