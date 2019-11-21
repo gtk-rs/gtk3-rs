@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
@@ -12,7 +13,7 @@ use std::ptr;
 
 #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
 use enums::SvgUnit;
-use enums::SvgVersion;
+use enums::{Status, SurfaceType, SvgVersion};
 use ffi;
 use surface::Surface;
 
@@ -29,24 +30,17 @@ impl SvgVersion {
     }
 }
 
-#[derive(Debug)]
-pub struct SvgSurface {
-    inner: Surface,
-}
+declare_surface!(SvgSurface, SurfaceType::Svg);
 
 impl SvgSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> SvgSurface {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<SvgSurface, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
         unsafe {
-            Self {
-                inner: Surface::from_raw_full(ffi::cairo_svg_surface_create(
-                    path.as_ptr(),
-                    width,
-                    height,
-                )),
-            }
+            Ok(Self(Surface::from_raw_full(
+                ffi::cairo_svg_surface_create(path.as_ptr(), width, height),
+            )?))
         }
     }
 
@@ -66,14 +60,14 @@ impl SvgSurface {
 
     pub fn restrict(&self, version: SvgVersion) {
         unsafe {
-            ffi::cairo_svg_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
+            ffi::cairo_svg_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
     }
 
     #[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
     pub fn set_document_unit(&mut self, unit: SvgUnit) {
         unsafe {
-            ffi::cairo_svg_surface_set_document_unit(self.inner.to_raw_none(), unit.into());
+            ffi::cairo_svg_surface_set_document_unit(self.0.to_raw_none(), unit.into());
         }
     }
 
@@ -81,64 +75,9 @@ impl SvgSurface {
     pub fn get_document_unit(&self) -> SvgUnit {
         unsafe {
             SvgUnit::from(ffi::cairo_svg_surface_get_document_unit(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
             ))
         }
-    }
-}
-
-impl Deref for SvgSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for SvgSurface {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface {
-            inner: from_glib_borrow(ptr),
-        }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        SvgSurface {
-            inner: from_glib_borrow(ptr),
-        }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for SvgSurface {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> SvgSurface {
-        Self {
-            inner: Surface::from_raw_full(ptr),
-        }
-    }
-}
-
-impl fmt::Display for SvgSurface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "SvgSurface")
     }
 }
 
@@ -167,7 +106,7 @@ mod test {
     fn draw_in_buffer() -> Vec<u8> {
         let buffer: Vec<u8> = vec![];
 
-        let surface = SvgSurface::for_stream(100., 100., buffer);
+        let surface = SvgSurface::for_stream(100., 100., buffer).unwrap();
         draw(&surface);
         *surface.finish_output_stream().unwrap().downcast().unwrap()
     }
@@ -193,7 +132,7 @@ mod test {
     #[test]
     #[cfg(unix)]
     fn file() {
-        let surface = SvgSurface::new(100., 100., "/dev/null");
+        let surface = SvgSurface::new(100., 100., "/dev/null").unwrap();
         draw(&surface);
         surface.finish();
     }
@@ -201,7 +140,7 @@ mod test {
     #[test]
     fn writer() {
         let file = tempfile().expect("tempfile failed");
-        let surface = SvgSurface::for_stream(100., 100., file);
+        let surface = SvgSurface::for_stream(100., 100., file).unwrap();
 
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -216,7 +155,7 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = unsafe { SvgSurface::for_raw_stream(100., 100., &mut file) };
+        let surface = unsafe { SvgSurface::for_raw_stream(100., 100., &mut file).unwrap() };
 
         draw(&surface);
         surface.finish_output_stream().unwrap();
@@ -252,7 +191,7 @@ mod test {
         let file = tempfile().expect("tempfile failed");
         let custom_writer = CustomWriter(0, file);
 
-        let surface = SvgSurface::for_stream(100., 100., custom_writer);
+        let surface = SvgSurface::for_stream(100., 100., custom_writer).unwrap();
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
         let custom_writer = stream.downcast::<CustomWriter>().unwrap();
@@ -274,7 +213,7 @@ mod test {
             }
         }
 
-        let surface = SvgSurface::for_stream(20., 20., PanicWriter);
+        let surface = SvgSurface::for_stream(20., 20., PanicWriter).unwrap();
         surface.finish();
         surface
     }

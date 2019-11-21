@@ -2,6 +2,7 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
@@ -10,9 +11,9 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::PdfVersion;
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 use enums::{PdfMetadata, PdfOutline};
+use enums::{PdfVersion, Status, SurfaceType};
 use ffi;
 use surface::Surface;
 
@@ -29,22 +30,14 @@ impl PdfVersion {
     }
 }
 
-#[derive(Debug)]
-pub struct PdfSurface {
-    inner: Surface,
-}
+declare_surface!(PdfSurface, SurfaceType::Pdf);
 
 impl PdfSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Self {
+    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<Self, Status> {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
-        unsafe {
-            let raw = ffi::cairo_pdf_surface_create(path.as_ptr(), width, height);
-            Self {
-                inner: Surface::from_raw_full(raw),
-            }
-        }
+        unsafe { Self::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height)) }
     }
 
     for_stream_constructors!(cairo_pdf_surface_create_for_stream);
@@ -60,47 +53,52 @@ impl PdfSurface {
         vers_slice.iter().map(|v| PdfVersion::from(*v))
     }
 
-    pub fn restrict(&self, version: PdfVersion) {
+    pub fn restrict(&self, version: PdfVersion) -> Result<(), Status> {
         unsafe {
-            ffi::cairo_pdf_surface_restrict_to_version(self.inner.to_raw_none(), version.into());
+            ffi::cairo_pdf_surface_restrict_to_version(self.0.to_raw_none(), version.into());
         }
+        self.status().to_result(())
     }
 
-    pub fn set_size(&self, width: f64, height: f64) {
+    pub fn set_size(&self, width: f64, height: f64) -> Result<(), Status> {
         unsafe {
-            ffi::cairo_pdf_surface_set_size(self.inner.to_raw_none(), width, height);
+            ffi::cairo_pdf_surface_set_size(self.0.to_raw_none(), width, height);
         }
+        self.status().to_result(())
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) {
+    pub fn set_metadata(&self, metadata: PdfMetadata, value: &str) -> Result<(), Status> {
         let value = CString::new(value).unwrap();
         unsafe {
             ffi::cairo_pdf_surface_set_metadata(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 metadata.into(),
                 value.as_ptr(),
             );
         }
+        self.status().to_result(())
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_page_label(&self, label: &str) {
+    pub fn set_page_label(&self, label: &str) -> Result<(), Status> {
         let label = CString::new(label).unwrap();
         unsafe {
-            ffi::cairo_pdf_surface_set_page_label(self.inner.to_raw_none(), label.as_ptr());
+            ffi::cairo_pdf_surface_set_page_label(self.0.to_raw_none(), label.as_ptr());
         }
+        self.status().to_result(())
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
-    pub fn set_thumbnail_size(&self, width: i32, height: i32) {
+    pub fn set_thumbnail_size(&self, width: i32, height: i32) -> Result<(), Status> {
         unsafe {
             ffi::cairo_pdf_surface_set_thumbnail_size(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 width as _,
                 height as _,
             );
         }
+        self.status().to_result(())
     }
 
     #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
@@ -110,74 +108,21 @@ impl PdfSurface {
         name: &str,
         link_attribs: &str,
         flags: PdfOutline,
-    ) -> i32 {
+    ) -> Result<i32, Status> {
         let name = CString::new(name).unwrap();
         let link_attribs = CString::new(link_attribs).unwrap();
 
-        unsafe {
+        let res = unsafe {
             ffi::cairo_pdf_surface_add_outline(
-                self.inner.to_raw_none(),
+                self.0.to_raw_none(),
                 parent_id,
                 name.as_ptr(),
                 link_attribs.as_ptr(),
                 flags.bits() as _,
             ) as _
-        }
-    }
-}
+        };
 
-impl Deref for PdfSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.inner
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for PdfSurface {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.inner.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for PdfSurface {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface {
-            inner: from_glib_none(ptr),
-        }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for PdfSurface {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        PdfSurface {
-            inner: from_glib_borrow(ptr),
-        }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for PdfSurface {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> PdfSurface {
-        Self {
-            inner: Surface::from_raw_full(ptr),
-        }
-    }
-}
-
-impl fmt::Display for PdfSurface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "PdfSurface")
+        self.status().to_result(res)
     }
 }
 
@@ -206,7 +151,7 @@ mod test {
     fn draw_in_buffer() -> Vec<u8> {
         let buffer: Vec<u8> = vec![];
 
-        let surface = PdfSurface::for_stream(100., 100., buffer);
+        let surface = PdfSurface::for_stream(100., 100., buffer).unwrap();
         draw(&surface);
         *surface.finish_output_stream().unwrap().downcast().unwrap()
     }
@@ -225,7 +170,7 @@ mod test {
     #[test]
     #[cfg(unix)]
     fn file() {
-        let surface = PdfSurface::new(100., 100., "/dev/null");
+        let surface = PdfSurface::new(100., 100., "/dev/null").unwrap();
         draw(&surface);
         surface.finish();
     }
@@ -233,7 +178,7 @@ mod test {
     #[test]
     fn writer() {
         let file = tempfile().expect("tempfile failed");
-        let surface = PdfSurface::for_stream(100., 100., file);
+        let surface = PdfSurface::for_stream(100., 100., file).unwrap();
 
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
@@ -247,7 +192,7 @@ mod test {
     #[test]
     fn ref_writer() {
         let mut file = tempfile().expect("tempfile failed");
-        let surface = unsafe { PdfSurface::for_raw_stream(100., 100., &mut file) };
+        let surface = unsafe { PdfSurface::for_raw_stream(100., 100., &mut file).unwrap() };
 
         draw(&surface);
         surface.finish_output_stream().unwrap();
@@ -279,8 +224,8 @@ mod test {
 
         let custom_writer = CustomWriter(0);
 
-        let surface = PdfSurface::for_stream(20., 20., custom_writer);
-        surface.set_size(100., 100.);
+        let surface = PdfSurface::for_stream(20., 20., custom_writer).unwrap();
+        surface.set_size(100., 100.).unwrap();
         draw(&surface);
         let stream = surface.finish_output_stream().unwrap();
         let custom_writer = stream.downcast::<CustomWriter>().unwrap();
@@ -302,7 +247,7 @@ mod test {
             }
         }
 
-        let surface = PdfSurface::for_stream(20., 20., PanicWriter);
+        let surface = PdfSurface::for_stream(20., 20., PanicWriter).unwrap();
         surface.finish();
         surface
     }

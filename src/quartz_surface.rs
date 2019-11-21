@@ -15,31 +15,9 @@ use Status;
 
 use ffi::CGContextRef;
 
-#[derive(Debug)]
-pub struct QuartzSurface(Surface);
-
-impl TryFrom<Surface> for QuartzSurface {
-    type Error = Surface;
-
-    fn try_from(surface: Surface) -> Result<QuartzSurface, Surface> {
-        if surface.get_type() == SurfaceType::Quartz {
-            Ok(QuartzSurface(surface))
-        } else {
-            Err(surface)
-        }
-    }
-}
+declare_surface!(QuartzSurface, SurfaceType::Quartz);
 
 impl QuartzSurface {
-    pub unsafe fn from_raw_full(ptr: *mut ffi::cairo_surface_t) -> Result<QuartzSurface, Status> {
-        let surface = Self::try_from(Surface::from_raw_full(ptr)).unwrap();
-        let status = surface.status();
-        match status {
-            Status::Success => Ok(surface),
-            _ => Err(status),
-        }
-    }
-
     pub fn create(format: Format, width: u32, height: u32) -> Result<QuartzSurface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_quartz_surface_create(
@@ -64,72 +42,5 @@ impl QuartzSurface {
 
     pub fn get_cg_context(&self) -> CGContextRef {
         unsafe { ffi::cairo_quartz_surface_get_cg_context(self.to_raw_none()) }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl<'a> ToGlibPtr<'a, *mut ffi::cairo_surface_t> for QuartzSurface {
-    type Storage = &'a Surface;
-
-    #[inline]
-    fn to_glib_none(&'a self) -> Stash<'a, *mut ffi::cairo_surface_t, Self> {
-        let stash = self.0.to_glib_none();
-        Stash(stash.0, stash.1)
-    }
-
-    #[inline]
-    fn to_glib_full(&self) -> *mut ffi::cairo_surface_t {
-        unsafe { ffi::cairo_surface_reference(self.to_glib_none().0) }
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrNone<*mut ffi::cairo_surface_t> for QuartzSurface {
-    #[inline]
-    unsafe fn from_glib_none(ptr: *mut ffi::cairo_surface_t) -> QuartzSurface {
-        Self::try_from(from_glib_none::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrBorrow<*mut ffi::cairo_surface_t> for QuartzSurface {
-    #[inline]
-    unsafe fn from_glib_borrow(ptr: *mut ffi::cairo_surface_t) -> QuartzSurface {
-        Self::try_from(from_glib_borrow::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-impl FromGlibPtrFull<*mut ffi::cairo_surface_t> for QuartzSurface {
-    #[inline]
-    unsafe fn from_glib_full(ptr: *mut ffi::cairo_surface_t) -> QuartzSurface {
-        Self::try_from(from_glib_full::<_, Surface>(ptr)).unwrap()
-    }
-}
-
-#[cfg(feature = "use_glib")]
-gvalue_impl!(
-    QuartzSurface,
-    ffi::cairo_surface_t,
-    ffi::gobject::cairo_gobject_surface_get_type
-);
-
-impl Deref for QuartzSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.0
-    }
-}
-
-impl Clone for QuartzSurface {
-    fn clone(&self) -> QuartzSurface {
-        QuartzSurface(self.0.clone())
-    }
-}
-
-impl fmt::Display for QuartzSurface {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "QuartzSurface")
     }
 }

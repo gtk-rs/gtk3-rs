@@ -6,8 +6,11 @@ use enums::SurfaceType;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+use std::convert::TryFrom;
 use std::fmt;
+use std::ops::Deref;
 
+use enums::Status;
 use surface::Surface;
 
 #[derive(Debug)]
@@ -254,27 +257,7 @@ impl fmt::Display for XCBScreen {
     }
 }
 
-pub struct XCBSurface(Surface);
-
-impl std::ops::Deref for XCBSurface {
-    type Target = Surface;
-
-    fn deref(&self) -> &Surface {
-        &self.0
-    }
-}
-
-impl std::convert::TryFrom<Surface> for XCBSurface {
-    type Error = Surface;
-
-    fn try_from(surface: Surface) -> Result<Self, Surface> {
-        if surface.get_type() == SurfaceType::Xcb {
-            Ok(Self(surface))
-        } else {
-            Err(surface)
-        }
-    }
-}
+declare_surface!(XCBSurface, SurfaceType::Xcb);
 
 impl XCBSurface {
     pub fn create(
@@ -283,15 +266,15 @@ impl XCBSurface {
         visual: &XCBVisualType,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(ffi::cairo_xcb_surface_create(
+            Ok(Self::from_raw_full(ffi::cairo_xcb_surface_create(
                 connection.to_raw_none(),
                 drawable.to_raw_none(),
                 visual.to_raw_none(),
                 width,
                 height,
-            )))
+            ))?)
         }
     }
 
@@ -301,9 +284,9 @@ impl XCBSurface {
         bitmap: &XCBPixmap,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(
+            Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_for_bitmap(
                     connection.to_raw_none(),
                     screen.to_raw_none(),
@@ -311,7 +294,7 @@ impl XCBSurface {
                     width,
                     height,
                 ),
-            ))
+            )?))
         }
     }
 
@@ -322,9 +305,9 @@ impl XCBSurface {
         format: &XCBRenderPictFormInfo,
         width: i32,
         height: i32,
-    ) -> Self {
+    ) -> Result<Self, Status> {
         unsafe {
-            Self(Surface::from_raw_full(
+            Ok(Self(Surface::from_raw_full(
                 ffi::cairo_xcb_surface_create_with_xrender_format(
                     connection.to_raw_none(),
                     screen.to_raw_none(),
@@ -333,15 +316,21 @@ impl XCBSurface {
                     width,
                     height,
                 ),
-            ))
+            )?))
         }
     }
 
-    pub fn set_size(&self, width: i32, height: i32) {
+    pub fn set_size(&self, width: i32, height: i32) -> Result<(), Status> {
         unsafe { ffi::cairo_xcb_surface_set_size(self.to_raw_none(), width, height) }
+        self.status().to_result(())
     }
 
-    pub fn set_drawable(&self, drawable: &XCBDrawable, width: i32, height: i32) {
+    pub fn set_drawable(
+        &self,
+        drawable: &XCBDrawable,
+        width: i32,
+        height: i32,
+    ) -> Result<(), Status> {
         unsafe {
             ffi::cairo_xcb_surface_set_drawable(
                 self.to_raw_none(),
@@ -350,6 +339,7 @@ impl XCBSurface {
                 height,
             )
         }
+        self.status().to_result(())
     }
 }
 
