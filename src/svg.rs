@@ -39,7 +39,7 @@ impl SvgSurface {
 
         unsafe {
             Ok(Self(Surface::from_raw_full(
-                ffi::cairo_svg_surface_create(path.as_ptr(), width, height)
+                ffi::cairo_svg_surface_create(path.as_ptr(), width, height),
             )?))
         }
     }

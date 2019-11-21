@@ -11,9 +11,9 @@ use std::ops::Deref;
 use std::path::Path;
 use std::ptr;
 
-use enums::{PdfVersion, Status, SurfaceType};
 #[cfg(any(all(feature = "pdf", feature = "v1_16"), feature = "dox"))]
 use enums::{PdfMetadata, PdfOutline};
+use enums::{PdfVersion, Status, SurfaceType};
 use ffi;
 use surface::Surface;
 
@@ -37,9 +37,7 @@ impl PdfSurface {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
-        unsafe {
-            Self::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height))
-        }
+        unsafe { Self::from_raw_full(ffi::cairo_pdf_surface_create(path.as_ptr(), width, height)) }
     }
 
     for_stream_constructors!(cairo_pdf_surface_create_for_stream);

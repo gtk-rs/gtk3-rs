@@ -20,8 +20,17 @@ macro_rules! for_stream_constructors {
         /// Because the underlying `cairo_surface_t` is reference-counted,
         /// a lifetime parameter in a Rust wrapper type would not be enough to track
         /// how long it can keep writing to the stream.
-        pub fn for_stream<W: io::Write + 'static>(width: f64, height: f64, stream: W) -> Result<Self, crate::enums::Status> {
-            Ok(Self(Surface::_for_stream(ffi::$constructor_ffi, width, height, stream)?))
+        pub fn for_stream<W: io::Write + 'static>(
+            width: f64,
+            height: f64,
+            stream: W,
+        ) -> Result<Self, crate::enums::Status> {
+            Ok(Self(Surface::_for_stream(
+                ffi::$constructor_ffi,
+                width,
+                height,
+                stream,
+            )?))
         }
 
         /// Allows writing to a borrowed stream. The lifetime of the borrow is not tracked.
@@ -41,7 +50,12 @@ macro_rules! for_stream_constructors {
             height: f64,
             stream: *mut W,
         ) -> Result<Self, crate::enums::Status> {
-            Ok(Self(Surface::_for_raw_stream(ffi::$constructor_ffi, width, height, stream)?))
+            Ok(Self(Surface::_for_raw_stream(
+                ffi::$constructor_ffi,
+                width,
+                height,
+                stream,
+            )?))
         }
     };
 }
@@ -113,9 +127,7 @@ impl Surface {
         let env = unsafe { &*env.as_ptr() };
 
         if env.saw_already_borrowed.get() {
-            panic!(
-                "The output stream’s RefCell was already borrowed when cairo attempted a write"
-            )
+            panic!("The output stream’s RefCell was already borrowed when cairo attempted a write")
         }
 
         let mut mutable = env.mutable.borrow_mut();

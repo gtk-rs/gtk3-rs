@@ -37,13 +37,7 @@ impl PsSurface {
         let path = path.as_ref().to_string_lossy().into_owned();
         let path = CString::new(path).unwrap();
 
-        unsafe {
-            Self::from_raw_full(ffi::cairo_ps_surface_create(
-                path.as_ptr(),
-                width,
-                height,
-            ))
-        }
+        unsafe { Self::from_raw_full(ffi::cairo_ps_surface_create(path.as_ptr(), width, height)) }
     }
 
     for_stream_constructors!(cairo_ps_surface_create_for_stream);

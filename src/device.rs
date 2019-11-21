@@ -85,10 +85,12 @@ impl Device {
 
     pub fn surface_create_for_target(&self, target: &Surface) -> Result<Surface, Status> {
         unsafe {
-            Ok(Surface::from_raw_full(ffi::cairo_script_surface_create_for_target(
-                self.to_raw_none(),
-                target.to_raw_none(),
-            ))?)
+            Ok(Surface::from_raw_full(
+                ffi::cairo_script_surface_create_for_target(
+                    self.to_raw_none(),
+                    target.to_raw_none(),
+                ),
+            )?)
         }
     }
 

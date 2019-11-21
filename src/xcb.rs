@@ -2,13 +2,13 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
-use std::convert::TryFrom;
-use std::ops::Deref;
 use enums::SurfaceType;
 use ffi;
 #[cfg(feature = "use_glib")]
 use glib::translate::*;
+use std::convert::TryFrom;
 use std::fmt;
+use std::ops::Deref;
 
 use enums::Status;
 use surface::Surface;
@@ -268,15 +268,13 @@ impl XCBSurface {
         height: i32,
     ) -> Result<Self, Status> {
         unsafe {
-            Ok(Self::from_raw_full(
-                ffi::cairo_xcb_surface_create(
-                    connection.to_raw_none(),
-                    drawable.to_raw_none(),
-                    visual.to_raw_none(),
-                    width,
-                    height,
-                ),
-            )?)
+            Ok(Self::from_raw_full(ffi::cairo_xcb_surface_create(
+                connection.to_raw_none(),
+                drawable.to_raw_none(),
+                visual.to_raw_none(),
+                width,
+                height,
+            ))?)
         }
     }
 

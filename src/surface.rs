@@ -46,7 +46,7 @@ impl Surface {
         &self,
         content: Content,
         width: i32,
-        height: i32
+        height: i32,
     ) -> Result<Surface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar(
@@ -188,7 +188,12 @@ impl Surface {
         (x_pixels_per_inch, y_pixels_per_inch)
     }
 
-    pub fn create_similar_image(&self, format: Format, width: i32, height: i32) -> Result<Surface, Status> {
+    pub fn create_similar_image(
+        &self,
+        format: Format,
+        width: i32,
+        height: i32,
+    ) -> Result<Surface, Status> {
         unsafe {
             Self::from_raw_full(ffi::cairo_surface_create_similar_image(
                 self.to_raw_none(),

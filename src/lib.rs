@@ -82,7 +82,7 @@ pub use enums::*;
 pub use error::{BorrowError, IoError};
 
 pub use patterns::{
-    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern
+    Gradient, LinearGradient, Mesh, Pattern, RadialGradient, SolidPattern, SurfacePattern,
 };
 
 pub use font::{

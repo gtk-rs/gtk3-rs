@@ -18,7 +18,7 @@ macro_rules! declare_surface {
 
         impl $surf_name {
             pub unsafe fn from_raw_full(
-                ptr: *mut ffi::cairo_surface_t
+                ptr: *mut ffi::cairo_surface_t,
             ) -> Result<$surf_name, Status> {
                 let surface = Surface::from_raw_full(ptr)?;
                 Self::try_from(surface).map_err(|_| Status::SurfaceTypeMismatch)
