@@ -38,8 +38,7 @@ impl Notebook {
 
         let index = self.notebook.append_page(&widget, Some(&tab));
 
-        let notebook = &self.notebook;
-        button.connect_clicked(clone!(@weak notebook => move |_| {
+        button.connect_clicked(clone!(@weak self.notebook as notebook => move |_| {
             let index = notebook
                 .page_num(&widget)
                 .expect("Couldn't get page_num from notebook");

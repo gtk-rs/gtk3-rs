@@ -77,13 +77,15 @@ fn build_ui(application: &gtk::Application) {
                 );
             }
 
-            gtk::idle_add(clone!(@weak window => @default-return glib::Continue(false), move || {
-                let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
-                    MessageType::Error, ButtonsType::Ok, &msg);
-                dialog.run();
-                dialog.destroy();
-                Continue(false)
-            }));
+            gtk::idle_add(
+                clone!(@weak window => @default-return glib::Continue(false), move || {
+                    let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
+                        MessageType::Error, ButtonsType::Ok, &msg);
+                    dialog.run();
+                    dialog.destroy();
+                    Continue(false)
+                }),
+            );
 
             Err(())
         })

@@ -17,3 +17,8 @@ env:
   - GTK=3.24
 script:
   - ./build_travis.sh
+  - if [ "$TRAVIS_RUST_VERSION" == "stable" ]; then
+    rustup component add rustfmt;
+    cargo fmt;
+    git diff -R --exit-code;
+    fi

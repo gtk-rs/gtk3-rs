@@ -58,55 +58,56 @@ impl Application {
 
     fn connect_progress(&self) {
         let active = Rc::new(Cell::new(false));
-	let widgets = &self.widgets;
-        self.widgets.main_view.button.connect_clicked(clone!(@weak widgets => move |_| {
-            if active.get() {
-                return;
-            }
-
-            active.set(true);
-
-            let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-            thread::spawn(move || {
-                for v in 1..=10 {
-                    let _ = tx.send(Some(v));
-                    thread::sleep(Duration::from_millis(500));
+        self.widgets.main_view.button.connect_clicked(
+            clone!(@weak self.widgets as widgets => move |_| {
+                if active.get() {
+                    return;
                 }
-                let _ = tx.send(None);
-            });
 
-            let active = active.clone();
-            let widgets = widgets.clone();
-            rx.attach(None, move |value| match value {
-                Some(value) => {
-                    widgets
-                        .main_view
-                        .progress
-                        .set_fraction(f64::from(value) / 10.0);
+                active.set(true);
 
-                    if value == 10 {
+                let (tx, rx) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+                thread::spawn(move || {
+                    for v in 1..=10 {
+                        let _ = tx.send(Some(v));
+                        thread::sleep(Duration::from_millis(500));
+                    }
+                    let _ = tx.send(None);
+                });
+
+                let active = active.clone();
+                let widgets = widgets.clone();
+                rx.attach(None, move |value| match value {
+                    Some(value) => {
                         widgets
-                            .view_stack
-                            .set_visible_child(&widgets.complete_view.container);
+                            .main_view
+                            .progress
+                            .set_fraction(f64::from(value) / 10.0);
 
-                        let widgets = widgets.clone();
-                        gtk::timeout_add(1500, move || {
-                            widgets.main_view.progress.set_fraction(0.0);
+                        if value == 10 {
                             widgets
                                 .view_stack
-                                .set_visible_child(&widgets.main_view.container);
-                            glib::Continue(false)
-                        });
-                    }
+                                .set_visible_child(&widgets.complete_view.container);
 
-                    glib::Continue(true)
-                }
-                None => {
-                    active.set(false);
-                    glib::Continue(false)
-                }
-            });
-        }));
+                            let widgets = widgets.clone();
+                            gtk::timeout_add(1500, move || {
+                                widgets.main_view.progress.set_fraction(0.0);
+                                widgets
+                                    .view_stack
+                                    .set_visible_child(&widgets.main_view.container);
+                                glib::Continue(false)
+                            });
+                        }
+
+                        glib::Continue(true)
+                    }
+                    None => {
+                        active.set(false);
+                        glib::Continue(false)
+                    }
+                });
+            }),
+        );
     }
 }
 
