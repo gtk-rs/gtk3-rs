@@ -55,11 +55,11 @@ fn build_ui(application: &gtk::Application) {
     let label = gtk::Button::new_with_label("hover me!");
     // We need to name it in order to be able to use its name as a CSS label to
     // apply CSS on it.
-    gtk::WidgetExt::set_name(&label, "label1");
+    gtk::WidgetExt::set_widget_name(&label, "label1");
 
     let entry = gtk::Entry::new();
     // We need to name it in order to apply CSS on it.
-    gtk::WidgetExt::set_name(&entry, "entry1");
+    gtk::WidgetExt::set_widget_name(&entry, "entry1");
     entry.set_text("Some text");
 
     let combo = gtk::ComboBoxText::new();
