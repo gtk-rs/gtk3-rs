@@ -29,7 +29,8 @@ fn create_sub_window(
         clone!(@weak windows => @default-return Inhibit(false), move |_, _| {
             windows.borrow_mut().remove(&id);
             Inhibit(false)
-        }));
+        }),
+    );
 
     let button = gtk::Button::new_with_label(&format!("Notify main window with id {}!", id));
     button.connect_clicked(clone!(@weak main_window_entry => move |_| {
@@ -88,14 +89,16 @@ fn build_ui(application: &gtk::Application) {
 
     // Now let's create a button to create a looooot of new windows!
     let button = gtk::Button::new_with_label("Create new window");
-    button.connect_clicked(clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
-        let new_id = generate_new_id(&windows.borrow());
-        create_sub_window(&application,
-                          &windows_title_entry.get_buffer().get_text(),
-                          &entry,
-                          new_id,
-                          &windows);
-    }));
+    button.connect_clicked(
+        clone!(@weak windows_title_entry, @weak entry, @weak application => move |_| {
+            let new_id = generate_new_id(&windows.borrow());
+            create_sub_window(&application,
+                              &windows_title_entry.get_buffer().get_text(),
+                              &entry,
+                              new_id,
+                              &windows);
+        }),
+    );
 
     // Now we add a layout so we can put all widgets into it.
     let layout = gtk::Box::new(gtk::Orientation::Vertical, 5);
