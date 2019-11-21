@@ -484,26 +484,23 @@ impl Pixbuf {
 
     //
     //pub fn save_to_stream_async_future<P: IsA<gio::OutputStream> + Clone + 'static>(&self, stream: &P, type_: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Pin<Box_<dyn std::future::Future<Output = Result<(), glib::Error>> + 'static>> {
-    //use gio::GioFuture;
-    //use fragile::Fragile;
 
     //let stream = stream.clone();
     //let type_ = String::from(type_);
-    //GioFuture::new(self, move |obj, send| {
+    //Box_::pin(gio::GioFuture::new(self, move |obj, send| {
     //    let cancellable = gio::Cancellable::new();
-    //    let send = Fragile::new(send);
     //    obj.save_to_stream_async(
     //        &stream,
     //        &type_,
     //        Some(&cancellable),
     //        ,
     //        move |res| {
-    //            let _ = send.into_inner().send(res);
+    //            send.resolve(res);
     //        },
     //    );
 
     //    cancellable
-    //})
+    //}))
     //}
 
     pub fn scale(

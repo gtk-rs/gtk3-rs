@@ -176,20 +176,15 @@ impl Pixbuf {
     pub fn new_from_stream_async_future<P: IsA<gio::InputStream> + Clone + 'static>(
         stream: &P,
     ) -> Pin<Box<dyn Future<Output = Result<Pixbuf, Error>> + 'static>> {
-        use gio::GioFuture;
-
         let stream = stream.clone();
-        GioFuture::new(&(), move |_obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            let send = Fragile::new(send);
             Self::new_from_stream_async(&stream, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     pub fn new_from_stream_at_scale_async<
@@ -244,14 +239,9 @@ impl Pixbuf {
         height: i32,
         preserve_aspect_ratio: bool,
     ) -> Pin<Box<dyn Future<Output = Result<Pixbuf, Error>> + 'static>> {
-        use gio::GioFuture;
-
         let stream = stream.clone();
-        GioFuture::new(&(), move |_obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            let send = Fragile::new(send);
             Self::new_from_stream_at_scale_async(
                 &stream,
                 width,
@@ -259,12 +249,12 @@ impl Pixbuf {
                 preserve_aspect_ratio,
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     #[cfg_attr(feature = "cargo-clippy", allow(mut_from_ref))]
@@ -371,19 +361,14 @@ impl Pixbuf {
         filename: T,
     ) -> Pin<Box<dyn Future<Output = Result<Option<(PixbufFormat, i32, i32)>, Error>> + 'static>>
     {
-        use gio::GioFuture;
-
-        GioFuture::new(&(), move |_obj, send| {
-            use fragile::Fragile;
-
+        Box::pin(gio::GioFuture::new(&(), move |_obj, send| {
             let cancellable = gio::Cancellable::new();
-            let send = Fragile::new(send);
             Self::get_file_info_async(filename, Some(&cancellable), move |res| {
-                let _ = send.into_inner().send(res);
+                send.resolve(res);
             });
 
             cancellable
-        })
+        }))
     }
 
     pub fn save_to_bufferv(&self, type_: &str, options: &[(&str, &str)]) -> Result<Vec<u8>, Error> {
@@ -500,18 +485,14 @@ impl Pixbuf {
         type_: &str,
         options: &[(&str, &str)],
     ) -> Pin<Box<dyn Future<Output = Result<(), Error>> + 'static>> {
-        use fragile::Fragile;
-        use gio::GioFuture;
-
         let stream = stream.clone();
         let type_ = String::from(type_);
         let options = options
             .iter()
             .map(|&(k, v)| (String::from(k), String::from(v)))
             .collect::<Vec<(String, String)>>();
-        GioFuture::new(self, move |obj, send| {
+        Box::pin(gio::GioFuture::new(self, move |obj, send| {
             let cancellable = gio::Cancellable::new();
-            let send = Fragile::new(send);
             let options = options
                 .iter()
                 .map(|&(ref k, ref v)| (k.as_str(), v.as_str()))
@@ -523,12 +504,12 @@ impl Pixbuf {
                 options.as_slice(),
                 Some(&cancellable),
                 move |res| {
-                    let _ = send.into_inner().send(res);
+                    send.resolve(res);
                 },
             );
 
             cancellable
-        })
+        }))
     }
 
     pub fn savev<T: AsRef<Path>>(

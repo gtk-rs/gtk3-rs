@@ -15,8 +15,6 @@ extern crate glib;
 extern crate gio;
 extern crate libc;
 
-extern crate fragile;
-
 mod auto;
 
 mod animation;
