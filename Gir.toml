@@ -447,6 +447,22 @@ status = "generate"
        name = "get_boolean_list"
        #boolean array needs to be converted to Vec<bool>
        ignore = true
+       [[object.function]]
+       name = "get_string"
+       # can return an error but still a value to be freed
+       ignore = true
+       [[object.function]]
+       name = "get_string_list"
+       # can return an error but still a value to be freed
+       ignore = true
+       [[object.function]]
+       name = "get_locale_string"
+       # can return an error but still a value to be freed
+       ignore = true
+       [[object.function]]
+       name = "get_locale_string_list"
+       # can return an error but still a value to be freed
+       ignore = true
 
 [[object]]
 name = "GLib.DateTime"
