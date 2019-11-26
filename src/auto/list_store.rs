@@ -32,6 +32,7 @@ impl ListStore {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct ListStoreBuilder {
     #[cfg(any(feature = "v2_44", feature = "dox"))]
     item_type: Option<glib::types::Type>,
@@ -39,10 +40,7 @@ pub struct ListStoreBuilder {
 
 impl ListStoreBuilder {
     pub fn new() -> Self {
-        Self {
-            #[cfg(any(feature = "v2_44", feature = "dox"))]
-            item_type: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> ListStore {

@@ -37,6 +37,7 @@ impl ConverterInputStream {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct ConverterInputStreamBuilder {
     converter: Option<Converter>,
     base_stream: Option<InputStream>,
@@ -45,11 +46,7 @@ pub struct ConverterInputStreamBuilder {
 
 impl ConverterInputStreamBuilder {
     pub fn new() -> Self {
-        Self {
-            converter: None,
-            base_stream: None,
-            close_base_stream: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> ConverterInputStream {

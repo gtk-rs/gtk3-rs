@@ -60,6 +60,7 @@ impl Application {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct ApplicationBuilder {
     action_group: Option<ActionGroup>,
     application_id: Option<String>,
@@ -70,13 +71,7 @@ pub struct ApplicationBuilder {
 
 impl ApplicationBuilder {
     pub fn new() -> Self {
-        Self {
-            action_group: None,
-            application_id: None,
-            flags: None,
-            inactivity_timeout: None,
-            resource_base_path: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> Application {

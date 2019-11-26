@@ -40,6 +40,7 @@ impl DataOutputStream {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct DataOutputStreamBuilder {
     byte_order: Option<DataStreamByteOrder>,
     base_stream: Option<OutputStream>,
@@ -48,11 +49,7 @@ pub struct DataOutputStreamBuilder {
 
 impl DataOutputStreamBuilder {
     pub fn new() -> Self {
-        Self {
-            byte_order: None,
-            base_stream: None,
-            close_base_stream: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> DataOutputStream {
