@@ -46,6 +46,7 @@ impl DataInputStream {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct DataInputStreamBuilder {
     byte_order: Option<DataStreamByteOrder>,
     newline_type: Option<DataStreamNewlineType>,
@@ -56,13 +57,7 @@ pub struct DataInputStreamBuilder {
 
 impl DataInputStreamBuilder {
     pub fn new() -> Self {
-        Self {
-            byte_order: None,
-            newline_type: None,
-            buffer_size: None,
-            base_stream: None,
-            close_base_stream: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> DataInputStream {

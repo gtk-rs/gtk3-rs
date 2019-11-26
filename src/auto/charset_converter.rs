@@ -47,6 +47,7 @@ impl CharsetConverter {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct CharsetConverterBuilder {
     from_charset: Option<String>,
     to_charset: Option<String>,
@@ -55,11 +56,7 @@ pub struct CharsetConverterBuilder {
 
 impl CharsetConverterBuilder {
     pub fn new() -> Self {
-        Self {
-            from_charset: None,
-            to_charset: None,
-            use_fallback: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> CharsetConverter {

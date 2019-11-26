@@ -47,6 +47,7 @@ impl BufferedOutputStream {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct BufferedOutputStreamBuilder {
     auto_grow: Option<bool>,
     buffer_size: Option<u32>,
@@ -56,12 +57,7 @@ pub struct BufferedOutputStreamBuilder {
 
 impl BufferedOutputStreamBuilder {
     pub fn new() -> Self {
-        Self {
-            auto_grow: None,
-            buffer_size: None,
-            base_stream: None,
-            close_base_stream: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> BufferedOutputStream {

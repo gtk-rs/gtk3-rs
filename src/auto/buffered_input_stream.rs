@@ -53,6 +53,7 @@ impl BufferedInputStream {
     }
 }
 
+#[derive(Clone, Default)]
 pub struct BufferedInputStreamBuilder {
     buffer_size: Option<u32>,
     base_stream: Option<InputStream>,
@@ -61,11 +62,7 @@ pub struct BufferedInputStreamBuilder {
 
 impl BufferedInputStreamBuilder {
     pub fn new() -> Self {
-        Self {
-            buffer_size: None,
-            base_stream: None,
-            close_base_stream: None,
-        }
+        Self::default()
     }
 
     pub fn build(self) -> BufferedInputStream {
