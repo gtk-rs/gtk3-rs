@@ -2,19 +2,21 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
+use enums::SvgUnit;
+use enums::{Status, SurfaceType, SvgVersion};
+use ffi;
 use std::convert::TryFrom;
 use std::ffi::{CStr, CString};
 use std::fmt;
 use std::io;
 use std::mem;
 use std::ops::Deref;
+#[cfg(not(windows))]
+use std::os::unix::prelude::*;
 use std::path::Path;
 use std::ptr;
 
-#[cfg(any(all(feature = "svg", feature = "v1_16"), feature = "dox"))]
-use enums::SvgUnit;
-use enums::{Status, SurfaceType, SvgVersion};
-use ffi;
 use surface::Surface;
 
 #[cfg(feature = "use_glib")]
@@ -33,13 +35,37 @@ impl SvgVersion {
 declare_surface!(SvgSurface, SurfaceType::Svg);
 
 impl SvgSurface {
-    pub fn new<P: AsRef<Path>>(width: f64, height: f64, path: P) -> Result<SvgSurface, Status> {
-        let path = path.as_ref().to_string_lossy().into_owned();
-        let path = CString::new(path).unwrap();
+    pub fn new<P: AsRef<Path>>(
+        width: f64,
+        height: f64,
+        path: Option<P>,
+    ) -> Result<SvgSurface, Status> {
+        #[cfg(not(windows))]
+        let path = path.map(|p| {
+            CString::new(p.as_ref().as_os_str().as_bytes()).expect("Invalid path with NULL bytes")
+        });
+        #[cfg(windows)]
+        let path = path.map(|p| {
+            let path_str = p
+                .as_ref()
+                .to_str()
+                .expect("Path can't be represented as UTF-8")
+                .to_owned();
+            if path_str.starts_with("\\\\?\\") {
+                CString::new(path_str[4..].as_bytes())
+            } else {
+                CString::new(path_str.as_bytes())
+            }
+            .expect("Invalid path with NUL bytes")
+        });
 
         unsafe {
             Ok(Self(Surface::from_raw_full(
-                ffi::cairo_svg_surface_create(path.as_ptr(), width, height),
+                ffi::cairo_svg_surface_create(
+                    path.as_ref().map(|p| p.as_ptr()).unwrap_or(ptr::null()),
+                    width,
+                    height,
+                ),
             )?))
         }
     }
@@ -85,7 +111,7 @@ impl SvgSurface {
 mod test {
     use super::*;
     use context::*;
-    use tempfile::tempfile;
+    use tempfile::{tempfile, NamedTempFile};
 
     fn draw(surface: &Surface) {
         let cr = Context::new(surface);
@@ -130,9 +156,16 @@ mod test {
     }
 
     #[test]
-    #[cfg(unix)]
+    fn without_file() {
+        let surface = SvgSurface::new(100., 100., None::<&Path>).unwrap();
+        draw(&surface);
+        surface.finish();
+    }
+
+    #[test]
     fn file() {
-        let surface = SvgSurface::new(100., 100., "/dev/null").unwrap();
+        let file = NamedTempFile::new().expect("tempfile failed");
+        let surface = SvgSurface::new(100., 100., Some(&file.path())).unwrap();
         draw(&surface);
         surface.finish();
     }
