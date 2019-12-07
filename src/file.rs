@@ -29,7 +29,7 @@ pub trait FileExtManual: Sized {
         callback: R,
     );
 
-    fn replace_contents_async_future<'a, B: AsRef<[u8]> + Send + 'static>(
+    fn replace_contents_async_future<B: AsRef<[u8]> + Send + 'static>(
         &self,
         contents: B,
         etag: Option<&str>,

@@ -57,7 +57,7 @@ pub trait InputStreamExtManual: Sized {
     );
 
     #[cfg(any(feature = "v2_44", feature = "dox"))]
-    fn read_all_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+    fn read_all_async_future<B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
@@ -69,7 +69,7 @@ pub trait InputStreamExtManual: Sized {
         >,
     >;
 
-    fn read_async_future<'a, B: AsMut<[u8]> + Send + 'static>(
+    fn read_async_future<B: AsMut<[u8]> + Send + 'static>(
         &self,
         buffer: B,
         io_priority: Priority,
