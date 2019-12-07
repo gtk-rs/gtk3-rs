@@ -246,6 +246,7 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
 
     /// Parent Rust type to inherit from.
     type ParentType: ObjectType
+        + FromGlibPtrFull<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrBorrow<*mut <Self::ParentType as ObjectType>::GlibType>
         + FromGlibPtrNone<*mut <Self::ParentType as ObjectType>::GlibType>;
 
@@ -298,7 +299,10 @@ pub trait ObjectSubclass: ObjectImpl + Sized + 'static {
             let ptr = ptr.offset(offset);
             let ptr = ptr as *mut u8 as *mut <Self::ParentType as ObjectType>::GlibType;
 
-            from_glib_none(ptr)
+            // Don't steal floating reference here via from_glib_none() but
+            // preserve it if needed by reffing manually.
+            gobject_sys::g_object_ref(ptr as *mut gobject_sys::GObject);
+            from_glib_full(ptr)
         }
     }
 
