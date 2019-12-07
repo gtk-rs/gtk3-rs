@@ -167,10 +167,6 @@
 //! }
 //! ```
 
-#[macro_use]
-#[doc(hidden)]
-pub mod guard;
-
 pub mod simple;
 #[macro_use]
 pub mod types;

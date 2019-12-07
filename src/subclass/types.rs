@@ -411,8 +411,6 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     obj: *mut gobject_sys::GTypeInstance,
     klass: glib_sys::gpointer,
 ) {
-    glib_floating_reference_guard!(obj);
-
     // Get offset to the storage of our private struct, create it
     // and actually store it in that place.
     let mut data = T::type_data();
