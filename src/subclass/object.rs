@@ -71,7 +71,6 @@ unsafe extern "C" fn get_property<T: ObjectSubclass>(
     value: *mut gobject_sys::GValue,
     _pspec: *mut gobject_sys::GParamSpec,
 ) {
-    glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -99,7 +98,6 @@ unsafe extern "C" fn set_property<T: ObjectSubclass>(
     value: *mut gobject_sys::GValue,
     _pspec: *mut gobject_sys::GParamSpec,
 ) {
-    glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
     imp.set_property(
@@ -110,7 +108,6 @@ unsafe extern "C" fn set_property<T: ObjectSubclass>(
 }
 
 unsafe extern "C" fn constructed<T: ObjectSubclass>(obj: *mut gobject_sys::GObject) {
-    glib_floating_reference_guard!(obj);
     let instance = &*(obj as *mut T::Instance);
     let imp = instance.get_impl();
 
