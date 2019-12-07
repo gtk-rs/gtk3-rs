@@ -6,6 +6,7 @@
 
 use glib_sys;
 use gobject_sys;
+use std::cmp;
 use std::fmt;
 use std::hash;
 use std::marker::PhantomData;
@@ -375,14 +376,310 @@ pub trait CanDowncast<T> {}
 
 impl<Super: IsA<Super>, Sub: IsA<Super>> CanDowncast<Sub> for Super {}
 
-glib_wrapper! {
-    #[doc(hidden)]
-    #[derive(Debug, Ord, PartialOrd, PartialEq, Eq, Hash)]
-    pub struct ObjectRef(Shared<GObject>);
+// Manual implementation of glib_shared_wrapper! because of special cases
+pub struct ObjectRef {
+    inner: ptr::NonNull<GObject>,
+    borrowed: bool,
+}
 
-    match fn {
-        ref => |ptr| gobject_sys::g_object_ref_sink(ptr),
-        unref => |ptr| gobject_sys::g_object_unref(ptr),
+impl Clone for ObjectRef {
+    fn clone(&self) -> Self {
+        unsafe {
+            ObjectRef {
+                inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref(self.inner.as_ptr())),
+                borrowed: false,
+            }
+        }
+    }
+}
+
+impl Drop for ObjectRef {
+    fn drop(&mut self) {
+        unsafe {
+            if !self.borrowed {
+                gobject_sys::g_object_unref(self.inner.as_ptr());
+            }
+        }
+    }
+}
+
+impl fmt::Debug for ObjectRef {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let type_ = unsafe {
+            let klass = (*self.inner.as_ptr()).g_type_instance.g_class as *const ObjectClass;
+            (&*klass).get_type()
+        };
+
+        f.debug_struct("ObjectRef")
+            .field("inner", &self.inner)
+            .field("type", &type_)
+            .field("borrowed", &self.borrowed)
+            .finish()
+    }
+}
+
+impl PartialOrd for ObjectRef {
+    fn partial_cmp(&self, other: &Self) -> Option<cmp::Ordering> {
+        self.inner.partial_cmp(&other.inner)
+    }
+}
+
+impl Ord for ObjectRef {
+    fn cmp(&self, other: &Self) -> cmp::Ordering {
+        self.inner.cmp(&other.inner)
+    }
+}
+
+impl PartialEq for ObjectRef {
+    fn eq(&self, other: &Self) -> bool {
+        self.inner == other.inner
+    }
+}
+
+impl Eq for ObjectRef {}
+
+impl hash::Hash for ObjectRef {
+    fn hash<H>(&self, state: &mut H)
+    where
+        H: hash::Hasher,
+    {
+        self.inner.hash(state)
+    }
+}
+
+#[doc(hidden)]
+impl GlibPtrDefault for ObjectRef {
+    type GlibType = *mut GObject;
+}
+
+#[doc(hidden)]
+impl<'a> ToGlibPtr<'a, *mut GObject> for ObjectRef {
+    type Storage = &'a ObjectRef;
+
+    #[inline]
+    fn to_glib_none(&'a self) -> Stash<'a, *mut GObject, Self> {
+        Stash(self.inner.as_ptr(), self)
+    }
+
+    #[inline]
+    fn to_glib_full(&self) -> *mut GObject {
+        unsafe { gobject_sys::g_object_ref(self.inner.as_ptr()) }
+    }
+}
+
+#[doc(hidden)]
+impl<'a> ToGlibContainerFromSlice<'a, *mut *mut GObject> for ObjectRef {
+    type Storage = (
+        Vec<Stash<'a, *mut GObject, ObjectRef>>,
+        Option<Vec<*mut GObject>>,
+    );
+
+    fn to_glib_none_from_slice(t: &'a [ObjectRef]) -> (*mut *mut GObject, Self::Storage) {
+        let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+        let mut v_ptr: Vec<_> = v.iter().map(|s| s.0).collect();
+        v_ptr.push(ptr::null_mut() as *mut GObject);
+
+        (v_ptr.as_ptr() as *mut *mut GObject, (v, Some(v_ptr)))
+    }
+
+    fn to_glib_container_from_slice(t: &'a [ObjectRef]) -> (*mut *mut GObject, Self::Storage) {
+        let v: Vec<_> = t.iter().map(|s| s.to_glib_none()).collect();
+
+        let v_ptr = unsafe {
+            let v_ptr = glib_sys::g_malloc0(mem::size_of::<*mut GObject>() * (t.len() + 1))
+                as *mut *mut GObject;
+
+            for (i, s) in v.iter().enumerate() {
+                ptr::write(v_ptr.add(i), s.0);
+            }
+
+            v_ptr
+        };
+
+        (v_ptr, (v, None))
+    }
+
+    fn to_glib_full_from_slice(t: &[ObjectRef]) -> *mut *mut GObject {
+        unsafe {
+            let v_ptr = glib_sys::g_malloc0(std::mem::size_of::<*mut GObject>() * (t.len() + 1))
+                as *mut *mut GObject;
+
+            for (i, s) in t.iter().enumerate() {
+                ptr::write(v_ptr.add(i), s.to_glib_full());
+            }
+
+            v_ptr
+        }
+    }
+}
+
+#[doc(hidden)]
+impl<'a> ToGlibContainerFromSlice<'a, *const *mut GObject> for ObjectRef {
+    type Storage = (
+        Vec<Stash<'a, *mut GObject, ObjectRef>>,
+        Option<Vec<*mut GObject>>,
+    );
+
+    fn to_glib_none_from_slice(t: &'a [ObjectRef]) -> (*const *mut GObject, Self::Storage) {
+        let (ptr, stash) =
+            ToGlibContainerFromSlice::<'a, *mut *mut GObject>::to_glib_none_from_slice(t);
+        (ptr as *const *mut GObject, stash)
+    }
+
+    fn to_glib_container_from_slice(_: &'a [ObjectRef]) -> (*const *mut GObject, Self::Storage) {
+        // Can't have consumer free a *const pointer
+        unimplemented!()
+    }
+
+    fn to_glib_full_from_slice(_: &[ObjectRef]) -> *const *mut GObject {
+        // Can't have consumer free a *const pointer
+        unimplemented!()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrNone<*mut GObject> for ObjectRef {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *mut GObject) -> Self {
+        assert!(!ptr.is_null());
+
+        // Attention: This takes ownership of floating references!
+        ObjectRef {
+            inner: ptr::NonNull::new_unchecked(gobject_sys::g_object_ref_sink(ptr)),
+            borrowed: false,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrNone<*const GObject> for ObjectRef {
+    #[inline]
+    unsafe fn from_glib_none(ptr: *const GObject) -> Self {
+        // Attention: This takes ownership of floating references!
+        from_glib_none(ptr as *mut GObject)
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrFull<*mut GObject> for ObjectRef {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *mut GObject) -> Self {
+        assert!(!ptr.is_null());
+
+        ObjectRef {
+            inner: ptr::NonNull::new_unchecked(ptr),
+            borrowed: false,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*mut GObject> for ObjectRef {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *mut GObject) -> Self {
+        assert!(!ptr.is_null());
+
+        ObjectRef {
+            inner: ptr::NonNull::new_unchecked(ptr),
+            borrowed: true,
+        }
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrBorrow<*const GObject> for ObjectRef {
+    #[inline]
+    unsafe fn from_glib_borrow(ptr: *const GObject) -> Self {
+        from_glib_borrow(ptr as *mut GObject)
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibContainerAsVec<*mut GObject, *mut *mut GObject> for ObjectRef {
+    unsafe fn from_glib_none_num_as_vec(ptr: *mut *mut GObject, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        // Attention: This takes ownership of floating references!
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib_none(ptr::read(ptr.add(i))));
+        }
+        res
+    }
+
+    unsafe fn from_glib_container_num_as_vec(ptr: *mut *mut GObject, num: usize) -> Vec<Self> {
+        // Attention: This takes ownership of floating references!
+        let res = FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, num);
+        glib_sys::g_free(ptr as *mut _);
+        res
+    }
+
+    unsafe fn from_glib_full_num_as_vec(ptr: *mut *mut GObject, num: usize) -> Vec<Self> {
+        if num == 0 || ptr.is_null() {
+            return Vec::new();
+        }
+
+        let mut res = Vec::with_capacity(num);
+        for i in 0..num {
+            res.push(from_glib_full(ptr::read(ptr.add(i))));
+        }
+        glib_sys::g_free(ptr as *mut _);
+        res
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrArrayContainerAsVec<*mut GObject, *mut *mut GObject> for ObjectRef {
+    unsafe fn from_glib_none_as_vec(ptr: *mut *mut GObject) -> Vec<Self> {
+        // Attention: This takes ownership of floating references!
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+
+    unsafe fn from_glib_container_as_vec(ptr: *mut *mut GObject) -> Vec<Self> {
+        // Attention: This takes ownership of floating references!
+        FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+
+    unsafe fn from_glib_full_as_vec(ptr: *mut *mut GObject) -> Vec<Self> {
+        FromGlibContainerAsVec::from_glib_full_num_as_vec(ptr, c_ptr_array_len(ptr))
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibContainerAsVec<*mut GObject, *const *mut GObject> for ObjectRef {
+    unsafe fn from_glib_none_num_as_vec(ptr: *const *mut GObject, num: usize) -> Vec<Self> {
+        // Attention: This takes ownership of floating references!
+        FromGlibContainerAsVec::from_glib_none_num_as_vec(ptr as *mut *mut _, num)
+    }
+
+    unsafe fn from_glib_container_num_as_vec(_: *const *mut GObject, _: usize) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full_num_as_vec(_: *const *mut GObject, _: usize) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+}
+
+#[doc(hidden)]
+impl FromGlibPtrArrayContainerAsVec<*mut GObject, *const *mut GObject> for ObjectRef {
+    unsafe fn from_glib_none_as_vec(ptr: *const *mut GObject) -> Vec<Self> {
+        // Attention: This takes ownership of floating references!
+        FromGlibPtrArrayContainerAsVec::from_glib_none_as_vec(ptr as *mut *mut _)
+    }
+
+    unsafe fn from_glib_container_as_vec(_: *const *mut GObject) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
+    }
+
+    unsafe fn from_glib_full_as_vec(_: *const *mut GObject) -> Vec<Self> {
+        // Can't free a *const
+        unimplemented!()
     }
 }
 
@@ -737,7 +1034,6 @@ macro_rules! glib_object_wrapper {
             fn fmt(&self, f: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
                 f.debug_struct(stringify!($name))
                     .field("inner", &self.0)
-                    .field("type", &<$name as $crate::ObjectExt>::get_type(self))
                     .finish()
             }
         }
@@ -748,14 +1044,14 @@ macro_rules! glib_object_wrapper {
             unsafe fn from_value_optional(value: &$crate::Value) -> Option<Self> {
                 let obj = $crate::gobject_sys::g_value_get_object($crate::translate::ToGlibPtr::to_glib_none(value).0);
 
-                // If the object was floating, clear the floating flag. The one and only
-                // reference is still owned by the GValue at this point
-                if !obj.is_null() && $crate::gobject_sys::g_object_is_floating(obj) != $crate::glib_sys::GFALSE {
-                    $crate::gobject_sys::g_object_ref_sink(obj);
+                // Attention: Don't use from_glib_none() here because we don't want to steal any
+                // floating references that might be owned by someone else.
+                if !obj.is_null() {
+                    $crate::gobject_sys::g_object_ref(obj);
                 }
 
-                // And get a new reference to the object to pass to the caller
-                Option::<$name>::from_glib_none(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
+                // And take the reference to the object from above to pass it to the caller
+                Option::<$name>::from_glib_full(obj as *mut $ffi_name).map(|o| $crate::object::Cast::unsafe_cast(o))
             }
         }
 
@@ -948,6 +1244,7 @@ impl Object {
             if ptr.is_null() {
                 Err(glib_bool_error!("Can't instantiate object"))
             } else if type_.is_a(&InitiallyUnowned::static_type()) {
+                // Attention: This takes ownership of the floating reference
                 Ok(from_glib_none(ptr))
             } else {
                 Ok(from_glib_full(ptr))
