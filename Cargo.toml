@@ -6,7 +6,6 @@ autobins = false
 
 [dependencies]
 chrono = "0.4"
-url = "1.4"
 futures = "0.3"
 
 [dependencies.atk]
