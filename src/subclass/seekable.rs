@@ -54,7 +54,6 @@ unsafe extern "C" fn seekable_tell<T: ObjectSubclass>(seekable: *mut gio_sys::GS
 where
     T: SeekableImpl,
 {
-    glib_floating_reference_guard!(seekable);
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -67,7 +66,6 @@ unsafe extern "C" fn seekable_can_seek<T: ObjectSubclass>(
 where
     T: SeekableImpl,
 {
-    glib_floating_reference_guard!(seekable);
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -84,7 +82,6 @@ unsafe extern "C" fn seekable_seek<T: ObjectSubclass>(
 where
     T: SeekableImpl,
 {
-    glib_floating_reference_guard!(seekable);
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -109,7 +106,6 @@ unsafe extern "C" fn seekable_can_truncate<T: ObjectSubclass>(
 where
     T: SeekableImpl,
 {
-    glib_floating_reference_guard!(seekable);
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
@@ -125,7 +121,6 @@ unsafe extern "C" fn seekable_truncate<T: ObjectSubclass>(
 where
     T: SeekableImpl,
 {
-    glib_floating_reference_guard!(seekable);
     let instance = &*(seekable as *mut T::Instance);
     let imp = instance.get_impl();
 
