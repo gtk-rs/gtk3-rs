@@ -5,7 +5,6 @@
 extern crate gdk;
 extern crate gio;
 extern crate gtk;
-extern crate url;
 
 use std::env::args;
 
@@ -13,7 +12,6 @@ use gdk::DragAction;
 use gio::prelude::*;
 use gtk::prelude::*;
 use gtk::{DestDefaults, TargetFlags};
-use url::Url;
 
 fn build_ui(application: &gtk::Application) {
     let window = gtk::ApplicationWindow::new(application);
@@ -49,10 +47,13 @@ fn build_ui(application: &gtk::Application) {
         // Since we only accept `text/uri-list`s here, we don't need to check first, we can simply
         // iterate through all of the accepted URIs.
         for file in d.get_uris() {
-            let file_path = Url::parse(&file).unwrap();
-            let file_path = file_path.to_file_path().unwrap();
-            let file_path_str = file_path.to_str().unwrap();
-            let bulleted_file_path = format!(" • {}\n", &file_path_str);
+            let file = gio::File::new_for_uri(&file);
+            let display_name = if file.is_native() {
+                file.get_path().unwrap().display().to_string()
+            } else {
+                file.get_uri().into()
+            };
+            let bulleted_file_path = format!(" • {}\n", &display_name);
             // We make sure to always insert this at the end of the text buffer so they're in
             // order.
             buffer.insert_at_cursor(&bulleted_file_path);
