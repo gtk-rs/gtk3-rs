@@ -1938,20 +1938,20 @@ mod tests {
         // gives us useful results
         let dir_1 = tmp_dir.path().join("abcd");
         fs::create_dir(&dir_1).unwrap();
-        assert_eq!(::functions::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::path_get_basename(&dir_1), Some("abcd".into()));
         assert_eq!(
-            ::functions::path_get_basename(dir_1.canonicalize().unwrap()),
+            ::path_get_basename(dir_1.canonicalize().unwrap()),
             Some("abcd".into())
         );
         assert_eq!(
-            ::functions::path_get_dirname(dir_1.canonicalize().unwrap()),
+            ::path_get_dirname(dir_1.canonicalize().unwrap()),
             Some(tmp_dir.path().into())
         );
-        assert!(::functions::file_test(
+        assert!(::file_test(
             &dir_1,
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
-        assert!(::functions::file_test(
+        assert!(::file_test(
             &dir_1.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
@@ -1959,20 +1959,20 @@ mod tests {
         // And test with some non-ASCII characters
         let dir_2 = tmp_dir.as_ref().join("øäöü");
         fs::create_dir(&dir_2).unwrap();
-        assert_eq!(::functions::path_get_basename(&dir_2), Some("øäöü".into()));
+        assert_eq!(::path_get_basename(&dir_2), Some("øäöü".into()));
         assert_eq!(
-            ::functions::path_get_basename(dir_2.canonicalize().unwrap()),
+            ::path_get_basename(dir_2.canonicalize().unwrap()),
             Some("øäöü".into())
         );
         assert_eq!(
-            ::functions::path_get_dirname(dir_2.canonicalize().unwrap()),
+            ::path_get_dirname(dir_2.canonicalize().unwrap()),
             Some(tmp_dir.path().into())
         );
-        assert!(::functions::file_test(
+        assert!(::file_test(
             &dir_2,
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
-        assert!(::functions::file_test(
+        assert!(::file_test(
             &dir_2.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
@@ -1988,20 +1988,19 @@ mod tests {
         // gives us useful results
         let dir_1 = tmp_dir.join("abcd");
         fs::create_dir(&dir_1).unwrap();
-        assert_eq!(::functions::path_get_basename(&dir_1), Some("abcd".into()));
+        assert_eq!(::path_get_basename(&dir_1), Some("abcd".into()));
         assert_eq!(
-            ::functions::path_get_basename(dir_1.canonicalize().unwrap()),
+            ::path_get_basename(dir_1.canonicalize().unwrap()),
             Some("abcd".into())
         );
         assert_eq!(
-            ::functions::path_get_dirname(dir_1.canonicalize().unwrap()),
+            ::path_get_dirname(dir_1.canonicalize().unwrap()),
             Some(tmp_dir)
         );
-        assert!(::functions::file_test(
-            &dir_1,
+        assert!(::file_test(&dir_1,
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
-        assert!(::functions::file_test(
+        assert!(::file_test(
             &dir_1.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
         ));
