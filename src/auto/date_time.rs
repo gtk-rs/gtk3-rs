@@ -55,10 +55,12 @@ impl DateTime {
         }
     }
 
+    //#[cfg_attr(feature = "v2_62", deprecated)]
     //pub fn new_from_timeval_local(tv: /*Ignored*/&TimeVal) -> DateTime {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_local() }
     //}
 
+    //#[cfg_attr(feature = "v2_62", deprecated)]
     //pub fn new_from_timeval_utc(tv: /*Ignored*/&TimeVal) -> DateTime {
     //    unsafe { TODO: call glib_sys:g_date_time_new_from_timeval_utc() }
     //}
@@ -210,6 +212,11 @@ impl DateTime {
         }
     }
 
+    #[cfg(any(feature = "v2_62", feature = "dox"))]
+    pub fn format_iso8601(&self) -> Option<GString> {
+        unsafe { from_glib_full(glib_sys::g_date_time_format_iso8601(self.to_glib_none().0)) }
+    }
+
     pub fn get_day_of_month(&self) -> i32 {
         unsafe { glib_sys::g_date_time_get_day_of_month(self.to_glib_none().0) }
     }
@@ -305,6 +312,7 @@ impl DateTime {
         unsafe { from_glib_full(glib_sys::g_date_time_to_local(self.to_glib_none().0)) }
     }
 
+    //#[cfg_attr(feature = "v2_62", deprecated)]
     //pub fn to_timeval(&self, tv: /*Ignored*/&mut TimeVal) -> bool {
     //    unsafe { TODO: call glib_sys:g_date_time_to_timeval() }
     //}
