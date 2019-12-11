@@ -5,6 +5,7 @@
 use glib_sys;
 use libc;
 use std;
+use std::boxed::Box as Box_;
 use std::mem;
 use std::ptr;
 use translate::*;
@@ -15,7 +16,9 @@ use Error;
 use FileTest;
 use FormatSizeFlags;
 use GString;
+use Pid;
 use Source;
+use SpawnFlags;
 use UserDirectory;
 
 pub fn access<P: AsRef<std::path::Path>>(filename: P, mode: i32) -> i32 {
@@ -563,6 +566,20 @@ pub fn get_codeset() -> Option<GString> {
     unsafe { from_glib_full(glib_sys::g_get_codeset()) }
 }
 
+#[cfg(any(feature = "v2_62", feature = "dox"))]
+pub fn get_console_charset() -> Option<GString> {
+    unsafe {
+        let mut charset = ptr::null();
+        let ret = from_glib(glib_sys::g_get_console_charset(&mut charset));
+        if ret {
+            Some(from_glib_none(charset))
+        } else {
+            None
+        }
+    }
+}
+
+//#[cfg_attr(feature = "v2_62", deprecated)]
 //pub fn get_current_time(result: /*Ignored*/&mut TimeVal) {
 //    unsafe { TODO: call glib_sys:g_get_current_time() }
 //}
@@ -1052,11 +1069,11 @@ pub fn set_application_name(application_name: &str) {
 //    unsafe { TODO: call glib_sys:g_set_error() }
 //}
 
-//pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box<dyn Fn(&str) + 'static>> {
+//pub fn set_print_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box_<dyn Fn(&str) + 'static>> {
 //    unsafe { TODO: call glib_sys:g_set_print_handler() }
 //}
 
-//pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box<dyn Fn(&str) + 'static>> {
+//pub fn set_printerr_handler<P: Fn(&str) + Send + Sync + 'static>(func: P) -> Option<Box_<dyn Fn(&str) + 'static>> {
 //    unsafe { TODO: call glib_sys:g_set_printerr_handler() }
 //}
 
@@ -1146,18 +1163,153 @@ pub fn spaced_primes_closest(num: u32) -> u32 {
     unsafe { glib_sys::g_spaced_primes_closest(num) }
 }
 
-//pub fn spawn_async<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<Pid, Error> {
-//    unsafe { TODO: call glib_sys:g_spawn_async() }
-//}
+pub fn spawn_async<P: AsRef<std::path::Path>>(
+    working_directory: P,
+    argv: &[&std::path::Path],
+    envp: &[&std::path::Path],
+    flags: SpawnFlags,
+    child_setup: Option<Box_<dyn FnOnce() + 'static>>,
+) -> Result<Pid, Error> {
+    let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
+    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
+        user_data: glib_sys::gpointer,
+    ) {
+        let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
+            Box_::from_raw(user_data as *mut _);
+        let callback = (*callback).expect("cannot get closure...");
+        callback()
+    }
+    let child_setup = if child_setup_data.is_some() {
+        Some(child_setup_func::<P> as _)
+    } else {
+        None
+    };
+    let super_callback0: Box_<Option<Box_<dyn FnOnce() + 'static>>> = child_setup_data;
+    unsafe {
+        let mut child_pid = mem::MaybeUninit::uninit();
+        let mut error = ptr::null_mut();
+        let _ = glib_sys::g_spawn_async(
+            working_directory.as_ref().to_glib_none().0,
+            argv.to_glib_none().0,
+            envp.to_glib_none().0,
+            flags.to_glib(),
+            child_setup,
+            Box_::into_raw(super_callback0) as *mut _,
+            child_pid.as_mut_ptr(),
+            &mut error,
+        );
+        let child_pid = from_glib(child_pid.assume_init());
+        if error.is_null() {
+            Ok(child_pid)
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
 
-//#[cfg(any(feature = "v2_58", feature = "dox"))]
-//pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&str], envp: &[&str], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, stdin_fd: i32, stdout_fd: i32, stderr_fd: i32) -> Result<Pid, Error> {
-//    unsafe { TODO: call glib_sys:g_spawn_async_with_fds() }
-//}
+#[cfg(any(feature = "v2_58", feature = "dox"))]
+pub fn spawn_async_with_fds<P: AsRef<std::path::Path>>(
+    working_directory: P,
+    argv: &[&str],
+    envp: &[&str],
+    flags: SpawnFlags,
+    child_setup: Option<Box_<dyn FnOnce() + 'static>>,
+    stdin_fd: i32,
+    stdout_fd: i32,
+    stderr_fd: i32,
+) -> Result<Pid, Error> {
+    let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
+    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
+        user_data: glib_sys::gpointer,
+    ) {
+        let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
+            Box_::from_raw(user_data as *mut _);
+        let callback = (*callback).expect("cannot get closure...");
+        callback()
+    }
+    let child_setup = if child_setup_data.is_some() {
+        Some(child_setup_func::<P> as _)
+    } else {
+        None
+    };
+    let super_callback0: Box_<Option<Box_<dyn FnOnce() + 'static>>> = child_setup_data;
+    unsafe {
+        let mut child_pid = mem::MaybeUninit::uninit();
+        let mut error = ptr::null_mut();
+        let _ = glib_sys::g_spawn_async_with_fds(
+            working_directory.as_ref().to_glib_none().0,
+            argv.to_glib_none().0,
+            envp.to_glib_none().0,
+            flags.to_glib(),
+            child_setup,
+            Box_::into_raw(super_callback0) as *mut _,
+            child_pid.as_mut_ptr(),
+            stdin_fd,
+            stdout_fd,
+            stderr_fd,
+            &mut error,
+        );
+        let child_pid = from_glib(child_pid.assume_init());
+        if error.is_null() {
+            Ok(child_pid)
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
 
-//pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>) -> Result<(Pid, i32, i32, i32), Error> {
-//    unsafe { TODO: call glib_sys:g_spawn_async_with_pipes() }
-//}
+pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(
+    working_directory: P,
+    argv: &[&std::path::Path],
+    envp: &[&std::path::Path],
+    flags: SpawnFlags,
+    child_setup: Option<Box_<dyn FnOnce() + 'static>>,
+) -> Result<(Pid, i32, i32, i32), Error> {
+    let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
+    unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
+        user_data: glib_sys::gpointer,
+    ) {
+        let callback: Box_<Option<Box_<dyn FnOnce() + 'static>>> =
+            Box_::from_raw(user_data as *mut _);
+        let callback = (*callback).expect("cannot get closure...");
+        callback()
+    }
+    let child_setup = if child_setup_data.is_some() {
+        Some(child_setup_func::<P> as _)
+    } else {
+        None
+    };
+    let super_callback0: Box_<Option<Box_<dyn FnOnce() + 'static>>> = child_setup_data;
+    unsafe {
+        let mut child_pid = mem::MaybeUninit::uninit();
+        let mut standard_input = mem::MaybeUninit::uninit();
+        let mut standard_output = mem::MaybeUninit::uninit();
+        let mut standard_error = mem::MaybeUninit::uninit();
+        let mut error = ptr::null_mut();
+        let _ = glib_sys::g_spawn_async_with_pipes(
+            working_directory.as_ref().to_glib_none().0,
+            argv.to_glib_none().0,
+            envp.to_glib_none().0,
+            flags.to_glib(),
+            child_setup,
+            Box_::into_raw(super_callback0) as *mut _,
+            child_pid.as_mut_ptr(),
+            standard_input.as_mut_ptr(),
+            standard_output.as_mut_ptr(),
+            standard_error.as_mut_ptr(),
+            &mut error,
+        );
+        let child_pid = from_glib(child_pid.assume_init());
+        let standard_input = standard_input.assume_init();
+        let standard_output = standard_output.assume_init();
+        let standard_error = standard_error.assume_init();
+        if error.is_null() {
+            Ok((child_pid, standard_input, standard_output, standard_error))
+        } else {
+            Err(from_glib_full(error))
+        }
+    }
+}
 
 pub fn spawn_check_exit_status(exit_status: i32) -> Result<(), Error> {
     unsafe {
@@ -1191,7 +1343,7 @@ pub fn spawn_command_line_async<P: AsRef<std::ffi::OsStr>>(command_line: P) -> R
 //    unsafe { TODO: call glib_sys:g_spawn_command_line_sync() }
 //}
 
-//pub fn spawn_sync<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box<dyn FnOnce() + 'static>>, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
+//pub fn spawn_sync<P: AsRef<std::path::Path>>(working_directory: P, argv: &[&std::path::Path], envp: &[&std::path::Path], flags: SpawnFlags, child_setup: Option<Box_<dyn FnOnce() + 'static>>, standard_output: Vec<u8>, standard_error: Vec<u8>) -> Result<i32, Error> {
 //    unsafe { TODO: call glib_sys:g_spawn_sync() }
 //}
 
