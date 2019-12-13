@@ -181,16 +181,16 @@ pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(
                     File::from_raw_fd(standard_error),
                 ))
             }
-            // #[cfg(windows)]
-            // {
-            //     use std::os::windows::io::{FromRawHandle, RawHandle};
-            //     Ok((
-            //         child_pid,
-            //         File::from_raw_handle(standard_input as usize as RawHandle),
-            //         File::from_raw_handle(standard_output as usize as RawHandle),
-            //         File::from_raw_handle(standard_error as usize as RawHandle),
-            //     ))
-            // }
+        // #[cfg(windows)]
+        // {
+        //     use std::os::windows::io::{FromRawHandle, RawHandle};
+        //     Ok((
+        //         child_pid,
+        //         File::from_raw_handle(standard_input as usize as RawHandle),
+        //         File::from_raw_handle(standard_output as usize as RawHandle),
+        //         File::from_raw_handle(standard_error as usize as RawHandle),
+        //     ))
+        // }
         } else {
             Err(from_glib_full(error))
         }

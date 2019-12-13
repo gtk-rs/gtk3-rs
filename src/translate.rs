@@ -1947,10 +1947,7 @@ mod tests {
             ::path_get_dirname(dir_1.canonicalize().unwrap()),
             Some(tmp_dir.path().into())
         );
-        assert!(::file_test(
-            &dir_1,
-            ::FileTest::EXISTS | ::FileTest::IS_DIR
-        ));
+        assert!(::file_test(&dir_1, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
             &dir_1.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
@@ -1968,10 +1965,7 @@ mod tests {
             ::path_get_dirname(dir_2.canonicalize().unwrap()),
             Some(tmp_dir.path().into())
         );
-        assert!(::file_test(
-            &dir_2,
-            ::FileTest::EXISTS | ::FileTest::IS_DIR
-        ));
+        assert!(::file_test(&dir_2, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
             &dir_2.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
@@ -1997,9 +1991,7 @@ mod tests {
             ::path_get_dirname(dir_1.canonicalize().unwrap()),
             Some(tmp_dir)
         );
-        assert!(::file_test(&dir_1,
-            ::FileTest::EXISTS | ::FileTest::IS_DIR
-        ));
+        assert!(::file_test(&dir_1, ::FileTest::EXISTS | ::FileTest::IS_DIR));
         assert!(::file_test(
             &dir_1.canonicalize().unwrap(),
             ::FileTest::EXISTS | ::FileTest::IS_DIR
