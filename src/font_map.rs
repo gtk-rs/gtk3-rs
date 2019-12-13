@@ -2,12 +2,12 @@
 // See the COPYRIGHT file at the top-level directory of this distribution.
 // Licensed under the MIT license, see the LICENSE file or <http://opensource.org/licenses/MIT>
 
+use crate::FontMap;
 use cairo;
 use glib::object::IsA;
 use glib::translate::*;
 use pango;
 use pango_cairo_sys;
-use crate::FontMap;
 
 pub trait FontMapExtManual {
     fn get_font_type(&self) -> cairo::FontType;
