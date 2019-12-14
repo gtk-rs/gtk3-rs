@@ -114,3 +114,6 @@ manual_traits = ["FontMapExtManual"]
     [[object.function]]
     name = "new"
     ignore = true
+    [[object.function]]
+    name = "set_default"
+    ignore = true

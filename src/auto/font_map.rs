@@ -27,8 +27,6 @@ pub const NONE_FONT_MAP: Option<&FontMap> = None;
 pub trait FontMapExt: 'static {
     fn get_resolution(&self) -> f64;
 
-    fn set_default(&self);
-
     fn set_resolution(&self, dpi: f64);
 }
 
@@ -36,12 +34,6 @@ impl<O: IsA<FontMap>> FontMapExt for O {
     fn get_resolution(&self) -> f64 {
         unsafe {
             pango_cairo_sys::pango_cairo_font_map_get_resolution(self.as_ref().to_glib_none().0)
-        }
-    }
-
-    fn set_default(&self) {
-        unsafe {
-            pango_cairo_sys::pango_cairo_font_map_set_default(self.as_ref().to_glib_none().0);
         }
     }
 
