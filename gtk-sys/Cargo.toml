@@ -1,6 +1,6 @@
 [package]
 name = "gtk-sys"
-version = "0.0.2"
+version = "0.9.1"
 links = "gtk"
 build = "build.rs"
 
