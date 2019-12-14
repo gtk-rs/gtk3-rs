@@ -34,4 +34,10 @@ impl FontMap {
     pub fn new() -> Option<pango::FontMap> {
         unsafe { from_glib_full(pango_cairo_sys::pango_cairo_font_map_new()) }
     }
+
+    pub fn set_default(font_map: Option<Self>) {
+        unsafe {
+            pango_cairo_sys::pango_cairo_font_map_set_default(font_map.as_ref().to_glib_none().0);
+        }
+    }
 }
