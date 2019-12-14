@@ -339,6 +339,14 @@ status = "generate"
     pattern = "ref_string_.+"
     #need manual implementation
     ignore = true
+    [[object.function]]
+    name = "spawn_async_with_fds"
+    # generates invalid FDs
+    ignore = true
+    [[object.function]]
+    name = "spawn_async_with_pipes"
+    # generates invalid FDs
+    ignore = true
     [[object.constant]]
     pattern = "DIR_SEPARATOR(_S)?"
     #not cross-platform

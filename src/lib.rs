@@ -150,6 +150,8 @@ mod checksum;
 pub mod closure;
 mod enums;
 mod file_error;
+mod functions;
+pub use functions::*;
 mod key_file;
 pub mod prelude;
 pub mod signal;
