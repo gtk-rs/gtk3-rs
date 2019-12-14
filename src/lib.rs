@@ -150,9 +150,7 @@ mod checksum;
 pub mod closure;
 mod enums;
 mod file_error;
-#[cfg(not(windows))]
 mod functions;
-#[cfg(not(windows))]
 pub use functions::*;
 mod key_file;
 pub mod prelude;

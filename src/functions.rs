@@ -1,19 +1,29 @@
+#[cfg(not(windows))]
 use glib_sys;
 #[cfg(any(feature = "v2_58", feature = "dox"))]
+#[cfg(not(windows))]
 use std;
+#[cfg(not(windows))]
 use std::boxed::Box as Box_;
-use std::fs::File;
+#[cfg(not(windows))]
 use std::mem;
 #[cfg(not(windows))]
 #[cfg(any(feature = "v2_58", feature = "dox"))]
 use std::os::unix::io::AsRawFd;
-#[cfg(windows)]
-#[cfg(any(feature = "v2_58", feature = "dox"))]
-use std::os::windows::io::AsRawHandle;
+#[cfg(not(windows))]
+use std::os::unix::io::FromRawFd;
+// #[cfg(windows)]
+// #[cfg(any(feature = "v2_58", feature = "dox"))]
+// use std::os::windows::io::AsRawHandle;
+#[cfg(not(windows))]
 use std::ptr;
+#[cfg(not(windows))]
 use translate::*;
+#[cfg(not(windows))]
 use Error;
+#[cfg(not(windows))]
 use Pid;
+#[cfg(not(windows))]
 use SpawnFlags;
 
 #[cfg(any(feature = "v2_58", feature = "dox"))]
@@ -125,13 +135,19 @@ pub fn spawn_async_with_fds<P: AsRef<std::path::Path>, T: AsRawFd, U: AsRawFd, V
 //     }
 // }
 
-pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(
+#[cfg(not(windows))]
+pub fn spawn_async_with_pipes<
+    P: AsRef<std::path::Path>,
+    T: FromRawFd,
+    U: FromRawFd,
+    V: FromRawFd,
+>(
     working_directory: P,
     argv: &[&std::path::Path],
     envp: &[&std::path::Path],
     flags: SpawnFlags,
     child_setup: Option<Box_<dyn FnOnce() + 'static>>,
-) -> Result<(Pid, File, File, File), Error> {
+) -> Result<(Pid, T, U, V), Error> {
     let child_setup_data: Box_<Option<Box_<dyn FnOnce() + 'static>>> = Box_::new(child_setup);
     unsafe extern "C" fn child_setup_func<P: AsRef<std::path::Path>>(
         user_data: glib_sys::gpointer,
@@ -173,12 +189,11 @@ pub fn spawn_async_with_pipes<P: AsRef<std::path::Path>>(
         if error.is_null() {
             #[cfg(not(windows))]
             {
-                use std::os::unix::io::FromRawFd;
                 Ok((
                     child_pid,
-                    File::from_raw_fd(standard_input),
-                    File::from_raw_fd(standard_output),
-                    File::from_raw_fd(standard_error),
+                    FromRawFd::from_raw_fd(standard_input),
+                    FromRawFd::from_raw_fd(standard_output),
+                    FromRawFd::from_raw_fd(standard_error),
                 ))
             }
         // #[cfg(windows)]
