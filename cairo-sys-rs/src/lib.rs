@@ -21,7 +21,7 @@ pub mod winapi {
     pub use winapi_orig::shared::windef::HDC;
 }
 
-#[cfg(all(feature = "dox", not(feature = "win32-surface")))]
+#[cfg(all(feature = "dox", not(all(windows, feature = "win32-surface"))))]
 pub mod winapi {
     use libc::c_void;
 
