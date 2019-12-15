@@ -56,6 +56,10 @@ script:
   - cargo doc --features "dox,embed-lgpl-docs"
   - cargo test --features "$FEATURES,png,pdf,svg,pdf,xcb"
   - cargo test --no-default-features --features "$FEATURES,png,pdf,svg,pdf,xcb"
+  - cd cairo-sys-rs
+  - cargo rustdoc --no-default-features --features "dox xlib png pdf svg ps xcb use_glib win32-surface"
+  - cargo rustdoc --no-default-features --features "dox xlib png pdf svg ps xcb use_glib"
+  - cd ..
   # catch any sneaked in lgpl docs
   - cargo build --features purge-lgpl-docs
   - git diff -R --exit-code
