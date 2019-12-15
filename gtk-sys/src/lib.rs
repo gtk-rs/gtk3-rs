@@ -1305,7 +1305,7 @@ impl ::std::fmt::Debug for GtkBindingArg_d {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union GtkTextAppearance_u1 {
-    pub rgba: *mut [*mut gdk::GdkRGBA; 2],
+    pub rgba: [*mut gdk::GdkRGBA; 2],
     pub padding: [c_uint; 4],
 }
 
@@ -13604,7 +13604,7 @@ impl ::std::fmt::Debug for GtkRangeAccessible {
 pub struct GtkRcStyle {
     pub parent_instance: gobject::GObject,
     pub name: *mut c_char,
-    pub bg_pixmap_name: *mut [*mut c_char; 5],
+    pub bg_pixmap_name: [*mut c_char; 5],
     pub font_desc: *mut pango::PangoFontDescription,
     pub color_flags: [GtkRcFlags; 5],
     pub fg: [gdk::GdkColor; 5],
@@ -14206,7 +14206,6 @@ impl ::std::fmt::Debug for GtkStatusbarAccessible {
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
 pub struct GtkStyle {
     pub parent_instance: gobject::GObject,
     pub fg: [gdk::GdkColor; 5],
@@ -14222,14 +14221,8 @@ pub struct GtkStyle {
     pub font_desc: *mut pango::PangoFontDescription,
     pub xthickness: c_int,
     pub ythickness: c_int,
-    pub background: *mut [*mut cairo::cairo_pattern_t; 5],
-    pub attach_count: c_int,
-    pub visual: *mut gdk::GdkVisual,
-    pub private_font_desc: *mut pango::PangoFontDescription,
-    pub rc_style: *mut GtkRcStyle,
-    pub styles: *mut glib::GSList,
-    pub property_cache: *mut glib::GArray,
-    pub icon_factories: *mut glib::GSList,
+    _truncated_record_marker: c_void,
+    // /*Ignored*/field background has incomplete type
 }
 
 impl ::std::fmt::Debug for GtkStyle {
@@ -14248,7 +14241,6 @@ impl ::std::fmt::Debug for GtkStyle {
             .field("font_desc", &self.font_desc)
             .field("xthickness", &self.xthickness)
             .field("ythickness", &self.ythickness)
-            .field("background", &self.background)
             .finish()
     }
 }
