@@ -3858,13 +3858,6 @@ const RUST_LAYOUTS: &[(&str, Layout)] = &[
         },
     ),
     (
-        "GtkStyle",
-        Layout {
-            size: size_of::<GtkStyle>(),
-            alignment: align_of::<GtkStyle>(),
-        },
-    ),
-    (
         "GtkStyleClass",
         Layout {
             size: size_of::<GtkStyleClass>(),
