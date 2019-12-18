@@ -27,6 +27,9 @@ pub enum GString {
     Owned(*mut c_char, usize),
 }
 
+unsafe impl Send for GString {}
+unsafe impl Sync for GString {}
+
 impl GString {
     pub unsafe fn new(ptr: *mut c_char) -> Self {
         assert!(!ptr.is_null());

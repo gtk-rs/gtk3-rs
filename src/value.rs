@@ -669,6 +669,9 @@ impl<T> Deref for TypedValue<T> {
     }
 }
 
+unsafe impl<T: Send> Send for TypedValue<T> {}
+unsafe impl<T: Sync> Sync for TypedValue<T> {}
+
 impl<'a, T: FromValueOptional<'a> + SetValueOptional> From<Option<&'a T>> for TypedValue<T> {
     fn from(value: Option<&'a T>) -> Self {
         TypedValue(Value::from(value), PhantomData)
@@ -772,6 +775,7 @@ impl ToValue for Value {
 #[derive(Clone)]
 #[repr(C)]
 pub struct SendValue(Value);
+
 unsafe impl Send for SendValue {}
 
 impl SendValue {
