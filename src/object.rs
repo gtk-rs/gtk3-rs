@@ -184,6 +184,9 @@ impl<T: IsClassFor> Drop for ClassRef<T> {
     }
 }
 
+unsafe impl<T: IsClassFor> Send for ClassRef<T> {}
+unsafe impl<T: IsClassFor> Sync for ClassRef<T> {}
+
 /// Upcasting and downcasting support.
 ///
 /// Provides conversions up and down the class hierarchy tree.

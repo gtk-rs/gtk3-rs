@@ -48,6 +48,9 @@ impl ToGlib for UserDirectory {
 #[derive(Debug)]
 pub struct EnumClass(*mut gobject_sys::GEnumClass);
 
+unsafe impl Send for EnumClass {}
+unsafe impl Sync for EnumClass {}
+
 impl EnumClass {
     /// Create a new `EnumClass` from a `Type`.
     ///
@@ -164,6 +167,9 @@ impl Clone for EnumClass {
 #[derive(Debug, Clone)]
 pub struct EnumValue(*const gobject_sys::GEnumValue, EnumClass);
 
+unsafe impl Send for EnumValue {}
+unsafe impl Sync for EnumValue {}
+
 impl EnumValue {
     /// Get integer value corresponding to the value.
     pub fn get_value(&self) -> i32 {
@@ -228,6 +234,9 @@ impl Ord for EnumValue {
 /// using them
 #[derive(Debug)]
 pub struct FlagsClass(*mut gobject_sys::GFlagsClass);
+
+unsafe impl Send for FlagsClass {}
+unsafe impl Sync for FlagsClass {}
 
 impl FlagsClass {
     /// Create a new `FlagsClass` from a `Type`
@@ -530,6 +539,9 @@ impl Clone for FlagsClass {
 /// Representation of a single flags value of a `FlagsClass`.
 #[derive(Debug, Clone)]
 pub struct FlagsValue(*const gobject_sys::GFlagsValue, FlagsClass);
+
+unsafe impl Send for FlagsValue {}
+unsafe impl Sync for FlagsValue {}
 
 impl FlagsValue {
     /// Get integer value corresponding to the value.
