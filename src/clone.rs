@@ -330,6 +330,21 @@ macro_rules! to_return_value {
 /// ```
 #[macro_export]
 macro_rules! clone {
+    ( => $($_:tt)*) => (
+        // In case we have:
+        // clone!( => move || {});
+        compile_error!("If you have nothing to clone, no need to use this macro!");
+    );
+    ($(move)? || $($_:tt)*) => (
+        // In case we have:
+        // clone!(|| {});
+        compile_error!("If you have nothing to clone, no need to use this macro!");
+    );
+    ($(move)? | $($pattern:pat),* | $($_:tt)*) => (
+        // In case we have:
+        // clone!(|a, b| {});
+        compile_error!("If you have nothing to clone, no need to use this macro!")
+    );
     ($($(@ $strength:ident)? self),+ => $($_:tt)* ) => (
         compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable or rename it.");
     );
