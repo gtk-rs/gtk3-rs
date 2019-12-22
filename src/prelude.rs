@@ -9,6 +9,8 @@ pub use glib::prelude::*;
 
 pub use auto::traits::*;
 
+#[cfg(any(feature = "v2_60", feature = "dox"))]
+pub use app_info::AppInfoExtManual;
 pub use application::*;
 pub use converter::*;
 #[cfg(any(

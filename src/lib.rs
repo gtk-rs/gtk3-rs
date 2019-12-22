@@ -27,6 +27,7 @@ extern crate futures_core;
 extern crate futures_io;
 extern crate futures_util;
 
+mod app_info;
 mod application;
 mod converter;
 #[cfg(any(not(windows), feature = "dox"))]
