@@ -25,16 +25,21 @@ impl GdkSurfaceExt for Surface {
 }
 
 pub trait GdkPixbufExt {
-    fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: &W) -> Option<Surface>;
+    fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: Option<&W>)
+        -> Option<Surface>;
 }
 
 impl GdkPixbufExt for Pixbuf {
-    fn create_surface<W: IsA<Window>>(&self, scale: i32, for_window: &W) -> Option<Surface> {
+    fn create_surface<W: IsA<Window>>(
+        &self,
+        scale: i32,
+        for_window: Option<&W>,
+    ) -> Option<Surface> {
         unsafe {
             from_glib_full(gdk_sys::gdk_cairo_surface_create_from_pixbuf(
                 self.to_glib_none().0,
                 scale,
-                for_window.as_ref().to_glib_none().0,
+                for_window.map(std::convert::AsRef::as_ref).to_glib_none().0,
             ))
         }
     }
