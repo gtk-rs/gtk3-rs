@@ -59,7 +59,7 @@ macro_rules! glib_shared_wrapper {
         pub struct $name($crate::shared::Shared<$ffi_name, MemoryManager>);
 
         #[doc(hidden)]
-        pub struct MemoryManager;
+        pub enum MemoryManager {}
 
         impl $crate::shared::SharedMemoryManager<$ffi_name> for MemoryManager {
             #[inline]
@@ -289,7 +289,7 @@ pub trait SharedMemoryManager<T> {
 pub struct Shared<T, MM: SharedMemoryManager<T>> {
     inner: ptr::NonNull<T>,
     borrowed: bool,
-    mm: PhantomData<*const MM>,
+    mm: PhantomData<MM>,
 }
 
 impl<T, MM: SharedMemoryManager<T>> Drop for Shared<T, MM> {
