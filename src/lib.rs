@@ -9,8 +9,7 @@
 
 #[macro_use]
 extern crate bitflags;
-#[macro_use]
-extern crate lazy_static;
+extern crate once_cell;
 #[macro_use]
 extern crate glib;
 #[cfg_attr(test, macro_use)]

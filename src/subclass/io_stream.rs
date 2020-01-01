@@ -18,6 +18,8 @@ use IOStreamClass;
 use std::mem;
 use std::ptr;
 
+use once_cell::sync::Lazy;
+
 pub trait IOStreamImpl: IOStreamImplExt + Send + 'static {
     fn get_input_stream(&self, stream: &IOStream) -> crate::InputStream {
         self.parent_get_input_stream(stream)
@@ -105,12 +107,10 @@ unsafe impl<T: ObjectSubclass + IOStreamImpl> IsSubclassable<T> for IOStreamClas
     }
 }
 
-lazy_static! {
-    pub static ref OUTPUT_STREAM_QUARK: glib::Quark =
-        glib::Quark::from_string("gtk-rs-subclass-output-stream");
-    pub static ref INPUT_STREAM_QUARK: glib::Quark =
-        glib::Quark::from_string("gtk-rs-subclass-input-stream");
-}
+static OUTPUT_STREAM_QUARK: Lazy<glib::Quark> =
+    Lazy::new(|| glib::Quark::from_string("gtk-rs-subclass-output-stream"));
+static INPUT_STREAM_QUARK: Lazy<glib::Quark> =
+    Lazy::new(|| glib::Quark::from_string("gtk-rs-subclass-input-stream"));
 
 unsafe extern "C" fn stream_get_input_stream<T: ObjectSubclass>(
     ptr: *mut gio_sys::GIOStream,
