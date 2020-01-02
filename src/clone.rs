@@ -241,9 +241,7 @@ macro_rules! to_return_value {
 /// # use std::rc::Rc;
 /// let v = Rc::new(1);
 ///
-/// let closure = clone!(v => move |x| {
-///     println!("v: {}, x: {}", v, x);
-/// });
+/// let closure = clone!(v => move |x| println!("v: {}, x: {}", v, x));
 /// # drop(v);
 /// # closure(2);
 /// ```
@@ -360,6 +358,9 @@ macro_rules! clone {
             }
         }
     );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => @default-panic, move || { $body })
+    );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
@@ -370,6 +371,9 @@ macro_rules! clone {
             }
         }
     );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => $(@default-return $return_value,)? move || { $body })
+    );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
@@ -378,6 +382,9 @@ macro_rules! clone {
                 $body
             }
         }
+    );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => @default-panic, move |$($pattern),*| { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
         {
@@ -388,6 +395,9 @@ macro_rules! clone {
                 $body
             }
         }
+    );
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => $(@default-return $return_value,)? move |$($pattern),*| { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $body:block ) => (
         // In case we have:
