@@ -9,8 +9,6 @@
 #![cfg_attr(feature = "cargo-clippy", allow(trivially_copy_pass_by_ref))]
 
 #[macro_use]
-extern crate bitflags;
-#[macro_use]
 extern crate glib;
 extern crate glib_sys as glib_sys;
 extern crate gobject_sys as gobject_sys;
