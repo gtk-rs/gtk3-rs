@@ -78,6 +78,8 @@ impl<T> Upgrade for rc::Weak<T> {
 macro_rules! to_type_before {
     (_) => ();
     ($($variable:ident).+ $(as $rename:ident)?) => (
+        // In case we have:
+        // clone!(v => move || {});
         compile_error!("You need to specify if this is a weak or a strong clone.");
     );
     (@strong $variable:ident) => (
@@ -93,6 +95,8 @@ macro_rules! to_type_before {
         let $rename = $crate::clone::Downgrade::downgrade(&$($variable).+);
     );
     (@ $keyword:ident $($variable:ident).+ $(as $rename:ident)?) => (
+        // In case we have:
+        // clone!(@yolo v => move || {});
         compile_error!("Unknown keyword, only `weak` and `strong` are allowed");
     );
 }
@@ -344,7 +348,7 @@ macro_rules! clone {
         compile_error!("If you have nothing to clone, no need to use this macro!")
     );
     ($($(@ $strength:ident)? self),+ => $($_:tt)* ) => (
-        compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable or rename it.");
+        compile_error!("Can't use `self` as variable name. Try storing it in a temporary variable or rename it using `as`.");
     );
     ($($(@ $strength:ident)? $up:ident.$($variables:ident).+),+ => $($_:tt)* ) => (
         compile_error!("Field accesses are not allowed as is, you must rename it!");
@@ -401,7 +405,7 @@ macro_rules! clone {
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $body:block ) => (
         // In case we have:
-        // clone!(@weak foo => @default-return false, |bla| {});
+        // clone!(@weak foo => @default-return false, || {});
         compile_error!("Closure need to be \"moved\" so please add `move` before closure");
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($pattern:pat),* | $body:block ) => (
