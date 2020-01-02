@@ -11,8 +11,7 @@ extern crate pango_sys;
 extern crate glib;
 #[macro_use]
 extern crate bitflags;
-#[macro_use]
-extern crate lazy_static;
+extern crate once_cell;
 extern crate libc;
 
 #[cfg_attr(feature = "cargo-clippy", allow(too_many_arguments))]
