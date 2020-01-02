@@ -191,9 +191,7 @@ mod tests {
     use std::sync::Mutex;
 
     //Mutex to prevent run environment tests parallel
-    lazy_static! {
-        static ref LOCK: Mutex<()> = Mutex::new(());
-    }
+    static LOCK: once_cell::sync::Lazy<Mutex<()>> = once_cell::sync::Lazy::new(|| Mutex::new(()));
 
     const VAR_NAME: &str = "function_environment_test";
 

@@ -278,7 +278,7 @@ macro_rules! glib_boxed_wrapper {
 
     (@memory_manager_impl $name:ident, $ffi_name:path, @copy $copy_arg:ident $copy_expr:expr, @free $free_arg:ident $free_expr:expr) => {
         #[doc(hidden)]
-        pub struct MemoryManager;
+        pub enum MemoryManager {}
 
         impl $crate::boxed::BoxedMemoryManager<$ffi_name> for MemoryManager {
             #[inline]
