@@ -87,6 +87,9 @@ pub extern crate glib_sys;
 #[doc(hidden)]
 pub extern crate gobject_sys;
 
+extern crate glib_macros;
+pub use glib_macros::GEnum;
+
 extern crate futures_channel;
 extern crate futures_core;
 extern crate futures_executor;
