@@ -19,7 +19,7 @@ use gtk::prelude::*;
 use std::env::args;
 use std::process;
 
-// Concinience Enum for IconView column types
+// Convenience Enum for IconView column types
 enum IconViewColumnType {
     TextColumn = 0,
     PixbufColumn = 1,
