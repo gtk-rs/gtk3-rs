@@ -4,6 +4,12 @@ matrix:
   include:
     - os: linux
       rust: nightly
+      env: GTK=3.96 FEATURES=
+    - os: linux
+      rust: 1.39.0
+      env: GTK=3.96 FEATURES=
+    - os: linux
+      rust: nightly
       env: GTK=3.14 FEATURES=
     - os: linux
       rust: nightly
@@ -87,6 +93,10 @@ script:
   - rustc --version
   - mkdir .cargo
   - echo 'paths = ["."]' > .cargo/config
-  - git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples
-  - cd _examples
-  - ./build_travis.sh
+  - if [ "$GTK" == "3.96" ]; then
+    git clone -q --depth 50 https://github.com/gtk-rs/examples4 _examples;
+    else
+    git clone -q --depth 50 -b pending https://github.com/gtk-rs/examples _examples;
+    fi
+  - cd _examples;
+  - ./build_travis.sh;
