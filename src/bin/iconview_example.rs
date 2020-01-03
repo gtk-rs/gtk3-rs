@@ -2,13 +2,16 @@
 //!
 //! This sample demonstrates how to create a toplevel `window`, set its title, size and
 //! position, how to add a `IconView` to this `window` and how to set `model` of the `IconView`
+//! 
 //! A Gtk.IconView is a widget that displays a collection of icons in a grid view.
 //! It supports features such as drag and drop, multiple selections and item reordering.
 //! Similarly to Gtk.TreeView, Gtk.IconView uses a Gtk.ListStore for its model.
+//! 
 //! Instead of using cell renderers, Gtk.IconView requires that one of the columns in its
 //! Gtk.ListStore contains GdkPixbuf.Pixbuf objects.
-//! The example is using icons from the current icon theme. To view all icons and their names please install
-//! gtk3-icon-browser: https://developer.gnome.org/gtk3/stable/gtk3-icon-browser.html
+//! 
+//! The example is using icons from the current icon theme. To view all icons and their names please
+//! install gtk3-icon-browser: https://developer.gnome.org/gtk3/stable/gtk3-icon-browser.html
 
 extern crate gio;
 extern crate gtk;
@@ -29,22 +32,27 @@ fn create_list_store_model() -> gtk::ListStore {
     // Initialize array of icon names, these can be found using gtk3-icon-browser app
     let icons: [&'static str; 3] = ["edit-cut", "edit-paste", "edit-copy"];
 
-    // Initialize an array of column types for ListStore object. Here we say that the first item must always be of Type String
-    // and the second item is of Type Pixbuf.
+    // Initialize an array of column types for ListStore object. Here we say that the first item
+    // must always be of glib::Type String and the second item is of glib::Type Pixbuf.
     let col_types: [glib::Type; 2] = [glib::Type::String, gdk_pixbuf::Pixbuf::static_type()];
     let icon_view_model = gtk::ListStore::new(&col_types);
 
     // IconTheme provides a facility for looking up icons by name and size.
+    //
     // Get default icon theme
     let icon_theme: Option<gtk::IconTheme> = gtk::IconTheme::get_default();
     if let Some(it) = icon_theme {
         for x in &icons {
-            // Looks up an icon in an icon theme, scales it to the given size and renders it into a pixbuf.
+            // Looks up an icon in an icon theme, scales it to the given size and renders it into
+            // a pixbuf.
             let result = it.load_icon(x, 64, gtk::IconLookupFlags::empty());
             match result {
                 Ok(r) => {
-                    // Notice how we specified the first column to be Text and second to be Pixbuf just like in col_types var
-                    // The values also follow the same order, &[&String::from("Label"), &r]. First item is text, second is pixbuf
+                    // Notice how we specified the first column to be Text and second to be Pixbuf
+                    // just like in col_types var.
+                    //
+                    // The values also follow the same order, &[&String::from("Label"), &r].
+                    // First item is text, second is pixbuf
                     icon_view_model.insert_with_values(
                         None,
                         &[
