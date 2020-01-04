@@ -155,11 +155,11 @@ pub struct OutputStreamAsyncWrite<T: IsA<PollableOutputStream>>(
 );
 
 impl<T: IsA<PollableOutputStream>> OutputStreamAsyncWrite<T> {
-    pub fn into_input_stream(self) -> T {
+    pub fn into_output_stream(self) -> T {
         self.0
     }
 
-    pub fn input_stream(&self) -> &T {
+    pub fn output_stream(&self) -> &T {
         &self.0
     }
 }
