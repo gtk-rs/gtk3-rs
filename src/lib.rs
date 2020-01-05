@@ -38,6 +38,8 @@ pub use file_attribute_matcher::FileAttributematcherIter;
 mod file_enumerator;
 mod flags;
 mod inet_address;
+mod io_stream;
+pub use io_stream::IOStreamAsyncReadWrite;
 mod input_stream;
 pub use input_stream::InputStreamRead;
 #[cfg(any(feature = "v2_44", feature = "dox"))]

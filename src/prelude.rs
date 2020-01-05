@@ -20,6 +20,7 @@ pub use converter::*;
 pub use desktop_app_info::DesktopAppInfoExtManual;
 pub use file::FileExtManual;
 pub use input_stream::InputStreamExtManual;
+pub use io_stream::IOStreamExtManual;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 pub use list_store::ListStoreExtManual;
 pub use output_stream::OutputStreamExtManual;
