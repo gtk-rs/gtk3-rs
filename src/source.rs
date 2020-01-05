@@ -7,6 +7,7 @@ use glib_sys::{self, gboolean, gpointer};
 use libc::c_int as RawFd;
 use std::cell::RefCell;
 use std::mem::transmute;
+use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
 use std::process;
@@ -20,7 +21,7 @@ use Source;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
 #[derive(Debug, Eq, PartialEq)]
-pub struct SourceId(u32);
+pub struct SourceId(NonZeroU32);
 
 #[doc(hidden)]
 impl ToGlib for SourceId {
@@ -28,7 +29,7 @@ impl ToGlib for SourceId {
 
     #[inline]
     fn to_glib(&self) -> u32 {
-        self.0
+        self.0.get()
     }
 }
 
@@ -37,7 +38,7 @@ impl FromGlib<u32> for SourceId {
     #[inline]
     fn from_glib(val: u32) -> SourceId {
         assert_ne!(val, 0);
-        SourceId(val)
+        SourceId(unsafe { NonZeroU32::new_unchecked(val) })
     }
 }
 

@@ -9,18 +9,19 @@ use gobject_sys::{self, GCallback};
 use libc::{c_char, c_ulong, c_void};
 use object::ObjectType;
 use std::mem;
+use std::num::NonZeroU64;
 use translate::{from_glib, FromGlib, ToGlib, ToGlibPtr};
 
 /// The id of a signal that is returned by `connect`.
 #[derive(Debug, Eq, PartialEq)]
-pub struct SignalHandlerId(c_ulong);
+pub struct SignalHandlerId(NonZeroU64);
 
 impl ToGlib for SignalHandlerId {
     type GlibType = c_ulong;
 
     #[inline]
     fn to_glib(&self) -> c_ulong {
-        self.0
+        self.0.get() as c_ulong
     }
 }
 
@@ -28,7 +29,7 @@ impl FromGlib<c_ulong> for SignalHandlerId {
     #[inline]
     fn from_glib(val: c_ulong) -> SignalHandlerId {
         assert_ne!(val, 0);
-        SignalHandlerId(val)
+        SignalHandlerId(unsafe { NonZeroU64::new_unchecked(val as u64) })
     }
 }
 
