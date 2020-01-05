@@ -16,6 +16,9 @@ generate = [
 [[object]]
 name = "Graphene.*"
 status = "generate"
+    [[object.constant]]
+    name = "SIMD_S"
+    ignore = true
 
 [[object]]
 name = "Graphene.Box"

@@ -56,8 +56,5 @@ pub use self::vec4::Vec4;
 mod enums;
 pub use self::enums::EulerOrder;
 
-mod constants;
-pub use self::constants::SIMD_S;
-
 #[doc(hidden)]
 pub mod traits {}
