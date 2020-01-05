@@ -81,15 +81,19 @@ impl Language {
 
     pub fn matches(&self, range_list: &str) -> bool {
         unsafe {
-            pango_sys::pango_language_matches(self.to_glib_none().0, range_list.to_glib_none().0)
-                .to_bool()
+            from_glib(pango_sys::pango_language_matches(
+                self.to_glib_none().0,
+                range_list.to_glib_none().0,
+            ))
         }
     }
 
     pub fn includes_script(&self, script: Script) -> bool {
         unsafe {
-            pango_sys::pango_language_includes_script(self.to_glib_none().0, script.to_glib())
-                .to_bool()
+            from_glib(pango_sys::pango_language_includes_script(
+                self.to_glib_none().0,
+                script.to_glib(),
+            ))
         }
     }
 
