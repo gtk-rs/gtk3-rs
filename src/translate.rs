@@ -129,34 +129,6 @@ pub unsafe fn uninitialized<T: Uninitialized>() -> T {
     T::uninitialized()
 }
 
-pub trait ToBool: Copy {
-    fn to_bool(self) -> bool;
-}
-
-impl ToBool for bool {
-    #[inline]
-    fn to_bool(self) -> bool {
-        self
-    }
-}
-
-impl ToBool for glib_sys::gboolean {
-    #[inline]
-    fn to_bool(self) -> bool {
-        self != glib_sys::GFALSE
-    }
-}
-
-/// Returns `Some(val)` if the condition is true and `None` otherwise.
-#[inline]
-pub fn some_if<B: ToBool, T, F: FnOnce() -> T>(cond: B, f: F) -> Option<T> {
-    if cond.to_bool() {
-        Some(f())
-    } else {
-        None
-    }
-}
-
 /// Helper type that stores temporary values used for translation.
 ///
 /// `P` is the foreign type pointer and the first element of the tuple.

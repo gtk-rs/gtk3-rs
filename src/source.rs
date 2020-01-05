@@ -7,10 +7,9 @@ use glib_sys::{self, gboolean, gpointer};
 use libc::c_int as RawFd;
 use std::cell::RefCell;
 use std::mem::transmute;
+use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
-use std::process;
-use std::thread;
 use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 #[cfg(any(unix, feature = "dox"))]
 use IOCondition;
@@ -20,7 +19,7 @@ use Source;
 
 /// The id of a source that is returned by `idle_add` and `timeout_add`.
 #[derive(Debug, Eq, PartialEq)]
-pub struct SourceId(u32);
+pub struct SourceId(NonZeroU32);
 
 #[doc(hidden)]
 impl ToGlib for SourceId {
@@ -28,7 +27,7 @@ impl ToGlib for SourceId {
 
     #[inline]
     fn to_glib(&self) -> u32 {
-        self.0
+        self.0.get()
     }
 }
 
@@ -37,7 +36,7 @@ impl FromGlib<u32> for SourceId {
     #[inline]
     fn from_glib(val: u32) -> SourceId {
         assert_ne!(val, 0);
-        SourceId(val)
+        SourceId(unsafe { NonZeroU32::new_unchecked(val) })
     }
 }
 
@@ -83,38 +82,6 @@ impl ToGlib for Continue {
     #[inline]
     fn to_glib(&self) -> gboolean {
         self.0.to_glib()
-    }
-}
-
-/// Unwinding propagation guard. Aborts the process if destroyed while
-/// panicking.
-#[deprecated(note = "Rustc has this functionality built-in since 1.26.0")]
-pub struct CallbackGuard(());
-
-#[allow(deprecated)]
-impl CallbackGuard {
-    pub fn new() -> CallbackGuard {
-        CallbackGuard(())
-    }
-}
-
-#[allow(deprecated)]
-impl Default for CallbackGuard {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-#[allow(deprecated)]
-impl Drop for CallbackGuard {
-    fn drop(&mut self) {
-        use std::io::stderr;
-        use std::io::Write;
-
-        if thread::panicking() {
-            let _ = stderr().write(b"Uncaught panic, exiting\n");
-            process::abort();
-        }
     }
 }
 
