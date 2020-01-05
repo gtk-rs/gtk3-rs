@@ -10,8 +10,6 @@ use std::mem::transmute;
 use std::num::NonZeroU32;
 #[cfg(unix)]
 use std::os::unix::io::RawFd;
-use std::process;
-use std::thread;
 use translate::{from_glib, from_glib_full, FromGlib, ToGlib, ToGlibPtr};
 #[cfg(any(unix, feature = "dox"))]
 use IOCondition;
@@ -84,38 +82,6 @@ impl ToGlib for Continue {
     #[inline]
     fn to_glib(&self) -> gboolean {
         self.0.to_glib()
-    }
-}
-
-/// Unwinding propagation guard. Aborts the process if destroyed while
-/// panicking.
-#[deprecated(note = "Rustc has this functionality built-in since 1.26.0")]
-pub struct CallbackGuard(());
-
-#[allow(deprecated)]
-impl CallbackGuard {
-    pub fn new() -> CallbackGuard {
-        CallbackGuard(())
-    }
-}
-
-#[allow(deprecated)]
-impl Default for CallbackGuard {
-    fn default() -> Self {
-        Self::new()
-    }
-}
-
-#[allow(deprecated)]
-impl Drop for CallbackGuard {
-    fn drop(&mut self) {
-        use std::io::stderr;
-        use std::io::Write;
-
-        if thread::panicking() {
-            let _ = stderr().write(b"Uncaught panic, exiting\n");
-            process::abort();
-        }
     }
 }
 
