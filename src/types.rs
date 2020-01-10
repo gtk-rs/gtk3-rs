@@ -69,11 +69,17 @@ pub enum Type {
 
 impl Type {
     pub fn name(&self) -> String {
-        unsafe { from_glib_none(gobject_sys::g_type_name(self.to_glib())) }
+        match self {
+            Type::Invalid => "<invalid>".to_string(),
+            _ => unsafe { from_glib_none(gobject_sys::g_type_name(self.to_glib())) },
+        }
     }
 
     pub fn qname(&self) -> ::Quark {
-        unsafe { from_glib(gobject_sys::g_type_qname(self.to_glib())) }
+        match self {
+            Type::Invalid => ::Quark::from_string("<invalid>"),
+            _ => unsafe { from_glib(gobject_sys::g_type_qname(self.to_glib())) },
+        }
     }
 
     pub fn is_a(&self, other: &Type) -> bool {
@@ -109,12 +115,15 @@ impl Type {
         }
     }
     pub fn interface_prerequisites(&self) -> Vec<Self> {
-        unsafe {
-            let mut n_prereqs = 0u32;
-            let prereqs =
-                gobject_sys::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
+        match self {
+            t if !t.is_a(&Type::BaseInterface) => vec![],
+            _ => unsafe {
+                let mut n_prereqs = 0u32;
+                let prereqs =
+                    gobject_sys::g_type_interface_prerequisites(self.to_glib(), &mut n_prereqs);
 
-            FromGlibContainerAsVec::from_glib_full_num_as_vec(prereqs, n_prereqs as usize)
+                FromGlibContainerAsVec::from_glib_full_num_as_vec(prereqs, n_prereqs as usize)
+            },
         }
     }
 
@@ -360,5 +369,25 @@ impl FromGlibContainerAsVec<Type, *mut glib_sys::GType> for Type {
 
     unsafe fn from_glib_full_num_as_vec(ptr: *mut glib_sys::GType, num: usize) -> Vec<Self> {
         FromGlibContainerAsVec::from_glib_container_num_as_vec(ptr, num)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn invalid() {
+        let invalid = Type::Invalid;
+
+        assert_eq!(invalid.name(), "<invalid>");
+        assert_eq!(invalid.qname(), ::Quark::from_string("<invalid>"));
+        assert!(invalid.is_a(&Type::Invalid));
+        assert!(!invalid.is_a(&Type::String));
+        assert_eq!(invalid.parent(), None);
+        assert_eq!(invalid.children(), vec![]);
+        assert_eq!(invalid.interfaces(), vec![]);
+        assert_eq!(invalid.interface_prerequisites(), vec![]);
+        dbg!(&invalid);
     }
 }
