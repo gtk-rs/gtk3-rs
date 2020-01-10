@@ -31,6 +31,7 @@ futures-util = "0.3"
 futures-channel = "0.3"
 glib-sys = { git = "https://github.com/gtk-rs/sys" }
 gobject-sys = { git = "https://github.com/gtk-rs/sys" }
+glib-macros = { path = "glib-macros" }
 
 [dev-dependencies]
 tempfile = "3"
