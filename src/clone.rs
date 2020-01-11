@@ -260,12 +260,9 @@ macro_rules! to_return_value {
 ///
 /// impl Foo {
 ///     fn foo(&self) {
-///         let v = Rc::new(1);
-///
 ///         let closure = clone!(@strong self => move |x| {
-///             println!("v: {:?}", self);
+///             println!("self: {:?}", self);
 ///         });
-///         # drop(v);
 ///         # closure(2);
 ///     }
 /// }
@@ -281,12 +278,9 @@ macro_rules! to_return_value {
 ///
 /// impl Foo {
 ///     fn foo(&self) {
-///         let v = Rc::new(1);
-///
 ///         let closure = clone!(@strong self as this => move |x| {
-///             println!("v: {:?}", this);
+///             println!("self: {:?}", this);
 ///         });
-///         # drop(v);
 ///         # closure(2);
 ///     }
 /// }
@@ -305,7 +299,7 @@ macro_rules! to_return_value {
 /// impl Foo {
 ///     fn foo(&self) {
 ///         let closure = clone!(@strong self.v => move |x| {
-///             println!("v: {:?}", v);
+///             println!("self.v: {:?}", v);
 ///         });
 ///         # closure(2);
 ///     }
@@ -324,7 +318,7 @@ macro_rules! to_return_value {
 /// impl Foo {
 ///     fn foo(&self) {
 ///         let closure = clone!(@strong self.v as v => move |x| {
-///             println!("v: {}", v);
+///             println!("self.v: {}", v);
 ///         });
 ///         # closure(2);
 ///     }
@@ -363,20 +357,20 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move || $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => @default-panic, move || { $body })
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move || { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
             move || {
-                let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, return_value );)*
+                let _return_value = || $crate::to_return_value!($($return_value)?);
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, _return_value );)*
                 $body
             }
         }
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => $(@default-return $return_value,)? move || { $body })
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
         {
@@ -388,30 +382,30 @@ macro_rules! clone {
         }
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => @default-panic, move |$($pattern),*| { $body })
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($pattern),*| { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
             move |$($pattern),*| {
-                let return_value = || $crate::to_return_value!($($return_value)?);
-                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, return_value);)*
+                let _return_value = || $crate::to_return_value!($($return_value)?);
+                $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, _return_value);)*
                 $body
             }
         }
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?)* => $(@default-return $return_value,)? move |$($pattern),*| { $body })
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($pattern),*| { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $body:block ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, || {});
-        compile_error!("Closure need to be \"moved\" so please add `move` before closure");
+        compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($pattern:pat),* | $body:block ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, |bla| {});
-        compile_error!("Closure need to be \"moved\" so please add `move` before closure");
+        compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => default-return $($x:tt)+ ) => (
         // In case we have:
@@ -426,4 +420,253 @@ macro_rules! clone {
     ($($(@ $strength:ident)? $variables:expr),+ => $($_:tt)* ) => (
         compile_error!("Variables need to be valid identifiers, e.g. field accesses are not allowed as is, you must rename it!");
     );
+}
+
+#[cfg(test)]
+mod tests {
+    #![allow(dead_code)]
+    #![allow(unused_variables)]
+    use std::rc::Rc;
+
+    #[test]
+    fn test_clone_macro_self_rename() {
+        #[derive(Debug)]
+        struct Foo {
+            v: u8,
+        }
+
+        impl Foo {
+            fn foo(&self) {
+                let closure = clone!(@strong self as this => move |_x| {
+                    println!("v: {:?}", this);
+                });
+                closure(0i8); // to prevent compiler error for unknown `x` type.
+                let _ = clone!(@strong self as this => move || {
+                    println!("v: {:?}", this);
+                });
+                let closure = clone!(@strong self as this => move |_x| println!("v: {:?}", this));
+                closure(0i8); // to prevent compiler error for unknown `x` type.
+                let _ = clone!(@strong self as this => move || println!("v: {:?}", this));
+
+                // Fields now!
+                let closure = clone!(@strong self.v as v => move |_x| {
+                    println!("v: {:?}", v);
+                });
+                closure(0i8); // to prevent compiler error for unknown `x` type.
+                let _ = clone!(@strong self.v as v => move || println!("v: {:?}", v));
+
+                // With @default-panic
+                let closure = clone!(@strong self.v as v => @default-panic, move |_x| {
+                    println!("v: {:?}", v);
+                });
+                closure(0i8); // to prevent compiler error for unknown `x` type.
+                let _ =
+                    clone!(@strong self.v as v => @default-panic, move || println!("v: {:?}", v));
+
+                // With @default-return
+                let closure = clone!(@strong self.v as _v => @default-return true, move |_x| {
+                    false
+                });
+                closure(0i8); // to prevent compiler error for unknown `x` type.
+                let _ = clone!(@strong self.v as _v => @default-return true, move || false);
+            }
+        }
+    }
+
+    #[test]
+    fn test_clone_macro_rename() {
+        let v = Rc::new(1);
+
+        let closure = clone!(@weak v as y => @default-panic, move |_x| {
+            println!("v: {}", y);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v as y => @default-panic, move || println!("v: {}", y));
+
+        let closure = clone!(@strong v as y => @default-panic, move |_x| {
+            println!("v: {}", y);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as y => @default-panic, move || println!("v: {}", y));
+
+        let closure = clone!(@weak v as y => move |_x| {
+            println!("v: {}", y);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v as y => move || println!("v: {}", y));
+
+        let closure = clone!(@strong v as y => move |_x| {
+            println!("v: {}", y);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as y => move || println!("v: {}", y));
+
+        let closure = clone!(@weak v as _y => @default-return true, move |_x| {
+            false
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v as _y => @default-return true, move || false);
+
+        let closure = clone!(@strong v as _y => @default-return true, move |_x| false);
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as _y => @default-return true, move || false);
+    }
+
+    #[test]
+    fn test_clone_macro_simple() {
+        let v = Rc::new(1);
+
+        let closure = clone!(@weak v => @default-panic, move |_x| {
+            println!("v: {}", v);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v => @default-panic, move || println!("v: {}", v));
+
+        let closure = clone!(@strong v => @default-panic, move |_x| {
+            println!("v: {}", v);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v => @default-panic, move || println!("v: {}", v));
+
+        let closure = clone!(@weak v => move |_x| {
+            println!("v: {}", v);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v => move || println!("v: {}", v));
+
+        let closure = clone!(@strong v => move |_x| {
+            println!("v: {}", v);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v => move || println!("v: {}", v));
+
+        let closure = clone!(@weak v => @default-return true, move |_x| {
+            false
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v => @default-return true, move || false);
+
+        let closure = clone!(@strong v => @default-return true, move |_x| false);
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v => @default-return true, move || false);
+    }
+
+    #[test]
+    fn test_clone_macro_double_simple() {
+        let v = Rc::new(1);
+        let w = Rc::new(2);
+
+        let closure = clone!(@weak v, @weak w => @default-panic, move |_x| {
+            println!("v: {}, w: {}", v, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v, @weak w => @default-panic, move || println!("v: {}, w: {}", v, w));
+
+        let closure = clone!(@strong v, @strong w => @default-panic, move |_x| {
+            println!("v: {}, w: {}", v, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ =
+            clone!(@strong v, @strong w => @default-panic, move || println!("v: {}, w: {}", v, w));
+
+        let closure = clone!(@weak v, @weak w => move |_x| {
+            println!("v: {}, w: {}", v, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v, @weak w => move || println!("v: {}, w: {}", v, w));
+
+        let closure = clone!(@strong v, @strong w => move |_x| {
+            println!("v: {}, w: {}", v, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v, @strong w => move || println!("v: {}, w: {}", v, w));
+
+        let closure = clone!(@weak v, @weak w => @default-return true, move |_x| {
+            false
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v, @weak w => @default-return true, move || false);
+
+        let closure = clone!(@strong v, @strong w => @default-return true, move |_x| false);
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v, @strong w => @default-return true, move || false);
+    }
+
+    #[test]
+    fn test_clone_macro_double_rename() {
+        let v = Rc::new(1);
+        let w = Rc::new(2);
+
+        let closure = clone!(@weak v as x, @weak w => @default-panic, move |_x| {
+            println!("v: {}, w: {}", x, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ =
+            clone!(@weak v as x, @weak w => @default-panic, move || println!("v: {}, w: {}", x, w));
+
+        let closure = clone!(@weak v, @weak w as x => @default-panic, move |_x| {
+            println!("v: {}, w: {}", v, x);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ =
+            clone!(@weak v, @weak w as x => @default-panic, move || println!("v: {}, w: {}", v, x));
+
+        let closure = clone!(@strong v as x, @strong w => @default-panic, move |_x| {
+            println!("v: {}, w: {}", x, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as x, @strong w => @default-panic, move || println!("v: {}, w: {}", x, w));
+
+        let closure = clone!(@strong v, @strong w as x => @default-panic, move |_x| {
+            println!("v: {}, w: {}", v, x);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v, @strong w as x => @default-panic, move || println!("v: {}, w: {}", v, x));
+
+        let closure = clone!(@weak v as x, @weak w => move |_x| {
+            println!("v: {}, w: {}", x, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v as x, @weak w => move || println!("v: {}, w: {}", x, w));
+
+        let closure = clone!(@weak v, @weak w as x => move |_x| {
+            println!("v: {}, w: {}", v, x);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v, @weak w as x => move || println!("v: {}, w: {}", v, x));
+
+        let closure = clone!(@strong v as x, @strong w => move |_x| {
+            println!("v: {}, w: {}", x, w);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as x, @strong w => move || println!("v: {}, w: {}", x, w));
+
+        let closure = clone!(@strong v, @strong w as x => move |_x| {
+            println!("v: {}, w: {}", v, x);
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v, @strong w as x => move || println!("v: {}, w: {}", v, x));
+
+        let closure = clone!(@weak v as _x, @weak w => @default-return true, move |_| {
+            false
+        });
+        closure(0u8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v as _x, @weak w => @default-return true, move || false);
+
+        let closure = clone!(@weak v, @weak w as _x => @default-return true, move |_| {
+            false
+        });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@weak v, @weak w as _x => @default-return true, move || false);
+
+        let closure =
+            clone!(@strong v as _x, @strong w => @default-return true, move |_| { false });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v as _x, @strong w => @default-return true, move || false);
+
+        let closure =
+            clone!(@strong v, @strong w as _x => @default-return true, move |_| { false });
+        closure(0i8); // to prevent compiler error for unknown `x` type.
+        let _ = clone!(@strong v, @strong w as _x => @default-return true, move || false);
+    }
 }
