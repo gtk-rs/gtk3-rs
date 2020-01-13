@@ -336,7 +336,7 @@ macro_rules! clone {
         // clone!(|| {});
         compile_error!("If you have nothing to clone, no need to use this macro!");
     );
-    ($(move)? | $($pattern:pat),* | $($_:tt)*) => (
+    ($(move)? | $($arg:tt $(: $typ:ty)?),* | $($_:tt)*) => (
         // In case we have:
         // clone!(|a, b| {});
         compile_error!("If you have nothing to clone, no need to use this macro!")
@@ -372,37 +372,37 @@ macro_rules! clone {
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move || $body:expr ) => (
         clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => $(@default-return $return_value,)? move || { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
-            move |$($pattern),*| {
+            move |$($arg $(: $typ)?),*| {
                 $( $crate::to_type_after!($(as $rename)? @default-panic, $(@ $strength)? $($variables).+);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($pattern:pat),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($pattern),*| { $body })
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-panic, move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),* => @default-panic, move |$($arg $(: $typ)?),*| { $body })
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         {
             $( $crate::to_type_before!($(@ $strength)? $($variables).+ $(as $rename)?); )*
-            move |$($pattern),*| {
+            move | $($arg $(: $typ)?),* | {
                 let _return_value = || $crate::to_return_value!($($return_value)?);
                 $( $crate::to_type_after!($(as $rename)? $(@ $strength)? $($variables).+, _return_value);)*
                 $body
             }
         }
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($pattern:pat),* | $body:expr ) => (
-        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($pattern),*| { $body })
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => $(@default-return $return_value:expr,)? move | $($arg:tt $(: $typ:ty)?),* | $body:expr ) => (
+        clone!($($(@ $strength)? $($variables).+ $(as $rename)?),+ => $(@default-return $return_value,)? move |$($arg $(: $typ)?),*| { $body })
     );
     ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, || $body:block ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, || {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
     );
-    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($pattern:pat),* | $body:block ) => (
+    ($($(@ $strength:ident)? $($variables:ident).+ $(as $rename:ident)?),+ => @default-return $return_value:expr, | $($arg:tt $(: $typ:ty)?),* | $body:block ) => (
         // In case we have:
         // clone!(@weak foo => @default-return false, |bla| {});
         compile_error!("Closure needs to be \"moved\" so please add `move` before closure");
@@ -668,5 +668,40 @@ mod tests {
             clone!(@strong v, @strong w as _x => @default-return true, move |_| { false });
         closure(0i8); // to prevent compiler error for unknown `x` type.
         let _ = clone!(@strong v, @strong w as _x => @default-return true, move || false);
+    }
+
+    #[test]
+    fn test_clone_macro_typed_args() {
+        let v = Rc::new(1);
+        let w = Rc::new(2);
+
+        let closure = clone!(@weak v as x, @weak w => @default-panic, move |_x: i8| {
+            println!("v: {}, w: {}", x, w);
+        });
+
+        let closure = clone!(@weak v, @weak w as x => @default-panic, move |_x: i8| {
+            println!("v: {}, w: {}", v, x);
+        });
+
+        let closure = clone!(@strong v as x, @strong w => @default-panic, move |_x: i8| {
+            println!("v: {}, w: {}", x, w);
+        });
+
+        let closure = clone!(@strong v, @strong w as x => @default-panic, move |_x: i8| {
+            println!("v: {}, w: {}", v, x);
+        });
+
+        let closure = clone!(@weak v as x, @weak w => move |_x: i8| {
+            println!("v: {}, w: {}", x, w);
+        });
+
+        let closure = clone!(@weak v, @weak w as x => move |_x: i8| {
+            println!("v: {}, w: {}", v, x);
+        });
+
+        let closure = clone!(@weak v, @weak w as x => move |_: i8, _| {
+            println!("v: {}, w: {}", v, x);
+        });
+        closure(0, 'a');
     }
 }
