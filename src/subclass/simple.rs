@@ -9,12 +9,24 @@
 use super::prelude::*;
 use object::ObjectType;
 
+use std::fmt;
 use std::ops;
 
 /// A simple instance struct that does not store any additional data.
 #[repr(C)]
 pub struct InstanceStruct<T: ObjectSubclass> {
     parent: <T::ParentType as ObjectType>::GlibType,
+}
+
+impl<T: ObjectSubclass> fmt::Debug for InstanceStruct<T>
+where
+    <T::ParentType as ObjectType>::GlibType: fmt::Debug,
+{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("InstanceStruct")
+            .field("parent", &self.parent)
+            .finish()
+    }
 }
 
 unsafe impl<T: ObjectSubclass> super::types::InstanceStruct for InstanceStruct<T> {
@@ -26,6 +38,17 @@ unsafe impl<T: ObjectSubclass> super::types::InstanceStruct for InstanceStruct<T
 #[repr(C)]
 pub struct ClassStruct<T: ObjectSubclass> {
     parent_class: <T::ParentType as ObjectType>::GlibClassType,
+}
+
+impl<T: ObjectSubclass> fmt::Debug for ClassStruct<T>
+where
+    <T::ParentType as ObjectType>::GlibClassType: fmt::Debug,
+{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.debug_struct("InstanceStruct")
+            .field("parent_class", &self.parent_class)
+            .finish()
+    }
 }
 
 unsafe impl<T: ObjectSubclass> super::types::ClassStruct for ClassStruct<T> {
