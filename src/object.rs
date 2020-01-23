@@ -1158,6 +1158,7 @@ macro_rules! glib_object_wrapper {
 
     (@class_impl $name:ident, $ffi_class_name:path, $rust_class_name:ident) => {
         #[repr(C)]
+        #[derive(Debug)]
         pub struct $rust_class_name($ffi_class_name);
 
         unsafe impl $crate::object::IsClassFor for $rust_class_name {
@@ -1916,6 +1917,7 @@ glib_wrapper! {
     }
 }
 
+#[derive(Debug)]
 pub struct WeakRef<T: ObjectType>(Box<gobject_sys::GWeakRef>, PhantomData<*const T>);
 
 impl<T: ObjectType> WeakRef<T> {
@@ -1979,6 +1981,7 @@ unsafe impl<T: ObjectType + Send + Sync> Send for WeakRef<T> {}
 /// Trying to upgrade the weak reference from another thread than the one
 /// where it was created on will panic but dropping or cloning can be done
 /// safely from any thread.
+#[derive(Debug)]
 pub struct SendWeakRef<T: ObjectType>(WeakRef<T>, Option<usize>);
 
 impl<T: ObjectType> SendWeakRef<T> {
@@ -2029,6 +2032,7 @@ impl<T: ObjectType> From<WeakRef<T>> for SendWeakRef<T> {
 unsafe impl<T: ObjectType> Sync for SendWeakRef<T> {}
 unsafe impl<T: ObjectType> Send for SendWeakRef<T> {}
 
+#[derive(Debug)]
 pub struct BindingBuilder<'a> {
     source: &'a ObjectRef,
     source_property: &'a str,
