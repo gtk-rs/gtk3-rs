@@ -473,7 +473,7 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*const T> for Boxed<
         let ptr = MM::copy(ptr);
         Boxed {
             inner: AnyBox::Native(Box::from_raw(ptr)),
-            _dummy: PhantomData
+            _dummy: PhantomData,
         }
     }
 }
