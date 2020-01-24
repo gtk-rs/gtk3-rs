@@ -170,6 +170,15 @@ macro_rules! glib_boxed_wrapper {
         }
 
         #[doc(hidden)]
+        impl $crate::translate::FromGlibPtrFull<*const $ffi_name> for $name {
+            #[inline]
+            #[allow(clippy::missing_safety_doc)]
+            unsafe fn from_glib_full(ptr: *const $ffi_name) -> Self {
+                $name($crate::translate::from_glib_full(ptr))
+            }
+        }
+
+        #[doc(hidden)]
         impl $crate::translate::FromGlibPtrBorrow<*mut $ffi_name> for $name {
             #[inline]
             #[allow(clippy::missing_safety_doc)]
@@ -453,6 +462,18 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*mut T> for Boxed<T,
         Boxed {
             inner: AnyBox::ForeignOwned(ptr::NonNull::new_unchecked(ptr)),
             _dummy: PhantomData,
+        }
+    }
+}
+
+impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*const T> for Boxed<T, MM> {
+    #[inline]
+    unsafe fn from_glib_full(ptr: *const T) -> Self {
+        assert!(!ptr.is_null());
+        let ptr = MM::copy(ptr);
+        Boxed {
+            inner: AnyBox::Native(Box::from_raw(ptr)),
+            _dummy: PhantomData
         }
     }
 }
