@@ -470,9 +470,8 @@ impl<T: 'static, MM: BoxedMemoryManager<T>> FromGlibPtrFull<*const T> for Boxed<
     #[inline]
     unsafe fn from_glib_full(ptr: *const T) -> Self {
         assert!(!ptr.is_null());
-        let ptr = MM::copy(ptr);
         Boxed {
-            inner: AnyBox::Native(Box::from_raw(ptr)),
+            inner: AnyBox::ForeignOwned(ptr::NonNull::new_unchecked(ptr as *mut _)),
             _dummy: PhantomData,
         }
     }
