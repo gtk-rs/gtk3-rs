@@ -82,6 +82,7 @@ pub use self::enums::AxisUse;
 pub use self::enums::ByteOrder;
 pub use self::enums::CrossingMode;
 pub use self::enums::CursorType;
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::enums::DevicePadFeature;
 #[cfg(any(feature = "v3_22", feature = "dox"))]
 pub use self::enums::DeviceToolType;

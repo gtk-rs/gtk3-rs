@@ -675,6 +675,7 @@ impl SetValue for CursorType {
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 pub enum DevicePadFeature {
     Button,
@@ -684,6 +685,7 @@ pub enum DevicePadFeature {
     __Unknown(i32),
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 impl fmt::Display for DevicePadFeature {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
@@ -699,6 +701,7 @@ impl fmt::Display for DevicePadFeature {
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 #[doc(hidden)]
 impl ToGlib for DevicePadFeature {
     type GlibType = gdk_sys::GdkDevicePadFeature;
@@ -713,6 +716,7 @@ impl ToGlib for DevicePadFeature {
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 #[doc(hidden)]
 impl FromGlib<gdk_sys::GdkDevicePadFeature> for DevicePadFeature {
     fn from_glib(value: gdk_sys::GdkDevicePadFeature) -> Self {
@@ -726,24 +730,28 @@ impl FromGlib<gdk_sys::GdkDevicePadFeature> for DevicePadFeature {
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 impl StaticType for DevicePadFeature {
     fn static_type() -> Type {
         unsafe { from_glib(gdk_sys::gdk_device_pad_feature_get_type()) }
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 impl<'a> FromValueOptional<'a> for DevicePadFeature {
     unsafe fn from_value_optional(value: &Value) -> Option<Self> {
         Some(FromValue::from_value(value))
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 impl<'a> FromValue<'a> for DevicePadFeature {
     unsafe fn from_value(value: &Value) -> Self {
         from_glib(gobject_sys::g_value_get_enum(value.to_glib_none().0))
     }
 }
 
+#[cfg(any(feature = "v3_22", feature = "dox"))]
 impl SetValue for DevicePadFeature {
     unsafe fn set_value(value: &mut Value, this: &Self) {
         gobject_sys::g_value_set_enum(value.to_glib_none_mut().0, this.to_glib())
