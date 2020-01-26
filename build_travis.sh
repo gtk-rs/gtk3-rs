@@ -26,7 +26,7 @@ elif [ "$GTK" = "3.18" ]; then
 	fi
 fi
 
-if [ -n "$BUNDLE" ]; then
+if [ -n "$BUNDLE" ] && [ "$TRAVIS_OS_NAME" != "osx" ]; then
 	WD="$PWD"
 	cd "$HOME"
 	curl -LO "https://github.com/EPashkin/gtk-bootstrap/releases/download/$BUNDLE/deps.txz"

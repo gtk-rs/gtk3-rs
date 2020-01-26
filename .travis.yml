@@ -5,16 +5,28 @@ rust:
 - beta
 - 1.39.0 # stable
 - stable
-addons:
-  apt:
-    packages:
-    - libgtk-3-dev
-    - libmount-dev
 env:
   - GTK=3.14
   - GTK=3.18
   - GTK=3.22.30
   - GTK=3.24
+matrix:
+  include:
+    - os: osx
+      rust: stable
+      env: GTK=3.14
+    - os: osx
+      rust: stable
+      env: GTK=3.24
+addons:
+  apt:
+    packages:
+    - libgtk-3-dev
+    - libmount-dev
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew unlink python@2; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install libffi gtk+3 cairo atk; fi
 script:
   - ./build_travis.sh
   - if [ "$TRAVIS_RUST_VERSION" == "stable" ]; then
