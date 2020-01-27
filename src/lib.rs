@@ -29,7 +29,7 @@ extern crate futures_util;
 mod app_info;
 mod application;
 mod converter;
-#[cfg(any(not(windows), feature = "dox"))]
+#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 mod desktop_app_info;
 mod error;
 mod file;
@@ -61,8 +61,10 @@ mod subprocess_launcher;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_input_stream;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 mod unix_mount_entry;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 mod unix_mount_point;
 #[cfg(any(unix, feature = "dox"))]
 mod unix_output_stream;

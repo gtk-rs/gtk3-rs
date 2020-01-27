@@ -99,11 +99,11 @@ pub use self::data_output_stream::{
     DataOutputStream, DataOutputStreamClass, NONE_DATA_OUTPUT_STREAM,
 };
 
-#[cfg(any(not(windows), feature = "dox"))]
+#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 mod desktop_app_info;
-#[cfg(any(not(windows), feature = "dox"))]
+#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 pub use self::desktop_app_info::DesktopAppInfoExt;
-#[cfg(any(not(windows), feature = "dox"))]
+#[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
 pub use self::desktop_app_info::{DesktopAppInfo, DesktopAppInfoClass, NONE_DESKTOP_APP_INFO};
 
 mod drive;
@@ -488,13 +488,17 @@ mod srv_target;
 pub use self::srv_target::SrvTarget;
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 mod unix_mount_entry;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 pub use self::unix_mount_entry::UnixMountEntry;
 
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 mod unix_mount_point;
 #[cfg(any(unix, feature = "dox"))]
+#[cfg(any(feature = "v2_54", feature = "dox"))]
 pub use self::unix_mount_point::UnixMountPoint;
 
 mod enums;
@@ -688,7 +692,7 @@ pub mod traits {
     pub use super::ConverterOutputStreamExt;
     pub use super::DataInputStreamExt;
     pub use super::DataOutputStreamExt;
-    #[cfg(any(not(windows), feature = "dox"))]
+    #[cfg(any(all(not(windows), not(target_os = "macos")), feature = "dox"))]
     pub use super::DesktopAppInfoExt;
     pub use super::DriveExt;
     pub use super::EmblemedIconExt;
