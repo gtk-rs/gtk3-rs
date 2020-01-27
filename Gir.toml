@@ -19,7 +19,6 @@ generate = [
     "Gdk.CursorType",
     "Gdk.DeviceManager",
     "Gdk.DevicePad",
-    "Gdk.DevicePadFeature",
     "Gdk.DeviceTool",
     "Gdk.DeviceToolType",
     "Gdk.DeviceType",
@@ -220,6 +219,11 @@ status = "generate"
     [[object.property]]
     name = "type"
     generate = ["get", "notify"]
+
+[[object]]
+name = "Gdk.DevicePadFeature"
+status = "generate"
+version = "3.22"
 
 [[object]]
 name = "Gdk.Display"
