@@ -15,6 +15,7 @@ use ffi;
 use glib::translate::*;
 
 use image_surface::ImageSurface;
+use rectangle::Rectangle;
 use rectangle_int::RectangleInt;
 
 #[derive(Debug)]
@@ -54,6 +55,18 @@ impl Surface {
                 content.into(),
                 width,
                 height,
+            ))
+        }
+    }
+
+    pub fn create_for_rectangle(&self, bounds: Rectangle) -> Result<Surface, Status> {
+        unsafe {
+            Self::from_raw_full(ffi::cairo_surface_create_for_rectangle(
+                self.0,
+                bounds.x,
+                bounds.y,
+                bounds.width,
+                bounds.height,
             ))
         }
     }
