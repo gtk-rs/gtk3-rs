@@ -38,5 +38,5 @@ fi
 if [ -n "$OTHER_TARGET" ]; then
   PKG_CONFIG_ALLOW_CROSS=1 cargo check $OTHER_TARGET --features "$FEATURES" --jobs 1 "$@"
 else
-  RUSTFLAGS="-C link-dead-code" cargo build --features "$FEATURES" --jobs 1 "$@"
+  RUSTFLAGS="-C link-dead-code" cargo build -v --features "$FEATURES" --jobs 1 "$@"
 fi
