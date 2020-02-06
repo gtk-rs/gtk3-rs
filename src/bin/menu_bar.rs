@@ -99,8 +99,7 @@ fn build_ui(application: &gtk::Application) {
         p.set_authors(&["Gtk-rs developers"]);
         p.set_title("About!");
         p.set_transient_for(Some(&window));
-        p.run();
-        p.destroy();
+        p.show_all();
     });
     check_item.connect_toggled(|w| {
         w.set_label(if w.get_active() {

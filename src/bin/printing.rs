@@ -58,7 +58,15 @@ fn print(window: &gtk::Window, value1: String, value2: String) {
         pangocairo::functions::show_layout(&cairo, &pango_layout);
     });
 
-    //Open Print dialog setting up main window as its parent
+    // Handle printing asynchronously: run() will immediately return below on
+    // platforms where this is supported and once the dialog is finished the
+    // "done" signal will be emitted.
+    print_operation.set_allow_async(true);
+    print_operation.connect_done(|_, res| {
+        println!("printing done: {:?}", res);
+    });
+
+    // Open Print dialog setting up main window as its parent
     print_operation
         .run(gtk::PrintOperationAction::PrintDialog, Option::from(window))
         .expect("Couldn't print");

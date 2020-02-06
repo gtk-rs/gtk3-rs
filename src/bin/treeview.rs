@@ -81,8 +81,8 @@ fn build_ui(application: &gtk::Application) {
                 clone!(@weak window => @default-return glib::Continue(false), move || {
                     let dialog = MessageDialog::new(Some(&window), DialogFlags::MODAL,
                         MessageType::Error, ButtonsType::Ok, &msg);
-                    dialog.run();
-                    dialog.destroy();
+                    dialog.connect_response(|dialog, _| dialog.destroy());
+                    dialog.show_all();
                     Continue(false)
                 }),
             );

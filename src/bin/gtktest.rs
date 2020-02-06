@@ -24,14 +24,18 @@ fn about_clicked(button: &Button, dialog: &AboutDialog) {
         dialog.set_transient_for(Some(&window));
     }
 
+    // We only want to hide the dialog when it's closed and not completely destroy it
+    // as otherwise we can't show it again a second time.
+    dialog.connect_delete_event(|dialog, _| {
+        dialog.hide();
+        gtk::Inhibit(true)
+    });
+
     println!("Authors: {:?}", dialog.get_authors());
     println!("Artists: {:?}", dialog.get_artists());
     println!("Documenters: {:?}", dialog.get_documenters());
 
-    // Since we only have once instance of this object with Glade, we only show/hide it.
-    dialog.show();
-    dialog.run();
-    dialog.hide();
+    dialog.show_all();
 }
 
 fn build_ui(application: &gtk::Application) {
@@ -88,11 +92,11 @@ fn build_ui(application: &gtk::Application) {
                                                 ("Yes", ResponseType::Yes),
                                                 ("Custom", ResponseType::Other(0))]);
 
-        let ret = dialog.run();
-
-        dialog.destroy();
-
-        entry.set_text(&format!("Clicked {}", ret));
+        dialog.connect_response(clone!(@weak entry => move |dialog, response| {
+            entry.set_text(&format!("Clicked {}", response));
+            dialog.destroy();
+        }));
+        dialog.show_all();
     }));
 
     let button_font: Button = builder
@@ -101,8 +105,8 @@ fn build_ui(application: &gtk::Application) {
     button_font.connect_clicked(clone!(@weak window => move |_| {
         let dialog = FontChooserDialog::new(Some("Font chooser test"), Some(&window));
 
-        dialog.run();
-        dialog.destroy();
+        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.show_all();
     }));
 
     let button_recent: Button = builder
@@ -115,8 +119,8 @@ fn build_ui(application: &gtk::Application) {
             ("Cancel", ResponseType::Cancel)
         ]);
 
-        dialog.run();
-        dialog.destroy();
+        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.show_all();
     }));
 
     let file_button: Button = builder
@@ -132,11 +136,15 @@ fn build_ui(application: &gtk::Application) {
         ]);
 
         dialog.set_select_multiple(true);
-        dialog.run();
-        let files = dialog.get_filenames();
-        dialog.destroy();
 
-        println!("Files: {:?}", files);
+        dialog.connect_response(|dialog, response| {
+            if response == ResponseType::Ok {
+                let files = dialog.get_filenames();
+                println!("Files: {:?}", files);
+            }
+            dialog.destroy();
+        });
+        dialog.show_all();
     }));
 
     let app_button: Button = builder
@@ -148,8 +156,8 @@ fn build_ui(application: &gtk::Application) {
                                                             gtk::DialogFlags::MODAL,
                                                             "sh");
 
-        dialog.run();
-        dialog.destroy();
+        dialog.connect_response(|dialog, _| dialog.destroy());
+        dialog.show_all();
     }));
 
     let switch: Switch = builder.get_object("switch").expect("Couldn't get switch");
