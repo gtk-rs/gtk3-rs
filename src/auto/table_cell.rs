@@ -20,7 +20,7 @@ glib_wrapper! {
 pub const NONE_TABLE_CELL: Option<&TableCell> = None;
 
 pub trait TableCellExt: 'static {
-    //fn get_column_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
+    fn get_column_header_cells(&self) -> Vec<Object>;
 
     fn get_column_span(&self) -> i32;
 
@@ -28,7 +28,7 @@ pub trait TableCellExt: 'static {
 
     fn get_row_column_span(&self) -> Option<(i32, i32, i32, i32)>;
 
-    //fn get_row_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
+    fn get_row_header_cells(&self) -> Vec<Object>;
 
     fn get_row_span(&self) -> i32;
 
@@ -36,9 +36,13 @@ pub trait TableCellExt: 'static {
 }
 
 impl<O: IsA<TableCell>> TableCellExt for O {
-    //fn get_column_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 } {
-    //    unsafe { TODO: call atk_sys:atk_table_cell_get_column_header_cells() }
-    //}
+    fn get_column_header_cells(&self) -> Vec<Object> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_full(atk_sys::atk_table_cell_get_column_header_cells(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn get_column_span(&self) -> i32 {
         unsafe { atk_sys::atk_table_cell_get_column_span(self.as_ref().to_glib_none().0) }
@@ -88,9 +92,13 @@ impl<O: IsA<TableCell>> TableCellExt for O {
         }
     }
 
-    //fn get_row_header_cells(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 } {
-    //    unsafe { TODO: call atk_sys:atk_table_cell_get_row_header_cells() }
-    //}
+    fn get_row_header_cells(&self) -> Vec<Object> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_full(atk_sys::atk_table_cell_get_row_header_cells(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn get_row_span(&self) -> i32 {
         unsafe { atk_sys::atk_table_cell_get_row_span(self.as_ref().to_glib_none().0) }

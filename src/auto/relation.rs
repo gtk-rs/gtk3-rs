@@ -47,7 +47,7 @@ pub trait RelationExt: 'static {
 
     fn get_relation_type(&self) -> RelationType;
 
-    //fn get_target(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 };
+    fn get_target(&self) -> Vec<Object>;
 
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool;
 
@@ -81,9 +81,13 @@ impl<O: IsA<Relation>> RelationExt for O {
         }
     }
 
-    //fn get_target(&self) -> /*Unknown conversion*//*Unimplemented*/PtrArray TypeId { ns_id: 1, id: 9 } {
-    //    unsafe { TODO: call atk_sys:atk_relation_get_target() }
-    //}
+    fn get_target(&self) -> Vec<Object> {
+        unsafe {
+            FromGlibPtrContainer::from_glib_none(atk_sys::atk_relation_get_target(
+                self.as_ref().to_glib_none().0,
+            ))
+        }
+    }
 
     fn remove_target<P: IsA<Object>>(&self, target: &P) -> bool {
         unsafe {
