@@ -43,21 +43,24 @@ pub fn build_ui(application: &gtk::Application) {
             ("Open", gtk::ResponseType::Ok),
             ("Cancel", gtk::ResponseType::Cancel),
         ]);
-        if file_chooser.run() == gtk::ResponseType::Ok {
-            let filename = file_chooser.get_filename().expect("Couldn't get filename");
-            let file = File::open(&filename).expect("Couldn't open file");
+        file_chooser.connect_response(clone!(@weak text_view => move |file_chooser, response| {
+            if response == gtk::ResponseType::Ok {
+                let filename = file_chooser.get_filename().expect("Couldn't get filename");
+                let file = File::open(&filename).expect("Couldn't open file");
 
-            let mut reader = BufReader::new(file);
-            let mut contents = String::new();
-            let _ = reader.read_to_string(&mut contents);
+                let mut reader = BufReader::new(file);
+                let mut contents = String::new();
+                let _ = reader.read_to_string(&mut contents);
 
-            text_view
-                .get_buffer()
-                .expect("Couldn't get window")
-                .set_text(&contents);
-        }
+                text_view
+                    .get_buffer()
+                    .expect("Couldn't get window")
+                    .set_text(&contents);
+            }
+            file_chooser.destroy();
+        }));
 
-        file_chooser.destroy();
+        file_chooser.show_all();
     }));
 
     window.show_all();

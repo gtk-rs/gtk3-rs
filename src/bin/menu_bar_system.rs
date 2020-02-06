@@ -94,8 +94,7 @@ fn add_actions(
         p.set_authors(&["Gtk-rs developers"]);
         p.set_title("About!");
         p.set_transient_for(Some(&window));
-        p.run();
-        p.destroy();
+        p.show_all();
     }));
 
     // We need to add all the actions to the application so they can be taken into account.
