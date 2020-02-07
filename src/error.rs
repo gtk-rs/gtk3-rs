@@ -63,13 +63,6 @@ impl fmt::Display for IoError {
 }
 
 impl Error for IoError {
-    fn description(&self) -> &str {
-        match *self {
-            IoError::Cairo(_) => "IoError::Cairo",
-            IoError::Io(ref e) => e.description(),
-        }
-    }
-
     fn cause(&self) -> Option<&dyn Error> {
         match *self {
             IoError::Cairo(_) => None,
