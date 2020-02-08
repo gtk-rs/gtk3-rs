@@ -8,9 +8,9 @@ use thiserror::Error;
 
 #[derive(Error, Debug)]
 pub enum BorrowError {
-    #[error("BorrowError::Cairo({0})")]
+    #[error("Failed to borrow with Cairo error:{0}")]
     Cairo(Status),
-    #[error("BorrowError::NonExclusive")]
+    #[error("Can't get exclusive access")]
     NonExclusive,
 }
 
@@ -22,9 +22,9 @@ impl From<Status> for BorrowError {
 
 #[derive(Error, Debug)]
 pub enum IoError {
-    #[error("IoError::Cairo({0}")]
+    #[error("Cairo error: {0}")]
     Cairo(Status),
-    #[error("IoError::Io({0}")]
+    #[error("IO error: {0}")]
     Io(#[from] io::Error),
 }
 
