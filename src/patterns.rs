@@ -488,6 +488,12 @@ impl Mesh {
     }
 }
 
+impl Default for Mesh {
+    fn default() -> Mesh {
+        Mesh::new()
+    }
+}
+
 #[test]
 fn try_from() {
     let linear = LinearGradient::new(0., 0., 1., 1.);
