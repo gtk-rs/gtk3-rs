@@ -93,6 +93,10 @@ name = "clock"
 name = "clone_macro"
 
 [[bin]]
+name = "communication_thread"
+edition = "2018"
+
+[[bin]]
 name = "css"
 
 [[bin]]
