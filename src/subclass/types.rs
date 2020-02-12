@@ -427,16 +427,13 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
 }
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject) {
-    // Retrieve the private struct, take it out of its storage and
-    // drop it for freeing all associated memory.
+    // Retrieve the private struct and drop it for freeing all associated memory.
     let mut data = T::type_data();
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
     let imp_storage = priv_ptr as *mut T;
-
-    let imp = ptr::read(imp_storage);
-    drop(imp);
+    ptr::drop_in_place(imp_storage);
 
     // Chain up to the parent class' finalize implementation, if any.
     let parent_class = &*(data.as_ref().get_parent_class() as *const gobject_sys::GObjectClass);
