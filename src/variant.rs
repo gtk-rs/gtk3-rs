@@ -38,6 +38,7 @@
 //! assert_eq!(num.get_str(), None);
 //! ```
 
+use bytes::Bytes;
 use glib_sys;
 use gobject_sys;
 use gstring::GString;
@@ -140,6 +141,32 @@ impl Variant {
                 _ => None,
             }
         }
+    }
+
+    /// Constructs a new serialised-mode GVariant instance.
+    pub fn new_from_bytes<T: StaticVariantType>(bytes: &Bytes) -> Self {
+        unsafe {
+            from_glib_none(glib_sys::g_variant_new_from_bytes(
+                T::static_variant_type().as_ptr() as *const _,
+                bytes.to_glib_none().0,
+                false.to_glib(),
+            ))
+        }
+    }
+
+    /// Same as `new_from_bytes`, except checks on the passed data are skipped, which makes it a
+    /// potentially unsafe function. You should not use this function on data from external sources.
+    pub unsafe fn new_from_bytes_trusted<T: StaticVariantType>(bytes: &Bytes) -> Self {
+        from_glib_none(glib_sys::g_variant_new_from_bytes(
+            T::static_variant_type().as_ptr() as *const _,
+            bytes.to_glib_none().0,
+            true.to_glib(),
+        ))
+    }
+
+    /// Returns the serialised form of a GVariant instance.
+    pub fn get_data_as_bytes(&self) -> Bytes {
+        unsafe { from_glib_full(glib_sys::g_variant_get_data_as_bytes(self.to_glib_none().0)) }
     }
 }
 
