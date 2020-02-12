@@ -72,9 +72,9 @@ pub unsafe trait InstanceStruct: Sized + 'static {
             let private_offset = data.as_ref().private_offset;
             let ptr: *const u8 = self as *const _ as *const u8;
             let priv_ptr = ptr.offset(private_offset);
-            let imp = priv_ptr as *const Option<Self::Type>;
+            let imp = priv_ptr as *const Self::Type;
 
-            (*imp).as_ref().expect("No private struct")
+            &*imp
         }
     }
 
@@ -377,7 +377,7 @@ unsafe extern "C" fn class_init<T: ObjectSubclass>(
 
     // We have to update the private struct offset once the class is actually
     // being initialized.
-    {
+    if mem::size_of::<T>() != 0 {
         let mut private_offset = data.as_ref().private_offset as i32;
         gobject_sys::g_type_class_adjust_private_offset(klass, &mut private_offset);
         (*data.as_mut()).private_offset = private_offset as isize;
@@ -417,13 +417,13 @@ unsafe extern "C" fn instance_init<T: ObjectSubclass>(
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
-    let imp_storage = priv_ptr as *mut Option<T>;
+    let imp_storage = priv_ptr as *mut T;
 
     let klass = &*(klass as *const T::Class);
 
     let imp = T::new_with_class(klass);
 
-    ptr::write(imp_storage, Some(imp));
+    ptr::write(imp_storage, imp);
 }
 
 unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject) {
@@ -433,9 +433,9 @@ unsafe extern "C" fn finalize<T: ObjectSubclass>(obj: *mut gobject_sys::GObject)
     let private_offset = (*data.as_mut()).private_offset;
     let ptr: *mut u8 = obj as *mut _ as *mut u8;
     let priv_ptr = ptr.offset(private_offset);
-    let imp_storage = priv_ptr as *mut Option<T>;
+    let imp_storage = priv_ptr as *mut T;
 
-    let imp = (*imp_storage).take().expect("No private struct");
+    let imp = ptr::read(imp_storage);
     drop(imp);
 
     // Chain up to the parent class' finalize implementation, if any.
@@ -494,8 +494,12 @@ where
 
         let mut data = T::type_data();
         (*data.as_mut()).type_ = type_;
-        let private_offset =
-            gobject_sys::g_type_add_instance_private(type_.to_glib(), mem::size_of::<Option<T>>());
+
+        let private_offset = if mem::size_of::<T>() == 0 {
+            0
+        } else {
+            gobject_sys::g_type_add_instance_private(type_.to_glib(), mem::size_of::<T>())
+        };
         (*data.as_mut()).private_offset = private_offset as isize;
 
         T::type_init(&mut InitializingType::<T>(type_, marker::PhantomData));
