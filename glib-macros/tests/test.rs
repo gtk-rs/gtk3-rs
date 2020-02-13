@@ -45,14 +45,14 @@ fn derive_genum() {
     assert!(t.is_a(&glib::Type::BaseEnum));
     assert_eq!(t.name(), "TestAnimalType");
 
-    let e = glib::EnumClass::new(t).unwrap();
-    let v = e.get_value(0).unwrap();
+    let e = glib::EnumClass::new(t).expect("EnumClass::new failed");
+    let v = e.get_value(0).expect("EnumClass::get_value(0) failed");
     assert_eq!(v.get_name(), "Goat");
     assert_eq!(v.get_nick(), "goat");
-    let v = e.get_value(1).unwrap();
+    let v = e.get_value(1).expect("EnumClass::get_value(1) failed");
     assert_eq!(v.get_name(), "The Dog");
     assert_eq!(v.get_nick(), "dog");
-    let v = e.get_value(5).unwrap();
+    let v = e.get_value(5).expect("EnumClass::get_value(5) failed");
     assert_eq!(v.get_name(), "The Cat");
     assert_eq!(v.get_nick(), "chat");
     assert_eq!(e.get_value(2), None);
